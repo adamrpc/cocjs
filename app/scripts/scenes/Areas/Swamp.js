@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		if( (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00272 ] >= 25) && CoC.flags[ kFLAGS.BOG_EXPLORED ] === 0 ) {
 			EngineCore.outputText( 'While exploring the swamps, you find yourself into a particularly dark, humid area of this already fetid biome.  You judge that you could find your way back here pretty easily in the future, if you wanted to.  With your newfound discovery fresh in your mind, you return to camp.\n\n(<b>Bog exploration location unlocked! (Page 2)</b>)', true );
 			CoC.flags[ kFLAGS.BOG_EXPLORED ]++;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00272 ]++;
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 				break;
 			default:
 				EngineCore.outputText( 'New explore code fucked up.  YOU BONED (TELL FEN)' );
-				EngineCore.doNext( MainView.playerMenu );
+				EngineCore.doNext( MainView, MainView.playerMenu );
 				break;
 		}
 	};

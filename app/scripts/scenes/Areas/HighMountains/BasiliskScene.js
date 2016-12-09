@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  Certain that the creature won\'t dare try and turn its eyes on you again, you take your time to look the tall reptile over directly for the first time.  Perhaps you could use it to satisfy your baser urges. If so, what part of it do you choose?', false );
 			//[Tongue][Ass]
-			EngineCore.choices( 'Tongue', this.tongueBasiliskSmex, 'Ass', evil, '', null, 'Lay Eggs', eggs, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Tongue', this, this.tongueBasiliskSmex, 'Ass', this, evil, '', null, null, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}

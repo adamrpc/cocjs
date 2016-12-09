@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( MainView, SceneLib, $l
 			CoC.player.createStatusAffect( StatusAffects.StoneLust, 0, 0, 0, 0 );
 			EngineCore.dynStats( 'lus', 4 + Math.ceil( CoC.player.sens ) / 10 );
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	SandWitch.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

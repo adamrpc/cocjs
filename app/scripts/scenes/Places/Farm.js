@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		if( CoC.flags[ kFLAGS.FARM_DISABLED ] === 1 ) {
 			EngineCore.outputText( 'Whitney marches up to you as soon as you approach the farm, a stoic expression plastered across her face.' );
 			EngineCore.outputText( '\n\n"<i>What the fuck do you think you\'re doing here [name]? After what you did to Marble you still think you\'re welcome here? Leave. <b>Now</b>.</i>"' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Farm not yet discovered;
@@ -57,39 +57,39 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.menu();
 			if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
 				if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
-					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly.kelly.breakingKeltOptions );
+					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly, SceneLib.kelly.kelly.breakingKeltOptions );
 				} else {
-					EngineCore.addButton( 1, 'Kelt', SceneLib.kelly.breakingKeltOptions );
+					EngineCore.addButton( 1, 'Kelt', SceneLib.kelly, SceneLib.kelly.breakingKeltOptions );
 				}
 			}
 			if( CoC.player.hasKeyItem( 'Breast Milker - Installed At Whitney\'s Farm' ) >= 0 ) {
 				if( CoC.player.findStatusAffect( StatusAffects.Milked ) >= 0 ) {
 					EngineCore.outputText( '\n\n<b>Your ' + Descriptors.nippleDescript( 0 ) + 's are currently too sore to be milked.  You\'ll have to wait a while.</b>', false );
 				} else if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-					EngineCore.addButton( 2, 'Get Milked', this.getMilked );
+					EngineCore.addButton( 2, 'Get Milked', this, this.getMilked );
 				}
 
 			}
 			if( CoC.player.hasKeyItem( 'Cock Milker - Installed At Whitney\'s Farm' ) >= 0 && CoC.player.cockTotal() > 0 ) {
 				if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-					EngineCore.addButton( 5, 'Milk Cock', this.cockPumping );
+					EngineCore.addButton( 5, 'Milk Cock', this, this.cockPumping );
 				}
 			}
 			if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 				if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-					EngineCore.addButton( 3, 'Marble', this.meetMarble );
+					EngineCore.addButton( 3, 'Marble', this, this.meetMarble );
 				}
 			}
 			if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-				EngineCore.addButton( 0, 'Explore', this.exploreFarm );
+				EngineCore.addButton( 0, 'Explore', this, this.exploreFarm );
 			}
 			if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-				EngineCore.addButton( 6, 'Talk', this.talkWhitney );
+				EngineCore.addButton( 6, 'Talk', this, this.talkWhitney );
 			}
 			if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-				EngineCore.addButton( 7, 'Work', this.workFarm );
+				EngineCore.addButton( 7, 'Work', this, this.workFarm );
 			}
-			EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[YES];
@@ -103,14 +103,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			CoC.player.createKeyItem( 'Cock Milker - Installed At Whitney\'s Farm', 0, 0, 0, 0 );
 			CoC.player.removeKeyItem( 'Cock Milker' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[NO];
 	Farm.prototype.whitneyMilkerRefusal = function() {
 		EngineCore.spriteSelect( 62 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Whitney shrugs and the two of you resume your conversation.  But like all good things, it has to come to an end.  The two of you go your separate ways.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TALK;
 	Farm.prototype.talkWhitney = function() {
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.outputText( 'You find Whitney in her usual spot underneath her tree, nose in book. She smiles at you distractedly as you approach.' );
 			EngineCore.outputText( '\n\n“<i>Notice you’ve been nosey-ing around the place,</i>” she says. It’s difficult to tell from her bluff tone whether she’s teasing or accusing you; the dog morph has the mannerisms of a woman who has lived alone for some time. “<i>What do you make of my lil\' place?</i>” You answer truthfully that is very peaceful and pretty, almost incongruously so in this savage and rapacious land. You say it seems like a very well-run operation, given that the only people who seem to be working on it are her, Marble and... your brow clouds. Whitney smiles understandingly.' );
 			EngineCore.outputText( '\n\n“<i>Those two are hard workers, in their own different ways. Doubt I’d be able to keep the farm going without them.</i>” She sighs. “<i>When you are out in the sticks like this, you have to make allowances for the people you find yourself lumped together with. Be understanding, and look for the good in everyone. If you set boundaries and stand firm by \'em you can get by with most anyone.</i>” She looks you in the eye. “<i>You should be careful how much time you spend around just anyone, though. Some folks don’t have your best interests at heart. Some others think they do, and they’re even more dangerous. Know what I mean?</i>” Not particularly, but you get the distinct impression you’re being warned about something. Feeling slightly unsettled, you politely take your leave. Whitney nods once and returns to her book, the picture of placidity.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Requires: PC has entered Tel’Adre;
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.outputText( '\n\n“<i>Hey stranger! How you doin\'?</i>” Feeling slightly strange standing next to her whilst she pulls briskly at the teats of the cow staring dully into your face, you describe the rather incredible city in the desert you stumbled upon recently and ask whether she’s ever visited it. “<i>Heh. Well, of course I have,</i>” says Whitney, not looking up. “<i>Used to live there, back in the day. Urta still around? Went to school with her, and afterwards she persuaded me to join the guard with her. Everydog has a duty! That was her by-word.</i>” The dog morph laughs. “<i>She was just scared of bunking on her own. Silly thing, but a good friend.</i>”' );
 			EngineCore.outputText( '\n\nYou ask why she left.' );
 			EngineCore.outputText( '\n\n“<i> I had my reasons. I grew up in the country, </i>” she goes on after a short pause, “<i>and never held much with city life. Particularly not hot, dusty, close ‘n stinky city life. Course farm life is stinky too,</i>” she acknowledges as she heaves up the milk pail and starts to walk it towards a barn. You offer to help, but she shakes her head. “<i> But least here it’s stink you’ve created yourself. I moved out here eight years ago, and never regretted it. As for Urta... well, she was finding better friends at the bottom of bottles by then. </i>” She disappears into the barn with the milk, and you decide to leave it at that.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Requires: PC has found High Mountain;
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				}
 				EngineCore.outputText( 'You notice a number of smaller bottles filled with a creamy fluid on the table, arranged in a cargo container. It takes you a moment to realize what it is. “<i>Why d’you think I pay you for it?</i> ” says Whitney with a laugh, catching your expression. “<i>I kin use some of it for my herd, but it’s just as easy to sell it to goblins ‘n harpies. Much better to buy it from me than to waste energy catching and beating it out of a satyr. \'Sides, how\'d ya think I kept my hair so luxurious? Goblin hairdressers are top notch.</i>”' );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Requires: PC cleared Factory;
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.outputText( '\n\n“<i>That’s... that’s an amazing tale, [name]. It’s so easy down here to believe that such evil doesn’t exist in this world but it does; oh it does. An\' there\'re people as brave as you that are willing to stand against it. That’s difficult to believe sometimes too.</i>” She looks away and opens her mouth several times, stopping each time, before finally going on in a quieter tone.' );
 			EngineCore.outputText( '\n\n“<i>I knew a guy who was like you, once. Met him soon after I joined up with the Tel’Adre guard. Kind ‘n funny in a stupid kinda way, \'an brave. Liked him enough that I married him.</i>” She looks off down to the lake. “<i>You have to be real brave to sign up for desert patrol. It ain’t for your benefit. It ain’t for Tel’Adre’s benefit. It’s just to scout for folks who are in trouble, survivors and runaways. The demons know about the existence of the city, oh they do, and they’re always lookin\' for ways in. I think they\'re mostly lookin\' to poison it like they did with the goblins, but they like informers too - captives. Gods, do they like captives.</i>”' );
 			EngineCore.outputText( '\n\nShe stops for such a long while that you wonder whether she’s finished. “<i>Could- could you recognise any of those prisoners? The ones from your town. You said some of em stayed even when you freed em. What did you think about that? I often wonder- is it better never to know what happened to somebody, or find em and discover nothing but a twisted shell of what you remember: a soulless monster who even likes what’s been done to em?</i>” She stops and you think you see tears glittering in eyes still gazing at the lake. You wait a little longer but evidently that’s all you’re getting. You put a hand on her shoulder and then quietly walk away.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		// Subsequent visit;
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.outputText( '\n\n“<i>Listen [name],</i>” says Whitney hesitantly, “<i>I reckon I might come across as a bit... distant sometimes, but you know I \'preciate you coming down here to talk all the time, right? I like that a lot. Nobody \'round here is exactly a great conversationalist, and it’s nice to have someone who jus\' listens. Particularly if they’re off savin\' the world rest of the time.</i>” Slightly taken aback by her sincerity, you say it’s no big deal; you like hanging around the farm with her, too. She smiles broadly at that, and then with a nod of her head invites you to walk with her down to the storage barn. As delicately as you can, you ask her if she left Tel’Adre because of what happened to her husband.' );
 			EngineCore.outputText( '\n\n“<i>Color kinda disappeared from that place for me,</i>” she replies. “<i>Maybe I coulda done what Urta did and used alcohol to make it feel better, but... I dunno. I couldn’t bear the sympathy and I couldn’t bear hanging around the same places he once did. I just wanted to be on my own. So I sold everything I had, used it to buy seed and supplies, then came out here, where I knew there was a ruin of a farm.</i>” She laughs shortly. “<i>\'Course I knew. My family used to live here, \'til the demons came. My ma and pa thought they were so dang lucky to get me to Tel’Adre in one piece, and they thought I was so dang crazy to come out here again. Just told em it was something I had to do.</i>” She shakes her head fondly as she throws a knot in the pepper bag’s mouth and then shoves it into the gloom of the barn. “<i>Pa still sometimes comes out here, try’na persuade me to sell up and move back. Sell to who, I tell him? Anyways I think I’m reasonably safe. Demons have got bigger fish to fry these days.</i>” She looks at you with something different in her expression, and it takes you a while to realize what it is - real belief.' );
 			EngineCore.outputText( '\n\nYou say goodbye with a hug and leave with a funny feeling in your gut.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( Utils.randomChoice(
@@ -213,7 +213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				EngineCore.outputText( '"<i>Well of course, it needs hooked into a pump system, collection reservoir, and a power source.  It just happens I\'ve got all that equipment set up for my cows in the barn, and I reckon it\'d be easier to plug into than a girl sniffing minotaur musk,</i>" Whitney explains, "<i>If you like I could get it all set up for ya, hell, I might even toss you a few gems if you can produce enough milk.</i>"\n\n', false );
 				//(, hell, if you manage to gather large enough quantities with it, I might be able to find a way to inseminate my cattle with it and be able to pay you for it.  Don't you worry none, I know ways to make this kind of thing work).</i>";
 				EngineCore.outputText( 'Do you give the breast milker to Whitney for her to hook up?', false );
-				EngineCore.doYesNo( this.whitneyMilkerHookup, this.whitneyMilkerRefusal );
+				EngineCore.doYesNo( this, this.whitneyMilkerHookup, this, this.whitneyMilkerRefusal );
 				return;
 			} else if( CoC.player.biggestLactation() >= 2 ) {
 				EngineCore.outputText( 'Whitney gives you a bemused look when you settle down for a chat.\n\n', false );
@@ -230,10 +230,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				EngineCore.outputText( 'It almost sounds too good to be true.   The farmer-girl nods, reading your expression quite clearly, "<i>Yes, there is a bit of a catch.  I\'ll need 250 gems for the parts to get this all set up.   Equipment like this isn\'t cheap.   Whaddya say, hun?   I understand if you don\'t want to – you can always just wait for the milk to stop.</i>"\n\n', false );
 				if( CoC.player.gems >= 250 ) {
 					EngineCore.outputText( 'Do you purchase a breast-milker from Whitney for 250 gems?', false );
-					EngineCore.doYesNo( this.breastMilkerPurchase, this.breastMilkerNoPurchase );
+					EngineCore.doYesNo( this, this.breastMilkerPurchase, this, this.breastMilkerNoPurchase );
 				} else {
 					EngineCore.outputText( 'You don\'t have enough money for the milker.  You apologize and head back to camp, maybe you can get one later.', false );
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.outputText( 'You nod and tell her how you got it and explain that even though it should be fully functional, it\'ll need to connect to some other machinery to work, and it\'s way more than any one person could handle.\n\n', false );
 			EngineCore.outputText( '"<i>Well of course, it needs hooked into a pump system, collection reservoir, and a power source.  It just happens I\'ve got all that equipment set up for my cows in the barn, and I reckon it\'d be easier to plug into than a girl sniffing minotaur musk.</i>" Whitney explains, "<i>If you like I could get it all set up for ya, hell, if you manage to gather large enough quantities with it, I might be able to find a way to inseminate my cattle with it and pay ya for it.  Don\'t you worry none, I know ways to make this kind of thing work.</i>"\n\n', false );
 			EngineCore.outputText( 'Do you give the cock milker to Whitney for her to hook up?', false );
-			EngineCore.doYesNo( EngineCore.createCallBackFunction( this.whitneyMilkerHookup, false ), this.whitneyMilkerRefusal );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.whitneyMilkerHookup, false ), this, this.whitneyMilkerRefusal );
 			return;
 		}
 		//[GENERIC TALK];
@@ -273,18 +273,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		EngineCore.dynStats( 'lus', -5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//+3 int if less than 15, +2 int if less 20, +1 int if less than 30, +.5 int if less than 40.;
 	};
 	Farm.prototype.breastMilkerPurchase = function() {
 		EngineCore.outputText( 'Whitney takes the gems and leaves with the promise of having your gear set up within the hour.  She calls back over her shoulder with a cryptic warning, "<i>Watch how much time you spend getting milked like an animal, lest you wind up like one.</i>"', true );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.player.createKeyItem( 'Breast Milker - Installed At Whitney\'s Farm', 0, 0, 0, 0 );
 		CoC.player.gems -= 250;
 		EngineCore.statScreenRefresh();
 	};
 	Farm.prototype.breastMilkerNoPurchase = function() {
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.outputText( 'Whitney shrugs and the two of you chat about other things, just passing the time and enjoying a relatively normal chat.', true );
 		//+3 int if less than 15, +2 int if less 20, +1 int if less than 30, +.5 int if less than 40.;
 		if( CoC.player.inte < 15 ) {
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			} else {
 				EngineCore.dynStats( 'str', Utils.rand( 2 ) );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.spriteSelect( 62 );
@@ -479,13 +479,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		}
 		//Meet Marble First Time;
 		if( CoC.player.findStatusAffect( StatusAffects.Marble ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			SceneLib.marbleScene.encounterMarbleInitially();
 			return;
 		}
 		//Meet kelt 1st time;
 		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			SceneLib.keltScene.keltEncounter();
 			return;
 		}
@@ -524,14 +524,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				EngineCore.outputText( 'Whitney falls behind, unable to cope with your speed as you tear around the farm.', false );
 			}
 			EngineCore.outputText( '\n\nAfterwards, the both of you lie back against a tree, panting heavily and exchanging pleasantries.  Once you\'ve both had a chance to rest, she bids you farewell and returns to her labors, leaving you to journey home to camp.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Other stuff;
 		if( explore === 1 ) {
 			EngineCore.outputText( 'After wandering around for a while, you find yourself atop a slight rise looking out over the farm and the distant lake. Despite the corruption you know is slowly consuming this land, being here now makes you feel so at peace you wish it could go on forever.', true );
 			EngineCore.dynStats( 'cor', -Utils.rand( 3 ) );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Cows;
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				EngineCore.dynStats( 'lus', 3 );
 			}
 			EngineCore.outputText( 'Shaking your head, you clear your thoughts and turn away from the pasture. Cows don\'t have your problems.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( explore === 3 ) {
@@ -575,7 +575,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		//[NOTHING];
 		else {
 			EngineCore.outputText( 'You wander around, unable to find anything entertaining on this patch of rural bliss.', true );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Farm.prototype.getMilked = function() {
@@ -843,7 +843,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				}
 			}
 			if( CoC.player.inte < 10 ) {
-				EngineCore.doNext( this.cowBadEnd1 );
+				EngineCore.doNext( this, this.cowBadEnd1 );
 				return;
 			} else if( CoC.player.inte < 15 ) {
 				EngineCore.outputText( '  You stretch and let out a contented moo, long and loud.  How silly!', false );
@@ -874,7 +874,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		}
 		CoC.player.addStatusValue( StatusAffects.LactationEndurance, 1, 0.05 );
 		CoC.player.createStatusAffect( StatusAffects.Milked, 8, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Farm.prototype.cockPumping = function() {
 		var cumQ = CoC.player.cumQ() * (Utils.rand( 10 ) + 90) / 100;
@@ -1080,7 +1080,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 				EngineCore.outputText( '.  Every time you get a good grip and start to pull, a shiver of pleasure shoots down ' + Descriptors.sMultiCockDesc() + ' and robs you of your focus and muscle control.  Practically helpless against the tubes, you feel ' + Descriptors.sMultiCockDesc() + ' get harder and harder as the machine sucks out more pre-cum along with the milky aftershocks of your last massive orgasm.\n\n', false );
 			}
 			//TO BAD ENDAGE;
-			EngineCore.doNext( this.milkerBadEnd1 );
+			EngineCore.doNext( this, this.milkerBadEnd1 );
 			return;
 		}
 		CoC.flags[ kFLAGS.USED_MILKER_TODAY ]++;
@@ -1220,13 +1220,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		}
 		EngineCore.outputText( ' on your way, whistling happily and feeling like taking a nap.', false );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Farm.prototype.cowBadEnd1 = function() {
 		EngineCore.outputText( 'You moo with delight, fondling your dripping ' + Descriptors.allBreastsDescript() + ' as you relax in your stall.   You know there was something uh, important or something that you were going to do - besides getting your udders milked!  Mmmmm, all your worries about that other thing just melt away when you\'re in your harness, spraying out milk...\n\n', true );
 		EngineCore.outputText( 'You stop, trying to put your remaining wits to work and remember what you were going to do.   Let\'s see, you were coming here because your tits were so full that they made you ache, and you got hooked up and pumped like a good cow.  Another soft moo escapes your lips.  Now you\'re turned on and masturbating your drippy udders.  So the next step would be...\n\n', false );
 		EngineCore.outputText( '...finding someone to fuck you silly while you get something to eat.  It\'s so simple!  You crawl out of your stall, feeling your ponderous breasts jiggle as they drag on the ground.  A trail of white cream clearly marks your passage out into the fields, eventually passing beyond the edges of Whitney\'s farm and into the mountains.', false );
-		EngineCore.doNext( this.cowBadEnd2 );
+		EngineCore.doNext( this, this.cowBadEnd2 );
 	};
 	Farm.prototype.cowBadEnd2 = function() {
 		EngineCore.outputText( '', true );
@@ -1412,7 +1412,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		EngineCore.outputText( '(<b>Key Items Gained: Fake Mare and Centaur Pole</b>)', false );
 		CoC.player.createKeyItem( 'Fake Mare', 0, 0, 0, 0 );
 		CoC.player.createKeyItem( 'Centaur Pole', 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'farm', new Farm() );
 } );

@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( 'Saying no seems silly... she\'s so fucking hot now, and you\'ve no doubt she\'ll be like your personal masturbation toy.  Sophie titters, "<i>Please please please!  Mmmm, I\'ll kiss and, like, lick you with my tongue all the time.  Don\'t say no... I totally need to fuck you!</i>"\n\n', false );
 		EngineCore.outputText( 'You shake your head, feeling the compulsion picking at your mind.  Damn, she can still try to compel you with her words.  Do you take her home to be your live-in bimbo of choice?', false );
 		EngineCore.dynStats( 'cor', 5 );
-		EngineCore.doYesNo( this.acceptBimboSophie, this.declineBimboSophie );
+		EngineCore.doYesNo( this, this.acceptBimboSophie, this, this.declineBimboSophie );
 	};
 	SophieBimbo.prototype.declineBimboSophie = function() {
 		this.sophieSprite();
@@ -239,10 +239,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		if( CoC.player.lust < 33 && output ) {
 			EngineCore.outputText( '\n\n<b>You aren\'t turned on enough right now to make use of Sophie\'s \'services\'.</b>', false );
 		} else if( CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 0, 'Sex', this.bimboSophieSexMenu );
+			EngineCore.addButton( 0, 'Sex', this, this.bimboSophieSexMenu );
 		}
 		if( CoC.player.hasItem( ConsumableLib.DEBIMBO ) ) {
-			EngineCore.addButton( 4, 'Debimbo', SceneLib.sophieFollowerScene.unbimboSophie );
+			EngineCore.addButton( 4, 'Debimbo', SceneLib.sophieFollowerScene, SceneLib.sophieFollowerScene.unbimboSophie );
 			if( output ) {
 				EngineCore.outputText( '\n\n<b>You could use the bottle of debimbo to return Sophie\'s intellect...</b>' );
 			}
@@ -251,46 +251,45 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			EngineCore.outputText( '\n\n<b>Sophie\'s egg is sitting nearby.</b>' );
 		}
 		if( CoC.flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
-			EngineCore.addButton( 5, 'Daughter', this.daughterCheckup );
+			EngineCore.addButton( 5, 'Daughter', this, this.daughterCheckup );
 		}
 		if( CoC.flags[ kFLAGS.SOPHIE_BROACHED_SLEEP_WITH ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			if( CoC.flags[ kFLAGS.SLEEP_WITH ] !== 'Sophie' ) {
 				if( output ) {
 					EngineCore.outputText( '\n\nYou could invite her to share the bed with you at night.' );
 				}
-				EngineCore.addButton( 6, 'SleepWith', this.moveSophieInRepeat );
+				EngineCore.addButton( 6, 'SleepWith', this, this.moveSophieInRepeat );
 			} else {
 				if( output ) {
 					EngineCore.outputText( '\n\nYou\'re currently sharing your bed with Sophie at night.  You could kick her out.' );
 				}
-				EngineCore.addButton( 6, 'NoSnuggles', this.noSophieSleepWith );
+				EngineCore.addButton( 6, 'NoSnuggles', this, this.noSophieSleepWith );
 			}
 		}
-		//EngineCore.choices('Nice Fuck',vag2,'Mean Fuck',vag,'FuckHerAss',anal,'Get Licked',getLicked,'Ovi Elixer',ovi,'Titty-Fuck',titFuck,'',0,'',0,'',0,'Leave',campSlavesMenu);;
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && !SceneLib.sophieScene.pregnancy.isPregnant && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-			EngineCore.addButton( 1, 'Farm Work', this.sendToFarm );
+			EngineCore.addButton( 1, 'Farm Work', this, this.sendToFarm );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 ) {
-			EngineCore.addButton( 1, 'Go Camp', this.backToCamp );
+			EngineCore.addButton( 1, 'Go Camp', this, this.backToCamp );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 2, 'Harvest Eggs', this.harvestEggs );
+			EngineCore.addButton( 2, 'Harvest Eggs', this, this.harvestEggs );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] === 1 ) {
-			EngineCore.addButton( 2, 'Change Eggs', this.changeEggs );
+			EngineCore.addButton( 2, 'Change Eggs', this, this.changeEggs );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] === 1 ) {
-			EngineCore.addButton( 3, 'Stop Harvest', this.stopHarvest );
+			EngineCore.addButton( 3, 'Stop Harvest', this, this.stopHarvest );
 		}
 
-		EngineCore.addButton( 7, 'Appearance', this.sophieBimboAppearance );
+		EngineCore.addButton( 7, 'Appearance', this, this.sophieBimboAppearance );
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 9, 'Leave', SceneLib.camp.campSlavesMenu );
+			EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.campSlavesMenu );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] !== 0 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 		}
 	};
 	//Appearance:;
@@ -346,7 +345,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			}
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Back', this.approachBimboSophieInCamp, false );
+		EngineCore.addButton( 0, 'Back', this, this.approachBimboSophieInCamp, false );
 	};
 	SophieBimbo.prototype.harvestEggs = function() {
 		EngineCore.clearOutput();
@@ -377,7 +376,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			CoC.flags[ kFLAGS.FARM_EGG_STORED ] = 0;
 			CoC.flags[ kFLAGS.FARM_EGG_COUNTDOWN ] = 7;
 		}
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	SophieBimbo.prototype.stopHarvest = function() {
 		EngineCore.clearOutput();
@@ -390,7 +389,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	SophieBimbo.prototype.sendToFarm = function() {
 		EngineCore.clearOutput();
@@ -400,7 +399,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( '\n\nIt takes you a while and you need to draw several diagrams in the dust, but eventually Sophie gets the picture.' );
 		EngineCore.outputText( '\n\n“<i>Ooh, I’m going on, like, an adventure!</i>” She giggles excitedly, bouncing up and down. If there is one thing the harpy can do, it’s bounce. “<i>I’m gonna milk cows and lay lotsa eggs for the nice dog lady and, and you’ll visit sometimes and we’ll fuck, right?</i>” You confirm that will be the case. Sophie claps with glee, and then begins to hop-glide her way towards the lake. She’ll be pretty useless as a worker or a protector for Whitney, you think, but she will easily make up for that in egg production.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SophieBimbo.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -408,7 +407,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( 'You tell her to head back to camp; there are things you need to do to her you can’t do whilst she’s here. Repeatedly. Sophie’s face falls a bit.' );
 		EngineCore.outputText( '\n\n“<i>Aww, I was having fun here, too. Oh well!</i>” Her disappointment lasts for as long as it takes her to flap over the gate, after which one of her own feathers distracts her. Luckily, the wind is blowing in the direction of your camp.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	SophieBimbo.prototype.bimboSophieSexMenu = function() {
 		EngineCore.clearOutput();
@@ -417,58 +416,58 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		if( CoC.player.hasCock() ) {
 			//BUTT FUCKS;
 			if( CoC.player.cockThatFits( this.sophieCapacity() ) >= 0 && CoC.player.lust >= 33 ) {
-				EngineCore.addButton( 2, 'Anal', this.buttFuckBimboSophie );
+				EngineCore.addButton( 2, 'Anal', this, this.buttFuckBimboSophie );
 			} else {
 				EngineCore.outputText( '\n\n<b>You\'re too big to butt-fuck her.</b>', false );
 			}
 			//TIT FUCKS!;
 			if( SceneLib.sophieScene.pregnancy.event >= 2 ) {
-				EngineCore.addButton( 5, 'Titty-Fuck', this.sophiePreggoTitJobs );
+				EngineCore.addButton( 5, 'Titty-Fuck', this, this.sophiePreggoTitJobs );
 			} else {
-				EngineCore.addButton( 5, 'Titty-Fuck', this.fuckBimboSophiesTits );
+				EngineCore.addButton( 5, 'Titty-Fuck', this, this.fuckBimboSophiesTits );
 			}
 
 			//VAG FUCKS!;
 			if( CoC.player.cockThatFits( this.sophieCapacity() ) >= 0 ) {
 				if( this.sophieIsInSeason() ) {
-					EngineCore.addButton( 0, 'Impregnate', this.sophieImpregnationSex );
+					EngineCore.addButton( 0, 'Impregnate', this, this.sophieImpregnationSex );
 				} else {
-					EngineCore.addButton( 0, 'Nice Fuck', this.sophieFenCraftedSex );
+					EngineCore.addButton( 0, 'Nice Fuck', this, this.sophieFenCraftedSex );
 				}
-				EngineCore.addButton( 1, 'Rough Fuck', this.rideDatSophieVag );
+				EngineCore.addButton( 1, 'Rough Fuck', this, this.rideDatSophieVag );
 			} else {
 				EngineCore.outputText( '\n\n<b>You\'re too big to give her cunt a working over.</b>' );
 			}
 			if( CoC.player.biggestCockArea() > this.sophieCapacity() && this.sophieIsInSeason() ) {
 				EngineCore.outputText( '\n\nYou can always try to impregnate her with your biggest member...' );
-				EngineCore.addButton( 6, 'Big Impreg', this.giantCocksImpregnateSophie );
+				EngineCore.addButton( 6, 'Big Impreg', this, this.giantCocksImpregnateSophie );
 			}
 		}
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 3, 'Get Licked', this.bimboSophieLicksRugs );
+			EngineCore.addButton( 3, 'Get Licked', this, this.bimboSophieLicksRugs );
 		}
 		if( CoC.flags[ kFLAGS.TIMES_SOPHIE_HAS_DRUNK_OVI_ELIXIR ] > 0 && (CoC.player.gender > 0) && !SceneLib.sophieScene.pregnancy.isPregnant ) {
 			if( CoC.player.hasItem( ConsumableLib.OVIELIX ) || SceneLib.inventory.hasItemInStorage( ConsumableLib.OVIELIX ) ) {
-				EngineCore.addButton( 4, 'Ovi Elixir', this.sophieEggApocalypse );
+				EngineCore.addButton( 4, 'Ovi Elixir', this, this.sophieEggApocalypse );
 			} else {
 				EngineCore.outputText( '\n\n<b>If you had an Oviposition Elixir in your inventory or camp storage, Sophie could have some fun with it...</b>', false );
 			}
 		}
 		if( CoC.flags[ kFLAGS.TOLD_SOPHIE_TO_IZMA ] === 0 && CoC.flags[ kFLAGS.TIMES_SOPHIE_AND_IZMA_FUCKED ] > 0 && CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 ) {
 			EngineCore.outputText( '\n\nYou could tell Sophie to visit Izma again.  She\'d probably wind up tied AGAIN.' );
-			EngineCore.addButton( 7, 'Visit Izma', this.tellSophieToVisitIzma );
+			EngineCore.addButton( 7, 'Visit Izma', this, this.tellSophieToVisitIzma );
 		}
 		if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 && CoC.flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] > 0 && CoC.player.cockThatFits( this.sophieCapacity() ) >= 0 && CoC.player.hasCock() ) {
-			EngineCore.addButton( 8, 'DaughterFuck', SceneLib.sophieFollowerScene.sophieIncestInHerCooterOrSomethingIDunno );
+			EngineCore.addButton( 8, 'DaughterFuck', SceneLib.sophieFollowerScene, SceneLib.sophieFollowerScene.sophieIncestInHerCooterOrSomethingIDunno );
 		}
-		EngineCore.addButton( 9, 'Leave', this.approachBimboSophieInCamp );
+		EngineCore.addButton( 9, 'Leave', this, this.approachBimboSophieInCamp );
 	};
 	SophieBimbo.prototype.tellSophieToVisitIzma = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You suggest she visit Izma again.  Maybe this time she won\'t get tied up again?' );
 		EngineCore.outputText( '\n\nSophie squeals, "<i>REAAALLY?</i>" before taking off towards the other side of camp.  This should be good.' );
 		CoC.flags[ kFLAGS.TOLD_SOPHIE_TO_IZMA ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Lipstick Resistance Building;
@@ -550,9 +549,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		EngineCore.menu();
 		if( this.bimboSophie() ) {
-			EngineCore.addButton( 4, 'Back', this.approachBimboSophieInCamp );
+			EngineCore.addButton( 4, 'Back', this, this.approachBimboSophieInCamp );
 		} else {
-			EngineCore.addButton( 4, 'Back', SceneLib.sophieFollowerScene.followerSophieMainScreen );
+			EngineCore.addButton( 4, 'Back', SceneLib.sophieFollowerScene, SceneLib.sophieFollowerScene.followerSophieMainScreen );
 		}
 	};
 	//Unlock resistance:;
@@ -650,10 +649,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		SceneLib.sophieScene.luststickApplication( 4 );
 		if( CoC.player.inte * 2 < CoC.player.cor + CoC.player.lib ) {
 			EngineCore.outputText( 'There\'s no way you could ever turn her down at this point... just look at her lips... they\'d never lie to you.  It\'ll feel so good...', false );
-			EngineCore.doNext( this.bimboSophieSixtyNineAfterCunnilingus );
+			EngineCore.doNext( this, this.bimboSophieSixtyNineAfterCunnilingus );
 		} else {
 			EngineCore.outputText( 'What do you do?', false );
-			EngineCore.choices( 'Sixtynine', this.bimboSophieSixtyNineAfterCunnilingus, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Sixtynine', this, this.bimboSophieSixtyNineAfterCunnilingus, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//SixtyNine Continuation - GOILS you're a wreckin' machine;
@@ -728,7 +727,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			EngineCore.dynStats( 'lib', 1, 'sen', -1 );
 			SceneLib.sophieScene.luststickApplication( 5 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SophieBimbo.prototype.buttFuckBimboSophie = function() {
 		this.sophieSprite();
@@ -791,7 +790,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TitFuck;
 	SophieBimbo.prototype.fuckBimboSophiesTits = function() {
@@ -835,7 +834,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		SceneLib.sophieScene.luststickApplication( 5 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bimbo Sophie Camp Event – (If the player has an Ovi Elixir);
 	//1 in 700 proc chance (roughly once a month? or flat 30 days);
@@ -860,7 +859,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		if( CoC.player.hasVagina() ) {
 			mommy = this.beBimboSophiesSugarMommy;
 		}
-		EngineCore.choices( 'Daddy', daddy, 'Mommy', mommy, '', null, '', null, 'Leave', MainView.playerMenu );
+		EngineCore.choices( 'Daddy', this, daddy, 'Mommy', this, mommy, '', null, null, '', null, null, 'Leave', null, MainView.playerMenu );
 	};
 	//[Daddy];
 	SophieBimbo.prototype.beBimboSophiesSugarDaddy = function() {
@@ -1085,7 +1084,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			EngineCore.dynStats( 'cor', 1 );
 		}
 		SceneLib.sophieScene.luststickApplication( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PREGNANCY EXPACK;
 	//Sophie Pregger;
@@ -1333,13 +1332,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		SceneLib.sophieScene.luststickApplication( 8 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.postSophieImpreg );
+		EngineCore.addButton( 0, 'Next', this, this.postSophieImpreg );
 	};
 	SophieBimbo.prototype.postSophieImpreg = function() {
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'When you wake, Sophie is snuggled up next to you, her arms and legs wrapped around you affectionately.  A cup full of water, along with several strips of dried meat sit nearby... apparently she got them while you were out, knowing how thirsty and hungry you\'d be.  You run your fingers through her platinum, down-soft hair.  Having a live-in bimbo isn\'t really all that bad.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//Too Big Impregnation Sex*;
 	//Sophie starts grinding on top, hypno-compelling you to get hornier and hornier until you flip her over and full-body titfuck her.  After the first jizz, you get a little winded and lay back, she remounts you and gets you to cum against her entrance, then she snuggles with you and slowly teases and orgasm denials you until you fucking explode and pass out cuddling with her.;
@@ -1377,13 +1376,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		SceneLib.sophieScene.luststickApplication( 8 );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.postSophieTooBigImpreg );
+		EngineCore.addButton( 0, 'Next', this, this.postSophieTooBigImpreg );
 	};
 	SophieBimbo.prototype.postSophieTooBigImpreg = function() {
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'Sophie milks you through three more orgasms before she finally tires, and by that point, you\'re equally exhausted.  You snuggle up next to her and pass out, barely rousing when she begins kissing your manhood during the nap for a fourth helping of your spillable seed.  When you awaken nearly eight hours later, she\'s snoring soundly, with a skin of water and strips of dried meat left nearby for you to restore yourself.  Life with a bimbo isn\'t so bad!' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//Sophie Move In Request Scene*;
 	SophieBimbo.prototype.sophieMoveInAttempt = function() {
@@ -1394,8 +1393,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( '\n\n"<i>Could I like, sleep with you at night?  I thought... maybe... since you got me pre- preg... preggers and stuff, you wouldn\'t mind me snuggling with you while we slept?</i>" she asks hopefully, blinking her long lashes innocently at you.  "<i>I promise, I won\'t bother you or wake you up in the night or anything...  I just want someone to like, hold when it\'s cold.</i>" She immediately adds, "<i>And I make a really good pillow, ever since you gave me that drink!</i>" Sophie playfully bounces her boobs for effect, blushing as she awaits your response.' );
 		EngineCore.outputText( '\n\nThe bimbo harpy seems genuine in her desire for companionship, though judging from the moisture that trickles from her cleft and down her feathery thighs, she\'ll probably be fucking you at some point, even if it isn\'t in the middle of the night.  Do you want to take the posh-bodied girl to bed with you at night?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.yesSophieSleepWith );
-		EngineCore.addButton( 1, 'Nah', this.noSophieSleepWith );
+		EngineCore.addButton( 0, 'Yes', this, this.yesSophieSleepWith );
+		EngineCore.addButton( 1, 'Nah', this, this.noSophieSleepWith );
 	};
 	//Yes*;
 	SophieBimbo.prototype.yesSophieSleepWith = function() {
@@ -1418,7 +1417,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		EngineCore.outputText( ' midriff and cushiony tits against you.  "<i>You\'re awesome, [name], you know that?  You\'re totally ' + CoC.player.mf( 'hunky', 'cute' ) + ' AND awesome!</i>"  She spins about, dancing happily and shaking her voluptuous backside in your direction as she goes.' );
 		CoC.flags[ kFLAGS.SLEEP_WITH ] = 'Sophie';
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//No (Also Used To Kick Her Out Of Bed)*;
 	SophieBimbo.prototype.noSophieSleepWith = function() {
@@ -1428,7 +1427,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		if( CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Sophie' ) {
 			CoC.flags[ kFLAGS.SLEEP_WITH ] = '';
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Option To Move Her In Any Time If Initially Declined*;
 	SophieBimbo.prototype.moveSophieInRepeat = function() {
@@ -1442,7 +1441,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( '\n\n"<i>Really?  Like, I can snuggle up next to you when you sleep while you use my boobs as pillows?!</i>" she asks, unable to keep a girlish squeal of delight out of her voice.  Sophie bounces up and down; her wings flapping with wild excitement, nearly blinding you from the cloud of dust they kick up.  "<i>I promise I won\'t bother while you sleep or anything, but maybe we could like, have quickies in the morning?</i>"' );
 		EngineCore.outputText( '\n\nYou roll your eyes and give her a thumbs up.  After all, you can\'t really sleep with a sex-crazed bimbo and NOT expect to be \'mounted\' at some point.' );
 		CoC.flags[ kFLAGS.SLEEP_WITH ] = 'Sophie';
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sophie Morning Sex*;
 	//Alternate Intro/Outro for consensual fucking when it isn't morning?;
@@ -1512,9 +1511,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		if( morning ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Pregnant Sophie Morning Sex*;
@@ -1598,9 +1597,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		if( morning ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Very Pregnant Sophie Tit Jobs*;
@@ -1651,8 +1650,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		//[Let Her] [Hog Wild];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Let Her', this.letSophieMilkYoDick );
-		EngineCore.addButton( 1, 'Hog Wild', this.goHogWildOnSophieBewbs );
+		EngineCore.addButton( 0, 'Let Her', this, this.letSophieMilkYoDick );
+		EngineCore.addButton( 1, 'Hog Wild', this, this.goHogWildOnSophieBewbs );
 	};
 	//Hog Wild*;
 	SophieBimbo.prototype.goHogWildOnSophieBewbs = function() {
@@ -1706,7 +1705,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -2 );
 		SceneLib.sophieScene.luststickApplication( 8 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Let Her*;
 	SophieBimbo.prototype.letSophieMilkYoDick = function() {
@@ -1788,7 +1787,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -2 );
 		SceneLib.sophieScene.luststickApplication( 8 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Sophie Births Egg*;
 	SophieBimbo.prototype.sophieBirthsEgg = function() {
@@ -2042,14 +2041,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			else {
 				EngineCore.outputText( '\n\nYou smile ruefully and direct her to turn her attentions back to her mother, who even now is flapping her wings excitedly, promising her daughter the many delights of adulthood she\'ll get to sample, once she gets her own mate.  You just hope she doesn\'t cause any trouble in camp.' );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//FIRST TIME:;
 		else {
 			EngineCore.outputText( '\n\nIt seems obvious that the real question is whether you want to have an incestuous relationship with your freshly matured offspring.  If you answer yes, you\'re probably going to wind up with another bird-girl lusting after you (and maybe more, down the road).  You had better say no if you want to keep things platonic.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Yes - Incest', this.yesToSophieIncest );
-			EngineCore.addButton( 1, 'No', this.noToSophieIncest );
+			EngineCore.addButton( 0, 'Yes - Incest', this, this.yesToSophieIncest );
+			EngineCore.addButton( 1, 'No', this, this.noToSophieIncest );
 		}
 		CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ]++;
 	};
@@ -2067,14 +2066,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( 'is more than happy to return the sudden affection, her hands running over your body as she grinds against you teasingly.  With a firm open-palm spank to her rump, you release her, telling both harpies that you will play with them again very soon.  The two horny girls giggle together before talking about all the fun they will have.' );
 		EngineCore.dynStats( 'lus', 5 );
 		CoC.flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[nono];
 	SophieBimbo.prototype.noToSophieIncest = function() {
 		EngineCore.clearOutput();
 		this.sophieSprite();
 		EngineCore.outputText( 'Sliding your hand up to your daughter\'s cheek, you stroke her softly before running your fingers through her feathery hair.  Your soft touch draws a gentle, bird-like coo from your daughter.  You guide her down and tell her she should rest after such a transformation.  She should seek mates outside her family.  You don\'t want to encourage such blatantly sexual behavior so soon, and you sit her down in Sophie\'s nest to rest.  Instantly, her mother is at her side, fluttering excitedly and drawing her daughter into a conversation about you and all the fun she can have once she finds a mate of her own.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Izma dominating Sophie bondage.;
 	//have izma get irritated with Sophies constant advances.;
@@ -2114,8 +2113,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		//[Interrupt] [Watch];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Interrupt', this.interruptSophieIzma );
-		EngineCore.addButton( 1, 'Watch', this.watchIzmaSophie );
+		EngineCore.addButton( 0, 'Interrupt', this, this.interruptSophieIzma );
+		EngineCore.addButton( 1, 'Watch', this, this.watchIzmaSophie );
 	};
 	//(LEGGO MY EGGO);
 	SophieBimbo.prototype.interruptSophieIzma = function() {
@@ -2124,7 +2123,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( '\n\nIzma jumps away from the Harpy in surprise.  "<i>Oh, Alpha!</i>" she sputters, turning to face you.  She thinks for a moment, a bead of sweat forming on her already moist forehead.  "<i>I was, uh, just getting your slave ready for you,</i>" she lies.' );
 		EngineCore.outputText( '\n\nYou narrow your eyes at them and look to the large-breasted slut and ask if this is true.  "<i>No, [name], but I\'m just <b>so</b> horny!</i>"' );
 		EngineCore.outputText( '\n\nYou toss an icy stare at Izma and order her to cut Sophie down.  She does so, albeit reluctantly.  You remind Izma that you\'re HER Alpha, not the other way around, and that she should keep her hands off the merchandise.  You grope the bimbo\'s ample ass and lead her away from Izma\'s section of the camp, whispering that she\'ll get hers in due time.' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//(Watch like the voyeur you are);
 	SophieBimbo.prototype.watchIzmaSophie = function() {
@@ -2159,7 +2158,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		EngineCore.outputText( '\n\nIzma pants and withdraws from her home-made cream pie with a self-satisfied sigh, but her cock is still just as hard as before, even though her sack looks a little bit smaller.  She groans out loud as she staggers away, muttering something about coming back to \'check on\' the harpy in a few minutes.  Her hand takes a few experimental pumps as she goes, and with all the lipstick she was exposed to, you\'re sure she\'ll be back before long.  As soon as she\'s out of sight, Sophie flexes her wings, easily breaking through the knots.  She gets loose and drops to the ground, then sticks a digit in her still-drooling cunt before sucking it into her mouth to taste.  "<i>Hehe, EngineCore.silly sharks!</i>" she chants before flouncing away.  "<i>I gotta remember to be back before she is... this is totally fun!</i>"' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'sophieBimbo', new SophieBimbo() );
 } );

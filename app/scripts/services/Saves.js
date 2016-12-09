@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 				slots.push( function() {
 					$log.info( 'Loading save with name', saveFileName, 'at index', index );
 					if( that.loadGame( saveFileName ) ) {
-						EngineCore.doNext(  MainView.playerMenu );
+						EngineCore.doNext( null, MainView.playerMenu );
 						EngineCore.showStats();
 						EngineCore.statScreenRefresh();
 						EngineCore.outputText( 'Slot ' + index + ' Loaded!', true );
@@ -61,16 +61,16 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 				slots.push( null );  // You have to set the parameter to 0 to disable the button
 			}
 		} );
-		EngineCore.choices( 'Slot 1', slots[ 0 ],
-			'Slot 2', slots[ 1 ],
-			'Slot 3', slots[ 2 ],
-			'Slot 4', slots[ 3 ],
-			'Slot 5', slots[ 4 ],
-			'Slot 6', slots[ 5 ],
-			'Slot 7', slots[ 6 ],
-			'Slot 8', slots[ 7 ],
-			'Slot 9', slots[ 8 ],
-			'Back', this.returnToSaveMenu );
+		EngineCore.choices( 'Slot 1', null, slots[ 0 ],
+			'Slot 2', null, slots[ 1 ],
+			'Slot 3', null, slots[ 2 ],
+			'Slot 4', null, slots[ 3 ],
+			'Slot 5', null, slots[ 4 ],
+			'Slot 6', null, slots[ 5 ],
+			'Slot 7', null, slots[ 6 ],
+			'Slot 8', null, slots[ 7 ],
+			'Slot 9', null, slots[ 8 ],
+			'Back', this, this.returnToSaveMenu );
 	};
 	Saves.prototype.saveScreen = function() {
 		MainView.nameBox.text = '';
@@ -94,16 +94,16 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			EngineCore.outputText( '\r\r', false );
 		}
 		EngineCore.outputText( '<b>Leave the notes box blank if you don\'t wish to change notes.\r<u>NOTES:</u></b>', false );
-		EngineCore.choices( 'Slot 1', saveFuncs[ 0 ],
-			'Slot 2', saveFuncs[ 1 ],
-			'Slot 3', saveFuncs[ 2 ],
-			'Slot 4', saveFuncs[ 3 ],
-			'Slot 5', saveFuncs[ 4 ],
-			'Slot 6', saveFuncs[ 5 ],
-			'Slot 7', saveFuncs[ 6 ],
-			'Slot 8', saveFuncs[ 7 ],
-			'Slot 9', saveFuncs[ 8 ],
-			'Back', this.returnToSaveMenu );
+		EngineCore.choices( 'Slot 1', null, saveFuncs[ 0 ],
+			'Slot 2', null, saveFuncs[ 1 ],
+			'Slot 3', null, saveFuncs[ 2 ],
+			'Slot 4', null, saveFuncs[ 3 ],
+			'Slot 5', null, saveFuncs[ 4 ],
+			'Slot 6', null, saveFuncs[ 5 ],
+			'Slot 7', null, saveFuncs[ 6 ],
+			'Slot 8', null, saveFuncs[ 7 ],
+			'Slot 9', null, saveFuncs[ 8 ],
+			'Back', this, this.returnToSaveMenu );
 	};
 	Saves.prototype.saveLoad = function( ) {
 		//Hide the name box in case of backing up from save
@@ -124,56 +124,56 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		if( MainView.getButtonText( 0 ) === 'Game Over' ) {
 			MainView.setButtonText( 0, 'save/load' );
 			EngineCore.menu();
-			EngineCore.addButton( 1, 'Load', this.loadScreen );
+			EngineCore.addButton( 1, 'Load', this, this.loadScreen );
 			EngineCore.addButton( 2, '', null ); // TODO : Save to file
-			EngineCore.addButton( 3, 'Delete', this.deleteScreen );
-			EngineCore.addButton( 4, 'Back', EngineCore.gameOver, true );
+			EngineCore.addButton( 3, 'Delete', this, this.deleteScreen );
+			EngineCore.addButton( 4, 'Back', null, EngineCore.gameOver, true );
 			return;
 		}
 		if( CoC.player.str === 0 ) {
 			// TODO : Save to file
-			EngineCore.choices( '', null, 'Load', this.loadScreen, '', null, 'Delete', this.deleteScreen, 'Back', $rootScope.StartUp.mainMenu );
+			EngineCore.choices( '', null, null, 'Load', this, this.loadScreen, '', null, null, 'Delete', this, this.deleteScreen, 'Back', $rootScope.StartUp.mainMenu );
 			return;
 		}
 		if( SceneLib.dungeonCore.isInDungeon() ) {
 			// TODO : Save to file
-			EngineCore.choices( '', null, 'Load', this.loadScreen, '', null, 'Delete', this.deleteScreen, 'Back', MainView.playerMenu );
+			EngineCore.choices( '', null, null, 'Load', this, this.loadScreen, '', null, null, 'Delete', this, this.deleteScreen, 'Back', null, MainView.playerMenu );
 			return;
 		}
 		if( CoC.gameState === 3 ) {
-			EngineCore.choices( 'Save', this.saveScreen,
-				'Load', this.loadScreen,
-				'', null, // TODO : Save to file
-				'Delete', this.deleteScreen,
-				'Back', null,
-				'', null, // TODO : Save to file
-				'', null, // TODO : Save to file
-				'', null,
-				'', null,
-				'', null );
+			EngineCore.choices( 'Save', this, this.saveScreen,
+				'Load', this, this.loadScreen,
+				'', null, null, // TODO : Save to file
+				'Delete', this, this.deleteScreen,
+				'Back', null, null,
+				'', null, null, // TODO : Save to file
+				'', null, null, // TODO : Save to file
+				'', null, null,
+				'', null, null,
+				'', null, null );
 		} else {
 			if( CoC.player.autoSave ) {
-				EngineCore.choices( 'Save', this.saveScreen,
-					'Load', this.loadScreen,
-					'AutoSav: ON', this.autosaveToggle,
-					'Delete', this.deleteScreen,
-					'', null,
-					'', null, // TODO : Save to file
-					'', null, // TODO : Save to file
-					'', null,
-					'', null,
-					'Back', MainView.playerMenu );
+				EngineCore.choices( 'Save', this, this.saveScreen,
+					'Load', this, this.loadScreen,
+					'AutoSav: ON', this, this.autosaveToggle,
+					'Delete', this, this.deleteScreen,
+					'', null, null,
+					'', null, null, // TODO : Save to file
+					'', null, null, // TODO : Save to file
+					'', null, null,
+					'', null, null,
+					'Back', null, MainView.playerMenu );
 			} else {
-				EngineCore.choices( 'Save', this.saveScreen,
-					'Load', this.loadScreen,
-					'AutoSav: OFF', this.autosaveToggle,
-					'Delete', this.deleteScreen,
-					'', null,
-					'', null, // TODO : Save to file
-					'', null, // TODO : Save to file
-					'', null,
-					'', null,
-					'Back', MainView.playerMenu );
+				EngineCore.choices( 'Save', this, this.saveScreen,
+					'Load', this, this.loadScreen,
+					'AutoSav: OFF', this, this.autosaveToggle,
+					'Delete', this, this.deleteScreen,
+					'', null, null,
+					'', null, null, // TODO : Save to file
+					'', null, null, // TODO : Save to file
+					'', null, null,
+					'', null, null,
+					'Back', null, MainView.playerMenu );
 			}
 		}
 	};
@@ -194,20 +194,20 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			} );
 		} );
 		EngineCore.outputText( '\n<b>ONCE DELETED, YOUR SAVE IS GONE FOREVER.</b>', false );
-		EngineCore.choices( 'Slot 1', delFuncs[ 0 ],
-			'Slot 2', delFuncs[ 1 ],
-			'Slot 3', delFuncs[ 2 ],
-			'Slot 4', delFuncs[ 3 ],
-			'Slot 5', delFuncs[ 4 ],
-			'Slot 6', delFuncs[ 5 ],
-			'Slot 7', delFuncs[ 6 ],
-			'Slot 8', delFuncs[ 7 ],
-			'Slot 9', delFuncs[ 8 ],
-			'Back', this.returnToSaveMenu );
+		EngineCore.choices( 'Slot 1', null, delFuncs[ 0 ],
+			'Slot 2', null, delFuncs[ 1 ],
+			'Slot 3', null, delFuncs[ 2 ],
+			'Slot 4', null, delFuncs[ 3 ],
+			'Slot 5', null, delFuncs[ 4 ],
+			'Slot 6', null, delFuncs[ 5 ],
+			'Slot 7', null, delFuncs[ 6 ],
+			'Slot 8', null, delFuncs[ 7 ],
+			'Slot 9', null, delFuncs[ 8 ],
+			'Back', this, this.returnToSaveMenu );
 	};
 	Saves.prototype.confirmDelete = function() {
 		EngineCore.outputText( 'You are about to delete the following save: <b>' + CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + '</b>\n\nAre you sure you want to delete it?', true );
-		EngineCore.choices( 'No', this.deleteScreen, 'Yes', this.purgeTheMutant, '', null, '', null, '', null );
+		EngineCore.choices( 'No', this, this.deleteScreen, 'Yes', this, this.purgeTheMutant, '', null, null, '', null, null, '', null, null );
 	};
 	Saves.prototype.purgeTheMutant = function() {
 		localStorage.removeItem( CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] );
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		$log.debug( blah.length + ' array slots' );
 		var select = Utils.rand( blah.length );
 		EngineCore.outputText( CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + ' has ' + blah[ select ] + '.', true );
-		EngineCore.doNext( this.deleteScreen );
+		EngineCore.doNext( this, this.deleteScreen );
 	};
 	Saves.prototype.saveGame = function( slot ) {
 		CoC.player.slotName = slot;
@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			$log.info( 'Setting in-use save slot to: ' + slot );
 			CoC.player.slotName = slot;
 		}
-		EngineCore.doNext(  MainView.playerMenu );
+		EngineCore.doNext( null, MainView.playerMenu );
 	};
 	/*
 	 OH GOD SOMEONE FIX THIS DISASTER!!!!111one1ONE!
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			EngineCore.outputText( '\n\n' );
 			EngineCore.outputText( dataError.getStackTrace() );
 		}
-		EngineCore.doNext(  MainView.playerMenu );
+		EngineCore.doNext( null, MainView.playerMenu );
 	};
 	Saves.prototype.returnToSaveMenu = Saves.prototype.saveLoad;
 	Saves.prototype.loadGameObject = function( saveData, slot ) {
@@ -597,9 +597,10 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			if( saveFile.data.controls !== undefined ) {
 				InputManager.LoadBindsFromObj( saveFile.data.controls );
 			}
-			EngineCore.doNext(  MainView.playerMenu );
+			EngineCore.doNext( null, MainView.playerMenu );
 		}
 	};
-	MainView.registerSave( Saves );
-	return Saves;
+	var instance = new Saves();
+	MainView.registerSave( instance );
+	return instance;
 });

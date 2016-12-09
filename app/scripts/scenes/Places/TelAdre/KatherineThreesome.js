@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 			if( CoC.time.hours >= 13 ) {
 				CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); //An additional scene plays afterward if Kath is still being trained by Urta
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); //An additional scene plays afterward if Kath is still being trained by Urta
 		}
 	};
 	KatherineThreesome.prototype.threeSixtyNine = function() {
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 				CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.roastYou = function() { //Not available if Kath has no cock
 		EngineCore.clearOutput();
@@ -342,7 +342,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 				CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.spitroastKath = function() { //Works for all except genderless characters
 		EngineCore.clearOutput();
@@ -419,7 +419,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 				CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.pinAndFuck = function() { //Kath is sober, Urta is drunk //Not available if Kath has no cock
 		EngineCore.clearOutput();
@@ -455,9 +455,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		SceneLib.katherine.orgasm();
 		SceneLib.urta.urtaLove( 1 );
 		if( CoC.player.hasCock() ) {
-			EngineCore.choices( 'Stuff Kath', this.pinAndFuckStuffKath, 'Mount Urta', this.pinAndFuckMountUrta, '', null, '', null, '', null );
+			EngineCore.choices( 'Stuff Kath', this, this.pinAndFuckStuffKath, 'Mount Urta', this, this.pinAndFuckMountUrta, '', null, null, '', null, null, '', null, null );
 		} else {
-			EngineCore.doNext( this.pinAndFuckMountUrta );
+			EngineCore.doNext( this, this.pinAndFuckMountUrta );
 		}
 	};
 	KatherineThreesome.prototype.pinAndFuckMountUrta = function() { //Plays for anyone without a cock and for herms who select this option
@@ -508,7 +508,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.pinAndFuckStuffKath = function() { //Plays for any males and for herms who select this option
 		EngineCore.clearOutput();
@@ -558,7 +558,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.watch = function( urtaIsDrunk ) { //Kath is sober (or drunk), Urta is drunk
 		EngineCore.clearOutput();
@@ -619,7 +619,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.kathLicksOutUrta = function() { //Kath is drunk, Urta is sober
 		EngineCore.clearOutput();
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		SceneLib.urta.drainedByKath = true;
-		EngineCore.doNext( SceneLib.katherine.katherineSex );
+		EngineCore.doNext( SceneLib.katherine, SceneLib.katherine.katherineSex );
 	};
 	KatherineThreesome.prototype.knothole = function() { //Kath is drunk, Urta is sober //Not available if Kath has no cock
 		EngineCore.clearOutput();
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.sandwich = function() { //Kath is drunk, Urta is sober //Not available if Kath has no cock
 		EngineCore.clearOutput();
@@ -694,9 +694,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.outputText( 'You put your hands on Urta’s shoulders, pushing her back towards Katherine.  When Kath sinks her shaft' + SceneLib.katherine.cockMultiple( '', 's' ) + ' into Urta you comment that they’re really getting along well.  You’re glad to see there isn’t much friction between them.\n\n' );
 		EngineCore.outputText( '“<i>How could there be when she’s cumming buckets?</i>” asks Kath, her cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' bottoming out inside Urta.  “<i>Now how about you give her something to do?</i>”' );
 		if( CoC.player.hasCock() ) {
-			EngineCore.choices( 'Mount Urta', this.sandwichGetFucked, 'Get Licked', (CoC.player.isTaur() ? this.sandwichMaleCentaurLicked : this.sandwichGetLicked), '', null, '', null, '', null );
+			EngineCore.choices( 'Mount Urta', this, this.sandwichGetFucked, 'Get Licked', this, (CoC.player.isTaur() ? this.sandwichMaleCentaurLicked : this.sandwichGetLicked), '', null, null, '', null, null, '', null, null );
 		} else {
-			EngineCore.doNext( this.sandwichGetFucked );
+			EngineCore.doNext( this, this.sandwichGetFucked );
 		}
 	};
 	KatherineThreesome.prototype.sandwichGetFucked = function() {
@@ -818,7 +818,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.orgy = function() { //Both Kath and Urta are drunk
 		EngineCore.clearOutput();
@@ -883,7 +883,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	KatherineThreesome.prototype.doubleStuffKath = function() { //Both Kath and Urta are drunk
@@ -987,7 +987,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] = 2 + Utils.rand( 2 );
 		SceneLib.urta.urtaLove( 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.doublePenetrateKath = function() { //Both Kath and Urta are drunk
 		EngineCore.clearOutput();
@@ -1098,7 +1098,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		if( CoC.time.hours >= 13 ) {
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = SceneLib.katherine.KLOC_URTAS_APT; //Katherine.timeChange will sort out whether Kath actually stays with Urta
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.doubleStuffVala = function() { //Not available if Kath has no cock
 		this.valaCommonStart();
@@ -1132,7 +1132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		SceneLib.katherine.orgasm();
 		SceneLib.katherine.katherineAndValaHadSex();
 		CoC.flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.eatOutVala = function() { //Not available if Kath has no cock
 		this.valaCommonStart();
@@ -1151,7 +1151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		SceneLib.katherine.orgasm();
 		SceneLib.katherine.katherineAndValaHadSex();
 		CoC.flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.fistKathAndVala = function() {
 		this.valaCommonStart();
@@ -1176,7 +1176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		SceneLib.katherine.orgasm();
 		SceneLib.katherine.katherineAndValaHadSex();
 		CoC.flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.valaCommonStart = function() {
 		EngineCore.clearOutput();

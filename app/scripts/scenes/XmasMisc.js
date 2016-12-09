@@ -23,8 +23,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nYour musings are interrupted by a sharp moan that immediately catches your attention.  It\'s light enough that whoever did it must be a distance away, but audible enough for you to be sure of where it came from.  Keeping your [weapon] up and prepared, you venture in the direction where the sound originated.  Stepping through a dense patch of shrubbery, you find yourself in a semi-secluded glade littered with puddles of semen.  Whatever creature these came from must be rather "<i>pent up,</i>" so to speak.' );
 		EngineCore.outputText( '\n\nDo you run the risk of investigating?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Investigate', this.investigateCandyCaneBun );
-		EngineCore.addButton( 4, 'Leave', this.leaveBeforeMeetingCandyCaneBun );
+		EngineCore.addButton( 0, 'Investigate', this, this.investigateCandyCaneBun );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveBeforeMeetingCandyCaneBun );
 	};
 	//LEAVE;
 	XmasMisc.prototype.leaveBeforeMeetingCandyCaneBun = function() {
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		if( CoC.player.cor > 50 || CoC.player.lib > 50 ) {
 			EngineCore.outputText( '  At least not right now.  You turn back, navigating your way back to your camp.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//INVESTIGATE;
 	XmasMisc.prototype.investigateCandyCaneBun = function() {
@@ -77,16 +77,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nDo you help him out?' );
 		//(Present "<i>Yes</i>" and "<i>No</i>" options);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.helpWithTheCandyCane );
-		EngineCore.addButton( 1, 'No', this.declineCandyCaneCawks );
-		//EngineCore.choices('Yes',9999,'No',9999,'',0,'',0,'',0);;
+		EngineCore.addButton( 0, 'Yes', this, this.helpWithTheCandyCane );
+		EngineCore.addButton( 1, 'No', this, this.declineCandyCaneCawks );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10, 'resisted', false );
 	};
 	//NO;
 	XmasMisc.prototype.declineCandyCaneCawks = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Turning around a tad awkwardly, you stumble out of the glade.  Tempting as he is, you don\'t have time to help the random bunny orgasm.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//YES;
 	XmasMisc.prototype.helpWithTheCandyCane = function() {
@@ -121,7 +120,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		}
 		//(Lust set to 100, hour passes.);
 		EngineCore.dynStats( 'lib', 1, 'sen', 1, 'lus=', 100, 'cor', -5, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//2. Abraxas's Christmas Chicken;
@@ -131,14 +130,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\nThe grating sound of squawking rouses you in the morning.  You groggily roll over, hoping to go back to sleep for a while, but the annoying noise persists unrelenting.  Realizing that it probably isn\'t going away any time soon, you reluctantly force your eyes open and push yourself up.  The sight around you causes you to blink a few times to shake away the disbelief: a layer of brilliant white snow frosts the ground, a rare sight at your camp thus far.  You hadn\'t really noticed it getting that much colder, but the chill this morning is biting through your [armor].  A shiver wracks your body, and your thoughts on the odd snowfall are interrupted by another loud call.' );
 		EngineCore.outputText( '\n\nDetermined to shut whatever is making such a racket up, you trudge off through the cold, crisp blanket towards where you think the sound is coming from.  You crest a small hill and are greeted with another peculiar image.  Faintly visible against the snow, what appears to be a very pale harpy woman lays on her back, beating her pure-white wings against the ground and sweeping her legs back and forth against the freshly-fallen powder.  She caws and shrieks happily, apparently too caught up in... whatever it is she\'s doing to notice you.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Talk', this.talkToXmasChicken );
-		EngineCore.addButton( 4, 'Leave', this.leaveXmasChicken );
+		EngineCore.addButton( 0, 'Talk', this, this.talkToXmasChicken );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveXmasChicken );
 	};
 	//[Leave];
 	XmasMisc.prototype.leaveXmasChicken = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Too exasperated by the plain absurdity of the situation to deal with it, you bury your face in your hands and decide to leave her to it.  Maybe some imps will shut her up for you.  You head back to camp with her piercing cries following you all the way, and prepare for the day ahead.  Her cries fade a while later; the snow thaws and the air warms soon after.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Talk];
 	XmasMisc.prototype.talkToXmasChicken = function() {
@@ -166,14 +165,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		}
 		EngineCore.outputText( '?</i>"' );
 		EngineCore.menu();
-		EngineCore.addButton( 4, 'Decline', this.declineChickenBlowjobs );
-		EngineCore.addButton( 0, 'Accept', this.acceptChristmasBJs );
+		EngineCore.addButton( 4, 'Decline', this, this.declineChickenBlowjobs );
+		EngineCore.addButton( 0, 'Accept', this, this.acceptChristmasBJs );
 	};
 	//[Decline];
 	XmasMisc.prototype.declineChickenBlowjobs = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The harpy squints at you suspiciously.  "<i>What do you mean, \'no thanks?\'  Nobody says that around here!</i>"  She rolls her eyes and sighs in an obviously exaggerated manner, then turns tail and flaps off into the distance.  You head back to camp, quite looking forward to the silence.  The air warms and the snow thaws soon after you return, leaving no trace of its presence but a few spots of slushy mud.' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Accept];
 	XmasMisc.prototype.acceptChristmasBJs = function() {
@@ -186,8 +185,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'Would you like her to service your male parts or lady bits?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Man Parts', this.acceptChristmasManBJ );
-			EngineCore.addButton( 1, 'Lady Bits', this.acceptChristmasWomanBJ );
+			EngineCore.addButton( 0, 'Man Parts', this, this.acceptChristmasManBJ );
+			EngineCore.addButton( 1, 'Lady Bits', this, this.acceptChristmasWomanBJ );
 		}
 	};
 	XmasMisc.prototype.acceptChristmasManBJ = function() {
@@ -201,7 +200,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			EngineCore.outputText( 'You free your [cock ' + (x + 1) + '] from your [armor], signaling your acceptance.  Your monster flops free, and the harpy grabs at her throat reflexively when she looks at it.  She glances up to you with wide eyes and back down at it.  "<i>A-a promise is a promise, but...</i>"' );
 			EngineCore.outputText( '\n\nShe turns and flees with a few terrified flaps of her wings.  You sigh, covering your enormous prick once more.  At least you won\'t have to deal with her pesky shrieking any more.  The air warms and the snow thaws soon after you return, leaving no trace of its presence but a few spots of slushy mud.' );
 			EngineCore.dynStats( 'lus', 10 );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
 		//(else if cock would please Goldilocks) (area<= 30 or some shit i dunno whatever the standard is);
@@ -242,7 +241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			EngineCore.outputText( '\n\nThe happy girl suddenly hugs you as you\'re in the process of putting your prick back into your [armor].  The silvery glow around her pale skin looks stronger now, so strong that you\'re almost sure you can see it.  "<i>Oh, thank you!</i>" she starts, but quickly composes herself.  "<i>For, um, helping me.  Up.</i>"  She lets go and backs away from you.  "<i>I\'ve gotta be going though, see you around!  Enjoy the weather!</i>"  With that, she wings off into the skies.  She lands atop a nearby tree, arms outstretched in an odd pose.  The silvery glow surrounding her is still visible, even at a distance.  You shake your head and return to camp, wondering who in the world that was.  Not long after you return, the air warms once more and the snow melts, leaving the ground a slushy mess in spots.' );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	XmasMisc.prototype.acceptChristmasWomanBJ = function() {
 		EngineCore.clearOutput();
@@ -252,7 +251,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nShe suddenly embraces you as you readjust your [armor].  The silvery glow around her pale skin looks stronger now, so strong that you\'re almost sure you can see it.  "<i>Oh, thank you!</i>" she starts, but quickly composes herself.  "<i>For, um, helping me.  Up.</i>"  She lets go and backs away from you.  "<i>I\'ve gotta be going though, see you around!  Enjoy the weather!</i>"  With that, she wings off into the skies.  She lands atop a nearby tree, arms outstretched in an odd pose.  The silvery glow surrounding her is still visible, even at a distance.  You shake your head and return to camp, wondering who in the world that was.  Not long after you return, the air warms once more and the snow melts, leaving the ground a slushy mess in spots.' );
 		//(end female);
 		CoC.player.orgasm();
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//3. nRage's Kanga herm lovin;
 	//Xmas 'Roo Romping.;
@@ -289,12 +288,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			//Double-Dick Fuck (requires at least 2 cocks);
 			EngineCore.menu();
 			if( CoC.player.hasCock() && CoC.player.cockThatFits( 70 ) >= 0 ) {
-				EngineCore.addButton( 0, 'Give Anal', this.giveKamiTheChristmasRooAnal );
+				EngineCore.addButton( 0, 'Give Anal', this, this.giveKamiTheChristmasRooAnal );
 			}
-			EngineCore.addButton( 1, 'Receive Anal', this.takeItRooButtStyle );
-			EngineCore.addButton( 2, 'Give BJ', this.KamiBlowJob );
+			EngineCore.addButton( 1, 'Receive Anal', this, this.takeItRooButtStyle );
+			EngineCore.addButton( 2, 'Give BJ', this, this.KamiBlowJob );
 			if( CoC.player.cockTotal() > 1 && CoC.player.cockThatFits( 70 ) >= 0 && CoC.player.cockThatFits2( 70 ) >= 0 ) {
-				EngineCore.addButton( 3, 'Doube-Fuck', this.KamiDoubleDickFuck );
+				EngineCore.addButton( 3, 'Doube-Fuck', this, this.KamiDoubleDickFuck );
 			}
 		} else {
 			EngineCore.outputText( 'You summon the buxom waitress over, getting a much better view of her gentle face now that she\'s found the time to sit and talk with you.  With hazelnut-brown eyes, a gorgeous set of lips and tousled blonde hair, her faux-rebellious look is the icing on the festive cake for this busty waitress, her cute little santa hat being the strawberry on top.  Smooth, olive skin runs halfway down her meaty thighs before fading into soft fur, while her frail forearms follow the same pattern. Her huge kangaroo tail wags idly throughout your conversation, and you\'ve gained a pretty good rhythm whilst engaging her in it. Determined to make things go well, you pause to pull out a charming one-liner when her index finger meets your ' );
@@ -315,8 +314,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			EngineCore.outputText( '\n\nWow, well, that\'s pretty blunt.  What should you do now?' );
 			//[Present options, 'Let's go!' and 'Leave'];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Let\'s Go', this.chooseLetsGoKami );
-			EngineCore.addButton( 4, 'Leave', this.skipOutAfterOpeningKamisBox );
+			EngineCore.addButton( 0, 'Let\'s Go', this, this.chooseLetsGoKami );
+			EngineCore.addButton( 4, 'Leave', this, this.skipOutAfterOpeningKamisBox );
 		}
 	};
 	//[Player chooses 'Leave'];
@@ -325,7 +324,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( 'You politely decline Kami\'s sexual advances, apologizing before making a turn for the door. You begin to wonder why you didn\'t buy anything at the bakery.' );
 		//[Return to Tel Adre, KamiEnc = 1];
 		CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Player chooses 'Let's go!'];
 	XmasMisc.prototype.chooseLetsGoKami = function() {
@@ -342,12 +341,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//Note: I don't know much about vaginal or anal capacities so just give her general ones similar to Izma or Urta. ];
 		EngineCore.menu();
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( 70 ) >= 0 ) {
-			EngineCore.addButton( 0, 'Give Anal', this.giveKamiTheChristmasRooAnal );
+			EngineCore.addButton( 0, 'Give Anal', this, this.giveKamiTheChristmasRooAnal );
 		}
-		EngineCore.addButton( 1, 'Receive Anal', this.takeItRooButtStyle );
-		EngineCore.addButton( 2, 'Give BJ', this.KamiBlowJob );
+		EngineCore.addButton( 1, 'Receive Anal', this, this.takeItRooButtStyle );
+		EngineCore.addButton( 2, 'Give BJ', this, this.KamiBlowJob );
 		if( CoC.player.cockTotal() > 1 && CoC.player.cockThatFits( 70 ) >= 0 && CoC.player.cockThatFits2( 70 ) >= 0 ) {
-			EngineCore.addButton( 3, 'DoubleFuck', this.KamiDoubleDickFuck );
+			EngineCore.addButton( 3, 'DoubleFuck', this, this.KamiDoubleDickFuck );
 		}
 	};
 
@@ -376,7 +375,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] = 1;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Player selects 'Receive Anal'];
 	XmasMisc.prototype.takeItRooButtStyle = function() {
@@ -425,7 +424,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//[Player heads back to camp, An hour passes, Asshole tightness is reduced, Lust is reduced to zero and KamiEnc = 1];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] = 1;
 	};
 	//[Player selects 'Blow Job'];
@@ -447,7 +446,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 10 + CoC.player.sens / 10 );
 		//[Player heads back to camp, An hour passes, Lust = + 40 and KamiEnc = 1];
 		CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	XmasMisc.prototype.KamiDoubleDickFuck = function() {
@@ -465,7 +464,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
 		CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Player can choose 'Winter Pudding'];
@@ -473,7 +472,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 35 ) {
 			EngineCore.outputText( 'Sadly, the pudding isn\'t free, and it looks like you don\'t have the 35 gems you\'d need to try a bite!' );
-			EngineCore.doNext( SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+			EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
 			return;
 		}
 		CoC.player.gems -= 35;
@@ -506,7 +505,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			CoC.player.hornType = AppearanceDefs.HORNS_ANTLERS;
 			CoC.player.horns = 4 + Utils.rand( 12 );
 		}
-		EngineCore.doNext( SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
 	};
 	//4. Donto's Polar Pete;
 	//Random Holiday plains encounter;
@@ -520,8 +519,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\n"<i>And for you, I have a very special package, just for the good boys and girls.</i>"  His large furred hand lewdly cups over his groin, making his bulge more pronounced as he stretches the fabric of his pants.  You can see the girth of his \'candy cane\' hanging limp over his heavy sack.  His eyes give you a lurid gaze, an expectant twinkle in his eyes.  "<i>Come over and unwrap it.</i>"  His low voice makes goosebumps crawl over your skin.' );
 		//Open options Leave, Unwrap;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Unwrap', this.unwrapPolarPete );
-		EngineCore.addButton( 4, 'Leave', this.leaveDisFukkinPolarBear );
+		EngineCore.addButton( 0, 'Unwrap', this, this.unwrapPolarPete );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveDisFukkinPolarBear );
 	};
 	//Unwrap;
 	XmasMisc.prototype.unwrapPolarPete = function() {
@@ -604,7 +603,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//(Adds "<i>Snow</i>" to the Stash or Lover menu);
 		EngineCore.outputText( '\n\n(\'Snow\' added to the <b>Items</b> menu!)' );
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Creation!;
 	//Accessed from "<i>Snow</i>" at the Lover or Stash menu.;
@@ -619,8 +618,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			EngineCore.outputText( '\n\nFinally, the head.  You make yet another small ball of tightly packed snow and place it upon the tower, and stand back to look at your creation.  You grab a couple sticks nearby and grab a piece of torn cloth from your camp, placing them all on the snowman to make arms and a scarf.  It\'s a pretty good piece of work.' );
 			EngineCore.outputText( '\n\nSuddenly, a naughty thought strikes you. You could probably make this snowman into a snowwoman if you wanted to.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Snowwoman', this.nieveSnowWoman );
-			EngineCore.addButton( 1, 'Snowman', this.nieveSnowMan );
+			EngineCore.addButton( 0, 'Snowwoman', this, this.nieveSnowWoman );
+			EngineCore.addButton( 1, 'Snowman', this, this.nieveSnowMan );
 			//[Snowwoman] [Snowman] ;
 		}
 		//Second Step: Eyes & Mouth;
@@ -631,10 +630,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			//[Coal (Only available if PC has coal)] [Gems];
 			EngineCore.menu();
 			if( CoC.player.hasItem( ConsumableLib.COAL___ ) ) {
-				EngineCore.addButton( 0, 'Coal', this.nieveCoalEyes );
+				EngineCore.addButton( 0, 'Coal', this, this.nieveCoalEyes );
 			}
-			EngineCore.addButton( 1, 'Gems', this.nieveGemEyes );
-			EngineCore.addButton( 4, 'Back', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 1, 'Gems', this, this.nieveGemEyes );
+			EngineCore.addButton( 4, 'Back', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Fourth Step: The Nose;
 		else if( CoC.flags[ kFLAGS.NIEVE_STAGE ] === 3 ) {
@@ -651,10 +650,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			else {
 				EngineCore.outputText( 'Unfortunately, you\'ve yet to find one in your adventures.  You suppose you\'ll have to look more carefully.  Who knows, there might be a farm right under your nose.' );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'Your snowman is done!  There\'s nothing more to add to it.  It looks mighty fine however, and just looking at it brings a nostalgia-fueled smile to your lips.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Coal;
@@ -666,7 +665,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nYou split the coal into smaller chunks, and place them evenly around the Snowman\'s face, creating a nice, vacant smile.  It still needs a nose, however, and for that, you\'ll need a carrot.  Perhaps there\'s a farm nearby, or maybe you could buy one somewhere?' );
 		CoC.flags[ kFLAGS.NIEVE_MOUTH ] = 'coal';
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = 3;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Gems;
 	//Add to previous text if possible?;
@@ -683,7 +682,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		else {
 			EngineCore.outputText( 'You open up your pouch, and frown.  Unfortunately, you don\'t have enough gems to create the eyes and mouth. With a sigh you march your broke ass back to camp.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Snowwoman;
 	XmasMisc.prototype.nieveSnowWoman = function() {
@@ -691,7 +690,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//Add to existing text if possible, rather than a new window?;
 		EngineCore.outputText( 'You grin mischievously to yourself and set about making two more balls of powdery snow.  It takes less time than any of the others, and before you know it you\'ve attached two icy-breasts to the snowman.  They aren\'t terribly big, any heavier and you\'re sure they\'d fall off, but they get the point across.' );
 		EngineCore.outputText( '\n\nYour snowwoman still needs a face, of course, but you\'ll leave that until later.  For now, you head back into the main part of camp.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = 2;
 		CoC.flags[ kFLAGS.NIEVE_GENDER ] = 2;
 	};
@@ -701,7 +700,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide to leave it as is. Not everything has to have breasts, of course, even in Mareth.' );
 		EngineCore.outputText( '\n\nYour snowman still needs a face, of course, but you\'ll leave that until later.  For now, you head back into the main part of camp.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = 2;
 		CoC.flags[ kFLAGS.NIEVE_GENDER ] = 1;
 	};
@@ -715,7 +714,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nYou stash the carrot away with a smile.  You\'ve got a nose for your snowman!' );
 		EngineCore.outputText( '\n\n(Gained Key Item: Carrot)' );
 		CoC.player.createKeyItem( 'Carrot', 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	XmasMisc.prototype.nieveMF = function( Man, Woman ) {
 		if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 1 ) {
@@ -757,8 +756,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\n"<i>Wow.  That\'s great.  You\'re like a champion or something.  So, Champion,</i>" ' + this.nieveMF( 'he', 'she' ) + ' begins, "<i>Do you want me to stay?</i>"' );
 		//[Y/N];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.yesKeepNieve );
-		EngineCore.addButton( 1, 'No', this.noNoKeepNieve );
+		EngineCore.addButton( 0, 'Yes', this, this.yesKeepNieve );
+		EngineCore.addButton( 1, 'No', this, this.noNoKeepNieve );
 	};
 	//Yes of course, what do you look like, an idiot?;
 	XmasMisc.prototype.yesKeepNieve = function() {
@@ -771,7 +770,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '  ' + this.nieveMF( 'He', 'She' ) + ' doesn\'t seem to be a threat, and indeed seems sincere in the fact that ' + this.nieveMF( 'he', 'she' ) + ' was sent here to be your lover.' );
 		EngineCore.outputText( '\n\nNieve beams at you, "<i>You won\'t regret it, [name]!  Just give me a little while to set up a cozy place here... then we can get cozy.</i>"' );
 		EngineCore.outputText( '\n\nYou return to your camp proper with a goofy smirk on your face.\n\n(<b>Nieve is now available in the Lovers menu.</b>)' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//No, because I'm an idiot.;
 	XmasMisc.prototype.noNoKeepNieve = function() {
@@ -782,7 +781,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = -1;
 		CoC.flags[ kFLAGS.NIEVE_GENDER ] = 0;
 		CoC.flags[ kFLAGS.NIEVE_MOUTH ] = '';
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Followers Menu;
 	//Camp Description;
@@ -870,8 +869,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( ' eyes and pure white hair, which ' + this.nieveMF( 'barely goes past his ears', 'tumbles down past her shoulders' ) + '.  Much of ' + this.nieveMF( 'his', 'her' ) + ' body glimmers with a fine layer of powdered snow or ice.' );
 		EngineCore.outputText( '\n\nNieve stops, gives you a friendly hug, and asks, "<i>What can I do for you, [Master]?</i>"' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Sex', this.nieveSexMenu );
-		EngineCore.addButton( 4, 'Back', SceneLib.camp.campLoversMenu );
+		EngineCore.addButton( 0, 'Sex', this, this.nieveSexMenu );
+		EngineCore.addButton( 4, 'Back', SceneLib.camp, SceneLib.camp.campLoversMenu );
 	};
 	//Sex Menu;
 	XmasMisc.prototype.nieveSexMenu = function() {
@@ -882,10 +881,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 2 ) {
-			EngineCore.addButton( 0, 'Lick Her', this.lickNieve );
+			EngineCore.addButton( 0, 'Lick Her', this, this.lickNieve );
 		}
 		if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 1 ) {
-			EngineCore.addButton( 0, 'Suck Him', this.suckNieveOff );
+			EngineCore.addButton( 0, 'Suck Him', this, this.suckNieveOff );
 		}
 		//Fuck Her;
 		//Female Nieve;
@@ -893,7 +892,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//Nieve's capacity is about 130.;
 		if( (CoC.player.hasCock() || (CoC.player.hasVagina() && CoC.player.clitLength >= 3.5)) && CoC.player.lust >= 33 ) {
 			if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 2 ) {
-				EngineCore.addButton( 1, 'Fuck Her', this.fuckNieve );
+				EngineCore.addButton( 1, 'Fuck Her', this, this.fuckNieve );
 			}
 		}
 		//Get Fucked by Gurumash;
@@ -901,9 +900,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//Any Gender;
 		//Nieve's cock is 9x1.5;
 		if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 1 && CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 1, 'Get Fucked', this.nieveFucksYou );
+			EngineCore.addButton( 1, 'Get Fucked', this, this.nieveFucksYou );
 		}
-		EngineCore.addButton( 9, 'Back', SceneLib.camp.campLoversMenu );
+		EngineCore.addButton( 9, 'Back', SceneLib.camp, SceneLib.camp.campLoversMenu );
 	};
 	//Lick Her;
 	//Obviously for Female Nieve.;
@@ -955,7 +954,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			EngineCore.outputText( '\n\nThe both of you thoroughly flustered, Nieve returns to the winter paradise and you go back to your duties.' );
 			EngineCore.dynStats( 'lus', -5 - CoC.player.sens / 5 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Suck Him by Kinathis;
 	//For male Nieve;
@@ -971,7 +970,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nSucking as hard as you can, you slither your tongue around the length inside your mouth, licking everywhere you can in spite of having your mouth full already.  Cupping those swollen balls in your hands you gently fondle them, massaging them tenderly even as they lurch and swell, their icy payload ready to burst and gush into your mouth already.  Giving you only seconds notice, the pleasure filed gasps warn you of the impending orgasm.  Letting out a long moan of pure ecstasy Nieve blows his minty load inside your mouth.  Pulse after pulse, burst after thick burst of creamy minty cum flows over your tongue and down your throat.  With each gush your tongue is overwhelmed by the strong minty flavor, the thick stuff gushing down your throat to pool inside your stomach.  With his body presumably made from ice and snow, you\'re unsure as to where he is keeping all this minty cream, more and more gushing until your belly swells just a little under the chilling amount.  Shivering from the icy cum in your tummy you slowly pull back, sucking the last streams of pearly seed from your wintery lover before popping off.' );
 		EngineCore.outputText( '\n\nLetting out a deep sigh you grin and look up, wanting to see the look on Nieve\'s face.  The iceborn man looks like he couldn\'t be happier, a silly smile on his face as he looks down at you.  "<i>Oh [Master]... that was amazing, I\'ve never met someone so skilled before.  I hope you\'re not too cold now,</i>" he says with a hint of worry, knowing that his body and by extension, his cum, must be quite cold.  Reassuring him you tell your frosty friend you\'re fine and that he actually tasted pretty good. Looking quite pleased Nieve helps you up before sweeping you up into a squeezing hug.  "<i>Thank you so much for this, but next time let me do you though, you need to be pleasured as well,</i>" the elemental spirit says gently before helping you get cleaned up and ready for your adventures.' );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fuck Her;
 	//Female Nieve;
@@ -1177,7 +1176,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\n"<i>So messy, [Master],</i>" she notes with a smile.  "<i>Allow me to clean you up.</i>"  Her cool mouth descends on your member, licking and sucking away all of your juices and hers, leaving you spotless.  She seems to delight in the flavor, and once she\'s done, she leans in and gives you a big, sloppy kiss that tastes more like mint than anything else.  She then cuddles up next to you, her cold body somehow comforting, until you\'ve recuperated enough to head back to the camp proper.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Fucked by Gurumash;
 	//Male Nieve;
@@ -1209,9 +1208,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		//[(if PC has vagina or large enough tits) "<i>So [master],</i>" He says pulling back slightly, "<i>Where would you like me to put this?</i>"][(if anal is the only option, automatically selected) "<i>Well I guess I know where to put this huh?</i>" He says coyly.];
 		//[Anal][Vaginal][(tits >3) Tit-Fuck];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Anal', this.takeNieveAnal );
+		EngineCore.addButton( 0, 'Anal', this, this.takeNieveAnal );
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 1, 'Vaginal', this.takeNieveVaginal );
+			EngineCore.addButton( 1, 'Vaginal', this, this.takeNieveVaginal );
 		}
 	};
 	//Anal;
@@ -1257,7 +1256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nYou both rest in that position, Nieve still trickling cum into you even though he stopped moving minutes ago.  You turn your head to look at him and notice his face a few inches from yours.  It\'s clear that at the moment he\'s barely conscious, and you shift a bit to kiss him, thanking him for a job well done.  After a little while you both recover, redress, and silently go back to business.  Looking back at him as you leave, you know you want to do it again real soon.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vaginal;
 	XmasMisc.prototype.takeNieveVaginal = function() {
@@ -1293,7 +1292,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nAnother hour passes and you wake up clean and dressed, laying next to Nieve.  You noticed he\'s probably been watching you for the last several minutes.  You get up, pat yourself off, then with one hand tussle his snow-white hair, while uttering the words, "<i>Good boy.</i>"' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Goodbye (Outline by PyroJenkins);
 	XmasMisc.prototype.nieveIsOver = function() {
@@ -1331,21 +1330,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			}
 			CoC.flags[ kFLAGS.NIEVE_STAGE ] = 0;
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	XmasMisc.prototype.fixNieve = function() {
 		if( CoC.flags[ kFLAGS.NIEVE_GENDER ] === 0 ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '(There was an error with stat tracking that cleared Nieve\'s stats out at the end of last year\'s event. <b>What gender do you want Nieve to be?</b>)' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Male', this.fixNieveGender, 1 );
-			EngineCore.addButton( 1, 'Female', this.fixNieveGender, 2 );
+			EngineCore.addButton( 0, 'Male', this, this.fixNieveGender, 1 );
+			EngineCore.addButton( 1, 'Female', this, this.fixNieveGender, 2 );
 		} else if( CoC.flags[ kFLAGS.NIEVE_MOUTH ] === '' || CoC.flags[ kFLAGS.NIEVE_MOUTH ] === 0 ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( '(There was an error with stat tracking that cleared Nieve\'s stats out at the end of last year\'s event. <b>What were Nieve\'s eyes and mouth made out of?</b>)' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Gems', this.fixNieveMouth, 0 );
-			EngineCore.addButton( 1, 'Coal', this.fixNieveMouth, 1 );
+			EngineCore.addButton( 0, 'Gems', this, this.fixNieveMouth, 0 );
+			EngineCore.addButton( 1, 'Coal', this, this.fixNieveMouth, 1 );
 		} else {
 			this.nieveReturnsPartII();
 		}
@@ -1375,7 +1374,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\nThere really is nothing left of ' + this.nieveMF( 'him', 'her' ) + '.  Nothing but this lost fragment.  An echo of a friend.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.fixNieve );
+		EngineCore.addButton( 0, 'Next', this, this.fixNieve );
 	};
 	XmasMisc.prototype.nieveReturnsPartII = function() {
 		EngineCore.clearOutput();
@@ -1393,7 +1392,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 		EngineCore.outputText( '\n\n"<i>I... I can still only stay the winter, at least for now, but it\'s something, right?</i>" the snow spirit says, clasping your hand in theirs.' );
 		EngineCore.outputText( '\n\nYou nod.  You\'ll take what you can get, even if it is such a brief moment.  The two of you share stories, well, you share stories while Nieve listens with rapt attention, for the next hour or so.  It\'s been a long time since you\'ve seen each other, and there\'s a lot to catch up on...' );
 		CoC.flags[ kFLAGS.NIEVE_STAGE ] = 5;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*Credits
 	 Fenoxo- for providing the game in which this scene might go into

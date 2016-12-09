@@ -7,8 +7,8 @@ angular.module('cocjs').factory('UseableLib', function (SimpleUseable) {
 		useables[name] = useable;
 	};
 	var UseableLibProxy = new Proxy( UseableLib, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

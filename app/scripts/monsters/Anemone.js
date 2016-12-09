@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 	Anemone.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to mind at all...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.anemoneScene.loseToAnemone();
 		}

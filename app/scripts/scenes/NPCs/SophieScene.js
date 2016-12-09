@@ -271,7 +271,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		EngineCore.outputText( 'you wrench your gaze away from her breasts and introduce yourself.  It\'s hard to stay focused on introduction while she\'s wrapping her wing-like arms around her tits and squeezing them together, amplifying her cleavage.  The matronly harpy is looking at you expectantly, and it occurs to you that she\'s still waiting on an answer to her question.  Why did you come here?\n\n', false );
 		//[Looking for Demons] [Sex] [Got Lost] [Foraging];
-		EngineCore.choices( 'Foraging', this.tellSophieYoureForagingForStuff, 'Got Lost', this.sophieMeetingGotLost, 'Look4Demons', this.sophieLookingForDemons, 'Sex', this.sophieMeetingChoseSex, '', null );
+		EngineCore.choices( 'Foraging', this, this.tellSophieYoureForagingForStuff, 'Got Lost', this, this.sophieMeetingGotLost, 'Look4Demons', this, this.sophieLookingForDemons, 'Sex', this, this.sophieMeetingChoseSex, '', null, null );
 	};
 	//[Repeat Meeting];
 	SophieScene.prototype.meetSophieRepeat = function() {
@@ -298,13 +298,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				if( CoC.player.lust < 60 || Utils.rand( 3 ) <= 1 ) {
 					EngineCore.outputText( 'Her need amplifies the compulsion, making it difficult to resist.  It looks like if you turned her down now she\'d probably try to force herself on you anyway.  Do you give in to her demand?', false );
 					//[Yes-Consentual sex] [No - fight];
-					EngineCore.choices( 'Yes', this.consensualSexSelector, 'No', this.fightSophie, '', null, '', null, '', null );
+					EngineCore.choices( 'Yes', this, this.consensualSexSelector, 'No', this, this.fightSophie, '', null, null, '', null, null, '', null, null );
 				}
 				//(high lust?);
 				else {
 					EngineCore.outputText( 'Her need amplifies the compulsion, and as turned on as you already are, there\'s no way you could resist.', false );
 					//To sex;
-					EngineCore.doNext( this.consensualSexSelector );
+					EngineCore.doNext( this, this.consensualSexSelector );
 				}
 				return;
 			}
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			EngineCore.outputText( '(Her words sink into you, and a desire to go with her threatens to overcome your self-control.  You take a deep breath and clear your head.  Do you go with her, turn her down, or try to take control and be the dominant one?  You\'ll probably have to fight her in order to dominate her...)', false );
 			EngineCore.dynStats( 'lus', 20 );
 			//[Yes – consentacle sex] [No – sad harpy];
-			EngineCore.choices( 'Yes', this.consensualSexSelector, 'No', this.shootDownSophieSex, 'Dominate', this.fightSophie, '', null, '', null );
+			EngineCore.choices( 'Yes', this, this.consensualSexSelector, 'No', this, this.shootDownSophieSex, 'Dominate', this, this.fightSophie, '', null, null, '', null, null );
 			return;
 		}
 		//(NO DICK);
@@ -340,20 +340,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			if( CoC.player.biggestLactation() < 1 ) {
 				EngineCore.outputText( 'Your climb manages to take you back into the harpy nests again.  Sophie flutters down next to you and warns, "<i>Cutey, a ' + CoC.player.mf( 'neuter', 'girl' ) + ' like you doesn\'t belong up here.  The younger harpies don\'t really get the idea of conversation and see you as competition.</i>"\n\n', false );
 				EngineCore.outputText( 'Do you see the wisdom of her words and climb back down the mountain, fight Sophie, or keep climbing?', false );
-				EngineCore.choices( 'Fight Sophie', this.FirstTimeSophieForceSex, 'Keep Climbing', this.PCIgnoresSophieAndHarpyIsFought, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.choices( 'Fight Sophie', this, this.FirstTimeSophieForceSex, 'Keep Climbing', this, this.PCIgnoresSophieAndHarpyIsFought, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(LACTATE);
 			else {
 				EngineCore.outputText( 'Your climb manages to take you back into the harpy nests again.  Sophie flutters down next to you and licks her lips hungrily.  She asks, "<i>Would you mind coming up to my nest and sharing some of your milk?  I\'ve worked up quite a craving for cute girl-milk.</i>"\n\n', false );
 				EngineCore.outputText( 'Do you agree to breastfeed the hungry harpy?', false );
-				EngineCore.choices( 'Yes', this.cramANippleInIt, 'No', this.shootDownSophieSex, 'Fight Her', this.FirstTimeSophieForceSex, '', null, '', null );
+				EngineCore.choices( 'Yes', this, this.cramANippleInIt, 'No', this, this.shootDownSophieSex, 'Fight Her', this, this.FirstTimeSophieForceSex, '', null, null, '', null, null );
 				//No(this.cramANippleInIt,this.shootDownSophieSex);;
 				//[Yes][No];
 				return;
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.outputText( 'SOMETHING SCREWY HAPPENED IN SOPHIE\'S MEETING', true );
 		return;
 	};
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You agree and climb the rest of the way up to her nest, finding Sophie waiting for you there.', false );
 		//– to consentual breastfeeding.;
-		EngineCore.doNext( this.cramANippleInIt );
+		EngineCore.doNext( this, this.cramANippleInIt );
 	};
 	//Normal Harpy Fight;
 	SophieScene.prototype.PCIgnoresSophieAndHarpyIsFought = function() {
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//Otherwise leave.;
 		else {
 			EngineCore.outputText( '  You gulp and nod, understanding quite clearly that the harpies don\'t care for demons in their nesting grounds.  Sophie smiles and turns about, fluffing purple-tinted tail-feathers at you in what is clearly a dismissal.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '"<i>Mmmm, have you gotten bored of the talk, ', false );
@@ -411,14 +411,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.outputText( CoC.player.mf( 'boy', 'girl' ) + '?  You seem to see something you want,</i>" observes the curvaceous bird-woman. "<i>Come into my nest, ' + CoC.player.short + '; it\'s been sooo long since I\'ve been properly... fertilized.</i>"  Sophie relaxes as she awaits your response.\n\n', false );
 		EngineCore.outputText( 'Her words sink into you, and a compulsion to go with her threatens to overcome your self-control.  You take a deep breath and clear your head.  Do you go with her?', false );
 		//[Yes – consentacle sex] [No – sad harpy];
-		EngineCore.doYesNo( this.consensualSexSelector, this.shootDownSophieSex );
+		EngineCore.doYesNo( this, this.consensualSexSelector, this, this.shootDownSophieSex );
 	};
 	//[No];
 	SophieScene.prototype.shootDownSophieSex = function() {
 		SceneLib.sophieBimbo.sophieSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Sophie pouts for a moment, leaning forward to better display her cleavage. "<i>Really?  Well if you change your mind, come back and visit me.</i>"  She turns around and fluffs her tail-feathers at you in what is clearly a dismissal.  You climb down, careful to avoid any other nests as you head back to check on your camp and its portal.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.player.lib > 25 ) {
 			EngineCore.dynStats( 'lib', -1 );
 		}
@@ -440,10 +440,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			if( CoC.player.hasVagina() ) {
 				EngineCore.outputText( '  What do you do?', false );
 				//[Stay&Sex] [Leave];
-				EngineCore.choices( 'Force Sex', this.FirstTimeSophieForceSex, 'Leave', SceneLib.camp.returnToCampUseOneHour, '', null, '', null, '', null );
+				EngineCore.choices( 'Force Sex', this, this.FirstTimeSophieForceSex, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, '', null, null, '', null, null, '', null, null );
 				return;
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Haz dick (male futa)) ;
@@ -451,7 +451,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			EngineCore.outputText( 'Sophie retreats to the far side of the nest and spreads her well-muscled thighs invitingly.  The harpy demands, "<i>Well come on then, it\'s been so long since I\'ve had such a virile young specimen servicing me.  Don\'t make me wait, cutey.</i>"\n\n', false );
 			EngineCore.outputText( 'As if you could deny the curvy, sexy body of the motherly harpy...', false );
 			//[To consentual sex];
-			EngineCore.doNext( this.consensualSexSelector );
+			EngineCore.doNext( this, this.consensualSexSelector );
 			return;
 		}
 	};
@@ -474,11 +474,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( CoC.player.totalCocks() > 0 ) {
 			EngineCore.outputText( 'Would you stay and help a lonely matron with her needs?</i>"\n\n', false );
 			//[To consensual sex or sophie sadface.;
-			EngineCore.doYesNo( this.consensualSexSelector, this.shootDownSophieSex );
+			EngineCore.doYesNo( this, this.consensualSexSelector, this, this.shootDownSophieSex );
 		} else if( CoC.player.biggestLactation() >= 1.5 ) {
 			EngineCore.outputText( 'My, you\'re quite the laden little cow aren\'t you?  Would you mind sharing?</i>"\n\n', false );
 			//to b. feeding or sophie sadface.;
-			EngineCore.doYesNo( this.cramANippleInIt, this.shootDownSophieSex );
+			EngineCore.doYesNo( this, this.cramANippleInIt, this, this.shootDownSophieSex );
 		} else {
 			EngineCore.outputText( 'Mmm, it\'s a shame you don\'t have a penis, or you could show me what I was missing.</i>"  The sexually deprived bird-woman plies you with questions about the world for the better part of an hour, masturbating to several mid-conversation orgasms.  Once she exhausts herself, she thanks you and leans down for her nap.  Her tail-feathers fluff in what is clearly a dismissal.', false );
 			//(+10 + libmod lust, +1 int up to 50 int));
@@ -487,7 +487,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				EngineCore.dynStats( 'int', 1 );
 			}
 			//[Go to camp if neither of the above];
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Foraging For Supplies];
@@ -501,7 +501,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( CoC.player.inte < 50 ) {
 			EngineCore.dynStats( 'int', 1 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Harpy Breastfeeding];
 	SophieScene.prototype.cramANippleInIt = function() {
@@ -642,7 +642,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//You've now been milked, reset the timer for that;
 		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
@@ -659,13 +659,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( x < 0 ) {
 			CoC_Settings.error( '' );
 			EngineCore.outputText( 'ERROR: No cock found that fits, yet \'fits\' scene was called.', true );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			CoC.setInCombat( false );
 			return;
 		} else if( x > CoC.player.cocks.length - 1 ) {
 			CoC_Settings.error( '' );
 			EngineCore.outputText( 'ERROR: Cock above max cocks selected for Sophie sex.  Please report bug on fen\'s bug report forum.', true );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			CoC.setInCombat( false );
 			return;
 		}
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		this.sophieFucked();
 		EngineCore.outputText( 'Do you take her up on her offer?', false );
 		//[Yes/No];
-		EngineCore.doYesNo( this.postSophieSexSnuggle, this.postSexSophieSnuggleTurnedDown );
+		EngineCore.doYesNo( this, this.postSophieSexSnuggle, this, this.postSexSophieSnuggleTurnedDown );
 	};
 	//[Yes];
 	SophieScene.prototype.postSophieSexSnuggle = function() {
@@ -860,7 +860,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(+sensitivity, +libido;
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		//4 hours pass;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//[No];
 	SophieScene.prototype.postSexSophieSnuggleTurnedDown = function() {
@@ -869,7 +869,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.outputText( 'You turn down her offer and assure her that you\'ll be fine.  Sophie giggles while you try to get dressed, and you see her amber eyes watching you as try to climb back down the mountain with a stiffy.  She seems greatly amused by your predicament.', false );
 		//(+sensitivity, +libido;
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Consentual Sex No Fito];
 	SophieScene.prototype.consensualSophieSexNoFit = function() {
@@ -983,7 +983,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		this.sophieFucked();
 		EngineCore.outputText( 'Do you take her up on her offer?', false );
 		//[Yes/No];
-		EngineCore.doYesNo( this.postSophieSexSnuggle, this.postSexSophieSnuggleTurnedDown );
+		EngineCore.doYesNo( this, this.postSophieSexSnuggle, this, this.postSexSophieSnuggleTurnedDown );
 		//Go to same yes or no as 'fits' options.;
 	};
 	SophieScene.prototype.sophieFucked = function( dicked ) {
@@ -1088,7 +1088,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		if( dickRape !== null || cuntFuck !== null || clitFuck !== null || bimbo !== null ) {
 			EngineCore.outputText( '  What do you do to her?', false );
-			EngineCore.choices( 'Use Dick', dickRape, 'Scissor', cuntFuck, 'Fuck wClit', clitFuck, 'Bimbo Her', bimbo, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Use Dick', this, dickRape, 'Scissor', this, cuntFuck, 'Fuck wClit', this, clitFuck, 'Bimbo Her', SceneLib.sophieBimbo, bimbo, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}

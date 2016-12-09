@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		EngineCore.outputText( 'You put your Laybans back on, carefully unlock the door and then, as quietly as you can, creep back out onto the wire gantry. The throng of greyish green below seems oblivious. It’s only when you get halfway across that you realize that you’ve been had. As soon as you are as far away from one exit as the other, two big groups of the lizards near the stairs immediately jump up and climb upwards determinedly. You speed as fast as you can to the door ahead, but the team of basilisks are ready and plough into you, grabbing your body as they reach for your shades. You desperately push and elbow them away from you but you cannot stop one from deftly hooking your Laybans off with his sickle claw.' );
 		EngineCore.outputText( '\n\nA horrible leaden weight settles upon your bones as your naked eyes gaze into a dozen basilisk eyes, your body turning into rapidly solidifying cement. You reach for your [weapon], but it’s as if it were a continent away, and the lizards press into you, grabbing your hands and [hips], forcing you to stare deeper and deeper into the ocean of depthless grey which surrounds you on all sides, and encompasses you, and where you were and what you were doing no longer matters, because the grey permeates your body and soul, and you are just an atom in a sky of peaceful, dove coloured submission, and whether you’re up or down or sideways or down doesn’t matter...' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.capturedByBasilisks );
+		EngineCore.addButton( 0, 'Next', this, this.capturedByBasilisks );
 	};
 	JeanClaudeScenes.prototype.gogoFuckTheseBasilisks = function() {
 		EngineCore.clearOutput();
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 			EngineCore.outputText( '\n\nImmediately you break into a run, pelting for the other side, as below you there’s a general rush for the stairs. Your heart feels like it’s going to burst out of your chest as the gantry bounces to your frantic motion, and to the beat of many feet climbing it. The booth is in reach... a sickle claw catches you in the thigh, and you stagger. Growling, you frantically right yourself- only to find yourself staring directly into the face of a basilisk. You punch that one in the nose, wildly tearing your eyes away... to another. And another. They surround you as horrible leaden weights settle on your bones, your body turning into rapidly solidifying cement. You reach for your [weapon], but it’s as if it were a continent away, and the basilisks press into you, grabbing your hands and [hips], forcing you to stare deeper and deeper into the ocean of depthless grey which surrounds you on all sides, and encompasses you, and where you were and what you were doing no longer matters, because the grey permeates your body and soul, and you are just an atom in a sky of peaceful, dove coloured submission, and whether you’re up or down or sideways or down doesn’t matter....' );
 			// [go to Captured];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.capturedByBasilisks );
+			EngineCore.addButton( 0, 'Next', this, this.capturedByBasilisks );
 			return;
 		} else {
 			EngineCore.outputText( '\n\nImmediately you break into a run, pelting for the other side, as below you there’s a general rush for the stairs. Your heart feels like it’s going to burst out of your chest as the gantry bounces to your frantic motion, and to the beat of many feet climbing it.' );
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 				EngineCore.outputText( '\n\nThe booth is in reach... a sickle claw catches you in the thigh, and you stagger. Growling, you frantically right yourself- only to find yourself staring directly into the face of a basilisk. You punch that one in the nose, wildly tearing your eyes away... to another. And another. They surround you and though you wheel around, desperately pushing and elbowing them away from you, you cannot stop one deftly hooking your Laybans off with his sickle claw. A horrible leaden weight settles itself upon your bones as your naked gaze is trapped by a dozen basilisk eyes, your body turning into rapidly solidifying cement. You reach for your [weapon], but it’s as if it were a continent away, and the lizards press into you, grabbing your hands and [hips], forcing you to stare deeper and deeper into the ocean of depthless grey which surrounds you on all sides, and encompasses you, and where you were and what you were doing no longer matters, because the grey permeates your body and soul, and you are just an atom in a sky of peaceful, dove coloured submission, and whether you’re up or down or sideways or down doesn’t matter...' );
 				//[go to Captured];
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', this.capturedByBasilisks );
+				EngineCore.addButton( 0, 'Next', this, this.capturedByBasilisks );
 				return;
 			} else {
 				EngineCore.outputText( '\n\nThe booth is in reach... your panic unlocks a final reserve in your straining muscles and you' );
@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 				EngineCore.outputText( ' fly towards the door. A solitary basilisk manages to clamber onto the catwalk ahead of you- and you simply bull-rush straight through him, his deathly eyes useless against your screened vision. You think you feel the passage of sickle claws scything fruitlessly through the air inches away from your back as you bundle through the exit and into the empty observation booth. In an ecstasy of terror you fumble with the door and manage to slam it shut, just as several heavy bodies thud into the other side. You breathe a huge sigh of relief as your hands find a deadbolt and slide it across, sealing the basilisks off from you. They hammer at it for a while longer, shouting and hissing angrily, but eventually, whilst you’re still gathering your breath, they get fed up with it and leave.' );
 				EngineCore.outputText( '\n\nYou’re free to continue- but you will have to find an alternative route if you want to go back, unless you’re crazy enough to unlock the door and try the catwalk dash again.' );
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', SceneLib.d3.move, 'magpiehalln' );
+				EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.move, 'magpiehalln' );
 			}
 		}
 	};
@@ -92,11 +92,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		if( CoC.player.inte >= 80 ) {
 			EngineCore.outputText( '\n\nThe last of the petrifying curse slips from your limbs and a thought leaps lightning fast through your mind, cutting through the warm haze for a moment. It tells you that you have to act now - with your body free of the grey and your mind still resisting the gold. What do you do in this one, free, desperate moment?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Taunt', this.capturedbyBasilisksTaunt );
-			EngineCore.addButton( 1, 'Run', this.capturedByBasilisksRun );
+			EngineCore.addButton( 0, 'Taunt', this, this.capturedbyBasilisksTaunt );
+			EngineCore.addButton( 1, 'Run', this, this.capturedByBasilisksRun );
 		} else {
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.basiliskBadEnds );
+			EngineCore.addButton( 0, 'Next', this, this.basiliskBadEnds );
 		}
 	};
 	JeanClaudeScenes.prototype.capturedByBasilisksRun = function() {
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		EngineCore.outputText( '\n\n“<i>You’re fast, interloper! And you fight good! But not so bright, eh? I think you think fast, but a stupid thought is a stupid thought, whether it takes a second or an hour to arrive.</i>” He reaches forward and almost tenderly takes you by the cheek again, rubbing the lines he left there with his smooth thumb, forcing you to look back into his eyes. “<i>See? All you managed was to damage yourself. That’s no good to anyone, is it?</i>” It occurs to you that since you were captured none of the basilisks have used their claws or teeth against you, and you realize why that is- they want you whole. You groan deep in your still throat as the hot, yellow glow of Jean-Claude’s eyes encompasses you.' );
 		// [go to bad ends];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.basiliskBadEnds );
+		EngineCore.addButton( 0, 'Next', this, this.basiliskBadEnds );
 	};
 	JeanClaudeScenes.prototype.capturedbyBasilisksTaunt = function() {
 		EngineCore.clearOutput();
@@ -144,14 +144,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		EngineCore.outputText( '\n\n“<i>Que- quels sont vos ordres, ' + CoC.player.mf( 'mon roi', 'ma reine' ) + '?</i>” he whispers.' );
 		// Fight for me!/Go away;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Go Away', this.goAway );
+		EngineCore.addButton( 0, 'Go Away', this, this.goAway );
 	};
 	JeanClaudeScenes.prototype.goAway = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You draw yourself up to your full height, calm your slightly giddy emotions and make your voice as cold and commanding as possible. You say you aren’t anyone’s new king, but since they ask, your orders are that any basilisk still within half a mile of this place in five minutes time is going to get twice the ass-whupping you just handed out to this one. You indicate with an airy wave what was, until recently, Jean-Claude. There’s a pause, followed by a minor earthquake, as the horde of reptiles pours towards the exit. You climb onto the table and watch them go, assuring that they all do indeed vamoose. If they display any emotion at all during their mass exodus, it’s one of distinct relief.' );
 		EngineCore.outputText( '\n\nWithin a minute the huge hall is echoingly empty, the forgotten corpse of the rex and the tables of jetsam and eggs the only signs the basilisks were ever here. You are free to get up onto the gantry again and leave.' );
 		CoC.flags[ kFLAGS.D3_BASILISKS_REMOVED_FROM_MAGPIE_HALL ] = 1;
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	JeanClaudeScenes.prototype.fuckhugeBasiliskFuckedYouUp = function( hpVictory ) {
 		EngineCore.clearOutput();
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 			EngineCore.outputText( '\n\n“<i>I told you it was a mistake, interloper,</i>” he husks, as the golden glow encompasses your tired, dazed mind. “<i>But a good one, as far as mistakes go. It got my blood pumping. You cannot enjoy something you haven’t properly earned, eh?</i>”' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.basiliskBadEnds );
+		EngineCore.addButton( 0, 'Next', this, this.basiliskBadEnds );
 	};
 	JeanClaudeScenes.prototype.basiliskBadEnds = function() {
 		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {

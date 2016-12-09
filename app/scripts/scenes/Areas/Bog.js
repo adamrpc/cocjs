@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, EngineCore, kFLAG
 		} else {
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'You wander around through the humid muck, but you don\'t run into anything interesting.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	SceneLib.registerScene( 'bog', new Bog() );

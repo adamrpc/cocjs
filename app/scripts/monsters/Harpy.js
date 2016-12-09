@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, SceneLib, CoC, kFLAG
 	Harpy.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.harpyScene.harpyLossU();
 		}

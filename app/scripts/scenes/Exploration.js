@@ -20,42 +20,42 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 			return;
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Explore', this.tryDiscover );
+		EngineCore.addButton( 0, 'Explore', this, this.tryDiscover );
 		if( CoC.player.exploredDesert > 0 ) {
-			EngineCore.addButton( 1, 'Desert', SceneLib.desert.exploreDesert );
+			EngineCore.addButton( 1, 'Desert', SceneLib.desert, SceneLib.desert.exploreDesert );
 		}
 		if( CoC.player.exploredForest > 0 ) {
-			EngineCore.addButton( 2, 'Forest', SceneLib.forest.exploreForest );
+			EngineCore.addButton( 2, 'Forest', SceneLib.forest, SceneLib.forest.exploreForest );
 		}
 		if( CoC.player.exploredLake > 0 ) {
-			EngineCore.addButton( 3, 'Lake', SceneLib.lake.exploreLake );
+			EngineCore.addButton( 3, 'Lake', SceneLib.lake, SceneLib.lake.exploreLake );
 		}
-		EngineCore.addButton( 4, 'Next', this.explorePageII );
+		EngineCore.addButton( 4, 'Next', this, this.explorePageII );
 		if( CoC.flags[ kFLAGS.TIMES_EXPLORED_PLAINS ] > 0 ) {
-			EngineCore.addButton( 5, 'Plains', SceneLib.plains.explorePlains );
+			EngineCore.addButton( 5, 'Plains', SceneLib.plains, SceneLib.plains.explorePlains );
 		}
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00272 ] > 0 ) {
-			EngineCore.addButton( 6, 'Swamp', SceneLib.swamp.exploreSwamp );
+			EngineCore.addButton( 6, 'Swamp', SceneLib.swamp, SceneLib.swamp.exploreSwamp );
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.ExploredDeepwoods ) >= 0 ) {
-			EngineCore.addButton( 7, 'Deepwoods', SceneLib.forest.exploreDeepwoods );
+			EngineCore.addButton( 7, 'Deepwoods', SceneLib.forest, SceneLib.forest.exploreDeepwoods );
 		}
 		if( CoC.player.exploredMountain > 0 ) {
-			EngineCore.addButton( 8, 'Mountain', SceneLib.mountain.exploreMountain );
+			EngineCore.addButton( 8, 'Mountain', SceneLib.mountain, SceneLib.mountain.exploreMountain );
 		}
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Exploration.prototype.explorePageII = function() {
 		CoC.flags[ kFLAGS.EXPLORATION_PAGE ] = 2;
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] > 0 ) {
-			EngineCore.addButton( 0, 'High Mountain', SceneLib.highMountains.exploreHighMountain );
+			EngineCore.addButton( 0, 'High Mountain', SceneLib.highMountains, SceneLib.highMountains.exploreHighMountain );
 		}
 		if( CoC.flags[ kFLAGS.BOG_EXPLORED ] > 0 ) {
-			EngineCore.addButton( 1, 'Bog', SceneLib.bog.exploreBog );
+			EngineCore.addButton( 1, 'Bog', SceneLib.bog, SceneLib.bog.exploreBog );
 		}
-		EngineCore.addButton( 4, 'Previous', this.goBackToPageI );
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 4, 'Previous', this, this.goBackToPageI );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Exploration.prototype.goBackToPageI = function() {
 		CoC.flags[ kFLAGS.EXPLORATION_PAGE ] = 1;
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 				EngineCore.outputText( 'Your wanderings take you far and wide across the barren wasteland that surrounds the portal, until the smell of humidity and fresh water alerts you to the nearby lake.  With a few quick strides you find a lake so massive the distant shore cannot be seen.  Grass and a few sparse trees grow all around it.\n\n<b>You have discovered the Lake!</b>', true );
 				CoC.player.exploredLake = 1;
 				CoC.player.explored++;
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			if( CoC.player.exploredLake >= 1 && Utils.rand( 3 ) === 0 && CoC.player.exploredDesert === 0 ) {
@@ -93,21 +93,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 				EngineCore.outputText( '.\n\n<b>You\'ve discovered the Desert!</b>', false );
 				CoC.player.exploredDesert = 1;
 				CoC.player.explored++;
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			if( CoC.player.exploredDesert >= 1 && Utils.rand( 3 ) === 0 && CoC.player.exploredMountain === 0 ) {
 				EngineCore.outputText( 'Thunder booms overhead, shaking you out of your thoughts.  High above, dark clouds encircle a distant mountain peak.  You get an ominous feeling in your gut as you gaze up at it.\n\n<b>You have discovered the mountain!</b>', true );
 				CoC.player.explored++;
 				CoC.player.exploredMountain = 1;
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			if( CoC.player.exploredMountain >= 1 && Utils.rand( 3 ) === 0 && CoC.flags[ kFLAGS.TIMES_EXPLORED_PLAINS ] === 0 ) {
 				CoC.flags[ kFLAGS.TIMES_EXPLORED_PLAINS ] = 1;
 				CoC.player.explored++;
 				EngineCore.outputText( 'You find yourself standing in knee-high grass, surrounded by flat plains on all sides.  Though the mountain, forest, and lake are all visible from here, they seem quite distant.\n\n<b>You\'ve discovered the plains!</b>', true );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//EXPLOOOOOOORE
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 				EngineCore.outputText( 'All things considered, you decide you wouldn\'t mind a change of scenery.  Gathering up your belongings, you begin a journey into the wasteland.  The journey begins in high spirits, and you whistle a little traveling tune to pass the time.  After an hour of wandering, however, your wanderlust begins to whittle away.  Another half-hour ticks by.  Fed up with the fruitless exploration, you\'re nearly about to head back to camp when a faint light flits across your vision.  Startled, you whirl about to take in three luminous will-o\'-the-wisps, swirling around each other whimsically.  As you watch, the three ghostly lights begin to move off, and though the thought of a trap crosses your mind, you decide to follow.\n\n', false );
 				EngineCore.outputText( 'Before long, you start to detect traces of change in the environment.  The most immediate difference is the increasingly sweltering heat.  A few minutes pass, then the will-o\'-the-wisps plunge into the boundaries of a dark, murky, stagnant swamp; after a steadying breath you follow them into the bog.  Once within, however, the gaseous balls float off in different directions, causing you to lose track of them.  You sigh resignedly and retrace your steps, satisfied with your discovery.  Further exploration can wait.  For now, your camp is waiting.\n\n', false );
 				EngineCore.outputText( '<b>You\'ve discovered the swamp!</b>', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				return;
 			}
 			//Used for chosing 'repeat' encounters.
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 			return;
 		}
 		CoC.player.explored++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Exploration.prototype.debugOptions = function() {
@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 		}
 		EngineCore.dynStats( 'lus', 25 + Utils.rand( CoC.player.cor / 5 ), 'resisted', false );
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'exploration', new Exploration() );
 } );

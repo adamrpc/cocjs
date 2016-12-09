@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 			if( SceneLib.xmasMisc.nieveHoliday() ) {
 				SceneLib.xmasMisc.encounterKamiTheChristmasRoo();
 				if( CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] === 1 ) {
-					EngineCore.addButton( 3, 'Pudding', SceneLib.xmasMisc.getWinterPudding );
+					EngineCore.addButton( 3, 'Pudding', SceneLib.xmasMisc, SceneLib.xmasMisc.getWinterPudding );
 				}
 			}
 			//Normal repeats!;
@@ -50,9 +50,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		//Times visited!;
 		CoC.flags[ kFLAGS.TIMES_VISITED_BAKERY ]++;
 		EngineCore.outputText( 'What do you do?' );
-		EngineCore.addButton( 0, 'Check Menu', this.checkBakeryMenu );
-		EngineCore.addButton( 1, 'Talk', this.talkBakeryMenu );
-		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Check Menu', this, this.checkBakeryMenu );
+		EngineCore.addButton( 1, 'Talk', this, this.talkBakeryMenu );
+		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	BakeryScene.prototype.checkBakeryMenu = function() {
 		EngineCore.clearOutput();
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( 'Pound Cake - 4 gems.\n', false );
 		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ] > 0 ) {
 			EngineCore.outputText( '\'Special\' Eclair - 10 gems.\n', false );
-			minoCum = EngineCore.createCallBackFunction2( this.nomnomnom, 'eclair', 10 );
+			minoCum = EngineCore.createCallBackFunction2( this, this.nomnomnom, 'eclair', 10 );
 		}
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] >= 4 ) {
 			EngineCore.outputText( 'Giant Chocolate Cupcake - 500 gems.\n', false );
@@ -84,16 +84,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( 'Mouse Co - 10 gems.\n' );
 		EngineCore.outputText( '\nWhat will you order?', false );
 		EngineCore.menu();
-		//EngineCore.choices('Brownies',EngineCore.createCallBackFunction2(this.nomnomnom, 'brownies', 3),'Cookies',EngineCore.createCallBackFunction2(this.nomnomnom, 'cookies', 4),'Cupcakes',2833,'Doughnuts',EngineCore.createCallBackFunction2(this.nomnomnom, 'doughnuts', 5),'Pound Cake',EngineCore.createCallBackFunction2(this.nomnomnom, 'pound cake', 4),'Fox Berry',this.buyFoxBerry,'SpecialEclair',minoCum,'GiantCupcake',gcupcake,'',0,'Leave',this.bakeryuuuuuu);;
-		EngineCore.addButton( 0, 'Brownies', EngineCore.createCallBackFunction2( this.nomnomnom, 'brownies', 5 ) );
-		EngineCore.addButton( 1, 'Cookies', EngineCore.createCallBackFunction2( this.nomnomnom, 'cookies', 4 ) );
-		EngineCore.addButton( 2, 'Cupcakes', EngineCore.createCallBackFunction2( this.nomnomnom, 'cupcakes', 3 ) );
-		EngineCore.addButton( 3, 'Doughnuts', EngineCore.createCallBackFunction2( this.nomnomnom, 'doughnuts', 5 ) );
-		EngineCore.addButton( 4, 'Pound Cake', EngineCore.createCallBackFunction2( this.nomnomnom, 'pound cake', 4 ) );
-		EngineCore.addButton( 5, 'SpecialEclair', minoCum );
-		EngineCore.addButton( 6, 'GiantCupcake', gcupcake );
-		EngineCore.addButton( 8, 'Ingredients', this.ingredientsMenu );
-		EngineCore.addButton( 9, 'Leave', this.bakeryuuuuuu );
+		EngineCore.addButton( 0, 'Brownies', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'brownies', 5 ) );
+		EngineCore.addButton( 1, 'Cookies', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cookies', 4 ) );
+		EngineCore.addButton( 2, 'Cupcakes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cupcakes', 3 ) );
+		EngineCore.addButton( 3, 'Doughnuts', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'doughnuts', 5 ) );
+		EngineCore.addButton( 4, 'Pound Cake', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'pound cake', 4 ) );
+		EngineCore.addButton( 5, 'SpecialEclair', null, minoCum );
+		EngineCore.addButton( 6, 'GiantCupcake', this, gcupcake );
+		EngineCore.addButton( 8, 'Ingredients', this, this.ingredientsMenu );
+		EngineCore.addButton( 9, 'Leave', this, this.bakeryuuuuuu );
 	};
 	BakeryScene.prototype.ingredientsMenu = function() {
 		EngineCore.clearOutput();
@@ -103,11 +102,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( 'Mouse Cocoa - 10 gems.\n' );
 		EngineCore.outputText( 'Ferret Fruit - 20 gems.\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fox Berry', this.buyFoxBerry );
-		EngineCore.addButton( 1, 'Ringtail Fig', this.buyFig );
-		EngineCore.addButton( 2, 'Mouse Cocoa', this.buyCocoa );
-		EngineCore.addButton( 3, 'Ferret Fruit', this.buyFerretFruit );
-		EngineCore.addButton( 9, 'Back', this.checkBakeryMenu );
+		EngineCore.addButton( 0, 'Fox Berry', this, this.buyFoxBerry );
+		EngineCore.addButton( 1, 'Ringtail Fig', this, this.buyFig );
+		EngineCore.addButton( 2, 'Mouse Cocoa', this, this.buyCocoa );
+		EngineCore.addButton( 3, 'Ferret Fruit', this, this.buyFerretFruit );
+		EngineCore.addButton( 9, 'Back', this, this.checkBakeryMenu );
 	};
 	//[Bakery - Talk - Baker];
 	BakeryScene.prototype.talkToBaker = function() {
@@ -123,15 +122,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		//[Nevermind] goes back to bakery main menu and is spacebar default;
 		//all purchases offered after talking should spacebar to [No] and go to normal purchase output if [Yes], returning to bakery main menu afterward ;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Brownie', this.talkAboutBrownies );
-		EngineCore.addButton( 1, 'Cookie', this.talkAboutCookies );
-		EngineCore.addButton( 2, 'Cupcake', this.talkAboutCupcakes );
-		EngineCore.addButton( 3, 'Doughnut', this.talkAboutDoughnuts );
-		EngineCore.addButton( 4, 'Pound Cake', this.talkToBakerAboutPoundCake );
-		EngineCore.addButton( 5, 'Fox Berry', this.talkAboutFoxBerry );
-		EngineCore.addButton( 6, 'Ringtail Fig', this.talkAFig );
-		EngineCore.addButton( 7, 'Mouse Cocoa', this.talkAboutMouseCocoa );
-		EngineCore.addButton( 9, 'Nevermind', this.talkBakeryMenu );
+		EngineCore.addButton( 0, 'Brownie', this, this.talkAboutBrownies );
+		EngineCore.addButton( 1, 'Cookie', this, this.talkAboutCookies );
+		EngineCore.addButton( 2, 'Cupcake', this, this.talkAboutCupcakes );
+		EngineCore.addButton( 3, 'Doughnut', this, this.talkAboutDoughnuts );
+		EngineCore.addButton( 4, 'Pound Cake', this, this.talkToBakerAboutPoundCake );
+		EngineCore.addButton( 5, 'Fox Berry', this, this.talkAboutFoxBerry );
+		EngineCore.addButton( 6, 'Ringtail Fig', this, this.talkAFig );
+		EngineCore.addButton( 7, 'Mouse Cocoa', this, this.talkAboutMouseCocoa );
+		EngineCore.addButton( 9, 'Nevermind', this, this.talkBakeryMenu );
 	};
 	//[Bakery - Talk - Baker - Brownie];
 	BakeryScene.prototype.talkAboutBrownies = function() {
@@ -140,8 +139,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '\n\nHe continues.  "<i>Won\'t tell you full recipe.  Made with mouse cocoa, fresh egg, and sugar made from bee honey - heated and strained.  No transformations.  Pinch of salt, mix up, put in pan, bake.  Easy to make lots; popular.  Want one?  Three gems.</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', EngineCore.createCallBackFunction2( this.nomnomnom, 'brownies', 3 ) );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'brownies', 3 ) );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Cookie];
 	BakeryScene.prototype.talkAboutCookies = function() {
@@ -149,8 +148,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( 'The baker nods at you.  "<i>Cookies good.  Cookies easy, only need butter, sugar, flour, egg, and fig.  Mix batter and put in little circles, mash up figs, put figs in centers of circles, put other circle on top.  Cook cookie.  Also able to just put whatever into batter and make chocolate cookie or anything else, but fig most popular and cheapest.</i>"  He smiles proudly and gestures toward the four-gem cookie display.  Do you buy one?' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', EngineCore.createCallBackFunction2( this.nomnomnom, 'cookies', 4 ) );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cookies', 4 ) );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Cupcake];
 	BakeryScene.prototype.talkAboutCupcakes = function() {
@@ -160,8 +159,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '\n\n"<i>Too popular, too cheap.  Always making cupcakes, no time to experiment on recipes.  Want to raise price but cupcakes are best seller and customers get mad.</i>"  A bell rings.  Sighing again, he walks over to the oven and opens it, then pulls out a tray of un-iced cupcakes.  "<i>See?  Making now.  You buying one?  Four... no, still three gems I guess.</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', EngineCore.createCallBackFunction2( this.nomnomnom, 'cupcakes', 3 ) );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cupcakes', 3 ) );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Doughnut];
 	BakeryScene.prototype.talkAboutDoughnuts = function() {
@@ -170,8 +169,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '\n\n"<i>Fry in hot oil until brown and delicious, lift out with spatula.  Penetrate jam doughnuts with pastry bag and squirt jam like cum into breeding cow... sorry.</i>"  He frowns.  "<i>Take longer to make than other things, even cupcakes.  Can\'t make batches as big because so many kinds.  So doughnuts cost more - five gems.  Still, lots of fun to pound and fry and stuff.  Sell lots when watch shifts change; watchmen come in and clean out doughnut trays.  Want to buy one before next rush starts?</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', EngineCore.createCallBackFunction2( this.nomnomnom, 'doughnuts', 5 ) );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'doughnuts', 5 ) );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Pound Cake];
 	BakeryScene.prototype.talkToBakerAboutPoundCake = function() {
@@ -179,8 +178,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( 'The minotaur snorts again, "<i>\'Baker\'s Special\' pound cake is easy... mix butter and shortening, then sugar and eggs.  Put in little salt and whatever dry stuff needed, like fruits or chocolate.  Add milk too.  Put in narrow pan, bake long time.  Can\'t make batter in bulk though, got to have lots of varieties since not one is more popular than others.  So costs four gems; not as cheap as batch items.  Want a piece?</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', EngineCore.createCallBackFunction2( this.nomnomnom, 'pound cake', 4 ) );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'pound cake', 4 ) );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Fox Berry];
 	BakeryScene.prototype.talkAboutFoxBerry = function() {
@@ -188,8 +187,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '"<i>Don\'t even know where these came from,</i>" the baker admits.  "<i>Shipper just showed up one day, showed me how to prepare and sell them.  Very fruity, but popular.  Candy or cook them right and eat them all day, never grow anything.  Eat them raw instead, get fox parts, look like guard captain lady and guy at whorehouse.  Still want one for five gems?</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.buyFoxBerry );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', this, this.buyFoxBerry );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Ringtail Fig];
 	BakeryScene.prototype.talkAFig = function() {
@@ -199,8 +198,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		//[Yes][No];
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.buyFig );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', this, this.buyFig );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Mouse Cocoa];
 	BakeryScene.prototype.talkAboutMouseCocoa = function() {
@@ -208,15 +207,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '"<i>Mouse cocoa comes from warm side of the lake, by forest border.  Like the name says, mouse people used to grow and eat a lot of it.  No mice left, though... hard to get now and expensive.  Have to buy it from the farmer at the lake; she sends out gathering parties.  Same one we get milk from.  Less and less every year... going to have to raise prices soon.  Ten gems for one handful, now.</i>"' );
 		//[Yes][No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.buyCocoa );
-		EngineCore.addButton( 1, 'No', this.talkToBaker );
+		EngineCore.addButton( 0, 'Yes', this, this.buyCocoa );
+		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	BakeryScene.prototype.buyCocoa = function() {
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 10 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
+			EngineCore.addButton( 0, 'Next', this, this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay ten gems for some cocoa.  ' );
@@ -229,7 +228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
+			EngineCore.addButton( 0, 'Next', this, this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay twenty gems for a single ferret fruit.  ' );
@@ -242,7 +241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		if( CoC.player.gems < 5 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
+			EngineCore.addButton( 0, 'Next', this, this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay five gems for a fig.  ' );
@@ -252,7 +251,6 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 	};
 
 	BakeryScene.prototype.talkBakeryMenu = function() {
-		//EngineCore.choices('Brownies',EngineCore.createCallBackFunction2(this.nomnomnom, 'brownies', 3),'Cookies',2831,'Cupcakes',2833,'Doughnuts',EngineCore.createCallBackFunction2(this.nomnomnom, 'doughnuts', 5),'Pound Cake',EngineCore.createCallBackFunction2(this.nomnomnom, 'pound cake', 4),'Fox Berry',this.buyFoxBerry,'SpecialEclair',minoCum,'GiantCupcake',gcupcake,rubiT,rubiB,'Leave',telAdreMenu);;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Who will you talk to?\n' );
 		var rubiT = 'Waitress';
@@ -260,33 +258,33 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 			rubiT = 'Rubi';
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Baker', this.talkToBaker );
+		EngineCore.addButton( 0, 'Baker', this, this.talkToBaker );
 		// rubiIntros returns 0 if you've driven rubi away;
 		// I'm actually not sure how this was *supposed* to work, since it would just call eventParser with a event of 0 ;
 		// I guess it just wouldn't do anything?;
 		// FWIW, the flag that has to be set to get rubiIntros to return zero is set in a function that has the comment:;
 		//(Will no longer encounter Rubi at the bakery.);
-		var rubiB = CoC.telAdre.rubi.rubiIntros();
+		var rubiB = SceneLib.rubi.rubiIntros();
 		if( rubiB !== null ) {
-			EngineCore.addButton( 1, rubiT, rubiB );
+			EngineCore.addButton( 1, rubiT, SceneLib.rubi, rubiB );
 		}
 
 		if( SceneLib.xmasMisc.nieveHoliday() ) {
 			if( CoC.flags[ kFLAGS.KAMI_ENCOUNTER ] > 0 ) {
 				EngineCore.outputText( '\nYou could \'burn off some steam\' with Kami during her lunch break, since you already know how that\'ll end up!\n' );
-				EngineCore.addButton( 2, 'Kami', SceneLib.xmasMisc.approachKamiTheChristmasRoo );
+				EngineCore.addButton( 2, 'Kami', SceneLib.xmasMisc, SceneLib.xmasMisc.approachKamiTheChristmasRoo );
 			} else {
 				EngineCore.outputText( '\nYou could summon the curvaceous kangaroo waitress you ran into earlier - perhaps you can win her over.\n' );
-				EngineCore.addButton( 2, 'Kangaroo', SceneLib.xmasMisc.approachKamiTheChristmasRoo );
+				EngineCore.addButton( 2, 'Kangaroo', SceneLib.xmasMisc, SceneLib.xmasMisc.approachKamiTheChristmasRoo );
 			}
 		}
 		EngineCore.outputText( '\nYou see a bubblegum-pink girl at the bakery, walking around and eagerly trying to hand out fliers to people. Her “uniform” is more like a yellow bikini with frills circling the waist of the bottom half. If this didn’t make her stand out from the crowd then her hair certainly would; it’s a big, poofy, curly, dark pink mess that reaches down to her ass with a huge cupcake hat sitting on top.\n' );
 		if( CoC.flags[ kFLAGS.MET_FROSTY ] !== 0 ) {
-			EngineCore.addButton( 3, 'Frosty', SceneLib.frosty.approachFrosty );
+			EngineCore.addButton( 3, 'Frosty', SceneLib.frosty, SceneLib.frosty.approachFrosty );
 		} else {
-			EngineCore.addButton( 3, 'PinkGirl', SceneLib.frosty.approachFrosty );
+			EngineCore.addButton( 3, 'PinkGirl', SceneLib.frosty, SceneLib.frosty.approachFrosty );
 		}
-		EngineCore.addButton( 9, 'Leave', this.bakeryuuuuuu );
+		EngineCore.addButton( 9, 'Leave', this, this.bakeryuuuuuu );
 	};
 	BakeryScene.prototype.nomnomnom = function( name, price ) {
 		CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_NAME ] = name;
@@ -294,9 +292,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '', true );
 		if( CoC.player.gems < CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ] ) {
 			EngineCore.outputText( 'You don\'t have enough gems to order that!', false );
-			//EngineCore.doNext(this.bakeryuuuuuu);;
+			//EngineCore.doNext( this, this.bakeryuuuuuu);;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.checkBakeryMenu );
+			EngineCore.addButton( 0, 'Next', this, this.checkBakeryMenu );
 			return;
 		}
 		CoC.player.gems -= CoC.flags[ kFLAGS.TEMP_STORAGE_PASTRY_PRICE ];
@@ -364,9 +362,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 				}
 			}
 		}
-		//EngineCore.doNext(this.bakeryuuuuuu);;
+		//EngineCore.doNext( this, this.bakeryuuuuuu);;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.checkBakeryMenu );
+		EngineCore.addButton( 0, 'Next', this, this.checkBakeryMenu );
 	};
 	/*[doughnuts] – some thickness, lots of – tone. (+hips and butt!)
 	 [cookies] – thickness and a little – tone (+hips)
@@ -378,9 +376,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '', true );
 		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( 'You don\'t have enough gems for one of those!', false );
-			//EngineCore.doNext(this.bakeryuuuuuu);;
+			//EngineCore.doNext( this, this.bakeryuuuuuu);;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.checkBakeryMenu );
+			EngineCore.addButton( 0, 'Next', this, this.checkBakeryMenu );
 			return;
 		}
 		EngineCore.outputText( 'The minotaur chef emerges from the backroom bearing a box that contains your cupcake.  It\'s too big to scarf down immediately.\n\n', false );
@@ -393,7 +391,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		if( CoC.player.gems < 5 ) {
 			EngineCore.outputText( 'You can\'t afford one of those!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.ingredientsMenu );
+			EngineCore.addButton( 0, 'Next', this, this.ingredientsMenu );
 			return;
 		}
 		EngineCore.outputText( 'You pay five gems for a fox berry.  ' );
@@ -412,9 +410,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		EngineCore.outputText( '\n\n"<i>Hello.  You come here often?  We busy.  Will try to do good.</i>"' );
 		//[Check Menu] [Offer Help];
 		EngineCore.menu();
-		EngineCore.addButton( 3, 'Check Menu', this.checkBakeryMenu );
-		EngineCore.addButton( 0, 'Offer Help', this.easterBakeSaleHelp );
-		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 3, 'Check Menu', this, this.checkBakeryMenu );
+		EngineCore.addButton( 0, 'Offer Help', this, this.easterBakeSaleHelp );
+		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	BakeryScene.prototype.easterBakeSaleHelp = function() {
 		EngineCore.clearOutput();
@@ -443,7 +441,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		}
 		EngineCore.outputText( '\n\nThe euphoria from your earlier drink fades, replaced by a more animalistic need.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.malesHelpOutWithEaster );
+		EngineCore.addButton( 0, 'Next', this, this.malesHelpOutWithEaster );
 	};
 	//[Male];
 	BakeryScene.prototype.malesHelpOutWithEaster = function() {
@@ -482,7 +480,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, PerkLib, Con
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 		CoC.player.cumMultiplier += 2;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'bakeryScene', new BakeryScene() );
 } );

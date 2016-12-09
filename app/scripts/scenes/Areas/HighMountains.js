@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 	//Explore High Mountain
 	HighMountains.prototype.exploreHighMountain = function() {
 		CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		if( SceneLib.d3.discoverD3() === true ) {
 			return;
 		}
@@ -122,12 +122,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		//[Give Two][Give Three]		[Not Really, No]
 		EngineCore.menu();
 		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
-			EngineCore.addButton( 0, 'Give Two', this.giveTwoOviElix );
+			EngineCore.addButton( 0, 'Give Two', this, this.giveTwoOviElix );
 		}
 		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 3 ) ) {
-			EngineCore.addButton( 1, 'Give Three', this.giveThreeOviElix );
+			EngineCore.addButton( 1, 'Give Three', this, this.giveThreeOviElix );
 		}
-		EngineCore.addButton( 4, 'Leave', this.leaveChickenx );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveChickenx );
 	};
 	//If Give Two
 	HighMountains.prototype.giveTwoOviElix = function() {
@@ -138,12 +138,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		EngineCore.outputText( 'You hand over two elixirs, the harpy more than happy to take them from you.  In return, she unties a corner of the sheet atop the cart, allowing you to take a look at her collection of eggs.' );
 		//[Black][Blue][Brown][Pink][Purple]
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Black', this.getHarpyEgg, ConsumableLib.BLACKEG );
-		EngineCore.addButton( 1, 'Blue', this.getHarpyEgg, ConsumableLib.BLUEEGG );
-		EngineCore.addButton( 2, 'Brown', this.getHarpyEgg, ConsumableLib.BROWNEG );
-		EngineCore.addButton( 3, 'Pink', this.getHarpyEgg, ConsumableLib.PINKEGG );
-		EngineCore.addButton( 4, 'Purple', this.getHarpyEgg, ConsumableLib.PURPLEG );
-		EngineCore.addButton( 5, 'White', this.getHarpyEgg, ConsumableLib.WHITEEG );
+		EngineCore.addButton( 0, 'Black', this, this.getHarpyEgg, ConsumableLib.BLACKEG );
+		EngineCore.addButton( 1, 'Blue', this, this.getHarpyEgg, ConsumableLib.BLUEEGG );
+		EngineCore.addButton( 2, 'Brown', this, this.getHarpyEgg, ConsumableLib.BROWNEG );
+		EngineCore.addButton( 3, 'Pink', this, this.getHarpyEgg, ConsumableLib.PINKEGG );
+		EngineCore.addButton( 4, 'Purple', this, this.getHarpyEgg, ConsumableLib.PURPLEG );
+		EngineCore.addButton( 5, 'White', this, this.getHarpyEgg, ConsumableLib.WHITEEG );
 	};
 	//If Give Three
 	HighMountains.prototype.giveThreeOviElix = function() {
@@ -153,12 +153,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		EngineCore.outputText( 'You hand over three elixirs, the harpy ecstatic over the fact that you\'re willing to part with them.  In return, she unties a side of the sheet atop the cart, allowing you to take a look at a large collection of her eggs.' );
 		//[Black][Blue][Brown][Pink][Purple]
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Black', this.getHarpyEgg, ConsumableLib.L_BLKEG );
-		EngineCore.addButton( 1, 'Blue', this.getHarpyEgg, ConsumableLib.L_BLUEG );
-		EngineCore.addButton( 2, 'Brown', this.getHarpyEgg, ConsumableLib.L_BRNEG );
-		EngineCore.addButton( 3, 'Pink', this.getHarpyEgg, ConsumableLib.L_PNKEG );
-		EngineCore.addButton( 4, 'Purple', this.getHarpyEgg, ConsumableLib.L_PRPEG );
-		EngineCore.addButton( 5, 'White', this.getHarpyEgg, ConsumableLib.L_WHTEG );
+		EngineCore.addButton( 0, 'Black', this, this.getHarpyEgg, ConsumableLib.L_BLKEG );
+		EngineCore.addButton( 1, 'Blue', this, this.getHarpyEgg, ConsumableLib.L_BLUEG );
+		EngineCore.addButton( 2, 'Brown', this, this.getHarpyEgg, ConsumableLib.L_BRNEG );
+		EngineCore.addButton( 3, 'Pink', this, this.getHarpyEgg, ConsumableLib.L_PNKEG );
+		EngineCore.addButton( 4, 'Purple', this, this.getHarpyEgg, ConsumableLib.L_PRPEG );
+		EngineCore.addButton( 5, 'White', this, this.getHarpyEgg, ConsumableLib.L_WHTEG );
 	};
 	//All Text
 	HighMountains.prototype.getHarpyEgg = function( itype ) {
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		EngineCore.spriteSelect( 90 );
 		EngineCore.outputText( 'At the polite decline of her offer, the chicken harpy gives a warm smile before picking her cart back up and continuing along the path through the mountains.' );
 		EngineCore.outputText( '\n\nYou decide to take your own path, heading back to camp while you can.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'highMountains', new HighMountains() );
 });

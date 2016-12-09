@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'Even though nearly a minute has passed, the bunny-lass is STILL frozen and staring.  She hasn\'t done anything since realizing that you\'re looking at her.  Well, it looks like the ball\'s in your court.  What do you do?', false );
 			//[Talk] [Rape Her];
-			EngineCore.choices( 'Talk', this.talkToBunnyBunBun, 'Rape Her', this.rapeBunBun, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Talk', this, this.talkToBunnyBunBun, 'Rape Her', this, this.rapeBunBun, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Met her;
 		else {
@@ -74,8 +74,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( '  Her dick in your ass?)', false );
 			//var Ass:Number = 0;;
 			//Dick In V] [Dick in A] [Vagina] [Ass] [Leave];
-			EngineCore.choices( 'Your Vagina', DickInV, 'Her Vagina', Vagina, '69', sixtyNine, 'LayYourEggs', eggs, 'Your Ass', this.bunbunFucksPCInAss,
-				'', null, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Your Vagina', this, DickInV, 'Her Vagina', this, Vagina, '69', this, sixtyNine, 'LayYourEggs', this, eggs, 'Your Ass', this, this.bunbunFucksPCInAss,
+				'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Talk];
@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '  Her dick in your ass?)', false );
 		//var Ass:Number = 0;;
 		//Dick In V] [Dick in A] [Vagina] [Ass] [Leave];
-		EngineCore.choices( 'Your Vagina', DickInV, 'Your Ass', this.bunbunFucksPCInAss, 'Her Vagina', Vagina, '69', sixtyNine, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Your Vagina', this, DickInV, 'Your Ass', this, this.bunbunFucksPCInAss, 'Her Vagina', this, Vagina, '69', this, sixtyNine, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 	};
 	//[Rape Her];
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( '  Her dick in your ass?)', false );
 			//var Ass:Number = 0;;
 			//Dick In V] [Dick in A] [Vagina] [Ass] [Leave];
-			EngineCore.choices( 'Your Vagina', DickInV, 'Your Ass', this.bunbunFucksPCInAss, 'Her Vagina', Vagina, '69', sixtyNine, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Your Vagina', this, DickInV, 'Your Ass', this, this.bunbunFucksPCInAss, 'Her Vagina', this, Vagina, '69', this, sixtyNine, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Take Dick in Vag Fukked];
@@ -271,7 +271,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//[Take Dick In A] ;
 	BunnyGirl.prototype.bunbunFucksPCInAss = function() {
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_BUNNY, PregnancyStore.INCUBATION_BUNNY_EGGS, 1, 1 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//FUCK DAT BUNNYBUNBUNBUN.;
 	BunnyGirl.prototype.bunbunGetsFucked = function() {
@@ -502,7 +502,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				//+ Lust;
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'int', -2 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} else {
 				EngineCore.outputText( 'Without thinking it over too hard beyond \'that sounds hot\', you declare your intention to 69 the bunny girl.  She bursts into laughter.  You\'re a little perturbed by this and make it clear you\'re quite serious by restating your goal.\n\n', false );
 				EngineCore.outputText( '"<i>No, no, stop – ahaha - you\'re killing me - haha!</i>" she splutters.  "<i>Hahaha - oh gods - I\'m going to egg from laughter - HAHAHA!</i>"\n\n', false );
@@ -579,7 +579,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				EngineCore.outputText( ', your spunk calming the egg-laying passion that had her bouncing like whipped caramel. She pulls her shrinking phallus from your mouth with a wet slurp, the taste of her rich cum sweet on your lips. She rises to a crouch and gives your new ears a playful tweak between her thumb and forefinger. "<i>Sorry about that, I don\'t know what came over me! I certainly didn\'t expect this, though! Kind of makes me want to stick around and see if you and I could pop out more bunnies,</i>" she winks. "<i>But unfortunately, I\'ve got to get going! Hope you had a happy, tasty day! Maybe I\'ll try to find you again, some time down the line.</i>" She gives you a moist little kiss and hops away, still energetic after all that. You groan, still feeling fat and bloated from the \'meal.\'\n\n', false );
 				CoC.player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
 				CoC.player.earType = AppearanceDefs.EARS_BUNNY;
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 			}
@@ -647,7 +647,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 				EngineCore.outputText( 'ears a playful tweak between her thumb and forefinger. "<i>Sorry about that, I don\'t know what came over me! I certainly didn\'t expect this, though! Kind of makes me want to stick around and see if you and I could pop out more bunnies,</i>" she winks. "<i>But unfortunately, I\'ve got to get going! Maybe I\'ll try to find you again, some time down the line.</i>" She gives you a moist little kiss and hops away, still energetic after all that. You groan, still recovering from the eggs.', false );
 				CoC.player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
 				CoC.player.earType = AppearanceDefs.EARS_BUNNY;
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 			}
@@ -685,7 +685,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 			EngineCore.outputText( 'ears a playful tweak between her thumb and forefinger. "<i>Sorry about that, I don\'t know what came over me! I certainly didn\'t expect this, though! Kind of makes me want to stick around and see if you and I could pop out more bunnies,</i>" she winks. "<i>But unfortunately, I\'ve got to get going! Maybe I\'ll try to find you again, some time down the line.</i>" She gives you a moist little kiss and hops away, still energetic after all that. You groan, still recovering from the eggs.', false );
 			CoC.player.tailType = AppearanceDefs.TAIL_TYPE_RABBIT;
 			CoC.player.earType = AppearanceDefs.EARS_BUNNY;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		}
@@ -762,7 +762,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( '\n\nFinally you find you no longer have any to give to the egg-obsessed rabbit girl and the ovipositor retracts into its slit.  Tired but blissful, she curls up to slumber, and you leave her to deal with having a stomach chock full of eggs \'n honey, returning to camp until you once again need a warm body to play host.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	BunnyGirl.prototype.ovipositBunnyEaster = function() {
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bunny Girl Eggsplosion ;
 	//Additional, low chance encounter in the plains. Options in parentheses should be adjusted to the following format: (Normal text/ Easter text);
@@ -862,20 +862,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.menu();
 		//[Free Her (any)] [Fuck Her (male/futa)][Get Egged (female/futa)] [Leave];
 		//[Free Her] (Any gender);
-		EngineCore.addButton( 0, 'Free Her', this.freeHerOhGodWhyDidYouDoThis );
+		EngineCore.addButton( 0, 'Free Her', this, this.freeHerOhGodWhyDidYouDoThis );
 		//[Get Egged] (Female/Futa only);
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 1, 'Get Egged', this.getEggflated );
+			EngineCore.addButton( 1, 'Get Egged', this, this.getEggflated );
 		}
 		//[Fuck Her] (Male/Futa Only);
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.cockThatFits( 40 ) >= 0 ) {
-				EngineCore.addButton( 2, 'Fuck Her', this.fuckTheEggBoundBun );
+				EngineCore.addButton( 2, 'Fuck Her', this, this.fuckTheEggBoundBun );
 			} else {
 				EngineCore.outputText( '  <b>You\'re too big to fuck her!</b>' );
 			}
 		}
-		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Free Her] (Any gender);
 	BunnyGirl.prototype.freeHerOhGodWhyDidYouDoThis = function() {
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		//[End Encounter, corruption up];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Get Egged] (Female/Futa only);
 	BunnyGirl.prototype.getEggflated = function() {
@@ -1200,7 +1200,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 		EngineCore.outputText( CoC.player.modTone( 0, 3 ) );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//If not full bunny morph: [Next];
 	//On the way back to your camp, the torrid heat of the melting eggs inside you become unbearable and you drop to your hands and knees. Something is changing!;

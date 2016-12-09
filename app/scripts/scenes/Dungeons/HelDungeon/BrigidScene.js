@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, kFLAGS, 
 			EngineCore.outputText( '"<i>Tsk tsk tsk,</i>" the harpy jailer croons, looming over you as you slump to the ground. "<i>You shouldn\'t have messed with me, bitch!</i>" she snaps, giving you a rough kick to the side. "<i>Now, let\'s see what Mother has to say about this...</i>"' );
 			//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', SceneLib.dungeonHelSupplimental.harpyQueenBeatsUpPCBadEnd, true );
+			EngineCore.addButton( 0, 'Next', SceneLib.dungeonHelSupplimental, SceneLib.dungeonHelSupplimental.harpyQueenBeatsUpPCBadEnd, true );
 		} else {
 			EngineCore.outputText( '"<i>That\'s it?!</i>" Brigid screams, as you collapse in front of her.  "<i>A weak little piece of trash like you took out our queen?</i>"' );
 			EngineCore.outputText( '\n\n"<i>[name]!</i>" calls a voice from behind you.  Hel bounds down the stairs, summoned by the sound of the fight; when she spies your defeated form, she draws her sword and throws herself at the harpy jailer, completely clearing the ground in her rage.  The scene that plays out next passes through your dazed mind agonizingly, like a nightmare.' );
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, kFLAGS, 
 			EngineCore.outputText( '\n\n"<i>Completely PATHETIC!</i>" rants the dyke jailer.  "<i>Neither of you is anything more than garbage!</i>"  She turns to her torture rack, holding it steady with one foot as she searches for and discards items from it.' );
 			EngineCore.outputText( '\n\n"<i>Where the fu- AHA!</i>" she cries in triumph, tossing a dangerous-looking knife aside and claiming something from behind it.  Turning again, Brigid advances on you and Hel with a smouldering smile, carrying two small vials of thick, white liquid.  "<i>Garbage you may be, but even garbage can be recycled.</i>"' );
 			EngineCore.outputText( '\n\nAn alarm blares in your mind and you reach out sluggishly to try and grab her slim ankle, but she kicks you in the head and your vision goes mazy.  The last thing you make out before slipping into unconsciousness is the harpy standing over Hel, pinning her fiery tail under a shield held down with one claw as she forces the contents of a vial down the salamander\'s gullet...' );
-			EngineCore.doNext( this.brigitPostQueenDeathBadEndII );
+			EngineCore.doNext( this, this.brigitPostQueenDeathBadEndII );
 		}
 	};
 	//--Next--;

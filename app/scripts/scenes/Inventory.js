@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 	};
 	Inventory.prototype.itemGoNext = function() {
 		if( this.callNext !== null ) {
-			EngineCore.doNext( this.callNext );
+			EngineCore.doNext( this, this.callNext );
 		}
 	};
 	Inventory.prototype.inventoryMenu = function() {
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 			}
 		}
 		if( CoC.player.weapon !== WeaponLib.FISTS ) {
-			EngineCore.addButton( 5, 'Unequip', this.unequipWeapon );
+			EngineCore.addButton( 5, 'Unequip', this, this.unequipWeapon );
 		}
 		if( !CoC.isInCombat() && OnLoadVariables.dungeonLoc !== 0 && OnLoadVariables.inRoomedDungeon === false ) {
 			if( SceneLib.xmasMisc.nieveHoliday() && CoC.flags[ kFLAGS.NIEVE_STAGE ] > 0 && CoC.flags[ kFLAGS.NIEVE_STAGE ] < 5 ) {
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 				} else {
 					EngineCore.outputText( '\nYou have a snow' + SceneLib.xmasMisc.nieveMF( 'man', 'woman' ) + ' here that seems like it could use a little something...\n' );
 				}
-				EngineCore.addButton( 6, 'Snow', SceneLib.xmasMisc.nieveBuilding );
+				EngineCore.addButton( 6, 'Snow', SceneLib.xmasMisc, SceneLib.xmasMisc.nieveBuilding );
 				foundItem = true;
 			}
 			if( CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 1 ) {
@@ -75,13 +75,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 			}
 			if( CoC.player.hasKeyItem( 'Dragon Egg' ) >= 0 ) {
 				SceneLib.emberScene.emberCampDesc();
-				EngineCore.addButton( 8, 'Egg', SceneLib.emberScene.emberEggInteraction );
+				EngineCore.addButton( 8, 'Egg', SceneLib.emberScene, SceneLib.emberScene.emberEggInteraction );
 				foundItem = true;
 			}
 		}
 		if( !foundItem ) {
 			EngineCore.outputText( '\nYou have no usable items.' );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
 		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) >= 0 && CoC.player.statusAffectv1( StatusAffects.Sealed ) === 3 ) {
@@ -91,10 +91,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		}
 		EngineCore.outputText( '\nWhich item will you use?' );
 		if( CoC.isInCombat() ) {
-			EngineCore.addButton( 9, 'Back', Combat.combatMenu, false );
+			EngineCore.addButton( 9, 'Back', null, Combat.combatMenu, false );
 		}//Player returns to the combat menu on cancel
 		else {
-			EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+			EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 		}
 	};
 	Inventory.prototype.stash = function() {
@@ -104,35 +104,35 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		if( CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
 			SceneLib.anemoneScene.anemoneBarrelDescription();
 			if( CoC.time.hours >= 6 ) {
-				EngineCore.addButton( 4, 'Anemone', SceneLib.anemoneScene.approachAnemoneBarrel );
+				EngineCore.addButton( 4, 'Anemone', SceneLib.anemoneScene, SceneLib.anemoneScene.approachAnemoneBarrel );
 			}
 		}
 		if( CoC.player.hasKeyItem( 'Camp - Chest' ) >= 0 ) {
 			EngineCore.outputText( 'You have a large wood and iron chest to help store excess items located near the portal entrance.\n\n' );
-			EngineCore.addButton( 0, 'Chest Store', this.pickItemToPlaceInCampStorage );
+			EngineCore.addButton( 0, 'Chest Store', this, this.pickItemToPlaceInCampStorage );
 			if( this.hasItemsInStorage() ) {
-				EngineCore.addButton( 1, 'Chest Take', this.pickItemToTakeFromCampStorage );
+				EngineCore.addButton( 1, 'Chest Take', this, this.pickItemToTakeFromCampStorage );
 			}
 		}
 		//Weapon Rack;
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00254 ] > 0 ) {
 			EngineCore.outputText( 'There\'s a weapon rack set up here, set up to hold up to nine various weapons.' );
-			EngineCore.addButton( 2, 'W.Rack Put', this.pickItemToPlaceInWeaponRack );
+			EngineCore.addButton( 2, 'W.Rack Put', this, this.pickItemToPlaceInWeaponRack );
 			if( this.weaponRackDescription() ) {
-				EngineCore.addButton( 3, 'W.Rack Take', this.pickItemToTakeFromWeaponRack );
+				EngineCore.addButton( 3, 'W.Rack Take', this, this.pickItemToTakeFromWeaponRack );
 			}
 			EngineCore.outputText( '\n\n' );
 		}
 		//Armor Rack;
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00255 ] > 0 ) {
 			EngineCore.outputText( 'Your camp has an armor rack set up to hold your various sets of gear.  It appears to be able to hold nine different types of armor.' );
-			EngineCore.addButton( 5, 'A.Rack Put', this.pickItemToPlaceInArmorRack );
+			EngineCore.addButton( 5, 'A.Rack Put', this, this.pickItemToPlaceInArmorRack );
 			if( this.armorRackDescription() ) {
-				EngineCore.addButton( 6, 'A.Rack Take', this.pickItemToTakeFromArmorRack );
+				EngineCore.addButton( 6, 'A.Rack Take', this, this.pickItemToTakeFromArmorRack );
 			}
 			EngineCore.outputText( '\n\n' );
 		}
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Inventory.prototype.takeItem = function( itype, nextAction, overrideAbandon, source ) {
 		if( itype === null ) {
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 			return;
 		}
 		if( showNext === undefined || showNext ) {
-			EngineCore.doNext( this.callNext );
+			EngineCore.doNext( this, this.callNext );
 		}//Items with sub menus should return to the inventory screen if the player decides not to use them
 		else {
 			this.callNext(); //When putting items back in your stash we should skip to the take from stash menu
@@ -316,17 +316,17 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		EngineCore.menu();
 		for( var x = 0; x < 5; x++ ) {
 			if( CoC.player.itemSlots[ x ].unlocked ) {
-				EngineCore.addButton( x, (CoC.player.itemSlots[ x ].itype.shortName + ' x' + CoC.player.itemSlots[ x ].quantity), EngineCore.createCallBackFunction2( this.replaceItem, itype, x ) );
+				EngineCore.addButton( x, (CoC.player.itemSlots[ x ].itype.shortName + ' x' + CoC.player.itemSlots[ x ].quantity), EngineCore.createCallBackFunction2( this, this.replaceItem, itype, x ) );
 			}
 		}
 		if( source !== null ) {
 			this.currentItemSlot = source;
-			EngineCore.addButton( 7, 'Put Back', EngineCore.createCallBackFunction2( this.returnItemToInventory, itype, false ) );
+			EngineCore.addButton( 7, 'Put Back', null, EngineCore.createCallBackFunction2( this, this.returnItemToInventory, itype, false ) );
 		}
 		if( showUseNow && itype instanceof Useable ) {
-			EngineCore.addButton( 8, 'Use Now', EngineCore.createCallBackFunction2( this.useItemNow, itype, source ) );
+			EngineCore.addButton( 8, 'Use Now', null, EngineCore.createCallBackFunction2( this, this.useItemNow, itype, source ) );
 		}
-		EngineCore.addButton( 9, 'Abandon', this.callOnAbandon ); //Does not doNext - immediately executes the callOnAbandon function
+		EngineCore.addButton( 9, 'Abandon', this, this.callOnAbandon ); //Does not doNext - immediately executes the callOnAbandon function
 	};
 	Inventory.prototype.useItemNow = function( item, source ) {
 		EngineCore.clearOutput();
@@ -420,10 +420,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		EngineCore.menu();
 		for( var x = startSlot; x < endSlot; x++, button++ ) {
 			if( storage[ x ].quantity > 0 ) {
-				EngineCore.addButton( button, (storage[ x ].itype.shortName + ' x' + storage[ x ].quantity), EngineCore.createCallBackFunction2( this.pickFrom, storage, x ) );
+				EngineCore.addButton( button, (storage[ x ].itype.shortName + ' x' + storage[ x ].quantity), EngineCore.createCallBackFunction2( this, this.pickFrom, storage, x ) );
 			}
 		}
-		EngineCore.addButton( 9, 'Back', this.stash );
+		EngineCore.addButton( 9, 'Back', this, this.stash );
 	};
 	Inventory.prototype.pickFrom = function( storage, slotNum ) {
 		EngineCore.clearOutput();
@@ -464,19 +464,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		if( showEmptyWarning && !foundItem ) {
 			EngineCore.outputText( '\n<b>You have no appropriate items to put in this rack.</b>' );
 		}
-		EngineCore.addButton( 9, 'Back', this.stash );
+		EngineCore.addButton( 9, 'Back', this, this.stash );
 	};
 	Inventory.prototype.placeInCampStorage = function( slotNum ) {
 		this.placeIn( this.itemStorage, 0, this.itemStorage.length, slotNum );
-		EngineCore.doNext( this.pickItemToPlaceInCampStorage );
+		EngineCore.doNext( this, this.pickItemToPlaceInCampStorage );
 	};
 	Inventory.prototype.placeInArmorRack = function( slotNum ) {
 		this.placeIn( this.gearStorage, 9, 18, slotNum );
-		EngineCore.doNext( this.pickItemToPlaceInArmorRack );
+		EngineCore.doNext( this, this.pickItemToPlaceInArmorRack );
 	};
 	Inventory.prototype.placeInWeaponRack = function( slotNum ) {
 		this.placeIn( this.gearStorage, 0, 9, slotNum );
-		EngineCore.doNext( this.pickItemToPlaceInWeaponRack );
+		EngineCore.doNext( this, this.pickItemToPlaceInWeaponRack );
 	};
 	Inventory.prototype.placeIn = function( storage, startSlot, endSlot, slotNum ) {
 		EngineCore.clearOutput();

@@ -22,8 +22,8 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		var rdtNipples = (CoC.player.nippleLength > 0.25 ? this.reductoNipples : null);
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ponder the paste in your hand and wonder what part of your body you would like to shrink.  What will you use it on?' );
-		EngineCore.choices( 'Balls', rdtBalls, 'Breasts', rdtBreasts, 'Butt', rdtButt, 'Clit', rdtClit, 'Cock', rdtCock,
-			'Hips', rdtHips, 'Nipples', rdtNipples, '', null, '', null, 'Nevermind', this.reductoCancel );
+		EngineCore.choices( 'Balls', this, rdtBalls, 'Breasts', this, rdtBreasts, 'Butt', this, rdtButt, 'Clit', this, rdtClit, 'Cock', this, rdtCock,
+			'Hips', this, rdtHips, 'Nipples', this, rdtNipples, '', null, null, '', null, null, 'Nevermind', this, this.reductoCancel );
 		return (true);
 	};
 	Reducto.prototype.reductoBalls = function() {

@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 				EngineCore.outputText( 'the minotaurs you\'ve birthed match these minotaurs\' coats perfectly – these bull-men must be your progeny, all grown up.  The small one haltingly asks, "<i>S-since she looks brain dead... will you guys let me use her cunt this time?  I never get to have any pussy!</i>"\n\n', false );
 				EngineCore.outputText( 'You can\'t help but laugh with a mixture of maternal pride and rational worry.  What do your offspring have planned for you?  Judging by the three stiffening loincloths, they won\'t hold back much longer.  What will you do?', false );
 				//[Fight] [Submit] [Negotiate] [Run]
-				EngineCore.choices( 'Fight', this.fightOTaurs, 'Submit', this.submitToMinotaurMob, 'Negotiate', this.negotiate, '', null, 'Leave', this.runFromMinotaurs );
+				EngineCore.choices( 'Fight', this, this.fightOTaurs, 'Submit', this, this.submitToMinotaurMob, 'Negotiate', this, this.negotiate, '', null, null, 'Leave', this, this.runFromMinotaurs );
 			}
 			//(Addicted)
 			else {
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 					EngineCore.outputText( 'Who cares if they\'re your offspring?  They\'re all grown up and they smell so... appetizing.', false );
 				}
 				//[Fight] [Submit] [Run]
-				EngineCore.choices( 'Fight', this.fightOTaurs, 'Submit', this.submitToMinotaurMob, 'Negotiate', this.negotiate, '', null, 'Leave', this.runFromMinotaurs );
+				EngineCore.choices( 'Fight', this, this.fightOTaurs, 'Submit', this, this.submitToMinotaurMob, 'Negotiate', this, this.negotiate, '', null, null, 'Leave', this, this.runFromMinotaurs );
 			}
 		}
 		//Repeat meetings
@@ -156,13 +156,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 					if( CoC.player.minotaurNeed() ) {
 						EngineCore.outputText( 'Your mind is already fogging under the intense need of your addiction, and you do the only thing a junkie like you can do in this situation – drop down on all fours and get ready to be used.', false );
 						//Same as 'submit'
-						EngineCore.doNext( this.submitToMinotaurMob );
+						EngineCore.doNext( this, this.submitToMinotaurMob );
 						return;
 					}
 					EngineCore.outputText( 'Your mind is fogging from the scent in the air, but thankfully, you aren\'t in withdrawal right now.  You can try to resist and maybe even turn the tables on your brood, or you can run.', false );
 				}
 				//[Fight] [Submit] [Run]
-				EngineCore.choices( 'Fight', this.fightOTaurs, 'Submit', this.submitToMinotaurMob, '', null, '', null, 'Run', this.runFromMinotaurs );
+				EngineCore.choices( 'Fight', this, this.fightOTaurs, 'Submit', this, this.submitToMinotaurMob, '', null, null, '', null, null, 'Run', this, this.runFromMinotaurs );
 			}
 			//Tribe sized
 			else {
@@ -223,13 +223,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 					if( CoC.player.minotaurNeed() ) {
 						EngineCore.outputText( 'This is perfect... you need it so bad!  You drop down on all fours and wiggle your child-bearing hips, hoping they\'ll hurry and cum inside you.', false );
 						//SUBMIT!
-						EngineCore.doNext( this.submitToMinotaurMob );
+						EngineCore.doNext( this, this.submitToMinotaurMob );
 						return;
 					}
 					EngineCore.outputText( 'This is glorious – so many horny, willing boys, all here for you to squeeze dry.  Even if you wanted to leave, you\'d have to fight them to make an opening.  It\'d be better to just beat them into submission and take your time savoring their wondrous spunk.', false );
 				}
 				//[Fight] [Submit]
-				EngineCore.choices( 'Fight', this.fightOTaurs, 'Submit', this.submitToMinotaurMob, '', null, '', null, '', null );
+				EngineCore.choices( 'Fight', this, this.fightOTaurs, 'Submit', this, this.submitToMinotaurMob, '', null, null, '', null, null, '', null, null );
 			}
 		}
 	};
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		EngineCore.outputText( 'The meek, quiet \'minitaur\' speaks last. "<i>P-Please mom?  I\'ve never cum in a real pussy before...</i>"\n\n', false );
 		EngineCore.outputText( 'Looks like they\'re only interested in one thing.', false );
 		//[Fight] [Submit] [Run]
-		EngineCore.choices( 'Fight', this.fightOTaurs, 'Submit', this.submitToMinotaurMob, '', null, '', null, 'Run', this.runFromMinotaurs );
+		EngineCore.choices( 'Fight', this, this.fightOTaurs, 'Submit', this, this.submitToMinotaurMob, '', null, null, '', null, null, 'Run', this, this.runFromMinotaurs );
 	};
 	//[Run]
 	MinotaurMobScene.prototype.runFromMinotaurs = function() {
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		//ESCAPE!
 		if( (CoC.player.canFly() && CoC.player.spe > Utils.rand( 40 )) || (!CoC.player.canFly() && CoC.player.spe > Utils.rand( 60 )) ) {
 			EngineCore.outputText( 'A furry arm nearly catches your ' + CoC.player.leg() + ', but you slip free and quickly escape your lusty brood.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//FAIL:
 		else {
@@ -546,7 +546,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 		}
 	};
 	//*[Loss Anal And BJ Spearing, Somewhat Preg?] (feels almost the same as the standard loss, added a demi-scene for nipcunts) (otherwise, edited)
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 		}
 	};
 
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		//	[win options]
 		var getSuck = null;
 		if( CoC.player.hasCock() ) {
-			getSuck = EngineCore.createCallBackFunction( this.forceMinitaurToGiveOral, 1 );
+			getSuck = EngineCore.createCallBackFunction( this, this.forceMinitaurToGiveOral, 1 );
 		}
 		var nipFuck = null;
 		if( CoC.player.hasFuckableNipples() ) {
@@ -711,10 +711,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.player.biggestTitSize() >= 6 ) {
 			titFuck = this.victoryMinotaurGangTitFuck;
 		}
-		EngineCore.choices( 'Gangbang', this.victoryAllThePenetrationsMinotaurGangBang,
-			'Tit-Fuck', titFuck, 'Nipple-Fuck', nipFuck,
-			'Get Licked', EngineCore.createCallBackFunction( this.forceMinitaurToGiveOral, 0 ),
-			'Get Sucked', getSuck, 'Discipline', this.disciplineEldestMinotaurSon, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Gangbang', this, this.victoryAllThePenetrationsMinotaurGangBang,
+			'Tit-Fuck', this, titFuck, 'Nipple-Fuck', this, nipFuck,
+			'Get Licked', null, EngineCore.createCallBackFunction( this, this.forceMinitaurToGiveOral, 0 ),
+			'Get Sucked', null, getSuck, 'Discipline', this, this.disciplineEldestMinotaurSon, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	//*[Victory Tit-Fuck] (for only the fattest of fat bitch titties)
 	MinotaurMobScene.prototype.victoryMinotaurGangTitFuck = function() {
@@ -962,7 +962,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//*[Victory - Make minitaur oral (M/F/H)]
@@ -1133,7 +1133,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//*[Victory- BJ + Nipplefucking] (boring, samey, not actually punishment again, could have been shoving very long nipples into urethras) (edited)
@@ -1222,7 +1222,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Bad End Scene:
@@ -1267,7 +1267,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		EngineCore.outputText( 'Your son sighs and slumps down, his cock slowly slipping from your abused vulva, escaping with a wet \'pop\'.  A river of white rolls out of your body to further stain the room\'s furnishings.  You shudder from the sensation as a it triggers a series of tiny, miniature climaxes.  While you\'re lost to the pleasure, the minitaur departs with noticeably less bulge in his loincloth.  At the same time, the other girls crowd around you, scooping up what they can save of your boy\'s liquid love and shoveling it into their greedy, whorish maws.  The cow-girl industriously sets to work, using her massive tongue on your ' + Descriptors.vaginaDescript() + ' to scoop out every drop she can get.  You cum on her face, splattering her with spooge and your feminine moisture.  She smiles and kisses your still-sensitive clit, throwing you into a black-out inducing orgasm.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'int', -10, 'lib', 10, 'sen', 10 );
-		EngineCore.doNext( this.minotaurGangBadEnd2 );
+		EngineCore.doNext( this, this.minotaurGangBadEnd2 );
 	};
 	//[Next]
 	MinotaurMobScene.prototype.minotaurGangBadEnd2 = function() {
@@ -1313,7 +1313,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		EngineCore.outputText( 'Everything else is a foggy haze to your son.  You can see he has given himself up to pleasure you and nothing more.  His eyes are glazed over with lust, losing himself with each lick.  When you glance between your thighs, you can see his balls have swelled up to the size of beach balls!  His aching member throbs as pre-cum oozes from his exposed urethra. If you wanted, you could plunge your cunt down and relieve him, but that would defeat the purpose of the punishment.  Despite the cluelessness of his foreplay, his tongue against your shining lips feels fucking good!  With a smile, you caress your son, encouraging him to continue.  A sudden increase in his slurping is all that it takes for you to reach your peak.  Your ' + Descriptors.vaginaDescript( 0 ) + ' spasms, drenching his mouth in your girl cum.  With increased zeal, he laps up as much of your sweet juices as he can.  Your running girl-cum eventually drips down to his aching member.  A cruel, cruel torture, your son whimpers as he\'s denied release.\n\n', false );
 		EngineCore.outputText( 'Finished with your son, you push him on his back.  You have had enough of him, for now... If he dares to ambush you again, then you will be more than happy to discipline him again.  After getting dressed, you proceed to walk away.  Your last image of your son is the image of him futilely masturbating, but his cock is too thick and too numb for him to truly get off.  Profoundly amused, you leave the mountains and return to camp.', false );
 		CoC.player.orgasm();
-		EngineCore.doNext( Combat.cleanupAfterCombat );
+		EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 	};
 	SceneLib.registerScene( 'minotaurMobScene', new MinotaurMobScene() );
 } );

@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, CoC, Monster, U
 			} else {
 				EngineCore.outputText( 'lad and spread yer asscheeks for me.”</i>\n\n' );
 			}
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			if( CoC.player.hasVagina() ) { //Phouka prefer vaginal if they can get it
 				if( CoC.player.isTaur() || Utils.rand( 2 ) === 0 ) {

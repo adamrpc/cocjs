@@ -7,8 +7,8 @@ angular.module('cocjs').factory('SceneLib', function () {
 		scenes[name] = scene;
 	};
 	var SceneLibProxy = new Proxy( SceneLib, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

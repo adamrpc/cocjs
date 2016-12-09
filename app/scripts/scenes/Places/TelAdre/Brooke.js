@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		this.brookeAffection( 5 );
 		CoC.flags[ kFLAGS.BROOKE_MET_TODAY ] = 1;
 		CoC.flags[ kFLAGS.BROOKE_MET ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Brooke.prototype.repeatChooseShower = function() {
 		EngineCore.clearOutput();
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 				EngineCore.outputText( 'You head your way back to the showers, feeling the sweet ache of your muscles as you easily find your way there.  The showers are completely empty when you arrive.  You know exactly when Brooke will and won\'t be in the shower, and you\'ve specifically chosen to avoid her this time.  As fond as you are of her and as fun as the sex is, you\'ve been leaving the shower dirtier than when you\'ve gone in!  It\'d be nice to actually get clean this time.' );
 				EngineCore.outputText( '\n\nYour shower proceeds uneventfully.  While the cleanliness is nice, occasionally a rogue wish wants her to show up and \'ruin\' your shower time.  Brooke is nowhere to be found, though, and just a short while later, you\'re clean as a whistle and out the door.' );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.fatigue( -5 );
 		}
 		//Between 16 and 18:00;
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nThe rest of your shower is cold and uneasy.  Have you done something wrong?' );
 		this.brookeAffection( 5 );
 		CoC.flags[ kFLAGS.BROOKE_GRUMPS_ABOUT_TA ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Between 16 and 18:00, Affection <= 19;
 	Brooke.prototype.lowAffectionBrookeMeeting = function() {
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( 'You head your way back to the showers, feeling the sweet ache of your muscles as you easily find your way there.  Brooke is there, already rinsing the day\'s work out of her muscles.  She hears you coming in, and turns to give you a warm greeting, which you happily return.' );
 		EngineCore.outputText( '\n\nThe shower goes by smoothly, the both of you talking idly about whatever happens to come to mind.  Learning from your previous encounter, you try to keep the topics away from Tel\'Adre while still asking her about herself, and answer her own questions about yourself whenever she asks.  All in all, things go by rather well, and once again she leaves the showers before you, giving you a wave before she leaves.' );
 		EngineCore.outputText( '\n\nYour shower proceeds uneventfully, and just a short while later, you\'re clean as a whistle and out the door.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		this.brookeAffection( 5 );
 	};
 	// Between 16 and 18:00, Affection >= 20, <= 39, body tone 40 minimum, one-time event;
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 			EngineCore.outputText( '\n\nThe shower proceeds as it normally would, although you can\'t really get what she was about to ask you out of your head.  As usual, she leaves before you, leaving you curious and somewhat unfulfilled.' );
 			EngineCore.outputText( '\n\nMaybe it was something personal, and you\'re just not her type?' );
 			// (Brooke's affection now caps at 20 until the PC is no longer a centaur.  This scene will re-proc until this condition is met, and then will proceed normally);
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[if (isTaur = false);
 		else {
@@ -173,8 +173,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 			EngineCore.outputText( '\n\nThat\'s all?  That\'s not so bad.  Just a friend innocently washing another friend\'s back.  Still, you could refuse her request, if you\'d rather.  What do you do?' );
 			//[=Help=][=Don't help=];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Help', this.helpBrookeOut );
-			EngineCore.addButton( 1, 'Don\'t Help', this.dontHelpBrookeShower );
+			EngineCore.addButton( 0, 'Help', this, this.helpBrookeOut );
+			EngineCore.addButton( 1, 'Don\'t Help', this, this.dontHelpBrookeShower );
 		}
 	};
 	// [=Don't help=];
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nYour shower proceeds uneventfully, and just a short while later, you\'re clean as a whistle and out the door.' );
 		//(Brooke's affection resets to zero);
 		CoC.flags[ kFLAGS.BROOKE_AFFECTION ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// [=Help=];
 	Brooke.prototype.helpBrookeOut = function() {
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.dynStats( 'lus', 15 + CoC.player.lib / 20, 'resisted', false );
 		CoC.flags[ kFLAGS.BROOKE_SHOWERED_WITH ] = 1;
 		this.brookeAffection( 4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Between 16 and 18:00, Affection >= 20, <= 39;
 	Brooke.prototype.mediumLowBrookeAffection = function() {
@@ -233,11 +233,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nWhat do you talk about?' );
 		//talk menu here;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Working Out', this.talkWithBrookeAboutWorkingOut );
-		EngineCore.addButton( 1, 'GymMembers', this.talkToBrookeAboutGymFolks );
-		EngineCore.addButton( 2, 'Her Bod', this.brookesRockinBod );
+		EngineCore.addButton( 0, 'Working Out', this, this.talkWithBrookeAboutWorkingOut );
+		EngineCore.addButton( 1, 'GymMembers', this, this.talkToBrookeAboutGymFolks );
+		EngineCore.addButton( 2, 'Her Bod', this, this.brookesRockinBod );
 		if( this.brookeAffection() >= 40 && this.brookeAffection() <= 70 && CoC.flags[ kFLAGS.BROOKE_MEDIUM_SCENE ] > 0 ) {
-			EngineCore.addButton( 3, 'Grope', this.gropeDatBrooke );
+			EngineCore.addButton( 3, 'Grope', this, this.gropeDatBrooke );
 		}
 	};
 	//Between 16 and 18:00, Affection >=40, after first-time sex;
@@ -250,11 +250,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		//talk menu here!;
 		//[=Working Out=] [=Gym Members=] [=Her Rockin Bod=] [=Grope=];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Working Out', this.talkWithBrookeAboutWorkingOut );
-		EngineCore.addButton( 1, 'Gym Members', this.talkToBrookeAboutGymFolks );
-		EngineCore.addButton( 2, 'Her Bod', this.brookesRockinBod );
+		EngineCore.addButton( 0, 'Working Out', this, this.talkWithBrookeAboutWorkingOut );
+		EngineCore.addButton( 1, 'Gym Members', this, this.talkToBrookeAboutGymFolks );
+		EngineCore.addButton( 2, 'Her Bod', this, this.brookesRockinBod );
 		if( this.brookeAffection() >= 40 && CoC.flags[ kFLAGS.BROOKE_MEDIUM_SCENE ] > 0 ) {
-			EngineCore.addButton( 3, 'Grope', this.gropeDatBrooke );
+			EngineCore.addButton( 3, 'Grope', this, this.gropeDatBrooke );
 		}
 	};
 	//[=Working Out=];
@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 			EngineCore.dynStats( 'int', 0.5 );
 		}
 		this.brookeAffection( 4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Gym Members=];
 	Brooke.prototype.talkToBrookeAboutGymFolks = function() {
@@ -349,7 +349,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		// (Lust increases by 15);
 		EngineCore.dynStats( 'lus', 15, 'resisted', false );
 		this.brookeAffection( 4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Her Rockin Bod=];
 	Brooke.prototype.brookesRockinBod = function() {
@@ -373,7 +373,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		//(Lust increases by 15);
 		EngineCore.dynStats( 'lus', 15, 'resisted', false );
 		this.brookeAffection( 15 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Grope=];
 	// Affection >= 40, <= 70, after first-time sex, raises lust by 30;
@@ -403,20 +403,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		//[=Penetrate her=] [=Anal=] [=Tribadism=] [=Down on her=] [=Get laid=] [=Double-dicked=];
 		EngineCore.menu();
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( this.brookeCapacity() ) >= 0 ) {
-			EngineCore.addButton( 0, 'Penetrate', this.penetrateBrooke );
+			EngineCore.addButton( 0, 'Penetrate', this, this.penetrateBrooke );
 		}
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 1, 'Anal', this.brookeAnal );
+			EngineCore.addButton( 1, 'Anal', this, this.brookeAnal );
 		}
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 2, 'Tribadism', this.tribadism );
+			EngineCore.addButton( 2, 'Tribadism', this, this.tribadism );
 		}
-		EngineCore.addButton( 3, 'Go Down On', this.goDownOnBrooke );
+		EngineCore.addButton( 3, 'Go Down On', this, this.goDownOnBrooke );
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( this.brookeCapacity() ) >= 0 ) {
-			EngineCore.addButton( 4, 'Get Laid', this.getLaidByBrooke );
+			EngineCore.addButton( 4, 'Get Laid', this, this.getLaidByBrooke );
 		}
 		if( CoC.player.cockTotal() >= 2 ) {
-			EngineCore.addButton( 5, 'Double-Dick', this.doubleDicked );
+			EngineCore.addButton( 5, 'Double-Dick', this, this.doubleDicked );
 		}
 	};
 	//[=Penetrate her=];
@@ -476,7 +476,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		this.brookeAffection( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Anal=];
 	//Requires at least one penis;
@@ -491,7 +491,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 			EngineCore.outputText( 'Bluntly, you ask Brooke what her opinion is on anal.  <i>"What, with you?"</i> she asks, leaning her ass back and trapping your ' + Descriptors.cockDescript( x ) + ' between her asscheeks expertly.  You moan with pleasure, but before you get the wrong idea, she hums disapprovingly.  She was actually using her ass to measure your ' + Descriptors.cockDescript( x ) + '!  <i>"Sorry, sweet thing, but maybe not this time.  I just got in from the gym, and working a beast like that into my ass would be a workout in of itself.  I\'m up for anything else, though."</i>' );
 			//Go back to 'grope' menu;
 			EngineCore.menu();
-			EngineCore.addButton( 4, 'Back', this.gropeDatBrooke );
+			EngineCore.addButton( 4, 'Back', this, this.gropeDatBrooke );
 			return;
 		}
 		//[if {first time}];
@@ -568,7 +568,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.fatigue( 15 );
 		CoC.flags[ kFLAGS.TIMES_IN_BROOKES_BUTT ]++;
 		this.brookeAffection( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Tribadism=];
 	//Requires a vagina;
@@ -635,7 +635,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.fatigue( 15 );
 		this.brookeAffection( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Down on her=];
 	Brooke.prototype.goDownOnBrooke = function() {
@@ -682,7 +682,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		// Lust increased by 30.;
 		EngineCore.dynStats( 'lus', 30 );
 		this.brookeAffection( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Get laid=];
 	// Requires a gender;
@@ -831,7 +831,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		this.brookeAffection( 10 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Double-dicked=];
 	//Requires at least two penises;
@@ -846,7 +846,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		if( y < 0 || CoC.player.cockThatFits( x ) >= this.brookeCapacity() ) {
 			EngineCore.outputText( 'You hump against her, enjoying the warm, wet feel of her fur against your sensitive monsters.  Brooke moans out, enjoying the way you\'re using her body, but freezes slightly when one of them begins to press and ply against her butthole.  <i>"Sorry, sweet thing, but maybe not this time.  Much as I\'d love me some double-dickings, one of those things in my butt would be one too many.  I\'m down for something else, though."</i>' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.gropeDatBrooke );
+			EngineCore.addButton( 0, 'Next', this, this.gropeDatBrooke );
 			return;
 		}
 		EngineCore.outputText( ImageManager.showImage( 'brooke-gym-male-doubledicked' ) );
@@ -949,7 +949,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nThe rest of your drying continues without much incident, and before long, you have your [armor] back on you and you\'re out of the gym, heading back towards camp.' );
 		//Lust reduced to 0;
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		this.brookeAffection( 10 );
 	};
 	//Between 16 and 18:00, Affection >= 40, <= 70, body tone 50 minimum, one-time event, requires a gender;
@@ -977,7 +977,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nSo hopefully,"</i> she says, closing the gap between your faces, <i>"you won\'t mind if this horny bitch indulges herself."</i>  With that, she presses her lips against yours, although this time, there is no resistance or apprehensiveness tongue quickly slips out, running unimpeded into your mouth and dancing along with yours.  She turns you to the side, pushing your back up against the stall wall, her mouth never leaving yours as she hungrily, ravenously, explores your mouth with her tongue.  There was nothing teasing or cutesy about it: Brooke wants you, and wants you <b>bad.</b>' );
 		//[=Next=];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.brookeSpecialMediumSceneContinued );
+		EngineCore.addButton( 0, 'Next', this, this.brookeSpecialMediumSceneContinued );
 	};
 	Brooke.prototype.brookeSpecialMediumSceneContinued = function() {
 		EngineCore.clearOutput();
@@ -1216,7 +1216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 			EngineCore.fatigue( 10 );
 		}
 		this.brookeAffection( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Affection = 70, after first-time sex, talk to Heckel between 13 and 15:00, must not be a first-time encounter with Heckel, requires a gender;
 	Brooke.prototype.specialHeckelAndBrookeEncounter = function() {
@@ -1225,9 +1225,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nIn one of the corners of the room, you hear a bit of a commotion.  Despite the size of the room, the echoes of the commotion make it a bit confusing as to just where the noise is coming from.  Do you look to your left, towards the butterfly machines, or do you look to your right, towards the leg press?' );
 		//[=Butterfly=] [=Leg Press=] [=Leave=];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Butterfly', this.butterflyMachinesGooooo );
-		EngineCore.addButton( 1, 'Leg Press', this.legPressInsteadOfThreesome );
-		EngineCore.addButton( 4, 'Leave', this.leaveHeckelEncounter );
+		EngineCore.addButton( 0, 'Butterfly', this, this.butterflyMachinesGooooo );
+		EngineCore.addButton( 1, 'Leg Press', this, this.legPressInsteadOfThreesome );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveHeckelEncounter );
 	};
 	//[=Leave=];
 	Brooke.prototype.leaveHeckelEncounter = function() {
@@ -1235,7 +1235,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( 'Well, whatever.  You came here looking for Heckel, and she\'s not here, as far as you can tell.  You turn around and leave the gym, without investigating the cause of the commotion.' );
 		//Return to Tel'Adre, no time loss;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[=Butterfly=];
 	Brooke.prototype.butterflyMachinesGooooo = function() {
@@ -1249,7 +1249,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nHeckel uses her other hand to grab you by the collar of your [armor], and, before you have a chance to object, presses her lips to yours, aggressively slipping her tongue in for a brief moment.  Some of the matrons from the crowd behind you whistle and cat-call, but you\'re too stunned from the reaction to reply, and before you know it, you and Brooke are pulled into the locker rooms.' );
 		//[=Next=];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.brookeAndHeckelStuffPartTwo );
+		EngineCore.addButton( 0, 'Next', this, this.brookeAndHeckelStuffPartTwo );
 	};
 	Brooke.prototype.brookeAndHeckelStuffPartTwo = function() {
 		EngineCore.clearOutput();
@@ -1258,8 +1258,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\n<i>"Hurry it up,"</i> Heckel says gruffly at you, noticing that you\'ve taken to watching her rough dominance instead of stripping down like she\'s told you to.' );
 		EngineCore.outputText( '\n\nDo you comply?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.submitHeckelXBrookeThreesome );
-		EngineCore.addButton( 1, 'No', this.nopeOutofBroke );
+		EngineCore.addButton( 0, 'Yes', this, this.submitHeckelXBrookeThreesome );
+		EngineCore.addButton( 1, 'No', this, this.nopeOutofBroke );
 	};
 	Brooke.prototype.nopeOutofBroke = function() {
 		EngineCore.clearOutput();
@@ -1269,7 +1269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\n"<i>Save yourself while you still can; I\'ll catch up in a bit."</i>  You ask if she\'s sure, and in response, she lovingly kisses the inside of your thigh.  <i>"Sure I\'m sure, sweet thing.  You have things to do, I bet.  Just get going."</i>' );
 		EngineCore.outputText( '\n\nYou leave, chased out by lewd, lusty slurps.' );
 		this.brookeAffection( 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Brooke.prototype.submitHeckelXBrookeThreesome = function() {
 		EngineCore.clearOutput();
@@ -1341,7 +1341,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.brookeAndHeckelStuffPartThree );
+		EngineCore.addButton( 0, 'Next', this, this.brookeAndHeckelStuffPartThree );
 	};
 	Brooke.prototype.brookeAndHeckelStuffPartThree = function() {
 		EngineCore.clearOutput();
@@ -1352,7 +1352,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nYou take her advice and leave the gym before Heckel wakes up and decides to run on her dominance rush some more.' );
 		//Lust reduced to 0, sensitivity increased by 1;
 		this.brookeAffection( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Leg Press=];
 	Brooke.prototype.legPressInsteadOfThreesome = function() {
@@ -1366,7 +1366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.outputText( '\n\nYou accept, and wrap Heckel\'s right arm around your own shoulders.  You don\'t <i>really</i> know what to expect, but judging from the lecherous leers and callous cat-calls that follow behind you, Heckel and Brooke with every step out of the gym and into the locker rooms, you have a pretty solid idea.' );
 		//[=Next=];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.brookeVHeckelBrookeWins2 );
+		EngineCore.addButton( 0, 'Next', this, this.brookeVHeckelBrookeWins2 );
 	};
 	Brooke.prototype.brookeVHeckelBrookeWins2 = function() {
 		EngineCore.clearOutput();
@@ -1464,7 +1464,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.dynStats( 'sen', 1 );
 		//[=Next=];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.brookeVHeckelBrookeWins3 );
+		EngineCore.addButton( 0, 'Next', this, this.brookeVHeckelBrookeWins3 );
 	};
 	Brooke.prototype.brookeVHeckelBrookeWins3 = function() {
 		EngineCore.clearOutput();
@@ -1481,7 +1481,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		}
 		EngineCore.outputText( '.  Bow-legged, you make your way to your gear and slip it back on.  You turn back to Brooke and Heckel, to see that Brooke\'s laid herself flat on Heckel, kissing and sucking gently on the hyena\'s tits, already working herself back up for a second round.' );
 		EngineCore.outputText( '\n\nYou take her advice and leave the gym before Brooke changes her mind decides to make you stay to play on her dominance rush some more.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		this.brookeAffection( 5 );
 	};
 	SceneLib.registerScene( 'brooke', new Brooke() );

@@ -13,17 +13,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === 0 || CoC.time.hours <= 17 ) {
-			EngineCore.addButton( 1, 'You Okay?', this.youOkayBuddy );
+			EngineCore.addButton( 1, 'You Okay?', this, this.youOkayBuddy );
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00175 ] > 0 ) {
-				EngineCore.addButton( 2, 'Mali', this.talkToMali );
+				EngineCore.addButton( 2, 'Mali', this, this.talkToMali );
 			}
 		}
 		if( CoC.flags[ kFLAGS.TIMES_VISITED_MALI ] > 0 ) {
-			EngineCore.addButton( 2, 'Mali', this.talkToMali );
+			EngineCore.addButton( 2, 'Mali', this, this.talkToMali );
 		}
-		EngineCore.addButton( 0, 'Study', this.studyInTA );
+		EngineCore.addButton( 0, 'Study', this, this.studyInTA );
 		CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ]++;
-		EngineCore.addButton( 4, 'Back', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 4, 'Back', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 
 	//(first visit);
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 			EngineCore.outputText( '\n\n"<i>I\'m afraid that I may have not made myself clear earlier, the library is not presently open,</i>" Quinn sighs, rubbing his forehead.  "<i>This means that it is closed, which is the opposite state of open.  While it is in this state its services are unavailable to the general public.  The general public in this particular instance are also the ones directly responsible for the necessity of it closing, leading to further hesitation in the Covenant\'s willingness to hasten the opening.  Your interest is noted, filed, and considered, but will be regarded as a data point and not the quote unquote voice of the people.</i>"' );
 			EngineCore.outputText( '\n\nQuinn pauses for a few more moments, looking you in the eye thoughtfully before finishing with "<i>That means no, in case we\'re unclear.</i>"' );
 			EngineCore.menu();
-			EngineCore.addButton( 4, 'Back', SceneLib.telAdre.telAdreMenu );
+			EngineCore.addButton( 4, 'Back', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 		}
 		//[Study, 18:00-20:00];
 		else {
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 				EngineCore.outputText( '\n\nSelecting a book randomly from the scattered tomes, you find a historical text documenting life in Mareth.  It\'s dreadfully dull, and though you do your best to learn what you can the dry work is putting you to sleep.  Eventually you close the book and accept that you\'re not going to be learning anything tonight.' );
 			}
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, 'Next', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[You OK?];
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 		EngineCore.outputText( '\n\nYou clarify that you were more referring to the fact that he is pale as fuck.' );
 		EngineCore.outputText( '\n\nQuinn scoffs in return, running a hand up through his hair (and only further disorganizing it).  "<i>As a member of the Covenant it is my duty – nay, privilege – to look over this city and protect it from the harm the outside world will do.  However, unlike many of my colleagues, I have chosen to take actual responsibilities in the management of this town – and this library.  This makes holing up in one of the tower\'s rooms and spending my days meditating to maintain the town\'s defences... untenable.</i>"  The weary man dusts off the front of his waistcoat with no small amount of pride.  "<i>Thus, I have taken into my possession a small item which will allow my fellow magisters to siphon from my magical ability and direct it to such a noble purpose.  Should I need to call upon my full capabilities I shall simply remove this object from my person, and the vim and vigor that I am proud to maintain shall spring back and rejuvenate me.</i>"  He chuckles lightly, rubbing his cheekbones.  "<i>Until then, I am proud to wear the so-called scars of my station.  Would that everyone had such selflessness.</i>"' );
 		EngineCore.outputText( '\n\nFinally getting the exposition you were looking for (and then some) you thank him for the information and resolve to talk to him as little as possible in the future.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Mali];
 	Library.prototype.talkToMali = function() {
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 			EngineCore.outputText( '\n\n"<i>Ah!</i>" she exclaims, "<i>But I am being such a poor hostess. Let me get you some tea.</i>"' );
 			EngineCore.outputText( '\n\nMali does not talk business for the rest of the visit, instead sharing tea with you and making small talk about life in Tel\'adre.  It is polite and pleasant, and quite relaxing.  Eventually you excuse yourself, needing to return to the camp.  Descending back down the long staircase you scare off a crow resting on one of the tower\'s windowsills.' );
 			//[Mali] is added permanently to the tower's menu during the day.;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[[Mali], CoC.player has spellblade];
 		else if( (CoC.player.weaponName === 'inscribed spellblade' || CoC.player.hasItem( WeaponLib.S_BLADE )) && CoC.flags[ kFLAGS.MALI_TAKEN_BLADE ] === 0 ) {
@@ -187,14 +187,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 				CoC.player.consumeItem( WeaponLib.S_BLADE );
 			}
 			CoC.flags[ kFLAGS.MALI_TAKEN_BLADE ] = 1;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[[Mali], CoC.player does not have spellblade];
 		else {
 			EngineCore.outputText( 'You tell Quinn you\'re here to see Mali.  He rolls his eyes but doesn\'t say anything, unlocking the second floor and leading you up once more.' );
 			EngineCore.outputText( '\n\n"<i>Ah, how are you?</i>" Mali smiles at your visit, putting a tome aside.  You don\'t yet have anything that can help her locate Dominika, but the company is nice.  She puts on some tea and the two of you make small talk.  Mali\'s laugh is bright, tinkling lightly when you bring it out.  Eventually the time comes to leave.  She thanks you for the visit.' );
 			EngineCore.outputText( '\n\n"<i>Remember,</i>" she says on the way out, "<i>Anything you can get from Dominika that holds some aspect of her power will help.</i>"' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.flags[ kFLAGS.TIMES_VISITED_MALI ]++;
 	};

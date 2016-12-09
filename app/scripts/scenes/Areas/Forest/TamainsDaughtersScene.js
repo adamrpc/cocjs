@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			}
 			EngineCore.outputText( '.  You realize now that the other goblins must be your daughters.  Another crowd of small women emerges from the bushes, closing in a ring around you, preventing any chance of escape.  The largest of the younger goblin-women steps forwards, her ' + this.tdCup() + ' breasts jiggling, barely contained by the bondage ropes she has tied around herself.  She stops once she\'s next to her mother and Tamani explains, "<i>I just can\'t keep their aching cunts at home anymore!  They\'re fertile adults now and they\'re wanting to get some experience with real dicks.  I figured you wouldn\'t mind helping them out a little.</i>"\n\nWhat do you do? (Fight them off, Fuck them willingly, Let them fuck you)', false );
 			//[Fuck Them] [Let Them] [Fight]
-			EngineCore.choices( 'Fight', this.fightTamanisDaughters, 'Fuck Them', this.fuckYoDaughtersHomie, 'Let Them', this.legTamanisDaughtersRAEPYou, '', null, '', null );
+			EngineCore.choices( 'Fight', this, this.fightTamanisDaughters, 'Fuck Them', this, this.fuckYoDaughtersHomie, 'Let Them', this, this.legTamanisDaughtersRAEPYou, '', null, null, '', null, null );
 			return;
 		}
 		this.tamaniPresent = false;
@@ -116,10 +116,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		if( CoC.flags[ kFLAGS.TIMES_FUCKED_TAMANIS_DAUGHTERS ] === 0 ) {
 			EngineCore.outputText( 'She calls out, "<i>We\'re tired of getting leftovers, so we\'re coming to the source.  Are you going to give us what we want?</i>"\n\n', false );
 			//[Fuck them] [Fight] [Play Dumb]
-			EngineCore.choices( 'Fight', this.fightTamanisDaughters, 'Fuck Them', this.fuckYoDaughtersHomie, 'Play Dumb', this.playDumbToTamanisDaughters, 'Let Them', this.legTamanisDaughtersRAEPYou, '', null );
+			EngineCore.choices( 'Fight', this, this.fightTamanisDaughters, 'Fuck Them', this, this.fuckYoDaughtersHomie, 'Play Dumb', this, this.playDumbToTamanisDaughters, 'Let Them', this, this.legTamanisDaughtersRAEPYou, '', null, null );
 		} else {
 			EngineCore.outputText( 'She calls out, "<i>We came back for more cream!  Come on, let\'s fuck again!</i>"\n\nIt doesn\'t look like \'no\' is a word they understand.  What do you do?</i>', false );
-			EngineCore.choices( 'Fight', this.fightTamanisDaughters, 'Fuck Them', this.fuckYoDaughtersHomie, 'Let Them', this.legTamanisDaughtersRAEPYou, '', null, '', null );
+			EngineCore.choices( 'Fight', this, this.fightTamanisDaughters, 'Fuck Them', this, this.fuckYoDaughtersHomie, 'Let Them', this, this.legTamanisDaughtersRAEPYou, '', null, null, '', null, null );
 		}
 	};
 	//[Play Dumb]
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			if( CoC.flags[ kFLAGS.TIMES_ENCOUNTED_TAMANIS_DAUGHTERS ] > 1 ) {
 				EngineCore.outputText( 'They really must not be paying much attention to what you look like.', false );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The leader stamps her foot in a fit of rage.  It would be more imposing if she wasn\'t three feet tall... Her eyes lock onto your crotch and she says, "<i>Last chance.   We\'re getting our ', false );
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		}
 		EngineCore.outputText( 'litters one way or another!</i>"\n\n', false );
 		//[Fuck them] [Fight] [Let them have their way with you]
-		EngineCore.choices( 'Fuck Them', this.fuckYoDaughtersHomie, 'Fight', this.fightTamanisDaughters, '', null, 'Let Them', this.legTamanisDaughtersRAEPYou, '', null );
+		EngineCore.choices( 'Fuck Them', this, this.fuckYoDaughtersHomie, 'Fight', this, this.fightTamanisDaughters, '', null, null, 'Let Them', this, this.legTamanisDaughtersRAEPYou, '', null, null );
 	};
 	//[Fight Them]
 	TamainsDaughtersScene.prototype.fightTamanisDaughters = function() {
@@ -381,7 +381,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//[Let them]
@@ -844,7 +844,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//[Lose Combat, Get Your Dick DRAINED]
@@ -1006,7 +1006,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		else {
 			EngineCore.outputText( 'You lose consciousness a few hours into the ordeal, still cumming with no sign of stopping, your body sustained by the fluids pouring into your backside.  The dreams you have are a constant barrage of sexual situations, flitting between various incongruous orgasmic acts.  Were you capable of comprehending your situation, you probably wouldn\'t even want to wake up.  Thankfully, your unwished desires become reality.', false );
 			//[NEXT]
-			EngineCore.doNext( this.tamaniDaughtersBadEndChoice );
+			EngineCore.doNext( this, this.tamaniDaughtersBadEndChoice );
 		}
 		//Needz variable to track how many times PC has been 'chaired'
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00058 ]++;
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( 'Exgartuan barks, "<i>Hell yes I do!</i>" but the goblin only smirks down for a moment before looking back at you.\n\n', false );
 		}
 		EngineCore.outputText( '(Options, No, I\'d rather fill your cunts individually & personally)', false );
-		EngineCore.choices( 'Yes', this.tamaniDaughtersYesBadEndMePlease, 'No', this.tamaniDaughtersDeclineBadEnd, 'Individual', this.tamanisDaughtersFillIndividuallyBADEND, '', null, '', null );
+		EngineCore.choices( 'Yes', this, this.tamaniDaughtersYesBadEndMePlease, 'No', this, this.tamaniDaughtersDeclineBadEnd, 'Individual', this, this.tamanisDaughtersFillIndividuallyBADEND, '', null, null, '', null, null );
 	};
 	//[Yes]
 	TamainsDaughtersScene.prototype.tamaniDaughtersYesBadEndMePlease = function() {
@@ -1223,7 +1223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -1267,7 +1267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( 'You smile in satisfaction as ' + CoC.monster.a + CoC.monster.short + ' collapses, unable to continue fighting.', true );
 			if( CoC.player.lust >= 33 && CoC.player.cockTotal() > 0 ) {
 				EngineCore.outputText( 'In spite of their injuries, they do try to present their bodies in as lewd a way as possible.  You could still fuck them, but things might get out of hand...\n\nDo you fuck them?', true );
-				EngineCore.doYesNo( this.fuckYoDaughtersHomie, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( this, this.fuckYoDaughtersHomie, null, Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -1277,7 +1277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.dynStats( 'lus', 5 );
 			if( CoC.player.lust >= 33 && CoC.player.cockTotal() > 0 ) {
 				EngineCore.outputText( 'You could still fuck them, but things might get out of hand...\n\nDo you fuck them?', false );
-				EngineCore.doYesNo( this.fuckYoDaughtersHomie, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( this, this.fuckYoDaughtersHomie, null, Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -1301,16 +1301,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			}
 			if( this.tamaniPresent ) {
 				if( Utils.rand( 2 ) === 0 ) {
-					EngineCore.doNext( this.loseToDaughtersWithTamaniThere );
+					EngineCore.doNext( this, this.loseToDaughtersWithTamaniThere );
 				} else {
-					EngineCore.doNext( this.legTamanisDaughtersRAEPYou );
+					EngineCore.doNext( this, this.legTamanisDaughtersRAEPYou );
 				}
 				return;
 			} else {
 				if( Utils.rand( 2 ) === 0 ) {
-					EngineCore.doNext( this.tamaniDaughtersCombatLossDrain );
+					EngineCore.doNext( this, this.tamaniDaughtersCombatLossDrain );
 				} else {
-					EngineCore.doNext( this.legTamanisDaughtersRAEPYou );
+					EngineCore.doNext( this, this.legTamanisDaughtersRAEPYou );
 				}
 				return;
 			}
@@ -1324,13 +1324,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 				return;
 			}
 			if( this.tamaniPresent ) {
-				EngineCore.doNext( this.loseToDaughtersWithTamaniThere );
+				EngineCore.doNext( this, this.loseToDaughtersWithTamaniThere );
 				return;
 			} else {
 				if( Utils.rand( 2 ) === 0 ) {
-					EngineCore.doNext( this.tamaniDaughtersCombatLossDrain );
+					EngineCore.doNext( this, this.tamaniDaughtersCombatLossDrain );
 				} else {
-					EngineCore.doNext( this.legTamanisDaughtersRAEPYou );
+					EngineCore.doNext( this, this.legTamanisDaughtersRAEPYou );
 				}
 				return;
 			}

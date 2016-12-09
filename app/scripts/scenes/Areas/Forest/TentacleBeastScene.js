@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			EngineCore.outputText( 'The beast slaps you squarely on the ass as if to push you along. "<i>Get the fuck out of here!</i>" it screams. "<i>Get lost so I can hunt me a REAL meal!!!</i>"', false );
 			EngineCore.outputText( 'You walk away from the creature, which hides back in the brush. After you trek a bit, you wonder if what happened really DID happen...', false );
 			EngineCore.dynStats( 'lus', -5 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Combat starter
@@ -76,12 +76,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		//Worms get nothing!
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			EngineCore.outputText( 'It stops itself completely in a moment and twitches, as if sniffing the air, before turning around and disappearing into the underbrush.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.player.cor > 50 ) {
 			EngineCore.outputText( 'Do you joyfully submit or fight back?\n\n', false );
-			EngineCore.choices( 'Fight', this.startTentacleBeastCombat, 'Submit', this.tentacleLossRape, '', null, '', null, '', null );
+			EngineCore.choices( 'Fight', this, this.startTentacleBeastCombat, 'Submit', this, this.tentacleLossRape, '', null, null, '', null, null, '', null, null );
 			return;
 		}
 		Combat.startCombat( new TentacleBeast() );
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		EngineCore.outputText( 'You pass out, only to awaken briefly to the constant sensation of semen flowing out of your body.  Were it not for the tentacle force-feeding you, you would weakly moan with pleasure at the feeling of constant orgasm.  You slip in and out of consciousness countless times. When lucid, you can only enjoy the fact you are STILL blowing a load.\n\n', false );
 		EngineCore.outputText( 'However, you become lucid once and notice that you are no longer cumming. In fact, you feel a harsh warmth all over your body. Blinding light pierces you despite having your eyes closed. You also notice the absence of the tentacle from both your mouth and your ass. You also hear voices, yet you cannot make them out. A sharp, acrid smell invades your nostrils, rousing you to full wakefullness. You feel terribly weak and the light still prevents you from opening your eyes. However, for the most part, you are awake and cognizant of your environment.', false );
 		//Goto rape #2
-		EngineCore.doNext( this.futaTentacleEpilogue );
+		EngineCore.doNext( this, this.futaTentacleEpilogue );
 	};
 	TentacleBeastScene.prototype.futaTentacleEpilogue = function() {
 		EngineCore.outputText( '', true );
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				if( CoC.isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -264,7 +264,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				if( CoC.isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				if( CoC.isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				}
 				return;
 			}
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				if( CoC.isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				}
 				return;
 			}
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				if( CoC.isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				}
 				return;
 			}
@@ -449,7 +449,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				if( CoC.isInCombat() ) {
 					Combat.cleanupAfterCombat();
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 			}
 			return;
 		}
@@ -538,7 +538,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -620,7 +620,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			}
 		}
 		//Call page 2!
-		EngineCore.doNext( this.tentacleRapeContinuation );
+		EngineCore.doNext( this, this.tentacleRapeContinuation );
 	};
 	TentacleBeastScene.prototype.tentacleRapeContinuation = function() {
 		CoC.player.orgasm();
@@ -668,7 +668,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ' and your mouth. You are being inseminated by the abomination, but you do not care. The fucking is too good. The hot, musky fluids pour into your mouth. The taste crushes your last bit of resistance and you NEED MORE, not just to swallow, but to devour with your womb. You manage to free one hand, only to grasp the tentacle in your mouth to coax more semen inside you. You feel your stomach distend from the amount of cum you greedily swallow. The beast floods you with more cum than you can handle and proceeds to soak you from head to toe in its fluids as it runs from your overwhelmed orifices.', false );
-			EngineCore.doNext( this.tentacleRapeContinuationForFemales );
+			EngineCore.doNext( this, this.tentacleRapeContinuationForFemales );
 			CoC.player.slimeFeed();
 			//lactate more from the encounter.
 			CoC.player.boostLactation( 0.3 );
@@ -696,7 +696,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	TentacleBeastScene.prototype.tentacleRapeContinuationForFemales = function() {
@@ -751,7 +751,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Centaur v. Tentacle Monster: (display if pc is unsexed centaur)
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Naga v. Tentacle Monster:
@@ -821,7 +821,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Goo v. Tentacle Monster:
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	SceneLib.registerScene( 'tentacleBeastScene', new TentacleBeastScene() );

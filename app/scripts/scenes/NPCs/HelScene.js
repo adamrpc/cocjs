@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You wake up an hour or so later, still snuggled up to Hel, entwined in a post-coitus repose.  You spend a few moments basking in the warmth of her presence, but you know you have duties to attend to.  You give her a peck on the cheek, waking her, and she\'s quick to escalate your gesture into a long, tongue-entwining kiss.\n\n', false );
 		EngineCore.outputText( 'The two of you redress, teasing and flirting all the while – you give her ample ass a little smack, and she coyly brushes your thighs with her tail – but soon you must part.  Giving Hel another deep kiss, you make your way back to camp as she saunters off into the heart of the plains.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//FIRST COMBAT – PLAYER LOSES;
@@ -254,13 +254,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			}
 		} else {
 			if( CoC.player.hasCock() && CoC.player.cockThatFits( 85 ) >= 0 && CoC.player.lust >= 33 ) {
-				EngineCore.addButton( 0, 'Rape Ass', this.rapingHelsAssMeansYourCorruptCauseAnalIsEvil );
+				EngineCore.addButton( 0, 'Rape Ass', this, this.rapingHelsAssMeansYourCorruptCauseAnalIsEvil );
 			} else if( !CoC.player.hasCock() || CoC.player.cockThatFits( 85 ) === -1 ) {
 				EngineCore.outputText( '\n\nYour dick is too big to fuck her anally.', false );
 			}
-			EngineCore.addButton( 1, 'Get Rimjob', this.receiveCorruptRimjobsFromHel );
+			EngineCore.addButton( 1, 'Get Rimjob', this, this.receiveCorruptRimjobsFromHel );
 		}
-		EngineCore.addButton( 4, 'Wait', EngineCore.createCallBackFunction( this.helDefeatedNormal, true ) );
+		EngineCore.addButton( 4, 'Wait', null, EngineCore.createCallBackFunction( this, this.helDefeatedNormal, true ) );
 		//(Wait takes you to "<i>normal</i>" post-victory, below);
 	};
 	//COMBAT – PLAYER WINS w/ LESS THAN 85 CORRUPTION;
@@ -293,7 +293,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 		if( CoC.player.lust < 33 ) {
 			EngineCore.outputText( '\n\n<b>You aren\'t really up for sex right now.</b>', false );
-			EngineCore.choices( '', null, '', null, '', null, '', null, 'Leave', leave );
+			EngineCore.choices( '', null, null, '', null, null, '', null, null, '', null, null, 'Leave', leave );
 			return;
 		}
 		var getLicked = null;
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 				bodyButt = this.helPossessionShitPoopCock;
 			}
 		}
-		EngineCore.choices( 'Get Licked', getLicked, 'FuckHerVag', fuckVag, 'FuckHerAss', fuckAss, 'GetTailPegged', tailFuck, 'Tail Wank', tailWank, 'DoublePen', dp, 'Get Blown', getBlown, bodyText, bodyButt, bodyText2, bodyButt2, 'Leave', leave );
+		EngineCore.choices( 'Get Licked', this, getLicked, 'FuckHerVag', this, fuckVag, 'FuckHerAss', this, fuckAss, 'GetTailPegged', this, tailFuck, 'Tail Wank', this, tailWank, 'DoublePen', this, dp, 'Get Blown', this, getBlown, bodyText, this, bodyButt, bodyText2, this, bodyButt2, 'Leave', this, leave );
 	};
 	//[b]Player Win – Victory Un-Fuck – No Thanks (Any Gender);
 	HelScene.prototype.declineHelSexings = function() {
@@ -387,7 +387,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Player Win – Victory Fuck – Fuck her Vag;
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Victory Fuck – Get Blown (Male) (edited);
@@ -475,7 +475,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – DP(Multicock Only) (edited);
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Get Licked (Vagita) (edited);
@@ -535,7 +535,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Tail Wank (dix of any size) (edited);
@@ -559,7 +559,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Tail Pegging (Anal) (edited);
@@ -597,7 +597,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Coil her Up (Wang Naga) (edited);
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 
@@ -669,7 +669,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Mount Her (Wangbearing Centaurs of height >= 60</i>") (edited);
@@ -713,7 +713,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Hanging 69 (Vaginataurs of height >= 60</i>") (edited);
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Possession (Ghost Morphs w/ Possession Power) (ehrdaterd);
@@ -808,7 +808,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 
@@ -849,7 +849,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//Player Win – Corrupt Rape – Get Rimjob (edited);
@@ -879,7 +879,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( this.postHelFuckBuddyFollowup );
+			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
 	};
 	//===========================================================================;
@@ -906,10 +906,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		///Player's Options:;
 		//Male/Herm – [Fuck her Ass] [Mino Lick] [Leave];
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( 85 ) >= 0 ) {
-			EngineCore.choices( 'FuckHerAss', this.fuckHerAss, 'Mino Lick', this.helMinoThreeSomeLickItsDick, '', null, '', null, 'Nope', this.leaveMinotaurHelThreesome );
+			EngineCore.choices( 'FuckHerAss', this, this.fuckHerAss, 'Mino Lick', this, this.helMinoThreeSomeLickItsDick, '', null, null, '', null, null, 'Nope', this, this.leaveMinotaurHelThreesome );
 		}//Female/Genderless – [Mino Lick] [Leave];
 		else {
-			EngineCore.choices( '', null, 'Mino Lick', this.helMinoThreeSomeLickItsDick, '', null, '', null, 'Nope', this.leaveMinotaurHelThreesome );
+			EngineCore.choices( '', null, null, 'Mino Lick', this, this.helMinoThreeSomeLickItsDick, '', null, null, '', null, null, 'Nope', this, this.leaveMinotaurHelThreesome );
 		}
 	};
 	//[Leave];
@@ -919,7 +919,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'You shake your head with a deprecating smile, and turn to leave her to her pleasures.', false );
 		//(reset Helgate flag to 0);
 		CoC.flags[ kFLAGS.HEL_AFFECTION ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//THREESOME – FUCK HER ASS (wang of area =< 85) (edited);
 	HelScene.prototype.fuckHerAss = function() {
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		SceneLib.helFollower.helAffection( 5 );
 		CoC.flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		//POST THREESOME RESULT;
-		EngineCore.doNext( this.postMinoThreesomeDecisionTime );
+		EngineCore.doNext( this, this.postMinoThreesomeDecisionTime );
 	};
 
 	//THREESOME – MINO LICK (Unisex) (edited);
@@ -975,7 +975,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		SceneLib.helFollower.helAffection( 5 );
 		CoC.flags[ kFLAGS.HEL_FUCK_COUNTER ]++;
 		//POST THREESOME RESULT;
-		EngineCore.doNext( this.postMinoThreesomeDecisionTime );
+		EngineCore.doNext( this, this.postMinoThreesomeDecisionTime );
 	};
 	//AFTER THREESOME SCENE (edited);
 	HelScene.prototype.postMinoThreesomeDecisionTime = function() {
@@ -994,7 +994,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'On second thought, you\'d rather keep it simple for now, even if it means battling back her future advances with force of arms instead of words.  You kiss her once more and give her breasts a squeeze for the road, then wordlessly get up and take your leave.\n\n', false );
 		//(reset Helgate to 0);
 		CoC.flags[ kFLAGS.HEL_AFFECTION ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Berserker Mode];
 	HelScene.prototype.berserkMode = function() {
@@ -1038,13 +1038,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'You suppose you could ask her to stop attacking you anyway, though.  One less threat out here couldn\'t hurt, and maybe – just maybe – you could skip the formalities when you meet and go straight to the really fun part.\n\n', false );
 		CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_ATTACKING_YOU ] = 1;
 		//[Stop] [Say Nothing];
-		EngineCore.choices( 'Stop', this.telHelSTOPATTACKINGMEYOUBITCH, 'Say Nothing', this.helChatMenu, '', null, '', null, '', null );
+		EngineCore.choices( 'Stop', this, this.telHelSTOPATTACKINGMEYOUBITCH, 'Say Nothing', this, this.helChatMenu, '', null, null, '', null, null, '', null, null );
 	};
 	//[Say Nothing];
 	HelScene.prototype.helChatMenu = function() {
 		EngineCore.spriteSelect( 68 );
 		if( CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_HER ] === 0 ) {
-			EngineCore.choices( 'About Her', this.askHelAboutHer, '', null, '', null, '', null, 'Leave', this.bugOutAfterHelMinoThreesome );
+			EngineCore.choices( 'About Her', this, this.askHelAboutHer, '', null, null, '', null, null, '', null, null, 'Leave', this, this.bugOutAfterHelMinoThreesome );
 		} else {
 			var zerk = null;
 			var attackin = null;
@@ -1054,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			if( CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_BERSERKING ] === 0 ) {
 				zerk = this.berserkMode;
 			}
-			EngineCore.choices( '', null, 'Berserking?', zerk, 'Y Attack Me', attackin, 'Seconds', this.askMommaHelForSecondsAfterDinner, 'MinosRBad', this.telHelToGetOffTheMInoCock, '', null, '', null, '', null, '', null, 'Leave', this.leaveHelAfterMinoThreeSomeChat );
+			EngineCore.choices( '', null, null, 'Berserking?', this, zerk, 'Y Attack Me', this, attackin, 'Seconds', this, this.askMommaHelForSecondsAfterDinner, 'MinosRBad', this, this.telHelToGetOffTheMInoCock, '', null, null, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leaveHelAfterMinoThreeSomeChat );
 		}
 	};
 	//[Stop];
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '"<i>I\'ll see you soon, lover mine,</i>" she whispers, planting a kiss on your neck.\n\n', false );
 		EngineCore.outputText( 'You tell her to count on it, and make your way back to camp.', false );
 		EngineCore.dynStats( 'lus', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//===================;
 	//THREESOMES AHOY!;
@@ -1113,7 +1113,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'Isabella huffs haughtily, making her massive mammaries quake under her thin blouse.  You look to Isabella\'s plump rump and sure enough, the cow-girl has tied a bright-blue bow upon her tail.  "<i>It iz not yours anymore, naughty girl!  Isabella found it, fair und square.</i>"\n\n', false );
 		EngineCore.outputText( 'Before Isabella can say any more, the salamander leaps into the air and slams her sword down upon the cow-girl\'s narrowly-interposed shield.  The force of the blow staggers both of them, giving you a moment to intervene before there\'s bloodshed!', false );
 		//(Display Options: [Diplomacy] [Watch] [Leave]);
-		EngineCore.choices( 'Diplomacy', this.salamanderXIsabellaDiplomacy, 'Watch', this.watchIsabellaAndHelFight, '', null, '', null, 'Leave', this.skipTownOnIsabellaAndHelsFight );
+		EngineCore.choices( 'Diplomacy', this, this.salamanderXIsabellaDiplomacy, 'Watch', this, this.watchIsabellaAndHelFight, '', null, null, '', null, null, 'Leave', this, this.skipTownOnIsabellaAndHelsFight );
 	};
 	//Diplomacy (edited);
 	HelScene.prototype.salamanderXIsabellaDiplomacy = function() {
@@ -1132,7 +1132,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		CoC.player.takeDamage( 10 );
 		EngineCore.statScreenRefresh();
 		//(Diplomacy Continued);
-		EngineCore.doNext( this.salamanderXIsabellaDiplomacy2 );
+		EngineCore.doNext( this, this.salamanderXIsabellaDiplomacy2 );
 	};
 	HelScene.prototype.salamanderXIsabellaDiplomacy2 = function() {
 		EngineCore.spriteSelect( 68 );
@@ -1166,7 +1166,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		SceneLib.isabellaFollowerScene.isabellaAffection( 5 );
 		SceneLib.helFollower.helAffection( 5 );
 		CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Watch (edited);
 	HelScene.prototype.watchIsabellaAndHelFight = function() {
@@ -1181,7 +1181,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'When the missile attack pauses, you can hear Hel yell "<i>We\'ll finish this another time, cow!</i>"\n\n', false );
 		EngineCore.outputText( '"<i>Count on it, naughty girl!</i>" Isabella shouts before the two of them break apart and disappear into the brush to elude the hunting party.', false );
 		//(Return PC to camp, advance time 1 hour. 10% chance of Intro Scene playing whenever Isabella or Hel would normally be encountered until PC chooses Leave or Diplomacy in the future);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Leave (edited);
 	HelScene.prototype.skipTownOnIsabellaAndHelsFight = function() {
@@ -1190,7 +1190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'Well, you\'re sure as hell not going to get involved in this – better to let them duke it out between themselves rather than risk your relationship with either girl.  You head on back to camp, not terribly surprised to hear sharp moos, grunts, and cries for some time in the distance.\n\n', false );
 		//(Return PC to camp, advance time 1 hour. Intro scene will not play again.);
 		CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = -1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Isabella x salamander Threesome – Camp Version Intro (edited);
@@ -1249,7 +1249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '"<i>Yeah.  You\'re all right.</i>" Hel says, finally sheathing her sword.  "<i>Thanks for giving me my mom\'s bandana back.</i>"\n\n', false );
 		EngineCore.outputText( '"<i>You are... welcome,</i>" Isabella says as Hel disappears into the night.  Heaving a relieved sigh, you return to the camp proper and try to get some shut-eye before the sun rises.', false );
 		CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Isabella x Hel Threesome Scene – Beginning in the Plains (edited);
 	HelScene.prototype.isabellaXHelThreeSomePlainsStart = function() {
@@ -1260,7 +1260,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '"<i>' + CoC.player.short + '... it is –moo– good to see youuuuu!</i>"  She trails off into a long, ecstatic moan as Hel continues to suckle from her massive teat, acknowledging your presence only with a little waggle of her tail and a wink.  "<i>Perhaps you vould like ein drink as vell, no?</i>" Isabella offers, patting the chocolate-colored tit that Hel is not actively suckling from.\n\n', false );
 		EngineCore.outputText( 'You certainly do feel thirsty, and Isabella\'s invitation is certainly... enticing, and is made all the more exciting by the busty salamander you\'ll be sharing a meal with.', false );
 		//(Display Options: [Drink] [Leave]);
-		EngineCore.choices( 'Drink', this.nomOnIzzyTitWithSallyMancer, '', null, '', null, '', null, 'Leave', this.leaveIsabellaSallyBehind );
+		EngineCore.choices( 'Drink', this, this.nomOnIzzyTitWithSallyMancer, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leaveIsabellaSallyBehind );
 	};
 	//Isabella x Hel Threesome Scene – Beginning at Camp (edited);
 	//(Has a 10% chance to play when the player chooses [Sleep] while Isabella is at camp);
@@ -1278,7 +1278,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 		EngineCore.outputText( 'You certainly do feel thirsty, and Isabella\'s invitation is certainly... enticing, and is made all the more exciting by the busty salamander you\'ll be sharing a meal with.', false );
 		//(Display Options: [Drink] [Leave]);
-		EngineCore.choices( 'Drink', this.nomOnIzzyTitWithSallyMancer, '', null, '', null, '', null, 'Leave', MainView.playerMenu );
+		EngineCore.choices( 'Drink', this, this.nomOnIzzyTitWithSallyMancer, '', null, null, '', null, null, '', null, null, 'Leave', null, MainView.playerMenu );
 	};
 	//[Leave];
 	HelScene.prototype.leaveIsabellaSallyBehind = function() {
@@ -1286,9 +1286,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You decline the cow-girl\'s offer, but tell the redheads to have fun without you.  Though a bit disappointed, they both wave as you make your way back to camp.', false );
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Drink];
@@ -1339,7 +1339,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			EngineCore.outputText( 'Unfortunately, you don\'t have much to contribute...', false );
 		}
 		//(Display Appropriate Options: [1 Dick] [2 Dicks] [4 Dicks] [Vagina] [Leave]);
-		EngineCore.choices( 'Dick', dick, '', null, '', null, 'Vagina', vag, 'Leave', this.noThreesomeSexWithSallyAndIssyLastMinute );
+		EngineCore.choices( 'Dick', this, dick, '', null, null, '', null, null, 'Vagina', this, vag, 'Leave', this, this.noThreesomeSexWithSallyAndIssyLastMinute );
 		//(Dick scenes have a common open, then branch out before a common end between all genders);
 	};
 	//LEAVE before sexing or Unsexed PC;
@@ -1353,9 +1353,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		}
 		EngineCore.outputText( '.', false );
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//DICK (edited);
@@ -1479,7 +1479,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//(Scene End);
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
-		EngineCore.doNext( this.izzySallyThreeSomeFollowup );
+		EngineCore.doNext( this, this.izzySallyThreeSomeFollowup );
 	};
 	HelScene.prototype.izzySallyThreeSomeFollowup = function() {
 		EngineCore.spriteSelect( 68 );
@@ -1495,9 +1495,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '"<i>Yeah.  Resting is... resting is good,</i>" Hel says, trying and failing to suppress a yawn of her own.  Smiling, you wrap your arms around your two beautiful, busty redheads and let sleep overcome you.', false );
 		//(Either return PC to camp or advance to the next day, if in plains or camp, respectively);
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//VAGINA (edited);
@@ -1543,9 +1543,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		SceneLib.isabellaFollowerScene.isabellaAffection( 4 );
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.time.hours < 6 ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	//Fox Girls -- First Time Intro;
@@ -1558,7 +1558,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			EngineCore.outputText( 'Hel grins as you notice the sisters\' extra hardware.  "<i>Miko, Mai, meet ' + CoC.player.short + ',</i>" she says, running one of her scaled hands along... Miko\'s?... thighs, eliciting a sensual moan from the fox-girl.  In response, Mai buries her face in your neck, her full lips brushing along your sensitive flesh.  Your skin tingles with delight at her light caresses as her rigid prick presses further into your stomach, leaving a little wet stain on your ' + CoC.player.armorName + '.\n\n', false );
 			EngineCore.outputText( '"<i>Mmm, wanna play with Sister and I?</i>" Mai purrs, nuzzling your neck after a long swig of beer.  Hel and Miko both give you hopeful, expectant looks.  Do you?\n\n', false );
 			//(Display Options: [Foursome] [Leave]);
-			EngineCore.choices( 'Foursome', this.heliasFoxyFourSomeFluffs, '', null, '', null, '', null, 'Leave', this.runAwayFromFoxGirls );
+			EngineCore.choices( 'Foursome', this, this.heliasFoxyFourSomeFluffs, '', null, null, '', null, null, '', null, null, 'Leave', this, this.runAwayFromFoxGirls );
 		}
 		//(Leave because cocks are a new reveal; should give those grossed out by futa an escape; doesn't appear afterwards to save horny gamers a click);
 		//Fox Girls -- Repeat Intro;
@@ -1566,7 +1566,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			EngineCore.outputText( 'You give a sharp whistle and wave Miko and Mai back over from the bar.  Grinning, the two fox-herms slide back into the booth with you and Hel.  Mai crawls seductively into your lap, giving you a kiss that smells of alcohol and freely letting her little fox-pecker press into your belly.\n\n', false );
 			EngineCore.outputText( 'Amused, Hel gives Miko\'s bountiful bosom a playful grope and says, "<i>My, my, ' + CoC.player.short + ', looking for a little foxy foursome?  Well, I think that can be arranged, what do you say, girls?</i>"', false );
 			//(NEXT button, to Foursome);
-			EngineCore.doNext( this.heliasFoxyFourSomeFluffs );
+			EngineCore.doNext( this, this.heliasFoxyFourSomeFluffs );
 		}
 	};
 	//Fox Girls -- Leave (Only Available First Time);
@@ -1574,7 +1574,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You graciously excuse yourself, saying that you forgot something back at camp.  All three girls say "<i>Awwww</i>" in unison, but don\'t make any special effort to keep you from going.  As you head out, you look over your shoulder in time to see Hel give you a little wink as the fox-herms clamber into her lap.  At least someone\'s getting laid today.\n\n', false );
-		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//Foursome Scene Intro (First & Repeat);
 	HelScene.prototype.heliasFoxyFourSomeFluffs = function() {
@@ -1586,11 +1586,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( '"<i>So what parts do you want to use?</i>" she asks, looking to your mixed endowments.', false );
 			//(Display Options: [As Male] [As Female]);
-			EngineCore.choices( 'As Male', this.foxyFluffsFoursomeAsMale, 'As Female', this.foxyFluffGirlsFuckSex, '', null, '', null, '', null );
+			EngineCore.choices( 'As Male', this, this.foxyFluffsFoursomeAsMale, 'As Female', this, this.foxyFluffGirlsFuckSex, '', null, null, '', null, null, '', null, null );
 		} else if( CoC.player.gender === 2 ) {
-			EngineCore.doNext( this.foxyFluffGirlsFuckSex );
+			EngineCore.doNext( this, this.foxyFluffGirlsFuckSex );
 		} else {
-			EngineCore.doNext( this.foxyFluffsFoursomeAsMale );
+			EngineCore.doNext( this, this.foxyFluffsFoursomeAsMale );
 		}
 	};
 	//Foursome Scene -- As Male;
@@ -1611,7 +1611,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'You can only shudder and gasp as pleasure overtakes you.  You bury your face into Mai\'s neck, biting her as the last of your cum explodes deep inside her.  Mai bucks her hips back at you and squeezes your cock, milking you of every last drop until your shaft is utterly spent.  Moaning, you withdraw from inside her, dragging a waterfall of hot white cum out of her as you do so.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( this.foxyFluffOutro );
+		EngineCore.doNext( this, this.foxyFluffOutro );
 	};
 	//Foursome Scene -- As Female;
 	HelScene.prototype.foxyFluffGirlsFuckSex = function() {
@@ -1634,7 +1634,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'Suddenly, Miko lets out a sharp cry and slams her hips into Hel\'s.  You can only see the looks on both her face and Hel\'s as they cum in unison, white fox-spunk dribbling out of the slamander\'s hot snatch.  "<i>Gonna... Gonna cum...</i>" Mai whimpers, giving you only a moment to prepare before she grabs your arms and pulls you down onto her chest, burying your face between her heavy tits.  She jackhammers your now-exposed cunt.  ramming her knot in and out of you until you can\'t think straight.  You cum, your ' + Descriptors.vaginaDescript() + ' clamping down on her doggy cock.  Waves of explosive pleasure shoot through you, making you spasm in the fox-herm\'s arms, only barely aware of her shooting her load deep inside you, coating your walls with thick, hot spunk.  You ride out the orgasm buried in Mai\'s chest, shuddering and gasping as she kisses you over and over, letting her thick knot deflate inside you until her own cum leaks out, staining her smooth thighs and legs.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( this.foxyFluffOutro );
+		EngineCore.doNext( this, this.foxyFluffOutro );
 	};
 	//Foursome Scene -- Outro;
 	HelScene.prototype.foxyFluffOutro = function() {
@@ -1647,7 +1647,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( 'You awake to find yourself tucked into the bed, your clothes folded neatly next to you.  It looks like someone cleaned you up and tucked you in after your little orgy.  When you hear a loud snore beside you, you don\'t even need to guess who it was that took care of you.  You pull up the covers, and of course find Helia curled up beside you, her warm tail acting like a pillow for the two of you.  You smile, give her a long kiss, and collect your things.  You leave the salamander to sleep it off, and head back to camp.', false );
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	//Telling Hel to Not Get Hooked on Some Random Dude's Dickjuice (Or, How Hel Learned to Love Monogamy. Kind of.);
@@ -1670,15 +1670,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '\n\n"<i>Well, shit, [name].  I don\'t wanna get hooked on minotaur cum, but... now what the fuck am I supposed to do? Those bulls are the best fucks around... present company excluded, of course,</i>" she adds with a little wink.' );
 		EngineCore.outputText( '\n\nYou suppose you could offer to satisfy her needs instead... Or just say to hell with it and keep screwing \'taurs to her hearts\' content.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Its Okay', this.helCanFuckMinosWhenever );
-		EngineCore.addButton( 1, 'Satisfy Her', this.satisfyHelSoSheStopsMinoFucking );
+		EngineCore.addButton( 0, 'Its Okay', this, this.helCanFuckMinosWhenever );
+		EngineCore.addButton( 1, 'Satisfy Her', this, this.satisfyHelSoSheStopsMinoFucking );
 	};
 	//[Keep Going];
 	HelScene.prototype.helCanFuckMinosWhenever = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide not to deter Hel from her minotaur-raping ways.  Nothing bad could come of your salamander friend fucking a few more \'taurs than she already has, right?  You\'re sure she can just manage her addiction, or lack thereof, just fine on her own.' );
 		//(Return to post-threesome menu);
-		EngineCore.doNext( this.helChatMenu );
+		EngineCore.doNext( this, this.helChatMenu );
 	};
 	//[Satisfy Her];
 	HelScene.prototype.satisfyHelSoSheStopsMinoFucking = function() {
@@ -1746,7 +1746,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.outputText( '\n\n"<i>No sex for you,</i>" you answer.' );
 		EngineCore.outputText( '\n\n"<i>I.  But.  What.  You said.  We.  But.... WELL FUCK YOU ANYWAY.</i>"' );
 		EngineCore.outputText( '\n\nYou shrug and head back to camp as Hel, half-mad with lust, starts masturbating, glaring at your back as you leave.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		SceneLib.helFollower.helAffection( -20 );
 	};
 	SceneLib.registerScene( 'helScene', new HelScene() );

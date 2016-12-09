@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 			EngineCore.rawOutputText( ' (including the above stack trace copy&pasted into the details),' );
 		}
 		EngineCore.rawOutputText( ' to make tracking the issue down easier. Thanks!' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Argument is time passed.  Pass to event parser if nothing happens.
 	// The time argument is never actually used atm, everything is done with timeQ instead...
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				} else if( temp > Utils.rand( 100 ) && CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) < 0 ) {
 					if( CoC.player.gender > 0 && (CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 && (CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 || CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] > 0) && (CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] === 0 || !SceneLib.kihaFollower.followerKiha()) ) {
 						SceneLib.impScene.impGangabangaEXPLOSIONS();
-						EngineCore.doNext( MainView.playerMenu );
+						EngineCore.doNext( MainView, MainView.playerMenu );
 						return true;
 					} else if( CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 && SceneLib.kihaFollower.followerKiha() ) {
 						EngineCore.outputText( '\n<b>You find charred imp carcasses all around the camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		}
 		EngineCore.statScreenRefresh();
 		if( needNext ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return true;
 		}
 		MainView.playerMenu();

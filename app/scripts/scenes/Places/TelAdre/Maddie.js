@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		else {
 			EngineCore.outputText( 'You walk into the bakery and a burly, hair-covered arm grabs your shoulder.  The familiar voice of a minotaur barks, "<i>You.  You can help.  Come.</i>"  You turn, but he\'s already walking towards an \'employees only\' door.  Do you follow?', false );
 		}
-		EngineCore.doYesNo( this.followMinotaurIntoBackroom, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doYesNo( this, this.followMinotaurIntoBackroom, SceneLib.bakeryScene, SceneLib.bakeryScene.bakeryuuuuuu );
 	};
 	//[Follow] ;
 	Maddie.prototype.followMinotaurIntoBackroom = function() {
@@ -44,9 +44,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 			}
 			//[Give Them] [Leave];
 			if( CoC.player.hasItem( ConsumableLib.BEEHONY ) && CoC.player.hasItem( ConsumableLib.L_DRAFT ) ) {
-				EngineCore.choices( 'Give Them', this.handOverIngredientsItBeBakingTimeYo, '', null, '', null, '', null, 'Leave', this.nopeAintGotNoneODemSpeculIngredimathings );
+				EngineCore.choices( 'Give Them', this, this.handOverIngredientsItBeBakingTimeYo, '', null, null, '', null, null, '', null, null, 'Leave', this, this.nopeAintGotNoneODemSpeculIngredimathings );
 			} else {
-				EngineCore.choices( '', null, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.choices( '', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00241 ] = 1;
 		}
@@ -55,9 +55,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 			EngineCore.outputText( 'You follow the burly chef through the door, winding through the familiar ovens.  By the time you reach his work area, you\'re both covered in a fine sheen of sweat and you find yourself responding to the minotaur musk unconsciously.  The strange chef turns to ask, "<i>You have special ingredients now, yes?</i>"', false );
 			//[Yes] [Lie – No/Not Yet];
 			if( CoC.player.hasItem( ConsumableLib.BEEHONY ) && CoC.player.hasItem( ConsumableLib.L_DRAFT ) ) {
-				EngineCore.choices( 'Yes', this.handOverIngredientsItBeBakingTimeYo, 'Lie - No', this.nopeAintGotNoneODemSpeculIngredimathings, '', null, '', null, '', null );
+				EngineCore.choices( 'Yes', this, this.handOverIngredientsItBeBakingTimeYo, 'Lie - No', this, this.nopeAintGotNoneODemSpeculIngredimathings, '', null, null, '', null, null, '', null, null );
 			} else {
-				EngineCore.choices( 'No', this.nopeAintGotNoneODemSpeculIngredimathings, '', null, '', null, '', null, '', null );
+				EngineCore.choices( 'No', this, this.nopeAintGotNoneODemSpeculIngredimathings, '', null, null, '', null, null, '', null, null, '', null, null );
 			}
 		}
 	};
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 			EngineCore.outputText( 'overstaying your welcome', false );
 		}
 		EngineCore.outputText( ' – you depart.', false );
-		EngineCore.doNext( SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
 	};
 	//[Yes – baking];
 	Maddie.prototype.handOverIngredientsItBeBakingTimeYo = function() {
@@ -93,10 +93,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		}
 		EngineCore.outputText( '\n\n', false );
 		if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
-			EngineCore.doNext( this.waitForSlutCake );
+			EngineCore.doNext( this, this.waitForSlutCake );
 		}//[Wait] [Sneak Out];
 		else {
-			EngineCore.choices( 'Wait', this.waitForSlutCake, 'Sneak Out', this.sneakAwayFromMaddie, '', null, '', null, '', null );
+			EngineCore.choices( 'Wait', this, this.waitForSlutCake, 'Sneak Out', this, this.sneakAwayFromMaddie, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//[Sneak Out];
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		EngineCore.outputText( 'You get out before he can find you again.  Whatever he\'s making is nothing you ever want to taste.', false );
 		//(No more mino chef);
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = -2;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Wait/Next];
 	Maddie.prototype.waitForSlutCake = function() {
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		EngineCore.outputText( 'Utterly shocked and drained, the chef-o-taur\'s eyes roll back in his sockets.  He slumps weakly under his creation as she bounces a few last times, futilely trying to squeeze more cum from the slumping minotaur-dick.  The cupcake-girl rises at last, not with yeast, but with a new-found purpose.  The reflective, alien surface of her eyes locks against your groin as she takes one lumbering step after another in your direction.  Her massive, spongy tits wobble dangerously close to you, nearly entrancing you with their beautiful, unnatural curves.\n\n', false );
 		EngineCore.outputText( 'Running seems like a very good idea.  Who knows what she has planned for you?', false );
 		//[RUN] [TRY TO TALK];
-		EngineCore.choices( 'Run Away', this.runAwayFromMaddiiiieee, 'TryToTalk', this.talkToMaddie, '', null, '', null, '', null );
+		EngineCore.choices( 'Run Away', this, this.runAwayFromMaddiiiieee, 'TryToTalk', this, this.talkToMaddie, '', null, null, '', null, null, '', null, null );
 	};
 	//[RUN DAFUQ AWAY];
 	Maddie.prototype.runAwayFromMaddiiiieee = function() {
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You turn tail to run, evacuating the room before that culinary catastrophe can have her way with you.  A high-pitched whine chases you away as the cupcake-girl cries, "<i>Nooooo... come back!  I\'m making so much filling for you!</i>"  Her words lend you even greater speed, and you vacate the city in record time.\n\n', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = -1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Followup to run away];
 	Maddie.prototype.runAwayMaddieFollowup = function() {
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		EngineCore.outputText( '', true );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = -2;
 		EngineCore.outputText( 'You return to a strange sight indeed.  Urta and Edryn are leading a procession of over thirty city guards, arranged in a loose circle around the cupcake-girl.  Her comparatively tiny, tin-foil fez is gone, along with most of her blue-iced \'armor\'.  She looks weak, pathetic, and beaten as she\'s prodded with spears and escorted from the city, never to return again.  Vanilla-scented tears stain the pavement behind her, leaving a trail the whole way back to the bakery.\n\n', false );
-		EngineCore.doNext( SceneLib.telAdre.telAdreMenu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[TRY TO TALK];
 	Maddie.prototype.talkToMaddie = function() {
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 			EngineCore.outputText( CoC.player.modTone( 0, 10 ), false );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = 3;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Next visit to the bakery...];
 	Maddie.prototype.bakeryEpilogue = function() {
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, ConsumableLib, Descr
 		EngineCore.outputText( '"<i>Thanks.  Figured out what went wrong with Maddie\'s help.  Made masterpiece.  Buy giant cupcake sometime.  Delicious!  Promise it\'s safe and non-addictive.  Expensive though.  Ingredients rare.\n\n', false );
 		EngineCore.outputText( '-X</i>"', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = 4;
-		EngineCore.doNext( SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.bakeryScene.bakeryuuuuuu );
 	};
 	SceneLib.registerScene( 'maddie', new Maddie() );
 } );

@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 		} else {
 			if( !hpVictory && CoC.player.gender > 0 ) {
 				EngineCore.outputText( '  Perhaps you could use it to sate yourself?', true );
-				EngineCore.doYesNo( SceneLib.tentacleBeastScene.tentacleVictoryRape, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.tentacleVictoryRape, null, Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 				EngineCore.outputText( '...but an insistent voice rouses you from your stupor.  You manage to run into a nearby tunnel.  ' );
 				SceneLib.antsScene.phyllaTentaclePCLoss();
 			} else {
-				EngineCore.doNext( SceneLib.tentacleBeastScene.tentacleLossRape );
+				EngineCore.doNext( SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.tentacleLossRape );
 			}
 		}
 	};

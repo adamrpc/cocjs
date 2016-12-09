@@ -64,14 +64,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( 'Flattening yourself against the stone in case of danger, you strain your ears and scan the horizon, searching for the source of the noise.  The volume gradually increases, and eventually you realize what it is that you’re hearing; someone nearby is loudly humming, a lively tune echoing off the rocks and cliffs.  As best you can tell, it seems to be coming from the other side of the enormous stone blocking your path.\n\n' );
 			EngineCore.outputText( 'Your curiosity piqued, you search around the obstruction for a way inside, and finally manage to find a slim gap between the bottom of the rock and the cliff face.  Kneeling down, you peer inside and can make out the distinct glowing embers of a campfire.  You’re pretty sure you can make it inside, but it might be difficult to get away if danger threatens.  On the other hand, wild animals don’t light campfires, and a lust-crazed demon probably wouldn’t bother to hide itself so effectively....\n\n' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Enter', this.enterFirstTime );
-			EngineCore.addButton( 1, 'Leave', this.abortabortleavethefukkencave );
+			EngineCore.addButton( 0, 'Enter', this, this.enterFirstTime );
+			EngineCore.addButton( 1, 'Leave', this, this.abortabortleavethefukkencave );
 		} else {
 			EngineCore.outputText( 'As you wander the wasted landscape searching for anything of interest, you find yourself face to face with a familiar large boulder; the same one hiding the entrance to Izumi’s cave.  Once again, you become aware of a strange sound on the edge of your hearing.  Carefully positioning yourself at the gap between the boulder and the cave entrance, you turn your ear to the source of the noise and manage to pick out what it is that you’re hearing; somebody is loudly humming, the same lively tune you heard during your previous visit.\n\n' );
 			EngineCore.outputText( 'Considering how your last visit to the cave ended, you hesitate for a moment and wonder if you should push forward to enter Izumi’s home... or if turning back to camp would be a wiser decision.\n\n' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Enter', this.enterAfterMet );
-			EngineCore.addButton( 1, 'Leave', this.nopeLeavePlz );
+			EngineCore.addButton( 0, 'Enter', this, this.enterAfterMet );
+			EngineCore.addButton( 1, 'Leave', this, this.nopeLeavePlz );
 		}
 	};
 	// Repeat encounters with Izumi after having met in the past
@@ -93,22 +93,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			throw new Error( 'Izumi encounter flag wasn\'t set during a previous encounter.' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fight', this.fightTheFuckhugeOni );
-		EngineCore.addButton( 1, 'Surrender', this.fuckhugeOniGetsWhatSheWants );
-		EngineCore.addButton( 2, 'Flee', this.fuckinChegIt );
+		EngineCore.addButton( 0, 'Fight', this, this.fightTheFuckhugeOni );
+		EngineCore.addButton( 1, 'Surrender', this, this.fuckhugeOniGetsWhatSheWants );
+		EngineCore.addButton( 2, 'Flee', this, this.fuckinChegIt );
 	};
 	// Leave the cave, no meeting
 	IzumiScene.prototype.abortabortleavethefukkencave = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Spelunking in random caves around these parts is probably not the best idea; especially considering the kinds of creatures that you keep tripping over whenever you <i>do</i> decide to poke your nose somewhere it doesn\'t belong.\n\n' );
 		EngineCore.outputText( 'You head back to camp, having found nothing else of interest.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Already met, dun wanna get oniraepd again plz
 	IzumiScene.prototype.nopeLeavePlz = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide discretion is the better part of valour and choose not to barge into the strange woman\'s cave again, opting to slip away before she notices you hanging around outside her home.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Introduce the fuckhuge oni
 	// Long: Untested
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		EngineCore.outputText( ' me get some air in here for you...</i>”  She launches herself to her feet with surprising speed and breezes past you.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.enterFirstTimePartII );
+		EngineCore.addButton( 0, 'Next', this, this.enterFirstTimePartII );
 	};
 	IzumiScene.prototype.enterFirstTimePartII = function() {
 		EngineCore.clearOutput();
@@ -269,8 +269,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Izumi seems singularly unperturbed by the sex-mad nature of this world, an attitude you find oddly refreshing.  There’s something about her; she seems to exude an aura of steady, unconcerned confidence from every movement, dripping from each word she speaks.  It’s a difficult thought to articulate, but the enormous woman’s lazy smile and relaxed attitude seem... infectious.\n\n' );
 		EngineCore.outputText( 'You talk animatedly with Izumi some more over the next hour or so, inquiring about the horn on her forehead, what life is like where she comes from, how she came to be here and a dozen other topics.  She explains that all of her race, the Oni, have horns that reflect their power and strength.  For her part, she asks a myriad questions about your home.  When you ask about the pipe she’s smoking, she surprises you by wordlessly handing it to you.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Smoke', this.smokeThePipe );
-		EngineCore.addButton( 1, 'NoSmoke', this.dontSmokeThePipe );
+		EngineCore.addButton( 0, 'Smoke', this, this.smokeThePipe );
+		EngineCore.addButton( 1, 'NoSmoke', this, this.dontSmokeThePipe );
 	};
 	// Set some shit up for the Pipesmoke scene during the introduction
 	var SMOKE_SPEED_REDUCE = 1.1;
@@ -386,9 +386,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		EngineCore.outputText( 'You could let her continue with whatever it is that she’s planning, but her truly gargantuan stature is more than a little intimidating.  On the other hand, you could try to fight her or make a break for it, but you don’t know how well either of those plans would work out; if there’s anything Izumi appears to be, it’s physically fit... although, as your eyes begin to adjust and Izumi’s scandalous neckline swims back into focus, the third option does seem somewhat tantalizing as well...\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fight', this.fightTheFuckhugeOni );
-		EngineCore.addButton( 1, 'Surrender', this.fuckhugeOniGetsWhatSheWants );
-		EngineCore.addButton( 2, 'Flee', this.fuckinChegIt );
+		EngineCore.addButton( 0, 'Fight', this, this.fightTheFuckhugeOni );
+		EngineCore.addButton( 1, 'Surrender', this, this.fuckhugeOniGetsWhatSheWants );
+		EngineCore.addButton( 2, 'Flee', this, this.fuckinChegIt );
 	};
 	// Player opts to leave rather than do anything
 	// TODO: Bulk this up some, its way short.
@@ -397,7 +397,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		CoC.flags[ kFLAGS.IZUMI_LAST_ENCOUNTER ] = 2;
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Spotting an opening, you decide to beat a hasty retreat, as far away from the immense woman as possible.\n\n' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * FIGHT SHIT
@@ -575,7 +575,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>Well, that was fun.</i>”  Izumi says, sitting up and dusting off her palms, dismissively.  “<i>I’m assuming you’re not up to a rematch just yet from the way you’re shaking.</i>”  She picks up her pipe and takes a drag, shooting you a knowing grin.  “<i>Feel free to drop by again, though.  You know, in case you wanted to tell me off... or maybe if you just want me to bully you some more.</i>” \n\n' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Male/Herm scene for cocks <= 10'
 	IzumiScene.prototype.surrenderMediumCock = function() {
@@ -624,8 +624,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' almost of their own accord.  Izumi’s fingers tighten a little, just enough to keep her grip, but her gentle motions stop completely.  She simply holds on, grinning slyly at you as you desperately hump into the air.  Izumi’s amber eyes glitter in the gloom as she leans in closer to you, whispering into your ear.\n\n' );
 		EngineCore.outputText( '“<i>Lay back and settle down, or I ruin your fun.</i>” she purrs.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Obey', this.surrenderMediumCockObey );
-		EngineCore.addButton( 1, 'Refuse', this.surrenderMediumCockRefuse );
+		EngineCore.addButton( 0, 'Obey', this, this.surrenderMediumCockObey );
+		EngineCore.addButton( 1, 'Refuse', this, this.surrenderMediumCockRefuse );
 	};
 	// Male/Herm play along scene split
 	IzumiScene.prototype.surrenderMediumCockObey = function() {
@@ -653,7 +653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' cum, staring at the cavern roof and panting madly for a good few minutes afterwards.  Once you regain the use of your legs, you retrieve your clothes and wander back to camp in a daze.\n\n' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Male/Herm be a jerk about it split
 	IzumiScene.prototype.surrenderMediumCockRefuse = function() {
@@ -682,7 +682,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '“<i>So, you learned something today, right?  Next time, just do what I say, and the results are much more... fun.</i>” She smiles, then turns away.  Retrieving your clothes, you drag yourself back to camp, feeling decidedly shaky.\n\n' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Urtadicks itt
 	IzumiScene.prototype.surrenderLargeCock = function() {
@@ -728,7 +728,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'Izumi returns to her tent and lights up her pipe, unceremoniously abandoning you there on the cave floor, apparently done with you for now.  Still, it’s some time before you are able to drag yourself to your feet and stumble home to your camp, wondering how long it’ll be before you can see straight again...\n\n' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzumiScene.prototype.surrenderOhGodTheFemaleSurrenderContentIsFuckingHugeSendHelp = function() {
 		EngineCore.outputText( 'You resign yourself to letting Izumi do as she wills with you, and hesitantly reach to start undressing.' );
@@ -834,11 +834,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		// More exhibitionist shit (!)
 		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 1 ) {
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'ShowMeOff', this.surrenderFemaleExhibitionVariant );
-			EngineCore.addButton( 1, 'HideMe', this.surrenderFemaleNonExhibitionVariant );
+			EngineCore.addButton( 0, 'ShowMeOff', this, this.surrenderFemaleExhibitionVariant );
+			EngineCore.addButton( 1, 'HideMe', this, this.surrenderFemaleNonExhibitionVariant );
 		} else {
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.surrenderFemaleNonExhibitionVariant );
+			EngineCore.addButton( 0, 'Next', this, this.surrenderFemaleNonExhibitionVariant );
 		}
 	};
 	// Female surrender, 'regular' path
@@ -934,7 +934,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Female surrender, ask player if which variant they want
 	IzumiScene.prototype.surrenderFemaleExhibitionVariant = function() {
@@ -947,8 +947,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( ' arch your back a little further, muscles straining as you struggle to present a better view to your audience.  You moan with greater enthusiasm, hoping to draw in a larger crowd.  You feel Izumi’s breasts shake, pressed up against your back, as she chuckles to herself.\n\n' );
 		EngineCore.outputText( '“<i>Get off on being watched, huh?  That’s kinda slutty, you know?  Well, I don’t mind playing you in front of a crowd,</i>” She purrs into your ear.  “<i>But if you’re <b>that</b> kind of kinky, maybe you wanna try a little... Audience participation?</i>”\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.surrenderFemaleLookitYouTheCenterOfAttentionYouSlut );
-		EngineCore.addButton( 1, 'No', this.surrenderFemaleNonExhibitionVariant ); // Take the non-exhibitionist path
+		EngineCore.addButton( 0, 'Yes', this, this.surrenderFemaleLookitYouTheCenterOfAttentionYouSlut );
+		EngineCore.addButton( 1, 'No', this, this.surrenderFemaleNonExhibitionVariant ); // Take the non-exhibitionist path
 	};
 	// Female surrender, Exhibitionist variant scene body
 	IzumiScene.prototype.surrenderFemaleLookitYouTheCenterOfAttentionYouSlut = function() {
@@ -984,7 +984,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( 'You jerk upright with a start, warm bedding falling away from your body, the last few hours slowly beginning to filter through the sleepy haze clouding your thoughts.  Izumi seems to have worn herself out too, splayed out across the floor beside you.  You look around, gathering your bearings before deciding a sneaky exit from the Oni’s home is your best course of action...\n\n' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * LOSS SCENES
@@ -1034,17 +1034,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.outputText( '\n\n' );
 		EngineCore.menu();
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Anal', this.cowedIntoPuttingItInIntoHerGiantOniButt );
-			EngineCore.addButton( 1, 'Vaginal', this.fuckhugeOniWantsYourBabiesOrSomeShit );
+			EngineCore.addButton( 0, 'Anal', this, this.cowedIntoPuttingItInIntoHerGiantOniButt );
+			EngineCore.addButton( 1, 'Vaginal', this, this.fuckhugeOniWantsYourBabiesOrSomeShit );
 		}
 		if( CoC.player.hasVagina() && !CoC.player.hasCock() ) {
-			EngineCore.addButton( 2, '69', this.littleChampLittleChampFuckhugeOniIsCominTaEatcha );
+			EngineCore.addButton( 2, '69', this, this.littleChampLittleChampFuckhugeOniIsCominTaEatcha );
 		}
 		if( !CoC.player.hasCock() && !CoC.player.hasVagina() ) {
-			EngineCore.addButton( 0, 'Next', this.noDickNoVagNoService );
+			EngineCore.addButton( 0, 'Next', this, this.noDickNoVagNoService );
 		}
 		if( CoC.player.hasVagina() || CoC.player.hasCock() ) {
-			EngineCore.addButton( 9, 'Leave', this.lossSceneLeave );
+			EngineCore.addButton( 9, 'Leave', this, this.lossSceneLeave );
 		}
 
 	};
@@ -1363,17 +1363,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		}
 		EngineCore.outputText( 'You could play nice and let the Oni go free... she is asking nicely, after all.  On the other hand, after the way she tried to ravage you earlier, you figure Izumi’s arrogant attitude could use being taken down a notch or two.  The only question is, what exactly are you going to do?\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Let Go', this.letGoAndLeaveYouSillyFuck );
+		EngineCore.addButton( 0, 'Let Go', this, this.letGoAndLeaveYouSillyFuck );
 		CoC.flags[ kFLAGS.IZUMI_SEEN_PC_GENDER ] = CoC.player.gender;
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 1, 'TribHorn', this.tribThatRockyHornGirl );
+			EngineCore.addButton( 1, 'TribHorn', this, this.tribThatRockyHornGirl );
 		}
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 2, 'LetsFuck', this.letGoAndFuck );
-			EngineCore.addButton( 3, 'RevengeAnal', this.gonnaGetMeSomeRevengeButtsexin );
-			EngineCore.addButton( 4, 'RevengeOral', this.sayThatsAPrettyFaceBeAShameIfSomebodyJizzedAllOverIt );
+			EngineCore.addButton( 2, 'LetsFuck', this, this.letGoAndFuck );
+			EngineCore.addButton( 3, 'RevengeAnal', this, this.gonnaGetMeSomeRevengeButtsexin );
+			EngineCore.addButton( 4, 'RevengeOral', this, this.sayThatsAPrettyFaceBeAShameIfSomebodyJizzedAllOverIt );
 			if( CoC.player.tentacleCocks() >= 8 ) {
-				EngineCore.addButton( 5, 'Tentacruel', this.tentacruelRevengeFux );
+				EngineCore.addButton( 5, 'Tentacruel', this, this.tentacruelRevengeFux );
 			}
 		}
 	};

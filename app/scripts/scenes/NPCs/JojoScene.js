@@ -88,13 +88,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	JojoScene.prototype.jojoMutationOffer = function() {
 		this.jojoSprite();
 		EngineCore.outputText( 'A wicked idea comes to mind while thinking of Jojo.  The lethicite you took from the lake goddess – perhaps it could be used to enhance your own budding demonic powers, and twist your mousey fuck-puppet into a truly worthy pet?\n\n<b>Do You?</b> (WARNING only once & unlocks tentacle content)', true );
-		EngineCore.doYesNo( this.jojoMutationOfferYes, this.jojoMutationOfferNo );
+		EngineCore.doYesNo( this, this.jojoMutationOfferYes, this, this.jojoMutationOfferNo );
 	};
 	JojoScene.prototype.jojoMutationOfferNo = function() {
 		this.jojoSprite();
 		EngineCore.outputText( 'There are some lines even you won\'t cross.  Besides, having a sex-addled mouse with a constantly drooling foot-long cock is all the fun you can handle.\n\nWith that decided you prepare to call on your slut.', true );
 		//Normal jojo sex scene here;
-		EngineCore.doNext( this.corruptJojoSexMenu );
+		EngineCore.doNext( this, this.corruptJojoSexMenu );
 	};
 	//CORRUPT CAMP JOJO;
 	JojoScene.prototype.corruptCampJojo = function() {
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00331 ] !== 0 ) {
 				milkHim = this.repeatMilkJojo;
 				if( this.tentacleJojo() ) {
-					tentaMilk = EngineCore.createCallBackFunction( this.repeatMilkJojo, true );
+					tentaMilk = EngineCore.createCallBackFunction( this, this.repeatMilkJojo, true );
 				}
 			} else {
 				milkHim = this.milkJojoFirst;
@@ -201,23 +201,23 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
 			hairCare = this.jojoPaysForPerms;
 		}
-		EngineCore.choices( 'Sex', sex, 'TentacleSex', tent, 'Milk Him', milkHim, 'TentacleMilk', tentaMilk, 'HairCare', hairCare, 'Lay Eggs', eggs, '', null, '', null, '', null, 'Back', SceneLib.camp.campSlavesMenu );
+		EngineCore.choices( 'Sex', this, sex, 'TentacleSex', this, tent, 'Milk Him', this, milkHim, 'TentacleMilk', null, tentaMilk, 'HairCare', this, hairCare, 'Lay Eggs', this, eggs, '', null, null, '', null, null, '', null, null, 'Back', SceneLib.camp, SceneLib.camp.campSlavesMenu );
 		if( CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 0 ) {
-			EngineCore.addButton( 6, 'Farm Work', this.sendToFarm );
+			EngineCore.addButton( 6, 'Farm Work', this, this.sendToFarm );
 		}
 		if( CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 1 ) {
-			EngineCore.addButton( 6, 'Go Camp', this.backToCamp );
+			EngineCore.addButton( 6, 'Go Camp', this, this.backToCamp );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_JOJO ] === 0 ) {
-			EngineCore.addButton( 7, 'Harvest Draft', this.harvestJojoDraft );
+			EngineCore.addButton( 7, 'Harvest Draft', this, this.harvestJojoDraft );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_JOJO ] === 1 ) {
-			EngineCore.addButton( 7, 'Stop Harvest', this.stopHarvestJojoDraft );
+			EngineCore.addButton( 7, 'Stop Harvest', this, this.stopHarvestJojoDraft );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 		}
 	};
 	JojoScene.prototype.harvestJojoDraft = function() {
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_JOJO ] = 1;
 		}
 
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	JojoScene.prototype.stopHarvestJojoDraft = function() {
 		EngineCore.clearOutput();
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( '\n\n“<i>Would you like that, Jojo? To literally drown in your [master]’s fluids? Well, maybe later. For now, when you’re fapping to the idea, squirt your useless cum somewhere other than into a bottle, got that?</i>”' );
 		EngineCore.outputText( '\n\n“<i>Yes [master],</i>” says Jojo lowly.' );
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_JOJO ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	JojoScene.prototype.sendToFarm = function() {
 		EngineCore.clearOutput();
@@ -258,14 +258,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( '\n\n“<i>I need you to be doing more than jacking off to the thought of servicing me, frankly. Don’t worry though, slut, I will always be close by, and if you’re really lucky and work hard, I might come and fuck you so rotten you can’t walk every now and then. Go on now!</i>”' );
 		EngineCore.outputText( '\n\n“<i>As... as you wish [master],</i>” whispers Jojo, and shakily walks off towards the lake. He will make a decent worker for Whitney, you think, and his haunted midnight pacing will at least add a bit of vigilance to the farm.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You tell him to head back to camp; there are things you need to do to him you can’t do whilst he’s here. Repeatedly. Jojo trembles, manages a bow, and then slowly trails off towards camp.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	JojoScene.prototype.jojoMutationOfferYes = function() {
 		this.jojoSprite();
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( 'The dildo disappears back into your inventory, and you smile in wicked anticipation of your next meeting with Jojo.\n', false );
 		}
 		EngineCore.outputText( '\n<b>You just can\'t wait!  You\'ll call him over now...</b>', false );
-		EngineCore.doNext( this.mutateJojo );
+		EngineCore.doNext( this, this.mutateJojo );
 	};
 	JojoScene.prototype.mutateJojo = function() {
 		this.jojoSprite();
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		//(LIMITED MASTURBATE MENU – No Jojo);
 		CoC.player.createStatusAffect( StatusAffects.NoJojo, 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.TentacleJojo, 0, 0, 0, 0 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[POST TENTACLE DICKINGS];
 	JojoScene.prototype.useTentacleJojo = function() {
@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		CoC.player.cuntChange( 40, true );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Jojo milk payments;
 	JojoScene.prototype.jojoMilkPay = function( tentacle ) {
@@ -914,7 +914,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		//(COPY PASTA REGULAR MILKER STUFF: A loud 'ding' chimes and a panel displays 0.864 Ls.  Ten gems roll out into a collection plate.  Whitney really put a lot of work into this!  You pocket the gems and g;
 		this.jojoMilkPay();
 		EngineCore.outputText( 'o on your way, dragging an exhausted mouse behind you as you head back towards camp.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.repeatMilkJojo = function( tentacle ) {
 		this.jojoSprite();
@@ -988,7 +988,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( 'o on your way, dragging an exhausted mouse behind you as you head back towards camp.', false );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Use Jojo to pay for Hair Care ;
 	JojoScene.prototype.jojoPaysForPerms = function() {
@@ -1047,10 +1047,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 
 		EngineCore.menu();
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Demonstrate', this.BJRidesGETYOUONE );
+			EngineCore.addButton( 0, 'Demonstrate', this, this.BJRidesGETYOUONE );
 		}
-		EngineCore.addButton( 1, 'Watch', this.amilyAndJojoFuck );
-		EngineCore.addButton( 4, 'Leave', MainView.playerMenu );
+		EngineCore.addButton( 1, 'Watch', this, this.amilyAndJojoFuck );
+		EngineCore.addButton( 4, 'Leave', null, MainView.playerMenu );
 	};
 	//Scene 1 Result: Male Gets BJ (Z);
 	JojoScene.prototype.BJRidesGETYOUONE = function() {
@@ -1082,11 +1082,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.player.tallness > 55 ) {
 			puss = this.stuffAmilysMouthWithPostBJCUM;
 		}
-		EngineCore.choices( 'Amily\'s Mouth', this.fillAmilysMouth,
-			'Amily\'s Pussy', puss,
-			'Jojo\'s Mouth', this.fillJojosMouthWithHotStickyCum,
-			'', null,
-			'', null );
+		EngineCore.choices( 'Amily\'s Mouth', this, this.fillAmilysMouth,
+			'Amily\'s Pussy', this, puss,
+			'Jojo\'s Mouth', this, this.fillJojosMouthWithHotStickyCum,
+			'', null, null,
+			'', null, null );
 	};
 	//Fill Amily's Mouth (Z);
 	JojoScene.prototype.fillAmilysMouth = function() {
@@ -1103,7 +1103,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( '\n\nThe sperm-filled girl burps and turns to kiss Jojo, the once-pure monk eagerly returning the embrace and getting a good taste for your seed as Amily fervently tongues it into his mouth.  She eventually pulls back to encourage him with an overwrought sigh. "<i>Maybe if you service [master] better you\'ll be allowed to receive [his] seed next time.</i>"  Jojo pants and licks at his lips, hands darting down to tend to his long-neglected phallus.' );
 		EngineCore.outputText( '\n\nYour personal whore laughs and hugs your leg, whispering, "<i>Cum-slut thanks you, [master].</i>"  You pull her up and smile at her, glad she\'s working to make your budding harem as sexually adept as possible.  She beams and grabs Jojo with her tail, no doubt eager to drag him off for more training.' );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fill Amily's Twat (requires not short-ass, weak-ass nigga) (Z);
 	JojoScene.prototype.stuffAmilysMouthWithPostBJCUM = function() {
@@ -1119,7 +1119,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.dynStats( 'sen', -1 );
 		//{DONT FORGET PREGNANCY CHECK};
 		SceneLib.amilyScene.amilyPreggoChance();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fill Jojo's Mouth (Z);
 	JojoScene.prototype.fillJojosMouthWithHotStickyCum = function() {
@@ -1130,7 +1130,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( '\n\nWhile one of your mouse-toys is polishing your rod, the other is masturbating and panting.  "<i>Please, [master], may I... may I have some cum?  Can I... I lick him clean?  He\'s so...</i>"  She inhales and luridly moans, "<i>...messy.</i>"  You give her your assent as you withdraw your spit-shined pecker from Jojo\'s maw, not caring how the two of them get their rocks off so long as your harem is kept well-trained and willing.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Scene 2: Amily And Jojo Fuck (w/o Tentacles) (Z);
 	JojoScene.prototype.amilyAndJojoFuck = function() {
@@ -1155,7 +1155,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		CoC.player.orgasm();
 		//{DONT FORGET PREGNANCY CHECK};
 		//amilyPreggoChance();;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.jojoFollowerMeditate = function() {
 		this.jojoSprite();
@@ -1194,7 +1194,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			}
 			CoC.player.createStatusAffect( StatusAffects.Meditated, 1, 0, 0, 0 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.jojoDefenseToggle = function() {
 		this.jojoSprite();
@@ -1206,7 +1206,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			CoC.player.createStatusAffect( StatusAffects.JojoNightWatch, 0, 0, 0, 0 );
 			EngineCore.outputText( 'You ask the monk if he could guard the camp for you at night.  He smiles politely.  "<i>Certainly, [name].</i>"' );
 		}
-		EngineCore.doNext( this.jojoCamp );
+		EngineCore.doNext( this, this.jojoCamp );
 	};
 	// Hurray var/function hoisting.;
 	//this.semiglobalReferencer.jojoRape = this.jojoRape;;
@@ -1217,14 +1217,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ask Jojo if he\'d like to go on a hunt through the woods to clear out some of the corrupted creatures, and the mouse readily agrees.  He asks if you\'ve been getting a bit stir-crazy from having your camp in one place as the two of you walk into the woods...' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.jojoRape, false );
+		EngineCore.addButton( 0, 'Next', this, this.jojoRape, false );
 	};
 	JojoScene.prototype.defeatedJojo = function( hpVictory ) {
 		this.jojoSprite();
 		if( CoC.player.lust > 33 && CoC.player.gender > 0 ) {
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'You smile in satisfaction as Jojo' + (hpVictory ? ' collapses, unable to continue fighting' : ' collapses and begins masturbating feverishly') + '.  Sadly you realize your own needs have not been met.  Of course, you could always rape the poor thing...\n\nDo you rape him?' );
-			EngineCore.doYesNo( this.postCombatRape, Combat.cleanupAfterCombat );
+			EngineCore.doYesNo( this, this.postCombatRape, null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.finishCombat();
 		}
@@ -1238,7 +1238,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( 'teach the uppity monk a lesson...\n\n' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.jojoRape, true );
+		EngineCore.addButton( 0, 'Next', this, this.jojoRape, true );
 	};
 	JojoScene.prototype.jojoRape = function( postCombat ) {
 		$log.debug( 'jojoRape called' );
@@ -1266,7 +1266,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			default:
 				this.jojosFifthRape();
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		if( postCombat ) {
 			Combat.cleanupAfterCombat();
 		}
@@ -1854,25 +1854,25 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	JojoScene.prototype.corruptJojoSexMenu = function() {
 		EngineCore.menu();
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 2, 'Gentle Vaginal', this.corruptJojoVaginalGentle );
-			EngineCore.addButton( 7, 'Vag. Smother', this.corruptJojoVaginalSmother );
-			EngineCore.addButton( 8, 'Anal Smother', this.corruptJojoAnalSmother );
+			EngineCore.addButton( 2, 'Gentle Vaginal', this, this.corruptJojoVaginalGentle );
+			EngineCore.addButton( 7, 'Vag. Smother', this, this.corruptJojoVaginalSmother );
+			EngineCore.addButton( 8, 'Anal Smother', this, this.corruptJojoAnalSmother );
 		}
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Gentle BJ', this.corruptJojoBJGentle );
-			EngineCore.addButton( 5, 'Cruel BJ', this.corruptJojoBJCruel );
-			EngineCore.addButton( 3, 'Gentle Anal', this.corruptJojoAnalGentle );
+			EngineCore.addButton( 0, 'Gentle BJ', this, this.corruptJojoBJGentle );
+			EngineCore.addButton( 5, 'Cruel BJ', this, this.corruptJojoBJCruel );
+			EngineCore.addButton( 3, 'Gentle Anal', this, this.corruptJojoAnalGentle );
 			if( CoC.player.findPerk( PerkLib.Whispered ) >= 0 ) {
-				EngineCore.addButton( 8, 'Whisper', this.whisperJojobait );
+				EngineCore.addButton( 8, 'Whisper', this, this.whisperJojobait );
 			} else {
-				EngineCore.addButton( 8, 'Cruel Anal', this.corruptJojoAnalCruel ); //Overrides Anal Smother - Herms don't smother, they fuck
+				EngineCore.addButton( 8, 'Cruel Anal', this, this.corruptJojoAnalCruel ); //Overrides Anal Smother - Herms don't smother, they fuck
 			}
 		}
-		EngineCore.addButton( 1, 'Give BJ', this.corruptJojoCunnilingus );
+		EngineCore.addButton( 1, 'Give BJ', this, this.corruptJojoCunnilingus );
 		if( CoC.player.biggestTitSize() >= 2 ) {
 			EngineCore.addButton( 6, (CoC.player.biggestLactation() > 1 ? 'Suckle' : 'Breasts'), this.corruptJojoBreasts );
 		} //All ya need is bewbs
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	JojoScene.prototype.corruptJojoBJCruel = function() {
 		this.jojoSprite();
@@ -1892,7 +1892,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'You sneer at him and shake your head, hissing out, "<i>It would be so much better for you if you didn\'t try to resist, my slut.</i>"  ' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoBJGentle = function() {
 		this.jojoSprite();
@@ -1916,7 +1916,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoCunnilingus = function() {
 		this.jojoSprite();
@@ -1936,7 +1936,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'You work until your slut explodes, and then, keeping all his seed in your mouth, you lift your head and press your lips to his in a firm kiss, feeding him the load of cum that he just released. He blushes as you do so, but obediently takes it all in, swallowing it down as you feed it to him.  ' );
 		EngineCore.outputText( 'Once the vulgar kiss is finished, you stand and smile, dismissing him with a casual wave of your hand.  ' );
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoVaginalGentle = function() {
 		this.jojoSprite();
@@ -1961,7 +1961,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_JOJO, PregnancyStore.INCUBATION_MOUSE + 82 ); //Jojo's kids take longer for some reason
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoVaginalSmother = function() {
 		this.jojoSprite();
@@ -1979,7 +1979,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'He gasps for breath and coughs a few times, and once you are sure that he is safe, you laugh softly and walk back to your camp.  ' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoAnalCruel = function() {
 		this.jojoSprite();
@@ -1998,7 +1998,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'You pull out of Jojo\'s ass once your orgasm has subsided and wipe your ' + CoC.player.cockDescript( x ) + ' off on the fur of his back, then walk away to leave him to his own devices.  ' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoAnalGentle = function() {
 		this.jojoSprite();
@@ -2018,7 +2018,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'You can\'t help but laugh at the scene, and draw out of his ass with a groan of pleasure. You watch as he crawls back into the jungle in shame, leaving a trail of your cum the whole way.  ' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoAnalSmother = function() {
 		this.jojoSprite();
@@ -2039,7 +2039,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'He gasps for breath and coughs a few times, and once you are sure that he is safe, you laugh softly and walk back to your camp.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.corruptJojoBreasts = function() { //Should only be available to players with biggestBreastSize > 2
 		this.jojoSprite();
@@ -2062,7 +2062,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'He slinks back into the woods, chased by your amused laughter.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Extra Scenes;
 	//[Jojo Whispered Sex scene];
@@ -2108,7 +2108,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( 'As you move away from the mouse, you step into a huge puddle of Jojo\'s creamy rodent cum and look back. You see that his dick, still trapped under his body and pointing behind the two of you, blasted long ropes of thick mouse spunk far into the depths of the forest.  Feeling beyond satisfied, you give your mouse slut a quick scratch behind the ear as he passes out – cum splattered and smiling.' );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Bee on C. Jojo: Finished (Fenoxo) (Zedit);
 	JojoScene.prototype.beeEggsInCorruptJojo = function() {
@@ -2208,8 +2208,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( '“<i>Oh... erm... I’m sorry.  You spooked me,</i>” he says apologetically, rubbing the back of his neck in embarrassment.\n\n' );
 		EngineCore.outputText( 'Do you accept his apology?\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.acceptJojosApology );
-		EngineCore.addButton( 1, 'No', this.refuseJojosApology );
+		EngineCore.addButton( 0, 'Yes', this, this.acceptJojosApology );
+		EngineCore.addButton( 1, 'No', this, this.refuseJojosApology );
 	};
 	// Yes;
 	JojoScene.prototype.acceptJojosApology = function() {
@@ -2242,9 +2242,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		EngineCore.outputText( 'feel any corruption within you, it’s always best to be prepared.  Would you care to join me in meditation?</i>”\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Meditate', this.meditateInForest ); // OH GOD NO SEND HELP
-		EngineCore.addButton( 1, 'Leave', SceneLib.camp.returnToCampUseOneHour );
-		EngineCore.addButton( 4, 'Rape', this.jojoRape );
+		EngineCore.addButton( 0, 'Meditate', this, this.meditateInForest ); // OH GOD NO SEND HELP
+		EngineCore.addButton( 1, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 4, 'Rape', this, this.jojoRape );
 	};
 	JojoScene.prototype.meditateInForest = function() {
 		this.jojoSprite();
@@ -2275,7 +2275,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 					//get a small talisman if not have one;
 					CoC.player.createKeyItem( 'Jojo\'s Talisman', 0, 0, 0, 0 );
 				}
-				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				return;
 			} else {
 				EngineCore.outputText( '"<i>It seems you have quite a talent for this.  We should meditate together more often.</i>"', false );
@@ -2283,12 +2283,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		if( CoC.player.statusAffectv1( StatusAffects.JojoMeditationCount ) % 5 === 0 ) {
 			EngineCore.outputText( '\n\nYou ponder and get an idea - the mouse could stay at your camp.  There\'s safety in numbers, and it would be easier for the two of you to get together for meditation sessions.  Do you want Jojo\'s company at camp?', false );
-			EngineCore.doYesNo( SceneLib.jojoScene.acceptJojoIntoYourCamp, SceneLib.camp.returnToCampUseTwoHours );
+			EngineCore.doYesNo( SceneLib.jojoScene, SceneLib.jojoScene.acceptJojoIntoYourCamp, SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 			return;
 		} else {
 			EngineCore.outputText( '\n\nHe bows his head sadly and dismisses you.', false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	// Some hacky shit to be able to control the text clearing mechanics of the doEvent system... OH GOD WHY. //Gone, gone forever;
 	JojoScene.prototype.acceptJojoIntoYourCamp = function() {
@@ -2300,7 +2300,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( 'You offer Jojo the chance to stay at your camp.  He cocks his head to the side and thinks, stroking his mousey whiskers.\n\n"<i>Yes, it would be wise.   We would be safer together, and if you like I could keep watch at night to keep some of the creatures away.  I\'ll gather my things and be right there!</i>"\n\nJojo scurries into the bushes, disappearing in a flash.  Knowing him, he\'ll be at camp before you!' );
 			CoC.player.createStatusAffect( StatusAffects.PureCampJojo, 0, 0, 0, 0 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Jojo In Camp;
 	// Player approaches pure Jojo in camp, gets offer to mediate if > 10 cor -- responses;
@@ -2345,7 +2345,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 				EngineCore.outputText( 'You walk up to the boulder where Jojo usually sits, and see him sitting cross legged with his eyes closed.  He seems to be deep in meditation, but when you approach his eyes open suddenly and he gets up appearing slightly distressed, “<i>Uh... [name], I can feel a bit of corruption within you.  It is not much, but I think you should be concerned about it before it gets out of hand and you do something you might regret.  If you want to I\'d be happy to meditate with you as you rid yourself of it.</i>” he offers with a concerned look on his face.\n\n' );
 			}
 			EngineCore.outputText( 'Do you accept Jojo\'s help?\n\n' );
-			EngineCore.choices( 'Yes', this.acceptOfferOfHelp, 'No', this.refuseOfferOfHelp, '', null, '', null, 'Rape', (CoC.player.lust >= 33 && CoC.player.gender > 0 ? this.jojoAtCampRape : null) );
+			EngineCore.choices( 'Yes', this, this.acceptOfferOfHelp, 'No', this, this.refuseOfferOfHelp, '', null, null, '', null, null, 'Rape', (CoC.player.lust >= 33 && CoC.player.gender > 0 ? this.jojoAtCampRape : null) );
 		} else {
 			{ //Normal shit
 			}
@@ -2373,18 +2373,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			jojoDefense += 'Off';
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Appearance', this.jojoAppearance );
-		EngineCore.addButton( 1, 'Talk', this.talkMenu );
+		EngineCore.addButton( 0, 'Appearance', this, this.jojoAppearance );
+		EngineCore.addButton( 1, 'Talk', this, this.talkMenu );
 		if( CoC.flags[ kFLAGS.UNLOCKED_JOJO_TRAINING ] === 1 ) {
-			EngineCore.addButton( 2, 'Train', this.apparantlyJojoDOESlift );
+			EngineCore.addButton( 2, 'Train', this, this.apparantlyJojoDOESlift );
 		}
-		EngineCore.addButton( 3, 'Meditate', this.jojoFollowerMeditate );
-		EngineCore.addButton( 4, jojoDefense, this.jojoDefenseToggle );
+		EngineCore.addButton( 3, 'Meditate', this, this.jojoFollowerMeditate );
+		EngineCore.addButton( 4, jojoDefense, this, this.jojoDefenseToggle );
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-			EngineCore.addButton( 5, 'Purge', this.wormRemoval );
+			EngineCore.addButton( 5, 'Purge', this, this.wormRemoval );
 		}
-		EngineCore.addButton( 8, 'Rape', (CoC.player.cor > 10 && CoC.player.lust >= 33 && CoC.player.gender > 0 ? this.jojoAtCampRape : null) );
-		EngineCore.addButton( 9, 'Leave', SceneLib.camp.campFollowers );
+		EngineCore.addButton( 8, 'Rape', this, (CoC.player.cor > 10 && CoC.player.lust >= 33 && CoC.player.gender > 0 ? this.jojoAtCampRape : null) );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.campFollowers );
 	};
 
 	//Appearance;
@@ -2396,28 +2396,28 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'It\'s hard to estimate due to his clothing, but you can tell he is pretty lean and doesn\'t have much in the way of muscle; which makes sense since his martials arts rely more on speed than strength anyways.\n\n' );
 		EngineCore.outputText( 'His weapons of choice are his fists and a polished wooden staff he wields with practiced hands, right now it is tucked away in his bed roll.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( this.jojoCamp );
+		EngineCore.doNext( this, this.jojoCamp );
 	};
 	JojoScene.prototype.talkMenu = function() {
 		this.jojoSprite();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Village', this.jojoTalkVillage );
-		EngineCore.addButton( 1, 'Monks', this.jojoTalkJoiningTheMonks );
-		EngineCore.addButton( 2, 'MonksFall', this.jojoTalkFallOfTheMonks );
-		EngineCore.addButton( 3, 'Forest', this.jojoTalkForestConvo );
+		EngineCore.addButton( 0, 'Village', this, this.jojoTalkVillage );
+		EngineCore.addButton( 1, 'Monks', this, this.jojoTalkJoiningTheMonks );
+		EngineCore.addButton( 2, 'MonksFall', this, this.jojoTalkFallOfTheMonks );
+		EngineCore.addButton( 3, 'Forest', this, this.jojoTalkForestConvo );
 		if( CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ] >= 4 ) {
-			EngineCore.addButton( 4, 'You', this.jojoTalkYourOrigin );
+			EngineCore.addButton( 4, 'You', this, this.jojoTalkYourOrigin );
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
-			EngineCore.addButton( 5, 'Factory', this.jojoTalkFactory );
+			EngineCore.addButton( 5, 'Factory', this, this.jojoTalkFactory );
 		}
 		if( CoC.flags[ kFLAGS.SAND_WITCHES_COWED ] === 1 || CoC.flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] === 1 || CoC.flags[ kFLAGS.SAND_MOTHER_DEFEATED ] === 1 ) {
-			EngineCore.addButton( 6, 'SandCave', this.jojoTalkSandCave );
+			EngineCore.addButton( 6, 'SandCave', this, this.jojoTalkSandCave );
 		}
 		if( CoC.flags[ kFLAGS.UNLOCKED_JOJO_TRAINING ] === 0 && CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ] >= 4 ) {
-			EngineCore.addButton( 7, 'Training', this.apparantlyJojoDOESlift );
+			EngineCore.addButton( 7, 'Training', this, this.apparantlyJojoDOESlift );
 		}
-		EngineCore.addButton( 9, 'Back', this.jojoCamp );
+		EngineCore.addButton( 9, 'Back', this, this.jojoCamp );
 	};
 	//Talk;
 	//Jojo’s Past;
@@ -2439,7 +2439,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( 'Looks like Jojo’s childhood wasn’t so bad. A little sickly sweet and void of wet pussies and drooling dicks but not bad. You tell him you’re happy to have him near you and he smiles for ear to ear, ignorant of your thoughts.\n\n' );
 		}
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); // Dunno where exactly to kick back to, fuck it, back to camp yo!
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); // Dunno where exactly to kick back to, fuck it, back to camp yo!
 	};
 	//Joining the Monks convo;
 	JojoScene.prototype.jojoTalkJoiningTheMonks = function() {
@@ -2453,7 +2453,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( '“<i>The temple became very important to me.  I read about the world, I spoke to the clergy and I sat and thought.  I was enraptured with learning but I didn’t want to be a priest, I don’t know why... I guess it just didn’t appeal to me.  When I first saw the monks visiting the temple, it was like dawn breaking.  After that I waited until I was old enough to join and made the short pilgrimage to the Monastery of the Celestial Lotus.</i>”\n\n' );
 		EngineCore.outputText( 'Jojo wears this quiet little smile as he finishes.  Then he chuckles and says, “<i>Thank you for the memories, [name].  I enjoy our talks.</i>”\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fall of the Monks convo;
 	JojoScene.prototype.jojoTalkFallOfTheMonks = function() {
@@ -2468,7 +2468,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'You try to comfort Jojo, telling him he couldn’t have made a difference being but a single mouse, but he waves you off.  He tells you he is fine and thanks you for your concern.\n\n' );
 		EngineCore.outputText( 'You can tell the story has affected him, but you’re surprised to hear the resolve in his voice and see the defiant strength in his eyes. Excusing yourself, you rise and leave him to do as he will.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Forest Convo;
 	JojoScene.prototype.jojoTalkForestConvo = function() {
@@ -2502,7 +2502,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.outputText( 'He gives you an appraising look before looking away, “<i>Until I met you, [name], my only purpose had been to find the demons who destroyed my order and make them pay for the lives they took.  That is why I was in the forest, I was in the middle of a harsh training regimen to increase my power and skill so that I may seek out those evil brutes who took everything I loved away from me... but vengeance is not the way of the Celestial Lotus.  The Celestial doesn’t train bullies or assassins.  Finding you and aiding in your quest to protect your village from these demonic creatures of perversion gave me new purpose and would make my departed brothers and sisters proud.  I can’t honestly say I’ve given up on having my vengeance but... I will aid you in your quest first if for nothing more than to honor our friendship and honor the memory of the order and its teachings.</i>\n\n' );
 		EngineCore.outputText( 'Looking renewed and at peace despite the emotional storm you know must be raging within his tiny frame Jojo returns to what he was doing after thanking you for giving him new purpose.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Yourself;
 	//Origin;
@@ -2543,7 +2543,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		EngineCore.outputText( 'Jojo smiles now that he has gotten to know you a little better. After a little bit more small talk, the two of you decide the conversation is over and part ways.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dungeon Convo: Factory;
 	//Requirements: Completed Demon Factory -- CoC.player.findStatusAffect(StatusAffects.DungeonShutDown) >= 0;
@@ -2562,7 +2562,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		EngineCore.outputText( 'Once the two of you are done discussing the demonic factory Jojo excuses himself to think on what you’ve told him.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dungeon Convo: Sand Cave;
 	//Requirements: Completed Sand Witch Dungeon;
@@ -2636,7 +2636,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		EngineCore.outputText( 'Having concluded the conversation the two of you stand and Jojo gives you an appreciative pat on the shoulder, seeming more fond of you.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Training;
 	// Initiate first time as a talk option, and then display as a 'base menu' option?;
@@ -2652,13 +2652,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 				EngineCore.outputText( 'Jojo frowns, “<i>I am willing to teach you [name], when I can.  However I am no master, therefore I am unworthy of taking a disciple.  But as your friend, I will teach you what I know so that you may protect yourself.  I believe our time would be better spent meditating.  There is very little you can do with these techniques without first finding your center.</i>”\n\n' );
 				// Kick back to previous menu;
 				EngineCore.menu();
-				EngineCore.doNext( this.jojoCamp );
+				EngineCore.doNext( this, this.jojoCamp );
 				return;
 			} else {
 				EngineCore.outputText( 'Jojo smiles, “<i>I am not a master, therefore I am unworthy of taking you on as a disciple... but as a friend I can teach you all I know.  Whenever you are ready, just ask.</i>.”\n\n' );
 				// Sounds like this should kick back to menu;
 				EngineCore.menu();
-				EngineCore.doNext( this.jojoCamp );
+				EngineCore.doNext( this, this.jojoCamp );
 				return;
 			}
 		}
@@ -2668,14 +2668,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 				EngineCore.outputText( 'You ask the monk to continue your training; but he shakes his head.\n\n' );
 				EngineCore.outputText( '“<i>Not yet [name]. Your body must be fit and rested before our training sessions. Rest first, and come back to me later.</i>”\n\n' );
 				EngineCore.menu();
-				EngineCore.doNext( this.jojoCamp );
+				EngineCore.doNext( this, this.jojoCamp );
 				return;
 			}
 			if( CoC.player.cor >= 25 ) {
 				EngineCore.outputText( 'You ask the monk to continue your training; but he shakes his head.\n\n' );
 				EngineCore.outputText( '“<i>I fear that your time would be better spend meditating before we continue your training. Would you like to do so now?</i>”\n\n' );
 				EngineCore.menu();
-				EngineCore.doYesNo( this.meditateInForest, this.jojoCamp );
+				EngineCore.doYesNo( this, this.meditateInForest, this, this.jojoCamp );
 				return;
 			}
 		}
@@ -2766,7 +2766,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			EngineCore.outputText( enlightenedBlurbs[ Utils.rand( enlightenedBlurbs.length ) ] + '\n\n' );
 		}
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.wormRemoval = function() {
 		this.jojoSprite();
@@ -2785,7 +2785,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		CoC.player.sens = 11;
 		CoC.player.removeStatusAffect( StatusAffects.Infested );
 		EngineCore.dynStats( 'sen', -1, 'lus', -99, 'cor', -15 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'jojoScene', new JojoScene() );
 } );

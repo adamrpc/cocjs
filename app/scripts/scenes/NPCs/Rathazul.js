@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		//Camp offer!;
 		if( CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 3 && CoC.player.statusAffectv3( StatusAffects.MetRathazul ) !== 1 && CoC.player.cor < 75 ) {
 			EngineCore.outputText( '"<i>You know, I think I might be able to do this worn-out world a lot more good from your camp than by wandering around this lake.  What do you say?</i>" asks the rat.\n\n(Move Rathazul into your camp?)', false );
-			EngineCore.doYesNo( this.rathazulMoveToCamp, this.rathazulMoveDecline );
+			EngineCore.doYesNo( this, this.rathazulMoveToCamp, this, this.rathazulMoveDecline );
 			//Set rathazul flag that he has offered to move in (1 time offer);
 			CoC.player.changeStatusValue( StatusAffects.MetRathazul, 3, 1 );
 			return;
@@ -73,19 +73,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		offered = this.rathazulWorkOffer();
 		if( !offered ) {
 			EngineCore.outputText( 'He sighs dejectedly, "<i>I am not sure what I can do for you, youngling.  This world is fraught with unimaginable dangers, and you\'re just scratching the surface of them.</i>"\n\nYou nod and move on, leaving the depressed alchemist to his sadness.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Rathazul.prototype.rathazulMoveToCamp = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rathazul smiles happily back at you and begins packing up his equipment.  He mutters over his shoulder, "<i>It will take me a while to get my equipment moved over, but you head on back and I\'ll see you within the hour.  Oh my, yes.</i>"\n\nHe has the look of someone experiencing hope for the first time in a long time.' );
 		CoC.player.createStatusAffect( StatusAffects.CampRathazul, 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Rathazul.prototype.rathazulMoveDecline = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rathazul wheezes out a sigh, and nods.\n\n"<i>Perhaps I\'ll still be of some use out here after all,</i>" he mutters as he packs up his camp and prepares to head to another spot along the lake.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Rathazul.prototype.campRathazul = function() {
 		EngineCore.spriteSelect( 49 );
@@ -139,9 +139,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		if( !offered ) {
 			EngineCore.outputText( 'He sighs dejectedly, "<i>I don\'t think there is.  Why don\'t you leave me be for a time, and I will see if I can find something to aid you.</i>"', false );
 			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-				EngineCore.doNext( SceneLib.camp.campFollowers );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.campFollowers );
 			} else {
-				EngineCore.doNext( MainView.playerMenu );
+				EngineCore.doNext( MainView, MainView.playerMenu );
 			}
 		}
 	};
@@ -271,7 +271,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			}
 		}
 		if( totalOffers === 0 && spoken ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return true;
 		}
 		if( totalOffers > 0 ) {
@@ -279,23 +279,23 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			//In camp has no time passage if left.;
 			EngineCore.menu();
 			if( showArmorMenu ) {
-				EngineCore.addButton( 0, 'Armor', this.rathazulArmorMenu );
+				EngineCore.addButton( 0, 'Armor', this, this.rathazulArmorMenu );
 			}
 			if( debimbo > 0 ) {
-				EngineCore.addButton( 1, 'Debimbo', this.makeADeBimboDraft );
+				EngineCore.addButton( 1, 'Debimbo', this, this.makeADeBimboDraft );
 			}
-			EngineCore.addButton( 2, 'Buy Dye', dyes );
+			EngineCore.addButton( 2, 'Buy Dye', this, dyes );
 			if( lethiciteDefense !== null ) {
-				EngineCore.addButton( 3, 'Lethicite', lethiciteDefense );
+				EngineCore.addButton( 3, 'Lethicite', this, lethiciteDefense );
 			}
-			EngineCore.addButton( 4, 'Purify', purify );
+			EngineCore.addButton( 4, 'Purify', this, purify );
 			if( reductos !== null ) {
-				EngineCore.addButton( 8, 'Reducto', reductos );
+				EngineCore.addButton( 8, 'Reducto', this, reductos );
 			}
 			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-				EngineCore.addButton( 9, 'Leave', SceneLib.camp.campFollowers );
+				EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.campFollowers );
 			} else {
-				EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			return true;
 		}
@@ -308,25 +308,25 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.menu();
 		//Item purification offer;
 		if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
-			EngineCore.addButton( 0, 'Incubi Draft', this.rathazulPurifyIncubiDraft );
+			EngineCore.addButton( 0, 'Incubi Draft', this, this.rathazulPurifyIncubiDraft );
 		}
 		if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
-			EngineCore.addButton( 1, 'SuccubiMilk', this.rathazulPurifySuccubiMilk );
+			EngineCore.addButton( 1, 'SuccubiMilk', this, this.rathazulPurifySuccubiMilk );
 		}
 		if( CoC.player.hasItem( ConsumableLib.SDELITE ) ) {
-			EngineCore.addButton( 2, 'S. Delight', this.rathazulPurifySuccubiDelight );
+			EngineCore.addButton( 2, 'S. Delight', this, this.rathazulPurifySuccubiDelight );
 		}
 		if( CoC.player.hasItem( ConsumableLib.LABOVA_ ) ) {
-			EngineCore.addButton( 3, 'LaBova', this.rathazulPurifyLaBova );
+			EngineCore.addButton( 3, 'LaBova', this, this.rathazulPurifyLaBova );
 		}
-		EngineCore.addButton( 4, 'Back', this.rathazulWorkOffer );
+		EngineCore.addButton( 4, 'Back', this, this.rathazulWorkOffer );
 	};
 
 	Rathazul.prototype.rathazulPurifyIncubiDraft = function() {
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 			return;
 		}
 		CoC.player.destroyItems( ConsumableLib.INCUBID, 1 );
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 			return;
 		}
 		CoC.player.destroyItems( ConsumableLib.SUCMILK, 1 );
@@ -354,7 +354,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 			return;
 		}
 		CoC.player.destroyItems( ConsumableLib.SDELITE, 1 );
@@ -368,7 +368,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 			return;
 		}
 		CoC.player.destroyItems( ConsumableLib.LABOVA_, 1 );
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		}
 		//Rath menu;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.campRathazul );
+		EngineCore.addButton( 0, 'Next', this, this.campRathazul );
 	};
 	//Creation Of The Draft:*;
 	Rathazul.prototype.makeADeBimboDraft = function() {
@@ -425,7 +425,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
 			silk = this.craftSilkArmor;
 		}
-		EngineCore.choices( 'BeeArmor', beeArmor, 'GelArmor', gelArmor, 'SpiderSilk', silk, '', null, 'Back', this.returnToRathazulMenu );
+		EngineCore.choices( 'BeeArmor', this, beeArmor, 'GelArmor', this, gelArmor, 'SpiderSilk', this, silk, '', null, null, 'Back', this, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.craftSilkArmor = function() {
 		EngineCore.spriteSelect( 49 );
@@ -439,18 +439,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 				EngineCore.outputText( 'You show him your spider-like abdomen in response, offering to produce more webbing for him.  Rathazul chuckles dryly, a sound that reminds you of hot wind rushing through a dead valley.  "<i>Dear child, this would never do.  Silk this tough can only be produced by a true-born spider.  No matter how you change yourself, you\'ll always be a human at heart.</i>"\n\n', false );
 				EngineCore.outputText( 'The old rat shakes his head and adds, "<i>Well, now that I think about it, the venom of a red widow might be able to transform you until you are a spider to the core, but I have absolutely no idea what that would do to you.  If you ever try such a dangerous, reckless idea, let me know.  I want to have my notebooks handy, for SCIENCE!</i>"\n\n', false );
 			}
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 			return;
 		}
 		EngineCore.outputText( 'The rat limps over to his equipment, spider-silk in hand.  With efficient, practiced motions, he runs a few tests.  As he finishes, he sighs and explains, "<i>This will be harder than I thought.  The webbing is highly resistant to most of my alchemic reagents.  To even begin to work with such material I will need a number of rare, expensive elements.  I would need 500 gems to even start such a project.</i>"\n\n', false );
 		EngineCore.outputText( 'You can\'t help but sigh when he names such a sizable figure.  Do you give him the 500 gems and spider-silk in order for him to create you a garment?', false );
 		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( '  <b>Wait... you don\'t even have 500 gems.  Damn.</b>', false );
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 			return;
 		}
 		//[Yes] [No];
-		EngineCore.doYesNo( this.commissionSilkArmorForReal, this.declineSilkArmorCommish );
+		EngineCore.doYesNo( this, this.commissionSilkArmorForReal, this, this.declineSilkArmorCommish );
 	};
 	Rathazul.prototype.commissionSilkArmorForReal = function() {
 		EngineCore.spriteSelect( 49 );
@@ -460,19 +460,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.statScreenRefresh();
 		CoC.player.destroyItems( UseableLib.T_SSILK, 5 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Armor', this.chooseArmorOrRobes, 1 );
-		EngineCore.addButton( 1, 'Robes', this.chooseArmorOrRobes, 2 );
+		EngineCore.addButton( 0, 'Armor', this, this.chooseArmorOrRobes, 1 );
+		EngineCore.addButton( 1, 'Robes', this, this.chooseArmorOrRobes, 2 );
 	};
 	Rathazul.prototype.declineSilkArmorCommish = function() {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You take the silk back from Rathazul and let him know that you can\'t spend 500 gems on a project like that right now.  He sighs, giving you a crestfallen look and a slight nod of his hooded muzzle.', false );
-		EngineCore.doNext( this.returnToRathazulMenu );
+		EngineCore.doNext( this, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.chooseArmorOrRobes = function( robeType ) {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.outputText( 'Rathazul grunts in response and goes back to work.  You turn back to the center of your camp, wondering if the old rodent will actually deliver the wondrous item that he\'s promised you.', true );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] = robeType;
 		CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] = 24;
 		$log.debug( '274: ' + CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] );
@@ -523,14 +523,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.gems -= 50;
 		EngineCore.statScreenRefresh();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Auburn', this.buyDye, ConsumableLib.AUBURND );
-		EngineCore.addButton( 1, 'Black', this.buyDye, ConsumableLib.BLACK_D );
-		EngineCore.addButton( 2, 'Blond', this.buyDye, ConsumableLib.BLOND_D );
-		EngineCore.addButton( 3, 'Brown', this.buyDye, ConsumableLib.BROWN_D );
-		EngineCore.addButton( 4, 'Red', this.buyDye, ConsumableLib.RED_DYE );
-		EngineCore.addButton( 5, 'White', this.buyDye, ConsumableLib.WHITEDY );
-		EngineCore.addButton( 6, 'Gray', this.buyDye, ConsumableLib.GRAYDYE );
-		EngineCore.addButton( 9, 'Nevermind', this.buyDyeNevermind );
+		EngineCore.addButton( 0, 'Auburn', this, this.buyDye, ConsumableLib.AUBURND );
+		EngineCore.addButton( 1, 'Black', this, this.buyDye, ConsumableLib.BLACK_D );
+		EngineCore.addButton( 2, 'Blond', this, this.buyDye, ConsumableLib.BLOND_D );
+		EngineCore.addButton( 3, 'Brown', this, this.buyDye, ConsumableLib.BROWN_D );
+		EngineCore.addButton( 4, 'Red', this, this.buyDye, ConsumableLib.RED_DYE );
+		EngineCore.addButton( 5, 'White', this, this.buyDye, ConsumableLib.WHITEDY );
+		EngineCore.addButton( 6, 'Gray', this, this.buyDye, ConsumableLib.GRAYDYE );
+		EngineCore.addButton( 9, 'Nevermind', this, this.buyDyeNevermind );
 	};
 	Rathazul.prototype.buyDye = function( dye ) {
 		EngineCore.spriteSelect( 49 );
@@ -545,7 +545,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.outputText( 'You change your mind about the dye, and Rathazul returns your gems.\n\n(<b>+50 Gems</b>)' );
 		CoC.player.gems += 50;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( this.returnToRathazulMenu );
+		EngineCore.doNext( this, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.buyReducto = function() {
 		EngineCore.spriteSelect( 49 );
@@ -559,14 +559,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		} else {
 			EngineCore.outputText( '"<i>I\'m sorry, but you lack the gems I need to make the trade,</i>" apologizes Rathazul.' );
-			EngineCore.doNext( this.returnToRathazulMenu );
+			EngineCore.doNext( this, this.returnToRathazulMenu );
 		}
 	};
 	Rathazul.prototype.growLethiciteDefense = function() {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rathazul asks, "<i>Are you absolutely sure?  Growing this thorn canopy as a defense will use one third of the crystal\'s power.</i>"\n\n(Do you have Rathazul use the crystal to grow a defensive canopy?)' );
-		EngineCore.doYesNo( this.growLethiciteDefenseYesYesYes, this.growLethiciteDefenseGuessNot );
+		EngineCore.doYesNo( this, this.growLethiciteDefenseYesYesYes, this, this.growLethiciteDefenseGuessNot );
 	};
 	Rathazul.prototype.growLethiciteDefenseYesYesYes = function() {
 		EngineCore.spriteSelect( 49 );
@@ -574,13 +574,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.outputText( 'Rathazul nods and produces a mallet and chisel from his robes.  With surprisingly steady hands for one so old, he holds the chisel against the crystal and taps it, easily cracking off a large shard.  Rathazul gathers it into his hands before slamming it down into the dirt, until only the smallest tip of the crystal is visible.  He produces vials of various substances from his robe, as if by magic, and begins pouring them over the crystal.  In a few seconds, he finishes, and runs back towards his equipment.\n\n"<i>You may want to take a step back,</i>" he warns, but before you have a chance to do anything, a thick trunk covered in thorny vines erupts from the ground.  Thousands of vine-like branches split off the main trunk as it reaches thirty feet in the air, radiating away from the trunk and intertwining with their neighbors as they curve back towards the ground.  In the span of a few minutes, your camp gained a thorn tree and a thick mesh of barbed vines preventing access from above.' );
 		CoC.player.createStatusAffect( StatusAffects.DefenseCanopy, 0, 0, 0, 0 );
 		CoC.player.addStatusValue( StatusAffects.MaraesLethicite, 2, 1 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Rathazul.prototype.growLethiciteDefenseGuessNot = function() {
 		EngineCore.spriteSelect( 49 );
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Rathazul nods sagely, "<i>That may be wise.  Perhaps there will be another use for this power.' );
-		EngineCore.doNext( this.returnToRathazulMenu );
+		EngineCore.doNext( this, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.craftCarapace = function() {
 		EngineCore.spriteSelect( 49 );
@@ -599,7 +599,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.destroyItems( UseableLib.B_CHITN, 5 );
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		SceneLib.inventory.takeItem( ArmorLib.BEEARMR, this.returnToRathazulMenu );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'rathazul', new Rathazul() );
 } );

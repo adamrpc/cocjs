@@ -80,8 +80,8 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, En
 		that.checkMonster();
 	};
 	var MinotaurProxy = new Proxy( Minotaur, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		var gpNipples = (CoC.player.totalNipples() > 0 ? this.growPlusNipples : null);
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You ponder the needle in your hand knowing it will enlarge the injection site.  What part of your body will you use it on?  ' );
-		EngineCore.choices( 'Balls', gpBalls, 'Breasts', gpBreasts, 'Clit', gpClit, 'Cock', gpCock, 'Nipples', gpNipples, '', null, '', null, '', null, '', null, 'Nevermind', this.growPlusCancel );
+		EngineCore.choices( 'Balls', this, gpBalls, 'Breasts', this, gpBreasts, 'Clit', this, gpClit, 'Cock', this, gpCock, 'Nipples', this, gpNipples, '', null, null, '', null, null, '', null, null, '', null, null, 'Nevermind', this, this.growPlusCancel );
 		return (true);
 	};
 	GroPlus.prototype.growPlusBalls = function() {

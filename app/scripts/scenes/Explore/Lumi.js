@@ -11,11 +11,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 			//placeholder text for outside the cathedral;
 			EngineCore.outputText( 'You spot an anomaly in the barren wastes; a door that seems to be standing out in the middle of nowhere. Somehow, you figure that it must lead to some other part of the world, and the only reason it\'s here is because you can\'t get to where the door should be right now.\n\n', false );
 			EngineCore.outputText( 'Do you open it?', false );
-			EngineCore.doYesNo( this.lumiLabChoices, SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( this, this.lumiLabChoices, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//placeholder text for outside the cathedral;
 			EngineCore.outputText( 'You spot the door standing in the middle of nowhere again, and you guess that it will lead you back to Lumi\'s laboratory.  It swings open easily...', false );
-			EngineCore.doNext( this.lumiLabChoices );
+			EngineCore.doNext( this, this.lumiLabChoices );
 		}
 		//end of placeholder text;
 	};
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		if( this.lumiEnhance( true ) ) {
 			enhance = this.lumiEnhance;
 		}
-		EngineCore.choices( 'Shop', this.lumiShop, 'Enhance', enhance, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Shop', this, this.lumiShop, 'Enhance', this, enhance, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lumi.prototype.lumiShop = function() {
 		EngineCore.spriteSelect( 37 );
@@ -48,10 +48,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		EngineCore.outputText( 'You ask Lumi if you can see her potions.  She smiles at you and pulls out several bottles from her desk and shows them to you.\n\n"<i>Gawantied qwality, made by Lumi herself,</i>" she says proudly.\n\n', false );
 		EngineCore.outputText( 'Lust Draft - 15 gems\nGoblin Ale - 20 gems\nOviposition Elixir - 45 gems\n', false );
 		//The player is given a list of choices, clicking on one gives the description and the price, like Giacomo.;
-		EngineCore.choices( ConsumableLib.L_DRAFT.shortName, this.lumiLustDraftPitch,
-			ConsumableLib.GOB_ALE.shortName, this.lumiPitchGobboAle,
-			ConsumableLib.OVIELIX.shortName, this.lumiPitchOviElixer,
-			'', null, 'Leave', this.lumiLabChoices );
+		EngineCore.choices( ConsumableLib.L_DRAFT.shortName, this, this.lumiLustDraftPitch,
+			ConsumableLib.GOB_ALE.shortName, this, this.lumiPitchGobboAle,
+			ConsumableLib.OVIELIX.shortName, this, this.lumiPitchOviElixer,
+			'', null, null, 'Leave', this, this.lumiLabChoices );
 	};
 	//Lust Draft;
 	Lumi.prototype.lumiLustDraftPitch = function() {
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You point at the bottle filled with bubble-gum pink fluid.\n\n"<i>De lust dwaft? Always a favowite, with it you nevar have to worwy about not bein weady for sexy time; one of my fiwst creations. 15 gems each.</i>"\n\n', false );
 		EngineCore.outputText( 'Will you buy the lust draft?', false );
-		EngineCore.doYesNo( Utils.curry( this.lumiPurchase, ConsumableLib.L_DRAFT ), this.lumiShop );
+		EngineCore.doYesNo( this, Utils.curry( this, this.lumiPurchase, ConsumableLib.L_DRAFT ), this, this.lumiShop );
 	};
 	//Goblin Ale;
 	Lumi.prototype.lumiPitchGobboAle = function() {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You point at the flagon. "<i>Oh? Oh thats Lumi\'s... actually no, dat tispsy stuff for 20 gems. You\'ll like if you want to be like Lumi. Do you like it?</i>"\n\n', false );
 		EngineCore.outputText( 'Will you buy the goblin ale?', false );
-		EngineCore.doYesNo( Utils.curry( this.lumiPurchase, ConsumableLib.GOB_ALE ), this.lumiShop );
+		EngineCore.doYesNo( this, Utils.curry( this, this.lumiPurchase, ConsumableLib.GOB_ALE ), this, this.lumiShop );
 	};
 	//Ovi Elixir;
 	Lumi.prototype.lumiPitchOviElixer = function() {
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You point at the curious hexagonal bottle. "<i>De Oviposar Elixir? Made baithsed on da giant bee\'s special stuff dey give deir queen. It will help make de burfing go faster, an if you dwink it while you awen pweggy, iw will give you some eggs to burf later. More dwinks, eqwals more and biggar eggs. Lumi charges 45 gems for each dose.</i>"\n\n', false );
 		EngineCore.outputText( 'Will you buy the Ovi Elixir?', false );
-		EngineCore.doYesNo( Utils.curry( this.lumiPurchase, ConsumableLib.OVIELIX ), this.lumiShop );
+		EngineCore.doYesNo( this, Utils.curry( this, this.lumiPurchase, ConsumableLib.OVIELIX ), this, this.lumiShop );
 	};
 
 	Lumi.prototype.lumiPurchase = function( itype ) {
@@ -101,7 +101,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 			//After choosing, and PC doesn't have enough gems;
 			EngineCore.outputText( 'You go to pay Lumi the gems, but then you realize that you don\'t have enough. Lumi seems to know what happened and tells you "<i>Ok, is dere somefing you want to buy that you can affowd?</i>"\n\n', false );
 			//Return to main Lumi menu;
-			EngineCore.doNext( this.lumiShop );
+			EngineCore.doNext( this, this.lumiShop );
 		}
 	};
 	Lumi.prototype.lumiEnhance = function( justCheck ) {
@@ -146,20 +146,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		if( CoC.player.gems < 100 ) {
 			EngineCore.outputText( 'You shake your head no, and Lumi gives you a disappointed look and says, "<i>Den Lumi can do no enhancement for you. Anyfing else?</i>"\n\n', false );
 			//Return to main Lumi menu;
-			EngineCore.doNext( this.lumiLabChoices );
+			EngineCore.doNext( this, this.lumiLabChoices );
 			return false;
 		} else {
 			EngineCore.outputText( 'You nod and Lumi gives an excited yell, "<i>Yay! Lumi loves to do enhancement, what you want to be bettar?</i>"\n\n', false );
 			//The player chooses an item that can be enhanced from a list, regardless of which is chosen, the text for the next part is the same.;
-			EngineCore.choices( ConsumableLib.FOXBERY.shortName, fox,
-				ConsumableLib.FOXJEWL.shortName, kitsune,
-				ConsumableLib.GLDSEED.shortName, seed,
-				ConsumableLib.KANGAFT.shortName, kanga,
-				ConsumableLib.L_DRAFT.shortName, lustDraft,
-				ConsumableLib.LABOVA_.shortName, laBova,
-				ConsumableLib.OVIELIX.shortName, oviElix,
-				ConsumableLib.SDELITE.shortName, succuDelight,
-				'', null, 'Back', this.lumiLabChoices );
+			EngineCore.choices( ConsumableLib.FOXBERY.shortName, this, fox,
+				ConsumableLib.FOXJEWL.shortName, this, kitsune,
+				ConsumableLib.GLDSEED.shortName, this, seed,
+				ConsumableLib.KANGAFT.shortName, this, kanga,
+				ConsumableLib.L_DRAFT.shortName, this, lustDraft,
+				ConsumableLib.LABOVA_.shortName, this, laBova,
+				ConsumableLib.OVIELIX.shortName, this, oviElix,
+				ConsumableLib.SDELITE.shortName, this, succuDelight,
+				'', null, null, 'Back', this, this.lumiLabChoices );
 			return true;
 		}
 	};

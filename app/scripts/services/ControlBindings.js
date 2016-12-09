@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 					MainView.nameBox.text = '';
 					Saves.saveGame('CoC_' + (value + 1));
 					EngineCore.outputText('Game saved to slot ' + (value + 1) + '!', true);
-					EngineCore.doNext(MainView.playerMenu);
+					EngineCore.doNext( MainView, MainView.playerMenu);
 				}
 			}
 		);
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 					EngineCore.showStats();
 					EngineCore.statScreenRefresh();
 					EngineCore.outputText('Slot ' + (value + 1) + ' Loaded!', true);
-					EngineCore.doNext(MainView.playerMenu);
+					EngineCore.doNext( MainView, MainView.playerMenu);
 				}
 			}
 		);

@@ -25,13 +25,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'While wandering along the lakeshore, you spy beautiful colored lights swirling under the surface.  You lean over cautiously, and leap back as they flash free of the lake\'s liquid without making a splash.  The colored lights spin in a circle, surrounding you.  You wonder how you are to fight light, but they stop moving and hover in place around you.  There are numerous colors, Pink, White, Black, Purple, and Brown.  They appear to be waiting for something; perhaps you could touch one of them?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Blue', this.eggChoose, 2 );
-			EngineCore.addButton( 1, 'Pink', this.eggChoose, 3 );
-			EngineCore.addButton( 2, 'White', this.eggChoose, 4 );
-			EngineCore.addButton( 3, 'Black', this.eggChoose, 5 );
-			EngineCore.addButton( 4, 'Purple', this.eggChoose, 1 );
-			EngineCore.addButton( 5, 'Brown', this.eggChoose, 0 );
-			EngineCore.addButton( 9, 'Escape', this.eggChooseEscape );
+			EngineCore.addButton( 0, 'Blue', this, this.eggChoose, 2 );
+			EngineCore.addButton( 1, 'Pink', this, this.eggChoose, 3 );
+			EngineCore.addButton( 2, 'White', this, this.eggChoose, 4 );
+			EngineCore.addButton( 3, 'Black', this, this.eggChoose, 5 );
+			EngineCore.addButton( 4, 'Purple', this, this.eggChoose, 1 );
+			EngineCore.addButton( 5, 'Brown', this, this.eggChoose, 0 );
+			EngineCore.addButton( 9, 'Escape', this, this.eggChooseEscape );
 			return;
 		}
 		//Did it already output something?
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 				EngineCore.outputText( '  You bet you could cover the same distance even faster next time.\n', false );
 				EngineCore.dynStats( 'spe', 0.75 );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else if( select === 1 ) {
 			//No boat, no kaiju
 			if( CoC.player.level >= 5 && CoC.flags[ kFLAGS.KAIJU_DISABLED ] === 0 && CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 ) {
@@ -205,7 +205,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 				EngineCore.outputText( 'into daydreams of raunchy perverted sex, flooding your groin with warmth.', false );
 				EngineCore.dynStats( 'lus', (CoC.player.cor / 10 + CoC.player.lib / 10) );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Find whitney or equinum
 		else if( select === 2 ) {
@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 				EngineCore.outputText( 'After a moment, a number of the figures disembark down the gangplank and immediately go off in different directions.  You count half a dozen of them, and guess that they are female when one of them passes by close to you and you see the hole in her outfit over her naughty bits.  You look back at the boat to see it close the gangplank, and move back onto the lake, with only one of the figures still on board.  Surprised to hear a sudden yell, you look to the side and see the clothing of the one who passed you earlier shift and twist before becoming some pink outfit that clings to her backside.  You are stunned for a moment as she disappears from sight before you shake your head and move on.  It seems there are new residents to the lake.\n\n<b>(Fetish Cultists can now be encountered!)</b>', false );
 				//(increase player lust from the sights they saw)
 				EngineCore.dynStats( 'lus', 5 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			SceneLib.fetishCultistScene.fetishCultistEncounter();
@@ -284,12 +284,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 		EngineCore.outputText( ' light.  Immediately it flows into your skin, glowing through your arm as if it were translucent.  It rushes through your shoulder and torso, down into your pregnant womb.  The other lights vanish.' );
 		CoC.player.statusAffect( CoC.player.findStatusAffect( StatusAffects.Eggs ) ).value1 = eggType; //Value 1 is the egg type. If pregnant with OviElixir then StatusAffects.Eggs must exist
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lake.prototype.eggChooseEscape = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You throw yourself into a roll and take off, leaving the ring of lights hovering in the distance behind you.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Just want to do a quick Ottergirl event submission after you mentioned it!
 	Lake.prototype.ottahGirl = function() {
@@ -333,17 +333,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 				if( CoC.player.shortestCockLength() > 48 ) {
 					EngineCore.outputText( '\n\nUnfortunately, you don\'t think she can quite handle your cock.' );
 				} else {
-					EngineCore.addButton( 0, 'Fuck Her', this.ottergirlLikesDongs );
+					EngineCore.addButton( 0, 'Fuck Her', this, this.ottergirlLikesDongs );
 				}
 			}
 			if( CoC.player.hasVagina() || !CoC.player.hasCock() ) {
-				EngineCore.addButton( 1, 'Facesitting', this.ottersForGals );
+				EngineCore.addButton( 1, 'Facesitting', this, this.ottersForGals );
 			}
 		}
 		if( CoC.flags[ kFLAGS.MET_OTTERGIRL ] > 1 ) {
-			EngineCore.addButton( 2, 'Get Fish', this.getSomeFishYaFatty );
+			EngineCore.addButton( 2, 'Get Fish', this, this.getSomeFishYaFatty );
 		}
-		EngineCore.addButton( 4, 'Leave', this.avoidZeOtterPussy );
+		EngineCore.addButton( 4, 'Leave', this, this.avoidZeOtterPussy );
 	};
 	//For Dicks
 	Lake.prototype.ottergirlLikesDongs = function() {
@@ -527,7 +527,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head and explain you can\'t.  She simply shrugs, "<i>Ain\'t no skin off my back.</i>"' );
 		EngineCore.outputText( '\n\nThe two of you sit in silence for a little while.  It doesn\'t feel like an awkward silence, just a serene, relaxing void of noise.  The gentle lapping of the water almost puts you to sleep.  Eventually, you stand, say your goodbyes and leave.  As you\'re leaving, Callu shouts, "<i>Come round any time, ya hear?</i>"  You nod absently, then make your way back to camp.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//For Fatties
 	Lake.prototype.getSomeFishYaFatty = function() {

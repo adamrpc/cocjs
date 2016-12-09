@@ -27,8 +27,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			EngineCore.outputText( '\n\n“<i>Do we have a deal?</i>” She waves a hand next to her breast to bring your attention back to her face.' );
 			//[Yes] [No];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Yes', this.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously );
-			EngineCore.addButton( 1, 'No', this.noContractForMeSloot );
+			EngineCore.addButton( 0, 'Yes', this, this.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously );
+			EngineCore.addButton( 1, 'No', this, this.noContractForMeSloot );
 		} else {
 			//[Picking the Frosty button at the Bakery];
 			EngineCore.outputText( 'You go out to Frosty’s stand; she’s there manning it with a huge smile on her face. “<i>Hello there customer, how may I help you?</i>” You greet her with your own smile and hello and take a look at her menu:\n' );
@@ -49,23 +49,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 	Frosty.prototype.frostyMainMenu = function() {
 		EngineCore.menu();
 		if( CoC.player.gems >= 15 ) {
-			EngineCore.addButton( 0, 'x1', this.cupcakeBuy, 1 );
+			EngineCore.addButton( 0, 'x1', this, this.cupcakeBuy, 1 );
 		}
 		if( CoC.player.gems >= 60 ) {
-			EngineCore.addButton( 1, 'x5', this.cupcakeBuy, 5 );
+			EngineCore.addButton( 1, 'x5', this, this.cupcakeBuy, 5 );
 		}
 		if( CoC.player.gems >= 110 ) {
-			EngineCore.addButton( 2, 'x10', this.cupcakeBuy, 10 );
+			EngineCore.addButton( 2, 'x10', this, this.cupcakeBuy, 10 );
 		}
 		if( CoC.player.gems >= 200 ) {
-			EngineCore.addButton( 3, 'x20', this.cupcakeBuy, 20 );
+			EngineCore.addButton( 3, 'x20', this, this.cupcakeBuy, 20 );
 		}
 		if( CoC.flags[ kFLAGS.SIGNED_FROSTYS_CONTRACT ] === 0 ) {
-			EngineCore.addButton( 8, 'Contract', this.getAFuckingFuckContractFromFucks );
+			EngineCore.addButton( 8, 'Contract', this, this.getAFuckingFuckContractFromFucks );
 		} else {
-			EngineCore.addButton( 8, 'Specials', this.frostysLimitedSpecialMenu );
+			EngineCore.addButton( 8, 'Specials', this, this.frostysLimitedSpecialMenu );
 		}
-		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	Frosty.prototype.frostySpecialsMenu = function( free ) {
 		//1. Hand – 5. points;
@@ -77,15 +77,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 			EngineCore.outputText( '\n\nYou don\'t have enough points for mouth service.' );
 		}
 		if( free || CoC.flags[ kFLAGS.FROSTY_POINTS ] >= 5 ) {
-			EngineCore.addButton( 0, 'Hand', this.frostysHandsAreColdHolyShitWhyDontYouWarmTHoseMitsUp );
+			EngineCore.addButton( 0, 'Hand', this, this.frostysHandsAreColdHolyShitWhyDontYouWarmTHoseMitsUp );
 		}
 		if( free || CoC.flags[ kFLAGS.FROSTY_POINTS ] >= 15 ) {
-			EngineCore.addButton( 1, 'Mouth', this.useFrostysMouth );
+			EngineCore.addButton( 1, 'Mouth', this, this.useFrostysMouth );
 		}
 		if( free || CoC.flags[ kFLAGS.FROSTY_POINTS ] >= 1 ) {
-			EngineCore.addButton( 8, 'EatHerOut', this.cunnilingateFrosty );
+			EngineCore.addButton( 8, 'EatHerOut', this, this.cunnilingateFrosty );
 		}
-		EngineCore.addButton( 9, 'Back', this.approachFrosty );
+		EngineCore.addButton( 9, 'Back', this, this.approachFrosty );
 	};
 	Frosty.prototype.cupcakeBuy = function( arg ) {
 		if( arg === undefined ) {
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		}
 		this.frostyPoints( arg );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.approachFrosty );
+		EngineCore.addButton( 0, 'Next', this, this.approachFrosty );
 	};
 	//[Yes];
 	Frosty.prototype.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously = function() {
@@ -123,8 +123,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		EngineCore.outputText( '\n\nDo you accept?' );
 		//[Yes] [No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.yesIWantYourFreeSampleYouFuckingDiseasedCupcakeSlut );
-		EngineCore.addButton( 1, 'No', this.noIDontWantAFreebieDiseaseYouSlut );
+		EngineCore.addButton( 0, 'Yes', this, this.yesIWantYourFreeSampleYouFuckingDiseasedCupcakeSlut );
+		EngineCore.addButton( 1, 'No', this, this.noIDontWantAFreebieDiseaseYouSlut );
 	};
 	//[Yes];
 	Frosty.prototype.yesIWantYourFreeSampleYouFuckingDiseasedCupcakeSlut = function() {
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You’re too busy right now, so you deny the free service. “<i>Okeydokey, see you around, [name]!</i>” Frosty does a twirl on one foot and runs back to her stand. Such a nice girl.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[No](for the contract);
 	Frosty.prototype.noContractForMeSloot = function() {
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		EngineCore.outputText( '\n\n“<i>Well, you can still buy my tasty cupcakes. You just won’t get any perks for buying them, but eating them is a benefit in its own way. Join the BETA if you change your mind on the whole thing.</i>”' );
 		EngineCore.outputText( '\n\nYou nod at her suggestion and make your way back to the main street.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[Choosing Buttons 1-4];
 	//[Has enough Gems];
@@ -167,8 +167,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		//[Yes] ;
 		//[Go to the “Yes” section when offered the contract the first time.];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously );
-		EngineCore.addButton( 1, 'No', this.noIDontWantToSignYourFuckingContractGoddamned );
+		EngineCore.addButton( 0, 'Yes', this, this.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously );
+		EngineCore.addButton( 1, 'No', this, this.noIDontWantToSignYourFuckingContractGoddamned );
 	};
 	//[No];
 	Frosty.prototype.noIDontWantToSignYourFuckingContractGoddamned = function() {
@@ -288,7 +288,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		//[Player is back at camp];
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Mouth];
 	Frosty.prototype.useFrostysMouth = function() {
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		//[Player is back at camp];
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Back to Frosty’s Special Menu.];
 	Frosty.prototype.genderlessCatchAllForFrosty = function() {
@@ -436,7 +436,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, kFLAGS, Descriptors,
 		//[Player is back at camp];
 		this.frostyPoints( -1 );
 		EngineCore.dynStats( 'lus', 33 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*Anal (One service genderless can have) -WIP-
 	 function analWithACupcakeSloot() {

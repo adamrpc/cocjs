@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 			urethralPen = null;
 			bj = null;
 		}
-		EngineCore.choices( 'Use Cock', dickRape, 'Use Vagina', cuntRape, 'Use Both', hermRape, 'TentacleDick', tentaRape, 'UrethraFuck', urethralPen, 'Get Filled', filled, tempText, temp, 'MakeHimSuck', bj, feedposit, temp2, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Use Cock', this, dickRape, 'Use Vagina', this, cuntRape, 'Use Both', this, hermRape, 'TentacleDick', this, tentaRape, 'UrethraFuck', this, urethralPen, 'Get Filled', this, filled, tempText, this, temp, 'MakeHimSuck', this, bj, feedposit, temp2 === CoC.player.armor.lustyMaidenPaizuri ? CoC.player.armor : this, temp2, 'Leave', null, Combat.cleanupAfterCombat );
 		if( x < 0 && CoC.player.hasCock() ) {
 			EngineCore.outputText( '\nSadly, you\'re too well endowed to penetrate the minotaur.', false );
 		}
@@ -568,9 +568,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		}
 		//YOU LOSE!
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
-			EngineCore.doNext( Combat.combatMenu );
+			EngineCore.doNext( Combat, Combat.combatMenu );
 		}
 	};
 	MinotaurScene.prototype.getRapedByMinotaur = function( autoRape ) {
@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 
@@ -761,7 +761,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
 	};
 	MinotaurScene.prototype.minoGetsTitFucked = function() {
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		//(Max lust, load minotaur dicks & balls into monster stats and throw to rape-scenes.)
 		EngineCore.dynStats( 'lus', 3000 );
 		CoC.monster = new Minotaur();
-		EngineCore.doNext( Combat.endLustLoss );
+		EngineCore.doNext( Combat, Combat.endLustLoss );
 	};
 
 	//[Optional Bad-End For Uber-Addicted]
@@ -978,7 +978,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		//(Withdrawal)
 		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
 			EngineCore.outputText( 'So great is your need that you don\'t even think about it, you just start following.', false );
-			EngineCore.doNext( this.minoAddictionBadEnd2 );
+			EngineCore.doNext( this, this.minoAddictionBadEnd2 );
 		} else {
 			//(if smart)
 			if( CoC.player.inte > 40 ) {
@@ -986,7 +986,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 			}
 			EngineCore.outputText( 'Do you follow the minotaur-scent like the addict that you are?', false );
 			//[Yes] [No]
-			EngineCore.doYesNo( this.minoAddictionBadEnd2, SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doYesNo( this, this.minoAddictionBadEnd2, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	MinotaurScene.prototype.minoAddictionBadEnd2 = function() {
@@ -1013,7 +1013,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		EngineCore.outputText( '"<i>Need... more!</i>" grunts the beast, grabbing you around the neck and pulling you upwards, forcing himself further and further into your throat.   Normally being unable to breathe would incite panic, but the pre-cum dripping into your gullet blasts away the worry in your mind.   You\'re face-fucked hard and fast until you feel your master\'s cock swelling with pleasure inside your throat.  It unloads a thick batch of creamy minotaur jism directly into your stomach, rewarding you until your belly bulges out with the appearance of a mild pregnancy.\n\n', false );
 		EngineCore.outputText( 'Your master pulls out and fastens a leather collar around your neck before dragging you through the mud back to his campfire.  Between the tugging of your collar and rough throat-fucking, you\'re breathless and gasping, but you couldn\'t be any happier.  Your new owner lifts you up by your ' + Descriptors.assDescript() + ' and forces himself inside your ' + Descriptors.assholeDescript() + ', stuffing you full of thick minotaur cock.  Still heavily drugged by the load in your gut, you giggle happily as you\'re bounced up and down, totally relaxed in your master\'s presence.\n\n', false );
 		EngineCore.outputText( 'He grunts and cums inside you for the second time, somehow still able to flood your bowels with what feels like a gallon of cum.  Drooling brainlessly, happy gurgles trickle from your throat as you\'re pulled off and tossed to the side.  You don\'t feel the impact of your body landing in the mud, or even notice when you\'re passed around the camp-fire, broken in as each of your new monstrous masters has his turn.', false );
-		EngineCore.doNext( this.minoCumAddictBadEnd3 );
+		EngineCore.doNext( this, this.minoCumAddictBadEnd3 );
 		EngineCore.dynStats( 'int', -20, 'lib', 5, 'sen', 15, 'lus', 50, 'cor', 10 );
 	};
 	//[PAGE 2]

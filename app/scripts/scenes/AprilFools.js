@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, AppearanceDe
 			EngineCore.outputText( '', true );
 			EngineCore.outputText( 'While walking around the lake, you hear the sound of feminine voices laughing and talking, accompanied by the distinctive clip-clop of hooves. Stepping lightly through the overgrowth you stumble across a group of small brightly colored ponies. The strange part about them isn\'t so much their size, but rather the shape of their bodies.  They almost look cartoonish in nature, a few even sport fluttery, feathery looking wings.\n\n', false );
 			//(option: Approach? Leave them Be?);
-			EngineCore.choices( 'Approach', this.approachPonies, '', null, '', null, '', null, 'Leave', this.leavePonies );
+			EngineCore.choices( 'Approach', this, this.approachPonies, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leavePonies );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00118 ]++;
 			return true;
 		}
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, AppearanceDe
 	AprilFools.prototype.leavePonies = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Deciding it must be some demonic trick, you decide to retreat from the scene before they notice your presence.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AprilFools.prototype.approachPonies = function() {
 		EngineCore.outputText( '', true );
@@ -39,19 +39,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, AppearanceDe
 		//Option one: Leave Politely;
 		//Option Two: Too creepy...;
 		//Option three: Yay, party?;
-		EngineCore.choices( 'Too creepy', this.derpCreepy, 'Yay Party!', this.derpyParty, '', null, '', null, 'Leave', this.derpPolitely );
+		EngineCore.choices( 'Too creepy', this, this.derpCreepy, 'Yay Party!', this, this.derpyParty, '', null, null, '', null, null, 'Leave', this, this.derpPolitely );
 	};
 	AprilFools.prototype.derpPolitely = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You hold out your arms and stop the ponies.  Once you have their attention you let them know you have something important you need to do for now, but will come back soon.  With a wave you turn and walk back into the trees to a chorus of disappointed "<i>ahhhs</i>", mostly from the pink one.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AprilFools.prototype.derpCreepy = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Cocks, horns and slavering vaginas is one thing, but this is almost too much cute to process.  You determine to leave this grove and never EVER come back again.  Still disturbed by the mental images running through your head, as you make your way back to camp, you callously slaughter an imp. Yeah, that feels better.\n\n(+10 XP!  +5 Gems!)', false );
 		CoC.player.XP += 10;
 		CoC.player.gems += 5;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AprilFools.prototype.derpyParty = function() {
 		EngineCore.outputText( '', true );
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, AppearanceDe
 		EngineCore.outputText( 'Time passed, and the rest of the day was a blur, mostly caused by, you assume, the large quantity of Pony Punch you drank.  As you shakily attempt to get up, snippets of the evening\'s events flash through your mind funny joke told by the pink one; the yellow one coming out of hiding to orchestrate an impromptu concerto sung by a choir of songbirds; losing a race to the blue one, (flying is definitely cheating): a derpy looking grey one who was knocking over everything in a two meter radius around her.  Your mind slowly returns to the present and as it does you take a look at yourself.  A first glance at your attire shows the magical \'improvements\' the white one made are already fading away, crumbling into a cloud of pink dust that blows away, leaving you back in your ' + CoC.player.armorName + '.  Watching your clothes change was rather distracting, but now that you are up, and ooh what a headache THAT caused, you see your clothes weren\'t the only thing that changed!!\n\n', false );
 		EngineCore.outputText( 'Your strong lower body has shrunk, the firm musculature replaced by an oddly cartoonish looking form.  In fact, from the waist down you look just like one of the ponies!  Everything looks to still be in the same general place, and a quick test of your new lower body proves it still functions somewhat the same. The new shape of your hooves takes a little while to get used to, but other than that you get used to your new lower body almost with no effort\n\n(<i>*Note:You should really check the character viewer</i>)', false );
 		CoC.player.lowerBody = AppearanceDefs.LOWER_BODY_TYPE_PONY;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	/*Notes:
 	 ---------------------------------------------------------------------------------------------------------------------------------------------

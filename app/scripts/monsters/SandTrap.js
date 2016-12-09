@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Mo
 	SandTrap.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.sandTrapScene.sandtrapmentLoss( true );
 		}

@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 					}
 				}
 			}
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return true;
 		}
 		return false;
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		} else {
 			EngineCore.dynStats( 'lus', 25 );
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Dreams.prototype.fuckedUpCockDreamChange = function() {
 		//Cock Transformation Dream!;
@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		EngineCore.outputText( '\n\nCaptain?  Oh yes, how could you forget?  You\'re the captain of this... metal cave.  And as a captain, you can give orders...' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.displacerDreamII );
+		EngineCore.addButton( 0, 'Next', this, this.displacerDreamII );
 	};
 	Dreams.prototype.displacerDreamII = function() {
 		EngineCore.clearOutput();
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.displacerDreamIII );
+		EngineCore.addButton( 0, 'Next', this, this.displacerDreamIII );
 	};
 	Dreams.prototype.displacerDreamIII = function() {
 		EngineCore.clearOutput();
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 				CoC.player.cocks[ x ].cockType = CockTypesEnum.DISPLACER;
 			}
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'dreams', new Dreams() );
 } );

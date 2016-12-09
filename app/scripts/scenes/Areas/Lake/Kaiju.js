@@ -12,8 +12,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 			EngineCore.outputText( 'Your explorations take you to a small island you haven\'t seen before.  It appears to be a large, smooth rock hill jutting out of the water.  Do you explore it?' );
 			//[Yes/No]
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Yes', this.meetDatKaijuYo );
-			EngineCore.addButton( 1, 'No', this.noMeetingKaijus );
+			EngineCore.addButton( 0, 'Yes', this, this.meetDatKaijuYo );
+			EngineCore.addButton( 1, 'No', this, this.noMeetingKaijus );
 		} else {
 			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 && !this.kaijuCock() ) {
 				this.kaijuGrowsWangus();
@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You continue rowing on, away from the hilly island.' );
 		//[There is still a chance of finding the hill later]
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If yes]
 	Kaiju.prototype.meetDatKaijuYo = function() {
@@ -48,11 +48,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '\n\nWhatever weight she gained, it seemed to all go up.  Despite the green skin and turtle shell, she appears completely humanoid, save for her giant size and proportions.  She looks to be kneeling in the lake, making her exact height hard to estimate.  Though her breasts are a bit larger than proportional, the rest of her matches what would be fit and trim for a person for her rather extreme stature.  Beyond size it would seem the corrupt fluids poured into the lake have heightened her lust as well, judging by how she tugs and pulls on her shapely tits while staring ever intensely at you.  It appears she expects an answer.  What do you do?' );
 		//[Compliment/Flirt/Insult]
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Compliment', this.complimentKaiju );
+		EngineCore.addButton( 0, 'Compliment', this, this.complimentKaiju );
 		if( CoC.player.gender > 0 ) {
-			EngineCore.addButton( 1, 'Flirt', this.flirtWithKaiju );
+			EngineCore.addButton( 1, 'Flirt', this, this.flirtWithKaiju );
 		}
-		EngineCore.addButton( 2, 'Insult', this.insultTheKaijuFirstMeeting );
+		EngineCore.addButton( 2, 'Insult', this, this.insultTheKaijuFirstMeeting );
 	};
 	//[If insult]
 	Kaiju.prototype.insultTheKaijuFirstMeeting = function() {
@@ -68,17 +68,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 				EngineCore.outputText( '\n\nSensing her desires, you try to quickly think of how to avoid pleasing the giant\'s large cock.  It occurs to you that you could use the spell whitefire to attack her.  Do you cast it?' );
 				//[Yes][No]
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Yes', this.yesBurnDatClit );
-				EngineCore.addButton( 1, 'No', this.corruptKaijuInsertion );
+				EngineCore.addButton( 0, 'Yes', this, this.yesBurnDatClit );
+				EngineCore.addButton( 1, 'No', this, this.corruptKaijuInsertion );
 			} else {
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', this.corruptKaijuInsertion );
+				EngineCore.addButton( 0, 'Next', this, this.corruptKaijuInsertion );
 			}
 		} else {
 			EngineCore.outputText( 'Perhaps not the smartest thing to do towards such a giant, you decide to mock her obvious insecurities over her body image.  The word \'fat\' barely has time to leave your lips when in a rage she puffs up her lips and blows, sending you and your boat racing through the lake out of sight.  Sometime later the boat crashes back on shore, your hair and nerves a little windswept from the fast ride.' );
 			//[Giant turtle no longer encounter-able]
 			CoC.flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[If yes]
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		//[Lust is increased and giant turtle girl is no longer encounter-able][End whitefire scene]
 		EngineCore.dynStats( 'lus', 15 );
 		CoC.flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If no] (Scene returns to regular blowjob/urethral insertion scene.)
 	Kaiju.prototype.corruptKaijuInsertion = function() {
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		//[Corruption increases slightly and giant turtle girl is no longer encounter-able]
 		EngineCore.dynStats( 'lus', 50, 'cor', 1 );
 		CoC.flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If compliment]
 	Kaiju.prototype.complimentKaiju = function() {
@@ -113,8 +113,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '\n\n"<i>Aw, that\'s so sweet of you to say!</i>" she says as a smile forms on her face.  "<i>You\'re just so small and sweet I want to pick you up and give you a great big hug,</i>" she continues as she reaches down to pick you up.' );
 		//[Let her/Stop it]
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Let Her', this.letKaijuHaveWayWithYou );
-		EngineCore.addButton( 1, 'Stop It', this.stopItPlease );
+		EngineCore.addButton( 0, 'Let Her', this, this.letKaijuHaveWayWithYou );
+		EngineCore.addButton( 1, 'Stop It', this, this.stopItPlease );
 	};
 	//[If stop it]
 	Kaiju.prototype.stopItPlease = function() {
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'You cry out and wave the inquisitive hand away.  You tell her that you mean no offense, but at such a size and strength disparity you are afraid of what a grip from such a woman could do accidentally.  She seems a bit saddened at that, but makes no further attempt to grab you.' );
 		//[Giant turtle girl is still encounter-able]
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If let her]
 	Kaiju.prototype.letKaijuHaveWayWithYou = function() {
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '\n\n"<i>My, that was a mighty big hug.  I think I\'ll need another nap.  Come visit me again some time,</i>" she says, slowly putting you down in your boat.  You slowly roll away as the jolly green giantess giggles and slowly wades off.' );
 		//[Giant turtle girl now encounter-able at Boat and Swamp, corruption increases slightly]
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If flirt]
 	Kaiju.prototype.flirtWithKaiju = function() {
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '\n\nYou wave goodbye to the giant green girl as you begin to row away.' );
 		//[Corruption increases, giant turtle girl now encounter-able at Boat and Swamp]
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Second/Repeatable encounter/s at Boat
 	Kaiju.prototype.repeatKaijuEncounter = function() {
@@ -278,17 +278,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		//[If PC has 15 incubus drafts (regular or pure) and Venus is not already a herm]
 		if( CoC.player.itemCount( ConsumableLib.INCUBID ) + CoC.player.itemCount( ConsumableLib.P_DRAFT ) >= 10 && !this.kaijuCock() ) {
 			EngineCore.outputText( '\n\nIt occurs to you that you have enough Incubi Drafts on you to even affect someone of the turtle girl’s great size.  Maybe you could give her a cock?' );
-			EngineCore.addButton( 5, 'Give Cock', this.yesTurnKaijuFuta );
+			EngineCore.addButton( 5, 'Give Cock', this, this.yesTurnKaijuFuta );
 		}
 		//[Peek][Hug Boobs][Fuck][Urethra Fuck (only if Venus is a herm)][Talk][Leave]
-		EngineCore.addButton( 0, 'Peek', this.peekAtSomePhatAssKaijuButt );
-		EngineCore.addButton( 1, 'Hug Boobs', this.kaijuRepeatBoobHug );
-		EngineCore.addButton( 2, 'Fuck', this.fuckThisGiantYouDumbCunt );
+		EngineCore.addButton( 0, 'Peek', this, this.peekAtSomePhatAssKaijuButt );
+		EngineCore.addButton( 1, 'Hug Boobs', this, this.kaijuRepeatBoobHug );
+		EngineCore.addButton( 2, 'Fuck', this, this.fuckThisGiantYouDumbCunt );
 		if( this.kaijuCock() ) {
-			EngineCore.addButton( 3, 'UrethraFuck', this.urethraFuckDatGiantCock );
+			EngineCore.addButton( 3, 'UrethraFuck', this, this.urethraFuckDatGiantCock );
 		}
-		EngineCore.addButton( 4, 'Talk', this.talkToKaiju );
-		EngineCore.addButton( 9, 'Leave', this.leaveRepeatKaiju );
+		EngineCore.addButton( 4, 'Talk', this, this.talkToKaiju );
+		EngineCore.addButton( 9, 'Leave', this, this.leaveRepeatKaiju );
 	};
 	//[If Hug Boobs]
 	Kaiju.prototype.kaijuRepeatBoobHug = function() {
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '\n\n"<i>My, that was a mighty big hug.  I think I\'ll need another nap. Come visit me again some time,</i>" she says, slowly putting you down in your boat.  You slowly roll away as the jolly green giantess giggles and slowly wades off.' );
 		//[Giant turtle girl now encounter-able at Boat and Swamp, corruption increases slightly]
 		CoC.flags[ kFLAGS.KAIJU_BAD_END_COUNTER ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Fuck]
 	Kaiju.prototype.fuckThisGiantYouDumbCunt = function() {
@@ -437,7 +437,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		//[Corruption increases]
 		CoC.flags[ kFLAGS.KAIJU_BAD_END_COUNTER ]++;
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Urethra Fuck]
 	Kaiju.prototype.urethraFuckDatGiantCock = function() {
@@ -467,14 +467,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		CoC.flags[ kFLAGS.KAIJU_BAD_END_COUNTER ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Leave]
 	Kaiju.prototype.leaveRepeatKaiju = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'You politely decline any options and bid the green girl goodbye as you row away.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Talk]
 	Kaiju.prototype.talkToKaiju = function() {
@@ -513,7 +513,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 			EngineCore.outputText( '\n\nShe sighs, the conversation seeming to be at an end.' );
 			CoC.flags[ kFLAGS.KAIJU_TALK_CYCLE ] = 0;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.player.inte < 50 ) {
 			EngineCore.dynStats( 'int', 1 );
 		}
@@ -550,11 +550,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 			EngineCore.outputText( '\n\nThough she appears to be ending the show, you know you can encourage her to go even further.  Do you egg her on?' );
 			//[Yes][No]
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Yes', this.yesKaijuGimmePeepShowsMoar );
-			EngineCore.addButton( 1, 'No', this.noKaijuPeepShows );
+			EngineCore.addButton( 0, 'Yes', this, this.yesKaijuGimmePeepShowsMoar );
+			EngineCore.addButton( 1, 'No', this, this.noKaijuPeepShows );
 		} else {
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.noKaijuPeepShows );
+			EngineCore.addButton( 0, 'Next', this, this.noKaijuPeepShows );
 		}
 	};
 	//[If yes]
@@ -565,7 +565,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( 'You make your appreciation of her exhibition known, indicating that you would like her to continue on.  Smiling at your suggestion, and more than willing to give an encore performance, she brings her hands down to her trembling cock, slowly tracing a finger up the length of her shaft before grabbing onto it with one hand while the other begins to rub the tip of the head with her palm.  Her hand, still slick with her own cunt juice, slides easily across her cock.  She begins to moan again, even more lewdly than last time.  Her hips begin to buck as she practically begins to fuck her hand.  Beads of precum begin to bubble up from her cock head, and she quickly wipes it on the palm of her free hand before bringing it towards her face to lick the mess off her palm, her body trembling from the sheer delight of drinking her own pre.  "<i>Oh that\'s good!</i>" she pants, bringing her hand back down to begin stroking her throbbing dick with both hands.  "<i>Please, please watch me cum!</i>" the giantess begs of you as she goes into high gear, giving her cock everything she\'s got left.  It isn\'t much longer before she erupts like a geyser, spraying hermy turtle girl cum high into the air, only for it to rain back down on the green girl.  Her hands begin to slide across her torso, gently massaging the sperm into her skin.' );
 		//[Increase lust further, end corrupt/herm scene]
 		EngineCore.dynStats( 'lib', 1, 'lus', 33 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If no] (Skip corrupt/herm scene)
 	Kaiju.prototype.noKaijuPeepShows = function() {
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '"<i>My goodness, it\'s so much better with a captivated audience!</i>" she says, breathing heavily.  You thank her for the show as she places you back into your boat and giving it a push.  You row away, considering perhaps coming back for another show.' );
 		//[Libido is increased by 1]
 		EngineCore.dynStats( 'lib', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//One off scenes
 	//Scene for Newly Cocked Venus at Boat
@@ -589,16 +589,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( '\n\nYou never expected your actions in the factory to have such a perverse effect.  Do you help get her off?' );
 		//[Yes][No][Mock]
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'No', this.dontGetFutaTurtlesOffToday );
-		EngineCore.addButton( 0, 'Yes', this.helpNewFutaKaijuGetOff );
-		EngineCore.addButton( 2, 'Mock', this.mockDatTurtleGirl );
+		EngineCore.addButton( 1, 'No', this, this.dontGetFutaTurtlesOffToday );
+		EngineCore.addButton( 0, 'Yes', this, this.helpNewFutaKaijuGetOff );
+		EngineCore.addButton( 2, 'Mock', this, this.mockDatTurtleGirl );
 	};
 	//[If no]
 	Kaiju.prototype.dontGetFutaTurtlesOffToday = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'You shake your head no, politely responding that you do not want to get her off right now.  "<i>Oh, okay. I understand,</i>" the giantess states, looking somewhat crestfallen.  You row away, leaving her and her new addition to themselves for the time being.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Mock]
 	Kaiju.prototype.mockDatTurtleGirl = function() {
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.flags[ kFLAGS.KAIJU_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If yes]
 	Kaiju.prototype.helpNewFutaKaijuGetOff = function() {
@@ -672,7 +672,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		//[Corruption increases slightly, lust is decreased]
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Incubi Drafts]
 	Kaiju.prototype.incubiDraftsDatKaiju = function() {
@@ -681,8 +681,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		EngineCore.outputText( 'You ask the big green slut if she’d be open to growing a new toy between her legs to play with.\n\nHer eyes go wide in surprise at the suggestion, a deep red blush spreading across her cheeks. "<i>I admit, I have thought about it. Something long and hard to stroke, but I really don’t know,</i>" she says, obviously excited yet embarrassed by the idea. "<i>Would you really be okay with it?</i>"' );
 		//[Yes][No]
 		//[If No] (Return to menu)
-		EngineCore.addButton( 0, 'Yes', this.yesTurnKaijuFuta );
-		EngineCore.addButton( 1, 'No', this.repeatKaijuEncounter );
+		EngineCore.addButton( 0, 'Yes', this, this.yesTurnKaijuFuta );
+		EngineCore.addButton( 1, 'No', this, this.repeatKaijuEncounter );
 	};
 	//[If Yes]
 	Kaiju.prototype.yesTurnKaijuFuta = function() {
@@ -726,7 +726,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 		//[Corruption increases slightly, lust is decreased]
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Improved Bad End
 	//Venus' Sex Toy
@@ -750,18 +750,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, ConsumableLib, CoC, A
 			EngineCore.menu();
 			//[If yes] Flapping your wings at max speed you beat a hasty retreat! [PC winds up back at camp]
 			//[If no] (Scene continues as normal)
-			EngineCore.addButton( 0, 'Yes', this.flyAwayFromBadEnd );
-			EngineCore.addButton( 1, 'No', this.badEndPartTwo );
+			EngineCore.addButton( 0, 'Yes', this, this.flyAwayFromBadEnd );
+			EngineCore.addButton( 1, 'No', this, this.badEndPartTwo );
 		} else {
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.badEndPartTwo );
+			EngineCore.addButton( 0, 'Next', this, this.badEndPartTwo );
 		}
 	};
 	Kaiju.prototype.flyAwayFromBadEnd = function() {
 		EngineCore.clearOutput();
 		EngineCore.spriteSelect( 103 );
 		EngineCore.outputText( 'Flapping your wings at max speed you beat a hasty retreat!' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[End wings]
 	Kaiju.prototype.badEndPartTwo = function() {

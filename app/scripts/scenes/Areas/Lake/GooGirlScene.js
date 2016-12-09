@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		EngineCore.outputText( 'waters. You pause, trying to figure out what the shape might be. Just under the surface of the water, there appears to be a fist-sized heart shedding a crimson glow. Leaning closer, you gaze down into your reflection only to find your face rising up with pursed lips, trying to kiss you! You jerk backwards and the pseudo-head quivers, resolving its face into a gooey-looking girl, her ', false );
 		Combat.startCombat( new GooGirl() );
 		EngineCore.outputText( this.gooGirl().gooColor() + ' slime body sculpting itself into a humanoid shape. The girl curiously tilts her head to one side, as if trying to figure out why you\'re backing away, before she happily surges forward!', false );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//New Perk – Slime Core (requires goo player, random drop rate?)
 	GooGirlScene.prototype.coreDropChance = function() {
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		EngineCore.outputText( 'Panting, trying to come to terms with your new memories, you notice that the girl\'s nucleus appears to be half a heart, neatly bisected down the middle. You look at yourself and find the other half floating inside your chest, shedding its soft, scarlet light in time to your gasping breath. The half-hearted girl smiles mischievously and winks at you. A sudden wash of heat erupts from her ' + this.gooGirl().gooColor2() + ' body and it\'s all you can do to avert your face from the blaze of magma she\'s made of herself. The meaning of the girl\'s warmth is immediately apparent- all across the surface of the lake, dozens of cute, curious heads poke above the water, gel-like faces locking onto the intense signal of your companion. Sliding swiftly, the other girls rush toward you, their faces positively brimming with an expression that almost seems like lustful hunger.\n\n', false );
 		EngineCore.outputText( 'Your body feels leaden and overburdened, making escape impossible. When the girls reach you, they dive into your now-permeable membrane, one by one at first, then two and three at a time. You grow and swell as they fill you, cascades of memories and thoughts suffocating you like the torrent of a waterfall. Your bloated, expanding body responds to the psychic barrage in the only way it can- releasing an orgasm of gushing fluids from your body in lustful spree, showering the girls milling about you in protein-rich, gooey milk and cum, feeding their bodies even as they force-feed your mind. Hundreds of years unpack themselves within you, tiny heart buds floating inside of your chest, gradually merging into one, vibrant crimson orb.', false );
 		//[Next]
-		EngineCore.doNext( this.gooGirlBadEnd2 );
+		EngineCore.doNext( this, this.gooGirlBadEnd2 );
 	};
 	GooGirlScene.prototype.gooGirlBadEnd2 = function() {
 		EngineCore.outputText( '', true );
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 	};
 	GooGirlScene.prototype.slimeBadEnd = function() { //Another gooey bad end; you should have drunk more fluids
 		EngineCore.outputText( '\nYour entire body wobbles as your strength fails, collapsing into itself.  You struggle to rise, but your form loses more and more rigidity, melting into an amorphous blob.  Without the strength to rise, you\'ve no hope of getting the fluids you need.  The aching craving for moisture drives you to roll to the lake, which you slip into.  With the constant runoff of bodily fluids that enter the lake, you\'re able to subsist for a time, forgetting about your mission as the all-consuming need devours your personality.' );
-		EngineCore.doNext( this.slimeBadEnd2 );
+		EngineCore.doNext( this, this.slimeBadEnd2 );
 	};
 	GooGirlScene.prototype.slimeBadEnd2 = function() {
 		EngineCore.clearOutput();
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 			var sex4N = null;
 			var valeria = SceneLib.valeria.valeriaAndGooThreeStuff;
 			if( CoC.player.armorName !== 'goo armor' || CoC.player.isButtPregnant() || CoC.player.isPregnant() ) {
-				SceneLib.valeria = null;
+				valeria = null;
 			}
 			var eggs = null;
 			if( CoC.player.canOvipositBee() ) {
@@ -266,11 +266,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 			if( CoC.player.hasCock() ) {
 				if( CoC.player.cocks[ CoC.player.smallestCockIndex() ].cockLength < 24 ) {
 					sex1S = 'DickSex';
-					sex1N = EngineCore.createCallBackFunction( this.gooMaleRape, 2 );
+					sex1N = EngineCore.createCallBackFunction( this, this.gooMaleRape, 2 );
 				}
 				if( CoC.player.longestCockLength() >= 24 ) {
 					sex2S = 'BigDickSex';
-					sex2N = EngineCore.createCallBackFunction( this.gooMaleRape, 1 );
+					sex2N = EngineCore.createCallBackFunction( this, this.gooMaleRape, 1 );
 				}
 				if( CoC.player.hasVagina() ) {
 					sex3S = 'Herm Sex';
@@ -311,7 +311,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 					}
 				}
 			}
-			if( SceneLib.valeria !== null ) {
+			if( valeria !== null ) {
 				EngineCore.outputText( '\n\nValeria\'s armored form seems to ebb towards the puddled goo-woman before you, almost eager to close the distance with her despite her pledge to protect you. ' );
 				if( CoC.flags[ kFLAGS.TIMES_VALERIA_GOO_THREESOMED ] === 0 ) {
 					EngineCore.outputText( 'Do you offer a threesome with the girl to Valeria? It could get a little weird....' );
@@ -319,7 +319,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 					EngineCore.outputText( 'Do you offer a threesome with the girl to Valeria? She\'ll likely try flood with you with more sloshing, shuddering pleasure than your body can handle.' );
 				}
 			}
-			EngineCore.choices( sex1S, sex1N, sex2S, sex2N, sex3S, sex3N, sex4S, sex4N, 'Lay Eggs', eggs, '', null, '', null, 'Valeria', valeria, 'Make Slave', gooTF, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( sex1S, this, sex1N, sex2S, this, sex2N, sex3S, this, sex3N, sex4S, this, sex4N, 'Lay Eggs', this, eggs, '', null, null, '', null, null, 'Valeria', SceneLib.valeria, valeria, 'Make Slave', SceneLib.latexGirl, gooTF, 'Leave', null, Combat.cleanupAfterCombat );
 		}
 	};
 
@@ -453,7 +453,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		EngineCore.outputText( 'The small, crimson heart-shaped core in the girl\'s body swims within her form uncertainly. The expanding ' + this.gooGirl().gooColor8() + ' lengths gradually approach the jewel-like nucleus at the girl\'s center, their corrupt fluids swirling within the trembling shafts, moments from release. In panic, the girl\'s heart leaps up into her head and her eyes clench as her gaping mouth crinkles around the edges and she lurches forward in a tremendous sneeze. The slime core launches from her lips and arcs through the air before splashing safely away from the orgy. Without an intellect, the girl\'s now doll-like body coos wordlessly when the ooze men climax, unleashing a torrent of seething viridian into her. The murky cum floods the goo\'s vibration-sexualized form, filling her belly, limbs, and head with a creeping green tint. The hollow slime blissfully strokes her distorted form as the corrupt slime within her begins to work its masculine influence on her shape. Her overfull curves bubble and collapse as the last of her ' + this.gooGirl().gooColor() + ' goo is smothered by the corrupt slime semen.  When it\'s all over, the hyper-feminine slime\'s body has been sculpted to a slightly effete male. A bulge rises from between her legs, dripping into a fresh, gooey cock.\n\n', false );
 		EngineCore.outputText( 'You hurry away before the five oozes take an interest in you next.', false );
 		EngineCore.dynStats( 'lus', (4 + CoC.player.cor / 10) );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	GooGirlScene.prototype.layBeeEggsInGoo = function() {

@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, StatusAff
 			SceneLib.inventory.createStorage();
 			SceneLib.inventory.createStorage();
 			CoC.player.createKeyItem( 'Camp - Chest', 0, 0, 0, 0 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Chance of dick-dragging! 10% + 10% per two foot up to 30%
@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, StatusAff
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'While exploring the desert, you see a shimmering tower in the distance.  As you rush towards it, it vanishes completely.  It was a mirage!   You sigh, depressed at wasting your time.', true );
 		EngineCore.dynStats( 'lus', -15 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Desert.prototype.walkingDesertStatBoost = function() {
 		EngineCore.clearOutput();
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, StatusAff
 				EngineCore.dynStats( 'tou', 0.5 );
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'desert', new Desert() );
 } );

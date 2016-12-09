@@ -29,9 +29,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs,
 		EngineCore.outputText( '\n\n“<i>No...</i>” your mirror image snivels in front of you. “<i>Ten years, ten years I waited for this. You can’t put me back in there, you can’t!</i>” You gaze down at what you look like when you are defeated open, eyes glazed, ' + CoC.player.hairDescript() + ' muddled, your flesh trembling and clenching, the very picture of a bitch awaiting further subjugation. No wonder 90% of Mareth is so keen on wanting to make this sight happen. The doppelganger chances a look up, catches your expression, and freezes. “<i>You... you wouldn’t.</i>”' );
 		EngineCore.menu();
 		if( !CoC.player.isTaur() && (CoC.player.hasCock() || CoC.player.hasVagina()) ) {
-			EngineCore.addButton( 0, 'Oh Really?', this.fuckYourself );
+			EngineCore.addButton( 0, 'Oh Really?', this, this.fuckYourself );
 		}
-		EngineCore.addButton( 1, 'End It', this.killYourself );
+		EngineCore.addButton( 1, 'End It', this, this.killYourself );
 	};
 	DopplegangerScenes.prototype.fuckYourself = function() {
 		EngineCore.clearOutput();
@@ -175,14 +175,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs,
 		}
 		EngineCore.outputText( '\n\n<b>(Key Item Acquired)</b>' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.killYourself = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '\n\nYou hold its gaze for a moment more, and then with a single, fluid movement turn and smash your [weapon] into the engraved mirror. A shrill scream mingles with the sound of breaking glass, but by the time the shards begin to tinkle and chime to the floor it’s keened away, and when you turn back the doppelganger is gone. The shrill sound could have been the sound of the mirror itself when you hit it, you suppose. This could all have been a very strange fugue. Certainly, standing here now in this dishevelled storage room, it’s difficult to believe what just happened. Shaking your head, you make sure the protective glasses you came here for are still in your pocket before heading to the door and leaving.' );
 		Combat.cleanupAfterCombat();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', SceneLib.d3.resumeFromFight );
+		EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.inSovietCoCSelfFucksYou = function() {
 		EngineCore.clearOutput();

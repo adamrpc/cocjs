@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Jojo replies, "<i>Me too,</i>" before he notices you and coughs.  Amily pulls back and beams a brilliant, buck-toothed smile at you.  She rushes into your arms and gives you a kiss before she runs off.  Jojo looks a little embarrassed and scratches his ear as he centers himself.\n\n', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//[To jojo camp interaction]
-		EngineCore.doNext( SceneLib.jojoScene.jojoCamp );
+		EngineCore.doNext( SceneLib.jojoScene, SceneLib.jojoScene.jojoCamp );
 	};
 	//[Amily and Pure Jojo spar – occurs when going to amily, requires 'amily meets jojo']
 	FollowerInteractions.prototype.pureJojoAndAmilySpar = function() {
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.flags[ kFLAGS.AMILY_SPAR_WITH_PURE_JOJO ]++;
 		EngineCore.outputText( 'Amily and Jojo appear to be sparring.  Amily has a pair of knives in her hands, and Jojo has a staff.  The twin blurs of fur are whirling about in a frenzy of movement.  Jojo is deflecting most of the smaller mouse\'s strikes, and even manages to get in the occasional strike with his staff.  He\'s undone the top of his robe, and sweat is pouring off of his fur.  It\'s clear he\'s working himself harder than the female.  The match-up is remarkably even, but they spot you and wrap up the intense sparring session for now.  Jojo gives you a respectful nod and departs, guzzling water from a skin as he pulls his robes back into their normal places.\n\n', false );
 		//[To amily screen]
-		EngineCore.doNext( SceneLib.amilyScene.amilyFollowerEncounter );
+		EngineCore.doNext( SceneLib.amilyScene, SceneLib.amilyScene.amilyFollowerEncounter );
 	};
 	//[Amily rages at what you've done to jojo (corrupted after she met pure jojo) – encountered when visiting corrupt jojo for faps]
 	FollowerInteractions.prototype.amilyIsPissedAtYouForRuiningJojo = function() {
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Amily screams, "<i>Don\'t even try to lie!  I met him before you did this to him, and HE TOLD ME IT WAS YOU before he passed out!  We... we have to fix him.  I don\'t know why you would do something like this, but he- he\'s broken.  Utterly.  Please.  Find some pure honey and we can fix him!</i>"\n\n' );
 		EngineCore.outputText( '(You\'re at a crossroads. You can help Amily purify Jojo, but the mouse will likely never give you a chance to corrupt him again.  Alternatively, you could tell the bitch off and keep your favorite fuck-pet.)' );
 		//[Fix him] [Fuck off]
-		EngineCore.choices( 'Fix Him', this.agreeToHelpAmilyFixJojo, 'Fuck Off', this.tellAmilyToFuckOffRuinedJojo, '', null, '', null, '', null );
+		EngineCore.choices( 'Fix Him', this, this.agreeToHelpAmilyFixJojo, 'Fuck Off', this, this.tellAmilyToFuckOffRuinedJojo, '', null, null, '', null, null, '', null, null );
 	};
 	//[Tell Amily to fuck off]
 	FollowerInteractions.prototype.tellAmilyToFuckOffRuinedJojo = function() {
@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 0;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Fix Him]
 	FollowerInteractions.prototype.agreeToHelpAmilyFixJojo = function() {
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.dynStats( 'cor', -5 );
 		// Amily won't sex.  Jojo sex still available)
 		CoC.flags[ kFLAGS.AMILY_WAIT_FOR_PC_FIX_JOJO ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Go to amily with pure honey in inventory]
 	FollowerInteractions.prototype.fixJojoOOOOHYEEEEAHSNAPINTOASLIMJIM = function() {
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.flags[ kFLAGS.AMILY_WAIT_FOR_PC_FIX_JOJO ] = 0;
 		//Jojo 'fixed'
 		CoC.flags[ kFLAGS.JOJO_FIXED_STATUS ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Find note from jojo @ followers menu after pufying him]
 	FollowerInteractions.prototype.findJojosNote = function() {
@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'There is a note left on your bedroll. You pick it up and unseal it – it\'s from Jojo!\n\n', false );
 		EngineCore.outputText( '"<i>After the things that have transpired between us, I felt I ought to give this chapter of our lives some closure.   What you did to me was inexcusable.  It was a violation of everything that I am and was.  But, even though I wasn\'t able to help you tame your inner corruption, I\'m glad that Amily was able to do so in my place.  And although I shall never again be able to return to my life as a chaste monk due to the changes you made to my body and libido, I take solace in the fact that Amily was able to repopulate our people.  Perhaps I\'ll even get married; its impossible to hide how \'large\' I\'ve gotten and the girls all seem to want to see what I\'ve got under my robes.  In any event, good-bye \'Champion\'.</i>"', false );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Amily finds tentacle Jojo]
 	FollowerInteractions.prototype.amilyDiscoversJojoWithTentaclesAndShitOhBoy = function() {
@@ -134,12 +134,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 			CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 			//+5 corruption)
 			EngineCore.dynStats( 'cor', 5 );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 		else {
 			EngineCore.outputText( 'This is bad.  You could try to explain that what happened to Jojo was a moment of weakness before you overcame your corruption, but judging from the look in her eyes, she would KILL JOJO rather than let him continue to live in such a pathetic state.  Or, you could stand by your choice to corrupt Jojo, but you\'d have to get Amily to leave so she couldn\'t harm Jojo.  Flipping her the bird might do the trick.' );
 			//[Corrupt/Choose Jojo]
-			EngineCore.choices( 'Explain', this.aerisDies, 'Flip Bird', this.AmilyLeavesBirdJojoTentacles, '', null, '', null, '', null );
+			EngineCore.choices( 'Explain', this, this.aerisDies, 'Flip Bird', this, this.AmilyLeavesBirdJojoTentacles, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	FollowerInteractions.prototype.AmilyLeavesBirdJojoTentacles = function() {
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 		//+5 corruption)
 		EngineCore.dynStats( 'cor', 5 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//(Uncorrupt)
 	//[Choose Amily – Aeris (I mean Jojo) Dies]
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Amily listens impassively at first, but as you explain the situation, she comes around to understand you a little better.  She walks to your side and gives you a kiss on the cheek and explains, "<i>There\'s no way to fix him.  What\'s been done can\'t be undone by any magic or item.  I have to put him out of misery and stop him from corrupting anything else.</i>"\n\n' );
 		EngineCore.outputText( '(Amily is going to kill Jojo.  What do you do?)' );
 		//[Stop Her] [Let Her]
-		EngineCore.choices( 'Stop Her!', this.stopJojoDeathInTheNameOfLove, 'Let Her', this.whyWouldDoThis, '', null, '', null, '', null );
+		EngineCore.choices( 'Stop Her!', this, this.stopJojoDeathInTheNameOfLove, 'Let Her', this, this.whyWouldDoThis, '', null, null, '', null, null, '', null, null );
 	};
 	//[STOP – in the name of love]
 	FollowerInteractions.prototype.stopJojoDeathInTheNameOfLove = function() {
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 			EngineCore.dynStats( 'int', 1 );
 			//(YAY SAVED JOJO), and amily didn't leave.
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Let Her Kill Jojo]
 	FollowerInteractions.prototype.whyWouldDoThis = function() {
@@ -199,7 +199,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.dynStats( 'lus', -99 );
 		//(You suck and Jojo died.)
 		CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Amily introduces herself to Rathazul – happens at Rathazul]
 	FollowerInteractions.prototype.AmilyIntroducesSelfToRathazul = function() {
@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Amily takes off, leaving you alone with the alchemist.', false );
 		//(+5 lust!)/
 		EngineCore.dynStats( 'lus', 5 );
-		EngineCore.doNext( SceneLib.rathazul.returnToRathazulMenu );
+		EngineCore.doNext( SceneLib.rathazul, SceneLib.rathazul.returnToRathazulMenu );
 	};
 	//[Amily delivers ingredients to Rathazul – happens at Rathazul]
 	FollowerInteractions.prototype.amilyIngredientDelivery = function() {
@@ -229,7 +229,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.dynStats( 'lus', 4 );
 		//[Prices reduced for reducto!
 		CoC.flags[ kFLAGS.AMILY_MET_RATHAZUL ]++;
-		EngineCore.doNext( SceneLib.rathazul.returnToRathazulMenu );
+		EngineCore.doNext( SceneLib.rathazul, SceneLib.rathazul.returnToRathazulMenu );
 	};
 	//[Amily ask Rathazul what happened to his village]
 	FollowerInteractions.prototype.amilyAsksAboutRathazulsVillage = function() {
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Amily is once again at Rathazul\'s lab.  She just finished asking him what happened to his village.  Rathazul\'s expression clouds with anger as he thinks on it.  His response is slow and measured as he explains, "<i>We were sold out.  Our elders knew we couldn\'t triumph by strength of arms, and rather than join the others they sold us out in exchange for the safety of the council.  The demons gave the elders corrupted agents to lace into the village\'s well, and my people fell prey to the demons in a single night.  The elders were rewarded and \'raised\' to full demon-hood.  I survived because I was at the lake at the time.  The sounds of the orgy were all the warning I needed to keep hidden.  I can\'t help but think that things would have been different if less selfish rats had been in charge.</i>"\n\n', false );
 		EngineCore.outputText( 'Rathazul sighs and shuffles around uncomfortably as he wraps it up, "<i>\'What-ifs\' will get us nowhere.  Our villages are gone, and we must look to the future, child.</i>"\n\n', false );
 		EngineCore.outputText( 'Amily nods solemnly and says her farewells.  She looks a little bleary-eyed as you pass her, and you give her a comforting squeeze on the shoulder.   The mouse gives you a tight smile and continues away, leaving you alone with the rat.', false );
-		EngineCore.doNext( SceneLib.rathazul.returnToRathazulMenu );
+		EngineCore.doNext( SceneLib.rathazul, SceneLib.rathazul.returnToRathazulMenu );
 	};
 	//[Rathazul and Corrupt/Tentacle Jojo] – Occurs instead of camp
 	FollowerInteractions.prototype.rathazulFreaksOverJojo = function() {
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'You work hard to keep a straight face.  The \'creature\' is clearly your fuck-pet, Jojo.  What do you tell the old mouse?  ' );
 		EngineCore.outputText( '(He is mine, I can handle it, or he\'s harmless?)' );
 		//[Jojo is yours] [I can handle it] [It's harmless]
-		EngineCore.choices( 'Mine', this.tellRathazulYouOwnJojo, 'Handle It', this.tellRathazulYouCanHandleIt, 'Harmless', this.TellRathazulJojoIsHarmless, '', null, '', null );
+		EngineCore.choices( 'Mine', this, this.tellRathazulYouOwnJojo, 'Handle It', this, this.tellRathazulYouCanHandleIt, 'Harmless', this, this.TellRathazulJojoIsHarmless, '', null, null, '', null, null );
 	};
 	//	[Jojo is yours]
 	FollowerInteractions.prototype.tellRathazulYouOwnJojo = function() {
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'You tell Rathazul, "<i>Oh that\'s just Jojo.  He\'s been corrupted, but he isn\'t evil and he hangs around because he knows I like to sleep with him.</i>"\n\n' );
 		EngineCore.outputText( 'Rathazul scratches his head in confusion and stutters, "<i>You, uh, f-fuck the creature?  Well, umm... okay.  I guess I don\'t have to worry about it then...</i>"\n\n' );
 		EngineCore.outputText( 'He blushes red and lurches back towards his laboratory, muttering under his breath about crazy kids.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[I can handle it]
 	FollowerInteractions.prototype.tellRathazulYouCanHandleIt = function() {
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Rathazul looks you over and asks, "<i>Why didn\'t you kill it?  With all the corruption in this world, we would be better off nipping these things in the bud.</i>"\n\n' );
 		EngineCore.outputText( 'You answer, "<i>Do I look like a demon to you?  I don\'t kill my enemies if I can help it.  Trust me, we\'re safe.</i>"\n\n' );
 		EngineCore.outputText( 'The rat seems satisfied by your response and nods respectfully.  He lurches back towards his laboratory, wringing his clawed hands with worry.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Its harmless]
 	FollowerInteractions.prototype.TellRathazulJojoIsHarmless = function() {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Rathazul looks a little incredulous at the declaration and he asks, "<i>Can we do something about him?  He\'s very creepy.</i>"\n\n' );
 		EngineCore.outputText( 'You snort disdainfully and answer, "<i>It\'s fine.  He\'s not interested in you – it\'s me he wants, and he won\'t be getting any of me unless I decide to let him.</i>"\n\n' );
 		EngineCore.outputText( 'With the conversation concluded, Rathazul wanders off, murmuring, "<i>Oh my, no...</i>"' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Rathazul and non-corrupt Jojo]
 	FollowerInteractions.prototype.jojoOffersRathazulMeditation = function() {
@@ -286,7 +286,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Jojo is at Rathazul\'s lab.  The smaller, white mouse is asking the elderly rodent if he would like to meditate.  Rathazul considers for a moment and agrees, "<i>I\'ll have to try it when I have some time.  A little reflection would do my old soul some good.  However we cannot now; ' + CoC.player.short + ' has need of me.</i>"\n\n', false );
 		EngineCore.outputText( 'Jojo turns to you, gives a quick bow, and departs.', false );
 		//[To rathazul]
-		EngineCore.doNext( SceneLib.rathazul.returnToRathazulMenu );
+		EngineCore.doNext( SceneLib.rathazul, SceneLib.rathazul.returnToRathazulMenu );
 	};
 	//[Rathazul Napping]
 	FollowerInteractions.prototype.catchRathazulNapping = function() {
@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Rathazul and Jojo look to be engaged in some intensive meditation, so you hang back.  The two rodents are sitting cross-legged on a pair of flat rocks with their eyes closed and reflecting on something.  The air is eerily silent until a loud snore escapes from the rat\'s muzzle.  He\'s fallen asleep!  Jojo cracks one eye and sighs, "<i>The old ones always fall asleep.</i>"\n\n', false );
 		EngineCore.outputText( 'The mouse quietly rises and walks a fair distance away from the sleeping rat, letting his elder rest.  He motions for you to follow and leave Rathazul in peace.', false );
 		//[NEXT – to normal jojo]
-		EngineCore.doNext( SceneLib.jojoScene.jojoCamp );
+		EngineCore.doNext( SceneLib.jojoScene, SceneLib.jojoScene.jojoCamp );
 	};
 	FollowerInteractions.prototype.marbleVsAmilyFreakout = function() {
 		EngineCore.outputText( '', true );
@@ -312,7 +312,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Within moments, Marble has walked up to Amily and, with a forced smile on her face, asks, "<i>May I ask who you are?</i>"\n\nWithout realizing what is happening yet, Amily cheerfully responds. "<i>I\'m Amily, ' + CoC.player.short + '\'s lover.  Who\'re you?</i>" She extends her hand towards Marble.  At this moment you hear something like a low growl coming from Marble as she turns to face you, absolutely livid.  "<i>YOU!  Why didn\'t you tell me about this girl?!  I trusted you!</i>"\n\nHow do you respond?', false );
 		//Player choices how they want to respond.
 		//Stay silent (A1), pimp (B1), or explain (C1).
-		EngineCore.choices( 'StaySilent', this.marbleIsPissyAndYourTooDumbToTalk, 'Pimp', this.beAPimpMarbleLovesIt, 'Explain', this.LucyYouGotSomeSplainingToDo, '', null, '', null );
+		EngineCore.choices( 'StaySilent', this, this.marbleIsPissyAndYourTooDumbToTalk, 'Pimp', this, this.beAPimpMarbleLovesIt, 'Explain', this, this.LucyYouGotSomeSplainingToDo, '', null, null, '', null, null );
 	};
 	//Stay silent like a douche
 	FollowerInteractions.prototype.marbleIsPissyAndYourTooDumbToTalk = function() {
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 			//end event, Marble leaves the camp for good
 			CoC.player.removeStatusAffect( StatusAffects.CampMarble );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FollowerInteractions.prototype.beAPimpMarbleLovesIt = function() {
 		EngineCore.outputText( '', true );
@@ -351,13 +351,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
 			EngineCore.outputText( 'Marble blinks before saying "<i>' + CoC.player.short + ', try again, I know you\'re better than that.</i>"  You blink in response and wonder yourself what possessed you to say that.\n\n', false );
 			//Player chooses stay silent (A1) or explain (C1)
-			EngineCore.choices( 'StaySilent', this.marbleIsPissyAndYourTooDumbToTalk, 'Explain', this.LucyYouGotSomeSplainingToDo, '', null, '', null, '', null );
+			EngineCore.choices( 'StaySilent', this, this.marbleIsPissyAndYourTooDumbToTalk, 'Explain', this, this.LucyYouGotSomeSplainingToDo, '', null, null, '', null, null, '', null, null );
 		}
 		//Pimp -> PC is not addicted (B3)
 		else {
 			EngineCore.outputText( 'The two of them simply stare at you for several minutes in disbelief at your statement, it doesn\'t seem like either expected you to say that.  Finally Amily sputters, "<i>I... what, how?   This isn\'t like how you acted when we were back in my village.</i>"  You give her a winning smile and say, "<i>Hey baby, I meant every word of it, and just look at me!  I can handle two girls like you, easy.</i>"  Marble gives you the strangest of looks before saying, "<i>Apparently you have a death wish,</i>" before her hammer comes to the ready.  Amily does the same with her blowpipe.\n\nThe mouse begs, "<i>' + CoC.player.short + ', please tell me you were making a bad joke.</i>"\n\n', false );
 			//Player chooses serious (B4), just joking (B5)
-			EngineCore.choices( 'Serious', this.srslyPimpinGuyz, 'Joking', this.jokeAboutPimpularness, '', null, '', null, '', null );
+			EngineCore.choices( 'Serious', this, this.srslyPimpinGuyz, 'Joking', this, this.jokeAboutPimpularness, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//Pimp -> PC is not addicted -> serious (B4)
@@ -383,14 +383,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.flags[ kFLAGS.AMILY_CORRUPT_FLIPOUT ] = 1;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 0;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//Pimp -> PC is not addicted -> just joking (B5)
 	FollowerInteractions.prototype.jokeAboutPimpularness = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You assure them that you thought a joke might help them calm down.  The two of them seem to disagree with you on that sentiment, but wait for you to say something else.', false );
 		//Player chooses stay silent (A1) or explain (C1)
-		EngineCore.choices( 'StaySilent', this.marbleIsPissyAndYourTooDumbToTalk, 'Explain', this.LucyYouGotSomeSplainingToDo, '', null, '', null, '', null );
+		EngineCore.choices( 'StaySilent', this, this.marbleIsPissyAndYourTooDumbToTalk, 'Explain', this, this.LucyYouGotSomeSplainingToDo, '', null, null, '', null, null, '', null, null );
 	};
 	FollowerInteractions.prototype.LucyYouGotSomeSplainingToDo = function() {
 		EngineCore.outputText( '', true );
@@ -402,7 +402,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 			EngineCore.outputText( 'Right away, you realize that this situation isn\'t really something that you can talk your way out of.  You start to tell the two of them why you like them and why you were with them.  You tell Marble about Amily\'s desire to repopulate her people, and you tell Amily about Marble\'s desire to find someone and the difficulties that her species brings with it.  At the end of your talk, the two of them are just looking at each other.  After a few moments Amily says, "<i>So, you\'re corrupt huh?  I guess you seem nice enough...</i>"  Marble responds, "<i>You\'re really cute yourself, little mousy, and you definitely needed someone for a good reason.  The real problem is that ' + CoC.player.short + ' didn\'t get the two of us to talk to each other before now.</i>"  The two of them then turn back to you with dirty looks in their eyes.  It looks like things aren\'t going to be all that nice for you for a while, but at least they don\'t seem to hate each other.', false );
 			//end event, set lust or other sex values to minimum to make it so that Marble and Amily 'punish' the player a little for awhile.
 			CoC.flags[ kFLAGS.MARBLE_LUST ] = -100;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		var blameMarble = this.BlameMarblezSweetVagoozle;
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 			blameMarble = null;
 		}
 		//Player chooses stay silent (A1), blame Marble (C4), blame Amily (C5)
-		EngineCore.choices( 'StaySilent', this.marbleIsPissyAndYourTooDumbToTalk, 'BlameMarble', blameMarble, 'BlameAmily', this.blameAmilysDumbMouseCunt, '', null, '', null );
+		EngineCore.choices( 'StaySilent', this, this.marbleIsPissyAndYourTooDumbToTalk, 'BlameMarble', this, blameMarble, 'BlameAmily', this, this.blameAmilysDumbMouseCunt, '', null, null, '', null, null );
 	};
 	//Explain -> blame Marble
 	FollowerInteractions.prototype.BlameMarblezSweetVagoozle = function() {
@@ -428,7 +428,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.player.removeStatusAffect( StatusAffects.CampMarble );
 		//Marble goes back to farm
 		CoC.player.removeStatusAffect( StatusAffects.NoMoreMarble );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Explain -> blame Amily
 	FollowerInteractions.prototype.blameAmilysDumbMouseCunt = function() {
@@ -437,7 +437,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		//end event, Amily leaves the camp permanently
 		CoC.flags[ kFLAGS.AMILY_FOLLOWER ] = 0;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Amily/Urta Interaction
 	//Must have Pure Amily as follower
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'Amily bounds out of camp before you can react, sniffling as she disappears into the distance. She\'s lost to sight almost immediately thanks to the properties of this accursed landscape.', false );
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 1;
 		CoC.flags[ kFLAGS.AMILY_NEED_TO_FREAK_ABOUT_URTA ] = 0;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//disable Amily button and replace her camp screen status, enable [Ask about Amily] button at Wet Bitch
 	};
 	//[Ask about Amily]
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		//after 1400 and Urta's on duty:
 		if( CoC.time.hours > 14 ) {
 			EngineCore.outputText( 'You ask the assembled bar patrons if anybody has seen either a strange mouse-woman or Urta around, but don\'t get much of a response.  One cat-boy drinking at the bar haltingly suggests he may have noticed someone like that earlier in the day, but that was before Urta went on duty.  You thank him for the info.', false );
-			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		EngineCore.outputText( 'You ask the assembled bar patrons if anybody has seen either a strange mouse-woman or Urta around. The sparse morning crowd points, virtually as one, toward the back rooms. As you aproach, you hear a thumping, banging commotion coming from one of the rooms...\n\n', false );
@@ -477,14 +477,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'pregnant.  The mouse is holding a half-full bottle of what you think is Barkardi 151, waving it enthusiastically through the air even as she thumps up and down in Urta\'s lap, trying to coax one last orgasm from the visibly-drained hermaphrodite.  She giggles with delight and takes a messy swig from her bottle, spilling some of the booze onto her ' + SceneLib.amilyScene.amilyTits() + ' before twisting around and sloppily kissing Urta, trying to feed the contents of her mouth to the fox but dribbling half down her neck.\n\n', false );
 		EngineCore.outputText( 'Do you leave them to get acquainted (and possibly be up for threesomes in the future), or do you barge in and stop these cheating sluts?', false );
 		//[Leave Them (finishes as normal] [Interrupt]
-		EngineCore.choices( 'Leave Them', this.askAboutAmilyPt2, 'Interrupt', this.cheatingSloots, '', null, '', null, '', null );
+		EngineCore.choices( 'Leave Them', this, this.askAboutAmilyPt2, 'Interrupt', this, this.cheatingSloots, '', null, null, '', null, null, '', null, null );
 	};
 	FollowerInteractions.prototype.askAboutAmilyPt2 = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Amily breaks the kiss and gives Urta a drunkenly affectionate smile, gently stroking her cheek.  "<i>Mmm... I wish ' + CoC.player.short + ' had introduced ush earlier... I think we\'re gonna be good friendsh,</i>" she slurs.  Urta simply nods, giving her a goofy grin but clearly miles away, mentally. The mouse promptly yawns, dropping the now empty bottle to the floor, shuts her eyes and snuggles up to Urta, who cuddles her close and also drifts off.\n\n', false );
 		EngineCore.outputText( 'With a soft sigh, you shut the door and leave them to sleep it off.  While you can\'t predict that they will be quite so magnanimous about all this when they wake up, right now, it looks like neither of them is inclined to declare war over you.', false );
 		EngineCore.dynStats( 'lus', 75 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//Progress to next stage!
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 2;
 		//Tag that Urta needs to freak out!
@@ -496,13 +496,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'You growl and turn to Amily, who quietly squeaks, "<i>I thought... I thought if I knew her better *hic* I could find a way to save what we had... *burp* I am REALLLY out of it, but I thought... ya know, if I was willing to sleep with her too that we could all be happy together.</i>"\n\n', false );
 		EngineCore.outputText( 'Well, the mouse may have a point.  You could let them get to know each other and perhaps turn this into a threesome down the road, or you could put a firm end to it right now.  There\'s a pretty good chance putting your boot down on this might piss off one of them.', false );
 		//[Let Them Be] [End It]
-		EngineCore.choices( 'Let It Be', this.letTheSlootsFuck, 'End It', this.endThisMadness, '', null, '', null, '', null );
+		EngineCore.choices( 'Let It Be', this, this.letTheSlootsFuck, 'End It', this, this.endThisMadness, '', null, null, '', null, null, '', null, null );
 	};
 	FollowerInteractions.prototype.letTheSlootsFuck = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You chuckle and tell them you understand, though they had better include you in the future.  Drunken relief spreads across their faces when you give them a wink and step out.  Soon you hear the sloppy sounds of sex and giggles about how great their lover is.', false );
 		EngineCore.dynStats( 'lus', 75 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 4;
 	};
 	FollowerInteractions.prototype.endThisMadness = function() {
@@ -526,7 +526,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		}
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 3;
 		EngineCore.outputText( 'You shrug.  Well, that puts an end to that.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Next Morning
 	FollowerInteractions.prototype.amilyUrtaMorningAfter = function() {
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( '"<i>Ughhh... I\'ll live,</i>" she groans, letting the last of the water run out over herself.  "<i>Whaa...  Oh... right.  About Urta.  I\'d still rather you\'d told me about it, but... it\'s okay.</i>"\n\n', false );
 		EngineCore.outputText( 'You wait for her to relax, and then, with studied nonchalance, add that it looked like the two of them had settled things amicably enough.  At that, Amily looks panic-stricken, fear and embarrassment warring for her face.  "<i>... you saw?</i>" she manages to blurt.  "<i>Uh... uh... sorry,</i>" Amily is mumbling, panic still evident.  "<i>I mean...</i>"  The mouse trails off, looking at you for reassurance.  What do you do?', false );
 		//[Smile and nod][Be totally a dick]
-		EngineCore.choices( 'Be Nice', this.smileAndNodToAmilyXUrta, 'Be A Dick', this.beADickToAmily, '', null, '', null, '', null );
+		EngineCore.choices( 'Be Nice', this, this.smileAndNodToAmilyXUrta, 'Be A Dick', this, this.beADickToAmily, '', null, null, '', null, null, '', null, null );
 	};
 	//[Be totally a dick]
 	FollowerInteractions.prototype.beADickToAmily = function() {
@@ -553,7 +553,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		CoC.flags[ kFLAGS.AMILY_FOLLOWER ] = 0;
 		CoC.flags[ kFLAGS.AMILY_CORRUPT_FLIPOUT ] = 1;
 		//no more Puru Amily, corruption path only
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Smile and nod]
 	FollowerInteractions.prototype.smileAndNodToAmilyXUrta = function() {
@@ -564,7 +564,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		//'Urta' is now unlocked in Amily's options between 0600 and 1400
 		EngineCore.outputText( '\n\n(<b>Urta is now unlocked from Amily\'s sex menu.</b>)', false );
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 4;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Amily Option - Urta
 	//This option should probably only appear when Urta is actually at the Wet Bitch
@@ -595,7 +595,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		if( CoC.player.hasCock() ) {
 			dick = SceneLib.amilyScene.threesomeAmilUrtaCAWKS;
 		}
-		EngineCore.choices( 'Use Dick', dick, 'Use Vag', vag, '', null, '', null, 'Watch', this.amilyUrtaSexWatch );
+		EngineCore.choices( 'Use Dick', SceneLib.amilyScene, dick, 'Use Vag', SceneLib.amilyScene, vag, '', null, null, '', null, null, 'Watch', this, this.amilyUrtaSexWatch );
 	};
 	FollowerInteractions.prototype.amilyUrtaSexWatch = function() {
 		EngineCore.outputText( '', true );
@@ -625,7 +625,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		EngineCore.outputText( 'With a sigh and a smile, Amily collapses on top of Urta, sated and full.  Her eyes dart towards you one more time before she cuddles the panting vixen to rest and enjoy the afterglow.\n\n', false );
 		EngineCore.outputText( 'By this point, you are feeling very turned on indeed, but you can\'t bring yourself to disturb them.  Instead, you simply grin again and leave them to recover.', false );
 		EngineCore.dynStats( 'lus', 50 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'followerInteractions', new FollowerInteractions() );
 } );

@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 		var damage = 0;
 		var attack = Utils.rand( 6 );
 		//return to combat menu when finished;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 		var damage = 0;
 		var attack = Utils.rand( 6 );
 		//return to combat menu when finished;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			var damage = 0;
 			var attack = Utils.rand( 6 );
 			//return to combat menu when finished;
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			//Blind dodge change;
 			if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 				EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			SceneLib.antsScene.phyllaGnollBeatsPC();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.gnollScene.getRapedByGnoll();
 		}

@@ -35,9 +35,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		//If PC has neither;
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( '\n\nOdd as it is, it doesn\'t seem to react as you look it over.  You avoid it, for now.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.choices( 'Fuck It', fuck, 'Mount It', mount, '', null, '', null, 'No Way', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Fuck It', this, fuck, 'Mount It', this, mount, '', null, null, '', null, null, 'No Way', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[HOLY SHIT YOU BE FUCKING A PUMPKIN];
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 			EngineCore.outputText( '\n\nAll too soon, you finish and step away, satisfied.  The pumpkin\'s pussy seals closed slowly, cutting off the worst of the slime-flow.  You get dressed, but the plant\'s tendrils no longer bother you.  They lie still and flat, and even the perverse sweating comes to an end.  Whatever fel magic was behind this, it seems to have settled after the salty snack you gave it.  You get dressed and walk back to camp with a spring in your step.' );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( '\n\nOver and over you empty your [balls] into the growing gourd, inflating it larger and larger, passionately giving up every drop of sperm to fuel its unnatural growth.  Even once you feel empty, your [cock biggest] continues to clench and pump, firing blanks in an effort to feed EVERYTHING to the semen-hungry plant.  Still, even your prodigious virility can only take so much, and once your dick starts to go soft inside the massive cunt, it releases you, allowing you to ride out the rest of your orgasm, below, on the ground.  Your descent is graceless, a lazy slide down the orange rind.  Were it not for the gentle slope, it would be a dangerous six-foot fall.' );
 			EngineCore.outputText( '\n\nYou thank the gods for that small mercy as you calm down and climb to your feet, beholding the sudden gargantuan growth as if for the first time.  That pumpkin is at least six feet tall, and the swollen pussy that devoured your cum?  It has grown with it, now a gash big enough to devour a man.  A few strings of semen trail from the labia to the ground, but it looks like most of your cum is vanishing into the pumpkin\'s depths, drank down for some purpose only the demons would know.' );
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 				EngineCore.outputText( 'picking up your [weapon]' );
 			}
 			EngineCore.outputText( ' as if it would somehow protect your nude body.' );
-			EngineCore.doNext( this.pumpkinFuckPartII );
+			EngineCore.doNext( this, this.pumpkinFuckPartII );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 2 );
 		}
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.outputText( '\n\nHow long it goes on you can\'t say.  Somewhere along the lines your memory went dark, repurposed by your coiled masters to allow you to feel even greater heights of bliss.  There\'s faint flashes of you thrashing, but giant-sized labia keep you pinned in place, your limbs devoured in vaginal restraint.  With a triumphant surge, bulges stretch your abused noise-holes and work deep into your skull.  Your world goes white, an orgasmic soup of delight that washes any vestiges of thought from you and leaves behind only dripping obedience to pleasure.  Your cock fires weakly, offering tribute Fera in sympathy, yet the real thing is in your cum-bathed brain.  Runny tentacle-spooge drips from your nose as you gurgle in bliss, then black out.' );
 		EngineCore.hideUpDown();
 		CoC.player.orgasm();
-		EngineCore.doNext( this.pumpkinFuckPartIII );
+		EngineCore.doNext( this, this.pumpkinFuckPartIII );
 	};
 	Fera.prototype.pumpkinFuckPartIII = function() {
 		EngineCore.clearOutput();
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.outputText( '\n\n(<b>Perk Gained: Fera\'s Boon - Alpha</b>)' );
 		CoC.player.createPerk( PerkLib.FerasBoonAlpha, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'cor', 30 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Fera.prototype.mountPumpkin = function() {
 		EngineCore.clearOutput();
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 			EngineCore.outputText( '\n\nWet slapping noises ring out as you piston faster and faster, violently plowing the plant-cock into your [vagina] in a rutting, mating frenzy.  Your eyes are repeatedly drawn downward to the slimy shaft each time you pull up, the ooze keeping your [vagina] well lubricated.  The green shaft seems even larger than before, the phallus stretching you wider and longer each time you slam down on it as you ride the pumpkin into orgasm.  You feel a strange compulsion to let it cum inside, to flood your womb with pie goop until you appear immensely pregnant and the overflow is spraying out around your legs.' );
 			EngineCore.outputText( '\n\nWith a triumphant roar, you climax and mash yourself against the pumpkin, slamming your [hips] hard enough onto the hard green shaft, that you could almost swear your cervix was penetrated.  You don\'t care, your vagina is clenching, the stem is flexing, and the pumpkin\'s ooze is gushing out, flooding your innards with pumpkin seed as you flood the pumpkin\'s surface with your female juices in turn.  Clenching tightly, your muscles lock, working in perfect concert with one goal; filling you up with fruity cum.  The pumpkin\'s thick load floods your inner folds, a deluge of sweet-smelling goop squirting deep into your [vagina], inflating you and then squirting back out mixed with your own juices.  The mixed juices are absorbed into the plant\'s rind almost as fast as they exit your body, though you can see a bit of glistening moisture around the base of the stem.' );
 			EngineCore.outputText( '\n\nAll too soon, you finish and step away, satisfied.  The pumpkin\'s stem slowly stops pulsing, cutting off the worst of the slime-flow.  You get dressed, but the plant\'s tendrils no longer bother you.  They lie still and flat, and even the perverse sweating comes to an end.  Whatever fell magic was behind this, it seems to have settled after the pressure you relieved it of.  You get dressed and walk back to camp with a spring in your step.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Female characters don't have an easy analogue to cum production unless we count milk production, and female gender doesn't require either breasts or lactation to play.  So I just went for high vaginal wetness, not pregnant, and likely to become pregnant if she had sex with a male creature.  I hope that works out OK.;
 		else {
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 				EngineCore.outputText( 'raising your guard' );
 			}
 			EngineCore.outputText( ' as if it would somehow protect your nude body.' );
-			EngineCore.doNext( this.pumpkinMountingLevelII );
+			EngineCore.doNext( this, this.pumpkinMountingLevelII );
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.outputText( '\n\nFera giggles at your expression and puts her finger in your mouth, laughing uproariously when you immediately suck it, flicking your tongue about its circumference.  Those slow, pumping tendrils have utterly fucked your mind, and there\'s nothing you could have done about it.  It\'s hellishly good, a torture of sinful, unadulterated pleasure potent enough to keep your cunt drooling and aching to release, even though it just did.  You would mind, if every other part of you wasn\'t orgasming on its own, ecstatically twitching in the firm bindings as you give yourself wholly to Fera\'s ministrations.' );
 		EngineCore.outputText( '\n\nHow long it goes on you can\'t say.  Somewhere along the lines your memory went dark, repurposed by your coiled masters to allow you to feel even greater heights of bliss.  There\'s faint flashes of you thrashing, but giant-sized testicles keep you pinned in place, your limbs devoured in penile restraint.  With a triumphant surge, bulges stretch your abused noise-holes and work deep into your skull.  Your world goes white, and an orgasmic soup of delight washes over you and erases any vestiges of thought from you, leaving behind only dripping obedience to pleasure.  Your pussy twitches weakly, offering tribute to Fera in sympathy, yet the real thing is in your cum-bathed brain.  Runny tentacle-spooge drips from your nose as you gurgle in bliss, then black out.' );
 		//>Next;
-		EngineCore.doNext( this.mountPumpkinsIII );
+		EngineCore.doNext( this, this.mountPumpkinsIII );
 	};
 	Fera.prototype.mountPumpkinsIII = function() {
 		EngineCore.clearOutput();
@@ -225,7 +225,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.outputText( '\n\n(<b>Perk Gained: Fera\'s Boon - Breeding Bitch</b>)' );
 		CoC.player.createPerk( PerkLib.FerasBoonBreedingBitch, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'cor', 30 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Perk name: Fera's Boon - Breeding Bitch;
 	//Perk description: Greatly increases fertility and doubles base pregnancy speed.;
@@ -244,15 +244,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.outputText( '\n\nA creeping shiver crawls down your back until you straighten and take in your surroundings once more. This place is too pretty for you to stay down in the dumps for too long, and besides, a particularly intriguing fragrance is tickling your nose. It seems to come from the center of the glade, where the biggest, most vibrant blooms have sprouted. Do you want to explore the center, around some of the huge flowers, or head back to the safety of your camp?' );
 		//[Explore] [Leave];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Explore', this.exploreFerasWonderland );
-		EngineCore.addButton( 4, 'Leave', this.leaveFerasWonderland );
+		EngineCore.addButton( 0, 'Explore', this, this.exploreFerasWonderland );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveFerasWonderland );
 	};
 	//Leave;
 	Fera.prototype.leaveFerasWonderland = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Nah, that whole place is probably some kind of giant venus fly trap. Fuck that.' );
 		CoC.flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] = OnLoadVariables.date.fullYear;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Explore Das Trees;
 	Fera.prototype.exploreFerasWonderland = function() {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		} else {
 			EngineCore.outputText( '\n\nWell, that was nice, but you don\'t see much reason to stick around.  You head back to camp with a wistful look over your shoulder.' );
 			EngineCore.dynStats( 'lib', 1, 'lus', 20, 'cor', 1 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '\n\nYou bite your lip and search your feelings, gasping in more breaths of the delectable scent as you mull over your options.  Your eyes look down at the ramp-like lower petals, immediately chasing the shifting colors back up to the center, and a whimper escapes your lips.  You briefly recall that you only wanted to find the source of the scent' );
@@ -285,17 +285,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		if( CoC.player.inte >= 40 ) {
 			EngineCore.outputText( ', and with that accomplished, you could head back to camp.  Now, though, you\'d rather stay; it smells and looks too good to leave this place.  If you focus on your better sense, you could still leave.' );
 			if( CoC.player.hasCock() ) {
-				EngineCore.addButton( 0, 'Continue', this.fuckDemCorruptFlowerLips );
+				EngineCore.addButton( 0, 'Continue', this, this.fuckDemCorruptFlowerLips );
 			} else {
-				EngineCore.addButton( 0, 'Continue', this.stickAStamenInIt );
+				EngineCore.addButton( 0, 'Continue', this, this.stickAStamenInIt );
 			}
-			EngineCore.addButton( 4, 'Leave', this.leaveAfterFlowerHuffing );
+			EngineCore.addButton( 4, 'Leave', this, this.leaveAfterFlowerHuffing );
 		} else {
 			EngineCore.outputText( ', but that thought slips out of your head as it fills with more of that sinfully exciting aroma, making you feel so hot, horny, and eager.  You have to get more of it, submerse yourself deeper in its cloying clutches as you watch the pretty colors drain away your worries and concerns.' );
 			if( CoC.player.hasCock() ) {
-				EngineCore.addButton( 0, 'Next', this.fuckDemCorruptFlowerLips );
+				EngineCore.addButton( 0, 'Next', this, this.fuckDemCorruptFlowerLips );
 			} else {
-				EngineCore.addButton( 0, 'Next', this.stickAStamenInIt );
+				EngineCore.addButton( 0, 'Next', this, this.stickAStamenInIt );
 			}
 		}
 		if( CoC.player.hasCock() && CoC.player.hasVagina() ) {
@@ -304,8 +304,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 				EngineCore.outputText( 'other ' );
 			}
 			EngineCore.outputText( 'question left to you is, are you more concerned with slipping [oneCock] into those subliminally-whispering lips or guiding a writhing stamen into your [vagina] and [asshole] so that you can take in as much nectar as possible?' );
-			EngineCore.addButton( 0, 'Lips', this.fuckDemCorruptFlowerLips );
-			EngineCore.addButton( 1, 'Stamen', this.stickAStamenInIt );
+			EngineCore.addButton( 0, 'Lips', this, this.fuckDemCorruptFlowerLips );
+			EngineCore.addButton( 1, 'Stamen', this, this.stickAStamenInIt );
 		}
 		EngineCore.dynStats( 'lib', 1, 'lus', 25, 'cor', 1 );
 	};
@@ -313,7 +313,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	Fera.prototype.leaveAfterFlowerHuffing = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The farther you get from that glade, the more your head clears and the more you realize how close you came to disaster.  You resolve to avoid it in the future, lest you fall prey to that entrancing pollen and the hypnotic petals once more.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fuck the Lips;
 	Fera.prototype.fuckDemCorruptFlowerLips = function() {
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		//[next];
 		EngineCore.dynStats( 'lus=', 100 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.dickBoostingFuntimes );
+		EngineCore.addButton( 0, 'Next', this, this.dickBoostingFuntimes );
 	};
 	//Get a Boosted Dick!;
 	Fera.prototype.dickBoostingFuntimes = function() {
@@ -454,7 +454,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.dynStats( 'lib', 10, 'cor', 5 );
 		CoC.player.createPerk( PerkLib.FerasBoonSeeder, 0, 0, 0, 0 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.postSeederUpgrade );
+		EngineCore.addButton( 0, 'Next', this, this.postSeederUpgrade );
 	};
 	Fera.prototype.postSeederUpgrade = function() {
 		EngineCore.clearOutput();
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		//Add ten more corruption.;
 		//Add 50 lust.;
 		EngineCore.dynStats( 'lus', 25, 'cor', 10, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Stick a Stamen in It!;
 	Fera.prototype.stickAStamenInIt = function() {
@@ -508,10 +508,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		//[Gape] [Tight] [Dick];
 		EngineCore.dynStats( 'lus=', 100, 'cor', 2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Gape', this.gapeMePleaseFera );
-		EngineCore.addButton( 1, 'Tight', this.tightLikeAToigar );
+		EngineCore.addButton( 0, 'Gape', this, this.gapeMePleaseFera );
+		EngineCore.addButton( 1, 'Tight', this, this.tightLikeAToigar );
 		if( !CoC.player.hasCock() ) {
-			EngineCore.addButton( 2, 'Dick', this.growADickForFera );
+			EngineCore.addButton( 2, 'Dick', this, this.growADickForFera );
 		}
 	};
 	//Gape;
@@ -572,7 +572,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.dynStats( 'cor', 3 );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gapeByFeraEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.gapeByFeraEpilogue );
 	};
 	Fera.prototype.gapeByFeraEpilogue = function() {
 		EngineCore.clearOutput();
@@ -586,7 +586,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.outputText( '\n\nAs you head back to camp to prepare for your next adventure, you realize that you had some really, really fucked up dreams.  You hope you have more tomorrow night.' );
 		//Add ten more corruption.;
 		EngineCore.dynStats( 'lus', 20, 'cor', 10, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Tight;
 	Fera.prototype.tightLikeAToigar = function() {
@@ -639,14 +639,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.tightnessEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.tightnessEpilogue );
 	};
 	Fera.prototype.tightnessEpilogue = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You awaken fully dressed with a familiar ache between your legs.  Damn, that was a good nap.  You rise, stretching as you rub your back, sore from lying against a tree for so long.  You suppose you could find yourself something to fight and fuck, but you ought to head back to camp first.  You idly reach into your [armor] and slip a finger into your [vagina], feeling your tight walls instinctively clamp down and squeeze it.  It\'s nice, but it\'s just so much better when you can do that to a captive cock until it has no choice but to impregnate you with its hot seed.  What better way to save the world than by making sure that the strongest get to breed as often as possible?' );
 		EngineCore.outputText( '\n\nAs you head back to camp to prepare for your next adventure, you realize that you had some really, really fucked up dreams.  You hope you have more tomorrow night.' );
 		EngineCore.dynStats( 'lus', 20, 'cor', 10, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		//Add ten more corruption.;
 	};
 	//Grow a Dick!;
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		CoC.player.createPerk( PerkLib.FerasBoonSeeder, 0, 0, 0, 0 );
 		EngineCore.menu();
 		CoC.player.genderCheck();
-		EngineCore.addButton( 0, 'Next', this.afterFeraGivesYouACawk );
+		EngineCore.addButton( 0, 'Next', this, this.afterFeraGivesYouACawk );
 	};
 	Fera.prototype.afterFeraGivesYouACawk = function() {
 		EngineCore.clearOutput();
@@ -683,7 +683,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		//Add ten more corruption.;
 		//Add 50 lust.;
 		EngineCore.dynStats( 'lus', 20, 'cor', 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	SceneLib.registerScene( 'fera', new Fera() );
 } );

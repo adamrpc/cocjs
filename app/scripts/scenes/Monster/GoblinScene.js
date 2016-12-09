@@ -282,7 +282,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, PerkLib, 
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 && (fitsFuck !== null || cuntFuck !== null || tooBig !== null ||
 			corruptTooBig !== null || buttseks !== null || feeder !== null || spiderCondom !== null || eggs !== null) ) {
 			EngineCore.outputText( '\n\n<b>What do you do to her, and if anything, which of your body parts do you use?</b>', false );
-			EngineCore.choices( 'Dick Fuck', fitsFuck, 'DickTooBig', tooBig, 'CorruptDick', corruptTooBig, 'Dick In Ass', buttseks, 'Jog Fuck', jog, 'Breastfeed', feeder, 'Web Condom', spiderCondom, 'Pussies', cuntFuck, 'Lay Eggs', eggs, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Dick Fuck', this, fitsFuck, 'DickTooBig', this, tooBig, 'CorruptDick', this, corruptTooBig, 'Dick In Ass', this, buttseks, 'Jog Fuck', this, jog, 'Breastfeed', this, feeder, 'Web Condom', this, spiderCondom, 'Pussies', this, cuntFuck, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
 		} else if( feeder !== null || eggs !== null ) {
 			EngineCore.outputText( '\n\n<b>You aren\'t horny enough to rape her, but ' );
 			if( feeder !== null ) {
@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, PerkLib, 
 			} else {
 				EngineCore.outputText( 'your abdomen aches with the desire to impregnate her full of insect eggs.  Do you?</b>' );
 			}
-			EngineCore.choices( 'Feed', feeder, 'Lay Eggs', eggs, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Feed', this, feeder, 'Lay Eggs', this, eggs, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}

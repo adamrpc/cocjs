@@ -878,7 +878,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.player.fertilizeEggs(); //convert eggs to fertilized based on player cum output, reduce lust by 100 and then add 20 lust
 				CoC.player.orgasm(); //reduce lust by 100 and add 20, convert eggs to fertilized depending on cum output
 				EngineCore.dynStats( 'lus', 20 );
-				EngineCore.doNext( MainView.playerMenu );
+				EngineCore.doNext( MainView, MainView.playerMenu );
 				//Hey Fenoxo - maybe the unsexed characters get a few "cock up the ovipositor" scenes for fertilization with some characters (probably only willing ones)?
 				//Hey whoever, maybe you write them? -Z
 				return true;
@@ -905,7 +905,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.player.fertilizeEggs(); //reduce lust by 100 and add 20, convert eggs to fertilized depending on cum output
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lus', 20 );
-				EngineCore.doNext( MainView.playerMenu );
+				EngineCore.doNext( MainView, MainView.playerMenu );
 				//Hey Fenoxo - maybe the unsexed characters get a few "cock up the ovipositor" scenes for fertilization with some characters (probably only willing ones)?
 				//Hey whoever, maybe you write them? -Z
 				return true;

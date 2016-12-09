@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, ConsumableLib, Co
 	Vala.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeon2Supplimental.loseToVala();
 		}

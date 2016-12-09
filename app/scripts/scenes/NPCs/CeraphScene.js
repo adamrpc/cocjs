@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Female] Ride 'Dat Cawk;
@@ -256,7 +256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[OH SHIT SON YOU LOST GET EARS PIERCED];
@@ -385,7 +385,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'Ceraph wiggles out from between the bushes, holding a bondage harness and openly eyeing your body.  She suggestively says, "<i>Well, aren\'t you just a cute little slave-to-be.  Are you ready to put yourself in your slave harness and join my harem?  I\'ve got a few more piercings I think would look great on you.  Maybe I could give you an oral fixation and a foot fetish.  Wouldn\'t that be nice?  Or maybe I can just keep you tied up and parade you around Mareth.  You know I\'ll make sure you love every minute baby, just come put this on.</i>"\n\n', false );
 		EngineCore.outputText( 'It shames you to admit it, but you desperately want to be naked and restrained, paraded around to tease and amuse Ceraph\'s enemies.  You know the desires were forced on you by her cursed piercings, but it doesn\'t make it any easier to deny the feelings they\'ve brought out in you.  The sexy demon-dom would be happy to feed you foreign desires and stoke them into a burning blaze that would burn away your doubts and worries.  Do you give in and become her bondage slave?\n\n', false );
-		EngineCore.choices( 'Yes', this.agreeToBecomeCeraphsFuckpetBondageToyBitchSlut, 'No', this.finalCeraphEncounterChoiceNo, 'Fight', this.finalCeraphEncounterStartFight, '', null, '', null );
+		EngineCore.choices( 'Yes', this, this.agreeToBecomeCeraphsFuckpetBondageToyBitchSlut, 'No', this, this.finalCeraphEncounterChoiceNo, 'Fight', this, this.finalCeraphEncounterStartFight, '', null, null, '', null, null );
 	};
 	//[no];
 	CeraphScene.prototype.finalCeraphEncounterChoiceNo = function() {
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You tell Ceraph no, emphatically, over and over.  She gives you a smirk and says, "<i>Whatever.  It\'s only a matter of time.  You\'ll join me soon, pet.</i>"\n\n', false );
 		EngineCore.outputText( 'With that declaration she departs, leaving you confused and horny.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[fight];
 	CeraphScene.prototype.finalCeraphEncounterStartFight = function() {
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			EngineCore.outputText( 'tail', false );
 		}
 		EngineCore.outputText( ' back and forth to show Mistress how happy you are.  Obedience slowly crowds your mind, rolling over your other thoughts and concerns inexorably.  Your worries, cares, and troubles slide away, replaced with an all-consuming need to please.', false );
-		EngineCore.doNext( this.agreeToBeABitchPt2 );
+		EngineCore.doNext( this, this.agreeToBeABitchPt2 );
 	};
 	//(EPILOGUE);
 	CeraphScene.prototype.agreeToBeABitchPt2 = function() {
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.outputText( 'The goblin\'s ears are covered in a dazzling array of piercings of all varieties.  She isn\'t dressed nearly as slutty as most of the goblins you\'ve seen.\n\n', false );
 		EngineCore.outputText( 'Do you let her put the earrings in your ears?', false );
 		CoC.flags[ kFLAGS.PC_MET_CERAPH ] = 1;
-		EngineCore.doYesNo( this.ceraphFirstTimeVolunteer, this.ceraphFirstTimeDecline );
+		EngineCore.doYesNo( this, this.ceraphFirstTimeVolunteer, this, this.ceraphFirstTimeDecline );
 	};
 	//[No];
 	CeraphScene.prototype.ceraphFirstTimeDecline = function() {
@@ -493,7 +493,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		CoC.player.earsPShort = 'green gem-stone ear-studs';
 		CoC.player.earsPLong = 'Green gem-stone ear-studs';
 		CoC.flags[ kFLAGS.PC_FETISH ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[PC 'BEAT OFF' Ceraph the first time...];
 	CeraphScene.prototype.ceraphFirstTimeRepeat = function() {
@@ -518,7 +518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.outputText( 'Ceraph once again appears to you, licking her lips and repeatedly swatting a riding crop against her thigh.  She asks, "<i>Have you come to love the exposure, the helplessness, of being nude and restrained?  Does your body ache for me to turn you into a bound love-pet yet?  We could keep going down this road my pet-to-be, just one more piercing and then you\'ll be ready.</i>"\n\n', false );
 		EngineCore.outputText( 'Do you let her pierce you?', false );
 		//[Yes] [No];
-		EngineCore.doYesNo( this.yesOHGODYESPIERCELEVEL3, this.level3CeraphOfferNo );
+		EngineCore.doYesNo( this, this.yesOHGODYESPIERCELEVEL3, this, this.level3CeraphOfferNo );
 	};
 	//[No];
 	CeraphScene.prototype.level3CeraphOfferNo = function() {
@@ -583,12 +583,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.outputText( '"<i>So, I take it you like it?  You\'ll never be able to raise a hand in anger again.  I guess if you want to win fights you\'ll have to tease your foes into submission with that luscious body.  I suppose that might be hard to do when you\'re getting off on exposing yourself and cumming from the thought of being tied down,</i>" she laughs.\n\n', false );
 		EngineCore.outputText( 'You tremble with barely restrained lust as the demoness flounces away.  You\'d pursue her, but between her ideas and exposing your crotch to the entire area, you need to cum more than anything in the world.  You scurry back to camp, too horny to think straight and your new piercing aching just enough to keep you from forgetting about it.', false );
 		CoC.flags[ kFLAGS.PC_FETISH ] = 3;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	CeraphScene.prototype.encounterCeraph = function() {
 		//Just in case set up next button for 1 hr + SceneLib.camp;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//If havent met her;
 		if( CoC.flags[ kFLAGS.PC_MET_CERAPH ] === 0 ) {
 			EngineCore.spriteSelect( 7 );
@@ -663,19 +663,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			}
 			var bikiniTits = null;
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
+				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
-			EngineCore.choices( 'Fuck Her', dicking, 'Ride Her', cunting, 'FuckHerAss', buttsmexing, 'B.Titfuck', bikiniTits, 'Leave', leave );
-			/*
-			 if(CoC.player.gender === 1) EngineCore.doYesNo(this.maleFuckCeraphsPussy,Combat.cleanupAfterCombat);
-			 if(CoC.player.gender === 2) EngineCore.doYesNo(this.rideCeraphsCockLikeaBAWSSexclamation11eleven,Combat.cleanupAfterCombat);
-			 if(CoC.player.gender === 3) EngineCore.choices('Fuck Her',this.maleFuckCeraphsPussy,'Ride Her',this.rideCeraphsCockLikeaBAWSSexclamation11eleven,'',0,'',0,'Leave',Combat.cleanupAfterCombat);
-			 */
+			EngineCore.choices( 'Fuck Her', this, dicking, 'Ride Her', this, cunting, 'FuckHerAss', this, buttsmexing, 'B.Titfuck', null, bikiniTits, 'Leave', SceneLib.ceraphFollowerScene, leave );
 		} else {
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( SceneLib.ceraphFollowerScene.ceraphFollowerAppearance );
+				EngineCore.doNext( SceneLib.ceraphFollowerScene, SceneLib.ceraphFollowerScene.ceraphFollowerAppearance );
 			}
 		}
 	};
@@ -736,7 +731,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//(REQ's – HUGE WANG, Exgartuan or Jojo corruption, and !centaur);
@@ -819,7 +814,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			EngineCore.outputText( '</i>"', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '  That\'s rarer than you know, so I\'m feeling a little generous.  ', false );
@@ -836,7 +831,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		}
 		EngineCore.outputText( '(Do you accept Ceraph\'s Offer?)', false );
 		//Y/N – remove 1 fetish level or +10 gems;
-		EngineCore.doYesNo( this.ceraphsNiceOffer, Combat.cleanupAfterCombat );
+		EngineCore.doYesNo( this, this.ceraphsNiceOffer, null, Combat.cleanupAfterCombat );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
 	};
@@ -905,7 +900,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.outputText( 'The demoness lifts one heeled foot high onto a boulder and winks at you, letting her whip rub up and down her hard, nodule-studded shaft.  Her tail rises languidly between her perfect, lissomelegs, rubbing the glistening wet delta of her sex enticingly.  The demon coos, "<i>Oh, I do love putting on a show for my future pets.  Tell me, did you really come up here to fight?  I\'d rather lie back in the sunlight, rubbing my fingers over my glistening skin and showing everyone just how wondrous sex with me would be.  You can even go if you want, or maybe you\'d have something worth trading with me?</i>"', false );
 		EngineCore.dynStats( 'lus', (5 + CoC.player.cor / 10 + CoC.player.lib / 20), 'cor', 0 );
 		//[Fight] [Trade] [Run];
-		EngineCore.choices( 'Fight', this.startAFightWithCeraph, 'Trade', this.tradeCeraphSomething, '', null, '', null, 'Run', this.runFromCeraphsNiceDeal );
+		EngineCore.choices( 'Fight', this, this.startAFightWithCeraph, 'Trade', this, this.tradeCeraphSomething, '', null, null, '', null, null, 'Run', this, this.runFromCeraphsNiceDeal );
 	};
 	//[Fight] → Cue normal Ceraph fight;
 	CeraphScene.prototype.startAFightWithCeraph = function() {
@@ -924,7 +919,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.outputText( 'beat a hasty retreat from the trickster of fetishes.  Her masturbatory moans chase you down the mountainside back towards your camp, spiking the already-burning furnace of your lust.', false );
 		//(+10 lust + 10lust/piercing);
 		EngineCore.dynStats( 'lus', (10 + CoC.flags[ kFLAGS.PC_FETISH ] * 10) );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Trade] ;
 	CeraphScene.prototype.tradeCeraphSomething = function() {
@@ -972,7 +967,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			EngineCore.outputText( '</i>"\n\n', false );
 		}
 		//Leave uses the run text!;
-		EngineCore.choices( 'Liqueur', liqueur, 'Endowment', endowment, 'Armor', armor, '', null, 'Leave', this.runFromCeraphsNiceDeal );
+		EngineCore.choices( 'Liqueur', this, liqueur, 'Endowment', this, endowment, 'Armor', this, armor, '', null, null, 'Leave', this, this.runFromCeraphsNiceDeal );
 	};
 
 	//[Take Armor];
@@ -993,7 +988,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		CoC.player.takeDamage( 4 );
 		CoC.flags[ kFLAGS.PC_FETISH ] = 0;
 		EngineCore.dynStats( 'lus', -20 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Trade Genitals];
 	CeraphScene.prototype.tradeCeraphCrotchityBits = function() {
@@ -1004,7 +999,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			EngineCore.outputText( 'A disembodied voice roars out, "<i>FUCK NO!  You are NOT giving me to that crazy bitch!</i>"  Exgartuan doesn\'t seem to want to run the risk of being taken by Ceraph, and he completely assumes control of your ' + CoC.player.legs() + ' to make you flee with all due haste.  He taunts, "<i>Rip off your own little dick, why doncha!  You\'d look better with just a pussy anyhow ya dried out old sow!</i>"\n\n', false );
 			EngineCore.outputText( 'Ceraph seems perturbed but doesn\'t bother to pursue you.', false );
 			EngineCore.dynStats( 'lus', -20 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Create array for choosing bits!;
@@ -1112,14 +1107,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.outputText( 'of those.  Now just hold still.</i>"\n\n', false );
 		EngineCore.outputText( 'Do you let her take it?', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00217 ] = choice;
-		EngineCore.doYesNo( this.giveUpYourBallsOrWhateverForLessFetishes, this.bailBeforeCeraphYoinksYourNads );
+		EngineCore.doYesNo( this, this.giveUpYourBallsOrWhateverForLessFetishes, this, this.bailBeforeCeraphYoinksYourNads );
 	};
 	//[No];
 	CeraphScene.prototype.bailBeforeCeraphYoinksYourNads = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 7 );
 		EngineCore.outputText( 'You let her know that you\'ve changed your mind and take off before Ceraph can try to take your beloved body parts.  You hear her laugh and tease as you run, yelling, "<i>What, can\'t handle the thought of an Omnibus touching your fun bits?  Poor baby!</i>"\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yes];
 	CeraphScene.prototype.giveUpYourBallsOrWhateverForLessFetishes = function() {
@@ -1231,7 +1226,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		}
 		//Fix any gender mixmatches;
 		CoC.player.genderCheck();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//NIGHTTIME;
 	//Nighttime Cock Surprise! - If Ceraph has ever taken a PC's wang.;
@@ -1417,7 +1412,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 				CoC.player.hoursSinceCum += 100;
 			}
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	CeraphScene.prototype.buttRapeCeraph = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
@@ -1495,7 +1490,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 

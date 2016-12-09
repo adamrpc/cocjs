@@ -31,8 +31,8 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Useable, PerkLib, E
 		EngineCore.outputText( '\n\nYou... you were an air-headed ditz!  A vacuous, idiot-girl with nothing between her ears but hunger for dick and pleasure!  You shudder as your faculties return, the pain diminishing with each passing moment.' );
 	};
 	var DeBimboProxy = new Proxy( DeBimbo, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

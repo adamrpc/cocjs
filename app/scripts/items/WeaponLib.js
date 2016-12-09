@@ -7,8 +7,8 @@ angular.module('cocjs').factory('WeaponLib', function ( Weapon ) {
 		weapons[name] = weapon;
 	};
 	var WeaponLibProxy = new Proxy( WeaponLib, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

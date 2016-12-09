@@ -63,25 +63,25 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 					EngineCore.outputText( 'You nod, understanding.  She commands, "<i>Now go, there is nothing to be gained by your presence here.  Return if you manage to close that vile place.</i>"\n\n', false );
 					if( CoC.player.lib + CoC.player.cor > 80 ) {
 						EngineCore.outputText( 'You could leave, but the desire to feel her breast will not go away.  What do you do?', false );
-						EngineCore.choices( 'Boob', this.grabHerBoob, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+						EngineCore.choices( 'Boob', this, this.grabHerBoob, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					} else {
-						EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+						EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					}
 					return;
 				}
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			//Second meeting;
 			else {
 				EngineCore.outputText( 'You approach Marae\'s tree, watching the goddess flow out of the tree\'s bark as if it was made of liquid.   Just as before, she appears as the top half of a woman, naked from the waist up, with her back merging into the tree\'s trunk.\n\n', false );
 				if( CoC.player.cor > 66 ) {
 					EngineCore.outputText( 'She bellows in rage, "<i>I told you, begone!</i>"\n\nYou turn tail and head back to your boat, knowing you cannot compete with her power directly.', false );
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				} else {
 					//If youve taken her quest already;
 					if( CoC.player.findStatusAffect( StatusAffects.MaraesQuestStart ) >= 0 ) {
 						EngineCore.outputText( 'Marae reminds you, "<i>You need to disable the demonic factory!  It\'s located in the foothills of the mountain.  Please, I do not know how long I can resist.</i>"', false );
-						EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+						EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					}
 					//If not;
 					else {
@@ -101,9 +101,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 						EngineCore.outputText( 'You nod, understanding.  She commands, "<i>Now go, there is nothing to be gained by your presence here.  Return if you manage to close that vile place.</i>"\n\n', false );
 						if( CoC.player.lib + CoC.player.cor > 80 ) {
 							EngineCore.outputText( 'You could leave, but the desire to feel her breast will not go away.  What do you do?', false );
-							EngineCore.choices( 'Boob', this.grabHerBoob, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+							EngineCore.choices( 'Boob', this, this.grabHerBoob, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 						} else {
-							EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+							EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 						}
 					}
 				}
@@ -132,13 +132,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 					EngineCore.outputText( 'Spellbound, you watch as she forces more and more fingers into her hungry flower-hole, "<i>Ever since then, I\'ve just been drinking in more and corruption, and waiting for someone to come here and help fill my hole.  I\'ve played with my flower for what has felt like days on end.  Every time I come harder and harder.  The more I let go the better it is.  Do you know what I did this morning?  I let my branches grow tentacles to fuck my mouth and pussy at the same time.  I came over and over and over, and then I had my roots pull in all the cum they could find to fill my womb with.</i>"\n\n', false );
 					EngineCore.outputText( 'You gasp at the change she has gone through, getting more than a little turned on yourself.  Thinking that a once chaste goddess has been reduced to a horny slut makes you wonder how you stand any chance of victory.  Marae keeps up her show, "<i>It\'s so good.  Come join me in it.  I gave in to the pleasure already.  If you look behind me, you can see what\'s left of my soul.  I could feel it dripping out through my cunny a little bit each time I came.  After a while it flowed together and started to crystalize.  I think the demons call it lethicite, but I just wish I still had a soul so I could do it all over again.  Come fuck me, I want to watch you go mad while you cum out your soul.</i>"\n\n', false );
 					EngineCore.outputText( 'It sounds like a very pleasant offer, but it would mean the total abandonment of your reasons for coming here.   You could probably get away if you were to run, she doesn\'t seem to be nearly as powerful.  Or you could risk trying to steal the lethicite before making your getaway, but it wouldn\'t be hard for her to catch you that close.', false );
-					EngineCore.choices( 'Run', this.runFromPervertedGoddess, 'Lethicite', this.maraeStealLethicite, 'Accept', this.maraeBadEnd, '', null, '', null );
+					EngineCore.choices( 'Run', this, this.runFromPervertedGoddess, 'Lethicite', this, this.maraeStealLethicite, 'Accept', this, this.maraeBadEnd, '', null, null, '', null, null );
 				}
 				//Repeat corrupt meeting;
 				else {
 					EngineCore.outputText( 'Marae smiles and leans forwards, cupping her breasts in her hands.  Amazingly, she flows out from the tree, standing as a free woman before you.  She massages her G-sized breasts, winking lewdly and pinching her shining purplish nipples, squeezing out droplets of honey-colored sap.  She blows you a kiss while the flower at her groin opens welcomingly.  She moans, "<i>Reconsider my offer yet, ' + CoC.player.short + '?  I won\'t force you, but don\'t you want to spend eternity in heaven with a living goddess?</i>"', false );
 					//Yes - accept, No- run;
-					EngineCore.doYesNo( this.maraeBadEnd, this.runFromPervertedGoddess );
+					EngineCore.doYesNo( this, this.maraeBadEnd, this, this.runFromPervertedGoddess );
 				}
 			}
 		}
@@ -147,12 +147,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You reach forward to cop a feel.  The goddess\' eyes go wide with fury as a massive branch swings down, catching you in the sternum.  It hits you hard enough that you land in your boat and float back a few feet into the water.  Nothing to do but leave and hope for another chance at her breasts...' );
 		CoC.player.takeDamage( CoC.player.HP - 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Marae.prototype.runFromPervertedGoddess = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You turn and run for the boat, leaving the corrupt goddess behind.  High pitched laugher seems to chase you as you row away from the island.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Marae.prototype.maraeBadEnd = function() {
 		EngineCore.spriteSelect( 40 );
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		if( (CoC.player.spe > 35 && (Utils.rand( CoC.player.spe / 3 + 30 ) > 20)) || (CoC.player.spe > 35 && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 3 ) < 2) ) {
 			EngineCore.outputText( 'You dart to the side, diving into a roll that brings you up behind the tree.  You evade the gauntlet of grabbing tentacles that hang from the branches, snatch the large gem in both arms and run for the beach.  You do not hear the sounds of pursuit, only a disappointed sigh.', false );
 			CoC.player.createKeyItem( 'Marae\'s Lethicite', 0, 0, 0, 0 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//(FAIL);
 		else {
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 				EngineCore.outputText( 'Marae steps into your field of view, and pulls the tentacle free.  Your ' + Descriptors.cockDescript( 0 ) + ' twitches pitifully, blasting a few massive loads onto your belly as your orgasm withers and dies from lack of stimulation.\n\n', false );
 				EngineCore.outputText( '"<i>Sorry about the pain, I had to tweak your body to make you a true breeder.  You can go now stud.  I expect the monsters ought to worry about you now, or they\'ll all have dripping twats and swollen bellies,</i>" apologizes Marae.  She turns away from you, returning to the embrace of her tree\'s tentacles, sinking into debauchery.  You stagger into your boat and row away, oblivious to the stream to pre-cum dripping from your ' + Descriptors.multiCockDescript() + '.', false );
 				CoC.player.createPerk( PerkLib.MaraesGiftStud, 0, 0, 0, 0 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 			}
 			//FEM);
 			else {
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 				EngineCore.outputText( 'She giggles at your expression of horror, "<i>No, not literally, but it won\'t take much to make you a mommy, and you\'ll find the gestation to be quite a bit... shorter.  Now get out of here before I change my mind and lock in an orgasm for the rest of your life.</i>"\n\n', false );
 				EngineCore.outputText( 'You are dropped from the tree, and with little choice, you waddle to your boat, doing your best to cover up your violated ' + Descriptors.vaginaDescript( 0 ) + '.', false );
 				CoC.player.createPerk( PerkLib.MaraesGiftFertility, 0, 0, 0, 0 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -322,16 +322,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		}
 		EngineCore.outputText( 'dose of Marae\'s tender affections.</i>"\n\n', false );
 		//Incase something breaks;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Cant fly?  Stuck for sex!;
 		if( !CoC.player.canFly() ) {
 			EngineCore.outputText( 'You don\'t see any escape!', false );
-			EngineCore.doNext( this.MaraeIIStageII );
+			EngineCore.doNext( this, this.MaraeIIStageII );
 		}
 		//Can fly?  Choice to run;
 		else {
 			EngineCore.outputText( 'You don\'t think she\'s counted on your wings.  If you tried to fly you could probably get out of the reach of her tentacles in short order.', false );
-			EngineCore.choices( 'Stay', this.MaraeIIStageII, '', null, '', null, '', null, 'Fly Away', this.MaraeIIFlyAway );
+			EngineCore.choices( 'Stay', this, this.MaraeIIStageII, '', null, null, '', null, null, '', null, null, 'Fly Away', this, this.MaraeIIFlyAway );
 		}
 	};
 	Marae.prototype.MaraeIIStageII = function() {
@@ -518,7 +518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 			EngineCore.outputText( 'You slide out and slump over, utterly exhausted by the breeding session.  The goddess pulls her tentacles from your abused openings, marveling at the outflow of plant-spunk while you relax and pass out.  You feel her fold your hands around your belly to cradle the pregnant bulge, and then you\'re snoring contentedly.\n\n', false );
 		}
 		//ONWARD TO NUMBER 3;
-		EngineCore.doNext( this.MaraePt2RoundIIIPrizes );
+		EngineCore.doNext( this, this.MaraePt2RoundIIIPrizes );
 	};
 	Marae.prototype.MaraePt2RoundIIIPrizes = function() {
 		EngineCore.spriteSelect( 40 );
@@ -610,13 +610,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 				EngineCore.outputText( '<b>(New Perk Gained: Marae\'s Gift - Fertility)</b>', false );
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	Marae.prototype.MaraeIIFlyAway = function() {
 		EngineCore.spriteSelect( 40 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You launch into the air and beat your wings, taking to the skies.  The tentacle-tree lashes at you, but comes up short.  You\'ve escaped!  Something large whooshes by, and you glance up to see your boat sailing past you.  She must have hurled it at you!  It lands with a splash near the mooring, somehow surviving the impact.  You dive down and drag it back to the dock before you return to camp.  That was close!', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'marae', new Marae() );
 } );

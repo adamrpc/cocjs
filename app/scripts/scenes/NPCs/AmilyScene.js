@@ -120,13 +120,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'As you roam the shores of the lake, you find your footsteps echoing as though you were stepping on wood rather than squishing in the sandy mud of the shore. Curious, you squat down and brush the soil away, revealing the rotting form of a wooden plank. Looking carefully at the ground underfoot, you realize that it is part of a pathway – the kind that villages make to provide easier access to and from muddy rivers, lakes and beaches. You believe you can make out the rest of the path clearly enough to follow it to its end.\n\n', false );
 		EngineCore.outputText( 'Do you follow the pathway?', false );
 		//Yes / No;
-		EngineCore.doYesNo( this.exploreAmilyVillage, this.dontExploreAmilyVillage );
+		EngineCore.doYesNo( this, this.exploreAmilyVillage, this, this.dontExploreAmilyVillage );
 	};
 	//[No];
 	AmilyScene.prototype.dontExploreAmilyVillage = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Standing up, you turn and walk away. You presume from the state of the pathway that the village at the other end must either be in dire straits, abandoned, or overwhelmed by demons. In other words, it\'s no safe place for a traveler like you.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yes];
 	AmilyScene.prototype.exploreAmilyVillage = function() {
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '(<b>"TownRuins" added to Places menu.</b>)', false );
 		//set village unlock flag;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Exploring the Ruined Village];
 	AmilyScene.prototype.exploreVillageRuin = function() {
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				CoC.player.createKeyItem( 'Equipment Rack - Armor', 0, 0, 0, 0 );
 				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00255 ] = 1;
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Initialize saved gender:;
@@ -190,14 +190,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Amily gone/hiding super hard;
 		if( CoC.flags[ kFLAGS.AMILY_IS_BATMAN ] > 0 || CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] === 1 || CoC.flags[ kFLAGS.AMILY_TREE_FLIPOUT ] > 0 ) {
 			EngineCore.outputText( 'You enter the ruined village cautiously. There are burnt-down houses, smashed-in doorways, ripped-off roofs... everything is covered with dust and grime. You explore for an hour, but you cannot find any sign of another living being, or anything of value. The occasional footprint from an imp or a goblin turns up in the dirt, but you don\'t see any of the creatures themselves. It looks like time and passing demons have stripped the place bare since it was originally abandoned. Finally, you give up and leave. You feel much easier when you\'re outside of the village.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Schrödinger Amily corrupted that damn place!;
 		else if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
 			this.amilySprite();
 			EngineCore.outputText( 'You enter the ruined village, still laughing at your past nefarious deeds. Maybe it\'s just your imagination, but you feel like this entire place reeks of corruption now... You explore for an hour, then go back to your camp, knowing your tainted slave will be more than happy to satisfy your urges.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Remove worm block if player got rid of worms.;
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Amily Un-encounterable (worms):;
 		if( CoC.flags[ kFLAGS.AMILY_GROSSED_OUT_BY_WORMS ] === 1 || CoC.player.cor > 25 || CoC.flags[ kFLAGS.AMILY_CORRUPT_FLIPOUT ] > 0 ) {
 			EngineCore.outputText( 'You enter the ruined village cautiously. There are burnt-down houses, smashed-in doorways, ripped-off roofs... everything is covered with dust and grime. For hours you explore, but you cannot find any sign of another living being, or anything of value. The occasional footprint from an imp or a goblin turns up in the dirt, but you don\'t see any of the creatures themselves. It looks like time and passing demons have stripped the place bare since it was originally abandoned. Finally, you give up and leave. You feel much easier when you\'re outside of the village – you had the strangest sensation of being watched while you were in there.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		this.amilySprite();
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					if( CoC.flags[ kFLAGS.AMILY_NOT_FURRY ] === 0 ) {
 						fur = this.amilyNoFur;
 					}
-					EngineCore.choices( 'Accept Her', this.desperateAmilyPleaAcceptHer, 'RejectFurry', fur, 'RejectGently', this.desperateAmilyPleaTurnDown, 'BluntReject', this.desperateAmilyPleaTurnDownBlunt, '', null );
+					EngineCore.choices( 'Accept Her', this, this.desperateAmilyPleaAcceptHer, 'RejectFurry', this, fur, 'RejectGently', this, this.desperateAmilyPleaTurnDown, 'BluntReject', this, this.desperateAmilyPleaTurnDownBlunt, '', null, null );
 					return;
 				}
 				//[First Meeting];
@@ -310,7 +310,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'She tucks her blowpipe into her belt and takes several uncertain steps towards you, trying to appear winning – flirtatious even – despite her grimy appearance and clear inexperience with the matter. "<i>Please, will you help me? You said something about being a champion – If you lay with me and help me bring more of my people into this world, free of the demons and untouched by their perverse taint, you will be striking another kind of blow against their corrupt stranglehold on Mareth.</i>"\n\n', false );
 					EngineCore.outputText( 'What do you do?', false );
 					//Accept Eagerly / Accept Hesitantly / Refuse;
-					EngineCore.choices( 'AcceptEagerly', this.acceptAmilysOfferEagerly, 'Hesitantly', this.acceptAmilyOfferHesitantly, 'NoFurries', this.amilyNoFur, 'Refuse', this.refuseAmilysOffer, '', null );
+					EngineCore.choices( 'AcceptEagerly', this, this.acceptAmilysOfferEagerly, 'Hesitantly', this, this.acceptAmilyOfferHesitantly, 'NoFurries', this, this.amilyNoFur, 'Refuse', this, this.refuseAmilysOffer, '', null, null );
 					//Set flag for 'last gender met as';
 					CoC.flags[ kFLAGS.AMILY_PC_GENDER ] = CoC.player.gender;
 					return;
@@ -357,7 +357,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( '"<i>Hey, us girls gotta stick together, right?</i>" She winks at you then wanders off behind a partially collapsed wall, disappearing into the rubble.', false );
 					//Set flag for 'last gender met as';
 					CoC.flags[ kFLAGS.AMILY_PC_GENDER ] = CoC.player.gender;
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				//Lesbo lovin confession!;
@@ -416,7 +416,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'She turns and walks away, vanishing into the dust and the rubble like magic.', false );
 					//Set flag for 'last gender met as';
 					CoC.flags[ kFLAGS.AMILY_PC_GENDER ] = CoC.player.gender;
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				//Medium affection 33% chance, guaranteed by 20.;
@@ -479,7 +479,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					}
 					//Set flag for 'last gender met as';
 					CoC.flags[ kFLAGS.AMILY_PC_GENDER ] = CoC.player.gender;
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 			}
@@ -574,13 +574,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You could probably bring up the efficiency of having two hermaphrodite mothers, particularly since you have this purified incubi draft handy.\n\n', false );
 		}
 		var sex = this.determineAmilySexEvent();
-		EngineCore.choices( 'Sex', sex, 'Talk', this.talkToAmily, 'Both', (sex === null ? null : this.talkThenSexWithAmily), 'Efficiency', efficiency, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Sex', this, sex, 'Talk', this, this.talkToAmily, 'Both', this, (sex === null ? null : this.talkThenSexWithAmily), 'Efficiency', this, efficiency, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//Set flag for 'last gender met as';
 		CoC.flags[ kFLAGS.AMILY_PC_GENDER ] = CoC.player.gender;
-		/*FAILSAFE - ALL GENDERS HAVE HAD THERE GO AN NOTHING HAPPENED!
-		 EngineCore.outputText('You enter the ruined village cautiously. There are burnt-down houses, smashed-in doorways, ripped-off roofs... everything is covered with dust and grime. You explore for an hour, but you cannot find any sign of another living being, or anything of value. The occasional footprint from an imp or a goblin turns up in the dirt, but you don\'t see any of the creatures themselves. It looks like time and passing demons have stripped the place bare since it was originally abandoned. Finally, you give up and leave. You feel much easier when you\'re outside of the village – you had the strangest sensation of being watched while you were in there.', false);
-		 EngineCore.doNext(13);
-		 return;*/
 	};
 	AmilyScene.prototype.determineAmilySexEvent = function( forced ) {
 		var sex = null;
@@ -711,7 +707,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//[+5 Libido];
 		EngineCore.dynStats( 'lib', 5 );
 		//[/ Go to [First Time Sex]];
-		EngineCore.doNext( this.amilySexHappens );
+		EngineCore.doNext( this, this.amilySexHappens );
 	};
 	//[Accept Hesitantly];
 	AmilyScene.prototype.acceptAmilyOfferHesitantly = function() {
@@ -729,7 +725,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//{+5 Affection};
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 5;
 		//[/ Go to [First Time Sex]];
-		EngineCore.doNext( this.amilySexHappens );
+		EngineCore.doNext( this, this.amilySexHappens );
 	};
 	//[Refuse];
 	AmilyScene.prototype.refuseAmilysOffer = function() {
@@ -745,14 +741,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 10;
 		//{-5 Libido};
 		EngineCore.dynStats( 'lib', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Announce yourself];
 	AmilyScene.prototype.remeetingAmilyAnnounceSelf = function() {
 		EngineCore.outputText( '', true );
 		this.amilySprite();
 		EngineCore.outputText( 'Reasoning that it\'s best not to scare someone like Amily, you clear your throat nosily. Amily whirls around to face you and immediately draws her knife into a defensive position. When she sees that it\'s you, she blinks a few times before grinning in surprise. "<i>Why hello, ' + CoC.player.short + '; good to see you again! It\'s nice to be reminded that there\'s another person out here who hasn\'t become a brainless fuck-puppet.</i>" Her mood then sobers.\n\n', false );
-		EngineCore.doNext( this.amilyRemeetingContinued );
+		EngineCore.doNext( this, this.amilyRemeetingContinued );
 	};
 	//[Scare her];
 	AmilyScene.prototype.remeetingAmilyScare = function() {
@@ -769,14 +765,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		else {
 			EngineCore.outputText( 'You manage to leap backwards just in time to avoid a strike that could have seriously hurt you. Amily recovers quickly and readies her knife again, only to realize that it\'s you. An irritated expression crosses her face. "<i>Are you insane!? Do you have any idea how stupid that was? I could have killed you!</i>" she bellows, before slowly calming down. "<i>Ah, well... no harm, no foul, I guess...</i>"\n\n', false );
 		}
-		EngineCore.doNext( this.amilyRemeetingContinued );
+		EngineCore.doNext( this, this.amilyRemeetingContinued );
 	};
 	AmilyScene.prototype.amilyRemeetingContinued = function() {
 		EngineCore.outputText( '', true );
 		this.amilySprite();
 		EngineCore.outputText( '"<i>So, have you changed your mind? Have you come to help me out?</i>" Amily asks curiously.\n\n', false );
 		//Accept / Politely refuse / Here to talk / Get lost;
-		EngineCore.choices( 'Accept', this.secondTimeAmilyOfferedAccepted, 'RefusePolite', this.secondTimeAmilyRefuseAgain, 'Just Talk', this.repeatAmilyTalk, 'Get Lost', this.tellAmilyToGetLost, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Accept', this, this.secondTimeAmilyOfferedAccepted, 'RefusePolite', this, this.secondTimeAmilyRefuseAgain, 'Just Talk', this, this.repeatAmilyTalk, 'Get Lost', this, this.tellAmilyToGetLost, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Accept];
 	AmilyScene.prototype.secondTimeAmilyOfferedAccepted = function() {
@@ -786,7 +782,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Offer accepted;
 		CoC.flags[ kFLAGS.AMILY_OFFER_ACCEPTED ] = 1;
 		//[/ Go to [First Time Sex]];
-		EngineCore.doNext( this.amilySexHappens );
+		EngineCore.doNext( this, this.amilySexHappens );
 	};
 
 	//[Politely refuse];
@@ -796,7 +792,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You shake your head gently and explain that your position has not changed. Amily looks annoyed, but respects your decision.\n\n', false );
 		EngineCore.outputText( '"<i>All right; it is your choice. But my offer still stands, you know,</i>" she tells you.\n\n', false );
 		EngineCore.outputText( 'You let her know you\'ll remember that, and then turn and leave.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Here to talk];
 	AmilyScene.prototype.repeatAmilyTalk = function() {
@@ -805,7 +801,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You tell her that you only wanted to talk.\n\n', false );
 		EngineCore.outputText( '"<i>Just to talk?</i>" Amily asks, and then adds quietly, "<i>Well... it has been a long time since I actually had somebody to talk to...</i>" She looks distracted for a moment, but then she smiles. Clearly, Amily is pleased with the prospect. "<i>So, is there anything in particular you want to talk about?</i>"\n\n', false );
 		//[/ Go to random [Conversation]];
-		EngineCore.doNext( this.talkWithCuntIMeanAmily );
+		EngineCore.doNext( this, this.talkWithCuntIMeanAmily );
 	};
 	//[Get Lost];
 	AmilyScene.prototype.tellAmilyToGetLost = function() {
@@ -817,7 +813,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
 		//{Ruined Village removed from Places list};
 		//I think one variable can handle both these...;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Sex];
@@ -837,20 +833,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'Amily can still move quickly despite her pregnancy, and you are very promptly left all alone. Perhaps it would be better not to broach the subject that bluntly with her while she\'s in this state.\n\n', false );
 					//Reduce affection. DERP;
 					CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 3;
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				//[Medium Affection];
 				else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
 					EngineCore.outputText( 'She is clearly surprised, putting a hand to her swelling midriff. But then she shrugs and says, "<i>Well, I guess I do owe you that much for helping me.</i>"\n\n', false );
 					EngineCore.outputText( 'Though she does set off and indicate for you to follow, you realize that she\'s not too happy about your reason for being here.\n\n', false );
 					//[/ Go to [Medium Affection Sex]];
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				}
 				//[High Affection];
 				else {
 					EngineCore.outputText( '"<i>You still want me, even though I\'m already pregnant?</i>" she asks – not angry or disappointed, but sounding rather pleased. "<i>Well, how can I say no to you?</i>" She smiles broadly and begins to walk away, doing her best to give you a sexy wiggle of her hips as an invitation for you to follow her.\n\n', false );
 					//[/ Go to [High Affection Sex]];
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				}
 				break;
 			case 6:
@@ -862,7 +858,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'Annoyed, she turns and waddles off. You do not give chase; you can tell that you\'ve offended her.\n\n', false );
 					//Reduce affection;
 					CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 3;
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				//[Medium Affection];
 				else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
@@ -873,13 +869,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( '"<i>It\'s not that I don\'t like you, ' + CoC.player.short + ', it\'s just... well, I don\'t feel comfortable doing that,</i>" she explains apologetically.\n\n', false );
 					EngineCore.outputText( 'You apologize back for confronting her with something she\'s uncomfortable with, and leave for your own camp, lest you insult her seriously.', false );
 					CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 3;
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				//[High Affection];
 				else {
 					EngineCore.outputText( 'She looks a little puzzled by the request, but then smiles with sincere pleasure. "<i>I\'m game if you are, dear.</i>" She winks and offers her hand to you. You take it, and let her lead you to her chosen nesting site.\n\n', false );
 					//[/ Go to [High Affection - Heavily Pregnant Sex]];
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				}
 				break;
 			default: //Amily is not pregnant
@@ -888,20 +884,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( '"<i>Of course you did. Well, come on, I guess I can oblige you. It\'s the only way I\'m going to get pregnant.</i>"\n\n', false );
 					EngineCore.outputText( 'She sets off, clearly leading the way as you follow her.\n\n', false );
 					//[/ Go to [Low Affection Sex]];
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				}
 				//[Medium Affection];
 				else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
 					EngineCore.outputText( '"<i>Well, I guess you\'ll do. I mean, I still need to get pregnant,</i>" she teases you, tail waving merrily. "<i>Follow me.</i>"\n\n', false );
 					EngineCore.outputText( 'You have to push yourself to keep up with her, but she\'s clearly just playing with you by moving so quickly rather than seriously trying to escape you.\n\n', false );
 					//[/ Go to [Low Affection Sex]];
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				}
 				//[High Affection];
 				else {
 					EngineCore.outputText( 'Amily doesn\'t bother to say anything; she just grins like the cat that ate the canary (well, the mouse that ate the cheesecake, anyway). She grabs hold of your hand and does her best to pull you as fast as she can towards her closest bolt-hole.\n\n', false );
 					//[/ Go to [Low Affection Sex]];
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				}
 		}
 	};
@@ -947,7 +943,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'She smiles playfully at you. "<i>And here I was thinking we knew each other already.  But if you want, I\'m always happy to talk.</i>"\n\n', false );
 		}
 		//[/ Go to random [Conversation]];
-		EngineCore.doNext( this.talkWithCuntIMeanAmily );
+		EngineCore.doNext( this, this.talkWithCuntIMeanAmily );
 	};
 	//[Talk then sex];
 	AmilyScene.prototype.talkThenSexWithAmily = function() {
@@ -964,7 +960,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 15 ) {
 					EngineCore.outputText( 'She rubs her belly thoughtfully. "<i>I guess a bit of conversation would be nice, after all this time. Sex, though? Maybe if you\'re lucky.</i>" She\'s already heading off, encouraging you to follow her.\n\n', false );
 					//[/ Go to random [Conversation], then small chance of [Low Affection Sex]];
-					EngineCore.doNext( this.talkWithCuntIMeanAmily );
+					EngineCore.doNext( this, this.talkWithCuntIMeanAmily );
 				}
 				//[Medium Affection];
 				else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
@@ -972,14 +968,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'You assure her that she still looks trim and lean to you.\n\n', false );
 					EngineCore.outputText( '"<i>Flatterer. Come on, I have something to eat back in my den.</i>"\n\n', false );
 					//[/ Go to random [Conversation], then to [Medium Affection Sex]];
-					EngineCore.doNext( this.talkToAmilyWithSexAfter );
+					EngineCore.doNext( this, this.talkToAmilyWithSexAfter );
 				}
 				//[High Affection];
 				else {
 					EngineCore.outputText( '"<i>Well, I could maybe do without the sex part...</i>" Amily muses, rubbing her chin. Then she grins. "<i>We\'ll see how things work out, all right?</i>"\n\n', false );
 					EngineCore.outputText( 'You assure her that\'s fine, and the two of you find a relatively comfortable patch to sit down on so you can talk.\n\n', false );
 					//[/ Go to random [Conversation], then to [High Affection Sex]];
-					EngineCore.doNext( this.talkToAmilyWithSexAfter );
+					EngineCore.doNext( this, this.talkToAmilyWithSexAfter );
 				}
 				break;
 			case 6:
@@ -990,7 +986,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'She stares at you, then smiles faintly. "<i>Talk? Talk is good... it\'s so quiet here; I spent so many years without anybody to talk to. But sex? In my condition? No, I don\'t think so.</i>"\n\n', false );
 					EngineCore.outputText( 'Despite her refusing the prospect of sex, she happily takes a seat on a toppled column and invites you to join her.\n\n', false );
 					//[/ Go to random [Conversation]];
-					EngineCore.doNext( this.talkWithCuntIMeanAmily );
+					EngineCore.doNext( this, this.talkWithCuntIMeanAmily );
 				}
 				//[Medium Affection];
 				else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
@@ -998,14 +994,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( 'You are forced to concede that you don\'t have any real ideas how sex between you would work with her in her current state.\n\n', false );
 					EngineCore.outputText( 'Amily smiles and pulls up a seat on a mound of leaf litter. "<i>That\'s all right; you meant well. And even if we can\'t have sex, we can still talk. Anything on your mind in particular?</i>"\n\n', false );
 					//[/ Go to random [Conversation]];
-					EngineCore.doNext( this.talkWithCuntIMeanAmily );
+					EngineCore.doNext( this, this.talkWithCuntIMeanAmily );
 				}
 				//[High Affection];
 				else {
 					EngineCore.outputText( 'She grins at you playfully. "<i>It\'s just wonderful to finally have somebody to talk to after all these years. And maybe I\'ll let you make love to me afterwards, if you\'re a good listener.</i>"\n\n', false );
 					EngineCore.outputText( 'She waddles over to something that – in the distant past – might have been a stone seat for public convenience, and seats herself upon it heavily. "<i>So, what do you want to talk about?</i>" she asks.\n\n', false );
 					//[/ Go to random [Conversation], then to [High Affection Sex – Heavily Pregnant Sex]];
-					EngineCore.doNext( this.talkToAmilyWithSexAfter );
+					EngineCore.doNext( this, this.talkToAmilyWithSexAfter );
 				}
 				break;
 			default: //Amily is not pregnant
@@ -1014,20 +1010,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( '"<i>...Well, maybe you\'re not like everyone else in this world after all,</i>" she finally answers. Though she walks away without a second word, she seems rather pleased by your answer.\n\n', false );
 					EngineCore.outputText( '"<i>Hey, hurry up!</i>" she calls back over her shoulder. You snap out of your musings and follow her.\n\n', false );
 					//[/ Go to random [Conversation], then to [Low Affection Sex]];
-					EngineCore.doNext( this.talkToAmilyWithSexAfter );
+					EngineCore.doNext( this, this.talkToAmilyWithSexAfter );
 				}
 				//[Medium Affection];
 				else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
 					EngineCore.outputText( 'She smiles at you. "<i>Well... I was feeling a little tired, a little lonely, and... maybe a little horny. Why not?</i>"\n\n', false );
 					EngineCore.outputText( 'She crooks a finger at you as a gesture to follow her.\n\n', false );
 					//[/ Go to random [Conversation], then to [Medium Affection Sex]];
-					EngineCore.doNext( this.talkToAmilyWithSexAfter );
+					EngineCore.doNext( this, this.talkToAmilyWithSexAfter );
 				}
 				//[High Affection];
 				else {
 					EngineCore.outputText( '"<i>Conversation with a wonderful friend, and a wonderful bout of lovemaking afterwards... Well, I guess that\'s what passes for true romance in this crazy, messed up world these days,</i>" Amily notes. She tries to sound lighthearted, but you know her well enough to sense the tinge of pain and loss in her words. Undaunted, she starts to walk off, gesturing you to follow. "<i>Come on; I can talk and walk at the same time, surely you can do the same?</i>"\n\n', false );
 					//[/ Go to random [Conversation], then to [High Affection Sex]];
-					EngineCore.doNext( this.talkToAmilyWithSexAfter );
+					EngineCore.doNext( this, this.talkToAmilyWithSexAfter );
 				}
 		}
 	};
@@ -1087,9 +1083,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		//Sex / Talk / Talk then sex;
 		if( CoC.player.lust >= 33 ) {
-			EngineCore.choices( 'Sex', this.sexWithAmily, 'Talk', this.talkToAmily, 'Both', this.talkThenSexWithAmily, '', null, '', null );
+			EngineCore.choices( 'Sex', this, this.sexWithAmily, 'Talk', this, this.talkToAmily, 'Both', this, this.talkThenSexWithAmily, '', null, null, '', null, null );
 		} else {
-			EngineCore.choices( '', null, 'Talk', this.talkToAmily, '', null, '', null, '', null );
+			EngineCore.choices( '', null, null, 'Talk', this, this.talkToAmily, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//[Scare her];
@@ -1145,9 +1141,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Sex / Talk / Talk then sex;
 		//(Same as [Normal Remeeting));
 		if( CoC.player.lust >= 33 ) {
-			EngineCore.choices( 'Sex', this.sexWithAmily, 'Talk', this.talkToAmily, 'Both', this.talkThenSexWithAmily, '', null, '', null );
+			EngineCore.choices( 'Sex', this, this.sexWithAmily, 'Talk', this, this.talkToAmily, 'Both', this, this.talkThenSexWithAmily, '', null, null, '', null, null );
 		} else {
-			EngineCore.choices( '', null, 'Talk', this.talkToAmily, '', null, '', null, '', null );
+			EngineCore.choices( '', null, null, 'Talk', this, this.talkToAmily, '', null, null, '', null, null, '', null, null );
 		}
 		//Affection -1;;
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 1;
@@ -1183,7 +1179,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Curious what she has to say, you agree.\n\n', false );
 		EngineCore.outputText( 'Amily scuffs the ground with one of her finger-like toe claws, looking down at it as if it was the most interesting thing in the world – or as if she doesn\'t dare to look you in the eyes. "<i>I... You know what I\'ve been asking of you; from you, and you keep turning me down... but you kept talking to me, asking me about myself. You wanted to get to know me, but... why don\'t you want to know ALL of me? I... I want to give myself to you. You\'re the nicest, kindest man I\'ve met – even before the demons destroyed my village. I want to be with you... but you don\'t seem to want to be with me.</i>" She looks up to you at last, her eyes wet with tears. "<i>Is there something wrong with me? Can\'t you like me in that way?</i>" she pleads.\n\n', false );
 		//Accept her / Turn her down gently / Turn her down bluntly;
-		EngineCore.choices( 'Accept Her', this.desperateAmilyPleaAcceptHer, 'TurnDownGently', this.desperateAmilyPleaTurnDown, 'TurnDownBlunt', this.desperateAmilyPleaTurnDownBlunt, '', null, '', null );
+		EngineCore.choices( 'Accept Her', this, this.desperateAmilyPleaAcceptHer, 'TurnDownGently', this, this.desperateAmilyPleaTurnDown, 'TurnDownBlunt', this, this.desperateAmilyPleaTurnDownBlunt, '', null, null, '', null, null );
 	};
 	//[Accept her];
 	AmilyScene.prototype.desperateAmilyPleaAcceptHer = function() {
@@ -1194,7 +1190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'With a gentle smile, you reach out and take hold of her hand. You tell her that you do like her too; you just wanted to know her as a person before you would take something as precious to her as her virginity. If she still wants you, then you want to go with her now.\n\n', false );
 		EngineCore.outputText( 'Amily stares at you, stunned. After a moment, she embraces you fiercely and begins to drag you away.\n\n', false );
 		//[/ Go to [High Affection Sex]];
-		EngineCore.doNext( this.amilySexHappens );
+		EngineCore.doNext( this, this.amilySexHappens );
 	};
 	//[Turn her down gently];
 	AmilyScene.prototype.desperateAmilyPleaTurnDown = function() {
@@ -1211,7 +1207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Feeling the weight of the empty village pressing in on you, you quickly retreat yourself. There\'s no point coming back here.\n\n', false );
 		//turn off village.;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Turn her down bluntly];
 	AmilyScene.prototype.desperateAmilyPleaTurnDownBlunt = function() {
@@ -1227,7 +1223,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//{Amily can no longer be encountered};
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
 		//{Ruined Village removed from Places list};
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Birth];
 	AmilyScene.prototype.fuckingMouseBitchPopsShitOut = function() {
@@ -1237,7 +1233,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Increase baby count here rather than in 3 places.;
 		CoC.flags[ kFLAGS.AMILY_BIRTH_TOTAL ]++;
 		//Leave / Watch / Help;
-		EngineCore.choices( 'Leave', this.pregnancyIsScaryGoddamnMousePregnancyImNotWatchingThisShit, 'Watch', this.heyIGotTicketsToMicePoppingOut, 'Help', this.helpThatFukkinUngratefulBitchGiveBirth, '', null, '', null );
+		EngineCore.choices( 'Leave', this, this.pregnancyIsScaryGoddamnMousePregnancyImNotWatchingThisShit, 'Watch', this, this.heyIGotTicketsToMicePoppingOut, 'Help', this, this.helpThatFukkinUngratefulBitchGiveBirth, '', null, null, '', null, null );
 	};
 	//[Leave];
 	AmilyScene.prototype.pregnancyIsScaryGoddamnMousePregnancyImNotWatchingThisShit = function() {
@@ -1247,7 +1243,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'The next morning, you find a note scratched onto a slab of bark beside your sleeping roll, reading, "<i>The babies and I are both fine. No thanks to you!</i>"\n\n', false );
 		//{Affection goes down};
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 10;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Watch];
@@ -1278,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		EngineCore.outputText( '  Their color patterns vary considerably; white, black and brown are most common, and you even see one or two with your hair color. Amily flops back onto her rump and then topples over onto her back, clearly too tired to stand up. Her offspring crowd around, cuddling up to her, and she gives them a tired but happy smile.\n\n', false );
 		EngineCore.outputText( 'Making sure that there doesn\'t seem to be any danger, you quietly let yourself out. It seems that she\'s too concerned about the children to notice you leave.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Help];
 	AmilyScene.prototype.helpThatFukkinUngratefulBitchGiveBirth = function() {
@@ -1329,7 +1325,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'As the rambunctious little mouselets burn up their energy and curl up beside Amily to sleep, you gently excuse yourself and return to camp.', false );
 		//{Affection goes up};
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 5;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Bad End];
 	AmilyScene.prototype.thisIsAReallyShittyBadEnd = function() {
@@ -1344,7 +1340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '"<i>This is goodbye, ' + CoC.player.short + '. You may not have been the most noble of [men]... but you did help me in my quest, and I am grateful – no matter how selfish your reasons may have been.</i>"\n\n', false );
 		EngineCore.outputText( 'Amily inclines her head towards you in a respectful nod, and then joins her vast brood as they begin to march away purposefully. You watch them go until they have vanished from sight, then shake your head with a sneer. Like you need her or her brats, anyway! Spinning on your heel, you stride purposefully out of this dump of a village; you don\'t intend to come back here again.\n\n', false );
 		EngineCore.outputText( 'Amily has left the region with her children to found a new colony elsewhere.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//{Amily can no longer be encountered};
 		//{Ruined Village removed from Places list};
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
@@ -1410,7 +1406,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		//Disable amily encounters in the village!;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Conversations - talk wif da bitch.;
 	AmilyScene.prototype.talkWithCuntIMeanAmily = function( sexAfter ) {
@@ -1437,9 +1433,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			if( CoC.player.itemSlot1.quantity === 0 ) {
 				EngineCore.outputText( 'Promising you\'ll keep that in mind, you take your leave of Amily.\n\n', false );
 				if( sexAfter ) {
-					EngineCore.doNext( this.determineAmilySexEvent() );
+					EngineCore.doNext( this, this.determineAmilySexEvent() );
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -1765,9 +1761,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			}
 		}
 		if( sexAfter ) {
-			EngineCore.doNext( this.determineAmilySexEvent( true ) );
+			EngineCore.doNext( this, this.determineAmilySexEvent( true ) );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//First Time Sekksin:;
@@ -1786,7 +1782,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//[Take Charge];
 		//[Wait for Her];
 		//[Kiss Her];
-		EngineCore.choices( 'Take Charge', this.FirstTimeAmilyTakeCharge, 'Wait 4 Her', this.beSomeKindofNervousDoucheAndWaitForAmily, 'Kiss Her', this.kissAmilyInDaMoufFirstTimeIsSomehowBetterThatWay, '', null, '', null );
+		EngineCore.choices( 'Take Charge', this, this.FirstTimeAmilyTakeCharge, 'Wait 4 Her', this, this.beSomeKindofNervousDoucheAndWaitForAmily, 'Kiss Her', this, this.kissAmilyInDaMoufFirstTimeIsSomehowBetterThatWay, '', null, null, '', null, null );
 	};
 	//[=Take Charge=];
 	AmilyScene.prototype.FirstTimeAmilyTakeCharge = function() {
@@ -1829,7 +1825,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Affection downer;
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 5;
 		this.amilyPreggoChance();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Wait for Her=];
 	AmilyScene.prototype.beSomeKindofNervousDoucheAndWaitForAmily = function() {
@@ -1849,7 +1845,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 2;
 		this.amilyPreggoChance();
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Kiss Her=];
 	AmilyScene.prototype.kissAmilyInDaMoufFirstTimeIsSomehowBetterThatWay = function() {
@@ -1877,7 +1873,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//Affection boost?;
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 3;
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		this.amilyPreggoChance();
 	};
 	AmilyScene.prototype.amilySexHappens = function() {
@@ -1888,7 +1884,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( x === -1 && CoC.player.hasCock() ) {
 			EngineCore.outputText( 'Amily looks between your legs and doubles over laughing, "<i>There is no way that thing is fitting inside of me!  You need to find a way to shrink that thing down before we get in bed!</i>"', false );
 			CoC.flags[ kFLAGS.AMILY_AFFECTION ]--;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.flags[ kFLAGS.AMILY_FUCK_COUNTER ] === 0 ) {
@@ -1900,7 +1896,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 15 ) {
 			EngineCore.outputText( 'Amily\'s efforts at leading you through the ruined village are brisk and efficient. You don\'t really think she\'s looking forward to doing this all that much. No, that might be overstating things. It\'s more like she\'s under the impression that, details aside, this encounter between the two of you will be pure business.\n\n', false );
 			EngineCore.outputText( 'It\'s hard for you to say if you were led by a different route this time, but soon you are in what Amily has to offer for a private bedchamber, and she begins to reach for her clothes, obviously expecting you to do the same thing.\n\n', false );
-			EngineCore.choices( 'Business', this.amilySexBusiness, 'Playtime 1st', this.amilySexPlaytimeFirst, '', null, '', null, '', null );
+			EngineCore.choices( 'Business', this, this.amilySexBusiness, 'Playtime 1st', this, this.amilySexPlaytimeFirst, '', null, null, '', null, null, '', null, null );
 		}
 		//Moderate Affection Sex:;
 		else if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] < 40 ) {
@@ -1915,7 +1911,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			if( pregEvent >= 6 ) {
 				EngineCore.outputText( '  However, her confidence visibly slips when she has to fully bare the bulging belly that marks her pregnant state, but she musters the confidence and starts to show it off for you as well.', false );
 			}
-			EngineCore.choices( 'Step In', this.amilyStepTheFuckIn, 'Watch Show', this.amilyEnjoyShow, '', null, '', null, '', null );
+			EngineCore.choices( 'Step In', this, this.amilyStepTheFuckIn, 'Watch Show', this, this.amilyEnjoyShow, '', null, null, '', null, null, '', null, null );
 		} else {
 			if( this.pregnancy.event >= 6 ) {
 				this.fuckAmilyPreg();
@@ -1948,13 +1944,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//worm infested reaction;
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			EngineCore.outputText( '"<i>EWWWW!  You\'re infested!</i>" she shrieks, "<i>Get out!  Don\'t come back \'til you get rid of the worms!</i>"\n\nYou high tail it out of there.  It looks like Amily doesn\'t want much to do with you until you\'re cured.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 3;
 			CoC.flags[ kFLAGS.AMILY_GROSSED_OUT_BY_WORMS ] = 1;
 			return;
 		}
 		EngineCore.outputText( 'Now that both of you are naked, Amily takes a step back from you and begins to stroke herself - though her gestures are a little hesitant, and she clearly has never done this before, she is sincerely trying to be arousing. A finger strokes each dainty little nipple, circling around in opposite directions in order to make them perk as hard as they can. Her right hand slips away, leaving her left hand to alternate between each nipple as her nimble fingers begin to tease her most private of places. She may not be extraordinarily skilled at it, but she\'s definitely doing a good job of turning you on - particularly with the cute little gasp she makes when she pinches her clitoris a bit too hard.\n\n', false );
-		EngineCore.choices( 'Sit & Watch', this.sitAndWatchAmilySex, 'Caress Her', this.caressAmilyHaveSex, '', null, '', null, '', null );
+		EngineCore.choices( 'Sit & Watch', this, this.sitAndWatchAmilySex, 'Caress Her', this, this.caressAmilyHaveSex, '', null, null, '', null, null, '', null, null );
 	};
 	//[Sit & Watch];
 	AmilyScene.prototype.sitAndWatchAmilySex = function() {
@@ -1970,7 +1966,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '', true );
 		this.amilySprite();
 		EngineCore.outputText( 'Watching Amily masturbate and tease herself in front of you is definitely erotic... but you want something more to this session than that. Licking your lips with a combination of arousal and nervousness, you tentatively reach out one hand and brush a feather-light touch against her fingers.  Her eyes, which she had previously been keeping closed, suddenly spring open, and you ready yourself to withdraw and apologize if she protests. But, for whatever reason, she does not protest and, emboldened, you continue to touch and caress her. You keep your touches gentle, light and restricted to non-intimate regions, but she seems to be enjoying this; she draws a little closer, and reaches out to brush your cheek, absentmindedly using the very hand she had been stroking her netherlips with before, and so the scent of her intimate regions drifts to your nostrils from where her fingers lay. Her eyes have rolled almost completely shut, the gaze she is giving you is a very languid one, but something about the set of her lips, only just starting to open, entices you to kiss them.\n\n', false );
-		EngineCore.choices( 'Refuse Kiss', this.AmilyGetKissed, 'Kiss Her', this.AmilyTakeTheKiss, '', null, '', null, '', null );
+		EngineCore.choices( 'Refuse Kiss', this, this.AmilyGetKissed, 'Kiss Her', this, this.AmilyTakeTheKiss, '', null, null, '', null, null, '', null, null );
 	};
 	//[Refuse the Kiss];
 	AmilyScene.prototype.AmilyGetKissed = function() {
@@ -2018,7 +2014,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 1 + Utils.rand( 2 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Enjoy The Show];
@@ -2044,7 +2040,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		this.amilySprite();
 		EngineCore.outputText( 'By the time Amily is completely naked, she is clearly excited about what is coming up; you even think she\'s wet already. She stares at you with a mischievous, turned-on smile, waiting to see what you will do now that it is your turn to strip.\n\n', false );
 		EngineCore.outputText( 'Do you do a striptease of your own or just strip naked and get to business?', false );
-		EngineCore.choices( 'Striptease', this.StripForAmilyYouSlut, 'Business', this.getDownWithSexTiem, '', null, '', null, '', null );
+		EngineCore.choices( 'Striptease', this, this.StripForAmilyYouSlut, 'Business', this, this.getDownWithSexTiem, '', null, null, '', null, null, '', null, null );
 	};
 	//[Fair Is Fair];
 	AmilyScene.prototype.StripForAmilyYouSlut = function() {
@@ -2066,7 +2062,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.dynStats( 'lus', 5 );
 		this.amilySprite();
 		EngineCore.outputText( 'Once you are both naked, you embrace and begin with a deep kiss. Slowly you both sink down and start exploring each other\'s bodies. You feel Amily\'s hands caressing you while you lightly kiss her breasts, one of your hands slowly drifting down to her cute ass and lightly squeezing it. Looking into her eyes, you see a sparkle in them before she surprises you and somehow manages to turn you onto your back. Now she\'s sitting on your belly, with your already hard cock being fondled by her rather flexible tail. Grinning at you, she seems to plan on teasing you as long as possible before allowing you to enter her.\n\n', false );
-		EngineCore.choices( 'Play Along', this.playAlongWithAmilyWhataDumbBitch, 'Please Her', this.workToPleaseTheCunt, '', null, '', null, '', null );
+		EngineCore.choices( 'Play Along', this, this.playAlongWithAmilyWhataDumbBitch, 'Please Her', this, this.workToPleaseTheCunt, '', null, null, '', null, null, '', null, null );
 	};
 	//[Play Along];
 	AmilyScene.prototype.playAlongWithAmilyWhataDumbBitch = function() {
@@ -2094,14 +2090,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		this.amilyPreggoChance();
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 3 + Utils.rand( 4 );
 		CoC.flags[ kFLAGS.AMILY_FUCK_COUNTER ]++;
-		EngineCore.choices( 'Say Goodbye', this.sayGoodByeToAmilyPostSecks, 'Stay A While', this.stayAfterAmilyMiddleGradeSecks, '', null, '', null, '', null );
+		EngineCore.choices( 'Say Goodbye', this, this.sayGoodByeToAmilyPostSecks, 'Stay A While', this, this.stayAfterAmilyMiddleGradeSecks, '', null, null, '', null, null, '', null, null );
 	};
 	//[Say Goodbye];
 	AmilyScene.prototype.sayGoodByeToAmilyPostSecks = function() {
 		this.amilySprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You smile at her and give her a kiss before saying goodbye and returning to your camp.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Stay A While];
 	AmilyScene.prototype.stayAfterAmilyMiddleGradeSecks = function() {
@@ -2110,7 +2106,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You decide you\'d rather stay with her a little longer, so you get up, go to her and with a kiss and some caresses draw her down again. She doesn\'t really put up any resistance, so you both lie there kissing and caressing each other for some time before you finally say goodbye and return to your camp.', false );
 		//Bonus affection mayhapz?;
 		CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 3;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[High Affection - Non-Pregnant/Slightly Pregnant];
@@ -2242,7 +2238,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_FUCK_COUNTER ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//preggo chance;
 		this.amilyPreggoChance();
 	};
@@ -2285,7 +2281,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_FUCK_COUNTER ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//preggo chance;
 		this.amilyPreggoChance();
 	};
@@ -2345,7 +2341,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( '', true );
 			this.amilyPopsOutKidsInCamp();
 			this.pregnancy.knockUpForce(); //Clear Pregnancy
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Jojo + Amily Spar;
@@ -2434,26 +2430,26 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			if( CoC.flags[ kFLAGS.AMILY_OVIPOSITION_UNLOCKED ] > 0 && CoC.player.canOviposit() ) {
 				eggs = this.layEggsInAmily;
 			}
-			EngineCore.choices( 'Appearance', this.amilyAppearance, 'Talk', this.talkToAmilyCamp, 'Make Love', this.fuckTheMouseBitch, 'Give Present', this.giveAmilyAPresent, 'Date', date,
-				'Lay Eggs', eggs, 'Defur', defur, '', null, '', null, 'Back', SceneLib.camp.campLoversMenu );
+			EngineCore.choices( 'Appearance', this, this.amilyAppearance, 'Talk', this, this.talkToAmilyCamp, 'Make Love', this, this.fuckTheMouseBitch, 'Give Present', this, this.giveAmilyAPresent, 'Date', this, date,
+				'Lay Eggs', this, eggs, 'Defur', this, defur, '', null, null, '', null, null, 'Back', SceneLib.camp, SceneLib.camp.campLoversMenu );
 		}
 		//Corrupt;
 		else {
 			//EngineCore.outputText('Options:\nAppearance\nGive Item\nSex\nTalk\n', false);;
 			//  [Sex] [Give Item] [Talk] [Call Jojo];
-			EngineCore.choices( 'Appearance', this.amilyAppearance, 'Give Item', this.giveAmilyAPresent, 'Sex', this.fuckTheMouseBitch, 'Talk', this.talkWithCORRUPTCUNT, 'Defur', defur,
-				'', null, '', null, '', null, '', null, 'Back', SceneLib.camp.campSlavesMenu );
+			EngineCore.choices( 'Appearance', this, this.amilyAppearance, 'Give Item', this, this.giveAmilyAPresent, 'Sex', this, this.fuckTheMouseBitch, 'Talk', this, this.talkWithCORRUPTCUNT, 'Defur', this, defur,
+				'', null, null, '', null, null, '', null, null, '', null, null, 'Back', SceneLib.camp, SceneLib.camp.campSlavesMenu );
 			if( !this.pregnancy.isPregnant && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 0 && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-				EngineCore.addButton( 5, 'Farm Work', this.sendCorruptCuntToFarm );
+				EngineCore.addButton( 5, 'Farm Work', this, this.sendCorruptCuntToFarm );
 			}
 			if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 1 ) {
-				EngineCore.addButton( 5, 'Go Camp', this.backToCamp );
+				EngineCore.addButton( 5, 'Go Camp', this, this.backToCamp );
 				if( CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_AMILY ] === 0 ) {
-					EngineCore.addButton( 6, 'Harvest Milk', this.harvestMilk );
+					EngineCore.addButton( 6, 'Harvest Milk', this, this.harvestMilk );
 				} else {
-					EngineCore.addButton( 6, 'Stop Harvest', this.stopHarvestingMilk );
+					EngineCore.addButton( 6, 'Stop Harvest', this, this.stopHarvestingMilk );
 				}
-				EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+				EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 			}
 		}
 	};
@@ -2483,8 +2479,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				oral2 = this.corruptAmilyLickPussiesLikeAPro;
 				scissor = this.corruptAmilyScissorsLikeAPro;
 			}
-			EngineCore.choices( 'Anal', anal, 'Get BJ', oral, 'Get Licked', oral2, 'GetPen\'ed', penetrated, 'Scissor', scissor,
-				'Vagina', fuckCunt, '', null, '', null, '', null, 'Nevermind', this.amilyFollowerEncounter );
+			EngineCore.choices( 'Anal', this, anal, 'Get BJ', this, oral, 'Get Licked', this, oral2, 'GetPen\'ed', this, penetrated, 'Scissor', this, scissor,
+				'Vagina', this, fuckCunt, '', null, null, '', null, null, '', null, null, 'Nevermind', this, this.amilyFollowerEncounter );
 		} else {
 			//[Genderless PC Tries Sex];
 			EngineCore.outputText( 'Eagerly, you strip off your ' + CoC.player.armorName + ' and present yourself to your admiring slut-mouse... but when her eyes fall upon the bare expanse of flesh that is your crotch, she lets out a cry of horror. "<i>Nothing! There\'s nothing there! ' + CoC.player.mf( 'Master', 'Mistress' ) + ', what\'s happened to your genitals?</i>" she squeals in dismay, rushing forward on her hands and knees and slamming her face roughly into your crotch.\n\n', false );
@@ -2492,9 +2488,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'As she collapses onto the ground, crying her heart out, you silently redress yourself and slink away. All this blubbering has turned you off, and it\'s obvious that nothing can be done until you\'ve grown a cock, a pussy, or both.', false );
 			EngineCore.dynStats( 'lus', -20 );
 			if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 0 ) {
-				EngineCore.doNext( MainView.playerMenu );
+				EngineCore.doNext( MainView, MainView.playerMenu );
 			} else {
-				EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+				EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 			}
 		}
 	};
@@ -2609,7 +2605,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		EngineCore.outputText( '\nShe has a tiny pink pucker between her mousey butt-cheeks, where it belongs.' );
 		//Back to amily menu;
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	// EVENT 2429: Talk to Amily in camp;
 	AmilyScene.prototype.talkToAmilyCamp = function() {
@@ -2618,7 +2614,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You tell Amily you\'d like to talk about things. She grins, happy at the prospect, and takes a seat, inviting you to sit down as well.\n\n', false );
 		//(Random camp discussion takes place);
 		this.talkWithCuntIMeanAmily();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AmilyScene.prototype.talkToAmilyWithSexAfter = function() {
 		this.talkWithCuntIMeanAmily( true );
@@ -2637,7 +2633,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//[Amily rejects sex];
 		if( CoC.flags[ kFLAGS.AMILY_WAIT_FOR_PC_FIX_JOJO ] > 0 ) {
 			EngineCore.outputText( 'Amily pushes you away and says, "<i>Not until we fix Jojo.</i>"  You sigh and grumble.  No sex today!', false );
-			EngineCore.doNext( this.amilyFollowerEncounter );
+			EngineCore.doNext( this, this.amilyFollowerEncounter );
 			return;
 		}
 		EngineCore.outputText( 'You give Amily a seductive smile and tell her that you want to make love to her.\n\n', false );
@@ -2669,8 +2665,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				babies = this.makeChildren;
 			}
 		}
+		var urta = null;
 		if( CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 4 && CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] >= 0 && !SceneLib.urtaQuest.urtaBusy() ) {
-			SceneLib.urta = SceneLib.followerInteractions.amilyUrtaSex;
+			urta = SceneLib.followerInteractions.amilyUrtaSex;
 		}
 		var swim = null;
 		if( CoC.flags[ kFLAGS.AMILY_OWNS_BIKINI ] > 0 && CoC.player.hasCock() && !this.amilyCorrupt() ) {
@@ -2686,8 +2683,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			nurse = this.amilyNurseCheckup;
 			EngineCore.outputText( 'Amily might be up for playing nurse again.\n' );
 		}
-		EngineCore.choices( 'TakeCharge', this.amilyTakesChargeSex, 'Amily Leads', this.letAmilyLead, bText, babies, 'Urta', SceneLib.urta, 'Swim', swim,
-			'Izma3Some', threesome, 'Nurse RP', nurse, '', null, '', null, 'Back', this.amilyFollowerEncounter );
+		EngineCore.choices( 'TakeCharge', this, this.amilyTakesChargeSex, 'Amily Leads', this, this.letAmilyLead, bText, this, babies, 'Urta', SceneLib.followerInteractions, urta, 'Swim', this, swim,
+			'Izma3Some', this, threesome, 'Nurse RP', this, nurse, '', null, null, '', null, null, 'Back', this, this.amilyFollowerEncounter );
 	};
 	//[=Take Charge=];
 	AmilyScene.prototype.amilyTakesChargeSex = function() {
@@ -2724,8 +2721,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			drinkMilk = this.takeChargeAmilyMouseMilk;
 		}
 		EngineCore.outputText( 'You stride up to her and take her in your arms, kissing her deeply. She melts enthusiastically into your embrace, kissing you back just as hard, her tail winding around your ' + CoC.player.leg() + '. You lead her back to the nest she has made for herself and firmly but gently place her on her back there. She smiles up at you. "<i>Ooh, taking charge, are we?</i>" She trills with pleasure, tail waving to and fro with sincere excitement.\n\nWhat will you do?', false );
-		EngineCore.choices( 'Fuck', fuck, 'DrinkMilk', drinkMilk, 'Eat Out', this.takeChargeAmilyEatOut, 'GetSucked', getSucked, 'Scissor', scissor,
-			'Mount Her', mountHer, 'Buttfuck', buttFuckButtFUCKBUTTFUCK, 'Catch Anal', catchs, '', null, '', null );
+		EngineCore.choices( 'Fuck', this, fuck, 'DrinkMilk', this, drinkMilk, 'Eat Out', this, this.takeChargeAmilyEatOut, 'GetSucked', this, getSucked, 'Scissor', this, scissor,
+			'Mount Her', this, mountHer, 'Buttfuck', this, buttFuckButtFUCKBUTTFUCK, 'Catch Anal', this, catchs, '', null, null, '', null, null );
 	};
 
 	//Take Charge 1: Fuck;
@@ -2755,7 +2752,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '.\n\n', false );
 		EngineCore.outputText( 'Grinning at each other with obvious satisfaction in your eyes, you slowly relax and cuddle in the afterglow for some time, before you decide that you\'ll definitely repeat this soon.', false );
 		this.amilyPreggoChance();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 	};
@@ -2782,7 +2779,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You try to answer that you are fine, but all that comes out is a huge, wet belch. Shaking your head, you manage to regain your wits - and you realize that you are having a hard time sitting up. Your stomach is so full of milk that it is bulging out, almost like a pregnant belly, and it\'s weighing you down. You realize Amily is also staring at your distended midriff, looking a little scared... and maybe also a little proud.\n\n', false );
 			EngineCore.outputText( '"<i>All that came out of me?</i>" She asks, curious. She gently rubs your belly, and you moan as the milk sloshes uncomfortably inside your sensitive stomach. Amily sits down, your head in her lap, and lets you rest there until you recover your strength and digest a good portion of the milk. Still feeling uncomfortably full, you get up and go for a walk to help work off your titanic liquid meal.\n\n', false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'spe', 0.3, 'lus', 10, 'cor', -0.5 );
 	};
 	//Take Charge 3: - eat out;
@@ -2822,7 +2819,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		EngineCore.outputText( '.\n\n', false );
 		EngineCore.outputText( 'She lies there, gasping for breath, even as you pick yourself up and start to clean yourself off. "<i>Not my favorite...</i>" She squeaks. "<i>But definitely can\'t argue with the results.</i>" You smile, and leave her in her nest to get her strength back.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'int', 0.25, 'lus', 10 );
 	};
 	//Take Charge 4 - amily sucks off;
@@ -2861,7 +2858,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] > 0 ) {
 			EngineCore.outputText( 'She turns halfway back to you as she goes. "<i>I hope you\'ll remember this and return the favor someday,</i>" she calls out to you. She then resumes walking off.', false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 	};
@@ -2876,7 +2873,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Smiling in defeat, you kiss her again and switch your position so that you and the mousegirl are scissoring - or rather, you will be as soon as she realizes what you\'re up to and you both start moving. Sure enough, Amily soon grins at you again and tentatively pushes her vagina against your ' + Descriptors.vaginaDescript() + '. You return the \'favor\', and a few moments later, you two are grinding your vaginas against each other. Moans escaping from both your lips, it doesn\'t take long for the mousegirl and you to orgasm almost at the same time.\n\n', false );
 		EngineCore.outputText( 'With a contented sigh and a broad, satisfied smile, Amily murmurs, "<i>That felt great...</i>" She switches her position again so that her head is again next to yours, puts her arms around you and nuzzles you a bit. You embrace her too, and enjoy the afterglow with her for some time, before you both go back to work.\n\n', false );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Take Charge: Mount Amily;
 	AmilyScene.prototype.takeChargeAmilyMountHer = function() {
@@ -2926,7 +2923,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.flags[ kFLAGS.AMILY_ALLOWS_FERTILITY ] === 1 ) {
 			CoC.player.knockUp( PregnancyStore.PREGNANCY_AMILY, PregnancyStore.INCUBATION_MOUSE );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 	};
@@ -2973,7 +2970,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'Suddenly, you almost jump as you feel something entering your pants - it feels almost like a snake or something, but then you realize that it\'s Amily\'s tail that\'s now wrapping itself around your ' + Descriptors.cockDescript( 0 ) + '. Your eyes widening, you look at her in surprise as she begins to methodically squeeze and relax her tail\'s grip on your member.\n\n', false );
 			EngineCore.outputText( 'You\'d never have expected the little mousegirl to do something like this - and you certainly would never have thought it would feel so good. Sure enough, you soon feel yourself reaching the "<i>point of no return</i>", but any attempts to tell her that you won\'t be able to hold back much longer are made futile by her enduring kisses. You\'re quite sure she\'s smiling at your predicament - she probably planned for this to happen. Shrugging mentally, you decide to go with the flow and worry about it later. So you try to relax (as much as you can do that while Amily is giving you an incredible tailjob...) and simply enjoy the feeling. Sure enough, it doesn\'t take her much longer to finally make you cum. Breaking the kiss, she steps back and with a broad grin asks you enjoy that, you naughty ' + CoC.player.mf( 'man', 'girl' ) + '?</i>"\n\n', false );
 			EngineCore.outputText( 'Naturally, you tell her that you enjoyed it very much, and with a smile, Amily helps you clean up. "<i>If you liked it that much...</i>" she says over her shoulder and winks at you as she goes to take care of something else.\n\n', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 			return;
@@ -2984,7 +2981,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'Suddenly, your eyes snap open again and you look with something very much like disappointment at Amily as she withdraws her hands. "<i>What? Did you think I\'d only use my hands on you?</i>" she asks while sitting down. "<i>Close your eyes again!</i>" she demands. Not really sure what she has in mind, you still comply. After a moment or two, you feel something else on your ' + Descriptors.cockDescript( 0 ) + '. You open one of your eyes a little and realize that Amily\'s now using her feet. Smiling, you close your eye again and simply enjoy the feeling. The mousegirl continues stroking your cock with her feet for some time before switching back to her hands. Alternating between them (and sometimes using hands and feet at once), Amily soon makes you cum with a pleasured groan. Opening your eyes again, you smile at her in thanks.\n\n', false );
 			EngineCore.outputText( 'Looking at her hands and feet covered by your cum, Amily jokingly accuses you of forcing her to clean herself yet again, just because you have no control. Your eyes widen a bit in surprise when the mousegirl lightly licks one of her hands and comments "<i>Mmhhmm... not bad, actually...</i>" With a grin, she cleans up the results of her hand-and-foot-job before pulling you to your feet again. "<i>Back to work, Champion!</i>"\n\n', false );
 			EngineCore.outputText( 'With a satisfied smile, you turn to other things.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 			return;
@@ -3016,7 +3013,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( 'and limp cock ', false );
 			}
 			EngineCore.outputText( 'across your chest as she repositions herself so that she is looking you in the eyes, laying atop you. "<i>You always know how to make a girl feel special, don\'t you?</i>" she says, softly. Then she kisses you, probing her tongue deep into your mouth to get a good taste of her juices, before wriggling off of you, grabbing her pants and running merrily away. You watch her go, then clean yourself off.\n\n', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.dynStats( 'int', 0.25, 'lus', 10 );
 			return;
 		}
@@ -3038,7 +3035,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( ', and then collapses onto your front. You lie there together, arms unthinkingly winding around each other. Amily is the first of you to stir. "<i>Do you... Are you happy, that I\'m here?</i>" You assure her that you are. "<i>That\'s good...</i>" She yawns. "<i>Because I\'m so happy to be here with you.</i>"\n\n', false );
 			EngineCore.outputText( 'Exhausted, you feel a quick nap is in order yourself. When you wake up, you\'re alone in the nest but Amily is nearby; she hands you some food and then points you in the direction of the stream to wash up.\n\n', false );
 			this.amilyPreggoChance();
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 			return;
@@ -3057,7 +3054,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			}
 
 			EngineCore.outputText( 'You shrug, uncertain. Slowly, Amily sits up and gets off of you. "<i>I... um... thank you.</i>" She says, then quickly steals a kiss from you before running off. She\'s in such a hurry that she\'s clear over on the other side of the camp before you can tell her that she left her pants behind.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.dynStats( 'int', 0.25, 'lus', 10 );
 			return;
 		}
@@ -3102,7 +3099,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Give Present:;
 	AmilyScene.prototype.giveAmilyAPresent = function() {
@@ -3117,49 +3114,49 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You look at the horny cum-bucket and wonder what you should make her take this time.\n\n' );
 		}
 		if( CoC.player.hasItem( ConsumableLib.INCUBID ) && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
-			EngineCore.addButton( 0, 'Incubus D.', this.giveAmilyPureIncubusDraft );
+			EngineCore.addButton( 0, 'Incubus D.', this, this.giveAmilyPureIncubusDraft );
 			haveGift = true;
 		} else if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) ) {
-			EngineCore.addButton( 0, 'P. Incubus D.', this.giveAmilyPureIncubusDraft );
+			EngineCore.addButton( 0, 'P. Incubus D.', this, this.giveAmilyPureIncubusDraft );
 			haveGift = true;
 		}
 		if( CoC.player.hasItem( ConsumableLib.P_S_MLK ) || (CoC.player.hasItem( ConsumableLib.SUCMILK ) && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2) ) {
-			EngineCore.addButton( 1, 'Succ Milk', this.giveAmilyPurifiedSuccubusMilk );
+			EngineCore.addButton( 1, 'Succ Milk', this, this.giveAmilyPurifiedSuccubusMilk );
 			haveGift = true;
 		}
 		if( CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] > 0 && (CoC.player.hasItem( ConsumableLib.PINKEGG ) || CoC.player.hasItem( ConsumableLib.L_PNKEG )) ) {
-			EngineCore.addButton( 2, 'Pink Egg', this.giveAmilyAPinkEgg );
+			EngineCore.addButton( 2, 'Pink Egg', this, this.giveAmilyAPinkEgg );
 			haveGift = true;
 		}
 		if( CoC.player.hasItem( ConsumableLib.WHITEEG ) || CoC.player.hasItem( ConsumableLib.L_WHTEG ) ) {
-			EngineCore.addButton( 3, 'White Egg', this.giveAmilyAWhiteEgg );
+			EngineCore.addButton( 3, 'White Egg', this, this.giveAmilyAWhiteEgg );
 			haveGift = true;
 		}
 		if( CoC.player.hasItem( ConsumableLib.BROWNEG ) || CoC.player.hasItem( ConsumableLib.L_BRNEG ) ) {
-			EngineCore.addButton( 4, 'Brown Egg', this.giveAmilyABrownEgg );
+			EngineCore.addButton( 4, 'Brown Egg', this, this.giveAmilyABrownEgg );
 			haveGift = true;
 		}
 		if( CoC.player.hasItem( ConsumableLib.PURPLEG ) || CoC.player.hasItem( ConsumableLib.L_PRPEG ) ) {
-			EngineCore.addButton( 5, 'Purple Egg', this.giveAmilyAPurpleEgg );
+			EngineCore.addButton( 5, 'Purple Egg', this, this.giveAmilyAPurpleEgg );
 			haveGift = true;
 		}
 		//Reducto not yet implemented;
 		//Lactaid not yet implemented;
 		if( CoC.player.hasItem( ConsumableLib.SDELITE ) && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2 ) {
-			EngineCore.addButton( 7, 'Suc. Delite', this.giveCorruptAmilySuccubusDelight );
+			EngineCore.addButton( 7, 'Suc. Delite', this, this.giveCorruptAmilySuccubusDelight );
 			haveGift = true;
 		}
 		if( CoC.player.hasItem( ArmorLib.C_CLOTH ) ) {
-			EngineCore.addButton( 8, 'Clothes', this.giveAmilySomePants );
+			EngineCore.addButton( 8, 'Clothes', this, this.giveAmilySomePants );
 			haveGift = true;
 		} else if( CoC.player.hasItem( ArmorLib.S_SWMWR ) && CoC.flags[ kFLAGS.AMILY_OWNS_BIKINI ] === 0 && CoC.player.hasCock() && CoC.player.cockThatFits( 61 ) >= 0 && !this.amilyCorrupt() ) {
 			EngineCore.outputText( 'You could give her a bikini, then invite her for a swim in the stream to show it off.\n\n' );
-			EngineCore.addButton( 8, 'Bikini', this.amilySwimFuckIntro );
+			EngineCore.addButton( 8, 'Bikini', this, this.amilySwimFuckIntro );
 			haveGift = true;
 		} else if( CoC.flags[ kFLAGS.GIVEN_AMILY_NURSE_OUTFIT ] === 0 && !this.amilyCorrupt() ) {
 			if( CoC.player.hasItem( ArmorLib.NURSECL ) && CoC.player.hasCock() && CoC.player.cockThatFits( 61 ) >= 0 ) {
 				EngineCore.outputText( 'You could give Amily the nurse\'s outfit you got, though it barely covers anything at all, and would likely be inviting some roleplay from the kinky mouse-girl.\n\n' );
-				EngineCore.addButton( 8, 'NurseClothes', this.amilyNurseCheckup );
+				EngineCore.addButton( 8, 'NurseClothes', this, this.amilyNurseCheckup );
 				haveGift = true;
 			} else if( CoC.player.hasItem( ArmorLib.NURSECL ) ) {
 				EngineCore.outputText( 'You have a hunch if you had a penis that wasn\'t too big, giving Amily a nurse\'s outfit might set off some kinky roleplay.\n\n' );
@@ -3173,14 +3170,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			}
 		}
 		if( haveGift ) {
-			EngineCore.addButton( 9, 'Back', this.amilyFollowerEncounter );
+			EngineCore.addButton( 9, 'Back', this, this.amilyFollowerEncounter );
 		} else {
 			if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
 				EngineCore.outputText( 'You realize that you don\'t have any items she would be interested in, and apologize.' );
 			} else {
 				EngineCore.outputText( 'You realize you don\'t have any items worth using on her.' );
 			}
-			EngineCore.addButton( 0, 'Next', this.amilyFollowerEncounter );
+			EngineCore.addButton( 0, 'Next', this, this.amilyFollowerEncounter );
 		}
 	};
 	//[Purified Incubus Draft - If Amily is a Female];
@@ -3216,14 +3213,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					}
 
 					EngineCore.outputText( 'You put the vial back in its pouch, as Amily excuses herself and walks off.', false );
-					EngineCore.doNext( MainView.playerMenu );
+					EngineCore.doNext( MainView, MainView.playerMenu );
 					return;
 				}
 				//[Purified Incubus Draft - If Amily is Hermaphrodite];
 				EngineCore.outputText( 'She looks disdainfully at the vial in your hand. "<i>What, am I not big enough for you already? Oh well, I suppose if it makes you happy.</i>" She snatches it from your hand and gulps it down. She tries her best to look apathetic, but is unable to help either the pleased moan or the dribbles of pre-cum that stain her clothes as her penis grows erect and then longer, at least a full inch so.  Breathing heavily, she pants, "<i>Why does this have to actually feel good?</i>"  Then she turns and lurches drunkenly away. You decide against following her and wander off in the other direction.\n\n', false );
 				CoC.player.consumeItem( ConsumableLib.P_DRAFT );
 				this.amilyDickGrow();
-				EngineCore.doNext( this.amilyFollowerEncounter );
+				EngineCore.doNext( this, this.amilyFollowerEncounter );
 			}
 			//Normal Amily;
 			else {
@@ -3231,7 +3228,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( '"<i>That\'s liquid corruption!</i>" She protests. "<i>Have you gone insane? I\'m not drinking that, and you shouldn\'t either!</i>"\n\n', false );
 				EngineCore.outputText( 'You hastily assure her that it is purified and so neither of you have to worry about joining the ranks of the demons. She still looks skeptical, but then nods slowly and approaches you.\n\n', false );
 				EngineCore.outputText( '"<i>All right... but, are you sure you want to give that to me? You know it will make me grow a penis, right?</i>"\n\n', false );
-				EngineCore.doYesNo( this.giveAmilyPureIncubusDraft4Realz, this.amilyFollowerEncounter );
+				EngineCore.doYesNo( this, this.giveAmilyPureIncubusDraft4Realz, this, this.amilyFollowerEncounter );
 			}
 		}
 		//CORRUPT;
@@ -3251,7 +3248,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( 'Do you make her grow a huge one?', false );
 				CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] = 4;
 				CoC.flags[ kFLAGS.AMILY_WANG_GIRTH ] = 1;
-				EngineCore.doYesNo( this.corruptAmilyGetsDickMaxxedOut, this.corruptAmilyYouDeclineMaxxingHerDick );
+				EngineCore.doYesNo( this, this.corruptAmilyGetsDickMaxxedOut, this, this.corruptAmilyYouDeclineMaxxingHerDick );
 			} else if( CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] < maxSizeCorr && CoC.flags[ kFLAGS.AMILY_WANG_GIRTH ] < 3 ) {
 				//Consume dah goodies!;
 				if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
@@ -3264,12 +3261,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( 'She opens her legs to give you a good view and downs the whole bottle in one go. She moans as her cock turns purple and grows impossibly hard, her veins bulging along the shaft as she cums. With every throb her cock grows a bit longer and a bit thicker as well, finally stopping when it\'s a couple inches bigger. She pants with pleasure and says, "<i>Thank you, ' + CoC.player.mf( 'master', 'mistress' ) + ', for allowing this horny cum-bucket the honor of possessing such a wonderful tool.</i>"\n\n', false );
 				EngineCore.outputText( 'Satisfied, you dismiss her with a wave and go about your business.', false );
 				this.amilyDickGrow();
-				EngineCore.doNext( this.amilyFollowerEncounter );
+				EngineCore.doNext( this, this.amilyFollowerEncounter );
 			}
 			//Too big!;
 			else {
 				EngineCore.outputText( 'You reconsider - her small frame probably couldn\'t handle anything larger.', false );
-				EngineCore.doNext( this.amilyFollowerEncounter );
+				EngineCore.doNext( this, this.amilyFollowerEncounter );
 			}
 		}
 	};
@@ -3277,7 +3274,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '', true );
 		this.amilySprite();
 		EngineCore.outputText( 'You decide to leave her as she is. If you want her to have a bigger dick you can always give her more drafts. "<i>I want you to practice using your new tool, so you\'ll be ready whenever I need you,</i>" you order Amily. "<i>Yes, ' + CoC.player.mf( 'master', 'mistress' ) + ',</i>" she answers. You leave her on the floor and go about your business.', false );
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	AmilyScene.prototype.corruptAmilyGetsDickMaxxedOut = function() {
 		EngineCore.outputText( '', true );
@@ -3301,7 +3298,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] = maxSizeCorr;
 		}
 		CoC.flags[ kFLAGS.AMILY_WANG_GIRTH ] = 3;
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//(If the player says Yes):;
 	AmilyScene.prototype.giveAmilyPureIncubusDraft4Realz = function() {
@@ -3312,7 +3309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Amily is now a hermaphrodite. Her human-like penis is four inches long and one inch thick.\n\n', false );
 		EngineCore.outputText( 'Catching her breath, she stares at her new appendage with an unreadable expression, then pulls her clothes back on with a grimace. You decide to give her some time alone to adjust to the change.', false );
 		this.amilyDickGrow();
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	AmilyScene.prototype.amilyDickGrow = function() {
 		var maxSize;
@@ -3340,7 +3337,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '', true );
 		this.amilySprite();
 		EngineCore.outputText( 'On second thought, you decide against giving it to her. Amily looks relieved as you apologize and put it back in your pocket. "<i>So, what did you really want to ask me about?</i>" She says, eager to change the subject.\n\nYou don\'t really have anything to say and walk away, embarrassed.', false );
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//[Purified Succubi Milk];
 	AmilyScene.prototype.giveAmilyPurifiedSuccubusMilk = function() {
@@ -3401,7 +3398,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( 'Looks like giving her more milk only makes her pussy sensitive. You\'re tempted to make use of her new, sensitive pussy, but refrain from doing so. It\'ll be more fun to let her lust build. You toss the vial away and casually stride back into the camp, leaving Amily panting in her juices.', false );
 			}
 		}
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 
 	//Drink succubus delight;
@@ -3452,7 +3449,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You pick up a vial of Succubi\'s Delight and show it to Amily. "<i>Drink this; you need bigger balls,</i>" you order her, passing the bottle to her. Amily replies, "<i>Yes, ' + CoC.player.mf( 'master', 'mistress' ) + '</i>." Then she opens her legs and downs the bottle. She moans as her balls grow bigger and denser, churning with the extra cum her sack now holds.', false );
 			CoC.flags[ kFLAGS.AMILY_HAS_BALLS_AND_SIZE ]++;
 		}
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//[Give Succubus' Delight];
 	AmilyScene.prototype.giveCorruptAmilySuccubusDelight = function() {
@@ -3464,7 +3461,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//No balls yet?  QUERY!;
 		if( CoC.flags[ kFLAGS.AMILY_HAS_BALLS_AND_SIZE ] === 0 ) {
 			EngineCore.outputText( 'You pick up a vial of Succubi\'s Delight and show it to Amily. "<i>Drink this,</i>" you order her, passing the bottle to her. "<i>You\'re going to give me balls, ' + CoC.player.mf( 'master', 'mistress' ) + '? Are you sure?</i>"\n\n', false );
-			EngineCore.doYesNo( this.amilyDrinksSuccubusDelight, this.amilyFollowerEncounter );
+			EngineCore.doYesNo( this, this.amilyDrinksSuccubusDelight, this, this.amilyFollowerEncounter );
 		} else {
 			this.amilyDrinksSuccubusDelight();
 		}
@@ -3490,7 +3487,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] = 0;
 		CoC.flags[ kFLAGS.AMILY_WANG_GIRTH ] = 0;
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//[White Egg];
 	AmilyScene.prototype.giveAmilyAWhiteEgg = function() {
@@ -3541,7 +3538,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				CoC.flags[ kFLAGS.AMILY_NIPPLE_LENGTH ] = Math.ceil( CoC.flags[ kFLAGS.AMILY_NIPPLE_LENGTH ] * 100 ) / 100;
 			}
 		}
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//[Brown Egg];
 	AmilyScene.prototype.giveAmilyABrownEgg = function() {
@@ -3598,7 +3595,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.outputText( 'Amily scarfs down the egg and looks back expectantly, but it doesn\'t seem to make her already massive backside any larger.  She pouts and whimpers, "<i>Slut is sorry, but her ass is as big and round as it can get ' + CoC.player.mf( 'master', 'mistress' ) + '!</i>"', false );
 			}
 		}
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//[Purple Egg];
 	AmilyScene.prototype.giveAmilyAPurpleEgg = function() {
@@ -3652,7 +3649,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.dynStats( 'lus', 4 );
 			}
 		}
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	/*
 	 [Reducto]
@@ -3680,7 +3677,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You assure her that she looks beautiful. "<i>Flatterer.</i>" She smirks, and then wanders off to the stream.', false );
 		}
 		CoC.player.consumeItem( ArmorLib.C_CLOTH );
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	/*
 	 //[Lactaid];
@@ -4080,7 +4077,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( ' Finally, the flow of cum ebbs; Amily rubs her distended belly and inhales sharply, pulling back slightly. With a brutal thrust, she blows on your cock; sending a shock of pleasure running through you and milking a few more spurts of cum. Now completely spent, you pull back; Amily tries to keep your cock inside her mouth by sucking on it with all her might, but it\'s useless. With a <b>POP</b> you pull your ' + Descriptors.cockDescript( 0 ) + ' free of Amily\'s hungry jaws; it is clean, without a single trace of cum and barely any spit on it. You look at Amily and she looks back, smiling happily and licking her lips. "<i>Thank you for the meal, ' + CoC.player.mf( 'master', 'mistress' ) + ',</i>" she says before a small burp escapes her. You pat her on the head, get dressed, and leave Amily, satisfied with her good work.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AmilyScene.prototype.corruptAmilyLickPussiesLikeAPro = function() {
 		this.amilySprite();
@@ -4169,7 +4166,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You chuckle and dismiss her with a wave.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Corrupt scissortastrophie!;
 	AmilyScene.prototype.corruptAmilyScissorsLikeAPro = function() {
@@ -4262,7 +4259,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Amily beams with happiness, "<i>Yes mistress!</i>" then proceeds to clean you up, licking every single drop she can out of your body.  To finish it all up, she licks your ' + CoC.player.feet() + ' clean of whatever juices remained on them. Satisfied, you dismiss Amily with a wave, heading back to the camp, while Amily rubs the results of your coupling on her body.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fuck corrupt Amily's pussaaaaaayyyyy;
 	AmilyScene.prototype.corruptAmilysPussyGetsMotherfuckingFucked = function() {
@@ -4387,7 +4384,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		this.amilyPreggoChance();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Let corrupt Amily bone you with her cock;
 	AmilyScene.prototype.corruptAmilyCampBonesPCWithHerCock = function() {
@@ -4468,7 +4465,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_MOUSE, PregnancyStore.INCUBATION_MOUSE );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//CAMP CORRUPT AMILY SEX;
@@ -4529,7 +4526,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '; stopping only when you\'re completely clean. You pat her head and praise her, "<i>That\'s a good cumdumpster.</i>" She responds by smiling tiredly, still panting a bit, and swaying her tail in happiness. You wipe the remaining saliva off your dick on her face and dress yourself. "<i>Don\'t waste a single drop, cunt,</i>" you tell her.  You leave the tired mouse alone to recompose herself.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Amily Female Stuff Start;
@@ -4543,7 +4540,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You interject, telling her to slow down and breathe, you\'re not going anywhere. Amily pants, then finally squeaks out, "<i>I\'m in love with you!</i>" before her face turns bright red. Stunned, you ask her to repeat that. "<i>I said... I\'m in love with you. I... ah, forget it, who was I kidding?</i>" She trails off, sadly, and you watch as she begins to turn around and shuffle off.', false );
 		//Set flag that she's confessed her lesbo-live!;
 		CoC.flags[ kFLAGS.AMILY_CONFESSED_LESBIAN ] = 1;
-		EngineCore.choices( 'Stop Her', this.amilyLesboStopHer, 'Let Her Go', this.amilyLesboLetHerGo, '', null, '', null, '', null );
+		EngineCore.choices( 'Stop Her', this, this.amilyLesboStopHer, 'Let Her Go', this, this.amilyLesboLetHerGo, '', null, null, '', null, null, '', null, null );
 	};
 	//[=Stop Her=];
 	AmilyScene.prototype.amilyLesboStopHer = function() {
@@ -4552,7 +4549,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Before she can get too far, though, your hand shoots out and clasps her shoulder. She starts to question what you\'re doing, but you spin her around and pull her into a tight embrace, telling her that you feel the same way. Shyly, she offers her lips to you, and you kiss them eagerly. When you seperate for breath, you ask if she wants to see what it\'s like with another woman. Her eyes glazed, she nods at you wordlessly and starts leading you away down the street.\n\n', false );
 		//WHAT THE FUCK DOES THIS SCENE LEAD TO?;
 		CoC.flags[ kFLAGS.AMILY_CONFESSED_LESBIAN ] = 2;
-		EngineCore.doNext( this.girlyGirlMouseSex );
+		EngineCore.doNext( this, this.girlyGirlMouseSex );
 	};
 	//[=Let Her Go=];
 	AmilyScene.prototype.amilyLesboLetHerGo = function() {
@@ -4568,7 +4565,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.flags[ kFLAGS.AMILY_AFFECTION ] > 10 ) {
 			CoC.flags[ kFLAGS.AMILY_AFFECTION ] = 10;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Amily's Surprise:;
 	//(Replaces the Remeeting Scene for a female player has had the Lesbian Love Confession scene and gotten Amily's Affection to High);
@@ -4582,7 +4579,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'She looks down at the ground, unable to meet your eyes, then pulls her tattered pants down to reveal something you never would have expected. A penis - a four inch long, surprisingly human-like penis, already swelling to erection. Blushing, she starts to speak, still not looking at you. "<i>I... I thought that, if it\'s my idea and all, I should be the one to grow this thing... Please, I love you, I want to have children with you, can\'t we -</i>"\n\n', false );
 		CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] = 4;
 		CoC.flags[ kFLAGS.AMILY_WANG_GIRTH ] = 1;
-		EngineCore.choices( 'Accept', this.amilyOnGirlSurpriseBonerAcceptance, 'Reject', this.amilyOnGirlSurpriseBonerREJECT, '', null, '', null, '', null );
+		EngineCore.choices( 'Accept', this, this.amilyOnGirlSurpriseBonerAcceptance, 'Reject', this, this.amilyOnGirlSurpriseBonerREJECT, '', null, null, '', null, null, '', null, null );
 	};
 	//[=Accept=];
 	AmilyScene.prototype.amilyOnGirlSurpriseBonerAcceptance = function() {
@@ -4591,7 +4588,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Her increasingly nervous, high-pitched tone is cut off when you press a finger to her lips, smiling affectionately at her. You tell her that you understand what she is saying and why she did this, and you\'re happy to be with her in that way. Putting on a saucy grin, you stage-whisper into her ear about giving her new appendage a trial-run, and she blushes bright red.\n\n', false );
 		EngineCore.outputText( 'She still starts leading you away, though.', false );
 		//TO THE SMEX yiffyiffmurrmurr!;
-		EngineCore.doNext( this.hermilyOnFemalePC );
+		EngineCore.doNext( this, this.hermilyOnFemalePC );
 	};
 	//[=Reject=];
 	AmilyScene.prototype.amilyOnGirlSurpriseBonerREJECT = function() {
@@ -4601,7 +4598,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Amily stops, her new cock wilting, her expression making it quite obvious that she\'s heartbroken. Her head falls, tears dripping from her eyes, and she turns and runs away. You glare after her as she vanishes, sobbing, into the ruins, hoping she never comes back.', false );
 		//no moar amily in village;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Yuri:;
 	AmilyScene.prototype.girlyGirlMouseSex = function() {
@@ -4635,7 +4632,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Your own strength returning to you, you sit up and smile at your mousey lover before giving her a deep kiss, tasting your juices and letting her get a taste of her own. Then you redress yourself and return to your camp.', false );
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.AMILY_TIMES_FUCKED_FEMPC ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Herm Amily on Female:;
 	AmilyScene.prototype.hermilyOnFemalePC = function() {
@@ -4700,7 +4697,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.AMILY_HERM_TIMES_FUCKED_BY_FEMPC ]++;
 		CoC.flags[ kFLAGS.AMILY_FUCK_COUNTER ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Player gives Birth (quest version):;
 	AmilyScene.prototype.pcBirthsAmilysKidsQuestVersion = function() {
@@ -4724,7 +4721,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You are eager to comply, though your last thought as you sink into unconsciousness is to wonder what Amily wants to talk about.', false );
 			CoC.flags[ kFLAGS.PC_PENDING_PREGGERS ] = 1;
 			//To part 2!;
-			EngineCore.doNext( this.postBirthingEndChoices );
+			EngineCore.doNext( this, this.postBirthingEndChoices );
 			return;
 		}
 		EngineCore.outputText( 'You wake up suddenly to strong pains and pressures in your gut. As your eyes shoot wide open, you look down to see your belly absurdly full and distended. You can feel movement underneath the skin, and watch as it is pushed out in many places, roiling and squirming in disturbing ways. The feelings you get from inside are just as disconcerting. You count not one, but many little things moving around inside you. There are so many, you can\'t keep track of them.\n\n', false );
@@ -4751,7 +4748,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( ', but... I love you. The children, they\'re going to leave here now, and set up a new village somewhere else. But I... I want to stay here with you. Forever. Please, say yes.</i>"\n\n', false );
 		EngineCore.outputText( 'Do you accept her offer?', false );
 		CoC.flags[ kFLAGS.PC_TIMES_BIRTHED_AMILYKIDS ]++;
-		EngineCore.choices( 'Accept', this.acceptAmilyAsYourFemaleWaifu, 'StayFriends', this.declineButBeFriends, 'ShootDown', this.notInterestedInDumbshitMouseBitches, '', null, '', null );
+		EngineCore.choices( 'Accept', this, this.acceptAmilyAsYourFemaleWaifu, 'StayFriends', this, this.declineButBeFriends, 'ShootDown', this, this.notInterestedInDumbshitMouseBitches, '', null, null, '', null, null );
 	};
 	//[=Accept=];
 	AmilyScene.prototype.acceptAmilyAsYourFemaleWaifu = function() {
@@ -4768,7 +4765,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_NIPPLE_LENGTH ] = 0.3;
 		CoC.flags[ kFLAGS.AMILY_HIP_RATING ] = 6;
 		CoC.flags[ kFLAGS.AMILY_ASS_SIZE ] = 6;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[=Stay Friends=];
 	AmilyScene.prototype.declineButBeFriends = function() {
@@ -4777,7 +4774,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You think about it, and then shake your head. You tell her that you do appreciate her feelings, but you\'re not sure the two of you are ready to make the committment that living together entails. Besides, your camp is set up to guard the portal leading back to your world; that makes it a magnet for demons. You can\'t imagine exposing her to the danger that moving to camp would entail for her.\n\n', false );
 		EngineCore.outputText( 'Amily doesn\'t look entirely happy, but you assure her that you will keep coming back to see her. And when you tease at the possibility of a few more litters in your respective futures, stroking her penis through her tattered pants, she blushes but agrees to go.\n\n', false );
 		//(Amily returns to the Ruined Village; this scene will repeat the next time the player gives birth to a litter of Amily's children);
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Shoot the bitch down!;
 	//[=Not Interested=];
@@ -4788,7 +4785,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Amily reels, heartstruck, her expression making it clear that her heart has shattered, tears rolling down her face. "<i>I...I didn\'t know that was the way you felt about me. F-Fine, if that\'s how it is...</i>" She bursts into sobs and runs away; you know she\'ll never come back.\n\n', false );
 		//Disable village encounters, go!;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Gender Modified:;
 	AmilyScene.prototype.amilyNewGenderConfrontation = function() {
@@ -4820,7 +4817,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				else {
 					EngineCore.outputText( 'Amily looks quite upset, and then her expression changes to one of resolve. "<i>I won\'t pretend to know how this happened, or to understand why you would do this voluntarily, if that was the case, but you mean too much to me to let you go over something like this.</i>" She seizes hold of your hand, fiercely, and starts determinedly pulling you along. "<i>Come with me!</i>" She orders.', false );
 					//(Amily Yuri sex scene plays.);
-					EngineCore.doNext( this.girlyGirlMouseSex );
+					EngineCore.doNext( this, this.girlyGirlMouseSex );
 					return;
 				}
 			}
@@ -4892,7 +4889,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					//mark as agreed to preg-quest!;
 					CoC.flags[ kFLAGS.AMILY_OFFER_ACCEPTED ] = 1;
 					//(Play High Affection Male sex scene.);
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 					return;
 				}
 			}
@@ -4965,9 +4962,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 						sex = this.sexWithAmily;
 					}
 					if( sex !== null ) {
-						EngineCore.choices( 'Sex', sex, 'Talk', this.talkToAmily, 'Both', this.talkThenSexWithAmily, '', null, '', null );
+						EngineCore.choices( 'Sex', this, sex, 'Talk', this, this.talkToAmily, 'Both', this, this.talkThenSexWithAmily, '', null, null, '', null, null );
 					} else {
-						EngineCore.choices( '', null, 'Talk', this.talkToAmily, '', null, '', null, '', null );
+						EngineCore.choices( '', null, null, 'Talk', this, this.talkToAmily, '', null, null, '', null, null, '', null, null );
 					}
 					return;
 				}
@@ -4983,9 +4980,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 						sex = this.sexWithAmily;
 					}
 					if( sex !== null ) {
-						EngineCore.choices( 'Sex', sex, 'Talk', this.talkToAmily, 'Both', this.talkThenSexWithAmily, '', null, '', null );
+						EngineCore.choices( 'Sex', this, sex, 'Talk', this, this.talkToAmily, 'Both', this, this.talkThenSexWithAmily, '', null, null, '', null, null );
 					} else {
-						EngineCore.choices( '', null, 'Talk', this.talkToAmily, '', null, '', null, '', null );
+						EngineCore.choices( '', null, null, 'Talk', this, this.talkToAmily, '', null, null, '', null, null, '', null, null );
 					}
 					return;
 				}
@@ -4997,7 +4994,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 					EngineCore.outputText( '"<i>Well, I guess it\'s nice to see another woman around... though I could have used you as all male. So, do you want to talk?</i>" Amily asks.\n\n', false );
 					//(Amily gains a small amount of Affection, begin the Female variant of Amily's quest.);
 					CoC.flags[ kFLAGS.AMILY_AFFECTION ] += 2;
-					EngineCore.doNext( this.talkToAmily );
+					EngineCore.doNext( this, this.talkToAmily );
 					return;
 				}
 				//Medium Affection:;
@@ -5078,7 +5075,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 				EngineCore.dynStats( 'lus', 25 + CoC.player.sens / 10 );
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//'Why Not Herms?' (Req medium 'like');
 	AmilyScene.prototype.whyNotHerms = function() {
@@ -5096,7 +5093,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You ask if that wouldn\'t be an advantageous trait, allowing each individual to both impregnate and be impregnated and letting their population swell all the faster.\n\n', false );
 		EngineCore.outputText( '"<i>But it\'s unnatural!</i>" She barks... well, squeaks indignantly, anyway. "<i>Women with cocks, men with cunts - before those fucking demons, you never saw creatures like that! They\'re not normal! I mean, you don\'t seem to be a bad person, but I could never have sex with someone like that!</i>"\n\n', false );
 		EngineCore.outputText( 'At that, she turns and runs off, quickly vanishing into the rubble. You choose not to pursue; it seems she\'s clearly not in the mood to talk about it.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.flags[ kFLAGS.AMILY_HERM_QUEST ]++;
 	};
 	//'Maybe Herms Aren\'t So Bad':;
@@ -5106,14 +5103,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Yet again, you find yourself wandering through the ruined village where Amily stalks. Not entirely sure if you want to speak to her, you turn and are about to leave when you hear the sound of a rock plinking off of a wall. Looking around, you find Amily has joined you, looking apologetic.\n\n', false );
 		EngineCore.outputText( '"<i>I... I want to say that I\'m sorry. I was a real asshole, in that conversation, but... I\'ve seen so many others mutated into herms to become mindless fucktoys, or who could only think about sex after they became herms. I\'ve never met somebody who had two genders and could think about anything besides pussy and dick... until I met you, anyway.</i>"\n\n', false );
 		EngineCore.outputText( 'She pointedly looks away from you, blushing slightly. "<i>I\'ve been thinking, about things. About us. And... well, even if you are a herm, you\'ve been the only friend I\'ve had in years. If you can find it in your heart to forgive me... I\'d like you to be the father of my children.</i>" She stares at you, eyes wide and hopeful. "<i>What do you say?</i>"\n\n', false );
-		//[Yes];
-		//[No];
-		//EngineCore.doYesNo(this.beAmilysDadAsAHerm,this.fuckNoYouWontBeAmilysHermDaddy);;
 		var noFurry = null;
 		if( CoC.flags[ kFLAGS.AMILY_NOT_FURRY ] === 0 ) {
 			noFurry = this.amilyNoFur;
 		}
-		EngineCore.choices( 'Yes', this.beAmilysDadAsAHerm, 'No', this.fuckNoYouWontBeAmilysHermDaddy, 'NoFurry', noFurry, '', null, '', null );
+		EngineCore.choices( 'Yes', this, this.beAmilysDadAsAHerm, 'No', this, this.fuckNoYouWontBeAmilysHermDaddy, 'NoFurry', this, noFurry, '', null, null, '', null, null );
 	};
 	//[=Yes=];
 	AmilyScene.prototype.beAmilysDadAsAHerm = function() {
@@ -5122,7 +5116,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_HERM_QUEST ] = 2;
 		EngineCore.outputText( 'You tell her that you\'ll forgive her, and you will help her breed the ' + ((CoC.flags[ kFLAGS.AMILY_NOT_FURRY ] === 0) ? 'free mousemorphs that she wants so badly. She looks a bit confused by you using the term \'mouse-morphs\', but otherwise seems happy.' : '') + ' "<i>Wonderful! Come with me!</i>" She says, grabbing your hand and pulling you down the street.\n\n', false );
 		//(Play out 'First Sex' scene, with whatever tweaks are needed to account for the PC's hermaphroditic nature.);
-		EngineCore.doNext( this.amilySexHappens );
+		EngineCore.doNext( this, this.amilySexHappens );
 	};
 	//[=No=];
 	AmilyScene.prototype.fuckNoYouWontBeAmilysHermDaddy = function() {
@@ -5132,7 +5126,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Amily winces, looking deeply hurt. "<i>I... You\'re right, what I said was unforgivable. I... think it\'s best that we part ways.</i>"\n\n', false );
 		EngineCore.outputText( 'Looking deeply sad, she turns and walks away, vanishing into the urban wilderness in that way only she can. Instinctively, you realize that you will never see her again.', false );
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Conversation: Efficiency;
 	//(Requires: Player is a herm, CoC.player has at least one Purified Incubus Draft, chose the 'Talk' or 'Talk & Sex' option from the Remeeting scene, Amily is High Affection);
@@ -5152,7 +5146,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_WANG_GIRTH ] = 1;
 		CoC.player.consumeItem( ConsumableLib.P_DRAFT );
 		//[Herm Amily on Female PC, First Time, scene plays];
-		EngineCore.doNext( this.hermilyOnFemalePC );
+		EngineCore.doNext( this, this.hermilyOnFemalePC );
 	};
 	//ENHANCED CAMP FOLLOWER SHIT;
 	//Player gives Birth (SceneLib.camp follower version):;
@@ -5283,7 +5277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'Amily looks startled. "<i>You want... children? More children, I mean?</i>" She asks, hesitantly. You confirm, and she looks happy. "<i>Thank you... If you really do want them, then I\'ll stop using those herbal contraceptives. Let\'s see what happens then...</i>" She trills, idly tracing a circle on your chest with her little claw. She turns and leads you towards the nest, tail waving eagerly.\n\n', false );
 			CoC.flags[ kFLAGS.AMILY_ALLOWS_FERTILITY ] = 1;
 		}
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//[Revised Corrupt Meeting];
 	//Requires PC have done first meeting and be corrupt;
@@ -5337,7 +5331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			}
 		}
 		EngineCore.dynStats( 'lus', 25 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//FLAG THAT THIS SHIT WENT DOWN;
 		CoC.flags[ kFLAGS.AMILY_CORRUPT_FLIPOUT ] = 1;
 	};
@@ -5357,13 +5351,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			//(if PC doesn't have the required items);
 			if( !(CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT )) || !CoC.player.hasItem( ConsumableLib.GOB_ALE ) ) {
 				EngineCore.outputText( 'You think about going into the Ruined Village, but you don\'t have the ingredients to create more of Amily\'s medicine. You return to your camp.', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(if PC is genderless and has the ingredients.);
 			else if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( 'You think about going into the Ruined Village, but without a cock or a pussy you can\'t complete the mixture. You return to your camp.', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(else);
@@ -5410,13 +5404,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			//(if PC doesn't have the required items and has >= 25 Corruption);
 			if( !(CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT )) || !CoC.player.hasItem( ConsumableLib.GOB_ALE ) ) {
 				EngineCore.outputText( 'You think about going into the Ruined Village, but decide it\'s best to wait until you have a plan underway (maybe some lust draft and a goblin ale to get the ball rolling... you return to your camp.', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(else if the PC is genderless);
 			else if( CoC.player.gender === 0 ) {
 				EngineCore.outputText( 'You think about going into the Ruined Village, but decide to turn back; right now, you just don\'t have the proper \'parts\' to get the job done, and so you return to your camp.\n\n', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//(else);
@@ -5476,7 +5470,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			}
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AmilyScene.prototype.sendCorruptCuntToFarm = function() {
 		EngineCore.clearOutput();
@@ -5486,7 +5480,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '\n\n“<i>This isn’t a punishment, but I need you to be doing more than sitting around diddling yourself to the thought of servicing me. I’ll visit often and keep you well fed, don’t worry about that - and all that farm work will make you nice and limber for when I’m throwing you around. Go on now.</i>” Slightly mollified but still looking uncertain, Amily gets up off her knees and trundles off in the direction of the lake.' );
 		EngineCore.outputText( '\n\nShe will make a hard worker for Whitney, you think, but you doubt she will be much use protection wise.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AmilyScene.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -5494,7 +5488,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You tell her to head back to camp; there are things you need to do to her you can’t do whilst she’s here. Repeatedly. Amily bites her lip, trembling with excitement.' );
 		EngineCore.outputText( '\n\n“<i>Immediately, [master]!</i>” You watch the purple blur disappear over the hill and laugh to yourself.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	AmilyScene.prototype.harvestMilk = function() {
 		EngineCore.clearOutput();
@@ -5511,7 +5505,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_AMILY ] = 1;
 		}
 
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	AmilyScene.prototype.stopHarvestingMilk = function() {
 		EngineCore.clearOutput();
@@ -5519,7 +5513,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You tell Amily to stop producing succubus milk; you’re practically drowning in the stuff.' );
 		EngineCore.outputText( '\n\n“<i>Ooh... what a fabulous idea.</i>” Amily moans and begins to paw at her vagina. You cough deliberately before she can immerse herself entirely in the fantasy. “<i>O-of course [master]. I’ll stop immediately.</i>”' );
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_AMILY ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	AmilyScene.prototype.talkWithCORRUPTCUNT = function( sexAfter ) {
 		EngineCore.outputText( '', true );
@@ -5536,9 +5530,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			if( CoC.player.itemSlot1.quantity === 0 ) {
 				EngineCore.outputText( 'You tell her that you\'ll call for her, if you ever need her knowledge.\n\n', false );
 				if( sexAfter ) {
-					EngineCore.doNext( this.amilySexHappens );
+					EngineCore.doNext( this, this.amilySexHappens );
 				} else {
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 				return;
 			}
@@ -5758,7 +5752,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'She pauses for a moment, and then speaks up with another interesting fact in an attempt to please you.  "<i>They do seem to have a strange fascination with tentacle beasts, for some reason.  Oooh just thinking about it gets me so horny!  Please [master], fuck me?  Please, oh please!</i>"\n\n' );
 			EngineCore.outputText( 'You chuckle a little and tell her you\'ll think about it.  As you leave, she begins to masturbate, no doubt fantasizing about being used by a tentacle beast.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//(Winning Messages);
@@ -5779,31 +5773,31 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 	AmilyScene.prototype.chooseYourAmilyRape = function() {
 		this.amilySprite();
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00170 ] === 0 ) {
-			EngineCore.doNext( this.rapeCorruptAmily1 );
+			EngineCore.doNext( this, this.rapeCorruptAmily1 );
 		}
 		//2nd rape scene;
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00170 ] === 1 ) {
 			if( CoC.player.gender === 1 ) {
-				EngineCore.doNext( this.rapeCorruptAmily2Male );
+				EngineCore.doNext( this, this.rapeCorruptAmily2Male );
 			} else if( CoC.player.gender === 2 ) {
-				EngineCore.doNext( this.rapeCorruptAmily2Female );
+				EngineCore.doNext( this, this.rapeCorruptAmily2Female );
 			} else if( CoC.player.gender === 3 ) {
-				EngineCore.choices( 'MaleFocus', this.rapeCorruptAmily2Male, 'FemaleFocus', this.rapeCorruptAmily2Female, '', null, '', null, '', null );
+				EngineCore.choices( 'MaleFocus', this, this.rapeCorruptAmily2Male, 'FemaleFocus', this, this.rapeCorruptAmily2Female, '', null, null, '', null, null, '', null, null );
 			}
 		}
 		//3nd rape scene;
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00170 ] === 2 ) {
 			if( CoC.player.gender === 1 ) {
-				EngineCore.doNext( this.rapeCorruptAmily3Male );
+				EngineCore.doNext( this, this.rapeCorruptAmily3Male );
 			} else if( CoC.player.gender === 2 ) {
-				EngineCore.doNext( this.rapeCorruptAmily3Female );
+				EngineCore.doNext( this, this.rapeCorruptAmily3Female );
 			} else if( CoC.player.gender === 3 ) {
-				EngineCore.choices( 'MaleFocus', this.rapeCorruptAmily3Male, 'FemaleFocus', this.rapeCorruptAmily3Female, '', null, '', null, '', null );
+				EngineCore.choices( 'MaleFocus', this, this.rapeCorruptAmily3Male, 'FemaleFocus', this, this.rapeCorruptAmily3Female, '', null, null, '', null, null, '', null, null );
 			}
 		}
 		//4nd rape scene;
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00170 ] === 3 ) {
-			EngineCore.doNext( this.rapeCorruptAmily4Meeting );
+			EngineCore.doNext( this, this.rapeCorruptAmily4Meeting );
 		}
 	};
 	//Rape Amily 1;
@@ -5840,15 +5834,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//[(if herm);
 		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( 'Which part of you should Amily lick?', false );
-			EngineCore.choices( 'Cock', this.rapeCorruptAmily1Male, 'Pussy', this.rapeCorruptAmily1Female, '', null, '', null, '', null );
+			EngineCore.choices( 'Cock', this, this.rapeCorruptAmily1Male, 'Pussy', this, this.rapeCorruptAmily1Female, '', null, null, '', null, null, '', null, null );
 		}
 		//Cocks!;
 		else if( CoC.player.gender === 1 ) {
-			EngineCore.doNext( this.rapeCorruptAmily1Male );
+			EngineCore.doNext( this, this.rapeCorruptAmily1Male );
 		}
 		//Cunts!;
 		else {
-			EngineCore.doNext( this.rapeCorruptAmily1Female );
+			EngineCore.doNext( this, this.rapeCorruptAmily1Female );
 		}
 	};
 	//[Male];
@@ -5880,7 +5874,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Female];
@@ -5914,7 +5908,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Raping Amily 2];
@@ -6017,7 +6011,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You lower yourself and open one of her ears wide, before whispering, "<i>Be ready for when I come back, there\'s a lot more where this came from,</i>" then you get up and walk away to fetch more ingredients for Amily\'s \'medicine\'.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'cor', 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Raping Amily 3];
 	//Herms will get to pick how to fuck her.;
@@ -6042,7 +6036,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'Satisfied for the moment, you leave the smiling mouse lying in a pool of cum and return to the camp.', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(else);
@@ -6106,7 +6100,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'Satisfied for the moment, you leave the smiling mouse lying in a pool of juices and return to the camp.', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'That was good, but now it\'s time to reward Amily for her efforts, besides you could really use a proper licking.\n\n', false );
@@ -6139,7 +6133,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '"<i>I will return when I think you\'re ready.</i>" You say, then leave her to her own devices.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'cor', 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Raping Amily 4];
 	//Herms will get to pick how to fuck her.;
@@ -6149,7 +6143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//(if PC is genderless);
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You would love to play with your mouse bitch, but you don\'t have the parts for that; so you return to the camp.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'You enter the ruined village hoping to find your corrupted mouse cumbucket. It doesn\'t take long until you spot her; she\'s stroking her pussy and blowing a wood carved dildo, practicing like you told her to.\n\n', false );
@@ -6159,11 +6153,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( CoC.player.gender === 3 ) {
 			EngineCore.outputText( 'Which part should you use to finish off the mousette?', false );
 			//[Cock] [Pussy];
-			EngineCore.choices( 'Cock', this.rapeCorruptAmily4Male, 'Pussy', this.rapeCorruptAmily4Female, '', null, '', null, '', null );
+			EngineCore.choices( 'Cock', this, this.rapeCorruptAmily4Male, 'Pussy', this, this.rapeCorruptAmily4Female, '', null, null, '', null, null, '', null, null );
 		} else if( CoC.player.gender === 2 ) {
-			EngineCore.doNext( this.rapeCorruptAmily4Female );
+			EngineCore.doNext( this, this.rapeCorruptAmily4Female );
 		} else {
-			EngineCore.doNext( this.rapeCorruptAmily4Male );
+			EngineCore.doNext( this, this.rapeCorruptAmily4Male );
 		}
 	};
 	//[Male];
@@ -6220,7 +6214,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( 'You return to the camp.', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 3 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'You push her back and withdraw, not yet satisfied. <b>A familiar power gathers inside you, and you decide to tap into it.</b>\n\n', false );
@@ -6298,7 +6292,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( '\n\n', false );
 			EngineCore.outputText( 'You feel like you should continue, but are too weak to do so... "<i>Go and keep practicing, I\'ll come to feed you later,</i>" you tell her.  Amily smiles, licks her lips and gives your pussy a parting kiss before running away to one of her hideouts.\n\n', false );
 			EngineCore.outputText( 'You return to the camp.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 3 );
 			return;
@@ -6368,7 +6362,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		//Disable amily encounters in the village!;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Stalking Amily (Corrupt)];
@@ -6408,7 +6402,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			Combat.startCombat( new Amily(), true );
 		} else {
 			EngineCore.outputText( 'You search for Amily high and low, but can\'t find a single trace of her. Frustrated, you return to the camp.  Maybe if you were smarter or faster you could find her.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 		}
 	};
 
@@ -6418,7 +6412,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//(if PC is genderless);
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You think about going into the ruined village, but playing with Amily is not going to be possible if you don\'t have the parts for it... You return to your camp.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//(else);
 		else {
@@ -6443,7 +6437,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			if( CoC.player.cor < 45 ) {
 				EngineCore.outputText( 'Amily shakes her head and yells, "<i>No! I can\'t!</i>" before darting off.\n\n', false );
 				EngineCore.outputText( 'You laugh and put the bottle away, then return to your camp.\n\n(Not corrupt enough...)', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			EngineCore.outputText( 'You begin stripping off your ' + CoC.player.armorName + ' and show her your ', false );
@@ -6474,7 +6468,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		//(if PC is genderless);
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'You think about going into the ruined village, but playing with Amily is not going to be possible if you don\'t have the parts for it... You return to your camp.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		this.amilySprite();
@@ -6508,7 +6502,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		this.amilySprite();
 		EngineCore.outputText( 'Amily approaches you, looking concerned.  "<i>Darling... I don\'t know what\'s been going on, but you need to start taking better care of yourself.  I can smell the corruption taking root in you - if you don\'t stop, you\'ll soon start acting like any other demon.</i>"\n\n', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00173 ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Farewell Note:;
 	AmilyScene.prototype.farewellNote = function() {
@@ -6562,7 +6556,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'There\'s a long pause while Amily digests your implication.  "<i>You want me to... change?</i>" she asks quietly.  "<i>Would that... make you want to mate with me?</i>"  You can\'t make any promises, but it would definitely change your considerations, you explain.\n\n', false );
 		EngineCore.outputText( 'After another long silence, she sighs.  "<i>I don\'t know.  What would my family say if I just... went and made myself a completely different person, all for the sake of a human?</i>"  You slowly move to her and lay a hand on her shoulder, forcing her to look once more into your eyes.  It\'s not the fact that she won\'t be a mouse, you insist.  It\'s the fact that she\'s moving on for the sake of her race.  She manages a little smile at that, her expression brightening just a bit.  "<i>I\'ll think about it,</i>" she finally decides.  "<i>If you can find some non-demonic reagents, perhaps we can give it a try.  If anything bad happens, though,</i>" she warns, wagging a finger at you threateningly.  She backs off and stands awkwardly for a second.\n\n', false );
 		EngineCore.outputText( '"<i>Well, uh... bye,</i>" Amily concludes, whirling around and walking away.  You can\'t be sure, but it seems like she\'s exaggerating the sway of her hips a bit.  You don\'t think much of it, heading back toward camp and beginning to formulate a concoction to de-mouse your potential breeding partner.  Perhaps... a <b>golden seed</b> for a human face, a <b>black egg</b> to get rid of the fur, and some <b>purified succubus milk</b> to round things off.  You make a mental note to remember those ingredients, for they won\'t show up again and you\'d feel positively silly if you somehow completely forgot them.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Check if we have all the shit we need;
 	AmilyScene.prototype.amilyCanHaveTFNow = function() {
@@ -6599,7 +6593,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'A cry brings your attention from the hair-pile back up to her face.  As if by magic, her rodent snout simply recedes back into her face, the nose reforming into a more human model.  She gently reaches up and brushes a fingertip across her new lips, eyes glazing over as tears begin to form.  "<i>So... different,</i>" she whispers as the transformation continues.  You move to her and wrap her in a warm, comforting hug, and after a moment\'s pause, she wraps her arms around you as well.\n\n', false );
 		EngineCore.outputText( 'Finally, the process comes to a close.  You break from each other and stand at arm\'s length, both of you studying the changes to her previously-animalistic self.  Her auburn-colored ears and bare tail remain unchanged, but other than that, Amily\'s completely human.  Though a bit conflicted, Amily seems happy enough with her decision.  "<i>Well, I guess that\'s all there is to it,</i>" she says, scratching her newly bare cheek idly.  "<i>I\'ll let you think for a bit... see you later.</i>"\n\n', false );
 		EngineCore.outputText( 'She stalks off into the ruins once more, humming a little tune as she goes.  You note a little more spring in her step, now that hope is restored in repopulating her race.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); // To camp
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); // To camp
 	};
 	// NOTE: Not sure how this ties in.;
 	// Be a humongous asshole to Amily and tell her that she's, in effect, a whiny bitch.  Or something.;
@@ -6616,7 +6610,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		if( !this.amilyCanHaveTFNow() ) {
 			EngineCore.outputText( 'Unfortunately, you can\'t do such a thing until you have acquired the necessary magical prerequisites.  In simple terms, you need a <b>golden seed</b> for a human face, a <b>black egg</b> to get rid of the fur, and some <b>purified succubus milk</b> to round things off.', true );
-			EngineCore.doNext( this.amilyFollowerEncounter );
+			EngineCore.doNext( this, this.amilyFollowerEncounter );
 			return;
 		}
 		//EAT ZE ITEMS!;
@@ -6662,7 +6656,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_NOT_FURRY ] = 1;
 		CoC.flags[ kFLAGS.AMILY_OFFERED_DEFURRY ] = 2;
 		this.amilySprite();
-		EngineCore.doNext( this.amilyFollowerEncounter );
+		EngineCore.doNext( this, this.amilyFollowerEncounter );
 	};
 	//Amily/Urta Interaction;
 	//Must have Pure Amily as follower;
@@ -6675,7 +6669,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'Sitting Amily down, you ask her what she\'d think about taking a "<i>little trip</i>" with you into town.\n\n', false );
 		if( this.pregnancy.isPregnant ) {
 			EngineCore.outputText( '"<i>Perhaps once I\'m no longer pregnant.  I wouldn\'t want to hurt the little ones,</i>" Amily answers.' );
-			EngineCore.doNext( this.amilyFollowerEncounter );
+			EngineCore.doNext( this, this.amilyFollowerEncounter );
 			return;
 		}
 		EngineCore.outputText( '"<i>A-A trip?</i>" the little mouse-morph stutters, surprised at your sudden invitation.  "<i>Well, I haven\'t really been out much since we, you know...</i>" She suddenly brightens. "<i>Yeah, why not?  Could be fun!  I\'ve never been to Tel\'Adre, though.  What\'s it like?</i>" You take Amily\'s hand in yours and start to tell her all about the strange, faraway city as you prepare for your "<i>date.</i>"  When she\'s ready, the two of you head out toward the desert.\n\n', false );
@@ -6710,7 +6704,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( '. "<i>Herr, ish gud,</i>" Amily slurs, pawing off the bottle to a surprised Urta.\n\n', false );
 		EngineCore.outputText( 'Well, this could be interesting.  If you get both the girls drunk, it might be easy (or inevitable) for something sexual to happen.  Or, you could take Amily home right now and make sure nothing untoward happens to either of your lovers.', false );
 		//(Display Options: [Drink!] [Leave]);
-		EngineCore.choices( 'Drink', this.liqueurUpTheWaifus, '', null, '', null, '', null, 'Leave', this.amilyXUrtaRunAWAY );
+		EngineCore.choices( 'Drink', this, this.liqueurUpTheWaifus, '', null, null, '', null, null, '', null, null, 'Leave', this, this.amilyXUrtaRunAWAY );
 	};
 	//Amily/Urta -- LEAVE;
 	AmilyScene.prototype.amilyXUrtaRunAWAY = function() {
@@ -6718,7 +6712,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You watch Urta take a nice long drink from the proffered bottle, but before she gets well and truly smashed, you politely excuse yourself and, helping an inebriated Amily to her feet, exit the Wet Bitch.  The two of you make your way back to camp and, putting the drunken mouse-girl to bed, you give her a kiss on the cheek and soon fall asleep.', false );
 		//Disable threesomes between them forever.;
 		CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 3;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Amily/Urta -- DRINK!;
 	AmilyScene.prototype.liqueurUpTheWaifus = function() {
@@ -6748,16 +6742,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'and Amily wrapping her lithe little tail around Urta\'s massive endowment.  You strip off your ' + CoC.player.armorName + ' and, looming over the girls, decide on how you want to go about this.', false );
 		//(Display Appropriate Options: [Use Cock] [Use Vag]);
 		if( CoC.player.gender === 1 ) {
-			EngineCore.choices( 'Use Cock', this.threesomeAmilUrtaCAWKS, '', null, '', null, '', null, '', null );
+			EngineCore.choices( 'Use Cock', this, this.threesomeAmilUrtaCAWKS, '', null, null, '', null, null, '', null, null, '', null, null );
 		}
 		if( CoC.player.gender === 2 ) {
-			EngineCore.choices( '', null, 'Use Vagina', this.urtaXAmilyCuntPussyVagSQUICK, '', null, '', null, '', null );
+			EngineCore.choices( '', null, null, 'Use Vagina', this, this.urtaXAmilyCuntPussyVagSQUICK, '', null, null, '', null, null, '', null, null );
 		}
 		if( CoC.player.gender === 3 ) {
-			EngineCore.choices( 'Use Cock', this.threesomeAmilUrtaCAWKS, 'Use Vagina', this.urtaXAmilyCuntPussyVagSQUICK, '', null, '', null, '', null );
+			EngineCore.choices( 'Use Cock', this, this.threesomeAmilUrtaCAWKS, 'Use Vagina', this, this.urtaXAmilyCuntPussyVagSQUICK, '', null, null, '', null, null, '', null, null );
 		}
 		if( CoC.player.gender === 0 ) {
-			EngineCore.choices( 'Nevermind', SceneLib.camp.returnToCampUseOneHour, '', null, '', null, '', null, '', null );
+			EngineCore.choices( 'Nevermind', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, '', null, null, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//Amily/Urta -- Use Cock;
@@ -6795,7 +6789,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( 'You couldn\'t agree more.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( this.urtaXAmilyAfterMurrrath );
+		EngineCore.doNext( this, this.urtaXAmilyAfterMurrrath );
 	};
 	//Urta/Amily -- [Use Vag];
 	AmilyScene.prototype.urtaXAmilyCuntPussyVagSQUICK = function() {
@@ -6814,7 +6808,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.outputText( 'You couldn\'t agree more.', false );
-		EngineCore.doNext( this.urtaXAmilyAfterMurrrath );
+		EngineCore.doNext( this, this.urtaXAmilyAfterMurrrath );
 	};
 	//Urta/Amily -- Parting (First & Repeat);
 	AmilyScene.prototype.urtaXAmilyAfterMurrrath = function() {
@@ -6829,7 +6823,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( '\n\n(<b>Urta unlocked in Amily\'s sex menu!</b>)', false );
 			CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] = 4;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	AmilyScene.prototype.pureAmilyPutsItInYourRectumDamnNearKilledEm = function() {
 		EngineCore.outputText( '', true );
@@ -6933,7 +6927,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_TIMES_BUTTFUCKED_PC ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AmilyScene.prototype.fuckPureAmilysHeiny = function() {
 		EngineCore.outputText( '', true );
@@ -7010,7 +7004,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		CoC.flags[ kFLAGS.TIMES_FUCKED_AMILYBUTT ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Scene 2: Amily Teaches Grown Corrupt Mice How To Sex (Z);
 	AmilyScene.prototype.amilyIncest = function() {
@@ -7042,15 +7036,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.menu();
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.cockThatFits( 61 ) >= 0 ) {
-				EngineCore.addButton( 0, 'Fuck Cunts', this.fuckIncestCunts, false );
-				EngineCore.addButton( 1, 'Fuck Em All', this.fuckIncestCunts, true );
+				EngineCore.addButton( 0, 'Fuck Cunts', this, this.fuckIncestCunts, false );
+				EngineCore.addButton( 1, 'Fuck Em All', this, this.fuckIncestCunts, true );
 			} else {
 				EngineCore.outputText( '[pg]Sadly, you\'re too big to fuck any of them.' );
 			}
 		} else {
 			EngineCore.outputText( '[pg]If only you had a cock, you could fuck them all.' );
 		}
-		EngineCore.addButton( 4, 'Leave', MainView.playerMenu );
+		EngineCore.addButton( 4, 'Leave', null, MainView.playerMenu );
 		//[Get doubleteamed {Vag req}] [Fuck Cunts] [Fuck 'Em All][Skedaddle];
 	};
 	//Fuck Cunts/All (extra pg or two) (Z);
@@ -7127,7 +7121,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		this.amilyPreggoChance();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//First talk: Finished (Bagpuss)(Zedited, but no followups are ready yet);
 	//Scene triggers the first time you approach Amily with eggs to lay;
@@ -7184,7 +7178,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		EngineCore.outputText( '\n\nYour try to clear your mind as the pleasure starts to overwhelm you, ovipositor extending fully whilst you attempt to focus and decide how to proceed.' );
 		//[Anal];
-		EngineCore.doNext( this.layEggsInAmilysCorruptedHole );
+		EngineCore.doNext( this, this.layEggsInAmilysCorruptedHole );
 	};
 	AmilyScene.prototype.layEggsInAmilysCorruptedHole = function() {
 		EngineCore.clearOutput();
@@ -7298,12 +7292,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			CoC.flags[ kFLAGS.AMILY_OVIPOSITED_COUNT ] = CoC.player.eggs();
 		}
 		CoC.player.dumpEggs();
-		EngineCore.doNext( this.layEggsInAmilysButtPt2 );
+		EngineCore.doNext( this, this.layEggsInAmilysButtPt2 );
 	};
 	AmilyScene.prototype.layEggsInAmilysButtPt2 = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You wake up almost an hour later, Amily still dozing on top of you.  Gently picking her up, you take her to her nest and lay the girl down in the soft bedding, smiling at the bulge in her stomach.  It takes you a little while to clean yourself off and redress, though you can\'t help but feel that getting a little bit of slime on your [armor] was a price worth paying.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Amily Laying;
 	AmilyScene.prototype.amilyLaysEggsLikeABitch = function() {
@@ -7385,7 +7379,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( '\n\nAmily saunters up and grabs your hand, leading you towards the stream while her ' + this.amilyButt() + ' sways in your direction.  Amusingly, her tail is poking through a hole in the rear triangle of her sexy black bikini bottoms.' );
 		}
 		CoC.flags[ kFLAGS.AMILY_TIMES_SWIMFUCKED ]++;
-		EngineCore.doNext( this.amilySwimFuckPartII );
+		EngineCore.doNext( this, this.amilySwimFuckPartII );
 	};
 	//Go 'Swimming';
 	AmilyScene.prototype.amilySwimFuckPartII = function() {
@@ -7479,7 +7473,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		this.amilyPreggoChance();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//PC - dicked.;
@@ -7495,8 +7489,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_ALLOWS_FERTILITY ] = 1;
 		//[Norma] [Try The Potion];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Normal', this.fuckTheMouseBitch );
-		EngineCore.addButton( 1, 'Try Potion', this.drinkThePotion );
+		EngineCore.addButton( 0, 'Normal', this, this.fuckTheMouseBitch );
+		EngineCore.addButton( 1, 'Try Potion', this, this.drinkThePotion );
 	};
 	//Try The Potion;
 	AmilyScene.prototype.drinkThePotion = function() {
@@ -7566,7 +7560,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		EngineCore.dynStats( 'lib', 1, 'sen', 1, 'lus=', 100, 'resisted', false );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.izmaAmilyDrugThreeWaySex );
+		EngineCore.addButton( 0, 'Next', this, this.izmaAmilyDrugThreeWaySex );
 	};
 	//Start Ze Fucking!;
 	AmilyScene.prototype.izmaAmilyDrugThreeWaySex = function() {
@@ -7698,7 +7692,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.izmaAmilyDrugThreeWaySex2 );
+		EngineCore.addButton( 0, 'Next', this, this.izmaAmilyDrugThreeWaySex2 );
 	};
 	AmilyScene.prototype.izmaAmilyDrugThreeWaySex2 = function() {
 		EngineCore.clearOutput();
@@ -7837,7 +7831,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		EngineCore.outputText( ' already refilling, and you know that before long, you\'ll give Izma enough to keep her fed for a week.  It\'s hard to think with lightning bolts of pleasure exploding in your cock and a mouth stuffed full of cummy cunt, so you don\'t.  You let the scent of the mixed sexual juices and the feel of Izma\'s mouth take over, enjoying simple reciprocation until your next cum, one you barely remember aside from the blackout inducing ecstasy.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.izmaAmilyDrugThreeWaySex3 );
+		EngineCore.addButton( 0, 'Next', this, this.izmaAmilyDrugThreeWaySex3 );
 	};
 	AmilyScene.prototype.izmaAmilyDrugThreeWaySex3 = function() {
 		EngineCore.clearOutput();
@@ -7860,7 +7854,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			}
 			EngineCore.outputText( ' definitely got pregnant.</b>)' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Amily Nurse RP;
 	//The player gives Amily a Skimpy Nurse's Outfit (the first time only), and she asks them if they want a checkup. Amily then proceeds to 'examine' the player and 'diagnoses' them with blue balls (or the prostate equivalent if the player has no balls). Obviously this must be 'treated' immediately by way of Amily having sex with the player. Must include the possibility of impregnating Amily if she's off her herbs, but not necessarily limited to just vaginal penetration. Bonus points if she asks the player to make an appointment for a follow-up exam afterwards.;
@@ -7883,14 +7877,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			EngineCore.outputText( '\n\nA sultry voice purrs, "<i>Ah, [name].  Come on in, it\'s time for your check-up.</i>"' );
 			CoC.flags[ kFLAGS.AMILY_CLOTHING ] = 'a naughty nurse\'s outfit';
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.amilyNurseCheckupV2, false );
+			EngineCore.addButton( 0, 'Next', this, this.amilyNurseCheckupV2, false );
 		}
 		//Repeat;
 		else {
 			EngineCore.outputText( '"<i>You want another check-up?</i>" Amily says.  "<i>Well, okay.  Let me get the outfit!</i>"  She turns, her tail smacking your [butt] as she runs behind some rocks to grab the skimpy white "dress", if it can be call that.  You wait with undisguised excitement, twiddling your thumbs to pass the time.' );
 			EngineCore.outputText( '\n\nEventually, Amily\'s fair voice purrs out, "<i>Time for your checkup, [name].  You must have quite the condition since you keep coming back.  Come on in...</i>"' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.amilyNurseCheckupV2, true );
+			EngineCore.addButton( 0, 'Next', this, this.amilyNurseCheckupV2, true );
 		}
 	};
 	//[Next] - both merge here;
@@ -8024,7 +8018,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		this.amilyPreggoChance();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'amilyScene', new AmilyScene() );
 } );

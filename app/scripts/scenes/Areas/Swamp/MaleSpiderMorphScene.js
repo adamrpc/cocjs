@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		else {
 			EngineCore.outputText( 'He breaks into a smile and says, "<i>Hi there!  I haven\'t seen anyone else with a shred of sanity in FOREVER.  Would you mind just, talking with me?</i>"', false );
 			//[Fight] [Talk] [Leave];
-			EngineCore.choices( 'Fight', this.fightSpiderBoy, 'Talk', this.talkToSpiderBoy, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Fight', this, this.fightSpiderBoy, 'Talk', this, this.talkToSpiderBoy, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	MaleSpiderMorphScene.prototype.fightSpiderBoy = function() {
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		}
 		var bikiniTits = null;
 		if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-			bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
+			bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 		}
 		EngineCore.outputText( 'The male spider-morph collapses onto his hands and knees, ', false );
 		if( CoC.monster.lust > 99 ) {
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 			EngineCore.outputText( '\n\nWhat do you do?', false );
 			//[CHOICES];
-			EngineCore.choices( 'Mount', mount, 'FuckHisButt', buttfuck, 'Frot', frot, 'B.Titfuck', bikiniTits, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Mount', this, mount, 'FuckHisButt', this, buttfuck, 'Frot', this, frot, 'B.Titfuck', null, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}

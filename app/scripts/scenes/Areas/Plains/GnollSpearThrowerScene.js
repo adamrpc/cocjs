@@ -184,9 +184,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, GnollSpearThrower, Ap
 		}
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '\n\nUsing the hyena to get off would be easy.  What do you do?', false );
-			EngineCore.choices( 'Get BJ', penor, 'Get Licked', vagoo, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Get BJ', this, penor, 'Get Licked', this, vagoo, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
-			EngineCore.doNext( Combat.cleanupAfterCombat );
+			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 		}
 	};
 	//<Hyena Defeat - Fellatio>;

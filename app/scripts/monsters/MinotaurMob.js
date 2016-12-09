@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, CoC, kFLAG
 	MinotaurMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe minutaurs share a laugh while you cum, but their throbbing erections don\'t subside in the slightest.' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.minotaurMobScene.minotaurDeFeet();
 		}

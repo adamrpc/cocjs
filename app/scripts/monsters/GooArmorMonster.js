@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, Appear
 	GooArmorMonster.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe armored goo sighs while you exhaust yourself...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
 				SceneLib.valeria.pcWinsValeriaSparDefeat();

@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		if( (CoC.player.level >= 5 || CoC.player.exploredMountain >= 40) && CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] === 0 ) {
 			EngineCore.outputText( 'While exploring the mountain, you come across a relatively safe way to get at its higher reaches.  You judge that with this route you\'ll be able to get about two thirds of the way up the mountain.  With your newfound discovery fresh in your mind, you return to camp.\n\n(<b>High Mountain exploration location unlocked!</b>)', true );
 			CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ]++;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( SceneLib.xmasBitch.isHolidays() ) {
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 					EngineCore.outputText( 'You stumble in your attempt to escape and realize that you are completely helpless.  The minotaur towers over you and heaves his ax for a <i>coup de grace</i>.  As he readies the blow, another beast-man slams into him from the side.  The two of them begin to fight for the honor of raping you, giving you the opening you need to escape.  You quietly sneak away while they fight – perhaps you should avoid the mountains for now?\n\n', false );
 				}
 				CoC.player.createStatusAffect( StatusAffects.TF2, 0, 0, 0, 0 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//Mino gangbang
@@ -196,8 +196,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 					EngineCore.outputText( '\n\nSnapping out of your imaginative reverie, you turn your attention back to the show. You wonder if you could make your way over there and join them, or if you should simply remain here and watch, as you have in the past.' );
 					EngineCore.menu();
 					//[Join] [Watch]
-					EngineCore.addButton( 0, 'Join', this.joinBeingAMinoCumSlut );
-					EngineCore.addButton( 1, 'Watch', this.watchAMinoCumSlut );
+					EngineCore.addButton( 0, 'Join', this, this.joinBeingAMinoCumSlut );
+					EngineCore.addButton( 1, 'Watch', this, this.watchAMinoCumSlut );
 					return;
 				}
 				CoC.flags[ kFLAGS.HAS_SEEN_MINO_AND_COWGIRL ] = 1;
@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 				EngineCore.outputText( 'She bellows, almost moaning, as the minotaur grabs her cushiony ass-cheeks with both massive hands. Her tail raises to expose a glistening wet snatch, its lips already parted with desire. She moos again as his rapidly hardening bull-cock brushes her crotch. You can\'t tear your eyes away as he positions himself, his flaring, mushroom-like cock-head eliciting another moan as it pushes against her nether lips.\n\n', false );
 				EngineCore.outputText( 'With a hearty thrust, the minotaur plunges into the cow-girl\'s eager fuck-hole, burying himself past one -- two of his oversized cock\'s three ridge rings. She screams in half pain, half ecstasy and pushes back, hungry for his full length. After pulling back only slightly, he pushes deeper, driving every inch of his gigantic dick into his willing partner who writhes in pleasure, impaled exactly as she wanted.\n\n', false );
 				EngineCore.outputText( 'The pair quickly settles into a rhythm, punctuated with numerous grunts, groans, and moans of sexual excess. To you it\'s almost a violent assault sure to leave both of them bruised and sore, but the cow-girl\'s lolling tongue and expression of overwhelming desire tells you otherwise. She\'s enjoying every thrust as well as the strokes, gropes, and seemingly painful squeezes the minotaur\'s powerful hands deliver to her jiggling ass and ponderous tits. He\'s little better, his eyes glazed over with lust as he continues banging the fuck-hole he found and all but mauling its owner.', false );
-				EngineCore.doNext( this.continueMinoVoyeurism );
+				EngineCore.doNext( this, this.continueMinoVoyeurism );
 				return;
 			}
 			//Cum addictus interruptus!  LOL HARRY POTTERFAG
@@ -236,7 +236,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 						EngineCore.outputText( 'During your hike into the mountains, your depraved mind keeps replaying your most obcenely warped sexual encounters, always imagining new perverse ways of causing pleasure.\n\nIt is a miracle no predator picked up on the strong sexual scent you are emitting.', true );
 						EngineCore.dynStats( 'tou', 0.25, 'spe', 0.5, 'lib', 0.25, 'lus', CoC.player.lib / 10 );
 					}
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				SceneLib.worms.wormEncounter();
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 						EngineCore.outputText( 'During your hike into the mountains, your depraved mind keeps replaying your most obcenely warped sexual encounters, always imagining new perverse ways of causing pleasure.\n\nIt is a miracle no predator picked up on the strong sexual scent you are emitting.', true );
 						EngineCore.dynStats( 'tou', 0.25, 'spe', 0.5, 'lib', 0.25, 'lus', CoC.player.lib / 10 );
 					}
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				} else {
 					SceneLib.worms.wormToggle();
 				}
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		//[Next]
 		EngineCore.dynStats( 'lus', 10 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.watchMinoCumSlutII );
+		EngineCore.addButton( 0, 'Next', this, this.watchMinoCumSlutII );
 	};
 	Mountain.prototype.watchMinoCumSlutII = function() {
 		EngineCore.clearOutput();
@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		EngineCore.outputText( '\n\nAs you look at the two cum-covered creatures laying there in their exhausted sex-induced stupors, the minotaur\'s thick horse-cock now slowly deflating, you realize that you\'ve been touching yourself.  You make yourself stop in disgust.' );
 		EngineCore.outputText( '\n\nOnly now do you notice other faces peeking over ledges and ridges.  You count at least two goblins and one imp who quickly pull back.  From the sounds, they were busy getting themselves off.  Apparently this isn\'t an uncommon show, and the locals enjoy it immensely.' );
 		EngineCore.dynStats( 'lus', 25 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Mountain.prototype.continueMinoVoyeurism = function() {
 		EngineCore.outputText( 'They go at it for nearly an hour, oblivious to you watching them, before their intensity heightens as they near orgasm. The results are almost explosive, both of them crying out as they begin twitching uncontrollably. Clinging desperately to the cow-girl\'s ass, the minotaur pumps so much cum into her depths that it begins spurting out. This accidental lubrication releases his grip and the pair collapse to the ground. Yet the minotaur isn\'t finished, his man-milk spraying into the air almost like his still-erect dick is a hose and splattering down onto both of them.\n\n', true );
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		}
 		//Lust!
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 + CoC.player.minoScore() + CoC.player.cowScore() );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'mountain', new Mountain() );
 } );

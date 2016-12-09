@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 		var damage = 0;
 		EngineCore.outputText( 'The demoness weaves her whip in the air until you can practically hear it slithering like a snake, cutting the air as it weaves back and forth, still magically alight with flames.  In a blink she lashes out twice in quick succession!\n', false );
 		//First hit!;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 10 ) !== 9 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!', false );
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	Ceraph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.ceraphScene.loseFUCKME();
 		}

@@ -49,8 +49,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		//Rape options
 		if( CoC.player.lust >= 33 ) {
 			EngineCore.outputText( '  What do you do to her?', false );
-			EngineCore.choices( 'Anal', anal, 'Oral', this.WinOnHarpyAndOralRape, 'Pussy', pussy, 'Scissor', scissor, 'Lay Eggs', eggs,
-				'Clit Fuck', clitFuck, '', null, '', null, '', null, 'Nothing', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Anal', this, anal, 'Oral', this, this.WinOnHarpyAndOralRape, 'Pussy', this, pussy, 'Scissor', this, scissor, 'Lay Eggs', this, eggs,
+				'Clit Fuck', this, clitFuck, '', null, null, '', null, null, '', null, null, 'Nothing', null, Combat.cleanupAfterCombat );
 		}
 		//Not horny?  Iz over
 		else {
@@ -636,7 +636,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			EngineCore.outputText( ' again' );
 		}
 		EngineCore.outputText( ', her fingers firmly stuffed down between her plush thighs and frantically toying with her pussy. Seeing her get off to your treatment almost makes you climax right then and there, but you manage to hold yourself back, reasoning that she hasn\'t quite paid enough just yet for deciding to attack you.' );
-		EngineCore.doNext( this.harpyScissorSurprisePtII );
+		EngineCore.doNext( this, this.harpyScissorSurprisePtII );
 		EngineCore.dynStats( 'lus=', 100 );
 	};
 	//{New page}

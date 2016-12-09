@@ -499,7 +499,7 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Co
 	};
 	//Create a status
 	Creature.prototype.createStatusAffect = function(stype, value1, value2, value3, value4) {
-		this.statusAffects.push(new StatusAffect(stype,value1,value2,value3,value4));
+		this.statusAffects.push(new StatusAffects(stype,value1,value2,value3,value4));
 	};
 	//Remove a status
 	Creature.prototype.removeStatusAffect = function(stype) {

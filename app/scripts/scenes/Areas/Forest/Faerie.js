@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 					EngineCore.outputText( '\n\nYou lazily make a grab for her and easily snatch her out of the air.  Her body is sticky with a mix of desire and your last encounter.  You can feel her humping against your pinky while she begs, "<i>Come on, let me crawl into your ' + CoC.player.armorName + ' and wrap myself around your shaft.  I promise I\'ll only drink a little pre-cum this time, just enough to let me get off.  I\'ll be a good faerie slut, just let me get you off!</i>"\n\nDo you let the faerie get you off?', false );
 				}
 				EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 2 );
-				EngineCore.doYesNo( this.faerieCaptureHJ, this.letFaerieGo );
+				EngineCore.doYesNo( this, this.faerieCaptureHJ, this, this.letFaerieGo );
 				return;
 			}
 			EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 2 );
@@ -38,16 +38,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 			} else {
 				EngineCore.outputText( '\n\nYou try in vain to jump and catch her, but she\'s too high above you and much too fast.', false );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The faerie slows the beating of her wings and hovers towards you. You dismiss your fearful notions, certain a small faerie is quite harmless to you.\n\n', false );
 		EngineCore.outputText( 'How do you react?', false );
 		//Shoo Away, Nothing, RAEP
 		if( CoC.player.hasVagina() ) {
-			EngineCore.choices( 'Shoo Away', this.faerieShooAway, 'Nothing', this.faerieDoNothing, 'Rape', this.faerieRAEP, '', null, '', null );
+			EngineCore.choices( 'Shoo Away', this, this.faerieShooAway, 'Nothing', this, this.faerieDoNothing, 'Rape', this, this.faerieRAEP, '', null, null, '', null, null );
 		} else {
-			EngineCore.choices( 'Shoo Away', this.faerieShooAway, 'Nothing', this.faerieDoNothing, '', null, '', null, '', null );
+			EngineCore.choices( 'Shoo Away', this, this.faerieShooAway, 'Nothing', this, this.faerieDoNothing, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	Faerie.prototype.faerieRAEP = function() {
@@ -161,12 +161,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Faerie.prototype.faerieShooAway = function() {
 		EngineCore.spriteSelect( 17 );
 		EngineCore.outputText( 'You shake your hands, shooing away the tiny faerie.  She\'s clearly been touched by the magics of this land and you want nothing to do with her. With a pouting look, she turns and buzzes away.', true );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Faerie.prototype.faerieDoNothing = function() {
 		EngineCore.spriteSelect( 17 );
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 			}
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.player.clitLength >= 1.0 && CoC.player.clitLength <= 4.5 && CoC.player.hasVagina() && Utils.rand( 2 ) === 0 ) {
@@ -204,13 +204,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 			EngineCore.outputText( 'Time skips a beat and you eventually come down, gently relaxing your grip and disengaging the worn out faerie from your softening female parts. The faerie regains consciousness slowly and thanks you before flying off.', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.player.clitLength > 4.5 ) {
 			EngineCore.outputText( 'The faerie flies close to your ear and speaks in a volume that would be a whisper from another human, "You\'ve got some sexy parts girl, but you\'re too big for me. I hope you find someone to get you off so I can watch." Then she flies in front of you, cutely kisses the bridge of your nose, and flies off.', false );
 			EngineCore.dynStats( 'lus', 5 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The faerie flies close to your nipple and sucks it gingerly.  You pant in pleasure as you feel it pucker tight in her mouth, tingling with her saliva.  She lets it pop free, swollen with arousal.  Her hand flicks it playfully, the sudden sensation fluttering through you as you close your eyes in pleasure.  You recover and find she has flown high into the trees, waving playfully as she escapes.\n\nYou frown and begin to dress yourself, flushing irritably as your nipples protrude further into your clothes than you remember.', false );
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 			CoC.player.nippleLength -= 0.25;
 		}
 		EngineCore.dynStats( 'sen', 1, 'lus', 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		return;
 	};
 	//[No] *(let her go)
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 		EngineCore.spriteSelect( 17 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You apologize and release her, letting her fly away on gossamer wings.  She thanks you, buzzing up to your lips and planting a chaste kiss on your mouth.  She zips away into the woods without a glance back...', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[YES] *make her pleasure you
 	Faerie.prototype.faerieCaptureHJ = function() {
@@ -332,7 +332,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, Utils, Engi
 				CoC.player.createStatusAffect( StatusAffects.Jizzpants, 1, 0, 0, 0 );
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'faerie', new Faerie() );
 } );

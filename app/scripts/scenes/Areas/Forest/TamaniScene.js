@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'A goblin leaps out from behind a rock outcropping.  She keeps her arms folded across her ' + this.tamaniChest() + ' and glares at you.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little \'do.  The greenish-gray skin of her breasts bulges out around her arms, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn\'t any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.\n\n', false );
 		EngineCore.outputText( 'She says, "<i>There\'s only so much cock around, and I got dibs on ALL of it, O.K. skank?</i>"\n\n', false );
 		//[Umm OK?] [No]
-		EngineCore.choices( 'Umm OK?', this.tamaniFemaleYes, 'No', this.tamaniFemaleNo, 'PreferGirls', this.preferTamaniFemdom, '', null, '', null );
+		EngineCore.choices( 'Umm OK?', this, this.tamaniFemaleYes, 'No', this, this.tamaniFemaleNo, 'PreferGirls', this, this.preferTamaniFemdom, '', null, null, '', null, null );
 	};
 	//(Umm OK?)
 	TamaniScene.prototype.tamaniFemaleYes = function() {
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'The goblin leaves you with a warning, "<i>Be careful, it likes to leak aphrodisiacs like crazy.  Believe me, those are FUN to get addicted to.  Oh, and remember – Tamani owns all the cocks around here, so if you ever grow one, come pay your dues!</i>"\n\n', false );
 		EngineCore.outputText( '(<b>Deluxe Dildo acquired!</b>)', false );
 		CoC.player.createKeyItem( 'Deluxe Dildo', 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[No]
 	TamaniScene.prototype.tamaniFemaleNo = function() {
@@ -134,7 +134,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		} else {
 			EngineCore.outputText( 'You hope she misses a few.', false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Encounter Tamani – HAZ COCK]
 	//[First Time]
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'A goblin leaps out from behind a rock outcropping.  For something so small, she has a lot of curves.  She advances towards you, rolling her hips in a suggestive way, immediately diverting your blood-flow to your crotch.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little \'do.  The greenish-gray skin of her breasts jiggles pleasantly with every step, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn\'t any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.\n\n', false );
 		EngineCore.outputText( 'The goblin makes you an offer that\'s difficult to turn down, "<i>Hey there stud, want to fuck me pregnant?  I promise my box will milk your dick dry.  Just let Tamani take care of all your boners OK?</i>"', false );
 		//[Fuck Her] [Refuse]
-		EngineCore.choices( 'Fuck Her', this.tamaniFirstTimeConsentual, 'Refuse', this.tamaniFirstTimeRefusal, '', null, '', null, '', null );
+		EngineCore.choices( 'Fuck Her', this, this.tamaniFirstTimeConsentual, 'Refuse', this, this.tamaniFirstTimeRefusal, '', null, null, '', null, null, '', null, null );
 	};
 	//[Fuck Her – Consentual First Time]
 	TamaniScene.prototype.tamaniFirstTimeConsentual = function() {
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -1, 'cor', 0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Refuse – First Time Meeting]
 	TamaniScene.prototype.tamaniFirstTimeRefusal = function() {
@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'Tamani\'s eyes widen in surprise, "<i>Don\'t let the size fool you, big ' + CoC.player.boyGirl() + '. I can take more than you think,</i>" she says while her hands begins playing with her box, "<i>Are you sure you don\'t want to just let off a little steam?</i>"\n\n', false );
 		//[Fuck Her (Goes to fuck her - consensual first time)]
 		//[No means no]
-		EngineCore.choices( 'Fuck Her', this.tamaniFirstTimeConsentual, 'No', this.tamaniSecondRefusal, '', null, '', null, '', null );
+		EngineCore.choices( 'Fuck Her', this, this.tamaniFirstTimeConsentual, 'No', this, this.tamaniSecondRefusal, '', null, null, '', null, null, '', null, null );
 		EngineCore.dynStats( 'lus', 5 );
 	};
 	//[No Means No]
@@ -240,7 +240,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'The goblin pouts, anger clouding her cute little features.  She turns and storms off, clearly pissed at you, "<i>Think about it.  Next time that dick better ache for me, or I\'ll MAKE you want it.</i>"\n\n', false );
 		EngineCore.outputText( '...What?', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[REPEAT MALE ENCOUNTER]
 	TamaniScene.prototype.tamaniMaleRepeatEncounter = function() {
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		//[Take Her – win sex]
 		//[Let Her – Get dommed]
 		//[No – starts fight]
-		EngineCore.choices( 'Take Her', this.tamaniSexWon, 'Let Her', this.tamaniSexLetHer, 'No', this.tamaniStartFight, '', null, '', null );
+		EngineCore.choices( 'Take Her', this, this.tamaniSexWon, 'Let Her', this, this.tamaniSexLetHer, 'No', this, this.tamaniStartFight, '', null, null, '', null, null );
 	};
 	TamaniScene.prototype.tamaniStartFight = function() {
 		EngineCore.clearOutput();
@@ -375,7 +375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 			else {
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lus', +10 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 		//Not-taurs
@@ -439,7 +439,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 					EngineCore.outputText( 'You lie there, recovering from the intense sex.  After a little while you manage to get up and redress, but the scent of horny goblin stays with you for hours.', false );
 					CoC.player.orgasm();
 					EngineCore.dynStats( 'lus', +10 );
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 			}
 			//(Doesnt fit)
@@ -503,7 +503,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 					EngineCore.outputText( 'You lie there, recovering from the intense sex.  After a little while you manage to get up and redress, but the scent of horny goblin stays with you for hours.', false );
 					CoC.player.orgasm();
 					EngineCore.dynStats( 'lus', +10 );
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 			}
 		}
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 		//Too big? Jerk off with feet and bukkake
@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 			if( CoC.isInCombat() ) {
 				Combat.cleanupAfterCombat();
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -690,14 +690,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'Tamani strolls out from behind a boulder, and wow is she ever pregnant.  It doesn\'t diminish the look of lust in her eyes when she meets your gaze, but her hands do keep rubbing the outside of her belly, only pausing to squeeze drops of milk from her nipples.  Her leather straps seem to fit her even better than before, accentuating her expanding curves and looking fantastic on her pregnant form.\n\n', false );
 		EngineCore.outputText( 'She parts her legs and rubs her lower lips while she begs you, "<i>Please fuck me!   I\'m so horny from the pregnancy and I can\'t wait to give you daughters so you can knock me up all over again!</i>"', false );
 		//[Fuck Her] [Refuse]
-		EngineCore.choices( 'Fuck Her', this.tamaniPregnantFuck, 'Refuse', this.tamaniPregnantRefusal, '', null, '', null, '', null );
+		EngineCore.choices( 'Fuck Her', this, this.tamaniPregnantFuck, 'Refuse', this, this.tamaniPregnantRefusal, '', null, null, '', null, null, '', null, null );
 	};
 	//[Refuse]
 	TamaniScene.prototype.tamaniPregnantRefusal = function() {
 		EngineCore.spriteSelect( 56 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'She bursts into tears and waddles away crying.  You aren\'t sure if you should feel bad or not.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK HER PREGGERS – Consentual]
 	TamaniScene.prototype.tamaniPregnantFuck = function() {
@@ -748,7 +748,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 			EngineCore.outputText( 'Tamani comes over to you and gives you a sloppy goodbye kiss, sending an immediate surge of hardness and desire to your groin.  She looks back and giggles, then waddles off, patting her pouches and dripping with your spooge.', false );
 			CoC.player.orgasm();
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Birth Encounter]
 	TamaniScene.prototype.tamaniPoopsOutBabies = function() {
@@ -781,7 +781,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'Tamani sighs and relaxes, enjoying the breastfeeding and waving you away.  You shrug and head back to camp, more than a little aroused.', false );
 		EngineCore.dynStats( 'lus', CoC.player.lib / 10 + CoC.player.cor / 10 );
 		this.tamaniGivesBirth();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	TamaniScene.prototype.tamaniKnockUp = function() {
 		if( this.pregnancy.isPregnant ) {
@@ -1017,7 +1017,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	TamaniScene.prototype.tamaniAnalShits = function() {
@@ -1082,8 +1082,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( '"<i>You\'re into girls, huh?</i>" Tamani laughs, turning around and giving her fat butt a playful swat.  You watch as she does it a second time, laughing more at you than <i>with</i> you now, and then turns back around.  "<i>Tell you what then, slut! I\'ve had crap luck today finding a good stud, so I\'ll make you a deal.</i>"' );
 		EngineCore.outputText( '\n\nTamani advances closer, staring you straight in the eye with an impish smirk.  "<i>I\'ll let you get me off if you swear to stay away from </i>my<i> cocks. Deal?</i>"' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Accept', this.acceptTamaniFacesits );
-		EngineCore.addButton( 1, 'Refuse', this.declineZeFacesits );
+		EngineCore.addButton( 0, 'Accept', this, this.acceptTamaniFacesits );
+		EngineCore.addButton( 1, 'Refuse', this, this.declineZeFacesits );
 	};
 	//(('Refuse' choice))
 	TamaniScene.prototype.declineZeFacesits = function() {
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( 'You tell her you\'re not interested.' );
 		EngineCore.outputText( '\n\nThe curvy goblin kicks you with a snarl, making you instinctively grab at one [leg] and hop around on the other - until she kicks it too, knocking you down.  "<i>Fine, bitch. Have it your way. But if I find you taking <b>my</b> cocks again, you\'re going to be in trouble!</i>"  She darts off before you can get a word in edgewise, leaving you alone.' );
 		//((Needs non-leg and centaur equivalents))
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(('Accept' choice))
 	TamaniScene.prototype.acceptTamaniFacesits = function() {
@@ -1113,7 +1113,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.outputText( '\n\n"<i>FFFFFFFNNNNNnnnnnnnn!</i>" the green whore cries out, her thighs clamping down on the sides of your head like a vice.  Her asshole grips down on your invading fingers, holding them in place, and her pussy undulates around your tongue like a living thing, more and more of her juices gushing out as the little slut comes <b>hard</b> before she just... goes limp.' );
 		EngineCore.outputText( '\n\nYou withdraw your fingers from her ass and let go of her clit, and the little green fuck-doll topples over, falling into the dirt and muttering something incoherently. You sit up and look, admiring the sight of her fat green ass sticking up in the air with her juices still dripping down her thighs, and decide to walk away from the clearly unconscious goblin.' );
 		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 20 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'tamaniScene', new TamaniScene() );
 } );

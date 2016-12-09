@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe goblin\'s eyes go wide and she turns to leave, no longer interested in you.', false );
 			CoC.player.orgasm();
-			EngineCore.doNext( Combat.cleanupAfterCombat );
+			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 		} else {
 			SceneLib.goblinScene.goblinRapesPlayer();
 		}

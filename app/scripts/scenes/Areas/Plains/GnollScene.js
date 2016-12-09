@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 				}
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[DickDownClit] [DickInAss] [SuckHerClit] [Leave];
-				EngineCore.choices( 'DickDownClit', dickDownClit, 'DickInAss', this.dickInGnollAss, 'SuckHerClit', this.suckGnollClit, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'DickDownClit', this, dickDownClit, 'DickInAss', this, this.dickInGnollAss, 'SuckHerClit', this, this.suckGnollClit, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			}
 			//(if cockTotal>0 AND vaginas=1);
 			else if( CoC.player.gender === 3 ) {
@@ -138,19 +138,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 				}
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[DickDownClit] [DickInAss] [SuckHerClit] [TakeHerClit] [Leave];
-				EngineCore.choices( 'DickDownClit', dickDownClit, 'DickInAss', this.dickInGnollAss, 'SuckHerClit', this.suckGnollClit, 'TakeHerClit', this.takeGnollClit, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'DickDownClit', this, dickDownClit, 'DickInAss', this, this.dickInGnollAss, 'SuckHerClit', this, this.suckGnollClit, 'TakeHerClit', this, this.takeGnollClit, 'Leave', null, Combat.cleanupAfterCombat );
 			}
 			//(if cockTotal=0 AND vaginas=1);
 			else if( CoC.player.gender === 2 ) {
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[SuckHerClit] [TakeHerClit] [Leave];
-				EngineCore.choices( 'SuckHerClit', this.suckGnollClit, 'TakeHerClit', this.takeGnollClit, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'SuckHerClit', this, this.suckGnollClit, 'TakeHerClit', this, this.takeGnollClit, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			}
 			//(if cockTotal=0 AND vaginas=0);
 			else {
 				EngineCore.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[SuckHerClit] [Leave];
-				EngineCore.choices( 'SuckHerClit', this.suckGnollClit, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'SuckHerClit', this, this.suckGnollClit, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			}
 		} else {
 			Combat.cleanupAfterCombat();
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		EngineCore.outputText( 'The amazon takes another step toward you before jerking back with a choking gasp.  Her stance drooping, knees clenched together, the hyena-girl wraps her hands between the inside of her trembling thighs.  The tattered loincloth hanging from her hips pokes outward, rising as it is gradually pushed aside by the monster beneath.  She flicks the rough leather aside with a spotted paw to expose the engorged onyx pillar throbbing between her legs.  Rising from a thin sheath, the 15 inch clit stands atop her molted pussy like a crown-less cock, bulging veins marring its obsidian-smooth surface as it pulses with the girl\'s quickening heartbeat.  She sways, seemingly weakened by the lascivious lust boiling inside her, bringing a deep purple hue to her cheeks as she flushes half with embarrassment and half with need.\n\n', false );
 		EngineCore.outputText( '"<i>What... what have you poisoned me with?</i>" she gasps, staggering to her knees.  Catching herself, the gnoll pulls her hands away from her crotch, revealing the effects of the Succubi\'s Dream.  A pair of huge, apple-sized testicles sway under her throbbing pussy lips, covered in a fine chocolate fuzz that glistens from the honey that leaks from her over-stimulated cunt.  The hyena\'s balls hang heavily from her groin, achingly filled with seed that she has no way of emptying.  "<i>What is this?</i>" she demands, her voice frantic with seething, unfamiliar urges.  "<i>I don\'t... I can\'t...</i>" She stumbles to all fours, her hips impotently bucking at the air, as her eyes cloud over, mouth hanging open in the primal need to mate.\n\n', false );
 		//[NEXT];
-		EngineCore.doNext( this.yoDawgHyenaBallz2 );
+		EngineCore.doNext( this, this.yoDawgHyenaBallz2 );
 	};
 	GnollScene.prototype.yoDawgHyenaBallz2 = function() {
 		EngineCore.outputText( '', true );
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		EngineCore.outputText( '.  "<i>N-no! I can\'t... quite... arg!</i>" She trembles, unable to cum, before mindlessly starting anew, pistoning into your ' + Descriptors.assholeDescript() + ' with renewed vigor.  "<i>I just! Have to! Fucking! Cum!</i>" she grunts from between clenched teeth as she slams into you, the waterfall of lubrication from her pussy soaking your ' + CoC.player.skinFurScales() + ' as she wetly slaps her hips into yours in her increasingly desperate assault.\n\n', false );
 		EngineCore.outputText( 'Again and again, she rushes toward a release, and every time, her balls slosh with overflowing lust, unable to climax yet urging her to greater depravity until even words are too difficult to manage.  Your ravaged body aches under the endless rape.  It\'s all you can do to work your hands under your hips to masturbate in the blissful pauses while the gnoll\'s muscles clench in near orgasm, before she slams you back to the dirt for another round.  You lose track of time as your world narrows to the endlessly thrusting shaft of the hyena-girl\'s massive clitoris and the merciless weight of her ball-slapping, spunk-swollen pouch. Every time you climax, it fuels her mad frenzy until you silently beg your body to shut out the overwhelming sensations, to no avail.  Day fades into night and night into day as the amazon fucks your spasming, shuddering pucker without thought, or pity, or release.\n\n', false );
 		//[NEXT];
-		EngineCore.doNext( this.yoDawgHyenaBallz3 );
+		EngineCore.doNext( this, this.yoDawgHyenaBallz3 );
 		CoC.time.hours = 7;
 		CoC.time.days++;
 		EngineCore.statScreenRefresh();

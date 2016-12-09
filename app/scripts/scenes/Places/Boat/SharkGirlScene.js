@@ -75,14 +75,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			EngineCore.outputText( '  Do you have your way with her or leave?', false );
 			var dildo = (CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.tamaniDildo.sharkGirlGetsDildoed : null);
 			if( CoC.player.gender === 1 ) {
-				EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy w/69', null, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy w/69', null, null, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			} else if( CoC.player.gender === 2 ) {
-				EngineCore.choices( 'Yes', this.sharkgirlSixtyNine, '', null, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', this, this.sharkgirlSixtyNine, '', null, null, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			} else if( CoC.player.gender === 3 ) {
 				if( CoC.player.isNaga() ) {
-					EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy Oral', this.sharkgirlSixtyNine, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy Oral', this, this.sharkgirlSixtyNine, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 				} else {
-					EngineCore.choices( 'Use Dick', this.sharkgirlDickFuck, 'Pussy w/69', this.sharkgirlSixtyNine, 'Dildo Rape', dildo, '', null, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy w/69', this, this.sharkgirlSixtyNine, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 			}
 		} else {
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 		EngineCore.outputText( 'They are surprisingly strong given their stature, and even a Minotaur would have trouble prying them all off. Combined with a strong wave of arousal flooding your body, you find it rather hard to focus on anything. They must\'ve funnelled a few Lust Drafts down your throat while you were sleeping.\n\n', false );
 		EngineCore.outputText( '"<i>Wh-what\'s going on?</i>" you ask, your voice shifting between arousal and fear. The young girl straddling your chest giggles while drawing circles on your skin with her finger, "<i>Aw daddy, don\'t be scared. You\'re gonna play with your kids! Doesn\'t that sound fun?</i>" Another adds, "<i>Since you seem to love knocking up us shark girls, we figured you\'d like to make a living out of it...</i>" Your eyes widen slightly and you ask her, "<i>What do you mean by that?</i>"\n\n', false );
 		EngineCore.outputText( 'The girls look at each other and grin before the one straddling you pulls out an odd-looking Shark\'s Tooth. "<i>Oh you\'ll see. Open wide...!</i>"', false );
-		EngineCore.doNext( this.sharkBadEnd2 );
+		EngineCore.doNext( this, this.sharkBadEnd2 );
 	};
 	//[Next];
 	SharkGirlScene.prototype.sharkBadEnd2 = function() {
@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			Combat.cleanupAfterCombat();
 			return;
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'sharkGirlScene', new SharkGirlScene() );
 } );

@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				CoC.player.cuntChange( 30, true, false, true );
 				CoC.player.orgasm();
 				EngineCore.outputText( 'You think it would be a very good idea to come to the desert more often.', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 				return;
 			}
 			//Genderleast
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				EngineCore.outputText( '"<i>We should do this more often,</i>" she says before you head off.\n\n', false );
 			}
 			EngineCore.outputText( 'You think it would be a very good idea to come to the desert more often.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.dynStats( 'lus', CoC.player.lib / 5 );
 			return;
 		}
@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			//No fight for this encounter, brings you back to the camp. Next time you see her, she will attack you unless you turn back into a naga in the meantime
 			CoC.player.changeStatusValue( StatusAffects.Naga, 1, 0 );
 			EngineCore.outputText( 'You walk in the desert for what feels like an eternity, thinking of how much easier it was to move across the sand back when you had a tail, but then you\'re brought back to reality by a familiar hissing. The identity of your follower is no secret to you. As you open your mouth to greet your naga friend, you find yourself unable to pronounce any words. The girl comes towards you and slithers around in a confused way, trying to communicate. But the sounds that once formed words and phrases now seem to slip through you; all you can do is stand there, unable to grasp what she\'s trying to tell you. Realizing that you\'re not who you used to be anymore, she sadly looks down and turns around. The naga slithers away into the distance until she\'s nothing but a blink on the horizon.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		Combat.startCombat( new Naga() );
@@ -779,30 +779,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			EngineCore.outputText( 'Your body aches for further satisfaction - do you rape the snake woman?', false );
 			if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
 				if( CoC.player.gender === 0 ) {
-					EngineCore.choices( 'Yes', this.nagaVictoryGenderless, 'Gooey Rape', this.gooNagaRape, 'Lay Eggs', eggs, '', null, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryGenderless, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 1 ) {
-					EngineCore.choices( 'Yes', this.nagaVictoryMale, 'Gooey Rape', this.gooNagaRape, 'Lay Eggs', eggs, '', null, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryMale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 2 ) {
-					EngineCore.choices( 'Yes', this.nagaVictoryFemale, 'Gooey Rape', this.gooNagaRape, 'Lay Eggs', eggs, '', null, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryFemale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 3 ) {
-					EngineCore.choices( 'As Male', this.nagaVictoryMale, 'As Female', this.nagaVictoryFemale, 'Gooey Rape', this.gooNagaRape, 'Lay Eggs', eggs, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'As Male', this, this.nagaVictoryMale, 'As Female', this, this.nagaVictoryFemale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 				return;
 			} else {
 				if( CoC.player.gender === 0 ) {
-					EngineCore.choices( 'Yes', this.nagaVictoryGenderless, '', null, '', null, 'Lay Eggs', eggs, 'No', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryGenderless, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'No', null, Combat.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 1 ) {
-					EngineCore.choices( 'Yes', this.nagaVictoryMale, '', null, '', null, 'Lay Eggs', eggs, 'No', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryMale, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'No', null, Combat.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 2 ) {
-					EngineCore.choices( 'Yes', this.nagaVictoryFemale, '', null, '', null, 'Lay Eggs', eggs, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryFemale, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 3 ) {
-					EngineCore.choices( 'As Male', this.nagaVictoryMale, 'As Female', this.nagaVictoryFemale, '', null, 'Lay Eggs', eggs, 'Leave', Combat.cleanupAfterCombat );
+					EngineCore.choices( 'As Male', this, this.nagaVictoryMale, 'As Female', this, this.nagaVictoryFemale, '', null, null, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
 				}
 				return;
 			}
@@ -815,7 +815,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			EngineCore.outputText( 'You just don\'t have the energy to wrap yourself so tightly around someone right now...', true );
 			//Gone		menuLoc = 1;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
 		//Cannot be used on plural enemies
@@ -829,7 +829,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			EngineCore.outputText( 'You can\'t constrict something you\'re trapped inside of!', true );
 			//Gone		menuLoc = 1;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 10, 2 );
@@ -856,7 +856,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			EngineCore.outputText( 'You launch yourself at your opponent and attempt to wrap yourself around ' + CoC.monster.pronoun2 + '. Before you can even get close enough, ' + CoC.monster.a + CoC.monster.short + ' jumps out of the way, causing you to fall flat on your face. You quickly pick yourself up and jump back.', false );
 			CoC.player.takeDamage( 5 );
 			if( CoC.player.HP <= 0 ) {
-				EngineCore.doNext( Combat.endHpLoss );
+				EngineCore.doNext( Combat, Combat.endHpLoss );
 				return;
 			}
 		}
@@ -875,7 +875,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				EngineCore.outputText( 'The others quickly back off, terrified at the idea of what you might do to them.', false );
 			}
 			EngineCore.outputText( '\n\n', false );
-			EngineCore.doNext( Combat.endHpVictory );
+			EngineCore.doNext( Combat, Combat.endHpVictory );
 			return;
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -987,7 +987,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			}
 			EngineCore.outputText( '\n\n', false );
 			if( CoC.monster.lust > 99 ) {
-				EngineCore.doNext( Combat.endLustVictory );
+				EngineCore.doNext( Combat, Combat.endLustVictory );
 				return;
 			}
 		}

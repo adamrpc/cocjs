@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe imp grins at your already corrupted state...', false );
 			CoC.player.lust = 100;
-			EngineCore.doNext( SceneLib.impScene.impRapesYou );
+			EngineCore.doNext( SceneLib.impScene, SceneLib.impScene.impRapesYou );
 		} else {
 			SceneLib.impScene.impRapesYou();
 		}
@@ -68,9 +68,9 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 		}
 		EngineCore.outputText( '\n' );
 		if( CoC.player.lust > 99 ) {
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
 	Imp.prototype.init = function( that, args ) {

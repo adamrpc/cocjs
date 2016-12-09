@@ -17,14 +17,14 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			EngineCore.dynStats( 'lus', 1 );
 			var dildoRape = CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.beeGirlScene.beeGirlsGetsDildoed : null;
 			var milkAndHoney = CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ? SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny : null;
-			EngineCore.choices( 'Rape', SceneLib.beeGirlScene.rapeTheBeeGirl, 'Dildo Rape', dildoRape, '', null, 'B. Feed', milkAndHoney, 'Leave', this.leaveAfterDefeating );
+			EngineCore.choices( 'Rape', SceneLib.beeGirlScene, SceneLib.beeGirlScene.rapeTheBeeGirl, 'Dildo Rape', SceneLib.beeGirlScene, dildoRape, '', null, null, 'B. Feed', SceneLib.beeGirlScene, milkAndHoney, 'Leave', this, this.leaveAfterDefeating );
 		} else if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) { //Genderless can still breastfeed
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully.\n\nWhat do you do?' );
 			} else {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' spreads her legs and starts frigging her honey-soaked cunt.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully.\n\nWhat do you do?' );
 			}
-			EngineCore.choices( 'B. Feed', SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny, '', null, '', null, '', null, 'Leave', this.leaveAfterDefeating );
+			EngineCore.choices( 'B. Feed', SceneLib.beeGirlScene, SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leaveAfterDefeating );
 		} else {
 			Combat.finishCombat();
 		}
@@ -121,9 +121,9 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			}
 		}
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
 	BeeGirl.prototype.init = function( that, args ) {

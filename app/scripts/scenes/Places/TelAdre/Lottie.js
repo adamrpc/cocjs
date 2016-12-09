@@ -138,13 +138,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			if( !CoC.player.isNaga() && !CoC.player.isTaur() && CoC.player.tone >= 50 ) {
 				EngineCore.outputText( '"<i>R-really? Y\'think so?</i>"  She blushes and looks down towards her feet.  "<i>Y\'know, I can\'t help but feel pretty confident when I\'m around you – it might have something to do with those big muscles o\' yours!</i>"  She playfully pokes at your bicep.  "<i>Hey, I was thinkin\'... do you like, wanna be gym partners? I need to lose weight badly, and I think – I know I can do it if I\'m with someone like you.</i>"\n\n', false );
 				//[Accept][Decline];
-				EngineCore.doYesNo( this.acceptBeingLottiesHamSandwich, this.declineBeingLottiesGymHamsandwich );
+				EngineCore.doYesNo( this, this.acceptBeingLottiesHamSandwich, this, this.declineBeingLottiesGymHamsandwich );
 			}
 			//[If Don't Meet Full Requirements];
 			else {
 				EngineCore.outputText( '"<i>Oh, uh... thanks! Hey, listen – I gotta go start my yoga class now, but it was pretty great letting it all out with you. We should run into each other again sometime!</i>"  The girl flashes a grin and jogs towards the showers.  "<i>My name\'s Lottie, by the way!</i>"\n\n', false );
 				EngineCore.outputText( 'You aren\'t really doing much else here, so you decide to return home.', false );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00299 ] === 0 && (CoC.player.isNaga() || CoC.player.isTaur() || CoC.player.tone < 50) ) {
 				EngineCore.outputText( '"<i>Hey, ' + CoC.player.short + '! I...I\'m really glad I talked about myself with you, you\'re a really great friend, y\'know. I really think I can achieve something this time, if I work hard!</i>" You smile and tell her how glad you are that she\'s doing this. Lottie responds with a delighted expression, and continues to talk. "<i>Anyway, I\'ve been trying to look for a personal trainer, but it\'s kinda difficult, heh. I mean... I\'m sure there\'s lots of trainers here and all, but I – I\'d prefer someone I know personally, right?</i>" She looks up at you expectantly, but then looks back towards the floor. </i>"But I guess we can\'t always have what we want.</i>"\n\n', false );
 				//(Note: No options but 'leave' are available until you meet requirements.);
-				EngineCore.choices( '', null, '', null, '', null, '', null, 'Leave', SceneLib.telAdre.gymDesc );
+				EngineCore.choices( '', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.telAdre, SceneLib.telAdre.gymDesc );
 				return;
 			}
 			//[Normal Encounter, If became met requirements];
@@ -200,7 +200,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 				if( EngineCore.silly() && CoC.player.cor >= 80 ) {
 					comedy1 = this.gotInShapeComedyDeclineLottie;
 				}
-				EngineCore.choices( 'Yes', this.gotInShapeAcceptTrainingOffer, 'No', this.gotInShapeButTurnedDownLottie, 'God No', comedy1, '', null, '', null );
+				EngineCore.choices( 'Yes', this, this.gotInShapeAcceptTrainingOffer, 'No', this, this.gotInShapeButTurnedDownLottie, 'God No', this, comedy1, '', null, null, '', null, null );
 				return;
 			}
 			//[Second Encounter, If fucked Lottie];
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ] === 4 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ] === 0 ) {
 				EngineCore.outputText( '"<i>Hey, ' + CoC.player.short + ', it\'s nice to see you again. Um, I... I have this thing I gotta ask you, if you don\'t mind.</i>" You look up at Lottie, your curiosity piqued. "<i>Well, uh! I was at the bar last night, and this lady told me, uh... y\'see, there\'s this, um, this technique. There\'s a technique. A technique for sex.</i>" You smile at her obvious embarrassment while her face turns a brighter pink than usual. You\'re not denying that a girl like Lottie might\'ve had some experience in the sex department, but she\'s clearly uncomfortable with the issue. Still, she presses on. "<i>I just heard that, well, this sex technique, it helps you lose weight, y\'know? And I was thinkin\', what with all the exercise we\'re doing... what about sex?</i>" Lottie leans forward, crushing her breasts against the table while she tries to stare an answer out of you. Her awkward forwardness is cute, if anything. Do you take her up on the offer, or is it easier just to be exercise buddies?', false );
 				//[Sex][Buddies];
-				EngineCore.choices( 'Sex', this.fourthMeetingChooseSexWithLottie, 'Buddies', this.stayLottieBuds4Evah, '', null, '', null, '', null );
+				EngineCore.choices( 'Sex', this, this.fourthMeetingChooseSexWithLottie, 'Buddies', this, this.stayLottieBuds4Evah, '', null, null, '', null, null, '', null, null );
 				return;
 			}
 			//[Encouragement moved from 31 to 30, first time];
@@ -333,8 +333,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			}
 		}
 		//[Appearance][Talk][Exercise][Give Item][Sex][Hug];
-		EngineCore.choices( 'Appearance', this.lotteryAppearance, 'Talk', this.talkToPigSlut, 'Exercise', this.lottieExercise, 'Give Item', item, 'Sex', sex,
-			'Hug', hug, '', null, '', null, '', null, 'Leave', SceneLib.telAdre.gymDesc );
+		EngineCore.choices( 'Appearance', this, this.lotteryAppearance, 'Talk', this, this.talkToPigSlut, 'Exercise', this, this.lottieExercise, 'Give Item', this, item, 'Sex', this, sex,
+			'Hug', this, hug, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.telAdre, SceneLib.telAdre.gymDesc );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00300 ] = this.lottieMorale();
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] === 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] = this.lottieTone();
@@ -354,7 +354,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You tell Lottie you\'ve decided you\'re going to take her for a vigorous work out. She can only pant with anticipation.\n\n', false );
 		//[Oral][Anal] – [After scenes, options for 'sex' and 'give item' are opened up.];
 		//Use same as other first time sex I presume;
-		EngineCore.choices( 'Oral', this.getSuckedOffByAHamSandwich, 'Anal', this.analLottieMilkshake, '', null, '', null, '', null );
+		EngineCore.choices( 'Oral', this, this.getSuckedOffByAHamSandwich, 'Anal', this, this.analLottieMilkshake, '', null, null, '', null, null, '', null, null );
 	};
 	//[Buddies];
 	Lottie.prototype.stayLottieBuds4Evah = function() {
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell her you\'re more comfortable with staying buddies, and that turning the relationship into a sexual one would probably be more trouble than it\'s worth. Lottie nods, understanding but also showing slight disappointment at your decision. "<i>I see... you\'re totally right! You\'re absolutely – that\'s the correct-est thing I\'ve heard all day, y\'know?</i>" She chuckles half-heartedly, but you can only frown at her attempt to avoid the situation. You tell her that you\'re sorry, but there\'s no reason that you both can\'t be gym buddies anymore. The more you continue to shut her down, the more despondent Lottie appears. Eventually, she seems to be on the verge of crying. "<i>I... I\'m sorry, I just...I thought...</i>" Grabbing her glass of water, you take Lottie outside of the gym and into the grassy track to sit down. It\'s empty at the moment, so the silence of the night calms her down. You tell her to relax, that you\'re flattered, and that you think she\'s still beautiful – anything that\'d make her feel better right now. You didn\'t think she\'d take such a strong reaction to being turned down for something like sex, but that\'s Lottie for you – she\'s as sensitive as a peach. Maybe this was an important thing to her? You mull it over for a while, Lottie sitting next to you, tired already. You take one last look at her before wrapping your arm around her shoulders and pulling her closer to you, commenting on how brave she was for even asking you in the first place – not many people can be so forward. The girl remains quiet, but moves closer to rest on her head on your chest. It\'s a bad idea to keep her this close, but you know she needs it right now. You continue talking, the vibrations of your voice lulling Lottie into a deep sleep.\n\n', false );
 		EngineCore.outputText( 'A while later and you both sit at the entrance to the gym, Lottie having calmed down a considerable amount. "<i>Thanks, ' + CoC.player.short + ', I know I\'m just overreacting, but...</i>" she sighs. "<i>I don\'t know. I don\'t know what I\'d do without you, ' + CoC.player.mf( 'big guy', 'babe' ) + '.</i>" You give her one last hug before parting ways. She\'ll be fine in the morning.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Decline];
 	Lottie.prototype.declineBeingLottiesGymHamsandwich = function() {
@@ -371,7 +371,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '"<i>O-oh, um... okay. I understand! You\'re probably busy what with all that lifting you\'re getting up to, haha!</i>" The pig girl chuckles nervously, shifting her towel to cover more of her soft cleavage.  "<i>I\'ll uh – I\'ll go get outta your hair then. I\'ve got some stuff to do at home.</i>"  You watch as she jogs off through the door and out into Tel\'Adre, towel and all.  You decide you better return home too, and head back towards the camp.', false );
 		//[PC no longer encounters Lottie.];
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00278 ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Accept];
 	Lottie.prototype.acceptBeingLottiesHamSandwich = function() {
@@ -391,7 +391,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '<b>...</b>\n', false );
 		EngineCore.outputText( 'An hour later, both you and Lottie are running along the track. She\'s clearly focused on matching your speed, but after a few minutes she tires herself out and begins to lightly jog. You pull back and wait for her to catch up to you and then power walk with her for the next lap or so, making light conversation when possible. After another lap, you both decide to take a break, Lottie bouncing happily at her progress today. You sit down on the bench and reach over to one of the cups of water you poured out for yourself and Lottie, when you spy another cup filled with a pink, bubbly liquid. The color itself isn\'t all that enticing, but your curiosity is piqued nonetheless. Is it an energy drink? You pick the cup with your free hand and smell its contents. It has a sweet, intoxicating scent similar to strawberries, or bubblegum. Immediately you begin to feel dizzy. You know this isn\'t any ordinary protein shake. You look back at your water. You\'re really thirsty... do you play it safe with the water, or take the enticingly peculiar shake?', false );
 		//[Water][Shake];
-		EngineCore.choices( 'Water', this.drinkWaterWithYourHamhock, 'Shake', this.drinkLustWithYourHamhock, '', null, '', null, '', null );
+		EngineCore.choices( 'Water', this, this.drinkWaterWithYourHamhock, 'Shake', this, this.drinkLustWithYourHamhock, '', null, null, '', null, null, '', null, null );
 	};
 	//Followups to this: outputText('"<i>Hey, ' + CoC.player.short + '! I was just... I...</i>"Lottie seems to be at a loss of words, gaping at your new, chiselled physique. You smile and tell her how glad you are that she\'s doing this, thought it\'s a shame she hasn\'t found a personal trainer yet. Lottie responds with a hazy expression and an open mouth. "<i>Y-yeah... it\'s a shame...</i>" She begins, until snapping out of her daze and looking up excitedly at you. "<i>I- Y\'know, I don\'t know what you\'ve been doing to yourself lately, but... you look a... you\'re really amazing right now, ' + CoC.player.mf('big guy','babe') + '!</i>" She squeals as you flex at her, giggling at your blatant attempts at showing off. You never really took her as one to appreciate muscles, but you figure her obsession towards the perfect body might extend to other people as well. You take one stern look at the chubby porcine in front of you and grin, asking if she wants you to be her personal trainer. She seems shocked at your proposal. </i>"Are... are you serious?</i>"\n\n', false);;
 	//If No];
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '"<i>O-oh, um... okay. I understand! You\'re probably busy what with all that lifting you\'re getting up to, haha!</i>" The pig girl chuckles nervously, shifting her towel to cover more of her soft cleavage. "<i>I\'ll uh – I\'ll go get outta your hair then. I\'ve got some stuff to do at home.</i>" You watch as she jogs off through the door and out into Tel\'Adre, towel and all. You decide you\'d better return home too, and head back towards the camp.', false );
 		//[PC no longer encounters Lottie.];
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00278 ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If God No];
 	Lottie.prototype.gotInShapeComedyDeclineLottie = function() {
@@ -409,7 +409,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'Haha, of course you fucking aren\'t, why would you be? Lottie stares at you, tears welling in her eyes. Oh, whoops – you must\'ve said that out loud. Proceeding to not give two shits about the bawling pig-slut in front of you, you take a good squeeze of her cushiony tits before whipping your ' + Descriptors.cockDescript( CoC.player.biggestCockIndex() ) + ' out and slapping her in the face with it.  "<i>W-w-why... why are you... *sniff* p-please...!</i>" The pig girl chokes in between sobs. It almost gives you a hard on - almost. You take one final step backwards, before announcing quite loudly to the other cafe-goers that you\'re going for a home run. Lottie squeaks before you take your ' + Descriptors.cockDescript( CoC.player.biggestCockIndex() ) + ' and swing at her face, hitting dead on and managing to leave a bit of pre-cum on her newly-christened cheek. You stand triumphantly at your latest work of art, though Lottie seems to have other ideas, running out the door in complete misery, pre-cum and all. You decide you\'d better return home too, and head back towards the camp – but not before spending the next hour or so chasing after Lottie and taking grabs at her plush ass.', false );
 		//[PC no longer encounters Lottie.];
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00278 ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Yes];
 	Lottie.prototype.gotInShapeAcceptTrainingOffer = function() {
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '...\n\n', false );
 		EngineCore.outputText( 'A half-hour later, both you and Lottie are running along the track. She\'s clearly focused on matching your speed, but after a few minutes she tires herself out and begins to jog. You pull back and wait for her to catch up to you and then power walk with her for the next lap or so, making light conversation when possible. After another lap, you both decide to take a break, Lottie bouncing happily at her progress today. You sit down on the bench and reach over to one of the cups of water you poured out for yourself and Lottie when you spot another cup filled with a pink, bubbly liquid. The color itself isn\'t all that enticing, but your curiosity is piqued nonetheless. Is it an energy drink? You pick the cup up with your free hand and smell its contents. It has a sweet, intoxicating scent similar to strawberries, or bubblegum. You immediately begin to feel dizzy. You know this isn\'t any ordinary protein shake. You look back at your water. You\'re really thirsty... do you play it safe with the water, or take the enticingly peculiar shake?', false );
 		//[Water][Shake];
-		EngineCore.choices( 'Water', this.drinkWaterWithYourHamhock, 'Shake', this.drinkLustWithYourHamhock, '', null, '', null, '', null );
+		EngineCore.choices( 'Water', this, this.drinkWaterWithYourHamhock, 'Shake', this, this.drinkLustWithYourHamhock, '', null, null, '', null, null, '', null, null );
 		//[Both options are the same as the initial encounter ones];
 	};
 
@@ -447,7 +447,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		EngineCore.outputText( 'Lottie it\'s a great way to meet new people.\n\n', false );
 		EngineCore.outputText( 'She seems to loosen up around the response, and eventually goes back to her friendly, albeit incredibly naive, demeanor. You both leave through the front of the gym a short time later – it\'s pretty dark at this point. Before you turn back home though, Lottie stops you. "<i>Hey, y\'know, I... I really had a lot of fun. I had no idea that gyms could be this great!</i>" she beams, punching you in the shoulder before retracting her hand in slight pain. You decide to give her a thumbs up and a cheesy grin before walking away into the night, happy with the new friendship you\'ve made.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Shake];
 	Lottie.prototype.drinkLustWithYourHamhock = function() {
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.dynStats( 'lus', 99 );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ]++;
 		//[Oral][Anal];
-		EngineCore.choices( 'Oral', this.getSuckedOffByAHamSandwich, 'Anal', this.analLottieMilkshake, '', null, '', null, '', null );
+		EngineCore.choices( 'Oral', this, this.getSuckedOffByAHamSandwich, 'Anal', this, this.analLottieMilkshake, '', null, null, '', null, null, '', null, null );
 	};
 	//[If Anal];
 	Lottie.prototype.analLottieMilkshake = function() {
@@ -538,7 +538,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		EngineCore.outputText( CoC.player.modTone( 100, 1 ), false );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Oral];
 	Lottie.prototype.getSuckedOffByAHamSandwich = function() {
@@ -669,7 +669,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		EngineCore.outputText( CoC.player.modTone( 100, 1 ), false );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Appearance];
 	Lottie.prototype.lotteryAppearance = function() {
@@ -737,7 +737,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			EngineCore.outputText( '. Physique-wise, Lottie is in excellent shape, her curvy figure drawing the eyes of many males in the vicinity. Her hard work has definitely paid off. Of the few pig people you have seen around Tel\'Adre, she is definitely the most conventionally attractive by far. What fat she does have is focused on her perky d-cups, girly thighs and cute ass, her flat stomach showcasing her shapely abdominal muscles that are more than capable of supporting the weight of her upper body. Her heart-shaped face is complimented by her button nose and soft lips, framed by her pink-gray hair, which ends in small curls. A small, coiled tail rests above her rump.', false );
 		}
 		//Back to lottery menu;
-		EngineCore.doNext( this.encounterLottie );
+		EngineCore.doNext( this, this.encounterLottie );
 	};
 	Lottie.prototype.lottieTone = function( dif ) {
 		if( dif === undefined || dif === 0 ) {
@@ -782,62 +782,62 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00306 ] = 2;
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, but you can tell she\'s otherwise gloomy. You ask her what\'s wrong. "<i>That obvious, huh?</i>" Lottie looks down onto the table.  "<i>Y\'see, ' + CoC.player.mf( 'big guy', 'babe' ) + ', ever since I... you know, I\'ve actually - I\'ve gained weight!</i>"  She stands up, her chubby cheeks puffed out in frustration. "<i>I mean, i-it\'s not like I didn\'t enjoy it or anything, but... it seems to be having the opposite effect of what I want!</i>" She\'s clearly annoyed, but you place your hand on her shoulder. Do you encourage her, or is it her own fault?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.firstOralReactionChooseEncourage, 'Abuse', this.firstOralReactionChooseAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.firstOralReactionChooseEncourage, 'Abuse', this, this.firstOralReactionChooseAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//[If 1st Time Anal];
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00307 ] === 1 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00307 ] = 2;
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, she seems to be pretty excited about something. You ask her what\'s on her mind. "<i>That obvious, huh?</i>" Lottie looks up at you and grins.  "<i>Y\'see, ' + CoC.player.mf( 'big guy', 'babe' ) + ', ever since we... you know, I\'ve actually – I\'ve lost weight!</i>" She stands up, pumping her fist in the air and wiggling her plump ass. "<i>I mean, I know it\'s not a big difference, but it\'s still a result! This is amazing!</i>" She\'s clearly pleased with herself. You place a hand on her shoulder, and she beams at you. Do you encourage her, or break the bad news?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.firstAnalReactionChooseEncourage, 'Abuse', this.firstAnalReactionChooseAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.firstAnalReactionChooseEncourage, 'Abuse', this, this.firstAnalReactionChooseAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//FATNESS;
 		//[If Gained Weight since Last Encounter, Encouragement 0 - 30];
 		else if( this.lottieMorale() <= 30 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] - 5 > this.lottieTone() ) {
 			EngineCore.outputText( 'You tell her you want to talk, though the girl only winces in response, shying away from your stern gaze. The nervous pig-slut knows from experience how most of your \'talks\' usually end – with a sobbing, miserable little piggy.  In the sweetest voice you can muster, you ask her how your favorite girl is doing. Lottie hesitates before facing you again – you know she hates it when you use that voice, and she definitely seems to be hiding something now. You tell her to spill what\'s on her mind.  "<i>W-well, you see...</i>" Lottie squeaks, fumbling her fingers as she gathers the courage to speak up.  "<i>Y\'see, ' + CoC.player.mf( 'sir', 'ma\'am' ) + ', since we last m-met, I\'ve actually – I\'ve actually...</i>" She mumbles the rest of the sentence, but you demand her to repeat it. "<i>... I\'ve gained w-weight.</i>" The girl immediately flinches, expecting a backlash from you at any moment. Before long, she slowly raises her head to find you staring. You grab her by the chin, the girl moaning at your touch. Do you congratulate her, or break the bad news?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.lottieLowMoraleWeightGainEncourage, 'Abuse', this.lottieLowMorealeWeightGainAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieLowMoraleWeightGainEncourage, 'Abuse', this, this.lottieLowMorealeWeightGainAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Gained Weight since Last Encounter, Encouragement 30 - 70];
 		else if( this.lottieMorale() <= 70 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] - 5 > this.lottieTone() ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, but you can tell she\'s otherwise gloomy. You ask her what\'s wrong. "<i>That obvious, huh?</i>" Lottie looks down onto the table.  "<i>Y\'see, ' + CoC.player.mf( 'big guy', 'babe' ) + ', ever since we last met, I\'ve actually - I\'ve gained weight!</i>" She stands up, her chubby cheeks puffed out in frustration. "<i>I mean, i-it\'s not like I\'m angry at you or anything, but... I\'m just a little frustrated, that\'s all.</i>" She\'s clearly more than a little frustrated, but you place your hand on her shoulder. Do you encourage her, or is it her own fault?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.lottieMediumMoraleWeightGainEncourage, 'Abuse', this.lottieMediumMorealeWeightGainAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieMediumMoraleWeightGainEncourage, 'Abuse', this, this.lottieMediumMorealeWeightGainAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Gained Weight since Last Encounter, Encouragement 70 – 100, convinced 'Bigger is Better'];
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] - 5 > this.lottieTone() && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00297 ] === 1 ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, though she seems rather distracted by something. You ask her what\'s wrong. "<i>Oh babe, it\'s really nothing...</i>" Lottie looks up and smiles, but your questioning gaze earns another answer. "<i>Dang, y\'see ' + CoC.player.mf( 'big guy', 'babe' ) + ', ever since we last met, I\'ve gone ahead and gained a bit more weight...</i>" She remains in her chair, resting her face between her arms, though her chubby cheeks remain puffed out in frustration. "<i>I mean, I love my body and I love you, but... it gets to me sometimes, y\'know?</i>" She\'s clearly more than a little frustrated, but you place your hand on her shoulder, rubbing it gently. Do you encourage her, or is it her own fault?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.lottieHighMoraleWeightGainFATTYLOVESIT, 'Abuse', this.lottieHighMoraleWeightGainFATTYLOVESABUSE, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieHighMoraleWeightGainFATTYLOVESIT, 'Abuse', this, this.lottieHighMoraleWeightGainFATTYLOVESABUSE, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Gained Weight since Last Encounter, Encouragement 70 - 100];
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] - 5 > this.lottieTone() ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, though she seems rather distracted by something. You ask her what\'s wrong. "<i>Oh babe, it\'s really nothing...</i>" Lottie looks up and smiles, but your questioning gaze earns another answer. "<i>Dang, well, y\'see ' + CoC.player.mf( 'big guy', 'babe' ) + ', ever since we last met, I\'ve gone ahead and gained weight!</i>" She stands up, her chubby cheeks puffed out in frustration. "<i>I mean, i-it\'s not like I\'m angry at you or anything, but... I\'m just a little frustrated, that\'s all.</i>" She\'s clearly more than a little frustrated, but you place your hand on her shoulder. Do you encourage her, or is it her own fault?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.lottieHighMoraleWeightGainEncourage, 'Abuse', this.lottieHighMoraleWeightGainAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieHighMoraleWeightGainEncourage, 'Abuse', this, this.lottieHighMoraleWeightGainAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//DEFATNESS;
 		//[If Lost Weight since Last Encounter, Encouragement 0 - 30];
 		else if( this.lottieMorale() <= 30 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] < this.lottieTone() - 5 ) {
 			EngineCore.outputText( 'You tell her you want to talk, though the girl only winces in response, shying away from your stern gaze. The nervous pig-slut knows from experience how most of your \'talks\' usually end – with a sobbing, miserable little piggy.  In the sweetest voice you can muster you ask her how your favorite girl is doing. Lottie hesitates before facing you again – you know she hates it when you use that voice, but she also seems to be vaguely excited about something. You tell her to spill what\'s on her mind. "<i>W-well, you see...</i>" Lottie looks up at you and manages the tiniest smile. "<i>Y\'see, ' + CoC.player.mf( 'sir', 'ma\'am' ) + ', since we last m-met, I\'ve actually – I\'ve lost weight!</i>" Her minute expression turns into a full blown grin, though immediately fades as soon as she realizes what she\'s done. "<i>No, I\'m – I\'m sorry, I didn\'t... I got ahead of myself again, I was being stupid, I was-</i>"  You cut her off by placing a finger to her lips. She moans at your touch, though squeals at your intention. Do you congratulate her, or break the bad news?', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.lottieLowMoraleWeightLossEncourage, 'Abuse', this.lottieLowMoraleWeightLossAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieLowMoraleWeightLossEncourage, 'Abuse', this, this.lottieLowMoraleWeightLossAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Lost Weight since Last Encounter, Encouragement 30 - 70];
 		else if( this.lottieMorale() <= 70 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] < this.lottieTone() - 5 ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk; she seems to be pretty excited about something. You ask her what\'s on her mind.  "<i>That obvious, huh?</i>" Lottie looks up at you and grins. "<i>Y\'see babe, since the last time we met, I\'ve actually – I\'ve lost weight!</i>" She stands up, pumping her fist in the air and wiggling her plump ass. "<i>I mean, I know it\'s not a big difference, but it\'s still a result! This is amazing!</i>" She\'s clearly pleased with herself. You place a hand on her shoulder, and she beams at you. Do you encourage her, or break the bad news?\n\n', false );
 			//[Encourage][Abuse];
-			EngineCore.choices( 'Encourage', this.lottieMediumMoraleWeightLossEncourage, 'Abuse', this.lottieMediumMoraleWeightLossAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieMediumMoraleWeightLossEncourage, 'Abuse', this, this.lottieMediumMoraleWeightLossAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Lost Weight since Last Encounter, Encouragement 70 – 100, convinced 'Bigger is Better'];
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] < this.lottieTone() - 5 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00297 ] === 1 ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk; she seems to be pretty concerned about something. You ask her what\'s on her mind. "<i>Haha, that obvious, babe?</i>" Lottie looks up at you and smiles politely. "<i>Y\'see babe, since the last time we met, I\'ve actually – I\'ve lost weight.</i>" She sits, curling a strand of hair through her finger. "<i>I mean, I like my body how it is, and... and I don\'t want to change it, y\'know? Especially if it means losing you.</i>" She\'s clearly concerned about your reaction. You place a hand on her shoulder, and she sighs. Do you mind, or do you decide to break the bad news?', false );
-			EngineCore.choices( 'Encourage', this.lottieHighMoraleWeightLossFATTYLOVESIT, 'Abuse', this.lottieHighMoraleWeightLossFATTYLOVESABUSE, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieHighMoraleWeightLossFATTYLOVESIT, 'Abuse', this, this.lottieHighMoraleWeightLossFATTYLOVESABUSE, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Lost Weight since Last Encounter, Encouragement 70 - 100];
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] < this.lottieTone() - 5 ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk; she seems to be pretty excited about something. You ask her what\'s on her mind.  "<i>That obvious, huh?</i>" Lottie looks up at you and grins. "<i>Y\'see babe, since the last time we met, I\'ve actually – I\'ve lost weight!</i>" She stands up, pumping her fist in the air and wiggling her plump ass. "<i>I mean, I know it\'s not a big difference, but it\'s still a result! This is amazing!</i>" She\'s clearly pleased with herself. You place a hand on her shoulder, and she beams at you. Do you encourage her, or break the bad news?\n\n', false );
-			EngineCore.choices( 'Encourage', this.lottieHighMoraleWeightLossEncourage, 'Abuse', this.lottieHighMoraleWeightLossAbuse, '', null, '', null, '', null );
+			EngineCore.choices( 'Encourage', this, this.lottieHighMoraleWeightLossEncourage, 'Abuse', this, this.lottieHighMoraleWeightLossAbuse, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Encouragement = 0, Figure = 0, first time];
 		else if( this.lottieMorale() === 0 && this.lottieTone() === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00309 ] === 0 ) {
@@ -848,7 +848,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			if( EngineCore.silly() ) {
 				comedy1 = this.lottieFatLoserCulminationLeaveComedyChoice;
 			}
-			EngineCore.choices( 'To Fuck', this.lottieFatLoserCulminationFuckChoice, 'To Humiliate', this.lottieFatLoserCulminationHumiliationChoice, 'To Leave', comedy1, '', null, '', null );
+			EngineCore.choices( 'To Fuck', this, this.lottieFatLoserCulminationFuckChoice, 'To Humiliate', this, this.lottieFatLoserCulminationHumiliationChoice, 'To Leave', this, comedy1, '', null, null, '', null, null );
 		}
 		//[If Encouragement =100, Figure =0, first time];
 		else if( this.lottieMorale() === 100 && this.lottieTone() === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00312 ] === 0 ) {
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			if( EngineCore.silly() ) {
 				comedy1 = this.ewLottieNo;
 			}
-			EngineCore.choices( 'Love Self', this.lottieHighMoraleFatLoveSelfOneTimeEvent, 'StickWithIt', this.lottieHighMoraleFatYoullGetThereOneTimeEvent, 'EwLottieNo', comedy1, '', null, '', null );
+			EngineCore.choices( 'Love Self', this, this.lottieHighMoraleFatLoveSelfOneTimeEvent, 'StickWithIt', this, this.lottieHighMoraleFatYoullGetThereOneTimeEvent, 'EwLottieNo', this, comedy1, '', null, null, '', null, null );
 		}
 		//[If Encouragement = 0, Figure = 100, first time];
 		else if( this.lottieMorale() === 0 && this.lottieTone() === 100 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00315 ] === 0 ) {
@@ -872,36 +872,36 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			if( EngineCore.silly() ) {
 				comedy1 = this.charlottesWebComedyBullshit;
 			}
-			EngineCore.choices( 'Threesome', this.lottieElleThreesomeFirstTime, 'Just Elle', this.fuckElleInsteadOfThatFatSlutFirstTime, 'Oh,IGetIt!', comedy1, '', null, '', null );
+			EngineCore.choices( 'Threesome', this, this.lottieElleThreesomeFirstTime, 'Just Elle', this, this.fuckElleInsteadOfThatFatSlutFirstTime, 'Oh,IGetIt!', this, comedy1, '', null, null, '', null, null );
 		}
 		//[If Encouragement = 100, Figure = 100, first time];
 		else if( this.lottieMorale() === 100 && this.lottieTone() === 100 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00318 ] === 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00318 ] = 1;
 			EngineCore.outputText( 'You tell Lottie that you want to talk, though the girl seems too distracted by something else. She looks up at you, and judging by her excited jittering and giant smile, the girl appears to be on the verge of exploding in happiness. You grin and ask cautiously if she has anything on her mind. "<i>Oh, babe!</i>" she cries out, jumping out of her seat to hug-tackle you onto the ground, planting kisses all over your face. A few of the cafe-goers seem to look your way, chuckling at Lottie\'s embarrassing outburst. "<i>Back when I first met you, I made myself an invisible goal to achieve while you were here.</i>" She smiles, straddling you on the floor while you nod helplessly. "<i>I just weighed myself this morning and... and I...</i>" The pig-girl looks up at you, before smooching you directly on the lips. You ask if something good happened, to which she laughs heartily. "<i>Oh babe, something amazing happened! I\'ve blown past my goal! It\'s wonderful, I just... I never would\'ve been able to do this without you.</i>" You reassure her that with enough time she would, but you\'re glad she feels that way. "<i>In fact,</i>" Lottie smiles slyly, removing herself from you while you pick yourself up off the floor. "<i>I want to thank you properly.</i>" Reaching down, Lottie cups ' + CoC.player.oMultiCockDesc() + ' and squeezes gently, stirring the beast within. "<i>Meet me in the yoga room,</i>" she purrs before walking out of the cafe.', false );
 			//[Yoga Room][Leave];
-			EngineCore.choices( 'Yoga Room', this.lottieSuccessOneShot, 'Leave', this.leaveLottieInsteadOfYogaSex, '', null, '', null, '', null );
+			EngineCore.choices( 'Yoga Room', this, this.lottieSuccessOneShot, 'Leave', this, this.leaveLottieInsteadOfYogaSex, '', null, null, '', null, null, '', null, null );
 		}
 		//If Neither, Encouragement 0 - 30];
 		else if( this.lottieMorale() <= 30 ) {
 			EngineCore.outputText( 'You tell her you want to talk, though the girl only winces in response, shying away from your stern gaze. The nervous pig-slut knows from experience how most of your \'talks\' usually end – with a sobbing, miserable little piggy.  In the sweetest voice you can muster you ask her how your favorite girl is doing. Lottie hesitates before facing you again – you know she hates it when you use that voice, but she doesn\'t seem to have anything important to say. Regardless, you tell her to spill what\'s on her mind. "<i>W-well, you see...</i>" Lottie looks up at you and manages the tiniest smile. "<i>Y\'see, ' + CoC.player.mf( 'sir', 'ma\'am' ) + ', nothing\'s really happened since we last met...</i>" She seems apologetic over the lack of news, babbling about how she\'ll do her best today.\n\nWithout much to go on, you can\'t really comment on her progress.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[If Neither, Encouragement 30 - 70];
 		else if( this.lottieMorale() <= 70 ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, though she doesn\'t seem to have much on her mind. Regardless, you ask how she\'s been doing. "<i>Haha, a bit curious, are we?</i>" Lottie looks up at you and grins. "<i>Well, I\'m afraid nothing\'s really happened since we last met y\'know? Maybe today we can get some results!</i>" she stands up, pumping her fist in the air and wiggling her plump ass. "<i>And if you want... we could go do some yoga, eheh...</i>" She\'s clearly quite antsy. You chuckle at her comment, though you feel a familiar sensation stirring in your groin.', false );
 			EngineCore.dynStats( 'lus', 2 );
 			EngineCore.outputText( 'Without much to go on, you can\'t really comment on her progress.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//[If Neither, Encouragement 70 - 100];
 		else if( this.lottieMorale() <= 100000 ) {
 			EngineCore.outputText( 'Her ears perk up at your eagerness to talk, though she doesn\'t seem to have much on her mind. Regardless, you ask how she\'s been doing. "<i>Haha, you really that interested in me, babe?</i>" Lottie looks up at you and grins. "<i>Well, I\'m afraid nothing\'s really happened since we last met y\'know? I don\'t mind, but hey – you get what you get!</i>" she stands up, grinning slyly before turning around and wiggling her plump ass at you. "<i>And if you want... we could go do some yoga, eheh...</i>" She\'s clearly quite antsy. You reach over and slap her bouncing butt, Lottie squealing in return. You both chuckle at her comment, though you feel a familiar sensation stirring in your groin.\n\n', false );
 			EngineCore.dynStats( 'lus', 2 );
 			EngineCore.outputText( 'Without much to go on, you can\'t really comment on her progress.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( '<b>SHIT BUGGED OUT SON.</b>', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00308 ] = this.lottieTone();
 	};
@@ -914,7 +914,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.firstOralReactionChooseAbuse = function() {
@@ -923,7 +923,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You tell Lottie your methods never fail, and if something happened that wasn\'t supposed to, it\'s her that\'s at fault. She looks up at you, shocked at your outburst. Lost for words, her eyes begin to well up. "<i>I... god, I\'m so stupid! Of course it was me! It\'s always me!</i>" She cries softly to herself, pushing your hand off her shoulder and burying her head in her arms. "<i>I wasted your time! I\'m... I\'m...</i>" Before she finishes her sentence, you walk away from the cafe, content with what you\'ve done. You don\'t stop hearing her whimpering voice until you leave the gym, returning back to camp – strangely satisfied.', false );
 		//ENCOURAGEMENT -2;
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.firstAnalReactionChooseEncourage = function() {
@@ -934,7 +934,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.firstAnalReactionChooseAbuse = function() {
@@ -943,7 +943,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You sneer at Lottie, sternly reminding her that she\'s nowhere near her goal the way she is now – and a few pounds isn\'t going to change anything. In fact, she probably just measured herself in the morning, and it\'s likely she hasn\'t lost any weight at all, being the pig she is. Lottie doesn\'t seem to have anything to say. She stares at you, wondering where this all came from. After a few seconds of silence, she breaks into sobs, pushing herself out of her chair and running away from the gym. You know she\'ll come back, though. Deciding you\'re done here, you return back to camp – strangely satisfied.', false );
 		//ENCOURAGEMENT -2;
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieLowMoraleWeightGainEncourage = function() {
@@ -954,7 +954,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.lottieLowMorealeWeightGainAbuse = function() {
@@ -964,7 +964,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '<b>...</b>\nAfter a good workout, you decide to return back to camp, exhausted.', false );
 		this.lottieMorale( -10 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieMediumMoraleWeightGainEncourage = function() {
@@ -975,7 +975,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//If Abuse];
 	Lottie.prototype.lottieMediumMorealeWeightGainAbuse = function() {
@@ -983,7 +983,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell Lottie your methods never fail, and if something happened that wasn\'t supposed to, it\'s her that\'s at fault. She looks up at you, shocked at your outburst. Lost for words, her eyes begin to well up. "<i>I... god, I\'m so stupid! Of course it was me! It\'s always me!</i>" She cries softly to herself, pushing your hand off her shoulder and burying her head in her arms. "<i>I wasted your time! I\'m... I\'m...</i>" Before she finishes her sentence, you walk away from the cafe, content with what you\'ve done. You don\'t stop hearing her whimpering voice until you leave the gym, returning back to camp – strangely satisfied.', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieHighMoraleWeightGainEncourage = function() {
@@ -994,7 +994,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.lottieHighMoraleWeightGainAbuse = function() {
@@ -1003,7 +1003,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You frown, tightening your grip on her shoulder. "<i>H-hey, what\'s the big idea?</i>" she asks, brushing your grip away and standing up to face you. "<i>I know you\'re probably just as annoyed as I am, but there\'s no reason to start being a jerk, y\'know?</i>" But you do know, you tell her, gritting your teeth at her outburst. You know that without proper discipline, there\'s only one road this is going to lead to. She swallows hard, wondering what direction you\'re planning on taking the conversation. But you don\'t plan on talking any further. In one swift movement, you lurch forward, punching Lottie directly in the stomach, winding her and causing the pig-girl to crumple onto the floor, writhing in pain. You tell her not to gain weight anymore, if she knows what\'s good for her. She sobs quietly back at you.\n\n', false );
 		EngineCore.outputText( 'Deciding you\'re done here, you return back to camp – strangely satisfied.', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieHighMoraleWeightGainFATTYLOVESIT = function() {
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.lottieHighMoraleWeightGainFATTYLOVESABUSE = function() {
@@ -1023,7 +1023,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You frown, tightening your grip on her shoulder. "<i>H-hey, what\'s the big idea?</i>" she asks, brushing your grip away and standing up to face you. "<i>I know you\'re probably just as annoyed as I am, but there\'s no reason to start being a jerk, y\'know?</i>" But you do know, you tell her, gritting your teeth at her outburst. You know that without proper discipline, there\'s only one road this is going to lead. She swallows hard, wondering what direction you\'re planning on taking the conversation. But you don\'t plan on talking any further. In one swift movement, you lurch forward, punching Lottie directly in the stomach, winding her and causing the pig-girl to crumple onto the floor, writhing in pain. You tell her that you love to fuck her juicy pig fat, but if she knows what\'s good for her, she\'ll stop gaining more weight. She sobs quietly back at you.\n\n', false );
 		EngineCore.outputText( 'Deciding you\'re done here, you return back to camp – strangely satisfied.', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieLowMoraleWeightLossEncourage = function() {
@@ -1034,7 +1034,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//ENCOURAGEMENT +2;
 		this.lottieMorale( 3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse]f;
 	Lottie.prototype.lottieLowMoraleWeightLossAbuse = function() {
@@ -1042,7 +1042,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You sneer at Lottie, reminding her that being excited over a bit of weight loss is a terrible idea – it\'ll make her lazy. You hate lazy people. Lottie\'s face scrunches up in angst, beating herself up and moaning useless apologies to you. But that\'s simply not enough, you tell her. Deciding to put matters into your own hands, you walk over, Lottie, already anticipating what\'s coming next, wraps herself into a ball in her seat. You quickly grab her head and twist it in your direction, causing Lottie to yell helplessly in response - though you cease her noise immediately with a kiss on the lips. She stares, surprised at your actions, giving you enough time to backhand her out of your seat. She sobs loudly as you walk out of the cafe to return back to camp – strangely satisfied.', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieMediumMoraleWeightLossEncourage = function() {
@@ -1052,7 +1052,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '<b>...</b>\nAfter a good workout, you decide to return back to camp, exhausted.', false );
 		this.lottieMorale( 4 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.lottieMediumMoraleWeightLossAbuse = function() {
@@ -1060,7 +1060,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You sneer at Lottie, sternly reminding her that she\'s nowhere near her goal the way she is now – and a few pounds isn\'t going to change anything. In fact, she probably just measured herself in the morning, and it\'s likely she hasn\'t lost any weight at all, being the pig she is. Lottie doesn\'t seem to have anything to say. She stares at you, wondering where this all came from. After a few seconds of silence, she breaks into sobs, pushing herself out of her chair and running away from the gym. You know she\'ll come back, though. Deciding you\'re done here, you return back to camp – strangely satisfied.\n\n', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieHighMoraleWeightLossEncourage = function() {
@@ -1070,7 +1070,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '<b>...</b>After a good workout, you decide to return back to camp, exhausted.', false );
 		this.lottieMorale( 4 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.lottieHighMoraleWeightLossAbuse = function() {
@@ -1079,7 +1079,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You frown at Lottie, clearly uncomfortable with her eager reaction to her results. You tighten your grip on her shoulder, before she flinches and brushes you off. "<i>Is... is something wrong, ' + CoC.player.short + '?</i>" she asks, standing up to face you. Her brow wrinkles in concern – shouldn\'t you be happy? But you simply aren\'t. You tell her that being at ease with her results only leads in one direction – laziness. And you hate laziness. Despite this, Lottie continues to defend her position. "<i>Look, I don\'t know what\'s gotten into you, but... but I\'m happy with this. And if you aren\'t, then that\'s – it\'s too bad for you!</i>" Too bad, you think, while you deck Lottie in the stomach, causing her to reel over in pain. You tell her that feelings get in the way of progress, and if she can\'t control her emotions – then that\'s just too bad for her.\n\n', false );
 		EngineCore.outputText( 'Deciding you\'re done here, you return back to camp – strangely satisfied.', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Encourage];
 	Lottie.prototype.lottieHighMoraleWeightLossFATTYLOVESIT = function() {
@@ -1089,7 +1089,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '<b>...</b>\nAfter a good workout, you decide to return back to camp, exhausted.', false );
 		this.lottieMorale( 4 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Abuse];
 	Lottie.prototype.lottieHighMoraleWeightLossFATTYLOVESABUSE = function() {
@@ -1098,7 +1098,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You frown at Lottie, clearly uncomfortable with her sudden weight loss. You tighten your grip on her shoulder, before she flinches and brushes you off. "<i>Is... is something wrong, ' + CoC.player.short + '?</i>" she asks, standing up to face you. Her brow wrinkles in concern – she\'s obviously told you this for some support, but it\'s just not something you can forgive. You tell her it\'s taken time to love her for what she is now, and if she\'s suddenly deciding to change her body, then you aren\'t sure what she wants. Lottie looks shocked, but suddenly snaps back in response. "<i>Look, I didn\'t - I just want you to accept me for who I am... and for who I might be. Nothing else – and if you\'re not happy with who I am, then... then...</i>" You stop her, only to grab her ear and pull her close enough to hear you whisper. If you\'re not happy with who she is, you tell her, then you aren\'t sure what you\'re going to do. She sinks into her chair before you bark that you need to get some exercise done.\n\n', false );
 		EngineCore.outputText( '<b>...</b>\nAfter a good workout, you decide to return back to camp, exhausted.', false );
 		this.lottieMorale( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[To Fuck];
 	Lottie.prototype.lottieFatLoserCulminationFuckChoice = function() {
@@ -1124,7 +1124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.dynStats( 'sen', -3, 'cor', 3 );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00310 ] = 1;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[To Humiliate] – (Corruption must be >40);
 	Lottie.prototype.lottieFatLoserCulminationHumiliationChoice = function() {
@@ -1158,7 +1158,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '\n\n(<i>\'Walkies\' unlocked from Lottie\'s sex menu.</i>)', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1, 'cor', 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[To Leave];
 	Lottie.prototype.lottieFatLoserCulminationLeaveComedyChoice = function() {
@@ -1171,7 +1171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
 		CoC.player.cumMultiplier += 100;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Love Yourself];
 	Lottie.prototype.lottieHighMoraleFatLoveSelfOneTimeEvent = function() {
@@ -1213,7 +1213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.dynStats( 'sen', -3, 'cor', -1 );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00313 ] = 1;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[You'll get there];
 	Lottie.prototype.lottieHighMoraleFatYoullGetThereOneTimeEvent = function() {
@@ -1252,7 +1252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3, 'cor', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Ew Lottie No];
 	Lottie.prototype.ewLottieNo = function() {
@@ -1265,7 +1265,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00278 ] = 1;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Threesome];
 	Lottie.prototype.lottieElleThreesomeFirstTime = function() {
@@ -1293,7 +1293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '\n\n(<i>\'Threesome\' unlocked from Lottie\'s sex menu.</i>)', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00316 ] = 1;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Elle] – (Corruption must be >40);
 	Lottie.prototype.fuckElleInsteadOfThatFatSlutFirstTime = function() {
@@ -1336,7 +1336,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00298 ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2, 'cor', 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Oh I Get It];
 	Lottie.prototype.charlottesWebComedyBullshit = function() {
@@ -1351,7 +1351,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00278 ] = 1;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Not Fat];
 	Lottie.prototype.lottieSuccessOneShot = function() {
@@ -1411,7 +1411,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Leave];
 	Lottie.prototype.leaveLottieInsteadOfYogaSex = function() {
@@ -1419,7 +1419,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'As excited as you are, your mind is telling you to leave. In blissful ignorance, you walk out the door of the cafe, through the pool area, into the main gym and out the main entrance. Once outside, you figure it\'s as good a time as any to take a friendly stroll back to the camp.\n\n', false );
 		EngineCore.outputText( 'As you head home, you have the strangest feeling you\'ve missed out on incredibly sexy sex.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Exercise];
 	Lottie.prototype.lottieExercise = function() {
@@ -1436,7 +1436,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '. "<i>Where do you wanna go today, ' + CoC.player.mf( 'guy', 'ma\'am' ) + '?</i>" She responds, as you both walk through the cafe\'s entranceway leading to the rest of the gym. A wall of various weights stands proud amongst the different citizens that make use of it. You spot several jogging tracks, and outside, a large, grassy field mostly occupied by centaurs looking for a nightly run - though other, bipedal gym members try to jog along with them without much success. A large, hidden door hides the entrance to the indoor pool and sauna area, along with the door to the candlelit yoga room. Where do you wish to work out?', false );
 		//[Weights][Jogging][Yoga][Pool];
 		//Pool only available when morale is high;
-		EngineCore.choices( 'Weights', this.lottieWeights, 'Jogging', this.goJoggingWithLottie, 'Yoga', this.lottieYoga, 'Pool', this.lottiePool, '', null );
+		EngineCore.choices( 'Weights', this, this.lottieWeights, 'Jogging', this, this.goJoggingWithLottie, 'Yoga', this, this.lottieYoga, 'Pool', this, this.lottiePool, '', null, null );
 	};
 	//[Weights];
 	Lottie.prototype.lottieWeights = function() {
@@ -1450,13 +1450,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		if( this.lottieTone() <= 70 ) {
 			EngineCore.outputText( 'Lottie looks at you nervously as you tell her you\'ve decided on doing a little lifting today. Obviously not having that in mind, she takes your advice regardless and trots over to the weights, met with the gaze of several other, far more muscular members. Nervously walking along the wall of equipment, she picks up one of the smallest weights and begins lifting as hard as she can, audibly grunting as she manages a few reps. Not wanting to be outdone, you follow her and walk over to the weight gear – many of the other lifters are already snickering as you stand near the smaller weights. Lottie looks over to you nervously, not wanting to embarrass herself. You\'d prefer not to be embarrassed either. Should you pick one of the larger weights and show off your skills, or ignore the lifters and train with Lottie?', false );
 			//[Boast][Train];
-			EngineCore.choices( 'Boast', this.boastAtLottie, 'Train', this.trainWithLottie, 'NTR Lift', NTR, '', null, '', null );
+			EngineCore.choices( 'Boast', this, this.boastAtLottie, 'Train', this, this.trainWithLottie, 'NTR Lift', this, NTR, '', null, null, '', null, null );
 		}
 		//[If Figure 70 - 100];
 		else {
 			EngineCore.outputText( 'Lottie pumps her fist in the air at your suggestion to do a bit of lifting today. Although she isn\'t quite at your level, she\'s skilled enough to not embarrass herself around the other, more skilled gym members hanging around the equipment wall. Walking around the weights, Lottie takes note of the sizes before choosing one suitable to her level, and lifting it at a slow pace, making sure to pace her breaths. Not wanting to be outdone, you follow her and walk over to the weight gear – many of the other lifters are already snickering as you stand near the smaller weights. Lottie looks over to you nervously, not wanting to embarrass herself. You\'d prefer not to be embarrassed either. Should you pick one of the larger weights and show off your skills, or ignore the lifters and train with Lottie?', false );
 			//[Boast][Train];
-			EngineCore.choices( 'Boast', this.boastAtFitLottie, 'Train', this.trainWithFitLottie, '', null, '', null, '', null );
+			EngineCore.choices( 'Boast', this, this.boastAtFitLottie, 'Train', this, this.trainWithFitLottie, '', null, null, '', null, null, '', null, null );
 		}
 	};
 
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.fatigue( 10 );
 		EngineCore.dynStats( 'str', 0.25 );
 		this.lottieMorale( -3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Train];
 	Lottie.prototype.trainWithLottie = function() {
@@ -1487,7 +1487,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieMorale( 2 );
 		this.lottieTone( 2 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Boast];
 	Lottie.prototype.boastAtFitLottie = function() {
@@ -1498,7 +1498,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.dynStats( 'str', 0.25 );
 		this.lottieMorale( -3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Train];
 	Lottie.prototype.trainWithFitLottie = function() {
@@ -1510,7 +1510,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieMorale( 2 );
 		this.lottieTone( 2 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Jogging];
 	Lottie.prototype.goJoggingWithLottie = function() {
@@ -1520,13 +1520,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		if( this.lottieTone() <= 70 ) {
 			EngineCore.outputText( 'You tell Lottie you\'ve decided on jogging, and she nods – running has never been her strong suit, but it\'s still something she can achieve with enough effort. You head out to the track, taking note of the few people running along. A cheetah-morph sprints around the trail with considerable ease, whilst a short, pug-like man simply jogs along quite contently. Once on the track you decide to start off with a brisk walk, Lottie following close behind, her cute body jiggling slightly with each movement. You note that she\'s having no trouble keeping up, so you figure you should pick up the pace. You know it\'d be best for her if you kept it to a light jog, but your own fitness would suffer as a result. Would a more forceful work out benefit the both of you, or is it better to take it easy?\n\n', false );
 			//[Sprint][Jog];
-			EngineCore.choices( 'Sprint', this.sprintAndLeaveLottieBehind, 'Jog', this.jogWithLottie, '', null, '', null, '', null );
+			EngineCore.choices( 'Sprint', this, this.sprintAndLeaveLottieBehind, 'Jog', this, this.jogWithLottie, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Figure 70 - 100];
 		else {
 			EngineCore.outputText( 'You tell Lottie you\'ve decided on jogging, and she happily agrees – she\'s perfectly content with running nowadays, not tiring out as much as she used to. You head out to the tracks, taking note of the few people running along. A cheetah-morph sprints around the trail with considerable ease, whilst a short, pug-like man simply jogs along quite contently. Once on the track you decide to start off with a brisk walk, Lottie following close behind. You note that she\'s having no trouble keeping up, so you figure you should pick up the pace. You know she\'d be fine with a quick run, but your own fitness might suffer as a result. Is it easier to concentrate on your physique with a hard sprint, or would it be better to help Lottie with hers?', false );
 			//[Sprint][Run];
-			EngineCore.choices( 'Sprint', this.sprintAndLeaveFitLottieBehind, 'Jog', this.jogWithFitLottie, '', null, '', null, '', null );
+			EngineCore.choices( 'Sprint', this, this.sprintAndLeaveFitLottieBehind, 'Jog', this, this.jogWithFitLottie, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//[Sprint];
@@ -1538,7 +1538,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.dynStats( 'tou', 0.2, 'spe', 0.25 );
 		this.lottieMorale( -3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Jog];
 	Lottie.prototype.jogWithLottie = function() {
@@ -1549,7 +1549,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieMorale( 2 );
 		this.lottieTone( 2 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Sprint];
 	Lottie.prototype.sprintAndLeaveFitLottieBehind = function() {
@@ -1560,7 +1560,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.dynStats( 'tou', 0.2, 'spe', 0.25 );
 		this.lottieMorale( -3 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Jog];
 	Lottie.prototype.jogWithFitLottie = function() {
@@ -1570,7 +1570,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieMorale( 2 );
 		this.lottieTone( 2 );
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yoga];
 	Lottie.prototype.lottieYoga = function() {
@@ -1579,7 +1579,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		//[If Figure 0 – 100];
 		EngineCore.outputText( 'You know that Lottie has an affinity for yoga, so you decide to enter the dimly lit room at the end of the pool. She gladly follows, bouncing along with you as you take two of the mats out. A class has already started, and you can see many people gathering around a tanned, four-armed woman performing warm-up exercises. Knowing you both have a little time before they break out into the more complicated stretches; you scan around the room for optimal places to sit down without blocking your view of the tetra-armed instructor. By the time you\'ve searched the room, a few more people had already blocked off most of the available spots. You look over to see Lottie already spread out and lying on her stomach – she looks over to you and giggles before patting the vacant area next to her. Throwing a quick smile, you also notice a small unused area right next to the teacher – you\'d be able to take it if you went by yourself. Should you go at it alone, or stretch with Lottie?', false );
 		//[Alone] [Together];
-		EngineCore.choices( 'Alone', this.lottieYogaAlone, 'Together', this.togetherLottieYoga, '', null, '', null, '', null );
+		EngineCore.choices( 'Alone', this, this.lottieYogaAlone, 'Together', this, this.togetherLottieYoga, '', null, null, '', null, null, '', null, null );
 	};
 	//[Alone];
 	Lottie.prototype.lottieYogaAlone = function() {
@@ -1591,7 +1591,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( CoC.player.modTone( 60, 1 ), false );
 		this.lottieMorale( -2 );
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Together];
 	Lottie.prototype.togetherLottieYoga = function() {
@@ -1607,7 +1607,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieTone( 1 );
 		EngineCore.fatigue( 5 );
 		EngineCore.dynStats( 'lus', 80 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Pool – only available at high encouragement];
 	Lottie.prototype.lottiePool = function() {
@@ -1615,7 +1615,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You often find Lottie near the pool, so it\'s only natural to assume she might have a knack for it. You mention swimming to the pig-girl, her ears perking up at the idea of going in the water. "<i>S-sure! I\'ll go get ready!</i>"  Wondering what she might\'ve meant, you wait by the side of the pool, your legs dipping into the cool, blue water. Soon after, Lottie runs out into the area, wearing the daring, black bikini she wore the first time you had met. Her jiggling breasts squish past the fabric, while her chubby butt and thighs hug tightly against the bottom piece. Feeling a familiar stretching in your groin, you look down to find your ' + Descriptors.multiCockDescriptLight() + ' at full attention, hardly subtle against your ' + CoC.player.armorName + '. A thought passes your mind to cover up, but before you can begin to reflect on the idea the bouncing girl sits her plump ass next to you. You wonder if it\'s easier to jump straight into the pool or to wait it out – hell, she might even be flattered by your reaction.', false );
 		//[Jump][Wait];
-		EngineCore.choices( 'Jump', this.jumpInPoolBeforeLottieSeesYourWingWang, 'Wait', this.waitAndShowLottieYourPoolBoner, '', null, '', null, '', null );
+		EngineCore.choices( 'Jump', this, this.jumpInPoolBeforeLottieSeesYourWingWang, 'Wait', this, this.waitAndShowLottieYourPoolBoner, '', null, null, '', null, null, '', null, null );
 	};
 	//[Jump];
 	Lottie.prototype.jumpInPoolBeforeLottieSeesYourWingWang = function() {
@@ -1632,7 +1632,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieTone( 2 );
 		this.lottieMorale( -1 );
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Wait];
 	Lottie.prototype.waitAndShowLottieYourPoolBoner = function() {
@@ -1653,7 +1653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		this.lottieTone( 2 );
 		this.lottieMorale( 2 );
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Give Item – First Time] [Only Available with High INT];
 	Lottie.prototype.giveLottieAnItem = function() {
@@ -1674,7 +1674,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00321 ] === 0 ) {
 			EngineCore.outputText( 'You tell Lottie you\'ve been doing a little research on weight loss aids, discovering several items that could possibly have an effect on her figure if she\'s willing to try. Lottie nods, albeit rather hesitantly – she\'s mentioned her unsuccessful attempts at weight loss methods involving diets before, so you can\'t really blame her. However, you push the idea forward – it couldn\'t hurt to try some of them, and heck, she could be skinny before she knows it! Lottie easily falls for your flattery, and eagerly agrees to the idea. You look into your inventory – one of these things must have an effect, right?' );
 			//[LaBova][Gro+][Reducto];
-			EngineCore.choices( 'LaBova', bova, 'Gro Plus', gro, 'Reducto', reducto, '', null, 'Back', this.encounterLottie );
+			EngineCore.choices( 'LaBova', this, bova, 'Gro Plus', this, gro, 'Reducto', this, reducto, '', null, null, 'Back', this, this.encounterLottie );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00321 ]++;
 		}
 		//[Give Item – Repeat Encounter];
@@ -1685,8 +1685,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			if( EngineCore.silly() ) {
 				sammich = this.hamSammitchTimeBIATCH;
 			}
-			EngineCore.choices( 'Cafe', this.feedLottieAWholeCafe, 'LaBova', bova, 'Gro Plus', gro, 'Reducto', reducto, 'HamSandwich', sammich,
-				'', null, '', null, '', null, '', null, 'Leave', this.encounterLottie );
+			EngineCore.choices( 'Cafe', this, this.feedLottieAWholeCafe, 'LaBova', this, bova, 'Gro Plus', this, gro, 'Reducto', this, reducto, 'HamSandwich', this, sammich,
+				'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', this, this.encounterLottie );
 		}
 	};
 	//[If Cafe];
@@ -1696,7 +1696,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'You decide that you\'re better off finding something at the cafe to feed the girl, though you know Lottie won\'t be too keen on eating something she\'ll know will make her bigger. Regardless, you tell her that you\'ve skipped on breakfast, and you\'ve been starving all day. Concerned, Lottie suggests you buy something to eat, but you tell her you wouldn\'t feel right doing so if Lottie had to stay and watch. She doesn\'t mind, but you push it further. Eventually, she gives in and tells you that she\'ll buy something to eat if you do. Smiling, you wander to the cafe, asking the clerk if they have anything available in stock from the bakery. He smiles before handing you some kind of puff pastry, while you pay the appropriate gems for the item as well as a random sandwich from the glass display. Sitting back down, you hand Lottie the treat while you eagerly munch down on your own meal. "<i>Is... is this okay to eat?</i>" she asks, examining the chocolate covered delicacy you\'ve bought for her. Without waiting for your answer, Lottie bites into the chocolate and squeals as the fluffy cream insides squirt out. "<i>Th-this is delicious! Ohmigosh!</i>" In no time at all the chocolaty confection is erotically devoured by the greedy pig-girl, before she looks up at you in guilt. "<i>I hope that wasn\'t bad for me or anything...</i>" she sighs. You shrug, telling her that it probably won\'t affect her weight in the slightest.\n\n', false );
 		EngineCore.outputText( 'You secretly know it will.', false );
 		this.lottieTone( -5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If LaBova];
 	Lottie.prototype.feedLottieLaBova = function() {
@@ -1712,7 +1712,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		CoC.player.consumeItem( ConsumableLib.LABOVA_ );
 		this.lottieTone( -10 );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00322 ] = 40;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Gro+];
 	Lottie.prototype.giveLottieGroPlus = function() {
@@ -1732,7 +1732,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			this.lottieMorale( -5 );
 		}
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Reducto];
 	Lottie.prototype.giveLottieReducto = function() {
@@ -1750,7 +1750,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		this.lottieTone( 10 );
 		CoC.player.consumeItem( ConsumableLib.REDUCTO );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Ham Sandwich];
 	Lottie.prototype.hamSammitchTimeBIATCH = function() {
@@ -1777,7 +1777,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			EngineCore.outputText( 'You reach for a high five that never comes.', false );
 		}
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//LOTTIE SEX STARTS HERE;
 	//[Sex];
@@ -1819,8 +1819,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 				neatrares = this.lottieRepeatSUPERNEATORARES;
 			}
 
-			EngineCore.choices( 'Anal', this.analLottieMilkshake, 'Oral', this.getSuckedOffByAHamSandwich, 'Tentacle', tentacle, '', null, '', null,
-				'Doggystyle', dog, 'Walkies', walk, 'Threesome', three, 'Netorare', neatrares, '30Minute', thirtyMinute );
+			EngineCore.choices( 'Anal', this, this.analLottieMilkshake, 'Oral', this, this.getSuckedOffByAHamSandwich, 'Tentacle', this, tentacle, '', null, null, '', null, null,
+				'Doggystyle', this, dog, 'Walkies', this, walk, 'Threesome', this, three, 'Netorare', this, neatrares, '30Minute', this, thirtyMinute );
 		}
 		//[If Encouragement 30 – 60];
 		else if( this.lottieMorale() <= 60 ) {
@@ -1835,7 +1835,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			EngineCore.outputText( 'shark, your search isn\'t that difficult. Hopping into the toasty room, you quickly undress, Lottie still standing by the doorway. "<i>H-hey, y\'know, I didn\'t actually agree on this or a-anything...</i>" she stutters, nervously fiddling with her top. Without missing a beat, you walk towards her and plant a kiss on her full lips, tasting her sweetness as you probe her mouth with your eager tongue. The girl melts underneath your touch, passionately returning your erotic display while you take the chance to slip Lottie out of her top, reaching into her shorts to feel between her creamy hips. She moans as you slowly push two fingers inside her moist wetness, simultaneously pulling out your ' + Descriptors.cockDescript( x ) + ' and pushing her back against the wall. Lottie begins to jerk you off slowly, massaging the length of your ' + Descriptors.cockDescript( x ) + ' with one hand while the other takes care at gently caressing your tip. You start to thrust into her hands on reflex while you claim her mouth, the feel of her sugary tongue wrapped around yours sending you both into fits of needy lust. You use your hands to reach around and squeeze her chubby derriere, lightly slapping it whilst a stray hand heads towards her source of hot desire. You slick your hand against her wetness, Lottie moaning in your mouth while you work towards bringing her to an early climax. However, the sudden roughness of your hands against her mound only causes a quick jerk to your ' + Descriptors.cockDescript( x ) + ', her soft hands tightening against your shaft. You groan in response, removing yourself from the lips of her mouth and instead placing your own against her erect nipple, sucking forcefully. The pig-slut grabs your head and pushes you towards her heaving chest, relinquishing her grip on your member to hug you closer.\n\n', false );
 			EngineCore.outputText( 'Not wanting to be left unsatisfied, you tell her you\'ve decided you\'re going to take her for a vigorous work out. She can only pant with anticipation.', false );
 			//[Anal][Oral];
-			EngineCore.choices( 'Anal', this.analLottieMilkshake, 'Oral', this.getSuckedOffByAHamSandwich, 'Tentacle', tentacle, '', null, '30Minute', thirtyMinute );
+			EngineCore.choices( 'Anal', this, this.analLottieMilkshake, 'Oral', this, this.getSuckedOffByAHamSandwich, 'Tentacle', this, tentacle, '', null, null, '30Minute', this, thirtyMinute );
 		}
 		//[If Encouragement 60 – 100];
 		else {
@@ -1851,8 +1851,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			var cowgirl = (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00313 ] > 0 ? this.lottieRepeatCowGirl : null);
 			var rcowgirl = (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00320 ] > 0 ? this.lottieRepeatBackwardsAssCowgirl : null);
 			var femdom = (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00319 ] > 0 ? this.lottieRepeatFEMDOMFEMFDOM : null);
-			EngineCore.choices( 'Anal', this.analLottieMilkshake, 'Oral', this.getSuckedOffByAHamSandwich, 'Tentacle', tentacle, '', null, '', null,
-				'Quickie', quickie, 'Cowgirl', cowgirl, 'R.Cowgirl', rcowgirl, 'Femdom', femdom, '30Minute', thirtyMinute );
+			EngineCore.choices( 'Anal', this, this.analLottieMilkshake, 'Oral', this, this.getSuckedOffByAHamSandwich, 'Tentacle', this, tentacle, '', null, null, '', null, null,
+				'Quickie', this, quickie, 'Cowgirl', this, cowgirl, 'R.Cowgirl', this, rcowgirl, 'Femdom', this, femdom, '30Minute', this, thirtyMinute );
 		}
 		EngineCore.dynStats( 'lus', 50 );
 	};
@@ -1878,7 +1878,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Walkies];
 	Lottie.prototype.lottieRepeatWalkies = function() {
@@ -1908,7 +1908,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Cowgirl];
 	Lottie.prototype.lottieRepeatCowGirl = function() {
@@ -1947,7 +1947,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Quickie];
 	Lottie.prototype.lottieRepeatQuickie = function() {
@@ -1981,7 +1981,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Threesome];
 	Lottie.prototype.lottieRepeatThreesome = function() {
@@ -2002,7 +2002,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Netorare];
 	Lottie.prototype.lottieRepeatSUPERNEATORARES = function() {
@@ -2044,7 +2044,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Reverse Cowgirl];
 	Lottie.prototype.lottieRepeatBackwardsAssCowgirl = function() {
@@ -2062,7 +2062,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'shake from the cafe. They\'re fantastic.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FemDom];
 	Lottie.prototype.lottieRepeatFEMDOMFEMFDOM = function() {
@@ -2104,7 +2104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Hug];
 	Lottie.prototype.hugTheShitOutOfYourHam = function() {
@@ -2120,7 +2120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			EngineCore.outputText( 'The kind that wishes for the day that her life will change, Lottie thinks back.', false );
 			this.lottieMorale( -4 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//END OF EVENTS FUCKIN FINALLY;
 	//(Note1: [Anal] and [Oral] are the exact same as their first encounter counterparts.);
@@ -2260,7 +2260,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Weights];
 	Lottie.prototype.ifrisAndLottieGetsNTRedLiftingWeights = function() {
@@ -2291,7 +2291,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'Only swaying for a handful of seconds before collapsing into the two women, you black out.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'cor', 5 );
-		EngineCore.doNext( this.lottieAndIfrisNTREpilogue );
+		EngineCore.doNext( this, this.lottieAndIfrisNTREpilogue );
 		//--next--;
 	};
 	Lottie.prototype.lottieAndIfrisNTREpilogue = function() {
@@ -2314,7 +2314,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		if( EngineCore.silly() ) {
 			EngineCore.outputText( '  You\'ll make damn sure to buy Urta a bacon shake tomorrow.', false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lottie.prototype.lottiesThirtyMinutePigGasm = function() {
 		EngineCore.outputText( '', true );
@@ -2327,7 +2327,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 		EngineCore.outputText( 'Standing victorious, you attempt to pull out, but you can\'t.  Her pussy has clamped down on you so hard that you can\'t withdraw.  You are in no rush, however. Your cock is still hard and her body is plenty warm.  Smirking, you just stand and enjoy the feeling of her womb.  Then suddenly, Lottie cries at the top of her lungs.  Your attempt to pull out seems to have triggered her orgasm.  A cataract of womanly juices cascades out of her cunt.  She gushes, and gushes, and gushes... after five minutes, her orgasm still hasn\'t ceased!  The ground where you two stand looks like a small puddle thanks to her constant stream of femspray.  At ten minutes, she still hasn\'t stopped!  When will the end be?  Why all this pig glee?  Yo man, what happened?  Lottie\'s breathing heavily and oinking as loudly as possible.  Tired and frustrated, you just stand there while her orgasm continues unabated.  After about twenty minutes more, Lottie\'s chubby cunt finally releases you and she falls forward onto her face in the puddle of pork drippings, eyes rolled into her head and a smile splitting her face.\n\n', false );
 		EngineCore.outputText( 'DAMN!  Did this pig bitch really just have a half-hour orgasm?  You\'re a little jealous.', false );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'lottie', new Lottie() );
 } );

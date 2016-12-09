@@ -13,18 +13,18 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 			//Eligable to rape
 			if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 				EngineCore.outputText( '\n\nYou\'re horny enough to try and rape it, though you\'d rather see how much milk you can squirt into it.  What do you do?', false );
-				EngineCore.choices( 'B.Feed', SceneLib.greenSlimeScene.rapeOozeWithMilk, 'Rape', SceneLib.greenSlimeScene.slimeVictoryRape, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'B.Feed', SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.rapeOozeWithMilk, 'Rape', SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeVictoryRape, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			}
 			//Rapes not on the table.
 			else {
 				EngineCore.outputText( '\n\nYour nipples ache with the desire to forcibly breastfeed the gelatinous beast.  Do you?', false );
-				EngineCore.doYesNo( SceneLib.greenSlimeScene.rapeOozeWithMilk, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.rapeOozeWithMilk, null, Combat.cleanupAfterCombat );
 			}
 		}
 		//Not a breastfeeder
 		else if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '  Sadly you realize your own needs have not been met.  Of course, you could always play with the poor thing... Do you rape it?', false );
-			EngineCore.doYesNo( SceneLib.greenSlimeScene.slimeVictoryRape, Combat.cleanupAfterCombat );
+			EngineCore.doYesNo( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeVictoryRape, null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -33,17 +33,17 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe slime doesn\'t even seem to notice.\n\n' );
 		}
-		EngineCore.doNext( SceneLib.greenSlimeScene.slimeLoss );
+		EngineCore.doNext( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeLoss );
 	};
 	GreenSlime.prototype.lustAttack = function() {
 		EngineCore.outputText( 'The creature surges forward slowly with a swing that you easily manage to avoid.  You notice traces of green liquid spurt from the creature as it does, forming a thin mist that makes your skin tingle with excitement when you inhale it.' );
 		EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 8 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	GreenSlime.prototype.lustReduction = function() {
 		EngineCore.outputText( 'The creature collapses backwards as its cohesion begins to give out, and the faint outline of eyes and a mouth form on its face.  Its chest heaves as if it were gasping, and the bolt upright erection it sports visibly quivers and pulses before relaxing slightly.' );
 		this.lust -= 13;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	GreenSlime.prototype.init = function(that, args) {
 		Monster.prototype.init(that, args);

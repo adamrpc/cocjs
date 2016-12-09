@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 	GnollSpearThrower.prototype.hyenaPhysicalAttack = function() {
 		var damage = 0;
 		//return to combat menu when finished;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 	GnollSpearThrower.prototype.eAttack = function() {
 		var damage = 0;
 		//return to combat menu when finished;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
 			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
@@ -352,9 +352,9 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			EngineCore.clearOutput();
 			EngineCore.outputText( 'The gnoll alpha is defeated!  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Hell, you could even dose her up with that succubi milk you took from the goblin first - it might make her even hotter.  Do you?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Fuck', CoC.urtaQuest.winRapeHyenaPrincess );
-			EngineCore.addButton( 1, 'Succ Milk', CoC.urtaQuest.useSuccubiMilkOnGnollPrincesses );
-			EngineCore.addButton( 4, 'Leave', CoC.urtaQuest.urtaNightSleep );
+			EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest, CoC.urtaQuest.winRapeHyenaPrincess );
+			EngineCore.addButton( 1, 'Succ Milk', SceneLib.urtaQuest, CoC.urtaQuest.useSuccubiMilkOnGnollPrincesses );
+			EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest, CoC.urtaQuest.urtaNightSleep );
 		} else {
 			SceneLib.gnollSpearThrowerScene.hyenaVictory();
 		}
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			CoC.urtaQuest.loseToGnollPrincessAndGetGangBanged();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.gnollSpearThrowerScene.hyenaSpearLossAnal();
 		}

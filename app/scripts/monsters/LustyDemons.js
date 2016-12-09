@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, EngineCore
 	LustyDemons.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe demons smile to one at another as they watch your display, then close in...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			CoC.scenesgetInstance().scenes.owca.loseOrSubmitToVapula();
 		}

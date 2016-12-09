@@ -38,27 +38,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '\n\nOf course, she is a demon; perhaps you should simply end the threat she represents to the people of Mareth.  Do you finish her?' );
 		EngineCore.menu();
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Fuck Her', this.maleFuckHer );
+			EngineCore.addButton( 0, 'Fuck Her', this, this.maleFuckHer );
 		}
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 1, 'Get Fucked', this.femFuckHer );
+			EngineCore.addButton( 1, 'Get Fucked', this, this.femFuckHer );
 		}
-		EngineCore.addButton( 5, 'Release', this.letHerGo );
-		EngineCore.addButton( 6, 'Kill', this.killHer );
+		EngineCore.addButton( 5, 'Release', this, this.letHerGo );
+		EngineCore.addButton( 6, 'Kill', this, this.killHer );
 	};
 	HermCentaurScenes.prototype.killHer = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sighing, you advance on the downed demon, trying to ignore the horrified look in her eyes as you end her.' );
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_KILLED;
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.letHerGo = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You dust off your [armor] and wave nonchalantly at the equine demoness.  She slowly staggers up, watching you warily.  Dismissively, you tell her to leave before she earns your ire - her queen will be dealt with soon enough.  She clops off in a huff towards the exit.' );
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_RELEASED;
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.maleFuckHer = function() {
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_FUCKED;
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '.  Well, she might have gotten away, but she won\'t be able to stop you from getting to Lethice.  Indeed, it seems she was running for the exit.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	var HORZGOG = 0;
 	var DOGGECOCK = 1;
@@ -116,12 +116,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '\n\nFinally, a demon with some common sense!  You idly trace your [foot] along the underside of her leaky horse-cock while pondering this newest development.  She\'ll need to match her size to your [vagina] for sure, but what kind of cock do you want her to have?' );
 		EngineCore.menu();
 		if( EngineCore.silly() ) {
-			EngineCore.addButton( 0, 'HORZ GOG', this.femFuckHerII, HORZGOG );
+			EngineCore.addButton( 0, 'HORZ GOG', this, this.femFuckHerII, HORZGOG );
 		} else {
-			EngineCore.addButton( 0, 'Horsecock', this.femFuckHerII, HORZGOG );
+			EngineCore.addButton( 0, 'Horsecock', this, this.femFuckHerII, HORZGOG );
 		}
-		EngineCore.addButton( 1, 'Dog Dick', this.femFuckHerII, DOGGECOCK );
-		EngineCore.addButton( 2, 'Tentacles', this.femFuckHerII, TENTACOCK );
+		EngineCore.addButton( 1, 'Dog Dick', this, this.femFuckHerII, DOGGECOCK );
+		EngineCore.addButton( 2, 'Tentacles', this, this.femFuckHerII, TENTACOCK );
 	};
 	HermCentaurScenes.prototype.femFuckHerII = function( cockType ) {
 		EngineCore.clearOutput();
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.dynStats( 'cor+', 5 );
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP );
 		EngineCore.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.inSovietCoCPonyRidesYou = function( hpVictory ) {
 		if( CoC.player.hasCock() && CoC.player.hasVagina() ) {
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '\n\nYou wriggle and wail, feeling the mounting pleasure growing into an unstoppable wave of bliss, bolstered by the fevered thrusts of your horny mistress.  She moans with you and bottoms out, her pussy spraying behind her while her soaked balls slap into you with brutal force, quivering once and then suddenly shrinking.  Her flare distends your poor body further, and then a thick wave of jizm is pouring out into your uterus, filling every empty cavity with demonic virility.  Your body seizes, then goes limp, all except for you the ripples of contractions churning through your [vagina] as it milks every drop from your demonic lover.  The next jizz-bomb bloats your abdomen to purely pregnant proportions and as you scream in absolute rapture, the pressure slowly forces you off, leaving you to lie in a pile of sperm while it fountains from your abused twat.' );
 		EngineCore.outputText( '\n\nDarkness takes you while you shiver in knocked-up bliss.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.femLossII );
+		EngineCore.addButton( 0, 'Next', this, this.femLossII );
 	};
 	HermCentaurScenes.prototype.femLossII = function() {
 		EngineCore.clearOutput();
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '\n\nThe demon has you knotted on a giant dog-cock!  When did she get one of those!?  You gasp in surprise, pain, and pleasure in equal measure.  She hears you and looks over her shoulder, still slowly walking, and she smiles as she says, "<i>Welcome back.  I\'m just taking you to your stall and making sure my devilish little children get a proper foothold in your womb.  Relax and enjoy - we\'ll get you fixed up once you\'re secured in your stall.</i>"' );
 		EngineCore.outputText( '\n\nYou slump down as you\'re dragged through dirt, over carpets, and through halls.  Various demons leer at you as you pass, snickering at the fallen champion, now little more than a willing mare.  The humiliation makes your cheeks go red but your [vagina] drool. Some part of you is clearly enjoying it, though you aren\'t sure if it\'s a natural enjoyment or something this creature has done to you.  You sigh and shrug, raising your hands to fondle your breasts as you\'re dragged to your new home.  You may as well enjoy yourself.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.femLossIII );
+		EngineCore.addButton( 0, 'Next', this, this.femLossIII );
 	};
 	HermCentaurScenes.prototype.femLossIII = function() {
 		EngineCore.clearOutput();
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.outputText( '\n\nThe centauress backs you into a wall, clamps snapping shut over your [legs] to hold you in place.  In a panic, you try to wriggle free, but the omnibus easily wrangles your arms into a matching set of restraints.  Once suitably immobilized, she kisses you hard, her ruby lips burning hot against yours for the briefest moment.  It\'s at this moment that you realize your dick is still rock-solid and ready to go again.  Then, the kiss breaks, and the omnibus wings away.' );
 		EngineCore.outputText( '\n\nAt the same time, your centaur mate steps away, still joined to you by webs of sexual fluid that gradually snap.  As she departs, you realize you\'re bound up in a stall, tied to a wall, and you swear you can see lines of hooves waiting their turn from under the wood frame.  An albino woman with ivory horns clops in next.  She pivots, and you\'re given your first glimpse of your second \'wife\'.  You\'ve got a lot of demons to inseminate.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.maleLossII );
+		EngineCore.addButton( 0, 'Next', this, this.maleLossII );
 	};
 	HermCentaurScenes.prototype.maleLossII = function() {
 		EngineCore.clearOutput();

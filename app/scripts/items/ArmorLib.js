@@ -7,8 +7,8 @@ angular.module('cocjs').factory('ArmorLib', function ( Armor, ArmorWithPerk, Per
 		armors[name] = armor;
 	};
 	var ArmorLibProxy = new Proxy( ArmorLib, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

@@ -62,9 +62,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//OUTPUT!
 		if( purgeText ) {
 			EngineCore.clearOutput();
-			MainView.setOutputText( text );
+			MainView.setOutputText( output );
 		} else {
-			MainView.appendOutputText( text );
+			MainView.appendOutputText( output );
 		}
 	};
 	EngineCore.outputText = function( output, purgeText, parseAsMarkdown ) {
@@ -86,13 +86,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ' to spend.</b>', false );
-			EngineCore.addButton( 1, 'Perk Up', EngineCore.perkBuyMenu );
+			EngineCore.addButton( 1, 'Perk Up', null, EngineCore.perkBuyMenu );
 		}
 		if( CoC.player.findPerk( PerkLib.DoubleAttack ) >= 0 ) {
 			EngineCore.outputText( '\n<b>You can adjust your double attack settings.</b>' );
-			EngineCore.addButton( 2, 'Dbl Options', EngineCore.doubleAttackOptions );
+			EngineCore.addButton( 2, 'Dbl Options', null, EngineCore.doubleAttackOptions );
 		}
-		EngineCore.addButton( 0, 'Next', MainView.playerMenu );
+		EngineCore.addButton( 0, 'Next', null, MainView.playerMenu );
 	};
 	EngineCore.doubleAttackOptions = function() {
 		EngineCore.clearOutput();
@@ -101,22 +101,22 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
 			EngineCore.outputText( '\n\nYou can change it to double attack until sixty strength and then dynamicly switch to single attacks.' );
 			EngineCore.outputText( '\nYou can change it to always single attack.' );
-			EngineCore.addButton( 1, 'Dynamic', EngineCore.doubleAttackDynamic );
-			EngineCore.addButton( 2, 'Single', EngineCore.doubleAttackOff );
+			EngineCore.addButton( 1, 'Dynamic', null, EngineCore.doubleAttackDynamic );
+			EngineCore.addButton( 2, 'Single', null, EngineCore.doubleAttackOff );
 		} else if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 1 ) {
 			EngineCore.outputText( 'You will currently double attack until your strength exceeds sixty, and then single attack.' );
 			EngineCore.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
 			EngineCore.outputText( '\nYou can change it to always single attack.' );
-			EngineCore.addButton( 0, 'All Double', EngineCore.doubleAttackForce );
-			EngineCore.addButton( 2, 'Single', EngineCore.doubleAttackOff );
+			EngineCore.addButton( 0, 'All Double', null, EngineCore.doubleAttackForce );
+			EngineCore.addButton( 2, 'Single', null, EngineCore.doubleAttackOff );
 		} else {
 			EngineCore.outputText( 'You will always single attack your foes in combat.' );
 			EngineCore.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
 			EngineCore.outputText( '\nYou can change it to double attack until sixty strength and then switch to single attacks.' );
-			EngineCore.addButton( 0, 'All Double', EngineCore.doubleAttackForce );
-			EngineCore.addButton( 1, 'Dynamic', EngineCore.doubleAttackDynamic );
+			EngineCore.addButton( 0, 'All Double', null, EngineCore.doubleAttackForce );
+			EngineCore.addButton( 1, 'Dynamic', null, EngineCore.doubleAttackDynamic );
 		}
-		EngineCore.addButton( 4, 'Back', EngineCore.displayPerks );
+		EngineCore.addButton( 4, 'Back', null, EngineCore.displayPerks );
 	};
 	EngineCore.doubleAttackForce = function() {
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 0;
@@ -141,22 +141,22 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.outputText( '<b>You are now level ' + CoC.player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
 			CoC.player.XP -= (CoC.player.level - 1) * 100;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Strength', EngineCore.levelUpStatStrength );
-			EngineCore.addButton( 1, 'Toughness', EngineCore.levelUpStatToughness );
-			EngineCore.addButton( 2, 'Speed', EngineCore.levelUpStatSpeed );
-			EngineCore.addButton( 3, 'Intelligence', EngineCore.levelUpStatIntelligence );
+			EngineCore.addButton( 0, 'Strength', null, EngineCore.levelUpStatStrength );
+			EngineCore.addButton( 1, 'Toughness', null, EngineCore.levelUpStatToughness );
+			EngineCore.addButton( 2, 'Speed', null, EngineCore.levelUpStatSpeed );
+			EngineCore.addButton( 3, 'Intelligence', null, EngineCore.levelUpStatIntelligence );
 		} else if( CoC.player.perkPoints > 0 ) { //Spend perk points
 			EngineCore.perkBuyMenu();
 		} else {
 			EngineCore.outputText( '<b>ERROR.  LEVEL UP PUSHED WHEN PC CANNOT LEVEL OR GAIN PERKS.  PLEASE REPORT THE STEPS TO REPRODUCE THIS BUG TO FENOXO@GMAIL.COM OR THE FENOXO.COM BUG REPORT FORUM.</b>' );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
 	EngineCore.levelUpStatStrength = function() {
 		EngineCore.dynStats( 'str', 5 ); //Gain +5 Str due to level
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your muscles feel significantly stronger from your time adventuring.' );
-		EngineCore.doNext( EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatToughness = function() {
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
@@ -164,19 +164,19 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.statScreenRefresh();
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You feel tougher from all the fights you have endured.' );
-		EngineCore.doNext( EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatSpeed = function() {
 		EngineCore.dynStats( 'spe', 5 ); //Gain +5 speed due to level
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your time in combat has driven you to move faster.' );
-		EngineCore.doNext( EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatIntelligence = function() {
 		EngineCore.dynStats( 'int', 5 ); //Gain +5 Intelligence due to level
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your time spent fighting the creatures of this realm has sharpened your wit.' );
-		EngineCore.doNext( EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.perkBuyMenu = function() {
 		EngineCore.clearOutput();
@@ -187,14 +187,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				EngineCore.outputText( 's' );
 			}
 			EngineCore.outputText( '.' );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
 		EngineCore.outputText( 'Please select a perk from the drop-down list, then click \'Okay\'.  You can press \'Skip\' to save your perk point for later.\n\n' );
 		MainView.aCb.visible = true;
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Skip', EngineCore.perkSkip );
+		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
 	};
 	EngineCore.perkSelect = function( selected ) {
 		if( MainView.aCb.visible ) {
@@ -217,8 +217,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.outputText( 'You have selected the following perk:\n\n' );
 		EngineCore.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Okay', EngineCore.perkSelect, selected );
-		EngineCore.addButton( 1, 'Skip', EngineCore.perkSkip );
+		EngineCore.addButton( 0, 'Okay', null, EngineCore.perkSelect, selected );
+		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
 	};
 	EngineCore.buildPerkList = function() {
 		var perkList = [];
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.HPChange( CoC.player.tou, false );
 			EngineCore.statScreenRefresh();
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	EngineCore.buttonText = function( buttonName ) {
 		var buttonIndex = 0;
@@ -674,30 +674,30 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		return toolTipText;
 	};
 	// returns a function that takes no arguments, and executes function `func` with argument `arg`
-	EngineCore.createCallBackFunction = function( func, arg ) {
-		if( func === null ) {
-			CoC_Settings.error( 'createCallBackFunction(null,' + arg + ')' );
+	EngineCore.createCallBackFunction = function( object, func, arg ) {
+		if( !_.isFunction( func ) ) {
+			CoC_Settings.error( 'createCallBackFunction(' + func + ',' + arg + ')' );
 		}
 		if( arg === -9000 || arg === null ) {
 			return function() {
-				return func();
+				return func.apply( object );
 			};
 		} else {
 			return function() {
-				return func( arg );
+				return func.apply( object, arg );
 			};
 		}
 	};
-	EngineCore.createCallBackFunction2 = function( func ) {
+	EngineCore.createCallBackFunction2 = function( object, func ) {
 		var args = _.drop(Array.from( arguments ));
-		if( func === null ) {
-			CoC_Settings.error( 'createCallBackFunction(null,' + args + ')' );
+		if( !_.isFunction( func ) ) {
+			CoC_Settings.error( 'createCallBackFunction2(' + func + ', ' + args + ')' );
 		}
 		return function() {
-			return func.apply( null, args );
+			return func.apply( object, args );
 		};
 	};
-	EngineCore.addButton = function( pos, text, func1, arg1 ) {
+	EngineCore.addButton = function( pos, text, obj, func1, arg1 ) {
 		if(text === undefined) {
 			text = '';
 		}
@@ -707,7 +707,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( func1 === null ) {
 			return;
 		}
-		var callback = EngineCore.createCallBackFunction( func1, arg1 );
+		var callback = EngineCore.createCallBackFunction( obj, func1, arg1 );
 		var toolTipText = EngineCore.getButtonToolTipText( text );
 		MainView.showBottomButton( pos, text, callback, toolTipText );
 		EngineCore.flushOutputTextToGUI();
@@ -741,8 +741,11 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.choices = function() { //New typesafe version
 		EngineCore.menu();
 		var args = Array.from( arguments );
-		_.forEach(_.range(0, args.length - 1, 2), function(choice, index) {
-			EngineCore.addButton( index, args[choice], args[choice + 1] );
+		if(args.length % 3 !== 0) {
+			$log.error('Bad arguments number.');
+		}
+		_.forEach(_.range(0, args.length - 1, 3), function(choice, index) {
+			EngineCore.addButton( index, args[choice], args[choice + 1], args[choice + 2] );
 		});
 	};
 	/****
@@ -826,16 +829,16 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	// simpleChoices and doYesNo are convenience functions. They shouldn\'t re-implement code from choices()
 	EngineCore.simpleChoices = EngineCore.choices;
-	EngineCore.doYesNo = function( eventYes, eventNo ) {
-		EngineCore.choices('Yes', eventYes, 'No', eventNo);
+	EngineCore.doYesNo = function( objYes, eventYes, objNo, eventNo ) {
+		EngineCore.choices('Yes', objYes, eventYes, 'No', objNo, eventNo);
 	};
-	EngineCore.doNext = function( event ) {
+	EngineCore.doNext = function( obj, event ) {
 		//Prevent new events in combat from automatically overwriting a game over.
 		if( MainView.getButtonText( 0 ).indexOf( 'Game Over' ) !== -1 ) {
 			$log.trace( 'Do next setup cancelled by game over' );
 			return;
 		}
-		EngineCore.choices('Next', event);
+		EngineCore.choices('Next', obj, event);
 	};
 	//Used to update the display of statistics
 	EngineCore.statScreenRefresh = MainView.statsView.show;
@@ -1264,7 +1267,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.outputText( '\n<b><u>Ongoing Status Effects</u></b>\n' + statEffects, false );
 		}
 		// End Ongoing Stat Effects
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	EngineCore.lustPercent = function() {
 		var lust = 100;

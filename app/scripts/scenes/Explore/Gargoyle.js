@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'or (even) some demon enclave that needs destroying.  With a quick check of your [weapon], you begin the long trek towards the shimmer in the distance.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gargoyleMeeting2 );
+		EngineCore.addButton( 0, 'Next', this, this.gargoyleMeeting2 );
 		CoC.time.hours++;
 	};
 	//(Advance time by 1 hour) ;
@@ -56,8 +56,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\n<b>You have discovered the cathedral. You can return here in the future by selecting it from the \'Places\' menu in your camp.</b>\n' );
 		//(Display [Break Chains] and [Don't Break] options);
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Don\'t Break', this.dontBreakThatShit );
-		EngineCore.addButton( 0, 'Break Chains', this.breakZeChains );
+		EngineCore.addButton( 1, 'Don\'t Break', this, this.dontBreakThatShit );
+		EngineCore.addButton( 0, 'Break Chains', this, this.breakZeChains );
 	};
 	//[b]Don't Break[/b];
 	Gargoyle.prototype.dontBreakThatShit = function() {
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Oh, no.  Nope.  Nuh-uh.  Not going to happen.  You\'re not falling for that trick!  No, siree.  As soon as you chop those chains, it\'ll probably just come to life and try to kill - or rape - you.  Feeling rather smart, you turn on a heel and exit the cathedral – there\'s nothing else to see right now.' );
 		EngineCore.outputText( '\n\nIf you change your mind, you can always come back.  The statue\'s been here for decades, it can wait a while longer.' );
 		//(Return player to Camp, advance time an hour);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Break Chains[/b];
 	Gargoyle.prototype.breakZeChains = function() {
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		//[Display a textbox, into which the player can type in a name. This new value will be called ' + CoC.flags[kFLAGS.GAR_NAME] + ', henceforth. ] (Confidence +10);
 		MainView.nameBox.value = '';
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.nameZeGargoyle );
+		EngineCore.addButton( 0, 'Next', this, this.nameZeGargoyle );
 	};
 	Gargoyle.prototype.nameZeGargoyle = function() {
 		if( MainView.nameBox.value === '' || MainView.nameBox.value === '0' ) {
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.nameBox.visible = true;
 			MainView.nameBox.width = 165;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.nameZeGargoyle );
+			EngineCore.addButton( 0, 'Next', this, this.nameZeGargoyle );
 			return;
 		}
 		CoC.flags[ kFLAGS.GAR_NAME ] = MainView.nameBox.value;
@@ -113,9 +113,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	Gargoyle.prototype.gargoyleStarterMenu = function() {
 		//(Display options [Funny Order], [Carnal Order]. and [Talk]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Funny Order', this.giveGargoyleAFunnyOrder );
-		EngineCore.addButton( 1, 'Carnal Order', this.carnalOrder );
-		EngineCore.addButton( 2, 'Talk', this.firstGargoyleTalk );
+		EngineCore.addButton( 0, 'Funny Order', this, this.giveGargoyleAFunnyOrder );
+		EngineCore.addButton( 1, 'Carnal Order', this, this.carnalOrder );
+		EngineCore.addButton( 2, 'Talk', this, this.firstGargoyleTalk );
 	};
 	//[b]Funny Order[/b];
 	Gargoyle.prototype.giveGargoyleAFunnyOrder = function() {
@@ -156,8 +156,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nIt seems the events that led to the cathedral\'s destruction weigh heavily on ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s heart.  What do you do?' );
 		//(Display options: [Berate] and [Reassure]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Berate', this.berateTheGargoyle );
-		EngineCore.addButton( 1, 'Reassure', this.reassureTheGargoyle );
+		EngineCore.addButton( 0, 'Berate', this, this.berateTheGargoyle );
+		EngineCore.addButton( 1, 'Reassure', this, this.reassureTheGargoyle );
 	};
 	//[b]Berate[/b];
 	Gargoyle.prototype.berateTheGargoyle = function() {
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' recoils, flinching from you in expectation of assault. Instead, you spit on the ground and start for the exit.  You shout over your shoulder for her to stay here and wallow in her failure until you deign to use her.' );
 		EngineCore.outputText( '\n\nYou storm out of the cathedral with a knot of disdain in your gut.  From behind you, you\'re not quite sure, but perhaps you heard "<i>I couldn\'t leave here if I wanted to.</i>"' );
 		//(Player is returned to camp; advance time 1 hour);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Reassure[/b];
 	Gargoyle.prototype.reassureTheGargoyle = function() {
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nSlowly, you nod, and ask her if she\'ll be all right here all by herself.  She gives you a little smile and says, "<i>Of course, Master.  Especially if... if you return.  You will return, Master?  Won\'t you?</i>"  She looks deeply into your eyes and huskily purrs, "<i>I can make it... pleasurable... if you do...</i>"' );
 		EngineCore.outputText( '\n\nYou rustle ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s hair and assure her you will before you take your leave and return to camp.' );
 		//(Return to camp, advance time 1 hour);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[i](Whenever the player returns to the Cathedral, play one of the following introductions, then the “Cathedral Interior” scenes. )[/i];
 	//[b]Player Returns to the Cathedral A[/b];
@@ -227,15 +227,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			}
 			//(Display options: [Sex] [Rituals] [Talk] [Appearance] and [Leave]. If Confidence is 70+, also display the option for [Kinky Rituals]);
 			if( CoC.player.lust >= 33 ) {
-				EngineCore.addButton( 0, 'Sex', this.gargoyleSexMenu );
+				EngineCore.addButton( 0, 'Sex', this, this.gargoyleSexMenu );
 			}
-			EngineCore.addButton( 1, 'Rituals', this.ritualGargoyle );
+			EngineCore.addButton( 1, 'Rituals', this, this.ritualGargoyle );
 			if( CoC.flags[ kFLAGS.GAR_HISTORY ] < 3 || CoC.flags[ kFLAGS.GAR_CATHEDRAL ] < 3 || CoC.flags[ kFLAGS.GAR_NAME_TALKS ] < 3 ) {
-				EngineCore.addButton( 2, 'Talk', this.talkToGargoyle );
+				EngineCore.addButton( 2, 'Talk', this, this.talkToGargoyle );
 			}
-			EngineCore.addButton( 3, 'Appearance', this.gargoyleAppearance );
+			EngineCore.addButton( 3, 'Appearance', this, this.gargoyleAppearance );
 			if( this.gargoyleConfidence() >= 70 && CoC.flags[ kFLAGS.RITUAL_INTRO ] > 0 ) {
-				EngineCore.addButton( 4, 'Kinky Rituals', this.gargoyleKinkyRituals );
+				EngineCore.addButton( 4, 'Kinky Rituals', this, this.gargoyleKinkyRituals );
 			}
 		}
 		//[b]Cathedral Interior –> 17:00[/b];
@@ -248,17 +248,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 				EngineCore.outputText( '.' );
 			}
 			//(Display options: [Wake Her] [Use Her (if Lust >= 30)] [Appearance] and [Leave]);
-			EngineCore.addButton( 0, 'Wake Her', this.returnToCathedral, true );
+			EngineCore.addButton( 0, 'Wake Her', this, this.returnToCathedral, true );
 			if( CoC.player.lust >= 33 ) {
 				if( CoC.player.hasCock() ) {
-					EngineCore.addButton( 1, 'Use Her', this.useGargoyleMaleHerm );
+					EngineCore.addButton( 1, 'Use Her', this, this.useGargoyleMaleHerm );
 				} else if( CoC.player.hasVagina() ) {
-					EngineCore.addButton( 1, 'Use Her', this.useHerGargoyleFemale );
+					EngineCore.addButton( 1, 'Use Her', this, this.useHerGargoyleFemale );
 				}
 			}
-			EngineCore.addButton( 3, 'Appearance', this.gargoyleAppearance );
+			EngineCore.addButton( 3, 'Appearance', this, this.gargoyleAppearance );
 		}
-		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Sex[/b];
 	Gargoyle.prototype.gargoyleSexMenu = function() {
@@ -273,31 +273,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.menu();
 		//(If Male, display options: [Vaginal] [Anal] [Titfuck] [Strap-on] [Leave]);
 		if( CoC.player.gender === 1 ) {
-			EngineCore.addButton( 1, 'Anal', this.gargoyleAnal );
-			EngineCore.addButton( 0, 'Vaginal', this.gargoyleCoochiiGetsPlowed );
-			EngineCore.addButton( 2, 'Titfuck', this.titFuckTheGargoyle );
-			EngineCore.addButton( 3, 'Strap-On', this.strapOnGargoyle );
-			EngineCore.addButton( 4, 'Leave', this.returnToCathedral );
+			EngineCore.addButton( 1, 'Anal', this, this.gargoyleAnal );
+			EngineCore.addButton( 0, 'Vaginal', this, this.gargoyleCoochiiGetsPlowed );
+			EngineCore.addButton( 2, 'Titfuck', this, this.titFuckTheGargoyle );
+			EngineCore.addButton( 3, 'Strap-On', this, this.strapOnGargoyle );
+			EngineCore.addButton( 4, 'Leave', this, this.returnToCathedral );
 		}
 		//(If Female, display options: [Tail Fuck] and [Ride Strap-on] [Leave]);
 		if( CoC.player.gender === 2 ) {
-			EngineCore.addButton( 0, 'Tail Fuck', this.tailFuckGargoyleScene );
-			EngineCore.addButton( 1, 'Strap-On', this.strapOnGargoyle );
-			EngineCore.addButton( 4, 'Leave', this.returnToCathedral );
+			EngineCore.addButton( 0, 'Tail Fuck', this, this.tailFuckGargoyleScene );
+			EngineCore.addButton( 1, 'Strap-On', this, this.strapOnGargoyle );
+			EngineCore.addButton( 4, 'Leave', this, this.returnToCathedral );
 		}
 		//(If Herm, display all above options);
 		if( CoC.player.gender === 3 ) {
-			EngineCore.addButton( 1, 'Anal', this.gargoyleAnal );
-			EngineCore.addButton( 0, 'Vaginal', this.gargoyleCoochiiGetsPlowed );
-			EngineCore.addButton( 2, 'Titfuck', this.titFuckTheGargoyle );
-			EngineCore.addButton( 3, 'Strap-On', this.strapOnGargoyle );
-			EngineCore.addButton( 4, 'Tail Fuck', this.tailFuckGargoyleScene );
-			EngineCore.addButton( 9, 'Leave', this.returnToCathedral );
+			EngineCore.addButton( 1, 'Anal', this, this.gargoyleAnal );
+			EngineCore.addButton( 0, 'Vaginal', this, this.gargoyleCoochiiGetsPlowed );
+			EngineCore.addButton( 2, 'Titfuck', this, this.titFuckTheGargoyle );
+			EngineCore.addButton( 3, 'Strap-On', this, this.strapOnGargoyle );
+			EngineCore.addButton( 4, 'Tail Fuck', this, this.tailFuckGargoyleScene );
+			EngineCore.addButton( 9, 'Leave', this, this.returnToCathedral );
 		}
 		//(If Genderless, display [Strap-on] [Leave]);
 		if( CoC.player.gender === 0 ) {
-			EngineCore.addButton( 3, 'Strap-On', this.strapOnGargoyle );
-			EngineCore.addButton( 9, 'Leave', this.returnToCathedral );
+			EngineCore.addButton( 3, 'Strap-On', this, this.strapOnGargoyle );
+			EngineCore.addButton( 9, 'Leave', this, this.returnToCathedral );
 		}
 	};
 	//[b]Anal[/b];
@@ -326,7 +326,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Vaginal[/b];
 	//no limits;
@@ -357,7 +357,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou give her a pat on the head and head on back to camp.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Tit-Fuck[/b];
 	Gargoyle.prototype.titFuckTheGargoyle = function() {
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou give her a little pat on the head and tell her it was more than pleasing.  Gratified, the little gargoyle sets to slurping up your cum as your clean yourself up and head back to camp.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Strap-On[/b];
 	//(Coding this one may be a *little* complex);
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Tail Fuck[/b];
 	//Requires Vag;
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou rub her head and tell her that oh, yes you were. You leave her with a gratified smile on her thin lips.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Use Her – Male/Herm[/b];
 	Gargoyle.prototype.useGargoyleMaleHerm = function() {
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou give the gargoyle a little pat on the head for a job well done before heading on out.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Use Her (Female)[/b];
 	Gargoyle.prototype.useHerGargoyleFemale = function() {
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou\'re pleased to note that the gargoyle\'s tail is now dark and wet thanks to the liberal streams of lubricant pouring from your [vagina].  Now you\'re practically sliding on ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s tail, riding toward inevitable orgasm.  You cum at the apex of a bounce, slamming yourself down hard upon ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s tail until her tip breaches the entrance to your womb.  You scream in ecstasy, squirting your girl-cum freely onto the gargoyle\'s tail, back, and legs until you\'re completely and utterly spent.' );
 		EngineCore.outputText( '\n\nContented, you spend a few minutes recovering before slowly dressing back up into your [armor]. You head on out, making sure to give ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' a little pat on the head on your way out.' );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Ritual (First Time)[/b];
 	Gargoyle.prototype.ritualGargoyle = function() {
@@ -479,12 +479,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		//(Display Options: [Body] [Mind] [Banish (only with Exgartuan or Worms)] and [Leave]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Body', this.bodyRitual );
-		EngineCore.addButton( 1, 'Mind', this.mindGargoyleRitual );
+		EngineCore.addButton( 0, 'Body', this, this.bodyRitual );
+		EngineCore.addButton( 1, 'Mind', this, this.mindGargoyleRitual );
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
-			EngineCore.addButton( 2, 'Banish', this.banishmentGargoyleRitual );
+			EngineCore.addButton( 2, 'Banish', this, this.banishmentGargoyleRitual );
 		}
-		EngineCore.addButton( 4, 'Leave', this.returnToCathedral );
+		EngineCore.addButton( 4, 'Leave', this, this.returnToCathedral );
 	};
 	//[b]Body[/b];
 	//(PC decreases Libido and Sensitivity. Suffers 20% Max HP damage, to a minimum of 1 pt. remaining);
@@ -497,15 +497,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 2 ) );
 		//(Display options: [Nothing] [Revenge] and [Cuddle]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Nothing', this.noReactionToBodyRitual );
-		EngineCore.addButton( 1, 'Cuddle', this.gargoyleCuddleAfterBodyRitual );
-		EngineCore.addButton( 2, 'Revenge', this.gargoyleRevengeAfterBodyRitual );
+		EngineCore.addButton( 0, 'Nothing', this, this.noReactionToBodyRitual );
+		EngineCore.addButton( 1, 'Cuddle', this, this.gargoyleCuddleAfterBodyRitual );
+		EngineCore.addButton( 2, 'Revenge', this, this.gargoyleRevengeAfterBodyRitual );
 	};
 	//[b]Nothing[/b];
 	Gargoyle.prototype.noReactionToBodyRitual = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You simply lie still and try to recover from ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s "gentle ministrations."  After a few minutes, you\'ve caught your breath and, gathering your possessions, make your way out of the Cathedral without another word.  Damn, you\'re sore.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//(Return PC to camp, advance time 1 hour);
 	};
 	//[b]Revenge[/b];
@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Seeing ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' just standing over you, gloating, causes you to sneer and lash out.  You strike her dead-center in the chest, throwing her back against the tree-idol at the church\'s head.  She slumps to the floor, looking meekly away from you.  While she\'s stunned, you gather your [armor] and stagger out of the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( -5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Cuddle[/b];
 	//(Confidence +5);
@@ -524,7 +524,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Despite the pain she\'s caused you, you know ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' did it at your command – and hell, it could only have helped you.  Before she can react, you reach up and pull the gray gargoyle down into a kiss, pressing firmly against her soft, cold lips.  She makes a cute little gasp, but soon relaxes into your hold, allowing you to shift her weight so that she\'s nearly lying atop you.  You sigh contentedly and wrap your gargoyle in a tight hug, holding her close for the few minutes it takes you to recover.  When you\'re feeling up to it, you rustle her hair and thank her for her... gentle ministrations.  If she could blush, you\'re sure she would be as she looks upon you with gleaming fiery eyes.  You gather your belongings and exit the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]“Mind”[/b];
 	//(PC Decreases Corruption and Lust, increases Intelligence);
@@ -537,7 +537,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.dynStats( 'lus', -10, 'cor', -0.5 );
 		//CoC.player.takeDamage(Math.round(CoC.player.maxHP()/2));;
 		EngineCore.fatigue( 50 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Banishment[/b];
 	//(PC is cleared of Worms and/or Exgartuan);
@@ -594,16 +594,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 3 ) );
 		EngineCore.fatigue( 10 );
 		//(Display options: [Nothing] [Revenge] and [Cuddle]);
-		EngineCore.addButton( 0, 'Nothing', this.dontFreakOutAfterBanishment );
-		EngineCore.addButton( 1, 'Cuddle', this.cuddleForBanishments );
-		EngineCore.addButton( 2, 'Revenge', this.getRevengeForBanishments );
+		EngineCore.addButton( 0, 'Nothing', this, this.dontFreakOutAfterBanishment );
+		EngineCore.addButton( 1, 'Cuddle', this, this.cuddleForBanishments );
+		EngineCore.addButton( 2, 'Revenge', this, this.getRevengeForBanishments );
 	};
 	//[b]Nothing[/b];
 	Gargoyle.prototype.dontFreakOutAfterBanishment = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You simply lie still and try to recover from ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s “gentle ministrations. ” After a few minutes, you\'ve caught your breath and, gathering your possessions, make your way out of the Cathedral without another word. Damn, you\'re sore.' );
 		//(Return PC to camp, advance time 1 hour);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Revenge[/b];
 	//(Confidence -5);
@@ -612,7 +612,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Seeing ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' just standing over you, gloating, causes you to sneer and lash out.  You strike her dead-center in the chest, throwing her back against the tree-idol at the church\'s head.  She slumps to the floor, looking meekly away from you.  While she\'s stunned, you gather your [armor] and stagger out of the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( -5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Cuddle[/b];
 	//(Confidence +5);
@@ -621,7 +621,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Despite the pain she\'s caused you, you know ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' did it at your command – and hell, it could only have helped you.  Before she can react, you reach up and pull the gray gargoyle down into your lap, hugging her around the waist and putting a quick kiss into the nape of her neck.  Giggling, she wraps her tail around you, giving you a gentle squeeze as she nuzzles into your chest.  You stay like that for a few minutes, cuddling the cute gargoyle, but eventually you know you need to check on things back at camp.  When you\'re feeling up to it, you rustle her hair and thank her for her... gentle ministrations.  If she could blush, you\'re sure she would be as she looks upon you with gleaming fiery eyes.  You gather your belongings and exit the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Kinky Rituals (First Time)[/b];
 	//(While Confidence 70+);
@@ -640,12 +640,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		//(Display Options: [Body] [Mind] [Banish (only with Exgartuan or Worms)] and [Leave]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Body', this.kinkyBodyRitual );
-		EngineCore.addButton( 1, 'Mind', this.mindRitualPervy );
+		EngineCore.addButton( 0, 'Body', this, this.kinkyBodyRitual );
+		EngineCore.addButton( 1, 'Mind', this, this.mindRitualPervy );
 		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-			EngineCore.addButton( 2, 'Banish', this.banishPervRitual );
+			EngineCore.addButton( 2, 'Banish', this, this.banishPervRitual );
 		}
-		EngineCore.addButton( 4, 'Leave', this.returnToCathedral );
+		EngineCore.addButton( 4, 'Leave', this, this.returnToCathedral );
 	};
 	//[b]Body[/b];
 	Gargoyle.prototype.kinkyBodyRitual = function() {
@@ -681,7 +681,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.dynStats( 'tou', 0.5, 'lib', -0.5, 'sen', -2 );
 		this.gargoyleConfidence( 2 );
 		CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 2 ) );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Mind[/b];
 	//(Confidence +2);
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		//(Return PC to camp, advance time 1 hour);
 		EngineCore.dynStats( 'int', 0.5, 'lus', -10, 'cor', -0.5 );
 		EngineCore.fatigue( 50 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Banish[/b];
 	//(Confidence +2);
@@ -766,7 +766,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 3 ) );
 		EngineCore.fatigue( 10 );
 		this.gargoyleConfidence( 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[b]Talk[/b];
@@ -789,15 +789,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		//(Whenever the player selects a topic, play one of the following dialogue scenes then return the PC to the main interaction menu and increase Confidence by +10, unless noted otherwise. Once a scene has been played, it will not play again. Once all three in a topic are played, it closes.);
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.GAR_HISTORY ] < 3 ) {
-			EngineCore.addButton( 0, 'History', this.historyGo );
+			EngineCore.addButton( 0, 'History', this, this.historyGo );
 		}
 		if( CoC.flags[ kFLAGS.GAR_CATHEDRAL ] < 3 ) {
-			EngineCore.addButton( 1, 'Cathedral', this.cathedralTalks );
+			EngineCore.addButton( 1, 'Cathedral', this, this.cathedralTalks );
 		}
 		if( CoC.flags[ kFLAGS.GAR_NAME_TALKS ] < 3 ) {
-			EngineCore.addButton( 2, 'Her', this.talkAboutGarName );
+			EngineCore.addButton( 2, 'Her', this, this.talkAboutGarName );
 		}
-		EngineCore.addButton( 4, 'Back', this.returnToCathedral );
+		EngineCore.addButton( 4, 'Back', this, this.returnToCathedral );
 	};
 	Gargoyle.prototype.historyGo = function() {
 		if( CoC.flags[ kFLAGS.GAR_HISTORY ] === 0 ) {
@@ -818,8 +818,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou tell her that, sure, you\'d like to hear it.  "<i>The church-folk believe – believed – that the goddess Marae created intelligent life here many generations ago, long before the demons came.  She was the highest goddess amongst many, an embodiment of the natural world.  She brought forth the animal-morphs who created this cathedral in her honor.  Using magical knowledge, the priests of this church sought to mirror Marae\'s power, creating creatures such as myself.  Eventually, though, the demons came, I know not from where, and began to spread their corruption.  The priests... tried to resist... t-to ward against...  I\'m sorry, Master,</i>" she says, sniffling.  You notice that she\'s turned away from you, trying to hide her shame.  "<i>I don\'t want to think about this anymore.  Please,</i>" she begs.  The memory of her failure to protect the people of the church still weighs heavily upon her.  You suppose you could berate her for her emotionality, or try and comfort her.' );
 		//(Display Options: [Berate] and [Comfort]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Berate', this.berateGargoyleForBeingDumb );
-		EngineCore.addButton( 1, 'Comfort', this.comfortGargoyleDumbness );
+		EngineCore.addButton( 0, 'Berate', this, this.berateGargoyleForBeingDumb );
+		EngineCore.addButton( 1, 'Comfort', this, this.comfortGargoyleDumbness );
 	};
 	//[b]Berate[/b];
 	Gargoyle.prototype.berateGargoyleForBeingDumb = function() {
@@ -828,7 +828,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		this.gargoyleConfidence( -5 );
 		EngineCore.outputText( '\n\nYou attempt to give ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' a none-too-gentle swat on the head, and tell her off for presuming to refuse you information.  The harshness of your voice only causes her to sob openly, however, and recoil away from you before you can hit her.  You sigh with frustration, and storm out of the cathedral before you have to listen to a moment more of your servant\'s cries.' );
 		//(Return PC to camp, advance time 1 hour.);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Comfort[/b];
 	Gargoyle.prototype.comfortGargoyleDumbness = function() {
@@ -877,9 +877,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			EngineCore.outputText( '\n\nOh shit.  Here we go.  You suppose you could dodge the bullet, or you could tell her what you really think she just a slave you wandered into owning, or do you think something more of her?' );
 			//(Display Options: [Dodge] [Slave] [Girlfriend];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Dodge', this.izmaAndIsabellaDodge );
-			EngineCore.addButton( 1, 'Slave', this.gargoylesAreSlavesYo );
-			EngineCore.addButton( 2, 'Girlfriend', this.gargoylesAreGirlfriends );
+			EngineCore.addButton( 0, 'Dodge', this, this.izmaAndIsabellaDodge );
+			EngineCore.addButton( 1, 'Slave', this, this.gargoylesAreSlavesYo );
+			EngineCore.addButton( 2, 'Girlfriend', this, this.gargoylesAreGirlfriends );
 		}
 		//(If PC has Marble as a follower);
 		else if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
@@ -888,8 +888,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			EngineCore.outputText( '\n\nWell.  What do you say to that you\'re not exclusive with Marble, or that ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' doesn\'t count, being a statue and all?' );
 			//(Display Options: [Not Exclusive] [Doesn't Count]);
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Not Exclusive', this.marbleAintExclusiveBiatch );
-			EngineCore.addButton( 1, 'Doesn\'tCount', this.gargoyleDoesntCountAsAWaifu );
+			EngineCore.addButton( 0, 'Not Exclusive', this, this.marbleAintExclusiveBiatch );
+			EngineCore.addButton( 1, 'Doesn\'tCount', this, this.gargoyleDoesntCountAsAWaifu );
 		}
 		//(If PC has Izma as a follower);
 		else if( SceneLib.izmaScene.izmaFollower() ) {
@@ -897,8 +897,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			EngineCore.outputText( '\n\nWell. What do you say to that you\'re not exclusive with Izma, or that she doesn\'t count, being a statue and all?' );
 			//(Display Options: [Not Exclusive] [Doesn't Count]);
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Not Exclusive', this.sharkgirlsArentExclusiveBiatch );
-			EngineCore.addButton( 1, 'Doesn\'tCount', this.gargoylesDontCountAsSharkWaifus );
+			EngineCore.addButton( 0, 'Not Exclusive', this, this.sharkgirlsArentExclusiveBiatch );
+			EngineCore.addButton( 1, 'Doesn\'tCount', this, this.gargoylesDontCountAsSharkWaifus );
 		} else {
 			//(If PC has neither Marble nor Izma as a follower);
 			EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit about the world of Mareth.  Giving it a few moments of quiet thought, she answers do not have any experience outside of the church grounds, Master, but I remember the words of the last Master, and the parishioners before her.  There are... the world has a vast expanse of plains and woodlands, broken up by a great mountain range.  There is a lake not far from here, if I recall...</i>" she goes on to tell you about some of the more common Marethian monsters, though she\'s short on details except about those that regularly bother the church – imps and goblins, mostly.  You thank her for the talk and turn toward another subject...' );
@@ -958,7 +958,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Well, really, what is she but a slave?  She\'s just a toy when you want sexual release, a servant to perform rituals at your demand, and a bit of eye-candy besides.  She\'s not even a real person – not really.  You tell her that, quite bluntly.  She makes no response, verbally at least, but she does give off a sob-like shudder and curls up into a little ball where she sits, hiding her face from you.' );
 		EngineCore.outputText( '\n\nSince you\'ve temporarily broken the gargoyle, you mosey on back to camp.' );
 		//(Return PC to camp, advance time 1 hour);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Girlfriend[/b];
 	Gargoyle.prototype.gargoylesAreGirlfriends = function() {
@@ -972,11 +972,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		//(Use normal sex scenes for above options, as well as Leave options.;
 		EngineCore.menu();
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Vaginal', this.gargoyleCoochiiGetsPlowed );
+			EngineCore.addButton( 0, 'Vaginal', this, this.gargoyleCoochiiGetsPlowed );
 		} else {
-			EngineCore.addButton( 1, 'Strap-on', this.strapOnGargoyle );
+			EngineCore.addButton( 1, 'Strap-on', this, this.strapOnGargoyle );
 		}
-		EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 4, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Gargoyle.prototype.cathedralTalks = function() {
 		if( CoC.flags[ kFLAGS.GAR_CATHEDRAL ] === 0 ) {
@@ -999,8 +999,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou could tell her it\'s pointless or encourage her.' );
 		//(Display Options: [Pointless] [Encourage]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Pointless', this.pointlessGargoylesArePointless );
-		EngineCore.addButton( 1, 'Encourage', this.encourageGargoyleWaifuToDoSomething );
+		EngineCore.addButton( 0, 'Pointless', this, this.pointlessGargoylesArePointless );
+		EngineCore.addButton( 1, 'Encourage', this, this.encourageGargoyleWaifuToDoSomething );
 	};
 	//[b]Pointless[/b];
 	//(Confidence -2);
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nWithin the hour, the two of you have made a sizable dent in the debris of the Cathedral, and ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' has even managed to hang one of the candelabras back up in the rafters.  Exhausted, you say goodbye to the happy little gargoyle and head on back to camp.' );
 		//(Return PC to camp, advance time 1 hour, +10 fatigue.;
 		EngineCore.fatigue( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Cathedral B[/b];
 	Gargoyle.prototype.cathedralBTalk = function() {
@@ -1048,8 +1048,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou could comfort the little gargoyle, or you could remind her of the ramifications of her failure.' );
 		//(Display Options: [Comfort] and [Berate]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Berate', this.berateDatGargoyle4SomeSavin );
-		EngineCore.addButton( 1, 'Comfort', this.comfortGargoyle );
+		EngineCore.addButton( 0, 'Berate', this, this.berateDatGargoyle4SomeSavin );
+		EngineCore.addButton( 1, 'Comfort', this, this.comfortGargoyle );
 	};
 	//[b]Comfort[/b];
 	//(Comfort +10);
@@ -1062,7 +1062,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou realize this is the first time you\'ve ever seen her outside the sanctuary, and proudly give her a kiss on the lips at the gate.  When you part, she shyly tells you to take care on the way back, and that she\'ll be here waiting for you when you return.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]Berate[/b];
 	//(Confidence -10);
@@ -1071,7 +1071,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( 'Right.  Because becoming a living footstool for you was TOTALLY worth everyone she ever knew being raped out of their minds.  You give ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' a hard swat and remind her exactly how moronic she\'s being.  She recoils, shying away from you as you stand up and head for the door.  Over your shoulder, you tell her you\'re glad she\'s bound here – that way she can\'t fuck up and get you killed, too.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Gargoyle.prototype.talkAboutGarName = function() {
 		if( CoC.flags[ kFLAGS.GAR_NAME_TALKS ] === 0 ) {
@@ -1122,7 +1122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nYou consider pressing the issue, but remember that you\'ve been away from camp a bit too long.  You resolve to ask her next time, and take your leave of the gargoyle.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[b]' + CoC.flags[kFLAGS.GAR_NAME] + ' B[/b];
 	Gargoyle.prototype.garNameB = function() {
@@ -1149,8 +1149,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.outputText( '\n\nShe falls silent, heaving a heavy, hopeless sigh.  You could reassure her that she isn\'t a helpless non-person, or perhaps you\'d be better served by berating her about her emotional weakness?' );
 		//(Display Options: [Comfort] [Berate]);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Comfort', this.comfortGarNameC );
-		EngineCore.addButton( 1, 'Berate', this.berateGargoyleC );
+		EngineCore.addButton( 0, 'Comfort', this, this.comfortGarNameC );
+		EngineCore.addButton( 1, 'Berate', this, this.berateGargoyleC );
 	};
 	//[b]Comfort[/b];
 	//(Confidence +15);

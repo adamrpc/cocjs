@@ -21,9 +21,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	//combat is over. Clear shit out and go to main
-	Combat.cleanupAfterCombat = function(nextFunc) {
+	Combat.cleanupAfterCombat = function(nextObj, nextFunc) {
+		if(nextObj && (!nextFunc || !_.isFunction(nextFunc))) {
+			$log.error('Combat.cleanupAfterCombat called with invalid parameters', nextObj, nextFunc);
+			return;
+		}
 		if (!nextFunc) {
 			nextFunc = SceneLib.camp.returnToCampUseOneHour;
+			nextObj = SceneLib.camp;
 		}
 		if (CoC.isInCombat()) {
 			//clear status
@@ -126,63 +131,63 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if (CoC.player.findStatusAffect(StatusAffects.KnockedBack) >= 0) {
 			EngineCore.outputText("\n<b>You'll need to close some distance before you can use any physical attacks!</b>");
-			EngineCore.addButton(0, "Approach", Combat.approachAfterKnockback);
-			EngineCore.addButton(1, "Tease", Combat.teaseAttack);
-			EngineCore.addButton(2, "Spells", Combat.magic);
-			EngineCore.addButton(3, "Items", SceneLib.inventory.inventoryMenu);
-			EngineCore.addButton(4, "Run", Combat.runAway);
+			EngineCore.addButton(0, "Approach", null, Combat.approachAfterKnockback);
+			EngineCore.addButton(1, "Tease", null, Combat.teaseAttack);
+			EngineCore.addButton(2, "Spells", null, Combat.magic);
+			EngineCore.addButton(3, "Items", SceneLib.inventory, SceneLib.inventory.inventoryMenu);
+			EngineCore.addButton(4, "Run", null, Combat.runAway);
 			if (CoC.player.hasKeyItem("Bow") >= 0) {
-				EngineCore.addButton(5, "Bow", Combat.fireBow);
+				EngineCore.addButton(5, "Bow", null, Combat.fireBow);
 			}
-			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
-			EngineCore.addButton(7, "Wait", Combat.wait);
-			EngineCore.addButton(8, "Fantasize", Combat.fantasize);
+			EngineCore.addButton(6, "M. Specials", null, Combat.magicalSpecials);
+			EngineCore.addButton(7, "Wait", null, Combat.wait);
+			EngineCore.addButton(8, "Fantasize", null, Combat.fantasize);
 		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0 || CoC.player.findStatusAffect(StatusAffects.Stunned) >= 0) {
 			EngineCore.outputText("\n<b>You're too stunned to attack!</b>  All you can do is wait and try to recover!");
-			EngineCore.addButton(0, "Recover", Combat.wait);
+			EngineCore.addButton(0, "Recover", null, Combat.wait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered) >= 0) {
 			EngineCore.outputText("\n<b>Your mind is too addled to focus on combat!</b>  All you can do is try and recover!");
-			EngineCore.addButton(0, "Recover", Combat.wait);
+			EngineCore.addButton(0, "Recover", null, Combat.wait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion) >= 0) {
 			EngineCore.outputText("\nYou're too confused about who you are to try to attack!");
-			EngineCore.addButton(0, "Recover", Combat.wait);
+			EngineCore.addButton(0, "Recover", null, Combat.wait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0 || CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
-			EngineCore.addButton(0, "Struggle", Combat.struggle);
-			EngineCore.addButton(5, "Wait", Combat.wait);
+			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
+			EngineCore.addButton(5, "Wait", null, Combat.wait);
 		} else if (CoC.monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
-			EngineCore.addButton(0, "Squeeze", SceneLib.nagaScene.naggaSqueeze);
-			EngineCore.addButton(1, "Tease", SceneLib.nagaScene.naggaTease);
-			EngineCore.addButton(4, "Release", SceneLib.nagaScene.nagaLeggoMyEggo);
+			EngineCore.addButton(0, "Squeeze", SceneLib.nagaScene, SceneLib.nagaScene.naggaSqueeze);
+			EngineCore.addButton(1, "Tease", SceneLib.nagaScene, SceneLib.nagaScene.naggaTease);
+			EngineCore.addButton(4, "Release", SceneLib.nagaScene, SceneLib.nagaScene.nagaLeggoMyEggo);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Bound) >= 0) {
-			EngineCore.addButton(0, "Struggle", CoC.monster.ceraphBindingStruggle);
-			EngineCore.addButton(5, "Wait", CoC.monster.ceraphBoundWait);
+			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.ceraphBindingStruggle);
+			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.ceraphBoundWait);
 		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
 			EngineCore.outputText("\n<b>You're bound up in the minotaur lord's chains!  All you can do is try to struggle free!</b>");
-			EngineCore.addButton(0, "Struggle", Combat.struggle);
-			EngineCore.addButton(5, "Wait", Combat.wait);
+			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
+			EngineCore.addButton(5, "Wait", null, Combat.wait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
-			EngineCore.addButton(0, "Struggle", Combat.struggle);
-			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
+			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
+			EngineCore.addButton(6, "M. Specials", null, Combat.magicalSpecials);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Chokeslam) >= 0) {
-			EngineCore.addButton(0, "Struggle", Combat.CoC.monster.chokeSlamStruggle);
-			EngineCore.addButton(5, "Wait", Combat.CoC.monster.chokeSlamWait);
+			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.chokeSlamStruggle);
+			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.chokeSlamWait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Titsmother) >= 0) {
-			EngineCore.addButton(0, "Struggle", Combat.CoC.monster.titSmotherStruggle);
-			EngineCore.addButton(5, "Wait", Combat.CoC.monster.titSmotherWait);
+			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.titSmotherStruggle);
+			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.titSmotherWait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Tentagrappled) >= 0) {
 			EngineCore.outputText("\n<b>The demonesses tentacles are constricting your limbs!</b>");
-			EngineCore.addButton(0, "Struggle", Combat.CoC.monster.grappleStruggle);
-			EngineCore.addButton(5, "Wait", Combat.CoC.monster.grappleWait);
+			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.grappleStruggle);
+			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.grappleWait);
 		} else { //REGULAR MENU
-			EngineCore.addButton(0, "Attack", Combat.attacks);
-			EngineCore.addButton(1, "Tease", Combat.teaseAttack);
-			EngineCore.addButton(2, "Spells", magic);
-			EngineCore.addButton(3, "Items", SceneLib.inventory.inventoryMenu);
-			EngineCore.addButton(4, "Run", Combat.runAway);
-			EngineCore.addButton(5, "P. Specials", pSpecials);
-			EngineCore.addButton(6, "M. Specials", Combat.magicalSpecials);
-			EngineCore.addButton(7, (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), Combat.wait);
-			EngineCore.addButton(8, "Fantasize", Combat.fantasize);
+			EngineCore.addButton(0, "Attack", null, Combat.attacks);
+			EngineCore.addButton(1, "Tease", null, Combat.teaseAttack);
+			EngineCore.addButton(2, "Spells", null, magic);
+			EngineCore.addButton(3, "Items", SceneLib.inventory, SceneLib.inventory.inventoryMenu);
+			EngineCore.addButton(4, "Run", null, Combat.runAway);
+			EngineCore.addButton(5, "P. Specials", null, pSpecials);
+			EngineCore.addButton(6, "M. Specials", null, Combat.magicalSpecials);
+			EngineCore.addButton(7, (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), null, Combat.wait);
+			EngineCore.addButton(8, "Fantasize", null, Combat.fantasize);
 		}
 	};
 	Combat.teaseAttack = function() {
@@ -552,7 +557,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			} else {
 				EngineCore.outputText(" and staggers, collapsing from the wounds you've inflicted on " + CoC.monster.pronoun2 + ".  (" + damage + ")\n\n");
 			}
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 			return;
 		} else {
 			EngineCore.outputText(".  It's clearly very painful. (" + damage + ")\n\n");
@@ -562,12 +567,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.fireBreathMenu = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText("Which of your special fire-breath attacks would you like to use?");
-		EngineCore.choices("Akbal's", Combat.fireballuuuuu, "Hellfire", Combat.hellFire, "Dragonfire", Combat.dragonBreath, "", null, "Back", MainView.playerMenu);
+		EngineCore.choices("Akbal's", null, Combat.fireballuuuuu, "Hellfire", null, Combat.hellFire, "Dragonfire", null, Combat.dragonBreath, "", null, null, "Back", null, MainView.playerMenu);
 	};
 	//Fantasize
 	Combat.fantasize = function() {
 		var temp2 = 0;
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.outputText("", true);
 		if(CoC.player.armorName === "goo armor") {
 			EngineCore.outputText("As you fantasize, you feel Valeria rubbing her gooey body all across your sensitive skin");
@@ -603,7 +608,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				CoC.player.lust = 99;
 				EngineCore.dynStats("lus", -25);
 			} else {
-				EngineCore.doNext(Combat.endLustLoss);
+				EngineCore.doNext( Combat, Combat.endLustLoss);
 				return;
 			}
 		}
@@ -680,9 +685,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 		} else {
 			if(CoC.monster.HP <= 0) {
-				EngineCore.doNext(Combat.endHpVictory);
+				EngineCore.doNext( Combat, Combat.endHpVictory);
 			} else {
-				EngineCore.doNext(Combat.endLustVictory);
+				EngineCore.doNext( Combat, Combat.endLustVictory);
 			}
 		}
 	};
@@ -765,7 +770,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("You strike at the amalgamation, crushing countless worms into goo, dealing " + damage + " damage.\n\n", false);
 				CoC.monster.HP -= damage;
 				if(CoC.monster.HP <= 0) {
-					EngineCore.doNext(Combat.endHpVictory);
+					EngineCore.doNext( Combat, Combat.endHpVictory);
 					return;
 				}
 			} else { //Fail
@@ -893,9 +898,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 						Combat.enemyAI();
 					} else {
 						if(CoC.monster.HP <= 0) {
-							EngineCore.doNext(Combat.endHpVictory);
+							EngineCore.doNext( Combat, Combat.endHpVictory);
 						} else {
-							EngineCore.doNext(Combat.endLustVictory);
+							EngineCore.doNext( Combat, Combat.endLustVictory);
 						}
 					}
 					return;
@@ -1032,9 +1037,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 		} else {
 			if(CoC.monster.HP <= 0) {
-				EngineCore.doNext(Combat.endHpVictory);
+				EngineCore.doNext( Combat, Combat.endHpVictory);
 			} else {
-				EngineCore.doNext(Combat.endLustVictory);
+				EngineCore.doNext( Combat, Combat.endLustVictory);
 			}
 		}
 	};
@@ -1137,9 +1142,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("\n\n");
 		//Victory ORRRRR enemy turn.
 		if(CoC.monster.HP <= 0) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		} else if(CoC.monster.lust >= 100) {
-			EngineCore.doNext(Combat.endLustVictory);
+			EngineCore.doNext( Combat, Combat.endLustVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -1150,7 +1155,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Keep logic sane if this attack brings victory
 		if (CoC.player.tailVenom < 33) {
 			EngineCore.outputText("You do not have enough venom to sting right now!");
-			EngineCore.doNext(Combat.physicalSpecials);
+			EngineCore.doNext( Combat, Combat.physicalSpecials);
 			return;
 		}
 		//Worms are immune!
@@ -1212,7 +1217,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(CoC.monster.HP > 0 && CoC.monster.lust < 100) {
 			Combat.enemyAI();
 		} else {
-			EngineCore.doNext(Combat.endLustVictory);
+			EngineCore.doNext( Combat, Combat.endLustVictory);
 		}
 	};
 	Combat.combatMiss = function() {
@@ -1237,7 +1242,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.dynStats("lus", 3);
 		}
 		if (CoC.monster.HP - damage <= 0) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		}
 		// Uma's Massage Bonuses
 		var statIndex = CoC.player.findStatusAffect(StatusAffects.UmasMassage);
@@ -1384,9 +1389,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		CoC.monster.handleAwardText(); //Each monster can now override the default award text
 		if (!SceneLib.dungeonCore.isInDungeon() && !OnLoadVariables.inRoomedDungeon) {
-			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 		} else {
-			EngineCore.doNext(MainView.playerMenu);
+			EngineCore.doNext( MainView, MainView.playerMenu);
 		}
 		Combat.dropItem(CoC.monster);
 		CoC.setInCombat(false);
@@ -1689,9 +1694,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		Combat.regeneration(true);
 		if(CoC.player.lust >= 100) {
-			EngineCore.doNext(Combat.endLustLoss);
+			EngineCore.doNext( Combat, Combat.endLustLoss);
 		}else if(CoC.player.HP <= 0) {
-			EngineCore.doNext(Combat.endHpLoss);
+			EngineCore.doNext( Combat, Combat.endHpLoss);
 		}
 	};
 	Combat.regeneration = function(combat) {
@@ -1741,7 +1746,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				CoC.monster.armorDef -= 10;
 			}
 		}
-		EngineCore.doNext(MainView.playerMenu);
+		EngineCore.doNext( MainView, MainView.playerMenu);
 	};
 	Combat.startCombatImmediate = function(monster, plotFight) {
 		Combat.startCombat(monster, plotFight);
@@ -3619,11 +3624,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return false;
 		}
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 			return true;
 		}
 		if(CoC.monster.lust > 99) {
-			EngineCore.doNext(Combat.endLustVictory);
+			EngineCore.doNext( Combat, Combat.endLustVictory);
 			return true;
 		}
 		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
@@ -3633,18 +3638,18 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		if(CoC.monster.short === "basilisk" && CoC.player.spe <= 1) {
-			EngineCore.doNext(Combat.endHpLoss);
+			EngineCore.doNext( Combat, Combat.endHpLoss);
 			return true;
 		}
 		if(CoC.player.HP < 1) {
-			EngineCore.doNext(Combat.endHpLoss);
+			EngineCore.doNext( Combat, Combat.endHpLoss);
 			return true;
 		}
 		if(CoC.player.lust > 99) {
-			EngineCore.doNext(Combat.endLustLoss);
+			EngineCore.doNext( Combat, Combat.endLustLoss);
 			return true;
 		}
-		EngineCore.doNext(MainView.playerMenu); //This takes us back to the combatMenu and a new combat round
+		EngineCore.doNext( MainView, MainView.playerMenu); //This takes us back to the combatMenu and a new combat round
 		return false;
 	};
 	Combat.hasSpells = function() {
@@ -3670,20 +3675,20 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		} else {
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsCharge) >= 0) {
 				if (CoC.player.findStatusAffect(StatusAffects.ChargeWeapon) < 0) {
-					EngineCore.addButton(0, "Charge W.", Combat.spellChargeWeapon);
+					EngineCore.addButton(0, "Charge W.", null, Combat.spellChargeWeapon);
 				} else {
 					EngineCore.outputText("<b>Charge weapon is already active and cannot be cast again.</b>\n\n");
 				}
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsBlind) >= 0) {
 				if (CoC.monster.findStatusAffect(StatusAffects.Blind) < 0) {
-					EngineCore.addButton(1, "Blind", Combat.spellBlind);
+					EngineCore.addButton(1, "Blind", null, Combat.spellBlind);
 				} else {
 					EngineCore.outputText("<b>" + CoC.monster.getCapitalA() + CoC.monster.short + " is already affected by blind.</b>\n\n");
 				}
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsWhitefire) >= 0) {
-				EngineCore.addButton(2, "Whitefire", Combat.spellWhitefire);
+				EngineCore.addButton(2, "Whitefire", null, Combat.spellWhitefire);
 			}
 		}
 		//BLACK MAGICSKS
@@ -3691,14 +3696,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("You aren't turned on enough to use any black magics.\n\n");
 		} else {
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
-				EngineCore.addButton(5, "Arouse", Combat.spellArouse);
+				EngineCore.addButton(5, "Arouse", null, Combat.spellArouse);
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsHeal) >= 0) {
-				EngineCore.addButton(6, "Heal", Combat.spellHeal);
+				EngineCore.addButton(6, "Heal", null, Combat.spellHeal);
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsMight) >= 0) {
 				if (CoC.player.findStatusAffect(StatusAffects.Might) < 0) {
-					EngineCore.addButton(7, "Might", Combat.spellMight);
+					EngineCore.addButton(7, "Might", null, Combat.spellMight);
 				} else {
 					EngineCore.outputText("<b>You are already under the effects of Might and cannot cast it again.</b>\n\n");
 				}
@@ -3706,17 +3711,17 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		// JOJO ABILITIES -- kind makes sense to stuff it in here along side the white magic shit (also because it can't fit into M. Specials :|
 		if (CoC.player.findPerk(PerkLib.CleansingPalm) >= 0 && CoC.player.cor < 10) {
-			EngineCore.addButton(3, "C.Palm", Combat.spellCleansingPalm);
+			EngineCore.addButton(3, "C.Palm", null, Combat.spellCleansingPalm);
 		}
-		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
+		EngineCore.addButton(9, "Back", null, Combat.combatMenu, false);
 	};
 	Combat.spellArouse = function() {
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(15,1);
 		EngineCore.statScreenRefresh();
 		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
@@ -3733,9 +3738,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("\n\n", false);
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
-			EngineCore.doNext(MainView.playerMenu);
+			EngineCore.doNext( MainView, MainView.playerMenu);
 			if(CoC.monster.lust >= 100) {
-				EngineCore.doNext(Combat.endLustVictory);
+				EngineCore.doNext( Combat, Combat.endLustVictory);
 			} else {
 				Combat.enemyAI();
 			}
@@ -3801,11 +3806,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		EngineCore.outputText("\n\n", false);
-		EngineCore.doNext(MainView.playerMenu);
+		EngineCore.doNext( MainView, MainView.playerMenu);
 		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		if(CoC.monster.lust >= 100) {
-			EngineCore.doNext(Combat.endLustVictory);
+			EngineCore.doNext( Combat, Combat.endLustVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -3814,10 +3819,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.spellHeal = function() {
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(20,1);
 		EngineCore.outputText("You focus on your body and its desire to end pain, trying to draw on your arousal without enhancing it.\n", true);
 		//25% backfire!
@@ -3853,7 +3858,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		if(CoC.player.lust >= 100) {
-			EngineCore.doNext(Combat.endLustLoss);
+			EngineCore.doNext( Combat, Combat.endLustLoss);
 		} else {
 			Combat.enemyAI();
 		}
@@ -3865,10 +3870,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.spellMight = function() {
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(25,1);
 		var tempStr = 0;
 		var tempTou = 0;
@@ -3919,7 +3924,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		CoC.flags[kFLAGS.SPELLS_CAST]++;
 		Combat.spellPerkUnlock();
 		if(CoC.player.lust >= 100) {
-			EngineCore.doNext(Combat.endLustLoss);
+			EngineCore.doNext( Combat, Combat.endLustLoss);
 		} else {
 			Combat.enemyAI();
 		}
@@ -3929,10 +3934,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.spellChargeWeapon = function() {
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(15,1);
 		EngineCore.outputText("You utter words of power, summoning an electrical charge around your " + CoC.player.weaponName + ".  It crackles loudly, ensuring you'll do more damage with it for the rest of the fight.\n\n", true);
 		CoC.player.createStatusAffect(StatusAffects.ChargeWeapon,10 * CoC.player.spellMod(),0,0,0);
@@ -3946,10 +3951,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("", true);
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(20,1);
 		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
 			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
@@ -3973,7 +3978,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
 			if(CoC.monster.HP < 1) {
-				EngineCore.doNext(Combat.endHpVictory);
+				EngineCore.doNext( Combat, Combat.endHpVictory);
 			} else {
 				Combat.enemyAI();
 			}
@@ -4018,10 +4023,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("", true);
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(30,1);
 		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
 			EngineCore.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
@@ -4056,7 +4061,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		CoC.monster.HP -= wound;
 		EngineCore.statScreenRefresh();
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -4065,10 +4070,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.clearOutput();
 		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
 			EngineCore.outputText("You are too tired to cast this spell.", true);
-			EngineCore.doNext(Combat.magicMenu);
+			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
 		}
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 	//This is now automatic - newRound arg defaults to true:	menuLoc = 0;
 		EngineCore.fatigue(30,1);
 		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
@@ -4119,7 +4124,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		CoC.monster.HP -= wound;
 		EngineCore.statScreenRefresh();
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -4145,7 +4150,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("", true);
 		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to breathe fire.\n", true);
-			EngineCore.doNext(Combat.combatMenu);
+			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
 		EngineCore.fatigue(20, 1);
@@ -4214,10 +4219,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			CoC.monster.lightHolliOnFireMagically();
 		}
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		}
 		else if(CoC.monster.lust >= 99) {
-			EngineCore.doNext(Combat.endLustVictory);
+			EngineCore.doNext( Combat, Combat.endLustVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -4273,7 +4278,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("You strike at the amalgamation, crushing countless worms into goo, dealing " + damage + " damage.\n\n", false);
 				CoC.monster.HP -= damage;
 				if(CoC.monster.HP <= 0) {
-					EngineCore.doNext(Combat.endHpVictory);
+					EngineCore.doNext( Combat, Combat.endHpVictory);
 					return;
 				}
 			} else { //Fail
@@ -4364,7 +4369,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Keep logic sane if this attack brings victory
 		if(CoC.player.tailVenom < 33) {
 			EngineCore.outputText("You do not have enough webbing to shoot right now!", true);
-			EngineCore.doNext(Combat.physicalSpecials);
+			EngineCore.doNext( Combat, Combat.physicalSpecials);
 			return;
 		}
 		CoC.player.tailVenom-= 33;
@@ -4533,12 +4538,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("", true);
 		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(10) > 100) {
 			EngineCore.outputText("You are too tired to focus this ability.", true);
-			EngineCore.doNext(Combat.combatMenu);
+			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to reach the enemy's mind while you're having so much difficult breathing.", true);
-			EngineCore.doNext(Combat.combatMenu);
+			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
 		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
@@ -4592,13 +4597,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.clearOutput();
 		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to breathe fire.", true);
-			EngineCore.doNext(Combat.combatMenu);
+			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
 		//Not Ready Yet:
 		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathCooldown) >= 0) {
 			EngineCore.outputText("You try to tap into the power within you, but your burning throat reminds you that you're not yet ready to unleash it again...");
-			EngineCore.doNext(Combat.combatMenu);
+			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
 	//This is now automatic - newRound arg defaults to true:	menuLoc = 0;
@@ -4681,7 +4686,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("", true);
 		if(CoC.player.fatigue + 20 > 100) {
 			EngineCore.outputText("You are too tired to breathe fire.", true);
-			EngineCore.doNext(Combat.combatMenu);
+			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
 		EngineCore.changeFatigue(20);
@@ -4771,7 +4776,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -4779,7 +4784,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.kissAttack = function() {
 		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
 			EngineCore.outputText("There's no way you'd be able to find their lips while you're blind!", true);
-			EngineCore.doNext(Combat.physicalSpecials);
+			EngineCore.doNext( Combat, Combat.physicalSpecials);
 			return;
 		}
 		EngineCore.outputText("", true);
@@ -4950,7 +4955,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("You flex the muscles in your back and, shaking clear of the sand, burst into the air!  Wasting no time you fly free of the sandtrap and its treacherous pit.  \"One day your wings will fall off, little ant,\" the snarling voice of the thwarted androgyne carries up to you as you make your escape.  \"And I will be waiting for you when they do!\"");
 			CoC.setInCombat(false);
 			Combat.clearStatuses(false);
-			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			return;
 		}
 		if(CoC.monster.findStatusAffect(StatusAffects.GenericRunDisabled) >= 0 || SceneLib.urtaQuest.isUrta()) {
@@ -4977,7 +4982,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.outputText("You slink away while the pack of brutes is arguing.  Once they finish that argument, they'll be sorely disappointed!", true);
 			CoC.setInCombat(false);
 			Combat.clearStatuses(false);
-			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			return;
 		} else if(CoC.monster.short === "minotaur tribe" && CoC.monster.HPRatio() >= 0.75) {
 			EngineCore.outputText("There's too many of them surrounding you to run!", true);
@@ -5052,7 +5057,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("Marshalling your thoughts, you frown at the strange girl and turn to march up the beach.  After twenty paces inshore you turn back to look at her again.  The anemone is clearly crestfallen by your departure, pouting heavily as she sinks beneath the water's surface.", true);
 				CoC.setInCombat(false);
 				Combat.clearStatuses(false);
-				EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 				return;
 			} else { //Speed dependent
 				//Success
@@ -5060,7 +5065,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					CoC.setInCombat(false);
 					Combat.clearStatuses(false);
 					EngineCore.outputText("Marshalling your thoughts, you frown at the strange girl and turn to march up the beach.  After twenty paces inshore you turn back to look at her again.  The anemone is clearly crestfallen by your departure, pouting heavily as she sinks beneath the water's surface.", true);
-					EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 					return;
 				} else { //Run failed:
 					EngineCore.outputText("You try to shake off the fog and run but the anemone slinks over to you and her tentacles wrap around your waist.  <i>\"Stay?\"</i> she asks, pressing her small breasts into you as a tentacle slides inside your " + CoC.player.armorName + " and down to your nethers.  The combined stimulation of the rubbing and the tingling venom causes your knees to buckle, hampering your resolve and ending your escape attempt.", false);
@@ -5084,7 +5089,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("\n\nNot to be outdone, you call back, \"Sucks to you!  If even the mighty Last Ember of Hope can't catch me, why do I need to train?  Later, little bird!\"");
 				CoC.setInCombat(false);
 				Combat.clearStatuses(false);
-				EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			} else { //Fail: 
 				EngineCore.outputText("Despite some impressive jinking, " + SceneLib.emberScene.emberMF("he","she") + " catches you, tackling you to the ground.\n\n");
 				Combat.enemyAI();
@@ -5106,7 +5111,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			CoC.setInCombat(false);
 			Combat.clearStatuses(false);
-			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			return;
 		} else if(CoC.player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50) { //Runner perk chance
 			CoC.setInCombat(false);
@@ -5115,7 +5120,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.outputText("\n\nAs you leave the tigershark behind, her taunting voice rings out after you.  \"<i>Oooh, look at that fine backside!  Are you running or trying to entice me?  Haha, looks like we know who's the superior specimen now!  Remember: next time we meet, you owe me that ass!</i>\"  Your cheek tingles in shame at her catcalls.", false);
 			}
 			Combat.clearStatuses(false);
-			EngineCore.doNext(SceneLib.camp.returnToCampUseOneHour);
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			return;
 		} else { //FAIL FLEE
 			if(CoC.monster.short === "Holli") {
@@ -5241,7 +5246,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//New lines and moving on!
 		EngineCore.outputText("\n\n", false);
-		EngineCore.doNext(Combat.combatMenu);
+		EngineCore.doNext( Combat, Combat.combatMenu);
 		if(!Combat.combatRoundOver()) {
 			Combat.enemyAI();
 		}
@@ -5256,37 +5261,37 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.menu();
 		//Berserk
 		if(CoC.player.findPerk(PerkLib.Berzerker) >= 0) {
-			EngineCore.addButton(0,"Berzerk",Combat.berzerk);
+			EngineCore.addButton(0,"Berzerk", null, Combat.berzerk);
 		}
 		if(CoC.player.findPerk(PerkLib.Dragonfire) >= 0) {
-			EngineCore.addButton(1,"DragonFire",Combat.dragonBreath);
+			EngineCore.addButton(1,"DragonFire", null, Combat.dragonBreath);
 		}
 		if(CoC.player.findPerk(PerkLib.FireLord) >= 0) {
-			EngineCore.addButton(2,"Fire Breath",Combat.fireballuuuuu);
+			EngineCore.addButton(2,"Fire Breath", null, Combat.fireballuuuuu);
 		}
 		if(CoC.player.findPerk(PerkLib.Hellfire) >= 0) {
-			EngineCore.addButton(3,"Hellfire",Combat.hellFire);
+			EngineCore.addButton(3,"Hellfire", null, Combat.hellFire);
 		}
 		//Possess ability.
 		if(CoC.player.findPerk(PerkLib.Incorporeality) >= 0) {
-			EngineCore.addButton(4,"Possess",Combat.possess);
+			EngineCore.addButton(4,"Possess", null, Combat.possess);
 		}
 		if(CoC.player.findPerk(PerkLib.Whispered) >= 0) {
-			EngineCore.addButton(5,"Whisper",Combat.superWhisperAttack);
+			EngineCore.addButton(5,"Whisper", null, Combat.superWhisperAttack);
 		}
 		if(CoC.player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
-			EngineCore.addButton(6,"C.FoxFire",Combat.corruptedFoxFire);
-			EngineCore.addButton(7,"Terror",Combat.kitsuneTerror);
+			EngineCore.addButton(6,"C.FoxFire", null, Combat.corruptedFoxFire);
+			EngineCore.addButton(7,"Terror", null, Combat.kitsuneTerror);
 		}
 		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
-			EngineCore.addButton(6,"FoxFire",Combat.foxFire);
-			EngineCore.addButton(7,"Illusion",Combat.kitsuneIllusion);
+			EngineCore.addButton(6,"FoxFire", null, Combat.foxFire);
+			EngineCore.addButton(7,"Illusion", null, Combat.kitsuneIllusion);
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ShieldingSpell) >= 0) {
-			EngineCore.addButton(8,"Shielding",Combat.shieldingSpell);
+			EngineCore.addButton(8,"Shielding", null, Combat.shieldingSpell);
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ImmolationSpell) >= 0) {
-			EngineCore.addButton(8,"Immolation",Combat.immolationSpell);
+			EngineCore.addButton(8,"Immolation", null, Combat.immolationSpell);
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
 	};
@@ -5304,55 +5309,55 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.menu();
 		if (CoC.player.hairType === 4) {
-			EngineCore.addButton(0, "AnemoneSting", Combat.anemoneSting);
+			EngineCore.addButton(0, "AnemoneSting", null, Combat.anemoneSting);
 		}
 		//Bitez
 		if (CoC.player.faceType === AppearanceDefs.FACE_SHARK_TEETH) {
-			EngineCore.addButton(1, "Bite", Combat.bite);
+			EngineCore.addButton(1, "Bite", null, Combat.bite);
 		}
 		else if (CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS) {
-			EngineCore.addButton(1, "Bite", Combat.nagaBiteAttack);
+			EngineCore.addButton(1, "Bite", null, Combat.nagaBiteAttack);
 		}
 		else if (CoC.player.faceType === AppearanceDefs.FACE_SPIDER_FANGS) {
-			EngineCore.addButton(1, "Bite", Combat.spiderBiteAttack);
+			EngineCore.addButton(1, "Bite", null, Combat.spiderBiteAttack);
 		}
 		//Bow attack
 		if (CoC.player.hasKeyItem("Bow") >= 0) {
-			EngineCore.addButton(2, "Bow", Combat.fireBow);
+			EngineCore.addButton(2, "Bow", null, Combat.fireBow);
 		}
 		//Constrict
 		if (CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA) {
-			EngineCore.addButton(3, "Constrict", SceneLib.nagaScene.nagaPlayerConstrict);
+			EngineCore.addButton(3, "Constrict", SceneLib.nagaScene, SceneLib.nagaScene.nagaPlayerConstrict);
 		}
 		//Kick attackuuuu
 		else if (CoC.player.isTaur() || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
-			EngineCore.addButton(3, "Kick", Combat.kick);
+			EngineCore.addButton(3, "Kick", null, Combat.kick);
 		}
 		//Gore if mino horns
 		if (CoC.player.hornType === AppearanceDefs.HORNS_COW_MINOTAUR && CoC.player.horns >= 6) {
-			EngineCore.addButton(4, "Gore", Combat.goreAttack);
+			EngineCore.addButton(4, "Gore", null, Combat.goreAttack);
 		}
 		//Infest if infested
 		if (CoC.player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.player.statusAffectv1(StatusAffects.Infested) === 5 && CoC.player.hasCock()) {
-			EngineCore.addButton(5, "Infest", Combat.playerInfest);
+			EngineCore.addButton(5, "Infest", null, Combat.playerInfest);
 		}
 		//Kiss supercedes bite.
 		if (CoC.player.findStatusAffect(StatusAffects.LustStickApplied) >= 0) {
-			EngineCore.addButton(6, "Kiss", Combat.kissAttack);
+			EngineCore.addButton(6, "Kiss", null, Combat.kissAttack);
 		}
 		switch (CoC.player.tailType) {
 			case AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN:
-				EngineCore.addButton(7, "Sting", Combat.playerStinger);
+				EngineCore.addButton(7, "Sting", null, Combat.playerStinger);
 				break;
 			case AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN:
-				EngineCore.addButton(7, "Web", Combat.PCWebAttack);
+				EngineCore.addButton(7, "Web", null, Combat.PCWebAttack);
 				break;
 			case AppearanceDefs.TAIL_TYPE_SHARK:
 			case AppearanceDefs.TAIL_TYPE_LIZARD:
 			case AppearanceDefs.TAIL_TYPE_KANGAROO:
 			case AppearanceDefs.TAIL_TYPE_DRACONIC:
 			case AppearanceDefs.TAIL_TYPE_RACCOON:
-				EngineCore.addButton(7, "Tail Whip", Combat.tailWhipAttack);
+				EngineCore.addButton(7, "Tail Whip", null, Combat.tailWhipAttack);
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
 	};
@@ -5360,7 +5365,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.clearOutput();
 		if(CoC.player.findStatusAffect(StatusAffects.Berzerking) >= 0) {
 			EngineCore.outputText("You're already pretty goddamn mad!", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.outputText("You roar and unleash your savage fury, forgetting about defense in order to destroy your foe!\n\n", true);
@@ -5372,12 +5377,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.clearOutput();
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.fatigue(35,1);
@@ -5400,7 +5405,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("  (" + dmg + ")\n\n", false);
 		EngineCore.statScreenRefresh();
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -5410,12 +5415,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.clearOutput();
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.fatigue(35,1);
@@ -5443,7 +5448,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.outputText("  (" + dmg + ")\n\n", false);
 		EngineCore.statScreenRefresh();
 		if(CoC.monster.HP < 1) {
-			EngineCore.doNext(Combat.endHpVictory);
+			EngineCore.doNext( Combat, Combat.endHpVictory);
 		} else {
 			Combat.enemyAI();
 		}
@@ -5454,7 +5459,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Fatigue Cost: 25
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
@@ -5464,7 +5469,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to reach the enemy's mind while you're having so much difficult breathing.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
@@ -5495,12 +5500,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Fatigue Cost: 25
 		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
 			EngineCore.outputText("You are too tired to use this ability.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
 			EngineCore.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
-			EngineCore.doNext(Combat.magicalSpecials);
+			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {

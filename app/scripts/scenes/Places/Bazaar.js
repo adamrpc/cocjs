@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		}
 		EngineCore.outputText( '\n\nDo you approach?', false );
 		//[YES] [NOOOO];
-		EngineCore.doYesNo( this.approachBazaarGuard, SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this, this.approachBazaarGuard, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK YES I WILL PUT IT IN YOUR BIZARRE ANUS];
 	Bazaar.prototype.approachBazaarGuard = function() {
@@ -30,9 +30,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		}
 		EngineCore.outputText( '</i>"', false );
 		if( CoC.player.cor < 33 ) {
-			EngineCore.choices( '', null, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( '', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.choices( 'Enter', this.enterTheBazaar, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Enter', this, this.enterTheBazaar, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	Bazaar.prototype.enterTheBazaar = function() {
@@ -104,18 +104,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			niamh = SceneLib.niamh.bazaarNiamh;
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, benoitT, benoit2 );
-		EngineCore.addButton( 1, rat, SceneLib.cinnabar.cinnabarAppearance( false ) );
-		EngineCore.addButton( 2, 'Greta\'s', this.gretasGarments );
-		EngineCore.addButton( 3, 'GripingDemons', demon );
+		EngineCore.addButton( 0, benoitT, SceneLib.benoit, benoit2 );
+		EngineCore.addButton( 1, rat, SceneLib.cinnabar, SceneLib.cinnabar.cinnabarAppearance( false ) );
+		EngineCore.addButton( 2, 'Greta\'s', this, this.gretasGarments );
+		EngineCore.addButton( 3, 'GripingDemons', this, demon );
 		if( SceneLib.lilium.LiliumText( false ) !== null ) {
-			EngineCore.addButton( 4, lilium2, SceneLib.lilium.LiliumText( false ) );
+			EngineCore.addButton( 4, lilium2, SceneLib.lilium, SceneLib.lilium.LiliumText( false ) );
 		}
-		EngineCore.addButton( 5, 'Niamh', niamh );
-		EngineCore.addButton( 6, roxanneT, roxanne2 );
-		EngineCore.addButton( 7, 'S. Squeeze', this.theSlipperySqueeze );
-		EngineCore.addButton( 8, 'Tent', tent );
-		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 5, 'Niamh', SceneLib.niamh, niamh );
+		EngineCore.addButton( 6, roxanneT, SceneLib.roxanne, roxanne2 );
+		EngineCore.addButton( 7, 'S. Squeeze', this, this.theSlipperySqueeze );
+		EngineCore.addButton( 8, 'Tent', SceneLib.fapArena, tent );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Semen Bukkake and Massage Parlor;
 	//-Femboi Bunny owner - Joey;
@@ -165,20 +165,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			milker = this.askJoeyAboutOffer;
 		}
 		//	[Joey] [Sara] [][] [Leave];
-		//EngineCore.choices('JoeyMassage',this.joeyMassage,'Androgyny',androgyny,'Joey\'sOffer',milker,'',0,'Leave',2855);;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'JoeyMassage', this.joeyMassage );
-		EngineCore.addButton( 1, 'Adrogyny', androgyny );
-		EngineCore.addButton( 2, 'Joey\'sOffer', milker );
+		EngineCore.addButton( 0, 'JoeyMassage', this, this.joeyMassage );
+		EngineCore.addButton( 1, 'Adrogyny', this, androgyny );
+		EngineCore.addButton( 2, 'Joey\'sOffer', this, milker );
 		if( CoC.isEaster() ) {
 			EngineCore.outputText( 'There\'s another option on the list, cheerfully presented with a pastel border and a little painted egg next to it.  \'Sweet Massage\' it says.  "<i>That\'s our spring special,</i>" Joey explains, "<i>using our new chocolate-flavored massage oil.  It comes with a complimentary \'dessert.\'</i>"  He gives you a little wink at that last word, so you can be certain that it\'s no normal dessert.  <b>The price is 20 gems.</b>' );
 			if( CoC.player.gems < 20 ) {
 				EngineCore.outputText( '  You can\'t afford it.' );
 			} else {
-				EngineCore.addButton( 3, 'SweetMassage', this.joeySweetMassage );
+				EngineCore.addButton( 3, 'SweetMassage', this, this.joeySweetMassage );
 			}
 		}
-		EngineCore.addButton( 4, 'Leave', this.enterTheBazaar );
+		EngineCore.addButton( 4, 'Leave', this, this.enterTheBazaar );
 	};
 
 	//[Ask];
@@ -189,18 +188,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '\n\nWhat do you think? Will you take the cock massager for 200 gems?' );
 		if( CoC.player.gems < 200 ) {
 			EngineCore.outputText( '\n\n<b>You don\'t have enough money.</b>' );
-			EngineCore.doNext( this.noMilkerPlzJoey );
+			EngineCore.doNext( this, this.noMilkerPlzJoey );
 			return;
 		}
 		//[Yes] [No];
-		EngineCore.doYesNo( this.buyCockMilker, this.noMilkerPlzJoey );
+		EngineCore.doYesNo( this, this.buyCockMilker, this, this.noMilkerPlzJoey );
 	};
 	//[No];
 	Bazaar.prototype.noMilkerPlzJoey = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decline; it\'s not really the sort of thing you need in your camp.  "<i>Ah well,</i>" Joey shrugs, "<i>I\'ll just have to hang onto it for now I guess.  Shame.  Anyway,</i>" he resumes his usual grin, "<i>is there something else you need?  A massage, perhaps?</i>"' );
 		//return to normal options, scene is never brought up again;
-		EngineCore.doNext( this.enterTheBazaar );
+		EngineCore.doNext( this, this.enterTheBazaar );
 	};
 	//[Yes];
 	Bazaar.prototype.buyCockMilker = function() {
@@ -210,13 +209,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		CoC.player.gems -= 200;
 		EngineCore.statScreenRefresh();
 		CoC.player.createKeyItem( 'Cock Milker', 0, 0, 0, 0 );
-		EngineCore.choices( 'JoeyMassage', this.joeyMassage, 'Androgyny', null, 'Joey\'sOffer', null, '', null, 'Leave', this.enterTheBazaar );
+		EngineCore.choices( 'JoeyMassage', this, this.joeyMassage, 'Androgyny', null, null, 'Joey\'sOffer', null, null, '', null, null, 'Leave', this, this.enterTheBazaar );
 	};
 	Bazaar.prototype.joeyAndrogyny = function() {
 		EngineCore.outputText( '', true );
 		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( 'You haven\'t got enough gems for that treatment!', false );
-			EngineCore.doNext( this.theSlipperySqueeze );
+			EngineCore.doNext( this, this.theSlipperySqueeze );
 			return;
 		}
 		CoC.player.gems -= 500;
@@ -235,14 +234,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( 'Thanking the cute bunny-boy for his help, you hand over the payment and head back to check on camp.', false );
 		CoC.player.createPerk( PerkLib.Androgyny, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Joey];
 	Bazaar.prototype.joeyMassage = function() {
 		EngineCore.outputText( '', true );
 		if( CoC.player.gems < 10 ) {
 			EngineCore.outputText( 'Joey frowns when you realize you don\'t have the 10 gems.  He apologizes, "<i>I\'m sorry, ' + CoC.player.short + ' but I can\'t give freebies - our special potions cost us plenty.', false );
-			EngineCore.doNext( this.enterTheBazaar );
+			EngineCore.doNext( this, this.enterTheBazaar );
 			return;
 		}
 		CoC.player.slimeFeed();
@@ -259,9 +258,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '</i>"', false );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( '\n\nDo you accept Joey\'s potion?', false );
-			EngineCore.doYesNo( this.joeysMassageWithEXTRASpooge, this.joeysMassageWifNoExtraJizz );
+			EngineCore.doYesNo( this, this.joeysMassageWithEXTRASpooge, this, this.joeysMassageWifNoExtraJizz );
 		} else {
-			EngineCore.doNext( this.joeysMassageWifNoExtraJizz );
+			EngineCore.doNext( this, this.joeysMassageWifNoExtraJizz );
 		}
 	};
 	Bazaar.prototype.joeysMassageWifNoExtraJizz = function() {
@@ -362,7 +361,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		if( CoC.player.sens > 40 ) {
 			EngineCore.dynStats( 'lib', -0.5 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[CONTINUE – DRANK JOEY'S SPECIAL POTION];
 	Bazaar.prototype.joeysMassageWithEXTRASpooge = function() {
@@ -435,7 +434,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		if( CoC.player.sens > 40 ) {
 			EngineCore.dynStats( 'sen', -4 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Bazaar.prototype.joeyBigBalls = function() {
 		EngineCore.outputText( '', true );
@@ -453,13 +452,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			}
 			EngineCore.outputText( '.  What do you decide?', false );
 			//[SuckCumOut] [MasturbateOut];
-			EngineCore.choices( 'SuckCumOut', this.suckOffJoeysGardenHose, 'MasturbateOut', this.joeyWanksItOut, '', null, '', null, '', null );
+			EngineCore.choices( 'SuckCumOut', this, this.suckOffJoeysGardenHose, 'MasturbateOut', this, this.joeyWanksItOut, '', null, null, '', null, null, '', null, null );
 		}
 		//(Sucked Joey once) ;
 		else {
 			EngineCore.outputText( 'As soon as you enter The Slippery Squeeze, you know somehow that something is amiss.  Joey staggers out from a back-room, his balls once again swollen huge and round.  He looks at you and admits, "<i>Someone\'s <b>got</b> to be sabotaging me... gods, this hurts!  Could you help me, or should I go in the back and jerk it out myself?</i>"\n\n', false );
 			//[SuckCumOut] [MasturbateOut];
-			EngineCore.choices( 'SuckCumOut', this.suckOffJoeysGardenHose, 'MasturbateOut', this.joeyWanksItOut, '', null, '', null, '', null );
+			EngineCore.choices( 'SuckCumOut', this, this.suckOffJoeysGardenHose, 'MasturbateOut', this, this.joeyWanksItOut, '', null, null, '', null, null, '', null, null );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00348 ]++;
 	};
@@ -468,7 +467,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '', true );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00349 ] === 0 ) {
 			EngineCore.outputText( 'You tell Joey that if he masturbates to erectness, his body should be able to shoot it out faster.  He smacks his forehead and runs into a back room, his thong disintegrating around his growing testes as he runs. The door slams, leaving you in peace.  A little freaked out, you head back to camp for now.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			SceneLib.camp.returnToCampUseOneHour();
 		}
@@ -509,7 +508,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '"<i>I cleaned out your balls; you can clean up the floor,</i>" you joke as you leave, kissing him one last time on the mouth before you go.\n\n', false );
 		EngineCore.outputText( 'Joey blushes again and begins looking for a mop.', false );
 		EngineCore.dynStats( 'lus', 70 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Bazaar.prototype.overHearDemonsAboutSyrena = function() {
 		EngineCore.outputText( '', true );
@@ -544,7 +543,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			EngineCore.outputText( 'Unwilling to allow herself to be helped, the succubus staggers up and begins waddling away.  The incubus keeps his distance, wearing a predatory grin.\n\n', false );
 		}
 		//this.enterTheBazaarAndMenu(false);;
-		EngineCore.doNext( this.enterTheBazaar );
+		EngineCore.doNext( this, this.enterTheBazaar );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00292 ]++;
 	};
 	//'Greta\'s Garments' - Interior;
@@ -555,7 +554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			EngineCore.outputText( '\n\nThe demoness, Greta, spies you looking at the strange piece of clothing.  "<i>Aha, you\'re back!</i>" she says, throwing her arms wide, which has the unintentional but not unappreciated effect of making her enormous boobs jiggle.  "<i>As you can see, I\'m back in full production.  I finally got that pesky backlog taken care of... although this one shy customer, a quiet browser, if you will, keeps me on my toes with new orders.  I swear he and his partner will be the death of me!</i>"' );
 			EngineCore.outputText( '\n\nThe pink-skinned succubus clicks her tongue disapprovingly for a moment before turning her gaze back to you.  "<i>Anyway, I\'ve now got a full stock of delicious cock-socks for purchase.  Please, do look around and let me know if you find anything... suitable,</i>" she giggles and turns her attention back to knitting.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.gretasGarments );
+			EngineCore.addButton( 0, 'Next', this, this.gretasGarments );
 			CoC.flags[ kFLAGS.FOUND_SOCKS ] = 2;
 			return;
 		}
@@ -578,19 +577,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.dynStats( 'lus', 2, 'resisted', false );
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.FOUND_SOCKS ] === 0 ) {
-			EngineCore.addButton( 4, 'Low Stock', this.askGretaAboutInventory );
+			EngineCore.addButton( 4, 'Low Stock', this, this.askGretaAboutInventory );
 		} else {
 			if( CoC.flags[ kFLAGS.FOUND_SOCKS ] === 2 && CoC.player.cocks.length > 0 && CoC.player.hasSockRoom() ) {
-				EngineCore.addButton( 1, 'Browse Socks', this.browseDemSocksSon );
+				EngineCore.addButton( 1, 'Browse Socks', this, this.browseDemSocksSon );
 			}
 			if( CoC.player.hasSock() ) {
-				EngineCore.addButton( 2, 'Remove Sock', this.takeOffDatSock );
+				EngineCore.addButton( 2, 'Remove Sock', this, this.takeOffDatSock );
 			}
 		}
 		if( CoC.flags[ kFLAGS.OWN_MAIDEN_BIKINI ] === 0 ) {
-			EngineCore.addButton( 0, 'Bikini', this.askGretaAboutZeBikini );
+			EngineCore.addButton( 0, 'Bikini', this, this.askGretaAboutZeBikini );
 		}
-		EngineCore.addButton( 9, 'Back', this.enterTheBazaarAndMenu );
+		EngineCore.addButton( 9, 'Back', this, this.enterTheBazaarAndMenu );
 	};
 	//Ask About Inventory;
 	Bazaar.prototype.askGretaAboutInventory = function() {
@@ -610,7 +609,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			CoC.flags[ kFLAGS.SOCK_COUNTER ] = 24;
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 4, 'Back', this.gretasGarments );
+		EngineCore.addButton( 4, 'Back', this, this.gretasGarments );
 	};
 	//Ask About Bikini:;
 	Bazaar.prototype.askGretaAboutZeBikini = function() {
@@ -624,9 +623,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( '\n\n<b>You can\'t afford it.</b>' );
 		} else {
-			EngineCore.addButton( 0, 'Buy Bikini', this.buyGretasBikini );
+			EngineCore.addButton( 0, 'Buy Bikini', this, this.buyGretasBikini );
 		}
-		EngineCore.addButton( 4, 'Back', this.gretasGarments );
+		EngineCore.addButton( 4, 'Back', this, this.gretasGarments );
 	};
 	//Buy Bikini;
 	Bazaar.prototype.buyGretasBikini = function() {
@@ -646,15 +645,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( 'What type of cock-sock do you want to look at?' );
 		//Cock-sock Menu;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Wool', this.woolCockSock );
-		EngineCore.addButton( 1, 'Alabaster', this.alabasterCockSock );
-		EngineCore.addButton( 2, 'Cockring', this.cockringCockSock );
-		EngineCore.addButton( 3, 'Viridian', this.viridianCockSock );
-		EngineCore.addButton( 4, 'Scarlet', this.scarletCockSocK );
-		EngineCore.addButton( 5, 'Cobalt', this.cobaltCockSock );
-		EngineCore.addButton( 6, 'Gilded', this.gildedCockSock );
-		EngineCore.addButton( 7, 'Purple', this.amaranthineCockSock );
-		EngineCore.addButton( 9, 'Back', this.gretasGarments );
+		EngineCore.addButton( 0, 'Wool', this, this.woolCockSock );
+		EngineCore.addButton( 1, 'Alabaster', this, this.alabasterCockSock );
+		EngineCore.addButton( 2, 'Cockring', this, this.cockringCockSock );
+		EngineCore.addButton( 3, 'Viridian', this, this.viridianCockSock );
+		EngineCore.addButton( 4, 'Scarlet', this, this.scarletCockSocK );
+		EngineCore.addButton( 5, 'Cobalt', this, this.cobaltCockSock );
+		EngineCore.addButton( 6, 'Gilded', this, this.gildedCockSock );
+		EngineCore.addButton( 7, 'Purple', this, this.amaranthineCockSock );
+		EngineCore.addButton( 9, 'Back', this, this.gretasGarments );
 	};
 	//Wool Cock-sock;
 	Bazaar.prototype.woolCockSock = function() {
@@ -718,11 +717,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	Bazaar.prototype.cockSelectionMenu = function() {
 		EngineCore.menu();
 		if( (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'amaranthine' && CoC.player.gems >= 1000) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'gilded' && CoC.player.gems >= 3000) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'cobalt' && CoC.player.gems >= 250) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'scarlet' && CoC.player.gems >= 250) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'viridian' && CoC.player.gems >= 1000) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'cockring' && CoC.player.gems >= 100) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'alabaster' && CoC.player.gems >= 25) || (CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'wool' && CoC.player.gems >= 10) ) {
-			EngineCore.addButton( 0, 'Buy', this.pickACockForSock );
+			EngineCore.addButton( 0, 'Buy', this, this.pickACockForSock );
 		} else {
 			EngineCore.outputText( '\n\n<b>You can\'t afford that.</b>' );
 		}
-		EngineCore.addButton( 4, 'Back', this.browseDemSocksSon );
+		EngineCore.addButton( 4, 'Back', this, this.browseDemSocksSon );
 	};
 	Bazaar.prototype.pickACockForSock = function() {
 		//Buy Cock-sock;
@@ -731,7 +730,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		//[If PC only has one cock, jump immediately to Putting It On, else: ;
 		if( CoC.player.cockTotal() === 1 ) {
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.cockSockTarget, 0 );
+			EngineCore.addButton( 0, 'Next', this, this.cockSockTarget, 0 );
 		} else {
 			EngineCore.outputText( '\n\nWhich cock would you like to put it on?' );
 			var button = 0;
@@ -761,8 +760,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			EngineCore.outputText( '\n\nWell?  Do you want this cock-sock attached to your penis semi-permanently?' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.yesPutDatSockOnMe, target );
-		EngineCore.addButton( 1, 'No', this.noCockSock );
+		EngineCore.addButton( 0, 'Yes', this, this.yesPutDatSockOnMe, target );
+		EngineCore.addButton( 1, 'No', this, this.noCockSock );
 	};
 	//Yes;
 	Bazaar.prototype.yesPutDatSockOnMe = function( target ) {
@@ -820,14 +819,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			//(Cock-sock get! +2 Corruption, +5 Arousal);
 			EngineCore.dynStats( 'lus', 5, 'cor', 2 );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.gretasGarments );
+			EngineCore.addButton( 0, 'Next', this, this.gretasGarments );
 		} else {
 			{ // Conflict! NOOOOO! Pull up! Pull up!
 			}
 
 			EngineCore.outputText( 'Then she suddenly stops, staring at your groin.\n\n"<i>Oh, dear...</i>" she says, "<i>As much as I would love to take your money honey, I can\'t be mixing magics like that.</i>"' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.gretasGarments );
+			EngineCore.addButton( 0, 'Next', this, this.gretasGarments );
 		}
 	};
 	Bazaar.prototype.noCockSock = function() {
@@ -836,7 +835,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( 'You shake your head.  Greta sighs, "<i>Figures.  Here\'s your money back, honey.  Come back when you change your mind.</i>"' );
 		//(Back to menu);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gretasGarments );
+		EngineCore.addButton( 0, 'Next', this, this.gretasGarments );
 	};
 	//Remove Cock-sock;
 	Bazaar.prototype.takeOffDatSock = function() {
@@ -895,7 +894,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		//(Cock-sock lost! +5 Corruption, -10 Arousal);
 		EngineCore.dynStats( 'lus', -10, 'cor', 1 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gretasGarments );
+		EngineCore.addButton( 0, 'Next', this, this.gretasGarments );
 	};
 	/*At the Slippery Squeeze
 	 There's another option on the list, cheerfully presented with a pastel border and a little painted egg next to it.  'Sweet Massage' it says.  "<i>That's our spring special,</i>" Joey explains, "<i>using our new chocolate-flavored massage oil.  It comes with a complimentary 'dessert.'</i>"  He gives you a little wink at that last word, so you can be certain that it's no normal dessert.
@@ -913,8 +912,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.dynStats( 'lus', 25 );
 		//[Yes (gives the chocolate-egg stuffed ass from the Easter bunny)] [No (This just skips the 'If Yes' paragraphs)];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.eggsInButt, true );
-		EngineCore.addButton( 1, 'No', this.eggsInButt, false );
+		EngineCore.addButton( 0, 'Yes', this, this.eggsInButt, true );
+		EngineCore.addButton( 1, 'No', this, this.eggsInButt, false );
 	};
 	Bazaar.prototype.eggsInButt = function( eggButt ) {
 		EngineCore.clearOutput();
@@ -992,7 +991,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '\n\nJoey leaves, his rabbit tail bobbing to and fro.  You see his thong is distended, practically packed to the brim with more of his still-drooling chocolatey cum.  As usual, the waterproof thong seems to be pumping it all between his soft thighs and right into his already egg-filled asshole.  He really does like feeling full back there.  Kinky.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Visit the Bizarre Bazaar at night.;
 	Bazaar.prototype.nightBazaarButtfuck = function() {
@@ -1003,9 +1002,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '\n\nThe figure finally comes before you. Now that you\'re closer you can make him out better.  "<i>What you doin\' here?</i>"  The large feline asks, a growl to his voice that leaves you wondering if he\'s annoyed or upset.  You do your best to calm yourself down and explain how you were just exploring the bazaar. To match the glowing eyes, a glinting grin of jagged teeth forms between the figure\'s black lips.  "<i>I was just headin\' there myself.  We should go together.  It\'s not safe to wander around at night, even for a big guy like me.</i>"  A raspy snicker follows as a strong grip wraps around your shoulder.  "<i>Let me just get some more cash and I\'ll treat ya.</i>"  The feline purrs a generous offer as you feel him pulling you towards the tent he just exited from.  Your eyes peer around as the feline starts to drag you.  No one is around to help you.  The trail is completely vacant. An uneasy feeling quickly grows in the pit of your stomach.  Something is wrong.' );
 		//open options [Escape][Wait][Assault];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Escape', this.escapeFromCertainRape );
-		EngineCore.addButton( 1, 'Wait', this.waitOnStuff );
-		EngineCore.addButton( 2, 'Assault', this.assaultYoRapistYo );
+		EngineCore.addButton( 0, 'Escape', this, this.escapeFromCertainRape );
+		EngineCore.addButton( 1, 'Wait', this, this.waitOnStuff );
+		EngineCore.addButton( 2, 'Assault', this, this.assaultYoRapistYo );
 	};
 	//<Option 1 Escape>;
 	Bazaar.prototype.escapeFromCertainRape = function() {
@@ -1013,7 +1012,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( 'You tear yourself away from the feline. Wide, surprised eyes stare at you as you make a break for it.  You run as quickly as your legs can carry you, the echoes of the feline\'s feet padding behind you urging you to run faster.  You flee through the trees mindlessly, darting down whatever path you see first.  In your panic, though, you quickly wear yourself out.  How far did you run? Where are you now?  You lean against a trunk and pant for breath.  Thankfully no one seems to be around, including your pursuer.  You pat yourself off as you notice the bright lights of the bazaar nearby and retreat back to the well-lit collection of tents.' );
 		//gtfo;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.enterTheBazaarAndMenu );
+		EngineCore.addButton( 0, 'Next', this, this.enterTheBazaarAndMenu );
 	};
 	//<Option 2 Wait>;
 	Bazaar.prototype.waitOnStuff = function() {
@@ -1021,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( 'Uncertainty plagues you as you wait to see what happens.  The large feline reaches the entrance of the large tent.  His free hand grips the tent and, as you let out a loud yelp, you are shoved forcefully through.' );
 		//Pass go and collect 200 rape;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.collectSomeButtSmex );
+		EngineCore.addButton( 0, 'Next', this, this.collectSomeButtSmex );
 	};
 	//<Option 3 Assault>;
 	Bazaar.prototype.assaultYoRapistYo = function() {
@@ -1032,7 +1031,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			EngineCore.outputText( 'Intending to turn the tables, you grip the feline man\'s wrists and pull as hard as you can to wrest yourself away from the strange figure.  Your muscles fail you, though, and the feline quickly pins your arms behind your back.  Though you strain against them, the stronger hands hold you in place.  You spit silent curses at yourself for not spending more time at the gym.  "<i>Nice try.  It was almost... Cute.</i>" You hear the figure snicker again behind you before you are promptly shoved through the entrance to the large tent.' );
 			//Pass go collect 200 rape;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.collectSomeButtSmex );
+			EngineCore.addButton( 0, 'Next', this, this.collectSomeButtSmex );
 		}
 		//<Option 3 Assault>;
 		//Strength Check;
@@ -1041,9 +1040,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			EngineCore.outputText( 'You huff your breath as the weaker figure tries to force you to cooperate.  You shake your head before quickly overpowering the figure. Your strong grip clenches him around the wrists, his fur soft under your fingers.  With a sharp grunt you bend them over and push their face into the dirt.  The feline snarls and attempts to yank his arms from your grasp as you hold both wrists in one hand.  You lean down to look him over, the light peeking through the nearby tent to reveal his orange fur with black stripes.  You have a large, burly tiger man pinned under you.  What do you do with him?' );
 			//open options [Leave][Abuse ass(70 or more corruption)];
 			EngineCore.menu();
-			EngineCore.addButton( 4, 'Leave', this.assaultWinAndLeave );
+			EngineCore.addButton( 4, 'Leave', this, this.assaultWinAndLeave );
 			if( CoC.player.cor >= 66 ) {
-				EngineCore.addButton( 0, 'Abuse Ass', this.abuseHisAss );
+				EngineCore.addButton( 0, 'Abuse Ass', this, this.abuseHisAss );
 			}
 		}
 	};
@@ -1053,7 +1052,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( 'You shove the large tiger man across the dirt.  His annoyed growls are muffled by the dirt his face is sliding across.  You issue a warning about picking fights with those stronger than he is and leave him lying in the dirt, his pride battered and bruised.  The dirt under your heel grinds in the darkness as you turn and casually continue down the path until you find yourself back in the bazaar.' );
 		//gtfo;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.enterTheBazaarAndMenu );
+		EngineCore.addButton( 0, 'Next', this, this.enterTheBazaarAndMenu );
 	};
 	//<Option 2 Abuse Ass(Visible with 70 or more corruption)>;
 	Bazaar.prototype.abuseHisAss = function() {
@@ -1065,7 +1064,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			EngineCore.outputText( '\n\n"<i>What\'s that racket?</i>" You turn your head, hearing a low voice shout from inside the nearby tent.  With a snicker you shove the humiliated tiger to the ground and leave him exposed and aroused as the occupants of the tent pour out.  By the time they surround him you are long gone and back to the well-lit collection of tents in the bazaar.' );
 			//gtfo;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.enterTheBazaarAndMenu );
+			EngineCore.addButton( 0, 'Next', this, this.enterTheBazaarAndMenu );
 			return;
 		}
 		//[[[(If player does have cock);
@@ -1113,7 +1112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '\n\n"<i>He\'s even enjoying himself!</i>"  One of the figures bellows out.  You tilt your head to peer between the tiger\'s spread legs and, sure enough, the barbed cock throbs between his legs with each beat of his heart.  Without further ceremony you roll the abused tiger man on his cum-soaked back and tuck your ' + Descriptors.multiCockDescriptLight() + ' back into your [armor].  The trio are too drunk to stop you as you leave.  Turning your head back to glance at the tiger, you see the three figures surrounding the victim and your lips curl into a pleased smile.  Within moments you return to the lights of the Bazaar.' );
 		//gtfo;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.enterTheBazaarAndMenu );
+		EngineCore.addButton( 0, 'Next', this, this.enterTheBazaarAndMenu );
 	};
 	//((If waited, or failed assault  //Pass go collect 200 rape));
 	Bazaar.prototype.collectSomeButtSmex = function() {
@@ -1197,9 +1196,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.outputText( '\n\nAll of this transpires as your ' + Descriptors.buttDescript() + ' is slapped over and over by the low-hanging satyr balls.  The satyr lets out a pleased groan every now and then as your body shivers and trembles from his length hilting in you over and over and over.  He doesn\'t look like he\'ll stop anytime soon, though.  You turn your head to see the tiger\'s barbed, nine inch cock.  The stubby barbs make your skin tingle with each graze across your cheek.  On the other hand, the bear\'s cock looks shorter, about seven inches though by far the thickest meat in the bunch.  The massive girth would most likely hurt your jaw if you tried to wrap your mouth around it. What do you do?' );
 		//open menu of options [Suck tiger] [Suck bear] [Suck none];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Suck Tiger', this.suckOffATiger );
-		EngineCore.addButton( 1, 'Suck Bear', this.suckOffABear );
-		EngineCore.addButton( 2, 'Suck None', this.suckOffNone );
+		EngineCore.addButton( 0, 'Suck Tiger', this, this.suckOffATiger );
+		EngineCore.addButton( 1, 'Suck Bear', this, this.suckOffABear );
+		EngineCore.addButton( 2, 'Suck None', this, this.suckOffNone );
 	};
 	//<option 1 Suck tiger>;
 	Bazaar.prototype.suckOffATiger = function() {

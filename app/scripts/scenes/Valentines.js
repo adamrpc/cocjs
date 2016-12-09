@@ -58,21 +58,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nWell, you do have more important things to do, and in the world of Mareth, where the corruption is dominant and there\'s definitely way more sex than romance, such a mission may be doomed to fail anyways, but it is something to consider.  All in all, it comes down to whether you think you have the time for this and whether it even seems worth it.' );
 		//[Help them][Leave];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Help Them', this.helpValentinesDay );
-		EngineCore.addButton( 1, 'Leave', this.leaveValentinesDayForever );
+		EngineCore.addButton( 0, 'Help Them', this, this.helpValentinesDay );
+		EngineCore.addButton( 1, 'Leave', this, this.leaveValentinesDayForever );
 	};
 	//[Help them] :;
 	Valentines.prototype.helpValentinesDay = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Deciding to try and improve the overall appreciation of romance and love in possibly the last pure city of Mareth, you smile to Scylla and tell her she can count on you.  Her happy expression makes you forget any doubts you might\'ve had before.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.helpValentinesDayII );
+		EngineCore.addButton( 0, 'Next', this, this.helpValentinesDayII );
 	};
 	//[Leave] :;
 	Valentines.prototype.leaveValentinesDayForever = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Ultimately, this is not worth your time.  You wish Scylla good luck, but tell her you won\'t help her make the holiday more popular in Tel\'Adre, as you have other things to do.  Her expression turns sad and she nods in understanding as you turn away and go back into the streets of Tel\'Adre.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[next];
 	Valentines.prototype.helpValentinesDayII = function() {
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		//else outputText('\n\nYou see a flash of said fur as the person with said characteristic moves away from the stall, clearly carrying a confection or two and some other pink, red, or heart-shaped things into the Wet Bitch.');;
 		//[next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.helpValentinesDayIII );
+		EngineCore.addButton( 0, 'Next', this, this.helpValentinesDayIII );
 	};
 	Valentines.prototype.helpValentinesDayIII = function() {
 		EngineCore.clearOutput();
@@ -100,12 +100,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nHow do you want to spend the rest of your evening?' );
 		//[GoHome][Scylla][Abby][Pastie];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Scylla', this.goVisitScyllaVday );
-		EngineCore.addButton( 1, 'Abby', this.goVisitAbbyVday );
+		EngineCore.addButton( 0, 'Scylla', this, this.goVisitScyllaVday );
+		EngineCore.addButton( 1, 'Abby', this, this.goVisitAbbyVday );
 		if( CoC.player.cockThatFits( 28 ) >= 0 || CoC.player.hasVagina() ) {
-			EngineCore.addButton( 2, 'Pastie', this.goVisitPastyVDay );
+			EngineCore.addButton( 2, 'Pastie', this, this.goVisitPastyVDay );
 		}
-		EngineCore.addButton( 4, 'Leave', this.goHomeFromVDay );
+		EngineCore.addButton( 4, 'Leave', this, this.goHomeFromVDay );
 	};
 	//([Go home]);
 	Valentines.prototype.goHomeFromVDay = function() {
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		//With no other things to do, you go back to camp to rest.;
 		//{Small Lust Increase, return to camp, go to sleep};
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//([Scylla]);
 	Valentines.prototype.goVisitScyllaVday = function() {
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( 'You say your goodbyes to Abby and Pastie, before asking Scylla if she\'d mind you accompanying her when she packs the remaining few things and maybe afterwards.  The nun blushes, playing with a lock of her hair as she answers.  "<i>My dear [name], you are of course aware that the reason for me even trying to make this celebration more popular is so that people would spend it with ones they love.  As much as I\'d appreciate your company, are you sure you\'d want to be spending this day with a nun that is already so indebted to you?</i>"' );
 		EngineCore.outputText( '\n\nYou tell her you\'re more than willing to spend more time with her, and help her pack the things that did not get given away, won or sold in the celebration.  After that, she covers the stall and smiles at you. "<i>I\'ll be taking these things home tomorrow. How about we just go for a walk now?</i>"' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.goVisitScyllaVdayII );
+		EngineCore.addButton( 0, 'Next', this, this.goVisitScyllaVdayII );
 	};
 	//SCYLLA EVENT;
 	Valentines.prototype.goVisitScyllaVdayII = function() {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nYou simply listen to her but also blush at the last line, thanking her for her appreciation of your person. She gives a small laugh at that.  "<i>Well, certainly, we\'ve had our troubles with my... new way of eating, and I\'m sure you didn\'t always feel like I really appreciated you or treated you with dignity... I\'m sorry about that, but I really feel like I depended on you a lot and I know you\'re a great person,</i>" she continues, her smile widening and blush slightly deepening with every sentence.  "<i>You\'re more special than the others who\'ve helped me, having always recognized my problems and solutions to them first.  You\'ve saved me from a certain fall to the demon\'s corruption...  And you taste really good, too,</i>" she says, licking her ruby lips before absent-mindedly noticing what she just said, flushing a deep red.  "<i>Well, in any case, thanks to your help, this wasn\'t as much of a strain as I thought.  I feel like I might\'ve really done some things to make this world a slightly better place, and I\'ve certainly seen you do so.  That warms my heart and makes the time spent here worth it,</i>" she explains, resting a hand on your shoulder before showing you a turn.  "<i>We could climb that tower there and watch the sunset,</i>" she says, before explaining, "<i>I\'m certain we\'re both known enough around the place that the guards won\'t protest much, after all, it\'s just watching a sunset.  What do you think, dear?</i>"  Her soft body bounces a bit under the habit as she stops, her flush receding to the pleasant, rosy color from before, but remaining clearly visible on her alabaster skin.' );
 		//[next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.goVisitScyllaVdayIII );
+		EngineCore.addButton( 0, 'Next', this, this.goVisitScyllaVdayIII );
 	};
 	Valentines.prototype.goVisitScyllaVdayIII = function() {
 		EngineCore.clearOutput();
@@ -142,9 +142,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		//What will you do?;
 		EngineCore.menu();
 		//[Cuddle] [Make out] [Feed her];
-		EngineCore.addButton( 0, 'Cuddle', this.cuddleWithScyllaVDay );
-		EngineCore.addButton( 1, 'Make Out', this.makeOutWithScyllaVDay );
-		EngineCore.addButton( 2, 'Feed Her', this.feedScyllaVDay );
+		EngineCore.addButton( 0, 'Cuddle', this, this.cuddleWithScyllaVDay );
+		EngineCore.addButton( 1, 'Make Out', this, this.makeOutWithScyllaVDay );
+		EngineCore.addButton( 2, 'Feed Her', this, this.feedScyllaVDay );
 	};
 	//Cuddle];
 	//{This option doesn't require any sexual endowments whatsoever};
@@ -167,7 +167,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nLater, when you move through the desert around Tel\'Adre towards your own camp, looking back at Scylla waving towards you, you\'re somehow glad things turned out that way, and feel more determined than ever to not only defeat the demons, but also spread the good will and positive feelings through any world you may call your own.' );
 		EngineCore.outputText( '\n\n(<b>You have gained the Pure and Loving perk!</b>' );
 		CoC.player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Make out];
 	Valentines.prototype.makeOutWithScyllaVDay = function() {
@@ -192,7 +192,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\nYou\'re eager to try to steal the first orgasm from the chaste nun without giving in to your own lust too quickly, but the way she\'s starting to squirm against your painful hardness makes it difficult for you to remain noble.  The sheer volume of the absurdly-endowed woman\'s cleavage starts to overwhelm you, leaving you gasping short and hot breaths.  As usual - for the tainted nun, anyway - your suckling and nursing has stimulated Scylla\'s body, her curves swelling to overcompensate for her burgeoning hunger.  Your presence, to say nothing of your own arousal, has left her a bit too eager to get you off as well...' );
 		//[next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.makeOutWithScyllaVDayII );
+		EngineCore.addButton( 0, 'Next', this, this.makeOutWithScyllaVDayII );
 	};
 
 	Valentines.prototype.makeOutWithScyllaVDayII = function() {
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 			EngineCore.outputText( '\n\n(<b>You have gained the Sensual Lover perk!</b>)' );
 			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Feed Her!];
 	Valentines.prototype.feedScyllaVDay = function() {
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		CoC.player.orgasm();
 		EngineCore.outputText( '\n\n(<b>You have gained the One Track Mind perk.</b>' );
 		CoC.player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	//([Abby] ;
@@ -237,7 +237,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( 'You wave to Scylla and Pastie as you try to catch up with Abylon, who\'s already picking up the pace and, by the looks of it, trying to remove her dress.  "<i>Well, sup.  I\'ll be going home and changing myself into my usual clothes, if you don\'t mind.  This entire celebration thingy just shows your people\'s issues,</i>" she says, though she doesn\'t seem entirely untouched by the mood of it...' );
 		EngineCore.outputText( '\n\nDeciding to risk it, you ask her if she\'d like some company. Abylon turns to you, completely stunned.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.goVisitAbby );
+		EngineCore.addButton( 0, 'Next', this, this.goVisitAbby );
 	};
 	//ABYLON EVENT;
 	Valentines.prototype.goVisitAbby = function() {
@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 			if( CoC.player.cockArea( x ) < 46 ) {
 				EngineCore.outputText( '\n\nYou could certainly go for a dip into that goblin cunt, but, there\'s also the option of forgoing your pleasure on this special day and using other means to show her a good time.' );
 				//<You can both pleasure and fuck her>;
-				EngineCore.addButton( 1, 'Fuck Her', this.fuckAbbyVDay );
+				EngineCore.addButton( 1, 'Fuck Her', this, this.fuckAbbyVDay );
 			}
 			//[If ([cocksmallest] > 46 cockArea);
 			else {
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		else if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( '"<i>Well, that\'s unexpected. I have certain doubts about you showing me such a good time,</i>" she says.  You tell her you don\'t actually require a cock at all to do this, and she seems surprised.' );
 		}
-		EngineCore.addButton( 0, 'PleasureHer', this.pleasureAbbyVDay );
+		EngineCore.addButton( 0, 'PleasureHer', this, this.pleasureAbbyVDay );
 	};
 	//{FUCK HER};
 	Valentines.prototype.fuckAbbyVDay = function() {
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//{PLEASURE HER};
 	//{This option doesn't require any sexual endowments whatsoever};
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		EngineCore.outputText( '\n\n(<b>You\'ve received the Pure and Loving Perk!</b>)' );
 		CoC.player.createPerk( PerkLib.PureAndLoving, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 80 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//([Pastie]);
 	Valentines.prototype.goVisitPastyVDay = function() {
@@ -336,20 +336,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		if( CoC.player.hasItem( ConsumableLib.BIMBOCH ) || CoC.player.hasItem( ConsumableLib.BC_BEER ) || CoC.player.hasItem( ConsumableLib.GOB_ALE ) || CoC.player.hasVagina() ) {
 			EngineCore.menu();
 			if( CoC.player.hasItem( ConsumableLib.BIMBOCH ) ) {
-				EngineCore.addButton( 0, 'BimboCham', this.pastieValentineIntro, ConsumableLib.BIMBOCH.id );
+				EngineCore.addButton( 0, 'BimboCham', this, this.pastieValentineIntro, ConsumableLib.BIMBOCH.id );
 			}
 			if( CoC.player.hasItem( ConsumableLib.BC_BEER ) ) {
-				EngineCore.addButton( 1, 'B.Cat Beer ', this.pastieValentineIntro, ConsumableLib.BC_BEER.id );
+				EngineCore.addButton( 1, 'B.Cat Beer ', this, this.pastieValentineIntro, ConsumableLib.BC_BEER.id );
 			}
 			if( CoC.player.hasItem( ConsumableLib.GOB_ALE ) ) {
-				EngineCore.addButton( 2, 'Gob. Ale', this.pastieValentineIntro, ConsumableLib.GOB_ALE.id );
+				EngineCore.addButton( 2, 'Gob. Ale', this, this.pastieValentineIntro, ConsumableLib.GOB_ALE.id );
 			}
 			if( CoC.player.hasVagina() ) {
-				EngineCore.addButton( 3, 'Pussy', this.pastieValentineIntro, 'vag' );
+				EngineCore.addButton( 3, 'Pussy', this, this.pastieValentineIntro, 'vag' );
 			}
 		} else {
 			EngineCore.outputText( '\n\nYou tell Pastie that, regrettably, you only have what she sees.  She nods and says, "<i>Too bad.  I think I\'ll better get going, then.  It\'s been somewhat fun, and I finally get a chance to go to sleep sober and wake up without a hangover.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 		}
 	};
 	Valentines.prototype.pastieValentineIntro = function( choice ) {
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 			EngineCore.outputText( '\n\nFollowing you into a back alley, you prepare to get yourself naked and let the fairy get her fix.' );
 			//((Move straight to pussy scene)) );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.goForAPushayDivePasty );
+			EngineCore.addButton( 0, 'Next', this, this.goForAPushayDivePasty );
 		}
 		//({Any other drink}. ;
 		else {
@@ -370,7 +370,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 			CoC.player.consumeItem( itype, 1 );
 			EngineCore.outputText( 'You present the drink to Pastie and she flashes you a grin as she flies up and away, leading you into an alley.  "<i>Well, lemme at it!  A drink sure as hell sounds good right now and none of this seems like it\'d be really bad.</i>"' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Utils.curry( this.valentineDrinkPastie, itype ) );
+			EngineCore.addButton( 0, 'Next', this, Utils.curry( this.valentineDrinkPastie, itype ) );
 		}
 	};
 	//PASTIE EVENT;
@@ -419,13 +419,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		}
 		EngineCore.menu();
 		if( CoC.player.cockThatFits( 8 ) >= 0 ) {
-			EngineCore.addButton( 0, 'Fuck', this.fuckPastieForVDay );
+			EngineCore.addButton( 0, 'Fuck', this, this.fuckPastieForVDay );
 		}
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 1, 'RubOnDick', this.rubPastieOnYourWangDawg );
+			EngineCore.addButton( 1, 'RubOnDick', this, this.rubPastieOnYourWangDawg );
 		}
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 2, 'Go In Pussy', this.goForAPushayDivePasty );
+			EngineCore.addButton( 2, 'Go In Pussy', this, this.goForAPushayDivePasty );
 		}
 	};
 
@@ -461,7 +461,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		CoC.player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[RubDick];
 	Valentines.prototype.rubPastieOnYourWangDawg = function() {
@@ -496,7 +496,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		CoC.player.createPerk( PerkLib.OneTrackMind, 0, 0, 0, 0 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Pussy Dive];
 	Valentines.prototype.goForAPushayDivePasty = function() {
@@ -531,7 +531,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, ItemType, OnLoad
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	/*END!
 

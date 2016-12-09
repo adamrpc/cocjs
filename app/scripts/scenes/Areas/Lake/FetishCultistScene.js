@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( 'You see a largely human-looking young woman in the distance in a strange, whorish outfit, seemingly lost in prayers that sound like nonsense to you.  Finally noticing your presence, she confronts you with a lewd smile on her face.\n\nShe has clearly lost her grasp on sanity, and filled the void with pure perversion.', true );
 		Combat.startCombat( new FetishCultist() );
 		EngineCore.spriteSelect( 19 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	FetishCultistScene.prototype.cultistRapesYou = function() {
 		CoC.monster.lust = 1;
@@ -546,7 +546,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			if( CoC.player.hasCock() ) {
 				fuckVag = this.plugSwimsuitVag;
 			}
-			EngineCore.choices( 'FuckHerVag', fuckVag, 'Vibrator', vibe, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'FuckHerVag', this, fuckVag, 'Vibrator', this, vibe, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			return;
 		} else {
 			EngineCore.outputText( 'You see that the cultist\'s outfit has fixed on what looks remarkably similar to a farmhand from your village.  Filled with desire, you approach her.  She cries out in fear and says "<i>Please don\'t hurt me!  Even though I knew there were bandits coming, I couldn\'t leave my mother behind.  Take whatever you want, I won\'t get in your way, but please leave us alone!</i>"\n\n', false );
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//This ending is caused from having too low of inte when losing to the cultist (say under 15) or it could be after losing too many times to them.  You chose which you would prefer.
 		//(after being raped, do not show regular recovery message, skip here)
 		EngineCore.outputText( '\n\nYour mind is not able to recover from the fantasy, and instead moves on to another one, and another, and another...', false );
-		EngineCore.doNext( this.cultistBadEnd2 );
+		EngineCore.doNext( this, this.cultistBadEnd2 );
 	};
 	FetishCultistScene.prototype.cultistBadEnd2 = function() {
 		var genderTag = '';

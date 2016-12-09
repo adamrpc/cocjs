@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 	OmnibusOverseer.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.omnibusLossRape();
 		}

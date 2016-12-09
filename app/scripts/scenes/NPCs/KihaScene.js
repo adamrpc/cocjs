@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 			EngineCore.outputText( '"<i>Eyes up here, ' + CoC.player.mf( 'dick-head', 'slut-bag' ) + ',</i>" commands the draconic woman - and she\'s definitely a woman; the dark-skinned entrance between her muscled legs is evidence enough of that.  She twirls a wicked-looking double-headed axe as she warns, "<i>You seem to have stumbled across my territory.  Let me make this clear to you own this stretch of swamp, and if you step foot in this area again, I\'m going to beat you until you wish you ran into Lethice herself.  Now run along, before you dread the day you met Kiha!</i>"  A thin trail of heat shimmers in the air with each pass of her axe\'s blades, left behind by the obviously magical implement.\n\n', false );
 			EngineCore.outputText( 'What do you do?', false );
 			//[Fight] [Ask Why][Buy Passage][Leave];
-			EngineCore.choices( 'Fight', this.meetKihaAndFight, 'Ask Why', this.askWhy, 'Buy Passage', this.offerToBuyPassageFromKiha, '', null, 'Leave', this.leaveWhenMeetingAgressiveKiha );
+			EngineCore.choices( 'Fight', this, this.meetKihaAndFight, 'Ask Why', this, this.askWhy, 'Buy Passage', this, this.offerToBuyPassageFromKiha, '', null, null, 'Leave', this, this.leaveWhenMeetingAgressiveKiha );
 		}
 		//*Repeat Encounter - PC WAS VICTORIOUS LAST FIGHT ;
 		else if( CoC.flags[ kFLAGS.PC_WIN_LAST_KIHA_FIGHT ] === 1 ) {
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 				temp = null;
 			}
 			//[Pay] [This was my idea] [Leave] [Fight] - Leave uses standard leave text;
-			EngineCore.choices( 'Fight', this.meetKihaAndFight, 'Pay', temp, 'My Idea', this.tellKihaTributeWasYourIdea, '', null, 'Leave', this.leaveWhenMeetingAgressiveKiha );
+			EngineCore.choices( 'Fight', this, this.meetKihaAndFight, 'Pay', this, temp, 'My Idea', this, this.tellKihaTributeWasYourIdea, '', null, null, 'Leave', this, this.leaveWhenMeetingAgressiveKiha );
 		}
 		//*Repeat Encounter - Tribute Wore off ;
 		else if( CoC.flags[ kFLAGS.KIHA_TOLL ] > 1 &&
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 				temp = null;
 			}
 			//[Pay Again] [This was my idea] [Leave]  [Fight] - As first time Tribute Offer encounter;
-			EngineCore.choices( 'Fight', this.meetKihaAndFight, 'Pay', temp, 'My Idea', this.tellKihaTributeWasYourIdea, '', null, 'Leave', this.leaveWhenMeetingAgressiveKiha );
+			EngineCore.choices( 'Fight', this, this.meetKihaAndFight, 'Pay', this, temp, 'My Idea', this, this.tellKihaTributeWasYourIdea, '', null, null, 'Leave', this, this.leaveWhenMeetingAgressiveKiha );
 		}
 		//Generic Repeat Encounter ;
 		else {
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 			if( CoC.flags[ kFLAGS.KIHA_TOLL ] === 0 ) {
 				EngineCore.outputText( 'If you hurry, you might get a word in edge-wise.  What do you do?', false );
 				//[Fight] [Ask Why][Buy Passage][Leave];
-				EngineCore.choices( 'Fight', this.meetKihaAndFight, 'Ask Why', this.askWhy, 'Buy Passage', this.offerToBuyPassageFromKiha, '', null, 'Leave', this.leaveWhenMeetingAgressiveKiha );
+				EngineCore.choices( 'Fight', this, this.meetKihaAndFight, 'Ask Why', this, this.askWhy, 'Buy Passage', this, this.offerToBuyPassageFromKiha, '', null, null, 'Leave', this, this.leaveWhenMeetingAgressiveKiha );
 			} else {
 				EngineCore.outputText( 'It\'s a fight!', false );
 				Combat.startCombat( new Kiha() );
@@ -107,14 +107,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 		//(Unlocks toll option next encounter);
 		CoC.flags[ kFLAGS.KIHA_TOLL ] = 1;
 		//[Fight] [Leave] - Same results as main fight/leave.;
-		EngineCore.choices( 'Fight', this.meetKihaAndFight, '', null, '', null, '', null, 'Leave', this.leaveWhenMeetingAgressiveKiha );
+		EngineCore.choices( 'Fight', this, this.meetKihaAndFight, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leaveWhenMeetingAgressiveKiha );
 	};
 	//[Leave] ;
 	KihaScene.prototype.leaveWhenMeetingAgressiveKiha = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You nod and step back, retreating back towards camp.  You\'ve no desire to fight such a fiery opponent.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight];
 	KihaScene.prototype.meetKihaAndFight = function() {
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 		CoC.flags[ kFLAGS.KIHA_TOLL ]++;
 		//(2-5 more explorations of her area before she shows up demanding more tribute!);
 		//(do a 'Kiha' exploration with chances of fantabulous prizes);
-		EngineCore.doNext( this.kihaExplore );
+		EngineCore.doNext( this, this.kihaExplore );
 	};
 	KihaScene.prototype.kihaExplore = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
@@ -162,7 +162,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 		}
 		if( event < 5 ) {
 			EngineCore.outputText( 'You wander around through the swamp for a while, but you don\'t find anything.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Reducto;
@@ -246,8 +246,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, UseableLib, Kiha, ConsumableL
 			EngineCore.outputText( '\n\nNow that she\'s a captive audience, you could always talk to her.', false );
 			wordRape = this.rapeKihaWithWORDS;
 		}
-		EngineCore.choices( 'Masturbate', forceMasturbate, 'Use Tail', useHerTail, 'FuckHerPussy', fuckHer, 'FuckHerAss', buttFuck, 'Talk', wordRape,
-			'', null, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Masturbate', this, forceMasturbate, 'Use Tail', this, useHerTail, 'FuckHerPussy', this, fuckHer, 'FuckHerAss', this, buttFuck, 'Talk', this, wordRape,
+			'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	//*Generic PC Loss Intro ;
 	KihaScene.prototype.kihaLossIntro = function() {

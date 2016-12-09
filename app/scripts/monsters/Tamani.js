@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, CoC, EngineCore
 			if( !SceneLib.tamaniScene.pregnancy.isPregnant && CoC.player.canOvipositSpider() ) {
 				temp2 = SceneLib.tamaniScene.tamaniBeaten;
 			}
-			EngineCore.choices( 'Fuck', SceneLib.tamaniScene.tamaniSexWon, 'Buttfuck', temp, '', null, 'Lay Eggs', temp2, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck', SceneLib.tamaniScene, SceneLib.tamaniScene.tamaniSexWon, 'Buttfuck', SceneLib.tamaniScene, temp, '', null, null, 'Lay Eggs', SceneLib.tamaniScene, temp2, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}

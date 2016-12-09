@@ -11,11 +11,11 @@ angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( SceneLib, Ab
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  Now would be the perfect opportunity to taste the fruits of her sex-ready form...\n\nDo you rape her?', true );
 				EngineCore.dynStats( 'lus', 1 );
-				EngineCore.choices( 'Yes', SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', dildo, '', null, '', null, 'No', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', SceneLib.dungeonCore, SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', SceneLib.dungeonCore, dildo, '', null, null, '', null, null, 'No', null, Combat.cleanupAfterCombat );
 			} else if( CoC.player.lust >= 33 ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' gives up on fighting you and starts masturbating, begging for you to fuck her.  Now would be the perfect opportunity to taste the fruits of her sex-ready form...\n\nDo you fuck her?', true );
 				EngineCore.dynStats( 'lus', 1 );
-				EngineCore.choices( 'Yes', SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', dildo, '', null, '', null, 'No', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', SceneLib.dungeonCore, SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', SceneLib.dungeonCore, dildo, '', null, null, '', null, null, 'No', null, Combat.cleanupAfterCombat );
 			} else {
 				Combat.finishCombat();
 			}
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( SceneLib, Ab
 	SecretarialSuccubus.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.succubusLossRape();
 		}

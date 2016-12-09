@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			EngineCore.outputText( 'While walking through the high grasses you hear a rich, high voice warbling out a melodious tune in a language you don\'t quite understand.  Do you approach or avoid it?', false );
 			//[Approach – to meeting] [Avoid – camp] – dont flag as met yet;
 			//Approach - sets flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00256] to 1 and calls this function;
-			EngineCore.choices( 'Approach', this.isabellaGreetingFirstTime, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Approach', this, this.isabellaGreetingFirstTime, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//CAMP MEETING – UMAD BRAH!?;
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				EngineCore.outputText( 'You answer and begin to explain yourself, but she interrupts, "<i>Get out!  Zis is mein camp and I vill not tolerate you here!</i>"\n\n', false );
 				EngineCore.outputText( 'A bit taken aback by her violent reaction, you blink in confusion as she pulls a titanic shield from behind her chair and slides her arm comfortably into the strap.  What do you do?\n\n', false );
 				//[Talk] [Fight] [Leave];
-				EngineCore.choices( 'Try to Talk', this.tryToTalkDownAngryCow, 'Fight', this.unwelcomeFightCowGal, '', null, '', null, 'Leave', this.leaveAngryIzzy );
+				EngineCore.choices( 'Try to Talk', this, this.tryToTalkDownAngryCow, 'Fight', this, this.unwelcomeFightCowGal, '', null, null, '', null, null, 'Leave', this, this.leaveAngryIzzy );
 			}
 			//(Shorter PC's) ;
 			else {
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 					}
 				}
 				//[Talk – real conversations] [Drink – leads to breastfeeding] [Get Licks – leads to oral for small fries] [Rape?];
-				EngineCore.choices( 'Talk', this.talkWithIsabella, 'Drink', this.nomOnMommaIzzysTits, 'Get Licked', suck, 'Fight', this.fightIsabella, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.choices( 'Talk', this, this.talkWithIsabella, 'Drink', this, this.nomOnMommaIzzysTits, 'Get Licked', this, suck, 'Fight', this, this.fightIsabella, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			return;
 		}
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			EngineCore.outputText( 'You stumble through the grass, nearly tripping as it parts to reveal the now-familiar sight of Isabella\'s camp.  The cow-girl spots you instantly and snarls, "<i>Begone!  I varned you once already!</i>"', false );
 			//[Talk] [Fight] [Leave];
 			//Leave goes to special variation, see below.;
-			EngineCore.choices( 'Try To Talk', this.tryToTalkDownAngryCow, 'Fight', this.fightIsabella, '', null, '', null, 'Leave', this.leaveAngryIzzy );
+			EngineCore.choices( 'Try To Talk', this, this.tryToTalkDownAngryCow, 'Fight', this, this.fightIsabella, '', null, null, '', null, null, 'Leave', this, this.leaveAngryIzzy );
 			return;
 		}
 		//Camp Meeting – Was welcome tall, but not short yet!;
@@ -152,7 +152,6 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			}
 			EngineCore.outputText( 'The cow-girl\'s dusky cheeks color pink with embarrassment before she sets you down and apologizes, saying, "<i>I am so sorry.  It iz so lonely here in ze plains, and well, feeding someone is how do you say... more fun when you can cuddle them in your arms!</i>"\n\n', false );
 			EngineCore.outputText( 'What do you want to do with Isabella today?', false );
-			//EngineCore.choices('Talk',0,'Drink',0,'Get Licked',suck,'Rape Attempt',0,'Leave',13);;
 		}
 		//Camp Meeting – Welcomed Short but Not Tall;
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00259 ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00258 ] === 0 && CoC.player.tallness > 78 ) {
@@ -170,7 +169,6 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 					suck = this.izzyGivesSmallWangsFreeOral;
 				}
 			}
-			//EngineCore.choices('Talk',0,'Drink',0,'Get Licked',suck,'Rape Attempt',0,'Leave',13);;
 		}
 		//Follower go!;
 		else if( CoC.flags[ kFLAGS.ISABELLA_CAMP_DISABLED ] === 0 && CoC.flags[ kFLAGS.ISABELLA_FOLLOWER_ACCEPTED ] === 0 && SceneLib.isabellaFollowerScene.isabellaAffection() >= (50 + CoC.flags[ kFLAGS.ISABELLA_TIMES_OFFERED_FOLLOWER ] * 15) ) {
@@ -196,8 +194,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				}
 			}
 		}
-		EngineCore.choices( 'Talk', this.talkWithIsabella, 'Drink', this.nomOnMommaIzzysTits, 'Get Licked', suck, 'Fight 4 Rape', this.fightIsabella, 'Offer Oral', this.volunteerToSlurpCowCunt,
-			'', null, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Talk', this, this.talkWithIsabella, 'Drink', this, this.nomOnMommaIzzysTits, 'Get Licked', this, suck, 'Fight 4 Rape', this, this.fightIsabella, 'Offer Oral', this, this.volunteerToSlurpCowCunt,
+			'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//EngineCore.outputText('ISABELLA HAS BROKEN.  PLEASE TELL FENOXO.', true);;
 	};
 	IsabellaScene.prototype.isabellaGreetingFirstTime = function() {
@@ -209,7 +207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		EngineCore.spriteSelect( 31 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You shrug and make it quite clear you\'re leaving.  Crazy cow.  She shouts, "<i>And stay avay, demon!  Izabella has no need of your foul tricks!</i>"', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight];
 	IsabellaScene.prototype.unwelcomeFightCowGal = function() {
@@ -221,7 +219,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		Combat.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
 		EngineCore.spriteSelect( 31 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Fuck-fight;
 	IsabellaScene.prototype.fightIsabella = function() {
@@ -233,7 +231,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		Combat.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
 		EngineCore.spriteSelect( 31 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Talk] ;
 	IsabellaScene.prototype.tryToTalkDownAngryCow = function() {
@@ -278,7 +276,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			EngineCore.outputText( 'You sit down in the dirt and impart your tale, explaining how you came here as a \'champion\', chosen by your village.  You go on to speak of your encounters and how strange everything is here, and Isabella nods quite knowingly as you go on and on.  Now that you\'ve begun to tell your tale, the words fall out of your mouth, one after another.  Like an unbroken chain, they spool out of your maw until nearly an hour later, you finally run out of things to say.  You rub your jaw, your throat a little sore from the diatribe, and look on to Isabella to see how she reacts.\n\n', false );
 			EngineCore.outputText( 'The busty cow-girl has moisture glimmering in the corners of her big brown eyes, and she nods emphatically to you as she vocalizes her feelings, "<i>I, too, know how you feel, Champion ' + CoC.player.short + '.  Mein own story is similar, though mein fate vas not thrust upon me so.  Perhaps I vill tell you sometime, but for now, ve should part.  You are velcome to return in ze future.</i>"\n\n', false );
 			EngineCore.outputText( 'You smile to yourself, glad to have made a friend.\n\n', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				SceneLib.isabellaFollowerScene.isabellaAffection( 10 );
 			}
@@ -465,7 +463,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		if( Utils.rand( 2 ) === 0 && CoC.player.hasVagina() ) {
 			EngineCore.outputText( CoC.player.modTone( 0, 4 ), false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[GET ORAL'ED AS A SMALL MALE];
 	IsabellaScene.prototype.izzyGivesSmallWangsFreeOral = function() {
@@ -652,7 +650,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			SceneLib.isabellaFollowerScene.isabellaAffection( 2 );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Give Isy Oral];
 	IsabellaScene.prototype.volunteerToSlurpCowCunt = function() {
@@ -721,13 +719,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				} else {
 					EngineCore.outputText( 'would like to return the favor.</i>"', false );
 				}
-				EngineCore.doYesNo( this.izzyGivesSmallWangsFreeOral, SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( this, this.izzyGivesSmallWangsFreeOral, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 		}
 		SceneLib.isabellaFollowerScene.isabellaAffection( 2 );
 		if( !SceneLib.isabellaFollowerScene.isabellaFollower() || !CoC.player.hasVagina() || CoC.player.biggestTitSize() < 1 ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//(Change the ending of the "Service Her" option on an affectionate Isabella to the following; PC must NOT have a dick that suits her and MUST have a vagina);
 			if( !SceneLib.isabellaFollowerScene.isabellaAccent() ) {
@@ -736,7 +734,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				EngineCore.outputText( 'Seeing the ardent desire your sexual service has so visibly inspired in your body - in your slick, ready cunt and erect nipples - the cow-girl smiles slightly, and asks, "<i>Perhaps you vould like me to return ze favor?  It seems only fair...</i>"' );
 			}
 			//[Leave] [Get Cowlicked];
-			EngineCore.choices( 'Get Licked', SceneLib.isabellaFollowerScene.receiveAllTheCowTOngues, 'Leave', SceneLib.camp.returnToCampUseOneHour, '', null, '', null, '', null );
+			EngineCore.choices( 'Get Licked', SceneLib.isabellaFollowerScene, SceneLib.isabellaFollowerScene.receiveAllTheCowTOngues, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	IsabellaScene.prototype.IsabellaWinsAndSpanks = function() {
@@ -922,7 +920,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		}
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.cocks[ CoC.player.shortestCockIndex() ].cockLength < 9 ) {
-				EngineCore.doNext( this.IsabellaPostSpankFeedSex );
+				EngineCore.doNext( this, this.IsabellaPostSpankFeedSex );
 				return;
 			}
 		}
@@ -1269,8 +1267,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				smallTitFuck = this.tinyVictoryTittyFuckingFuntimesWithMilk;
 			}
 		}
-		EngineCore.choices( 'Lactation69', lactation, 'Buttsex', buttsex, 'Sixty-Nine', sixtyNine, 'Vaginal', vaginalSex, 'Big Titfuck', bigTitFuck,
-			'Small Titfuck', smallTitFuck, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Lactation69', this, lactation, 'Buttsex', this, buttsex, 'Sixty-Nine', this, sixtyNine, 'Vaginal', this, vaginalSex, 'Big Titfuck', this, bigTitFuck,
+			'Small Titfuck', this, smallTitFuck, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	//[LACTATION 69];
 	IsabellaScene.prototype.victoryLactation69 = function() {
@@ -1680,7 +1678,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//['Too Big' Victory Titfucking Funtimes With Milk];
@@ -2018,7 +2016,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		else {
 			EngineCore.outputText( 'You sit down with Isabella and share tales of your recent adventures.  While the companionship is nice, after an hour or so of discussion you decide to go your separate ways.', false );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'isabellaScene', new IsabellaScene() );
 } );

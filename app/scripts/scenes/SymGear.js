@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutation
 		if( CoC.player.inte < 60 ) {
 			EngineCore.outputText( 'Unfortunately, try as you might, you cannot seem to figure the lock out.  You spin the stone circles around multiple times to try and discern the pattern to them, but find yourself continually disappointed.  Eventually you resort to trying to listen for the sound of tumblers behind the door indicating a shifting lock.  It is not as successful as you hope.  Disappointed but not undeterred, you resolve to return to the mysterious lock at a later point, when you are more capable of handling its clever riddle.', false );
 			//[Player leaves, room can be re-encountered];
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Intelligence greater than 60] ;
@@ -36,14 +36,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, WeaponLib, Mutation
 		EngineCore.outputText( 'You replace the scroll and look to the chest.   Will you say one of the key words?\n\n', false );
 		//if implying that Rathazul used to be an advisor to the queen before the fall, start by spelling his name correctly; else, proceed as normal;
 		//[Retribution] [Carnality] [No];
-		EngineCore.choices( 'Retribution', this.retributionArmorIsCoolShit, 'Carnality', this.carnalityArmorIsCoolShitToo, '', null, '', null, 'NOPE!', this.noThankYouSirIDontWantAwesomeArmors );
+		EngineCore.choices( 'Retribution', this, this.retributionArmorIsCoolShit, 'Carnality', this, this.carnalityArmorIsCoolShitToo, '', null, null, '', null, null, 'NOPE!', this, this.noThankYouSirIDontWantAwesomeArmors );
 	};
 	//[No];
 	SymGear.prototype.noThankYouSirIDontWantAwesomeArmors = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Uninterested in the proffered reward, you turn and leave the way you came.  At the entrance, you replace the moss, doing your best to conceal the portal in the event you wish to return, or at least to keep any items of power inside from the hands of hostile swamp denizens.  You may as well not have spent the effort, for as you\'re walking away, you hear the stones grinding and shifting behind you.  Sure enough, an inspection affirms that the door has sealed itself again.\n\n', false );
 		//allows player to find again later, like the B.Sword;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Retribution];
 	SymGear.prototype.retributionArmorIsCoolShit = function() {

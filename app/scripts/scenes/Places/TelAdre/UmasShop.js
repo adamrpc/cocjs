@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		}
 		EngineCore.outputText( 'with a soft expression; her features are maternal and friendly, but there\'s a playful twinkle in her eye that makes her look younger than she really is.  For all that, she\'s clearly a mature woman but still strong and attractive.  Black hair, starting to go gray at the tips, is worn in a long, elegant braid, the end knotted around an elaborate butterfly hairpin.  While her fur is a beautiful shade of chestnut brown, her large eyes are a deep brown, almost black.  She casually flicks an equine ear in a manner that reminds you very much of Loppe, and you have a strong feeling that this is Uma, Loppe\'s mother.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.firstVisitPart2 );
+		EngineCore.addButton( 0, 'Next', this, this.firstVisitPart2 );
 	};
 
 	/**
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Uma is the first to break the awkwardness.  "<i>Well then, care to give me the details?  How did you two meet?  When did you start fooling around?  Has my daughter worked so hard you had to seek a healer yet?</i>"\n\n' );
 		EngineCore.outputText( 'Loppe holds your hand and the two of you begin detailing how you met....\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.firstVisitPart3 );
+		EngineCore.addButton( 0, 'Next', this, this.firstVisitPart3 );
 
 	};
 	/**
@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] = 1;
 		// Player returns to Camp;
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Repeat visits.
@@ -152,14 +152,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 			EngineCore.outputText( '"<i>Don\'t worry about that, it\'s nothing personal.  I just don\'t swing that way.  Although, if you were to make yourself a bit more feminine, I might consider it.  Maybe you could find yourself a nice little beauty salon somewhere?  I heard there are some treatments that can make you absolutely gorgeous.</i>"\n\n' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Massage', this.massageMenu );
-		EngineCore.addButton( 1, 'Acupunct.', this.acupunctureMenu );
-		EngineCore.addButton( 2, 'Talk', this.talkMenu );
+		EngineCore.addButton( 0, 'Massage', this, this.massageMenu );
+		EngineCore.addButton( 1, 'Acupunct.', this, this.acupunctureMenu );
+		EngineCore.addButton( 2, 'Talk', this, this.talkMenu );
 		if( !noSex ) {
-			EngineCore.addButton( 3, 'Sex', this.sexMenu );
+			EngineCore.addButton( 3, 'Sex', this, this.sexMenu );
 		}
-		//EngineCore.addButton(4, 'Train Loppe', this.trainLoppe); // Unfinished in the doc;
-		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre.telAdreMenu );
+		EngineCore.addButton( 9, 'Leave', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	/**
 	 * MASSAGEU
@@ -180,12 +179,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Finally, the last message in the catalogue reads, "Need a little more power?  Going to have a fight on your hands soon?  With the special arts of do-in, we can boost your muscles and let you deliver a real knock-out punch - it doesn\'t last forever, so be careful!"\n\n' );
 		EngineCore.outputText( 'You contemplate your choices carefully.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Relief', this.massageRelief );
-		EngineCore.addButton( 1, 'Lust', this.massageLust );
-		EngineCore.addButton( 2, 'Modelling', this.massageModelling );
-		EngineCore.addButton( 3, 'Relaxation', this.massageRelaxation );
-		EngineCore.addButton( 4, 'Power', this.massagePower );
-		EngineCore.addButton( 9, 'No Thanks', this.massageNope );
+		EngineCore.addButton( 0, 'Relief', this, this.massageRelief );
+		EngineCore.addButton( 1, 'Lust', this, this.massageLust );
+		EngineCore.addButton( 2, 'Modelling', this, this.massageModelling );
+		EngineCore.addButton( 3, 'Relaxation', this, this.massageRelaxation );
+		EngineCore.addButton( 4, 'Power', this, this.massagePower );
+		EngineCore.addButton( 9, 'No Thanks', this, this.massageNope );
 	};
 	/**
 	 * Player changed mind about MASSAGEU TIEMU
@@ -196,7 +195,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You apologize and tell Uma that you\'ve changed your mind, you don\'t want a massage right now.\n\n' );
 		EngineCore.outputText( '"<i>Very well, dear.</i>"  Uma takes the catalogue back.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.enterClinic, true );
+		EngineCore.addButton( 0, 'Next', this, this.enterClinic, true );
 	};
 	/**
 	 * Player selected 'Relief' massage
@@ -302,7 +301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 			EngineCore.outputText( 'You sigh in turn, and tell her that you accept that; she is a business-woman, after all.  You\'ll have to come back another day, when you do have the money to pay for it.\n\n' );
 			EngineCore.outputText( 'Wishing her well, you calmly let yourself out of the shop and head back to camp.' );
 			EngineCore.menu();
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'You tell her that sounds fair, withdrawing the gems and handing them to her.\n\n' );
@@ -315,7 +314,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		}
 		EngineCore.outputText( 'and move over to lay yourself on the table.  You get yourself comfortable and tell Uma that you\'re ready.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.massageCommence, selectedMassage );
+		EngineCore.addButton( 0, 'Next', this, this.massageCommence, selectedMassage );
 	};
 	/**
 	 * Extensions to Massage Joiner.
@@ -349,7 +348,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		// Apply bonus & back to camp!;
 		this.applyMassageBonus( selectedMassage );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.MAX_MASSAGE_BONUS_DURATION = 24;			// Duration of the bonus
 	/**
@@ -562,7 +561,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 			EngineCore.outputText( 'You tell her that you understand what she\'s saying, and consider the decision carefully.  You ask her how difficult she estimates the process would be, given the past sessions you have endured.\n\n' );
 			EngineCore.outputText( 'The mare takes a moment to inspect you carefully, seeming to look through rather than at you.  "<i>This could be quite a challenge, even for my skills... but, seeing as you\'re my little hoppers special someone, just for you I will have to ask for ' + String( sessionCost ) + ' gems.  That\'s half the price of what I\'d usually charge for work this difficult.</i>"\n\n' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Undo', this.needleworkSession, UmasShop.NEEDLEWORK_UNDO );
+			EngineCore.addButton( 0, 'Undo', this, this.needleworkSession, UmasShop.NEEDLEWORK_UNDO );
 		} else {
 			EngineCore.outputText( '"<i>Are you sure, dear?  While the effects of a Do-in massage will fade eventually, acupuncture is fairly... permanent.  Though I can only give you the effects of one type of needlework at a time...</i>"\n\n' );
 			EngineCore.outputText( 'You tell her that you understand what she\'s saying, and thank her for warning you. You ask her what kinds of effects you can expect from her needlework and how much it\'s going to cost you.\n\n' );
@@ -576,20 +575,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 			EngineCore.outputText( '"<i>Finally, I can use my needles to rearrange your chi flow and optimise your offense; your blows will be far more powerful, but your natural defense will be impaired, making you more vulnerable to strikes by the enemy.</i>"\n\n' );
 			EngineCore.outputText( 'The mare tries to remember any other types of needlework that might be useful to you, but ultimately, she can\'t think of anything else.  "<i>That\'s all you might use, I think...</i>"  She then pauses.  "<i>As for a price, given you\'re my little Loppe\'s special someone, shall we say ' + String( sessionCost ) + ' gems?  That\'s half-price of what I\'d usually charge.</i>"\n\n' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Speed', this.needleworkSession, UmasShop.NEEDLEWORK_SPEED );
-			EngineCore.addButton( 1, 'Lust', this.needleworkSession, UmasShop.NEEDLEWORK_LUST );
-			EngineCore.addButton( 2, 'Defense', this.needleworkSession, UmasShop.NEEDLEWORK_DEFENSE );
-			EngineCore.addButton( 3, 'Magic', this.needleworkSession, UmasShop.NEEDLEWORK_MAGIC );
-			EngineCore.addButton( 4, 'Attack', this.needleworkSession, UmasShop.NEEDLEWORK_ATTACK );
+			EngineCore.addButton( 0, 'Speed', this, this.needleworkSession, UmasShop.NEEDLEWORK_SPEED );
+			EngineCore.addButton( 1, 'Lust', this, this.needleworkSession, UmasShop.NEEDLEWORK_LUST );
+			EngineCore.addButton( 2, 'Defense', this, this.needleworkSession, UmasShop.NEEDLEWORK_DEFENSE );
+			EngineCore.addButton( 3, 'Magic', this, this.needleworkSession, UmasShop.NEEDLEWORK_MAGIC );
+			EngineCore.addButton( 4, 'Attack', this, this.needleworkSession, UmasShop.NEEDLEWORK_ATTACK );
 		}
 		// Add a leave button for both;
-		EngineCore.addButton( 9, 'No Thanks', this.needleworkTurnDown );
+		EngineCore.addButton( 9, 'No Thanks', this, this.needleworkTurnDown );
 		// Cashmonies time;
 		if( CoC.player.gems < sessionCost ) {
 			EngineCore.outputText( 'You click your tongue and apologize to Uma, but you don\'t have enough gems to pay for your treatment...\n\n' );
 			EngineCore.outputText( 'Uma sighs, "It\'s okay, dear.  Just come back when you do, my doors are always open."' );
 			EngineCore.menu();
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'You nod in understanding... now you stop and consider your options, ' );
@@ -608,7 +607,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You shake your head and tell Uma that you\'d actually rather not get one of her acupuncture treatments at this point in time.\n\n' );
 		EngineCore.outputText( '"<i>Very well, dear.  It\'s important that you think this through, they\'re not easy to undo.</i>"' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.enterClinic, true );
+		EngineCore.addButton( 0, 'Next', this, this.enterClinic, true );
 	};
 	/**
 	 * Opening of the Accupuncture session itself. Minor variantion/cost changes
@@ -629,7 +628,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 			CoC.player.gems -= 125;
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.doNeedleworkSession, selectedSession );
+		EngineCore.addButton( 0, 'Next', this, this.doNeedleworkSession, selectedSession );
 	};
 	/**
 	 * Actual scene for the acupuncture stuff to happen.
@@ -657,7 +656,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You thank her for her work, get yourself up and proceed to dress.  You politely excuse yourself and start the long journey back to your camp.\n\n' );
 		this.applyNeedlework( selectedSession );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * LIPFLAP COMMENCE.
@@ -669,11 +668,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You tell Uma that you\'d like to chat; you\'re interested in getting to know her better, and who knows, maybe she can help you get to know her daughter better?\n\n' );
 		EngineCore.outputText( '"<i>Sure, what would you like to talk about?</i>"  Uma replies with a smile.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Job', this.talkJob );
-		EngineCore.addButton( 1, 'Sexuality', this.talkSexuality );
-		EngineCore.addButton( 2, 'Loppe', this.talkLoppe );
-		EngineCore.addButton( 3, 'Loppe\'s Dad', this.talkLoppesDad );
-		EngineCore.addButton( 9, 'Back', this.enterClinic, true );
+		EngineCore.addButton( 0, 'Job', this, this.talkJob );
+		EngineCore.addButton( 1, 'Sexuality', this, this.talkSexuality );
+		EngineCore.addButton( 2, 'Loppe', this, this.talkLoppe );
+		EngineCore.addButton( 3, 'Loppe\'s Dad', this, this.talkLoppesDad );
+		EngineCore.addButton( 9, 'Back', this, this.enterClinic, true );
 	};
 	/**
 	 * Talk Job
@@ -696,7 +695,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( '"<i>It\'s always pleasure speaking to the [man] that wooed my little Loppe, dear.  Come visit soon, will you?</i>"\n\n' );
 		EngineCore.outputText( 'You promise you\'ll try, and then head back to camp.' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Talk Sexuality
@@ -720,7 +719,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You laugh at that, thanking her for her generosity and her time, and then tell her it\'s time for you to go.  Uma smiles at you and says, "<i>Come visit me again soon.</i>"\n\n' );
 		EngineCore.outputText( 'You promise that you will, and then head out of the quaint little clinic and back to camp.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Talk about Loppe. Randomly selects a specific scene after selection.
@@ -738,8 +737,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 	 */
 	UmasShop.prototype.talkLoppeJoiner = function() {
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
-		//EngineCore.addButton(1, 'Debugz', this.talkMenu);;
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Random talk scene about Loppe's Attitudes.
@@ -860,7 +858,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You shake your head, not sure you want to ask why she\'d use such a street name.  You tell the mare to continue; she was saying that Loppe had been blossoming into a pretty young herm who caught the eyes of many in the village?\n\n' );
 		EngineCore.outputText( '"<i>Yes.  One day, I had my little Loppe take a request to the local carpenter, which happens to be close to where Puff used to... hunt.</i>"\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstGirlPart2 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart2 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart2 = function() {
 		EngineCore.clearOutput();
@@ -878,7 +876,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Somehow, then and there, Puff just knew she had to have that young bunny over for lunch. Taking a quick look at her pocket mirror to see if she was presentable enough she cleared her throat and struck the sexiest pose she could muster whilst leaning against the wall to the carpentry.\n\n' );
 		EngineCore.outputText( 'When Loppe approached the carpentry, written request in hand, a melodic, feminine voice called,  "<i>Hey, bunny-girl!</i>"\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstGirlPart3 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart3 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart3 = function() {
 		EngineCore.clearOutput();
@@ -903,7 +901,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Swallowing nervously, heart pounding like a drum, Loppe does her best to not watch Puff go - she\'s already hard enough, after all.  Long minutes pass as she tries to quell her raging erection, and then finally she remembers what she\'s supposed to be doing and heads to the carpentry store.\n\n' );
 		EngineCore.outputText( 'Back in her house, Puff goes to the bathroom to freshen up and prepare for the young laquine.  But first, she should add the laquine\'s name to her list.  Being a hooker and proud of her trade, she kept a list with the names of all customers she\'d serviced in the past.  It was sorta like a trophy list... but she marked the people who had been able to pleasure her the most, for future contact.  Well, she hoped this girl knows how to use her pony, she really needed more favorites on her list. Humming to herself she quickly retrieved the notebook from the cupboard nearby, and carefully added Loppe\'s name to it, then she closed it and stripped naked; those clothes would only get in the way...\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstGirlPart4 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart4 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart4 = function() {
 		EngineCore.clearOutput();
@@ -935,7 +933,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( '"<i>What? But you promised!</i>" Loppe pleads, eyes widened to make herself more appealing.  "<i>Plus, weren\'t you \'going to fuck me until you ran my balls dry\'?</i>"  She quotes the wolfess jokingly.  "<i>I thought you took pride in being a - Yesss - a whore, and never left a customer unsatisfied.</i>"  Loppe continues to tease.\n\n' );
 		EngineCore.outputText( '"<i>That sounded like a challenge... okay!  You\'re on bunny-girl!</i>"  Puff replies with a grin.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstGirlPart5 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart5 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart5 = function() {
 		EngineCore.clearOutput();
@@ -946,7 +944,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'As she began heading merrily home, the laquine whistled with glee; she just got laid!  And by the utterly gorgeous Puffy Lips, no less!  Nothing could ruin her day now... at least, not until she took a look at the sun...\n\n' );
 		EngineCore.outputText( '"<i>Oh crap!  Mom\'s gonna kill me for staying out this late!</i>"  The half-breed wailed, clasping her head in anguish.  She promptly began sprinting home at full speed, desperate to get there as quickly as possible and assuage the full fury of a mother whose daughter is out past her bedtime.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstGirlPart6 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart6 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart6 = function() {
 		EngineCore.clearOutput();
@@ -1003,7 +1001,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You admit that, and tell her to continue.\n\n' );
 		EngineCore.outputText( '"<i>So they started dating.  And as is normal for a young couple, one day, after they had come back from a nice dinner, he suggested that he wanted to see Loppe naked.</i>"\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstBoyfriendPart2 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart2 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart2 = function() {
 		EngineCore.clearOutput();
@@ -1028,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'With the best growl she can manage, the horse-dicked rabbit hops through the air to snatch her feline boyfriend, but he jumps away with a laugh.  Gracefully he dances around and around the bedroom, the increasingly frustrated rabbit trying to cut him off.  Finally, with one perfectly timed leap, she slams into him and knocks him over onto the bed with a mutual \'whoof!\' of startled shock.  Belly to belly they catch their breath, and then Loppe rises back up, completing the pinning maneuver.  "<i>Haha, caught you!</i>"  Loppe taunts, then blinks in surprise; what\'s that funny-nice feeling?  Rearing back, she looks down at their two bellies, seeing their mutual erections rubbing their sensitive flesh against each other, a sight which makes her blush.  "<i>S-sorry, Hyou, I didn\'t mean to...</i>"  \n\n' );
 		EngineCore.outputText( '"<i>Don\'t worry about that, I don\'t mind.  So, you managed to catch me... what do you intend to do with me now?  Hmm?</i>"  Hyou asks, ears twitching cutely.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstBoyfriendPart3 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart3 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart3 = function() {
 		EngineCore.clearOutput();
@@ -1056,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Hyou yowls one last time and bucks against Loppe, his claws digging into her hips as his eyes cross, looking straight at a dollop of pre that seems to have formed on the flared tip of Loppe\'s member.  Finally, he relaxes and lets his orgasm overtake him, spewing rope after rope of cum inside Loppe\'s eager pussy.\n\n' );
 		EngineCore.outputText( 'The laquine moans in pleasure at the sudden sensation of being filled... then blinks in surprise as she feels the cat-prick inside her needy pussy going soft.  "<i>What\'s wrong?  What happened?</i>" She asks, baffled; she tries to ride the limp dick a little more, but it\'s futile.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstBoyfriendPart4 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart4 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart4 = function() {
 		EngineCore.clearOutput();
@@ -1088,7 +1086,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Hyou purrs, licking at his cum-caked arms, happily.  His belly is distended with the massive amount of laquine-cum sloshing about inside.  "<i>Wow.  I have to say Loppe, you\'re one of a kind.  Best sex ever!</i>"  He sighs, continuing to lick at his arms.  "<i>Sorry for only getting your female half once.  I swear I don\'t know what\'s wrong with me... but it just felt so good when you started fucking me with that wonderful, big, horse-cock of yours, that I just lost it... sorry.</i>"\n\n' );
 		EngineCore.outputText( '"<i>It\'s okay, Hyou...</i>" Loppe sighs.  She cradles her stomach, which looks no different than it did when she started, and looks enviously at the engorged midriff of her boyfriend, very visible proof of her masculine potency.  "<i>Still, we\'ll try and concentrate more on that part next time, okay?</i>" She asks.\n\n' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.talkLoppesFirstBoyfriendPart5 );
+		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart5 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart5 = function() {
 		EngineCore.clearOutput();
@@ -1136,7 +1134,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'Uma nods thoughtfully at your words.  "<i>A sister or two?  Definitely.  Hey, why not go out on a limb and say five or six little sisters?  I loved being a mom, being pregnant was actually kind of hot, and I\'m still young enough to do some serious breeding.</i>"  She pats her belly with a defiant expression.  But then she slumps and sighs longingly.  "<i>But I want my Usagi back first...</i>" She mourns.\n\n' );
 		EngineCore.outputText( 'You tell her to keep hoping; as strong a warrior as Uma described her to be, you\'re sure that the bunny-herm is still out there, somewhere.  You politely withdraw to give Uma a chance to compose herself, heading back to camp.\n\n' );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Main sex menu
@@ -1189,18 +1187,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 	};
 	UmasShop.prototype.buildSexMenu = function() {
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'EroMassage', this.sexEroticMassage );
-		EngineCore.addButton( 1, 'Eat Her Out', this.sexEatHerOut );
+		EngineCore.addButton( 0, 'EroMassage', this, this.sexEroticMassage );
+		EngineCore.addButton( 1, 'Eat Her Out', this, this.sexEatHerOut );
 		if( CoC.player.gender >= 2 && CoC.player.lowerBody !== 4 ) 
 		{
-			EngineCore.addButton( 2, 'Fingerbang', this.sexGetFingered );
+			EngineCore.addButton( 2, 'Fingerbang', this, this.sexGetFingered );
 		}
 		if( CoC.player.hasCock() ) // Has a dick
 		{
-			EngineCore.addButton( 3, 'Handjob', this.sexHandjob );
-			EngineCore.addButton( 4, 'Get Blown', this.sexGetABJFromDisMilfyLesboSlut );
+			EngineCore.addButton( 3, 'Handjob', this, this.sexHandjob );
+			EngineCore.addButton( 4, 'Get Blown', this, this.sexGetABJFromDisMilfyLesboSlut );
 		}
-		EngineCore.addButton( 9, 'Back', this.buildCoreMenu );
+		EngineCore.addButton( 9, 'Back', this, this.buildCoreMenu );
 	};
 	/**
 	 * Erotic Massage
@@ -1284,7 +1282,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.player.hoursSinceCum = Math.ceil( hoursSinceCum * 0.75 );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexGetFingered = function() {
 		EngineCore.clearOutput();
@@ -1397,7 +1395,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		}
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexHandjob = function() {
 		EngineCore.clearOutput();
@@ -1465,7 +1463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( '.  See you later, dear.  And don\'t be a stranger,</i>" the mare tells you as she waves you goodbye.\n\n' );
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Needs Cock.;
 	UmasShop.prototype.sexGetABJFromDisMilfyLesboSlut = function() {
@@ -1709,7 +1707,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ]++;
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexEatHerOut = function() {
 		EngineCore.clearOutput();
@@ -1766,7 +1764,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, StatusAffects, PerkLib, Descr
 		EngineCore.outputText( 'You rub her thigh affectionately, promising to do so, then redress yourself and head back to camp.\n\n' );
 		EngineCore.dynStats( 'lust', 30 );
 		EngineCore.menu();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
 	 * Incomplete in the doc

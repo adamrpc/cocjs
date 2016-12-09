@@ -17,8 +17,8 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 		return false;
 	};
 	var BeautifulSwordProxy = new Proxy( BeautifulSword, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

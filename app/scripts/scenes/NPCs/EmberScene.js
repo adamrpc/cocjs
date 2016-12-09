@@ -171,8 +171,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		if( CoC.flags[ kFLAGS.EMBER_MILK ] > 0 ) {
 			milk = this.getMilkFromEmber;
 		}
-		EngineCore.choices( 'Appearance', this.embersAppearance, 'Talk', this.talkToEmber, 'DrinkBlood', this.bloodForTheBloodGod, 'Drink Milk', milk, 'Get Egg', egg,
-			'Sex', this.emberSexMenu, 'Spar', this.decideToSparEmbra, '', null, '', null, 'Back', SceneLib.camp.campFollowers );
+		EngineCore.choices( 'Appearance', this, this.embersAppearance, 'Talk', this, this.talkToEmber, 'DrinkBlood', this, this.bloodForTheBloodGod, 'Drink Milk', this, milk, 'Get Egg', this, egg,
+			'Sex', this, this.emberSexMenu, 'Spar', this, this.decideToSparEmbra, '', null, null, '', null, null, 'Back', SceneLib.camp, SceneLib.camp.campFollowers );
 	};
 	//Approach for sex - initial output when selecting [Sex] menu (Z);
 	EmberScene.prototype.emberSexMenu = function( output ) {
@@ -257,20 +257,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			getBlown = this.stickDickInKnifeDrawer;
 			pitchAnal = this.stickItInEmbersButt;
 		}
-		//EngineCore.choices('Catch Anal',this.catchAnal,'Pitch Anal',pitchAnal,'Blow Ember',blowEmber,'Get Blown',getBlown,'Eat Her Out',eatOut,'Get Eaten Out',getEatenOut,'Penetrate Her',penetrateHer,'Get Penetrated',getPenetrated,'',0,'Leave',this.emberCampMenu);;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Catch Anal', catchAnal_ );
-		EngineCore.addButton( 1, 'Pitch Anal', pitchAnal );
-		EngineCore.addButton( 2, 'Blow Ember', blowEmber );
-		EngineCore.addButton( 3, 'Get Blown', getBlown );
-		EngineCore.addButton( 4, 'Eat Her Out', eatOut );
-		EngineCore.addButton( 5, 'Get Eaten Out', getEatenOut );
-		EngineCore.addButton( 6, 'Penetrate Her', penetrateHer );
-		EngineCore.addButton( 7, 'Get Penetrated', getPenetrated );
+		EngineCore.addButton( 0, 'Catch Anal', this, catchAnal_ );
+		EngineCore.addButton( 1, 'Pitch Anal', this, pitchAnal );
+		EngineCore.addButton( 2, 'Blow Ember', this, blowEmber );
+		EngineCore.addButton( 3, 'Get Blown', this, getBlown );
+		EngineCore.addButton( 4, 'Eat Her Out', this, eatOut );
+		EngineCore.addButton( 5, 'Get Eaten Out', this, getEatenOut );
+		EngineCore.addButton( 6, 'Penetrate Her', this, penetrateHer );
+		EngineCore.addButton( 7, 'Get Penetrated', this, getPenetrated );
 		if( this.emberAffection() >= 95 && CoC.player.hasCock() && CoC.player.cockThatFits( this.emberVaginalCapacity() ) >= 0 && (CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.lib >= 50 || CoC.player.minLust() >= 40) ) {
-			EngineCore.addButton( 8, 'LustyFuck', this.highAffectionEmberLustFuck );
+			EngineCore.addButton( 8, 'LustyFuck', this, this.highAffectionEmberLustFuck );
 		}
-		EngineCore.addButton( 9, 'Leave', this.emberCampMenu );
+		EngineCore.addButton( 9, 'Leave', this, this.emberCampMenu );
 	};
 	//Finding the Egg (Z);
 	//Triggers randomly on exploration in Swamp;
@@ -293,14 +292,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nTrue enough, after a short trek through familiar tunnels you find yourself once again standing before the alleged \'dragon egg\'.' );
 		}
 		CoC.flags[ kFLAGS.TIMES_FOUND_EMBERS_EGG ]++;
-		EngineCore.choices( 'Take It', this.takeEmbersEggHomeInADoggieBag, 'Destroy It', this.destroyBabyEmberYouMonster, '', null, '', null, 'Leave', this.leaveEmbersAssOutToDry );
+		EngineCore.choices( 'Take It', this, this.takeEmbersEggHomeInADoggieBag, 'Destroy It', this, this.destroyBabyEmberYouMonster, '', null, null, '', null, null, 'Leave', this, this.leaveEmbersAssOutToDry );
 	};
 	//[=Leave=] (Z);
 	EmberScene.prototype.leaveEmbersAssOutToDry = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You can\'t decide what to do right now, so you leave the egg where it is and return to your camp.' );
 		//(You can restart this quest by randomly encountering this chamber again. It continues to reappear until you either Destroy or Take the egg.);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Destroy it=] (Z);
 	EmberScene.prototype.destroyBabyEmberYouMonster = function() {
@@ -310,7 +309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( '\n\nWith nothing else in the cave, you prepare to leave, but find yourself stopped by a sudden thought.  The egg yolk, though raw, looks strangely appetizing...' );
 		CoC.flags[ kFLAGS.EGG_BROKEN ] = 1;
 		//[Eat][Leave];
-		EngineCore.choices( 'Eat It', this.eatEmbersYolkLikeAnEvenBiggerDick, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Eat It', this, this.eatEmbersYolkLikeAnEvenBiggerDick, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Eat=];
 	EmberScene.prototype.eatEmbersYolkLikeAnEvenBiggerDick = function() {
@@ -326,7 +325,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(also slimefeed!);
 		EngineCore.dynStats( 'str', 5 + Utils.rand( 5 ), 'tou', 5 + Utils.rand( 5 ), 'int', 5 + Utils.rand( 5 ), 'cor', 20 );
 		CoC.player.slimeFeed();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Yes];
@@ -375,7 +374,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nYou look around over and over and over... but no matter how much you look you don\'t see anything at all that could even resemble some kind of magic rune, or activation button, or anything that could disable the ward.  You groan in frustration.' );
 			EngineCore.outputText( '\n\nIt looks like you will have to leave the egg for now until you\'re better versed in magical methods... or strong enough to knock down a mountain!  You roll it back down the corridor into its shrine to prevent its being seen from the cave entrance.' );
 			//Same as taking the Leave option. Must find the egg again to take it.;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( '\n\n(<b>You have now begun the Mysterious Egg quest.  The Mysterious Egg is added to the <i>Items</i> at the Camp.</b>)' );
@@ -383,7 +382,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.player.createKeyItem( 'Dragon Egg', 0, 0, 0, 0 );
 		CoC.flags[ kFLAGS.TOOK_EMBER_EGG ] = 1;
 		CoC.flags[ kFLAGS.EMBER_COR ] = 50;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Modified Camp Description (Z);
@@ -482,7 +481,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			//Do you give in to the urge?;
 			//[Yes][No];
 			//[= Yes =];
-			EngineCore.doYesNo( this.masturbateOntoAnEgg, this.dontEggFap );
+			EngineCore.doYesNo( this, this.masturbateOntoAnEgg, this, this.dontEggFap );
 			//(Use the appropriate Egg Masturbation scene.);
 			return;
 		}
@@ -496,19 +495,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		var draft = null;
 		if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
-			draft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, false );
+			draft = EngineCore.createCallBackFunction( this, this.useIncubusDraftOnEmber, false );
 		}
 		var pDraft = null;
 		if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) ) {
-			pDraft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, true );
+			pDraft = EngineCore.createCallBackFunction( this, this.useIncubusDraftOnEmber, true );
 		}
 		var milk = null;
 		if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
-			milk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, false );
+			milk = EngineCore.createCallBackFunction( this, this.useSuccubiMilkOnEmber, false );
 		}
 		var pMilk = null;
 		if( CoC.player.hasItem( ConsumableLib.P_S_MLK ) ) {
-			pMilk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, true );
+			pMilk = EngineCore.createCallBackFunction( this, this.useSuccubiMilkOnEmber, true );
 		}
 		var hair = null;
 		if( CoC.player.hasItem( ConsumableLib.EXTSERM ) ) {
@@ -528,11 +527,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\n<b>The egg is ready to be hatched - if you\'re just as ready.</b>' );
 		}
 		if( hatch !== null ) {
-			EngineCore.choices( 'Hatch', hatch, 'Blood', this.giveEmberBludSausages, 'IncubiDraft', draft, 'Pure Draft', pDraft, 'Succubi Milk', milk, 'Pure Milk', pMilk, 'Hair Serum', hair, 'Ovi Elixir', ovi, 'Lactaid', lactaid, 'Back', this.leaveWithoutUsingAnEmberItem );
+			EngineCore.choices( 'Hatch', this, hatch, 'Blood', this, this.giveEmberBludSausages, 'IncubiDraft', null, draft, 'Pure Draft', null, pDraft, 'Succubi Milk', null, milk, 'Pure Milk', null, pMilk, 'Hair Serum', this, hair, 'Ovi Elixir', this, ovi, 'Lactaid', this, lactaid, 'Back', this, this.leaveWithoutUsingAnEmberItem );
 		} else if( fap !== null ) {
-			EngineCore.choices( 'Masturbate', fap, 'Blood', this.giveEmberBludSausages, 'IncubiDraft', draft, 'Pure Draft', pDraft, 'Succubi Milk', milk, 'Pure Milk', pMilk, 'Hair Serum', hair, 'Ovi Elixir', ovi, 'Lactaid', lactaid, 'Back', this.leaveWithoutUsingAnEmberItem );
+			EngineCore.choices( 'Masturbate', this, fap, 'Blood', this, this.giveEmberBludSausages, 'IncubiDraft', null, draft, 'Pure Draft', null, pDraft, 'Succubi Milk', null, milk, 'Pure Milk', null, pMilk, 'Hair Serum', this, hair, 'Ovi Elixir', this, ovi, 'Lactaid', this, lactaid, 'Back', this, this.leaveWithoutUsingAnEmberItem );
 		} else {
-			EngineCore.choices( 'Hatch', hatch, 'Blood', this.giveEmberBludSausages, 'IncubiDraft', draft, 'Pure Draft', pDraft, 'Succubi Milk', milk, 'Pure Milk', pMilk, 'Hair Serum', hair, 'Ovi Elixir', ovi, 'Lactaid', lactaid, 'Back', this.leaveWithoutUsingAnEmberItem );
+			EngineCore.choices( 'Hatch', this, hatch, 'Blood', this, this.giveEmberBludSausages, 'IncubiDraft', null, draft, 'Pure Draft', null, pDraft, 'Succubi Milk', null, milk, 'Pure Milk', null, pMilk, 'Hair Serum', this, hair, 'Ovi Elixir', this, ovi, 'Lactaid', this, lactaid, 'Back', this, this.leaveWithoutUsingAnEmberItem );
 		}
 	};
 	//[= No =];
@@ -547,19 +546,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		var draft = null;
 		if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
-			draft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, false );
+			draft = EngineCore.createCallBackFunction( this, this.useIncubusDraftOnEmber, false );
 		}
 		var pDraft = null;
 		if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) ) {
-			pDraft = EngineCore.createCallBackFunction( this.useIncubusDraftOnEmber, true );
+			pDraft = EngineCore.createCallBackFunction( this, this.useIncubusDraftOnEmber, true );
 		}
 		var milk = null;
 		if( CoC.player.hasItem( ConsumableLib.SUCMILK ) ) {
-			milk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, false );
+			milk = EngineCore.createCallBackFunction( this, this.useSuccubiMilkOnEmber, false );
 		}
 		var pMilk = null;
 		if( CoC.player.hasItem( ConsumableLib.P_S_MLK ) ) {
-			pMilk = EngineCore.createCallBackFunction( this.useSuccubiMilkOnEmber, true );
+			pMilk = EngineCore.createCallBackFunction( this, this.useSuccubiMilkOnEmber, true );
 		}
 		var hair = null;
 		if( CoC.player.hasItem( ConsumableLib.EXTSERM ) ) {
@@ -585,18 +584,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 
 		if( hatch !== null ) {
-			EngineCore.choices( 'Hatch', hatch, 'Blood', this.giveEmberBludSausages, 'IncubiDraft', draft, 'Pure Draft', pDraft, 'Succubi Milk', milk, 'Pure Milk', pMilk, 'Hair Serum', hair, 'Ovi Elixir', ovi, 'Lactaid', lactaid, 'Back', this.leaveWithoutUsingAnEmberItem );
+			EngineCore.choices( 'Hatch', this, hatch, 'Blood', this, this.giveEmberBludSausages, 'IncubiDraft', null, draft, 'Pure Draft', null, pDraft, 'Succubi Milk', null, milk, 'Pure Milk', null, pMilk, 'Hair Serum', this, hair, 'Ovi Elixir', this, ovi, 'Lactaid', this, lactaid, 'Back', this, this.leaveWithoutUsingAnEmberItem );
 		} else if( fap !== null ) {
-			EngineCore.choices( 'Masturbate', fap, 'Blood', this.giveEmberBludSausages, 'IncubiDraft', draft, 'Pure Draft', pDraft, 'Succubi Milk', milk, 'Pure Milk', pMilk, 'Hair Serum', hair, 'Ovi Elixir', ovi, 'Lactaid', lactaid, 'Back', this.leaveWithoutUsingAnEmberItem );
+			EngineCore.choices( 'Masturbate', this, fap, 'Blood', this, this.giveEmberBludSausages, 'IncubiDraft', null, draft, 'Pure Draft', null, pDraft, 'Succubi Milk', null, milk, 'Pure Milk', null, pMilk, 'Hair Serum', this, hair, 'Ovi Elixir', this, ovi, 'Lactaid', this, lactaid, 'Back', this, this.leaveWithoutUsingAnEmberItem );
 		} else {
-			EngineCore.choices( 'Hatch', hatch, 'Blood', this.giveEmberBludSausages, 'IncubiDraft', draft, 'Pure Draft', pDraft, 'Succubi Milk', milk, 'Pure Milk', pMilk, 'Hair Serum', hair, 'Ovi Elixir', ovi, 'Lactaid', lactaid, 'Back', this.leaveWithoutUsingAnEmberItem );
+			EngineCore.choices( 'Hatch', this, hatch, 'Blood', this, this.giveEmberBludSausages, 'IncubiDraft', null, draft, 'Pure Draft', null, pDraft, 'Succubi Milk', null, milk, 'Pure Milk', null, pMilk, 'Hair Serum', this, hair, 'Ovi Elixir', this, ovi, 'Lactaid', this, lactaid, 'Back', this, this.leaveWithoutUsingAnEmberItem );
 		}
 	};
 	//Leave Without Using Item (Z);
 	EmberScene.prototype.leaveWithoutUsingAnEmberItem = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shake your head; it would probably be best not to tamper with it. Returning the items to your pockets, you leave the egg alone.  As you put them away, the egg\'s glow slows down dramatically, almost as if it were feeling... disappointment?' );
-		EngineCore.doNext( SceneLib.inventory.inventoryMenu );
+		EngineCore.doNext( SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 	};
 	//Incubus Draft/Purified Incubus Draft (Z);
 	EmberScene.prototype.useIncubusDraftOnEmber = function( purified ) {
@@ -623,7 +622,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 		}
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Succubi Milk/Purified Succubi Milk (Z);
 	EmberScene.prototype.useSuccubiMilkOnEmber = function( purified ) {
@@ -653,7 +652,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			CoC.flags[ kFLAGS.EMBER_GENDER ] = 3;
 		}
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Ovi Elixir (Z);
 	EmberScene.prototype.useOviElixerOnEmber = function() {
@@ -663,7 +662,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( 'Uncorking the crystalline bottle, you pour the strange green liquid inside onto the egg, briefly wondering what on earth it could want with this stuff, before catching your fallacy.  It\'s an egg, right?  It can\'t want things...  The fluid spills all over the shell, coating it, and then seeps inside, leaving the egg\'s previously pale surface marked with small green splotches.' );
 		CoC.flags[ kFLAGS.EMBER_OVIPOSITION ] = 1;
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Lactaid (Z);
 	EmberScene.prototype.useLactaidOnEmber = function() {
@@ -673,7 +672,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( 'Feeling a little bemused, you pour the creamy fluid onto the egg.  It is absorbed through the shell, and a spiderwork of creamy yellow vein-like markings suddenly forms on the shell\'s surface.' );
 		CoC.flags[ kFLAGS.EMBER_MILK ] = 1;
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Hair Extension Serum (Z);
 	EmberScene.prototype.hairExtensionSerum = function() {
@@ -690,7 +689,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		EngineCore.outputText( ' on the egg.' );
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Your Blood (Z);
 	EmberScene.prototype.giveEmberBludSausages = function() {
@@ -710,7 +709,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Token HP Loss, can't drop below 1 HP.);
 		CoC.player.takeDamage( 10 );
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Masturbate Onto the Egg (Z);
 	//Genderless Version (Z);
@@ -718,7 +717,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.clearOutput();
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'The light pulses decrease in speed as you disrobe and expose your bare crotch, leaving you disappointed after summoning your perversity to bring you this far.  You feel as if you\'ve let it down somehow...  This is confusing!  You decide to go away and deal with this fickle egg another time.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Nothing changes. PC can go do something else, lose no time.;
@@ -797,7 +796,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.flags[ kFLAGS.EMBER_JACKED_ON ] = 1;
 		//INCREMENT EMBER FEEDINZ;
 		CoC.flags[ kFLAGS.EMBER_EGG_FLUID_COUNT ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//HATCH DAT BITCH;
 	EmberScene.prototype.hatchZeMuzzles = function() {
@@ -916,7 +915,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			}
 		}
 		//Aftermath (Z);
-		EngineCore.doNext( this.meetEmberAftermath );
+		EngineCore.doNext( this, this.meetEmberAftermath );
 	};
 	//Aftermath (Z);
 	EmberScene.prototype.meetEmberAftermath = function() {
@@ -929,7 +928,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( '\n\n(<b>Ember has been gained as a follower!</b>)' );
 		CoC.flags[ kFLAGS.EMBER_HATCHED ] = 1;
 		CoC.player.removeKeyItem( 'Dragon Egg' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Appearance (shows Ember's appearance, always available);
 	EmberScene.prototype.embersAppearance = function() {
@@ -1084,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nEmber\'s legs themselves are somewhat human-like in appearance, but they\'re covered in the thick protective scales that don most of ' + this.emberMF( 'his', 'her' ) + ' extremities.  Only the feet look like anything but normal human anatomy; the clawed feet of a predator decorate ' + this.emberMF( 'him', 'her' ) + ' instead, capped with talons meant for gripping at the ground... or at prey.' );
 			EngineCore.outputText( '\n\nHaving drawn the dragon\'s attention with your examination of ' + this.emberMF( 'his', 'her' ) + ' body, Ember darts a reptilian tongue out from ' + this.emberMF( 'his', 'her' ) + ' lips, as if to entice you.' );
 		}
-		EngineCore.doNext( this.emberCampMenu );
+		EngineCore.doNext( this, this.emberCampMenu );
 	};
 	//Talk;
 	EmberScene.prototype.talkToEmber = function() {
@@ -1093,23 +1092,23 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		if( CoC.player.isPregnant() ) { //Extra check might protect against inappropriate Ember complaints
 			if( CoC.flags[ kFLAGS.EMBER_OVI_BITCHED_YET ] === 0 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 				this.emberBitchesAboutPCBeingFullOfEggs();
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			if( CoC.player.pregnancyIncubation < 200 && CoC.player.pregnancyType !== PregnancyStore.PREGNANCY_EMBER && CoC.flags[ kFLAGS.EMBER_BITCHES_ABOUT_PREGNANT_PC ] === 0 ) {
 				this.manEmberBitchesAboutPCPregnancy();
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_EMBER && CoC.player.pregnancyType < 300 && CoC.flags[ kFLAGS.EMBER_TALKS_TO_PC_ABOUT_PC_MOTHERING_DRAGONS ] === 0 ) {
 				this.emberTalksToPCAboutPCDragoNPregnancy();
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 		}
 		if( CoC.flags[ kFLAGS.EMBER_PREGNANT_TALK ] === 0 && this.pregnancy.event > 1 ) {
 			this.emberIsPregnantFirstTimeTalkScene();
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'What will you talk about?' );
@@ -1117,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//Talk about Dragons;
 		//Talk about Exploring;
 		//Talk about Yourself;
-		EngineCore.choices( 'Dragons', this.talkToEmberAboutDragonzzz, 'Exploring', this.discussExplorationWithEmber, 'Yourself', this.talkToEmberAboutYourself, '', null, 'Back', this.emberCampMenu );
+		EngineCore.choices( 'Dragons', this, this.talkToEmberAboutDragonzzz, 'Exploring', this, this.discussExplorationWithEmber, 'Yourself', this, this.talkToEmberAboutYourself, '', null, null, 'Back', this, this.emberCampMenu );
 	};
 	//Talk about Dragons (Z);
 	EmberScene.prototype.talkToEmberAboutDragonzzz = function() {
@@ -1162,7 +1161,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nYou ask if ' + this.emberMF( 'he', 'she' ) + '\'s all right.  "<i>Huh?  Yes, I\'m fine!  Anyways, lesson\'s over.</i>"  Ember hurriedly goes back inside ' + this.emberMF( 'his', 'her' ) + ' den.' );
 			this.emberAffection( 5 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Exploration (Z);
 	EmberScene.prototype.discussExplorationWithEmber = function() {
@@ -1262,7 +1261,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			}
 		}
 		EngineCore.outputText( '</i>"' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Talk about Yourself (Z);
 	EmberScene.prototype.talkToEmberAboutYourself = function() {
@@ -1272,7 +1271,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>You\'re a waste of time,</i>" Ember says nonchalantly.  ' + this.emberMF( 'He', 'She' ) + ' walks past you and then flies off.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//There's a points system here, that can range from 0 to 8, this is used to check Ember's final answer after ' + this.emberMF('he','she') + ''s done examining the PC.;
@@ -1367,7 +1366,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '"<i>You\'re quite a catch... if you strolled down the street you\'d have dragons fawning all over you...</i>"  Realizing what ' + this.emberMF( 'he', 'she' ) + ' just said, Ember coughs furiously.  "<i>I-I mean... lesser dragons might fawn all over you.  You don\'t meet my standards!</i>"' );
 			this.emberAffection( 5 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Ember Interactions: Special Events (edited, but pending modifications -Z);
@@ -1548,13 +1547,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(If Ember hasn't recovered from the last time ' + this.emberMF('he','she') + ' shared her blood);
 		if( CoC.flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] === 1 ) {
 			EngineCore.outputText( '\n\n"<i>Sorry, but I\'m still recovering from last time, so no blood for you,</i>" Ember states matter-of-factly.' );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>What!?  Why should I hurt myself for you?!</i>"  Ember indignantly blows a small ring of flames at you and walks away.' );
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
 		//(Medium Affection);
@@ -1569,7 +1568,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nEmber winces as you start to lick ' + this.emberMF( 'his', 'her' ) + ' wound, but quickly recovers composure.  You dart your eyes up to look at ' + this.emberMF( 'his', 'her' ) + ' face momentarily; ' + this.emberMF( 'he', 'she' ) + '\'s a bit flustered and it\'s clear that your licking is bringing ' + this.emberMF( 'him', 'her' ) + ' at least some relief from the pain of ' + this.emberMF( 'his', 'her' ) + ' injury.' );
 			EngineCore.outputText( '\n\nAs you drink, you feel a rush of energy course throughout your body; you feel lofty, powerful, and erudite.  Who knows what will happen if you keep drinking...' );
 			//[Continue][Stop];
-			EngineCore.choices( 'Continue', this.drinkDeeplyOfDagronBlud, 'Stop', this.noMoDagronBlud, '', null, '', null, '', null );
+			EngineCore.choices( 'Continue', this, this.drinkDeeplyOfDagronBlud, 'Stop', this, this.noMoDagronBlud, '', null, null, '', null, null, '', null, null );
 		}
 		//(High Affection);
 		else {
@@ -1579,7 +1578,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nEmber kisses you back; ' + this.emberMF( 'his', 'her' ) + ' bleeding tongue stroking yours lovingly.' );
 			EngineCore.outputText( '\n\nAs you drink, you feel a rush of energy course throughout your body; you feel lofty, powerful, and erudite.  Who knows what will happen if you keep drinking?' );
 			//[Continue][Stop];
-			EngineCore.choices( 'Continue', this.drinkDeeplyOfDagronBlud, 'Stop', this.noMoDagronBlud, '', null, '', null, '', null );
+			EngineCore.choices( 'Continue', this, this.drinkDeeplyOfDagronBlud, 'Stop', this, this.noMoDagronBlud, '', null, null, '', null, null, '', null, null );
 		}
 		//Flag as drinking her blood today!;
 		CoC.flags[ kFLAGS.DRANK_EMBER_BLOOD_TODAY ] = 1;
@@ -1606,7 +1605,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nYou gently ask what ' + this.emberMF( 'he', 'she' ) + ' means by "<i>strange ideas</i>".' );
 			EngineCore.outputText( '\n\n"<i>The ones you\'re getting!</i>" Ember blurts out, before spinning on ' + this.emberMF( 'his', 'her' ) + ' heels and leaving you alone. You watch ' + this.emberMF( 'him', 'her' ) + ' go and smile.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	EmberScene.prototype.drinkDeeplyOfDagronBlud = function() {
 		EngineCore.clearOutput();
@@ -1623,7 +1622,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nAs you break the kiss; Ember leans over, supporting ' + this.emberMF( 'him', 'her' ) + 'self on your shoulders.  "<i>Ugh... I guess we overdid it... I feel woozy.</i>"' );
 			EngineCore.outputText( '\n\nYou quickly offer ' + this.emberMF( 'him', 'her' ) + ' a helping hand, inquiring if ' + this.emberMF( 'he', 'she' ) + ' is all right.  Ember accepts your help, using your hand to balance ' + this.emberMF( 'him', 'her' ) + 'self.  "<i>I-I\'ll be fine... just, no more sharing for the day...</i>"' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TF messages (Z);
 	EmberScene.prototype.emberTFs = function() {
@@ -1914,7 +1913,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nEmber bites her lips and says once more, a bit louder this time, "<i>Would you like to watch?</i>"' );
 			EngineCore.outputText( '\n\nYou blink at the offer, then give her your most winning smile.  You could agree, or just smooth-talk your way out of it.' );
 			//[Watch][Fob Off];
-			EngineCore.choices( 'Watch', this.watchMediumAffectionEmberEggLay, 'Don\'t Watch', this.dontWatchEmberLayEgg, '', null, '', null, '', null );
+			EngineCore.choices( 'Watch', this, this.watchMediumAffectionEmberEggLay, 'Don\'t Watch', this, this.dontWatchEmberLayEgg, '', null, null, '', null, null, '', null, null );
 		}
 		//(High Affection);
 		else {
@@ -2318,7 +2317,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			}
 		}
 		this.emberAffection( 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//reset Dragonbreath counter to ready, increase lust slightly if low or med affection, add heat/rut if high dragon-score, damage toughness slightly if high affection and low PC corruption;
 		if( this.emberAffection() < 75 ) {
 			EngineCore.dynStats( 'lus', 20 );
@@ -2423,7 +2422,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Low affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>What!?  That is just gross!  Not to mention, it\'d never fit!</i>"  Ember doesn\'t bother waiting for your reply, shooing you out of ' + this.emberMF( 'his', 'her' ) + ' den.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Moderate affection);
@@ -2576,7 +2575,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 3 );
 		CoC.player.slimeFeed();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Blow Ember] - your shipment of dragon dildoes has arrived;
 	EmberScene.prototype.suckEmberCock = function() {
@@ -2686,7 +2685,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.player.slimeFeed();
 		this.emberAffection( 6 );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Blown - put your dick in the knife drawer, it'll be fun! (Z, with reservation);
 	EmberScene.prototype.stickDickInKnifeDrawer = function() {
@@ -2696,7 +2695,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>Ah.  And... what makes you think I would ever consider that?</i>"  Ember huffs indignantly and walks away.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Medium Affection);
@@ -2811,7 +2810,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//lose lust, reset hours since cum;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Pitch Anal - horses are terrible people, so no centaurs unless rewritten (Z);
@@ -2822,7 +2821,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n' + this.emberMF( 'His', 'Her' ) + ' eyes widen.  "<i>Never!  N-E-V-E-R!  Not even over my dead body!</i>" Ember exclaims.  The dragon unfurls ' + this.emberMF( 'his', 'her' ) + ' wings and lifts off, beating the air furiously.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Medium Affection);
@@ -2985,7 +2984,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Eat Ember Out - b-baka! (Z);
 	EmberScene.prototype.slurpDraggieCunnies = function() {
@@ -3079,7 +3078,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.player.slimeFeed();
 		this.emberAffection( 6 );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Get Eaten Out - actually halfway likeable;
 	EmberScene.prototype.getEatenOutByEmbra = function() {
@@ -3090,7 +3089,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>No way!  I have no idea what\'s been there!  Plus, that is just gross!</i>"  Ember spins on ' + this.emberMF( 'his', 'her' ) + ' heels and walks away.' );
 			//End scene;
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Medium Affection);
@@ -3152,7 +3151,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( '\n\nYou smile, hating to see ' + this.emberMF( 'him', 'her' ) + ' go, but so loving to watch ' + this.emberMF( 'him', 'her' ) + ' leave.  Shaking off your pleasurable fantasies, you manage to pull yourself back upright, redress yourself, and return to camp.' );
 		//minus some fukkin' lust, reset hours since cum;
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Penetrate Her - seems not to accommodate centaurs, more's the pity (Z);
 	EmberScene.prototype.penetrateEmbrah = function() {
@@ -3164,7 +3163,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>By you?  Ha!  Funny joke!</i>"  Ember laughs forcibly as she walks away.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Medium Affection);
@@ -3235,7 +3234,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 				EngineCore.outputText( 'those' );
 			}
 			EngineCore.outputText( ' and then come back!</i>"  Ember turns on her heels and walks away, moodier than usual.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(else if PC has multiple fit cocks) {;
@@ -3326,7 +3325,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -2 );
 			this.emberAffection( -5 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
 			return;
 		}
@@ -3358,7 +3357,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( '\n\n"<i>Yes... let\'s go again...</i>" she responds tiredly, before slumping down for a quick nap.  Beyond satisfied yourself, you settle on top of her with a sigh and a groan, repositioning yourself for greater comfort as you join her in sleep.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -2 );
-		EngineCore.doNext( this.penetrateEmbrahPartII );
+		EngineCore.doNext( this, this.penetrateEmbrahPartII );
 	};
 	//PART II!;
 	EmberScene.prototype.penetrateEmbrahPartII = function() {
@@ -3382,7 +3381,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 
 		EngineCore.outputText( '\n\nYour decency restored, you return to camp.' );
 		CoC.flags[ kFLAGS.EMBER_PUSSY_FUCK_COUNT ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Get Penetrated - also horse-proof, sorry folks! (Z);
 	EmberScene.prototype.getPenetratedByEmberLastSexSceneWoooo = function() {
@@ -3398,7 +3397,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//(Low Affection);
 		if( this.emberAffection() <= 25 ) {
 			EngineCore.outputText( '\n\n"<i>Ha!  I\'m much more than you can handle!  Talk to me when you have something that can take even half of me.</i>"  Ember mocks you, as ' + this.emberMF( 'he', 'she' ) + ' walks away.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//(Medium Affection);
@@ -3492,7 +3491,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.dynStats( 'lib', -3 );
 		}
 		CoC.player.slimeFeed();
-		EngineCore.doNext( this.getPenetratedByEmberLastSexSceneWooooPartII );
+		EngineCore.doNext( this, this.getPenetratedByEmberLastSexSceneWooooPartII );
 	};
 	//Part II;
 	EmberScene.prototype.getPenetratedByEmberLastSexSceneWooooPartII = function() {
@@ -3516,7 +3515,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.outputText( '\n\nYou heave a great sigh in exaggerated pity.  Well, you\'re sure ' + this.emberMF( 'he', 'she' ) + ' will be full and ready to go in no time, you tell ' + this.emberMF( 'him', 'her' ) + '.  You get up, stifle a wince - your body is going to be paying for your extravagance, but you don\'t need Ember to know that - and try to make the task of heading over and picking up your clothes as erotic as possible.  When you look back, you smirk at the sight of your success; Ember\'s trembling, trying to contain another hard-on.  Gently, you ask if maybe ' + this.emberMF( 'he', 'she' ) + ' wants to have round... hmm, what would it be?  Round twelve?' );
 		EngineCore.outputText( '\n\nEmber\'s eyes widen in terror.  "<i>What!?  No!  Not again!</i>" Ember screams, getting up and wasting no time in bolting away, setting into a unsteady flight as soon as ' + this.emberMF( 'he', 'she' ) + '\'s gotten far enough.  You wait until ' + this.emberMF( 'he', 'she' ) + '\'s gone, and then burst out laughing.  Totally worth it... even if you are, as the saying goes, going to be sleeping on the couch for a week as a result.' );
 		//slimefeed, preg check, reduce lust, reset hours since cum, drain massive libido;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 		//Breeding Setup;
@@ -3550,7 +3549,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		EngineCore.outputText( '\n\nWhat do you say?' );
 		//[Accept] [Deny];
-		EngineCore.choices( 'Accept', this.timeToPuffTheMagicDragon, 'Deny', this.fuckOffEmberIWantANap, '', null, '', null, '', null );
+		EngineCore.choices( 'Accept', this, this.timeToPuffTheMagicDragon, 'Deny', this, this.fuckOffEmberIWantANap, '', null, null, '', null, null, '', null, null );
 	};
 	//[=Deny=];
 	EmberScene.prototype.fuckOffEmberIWantANap = function() {
@@ -3587,7 +3586,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		this.emberAffection( -10 );
 		//Set some cooldown so this doesn't proc all the goddamn time!;
 		CoC.player.createStatusAffect( StatusAffects.EmberFuckCooldown, 12, 0, 0, 0 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[=Accept=];
 	EmberScene.prototype.timeToPuffTheMagicDragon = function() {
@@ -3601,7 +3600,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		if( CoC.player.pregnancyIncubation === 0 && !this.pregnancy.isPregnant && CoC.flags[ kFLAGS.EMBER_GENDER ] === 3 && CoC.player.gender === 3 ) {
 			EngineCore.outputText( '\n\n(Who should bear the kids?)' );
 			//[Ember] [You];
-			EngineCore.choices( 'Ember', this.breedEmberPregnantAsIfThereWasAnyOtherKindOfBreeding, 'You', this.getKnockedUpByEmbrahBroBaby, '', null, '', null, '', null );
+			EngineCore.choices( 'Ember', this, this.breedEmberPregnantAsIfThereWasAnyOtherKindOfBreeding, 'You', this, this.getKnockedUpByEmbrahBroBaby, '', null, null, '', null, null, '', null, null );
 		}
 		//[Play appropriate breeding scene.];
 		//Female Breeding Scene:;
@@ -3709,7 +3708,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//Preg shit goez hurdur;
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_EMBER, PregnancyStore.INCUBATION_EMBER, 0 ); //Will always impregnate unless contraceptives are in use
 		CoC.player.createStatusAffect( StatusAffects.EmberFuckCooldown, 36, 0, 0, 0 );
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.emberBreedingAfterMathWatchOutForRadioactiveFallout, false ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.emberBreedingAfterMathWatchOutForRadioactiveFallout, false ) );
 	};
 	//Breeding Ember;
 	EmberScene.prototype.breedEmberPregnantAsIfThereWasAnyOtherKindOfBreeding = function() {
@@ -3827,7 +3826,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.player.removeStatusAffect( StatusAffects.Rut );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.emberBreedingAfterMathWatchOutForRadioactiveFallout, true ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.emberBreedingAfterMathWatchOutForRadioactiveFallout, true ) );
 	};
 	//Bred/Breeding Aftermath;
 	EmberScene.prototype.emberBreedingAfterMathWatchOutForRadioactiveFallout = function( emberPregged ) {
@@ -3892,7 +3891,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		if( !emberPregged ) {
 			EngineCore.outputText( '  You touch your belly with a smirk.  Very certain they took indeed...' );
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	EmberScene.prototype.emberPregUpdate = function() {
 		switch( this.pregnancy.eventTriggered() ) {
@@ -4640,8 +4639,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		EngineCore.dynStats( 'sen', -5 );
 		//[Yes] [No];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.stayWithEmberAfterLustFuck );
-		EngineCore.addButton( 1, 'No', this.noStayingForCuddlesPostLustFuck );
+		EngineCore.addButton( 0, 'Yes', this, this.stayWithEmberAfterLustFuck );
+		EngineCore.addButton( 1, 'No', this, this.noStayingForCuddlesPostLustFuck );
 	};
 	//[=No=];
 	//Less time used (Only 1 hour.);
@@ -4656,7 +4655,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( 'grunt an acknowledgement' );
 		}
 		EngineCore.outputText( ' and then gather your things before heading off to wash yourself down.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Yes=];
 	EmberScene.prototype.stayWithEmberAfterLustFuck = function() {
@@ -4672,7 +4671,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nEmber trembles at the contact, electrical waves of pleasure coursing through his body as your members touch.  "<i>T-That felt good!</i>" he exclaims, humping slightly to rub your shafts together once more.  "<i>Yes...  [name], how about we rub one off together this time?  I like how naughty this feels; besides my ass is still pretty sore and I can\'t hold you if you take me from behind...</i>"' );
 			EngineCore.outputText( '\n\nYou can\'t see any reason not to, and tell him so.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.frottingWithEmber );
+			EngineCore.addButton( 0, 'Next', this, this.frottingWithEmber );
 		}
 		//else if Ember is female:;
 		else if( CoC.flags[ kFLAGS.EMBER_GENDER ] === 2 ) {
@@ -4688,7 +4687,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\nEmber reaches down, gripping the base of your [cock biggest].  "<i>This.</i>"  You can\'t resist teasing Ember that she\'s quite a horny girl, now.  "<i>Only when I\'m with you.</i>"  She giggles.  "<i>Truth is I\'ve always been like that.  I guess deep down I always knew you were my true mate, I just... well... I guess I let pride get in the way.  Sorry for being such a handful for so long...</i>"  You place a kiss on the dragon\'s lips; Ember is evidently quite grateful for the excuse to shut up, because she eagerly kisses you back.' );
 			EngineCore.outputText( '\n\nShe breaks the kiss and lightly strokes your shaft, smiling at you.  Then she aligns the tip of your ' + Descriptors.cockDescript( x ) + ' with her pussy.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.penetrateWithEmber );
+			EngineCore.addButton( 0, 'Next', this, this.penetrateWithEmber );
 		} else {
 			{  //if Ember is herm you embrace each other, you feel something stirring against your ' + CoC.player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>"  She states, quite flustered at her reaction.  Your own [cock biggest] growing erect, brushing against hers, serves as your answer.");
 			}
@@ -4700,8 +4699,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			EngineCore.outputText( '\n\n"<i>Hmm... [name], my mate?  Feel like trying something different?  Or if you aren\'t, can you at least put that cock inside me once more?  I want you...</i>"  Ember licks her lips in anticipation.' );
 			//[Frotting] [Penetrate];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Frotting', this.frottingWithFrottingEmberHerm );
-			EngineCore.addButton( 1, 'Penetrate', this.penetrateEmberHerm );
+			EngineCore.addButton( 0, 'Frotting', this, this.frottingWithFrottingEmberHerm );
+			EngineCore.addButton( 1, 'Penetrate', this, this.penetrateEmberHerm );
 		}
 	};
 	//[=Frotting=];
@@ -4764,9 +4763,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		EngineCore.outputText( ' before allowing yourself to also fall asleep.' );
 		CoC.player.orgasm();
-		//EngineCore.doNext(14);;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.emberJizzbangbangEnding );
+		EngineCore.addButton( 0, 'Next', this, this.emberJizzbangbangEnding );
 	};
 	//Penetrate:;
 	EmberScene.prototype.penetrateWithEmber = function( clear ) {
@@ -4856,9 +4854,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 
 		EngineCore.outputText( '\n\nThe two of you collapse into each other\'s arms.  You move to pull out, but Ember stops you by holding your hips in place.  "<i>Leave it inside... that\'s where it belongs.</i>"  She smiles at you, panting a bit.  Too tired and happy to argue, you simply nod your head, rest against her, and allow sleep to claim you. You\'re dimly aware of Ember doing the same thing before you fade.' );
 		CoC.player.orgasm();
-		//EngineCore.doNext(14);;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.emberJizzbangbangEnding );
+		EngineCore.addButton( 0, 'Next', this, this.emberJizzbangbangEnding );
 	};
 	//Frotting and Penetrate connect here.;
 	EmberScene.prototype.emberJizzbangbangEnding = function() {
@@ -4892,7 +4889,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		//2 hours pass, PC's fatigue is healed some, Libido is reduced.;
 		EngineCore.fatigue( -20 );
 		EngineCore.dynStats( 'lib', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	SceneLib.registerScene( 'emberScene', new EmberScene() );
 } );

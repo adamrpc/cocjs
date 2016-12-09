@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'MaleSpiderMorph', function( SceneLib, Abstra
 	MaleSpiderMorph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe spider flashes a predatory grin while she waits it out...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.maleSpiderMorphScene.loseToMaleSpiderMorph();
 		}

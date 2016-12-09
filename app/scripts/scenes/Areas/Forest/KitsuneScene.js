@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		// -> Standard Imp Battle
 		Combat.startCombat( new Imp() );
 		CoC.monster.createStatusAffect( StatusAffects.KitsuneFight, 0, 0, 0, 0 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		CoC.flags[ kFLAGS.MET_KITSUNES ]++;
 	};
 	//Lose:
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.outputText( '"<i>My, my, you\'re kind of a pushover, aren\'t you?</i>"  she remarks, grinning precociously.  "<i>Well, hopefully you make for a better snack than you do a bodyguard.</i>"' );
 		// -> Go to standard kitsune loss scenes
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.loseToKitsunes );
+		EngineCore.addButton( 0, 'Next', this, this.loseToKitsunes );
 	};
 	//Win:
 	KitsuneScene.prototype.winKitsuneImpFight = function() {
@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( ' hair, six luxuriously furred tails fanning out behind her.\n\n' );
 			EngineCore.outputText( '"<i>So, you saw through my glamour did you?  That\'s quite impressive...</i>" she says, teasing you with her tails.  You back away from her, but give a start and wheel around when you feel yourself bump into something.' );
 			// -> Go to <i>'Going Somewhere?</i>"
-			EngineCore.doNext( EngineCore.createCallBackFunction( this.followTheWillOWisp, true ) );
+			EngineCore.doNext( EngineCore.createCallBackFunction( this, this.followTheWillOWisp, true ) );
 		}//PC did NOT see through glamour
 		//With Religious BG:
 		else if( CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 ) {
@@ -95,13 +95,13 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( ' hair, six luxuriously furred tails fanning out behind her.  A layer of ornate tattoos covers patches of her exposed flesh, accentuating her feminine curves nicely.\n\n' );
 			EngineCore.outputText( '"<i>So, you saw through my glamour did you?  That\'s quite impressive...</i>" she says, teasing you with her tails.  You back away from her, but give a start and wheel around when you feel yourself bump into something.' );
 			// -> Go to <i>'Going Somewhere?</i>"
-			EngineCore.doNext( EngineCore.createCallBackFunction( this.followTheWillOWisp, true ) );
+			EngineCore.doNext( EngineCore.createCallBackFunction( this, this.followTheWillOWisp, true ) );
 		}
 		//Else:
 		else {
 			EngineCore.outputText( 'Her touch sends involuntary tingles down your spine, and you are drawn ever deeper into her eyes.  She trails a finger along your chin, slipping away from you and beckoning for you to follow her.  Your ' + CoC.player.legs() + ' move with a mind of their own, dragging you along after her as she leads you down a winding path into the darkness.' );
 			// -> Go to 'She leads you deeper and deeper into...'
-			EngineCore.doNext( EngineCore.createCallBackFunction2( this.mansion, true, true ) );
+			EngineCore.doNext( EngineCore.createCallBackFunction2( this, this.mansion, true, true ) );
 		}
 	};
 
@@ -125,9 +125,9 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		if( CoC.player.hasKeyItem( 'Traveler\'s Guide' ) >= 0 ) {
 			EngineCore.outputText( '\n\nYour mind is jogged out of its haze when you remember a note from the Traveler\'s Guide.  It warned about mysterious flames in the forest that lead hapless adventurers astray.  You hesitate now, wondering what to do.' );
 			//[Turn Back] [Follow] //automatically follow without traveler's guide.
-			EngineCore.choices( 'Turn Back', this.turnBackFromWillOWisp, 'Follow', this.followTheWillOWisp, '', null, '', null, '', null );
+			EngineCore.choices( 'Turn Back', this, this.turnBackFromWillOWisp, 'Follow', this, this.followTheWillOWisp, '', null, null, '', null, null, '', null, null );
 		} else {
-			EngineCore.doNext( this.followTheWillOWisp );
+			EngineCore.doNext( this, this.followTheWillOWisp );
 		}
 	};
 	//[Turn Back] (C)
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Follow] (C)
 	KitsuneScene.prototype.followTheWillOWisp = function( firstTime ) {
@@ -173,9 +173,9 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( '"<i>Over here, silly~</i>" she calls to you with a mischievous tone, beckoning to you as you whip around to face her voice.  "<i>Don\'t be shy, I don\'t bite...  often...</i>"\n\n' );
 			EngineCore.outputText( 'Her tone is innocuous enough, but her mannerisms are a little disconcerting, somehow.  What are you going to do?' );
 			if( !CoC.isInCombat() ) {
-				EngineCore.choices( 'Fight', this.fightSomeKitsunes, 'Talk', this.talkAfterResistingKitsunellusion, '', null, '', null, '', null );
+				EngineCore.choices( 'Fight', this, this.fightSomeKitsunes, 'Talk', this, this.talkAfterResistingKitsunellusion, '', null, null, '', null, null, '', null, null );
 			} else {
-				EngineCore.choices( 'Fight', this.fightSomeKitsunes, 'Talk', this.talkAfterResistingKitsunellusion, '', null, '', null, '', null );
+				EngineCore.choices( 'Fight', this, this.fightSomeKitsunes, 'Talk', this, this.talkAfterResistingKitsunellusion, '', null, null, '', null, null, '', null, null );
 			}
 		}
 	};
@@ -205,7 +205,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.outputText( '"<i>Oh, you\'re no fun,</i>" she says, smirking a bit as you pull away.  "<i>Won\'t you come and play?  I promise that you won\'t be disappointed... my sisters and I will see to that.</i>"\n\n' );
 		EngineCore.outputText( 'Self-preservation battles with curiosity ' + ((CoC.player.lust > 50) ? 'and lust ' : '' ) + 'as you consider her offer, ' + ((CoC.player.lib < 50) ? 'weighing your chances against the possible dangers.' : 'eying the voluptuous curves that fill out her robes.') );
 		//[Follow { this.mansion(willing = true) }] [Leave]
-		EngineCore.choices( 'Follow', EngineCore.createCallBackFunction2( this.mansion, true, false ), '', null, '', null, '', null, 'Leave', EngineCore.createCallBackFunction( this.leaveKitsune, true ) );
+		EngineCore.choices( 'Follow', null, EngineCore.createCallBackFunction2( this, this.mansion, true, false ), '', null, null, '', null, null, '', null, null, 'Leave', null, EngineCore.createCallBackFunction( this, this.leaveKitsune, true ) );
 	};
 	//[Leave] (C)
 	KitsuneScene.prototype.leaveKitsune = function( talked ) {
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.outputText( 'The three ladies close in around you, running their hands over your body and giggling lightly.  You find yourself practically floating among their many tails, drunk on the promise of pleasure as they lead you through the foyer.  They sit you down in front of a long table with a spectacularly opulent spread, and before long you are having your fill of delicacies the likes of which you never dared to dream about.\n\n' );
 		EngineCore.outputText( 'Your cup never remains empty for long, as one of the sisters is always quick to arrive with a fresh decanter.  The strong alcohol burns your throat as it goes down, and it does not take much before your head is swimming.  You have grown so tipsy by now that you don\'t even register as the girls usher you out of the dining room, only noticing your change of scenery as you feel yourself being pulled down into a warm pool of water.\n\n' );
 		//next
-		EngineCore.doNext( EngineCore.createCallBackFunction2( this.nonTentaclePCMansion, willing ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction2( this, this.nonTentaclePCMansion, willing ) );
 	};
 	//NON-TENTACLE PC SCENES:
 	KitsuneScene.prototype.nonTentaclePCMansion = function( willing ) {
@@ -287,12 +287,12 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.outputText( '"<i>We hope you enjoyed the feast we prepared,</i>" says the one with jet-black hair, as she and her sisters crowd around you in the water, fully nude.  "<i>Now, it\'s </i>our<i> turn.</i>"\n\n' );
 		EngineCore.outputText( '"<i>Just relax,</i>" the redhead whispers into your ear in a warm tone that seems to demolish any vestige of resistance.  "<i>We\'ll take care of everything...</i>"  Up to your waist in the warm water of the hot springs, you can\'t help but surrender to their will, your worries flowing out of you.  Enveloped on all sides by their unearthly warm flesh, you lean into their arms and sigh blissfully as every touch and caress sends shivers down your spine.\n\n' );
 		if( CoC.player.tentacleCocks() >= 3 ) {
-			EngineCore.doNext( this.tentacleKitsuneWingWangs );
+			EngineCore.doNext( this, this.tentacleKitsuneWingWangs );
 		} else {
 			if( CoC.player.hasCock() ) {
-				EngineCore.doNext( EngineCore.createCallBackFunction( this.kitsuneMaleOrHermMansion, willing ) );
+				EngineCore.doNext( EngineCore.createCallBackFunction( this, this.kitsuneMaleOrHermMansion, willing ) );
 			} else {
-				EngineCore.doNext( EngineCore.createCallBackFunction( this.kitsuneFemaleOrGenderless, willing ) );
+				EngineCore.doNext( EngineCore.createCallBackFunction( this, this.kitsuneFemaleOrGenderless, willing ) );
 			}
 		}
 	};
@@ -312,10 +312,10 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( '<b>How do you respond?</b>' );
 			// display choices:
 			//['Let Her' ] ['Shove Her' ]
-			EngineCore.choices( 'Let Her', EngineCore.createCallBackFunction( this.kitSuneLetHerMansion, willing ),
-				'Shove Her', EngineCore.createCallBackFunction( this.kitsuneShoveHerMansion, willing ), '', null, '', null, '', null );
+			EngineCore.choices( 'Let Her', null, EngineCore.createCallBackFunction( this, this.kitSuneLetHerMansion, willing ),
+				'Shove Her', null, EngineCore.createCallBackFunction( this, this.kitsuneShoveHerMansion, willing ), '', null, null, '', null, null, '', null, null );
 		} else {
-			EngineCore.doNext( EngineCore.createCallBackFunction( this.kitSuneLetHerMansion, true ) );
+			EngineCore.doNext( EngineCore.createCallBackFunction( this, this.kitSuneLetHerMansion, true ) );
 		}
 	};
 	// end function
@@ -409,7 +409,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		}
 		EngineCore.outputText( '  As your twitching cock relieves itself of the last of your seed inside the blonde\'s ' + ((CoC.player.biggestCockArea() > 80) ? 'pussy' : 'ass') + ', you feel your strength slipping away from you with each spasm, your eyelids growing heavy with an uncommon weariness.\n\n' );
 		CoC.player.orgasm();
-		EngineCore.doNext( this.kitsuneStillHungryMansion );
+		EngineCore.doNext( this, this.kitsuneStillHungryMansion );
 	}; //End letHer()
 	//Formerly shoveHer()
 	KitsuneScene.prototype.kitsuneShoveHerMansion = function() {
@@ -466,7 +466,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( 'As your twitching cock relieves itself of the last of your seed inside the blonde\'s pussy, you feel your strength slipping away from you with each spasm, your eyelids growing heavy with an uncommon weariness.\n\n' );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( this.kitsuneStillHungryMansion );
+		EngineCore.doNext( this, this.kitsuneStillHungryMansion );
 	}; // End shoveHer()
 	//formerly
 	KitsuneScene.prototype.kitsuneStillHungryMansion = function() {
@@ -508,10 +508,10 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( '<b>How do you respond?</b>' );
 			// display choices:
 			//['Let Her' = letHer() ] ['Shove Her' = shoveHer() ]
-			EngineCore.choices( 'Let Her', EngineCore.createCallBackFunction( this.kitsunesGenderlessLetHer, willing ),
-				'Shove Her', EngineCore.createCallBackFunction( this.kitsunesGenderlessShoverHer, willing ), '', null, '', null, '', null );
+			EngineCore.choices( 'Let Her', null, EngineCore.createCallBackFunction( this, this.kitsunesGenderlessLetHer, willing ),
+				'Shove Her', null, EngineCore.createCallBackFunction( this, this.kitsunesGenderlessShoverHer, willing ), '', null, null, '', null, null, '', null, null );
 		} else {
-			EngineCore.doNext( EngineCore.createCallBackFunction( this.kitsunesGenderlessLetHer, true ) );
+			EngineCore.doNext( EngineCore.createCallBackFunction( this, this.kitsunesGenderlessLetHer, true ) );
 		}
 	};
 	KitsuneScene.prototype.kitsunesGenderlessLetHer = function( willing ) {
@@ -533,7 +533,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.outputText( 'The rhythmic thumping of the redhead\'s hips against your own increases its pace, her tongue hanging out of her mouth lewdly.  Her thick rod spears you again and again, each thrust bringing with it an even more euphoric moan from the horny redhead.  Her sisters groan in unison with her, as though feeding off of her animalistic desire to fuel their own lusts, and as your endurance is stretched to its breaking point, it seems like you\'ll all cross the line together.\n\n' );
 		EngineCore.outputText( 'The base of the redhead\'s shaft swells with a vast load, backing up just behind her sister\'s tongue.  She pumps into your ' + ((CoC.player.gender >= 2) ? Descriptors.vaginaDescript() : Descriptors.assholeDescript() ) + ' once, twice, thrice more before the black-haired girl releases the tension around the base, though whether by choice or due to the furious orgasm roaring through her loins, it is hard to tell.  You have only a split-second to muse on the subject before a tingling glut of seed comes rushing into your ' + ((CoC.player.gender === 2) ? 'womb' : 'intestines') + ', sending you into a shivering fit.  Saliva and sexual fluids flow in rivers, the blonde\'s soaked cunt drenching your face as her pussy quivers and squeezes around your tongue.  The ravenette begins to rise upward, lifted by your expanding abdomen as she twitches in ecstasy, the blonde\'s tails deeply embedded in her holes.\n\n' );
 		EngineCore.outputText( 'Passionate moans from all four of you fill the air as you ride the waves of pleasure, finally collapsing together in ecstasy after what feels like ages.  Each twitching tremble of your muscles sees you a bit more fatigued, your eyelids feeling as though they weigh a thousand pounds each.' + ((CoC.player.gender === 3) ? '  A flood of seed begins to spill from your abused pussy, gushing over the redhead\'s groin and spreading into the water.  The flow is soon stemmed by the introduction of the black-haired girl\'s tongue, plush lips pressed against your cunt as she hungrily sucks down the outpouring of semen.  She gulps loudly and gluttonously, spreading your lips with her thumbs and swallowing every last delicious salty morsel, her stomach swelling and quivering as your own overfull abdomen begins to deflate in equal measure.' : '') + '  Hands resting on your' + ((CoC.player.gender === 0) ? ' swollen' : ' deflating') + ' belly, you begin to succumb to exhaustion, your strength fading as you are overcome with an uncommon weariness.\n\n' );
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.genderlessKitsuneStillHungry, willing ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.genderlessKitsuneStillHungry, willing ) );
 	}; // end letHer()
 	//fomerly shoveHer()
 	KitsuneScene.prototype.kitsunesGenderlessShoverHer = function( willing ) {
@@ -560,7 +560,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( '\n\nThe four of you ride out the waves of pleasure for what seems like an eternity, groaning and grinding against each other in ecstasy.  Cooling flames crackle across your bare body as you are tossed to and fro in a sea of tails and flesh, the air filling with the sounds and smells of climactic release.  Finally, at long last, the pleasure begins to ebb, and you collapse along with the three girls, slumping forward onto the blonde\'s chest in exhaustion.\n\n' );
 			EngineCore.outputText( 'Each residual twitch and spasm of your muscles leaves you feeling more fatigued than ever, strength slipping away from you with each spasm and your eyelids growing heavy with an uncommon weariness.\n\n' );
 		}
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.genderlessKitsuneStillHungry, willing ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.genderlessKitsuneStillHungry, willing ) );
 	}; // end shoveHer()
 	//formerly stillHungry()
 	KitsuneScene.prototype.genderlessKitsuneStillHungry = function( ) {
@@ -630,7 +630,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		}
 		if( CoC.player.fatigue >= 100 ) {
 			//mansionBadEnd();
-			EngineCore.doNext( this.mansionBadEnd );
+			EngineCore.doNext( this, this.mansionBadEnd );
 		} else {
 			EngineCore.outputText( '\n\nWhen you awaken the next morning, the sisters, the hot springs, and the mansion are nowhere to be found.  You are lying naked in the wilderness, your possessions sitting in a neat little pile a short distance away, and your memories of the previous night are little more than a hazy fever dream' );
 			if( tentacles ) {
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			CoC.time.hours = 6;
 			CoC.time.days++;
 			if( !CoC.isInCombat() ) {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.outputText( 'As they crowd around, you can feel the lights in your mind flickering off one by one.  Azure flames swirl about the room, capturing you in their hypnotic thrall as you slowly drop to the floor, entranced by the kitsune\'s witchery.\n\n' );
 		EngineCore.outputText( '"<i>You\'ll stay, won\'t you?</i>"  the blonde says, placing her hand under your chin and delicately tipping your head back to look up into her eyes.  As you feel yourself being pulled into the depths of those green pools, you hear someone voicing their assent, only to realize that the voice was your own.\n\n' );
 		EngineCore.outputText( 'You cling to the last vestiges of your mind with all your might, but to no avail.  Your mind, still muddied by the spirits you imbibed the night before, succumbs to the three enchantress\' hypnotic power.  Eighteen bushy tails curl around you, pulling you up into a warm, calming embrace, and you have just enough time to register a cool tingling sensation spreading throughout your body before the last glimmer of free will you possess is snuffed out forever.' );
-		EngineCore.doNext( this.kitSuneMansionBadEndII );
+		EngineCore.doNext( this, this.kitSuneMansionBadEndII );
 	};
 	KitsuneScene.prototype.kitSuneMansionBadEndII = function() {
 		EngineCore.clearOutput();
@@ -737,7 +737,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( 'red-haired' );
 		}
 		EngineCore.outputText( ' kitsune!</b>' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
 	KitsuneScene.prototype.loseToKitsunes = function() {
@@ -1059,20 +1059,20 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Shared Scenes
 		//[Vaginal] - requires cock
 		if( CoC.player.hasCock() ) {
-			button = this.kitsuneButton( button, 'FuckHerVag', this.fuckAKitsuneVaginally );
+			button = this.kitsuneButton( button, 'FuckHerVag', this, this.fuckAKitsuneVaginally );
 		}
 		if( CoC.player.cockThatFits( 144 ) >= 0 ) {
-			button = this.kitsuneButton( button, 'FuckAss', this.putItInAKitsunesAssWin );
+			button = this.kitsuneButton( button, 'FuckAss', this, this.putItInAKitsunesAssWin );
 		}
 		if( CoC.player.hasVagina() ) {
-			button = this.kitsuneButton( button, 'Tribbing', this.tribbingWithAKitsune );
+			button = this.kitsuneButton( button, 'Tribbing', this, this.tribbingWithAKitsune );
 		}
 		if( CoC.player.hasCock() ) {
-			button = this.kitsuneButton( button, 'Tailjob', this.tailJobKitsuneWin );
+			button = this.kitsuneButton( button, 'Tailjob', this, this.tailJobKitsuneWin );
 		}
 		//[Tentacles] - requires 3+ tentacles of 30' or longer
 		if( CoC.player.tentacleCocks() >= 3 ) {
-			button = this.kitsuneButton( button, 'Tentacles...', this.kitsunesGetBonedBy3PlusTentacles );
+			button = this.kitsuneButton( button, 'Tentacles...', this, this.kitsunesGetBonedBy3PlusTentacles );
 		}
 		//Blonde-exclusive
 		if( CoC.monster.hairColor === 'blonde' ) {
@@ -1082,21 +1082,21 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 					if( display ) {
 						EngineCore.outputText( '  You could dose her with a fuck draft...' );
 					}
-					button = this.kitsuneButton( button, 'Use F.Draft', this.fuckDraftBlond );
+					button = this.kitsuneButton( button, 'Use F.Draft', this, this.fuckDraftBlond );
 				}
 				//[Lactaid]
 				if( CoC.player.hasItem( ConsumableLib.LACTAID ) ) {
 					if( display ) {
 						EngineCore.outputText( '  You could dose her with lactad...' );
 					}
-					button = this.kitsuneButton( button, 'Use L-Aid', this.lactaidDoseAKitSune );
+					button = this.kitsuneButton( button, 'Use L-Aid', this, this.lactaidDoseAKitSune );
 				}
 				//[Ovi Elixir]
 				if( CoC.player.hasItem( ConsumableLib.OVIELIX ) ) {
 					if( display ) {
 						EngineCore.outputText( '  You could use an oviposition elixir on her...' );
 					}
-					button = this.kitsuneButton( button, 'Use OviElix', this.doseAKitsuneWithOviElixirs );
+					button = this.kitsuneButton( button, 'Use OviElix', this, this.doseAKitsuneWithOviElixirs );
 				}
 			}
 		}
@@ -1105,58 +1105,58 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			//[Hotdog Anal] - replaces regular Anal option only for the black-haired girl.
 			// CoC.player.cockThatFits( 144 );
 			if( CoC.player.cockThatFits( 144 ) >= 0 ) {
-				button = this.kitsuneButton( button, 'HotDogAnal', this.hotdogAnalInKitsuneButtDontLetTailTickleYourNose );
+				button = this.kitsuneButton( button, 'HotDogAnal', this, this.hotdogAnalInKitsuneButtDontLetTailTickleYourNose );
 			}
 			//[GetLicked] - requires a vagina
 			if( CoC.player.hasVagina() ) {
-				button = this.kitsuneButton( button, 'GetLicked', this.getLickedByKitsunes );
+				button = this.kitsuneButton( button, 'GetLicked', this, this.getLickedByKitsunes );
 			}
 			//[GetBJ] - requires cock 108 area or less
 			if( CoC.player.cockThatFits( 108 ) >= 0 ) {
-				button = this.kitsuneButton( button, 'Get BJ', this.getABJFromAFoxGirl );
+				button = this.kitsuneButton( button, 'Get BJ', this, this.getABJFromAFoxGirl );
 			}
 		}
 		if( CoC.monster.hairColor === 'red' ) {
 			//Non-futa Redhead: [Bondage] - requires a cock with area <= 144 due to some anal
 			if( CoC.player.cockThatFits( 144 ) >= 0 ) {
-				button = this.kitsuneButton( button, 'Bondage', this.nonFutaRedHeadBondageIGuessYouTieHerUpWithYourPenisThenHuh );
+				button = this.kitsuneButton( button, 'Bondage', this, this.nonFutaRedHeadBondageIGuessYouTieHerUpWithYourPenisThenHuh );
 			}
 			//Non-Futa Redhead: [Some sort of lapsitting handjob thing, I don't know]
 			if( CoC.flags[ kFLAGS.redheadIsFuta ] === 0 && CoC.player.hasCock() ) {
-				button = this.kitsuneButton( button, 'Lap HJ', this.nonFutaRedHeadIsWorstRedheadLapsittingHandjobThingIDontKnow );
+				button = this.kitsuneButton( button, 'Lap HJ', this, this.nonFutaRedHeadIsWorstRedheadLapsittingHandjobThingIDontKnow );
 			}
 			//[Helix] - requires herm
 			if( CoC.flags[ kFLAGS.redheadIsFuta ] > 0 && CoC.player.gender === 3 ) {
-				button = this.kitsuneButton( button, 'Herm Helix', this.helixZeKitsunes );
+				button = this.kitsuneButton( button, 'Herm Helix', this, this.helixZeKitsunes );
 			}
 			//[Bring Back Dick] // AKA you don't know dick about dick AKA the dickening
 			if( CoC.flags[ kFLAGS.redheadIsFuta ] === 0 ) {
-				button = this.kitsuneButton( button, 'Grow Dick', this.bringBackDick );
+				button = this.kitsuneButton( button, 'Grow Dick', this, this.bringBackDick );
 			}//[Remove Dick]
 			else {
 				//AKA Lose the dick, schweethaat AKA put that thing away
-				button = this.kitsuneButton( button, 'Ditch Dick', this.redheadsDontDeserveToHavePenisesBecauseTheyreTooGayForPenisOrSomethingIDontReallyKnowHowThisWorksOrWhyThisFunctionNameIsSoFuckingLong );
+				button = this.kitsuneButton( button, 'Ditch Dick', this, this.redheadsDontDeserveToHavePenisesBecauseTheyreTooGayForPenisOrSomethingIDontReallyKnowHowThisWorksOrWhyThisFunctionNameIsSoFuckingLong );
 			}
 			//Redhead-exclusive
 			//[Ride] - requires vagina & redheadIsFuta
 			if( CoC.player.hasVagina() && CoC.flags[ kFLAGS.redheadIsFuta ] > 0 ) {
-				button = this.kitsuneButton( button, 'RideHerCock', this.rideDatRedheadKitsuneCockIntoTheSkyDiamonds );
+				button = this.kitsuneButton( button, 'RideHerCock', this, this.rideDatRedheadKitsuneCockIntoTheSkyDiamonds );
 			}
 			if( CoC.flags[ kFLAGS.redheadIsFuta ] > 0 && CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-				button = this.kitsuneButton( button, 'B.Titfuck', CoC.player.armor.lustyMaidenPaizuri );
+				button = this.kitsuneButton( button, 'B.Titfuck', CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri );
 			}
 		}
 		//[Feeder]
 		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
-			button = this.kitsuneButton( button, 'Breastfeed', this.feederTheKitsunes );
+			button = this.kitsuneButton( button, 'Breastfeed', this, this.feederTheKitsunes );
 		}
-		EngineCore.addButton( 9, 'Leave', this.leaveKitsune );
+		EngineCore.addButton( 9, 'Leave', this, this.leaveKitsune );
 	};
-	KitsuneScene.prototype.kitsuneButton = function( button, nam, func ) {
+	KitsuneScene.prototype.kitsuneButton = function( button, nam, obj, func ) {
 		if( button > 8 ) {
 			return 9;
 		}
-		EngineCore.addButton( button, nam, func );
+		EngineCore.addButton( button, nam, obj, func );
 		button++;
 		return button;
 	};
@@ -1924,14 +1924,14 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		CoC.flags[ kFLAGS.KITSUNE_SHRINE_VISIT ]++;
 		//[Read Books] [Meditate] [Steal Statue] - [Leave]
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Read Books', this.readKitsuneBooks );
+		EngineCore.addButton( 0, 'Read Books', this, this.readKitsuneBooks );
 		if( CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
-			EngineCore.addButton( 1, 'Meditate', this.meditateLikeAKitsuneEhQuestionMark );
+			EngineCore.addButton( 1, 'Meditate', this, this.meditateLikeAKitsuneEhQuestionMark );
 		}
 		if( CoC.player.hasItem( UseableLib.GLDSTAT ) || CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
-			EngineCore.addButton( 2, 'Statue', this.stealAStatue );
+			EngineCore.addButton( 2, 'Statue', this, this.stealAStatue );
 		}
-		EngineCore.addButton( 4, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 4, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Read Books]
 	KitsuneScene.prototype.readKitsuneBooks = function() {
@@ -1943,17 +1943,17 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.outputText( 'It\'s a rather dry read, but informative.  Chapter after chapter explains the underlying theory of magic, going to almost excruciating levels of detail.  ' + ((CoC.player.inte < 50) ? 'Much of it flies over your head, but the book does manage to clarify a few points.  You close the book and set it back on the shelf, feeling like you\'ve learned something.' : 'Much of it is merely review, but you do manage to glean a few facts before closing the book and setting it back on the shelf.') );
 			//+2 INT, Advance 1hr and return to camp
 			EngineCore.dynStats( 'int', 2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else if( choice === 1 ) {
 			EngineCore.outputText( 'It seems to be a religious text of some sort.  As you flip through the pages, you read about various rituals and scriptures, familiarizing yourself with the spirits and gods of this land.  You close the tome at last, setting it reverently back on the shelf and reflecting upon the teachings housed within.' );
 			//-1 COR, Advance 1hr and return to camp
 			EngineCore.dynStats( 'cor', -1 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( 'You start to flip through the pages, a deep blush slowly forming on your cheeks the further you read into what is clearly an erotic novella of some form.  Graphic descriptions of women being violated by tentacle beasts abound on almost every page, ' + ((CoC.player.lib < 50) ? 'and you slam the book shut before reading further, already feeling a heat building in your groin.' : 'and you lick your lips hungrily, poring over every line and word of lascivious prose.') );
 			//+ 1 LIB, + 5 LUST, Advance 1hr and return to camp
 			EngineCore.dynStats( 'lib', 1, 'lus', 5 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Meditate]
@@ -1977,13 +1977,13 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 				EngineCore.dynStats( 'int', 2, 'lus', -20, 'cor', -2 );
 			}
 			CoC.player.consumeItem( ConsumableLib.FOXJEWL );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//Normal:
 			EngineCore.outputText( 'You sit down carefully on a small mat in front of the shrine and clear your mind.  Closing your eyes, you meditate on the things you\'ve learned in your journey thus far, and resolve to continue fighting against the forces of corruption that permeate the land.  As you open your eyes again, you feel as if a great burden has been lifted from your shoulders.\n\nWith a renewed vigor for your quest, you stand up and set off for camp.' );
 			//-2 COR, -20 LUST, +1 INT, Advance 1hr and return to camp.
 			EngineCore.dynStats( 'int', 1, 'lus', -20, 'cor', -2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//[Steal Statue]
@@ -1993,12 +1993,12 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		if( CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			EngineCore.outputText( 'Feeling the chance is just too great to pass up, you rub your hands together greedily and snatch the gold statue from the shrine.  As you stuff it into your pouch, you are overwhelmed with the sensation that what you are doing is very wrong.  You are starting to have second thoughts...' );
 			//[Take It] [Put it Back]
-			EngineCore.addButton( 0, 'Take It', this.takeAKitsuneStatue );
+			EngineCore.addButton( 0, 'Take It', this, this.takeAKitsuneStatue );
 		} else {
 			EngineCore.outputText( 'The empty alter stands there, obviously missing the statue you took from it.  You COULD put it back, if you wanted.' );
-			EngineCore.addButton( 0, 'Put Back', this.putKitsuneStatueBack );
+			EngineCore.addButton( 0, 'Put Back', this, this.putKitsuneStatueBack );
 		}
-		EngineCore.addButton( 4, 'Back', this.kitsuneShrine );
+		EngineCore.addButton( 4, 'Back', this, this.kitsuneShrine );
 	};
 	//[Take it]
 	KitsuneScene.prototype.takeAKitsuneStatue = function() {
@@ -2016,7 +2016,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance 1hr and return to camp.
 		CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] = 0;
 		CoC.player.consumeItem( UseableLib.GLDSTAT );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Use:
 	KitsuneScene.prototype.kitsuneStatue = function() {

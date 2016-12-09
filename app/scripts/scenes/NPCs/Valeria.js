@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 			sex = this.followersValeriaSex;
 		}
 		//(Display Options: [Appearance] [Spar] [Sex] [Talk]);
-		EngineCore.choices( 'Appearance', this.valeriaAppearance, 'Spar', this.valeriaSpar, 'Sex', sex, 'Talk', this.talkWithValeria, 'Take', this.takeValeria, '', null, '', null, '', null, '', null, 'Back', SceneLib.camp.campFollowers );
+		EngineCore.choices( 'Appearance', this, this.valeriaAppearance, 'Spar', this, this.valeriaSpar, 'Sex', this, sex, 'Talk', this, this.talkWithValeria, 'Take', this, this.takeValeria, '', null, null, '', null, null, '', null, null, '', null, null, 'Back', SceneLib.camp, SceneLib.camp.campFollowers );
 	};
 	//[Valeria] -- [Appearance];
 	Valeria.prototype.valeriaAppearance = function() {
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		}
 		EngineCore.outputText( '\n\nShe has created an easily stretchable, gooey cunt between her legs, with a tiny 0.2 inch clitoris.' );
 		EngineCore.outputText( '\n\nShe generally doesn\'t bother to affect an anus, though you can\'t imagine it\'d be too difficult to penetrate her gooey, gropable behind.' );
-		EngineCore.doNext( this.valeriaFollower );
+		EngineCore.doNext( this, this.valeriaFollower );
 	};
 	//Valeria] -- [Spar];
 	Valeria.prototype.valeriaSpar = function() {
@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		Combat.startCombat( new GooArmorMonster() );
 		CoC.monster.createStatusAffect( StatusAffects.Spar, 0, 0, 0, 0 );
 		CoC.monster.gems = 0;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Valeria] -- [Spar] -- PC Victorious;
 	Valeria.prototype.pcWinsValeriaSpar = function() {
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		else {
 			EngineCore.outputText( '.  "<i>Well, since you\'re so... eager... I might as well get my daily fluids while we\'re here.</i>"' );
 			//(Go to Valeria's gender-appropriate FemDom sex scenes);
-			EngineCore.doNext( this.valeriaSexDominated );
+			EngineCore.doNext( this, this.valeriaSexDominated );
 		}
 	};
 	//Followers -- [Valeria] -- [Sex];
@@ -128,8 +128,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		if( CoC.flags[ kFLAGS.VELARIA_FUTA ] === 1 ) {
 			dickText = 'Lose Dick';
 		}
-		EngineCore.choices( 'PenetrateHer', penetrate, 'Get Fucked', getFucked, 'Gooflation', this.gooFlation, 'GetDominated', dominated, dickText, dickToggle,
-			'', null, '', null, '', null, '', null, 'Back', this.valeriaFollower );
+		EngineCore.choices( 'PenetrateHer', this, penetrate, 'Get Fucked', this, getFucked, 'Gooflation', this, this.gooFlation, 'GetDominated', this, dominated, dickText, this, dickToggle,
+			'', null, null, '', null, null, '', null, null, '', null, null, 'Back', this, this.valeriaFollower );
 	};
 	//Valeria -- [Sex] -- [Dick/No Dick];
 	Valeria.prototype.valeriaDickToggle = function() {
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 				//(PC returns to sex menu);
 			}
 		}
-		EngineCore.doNext( this.valeriaFollower );
+		EngineCore.doNext( this, this.valeriaFollower );
 	};
 	//Valeria -- [Sex] -- [Get Fucked];
 	Valeria.prototype.valeriaGetFucked = function() {
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.HPChange( 25, false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Valeria.prototype.gooFlation = function( clearText ) {
 		EngineCore.spriteSelect( 79 );
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', 1 );
 			EngineCore.HPChange( 25, false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Valeria -- [Sex] -- [Penetrate Her] (Dickwielders only);
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.HPChange( 25, false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Valeria] -- [Sex] -- [Get Dominated];
 	Valeria.prototype.valeriaSexDominated = function() {
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		if( !CoC.isInCombat() ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -437,9 +437,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		//How do you respond to that?;
 		//(Display Options: [Flirt](PC has Gender) [Accept] [Gross]);
 		if( CoC.player.gender > 0 ) {
-			EngineCore.choices( 'Flirt', this.flirtWithValeria, 'Accept', this.acceptValeriasNeeds, 'Gross', this.declineValeriasNeeds, '', null, '', null );
+			EngineCore.choices( 'Flirt', this, this.flirtWithValeria, 'Accept', this, this.acceptValeriasNeeds, 'Gross', this, this.declineValeriasNeeds, '', null, null, '', null, null );
 		} else {
-			EngineCore.choices( '', null, 'Accept', this.acceptValeriasNeeds, 'Gross', this.declineValeriasNeeds, '', null, '', null );
+			EngineCore.choices( '', null, null, 'Accept', this, this.acceptValeriasNeeds, 'Gross', this, this.declineValeriasNeeds, '', null, null, '', null, null );
 		}
 	};
 	//[Flirt];
@@ -468,7 +468,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		EngineCore.outputText( ', as long as they don\'t interfere with your mission as Champion.' );
 		EngineCore.outputText( '\n\n"<i>They won\'t, partner,</i>" Valeria says with a little wink. "<i>I give you my word.</i>"' );
 		EngineCore.outputText( '\n\nNodding, you ruffle her gooey hair and get back to business.' );
-		EngineCore.doNext( this.valeriaFollower );
+		EngineCore.doNext( this, this.valeriaFollower );
 	};
 	//[Gross];
 	Valeria.prototype.declineValeriasNeeds = function() {
@@ -477,7 +477,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		EngineCore.outputText( 'You grimace and push the goo-girl away.  You\'ve got no interest in her corrupted \'needs,\' especially with a look like that on her face.  She gasps as you push her, nearly falling over; she catches herself and glowers angrily.' );
 		EngineCore.outputText( '\n\n"<i>Well, fuck you kindly, [name],</i>" she says with a huff.  "<i>Pardon me for being... me.</i>"  She turns up her chin and saunters off to a part of camp about as far away from you as possible.' );
 		//(Disable Valeria sex for 6 hours);
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Valeria.prototype.takeValeria = function() {
 		EngineCore.spriteSelect( 79 );
@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		CoC.player.armor.removeText();
 		var item = CoC.player.setArmor( ArmorLib.GOOARMR ); //Item is now the player's old armor
 		if( item === null ) {
-			EngineCore.doNext( MainView.playerMenu );
+			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
 			SceneLib.inventory.takeItem( item, MainView.playerMenu );
 		}
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		EngineCore.outputText( '\n\n"<i>You just sit tight, [name]. I\'m gonna give my sister a fun new experience and fill you with so much pleasure that you\'ll feel like you\'re gonna pop.</i>" She disappears back into the azure blob before you can respond. The fading ripples almost mock your inability to reply as they smooth into nonexistence.' );
 		EngineCore.dynStats( 'lus=', 100 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.valeriaGooRapeII );
+		EngineCore.addButton( 0, 'Next', this, this.valeriaGooRapeII );
 	};
 	Valeria.prototype.valeriaGooRapeII = function() {
 		EngineCore.clearOutput();

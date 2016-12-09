@@ -58,8 +58,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( 'Taking the potent mixture out of your pouch, you consider giving it to the bimbo harpy fluttering about in front of you.  She\'d probably be pretty mad about the whole affair, but if you want to repair the damage you\'ve inflicted, this is probably your best bet.  Do you un-bimbo Sophie?' );
 		//[Yes] [No]☼;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Yes', this.yesDebimboSophie );
-		EngineCore.addButton( 1, 'No', this.noDontDebimbo );
+		EngineCore.addButton( 0, 'Yes', this, this.yesDebimboSophie );
+		EngineCore.addButton( 1, 'No', this, this.noDontDebimbo );
 	};
 	//No (You Monster)*;
 	SophieFollowerScene.prototype.noDontDebimbo = function() {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( 'You shrug and put the potion back in your pack.  Maybe later...  A mad Sophie isn\'t something you particularly want to deal with right now.' );
 		//(Return to Sophie menu.  You monster);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', SceneLib.sophieBimbo.approachBimboSophieInCamp );
+		EngineCore.addButton( 0, 'Next', SceneLib.sophieBimbo, SceneLib.sophieBimbo.approachBimboSophieInCamp );
 	};
 	//Yes (God dammit what the fuck did I just say)*;
 	SophieFollowerScene.prototype.yesDebimboSophie = function() {
@@ -83,14 +83,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		}
 		//[Beat her] {if Int > 30: [Apologize] [Why I Did It]} [Let Her Go] [Bimbo again!(if PC has Bimbo Liqueur)];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Beat Her', this.beatSophieAroundYouMonster );
+		EngineCore.addButton( 0, 'Beat Her', this, this.beatSophieAroundYouMonster );
 		if( CoC.player.inte > 30 ) {
-			EngineCore.addButton( 1, 'Apologize', this.apologizeToDebimboSophie );
-			EngineCore.addButton( 2, 'WhyIDidIt', this.whyIDidItToDebimboSophie );
+			EngineCore.addButton( 1, 'Apologize', this, this.apologizeToDebimboSophie );
+			EngineCore.addButton( 2, 'WhyIDidIt', this, this.whyIDidItToDebimboSophie );
 		}
-		EngineCore.addButton( 3, 'Let Her Go', this.letDebimboSophieGo );
+		EngineCore.addButton( 3, 'Let Her Go', this, this.letDebimboSophieGo );
 		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
-			EngineCore.addButton( 4, 'Bimbo Again', this.bimboSophieAgain );
+			EngineCore.addButton( 4, 'Bimbo Again', this, this.bimboSophieAgain );
 		}
 
 	};
@@ -127,12 +127,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		//[Apologize] [Why I Did It] [Let Her Go] [Bimbo again!(if PC has Bimbo Liqueur)];
 		//{No INT gate now!};
 		EngineCore.menu();
-		//EngineCore.addButton(0,'Beat Her',this.beatUpDebimboSophie) {;
-		EngineCore.addButton( 1, 'Apologize', this.apologizeToDebimboSophie );
-		EngineCore.addButton( 2, 'WhyIDidIt', this.whyIDidItToDebimboSophie );
-		EngineCore.addButton( 3, 'Let Her Go', this.letDebimboSophieGo );
+		EngineCore.addButton( 1, 'Apologize', this, this.apologizeToDebimboSophie );
+		EngineCore.addButton( 2, 'WhyIDidIt', this, this.whyIDidItToDebimboSophie );
+		EngineCore.addButton( 3, 'Let Her Go', this, this.letDebimboSophieGo );
 		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
-			EngineCore.addButton( 4, 'Bimbo Again', this.bimboSophieAgain );
+			EngineCore.addButton( 4, 'Bimbo Again', this, this.bimboSophieAgain );
 		}
 	};
 	//Get the Shit Beaten Out of You by a God-damn Bimbo (You (weakling) Monster);
@@ -142,9 +141,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '\n\nSophie buries her face in her hands and starts to cry, tears soon streaming around her fingers, staining her platinum blonde feathers.' );
 		//[Apologize] [Why I Did It] [Let Her Go];
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Apologize', this.apologizeToDebimboSophie );
-		EngineCore.addButton( 2, 'WhyIDidIt', this.whyIDidItToDebimboSophie );
-		EngineCore.addButton( 3, 'Let Her Go', this.letDebimboSophieGo );
+		EngineCore.addButton( 1, 'Apologize', this, this.apologizeToDebimboSophie );
+		EngineCore.addButton( 2, 'WhyIDidIt', this, this.whyIDidItToDebimboSophie );
+		EngineCore.addButton( 3, 'Let Her Go', this, this.letDebimboSophieGo );
 	};
 	//Let Her Go*;
 	SophieFollowerScene.prototype.letDebimboSophieGo = function() {
@@ -174,7 +173,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Why I Did It (I'm a Monster, you see)*;
@@ -191,7 +190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Apologize (Sorry I'm a Monster)*;
@@ -210,7 +209,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 
@@ -247,11 +246,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			//[Vaginal] → Leads to the "fertile" variation of vaginal smex!;
 			//[Special];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Appearance', this.sophieAppearance );
+			EngineCore.addButton( 0, 'Appearance', this, this.sophieAppearance );
 			if( CoC.player.hasCock() ) {
 				if( CoC.player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
-					EngineCore.addButton( 1, 'Vaginal', this.fuckFollowerSophie );
-					EngineCore.addButton( 2, 'Special', this.sophieSpecial );
+					EngineCore.addButton( 1, 'Vaginal', this, this.fuckFollowerSophie );
+					EngineCore.addButton( 2, 'Special', this, this.sophieSpecial );
 				} else {
 					EngineCore.outputText( '\n\nYou\'re too big to fit inside her!' );
 				}
@@ -260,10 +259,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			}
 
 			if( CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Sophie' ) {
-				EngineCore.addButton( 8, 'NoSleepWith', this.sleepWithSophieToggle );
+				EngineCore.addButton( 8, 'NoSleepWith', this, this.sleepWithSophieToggle );
 				EngineCore.outputText( '\n\nYou\'re currently sharing your bed with Sophie at night, but you could kick her out, if you wanted.' );
 			}
-			EngineCore.addButton( 9, 'Back', SceneLib.camp.campFollowers );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp, SceneLib.camp.campFollowers );
 			return;
 		} else if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 ) {
@@ -277,44 +276,44 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		}
 		//BimboBody Sophie Follower, Options*;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Appearance', this.sophieAppearance );
+		EngineCore.addButton( 0, 'Appearance', this, this.sophieAppearance );
 		if( CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 1, 'Sex', this.sexWithFollowerSophie );
+			EngineCore.addButton( 1, 'Sex', this, this.sexWithFollowerSophie );
 		} else {
 			EngineCore.outputText( '\n\nYou aren\'t aroused enough to sleep with Sophie at the moment.' );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 8, 'Sleep With', this.sleepWithSophieToggle );
+			EngineCore.addButton( 8, 'Sleep With', this, this.sleepWithSophieToggle );
 		}
 		if( CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Sophie' && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 8, 'NoSleepWith', this.sleepWithSophieToggle );
+			EngineCore.addButton( 8, 'NoSleepWith', this, this.sleepWithSophieToggle );
 			EngineCore.outputText( '\n\nYou\'re currently sharing your bed with Sophie at night, but you could kick her out, if you wanted.' );
 		}
 		if( CoC.flags[ kFLAGS.SOPHIE_CAMP_EGG_COUNTDOWN ] > 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			EngineCore.outputText( '\n\n<b>Sophie\'s egg is sitting nearby.</b>' );
 		}
 		if( CoC.flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] > 0 ) {
-			EngineCore.addButton( 7, 'Daughter', SceneLib.sophieBimbo.daughterCheckup );
+			EngineCore.addButton( 7, 'Daughter', SceneLib.sophieBimbo, SceneLib.sophieBimbo.daughterCheckup );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.camp.campFollowers );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp, SceneLib.camp.campFollowers );
 		} else {
-			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-			EngineCore.addButton( 2, 'Farm Work', this.sendToFarm );
+			EngineCore.addButton( 2, 'Farm Work', this, this.sendToFarm );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 1 ) {
-			EngineCore.addButton( 2, 'Go Camp', this.backToCamp );
+			EngineCore.addButton( 2, 'Go Camp', this, this.backToCamp );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] === 0 ) {
-			EngineCore.addButton( 3, 'Harvest Eggs', this.harvestEggs );
+			EngineCore.addButton( 3, 'Harvest Eggs', this, this.harvestEggs );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] === 1 ) {
-			EngineCore.addButton( 3, 'Change Eggs', this.changeEggs );
-			EngineCore.addButton( 4, 'Stop Harvest', this.stopHarvest );
+			EngineCore.addButton( 3, 'Change Eggs', this, this.changeEggs );
+			EngineCore.addButton( 4, 'Stop Harvest', this, this.stopHarvest );
 		}
 	};
 	SophieFollowerScene.prototype.sendToFarm = function() {
@@ -324,7 +323,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '\n\n“<i>I\'m here to be with you, not till some farm,</i>” she flounces. She looks at you slyly and sidles her warm, pillowy weight into your side. “<i>Wouldn’t you get lonely out here on your own, [name]? Yes, you would. Give mama Sophie a kiss and we’ll forget all about this...</i>” You take a step back and firmly point in the direction of the farm.' );
 		EngineCore.outputText( '\n\nHer whining and complaining can be heard long after her pink feathers have disappeared over the rise. She’ll be useless as a worker, you think, but she’s considerably more vigilant and sharp than she lets herself on to be. And who knows, maybe she can produce some eggs whilst she’s there.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SophieFollowerScene.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -332,7 +331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( 'You tell her she’s welcome to head back to camp now.' );
 		EngineCore.outputText( '\n\n“<i>Thank the Gods,</i>” she says, rolling her eyes. “<i>Any longer out here and I was going to suffocate from boredom.</i>” She kisses your cheek affectionately before stretching her huge wings out to fly off in the direction of the portal.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	SophieFollowerScene.prototype.harvestEggs = function() {
 		EngineCore.clearOutput();
@@ -356,7 +355,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			CoC.flags[ kFLAGS.FARM_EGG_STORED ] = 0;
 			CoC.flags[ kFLAGS.FARM_EGG_COUNTDOWN ] = 7;
 		}
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	SophieFollowerScene.prototype.stopHarvest = function() {
 		EngineCore.clearOutput();
@@ -365,7 +364,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '\n\n“<i>Awww,</i>” she replies with pleading eyes. “<i>Couldn\'t you just fuck some REAL eggs into me instead?</i>”' );
 		EngineCore.outputText( '\n\nYou respond to the negative, earning a pout from the busty hen. She looks like she\'s going to obey you regardless.' );
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_SOPHIE ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	SophieFollowerScene.prototype.changeEggs = function() {
 		EngineCore.clearOutput();
@@ -382,14 +381,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		//[Usual] [Nurse] [YouMove] [IMove] [Titfuck] [GetDMilked] [Extra1] [....];
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
-				EngineCore.addButton( 0, 'Vaginal', this.fuckFollowerSophie );
+				EngineCore.addButton( 0, 'Vaginal', this, this.fuckFollowerSophie );
 			}
-			EngineCore.addButton( 1, 'Blowjob', this.sophieFollowerGivesBlowjobs );
+			EngineCore.addButton( 1, 'Blowjob', this, this.sophieFollowerGivesBlowjobs );
 		}
 		if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 && CoC.flags[ kFLAGS.SOPHIE_FAMILY_INCEST ] > 0 && CoC.player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
-			EngineCore.addButton( 8, 'DaughterFuck', this.sophieIncestInHerCooterOrSomethingIDunno );
+			EngineCore.addButton( 8, 'DaughterFuck', this, this.sophieIncestInHerCooterOrSomethingIDunno );
 		}
-		EngineCore.addButton( 9, 'Back', this.followerSophieMainScreen );
+		EngineCore.addButton( 9, 'Back', this, this.followerSophieMainScreen );
 	};
 	//Appearance:;
 	SophieFollowerScene.prototype.sophieAppearance = function() {
@@ -444,7 +443,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			}
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 4, 'Back', this.followerSophieMainScreen );
+		EngineCore.addButton( 4, 'Back', this, this.followerSophieMainScreen );
 	};
 
 	//Sleep With:*;
@@ -491,7 +490,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			CoC.flags[ kFLAGS.SLEEP_WITH ] = '';
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 4, 'Back', this.followerSophieMainScreen );
+		EngineCore.addButton( 4, 'Back', this, this.followerSophieMainScreen );
 	};
 
 	//vaginal Fuck*;
@@ -594,7 +593,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			SceneLib.sophieBimbo.sophiePregChance();
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.sophieVagFollowerFollowup );
+		EngineCore.addButton( 0, 'Next', this, this.sophieVagFollowerFollowup );
 	};
 	//[Next];
 	SophieFollowerScene.prototype.sophieVagFollowerFollowup = function() {
@@ -613,7 +612,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		}
 		EngineCore.outputText( '</i>"' );
 		EngineCore.outputText( '\n\nYou\'d come up with a snarky reply, but you\'re just so fucking tired.  You sigh and try to get dressed, having some difficulty getting on your [feet] until Sophie lends a hand.  She kisses you on the cheek and mouths "<i>thanks</i>" before flouncing off, fluttering happily.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Blowjob*;
 	//Sucking dicks.;
@@ -645,8 +644,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '</i>" she coos, "<i>but that doesn\'t mean I\'ll wrap these beautiful lips around you for nothing.  How about you let me use that cute face of yours to grind my pussy on, and I\'ll return the favor?</i>"  She blows you a kiss that culminates in her running her tongue over her swollen lips in a slow, wet circle.' );
 		//[Force Her] [Sixtynine];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Force Her', this.forceSophieBlowjob );
-		EngineCore.addButton( 1, 'Sixtynine', this.sophieBlowsSixtyNine );
+		EngineCore.addButton( 0, 'Force Her', this, this.forceSophieBlowjob );
+		EngineCore.addButton( 1, 'Sixtynine', this, this.sophieBlowsSixtyNine );
 	};
 	//Blow Sixtynine*;
 	SophieFollowerScene.prototype.sophieBlowsSixtyNine = function() {
@@ -727,7 +726,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Forceful Blowjob*;
 	SophieFollowerScene.prototype.forceSophieBlowjob = function() {
@@ -808,7 +807,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '\n\nYou get dressed with a self-satisfied sigh.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//SixtyNine (* Temp until someone writes dis shit);
 	//Get that vajajay in yo face.;
@@ -816,7 +815,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Sophie cocks an eyebrow and asks, "<i>A little sapphic delight for the horny champion?</i>"  She snorts and rolls her eyes, "<i>No thanks.  I\'m not really that into girls.</i>"  It doesn\'t seem like she\'s up for it.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.sleepWithSophieToggle );
+		EngineCore.addButton( 0, 'Next', this, this.sleepWithSophieToggle );
 	};
 	//Sophie Teases Small Dicks In The Morning*;
 	//No toggles.  If you have a small penis you deserve the small penis femdom.;
@@ -914,7 +913,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		CoC.flags[ kFLAGS.TIMES_MORNING_SOPHIE_FEMDOMMED ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', 3 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Alert Message For Going Into Season☼;
 	//Similar to bimbo sophie;
@@ -1047,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			SceneLib.sophieBimbo.sophiePregChance();
 		}
 		EngineCore.fatigue( 15 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Regular Sophie Follower;
 	//Requirements: Fuck Sophie five times without pissing her off;
@@ -1062,8 +1061,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		//Plus lust!;
 		//[Kiss Her][Get Out];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'KissSophie', this.kissSophieRecruitment );
-		EngineCore.addButton( 1, 'Get Out', this.getOutSophieRecruitment );
+		EngineCore.addButton( 0, 'KissSophie', this, this.kissSophieRecruitment );
+		EngineCore.addButton( 1, 'Get Out', this, this.getOutSophieRecruitment );
 	};
 	//Get Out;
 	SophieFollowerScene.prototype.getOutSophieRecruitment = function() {
@@ -1073,7 +1072,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '\n\nWith that, she darts above the camp, flying back to her home in the high mountains.  You were having such a nice dream, too.' );
 		EngineCore.dynStats( 'lus', -5 );
 		CoC.flags[ kFLAGS.NO_PURE_SOPHIE_RECRUITMENT ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Kiss Her;
 	SophieFollowerScene.prototype.kissSophieRecruitment = function() {
@@ -1093,8 +1092,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.dynStats( 'lus', 20 );
 		//[Sure][No] – Note: [No] leads to the [Get Out] scene.;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Sure', this.sophieRecruitmentFinale );
-		EngineCore.addButton( 1, 'No', this.getOutSophieRecruitment );
+		EngineCore.addButton( 0, 'Sure', this, this.sophieRecruitmentFinale );
+		EngineCore.addButton( 1, 'No', this, this.getOutSophieRecruitment );
 	};
 	//If Sure;
 	SophieFollowerScene.prototype.sophieRecruitmentFinale = function() {
@@ -1110,7 +1109,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.outputText( '.' );
 		EngineCore.outputText( '\n\n(<b>Sophie is now available in the followers tab!</b>)' );
 		CoC.flags[ kFLAGS.SOPHIE_RECRUITED_PURE ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	/*Sophie daughter incest.  scenes
 	 vaginal, maybe anal.
@@ -1204,7 +1203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			EngineCore.outputText( ' she coos into your ear, temping you even more with the taboo of her incestuous flesh.  With such a demanding offer of pleasure, your daughter so open and ready to receive your pleasure, how could you say no to such a lovely girl?' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.phaseTwoOfIncest, daughterCap );
+		EngineCore.addButton( 0, 'Next', this, this.phaseTwoOfIncest, daughterCap );
 	};
 	SophieFollowerScene.prototype.phaseTwoOfIncest = function( daughter ) {
 		EngineCore.clearOutput();
@@ -1289,7 +1288,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		//pass time 1 hour//;
 		//return PC to camp interface//;
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'sophieFollowerScene', new SophieFollowerScene() );
 } );

@@ -124,12 +124,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] === 0 ) {
 			EngineCore.outputText( 'As you\'re wandering the mountains, you feel an odd presence in the back of your mind.  It calls out to you with promise of power and safety, but part of you feels a bit apprehensive at the prospect of giving yourself over to it.  Do you let the presence take over?', false );
 			//Player chooses yes/no - no -> (B), yes -> (C)
-			EngineCore.doYesNo( this.acceptCrazyPresences, this.declineCrazyPresences );
+			EngineCore.doYesNo( this, this.acceptCrazyPresences, this, this.declineCrazyPresences );
 		} else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] === 1 ) {
 			//Second Encounter (D)
 			//can be triggered if the PC still has the required canine traits, and has a piece of Lethicite.
 			EngineCore.outputText( 'As you\'re wandering the mountains, you once again feel an odd presence in the back of your mind.  You\'re sure it is the hellhound master once again.  You look at the pink crystal in your possession, and wonder if you should exchange it for the promissed hellfire.  Do you let the presence take over and give away the Lethicite?', false );
-			EngineCore.doYesNo( this.giveUpLethicite, this.declineGivingAwayLethicite );
+			EngineCore.doYesNo( this, this.giveUpLethicite, this, this.declineGivingAwayLethicite );
 			//Player choose yes or no, no -> E, yes -> F
 		}
 	};
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You force the presence out of your mind.  You feel almost a bit lost after it disappears, but giving yourself over to foreign control can never be a good idea, can it?', false );
 		//end event, A can repeat later.
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//choose yes (C)
 	HellHoundScene.prototype.acceptCrazyPresences = function() {
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		EngineCore.outputText( 'You smile at the sight of your brothers running around, playing with each other, and fucking one another.  You can see many of both the violent twin headed and dicked hellhound males, and the more seductive twin headed and cunted hellhound females. It is also easy to see the vicious clearly heavily pregnant barghests, given the wide birth the other hounds give them once the females reach that stage.  It is quite the pack, but you can\'t look proudly at it for too long, you need to go see your master!\n\n', false );
 		EngineCore.outputText( 'You continue your trek to the master\'s home, you can feel that you\'re close.  At the back of the vale, stands what seems to be a fort of sorts in front of a large cliff face.  At the entrance, stands a stunning indigo succubus holding the leash of a very big hellhound.  She smiles as she sees you approach and calls you over.  You happily trot over to the demon mistress and nuzzle your head against her thighs.  She takes your canine head between her hands and gives you a playful rub while saying "<i>Ah, what a cute little lost doggy.  You here to see the master?  Go on in, he always has time for his faithful hounds.  You\'re probably really lonely, I\'m sure he can find a friend to join you on that beautiful body.</i>"  You nod at her eagerly and proceed inside.\n\n', false );
 		//nxt page
-		EngineCore.doNext( this.acceptCrazyPresencesII );
+		EngineCore.doNext( this, this.acceptCrazyPresencesII );
 	};
 	HellHoundScene.prototype.acceptCrazyPresencesII = function() {
 		EngineCore.outputText( '', true );
@@ -160,14 +160,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		}
 		//advance to repeat version
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Choose no (E)
 	HellHoundScene.prototype.declineGivingAwayLethicite = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You push the presence out of your mind.  Maybe later you\'ll collect the hellfire, but for now you\'d rather keep the lethicite.', false );
 		//end event, D can repeat.
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Choose yes (F)
 	HellHoundScene.prototype.giveUpLethicite = function() {
@@ -177,9 +177,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		EngineCore.outputText( 'You barely spare a thought at the interior in your hurry to get to the master.  As you burst into the room, the master\'s eyes light up at the sight of you.  "<i>Ah!  It is my favorite fan.  Have you brought me a piece of that pink crystal I asked you for?</i>"\n\n', false );
 		//Player chooses to either give Merae's full Lethicite, or a regular piece of Lethicite.  Limited by what they have, of course.  They cannot choose to leave at this point.  Merae's Lethicite -> G, Regular Lethicite -> H.
 		if( CoC.player.keyItemv2( 'Marae\'s Lethicite' ) === 0 ) {
-			EngineCore.choices( 'Give All', this.giveALLTHELETHICITES, 'Give Part', this.giveLethicitePiece, '', null, '', null, '', null );
+			EngineCore.choices( 'Give All', this, this.giveALLTHELETHICITES, 'Give Part', this, this.giveLethicitePiece, '', null, null, '', null, null, '', null, null );
 		} else {
-			EngineCore.doNext( this.giveLethicitePiece );
+			EngineCore.doNext( this, this.giveLethicitePiece );
 		}
 	};
 	//Regular Lethicite
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 		CoC.player.createPerk( PerkLib.Hellfire, 0, 0, 0, 0 );
 		//Hellhounds no longer encounterable.
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00141 ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Merae's Lethicite
 	HellHoundScene.prototype.giveALLTHELETHICITES = function() {

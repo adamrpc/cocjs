@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 			EngineCore.outputText( '\n\nA sudden scrape sounds behind you!  You spin around in time to see the familiar shape of a chameleon girl peeling off the trees.  She approaches you with a menacing glare in her eyes, growling "<i>This is my bog!  Get out now or... or face the consequences!</i>"  You raise your ' + CoC.player.weaponName + ' and prepare to defend yourself.' );
 		}
 		CoC.flags[ kFLAGS.TIMES_MET_CHAMELEON ]++;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//LOSS SCENES (Intro) (Z edited)
 	ChameleonGirlScene.prototype.loseToChameleonGirl = function() {
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		} else if( CoC.player.hasItem( ConsumableLib.SENSDRF ) && (CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT )) ) {
 			item = this.useAnItemOnTheChamcham;
 		}
-		EngineCore.choices( 'Use Dick', dick, 'Use Pussy', pussy, 'Herm Style', herm, 'Use Item', item, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Use Dick', this, dick, 'Use Pussy', this, pussy, 'Herm Style', this, herm, 'Use Item', this, item, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	//-Herm Victory (Z edited)
 	ChameleonGirlScene.prototype.fuckDatChameleonAsACoolGuyGirlHerm = function() {
@@ -292,7 +292,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		if( CoC.player.hasItem( ConsumableLib.SENSDRF ) && (CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT )) ) {
 			drafts = this.doseDatChameleonWithLustAndSensitivityDrafts;
 		}
-		EngineCore.choices( 'SuccMilk', milk, 'LustnSensD.', drafts, '', null, '', null, 'Back', this.defeatChameleonGirl );
+		EngineCore.choices( 'SuccMilk', this, milk, 'LustnSensD.', this, drafts, '', null, null, '', null, null, 'Back', this, this.defeatChameleonGirl );
 	};
 	//-P. Succubi Milk or Succubi Milk (Z edited)
 	//Prerequisite: at least one dick

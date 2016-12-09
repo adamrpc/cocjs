@@ -202,7 +202,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		//Trigger bad end if player's intelligence is less than 10 after being drained.
 		if( CoC.player.inte < 10 ) {
 			EngineCore.outputText( 'You find that your mind is unable to return to reality, and it moves on to another, then another.  Later you feel a female body come and pick you up, but you are too messed up to react to it...', false );
-			EngineCore.doNext( SceneLib.fetishCultistScene.cultistBadEnd2 );
+			EngineCore.doNext( SceneLib.fetishCultistScene, SceneLib.fetishCultistScene.cultistBadEnd2 );
 			return;
 		}
 		//Otherwise, continue on here
@@ -238,9 +238,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			EngineCore.outputText( '\n\nDo you want to take advantage of his vulnerable state to sate your lusts?', false );
 			var bikiniTits = null;
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
+				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
-			EngineCore.choices( 'Yes', this.zealotWinRape, '', null, '', null, 'B.Titfuck', bikiniTits, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Yes', this, this.zealotWinRape, '', null, null, '', null, null, 'B.Titfuck', null, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}

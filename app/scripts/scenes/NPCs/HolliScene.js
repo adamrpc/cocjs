@@ -44,16 +44,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			//[Fight][Call Jojo(req Small Talisman)][Retreat];
 			//Call Jojo goes to above scene, others go to fight or camp directly;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Fight', this.fightHolli );
+			EngineCore.addButton( 0, 'Fight', this, this.fightHolli );
 			if( CoC.player.hasKeyItem( 'Jojo\'s Talisman' ) >= 0 ) {
-				EngineCore.addButton( 1, 'Call Jojo', this.callDatJojo );
+				EngineCore.addButton( 1, 'Call Jojo', this, this.callDatJojo );
 			}
-			EngineCore.addButton( 4, 'Back', SceneLib.inventory.inventoryMenu );
+			EngineCore.addButton( 4, 'Back', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 		} else if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 1 ) {
 			if( output ) {
 				EngineCore.outputText( 'The sprout looks about the same as when you first noticed it.  It\'s a simple, leafy shoot that only goes to about knee height.  It looks healthy and strong, with a few dozen branches and shiny green leaves.  If you look closely, the veins on the undersides of the leaf are purplish and pulse slightly with corruption.  You could easily destroy it.' );
 			}
-			EngineCore.choices( 'Burn It', this.destroyDatFukkinTree, '', null, '', null, '', null, 'Back', SceneLib.inventory.inventoryMenu );
+			EngineCore.choices( 'Burn It', this, this.destroyDatFukkinTree, '', null, null, '', null, null, '', null, null, 'Back', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 		} else if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 2 ) {
 			//[Fuck It] [Ride Stamen] [Do Nothing] [Destroy It];
 			if( output ) {
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
 				ride = this.rideDatFuckingFukkFlowerP2;
 			}
-			EngineCore.choices( 'Fuck It', fuck, 'Ride Stamen', ride, '', null, 'Destroy It', this.destroyDatFuckingPlantAtP2, 'Back', SceneLib.inventory.inventoryMenu );
+			EngineCore.choices( 'Fuck It', this, fuck, 'Ride Stamen', this, ride, '', null, null, 'Destroy It', this, this.destroyDatFuckingPlantAtP2, 'Back', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 		} else if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 3 ) {
 			if( output ) {
 				EngineCore.outputText( 'The familiar plant has blossomed into a nicely sized tree, though you doubt it has finished growing just yet.  It sports an outstretched canopy with nice, green leaves.  Unfortunately, you can still trace the corrupted veins on their undersides from below.  The vaginal flower is still there and is in full bloom, now several feet across and practically dripping with moisture.  Just up the trunk, there\'s a pair of small, roughly b-cup breasts bulging out of the bark.  They\'re exquisitely smooth and soft, and they ooze sweet-smelling sap that your tongue would love to taste.  In the canopy above, tentacle vines idly writhe about, though they show no sizes of aggression.' );
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 				ride = this.rideTheWalrusP3;
 			}
 			//[Fuck flower] [Drink Sap] [Ride Tentacles] [{Torch It}] [Leave It];
-			EngineCore.choices( 'Fuck Flower', fuck, 'Drink Sap', this.drinkThePlantGirlsSap, 'Ride Tentacle', ride, 'Torch It', burnIt, 'Leave It', SceneLib.inventory.inventoryMenu );
+			EngineCore.choices( 'Fuck Flower', this, fuck, 'Drink Sap', this, this.drinkThePlantGirlsSap, 'Ride Tentacle', this, ride, 'Torch It', this, burnIt, 'Leave It', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 		} else {
 			//Camp Menu (edited);
 			if( output ) {
@@ -145,28 +145,28 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 				}
 				burnIt = this.askHolliToWatch;
 				//[Fuck Her] [Drink] [Tentacle Ride] {Guard Camp} {Threaten} [Leave];
-				EngineCore.choices( 'Fuck Holli', fuck, 'Drink Sap', this.haveAMapleSyrupSnack, 'Ride Tentacles', ride, guardT, burnIt, 'Eat A Fruit', eat,
-					'', null, '', null, '', null, '', null, 'Leave', SceneLib.inventory.inventoryMenu );
+				EngineCore.choices( 'Fuck Holli', this, fuck, 'Drink Sap', this, this.haveAMapleSyrupSnack, 'Ride Tentacles', this, ride, guardT, this, burnIt, 'Eat A Fruit', this, eat,
+					'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 			} else {
 				EngineCore.menu();
 				if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
-					EngineCore.addButton( 0, 'Fuck Holli', this.holliGetsDickDommed );
+					EngineCore.addButton( 0, 'Fuck Holli', this, this.holliGetsDickDommed );
 				}
 				if( CoC.player.tentacleCocks() >= 10 && CoC.player.lust >= 33 ) {
-					EngineCore.addButton( 1, 'TentacleBone', this.fullOnTentacleTasticGangBangForHolli );
+					EngineCore.addButton( 1, 'TentacleBone', this, this.fullOnTentacleTasticGangBangForHolli );
 				}
 				if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
-					EngineCore.addButton( 2, 'Ride Holli', this.vaginalDomHollisTentacruels );
+					EngineCore.addButton( 2, 'Ride Holli', this, this.vaginalDomHollisTentacruels );
 				}
-				EngineCore.addButton( 3, 'Drink Sap', this.haveAMapleSyrupSnack );
+				EngineCore.addButton( 3, 'Drink Sap', this, this.haveAMapleSyrupSnack );
 				if( CoC.flags[ kFLAGS.HOLLI_FRUIT ] > 0 ) {
-					EngineCore.addButton( 4, 'Eat A Fruit', this.eatHolliFruit );
+					EngineCore.addButton( 4, 'Eat A Fruit', this, this.eatHolliFruit );
 				}
-				EngineCore.addButton( 5, 'Guarding', this.askBrokenHolliToGuard );
-				EngineCore.addButton( 9, 'Leave', SceneLib.inventory.inventoryMenu );
+				EngineCore.addButton( 5, 'Guarding', this, this.askBrokenHolliToGuard );
+				EngineCore.addButton( 9, 'Leave', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 			}
 			if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_HOLLI ] === 0 && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-				EngineCore.addButton( 6, 'Farm Help', this.helpWithFarm );
+				EngineCore.addButton( 6, 'Farm Help', this, this.helpWithFarm );
 			}
 		}
 	};
@@ -181,8 +181,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		} else {
 			EngineCore.outputText( '\n\n“<i>I can help you with it,</i>” she says eventually. “<i>But nourishing such dullness will take effort. I can give your produce a boost, but only once, and it won’t last forever. Would you like that?</i>”' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Yes', this.doFarmFuckery );
-			EngineCore.addButton( 1, 'No', this.noPlzDontFuckWithFarm );
+			EngineCore.addButton( 0, 'Yes', this, this.doFarmFuckery );
+			EngineCore.addButton( 1, 'No', this, this.noPlzDontFuckWithFarm );
 		}
 	};
 	HolliScene.prototype.doFarmFuckery = function() {
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.outputText( 'Holli closes her eyes and hums. The sound seems to reverberate in your bones, and you feel the ground move uneasily below you. Holli’s roots shift ponderously, and you hear new growth crackling, burying eagerly through the soil, moisture being taken in. The tree woman opens her eyes to lazily grin at you as the portentous sounds below you continue.' );
 		EngineCore.outputText( '\n\n“<i>It’s happening. I hope you and your doggie enjoy what I have done!</i>”' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_HOLLI ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HolliScene.prototype.noPlzDontFuckWithFarm = function() {
 		EngineCore.clearOutput();
@@ -251,7 +251,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] = 1;
 		CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] = 0;
 		//[Yes] [No];
-		EngineCore.choices( 'Yes', this.destroyDatFukkinTree, 'No', this.letZeFuckingSproutLive, '', null, '', null, '', null );
+		EngineCore.choices( 'Yes', this, this.destroyDatFukkinTree, 'No', this, this.letZeFuckingSproutLive, '', null, null, '', null, null, '', null, null );
 	};
 	//[Yes] Destroy Tree (edited);
 	HolliScene.prototype.destroyDatFukkinTree = function() {
@@ -262,14 +262,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//(-5 corruption);
 		EngineCore.dynStats( 'cor', -5 );
 		CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[No] (edited);
 	HolliScene.prototype.letZeFuckingSproutLive = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Looking down at the sapling, you stay your wrath.  It may be corrupt, but it hasn\'t done anything to harm you just yet.  You give it a little pat on the uppermost leaves and leave it be.  It\'s not like it\'s going anywhere.' );
 		EngineCore.outputText( '\n\n(<b>\'Plant\' added to your items menu</b>.  It\'s too small to know what it will grow into yet.  You can currently remove it at your leisure.)' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Phase 2: Pussy Tentacle Flower Phase (edited);
 	HolliScene.prototype.fuckPlantGrowsToLevel2 = function() {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
 			ride = this.rideDatFuckingFukkFlowerP2;
 		}
-		EngineCore.choices( 'Fuck It', fuck, 'Ride Stamen', ride, 'Do Nothing', MainView.playerMenu, 'Destroy It', this.destroyDatFuckingPlantAtP2, '', null );
+		EngineCore.choices( 'Fuck It', this, fuck, 'Ride Stamen', this, ride, 'Do Nothing', null, MainView.playerMenu, 'Destroy It', this, this.destroyDatFuckingPlantAtP2, '', null, null );
 	};
 
 	//Destroy It (edited);
@@ -313,7 +313,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//(-5 corruption);
 		EngineCore.dynStats( 'cor', -5 );
 		CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fuck It (skimmed);
 	HolliScene.prototype.fuckFuckingFuckFlowerP2 = function() {
@@ -363,7 +363,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] += 4;
 		}
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ride It (skimmed)(coded);
 	HolliScene.prototype.rideDatFuckingFukkFlowerP2 = function() {
@@ -431,7 +431,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		if( CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] < 1000 ) {
 			CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] += 4;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Phase 3 Intro: (edited);
 	HolliScene.prototype.flowerGrowsToP3 = function() {
@@ -460,7 +460,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			ride = this.rideTheWalrusP3;
 		}
 		//[Fuck flower] [Drink Sap] [Ride Tentacles] [{Torch It}] [Leave It];
-		EngineCore.choices( 'Fuck Flower', fuck, 'Drink Sap', this.drinkThePlantGirlsSap, 'Ride Tentacle', ride, 'Torch It', burnIt, 'Leave It', MainView.playerMenu );
+		EngineCore.choices( 'Fuck Flower', this, fuck, 'Drink Sap', this, this.drinkThePlantGirlsSap, 'Ride Tentacle', this, ride, 'Torch It', this, burnIt, 'Leave It', null, MainView.playerMenu );
 	};
 	//Fuck Flower (skimmed);
 	HolliScene.prototype.fuckTheFlower = function() {
@@ -532,7 +532,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 		CoC.flags[ kFLAGS.TIMES_FUCKED_FLOWER ]++;
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Drink Sap (edited);
 	HolliScene.prototype.drinkThePlantGirlsSap = function() {
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 		EngineCore.outputText( '.  The thick \'milk\' quickly fills your body with energy, though it runs out nearly as soon as it started.' );
 		EngineCore.outputText( '\n\nYou wipe your slightly sticky mouth on your arm and sigh with the act done, admiring the slightly rosy tinge of the now-smaller breasts.  This whole thing is weird as hell, but you\'re as full of energy as ever after the snack.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Ride Tentacles (C);
 	HolliScene.prototype.rideTheWalrusP3 = function() {
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 		CoC.flags[ kFLAGS.TIMES_RIDDEN_FLOWER ]++;
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Torch It (edited)(C);
 	HolliScene.prototype.torchP3Tree = function() {
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.outputText( '\n\nThis time, it stays suitably lit.  The tree makes a handy torch for a few hours while it burns to ash, but leaves behind a thick, cloying smoke that takes forever to dissipate.  At least that nuisance plant is gone for good.' );
 		EngineCore.fatigue( 100 );
 		CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 
 	//Phase Four (edited);
@@ -668,7 +668,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//return Jojo to forest, get key item Small Talisman;
 		CoC.player.removeStatusAffect( StatusAffects.PureCampJojo );
 		CoC.player.createKeyItem( 'Jojo\'s Talisman', 0, 0, 0, 0 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Amily Hates Trees -Z;
 	//new overriding line for Amily's camp descript if tree is there;
@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.outputText( '\n\n"<i>[name], I saw what you did with that that... tree.  I thought that was just one of those perverted plants you find in the forest, but there\'s an actual demon in it?!  I can\'t believe your poor judgment!  You do know what happens to people who give themselves to demons, right?  It hasn\'t slipped your mind that they rape and suck souls out of everyone they come across?  I don\'t even feel safe anymore with you bringing trash like that into camp!</i>"' );
 		EngineCore.outputText( '\n\nNo matter how you try to interrupt, Amily\'s not even giving you a chance to answer...' );
 		//[Stay Quiet][Slap Her];
-		EngineCore.choices( 'Stay Quiet', this.stayQuietWhileAmilyBitchesAboutFuckingArborday, 'Slap Her', this.slapAmilysWhoreFace, '', null, '', null, '', null );
+		EngineCore.choices( 'Stay Quiet', this, this.stayQuietWhileAmilyBitchesAboutFuckingArborday, 'Slap Her', this, this.slapAmilysWhoreFace, '', null, null, '', null, null, '', null, null );
 	};
 	//[Stay Quiet];
 	HolliScene.prototype.stayQuietWhileAmilyBitchesAboutFuckingArborday = function() {
@@ -699,7 +699,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_AMILY ) {
 			CoC.player.knockUpForce( PregnancyStore.PREGNANCY_MOUSE, CoC.player.pregnancyIncubation );
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Slapaho];
 	HolliScene.prototype.slapAmilysWhoreFace = function() {
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] = 1;
 		//no more classes, no more books; no more Amily's dirty looks;
 		//bitch goes in ruined village;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
 	//(FUCK DAT TREE BITCH);
@@ -821,7 +821,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		this.fertilizeHolli();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Drink From Her (edited)(C);
 	HolliScene.prototype.haveAMapleSyrupSnack = function() {
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//stat changes n' shit;
 		EngineCore.dynStats( 'lib', 0.5, 'sen', 1, 'lus', 15, 'cor', 1 );
 		EngineCore.fatigue( -60 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Tentacle Ride (looks ok)(C);
 	HolliScene.prototype.level4RideHollisTentacruels = function() {
@@ -885,7 +885,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		this.fertilizeHolli( false );
 		CoC.player.slimeFeed();
 		CoC.flags[ kFLAGS.TIMES_RIDDEN_FLOWER ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Bear Fruit(C);
 	HolliScene.prototype.eatHolliFruit = function() {
@@ -929,7 +929,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		if( CoC.player.str < 50 ) {
 			EngineCore.dynStats( 'str', 1 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Beg Her To Guard (edited)(C);
 	//PC can beg or not beg?;
@@ -943,22 +943,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			}
 			//choosing not to beg unlocks Threaten?;
 			//[Beg][Threaten][Back];
-			//EngineCore.choices('Beg',this.begHolli4Watches,'Threaten',0,'Assert Self',this.domUpSomeHolli,'',0,'Back',this.treeMenu);;
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Beg', this.begHolli4Watches );
+			EngineCore.addButton( 0, 'Beg', this, this.begHolli4Watches );
 			if( CoC.flags[ kFLAGS.THREATENED_HOLLI ] === 0 ) {
-				EngineCore.addButton( 1, 'Threaten', this.threatenHolli );
+				EngineCore.addButton( 1, 'Threaten', this, this.threatenHolli );
 			} else {
-				EngineCore.addButton( 1, 'Slap Her', this.slapDatHo );
+				EngineCore.addButton( 1, 'Slap Her', this, this.slapDatHo );
 			}
-			EngineCore.addButton( 2, 'Assert Self', this.domUpSomeHolli );
-			EngineCore.addButton( 4, 'Back', this.treeMenu );
+			EngineCore.addButton( 2, 'Assert Self', this, this.domUpSomeHolli );
+			EngineCore.addButton( 4, 'Back', this, this.treeMenu );
 		}
 		//Stop Guarding (edited)(C);
 		else {
 			EngineCore.outputText( 'You tell Holli you\'d like her to stop watching at night.  She laughs, "<i>You just want a chance to come back and beg some more, don\'t you?  I thought you were supposed to be tough shit, not a simpering little submissive.</i>"' );
 			CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] = 0;
-			EngineCore.doNext( this.treeMenu );
+			EngineCore.doNext( this, this.treeMenu );
 		}
 	};
 	//Actually beg: (edited)(C);
@@ -971,7 +970,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.outputText( '\n\nThis is... utterly humiliating!  You blush in shame and give her root another, longer lick, no longer caring about how bad it tastes, as long as you can get this over with!  You blink moisture from your eyes and unabashedly beg, "<i>Please, mistress Holli.  I need you.  I don\'t want to get stuffed by dozens of imps.  I\'m weak, and I need you to watch over me.  Please, please help me, mistress Holli.</i>"  You rub your cheek against her root and look up hopefully.' );
 		EngineCore.outputText( '\n\n"<i>Hah.  I guess I\'ll watch your camp.</i>"' );
 		CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] = 1;
-		EngineCore.doNext( this.treeMenu );
+		EngineCore.doNext( this, this.treeMenu );
 	};
 	//Donation Day Dominate Holli Content;
 	//Started by choosing 'assert' at the prompt where you can beg.;
@@ -996,7 +995,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//{fail} ;
 		if( domPowah < 20 ) {
 			EngineCore.outputText( '\n\nRolling her eyes, Holli sinks back into her arboreal core, the bark \'lips\' slowly pulling together, creaking ominously.  You grab hold of them and try to wrench them open, but inexorably, each continues on to meet the other.  An inch before the wood crushes around your fingers, you let go, reminded of a tree back home that somehow split a stone with its growth.  The demonic dryad\'s home is closed to you.  Perhaps, if you were a little more intimidating, it would have worked.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//{success};
@@ -1020,11 +1019,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//[Guard] [Don't Guard] [Back];
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 1 ) {
-			EngineCore.addButton( 1, 'Don\'t Guard', this.toggleBrokenHolliGuard );
+			EngineCore.addButton( 1, 'Don\'t Guard', this, this.toggleBrokenHolliGuard );
 		} else {
-			EngineCore.addButton( 0, 'Guard', this.toggleBrokenHolliGuard );
+			EngineCore.addButton( 0, 'Guard', this, this.toggleBrokenHolliGuard );
 		}
-		EngineCore.addButton( 4, 'Back', this.treeMenu );
+		EngineCore.addButton( 4, 'Back', this, this.treeMenu );
 	};
 	//Guard On;
 	HolliScene.prototype.toggleBrokenHolliGuard = function() {
@@ -1041,7 +1040,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] = 0;
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.treeMenu );
+		EngineCore.addButton( 0, 'Next', this, this.treeMenu );
 	};
 	//Dom Her With a Dick;
 	HolliScene.prototype.holliGetsDickDommed = function() {
@@ -1108,7 +1107,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		CoC.flags[ kFLAGS.TIMES_FUCKED_FLOWER ]++;
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		this.fertilizeHolli();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//.PC Has 10 Tentacle Go Full On Monster With Her;
 	HolliScene.prototype.fullOnTentacleTasticGangBangForHolli = function() {
@@ -1150,7 +1149,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		this.fertilizeHolli();
 		this.fertilizeHolli();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vaginally Dominate Tentacles;
 	HolliScene.prototype.vaginalDomHollisTentacruels = function() {
@@ -1211,7 +1210,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HolliScene.prototype.threatenHolli = function() {
 		EngineCore.clearOutput();
@@ -1231,7 +1230,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//{No option to beg for night watch till PC has been imp raped};
 		EngineCore.outputText( '\n\n<b>Maybe you should just slap her the next time she refuses to guard the camp and try your luck anyway.</b>' );
 		CoC.flags[ kFLAGS.THREATENED_HOLLI ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Hit Her With Your Hand (requires failing to threaten) -Z;
@@ -1243,11 +1242,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//[Cut Her Down][Call Jojo(requires talisman)][Ignore Her];
 		//ignore returns to previous menu and is default spacebar option;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'CutHerDown', this.cutHerDown );
+		EngineCore.addButton( 0, 'CutHerDown', this, this.cutHerDown );
 		if( CoC.player.hasKeyItem( 'Jojo\'s Talisman' ) >= 0 ) {
-			EngineCore.addButton( 1, 'Call Jojo', this.callDatJojo );
+			EngineCore.addButton( 1, 'Call Jojo', this, this.callDatJojo );
 		}
-		EngineCore.addButton( 4, 'Ignore', this.treeMenu, true );
+		EngineCore.addButton( 4, 'Ignore', this, this.treeMenu, true );
 	};
 	//[Cut Her Down];
 	HolliScene.prototype.cutHerDown = function() {
@@ -1308,8 +1307,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 				EngineCore.outputText( '\n\nThe monk nods to you.  With the demon gone, you could probably invite him to remain in camp - after all, you are quite a good team.  Do you offer to let Jojo stay?' );
 				//[yes][no];
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Yes', this.recruitJojoToCamp );
-				EngineCore.addButton( 1, 'No', this.dontRecruitJojoToCamp );
+				EngineCore.addButton( 0, 'Yes', this, this.recruitJojoToCamp );
+				EngineCore.addButton( 1, 'No', this, this.dontRecruitJojoToCamp );
 				return;
 			}
 		}
@@ -1376,7 +1375,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 5, 'sen', 20 );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.holliPlaysWithPenisesBadEnd );
+			EngineCore.addButton( 0, 'Next', this, this.holliPlaysWithPenisesBadEnd );
 		}
 		//branch of vagina-having;
 		else if( CoC.player.hasVagina() ) {
@@ -1433,7 +1432,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 5, 'sen', 20 );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.girlsGetANiceManToBadEnd );
+			EngineCore.addButton( 0, 'Next', this, this.girlsGetANiceManToBadEnd );
 		} else {
 			//branch of nothing-having;
 			CoC.player.orgasm();
@@ -1492,7 +1491,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			//--Next--;
 			EngineCore.dynStats( 'lus=', 10000 );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.holliAndGenderlessSittingInATree );
+			EngineCore.addButton( 0, 'Next', this, this.holliAndGenderlessSittingInATree );
 		}
 	};
 	//female champ for weiner-based bad end;
@@ -1732,7 +1731,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		CoC.flags[ kFLAGS.AMILY_FOLLOWER ] = 1;
 		//Enable village encounters;
 		CoC.flags[ kFLAGS.AMILY_VILLAGE_ENCOUNTERS_DISABLED ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	SceneLib.registerScene( 'holliScene', new HolliScene() );
 } );

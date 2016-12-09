@@ -43,19 +43,19 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 	Doppleganger.prototype.addTalkShit = function() {
 		EngineCore.statScreenRefresh();
 		if( this.HP < 1 ) {
-			EngineCore.doNext( Combat.endHpVictory );
+			EngineCore.doNext( Combat, Combat.endHpVictory );
 			return;
 		}
 		if( this.lust > 99 ) {
-			EngineCore.doNext( Combat.endLustVictory );
+			EngineCore.doNext( Combat, Combat.endLustVictory );
 			return;
 		}
 		if( CoC.player.HP < 1 ) {
-			EngineCore.doNext( Combat.endHpLoss );
+			EngineCore.doNext( Combat, Combat.endHpLoss );
 			return;
 		}
 		if( CoC.player.lust > 99 ) {
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 			return;
 		}
 		switch( this._roundCount ) {
@@ -248,8 +248,8 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 	};
 
 	var DopplegangerProxy = new Proxy( Doppleganger, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

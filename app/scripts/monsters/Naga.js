@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe naga\'s eyes go wide and she turns to leave, no longer interested in you.', false );
 			CoC.player.orgasm();
-			EngineCore.doNext( Combat.cleanupAfterCombat );
+			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 		} else {
 			SceneLib.nagaScene.nagaFUCKSJOOOOOO();
 		}

@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			EngineCore.outputText( '\n\nYou heave her up over your shoulder, straining your capable muscles to hold up those giant mammaries and remain upright.  The task is arduous, but you\'re strong enough for anything!  ' );
 			if( CoC.player.tou < 40 ) {
 				EngineCore.outputText( 'Halfway there, you get too tired to continue.  You may be strong, but you don\'t have the endurance to heft a burden like this long term.  You\'ll have to leave her for now and try to recapture her once she\'s conscious.' );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				EngineCore.fatigue( 30 );
 				return;
 			}
@@ -156,12 +156,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//Too weak and dumb: ;
 		else {
 			EngineCore.outputText( '\n\nYou try to lift her, but she\'s too heavy!  Drat!  There\'s no way you\'ll get her back to camp like this, and you can\'t leave the portal undefended long enough to wait for her to wake.  You\'ll have to leave her for now and try to recapture her once she\'s awake.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Next] (Go to aftermath);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.PCCarriedGooBackHome );
+		EngineCore.addButton( 0, 'Next', this, this.PCCarriedGooBackHome );
 	};
 	//Goo -> Latex Aftermath:;
 	//PC Carried Her Back:;
@@ -191,14 +191,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '  Abruptly, you ask her what you should call her besides \'girl\' or \'slave\'.  Even pets need names, after all.' );
 		EngineCore.outputText( '\n\n"<i>Name?  My name is the warmth of my soul and the scent of the forgotten sea... or it was, before you made me like... this.  I don\'t think I could even communicate with my people properly at this point.  To your ears, I have no name, and honestly... my old name may as well be a forgotten memory.</i>"  A solitary onyx teardrop runs from the corner of her eye, hardening on her cheek.  She brushes it away with a sniffle.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.PCCarriedGooBackHomeII );
+		EngineCore.addButton( 0, 'Next', this, this.PCCarriedGooBackHomeII );
 	};
 	LatexGirl.prototype.PCCarriedGooBackHomeII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Call me what you want, my name doesn\'t matter.</i>"' );
 		EngineCore.outputText( '\n\nWhat will you name her?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.nameZeLatexGoo );
+		EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = true;
 		MainView.nameBox.width = 165;
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b>You must select a name.</b>', false );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.nameZeLatexGoo );
+			EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 			return;
 		}
 		CoC.flags[ kFLAGS.GOO_NAME ] = MainView.nameBox.value;
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		CoC.flags[ kFLAGS.GOO_HAPPINESS ] = 1;
 		CoC.flags[ kFLAGS.GOO_OBEDIENCE ] = 1;
 		CoC.flags[ kFLAGS.GOO_FLUID_AMOUNT ] = 100;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//PC Couldn't Bring Her Back;
 	LatexGirl.prototype.encounterLeftBehindGooSlave = function() {
@@ -327,7 +327,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			EngineCore.outputText( '\n\n"<i>Name?  My name is the warmth of my soul and the scent of the forgotten sea... or it was, before you made me like... this.  I don\'t think I can even communicate with my people properly at this point.  To your ears, I have no name, and honestly... my old name may as well be a forgotten memory.</i>"  A solitary onyx teardrop runs from the corner of her eye, hardening on her cheek.  She brushes it away with a sniffle.' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.encounterLeftBehindGooSlaveII );
+		EngineCore.addButton( 0, 'Next', this, this.encounterLeftBehindGooSlaveII );
 	};
 	LatexGirl.prototype.encounterLeftBehindGooSlaveII = function() {
 		EngineCore.clearOutput();
@@ -335,7 +335,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '\n\nWhat will you name her?' );
 		//{To standard name prompts};
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.nameZeLatexGoo );
+		EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = true;
 		MainView.nameBox.width = 165;
@@ -365,14 +365,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '\n\nWorried that you might have killed her, you dart forward to check her breathing.  Whew!  She\'s okay, just out like a lamp.  You hold the poor girl in your arms for a long moment, looking around for somewhere to put her, for someone to help you deal with... whatever\'s she\'s just done to herself.  It looks like you\'ve got yourself a latex goo-girl... or a latex-girl... whatever.  Leaving her out here seems cruel, as she\'d certainly be snatched up by some horrid monster...  She\'d be safer back at your camp, though that might be committing to a more long-term project than you\'re ready for.' );
 		//[Take her Home] [Leave Her];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Take Home', this.niceGuysTakeLatexHome );
-		EngineCore.addButton( 4, 'Leave Her', this.leaveTheLatexGooGirl );
+		EngineCore.addButton( 0, 'Take Home', this, this.niceGuysTakeLatexHome );
+		EngineCore.addButton( 4, 'Leave Her', this, this.leaveTheLatexGooGirl );
 	};
 	//Leave Her(F);
 	LatexGirl.prototype.leaveTheLatexGooGirl = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You don\'t have the time to deal with this... thing.  You put the girl down on the shore and head on back to camp.  Hopefully, whatever finds her won\'t be TOO horrible.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Take her Home(F);
 	LatexGirl.prototype.niceGuysTakeLatexHome = function() {
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			if( CoC.player.tou < 40 ) {
 				EngineCore.outputText( 'Halfway there, you get too tired to continue.  You may be strong, but you don\'t have the endurance to heft a burden like this long term.  You\'ll have to leave her for now and try to find her once she\'s conscious.' );
 				EngineCore.fatigue( 30 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			EngineCore.outputText( 'You\'re out of breath when you get to camp, but you made it!  It\'ll take awhile for you to catch your wind after all that work...  Your arms and legs are still burning from the exertion!' );
@@ -398,12 +398,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{Too weak and dumb:};
 		else {
 			EngineCore.outputText( 'You try to lift her, but she\'s too heavy!  Drat!  There\'s no way you\'ll get her back to camp like this, and you can\'t leave the portal undefended long enough to wait for her to wake.  You\'ll have to leave her for now and try finding her again once she\'s awake.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//[Next] (Go to PURE aftermath);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.pureGooGalRecruitAftermath );
+		EngineCore.addButton( 0, 'Next', this, this.pureGooGalRecruitAftermath );
 	};
 	//PURE Aftermath(F);
 	LatexGirl.prototype.pureGooGalRecruitAftermath = function() {
@@ -421,14 +421,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '\n\nTrying to be comforting isn\'t easy without knowing her name, though. You ask her, trying to be as friendly as you can as you sit down beside her.' );
 		EngineCore.outputText( '\n\n"<i>Name?  My name is the warmth of my soul and the scent of the forgotten sea... or it was, before you made me like... this.  I don\'t think I could even communicate with my people properly at this point.  To your ears, I have no name, and honestly... my old name may as well be a forgotten memory.</i>"  A solitary onyx teardrop runs from the corner of her eye, hardening on her cheek.  She brushes it away with a sniffle.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.pureGooGalRecruitAftermathII );
+		EngineCore.addButton( 0, 'Next', this, this.pureGooGalRecruitAftermathII );
 	};
 	LatexGirl.prototype.pureGooGalRecruitAftermathII = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( '"<i>Call me what you want, my name doesn\'t matter.</i>"' );
 		EngineCore.outputText( '\n\nWhat will you name her?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.nameZeLatexGooNice );
+		EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGooNice );
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = true;
 		MainView.nameBox.width = 165;
@@ -439,7 +439,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b>You must select a name.</b>', false );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.nameZeLatexGoo );
+			EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 			return;
 		}
 		CoC.flags[ kFLAGS.GOO_NAME ] = MainView.nameBox.value;
@@ -498,8 +498,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '</i>" she muses, her mood brightening.  "<i>I-I suppose I should start to get used to it... to all of this.  I... thank you, friend.  You didn\'t have to take me back here, to help me, but you did.  I\'m grateful, truly I am.  But I don\'t think I would survive long out in the wilds, on my own.  I\'ve lived my whole life as a goo, and it will take some time - years, maybe - to relearn how to survive on my own.  I know it\'s a lot to ask, but would you mind if I stayed here?  With... with you?  At least until I can get on my, uh, feet, as it were,</i>" she says, her hands tracing along her body down to her new, dainty little feet.' );
 		//[Keep Her] [Boot her Out];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Keep Her', this.niceGuysKeepTheirGooGals );
-		EngineCore.addButton( 1, 'Boot Her', this.bootOutNiceGoo );
+		EngineCore.addButton( 0, 'Keep Her', this, this.niceGuysKeepTheirGooGals );
+		EngineCore.addButton( 1, 'Boot Her', this, this.bootOutNiceGoo );
 	};
 	//Boot her Out(F):;
 	LatexGirl.prototype.bootOutNiceGoo = function() {
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( 'You did your civic duty bringing her back with you, but taking care of her in the long term... that\'s asking too much.  "<i>I understand,</i>" she says, bowing her head sadly as she struggles unsteadily to her feet.  "<i>It\'s all right.  You\'ve done more than enough, really.  I\'ll go.  Hopefully some of my sisters in the lake will be willing to help me, even if I\'m so... so different... from them, now.  Goodbye, my friend.  Maybe we\'ll meet again sometime.</i>"' );
 		EngineCore.outputText( '\n\nShe\'s gone a moment later, waving over her shoulder as she unsteadily walks back toward the lake.' );
 		CoC.flags[ kFLAGS.GOO_TOSSED_AFTER_NAMING ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Keep Her(F):;
 	LatexGirl.prototype.niceGuysKeepTheirGooGals = function() {
@@ -524,7 +524,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		CoC.flags[ kFLAGS.GOO_HAPPINESS ] = 60;
 		CoC.flags[ kFLAGS.GOO_OBEDIENCE ] = 20;
 		CoC.flags[ kFLAGS.GOO_FLUID_AMOUNT ] = 100;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Approach Her (Select From Slaves Tab)(F);
@@ -663,22 +663,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '\n<b>Happiness % ' + Math.round( this.gooHappiness() ) );
 		EngineCore.outputText( '\n<b>Obedience % ' + Math.round( this.gooObedience() ) );
 		EngineCore.menu();
-		EngineCore.addButton( 9, 'Back', SceneLib.camp.campSlavesMenu );
-		EngineCore.addButton( 0, 'Feed Her', this.feedLatexy );
+		EngineCore.addButton( 9, 'Back', SceneLib.camp, SceneLib.camp.campSlavesMenu );
+		EngineCore.addButton( 0, 'Feed Her', this, this.feedLatexy );
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 1, 'Use Her', this.useLatexy );
+			EngineCore.addButton( 1, 'Use Her', this, this.useLatexy );
 		}
-		EngineCore.addButton( 3, 'Breast Size', this.setLatexysBustSize );
-		EngineCore.addButton( 4, 'Dick Options', this.changeGooDick );
+		EngineCore.addButton( 3, 'Breast Size', this, this.setLatexysBustSize );
+		EngineCore.addButton( 4, 'Dick Options', this, this.changeGooDick );
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] === 0 && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-			EngineCore.addButton( 5, 'Farm Work', this.sendToFarm );
+			EngineCore.addButton( 5, 'Farm Work', this, this.sendToFarm );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] === 1 ) {
-			EngineCore.addButton( 5, 'Go Camp', this.backToCamp );
+			EngineCore.addButton( 5, 'Go Camp', this, this.backToCamp );
 		}
 	};
 	LatexGirl.prototype.sendToFarm = function() {
@@ -687,7 +687,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '\n\n“<i>No sneaking off,</i>” you warn. “<i>I want you to work hard and earn the fluids you’ll be given.</i>”' );
 		EngineCore.outputText( '\n\n“<i>As you wish [master],</i>” she sighs, before slowly sliding off in the direction of the lake. She will be utterly useless as either a worker or a protector, you think; however, you suspect if Whitney keeps her well fed she will be able to harvest latex from her, which is surely worth something, and maybe some good old fashioned exertion will do the willful goo some good.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	LatexGirl.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -695,22 +695,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.outputText( '\n\nYou watch the creature make its slow, ponderous progress back towards camp.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] = 0;
 		//[+1 Obedience and -1 Happiness every two days kept at the farm];
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	LatexGirl.prototype.useLatexy = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'How will you use your pet?' );
 		EngineCore.menu();
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 0, 'DomWithVag', this.femalePCDomFucksLatexGoo );
+			EngineCore.addButton( 0, 'DomWithVag', this, this.femalePCDomFucksLatexGoo );
 			if( CoC.flags[ kFLAGS.GOO_DICK_LENGTH ] > 0 ) {
-				EngineCore.addButton( 1, 'RideGooCock', this.femalePCDomFucksLatexGooFuta );
+				EngineCore.addButton( 1, 'RideGooCock', this, this.femalePCDomFucksLatexGooFuta );
 			}
 		}
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 2, 'DickFuckHer', this.malePCDomFucksLatexGoo );
+			EngineCore.addButton( 2, 'DickFuckHer', this, this.malePCDomFucksLatexGoo );
 		}
-		EngineCore.addButton( 4, 'Back', this.approachLatexy );
+		EngineCore.addButton( 4, 'Back', this, this.approachLatexy );
 	};
 	//Setting Dick Type(F);
 	LatexGirl.prototype.changeGooDick = function() {
@@ -763,44 +763,44 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			EngineCore.outputText( '\n\nShe\'s going to have to learn to be a little more obedient before she\'ll do that.' );
 			this.gooObedience( -3 );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.approachLatexy );
+			EngineCore.addButton( 0, 'Next', this, this.approachLatexy );
 			return;
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.GOO_DICK_LENGTH ] > 0 ) {
 			if( CoC.player.hasItem( ConsumableLib.CANINEP ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.DOG ) {
-				EngineCore.addButton( 2, 'Canine Pepper', this.latexyEatsADickItem, ConsumableLib.CANINEP );
+				EngineCore.addButton( 2, 'Canine Pepper', this, this.latexyEatsADickItem, ConsumableLib.CANINEP );
 			}
 			if( CoC.player.hasItem( ConsumableLib.EQUINUM ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.HORSE ) {
-				EngineCore.addButton( 3, 'Equinum', this.latexyEatsADickItem, ConsumableLib.EQUINUM );
+				EngineCore.addButton( 3, 'Equinum', this, this.latexyEatsADickItem, ConsumableLib.EQUINUM );
 			}
 			if( CoC.player.hasItem( ConsumableLib.P_DRAFT ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.HUMAN ) {
-				EngineCore.addButton( 4, 'Pure Draft', this.latexyEatsADickItem, ConsumableLib.P_DRAFT );
+				EngineCore.addButton( 4, 'Pure Draft', this, this.latexyEatsADickItem, ConsumableLib.P_DRAFT );
 			}
 			if( CoC.player.hasItem( ConsumableLib.W_FRUIT ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.CAT ) {
-				EngineCore.addButton( 5, 'Whisker Fruit', this.latexyEatsADickItem, ConsumableLib.W_FRUIT );
+				EngineCore.addButton( 5, 'Whisker Fruit', this, this.latexyEatsADickItem, ConsumableLib.W_FRUIT );
 			}
 			if( CoC.player.hasItem( ConsumableLib.INCUBID ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.DEMON ) {
-				EngineCore.addButton( 0, 'Incubi Draft', this.latexyEatsADickItem, ConsumableLib.INCUBID );
+				EngineCore.addButton( 0, 'Incubi Draft', this, this.latexyEatsADickItem, ConsumableLib.INCUBID );
 			}
 			if( CoC.player.hasItem( ConsumableLib.MINOBLO ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.HORSE ) {
-				EngineCore.addButton( 1, 'Mino Blood', this.latexyEatsADickItem, ConsumableLib.MINOBLO );
+				EngineCore.addButton( 1, 'Mino Blood', this, this.latexyEatsADickItem, ConsumableLib.MINOBLO );
 			}
 			if( CoC.player.hasItem( ConsumableLib.GROPLUS ) ) {
-				EngineCore.addButton( 6, 'Gro Plus', this.latexyEatsADickItem, ConsumableLib.GROPLUS );
+				EngineCore.addButton( 6, 'Gro Plus', this, this.latexyEatsADickItem, ConsumableLib.GROPLUS );
 			}
 			if( CoC.player.hasItem( ConsumableLib.REDUCTO ) && CoC.flags[ kFLAGS.GOO_DICK_LENGTH ] >= 5 ) {
-				EngineCore.addButton( 7, 'Reducto', this.latexyEatsADickItem, ConsumableLib.REDUCTO );
+				EngineCore.addButton( 7, 'Reducto', this, this.latexyEatsADickItem, ConsumableLib.REDUCTO );
 			}
 		} else {
 			if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
-				EngineCore.addButton( 0, 'Incubi Draft', this.latexyEatsADickItem, ConsumableLib.INCUBID );
+				EngineCore.addButton( 0, 'Incubi Draft', this, this.latexyEatsADickItem, ConsumableLib.INCUBID );
 			}
 			if( CoC.player.hasItem( ConsumableLib.MINOBLO ) ) {
-				EngineCore.addButton( 1, 'Mino Blood', this.latexyEatsADickItem, ConsumableLib.MINOBLO );
+				EngineCore.addButton( 1, 'Mino Blood', this, this.latexyEatsADickItem, ConsumableLib.MINOBLO );
 			}
 		}
-		EngineCore.addButton( 9, 'Back', this.approachLatexy );
+		EngineCore.addButton( 9, 'Back', this, this.approachLatexy );
 	};
 	LatexGirl.prototype.latexyEatsADickItem = function( item ) {
 		CoC.player.consumeItem( item, 1 );
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			this.gooObedience( 2 );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.approachLatexy );
+		EngineCore.addButton( 0, 'Next', this, this.approachLatexy );
 	};
 	//Setting Preferred Bust Size(F);
 	LatexGirl.prototype.setLatexysBustSize = function() {
@@ -870,7 +870,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			EngineCore.outputText( '\n\nShe puts her hands on her hips and shouts, "<i>As if!  I\'ll make \'em as big or as small as I want!  You\'re already getting a sexy latex woman who\'s dependent on you for sexual fluids - you don\'t need to micromanage everything about me too!</i>"  She blushes a little when she realized she just discussed her new self as \'sexy\'.  She must like this a little more than she lets on.' );
 			this.gooObedience( -2 );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.approachLatexy );
+			EngineCore.addButton( 0, 'Next', this, this.approachLatexy );
 			return;
 		}
 		//Decent Obedience;
@@ -882,30 +882,30 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		}
 		EngineCore.menu();
 		if( this.gooTitClass( this.gooTitSize() ) !== 1 ) {
-			EngineCore.addButton( 0, 'A-Cups', this.changeLatexyTits, 1 );
+			EngineCore.addButton( 0, 'A-Cups', this, this.changeLatexyTits, 1 );
 		}
 		if( this.gooTitClass( this.gooTitSize() ) !== 2 ) {
-			EngineCore.addButton( 1, 'C-Cups', this.changeLatexyTits, 3 );
+			EngineCore.addButton( 1, 'C-Cups', this, this.changeLatexyTits, 3 );
 		}
 		if( this.gooTitClass( this.gooTitSize() ) !== 3 ) {
-			EngineCore.addButton( 2, 'DD-Cups', this.changeLatexyTits, 4 );
+			EngineCore.addButton( 2, 'DD-Cups', this, this.changeLatexyTits, 4 );
 		}
 		if( this.gooTitClass( this.gooTitSize() ) !== 4 ) {
-			EngineCore.addButton( 3, 'Volleyballs', this.changeLatexyTits, 8 );
+			EngineCore.addButton( 3, 'Volleyballs', this, this.changeLatexyTits, 8 );
 		}
 		if( this.gooTitClass( this.gooTitSize() ) !== 5 ) {
-			EngineCore.addButton( 4, 'Basketballs', this.changeLatexyTits, 15 );
+			EngineCore.addButton( 4, 'Basketballs', this, this.changeLatexyTits, 15 );
 		}
 		if( this.gooTitClass( this.gooTitSize() ) !== 6 ) {
-			EngineCore.addButton( 5, 'Huge', this.changeLatexyTits, 24 );
+			EngineCore.addButton( 5, 'Huge', this, this.changeLatexyTits, 24 );
 		}
 		if( this.gooTitClass( this.gooTitSize() ) !== 7 ) {
-			EngineCore.addButton( 6, 'Gigantic', this.changeLatexyTits, 35 );
+			EngineCore.addButton( 6, 'Gigantic', this, this.changeLatexyTits, 35 );
 		}
 		if( CoC.flags[ kFLAGS.GOO_PREFERRED_TIT_SIZE ] !== 0 ) {
-			EngineCore.addButton( 7, 'Whatever', this.changeLatexyTits, 0 );
+			EngineCore.addButton( 7, 'Whatever', this, this.changeLatexyTits, 0 );
 		}
-		EngineCore.addButton( 9, 'Back', this.approachLatexy );
+		EngineCore.addButton( 9, 'Back', this, this.approachLatexy );
 	};
 	LatexGirl.prototype.gooTitClass = function( arg ) {
 		if( arg >= 35 ) {
@@ -1006,7 +1006,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		if( this.gooObedience() < 75 ) {
 			this.gooObedience( 3 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feeding Her(F);
 	//Can be fed cum, girl-cum, minotaur cum.  ;
@@ -1021,23 +1021,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		}
 		EngineCore.menu();
 		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 0, 'Cum, Indirect', this.feedLatexyCumIndirectly );
-			EngineCore.addButton( 1, 'Cum, Direct', this.feedLatexyCumDirectly );
+			EngineCore.addButton( 0, 'Cum, Indirect', this, this.feedLatexyCumIndirectly );
+			EngineCore.addButton( 1, 'Cum, Direct', this, this.feedLatexyCumDirectly );
 		}
 		if( CoC.player.hasVagina() && CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 2, 'GirlCum, Ind.', this.feedLatexyGirlCumIndirectly );
-			EngineCore.addButton( 3, 'GirlCum, Dir.', this.feedLatexyGirlCumDirect );
+			EngineCore.addButton( 2, 'GirlCum, Ind.', this, this.feedLatexyGirlCumIndirectly );
+			EngineCore.addButton( 3, 'GirlCum, Dir.', this, this.feedLatexyGirlCumDirect );
 		}
 		if( this.gooHappiness() >= 50 && CoC.player.lactationQ() >= 100 && CoC.player.biggestTitSize() >= 3 ) {
-			EngineCore.addButton( 4, 'Milk', this.feedLatexySomeMilk );
+			EngineCore.addButton( 4, 'Milk', this, this.feedLatexySomeMilk );
 		}
 		if( CoC.player.hasItem( ConsumableLib.MINOCUM ) ) {
-			EngineCore.addButton( 5, 'MinoCum Nic', this.minotaurCumFeedingGoo, true );
+			EngineCore.addButton( 5, 'MinoCum Nic', this, this.minotaurCumFeedingGoo, true );
 		}
 		if( CoC.player.hasItem( ConsumableLib.MINOCUM ) ) {
-			EngineCore.addButton( 6, 'MinoCum Ruf', this.minotaurCumFeedingGoo, false );
+			EngineCore.addButton( 6, 'MinoCum Ruf', this, this.minotaurCumFeedingGoo, false );
 		}
-		EngineCore.addButton( 9, 'Back', this.approachLatexy );
+		EngineCore.addButton( 9, 'Back', this, this.approachLatexy );
 	};
 	//Feed Cum Indirectly(F);
 	LatexGirl.prototype.feedLatexyCumIndirectly = function() {
@@ -1122,7 +1122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{Boost her happiness a tiny amount.};
 		this.gooHappiness( 4 );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feed Lady-Cum Indirectly(F);
 	LatexGirl.prototype.feedLatexyGirlCumIndirectly = function() {
@@ -1193,7 +1193,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		this.gooFluid( temp );
 		//{Boost her happiness a tiny amount.};
 		this.gooHappiness( 4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feed Her Minotaur Cum {Nice Vs Hard}:(F);
 	LatexGirl.prototype.minotaurCumFeedingGoo = function( nice ) {
@@ -1244,7 +1244,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 					EngineCore.outputText( '\n\nStaggering onto her feet, ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' growls, "<i>Fuck it, I\'m not that thirsty!</i>"  She turns away from you, unwilling to even talk at this point.' );
 					this.gooObedience( -5 );
 					this.gooHappiness( -3 );
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				}
 				EngineCore.outputText( '\n\nStaggering up on her feet, ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' looks about ready to quit.  Then, she licks her lips and shudders, as if remembering her own hunger.  She slumps down onto her knees and tips her head back, shaking a few strands of latex out of her face as she opens her mouth.  Then, her onyx lips mouth, "<i>Feed me, please.</i>"' );
@@ -1278,7 +1278,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		} else {
 			this.gooObedience( 5 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feed Cum Directly(F);
 	LatexGirl.prototype.feedLatexyCumDirectly = function() {
@@ -1375,14 +1375,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			this.gooObedience( 5 );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//{DISOBEDIENT:};
 		else {
 			EngineCore.outputText( '\n\nAt the sound of your command, her suction redoubles.  That suckling heat plumps your [cock biggest] even bigger inside her, bombarding you with cacophonous sensation that scatters your bodily control like leaves in the breeze.  You give a strangled whimper as you slide down the stone, landing softly on your [butt] before the sensuous shape of your rebellious pet.  Her lips are locked vacuum tight to your groin, pumping up and down with wet, hungry smacks.  You arch your back into her ministrations, rolling your eyes back into your head.  What need is there for sight when the jolts of pleasure coming from your [cock biggest] are so powerful that they make the previous orgasm seem a wasted, worthless thing.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Let Her', this.maleDirectFeedLatexGooGoneWrong );
-			EngineCore.addButton( 1, 'Try2Assert', this.tryToAssertMaleDomWhileLatexGooDrains );
+			EngineCore.addButton( 0, 'Let Her', this, this.maleDirectFeedLatexGooGoneWrong );
+			EngineCore.addButton( 1, 'Try2Assert', this, this.tryToAssertMaleDomWhileLatexGooDrains );
 		}
 	};
 	LatexGirl.prototype.maleDirectFeedLatexGooGoneWrong = function() {
@@ -1446,7 +1446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.menu();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -3 );
-		EngineCore.addButton( 0, 'Next', this.feedCumDirectEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.feedCumDirectEpilogue );
 	};
 	//[Next];
 	LatexGirl.prototype.feedCumDirectEpilogue = function() {
@@ -1460,7 +1460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{Boost her happiness a tiny amount.};
 		this.gooHappiness( 5 );
 		this.gooObedience( -4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//Feed Lady-Cum Direct(F);
 	LatexGirl.prototype.feedLatexyGirlCumDirect = function() {
@@ -1561,14 +1561,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			this.gooObedience( 4 );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -2 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//{DISOBEDIENT; chose not to/could not Assert Control};
 		else {
 			EngineCore.outputText( '\n\nAt the sound of your order, your pet\'s efforts redouble.  Her slick onyx opening latches tight to your [clit] while what feels like a foot of thick tongue thrashes inside you.  As sensitive as you are after cumming, you simply can\'t endure such rampant stimulation.  The strength goes out of your [legs] in weak little twitches as you slump back against a boulder, the rough stone slowing your descent as you slide to the ground.  ' + CoC.flags[ kFLAGS.GOO_NAME ] + '\'s mouth stays locked to your [vagina], attached with vacuum-like tightness.  You can actually feel your vulva puffing larger under the suction.  Hotter and more sensitive, your labia plump up nice and thick.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Let Her', this.letLatexGooDrainCuntDry );
-			EngineCore.addButton( 1, 'Try2Assert', this.assertControlOverCuntDrainingLatexGoo );
+			EngineCore.addButton( 0, 'Let Her', this, this.letLatexGooDrainCuntDry );
+			EngineCore.addButton( 1, 'Try2Assert', this, this.assertControlOverCuntDrainingLatexGoo );
 		}
 	};
 	LatexGirl.prototype.letLatexGooDrainCuntDry = function() {
@@ -1586,7 +1586,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.menu();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -3 );
-		EngineCore.addButton( 0, 'Next', this.feedCumDirectEpilogueGirls );
+		EngineCore.addButton( 0, 'Next', this, this.feedCumDirectEpilogueGirls );
 	};
 	//[Next];
 	LatexGirl.prototype.feedCumDirectEpilogueGirls = function() {
@@ -1596,7 +1596,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{Boost her happiness a tiny amount.};
 		this.gooHappiness( 4 );
 		this.gooObedience( -4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	/*Savin Says Pets get Punished with Gentle Loving PC-Dom (FEMALE)(F)*/
 	//[Display option to "<i>Assert Control</i>" with Moderate strength check if achieve Femdom end to direct feed scene: "<i>You're strong enough to pull her off before she utterly dominates you!</i>"];
@@ -1637,7 +1637,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{Boost her happiness a tiny amount.};
 		this.gooHappiness( 5 );
 		this.gooObedience( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Savin Says: Disobedient Pets get Punished with Gentle Loving PC-Dom (MALE);
 	//[Display option to "<i>Assert Control</i>" with Moderate strength check if achieve Femdom end to direct feed scene: "<i>You're strong enough to pull her off before she utterly dominates you!</i>"];
@@ -1678,7 +1678,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{Boost her happiness a tiny amount.};
 		this.gooHappiness( 5 );
 		this.gooObedience( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dominant Fucking Her(F);
 	//Requires obedience of 60+;
@@ -1719,7 +1719,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			if( this.gooFluid() < 15 ) {
 				EngineCore.outputText( '  Her hunger is palpable, perhaps it would be best if you simply \'fed\' her soon?' );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			this.gooObedience( -3 );
 			return;
 		}
@@ -1779,7 +1779,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		this.gooFluid( 5 + CoC.player.wetness() * 2 );
 		this.gooObedience( 5 );
 		this.gooHappiness( 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Female Dominant Fuck (Goo IS Futa)(F);
 	LatexGirl.prototype.femalePCDomFucksLatexGooFuta = function() {
@@ -1808,7 +1808,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 				EngineCore.outputText( '  Her hunger is palpable, perhaps it would be best if you simply \'fed\' her soon?' );
 			}
 			this.gooObedience( -3 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//{OBEDIENT ENOUGH};
@@ -1923,7 +1923,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		this.gooFluid( 5 + CoC.player.wetness() * 2 );
 		this.gooObedience( 4 );
 		this.gooHappiness( 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Male Dominant Fuck(F);
 	LatexGirl.prototype.malePCDomFucksLatexGoo = function() {
@@ -1966,7 +1966,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 				EngineCore.outputText( '  Her hunger is palpable, perhaps it would be best if you simply \'fed\' her soon?' );
 			}
 			this.gooObedience( -3 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//{OBEDIENT ENOUGH};
@@ -2093,7 +2093,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.fatigue( 10 );
 		this.gooObedience( 4 );
 		this.gooHappiness( 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Savin Really Wants to Breastfeed Latexy Because He's a Weird Milk Fetishist Like That;
 	//Mmm milk;
@@ -2179,7 +2179,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		EngineCore.fatigue( 5 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'latexGirl', new LatexGirl() );
 } );

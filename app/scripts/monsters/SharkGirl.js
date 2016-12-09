@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, $log, Status
 	SharkGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.sharkGirlScene.sharkLossRape();
 		}

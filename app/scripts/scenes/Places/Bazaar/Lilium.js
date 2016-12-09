@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		} else {
 			pay = this.payForLilium;
 		}
-		EngineCore.choices( 'Pay', pay, '', null, '', null, '', null, 'Leave', this.leaveLilium );
+		EngineCore.choices( 'Pay', this, pay, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leaveLilium );
 	};
 
 	Lilium.prototype.payForLilium = function() {
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 			EngineCore.outputText( 'She looks up at you and then back at your groin a few times before scratching her head and crossing her arms.  "<i>Well,</i>" she begins, breaking the awkward silence.  "<i>That\'s not something you see every day.  Did you get in an accident or something?  I mean, I\'ve seen people with missing parts before, but...</i>"  The woman trails off as she lightly prods your bare mons with one gloved finger.  "<i>Actually, you know what?  I really don\'t think I want to know what could have done this to you.</i>" With that she stands back up, grabs one of your arms and drops the small pouch of gems containing your payment to her back in your hand.\n\n', false );
 			EngineCore.outputText( '"<i>Look, I\'m sorry, but I can\'t really do anything for you right now.  If your, uh, situation changes, come see me again.</i>"  Lilium then walks off, leaving you alone and naked.\n\n', false );
 			EngineCore.outputText( 'Bummer.', false );
-			EngineCore.doNext( SceneLib.bazaar.enterTheBazaar );
+			EngineCore.doNext( SceneLib.bazaar, SceneLib.bazaar.enterTheBazaar );
 			return;
 		}
 		//First time - Pay: ;
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		if( CoC.player.hasVagina() ) {
 			rideHer = this.liliumDickRidah;
 		}
-		EngineCore.choices( 'Buttfuck', buttFuck, 'Ride Her', rideHer, 'Nipple-Fuck', nippleFuck, '', null, '', null );
+		EngineCore.choices( 'Buttfuck', this, buttFuck, 'Ride Her', this, rideHer, 'Nipple-Fuck', this, nippleFuck, '', null, null, '', null, null );
 	};
 	//- Leave:;
 	Lilium.prototype.leaveLilium = function() {
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		} else {
 			EngineCore.outputText( '"<i>Just passing through, and I thought I\'d see how you were doing,</i>" you reply, and leave Lilium alone at her post.', false );
 		}
-		EngineCore.doNext( SceneLib.bazaar.enterTheBazaar );
+		EngineCore.doNext( SceneLib.bazaar, SceneLib.bazaar.enterTheBazaar );
 	};
 	//#########BUTTFUCK + TONGUEJOB SCENE######### REQUIRES PENIS AND LONG DEMONIC TONGUE;
 	Lilium.prototype.buttFuckTongueJeorb = function() {
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		EngineCore.outputText( 'After you both recover, you get up to don your ' + CoC.player.armorName + ', thanking Lilium and beginning the trip back to camp.  Maybe you\'ll take a bath too...', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//#########DICK RIDE SCENE######### REQUIRES VAGINA;
 	Lilium.prototype.liliumDickRidah = function() {
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		EngineCore.dynStats( 'cor', 1 );
 		//(imp preg check);
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 14, 61 ); //Lilium causes faster pregnancies
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//#########NIPPLE FUCK SCENE######### REQUIRES PENIS;
 	Lilium.prototype.liliumNippleFuck = function() {
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		EngineCore.outputText( ' and soaked sock, you brush a wayward strand of hair from her face.  Her eyes make their way up to meet yours and you give her a wink as you both smile lasciviously.\n\n', false );
 		EngineCore.outputText( 'You get dressed again and begin to leave; as you look back over shoulder, Lilium - still seated and leaning against the wall - blows you a kiss.', false );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'lilium', new Lilium() );
 } );

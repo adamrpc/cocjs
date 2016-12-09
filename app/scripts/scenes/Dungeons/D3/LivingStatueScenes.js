@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, CoC, En
 		EngineCore.outputText( 'Cracks spiderweb out from the point of your last strike, spreading like wildfire across the surface of the stone giant. It groans in pain as its face slowly freezes, locked in a grimace of inhuman suffering before the whole of it comes apart. Chunks of marble fall, kicking up a cloud of white dust and dirt. When it clears, there\'s nothing left but two marble feet, amputated at the ankle, standing amidst a field of rubble.' );
 		EngineCore.outputText( '\n\nA gleaming, purple stone in the center catches your eye.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Take Stone', this.takeTheStone );
+		EngineCore.addButton( 0, 'Take Stone', this, this.takeTheStone );
 	};
 	LivingStatueScenes.prototype.takeTheStone = function() {
 		EngineCore.clearOutput();
@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, LivingStatue, Combat, CoC, En
 		}
 		EngineCore.outputText( '\n\n<b>Lethicite acquired!</b>' );
 		CoC.player.createKeyItem( 'Stone Statue Lethicite', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat( SceneLib.d3.resumeFromFight );
+		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	LivingStatueScenes.prototype.fuckinMarbleOP = function() {
 		EngineCore.clearOutput();

@@ -26,8 +26,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_FROG ]++;
 		EngineCore.outputText( '\n\nDo you follow the music into the arms of the frog girl, or resist her melody?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Follow', this.followDatFrog );
-		EngineCore.addButton( 1, 'Resist', this.resistDatFrog );
+		EngineCore.addButton( 0, 'Follow', this, this.followDatFrog );
+		EngineCore.addButton( 1, 'Resist', this, this.resistDatFrog );
 	};
 	//Follow:
 	FrogGirlScene.prototype.followDatFrog = function() {
@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.getFrogButtFilled );
+		EngineCore.addButton( 0, 'Next', this, this.getFrogButtFilled );
 	};
 	FrogGirlScene.prototype.getFrogButtFilled = function() {
 		EngineCore.clearOutput();
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nYou don your [armor] with some difficulty over your massive stomach, and venture back towards your camp, a little sore, but wiser for the ordeal.' );
 		EngineCore.dynStats( 'int', 1 );
 		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//[Anal stretch +1/Anal Moistness +1, sensitivity +1, int +1]
 	//Resist:
@@ -84,15 +84,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nShe wrinkles up her noseless face and slouches down into the water, sinking down until it reaches the bottoms of her eyes, huffing out a bubbling sigh.' );
 		EngineCore.outputText( '\n\nYou admit to being a bit curious as to why she attempted to lure you in, but you do have your own tasks at hand.  On the other hand, she did just try to lure you in for unwanted sex.  Are you just going to let her get away with that?  Do you question the frog girl, continue on your way, or teach her a lesson?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Question', this.questDatFrogGirl );
-		EngineCore.addButton( 1, 'TeachLesson', this.teachDatFrogALesson );
-		EngineCore.addButton( 4, 'Leave', this.leaveFrogBe );
+		EngineCore.addButton( 0, 'Question', this, this.questDatFrogGirl );
+		EngineCore.addButton( 1, 'TeachLesson', this, this.teachDatFrogALesson );
+		EngineCore.addButton( 4, 'Leave', this, this.leaveFrogBe );
 	};
 	//Leave her be
 	FrogGirlScene.prototype.leaveFrogBe = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You shrug and leave the pouting frog girl in her pond, hopping back down the terrace of pools and walking back towards your camp, hoping that your [hair] will dry by the time you get back.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Question the frog girl
 	FrogGirlScene.prototype.questDatFrogGirl = function() {
@@ -107,18 +107,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nBefore you can react, she adds quickly, "<i>It wouldn’t hurt you - or the eggs - you’d just carry them for a few days until they hatch.  And then I wouldn’t have to deal with them.  It’s win-win, really!</i>"' );
 		EngineCore.outputText( '\n\nYou wonder what it would be like to carry the massive load of eggs. Do you want to offer to carry the frog’s eggs or continue on your way?' );
 		EngineCore.menu();
-		EngineCore.addButton( 4, 'Leave', this.continueOnYourWay );
+		EngineCore.addButton( 4, 'Leave', this, this.continueOnYourWay );
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 0, 'Vaginally', this.superBonusFrogEggsInYerCooch );
+			EngineCore.addButton( 0, 'Vaginally', this, this.superBonusFrogEggsInYerCooch );
 		}
-		EngineCore.addButton( 1, 'Carry', this.carryBeeGirlsEggsVoluntarilyYouButtSlut );
+		EngineCore.addButton( 1, 'Carry', this, this.carryBeeGirlsEggsVoluntarilyYouButtSlut );
 	};
 	//Continue on your way
 	FrogGirlScene.prototype.continueOnYourWay = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You nod in sympathy, patting the frog girl on her head, but decide not to inquire any further.  She sighs and sinks down further into the water, resigned to her maternal duties.' );
 		EngineCore.outputText( '\n\nYou leave down the terrace of pools, heading back to your camp.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Offer to carry her eggs
 	FrogGirlScene.prototype.carryBeeGirlsEggsVoluntarilyYouButtSlut = function() {
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.voluntarilyGetEggedEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.voluntarilyGetEggedEpilogue );
 	};
 	//**
 	FrogGirlScene.prototype.voluntarilyGetEggedEpilogue = function() {
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		//[Anal stretch +1/Anal Moistness +1, sensitivity +1, corruption -1]
 		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
 		EngineCore.dynStats( 'sen', 1, 'cor', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Teach Her a Lesson
 	FrogGirlScene.prototype.teachDatFrogALesson = function() {
@@ -177,14 +177,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		EngineCore.outputText( '\n\nWhen you open your eyes again, the frog girl is standing over you.  The sky behind her looks like it’s on fire, and she’s covered in spinning lights.  "<i>Okay, I’ll admit, I’m a terrible mother, but I’m pretty sure you’d be worse,</i>" she huffs, slapping her tongue against your face once more.' );
 		EngineCore.outputText( '\n\nColors, lights, and sounds erupt, and you black out, unable to take any more.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.lessonFollowup );
+		EngineCore.addButton( 0, 'Next', this, this.lessonFollowup );
 	};
 	FrogGirlScene.prototype.lessonFollowup = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You wake up two hours later, floating alone in the pool, with a migraine and soggy clothes.  You slog your way out, clutching your head, and head back to camp.' );
 		//[Toughness -1]
 		EngineCore.dynStats( 'tou', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Laying the Eggs
 	FrogGirlScene.prototype.birthFrogEggsAnal = function() {
@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_FROG_GIRL, PregnancyStore.INCUBATION_FROG_GIRL, 1, 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vaginal Egg birth
 	FrogGirlScene.prototype.layFrogEggs = function() {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, PregnancyStore, 
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'frogGirlScene', new FrogGirlScene() );
 } );

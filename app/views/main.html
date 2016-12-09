@@ -59,4 +59,4 @@
 	<button ng-click="btn.callback()" title="{{btn.toolTipText}}" ng-if="btn.visible">{{btn.labelText}}</button>
 </span>
 <img ng-src="images/sprites/{{main.MainView.sprite.index}}" ng-if="main.MainView.sprite.visible">
-<input ng-if="main.MainView.nameBox.visible" ng-model="main.MainView.nameBox.value" ng-focus="main.MainView.nameBox.focus = true" ng-blur="main.MainView.nameBox.focus = false" ng-keydown="main.handleNameBoxKey()">
+<input type="text" ng-if="main.MainView.nameBox.visible" ng-model="main.MainView.nameBox.value" ng-focus="main.MainView.nameBox.focus = true" ng-blur="main.MainView.nameBox.focus = false" ng-keydown="main.handleNameBoxKey()">

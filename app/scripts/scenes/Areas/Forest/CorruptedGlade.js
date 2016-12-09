@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				EngineCore.outputText( '  Disgusted by this perversion of nature, you turn away to leave, narrowly avoiding a sudden dripping of thick white fluid from the vines overhead.' );
 				EngineCore.dynStats( 'lus', 2 );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else if( CoC.player.cor <= 66 ) { //intrigued reaction
 			EngineCore.outputText( '  You explore the glade with equal parts caution and curiosity.  ' );
 			switch( Utils.rand( 3 ) ) {
@@ -30,10 +30,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 					EngineCore.outputText( 'A cluster of huge breast-like knots on a nearby tree draws your attention.  Unable to resist, you poke one, and burst into giggles as it jiggles like a real breast!  You cautiously begin groping the tree-tit, and smile as it begins leaking sweet-smelling sap.  The scent conjures memories of helping to make maple syrup back home, and before you realize it, you\'ve gathered a drop of the sap on your finger and tasted it.  It\'s powerfully sweet, making your tongue tingle and heart beat faster.  Unbidden, the thought of suckling the teat dry of its sweet treat comes to mind, but you manage to reject it and stumble away from the corrupted glade.  You have trouble with your tongue for the next hour won\'t stay in your mouth, and keeps licking your lips, seeking any leftover sweetness.  It almost distracts you from the palpable heat gathering between your thighs.' );
 			}
 			EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 5, 'cor', 0.5 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else { //drink sap/lick flower reaction
 			EngineCore.outputText( '  You smile as you enter the glade, wondering which of the forbidden fruits you should try...\n\nThere are flowers that bear more than a passing resemblance to pussies,\nvines with absurdly large penis-like tips,\nand trees covered in breast-like knots, leaking sap.' );
-			EngineCore.choices( 'Flowers', this.flowerFun, 'Vines', this.tentacleFun, 'Trees', this.treeBoobFun, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Flowers', this, this.flowerFun, 'Vines', this, this.tentacleFun, 'Trees', this, this.treeBoobFun, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Wallow in decadence reaction - UNFINISHED
 	};
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', 4, 'cor', 1 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	CorruptedGlade.prototype.tentacleFun = function() {
 		EngineCore.clearOutput();
@@ -251,7 +251,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 			}
 		}
 		CoC.player.slimeFeed();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	CorruptedGlade.prototype.treeBoobFun = function() {
 		EngineCore.clearOutput();
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 				}
 			}
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'corruptedGlade', new CorruptedGlade() );
 } );

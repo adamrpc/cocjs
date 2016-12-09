@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( ' as you yank your ' + CoC.player.armorName + ' back into place.  You\'re in charge here, not some possessed appendage!   Exgartuan yells something snide, but it\'s muffled too much to understand.  You look up in time to sidestep an attack from the Sand Witch.  It looks like you\'ll have to fight her!' );
 			Combat.startCombat( new SandWitch() );
 		} else {
-			EngineCore.doYesNo( this.allowSandWitchMagic, this.refuseSandWitchMagic );
+			EngineCore.doYesNo( this, this.allowSandWitchMagic, this, this.refuseSandWitchMagic );
 		}
 	};
 	SandWitchScene.prototype.allowSandWitchMagic = function() {
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( 'She smiles wickedly and intones, "<i>nuf erutuf rof riah ydnas, nus tresed eht sa ydnas.</i>"\n\nYou feel a tingling in your scalp, and realize your hair has become a sandy blonde!', false );
 			CoC.player.hairColor = 'sandy blonde';
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SandWitchScene.prototype.refuseSandWitchMagic = function() {
 		EngineCore.spriteSelect( 50 );
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			if( CoC.player.biggestTitSize() >= 9 && CoC.player.biggestLactation() >= 3 && CoC.player.cor >= 25 ) {
 				EngineCore.outputText( 'Overwhelmed by the intense pleasure caused by the vibrating sphere inside your body, you fall to your knees.\n\nYou whimper pathetically, desperate to cum, as the Sand Witch steps nearer to you and gently strokes your face. She smiles cruelly and lets her hands drop down to your chest, then tears your top away, letting your huge breasts bounce free. The mysterious woman firmly rubs and kneads them, making you gasp and writhe, until she starts lightly flicking your painfully hard nipples. You edge closer and closer to orgasm, panting like a whore while the witch teases you with her hands and magic.\n\n', true );
 				EngineCore.outputText( 'Just before you cum, she leans down to whisper to you, tickling your ear with her warm breath klim ym emoceb llahs uoy.</i>"\n\nA familiar pressure builds in your chest, but it\'s far stronger than ever before. You feel your breasts swell rapidly, and milk sprays from your nipples, splattering you and the witch with white droplets. Your eyes roll back and your tongue hangs out as you cum, mind nearly breaking from the world-shattering orgasm that thunders through you.\n\nYou black out.', false );
-				EngineCore.doNext( this.sandWitchBadEnd );
+				EngineCore.doNext( this, this.sandWitchBadEnd );
 				return;
 			}
 			CoC.player.orgasm();
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			if( CoC.player.biggestTitSize() >= 9 && CoC.player.biggestLactation() >= 3 && CoC.player.cor >= 25 ) {
 				EngineCore.outputText( 'You stagger and fall to one knee, too overcome by pain to keep fighting.\n\nAs your vision wavers with exhaustion, the witch strides towards you, seeming to glide across the sand. Your consciousness starts to fade, and you see the exotic woman lick her lips and smile cruelly, staring at your generous breasts.\n\nThe last thing you hear before passing out is a mysterious spell, murmured right into your ear in a low, throaty whisper klim ym emoceb llahs uoy.</i>"\n\nYou dream of walking proudly through the desert, enormous rack jiggling shamelessly with every step, and of tempting nubile young champions to wrap their lips around your nipples and drink. Your sleep becomes fevered as your dreams grow more and more corrupt - you dream of using dark magic to lactate succubus milk, and of your former friends from Ingnam greedily drinking your enhanced milk until their bellies strain to contain it all, then going wide-eyed as pound after pound of breast-flesh suddenly swells upon their chests...', true );
 				//BAD END.
-				EngineCore.doNext( this.sandWitchBadEnd );
+				EngineCore.doNext( this, this.sandWitchBadEnd );
 				return;
 			}
 			EngineCore.outputText( '\n<b>You fall, defeated by the Sand Witch!</b>\n\n', false );
@@ -219,13 +219,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( 'You awaken in a candlelit stone shrine of some sort, resting naked and facedown on some warm, comfortable body pillows. Remembering your fight against the witch, you hurriedly try to get up, only to gasp with surprise when a painful weight pulls on your chest. Glancing down to find the source of the weight, you blink with shock, then fight rising panic – the "pillows" that you are lying on are your own breasts, swollen to such a size that you cannot possibly lift them!\n\n' );
 		EngineCore.outputText( '"<i>Hello, my beautiful pet,</i>" says a familiar voice. Looking to your front – and trying not to notice the vast expanse of cleavage that dominates the lower half of your vision – you see the Sand Witch sitting, nude, in a large granite basin set into the floor just in front of you. She smirks when she sees how your eyes avoid resting on your obscenely massive bust.\n\n' );
 		EngineCore.outputText( '"<i>What\'s wrong? Don\'t you like them?</i>" The witch leans toward you and roughly tugs on one huge nipple, causing you to yelp with surprise and pleasure. "<i>I\'m afraid that\'s too bad. You offered yourself to me, and now you are mine, all mine, forever.</i>" She slowly rubs her hands over your colossal bosom, crooning with approval as you squirm and bite your lip. "<i>Mmm, yes... first, you will give me a bath.</i>"\n\nYou hardly have time to wonder what she means before a familiar, hugely intense pressure builds in your chest...' );
-		EngineCore.doNext( this.sandWitchBadEndPartTwo );
+		EngineCore.doNext( this, this.sandWitchBadEndPartTwo );
 	};
 	SandWitchScene.prototype.sandWitchBadEndPartTwo = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'With an audible gurgling noise, your breasts begin to fill with prodigious quantities of milk. Your eyes widen in amazement when you feel your tits swelling, filling, pumping up to their limits. It feels shockingly pleasurable and somehow almost right, like you were meant to have these shamefully huge, milk-filled titties. As you watch the soft flesh stretch taut, your breasts fatten into a very round shape beneath you, and the pleasurable sensation becomes a painful feeling of urgency.\n\n' );
 		EngineCore.outputText( 'For a moment nothing happens, and you are surprised that your nipples are not leaking milk. The Sand Witch smiles at you, leaning to rest her arms and chin on your overstressed tits, and speaks to be milked, slave.</i>" Appalled, you shake your head, then grit your teeth and moan as you realize that the pressure in your chest is still building up, becoming unbearably painful. The witch patiently repeats herself, staring directly into your eyes, and you are struck by the awful knowledge that you are likely to be trapped here forever.' );
-		EngineCore.doNext( this.sandWitchBadEndPartThree );
+		EngineCore.doNext( this, this.sandWitchBadEndPartThree );
 	};
 	SandWitchScene.prototype.sandWitchBadEndPartThree = function() {
 		EngineCore.clearOutput();
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.spriteSelect( 50 );
 		EngineCore.outputText( '', true );
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			this.sandwitchCentaurBoning();
 			Combat.cleanupAfterCombat();
 			return;
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'You smile at the sand witch, trying to seem enticing. A tiny smile plays across her face even though she supports a worried frown. She reaches up to you, and you allow her to gently pull you down to her. You marvel at her multiple breasts, each perfectly rounded. Each has a nipple approximately two inches long, enough to suck if you wanted to.  ', false );
 				EngineCore.outputText( 'Your attention wanders down to the damp sand underneath her legs, and her musky scent hits your nose. Which do you go after?\n\n', false );
-				EngineCore.choices( 'Breasts', this.sandwitchBewbs, 'Sex', this.sandwitchSex, '', null, '', null, '', null );
+				EngineCore.choices( 'Breasts', this, this.sandwitchBewbs, 'Sex', this, this.sandwitchSex, '', null, null, '', null, null, '', null, null );
 			}
 			//Really corrupt
 			else {
@@ -645,7 +645,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 					EngineCore.outputText( '\n\n', false );
 					//[SW_1]
 					this.SWCentaurMore( 1 );
-					EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 					//Return true to indicate not to continue the scene.
 					return true;
 				}
@@ -722,8 +722,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		if( CoC.player.gender > 0 && CoC.player.canOviposit() ) {
 			ovi = this.ovipositSandWitches;
 		}
-		EngineCore.choices( 'Yes', this.sandwitchRaped, 'Dildo Rape', temp2, 'Use 3i@-', temp3, 'Use Shouldra', shouldra, 'Lay Eggs', ovi,
-			'Taunt Her', this.sandwitchSpanking, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Yes', this, this.sandwitchRaped, 'Dildo Rape', SceneLib.tamaniDildo, temp2, 'Use 3i@-', this, temp3, 'Use Shouldra', SceneLib.shouldraFollower, shouldra, 'Lay Eggs', this, ovi,
+			'Taunt Her', this, this.sandwitchSpanking, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	//This is a bonus scene for those who are playing Corruption of Champions with Silly Mode activated and defeat the Sand Witch by dropping her hit points and have the option of having their way with her. A special third(?) option appears that begins the encounter. The idea is that it breaks the 4th wall and gives the player the impression that they've stumbled upon a glitchy, incomplete scene. As a special note to anyone who does coding: all code tags (anything like " + Descriptors.cockDescript(0) + " but not my usual {code brackets} for example) are meant to be printed in game exactly as they were written on this document, pushing the idea that the player "broke the game".
 	//{Player defeats Sand Witch and has enough Lust}
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( '0)w is t$e time. But no, she won\'t get the dick. She hasn\'t EAR*ED the dick. She isn\'t even wor$h your " + Descriptors.vaginaDescript(0) + " yet. No n- no, you need -o warm that ho_ cunt up. You whistle to g-t her attention, and as you do, you present your -i%-s ^a_=e* up to*--h-r. Her eyes wi_en, the wo$an\'s jaw going slack. "N-no.. not t-e whole thing." you nod _n respo-se to her plea. "The WHO-E THING?!"\n\n', false );
 		EngineCore.outputText( 'Now she begins to panic. She shake- her head rapidly as you draw bac- your %s99=, and thrust them towards her >pen sl1t...', false );
 		EngineCore.outputText( '\n\n<b>Don\'t report this as a bug, okay dawg?</b>', false );
-		EngineCore.choices( 'N*xt', this.missingoSex2, '', null, '', null, '', null, '', null );
+		EngineCore.choices( 'N*xt', this, this.missingoSex2, '', null, null, '', null, null, '', null, null, '', null, null );
 	};
 	//{Next Page}
 	SandWitchScene.prototype.missingoSex2 = function() {
@@ -751,7 +751,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( '"I can\'t belie^e you just tried that." she says with a )_=f. "You\'re goi(g to get and in all s))ts o& uncomfortable places ^& you ke-_p that up."\n\n', false );
 		EngineCore.outputText( '"Still..." she says, ##ok%7g at you slyly. "Why don\'t you (ull b=c( and try that again...."', false );
 		//[N*xt]
-		EngineCore.choices( 'N*xt', this.missingoSex3, '', null, '', null, '', null, '', null );
+		EngineCore.choices( 'N*xt', this, this.missingoSex3, '', null, null, '', null, null, '', null, null, '', null, null );
 	};
 	//{Next Page}
 	SandWitchScene.prototype.missingoSex3 = function() {
@@ -761,7 +761,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( '"@ @a@\'t b@lie^e y_u j@st _rie_ th_t." s@e sa_s @?th a )_=f. "Yo_\'re @oi(g to g_t a_d in all s))ts o& u_c_mfo_table pla_es ^& yo_ ke-_p t@at u@."\n\n', false );
 		EngineCore.outputText( '"@_i@_..." s_e says, ##o@%7g @t yo_ s_@_y. "W_@ d_n\'t @o_ (ull b=c( an_ @r_ _h_@ a_@in...."\n\n', false );
 		//[@*xt]
-		EngineCore.choices( '@*xt', this.missingoSex4, '', null, '', null, '', null, '', null );
+		EngineCore.choices( '@*xt', this, this.missingoSex4, '', null, null, '', null, null, '', null, null, '', null, null );
 	};
 	//{Next Page}
 	SandWitchScene.prototype.missingoSex4 = function() {
@@ -771,7 +771,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( '"@ @o@\'o o@ooo^o o_o o@oo _ooo_ oo_o." o@o oo_o @?oo o )_=o. "oo_\'oo @oo(o oo o_o o_o oo ooo o))oo o& o_o_ooo_ooooo ooo_oo ^& oo_ oo-_o o@oo o@."\n\n', false );
 		EngineCore.outputText( '"@_o@_..." o_o oooo, ##o@%7o @o oo_ o_@_o. "o_@ o_o\'o @o_ (ooo o=o( oo_ @o_ _o_@ o_@oo...."', false );
 		//[Fuck this!]
-		EngineCore.choices( 'Fuck This!', this.missingoSex5, '', null, '', null, '', null, '', null );
+		EngineCore.choices( 'Fuck This!', this, this.missingoSex5, '', null, null, '', null, null, '', null, null, '', null, null );
 	};
 	//{Next Page}
 	SandWitchScene.prototype.missingoSex5 = function() {
@@ -783,7 +783,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( 'The system powers up with the usual blips and boops you\'d expect from this 8-bit powerhouse. So far so good. The Corruption of Champions title screen pops up, heralded by a little pixelated imp eagerly waving at the player with both hands and something else that protrudes from his body. The CoC theme kicks up, and you smile to yourself. Goddamn if that theme isn\'t catchy as all getout. You\'re going to have it stuck in your head for the rest of the day, you wager, but at least you\'ll have something to hum while you masterbate.\n\n', false );
 		EngineCore.outputText( 'Oh goddammit. You remember that your progress from before was lost, and now you have to start from the beginning. You can\'t help but roll your eyes and groan, though you\'re hardly angry enough to put a controller-shaped hole through your TV screen over this. But hey! At least you were smart enough to jot down the Champion Password. Perhaps one day video games will be sophisticated enough to have some internal means of storing progress, but at least with this, you should be able to get all of your old stuff!', false );
 		//Restore]
-		EngineCore.choices( 'Restore', this.missingoSex6, '', null, '', null, '', null, '', null );
+		EngineCore.choices( 'Restore', this, this.missingoSex6, '', null, null, '', null, null, '', null, null, '', null, null );
 	};
 	//{Next Page}
 	SandWitchScene.prototype.missingoSex6 = function() {
@@ -796,7 +796,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( 'You successfully restore your game. Everything\'s intact. At least, you thought it was. You must have messed up the password somewhere along the line, but oddly enough, the only difference is the clock being set an hour ahead and a few extra gems and EXP in your pocket.\n\n', false );
 		EngineCore.outputText( 'It is like fucking christmas up in here.', false );
 		//{Player gains about as many gems experience points as they would from a Sand Witch encounter, and the Champion is returned to camp.}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Either type on Sandwich: Finished (Radar)(edited)
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		}
 		EngineCore.outputText( ' can do to their partners and unsure if this is really what she wants.  The poor girl seems to need a little \'encouragement\'... of course, you could just skip all that regardless if you really wanted.' );
 		//[Foreplay 1st]    [Get Fucking]
-		EngineCore.choices( 'Foreplay 1st', this.eggwitchForeplay, 'Get Fucking', this.getToFuckingWithZeEggsInWitch, '', null, '', null, '', null );
+		EngineCore.choices( 'Foreplay 1st', this, this.eggwitchForeplay, 'Get Fucking', this, this.getToFuckingWithZeEggsInWitch, '', null, null, '', null, null, '', null, null );
 	};
 	//[Foreplay 1st]
 	SandWitchScene.prototype.eggwitchForeplay = function() {
@@ -878,7 +878,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		}
 		EngineCore.outputText( ' against your mate, you both take the moment to revel in the anticipation of coitus.' );
 		EngineCore.dynStats( 'lus', 25, 'cor', -0.35 );
-		EngineCore.doNext( this.laySomeEggsInThatWitchFinally );
+		EngineCore.doNext( this, this.laySomeEggsInThatWitchFinally );
 		//go to merge
 	};
 	//[Get Fucking]
@@ -898,7 +898,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( '\n\n"<i>Please... take me...</i>"' );
 		}
 		//both go to merge
-		EngineCore.doNext( this.laySomeEggsInThatWitchFinally );
+		EngineCore.doNext( this, this.laySomeEggsInThatWitchFinally );
 		EngineCore.dynStats( 'lus', 15 );
 	};
 	//(Merge)
@@ -1065,7 +1065,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		else {
 			EngineCore.outputText( '\n\nEasing a hand under her armpit, you give her the support she needs to hobble along the hot desert sand.  Which direction to hobble in gives you cause for concern though; you don\'t really know where you are at this point.  Making the only choice you can, you concentrate on the camp.  With the rough picture in mind you tell the sand witch to hold on, before the two of you slowly make your way across the dry desert sea...' );
 		}
-		EngineCore.doNext( this.sandwitchBirthsYourMonstrosities );
+		EngineCore.doNext( this, this.sandwitchBirthsYourMonstrosities );
 	};
 	//[Must I really?] (corr >=60)
 	SandWitchScene.prototype.reluctantlyHelpZeWitch = function() {
@@ -1090,7 +1090,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		else {
 			EngineCore.outputText( '\n\nEasing a hand under her armpit, you give her the support she needs to hobble along the hot desert sand.  Which direction to hobble in gives you cause for concern though; you don\'t really know where you are at this point.  Making the only choice you can, you concentrate on the camp.  With the rough picture in mind you tell the sand witch to hold on, before the two of you slowly make your way across the dry desert sea...' );
 		}
-		EngineCore.doNext( this.sandwitchBirthsYourMonstrosities );
+		EngineCore.doNext( this, this.sandwitchBirthsYourMonstrosities );
 	};
 
 	//all shapes and personalities come to:
@@ -1110,7 +1110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 			EngineCore.outputText( '\n\n"<i>Just, use your common sense next time.</i>"' );
 		}
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//irthing scene: Bees (Radar) (edited)
 	SandWitchScene.prototype.witchBirfsSomeBees = function() {
@@ -1124,7 +1124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CoC, Utils,
 		EngineCore.outputText( '; likely it was just waiting for someone to find their mother before taking off in the general direction of the forest.  The weak voice of the desert vixen fills the air as she speaks to you.  "<i>That... was the best.  I can\'t believe I\'m a mother!</i>"  She gives you a look of appreciation for showing her how pleasurable being a host can be.  Seeing she needs her rest, you give a nod and turn to leave... only to feel a hand grasp at your [leg].  "<i>I would be disappointed if you didn\'t come around and \'say hello\' more often; keep that in mind ' + CoC.player.mf( 'handsome', 'beautiful' ) + '.</i>"  She coos, before drifting off to sleep.  She\'ll be fine in this shady part of the desert while she rests, the dune currently obstructing the sun and keeping her from being burned from the sun\'s rays.' );
 		EngineCore.outputText( '\n\nContent with how things turned out, you head back to camp and decide on the next course of action for today.' );
 		this.pregnancy.knockUpForce(); //Clear Pregnancy
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SandWitchScene.prototype.sandwitchSpanking = function() {
 		EngineCore.clearOutput();

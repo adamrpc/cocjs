@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 	Kelt.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nKelt recoils for a moment before assuming a look of superiority...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.kelly.keltFucksShitUp();
 		}

@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] === 0 && CoC.player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 5 === 0 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
 			EngineCore.outputText( 'While you explore the deepwoods, you do your best to forge into new, unexplored locations.  While you\'re pushing away vegetation and slapping at plant-life, you spot a half-overgrown orifice buried in the side of a ravine.  There\'s a large number of imp-tracks around the cavern\'s darkened entryway.  Perhaps this is where the imp, Zetaz, makes his lair?  In any event, it\'s past time you checked back on the portal.  You make a mental note of the cave\'s location so that you can return when you\'re ready.', true );
 			EngineCore.outputText( '\n\n<b>You\'ve discovered the location of Zetaz\'s lair!</b>', false );
-			EngineCore.choices( 'Enter', SceneLib.dungeon2Supplimental.enterZetazsLair, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Enter', SceneLib.dungeon2Supplimental, SceneLib.dungeon2Supplimental.enterZetazsLair, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ]++;
 			return;
 		}
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			if( CoC.player.hasKeyItem( 'Dangerous Plants' ) >= 0 && CoC.player.inte / 2 > Utils.rand( 50 ) ) {
 				$log.debug( 'TENTACLE\'S AVOIDED DUE TO BOOK!' );
 				EngineCore.outputText( 'Using the knowledge contained in your \'Dangerous Plants\' book, you determine a tentacle beast\'s lair is nearby, do you continue?  If not you could return to camp.\n\n', true );
-				EngineCore.choices( 'Continue', SceneLib.tentacleBeastScene.encounter, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.choices( 'Continue', SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.encounter, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			} else {
 				SceneLib.tentacleBeastScene.encounter();
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		if( (CoC.player.exploredForest >= 20) && CoC.player.findStatusAffect( StatusAffects.ExploredDeepwoods ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.ExploredDeepwoods, 0, 0, 0, 0 );
 			EngineCore.outputText( 'After exploring the forest so many times, you decide to really push it, and plunge deeper and deeper into the woods.  The further you go the darker it gets, but you courageously press on.  The plant-life changes too, and you spot more and more lichens and fungi, many of which are luminescent.  Finally, a wall of tree-trunks as wide as houses blocks your progress.  There is a knot-hole like opening in the center, and a small sign marking it as the entrance to the \'Deepwoods\'.  You don\'t press on for now, but you could easily find your way back to explore the Deepwoods.\n\n<b>Deepwoods exploration unlocked!</b>', true );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		//Essy every 20 explores or so
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			EngineCore.outputText( '\n\nShe goes up to the imp, and kicks it once.  Satisfied that the creature isn\'t moving, she turns around to face you and gives you a smile.  "<i>Sorry about that, but I prefer to take care of these buggers quickly.  If they get the chance to call on their friends, they can actually become a nuisance.</i>"  She disappears back into the foliage briefly before reappearing holding two large pile of logs under her arms, with a fire axe and her hammer strapped to her back.  "<i>I\'m gathering firewood for the farm, as you can see; what brings you to the forest, sweetie?</i>"  You inform her that you\'re just exploring.' );
 			EngineCore.outputText( '\n\nShe gives a wistful sigh. "<i>I haven\'t really explored much since getting to the farm.  Between the jobs Whitney gives me, keeping in practice with my hammer, milking to make sure I don\'t get too full, cooking, and beauty sleep, I don\'t get a lot of free time to do much else.</i>"  She sighs again.  "<i>Well, I need to get this back, so I\'ll see you later!</i>"' );
 			//end event
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( chooser === 0 ) {
@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			}
 		}
 		if( chooser === 1 ) {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			EngineCore.outputText( '', true );
 			if( SceneLib.jojoScene.monk === 0 ) {
 				if( CoC.player.cor < 25 ) {
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 					} else {
 						EngineCore.outputText( 'You enjoy a peaceful walk in the woods.  It gives you time to think over the recent, disturbing events.', true );
 						EngineCore.dynStats( 'tou', 0.5, 'int', 1 );
-						EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+						EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 						return;
 					}
 				}
@@ -254,10 +254,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 				EngineCore.outputText( '\n\nJojo sighs sadly, "<i>Enough of my woes.  You are very corrupted.  If you cannot be sufficiently purified you WILL become one of them in time.  Will you let me help you?', false );
 				if( CoC.player.gender > 0 ) {
 					$log.debug( 'Gender !== 0' );
-					EngineCore.choices( 'Accept', SceneLib.jojoScene.meditateInForest, 'Rape Him', SceneLib.jojoScene.jojoRape, 'BWUH?', null, 'Decline', SceneLib.camp.returnToCampUseOneHour, '', null );
+					EngineCore.choices( 'Accept', SceneLib.jojoScene, SceneLib.jojoScene.meditateInForest, 'Rape Him', SceneLib.jojoScene, SceneLib.jojoScene.jojoRape, 'BWUH?', null, null, 'Decline', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, '', null, null );
 				} else {
 					$log.debug( 'Gender === 0' );
-					EngineCore.choices( 'Accept', SceneLib.jojoScene.meditateInForest, 'Rape Him', null, 'BWUH?', null, 'Decline', SceneLib.camp.returnToCampUseOneHour, '', null );
+					EngineCore.choices( 'Accept', SceneLib.jojoScene, SceneLib.jojoScene.meditateInForest, 'Rape Him', null, null, 'BWUH?', null, null, 'Decline', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, '', null, null );
 				}
 				return;
 			}
@@ -267,20 +267,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 					EngineCore.outputText( 'As you approach the serene monk, you see his nose twitch, disturbing his meditation.\n\n', true );
 					EngineCore.outputText( '"<i>It seems that the agents of corruption have taken residence within the temple that is your body.</i>", Jojo says flatly. "<i>This is a most unfortunate development. There is no reason to despair as there are always ways to fight the corruption. However, great effort will be needed to combat this form of corruption and may leave lasting impressions upon you. If you are ready, we can purge your being of the rogue creatures of lust.</i>"\n\n', false );
 					if( CoC.player.gender > 0 ) {
-						EngineCore.choices( 'Purge', SceneLib.jojoScene.wormRemoval, 'Meditate', SceneLib.jojoScene.meditateInForest, 'Rape', SceneLib.jojoScene.jojoRape, '', null, 'Leave',
-							SceneLib.camp.returnToCampUseOneHour );
+						EngineCore.choices( 'Purge', SceneLib.jojoScene, SceneLib.jojoScene.wormRemoval, 'Meditate', SceneLib.jojoScene, SceneLib.jojoScene.meditateInForest, 'Rape', SceneLib.jojoScene, SceneLib.jojoScene.jojoRape, '', null, null, 'Leave',
+							SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					} else {
-						EngineCore.choices( 'Purge', SceneLib.jojoScene.wormRemoval, 'Meditate', SceneLib.jojoScene.meditateInForest, 'Rape', null, '', null, 'Leave',
-							SceneLib.camp.returnToCampUseOneHour );
+						EngineCore.choices( 'Purge', SceneLib.jojoScene, SceneLib.jojoScene.wormRemoval, 'Meditate', SceneLib.jojoScene, SceneLib.jojoScene.meditateInForest, 'Rape', null, null, '', null, null, 'Leave',
+							SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					}
 					return;
 				}
 				SceneLib.jojoScene.jojoSprite();
 				EngineCore.outputText( 'Jojo the monk appears before you, robes and soft white fur fluttering in the breeze.  He asks, "<i>Are you ready for a meditation session?</i>"', false );
 				if( CoC.player.gender > 0 ) {
-					EngineCore.choices( 'Yes', SceneLib.jojoScene.meditateInForest, 'No', SceneLib.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', SceneLib.jojoScene.jojoRape, '', null );
+					EngineCore.choices( 'Yes', SceneLib.jojoScene, SceneLib.jojoScene.meditateInForest, 'No', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, 'BWUH', null, null, 'Rape Him', SceneLib.jojoScene, SceneLib.jojoScene.jojoRape, '', null, null );
 				} else {
-					EngineCore.choices( 'Yes', SceneLib.jojoScene.meditateInForest, 'No', SceneLib.camp.returnToCampUseOneHour, 'BWUH', null, 'Rape Him', null, '', null );
+					EngineCore.choices( 'Yes', SceneLib.jojoScene, SceneLib.jojoScene.meditateInForest, 'No', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour, 'BWUH', null, null, 'Rape Him', null, null, '', null, null );
 				}
 			}
 			if( SceneLib.jojoScene.monk >= 2 ) {
@@ -312,7 +312,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 				if( CoC.player.hasKeyItem( 'Dangerous Plants' ) >= 0 && CoC.player.inte / 2 > Utils.rand( 50 ) ) {
 					$log.debug( 'TENTACLE\'S AVOIDED DUE TO BOOK!' );
 					EngineCore.outputText( 'Using the knowledge contained in your \'Dangerous Plants\' book, you determine a tentacle beast\'s lair is nearby, do you continue?  If not you could return to camp.\n\n', false );
-					EngineCore.choices( 'Continue', SceneLib.tentacleBeastScene.encounter, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.choices( 'Continue', SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.encounter, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					return;
 				} else {
 					SceneLib.tentacleBeastScene.encounter();
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 					EngineCore.outputText( '', false );
 					EngineCore.dynStats( 'tou', 0.5, 'lib', 0.25, 'lus', CoC.player.lib / 5 );
 				}
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				return;
 			}
 			//CORRUPTED GLADE
@@ -355,7 +355,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 			if( action === 3 ) {
 				EngineCore.outputText( 'You trip on an exposed root, scraping yourself somewhat, but otherwise the hour is uneventful.', false );
 				CoC.player.takeDamage( 10 );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				$log.debug( 'FIX MEEEEE' ); // FIXME ?
 				return;
 			}
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 		EngineCore.dynStats( 'lus', 25 + Utils.rand( CoC.player.cor / 5 ), 'resisted', false );
 		EngineCore.fatigue( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Catch a Satyr using the corrupt glade and either leave or have your way with him.
 	//Suggested to Fen as the MaleXMale submission.
@@ -520,14 +520,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		//(Player lacks a penis)
 		if( !CoC.player.hasCock() ) {
 			EngineCore.outputText( 'You can\'t really see any way to take advantage of this scenario, so you simply turn back and leave the way you came.', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Player returns to camp)
 		//(Player has penis
 		else {
 			EngineCore.outputText( 'You can see his goat tail flitting happily above his tight, squeezable asscheeks, the loincloth discarded beside him failing to obscure his black cherry, ripe for the picking.  Do you take advantage of his distraction and ravage his ass while he\'s helpless?\n\n', false );
 			//[Yes] [No]
-			EngineCore.choices( 'Ravage', this.rapeSatyr, '', null, '', null, '', null, 'Leave', this.ignoreSatyr );
+			EngineCore.choices( 'Ravage', this, this.rapeSatyr, '', null, null, '', null, null, '', null, null, 'Leave', this, this.ignoreSatyr );
 		}
 	};
 	//[=No=]
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 		EngineCore.outputText( ', and silently leave him to his pleasures.', false );
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Player returns to camp
 	Forest.prototype.rapeSatyr = function() {
@@ -604,14 +604,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		EngineCore.outputText( 'As you watch the lewd display, you feel your arousal building and your ' + Descriptors.cockDescript( x ) + ' growing back into full mast. Figuring you already have a willing slut readily available, you consider using him to relieve yourself once more... What do you do?', false );
 		CoC.player.orgasm();
 		//[Again][Leave]
-		EngineCore.choices( 'Again', this.secondSatyrFuck, '', null, '', null, '', null, 'Leave', this.dontRepeatFuckSatyr );
+		EngineCore.choices( 'Again', this, this.secondSatyrFuck, '', null, null, '', null, null, '', null, null, 'Leave', this, this.dontRepeatFuckSatyr );
 	};
 	//[=Leave=]
 	Forest.prototype.dontRepeatFuckSatyr = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.spriteSelect( 99 );
 		EngineCore.outputText( 'You\'ve had your fun, and you don\'t really want to fool around in the forest all day, so you grab your ' + CoC.player.armorName + ' and leave the rutting satyr behind.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Again=]
 	Forest.prototype.secondSatyrFuck = function() {
@@ -627,7 +627,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		EngineCore.outputText( 'You give your sensitive member a few trembling, almost-painful strokes... maybe you overdid it a bit.  Shrugging, you gather your ' + CoC.player.armorName + ' and leave the passed-out satyr behind as you go back to your camp.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'forest', new Forest() );
 } );

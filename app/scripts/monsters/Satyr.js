@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 	Satyr.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe satyr laughs heartily at your eagerness...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.satyrScene.loseToSatyr();
 		}

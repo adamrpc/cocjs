@@ -10,8 +10,8 @@ angular.module( 'cocjs' ).factory( 'FurLoincloth', function( Armor, CoC ) {
 		that.classNames.push('FurLoincloth');
 	};
 	return new Proxy( FurLoincloth, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

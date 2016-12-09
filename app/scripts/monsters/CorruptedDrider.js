@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, Abstra
 	CorruptedDrider.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe drider licks her lips in anticipation...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.corruptedDriderScene.loseToDrider();
 		}

@@ -55,9 +55,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//Insert PC options here;
 		//[Comfort Her] [Yeesh][Who Cares];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Comfort Her', this.comfortUrtaAfterFamFamTalk );
-		EngineCore.addButton( 1, 'Yeesh', this.yeeshUrtaAfterFamFamTalk );
-		EngineCore.addButton( 2, 'Who Cares', this.whoCaresUrtaAfterFamFamTalk );
+		EngineCore.addButton( 0, 'Comfort Her', this, this.comfortUrtaAfterFamFamTalk );
+		EngineCore.addButton( 1, 'Yeesh', this, this.yeeshUrtaAfterFamFamTalk );
+		EngineCore.addButton( 2, 'Who Cares', this, this.whoCaresUrtaAfterFamFamTalk );
 	};
 	//Comfort Her(C)*;
 	UrtaQuest.prototype.comfortUrtaAfterFamFamTalk = function() {
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nNodding, you give the girl a smile as you stand up to depart.  Her eyes twinkle happily as she watches you go.' );
 		SceneLib.urta.urtaLove( 5 );
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 3;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Yeesh(C)*;
 	UrtaQuest.prototype.yeeshUrtaAfterFamFamTalk = function() {
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nGood bitch...' );
 		SceneLib.urta.urtaLove( 1 );
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Who Cares(C)*;
 	UrtaQuest.prototype.whoCaresUrtaAfterFamFamTalk = function() {
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] < 1 ) {
 			CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = 1;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Infertility Discussion(C)*;
 	//Requires PC have discussed family with her previously.;
@@ -127,8 +127,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\n"<i>I suppose it wouldn\'t hurt to try, huh?</i>" Urta asks.  A mischievous grin spreads across her face, and she says, "<i>You want me to be fertile that badly, don\'t you?  Are you wanting to suck down a load of spunk so virile you can smell it?  Or do you want my pussy so ready for babies that a single drop of cum will have my belly round and my tits leaking?</i>"  She shudders.  "<i>Damn, that\'s a nice thought...  Do you really think I should look into it?</i>"' );
 		EngineCore.outputText( '\n\n(<b>Encouraging her to visit the Covenant will begin a segment where you play as Urta for a time, and saving will be disabled.  It is recommended you decline and save first if you have not saved in some time.</b>)' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Look Into It', this.startUrtaQuest );
-		EngineCore.addButton( 1, 'Maybe Later', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 0, 'Look Into It', this, this.startUrtaQuest );
+		EngineCore.addButton( 1, 'Maybe Later', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UrtaQuest.prototype.resetToPC = function() {
 		CoC.player = CoC.player2;
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nBetween your legs are your mixed sexes; a slick and accommodating pussy well-trained with sex toys, and a monstrous prick fit to give the average stallion an inferiority complex.  The arm-like equine cock, 20 inches long and three inches thick, rests above balls that, at over three inches thick, are easily the size of apples.' );
 		EngineCore.outputText( '\n\nYou are currently garbed for work in your usual stud-reinforced leather jerkin, though you go without suitable groin protection due to your cock interfering with efforts to wear normal pants.  An armored leather skirt provides a decent stand to protect your lower body, though as you erect, your maleness has a habit of lifting it out of the way and leaving you vulnerable.  When you desire modesty, you wrap your cock against your leg with your tail.  You are also carrying your favorite halberd; it\'s not fancy looking, but it\'s strong, sharp, and well-maintained.  The weaponsmith does good work.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.towerOfTheCovanant );
+		EngineCore.addButton( 0, 'Next', this, this.towerOfTheCovanant );
 	};
 	//The Tower of the Covenant(C)*;
 	UrtaQuest.prototype.towerOfTheCovanant = function() {
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nThe centaur coughs, "<i>Here, Urta,</i>" stirring you from your thoughts.  It seems you\'ve reached Gul\'s chamber already.  There\'s nothing to do but go on in...' );
 		//[NEXT];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.towerOfTheCovenantII );
+		EngineCore.addButton( 0, 'Next', this, this.towerOfTheCovenantII );
 	};
 	UrtaQuest.prototype.towerOfTheCovenantII = function() {
 		EngineCore.clearOutput();
@@ -284,11 +284,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		// The description of the getHelBangedAsUrta scene seems to specify that it should only be available to players;
 		// at fuckbuddy status with Firebutt.;
 		if( CoC.flags[ kFLAGS.HEL_FUCKBUDDY ] > 0 ) {
-			EngineCore.addButton( 0, 'Stop4ADrink', this.getHelBangedAsUrta );
+			EngineCore.addButton( 0, 'Stop4ADrink', this, this.getHelBangedAsUrta );
 		}
-		EngineCore.addButton( 1, 'Visit', this.visitPCPreUrtaQuest, false );
-		EngineCore.addButton( 2, 'Visit Truth', this.visitPCPreUrtaQuest, true );
-		EngineCore.addButton( 3, 'Embark', this.runIntoAGoblin );
+		EngineCore.addButton( 1, 'Visit', this, this.visitPCPreUrtaQuest, false );
+		EngineCore.addButton( 2, 'Visit Truth', this, this.visitPCPreUrtaQuest, true );
+		EngineCore.addButton( 3, 'Embark', this, this.runIntoAGoblin );
 	};
 	//Savin Contriboots to UrtaQuest: Get Wrekt by Hel, Miko, and Mai. (Or, Needs More Foursomes);
 	//{Before embarking on the Quest for Getting a God out of My Dick, add a [Get a Drink] option before leaving Tel'Adre. Must be Fuckbuddies with Hel.};
@@ -313,8 +313,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.flags[ kFLAGS.URTA_MET_HEL ] = 1;
 		//[Head Out] [Get "<i>Help</i>"];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Head Out', this.leaveB4HelFucksUrta );
-		EngineCore.addButton( 1, 'Get "Help"', this.fuckHelAndKitsunesAsUrta );
+		EngineCore.addButton( 0, 'Head Out', this, this.leaveB4HelFucksUrta );
+		EngineCore.addButton( 1, 'Get "Help"', this, this.fuckHelAndKitsunesAsUrta );
 	};
 	//Head Out;
 	UrtaQuest.prototype.leaveB4HelFucksUrta = function() {
@@ -325,9 +325,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nDo you embark now, visit ' + CoC.player2.short + ', or visit ' + CoC.player2.mf( 'him', 'her' ) + ' and tell everything?' );
 		//[Visit] [Visit Truth][Embark];
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Visit', this.visitPCPreUrtaQuest, false );
-		EngineCore.addButton( 2, 'Visit Truth', this.visitPCPreUrtaQuest, true );
-		EngineCore.addButton( 3, 'Embark', this.runIntoAGoblin );
+		EngineCore.addButton( 1, 'Visit', this, this.visitPCPreUrtaQuest, false );
+		EngineCore.addButton( 2, 'Visit Truth', this, this.visitPCPreUrtaQuest, true );
+		EngineCore.addButton( 3, 'Embark', this, this.runIntoAGoblin );
 	};
 	//Get "<i>Help</i>";
 	UrtaQuest.prototype.fuckHelAndKitsunesAsUrta = function() {
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//Advance to next day, jump to leaving text;
 		//{Resume UrtaQUEST!};
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.runIntoAGoblin );
+		EngineCore.addButton( 0, 'Next', this, this.runIntoAGoblin );
 	};
 	//Last Rendezvous with PC - Intro + Sex Menu(C)*;
 	UrtaQuest.prototype.visitPCPreUrtaQuest = function( truth ) {
@@ -415,21 +415,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//[SEX OPTIONS GO HURRRR];
 		//Snuggle, put cock in cocked PC ass, ride PC cock vaginally, Fuck Girlvag with yer dick, maybe a sixtynine?;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Cuddle', this.snuggleWithUrta, truth );
+		EngineCore.addButton( 0, 'Cuddle', this, this.snuggleWithUrta, truth );
 		//Put Urta dick in girl PC's vag(C)*;
 		if( CoC.player2.hasVagina() ) {
-			EngineCore.addButton( 1, 'FuckHerVag', this.putUrtasWangInPCsCunt, truth );
+			EngineCore.addButton( 1, 'FuckHerVag', this, this.putUrtasWangInPCsCunt, truth );
 		}
 		//Put a PC dick in Urta's vag(C)*;
 		if( CoC.player2.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
-			EngineCore.addButton( 2, 'Ride Dick', this.putAPCDickInUrtaCoochies, truth );
+			EngineCore.addButton( 2, 'Ride Dick', this, this.putAPCDickInUrtaCoochies, truth );
 		}
 		//Put Urta dick in the PC's asshole [Cocked PCs](C)*;
 		if( CoC.player2.hasCock() ) {
-			EngineCore.addButton( 3, 'Fuck Ass', this.urtaPutsHerDickInPCsWithDicks, truth );
+			EngineCore.addButton( 3, 'Fuck Ass', this, this.urtaPutsHerDickInPCsWithDicks, truth );
 		}
 		//PC blows Urta(C)*;
-		EngineCore.addButton( 4, 'Get BJ', this.pcBlowsUrtasDong, truth );
+		EngineCore.addButton( 4, 'Get BJ', this, this.pcBlowsUrtasDong, truth );
 	};
 	//Last Rendezvous with PC - Sex(C)*;
 	//Put Urta dick in the PC's asshole [Cocked PCs](C)*;
@@ -509,7 +509,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.menu();
 		//To morning after fuck departure;
-		EngineCore.addButton( 0, 'Next', this.morningAfterCampVisitEmbark, truth );
+		EngineCore.addButton( 0, 'Next', this, this.morningAfterCampVisitEmbark, truth );
 	};
 	//PC blows Urta(C)*;
 	UrtaQuest.prototype.pcBlowsUrtasDong = function( truth ) {
@@ -533,7 +533,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.morningAfterCampVisitEmbark, truth );
+		EngineCore.addButton( 0, 'Next', this, this.morningAfterCampVisitEmbark, truth );
 	};
 	//Put a PC dick in Urta's vag(C)*;
 	UrtaQuest.prototype.putAPCDickInUrtaCoochies = function( truth ) {
@@ -626,7 +626,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.morningAfterCampVisitEmbark, truth );
+		EngineCore.addButton( 0, 'Next', this, this.morningAfterCampVisitEmbark, truth );
 	};
 	//Put Urta dick in girl PC's vag(C)*;
 	UrtaQuest.prototype.putUrtasWangInPCsCunt = function( truth ) {
@@ -733,7 +733,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.morningAfterCampVisitEmbark, truth );
+		EngineCore.addButton( 0, 'Next', this, this.morningAfterCampVisitEmbark, truth );
 	};
 	//Snuggle(C)*;
 	UrtaQuest.prototype.snuggleWithUrta = function( truth ) {
@@ -779,7 +779,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nTo your own surprise, you find your eyes growing heavier and heavier.  But you don\'t want to let your ' + CoC.player2.short + ' go yet... besides, may as well start searching from here in the morning, right?  So, you and ' + CoC.player2.short + ' carefully lay yourselves back down and quietly drift off to sleep, still holding fast to each other as you do.  The last sounds you hear for the night are your lover breathing, accompanied by the beating of ' + CoC.player2.mf( 'his', 'her' ) + ' heart, and you idly hope that ' + CoC.player2.mf( 'he', 'she' ) + ' can hear the same sounds from you...' );
 		EngineCore.dynStats( 'lus', 14 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.morningAfterCampVisitEmbark, truth );
+		EngineCore.addButton( 0, 'Next', this, this.morningAfterCampVisitEmbark, truth );
 	};
 	//Embark(C)*;
 	UrtaQuest.prototype.morningAfterCampVisitEmbark = function( truth ) {
@@ -798,7 +798,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		EngineCore.outputText( CoC.player2.short + ' nods, and you leave ' + CoC.player2.mf( 'him', 'her' ) + ' behind.  You keep glancing over your shoulder as you leave, praying silently to any god who\'ll listen that you return safely to your lover.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.runIntoAGoblin, true );
+		EngineCore.addButton( 0, 'Next', this, this.runIntoAGoblin, true );
 	};
 
 	//Goblin Encounter(C)*;
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nStupid goblin.  This whole fight was pointless.  Now that she\'s defeated, you focus on following the trinket again; you\'ve got to find that shrine.' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.nagaPleaseNagaStoleMyDick );
+		EngineCore.addButton( 0, 'Next', this, this.nagaPleaseNagaStoleMyDick );
 	};
 	//Urta Loses(C)*;
 	UrtaQuest.prototype.urtaLosesToGoblin = function() {
@@ -880,7 +880,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		//[next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.loseToGoblinsPartIIAsUrta );
+		EngineCore.addButton( 0, 'Next', this, this.loseToGoblinsPartIIAsUrta );
 	};
 	UrtaQuest.prototype.loseToGoblinsPartIIAsUrta = function() {
 		EngineCore.clearOutput();
@@ -891,7 +891,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nWhen you finally let go of her, the goblin is blushing wildly, clearly not intending to get so wrapped up in making out with you.  "<i>W-well... let\'s get moving shall we, but first...</i>" Pulling a collar out from one of her pouches, she clasps it around your neck and tugs on the attached leash to lead you along.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.loseToGoblinsPartIIIAsUrta );
+		EngineCore.addButton( 0, 'Next', this, this.loseToGoblinsPartIIIAsUrta );
 	};
 	UrtaQuest.prototype.loseToGoblinsPartIIIAsUrta = function() {
 		EngineCore.clearOutput();
@@ -901,7 +901,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nWith the god gone, it\'s just you and your goblin lover.  The golden-skinned woman already grins in anticipation of what\'s to come.  Without waiting a minute, she grabs you and yanks you away from this creepy place, leading you to a more secluded area before pulling you into a deep, tongue filled kiss.  "<i>I\'ve waited so long for this - get out of those clothes right now.  I can\'t wait to make a big batch of daughters with you,</i>" she says before unbuckling the belts holding back her massive breasts.  The huge I-Cup orbs spill forth like a mass of yellow Jell-O.  "<i>Get over here and fuck your perfect, fertile little wife full of slutty little goblins right now!</i>" she demands as she presses her curvy body against yours.  Just thinking of plowing and knocking up your wife\'s hot, sodden cunt is enough to bring you to full attention, your newly invigorated stallion more than ready to fill her belly with more daughters than she could ever want...' );
 		//[next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.loseToGoblinsPartIVAsUrta );
+		EngineCore.addButton( 0, 'Next', this, this.loseToGoblinsPartIVAsUrta );
 	};
 
 	UrtaQuest.prototype.loseToGoblinsPartIVAsUrta = function() {
@@ -911,7 +911,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nWiping a great, thick glob from her face, your buttercup goblin snuggles her cum-stuffed belly against yours before smiling at you, her hands sliding around you before planting a kiss on your lips.  "<i>Mmmm... I love you, my wonderful virile stud,</i>" she purrs to you before reaching down to fondle your rising mustang once again.  Despite her dubious intentions and having brainwashed you, it seems you found the love and acceptance you always wanted.  No doubt you will be the father of a great many daughters in the months to come.   If only you could remember your old lover\'s name...' );
 		CoC.flags[ kFLAGS.URTA_GOBLIN_SLAVE ] = 1;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGameOver );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 	UrtaQuest.prototype.urtaGameOver = function() {
 		EngineCore.clearOutput();
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		this.resetToPC();
 		CoC.time.hours = 6;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Urta's Attacks;
@@ -952,13 +952,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			return;
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Combo', this.urtaComboAttack );
-		EngineCore.addButton( 1, 'Vault', this.urtaVaultAttack );
-		EngineCore.addButton( 2, 'Sidewinder', this.urtaSidewinder );
-		EngineCore.addButton( 3, 'Dirt Kick', this.urtaDirtKick );
-		EngineCore.addButton( 4, 'Metabolize', this.urtaMetabolize );
-		EngineCore.addButton( 5, 'SecondWind', this.urtaSecondWind );
-		EngineCore.addButton( 9, 'Back', Combat.combatMenu, false );
+		EngineCore.addButton( 0, 'Combo', this, this.urtaComboAttack );
+		EngineCore.addButton( 1, 'Vault', this, this.urtaVaultAttack );
+		EngineCore.addButton( 2, 'Sidewinder', this, this.urtaSidewinder );
+		EngineCore.addButton( 3, 'Dirt Kick', this, this.urtaDirtKick );
+		EngineCore.addButton( 4, 'Metabolize', this, this.urtaMetabolize );
+		EngineCore.addButton( 5, 'SecondWind', this, this.urtaSecondWind );
+		EngineCore.addButton( 9, 'Back', null, Combat.combatMenu, false );
 	};
 	UrtaQuest.prototype.urtaMetabolize = function() {
 		EngineCore.clearOutput();
@@ -972,7 +972,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.monster.findStatusAffect( StatusAffects.UrtaSecondWinded ) >= 0 ) {
 			EngineCore.outputText( 'You\'ve already pushed yourself as hard as you can!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
 		CoC.monster.createStatusAffect( StatusAffects.UrtaSecondWinded, 0, 0, 0, 0 );
@@ -989,7 +989,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			if( CoC.player.fatigue + 25 > 100 ) {
 				EngineCore.outputText( 'You are too fatigued to use that attack!' );
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+				EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 				return;
 			}
 			EngineCore.fatigue( 25 );
@@ -1108,9 +1108,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			Combat.enemyAI();
 		} else {
 			if( CoC.monster.HP <= 0 ) {
-				EngineCore.doNext( Combat.endHpVictory );
+				EngineCore.doNext( Combat, Combat.endHpVictory );
 			} else {
-				EngineCore.doNext( Combat.endLustVictory );
+				EngineCore.doNext( Combat, Combat.endLustVictory );
 			}
 		}
 	};
@@ -1120,7 +1120,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.fatigue + 5 > 100 ) {
 			EngineCore.outputText( 'You are too fatigued to use that ability!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 5 );
@@ -1149,7 +1149,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.fatigue + 10 > 100 ) {
 			EngineCore.outputText( 'You are too fatigued to use that attack!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 10 );
@@ -1261,9 +1261,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			Combat.enemyAI();
 		} else {
 			if( CoC.monster.HP <= 0 ) {
-				EngineCore.doNext( Combat.endHpVictory );
+				EngineCore.doNext( Combat, Combat.endHpVictory );
 			} else {
-				EngineCore.doNext( Combat.endLustVictory );
+				EngineCore.doNext( Combat, Combat.endLustVictory );
 			}
 		}
 	};
@@ -1274,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.fatigue + 20 > 100 ) {
 			EngineCore.outputText( 'You are too fatigued to use that attack!' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 20 );
@@ -1397,9 +1397,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			Combat.enemyAI();
 		} else {
 			if( CoC.monster.HP <= 0 ) {
-				EngineCore.doNext( Combat.endHpVictory );
+				EngineCore.doNext( Combat, Combat.endHpVictory );
 			} else {
-				EngineCore.doNext( Combat.endLustVictory );
+				EngineCore.doNext( Combat, Combat.endLustVictory );
 			}
 		}
 	};
@@ -1440,15 +1440,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nYou take a deep breath, cursing your rotten luck for running into this guy.  You consider just leaving him there at the mercy of whatever creature happens to find him next, but on the other hand, perhaps you could make use of the naga to relieve your own lust... he\'s out cold now, so you wouldn\'t have to worry about his hypnotic gaze.' );
 		//[Rape][Leave];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fuck Him', this.urtaWinFucksSirius );
-		EngineCore.addButton( 1, 'Leave', this.leaveSiriusBehind );
+		EngineCore.addButton( 0, 'Fuck Him', this, this.urtaWinFucksSirius );
+		EngineCore.addButton( 1, 'Leave', this, this.leaveSiriusBehind );
 	};
 	//[=Leave=];
 	UrtaQuest.prototype.leaveSiriusBehind = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You decide that he\'s just not worth your time and leave to continue your journey.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gnollAlphaBitchIntro );
+		EngineCore.addButton( 0, 'Next', this, this.gnollAlphaBitchIntro );
 	};
 	//[=Rape=];
 	UrtaQuest.prototype.urtaWinFucksSirius = function() {
@@ -1480,7 +1480,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		//Next Page button to trigger scene finish;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.fuckSiriusRadioII );
+		EngineCore.addButton( 0, 'Next', this, this.fuckSiriusRadioII );
 	};
 	UrtaQuest.prototype.fuckSiriusRadioII = function() {
 		EngineCore.clearOutput();
@@ -1491,7 +1491,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nAs you walk away, following the pendant once again, you hope that ' + CoC.player2.short + ' will understand why you fucked a stranger like that... maybe if you promise to give ' + CoC.player2.mf( 'him', 'her' ) + ' oral with as much enthusiasm as that naga gave you, ' + CoC.player2.mf( 'he', 'she' ) + '\'ll be more understanding?  Mmm... you kind of hope ' + CoC.player2.mf( 'he', 'she' ) + ' agrees, actually; you can already taste ' + CoC.player2.mf( 'him', 'her' ) + ' on your tongue...' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gnollAlphaBitchIntro );
+		EngineCore.addButton( 0, 'Next', this, this.gnollAlphaBitchIntro );
 	};
 	//Urta Loses*;
 	UrtaQuest.prototype.urtaLosesToSirriusSnakeRadio = function() {
@@ -1540,7 +1540,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nSirius claps at your declaration.  It feels good to be praised by your master and one true love.  "<i>Come now, my love ssslave.  Let\'s go home.</i>"  "<i>I just love the way you call me ssslave,</i>" you giggle, trying to imitate his hissing accent, even as you try to retrieve your clothes and weapon. Sirius takes notice and quickly interrupts you.  "<i>Leave that trash there.  You don\'t need it anymore.  Besidesss you look much better naked.</i>"  You blush at his flattering.  "<i>You too, master.</i>"  You reply.' );
 		EngineCore.outputText( '\n\nYou dutifully follow your master... as happy as you could be.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.siriusSatelliteRadioOwnsYouII );
+		EngineCore.addButton( 0, 'Next', this, this.siriusSatelliteRadioOwnsYouII );
 	};
 	UrtaQuest.prototype.siriusSatelliteRadioOwnsYouII = function() {
 		EngineCore.clearOutput();
@@ -1554,7 +1554,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nAs he begins to pound in and out of you, your balls and tits jiggling from the impact, you smile with glee.  After he cums inside of you, it\'ll be time for breakfast, and then maybe master will let you cum... or maybe he\'ll make you wait until the next day like that other time?  You feel yourself getting even more turned on at the thought.  You\'ve never been happier.' );
 		//{Bad End and all its effects applied here.};
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGameOver );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 	//Gnoll Alpha Encounter*;
 	UrtaQuest.prototype.gnollAlphaBitchIntro = function() {
@@ -1570,7 +1570,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.monster.short = 'alpha gnoll';
 		CoC.monster.HP = CoC.monster.eMaxHP(); // TODO extract to AlphaGnoll class
 		CoC.monster.long = 'The gnoll standing before you is obviously an alpha among her kind; she has to be over seven feet tall and rippling with muscle, not that this stops her from having a curvy form, squeezable ass and full E-cup boobs.  The remnants of what must have once been a gorgeous and expensive silken dress are draped across her figure, torn off at the knees and hanging by only a single shoulder, arms bare and exposed.  A heavy necklace of gold is wrapped around her neck, while bracelets of more of the same adorn her arms, and piercings of gold stud her ears.  She carries a mighty-looking spear in her hands, which she brandishes at you menacingly, and a basket of throwing javelins is strapped to her back.';
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Fight*;
 	//Use attack descriptions/effects from Gnoll Spearthrower;
@@ -1601,7 +1601,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nThe only answer you get is a blissful, "<i>Oooohhhhhh...</i>"' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaNightSleep );
+		EngineCore.addButton( 0, 'Next', this, this.urtaNightSleep );
 	};
 	//[Succubus Milk] (Or, how we CAN have nice things with a little persistence!);
 	UrtaQuest.prototype.useSuccubiMilkOnGnollPrincesses = function() {
@@ -1644,7 +1644,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nThe gnoll\'s eyes cross as you slide her off your spent shaft, and a fountain of cum erupts from her ass, sliding down the length of her bitch-cock towards the dirt.  With your lust sated and your dick slowly drooping downward, you feel a little ashamed of what you did.  You deflowered this poor girl\'s asshole, and worse, you loved every second of it.  Picking a nearby thistle bloom, you tuck it into her hair.  Then, before you grab your skirt and leave, you give her unresisting lips a slow smooch.  "<i>I\'m sorry,</i>" you whisper as you depart, leaving her wallowing in a sea of seed.  The only answer you get is a blissful, "<i>Oooohhhhhh...</i>"' );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaNightSleep );
+		EngineCore.addButton( 0, 'Next', this, this.urtaNightSleep );
 	};
 
 	//Urta Loses*;
@@ -1678,7 +1678,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		//[To Loss Epilogue];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.loseToGnollAsUrtaEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.loseToGnollAsUrtaEpilogue );
 	};
 	//[To Loss Epilogue]';
 	UrtaQuest.prototype.loseToGnollAsUrtaEpilogue = function() {
@@ -1740,7 +1740,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.dynStats( 'lib', 20, 'sen', 100, 'cor', 20 );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.loseToGnollAsUrtaEpilogueBAM );
+		EngineCore.addButton( 0, 'Next', this, this.loseToGnollAsUrtaEpilogueBAM );
 	};
 	UrtaQuest.prototype.loseToGnollAsUrtaEpilogueBAM = function() {
 		EngineCore.clearOutput();
@@ -1760,7 +1760,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nYour queen slumps back, carrying you with her, and you dribble a few last, wasted squirts over your shoulders onto her nice, fat tits.  She nips your ear and whispers, "<i>Good girl,</i>" again, gently lifting you off her while she recovers.  Her whole body twitches as you\'re withdrawn, her clit huge and over-sensitive still, but once you\'re off, she rises, only breathing a little heavily.  Her once-taut belly shows the cum-bulge better than your own, and you look on with undisguised envy as the mob closes in around you once more.' );
 		EngineCore.outputText( '\n\nYou smile when your holes are filled again - you\'ll get that yummy gnoll-cum inside you soon.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGameOver );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 	//The First Night Sleep*;
 	UrtaQuest.prototype.urtaNightSleep = function() {
@@ -1768,8 +1768,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( 'The sun is low in the sky by the time you finish your third encounter of the day.  It\'s time to find shelter.  The temple will have to wait until tomorrow.  You travel quite a distance, far enough that the gnoll\'s tribe should have trouble finding you if they search.  You pull out your blanket, making your camp in a concealing depression close to the edge of a forest.  There\'s no one to take an evening\'s watch for you, so you\'ll have to rely on concealment to get by.' );
 		EngineCore.outputText( '\n\nAs you settle down for a night\'s sleep, you consider your armor.  It\'s starting to chafe a little.  Wearing it to bed would be uncomfortable, likely giving you a restless sleep, but it might also give you a fighting chance if something comes after you.  Do you want to sleep naked and rest better at some risk, or do you want to sleep in your armor, safer, but tossing and turning?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'SleepNaked', this.urtaSleepsNaked );
-		EngineCore.addButton( 1, 'Wear Armor', this.urtaSleepsArmored );
+		EngineCore.addButton( 0, 'SleepNaked', this, this.urtaSleepsNaked );
+		EngineCore.addButton( 1, 'Wear Armor', this, this.urtaSleepsArmored );
 	};
 	//Armor Sleep*;
 	UrtaQuest.prototype.urtaSleepsArmored = function() {
@@ -1785,7 +1785,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.fatigue( -50 );
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.introSuccubiAndMinotaur );
+		EngineCore.addButton( 0, 'Next', this, this.introSuccubiAndMinotaur );
 	};
 	//Sleep Naked - Nocturnal Tentacle Beast Fuck*;
 	UrtaQuest.prototype.urtaSleepsNaked = function() {
@@ -1796,7 +1796,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.fatigue( -100 );
 		EngineCore.dynStats( 'lus', 10 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGetsTentaRaped );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGetsTentaRaped );
 	};
 	//[Next];
 	UrtaQuest.prototype.urtaGetsTentaRaped = function() {
@@ -1819,8 +1819,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nFrom the sensations washing through your body, you\'d think that you would have cum by now.  It\'s like your threshold for pleasure has been raised far beyond the natural.  The pleasure has you rocking your hips against the numerous dicks as they ravage your holes.  You\'re so close... you just need a little bit more.  The huge orange tentacle catches your eye - it\'s at least as big as a dozen of the others, and you\'ve no doubt that pulling it into your twat and letting your cunt gorge on its magical juices would get you off like a rocket.  Of course, while you get the feeling that the green goop would prevent it from perma-gaping, there\'s no way something like that won\'t have a permanent effect.  Do you ride the little tentacles to orgasm, or take the giant orange one inside it, and let it baste your twat with pussy-elasticizing fluids?' );
 		//[Tentacles] [Big Orange];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Tentacles', this.urtaFinishesWithTentacles );
-		EngineCore.addButton( 1, 'Big Orange', this.urtaFinishesWithBigOrange );
+		EngineCore.addButton( 0, 'Tentacles', this, this.urtaFinishesWithTentacles );
+		EngineCore.addButton( 1, 'Big Orange', this, this.urtaFinishesWithBigOrange );
 	};
 	//Big Orange Tentacle Finisher*;
 	UrtaQuest.prototype.urtaFinishesWithBigOrange = function() {
@@ -1840,7 +1840,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.introSuccubiAndMinotaur );
+		EngineCore.addButton( 0, 'Next', this, this.introSuccubiAndMinotaur );
 	};
 	//Choose Regular Tentacles*;
 	UrtaQuest.prototype.urtaFinishesWithTentacles = function() {
@@ -1852,7 +1852,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.introSuccubiAndMinotaur );
+		EngineCore.addButton( 0, 'Next', this, this.introSuccubiAndMinotaur );
 	};
 	//Mino & Succubi Intro*;
 	UrtaQuest.prototype.introSuccubiAndMinotaur = function() {
@@ -1909,7 +1909,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nIdly, your hands grope at your expanding middle, wondering just how full you\'re going to get.  He\'s such a big, big boy, and so virile!  You close your eyes and drift off, cradling your sperm-engorged abdomen in your hand.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.submissiveMinoUrtaBadEndPtII );
+		EngineCore.addButton( 0, 'Next', this, this.submissiveMinoUrtaBadEndPtII );
 	};
 	UrtaQuest.prototype.submissiveMinoUrtaBadEndPtII = function() {
 		EngineCore.clearOutput();
@@ -1927,7 +1927,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.submissiveMinoUrtaBadEndPtIII );
+		EngineCore.addButton( 0, 'Next', this, this.submissiveMinoUrtaBadEndPtIII );
 	};
 	UrtaQuest.prototype.submissiveMinoUrtaBadEndPtIII = function() {
 		EngineCore.clearOutput();
@@ -1948,7 +1948,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//{Bad end or Urta removed from game as appropriate};
 		CoC.flags[ kFLAGS.URTA_MINO_AND_SUCCUBI_SLAVE ] = 1;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGameOver );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 	//Urta Win Rapes Minotaur*;
 	UrtaQuest.prototype.winRapeAMinoLordAsUrta = function() {
@@ -1983,7 +1983,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//[End combat, queue post encounter];
 		CoC.player.orgasm();
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.beatMinoLordOnToSuccubi );
+		EngineCore.addButton( 0, 'Next', this, this.beatMinoLordOnToSuccubi );
 	};
 	//Urta Loses Minotaur;
 	UrtaQuest.prototype.urtaLosesToMinotaurRoughVersion = function() {
@@ -2019,7 +2019,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.dynStats( 'lib', 50, 'sen', 50 );
 		CoC.flags[ kFLAGS.URTA_IS_VULQUINE_MENACE ] = 1;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaSheHulkPartII );
+		EngineCore.addButton( 0, 'Next', this, this.urtaSheHulkPartII );
 	};
 	UrtaQuest.prototype.urtaSheHulkPartII = function() {
 		EngineCore.clearOutput();
@@ -2037,7 +2037,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 50, 'sen', 50 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGameOver );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 
 	//Post-Encounter*;
@@ -2103,15 +2103,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.dynStats( 'lus', 40, 'resisted', false );
 		//[Leave] [Fuck];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fuck', this.fuckTheCowCubi );
-		EngineCore.addButton( 1, 'Leave', this.leaveTheCowCubi );
+		EngineCore.addButton( 0, 'Fuck', this, this.fuckTheCowCubi );
+		EngineCore.addButton( 1, 'Leave', this, this.leaveTheCowCubi );
 	};
 	//[=Leave=];
 	UrtaQuest.prototype.leaveTheCowCubi = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Your fingers tighten on the shaft of your halberd and suddenly you bring it whipping around, the blunt end slamming into the side of the succubus-cow\'s head.  As her eyes roll up in her head and she collapses unconscious onto the ground, you spit to the side.  "<i>Be glad I didn\'t use the sharp end, CoC.monster.</i>"  With that, you continue on into the depths of the shrine... oh, if only ' + CoC.player2.short + ' was here; you\'d happily fuck ' + CoC.player2.mf( 'him', 'her' ) + ' senseless right now...  Still, it\'s something to look forward to once you\'re done inside.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Go Inside', this.enteringTaothsShrine );
+		EngineCore.addButton( 0, 'Go Inside', this, this.enteringTaothsShrine );
 	};
 	//[=Rape=];
 	UrtaQuest.prototype.fuckTheCowCubi = function() {
@@ -2141,7 +2141,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nYou empty the bulk of your cum into the demonic slut, then pull out, spraying her ass and legs with the last few spurts of jizz.  "<i>Hah!  Is that it?</i>"  The demon crows, but gets no further; you grab your halberd and bring it crashing down, blunt-end first, into the back of her skull, leaving her unconscious.' );
 		EngineCore.outputText( '\n\nYou look at her, sprawled there, and your face falls, shame burning in your belly.  What kind of woman are you?  Bad enough to sleep around on your lover, but with a demon?  Are you really that incapable of controlling yourself?  Feeling miserable, trying to justify your actions and vowing that Taoth will be removed from you if it\'s the last thing you do, you pull your clothes back on and start heading into the shrine, anxious to be free of him at last.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Move On', this.enteringTaothsShrine );
+		EngineCore.addButton( 0, 'Move On', this, this.enteringTaothsShrine );
 	};
 	//Urta Loses*;
 	UrtaQuest.prototype.urtaLosesToCowCubi = function() {
@@ -2185,7 +2185,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nShuddering with pleasure, your eyes cross as you pad after her, thighs rubbing your squishy, soaked nether-lips together.' );
 		//[END];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaGameOver );
+		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 	//The Old Shrine*;
 	UrtaQuest.prototype.enteringTaothsShrine = function() {
@@ -2199,7 +2199,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\n"<i>I wake...</i>"' );
 		//Next Page, go to Dead Gods Dreaming;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.deadGodsDreaming );
+		EngineCore.addButton( 0, 'Next', this, this.deadGodsDreaming );
 	};
 	//Dead Gods Dreaming*;
 	UrtaQuest.prototype.deadGodsDreaming = function() {
@@ -2224,7 +2224,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nAbsently licking drool from your lips, you stagger upright and, using your halberd for support, start loping home from the shrine.  In your wake you leave a slug-like trail of sexual lubricants, too focused on finding and fucking your lover to care about the glistening slime caking your dick and plastering your inner thighs.' );
 		//Revert to PC control and change page to Urta Arrives At Camp;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaArrivesAtCampForFukks );
+		EngineCore.addButton( 0, 'Next', this, this.urtaArrivesAtCampForFukks );
 		this.resetToPC();
 	};
 	//Urta Arrives at Camp;
@@ -2253,12 +2253,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.menu();
 		//[KnockUrta] [KnockMe] [Edryn];
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'KnockUrta', this.knockUpUrtaWithGodChild );
+			EngineCore.addButton( 0, 'KnockUrta', this, this.knockUpUrtaWithGodChild );
 		}
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 1, 'KnockMe', this.getKnockedUpWithGodChild );
+			EngineCore.addButton( 1, 'KnockMe', this, this.getKnockedUpWithGodChild );
 		}
-		EngineCore.addButton( 2, 'Edryn', this.urtaAndEdrynGodChild );
+		EngineCore.addButton( 2, 'Edryn', this, this.urtaAndEdrynGodChild );
 	};
 	//PC Knocks Up Urta with God Child*;
 	UrtaQuest.prototype.knockUpUrtaWithGodChild = function() {
@@ -2310,7 +2310,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.postFuckUrtaUp );
+		EngineCore.addButton( 0, 'Next', this, this.postFuckUrtaUp );
 	};
 	//Post-Sex Epilogue*;
 	UrtaQuest.prototype.postFuckUrtaUp = function() {
@@ -2329,7 +2329,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( 'and set off into the wasteland in the direction of Tel\'Adre.  Urta needs to stop and rest on several occasions, weighed down by her sudden and highly advanced pregnancy, but she soldiers on without complaint, taking whatever support you give to her.  You can feel the strange god-child kicking incessantly inside her belly as you walk together.' );
 		EngineCore.outputText( '\n\nBefore you know it, the two of you are being waved through the gates.  Edryn boggles at the sight of her friend swollen up with pregnancy, but doesn\'t protest as you assist Urta in clambering up onto the centauress\' back. Together, the two of you manage to haul the unnaturally gravid fox to the Covenant\'s tower.  Countless guards have to be addressed at each step of the journey, but eventually, you\'re both brought to a comfortable chamber and allowed to rest... when the mages aren\'t busily probing Urta with magic, that is.  Urta has you stay by her side the entire time, and you do your best to continue supporting her, not leaving even when she falls asleep on your shoulder, completely tuckered out.  You snuggle up against her once the mages finally agree to let you snooze with her, under the vigilant eyes of your guards.  Rest comes surprisingly easy, despite the tensions of your present situation, and you drift off wondering how long it will take Urta to give birth.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.preggedUrtaWithGodChildEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.preggedUrtaWithGodChildEpilogue );
 		CoC.time.days++;
 		CoC.time.hours = 7;
 	};
@@ -2355,7 +2355,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nYou help her leave the tower, arm in arm, saying goodbye to her only after she\'s tucked tightly into her bed at home, to rest.  Urta gives you a teary kiss before you leave with a little swagger in your step.  You wonder if Taoth will help the Covenant, or if they\'ve bitten off more than they can chew?  Either way, it seems there\'s a potent new ally on the field.' );
 		CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] = 1;
 		CoC.setInCombat( false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Urta Knocks Up PC with God Child;
 	UrtaQuest.prototype.getKnockedUpWithGodChild = function() {
@@ -2514,7 +2514,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\n"<i>Sweet dreams,</i>" a breathy voice whispers in your ear, just before it begins to kiss you again...' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.getKnockedUpUrtaEpilogue );
+		EngineCore.addButton( 0, 'Next', this, this.getKnockedUpUrtaEpilogue );
 	};
 	//Post-Sex Epilogue*;
 	UrtaQuest.prototype.getKnockedUpUrtaEpilogue = function() {
@@ -2535,7 +2535,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nBefore you know it, you\'re being waved through the gates.  Urta puts you up on Edryn\'s back, and together the two of them haul you to the Covenant\'s tower.  Countless guards have to be addressed at each step of the journey, but eventually, you\'re brought to a comfortable chamber and allowed to rest... when the mages aren\'t probing you with magic that is.  Urta stays by your side the entire time, never leaving, not even when she falls asleep on your shoulder, completely tuckered out.  You snuggle up against her and snooze with her, under the vigilant eyes of your guards.  If you weren\'t so hormonal and tired, you might have had a hard time falling asleep.  Instead, rest comes easily.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.getKnockedUpByUrtaEpilogueII );
+		EngineCore.addButton( 0, 'Next', this, this.getKnockedUpByUrtaEpilogueII );
 		CoC.time.days++;
 		CoC.time.hours = 7;
 	};
@@ -2566,7 +2566,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nShe helps leave the tower, arm in arm, saying her goodbye only after she\'s tucked you in to take a rest.  Urta gives you a teary kiss and trots back towards the city with a swagger in her step.  You wonder if Taoth will help the Covenant, or if they\'ve bitten off more than they can chew?  Either way, it seems there\'s a potent new ally on the field.' );
 		CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] = 1;
 		CoC.setInCombat( false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Urta Goes to Knock Up Edryn with God Child*;
 	UrtaQuest.prototype.urtaAndEdrynGodChild = function() {
@@ -2577,7 +2577,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.flags[ kFLAGS.URTA_PREG_EVERYBODY ] = SceneLib.telAdre.edryn.pregnancy.incubation; //Since they can't be in use prior to Taoth being born this is fine.
 		SceneLib.edryn.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_TAOTH, 24 );
 		CoC.setInCombat( false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Urta & Edryn God-child epilogue:*;
@@ -2588,7 +2588,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.outputText( '\n\nYou pull free of her grip and move along with her.  If Urta had a god inside her... well, damn...  That\'s a little much to take in right now.  She\'s right though, this isn\'t something you want to miss!' );
 		EngineCore.outputText( '\n\nTel\'Adre\'s gates loom ahead before long, and you\'re lead deep into the city, to the tower where Edryn is in labor...' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.urtaAndEdrynGodChildEpilogueII );
+		EngineCore.addButton( 0, 'Next', this, this.urtaAndEdrynGodChildEpilogueII );
 	};
 	//[Next];
 	UrtaQuest.prototype.urtaAndEdrynGodChildEpilogueII = function() {
@@ -2626,7 +2626,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//set completed tags!;
 		CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] = 1;
 		CoC.setInCombat( false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'urtaQuest', new UrtaQuest() );
 } );

@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	Basilisk.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe basilisk smirks, but waits for you to finish...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.basiliskScene.loseToBasilisk();
 		}

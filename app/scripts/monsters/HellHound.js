@@ -26,15 +26,15 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 			EngineCore.dynStats( 'lus', 20 - (CoC.player.sens / 10) );
 			EngineCore.statScreenRefresh();
 			if( CoC.player.HP <= 0 ) {
-				EngineCore.doNext( Combat.endHpLoss );
+				EngineCore.doNext( Combat, Combat.endHpLoss );
 				return;
 			}
 			if( CoC.player.lust >= 100 ) {
-				EngineCore.doNext( Combat.endLustLoss );
+				EngineCore.doNext( Combat, Combat.endLustLoss );
 				return;
 			}
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	HellHound.prototype.hellhoundScent = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) >= 0 ) {
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 			//Rape if not naga, turned on, and girl that can fit!
 			if( CoC.player.hasVagina() && CoC.player.lust >= 33 && !CoC.player.isNaga() ) {
 				EngineCore.outputText( '  You find yourself musing that you could probably take advantage of the poor \'doggy\'.  Do you fuck it?', false );
-				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene.hellHoundPropahRape, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene, SceneLib.hellHoundScene.hellHoundPropahRape, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
 			}
@@ -74,7 +74,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 					temp2 = SceneLib.hellHoundScene.hellHoundPropahRape;
 				}
 				EngineCore.outputText( '.  What do you do?', false );
-				EngineCore.choices( 'Lick', SceneLib.hellHoundScene.hellHoundGetsRaped, 'Fuck', temp2, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Lick', SceneLib.hellHoundScene, SceneLib.hellHoundScene.hellHoundGetsRaped, 'Fuck', SceneLib.hellHoundScene, temp2, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			} else {
 				EngineCore.outputText( 'You turn away, not really turned on enough to be interested in such an offer.', false );
 				Combat.cleanupAfterCombat();
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 	HellHound.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe hellhound snorts and leaves you to your fate.', false );
-			EngineCore.doNext( Combat.cleanupAfterCombat );
+			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 		} else {
 			SceneLib.hellHoundScene.hellhoundRapesPlayer();
 		}

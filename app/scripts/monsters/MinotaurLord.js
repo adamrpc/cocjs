@@ -107,8 +107,8 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 		EngineCore.outputText( 'The minotaur lord is defeated!  ' );
 		EngineCore.outputText( '  You could use him for a quick fuck to sate your lusts before continuing on.  Do you?' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest.winRapeAMinoLordAsUrta );
-		EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest.beatMinoLordOnToSuccubi );
+		EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest, SceneLib.urtaQuest.winRapeAMinoLordAsUrta );
+		EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest, SceneLib.urtaQuest.beatMinoLordOnToSuccubi );
 	};
 	MinotaurLord.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {

@@ -42,9 +42,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 			EngineCore.outputText( ' when you hear strange music emanating not far from where you are.  Do you investigate?' );
 			//[Yes][No];
 			if( location === 0 ) {
-				EngineCore.doYesNo( EngineCore.createCallBackFunction( this.consensualSatyrFuck, 0 ), SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.consensualSatyrFuck, 0 ), SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} else {
-				EngineCore.doYesNo( EngineCore.createCallBackFunction( this.consensualSatyrFuck, 0 ), SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.consensualSatyrFuck, 0 ), SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 	};
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 		}
 		//What should you do?;
 		//[Trick him] [Keep Drinking] [Skip Foreplay] [Leave];
-		EngineCore.choices( 'Trick Him', trick, 'Keep Drinking', this.keepDrinking, 'Skip Foreplay', foreplay, '', null, 'Leave', this.leavePartySatyr );
+		EngineCore.choices( 'Trick Him', this, trick, 'Keep Drinking', this, this.keepDrinking, 'Skip Foreplay', this, foreplay, '', null, null, 'Leave', this, this.leavePartySatyr );
 	};
 	//[=Keep Drinking=];
 	SatyrScene.prototype.keepDrinking = function() {
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 		EngineCore.outputText( '.  This must be the work of that satyr!  Mentally, you remind yourself to watch out for him next time.  You clean yourself up as best as you can and redress, then wobble your way towards your camp, trying to stifle the pain, in your head and elsewhere, along the way.' );
 		//(8 hours lost) (PC is pregnant (either vagina or ass) with a satyr, slimefeed);
 		this.satyrPreggo();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//[=Leave=];
 	SatyrScene.prototype.leavePartySatyr = function() {
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 		EngineCore.outputText( '\n\nGuess there\'s a first time for everything... you throw the last skin of booze away and proceed to check on the snoring satyr; searching him, you manage to find a pouch filled with gems.  Since he tried to trick you, you might as well as get something in return, so you pocket the gems in the pouch and discard it.' );
 		CoC.player.gems += 10 + Utils.rand( 10 );
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Skip Foreplay=];
 	SatyrScene.prototype.skipForeplay = function() {
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 		EngineCore.outputText( 'You smirk and crawl towards the satyr, discarding the skin of alcohol and knocking over several dishes and bottle in your way.  Once you\'re close enough, you roughly grab at his massive shaft and begin stroking it.  "<i>We both know where this is headed...</i>" you whisper, "<i>so why not skip the foreplay?</i>"' );
 		EngineCore.outputText( '\n\nThe satyr looks surprised, then grins.  "<i>Very well, if you insist...</i>" he purrs, reaching out to grab and push you to the ground, tearing roughly at your [armor] until you are naked.' );
 		//Play appropriate willing sex scene//;
-		EngineCore.doNext( this.willinglyBoneSatyr );
+		EngineCore.doNext( this, this.willinglyBoneSatyr );
 	};
 	//Sex Scenes;
 	//Loss Rape (Z);
@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 		if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor === ArmorLib.LMARMOR ) {
 			bikiniTits = CoC.player.armor.lustyMaidenPaizuri;
 		}
-		EngineCore.choices( 'FuckHisButt', butt, 'Ride Face', faces, 'B.Titfuck', bikiniTits, '', null, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'FuckHisButt', this, butt, 'Ride Face', this, faces, 'B.Titfuck', CoC.player.armor, bikiniTits, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	//Female (Z);
 	SatyrScene.prototype.femaleTakesAdvantageOfSatyr = function() {
@@ -430,7 +430,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ArmorLib, Utils, Satyr, Pregn
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		this.satyrPreggo();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Pregnancy Stuff (Z);

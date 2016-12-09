@@ -95,8 +95,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		//(Qualifies for any rape?:);
 		if( CoC.player.lust >= 33 ) {
 			EngineCore.outputText( '\n\nWhat do you do?', false );
-			EngineCore.choices( 'Butt Fuck', buttFuckBUTTFUCKBUTTTFUCKBUTTFUCK, 'Fuck Pussy', vagFuck, 'Bondage Fuck', careful, 'FuckSpinner', fuckSpinner, 'Ride Cock', rideCock,
-				'Ride Ovi', rideOvi, 'RideOviAnal', rideOviAss, '', null, 'B.Titfuck', bikiniTits, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Butt Fuck', this, buttFuckBUTTFUCKBUTTTFUCKBUTTFUCK, 'Fuck Pussy', this, vagFuck, 'Bondage Fuck', this, careful, 'FuckSpinner', this, fuckSpinner, 'Ride Cock', this, rideCock,
+				'Ride Ovi', this, rideOvi, 'RideOviAnal', this, rideOviAss, '', null, null, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -276,7 +276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		}
 		EngineCore.outputText( '.  Even unconscious, her vagina continues its rhythmic contractions around your cock, working you towards another burst of orgasmic pleasure while you wait for your strength to come back...\n\n', false );
 		//[NEXT];
-		EngineCore.doNext( this.winDriderPCDickInSpiderCunt2 );
+		EngineCore.doNext( this, this.winDriderPCDickInSpiderCunt2 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 	};
@@ -966,7 +966,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		else if( CoC.player.hasItem( UseableLib.T_SSILK ) ) {
 			EngineCore.outputText( '\n\nRemembering the bundle of silk that you have with you, it doesn\'t take long to come up with a very enticing idea for dealing with the drider.  However, you have a feeling that you won\'t be able to do much else with the silk if you go through with your plan.  Are you sure you want to use it on her?' );
 			//[Yes] [No];
-			EngineCore.doYesNo( EngineCore.createCallBackFunction( this.driderTiedUpPartTwo, true ), this.dontSilkRapeDrider );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.driderTiedUpPartTwo, true ), this, this.dontSilkRapeDrider );
 		}
 	};
 	//[No] ;
@@ -975,7 +975,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'Deciding against wasting the valuable material for little more than a quick fuck, you ponder your other options for using the defeated girl.' );
 		//(Return to 'win' menu);
-		EngineCore.doNext( this.defeatDriderIntro );
+		EngineCore.doNext( this, this.defeatDriderIntro );
 	};
 	CorruptedDriderScene.prototype.driderTiedUpPartTwo = function( useItem ) {
 		EngineCore.spriteSelect( 77 );
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		}
 
 		//New Page;
-		EngineCore.doNext( this.driderTiedUpPartThree );
+		EngineCore.doNext( this, this.driderTiedUpPartThree );
 	};
 	CorruptedDriderScene.prototype.driderTiedUpPartThree = function() {
 		EngineCore.spriteSelect( 77 );
@@ -1046,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		EngineCore.outputText( '\n\nFinally finished, you collapse on top of the similarly exhausted woman, barely capable of moving after such a breathtaking end.  Your shaft still twinges after such a powerful climax, not helped by the way her pussy continually shudders around you.  The drider, smothered underneath you, begins to sink slowly into the soft ground of the swamp, still completely oblivious to anything going on around her.  Deciding it would be a terrible shame if your new cumdump were to be lost so soon after acquiring it, you heave yourself onto unsteady legs, cock drizzling as you withdraw yourself from the abused, sperm-stuffed cunt that surrounded it.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( this.driderTiedUpPartFour );
+		EngineCore.doNext( this, this.driderTiedUpPartFour );
 	};
 	CorruptedDriderScene.prototype.driderTiedUpPartFour = function() {
 		EngineCore.spriteSelect( 77 );

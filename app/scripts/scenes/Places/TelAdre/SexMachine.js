@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, Descriptors, 
 			EngineCore.outputText( 'You shout after the short humanoid, jogging lightly in chase, but only come to a closed iron door.  The door has a small window on it, blocked with a wire mesh to prevent breaking.  Inside you see a relatively plain room with a couple doors to the back sides.  A single light illuminates the strange room, right above the most technological piece of weight equipment you\'ve ever seen.  You open the door, hoping to find the goblin, only to find the back two doors are hopelessly locked.  You turn to look once more at the piece of equipment in the center of the room.\n\n', false );
 			EngineCore.outputText( 'Made of polished steel, the machine has many foreign parts you couldn\'t even begin to guess the use of, and some familiar ones from the other work out machines from the main gym floor.  This one, however, even seems to have a small monitoring screen!  You could easily sit down and check out this sophisticated device while waiting for the goblin to come out from the back rooms.\n\n', false );
 			EngineCore.outputText( 'Do you use it or not?', false );
-			EngineCore.doYesNo( this.useTheSexMachine, this.leaveShowers );
+			EngineCore.doYesNo( this, this.useTheSexMachine, this, this.leaveShowers );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00182 ] = 1;
 		}
 		//Go directly to sex if you know what's in store!;
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, Descriptors, 
 	SexMachine.prototype.leaveShowers = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You shake your head.  You\'ve had enough of a workout for the day, and you remember you\'re in a land where curiosity almost certainly kills (well, more thoroughly rapes) the cat.  You leave the room and continue to search for the showers, eventually finding them and heading back to camp.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SexMachine.prototype.useTheSexMachine = function() {
 		EngineCore.outputText( '', true );
@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, Descriptors, 
 		}
 		EngineCore.fatigue( 10 );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'sexMachine', new SexMachine() );
 } );

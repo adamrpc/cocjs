@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, SceneLib, CoC
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe fetish cultist ignores the perverse display and continues on as if nothing had happened...', false );
 			CoC.player.orgasm();
-			EngineCore.doNext( SceneLib.fetishZealotScene.zealotLossRape );
+			EngineCore.doNext( SceneLib.fetishZealotScene, SceneLib.fetishZealotScene.zealotLossRape );
 		} else {
 			SceneLib.fetishZealotScene.zealotLossRape();
 		}

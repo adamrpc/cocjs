@@ -9,7 +9,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		}
 		EngineCore.hideStats();
 		//Reset newgame buttons
-		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CharCreation.newGameGo );
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CharCreation, CharCreation.newGameGo );
 		MainView.hideAllMenuButtons();
 		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
 		MainView.showMenuButton( MainView.MENU_DATA );
@@ -31,16 +31,16 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		// that if you check if any images were found immediately when this screen is shown, you get 0
 		// since the images haven\'t loaded yet.
 		// Therefore, the imageCreditScreen will just have to say 'No image pack' if you don\'t have any images
-		EngineCore.choices( '', null,
-			'Image Credits', StartUp.imageCreditsScreen,
-			'Credits', StartUp.creditsScreen,
-			'', null,
-			'Instructions', StartUp.howToPlay,
-			'', null,
-			'', null,
-			'', null,
-			'Settings', StartUp.settingsScreen,
-			'Resume', resume );
+		EngineCore.choices( '', null, null,
+			'Image Credits', null, StartUp.imageCreditsScreen,
+			'Credits', null, StartUp.creditsScreen,
+			'', null, null,
+			'Instructions', null, StartUp.howToPlay,
+			'', null, null,
+			'', null, null,
+			'', null, null,
+			'Settings', null, StartUp.settingsScreen,
+			'Resume', null, resume );
 	};
 	StartUp.startupScreenBody = function() {
 		EngineCore.outputText('<br>(Formerly Unnamed Text Game)<br><br>' + 
@@ -125,30 +125,30 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		} else {
 			EngineCore.outputText( 'Hyper Happy mode <b>Off</b>\n	Male enhancement potions shrink female endowments, and vice versa.' );
 		}
-		EngineCore.choices( '', null,
-			'Sprite Toggle', StartUp.toggleSpritesFlag,
-			'EZ Mode', StartUp.toggleEasyModeFlag,
-			'', null,
-			'Controls', StartUp.displayControls,
-			'Hyper Happy', StartUp.toggleHyperHappy,
-			'Low Standards', StartUp.toggleStandards,
-			'Silly Toggle', StartUp.toggleSillyFlag,
-			'', null,
-			'Back', StartUp.mainMenu );
+		EngineCore.choices( '', null, null,
+			'Sprite Toggle', null, StartUp.toggleSpritesFlag,
+			'EZ Mode', null, StartUp.toggleEasyModeFlag,
+			'', null, null,
+			'Controls', null, StartUp.displayControls,
+			'Hyper Happy', null, StartUp.toggleHyperHappy,
+			'Low Standards', null, StartUp.toggleStandards,
+			'Silly Toggle', null, StartUp.toggleSillyFlag,
+			'', null, null,
+			'Back', null, StartUp.mainMenu );
 	};
 	StartUp.displayControls = function() {
 		MainView.hideAllMenuButtons();
 		InputManager.DisplayBindingPane();
-		EngineCore.choices( 'Reset Ctrls', StartUp.resetControls,
-			'Clear Ctrls', StartUp.clearControls,
-			'Null', null,
-			'Null', null,
-			'Null', null,
-			'Null', null,
-			'Null', null,
-			'Null', null,
-			'Null', null,
-			'Back', StartUp.hideControls );
+		EngineCore.choices( 'Reset Ctrls', null, StartUp.resetControls,
+			'Clear Ctrls', null, StartUp.clearControls,
+			'Null', null, null,
+			'Null', null, null,
+			'Null', null, null,
+			'Null', null, null,
+			'Null', null, null,
+			'Null', null, null,
+			'Null', null, null,
+			'Back', null, StartUp.hideControls );
 	};
 	StartUp.hideControls = function() {
 		InputManager.HideBindingPane();
@@ -157,22 +157,22 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 	StartUp.resetControls = function() {
 		InputManager.HideBindingPane();
 		EngineCore.outputText( 'Are you sure you want to reset all of the currently bound controls to their defaults?', true );
-		EngineCore.doYesNo( StartUp.resetControlsYes, StartUp.displayControls );
+		EngineCore.doYesNo( null, StartUp.resetControlsYes, null, StartUp.displayControls );
 	};
 	StartUp.resetControlsYes = function() {
 		InputManager.ResetToDefaults();
 		EngineCore.outputText( 'Controls have been reset to defaults!\n\n', true );
-		EngineCore.doNext( StartUp.displayControls );
+		EngineCore.doNext( null, StartUp.displayControls );
 	};
 	StartUp.clearControls = function() {
 		InputManager.HideBindingPane();
 		EngineCore.outputText( 'Are you sure you want to clear all of the currently bound controls?', true );
-		EngineCore.doYesNo( StartUp.clearControlsYes, StartUp.displayControls );
+		EngineCore.doYesNo( null, StartUp.clearControlsYes, null, StartUp.displayControls );
 	};
 	StartUp.clearControlsYes = function() {
 		InputManager.ClearAllBinds();
 		EngineCore.outputText( 'Controls have been cleared!', true );
-		EngineCore.doNext( StartUp.displayControls );
+		EngineCore.doNext( null, StartUp.displayControls );
 	};
 	StartUp.toggleStandards = function() {
 		CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] = !CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ];
@@ -329,7 +329,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		EngineCore.outputText( '<li> Gardeford (Helia x Bimbo Sophie Threesomes)</li>' );
 		EngineCore.outputText( '</ul>' );
 		EngineCore.outputText( '\nIf I\'m missing anyone, please contact me ASAP!  I have done a terrible job keeping the credits up to date!' );
-		EngineCore.doNext( StartUp.mainMenu );
+		EngineCore.doNext( null, StartUp.mainMenu );
 	};
 	StartUp.imageCreditsScreen = function() {
 		if( ImageManager.getLoadedImageCount() > 0 ) {
@@ -344,7 +344,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		} else {
 			EngineCore.outputText( '<b>No Image-Pack Found!</b>\n', true );
 		}
-		EngineCore.doNext( StartUp.mainMenu );
+		EngineCore.doNext( null, StartUp.mainMenu );
 	};
 	StartUp.howToPlay = function() {
 		EngineCore.outputText( '', true );
@@ -353,7 +353,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		EngineCore.outputText( '<b>Combat:</b>\nCombat is won by raising an opponent\'s lust to 100 or taking their HP to 0.  You lose if your enemy does the same to you.  Loss isn\'t game over, but some losses will make it harder in the future by lowering your stats.  Beware.  Don\'t be afraid to spam the <b>Run</b> option when you\'re in over your head.\n\n', false );
 		EngineCore.outputText( '<b>Controls:</b>\nThe game features numerous hot-keys to make playing quicker and easier.\nP key - Perks Menu\nD key - Data Menu\nA key - Appearance Screen\n1 Through 5 - The top row of \'choice\' buttons.\n6 Through 0 - The bottom row of \'choice\' buttons.\nQ through T - Alternative bottom \'choice\' hotkeys.\nSpace Bar - Next/Back/Leave\nHome Key - Toggle text field background.\nS key - Stats Screen\n(Save Hotkeys - May not work in all players)\nF1-F5 - Quicksave to slot 1 through 5.  Only works when Data is visible.\nF6-F0 - Quick Load from slots 1-5.\n\n', false );
 		EngineCore.outputText( '<b>Save often using the Data Menu</b> - you never know when your journey will come to an end!', false );
-		EngineCore.doNext( StartUp.mainMenu );
+		EngineCore.doNext( null, StartUp.mainMenu );
 	};
 	return StartUp;
 });

@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 				}
 				EngineCore.outputText( 'Would you like to accept her offer, or do you want to fight her regardless?', false );
 				//Now back to the good part!;
-				EngineCore.choices( 'Accept', this.yankeeEchoPapa, 'Fight', this.novemberAlphaHotel, '', null, '', null, '', null );
+				EngineCore.choices( 'Accept', this, this.yankeeEchoPapa, 'Fight', this, this.novemberAlphaHotel, '', null, null, '', null, null, '', null, null );
 			} else {
 				//FIGHT!;
 				Combat.startCombat( new Shouldra() );
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You graciously accept her offer, and she nods happily.  "<i>Perfect!  Now then, let\'s get to it...</i>"\n\n', false );
 		//[skip to 'let her in' text (i.e. win sex intro)];
-		EngineCore.doNext( this.littlePigLittlePigLetMeIn );
+		EngineCore.doNext( this, this.littlePigLittlePigLetMeIn );
 	};
 	//[nah] ;
 	ShouldraScene.prototype.novemberAlphaHotel = function() {
@@ -158,10 +158,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 			//([if first time];
 			if( CoC.flags[ kFLAGS.TIMES_POSSESSED_BY_SHOULDRA ] < 1 ) {
 				EngineCore.outputText( 'What does she mean, "<i>let me in?</i>" Do you want to find out?', false );
-				EngineCore.doYesNo( this.littlePigLittlePigLetMeIn, this.noSlimingSlimer );
+				EngineCore.doYesNo( this, this.littlePigLittlePigLetMeIn, this, this.noSlimingSlimer );
 			} else {
 				EngineCore.outputText( 'What do you do?', false );
-				EngineCore.choices( 'Let Her In', this.littlePigLittlePigLetMeIn, 'Deny', this.noSlimingSlimer, '', null, '', null, '', null );
+				EngineCore.choices( 'Let Her In', this, this.littlePigLittlePigLetMeIn, 'Deny', this, this.noSlimingSlimer, '', null, null, '', null, null, '', null, null );
 			}
 		}
 		CoC.flags[ kFLAGS.TIMES_BEATEN_SHOULDRA ]++;
@@ -229,7 +229,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		}
 
 		CoC.flags[ kFLAGS.TIMES_POSSESSED_BY_SHOULDRA ]++;
-		EngineCore.choices( 'Sex Here', gender, 'Lake', lake, '', null, '', null, '', null );
+		EngineCore.choices( 'Sex Here', this, gender, 'Lake', this, lake, '', null, null, '', null, null, '', null, null );
 	};
 	//Lake Victory Scenes;
 	ShouldraScene.prototype.nowOnVickiLake = function() {
@@ -251,11 +251,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		}
 		if( ooze !== null && shark !== null ) {
 			EngineCore.outputText( 'You recall the experiences of both the slime and the shark girl. Which encounter would you wish to seek out?', false );
-			EngineCore.choices( 'Shark', shark, 'Ooze', ooze, '', null, '', null, '', null );
+			EngineCore.choices( 'Shark', this, shark, 'Ooze', this, ooze, '', null, null, '', null, null, '', null, null );
 		} else if( ooze !== null ) {
-			EngineCore.doNext( ooze );
+			EngineCore.doNext( this, ooze );
 		} else {
-			EngineCore.doNext( shark );
+			EngineCore.doNext( this, shark );
 		}
 	};
 	//Shark Girl x Ghost Girl - Introduction;
@@ -274,11 +274,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		if( CoC.player.hasCock() && CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'Which gender would you like to focus on?', false );
 			//male / female);
-			EngineCore.choices( 'Male', this.ghostIzmaPenis, 'Female', this.sharkyEctoginas, '', null, '', null, '', null );
+			EngineCore.choices( 'Male', this, this.ghostIzmaPenis, 'Female', this, this.sharkyEctoginas, '', null, null, '', null, null, '', null, null );
 		} else if( CoC.player.hasVagina() ) {
-			EngineCore.doNext( this.sharkyEctoginas );
+			EngineCore.doNext( this, this.sharkyEctoginas );
 		} else if( CoC.player.hasCock() ) {
-			EngineCore.doNext( this.ghostIzmaPenis );
+			EngineCore.doNext( this, this.ghostIzmaPenis );
 		}
 	};
 	//Shark Girl x Ghost Girl - Vagina Scene (Giantess);
@@ -688,7 +688,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ' while swaying her hips to and fro.  Both of her hands get to work on rubbing your ever-growing testicles, but two hands can\'t cover the growing amount of space necessary for effective stimulation.  She shrugs, content with patting, tickling, and squeezing the skin she can reach.  A massive churning begins in your gargantuan cumsack, a movement that actually shakes the ground.  Both of you knows what that signifies, the ghost girl going so far as to disengage from her feverish oral to stare longingly at you.  It seems you hold the key to sating her lust or denying her the orgasm she so craves; what do you do?', false );
-			EngineCore.choices( 'LetHerCum', this.letShouldraIn, 'KeepHerOut', this.kickShouldraOut, '', null, '', null, '', null );
+			EngineCore.choices( 'LetHerCum', this, this.letShouldraIn, 'KeepHerOut', this, this.kickShouldraOut, '', null, null, '', null, null, '', null, null );
 			return;
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -770,7 +770,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		CoC.flags[ kFLAGS.SHOULDRA_WORM_SCENE_COUNTER ]++;
 	};
@@ -814,7 +814,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Vagina Scene;
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Hermaphrodite Scene;
@@ -915,7 +915,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 				EngineCore.outputText( 's', false );
 			}
 			EngineCore.outputText( ' while swaying her hips to and fro.  Both of her hands get to work on rubbing your ever-growing testicles, but two hands can\'t cover the growing amount of space necessary for effective stimulation.  She shrugs, content with patting, tickling, and squeezing the skin she can reach.  A massive churning begins in your gargantuan cumsack, a movement that actually shakes the ground.  Both of you knows what that signifies, the ghost girl going so far as to disengage from her feverish oral to stare longingly at you.  It seems you hold the key to sating her lust or denying her the orgasm she so craves; what do you do?', false );
-			EngineCore.choices( 'LetHerCum', this.letShouldraIn, 'KeepHerOut', this.kickShouldraOut, '', null, '', null, '', null );
+			EngineCore.choices( 'LetHerCum', this, this.letShouldraIn, 'KeepHerOut', this, this.kickShouldraOut, '', null, null, '', null, null, '', null, null );
 			return;
 		}
 		EngineCore.outputText( '\n\n', false );
@@ -935,7 +935,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Loss Introduction;
@@ -1364,14 +1364,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.outputText( 'While she speaks, you cannot help but notice how pure her body is in appearance; her loose-fitting tunic flows very modestly down to her thighs, preserving her frame from the lecherous eyes of any devious creatures that may be lurking about. Her leather leggings, while form-fitting, are done so in a stylish and innocent way, and you take little offense. You inform her of your ecclesiastical quest to rid the world of all taint, and she nods with what you assume to be admiration. On impulse, you take the hand of the lady before you and raise it to your lips, then inquire on her marital status. It takes her a moment to get over the shock of such a blunt question, but she composes herself quite quickly. "<i>I am quite single,</i>" she assures you, a smirk beginning to play across her face. "<i>Is this a remarkably subtle attempt to court me?</i>"\n\n', false );
 		EngineCore.outputText( 'You look up to gaze into her moderately attractive face. Is it?', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00366 ]++;
-		EngineCore.doYesNo( this.courtCrazyGirlsDotCom, this.noCourtingYouFag );
+		EngineCore.doYesNo( this, this.courtCrazyGirlsDotCom, this, this.noCourtingYouFag );
 	};
 	//(no);
 	ShouldraScene.prototype.noCourtingYouFag = function() {
 		EngineCore.spriteSelect( 66 );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You quickly tell her that there\'s been a misunderstanding; surely your order would not allow such a relationship. She nods, not seeming very bothered by the dismissal. "<i>What a shame. Farewell, then, paladin friend,</i>" she says, turning back towards her shack. "<i>Perhaps we will meet again.</i>"  You\'re left to watch her go, and you soon depart as well.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(yup);
 	ShouldraScene.prototype.courtCrazyGirlsDotCom = function() {
@@ -1379,7 +1379,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Her smile widens as she regards your venerable visage. "<i>Is that so?</i>" she says softly. "<i>Interesting. I\'ll be back in a moment.</i>" She returns to her "<i>house,</i>" rummaging around for some time before returning to you, hands hidden behind her. "<i>If I am to be sought by a paladin, we must do things right,</i>" she explains, handing you a small silk handkerchief. The white fabric slides around your fingers like a sacrosanct flow of holy water, and you reverently tuck her gift into your ' + CoC.player.armorName + ', laying it over your heart. "<i>Come back in two days\' time, please,</i>" she asks softly. Your eyes meet for a long moment, and it appears as if she\'s struggling to say something. She instead breaks away and starts back towards her shelter. "<i>Be safe,</i>" she advises, and with a smile and a wave, she\'s gone. For moments you stand silently, then you turn and start away with long, saintly strides. There\'s more work to do.\n\n', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00365 ] = 48;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(two days later);
 	ShouldraScene.prototype.paladinModeFollowup = function() {
@@ -1393,7 +1393,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 			EngineCore.outputText( '\n\nYou rage fap and consider going back to bed.', false );
 		}
 		CoC.player.orgasm();
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
 	//Vagina with Boobgartuan Scene;

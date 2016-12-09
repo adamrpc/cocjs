@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 	SpiderMorphMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe spiders smile to one at another as they watch your display, then close in...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.kihaFollower.loseToSpiderMob();
 		}

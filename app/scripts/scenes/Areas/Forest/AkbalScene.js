@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				}
 				EngineCore.outputText( '\n\nDo you rape him?', false );
 				//Rape / Don't Rape
-				EngineCore.choices( 'Butt-fuck', buttFuck, 'Take Vaginally', vagoo, 'Force Lick', vagooLick, 'B.Titfuck', bikiniTits, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Butt-fuck', this, buttFuck, 'Take Vaginally', this, vagoo, 'Force Lick', this, vagooLick, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
 				return;
 			}
 		}
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '', true );
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( this.loseToAckballllllz );
+			EngineCore.doNext( this, this.loseToAckballllllz );
 		} else if( hpVictory ) {
 			EngineCore.outputText( 'The intense pain causes you to black out. The last thing you see is Akbal standing over you on his two hind legs, his massive cock ominously swinging between them as he watches you lose consciousness.\n\n', false );
 		} else {
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		EngineCore.dynStats( 'lus', 50 );
 		//-Page Turn-
-		EngineCore.doNext( this.girlsRapeAkbalPart2 );
+		EngineCore.doNext( this, this.girlsRapeAkbalPart2 );
 	};
 	AkbalScene.prototype.girlsRapeAkbalPart2 = function() {
 		EngineCore.outputText( '', true );
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '"<i>I am Akbal, God of the Terrestrial Fire. You are trespassing on sacred ground... Submit, or die.</i>"\n\n', false );
 		EngineCore.outputText( 'The aura pouring forth from this \'Akbal\' is anything but god-like; you recognize the demon for what it truly is.  Yet its ivory teeth and sharp claws prove to you that it can make good on its threat.  What do you do?', false );
 		//Talk / Fight / Run
-		EngineCore.choices( 'Talk', this.superAkbalioTalk, 'Fight', this.startuAkabalFightomon, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Talk', this, this.superAkbalioTalk, 'Fight', this, this.startuAkabalFightomon, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Talk]
 	AkbalScene.prototype.superAkbalioTalk = function() {
@@ -582,7 +582,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'After a few moments of silence you ask, "<i>What do you mean, \'submit\'?</i>" Akbal grins, revealing a row of wicked ivory teeth as he opens his mouth. You suddenly feel the demon\'s powerful body pinning you down, a wide tongue licking your neck and claws tickling your back in a way that is both horrifying and sensual. Yet after a moment of taking it in, you realize that he is still there in front of you, unmoved and grinning. You can guess what the image means wants you to become his mate for a day to make up for invading his territory.  What do you do?\n\n', false );
 		//Submit / Fight
-		EngineCore.choices( 'Fight', this.startuAkabalFightomon, 'Submit', this.akbalSubmit, '', null, '', null, '', null );
+		EngineCore.choices( 'Fight', this, this.startuAkabalFightomon, 'Submit', this, this.akbalSubmit, '', null, null, '', null, null, '', null, null );
 	};
 	//[Encounter if previously submitted]
 	AkbalScene.prototype.repeatAkbalPostSubmission = function() {
@@ -591,7 +591,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( 'As you walk through the forest, you hear a purring coming from behind you.  Turning around reveals that Akbal has come to find you.  He uses his head to push you in the direction of his territory, obviously wanting to dominate you again.\n\n', false );
 		EngineCore.outputText( 'What do you do?', false );
 		//Submit / Deny / Fight
-		EngineCore.choices( 'Submit', this.akbalSubmit, 'Deny', this.akbalDeny, 'Fight', this.startuAkabalFightomon, '', null, '', null );
+		EngineCore.choices( 'Submit', this, this.akbalSubmit, 'Deny', this, this.akbalDeny, 'Fight', this, this.startuAkabalFightomon, '', null, null, '', null, null );
 	};
 	//[Deny]
 	AkbalScene.prototype.akbalDeny = function() {
@@ -599,7 +599,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You shake your head and rub the lust-filled jaguar behind the ear as you tell him you\'re busy.  The demon\'s eyes roll, and he licks your ' + CoC.player.leg() + ' before his eyes find an imp in the trees above the two of you.\n\n', false );
 		EngineCore.outputText( 'Knowing he\'s found a new toy, Akbal allows you to leave unmolested.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Encounter if previously fought and won/raped him]
 	AkbalScene.prototype.ackbalRepeatAfterWin = function() {
@@ -612,7 +612,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			EngineCore.outputText( 'dodging roll places you a good distance away from him.  Do you fight or flee?\n\n', false );
 		}
 		//Fight / Flee
-		EngineCore.choices( 'Fight', this.startuAkabalFightomon, '', null, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Fight', this, this.startuAkabalFightomon, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Encounter if previously fought and lost]
 	AkbalScene.prototype.ackbalRepeatAfterLoss = function() {
@@ -620,7 +620,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'A chorus of laughter sounds inside your mind as the jaguar demon, Akbal, drops to the ground in front of you.  His masculine voice says, "<i>Well, if it isn\'t the defiant welp who, in all their great idiocy, has wandered into my territory again.  Will you submit, or do I have to teach you another harsh lesson?</i>"\n\n', false );
 		//Submit / Fight / Run
-		EngineCore.choices( 'Submit', this.akbalSubmit, 'Fight', this.startuAkabalFightomon, '', null, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Submit', this, this.akbalSubmit, 'Fight', this, this.startuAkabalFightomon, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight]
 	AkbalScene.prototype.startuAkabalFightomon = function() {
@@ -686,7 +686,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				CoC.player.buttRating++;
 			}
 			CoC.player.createStatusAffect( StatusAffects.PostAkbalSubmission, 0, 0, 0, 0 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 			return;
 		}
 		//Taur variant goez here
@@ -753,7 +753,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				CoC.player.buttRating++;
 			}
 			CoC.player.createStatusAffect( StatusAffects.PostAkbalSubmission, 0, 0, 0, 0 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 			return;
 		}
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-sumbitanal' ) );
@@ -812,7 +812,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			CoC.player.buttRating++;
 		}
 		CoC.player.createStatusAffect( StatusAffects.PostAkbalSubmission, 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//[General End]
 	//Set flag after submitting, then clear it and run
@@ -851,7 +851,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		} else {
 			EngineCore.outputText( 'You awake in your camp feeling dangerous, powerful and fiercely satisfied.', false );
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	/*
 	 [Items]
@@ -936,7 +936,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.dynStats( 'cor', 5 );
 		CoC.player.slimeFeed();
 		CoC.player.createStatusAffect( StatusAffects.PostAkbalSubmission, 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	//2. AKBAL'S MY BITCH
 	//By Foxxling
@@ -953,8 +953,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		else {
 			EngineCore.outputText( '\n\nDo you take advantage of him again?' );
 			EngineCore.menu();
-			EngineCore.addButton( 1, 'No', this.akbitchNoThnx );
-			EngineCore.addButton( 0, 'Yes', this.takeAdvantageOfAkbitch );
+			EngineCore.addButton( 1, 'No', this, this.akbitchNoThnx );
+			EngineCore.addButton( 0, 'Yes', this, this.takeAdvantageOfAkbitch );
 		}
 	};
 	AkbalScene.prototype.akbitchNoThnx = function( clear ) {
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		if( CoC.player.lust < 33 ) {
 			EngineCore.outputText( '  Besides, you aren\'t aroused right now, anyway.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//{Choose Rape}
 	AkbalScene.prototype.takeAdvantageOfAkbitch = function() {
@@ -1003,21 +1003,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '\n\nAkbal suddenly stops struggling and you hear someone shout your name. You smile, knowing the voice is Akbal’s attempt to distract you.  Ignoring his desperate ploy, you grab the demon by the shoulders and slam him into the ground.  He struggles, you push him down again.  After throwing a fit of swearing and cursing, he goes limp.  Accepting his fate, he tells you to get on with it.  With his arms still behind his back, you tie a portion of the vine around his neck like a collar and leave the rest hanging from the main part, resembling a leash.  This is going to be fun.' );
 		CoC.flags[ kFLAGS.AKBAL_TIMES_BITCHED ]++;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Normal', this.basicAkbitchScene );
+		EngineCore.addButton( 0, 'Normal', this, this.basicAkbitchScene );
 		//AMB Strength Scene
 		//70+
 		if( CoC.player.str >= 70 ) {
-			EngineCore.addButton( 1, 'Strong', this.akbitchHighStrengthVariant );
+			EngineCore.addButton( 1, 'Strong', this, this.akbitchHighStrengthVariant );
 		}
 		//AMB Speed Scene
 		//70
 		if( CoC.player.spe >= 70 ) {
-			EngineCore.addButton( 2, 'Fast', this.akbalBitchSpeed );
+			EngineCore.addButton( 2, 'Fast', this, this.akbalBitchSpeed );
 		}
 		//AMB Toughness Scene
 		//70
 		if( CoC.player.tou >= 70 ) {
-			EngineCore.addButton( 3, 'Toughness', this.akbitchToughness );
+			EngineCore.addButton( 3, 'Toughness', this, this.akbitchToughness );
 		}
 	};
 	//Basic AMB Scene (no +70 stats)
@@ -1033,9 +1033,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '\n\nWhat will you do with him?' );
 		EngineCore.menu();
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Fuck Him', this.buttFuckbuttFuckbuttFuckAkbal );
+			EngineCore.addButton( 0, 'Fuck Him', this, this.buttFuckbuttFuckbuttFuckAkbal );
 		}
-		EngineCore.addButton( 1, 'Ride Him', this.topAkbitchFromDaBottom );
+		EngineCore.addButton( 1, 'Ride Him', this, this.topAkbitchFromDaBottom );
 	};
 	//Butt Fuck - Vaginal - Anal
 	AkbalScene.prototype.buttFuckbuttFuckbuttFuckAkbal = function() {
@@ -1058,7 +1058,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '\n\nAkbal groans deep in his chest as you invade his lube-dripping tailhole. He begins to pull away from your [cock biggest] as you push forward.  A sharp tug on his collar corrects this and you resume your efforts to enter his body.  Once your [cockHead biggest] is inside him, he swoons and pushes his muscular rump back onto your [cock biggest] without need for further instruction.  Every time your full length slides into him, he gives a sharp yelp, a hungry sound that shows both his tightness and his need for your [cock biggest].  He maintains a fevered pace and even throws his head back as he pleasures himself on your [cock biggest].' );
 		//{if penis > 12in} else 				EngineCore.outputText('\n\nAkbal howls and cringes as you begin to stuff yourself into his tight tailhole.  His hips swerve and you have to yank your forest-made collar to keep your [cock biggest] buried within his gloriously wet and unbelievably tight hole.  Once you’ve managed to get your [cockHead biggest] past his tight ring, he begins to whine again.  You have to pull his collar to force him down the length of your [cock biggest], but once a foot of your massive dick is inside him, your advance is halted.  Before you even think to complain his insides begin to squirm, shifting to make room for the rest of your [cock biggest].  You reach down and grab his hips, pulling him back until his plump muscled cheeks softly mash against your trunk.  He howls as you maintain a firm grip on his slender hips, not allowing him to move an inch.  Through your fully embedded [cock biggest] you can feel his hole quivering as it pumps massive gobs of that creamy, slick lube in an attempt to make the fuck easier.  A yank on the collar causes the demon to begin slowly forcing himself up and down the length of your [cock biggest].  After a few incursions Akbal picks up the pace and becomes lost in fucking himself up and down your giant pole.  His natural lube even slides out and drips down your [legs] as he repeatedly smashes his insatiable ass into you.  Unbidden, a groan finds its way out your mouth as the demon works you over, having gone from neophyte to pro in a matter of minutes.');
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.fuckAkbitchsButt );
+		EngineCore.addButton( 0, 'Next', this, this.fuckAkbitchsButt );
 	};
 	//- page turn -
 	AkbalScene.prototype.fuckAkbitchsButt = function() {
@@ -1086,7 +1086,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.outputText( '\n\nYou look back at your new bitch with a grin while he regains his senses.  As you leave the forest you hear a promise from Akbal’s chorus of voices, "<i>You will regret this... Champion.</i>"' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AkbalScene.prototype.topAkbitchFromDaBottom = function() {
 		EngineCore.clearOutput();
@@ -1106,7 +1106,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		EngineCore.outputText( '\n\nThe bound demon’s legs stretch straight out, his barbed dick flexing in anticipation.  You touch it, feeling the wetness of the self-lubing demon dick cling to your fingers as you feel one of the barbs.  It is spongy, soft but not too soft.  The demon hisses as you tease him, your fingers sliding across the rubbery barbs that cover his rock-hard sex organ.  When you begin to lower yourself onto his shuddering dick, the demon begins to purr.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.topAkbitchFromBottomDuex );
+		EngineCore.addButton( 0, 'Next', this, this.topAkbitchFromBottomDuex );
 	};
 	AkbalScene.prototype.topAkbitchFromBottomDuex = function() {
 		EngineCore.clearOutput();
@@ -1148,7 +1148,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		if( CoC.player.hasVagina() ) {
 			CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP, 101 );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//AMB Strength Scene
 	//70+
@@ -1202,7 +1202,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			//{corruption > 90} else 					EngineCore.outputText('\n\nYou stand and Akbal’s legs flop from where you had them pinned to his chest.  You gather your [armor] and dress before aiming a wicked slap at Akbal’s tender cheeks and leaving him tied up for the imps and goblins you spy watching the two of you from the trees.\n\nYou tell him he is all theirs and share a conspiratorial grin as you head back to camp.');
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 3 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-female-highstrength' ) );
 			EngineCore.outputText( '\n\nAkbal licks your [face], quite obviously lost in lust.  He’s lost all pretense of being some god and is now your own personal bitch.  With a wicked grin, you drop him ass first onto the ground.  You turn on your heel and squat until your [vagOrAss] is in his face, letting him get a good whiff.  Then you unceremoniously grab the fur on his head and jam him muzzle first into your [vagOrAss].' );
@@ -1251,7 +1251,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			if( CoC.player.hasVagina() ) {
 				CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP, 101 );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//AMB Speed Scene
@@ -1341,7 +1341,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//AMB Toughness Scene
 	//70
@@ -1465,7 +1465,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 3 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'akbalScene', new AkbalScene() );
 } );

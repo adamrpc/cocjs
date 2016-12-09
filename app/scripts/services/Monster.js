@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 		}
 		EngineCore.outputText( '\n\nYou\'ll probably wake up in eight hours or so, missing ' + temp + ' gems.', false );
 		CoC.player.gems -= temp;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
 	/**
 	 * Final method to handle hooks before calling overriden method

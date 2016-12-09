@@ -50,17 +50,17 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 				EngineCore.outputText( 'Here we go again...\n\n' );
 			}
 			//[Open Present] [Unwrap Elf] [Decline];
-			EngineCore.choices( 'OpenPresent', this.openXmasPresent, '', null, 'Decline', this.declineXmasPresent, '', null, '', null );
+			EngineCore.choices( 'OpenPresent', this, this.openXmasPresent, '', null, null, 'Decline', this, this.declineXmasPresent, '', null, null, '', null, null );
 			return;
 		}
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( 'She nods, bouncing up in down in excitement, "<i>Yup!  Just open it up!  Are you ready?</i>"\n\n', false );
-			EngineCore.choices( 'OpenPresent', this.openXmasPresent, '', null, 'Decline', this.declineXmasPresent, '', null, '', null );
+			EngineCore.choices( 'OpenPresent', this, this.openXmasPresent, '', null, null, 'Decline', this, this.declineXmasPresent, '', null, null, '', null, null );
 			return;
 		}
 		EngineCore.outputText( 'She nods, bouncing up in down in excitement, "<i>Yup!  You can unwrap it or unwrap me.  What\'ll it be?</i>"\n\n', false );
 		//[Open Present] [Unwrap Elf] [Decline];
-		EngineCore.choices( 'OpenPresent', this.openXmasPresent, 'Unwrap Elf', this.unwrapElfyPresent, 'Decline', this.declineXmasPresent, '', null, '', null );
+		EngineCore.choices( 'OpenPresent', this, this.openXmasPresent, 'Unwrap Elf', this, this.unwrapElfyPresent, 'Decline', this, this.declineXmasPresent, '', null, null, '', null, null );
 	};
 	//[Decline];
 	XmasBitch.prototype.declineXmasPresent = function() {
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		EngineCore.outputText( 'You shake your head \'no\', and inform the elf that you\'ll have nothing to do with her \'gifts\' or \'surprises\'.  She looks on the verge of tears as she whines, "<i>I\'m going to get reamed for this!</i>"\n\n', false );
 		EngineCore.outputText( 'Before you can react, she sprints off into the darkness.', false );
 		CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Open Present];
 	XmasBitch.prototype.openXmasPresent = function() {
@@ -129,8 +129,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		} else {
 			EngineCore.outputText( 'Which part will you ravish her with?\n\n' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Male', this.futaDickXmasElfClr );
-			EngineCore.addButton( 1, 'Female', this.futaVagXmasElfClr );
+			EngineCore.addButton( 0, 'Male', this, this.futaDickXmasElfClr );
+			EngineCore.addButton( 1, 'Female', this, this.futaVagXmasElfClr );
 		}
 	};
 	XmasBitch.prototype.futaDickXmasElfClr = function() {
@@ -202,7 +202,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		}
 		//(Go to followup for fucking scene);
 		//[Next];
-		EngineCore.doNext( this.xmasFuckFollowup );
+		EngineCore.doNext( this, this.xmasFuckFollowup );
 		CoC.player.orgasm();
 	};
 	//[FEMALE SCENE]	;
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		EngineCore.outputText( '"<i>You don\'t think I\'d let you cum just once did you?  I\'m going to drill all the naughty, sinful little thoughts from your slut-hole!</i>"\n\n', false );
 		EngineCore.outputText( 'You throw your head back and let out a low shuddering moan as she spins the dildo even faster, forcing your convulsing cunt to stay locked in a mind-shattering orgasm.  Eyes crossed, you collapse onto your back and twitch, body wriggling and flopping about nervelessly as it caves in to pleasure it was never meant to handle.\n\n', false );
 		EngineCore.outputText( 'You black out to the following words: "<i>Good girl.  Keep cumming, let out all those naughty thoughts.  I can\'t wait to see you next year!</i>"', false );
-		EngineCore.doNext( this.xmasFuckFollowupFems );
+		EngineCore.doNext( this, this.xmasFuckFollowupFems );
 		CoC.player.orgasm();
 	};
 	//MANTASTIC FOLLOWUP:;
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		}
 		EngineCore.outputText( '?', false );
 		//[Yes][No] – yes awards (+250 mls cum volume), no awards +15 intellect;
-		EngineCore.doYesNo( this.xmasPerkM, this.xmasSmart );
+		EngineCore.doYesNo( this, this.xmasPerkM, this, this.xmasSmart );
 		//(-5 corruption);
 		EngineCore.dynStats( 'cor', -5 );
 		//(+20 sens unless it would bring you over 80 sens, then +5 sens);
@@ -264,7 +264,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		}
 		EngineCore.outputText( '?', false );
 		//[Yes][No] – yes awards (+15 fertility!), no awards +15 intellect;
-		EngineCore.doYesNo( this.xmasPerkM, this.xmasSmart );
+		EngineCore.doYesNo( this, this.xmasPerkM, this, this.xmasSmart );
 		//(-5 corruption);
 		EngineCore.dynStats( 'cor', -5 );
 		//(+20 sens unless it would bring you over 80 sens, then +5 sens);
@@ -295,12 +295,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 				EngineCore.outputText( '<b> - +15 bonus fertility!</b>' );
 			}
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	XmasBitch.prototype.xmasSmart = function() {
 		EngineCore.hideUpDown();
 		EngineCore.outputText( 'You nod to yourself, feeling pretty smart about your decision.', true );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		EngineCore.dynStats( 'int', 15 );
 	};
 	SceneLib.registerScene( 'xmasBitch', new XmasBitch() );

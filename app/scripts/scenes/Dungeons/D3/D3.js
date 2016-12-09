@@ -183,8 +183,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			EngineCore.outputText( '\n\n<b>You’ve discovered a hidden entrance to Lethice’s lair. It can be accessed from the Dungeons submenu in the future.</b>' );
 			EngineCore.outputText( '\n\nDo you step inside, or wait until you’re better prepared?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Enter', this.enterD3 );
-			EngineCore.addButton( 1, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.addButton( 0, 'Enter', this, this.enterD3 );
+			EngineCore.addButton( 1, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return true;
 		}
 		return false;
@@ -205,29 +205,29 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 	D3.prototype.generateRoomMenu = function( tRoom ) {
 		if( tRoom.NorthExit && tRoom.NorthExit.length > 0 ) {
 			if( !tRoom.NorthExitCondition || tRoom.NorthExitCondition() ) {
-				EngineCore.addButton( 0, 'North', this.move, tRoom.NorthExit );
+				EngineCore.addButton( 0, 'North', this, this.move, tRoom.NorthExit );
 			}
 		}
 		if( tRoom.EastExit && tRoom.EastExit.length > 0 ) {
 			if( !tRoom.EastExitCondition || tRoom.EastExitCondition() ) {
-				EngineCore.addButton( 1, 'East', this.move, tRoom.EastExit );
+				EngineCore.addButton( 1, 'East', this, this.move, tRoom.EastExit );
 			}
 		}
 		if( tRoom.SouthExit && tRoom.SouthExit.length > 0 ) {
 			if( !tRoom.SouthExitCondition || tRoom.SouthExitCondition() ) {
-				EngineCore.addButton( 6, 'South', this.move, tRoom.SouthExit );
+				EngineCore.addButton( 6, 'South', this, this.move, tRoom.SouthExit );
 			}
 		}
 		if( tRoom.WestExit && tRoom.WestExit.length > 0 ) {
 			if( !tRoom.WestExitCondition || tRoom.WestExitCondition() ) {
-				EngineCore.addButton( 5, 'West', this.move, tRoom.WestExit );
+				EngineCore.addButton( 5, 'West', this, this.move, tRoom.WestExit );
 			}
 		}
 		if( tRoom.RoomName === 'entrance' ) {
-			EngineCore.addButton( 5, 'Exit', this.exitD3 );
+			EngineCore.addButton( 5, 'Exit', this, this.exitD3 );
 		}
-		EngineCore.addButton( 8, 'Items', SceneLib.inventory.inventoryMenu );
-		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation.masturbateGo );
+		EngineCore.addButton( 8, 'Items', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
+		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation, SceneLib.masturbation.masturbateGo );
 	};
 	D3.prototype.move = function( roomName ) {
 		$log.debug( 'Entering room', roomName );
@@ -279,7 +279,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 				EngineCore.outputText( '  Disquiet edges down your spine. Something about this place doesn’t feel right. The room seems faded at the corners, as if it’s not quite there.' );
 			}
 
-			EngineCore.addButton( 2, 'Glasses', SceneLib.dopplegangerScenes.getDemGlasses );
+			EngineCore.addButton( 2, 'Glasses', SceneLib.dopplegangerScenes, SceneLib.dopplegangerScenes.getDemGlasses );
 		}
 		return false;
 	};
@@ -310,13 +310,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 				}
 			}
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisks );
-			EngineCore.addButton( 1, 'Fall Back', this.fallbackFromMagpieHallS );
+			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes, SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisks );
+			EngineCore.addButton( 1, 'Fall Back', this, this.fallbackFromMagpieHallS );
 			return true;
 		}
 		EngineCore.outputText( 'You are back in the southern end of the Magpie Hall.  Without the bustle of activity below it is a gapingly empty and quiet place, the only sound the murmur of activity from elsewhere. There is a vast amount of collected junk below but it would take, well, an army of basilisks to sort through it to find anything worthwhile. You could check out the massive pile of eggs, though.' );
 		if( this.eggsAvailable() > 0 ) {
-			EngineCore.addButton( 2, 'Eggs', this.goToEggPile );
+			EngineCore.addButton( 2, 'Eggs', this, this.goToEggPile );
 		}
 		return false;
 	};
@@ -355,24 +355,24 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 		EngineCore.menu();
 		var flagNum = CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ];
 		if( !(flagNum & BLACK) ) {
-			EngineCore.addButton( 0, 'Black', this.takeEgg, BLACK );
+			EngineCore.addButton( 0, 'Black', this, this.takeEgg, BLACK );
 		}
 		if( !(flagNum & BLUE) ) {
-			EngineCore.addButton( 1, 'Blue', this.takeEgg, BLUE );
+			EngineCore.addButton( 1, 'Blue', this, this.takeEgg, BLUE );
 		}
 		if( !(flagNum & WHITE) ) {
-			EngineCore.addButton( 2, 'White', this.takeEgg, WHITE );
+			EngineCore.addButton( 2, 'White', this, this.takeEgg, WHITE );
 		}
 		if( !(flagNum & PINK) ) {
-			EngineCore.addButton( 3, 'Pink', this.takeEgg, PINK );
+			EngineCore.addButton( 3, 'Pink', this, this.takeEgg, PINK );
 		}
 		if( !(flagNum & BROWN) ) {
-			EngineCore.addButton( 4, 'Brown', this.takeEgg, BROWN );
+			EngineCore.addButton( 4, 'Brown', this, this.takeEgg, BROWN );
 		}
 		if( !(flagNum & PURPLE) ) {
-			EngineCore.addButton( 5, 'Purple', this.takeEgg, PURPLE );
+			EngineCore.addButton( 5, 'Purple', this, this.takeEgg, PURPLE );
 		}
-		EngineCore.addButton( 9, 'Back', this.resumeFromFight );
+		EngineCore.addButton( 9, 'Back', this, this.resumeFromFight );
 	};
 	D3.prototype.takeEgg = function( eggMask ) {
 		var item;
@@ -410,19 +410,19 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 		}
 		EngineCore.outputText( '\n\nYou head back through the archway into the gloomy antechamber.' );
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Next', this.move, 'antechamber' );
+		EngineCore.addButton( 1, 'Next', this, this.move, 'antechamber' );
 	};
 	D3.prototype.magpiehallnRoomFunc = function() {
 		if( CoC.flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( 'You find yourself back in the small booth, with the locked door leading out into the Magpie Hall. Just like the one on the opposite side, there is a darkened screen here through which you can see hundreds of basilisks milling down below, sorting through the vast amount of junk and eggs they have collected from the mountainside. They don’t seem to have taken any extra precautions following your narrow escape of them- the gantry remains free of any guards, and the door on the other side looks open.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisksNorth );
-			EngineCore.addButton( 1, 'Stronghold', this.move, 'tunnel2' );
+			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes, SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisksNorth );
+			EngineCore.addButton( 1, 'Stronghold', this, this.move, 'tunnel2' );
 			return true;
 		}
 		EngineCore.outputText( 'You are back in the northern end of the Magpie Hall. Without the bustle of activity below it is a gapingly empty and quiet place, the only sound the murmur of activity from elsewhere. There is a vast amount of collected junk below but it would take, well, an army of basilisks to sort through it to find anything worthwhile. You could check out the massive pile of eggs, though.' );
 		if( this.eggsAvailable() > 0 ) {
-			EngineCore.addButton( 2, 'Eggs', this.goToEggPile );
+			EngineCore.addButton( 2, 'Eggs', this, this.goToEggPile );
 		}
 		return false;
 	};
@@ -461,8 +461,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			EngineCore.outputText( '\n\nShe smiles encouragingly. <i>"What\'ll it be?"</i>' );
 			//[Surrender] [Fight];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Fight', Combat.startCombatImmediate, new SuccubusGardener() );
-			EngineCore.addButton( 1, 'Surrender', SceneLib.succubusGardenerScenes.surrenderToTheGardener );
+			EngineCore.addButton( 0, 'Fight', null, Combat.startCombatImmediate, new SuccubusGardener() );
+			EngineCore.addButton( 1, 'Surrender', SceneLib.succubusGardenerScenes, SceneLib.succubusGardenerScenes.surrenderToTheGardener );
 			return true;
 		}
 		return false;
@@ -526,7 +526,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 		if( CoC.flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '\n\nWait... what’s that?' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', SceneLib.livingStatueScenes.encounter );
+			EngineCore.addButton( 0, 'Next', SceneLib.livingStatueScenes, SceneLib.livingStatueScenes.encounter );
 			return true;
 		}
 		EngineCore.outputText( 'Two disembodied, marble feet and a field of rubble are all that remains of the once proud statue that stood in the center of the courtyard. You dealt with the animated monstrosity but can’t help but feel a little shame at the destruction you’ve so openly wrought. Many of the bushes are torn in half by two ton slabs, and the path is scarred in a dozen places by chips and smashed divots. You can go east and west from here, if you move carefully around the more jagged pieces of stone.' );

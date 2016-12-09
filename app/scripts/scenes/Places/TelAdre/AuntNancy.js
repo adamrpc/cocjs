@@ -38,14 +38,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 			EngineCore.outputText( 'Aunt Nancy sighs.  "<i>Sorry. I don\'t mean to bore you with an old woman\'s rambling.  I... I just miss him, so much, and I get a little... lonely, sometimes.</i>"  She looks at you, with a strange, half-hungry, half-desperate look in her eyes.  "<i>Would you mind... coming home with me?  You seem a little tense, and I\'d like to give you a massage.</i>"\n\n', false );
 			//[Gain 20 Lust.] (I remain steadfastly unaroused; maudlin self-pity isn't sexy.  -Z);
 			EngineCore.dynStats( 'lus', 10 );
-			EngineCore.choices( 'Agree', this.timeForAuntNancySpiderCooch, 'Decline', this.declineAuntNancyMassage, '', null, '', null, '', null );
+			EngineCore.choices( 'Agree', this, this.timeForAuntNancySpiderCooch, 'Decline', this, this.declineAuntNancyMassage, '', null, null, '', null, null, '', null, null );
 		}
 		//[If Time >= 1400 - (100*(Relationship with Aunt Nancy/30), Relationship with Aunt Nancy >= 30, and PillowTalk= 1];
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00264 ] >= 30 && CoC.time.hours >= (14 - (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00264 ] / 30)) && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00266 ] > 0 ) {
 			EngineCore.outputText( 'Aunt Nancy looks up as you walk over to her, and her eyes light up.  Happily, she greets you with a prim little hand atop yours, a bit of evidence of the intimacy you\'ve shared.\n\n', false );
 			EngineCore.outputText( '"<i>Couldn\'t stay away, could you friend?</i>" she asks, quietly, a sexy smile on her lovely face.  "<i>What\'ll it be? Do you want a drink...</i>"  The spider-lady leans her white-haired head next to your ear conspiratorially, and whispers, "<i>Or, do you want me to get off early and give you a little... massage?</i>"  You shiver at her words.\n\n', false );
 			//[Choice: Strong, Light, Agree, Decline];
-			EngineCore.choices( 'Strong', this.strongStuff, 'Light', this.lightStuff, 'Agree', this.timeForAuntNancySpiderCooch, '', null, 'Back', this.declineAuntNancyMassage );
+			EngineCore.choices( 'Strong', this, this.strongStuff, 'Light', this, this.lightStuff, 'Agree', this, this.timeForAuntNancySpiderCooch, '', null, null, 'Back', this, this.declineAuntNancyMassage );
 		}
 		//[Interaction 1];
 		//If Relationship with Nancy < 30;
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00263 ] = 1;
 			}
 			//[Choice: Strong, Light];
-			EngineCore.choices( 'Strong', this.strongStuff, 'Light', this.lightStuff, '', null, '', null, 'Leave', SceneLib.telAdre.barTelAdre );
+			EngineCore.choices( 'Strong', this, this.strongStuff, 'Light', this, this.lightStuff, '', null, null, '', null, null, 'Leave', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 		}
 	};
 	//[Strong:];
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 		if( CoC.player.gems < 5 ) {
 			EngineCore.outputText( 'You start to ask for a strong drink and then remember you can\'t afford it.', false );
 			//Do next;
-			EngineCore.doNext( this.interactWithAuntNancy );
+			EngineCore.doNext( this, this.interactWithAuntNancy );
 			return;
 		}
 		EngineCore.dynStats( 'tou', 1, 'int', -1, 'lus', 15 );
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 			//[+5 Relationship with Aunt Nancy];
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00264 ] += 5;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Light:];
 	AuntNancy.prototype.lightStuff = function() {
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 		if( CoC.player.gems < 5 ) {
 			EngineCore.outputText( 'You start to ask for a light drink and then remember you can\'t afford it.', false );
 			//Do next;
-			EngineCore.doNext( this.interactWithAuntNancy );
+			EngineCore.doNext( this, this.interactWithAuntNancy );
 			return;
 		}
 		CoC.player.gems -= 5;
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 			}
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00264 ] += 20;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Decline];
 	AuntNancy.prototype.declineAuntNancyMassage = function() {
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 		EngineCore.outputText( 'Aunt Nancy listens as you politely turn her down, and nods her head, the hungry look fading from her eyes.  "<i>I understand completely.  Sorry to have bothered you.</i>"  She starts to walk out of the bar, stops, and turns back to size you up again.  "<i>Of course,</i>" she says, "<i>if you ever change your mind... just come by whenever my shift\'s over.</i>"\n\n', false );
 		EngineCore.outputText( 'Aunt Nancy raises one of her black-covered hands in front of her mouth, and blows you a kiss before scuttling away.', false );
 		//[Gain 20 Lust.];
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[If Agree];
 	AuntNancy.prototype.timeForAuntNancySpiderCooch = function() {
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 		//[Gain 30 Lust, New Page];
 		CoC.player.lust += 29;
 		EngineCore.dynStats( 'lus', 1 );
-		EngineCore.doNext( this.auntNancyPoonPartII );
+		EngineCore.doNext( this, this.auntNancyPoonPartII );
 	};
 	AuntNancy.prototype.auntNancyPoonPartII = function() {
 		EngineCore.outputText( '', true );
@@ -356,7 +356,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 				EngineCore.outputText( 'As milk leaks slowly from your ' + Descriptors.nippleDescript( 0 ) + 's, the spider-lady notices. She lowers her head and wraps her soft, lovely lips around the tip of one of your ' + CoC.player.allBreastsDescript() + ', sucking gently and frantically flicking her tongue against your ' + Descriptors.nippleDescript( 0 ) + '.  You moan and lie back into the web, the multitude of sexual pleasures assaulting your senses almost more than you can bear as Aunt Nancy begins swallowing up your milk.\n\n', false );
 			}
 		}
-		EngineCore.doNext( this.auntNancyPoonPartIII );
+		EngineCore.doNext( this, this.auntNancyPoonPartIII );
 	};
 	AuntNancy.prototype.auntNancyPoonPartIII = function() {
 		EngineCore.outputText( '', true );
@@ -466,7 +466,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 		EngineCore.outputText( '"<i>Not a chance on Marae\'s green earth, friend,</i>" she purrs, her voice like hoarse velvet as she rubs the surface of her still-needy pussy against your belly.  "<i>I haven\'t had a lover in my bed in more than ten years, and you\'re not going anywhere until I say you can.</i>"  That last part was punctuated with a wicked squeeze of your ' + Descriptors.buttDescript() + ', and Aunt Nancy presses her lips to yours again, much less gently and more passionately this time.  You moan into her mouth, feeling her aphrodisiacal bodily fluids seeping in, and, as she soon frees your upper body and presses your head into her soft, silky pussy, you know she\'s right.\n\n', false );
 		EngineCore.outputText( '"<i>And I\'ll be damned if I do all the work this time,</i>" Aunt Nancy adds, before letting out a satisfied groan at the touch of your lips.', false );
 		//[Next Page, Time += 200];
-		EngineCore.doNext( this.auntNancyPoonPartIV );
+		EngineCore.doNext( this, this.auntNancyPoonPartIV );
 	};
 	AuntNancy.prototype.auntNancyPoonPartIV = function() {
 		EngineCore.outputText( '', true );
@@ -499,7 +499,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, AppearanceDefs, Utils
 		}
 		//Increment times boned!;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00266 ] += 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	SceneLib.registerScene( 'auntNancy', new AuntNancy() );
 } );

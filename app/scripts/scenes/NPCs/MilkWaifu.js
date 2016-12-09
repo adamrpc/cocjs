@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '\n\nSpeaking of which, you don\'t really have anything to call this dusky beauty.  You suppose you could just keep calling her "Bath Slut," but that\'s hardly a fitting name for a free girl...' );
 		//[Name Field.  If left empty, defaults to 'Bath Slut'];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.nameZeMilkBath );
+		EngineCore.addButton( 0, 'Next', this, this.nameZeMilkBath );
 		MainView.nameBox.text = '';
 	};
 
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			EngineCore.clearOutput();
 			EngineCore.outputText( '<b>You must give her a name.</b>', false );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.nameZeMilkBath );
+			EngineCore.addButton( 0, 'Next', this, this.nameZeMilkBath );
 			MainView.nameBox.visible = true;
 			MainView.nameBox.value = 'Bath Slut';
 			return;
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			//[Next time Rath's at camp and PC accesses Milky's meny, play the Arrival w/ Rath scene, sans first sentence];
 		}
 		//Set before this function is called:	kGAMECLASS.inDungeon = false;;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.ratducto = function() {
 		EngineCore.clearOutput();
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//{Plot Item gained: 'Super Reducto'};
 		CoC.player.createKeyItem( 'Super Reducto', 0, 0, 0, 0 );
 		EngineCore.outputText( '\n\n(<b>Key Item Acquired: Super Reducto</b>)' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
 	//Milky's Menu (Accessed from the FOLLOWERS tab);
@@ -125,31 +125,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//Appearance;
 		//{Reducto} (GIANT or HHH boobs);
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Appearance', this.milkWriteFuAppearance );
+		EngineCore.addButton( 0, 'Appearance', this, this.milkWriteFuAppearance );
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] > 0 ) {
-			EngineCore.addButton( 1, 'Milk Time!', this.nyanCatMilkTime );
+			EngineCore.addButton( 1, 'Milk Time!', this, this.nyanCatMilkTime );
 		}
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] < 2 ) {
-			EngineCore.addButton( 2, 'Milk Bath', this.milkBathTime );
+			EngineCore.addButton( 2, 'Milk Bath', this, this.milkBathTime );
 		}
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] < 2 && CoC.player.hasKeyItem( 'Super Reducto' ) >= 0 ) {
-			EngineCore.addButton( 3, 'Reducto', this.superReductoUsage );
+			EngineCore.addButton( 3, 'Reducto', this, this.superReductoUsage );
 		}
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] > 0 && CoC.player.lust >= 33 && CoC.player.hasCock() ) {
-			EngineCore.addButton( 4, 'Titfuck', this.titFuckDatMilkSlut );
+			EngineCore.addButton( 4, 'Titfuck', this, this.titFuckDatMilkSlut );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 0 && CoC.flags[ kFLAGS.MILK_SIZE ] > 0 && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-			EngineCore.addButton( 5, 'Farm Work', this.sendToFarm );
+			EngineCore.addButton( 5, 'Farm Work', this, this.sendToFarm );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 1 && CoC.flags[ kFLAGS.MILK_SIZE ] > 0 ) {
-			EngineCore.addButton( 5, 'Go Camp', this.backToCamp );
+			EngineCore.addButton( 5, 'Go Camp', this, this.backToCamp );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 0 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.camp.campSlavesMenu );
+			EngineCore.addButton( 9, 'Back', SceneLib.camp, SceneLib.camp.campSlavesMenu );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 		}
 	};
 	MilkWaifu.prototype.sendToFarm = function() {
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			EngineCore.outputText( '\n\nIt darkly but deliciously occurs to you that once she’s at the farm, it would be fairly easy to re-boobify her, build her a new tank and massively increase the amount of milk your farm produces.' );
 		}
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '“<i>I want you to head on back to camp,</i>” you tell her. “<i>You’ll be more useful to me there.</i>” [bathgirlName]’s brow crinkles but she seems to accept your instruction.' );
 		EngineCore.outputText( '“<i>As you wish.</i>” She wipes her hands before walking slowly down and out of the farm’s gate.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	//Appearance;
 	MilkWaifu.prototype.milkWriteFuAppearance = function() {
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			}
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.milkyMenu );
+		EngineCore.addButton( 0, 'Next', this, this.milkyMenu );
 	};
 	//Reducto;
 	MilkWaifu.prototype.superReductoUsage = function() {
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			//If no Rath tell ' + CoC.flags[kFLAGS.MILK_NAME] + ' to wait a moment, and go digging through your possessions.  It takes a few minutes, but eventually you find some comfortable-looking clothing.  She takes them eagerly, saying she\'ll trim them down to her size as soon as she\'s got herself settled down: it\'s a lot to take in all at once, and she seems eager to experiment with her new, slender body, walking all over camp with a gay smile.  You leave her to exercise, but not before she draws you into a long kiss, holding you tight once again and whispering her heartfelt thanks."};
 		}
 		CoC.flags[ kFLAGS.MILK_SIZE ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Milk Bath (HHH or Giant boobs only);
 	MilkWaifu.prototype.milkBathTime = function() {
@@ -313,9 +313,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '  What do you do?' );
 		//{If can masturbate [Drink & Masturbate] [Milk Girl] [Communal Bath] [Relax]};
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Milk Girl', this.pullInZeMilkGirl );
+		EngineCore.addButton( 1, 'Milk Girl', this, this.pullInZeMilkGirl );
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
-			EngineCore.addButton( 0, 'DrinkNFap', this.drinkAndFapturbate );
+			EngineCore.addButton( 0, 'DrinkNFap', this, this.drinkAndFapturbate );
 		}
 		var count = 0;
 		if( SceneLib.sophieFollowerScene.sophieFollower() ) {
@@ -347,9 +347,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		}
 		if( count >= 3 ) {
 			EngineCore.outputText( '  Then again, if you\'re getting a bath, maybe the rest of your friends might like to join you?' );
-			EngineCore.addButton( 2, 'Comm.Bath', this.communalBath );
+			EngineCore.addButton( 2, 'Comm.Bath', this, this.communalBath );
 		}
-		EngineCore.addButton( 4, 'Relax', this.relaxWithMilkWaifu );
+		EngineCore.addButton( 4, 'Relax', this, this.relaxWithMilkWaifu );
 	};
 	//[Next] (Relax);
 	MilkWaifu.prototype.relaxWithMilkWaifu = function() {
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//(+Lust, -Fatigue);
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
 		EngineCore.fatigue( -34 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Communal Bath] (PC must have 3+ of the following followers);
 	MilkWaifu.prototype.communalBath = function() {
@@ -418,7 +418,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '\n\nThe lot of you carry on like this for nearly an hour, enjoying what little relaxation you\'re able to get in these dark times.  Eventually, though, you know you must return to your duties.  You and your companions one by one pull yourselves out of the pool, stopping to help ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' and her bloated breasts; towels are passed around between joking and flirting hands, a few are even cracked over bare skin, making girls scream and yelp.  The camp is soon a mess of laughing and playing, with you in the center of it, teasing your lovers between shameless gropes and playful caresses.' );
 		EngineCore.fatigue( -40 );
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Milk Girl];
 	MilkWaifu.prototype.pullInZeMilkGirl = function() {
@@ -469,12 +469,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		}
 		//[Fuck Her](PC must have gender; if cooch, also C+ cups) [Don't];
 		EngineCore.menu();
-		EngineCore.addButton( 4, 'Don\'t', this.dontFuckTheMilkWaifu );
+		EngineCore.addButton( 4, 'Don\'t', this, this.dontFuckTheMilkWaifu );
 		if( CoC.player.hasCock() ) {
-			EngineCore.addButton( 0, 'Fuck Her', this.fuckTheMilkWaifu );
+			EngineCore.addButton( 0, 'Fuck Her', this, this.fuckTheMilkWaifu );
 		}
 		if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 3 ) {
-			EngineCore.addButton( 1, 'LesboFuck', this.beARugMunchingMilkDyke );
+			EngineCore.addButton( 1, 'LesboFuck', this, this.beARugMunchingMilkDyke );
 		}
 	};
 	//	[Don't];
@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
 		EngineCore.fatigue( -20 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (PC has a Dick);
 	MilkWaifu.prototype.fuckTheMilkWaifu = function() {
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//[+Lust, +HP, -Fatigue];
 		CoC.player.orgasm();
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (PC has Cooch & C+cups);
 	MilkWaifu.prototype.beARugMunchingMilkDyke = function() {
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//[+Lust, +HP, -Fatigue];
 		CoC.player.orgasm();
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Drink & Masturbate];
 	MilkWaifu.prototype.drinkAndFapturbate = function() {
@@ -608,7 +608,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '.  Smirking and sexually sated, you pop the drain in the tub and stand there while the sex-scented lactic bathwater runs out the drain.  A quick toweling off later, and you\'re ready to go, feeling slightly refreshed and fairly sated.  It does take you a little longer to get your [armor] equally dry and back in place, but you manage.' );
 		CoC.player.orgasm();
 		EngineCore.fatigue( -33 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.nyanCatMilkTime = function() {
 		EngineCore.clearOutput();
@@ -655,7 +655,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			}
 			EngineCore.fatigue( -50 );
 			EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//Milk Time!  (DD Boobs Ver.);
 		else {
@@ -668,10 +668,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 				EngineCore.outputText( '  Then again, maybe you could hike her panties down and give her a good fucking to send her over the edge.  In her state, she certainly won\'t mind!' );
 			}
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Normal', this.finishMilkNormall );
-			EngineCore.addButton( 1, 'Suckle', this.suckleDatMilk );
+			EngineCore.addButton( 0, 'Normal', this, this.finishMilkNormall );
+			EngineCore.addButton( 1, 'Suckle', this, this.suckleDatMilk );
 			if( CoC.player.cockThatFits( 50 ) >= 0 && CoC.player.hasCock() ) {
-				EngineCore.addButton( 2, 'Fuck', this.fuckDatMilkSlat );
+				EngineCore.addButton( 2, 'Fuck', this, this.fuckDatMilkSlat );
 			}
 		}
 	};
@@ -683,7 +683,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '\n\n"<i>Thank you, [name],</i>" she says simply as you dry yourself off.' );
 		EngineCore.fatigue( -50 );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Suckle];
 	MilkWaifu.prototype.suckleDatMilk = function() {
@@ -695,7 +695,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.outputText( '\n\nEventually, the boobgasm subsides, leaving ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' a quivering, panting pile of lust in your arms, her fingers absently rubbing through her panties as the last dribbles of milk trickle down her chest and your chin.  Taking the first deep breath you\'ve managed to get in the last few minutes, you grab a towel from nearby and try to dry yourself and the leaky girl off as best you can, brushing off the gallons of milk that have washed over you both.  When you\'re done, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' leans over and plants a long, lusty kiss on your lips, her tongue lapping up little drops of her own milk still inside your mouth.  She breaks the kiss after a long, pleasant moment, whispering "<i>Thank you, [name].</i>"' );
 		EngineCore.fatigue( -50 );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fuck Her] (Needs a dick what fits);
 	MilkWaifu.prototype.fuckDatMilkSlat = function() {
@@ -710,7 +710,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.fatigue( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Titfuck (ie, an Excuse for Savin to use 'Lactic Lust' because Fen just taught him that and he has fallen in love) (Requires DD or HHH tittehs & a dick);
 	MilkWaifu.prototype.titFuckDatMilkSlut = function() {
@@ -742,7 +742,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		EngineCore.fatigue( -10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'milkWaifu', new MilkWaifu() );
 } );

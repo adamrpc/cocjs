@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, StatusAffects, Ap
 			SceneLib.kihaFollower.sparWithFriendlyKihaLose();
 		} else if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nKiha seems visibly disturbed by your infection, enough that she turns to leave.' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.kihaScene.kihaLossIntro();
 		}

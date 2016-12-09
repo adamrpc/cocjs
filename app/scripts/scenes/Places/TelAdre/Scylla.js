@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			} else {
 				EngineCore.outputText( 'The nun has apparently given up on coffee and instead sit in silent prayer, her eyes closed to the temptations around her. You give an introduction another attempt, but she remains oblivious. Rude.\n\n', false );
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		if( CoC.flags[ kFLAGS.SCYLLA_SMALLCOCK_INTRO ] === 0 ) {
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		//(If the player has a penis and balls);
 		EngineCore.outputText( 'You\'re pretty sure you know what the demon drink did to Scylla.\n\n', false );
 		EngineCore.outputText( 'She\'s clearly addicted to semen, and if you don\'t help her she\'ll probably disappear with someone else forever.  Then again - whatever has tainted her might have an effect on you.  Do you help her quench her thirst?', false );
-		EngineCore.doYesNo( this.helpScylla, this.dontHelpScylla );
+		EngineCore.doYesNo( this, this.helpScylla, this, this.dontHelpScylla );
 	};
 	Scylla.prototype.helpScylla = function() {
 		this.scyllaSprite();
@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 4, 'sen', 3, 'cor', 2 );
 		CoC.player.cumMultiplier += 2;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Scylla.prototype.dontHelpScylla = function() {
 		this.scyllaSprite();
@@ -177,7 +177,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You tell Scylla the demons have addicted her to cum and turn away before she can return.  You melt away into the crowd and leave her to her thoughts, knowing she\'ll end up on her knees soon enough.  You can\'t help but wonder if you did the right thing; suppressing your libido and preventing the possibility of taint was good, but then again, the nun looked about ready to starve...\n\nYou wrestle with your decision the whole way back to your camp, feeling fairly turned off by the time you get back.', false );
 		EngineCore.dynStats( 'lib', -2, 'lus', -99 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Scylla's Horns-;
@@ -193,7 +193,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Scylla\'s cheeks flush bright red and she motions for you to read the note. "<i>Thank you for coming, ' + CoC.player.short + '. As part of my worship, I have been fasting for the last five days. When I woke up on the sixth morning, my body was as you see it. I am too ashamed to ask for help, but will you at least keep me company for the next twelve hours? I pray that the light of dawn on the seventh day will break my bondage.</i>"\n\n', false );
 		EngineCore.outputText( 'Despite the tone of the letter, it\'s clear she wrote it hours ago. Now, her chest bounces with every shallow breath, the seams at her thighs are tearing from how quickly she rubs her legs together, and the drool from her gagged mouth drips steadily into a little, warm stream that pools in her cleavage. She tries to speak, but the bone ring turns her soft, nervous voice into wanton gurgles. Her pudgy lips struggle to form words, but all they manage are needy, sucking motions. On the verge of frustrated tears, she lays her head against your chest and wraps her fingers around yours, clenching your hand.\n\n', false );
 		//Next;
-		EngineCore.doNext( this.scyllaRoundIIPartII );
+		EngineCore.doNext( this, this.scyllaRoundIIPartII );
 	};
 	Scylla.prototype.scyllaRoundIIPartII = function() {
 		this.scyllaSprite();
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		EngineCore.outputText( 'Without a release, the two of you are sealed, face to groin.\n\n', false );
 		EngineCore.dynStats( 'lib', 1, 'lus=', 100 );
-		EngineCore.doNext( this.scyllaRoundIIPartIII );
+		EngineCore.doNext( this, this.scyllaRoundIIPartIII );
 	};
 	Scylla.prototype.scyllaRoundIIPartIII = function() {
 		this.scyllaSprite();
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			CoC.time.days++;
 		}
 		CoC.time.hours = 5;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Scylla.prototype.scyllaRoundThreeCUM = function() {
 		this.scyllaSprite();
@@ -251,7 +251,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			EngineCore.outputText( 'Scylla the nun is inside, daintily smoothing the wrinkles from her too-tight velvet black habit. Her belly is swollen almost to bursting and she absently strokes it with one hand while her other wipes a slimy glob of cum from the side of her mouth with an alabaster pinkie. She slides the finger into her mouth and sucks it hard enough to bring a blush to her cheeks, sighing in savory delight. As you\'re about to knock on the door and greet her, you hear a loud growling sound and your instincts drop you to a wary crouch, looking for the creature that must\'ve snuck through Tel\'Adre\'s gates. A gurgle and rumble follow and you realize that it\'s Scylla\'s tummy that\'s making those monstrous noises. Before your eyes, her stomach quivers and pulses, flesh roiling and twitching violently under the apparently elastic robe. Then, with a deep draining slurp, her belly contracts, sinking inward until it is flat and smooth. It seems the nun just digested a few gallons of cum in a matter of seconds.\n\n', false );
 			EngineCore.outputText( 'She pats her empty tummy and sighs, half in relief and half in annoyance. "<i>Darn,</i>" she chirps in her soft, quiet voice, "<i>still thirsty.</i>" She squeaks in what you assume was supposed to be a frustrated grumble. Sitting down on the bed, she notices you in the doorway at last. Her face lights up at seeing her friend, but she immediately averts her eyes. "<i>I\'m sorry about my cursing just now,</i>" she apologizes bashfully. "<i>I\'m just having a little trouble. Please, sit down and talk with me.</i>" She pats the bed next to her plump thighs.\n\n', false );
 			EngineCore.outputText( 'After seeing that display, you\'ve got a few questions for her. What would you like to discuss?', false );
-			EngineCore.choices( 'Belly', this.scyllaIIIBellyChat, 'Breathing', this.scyllaIIIHOWZUBREETH, '', null, '', null, '', null );
+			EngineCore.choices( 'Belly', this, this.scyllaIIIBellyChat, 'Breathing', this, this.scyllaIIIHOWZUBREETH, '', null, null, '', null, null, '', null, null );
 		}
 		//Special for cum pumps;
 		else {
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			EngineCore.outputText( 'Scylla is inside, daintily smoothing the wrinkles from her too-tight velvet black habit.  Her belly is swollen almost to bursting and she absently strokes it with one hand while her other wipes a slimy glob of cum from the side of her mouth with an alabaster pinkie.  She slides the finger into her mouth and sucks it hard enough to bring a blush to her cheeks, sighing in savory delight.  In her other hand, she\'s clutching a massive, freshly emptied candy-colored condom that glistens as though licked clean.  As you\'re about to knock on the door and greet her, you hear a loud growling sound and your instincts drop you to a wary crouch, looking for the creature that must\'ve snuck through Tel\'Adre\'s gates.  A gurgle and rumble follow and you realize that it\'s Scylla\'s tummy that\'s making those monstrous noises.  Before your eyes, her stomach quivers and pulses, flesh roiling and twitching violently under the apparently elastic robe.  Then, with a deep draining slurp, her belly contracts, sinking inward until it is flat and smooth.  It seems the nun just digested a few gallons of cum in a matter of seconds.\r\r', false );
 			EngineCore.outputText( 'She pats her empty tummy and sighs, half in relief before a second rumble comes from her gut.  "<i>Darn,</i>" she chirps in her soft, quiet voice, "<i>still thirsty.</i>" She squeaks in what you assume was supposed to be a frustrated grumble.  Sitting down on the bed, she notices you in the doorway at last.  Her face lights up at seeing her friend, but she immediately averts her eyes.  "<i>I\'m sorry about my cursing just now,</i>" she apologizes bashfully.  "<i>I\'m just having a little trouble.  Please, sit down and talk with me.</i>" She pats the bed next to her plump thighs.\r\r', false );
 			EngineCore.outputText( 'After seeing that display, you\'ve got a few questions for her.  What would you like to discuss?', false );
-			EngineCore.choices( 'Belly', this.scyllaIIIBellyChat, 'Breathing', this.scyllaIIIHOWZUBREETH, '', null, '', null, '', null );
+			EngineCore.choices( 'Belly', this, this.scyllaIIIBellyChat, 'Breathing', this, this.scyllaIIIHOWZUBREETH, '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//[Her Belly]-;
@@ -273,7 +273,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'The nun shakes her head. "<i>But it hasn\'t been the same lately. The thirst comes back almost immediately. I can\'t keep it in my body long enough before digestion kicks in.</i>"\n\n', false );
 		EngineCore.outputText( 'You look at her closer and you think you can guess where all the extra protein has been going lately.  Her always lustrous hair is practically alive, sparkling twinkles of light reflecting off her long, jet curls. Her skin looks even softer than before, flush and creamy with an ageless smoothness. A thin but sturdy layer of muscle has taken definition under her buxom flesh, making her back straighter and her lean arms more graceful.\n\n', false );
 		EngineCore.outputText( 'Knowing you\'re unlikely to discover any more on that topic, you turn the subject to her breathing...', false );
-		EngineCore.doNext( this.scyllaIIIHOWZUBREETH );
+		EngineCore.doNext( this, this.scyllaIIIHOWZUBREETH );
 	};
 	//[Her Breathing] –;
 	Scylla.prototype.scyllaIIIHOWZUBREETH = function() {
@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			EngineCore.outputText( 'You are somewhat surprised when you find that her tits are growing with each load, filling with your hot, white spunk. Not just the left, either- her right tit bloats under the liquid weight of your seed, tiny geysers of cum spurting from her unplugged mouth as it tries to hold in every gallon. The nun\'s chest expands from double D to E, then G, even surpassing a J-cup as they swallow your seething heat. By the time they\'re larger than her head, your orgasm begins to slow and after another few minutes, your reserves have finally drained and you\'re able to catch your breath.\n\n', false );
 		}
 		EngineCore.outputText( 'You collapse atop her, head pillowed between Scylla\'s now mammoth tits. A wicked impulse strikes you, and you pull yourself up by your elbows. You rub your cheek against her swollen tit and hover just over her nipple. Smiling, you run the tip of your tongue in a tightening spiral around it, tasting the creamy flesh and sending shivers up her spine. You let your tongue linger at her lips and press your own against them, kissing gently, the suction of your mouth trying to pull her clenched nipple open. "<i>Oh!</i>" she gasps, and wraps her arms around your head, pulling you into a tight embrace, her tit lips kissing you back, passionately. They\'re sweet in your mouth, like marshmallows or candy, and you run your tongue between her lips, parting them once more. Fluid flows out of her over-full breast and into your mouth. You roll it around on your tongue, trying to place the taste. It\'s slightly salty, but not at all bitter, like you expected. Instead, it\'s gained some of the sweetness of her lips, more like cream than the milk and cum that made it. You lock your lips around hers and suckle, pulling a mouthful out, which you drink with a shuddering satisfaction.', false );
-		EngineCore.doNext( this.scyllaLevelIIIRoundIIIFIGHT );
+		EngineCore.doNext( this, this.scyllaLevelIIIRoundIIIFIGHT );
 	};
 	Scylla.prototype.scyllaLevelIIIRoundIIIFIGHT = function() {
 		this.scyllaSprite();
@@ -346,14 +346,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		if( CoC.player.balls > 0 ) {
 			CoC.player.ballSize += 2;
 		}
-		EngineCore.doNext( this.scyllaIIIFinisher );
+		EngineCore.doNext( this, this.scyllaIIIFinisher );
 	};
 	Scylla.prototype.scyllaIIIFinisher = function() {
 		this.scyllaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'When you finally rouse from your slumber, you understand why all the guys downstairs in the Wet Bitch looked like they\'d been sucked dry. Your body is sore and you feel like you haven\'t had anything to drink in months. Scylla is next to you, plump and happy. She\'s managed to replace her irredeemably stained robe with a new, larger one, but it too is on the verge of tearing. Though her digestion seems to have handled most of your cum, her breasts have kept some of their weight, each as large as a basketball. Her belly has the slightest paunch, but apparently this is enough to sate her thirst because she gives you an affectionate pat on the shoulder and a smile so bright that the candles in the room seem dim.\n\n', false );
 		EngineCore.outputText( '"<i>Thank you so much,</i>" she gushes. "<i>Once again, you come to my rescue and teach me how to overcome my trials. You truly are my guardian angel. One of these days, I hope I\'ll be able to return the favor.</i>" She favors you with a moist kiss on the forehead and springs from bed, energized and ready to do some good. You groan, roll over, and go back to sleep.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	Scylla.prototype.scyllaRoundIVGo = function() {
 		this.scyllaSprite();
@@ -363,7 +363,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'The tavern has a decent crowd, the air thick with laughter and ribald conversation. Scylla is speaking with a few strangers, politely nodding when you spot her. You wave to her on your way in and she waves back, excusing herself from the conversation and making her way over to you. She explains that she has a few things to take care of, but she\'d be glad to have your company later.  Scylla ducks out the door and you shrug, deciding to kill some time. You order a drink and begin to walk away from the bar when you feel a sharp sting on the back of your neck. You slap the welt and angrily look for the insect that stung you, but the dull roar of the patrons\' lusty conversations hides the culprit\'s escape. You grumble and rub the pinched muscle in your shoulder as you grab your drink and settle by the fire.\n\n', false );
 		EngineCore.outputText( 'You should\'ve ordered something to eat, you realize a little later when the drink leaves you tipsier than it should have. You feel woozy and arise with difficulty, your head spinning. You\'re not sure how much time has passed, but everything\'s darker now. Nobody is paying attention to you, but they all somehow look larger and more imposing. You struggle to keep your balance and fail, tumbling into a clumsy heap on the floor. It seems your clothes tripped you up – for some reason, they don\'t fit very well anymore. As you dully pull at the loose material, your hands trace blurry trails through the air and it dawns on you that something is wrong. You try to work up a panic, but your building stupor makes everything seem distant and unimportant. You look at your glass and wonder if you\'ve been drugged, or maybe... You touch the tiny welt on your neck. Poison, you realize too late. Your attempt to shout an alarm doesn\'t even manage to move your lips. All around you, strangers are talking, laughing and drinking, but for you, there is only the encroaching darkness and the mercy of an unknown assailant.\n\n', false );
 		EngineCore.outputText( 'When consciousness finally returns, you find yourself in a small stone room with no lights or windows. You aren\'t tied up, but you feel incredibly vulnerable. Your body feels strange, and you check yourself with a quick pat down. Everything seems to be in place, but the lingering effects of the poison are making it difficult to think clearly. You take stock of your situation in a strange place, in the dark, all alone, and you can still feel the poison coursing through your veins. Your cheeks flush and you do the only thing you can think of: you cry out for help.', false );
-		EngineCore.doNext( this.scyllaRoundIVPtII );
+		EngineCore.doNext( this, this.scyllaRoundIVPtII );
 	};
 	Scylla.prototype.scyllaRoundIVPtII = function() {
 		this.scyllaSprite();
@@ -375,7 +375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'You reach her humble quarters, and Scylla sets you down on her plain-looking cot, leaving your ' + CoC.player.legs() + ' to swing in the air over the side. "<i>I have never seen this poison\'s effects in person,</i>" she begins, taking a seat on a simple stool opposite you, "<i>but I have read accounts of it. Demon Lords brew it to topple heroes without risking noble combat. Its vile magic saps your size and your strength. If left untreated, victims regress until they have no hope of overcoming their attackers. I shudder to think what happens if it gets that far.</i>" Her eyes glaze, perhaps remembering the demonic factory that you shut down. Then she shakes her head and just like that, her concern is swept away – replaced by a smile like the first thaw of spring. "<i>But we won\'t let that happen,</i>" she soothes you, resting a large yet soft hand on your ' + CoC.player.leg() + '.  You look down at the nun\'s lingering arm and follow it up to her sizable chest. Her breathing is a little too shallow, and you meet her eyes only to see the beginnings of thirst reaching its hooks into her mind. "<i>We just need to get that poison out of you...</i>" she whispers, leaning down, her full, red lips glistening.', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//[Next];
-		EngineCore.doNext( this.scyllaRoundIVPtIII );
+		EngineCore.doNext( this, this.scyllaRoundIVPtIII );
 	};
 	Scylla.prototype.scyllaRoundIVPtIII = function() {
 		this.scyllaSprite();
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Scylla looks stung by the imp\'s observation, but her spine stiffens and her expression sets into righteous indignation. "<i>How dare you! How DARE you! Call me whatever you will, but no one enslaves children! You poison my friend, you defile this temple, and you forget that even with my curse, all virtuous people can do good.</i>" Her voice picks up, magnified three times. "<i>They can also SMITE EVIL!</i>" Scylla slaps the imp with every bit of virtuous fury her seven-foot body can muster, and a bolt of brilliant white light crashes into the room. Its power burns away the brimstone stench, and leaves the imp Lord twitching and paralyzed on the floor.\n\n', false );
 		EngineCore.outputText( 'Scylla sits heavily on her stool, panting, with sweat dripping down her neck and into her heaving cleavage. Her thirst must be overpowering after defying the demon. She stares down at the stunned body of the imp and wets her lips. The tiny nubs poking out of her hair sharpen before your eyes, growing outwards and curling slowly in the air. What will you do?', false );
 		//[Watch] [Kiss];
-		EngineCore.choices( 'Watch', this.scyllaRoundIVPtIVWATCH, 'Kiss Her', this.scyllaPtIVKissPtI, '', null, '', null, '', null );
+		EngineCore.choices( 'Watch', this, this.scyllaRoundIVPtIVWATCH, 'Kiss Her', this, this.scyllaPtIVKissPtI, '', null, null, '', null, null, '', null, null );
 	};
 	Scylla.prototype.scyllaRoundIVPtIVWATCH = function() {
 		this.scyllaSprite();
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'The imp\'s face goes from expressionless neutrality to a grimace, and he grunts as his body orgasms to sate Scylla\'s thirst. His foot-long dick pulses with each load as the nun strokes her tit-lips feverishly, masturbating from their near-clit sensitivity. Her cheeks fill with the demon\'s seed before she takes a large, grateful gulp, savoring the feel of the burning fluid rolling down her throat. As she drinks, the imp rouses from his paralysis, taking in the scene between groans. His confused expression quickly becomes wicked relish. "<i>Couldn\'t help yourself, eh bitch?</i>" he says triumphantly. "<i>You belong in our new factory after all. Maybe I\'ll take you there after I\'m done, but for now, let\'s take that virginity of yours, shall we?</i>"\n\n', false );
 		EngineCore.dynStats( 'lus', 10 );
 		//[Next];
-		EngineCore.doNext( this.scyllaWatchSecondPartPoorImp );
+		EngineCore.doNext( this, this.scyllaWatchSecondPartPoorImp );
 	};
 	Scylla.prototype.scyllaWatchSecondPartPoorImp = function() {
 		this.scyllaSprite();
@@ -411,7 +411,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'The Imp Lord can\'t control himself; he thrusts instinctively, bucking his hips with each slurping quaff. Scylla\'s jaw is pushed to its limit as the double-thick, spiraling dicks are rammed into her throat like a drill.  Her lips are blood red from their aroused excitement at being stretched like a sheath over loop after loop of the demon\'s pricks. Her neck distends as she draws them deeper, bloated like a snake swallowing a meal. The nun coos with each gulp, inexorably closing the gap between her sucking mouth and his cum-bloated balls.\n\n', false );
 		EngineCore.outputText( '"<i>F-Fucking freak!</i>" he cries in the beginnings of panic. "<i>I\'ll... have your cunny if it c-c-costs me every last... uug... bit of my power!</i>" He twitches wildly, his entire body vibrating as he once again shrinks smaller and smaller. When his cannibalizing magic ends, he\'s barely a foot tall. Two more tentacle cocks burst from his loins, and his ball sack doubles to hold eight testicles.  The quivering pouch is nearly as large as his head. "<i>Even a r-raging s-slut like you c-can\'t swallow f-four dicks,</i>" he insists weakly while his orgasm builds. "<i>Now I\'ll f-fuck that untouched c-cunt and y-your ass while I\'m at it,</i>" he promises, and his new tentacle dicks whip about to smack the nun across the face.\n\n', false );
 		//[Next];
-		EngineCore.doNext( this.scyllaWatchThirdPartOhShitSon );
+		EngineCore.doNext( this, this.scyllaWatchThirdPartOhShitSon );
 	};
 	Scylla.prototype.scyllaWatchThirdPartOhShitSon = function() {
 		this.scyllaSprite();
@@ -428,7 +428,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Cum oozes from all three of Scylla\'s mouths, and her belly protrudes with a rotund pudge under her mammoth tits. Each boob is filled well beyond any letter system, though Triple-Z might come close. They are half as big as she is and large enough to fill a bathtub. The Imp Lord\'s dicks soften and their hooks finally release.  The nun\'s throat gradually looks less like she swallowed the imp\'s friends whole, until the dicks finally slide out of her pulsing lips with a wet, meaty slap. She takes several deep breaths as his other two cocks are regretfully released by her tit-lips, creamy cum-milk drizzling from their lips. The imp is still pinned in her cleavage, but his struggles have ceased - broken by Scylla\'s inexhaustible thirst.\n\n', false );
 		EngineCore.outputText( 'Her sperm-fix satisfied, sense returns to her mind, but her curling horns retain their size, giving the innocent woman a slight sinister air. Her eyelashes flutter as she turns to you with an embarrassed blush. "<i>I am sorry you had to see that. I just get a little... fired up when I go for too long without a meal. Please, let me apologize and attend to your cure...</i>" She gently pokes the exhausted imp tucked between her tits, and politely asks her captive about the antidote for your poison. He dully conjures it with a pained expression, the last of his magic consumed in an act of mercy. As you drink the foul concoction, you feel the weakness fade as the venom in you is cleansed; your strength and size swiftly return. "<i>Yay,</i>" Scylla cheers softly once you are fully restored, and she smiles sweetly. "<i>Leave it to demons to never even consider removing what binds them in the first place,</i>" she laughs.\n\n', false );
 		//Go to epilogue;
-		EngineCore.doNext( this.scyllaPtIVEpilogue );
+		EngineCore.doNext( this, this.scyllaPtIVEpilogue );
 	};
 	//[Kiss];
 	Scylla.prototype.scyllaPtIVKissPtI = function() {
@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'You take a step back and begin to appreciate the difference in scale between the two of you. In your poisoned state, you\'re not even three feet tall and losing inches with each hour. Scylla, on the other hand, has always been tall - nearly seven feet - and the changes the demonic taint has made to her body have made her buxom in a way her robe has given up trying to hide. Her long legs and plump thighs give way to a flat, fit waist while her breasts are over half your height and as deep as you are wide. Scylla leans in and wraps her strong arms around you in a pillowy hug. "<i>I think my hero deserves a second kiss,</i>" she insists, coyly. With one hand, she pulls the taut fabric around her tits down, allowing their full, J-cup flesh to roll against you, silken alabaster filling your vision. Cradling your diminutive form against her body, she raises your head to a scarlet nipple, areola lips moist from the milk within.\n\n', false );
 		EngineCore.outputText( 'You can\'t help yourself, and you rub your cheek against her satin boob as you kiss her nipple; the mouth kisses back with equal vigor. You thread your tongue between her candy lips and the sweet cream within squirts into your mouth, rich and intoxicating. Hazy fervor floods your body, your lips prickling with sexual sensitivity. You kiss harder, parting her lips with yours, and she yields, slick skin opening to your sudden thirst. The fine milk ebbs into your mouth, and you roll it around on your tongue before swallowing and savoring the warm, satin fluid that settles in your belly. Scylla takes a deep breath and contentedly strokes your hair as you nurse at her breast. You wrap your arms around her pliant titflesh and squeeze as you suckle in earnest. The creamy milk flows faster and thicker, flooding your mouth and forcing you to take big gulps. Even swallowing as much as you can, some milk dribbles down your chin, spilling between your fingers and the knead-able flesh of the nun\'s tits.\n\n', false );
 		EngineCore.dynStats( 'lus', 15 );
-		EngineCore.doNext( this.scyllaPtIVKissPtII );
+		EngineCore.doNext( this, this.scyllaPtIVKissPtII );
 	};
 	Scylla.prototype.scyllaPtIVKissPtII = function() {
 		this.scyllaSprite();
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			}
 		}
 		//[Next];
-		EngineCore.doNext( this.scyllaPtIVKissPtIII );
+		EngineCore.doNext( this, this.scyllaPtIVKissPtIII );
 	};
 	Scylla.prototype.scyllaPtIVKissPtIII = function() {
 		this.scyllaSprite();
@@ -477,19 +477,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			EngineCore.outputText( 'Your loins pump out the last of your cum, and Scylla gulps it happily before she puts her hands under each of your arms and pulls you up, ' + Descriptors.sMultiCockDesc() + ' flopping sloppily against her face. She\'s smiling with puffed-out cheeks when she sets you down gently on the bed and strokes your young face with her fingertips. She winks at you and stoops down to the unconscious imp. She pins his mouth open with her forefinger and thumb, and she purses her bloated lips into a narrow opening. A thick stream of your cum slowly drips down toward the imp Lord\'s waiting gullet.  In the cum you can see thin streaks of a greenish fluid which you realize must be the venom he\'d injected you with!  Indeed, you begin to feel pinpricks along your fingertips and toes as your strength ebbs back into your limbs. As you gradually start to regain your size, the agonizingly long stream of cum from Scylla\'s mouth reaches the imp\'s own. He begins to choke as it touches his throat, and Scylla swiftly lunges forward to plant a kiss on the demon, holding his mouth open with hers. The nun\'s cheeks empty, and the imp swallows in reflex at the flood filling his throat. Scylla breaks the kiss with a loud, wet, "<i>Muah!</i>" and grins mischievously at you. The imp coughs and gags, but the cum-coated poison swiftly courses through his system and he shrinks on the spot. He diminishes from four feet down to one, his aura of infernal power broken as his strength is siphoned away. Scylla picks him up like a doll and thrusts him into her cleavage for safe-keeping.  His struggles are so pathetic that they barely make her love-pillows jiggle at all.', false );
 		}
 		//Epilogue;
-		EngineCore.doNext( this.scyllaPtIVEpilogue );
+		EngineCore.doNext( this, this.scyllaPtIVEpilogue );
 	};
 	Scylla.prototype.scyllaPtIVEpilogue = function() {
 		this.scyllaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You thank Scylla for everything and prepare to head back to Tel\'Adre. The Wet Bitch has a long-delayed second drink with your name on it. As you\'re leaving, Scylla pats the imp Lord\'s head, still sticking out of her vice-like cleavage. "<i>I think I will keep you around,</i>" she muses, "<i>To give you a chance to atone for your wicked ways. We\'ll have to keep you from scaring people, though. Maybe stick you in a fluffy teddy bear?</i>" You shake your head and leave the imp Lord to the nun\'s tender mercies.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	//Scylla- Addicts Anonymous (repeatable);
 	Scylla.prototype.scyllaAdictsAnonV = function() {
 		this.scyllaSprite();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		if( CoC.flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ] === 0 ) {
 			this.scyllaPtVFirstTime();
 		} else {
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Scylla turns her gaze to the goblin, who snorts and begins chewing on her toothpick. "<i>What\'s it matter what my name is, I\'m always just gonna be one of \'Tamani\'s daughters,\' the dumb slut.</i>" Her small, pointed nose makes the goblin\'s voice nasally and her habit of talking through sharp teeth gives her a coarse accent.\n\n', false );
 		EngineCore.outputText( 'The nun puts a hand over her bulbous lips. "<i>Oh dear, please don\'t speak of your mother that way! I am sure she loves you very much. We care deeply about you here; this is a safe place.  Won\'t you please share your name with the group?</i>" She leans forward, her eyelids fluttering hopefully.\n\n', false );
 		EngineCore.outputText( '"<i>Bleh, enough with tha \'sisterhood\' crap,</i>" the goblin responds, waving a hand dismissively in front of Scylla\'s face. "<i>Fine, ya fat tub, I\'m Abylon. But call me Abby or I\'m outta here.</i>" She kicks the air with her suspended leg and grabs another beer.', false );
-		EngineCore.doNext( this.scyllaPtVFirstTimeII );
+		EngineCore.doNext( this, this.scyllaPtVFirstTimeII );
 	};
 	//[Next];
 	Scylla.prototype.scyllaPtVFirstTimeII = function() {
@@ -527,7 +527,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>We all have challenges,</i>" Scylla offers, when Abby falls quiet, the goblin panting and wiping sweat from her emerald neck with her tight, crimson braid. "<i>Victories aren\'t always going to be clear cut, but little steps in the right direction are what count. Whether that means turning seven days of drinking into six, or even just accepting that you\'re not as in control of your body as you want to be. The desire to retake some portion of yourself is the first step to recovery.</i>" She looks away, sadly touching the demon horns hidden under her habit.\n\n', false );
 		EngineCore.outputText( 'You feel a little shitty about spying on the three as they shared their weaknesses and you think it might be best to walk away from this one. Or, you could admit to your spying and share your own struggles with addiction. Another, darker part of you thinks that these girls seem awfully vulnerable right about now. What will you do?  Will you share, take advantage, or leave them in peace?', false );
 		//[Share] [Take Advantage] [Leave];
-		EngineCore.choices( 'Share', this.scyllaPtVShare, 'Advantage', this.scyllaPtVTakeAdvantage, '', null, '', null, 'Leave', this.scyllaPtVLeave );
+		EngineCore.choices( 'Share', this, this.scyllaPtVShare, 'Advantage', this, this.scyllaPtVTakeAdvantage, '', null, null, '', null, null, 'Leave', this, this.scyllaPtVLeave );
 	};
 	//[Nun]	(Repeat);
 	Scylla.prototype.scyllaPtVRepeat = function() {
@@ -535,7 +535,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Scylla\'s at the bar, filling up another large tray of drinks. Judging by how many she\'s got, you assume she\'s giving the addiction counseling meeting another shot. The nun is murmuring to herself, possibly rehearsing a sermon or maybe just working up the strength to be the pillar the other girls need. She heads upstairs and you ponder what to do as you watch her go. Will you join them?\n\n', false );
 		//[Share][Take Advantage][Leave];
-		EngineCore.choices( 'Share', this.scyllaPtVShare, 'Advantage', this.scyllaPtVTakeAdvantage, '', null, '', null, 'Leave', this.scyllaPtVLeave );
+		EngineCore.choices( 'Share', this, this.scyllaPtVShare, 'Advantage', this, this.scyllaPtVTakeAdvantage, '', null, null, '', null, null, 'Leave', this, this.scyllaPtVLeave );
 	};
 	//[Leave]	(First time and Repeat);
 	Scylla.prototype.scyllaPtVLeave = function() {
@@ -549,7 +549,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		EngineCore.outputText( 'You just don\'t feel right about interrupting and opt to take the high road, leaving them to their counseling. Nearly-forgotten warmth fills your chest and you smile with pride, despite yourself. You came here as a Champion to purge corruption and- despite every temptation- you acted like a good friend ought to. You walk back downstairs, with your head held high, and order a drink.', false );
 		EventParser.cheatTime( 1 );
-		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//[Take Advantage]	(First time and Repeat);
 	Scylla.prototype.scyllaPtVTakeAdvantage = function() {
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		CoC.player.takeDamage( 1 );
 		EngineCore.dynStats( 'lus', -99 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Take Advantage] (With Exgartuan);
@@ -620,7 +620,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'The girls stare at you blankly, not really sure what they\'re seeing. You know that if you don\'t make a move, the demon is just going to keep doing it for you, so you sigh and spread your arms and shrug. "<i>Ladies,</i>" you nod, by way of invitation. The nun shakes her head, trying to dismiss the unclean thoughts flooding through her and failing miserably. She giggles involuntarily, clapping a hand over her mouth in embarrassment. The goblin trembles, her fists balled into pale knuckles, but then she slumps, defeated.  "<i>Damn it, my mom put you up to this, didn\'t she? Talking dicks? She just can\'t get grandchildren fast enough,</i>" she grumbles, unable to conceal her burgeoning lust under her thick, leather armor. Pastie hiccups, trying to figure out what\'s happening.\n\n', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//[Next];
-		EngineCore.doNext( this.scyllaVTakeAdvantageWithExgartuan2 );
+		EngineCore.doNext( this, this.scyllaVTakeAdvantageWithExgartuan2 );
 	};
 	Scylla.prototype.scyllaVTakeAdvantageWithExgartuan2 = function() {
 		this.scyllaSprite();
@@ -636,7 +636,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		//[Next];
 		EngineCore.dynStats( 'lus=', 100 );
-		EngineCore.doNext( this.scyllaVTakeAdvantageWithExgartuan3 );
+		EngineCore.doNext( this, this.scyllaVTakeAdvantageWithExgartuan3 );
 	};
 	Scylla.prototype.scyllaVTakeAdvantageWithExgartuan3 = function() {
 		this.scyllaSprite();
@@ -655,7 +655,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		//[Next];
-		EngineCore.doNext( this.scyllaVTakeAdvantageWithExgartuan4 );
+		EngineCore.doNext( this, this.scyllaVTakeAdvantageWithExgartuan4 );
 	};
 	Scylla.prototype.scyllaVTakeAdvantageWithExgartuan4 = function() {
 		this.scyllaSprite();
@@ -670,7 +670,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.player.cumMultiplier += 2;
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 24 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Share]	(First time);
 	Scylla.prototype.scyllaPtVShare = function() {
@@ -710,13 +710,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			tentacles = this.shareTentaclesWithScylla;
 		}
 		//CHOOSE HERE;
-		EngineCore.choices( 'Cum', cum, 'Milk', milk, 'Sex', sex, 'Tentacles', tentacles, 'None', this.scyllaPtVNoDiscussion );
+		EngineCore.choices( 'Cum', this, cum, 'Milk', this, milk, 'Sex', this, sex, 'Tentacles', this, tentacles, 'None', this, this.scyllaPtVNoDiscussion );
 	};
 	Scylla.prototype.scyllaPtVNoDiscussion = function() {
 		this.scyllaSprite();
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You fail to come up with a suitable explanation for your presence and politely excuse yourself.  AWKWARD!', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Marble's Milk]	(First time and Repeat);
 	Scylla.prototype.scyllaPtVMilk = function() {
@@ -730,7 +730,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'You try to consider Scylla\'s words, but the heat and softness of her chest makes thinking hard. Your mind keeps coming back to your vivid memories of Marble and your stomach grumbles. You smack your lips, but you just can\'t get any moisture. Everything feels hot and cramped. When you look up at Scylla, her bulging lips almost look like Marble\'s if you squint a lot. You can almost see the cow girl\'s udders in the nun\'s skin-tight robe - mammoth mammaries hulking against your chest like ripe melons, full of sweet ambrosia. You pat your pockets for the bottle of milk you could\'ve sworn you\'d stashed for a rainy day, but find only the boiling fire coursing through your belly. The want. The need. The thirst. Scylla meets your addiction constricted eyes with a blue gaze of innocent concern, her eyebrows turned up in a plaintive expression.\n\n', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVMilkII );
+		EngineCore.doNext( this, this.scyllaPtVMilkII );
 	};
 	Scylla.prototype.scyllaPtVMilkII = function() {
 		this.scyllaSprite();
@@ -743,7 +743,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Not one to miss an opportunity, you kneel and cushion your head against her right breast, letting your fingers sink and disappear in the plushness of her tits. You lick at the edges of her nipple lips, teasingly, savoring the bloated expansion as they begin flushing just like her upper mouth. They quiver and open a hair\'s breadth, softly sighing at your tongue\'s caresses. As your mouth comes around again, the lips pucker and suck at your tongue, pulling it into their velvet depths. You are drawn into a kiss by her nipple\'s suction and roll your head as your tongue trespasses on her tit\'s cunt-like interior. Your exploration is rewarded when a trickle of cream is stolen from her quivering reservoir, squeezed down her nipple, flowing like a pussy\'s wetness. You kiss her bosom deeper, sucking like the addict you\'ve accepted you are.\n\n', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVMilkIII );
+		EngineCore.doNext( this, this.scyllaPtVMilkIII );
 	};
 	Scylla.prototype.scyllaPtVMilkIII = function() {
 		this.scyllaSprite();
@@ -757,7 +757,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Abby, mistaking the nun\'s orgasmic throes for pain, opens wide and sinks her teeth into the inflating lips, drawing blood. Scylla gasps and loses sensation in her arms. The fingers prying her tit\'s lips open for the fairy fall away, and her mouth closes tightly around the fairy\'s chest, leaving her legs and butt swinging wildly in the air. The lips around the tiny girl purse into a bloated pucker, the milk within rushing and churning, trying to get out through the struggling fairy. Pastie\'s belly swells rapidly as she swallows load after load, her wisp-thin waist bulging two, then three times its normal, fey size.\n\n', false );
 		EngineCore.dynStats( 'lus', 5 );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVMilkIV );
+		EngineCore.doNext( this, this.scyllaPtVMilkIV );
 	};
 	Scylla.prototype.scyllaPtVMilkIV = function() {
 		this.scyllaSprite();
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Suddenly, you remember Pastie and turn back to Scylla\'s glistening chest. The lips on her left breast let out a slow sucking noise, and you see the fairy\'s legs starting to disappearing into the milky mouth. Unfortunately, the nun is too lost in her overstimulation to notice what her tit is doing. You seize Pastie\'s tiny foot between two fingers just before it vanishes inside Scylla\'s nipple and tug against the suction, careful not to hurt the little drunk. There is a bit of resistance as the mouth tries to swallow the girl whole, but the fairy finally pops out and hacks white cream from her lungs, gasping for air in grateful gulps. The thin, waif-like fairy now more closely resembles a pear- her belly, hips, and ass are bloated and she sloshes around in your hand like a pale water balloon. Her violet hair is stuck in soggy clumps to her inflated tits which, themselves, leak with milk. She rolls helplessly in your hand, trying to sort out which way is up. "<i>I\'z neber drinkin\' again,</i>" she vows, in a slurred voice, high as well as drunk.\n\n', false );
 		EngineCore.outputText( 'Abylon pushes out of the panting nun\'s drool, sweat, and milk soaked cleavage, scrubbing her mouth with the back of her hand, pissed and cursing aloud. When she pulls her hand away, you see the cause of her distress. Her dark emerald lips have swollen and now resemble a smaller version of Scylla\'s o-ring mouth. She winces as she touches them. "<i>Now I wook wike a swut, ya dumb cow,</i>" she grumbles, her bimbo-thick lips mushing her words. She blushes a forest green as she strokes her lips more gently this time. "<i>This bettew not be pewmanent,</i>" she adds, licking them and trembling at the sensation.\n\n', false );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVMilkV );
+		EngineCore.doNext( this, this.scyllaPtVMilkV );
 	};
 	Scylla.prototype.scyllaPtVMilkV = function() {
 		EngineCore.outputText( ImageManager.showImage( 'scylla-help-round-five-with-milk-five' ), false );
@@ -777,7 +777,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Feeling pretty pleased with yourself, you add a skip to your step, belly jiggling all the way back to camp.', false );
 		//[Corruption Down];
 		EngineCore.dynStats( 'lus', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Share- Minotaur cum]	(First time and Repeat);
 	Scylla.prototype.scyllaPtVCum = function() {
@@ -790,7 +790,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'When you look back up, Abby is pulling at her tight leather plates.  Your descriptions are making the goblin too hot to speak - she just pants and absently stares into space, her imagination picking up where your words left off. Pastie\'s face on the other hand, is turned up in an expression of disgust. She takes another drink and points a tiny finger at you, accusingly. "<i>That\'s gross stuff, and I should know - I\'ve tried everything. How can you LIKE it?</i>" she complains. Scylla holds her hands over her mouth, self-consciously, big tears welling in her azure eyes. "<i>Oh ' + CoC.player.short + ', I know exactly what you are going through,</i>" she admits. "<i>You want to stop, but you just can\'t!</i>"\n\n', false );
 		EngineCore.outputText( '"<i>That\'s enough whining, ya dummies,</i>" Abby cuts in, her eyes dilated and a mad smile on her face.  Leather armor hangs off the goblin loosely, giving you your first glance of her emerald cleavage and her wide, breeder\'s hips. Though she\'s still almost out of breath, something\'s off about her posture, and her grin isn\'t mocking anymore. "<i>Yer goin\' on like yer a buncha victims, but it don\'t gotta be that way. As I sees it, if ya like what yer gettin\', yer givin\' as good at ya get. Minos are jus\' dumb jerks who do what they gotta, cause they\'re beasts. We\'re smarter so really, we\'re usin\' them. Usin\' em like big, muscle-bound cows.</i>"\n\n', false );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVCumII );
+		EngineCore.doNext( this, this.scyllaPtVCumII );
 	};
 	Scylla.prototype.scyllaPtVCumII = function() {
 		this.scyllaSprite();
@@ -802,7 +802,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'You lift the goblin girl over your head and line your cockhead up with her moist, leaking cunt, grunting in appreciation for the heat pouring out of her box. "<i>Oh noooo, the Champion is gonna get raped by a dumb beast!</i>" Abby wails, gleefully. You lower her onto your ' + Descriptors.cockDescript( x ) + ', her tight, green folds parting gradually before you. She sighs in exasperation and kicks backward, painfully catching your head in the left temple. "<i>We ain\'t makin\' love, ya dope, I don\'t need ta be romanced. Ya gotta breed and I got a warm hole. Be a minotaur!</i>"\n\n', false );
 		//[Next];
 		EngineCore.dynStats( 'lus', 20 );
-		EngineCore.doNext( this.scyllaPtVCumIII );
+		EngineCore.doNext( this, this.scyllaPtVCumIII );
 	};
 	Scylla.prototype.scyllaPtVCumIII = function() {
 		this.scyllaSprite();
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 
 		EngineCore.outputText( 'Abby runs her sharp nails up your waist and over your chest, points digging into your flesh hard enough to take away the worst pain in your abdomen. She reaches your neck, and her tiny hands curl around your windpipe and begin to squeeze. You try to call the crazy bitch off, but all you manage is a choked wheeze as her grip tightens. Even though you know Scylla won\'t let Abylon kill you, with your oxygen cut off, your body starts to panic. Your heart races, pumping blood into your erection, filling the goblin with a renewed and redoubled shaft that threatens to split her tiny hips. The bulge jutting out of the front of her body pulses through her skin and you can see bulbs of pre-cum travelling up your shaft, toward her torturously distended womb, driven nearly up to her neck. As the strength seeps out of your muscles, adrenaline starts pumping, and you buck wildly, ' + Descriptors.hairDescript() + ' flying around your face as you try to shake the emerald cockslave as savagely as an unbroken stallion. Despite the pounding and thrashing, Abby manages to hold on, grinding her hips and screaming in wild abandon as her body sucks every inch of your ' + Descriptors.cockDescript( x ) + '.\n\n', false );
-		EngineCore.doNext( this.scyllaPtVCumIV );
+		EngineCore.doNext( this, this.scyllaPtVCumIV );
 	};
 	Scylla.prototype.scyllaPtVCumIV = function() {
 		this.scyllaSprite();
@@ -849,7 +849,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>You\'ve defeated the terrible minotaur and rescued the virgin. Please, let me reward you,</i>" the nun murmurs as she lowers herself down, between Abby\'s twitching legs. The nun sticks out her tongue, and the long, prehensile organ glides through the air, toward the goblin\'s pulsing, overflowing cunt. Its tip traces the curves of her vulva, lapping up your seed as it spills out and wrapping around the goblin\'s small, pert clit. Scylla licks downward and her tongue penetrates Abby\'s box, making the other girl squeal. The nun presses her puffy, whorish lips against the green lips that had been riding you so hard, and she seals the two with a long, wet kiss, her writhing tongue exploring the goblin\'s fuck-stretched depths as her lips and throat greedily suck your cum from the other girl\'s distended womb.\n\n', false );
 		CoC.player.orgasm();
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVCumV );
+		EngineCore.doNext( this, this.scyllaPtVCumV );
 	};
 	Scylla.prototype.scyllaPtVCumV = function() {
 		this.scyllaSprite();
@@ -860,7 +860,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			EngineCore.dynStats( 'sen', -1 );
 		}
 		EngineCore.outputText( 'Abby weakly protests the theft, but Scylla\'s eyes are closed, lost in the cum-filled world between the goblin\'s defenseless legs. Pastie flutters overhead and laughs, drunkenly slurring something about \'just desserts,\' but you can\'t concentrate on anything right now. Sleep sounds like such a good idea that you happily pass out. When you wake, you find the girls have gone, though Scylla cleaned up the room and left you a note and several drinks. She apologizes for any pain that Abby may have caused you, but thanks you for your help in the demonstration. Your body still hurts a bit, but all in all, not a bad session. Abby\'s right - the minotaurs can\'t rape you if you use them first. Their cum may be addicting, but you\'re the Champion: you take what you want.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Sex Addiction]	(minimum lust at least 20 or current libido at 85)(First time and Repeat);
 	Scylla.prototype.scyllaPtVSex = function() {
@@ -876,7 +876,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>Well, now, avoiding it entirely may not be the best course,</i>" Scylla hedges, reaching a finger over to help Pastie pull up her dress. The fairy shoos the nun\'s hand away, drunkenly stumbling backwards from the effort. "<i>All things in moderation,</i>" she presses on, "<i>You just have to be sure it doesn\'t control your actions, or you may end up hurting the ones you love.</i>"\n\n', false );
 		EngineCore.outputText( '"<i>Or just have sex with people who ya don\'t care about,</i>" Pastie hiccups and laughs at her own intoxication. "<i>Hey Abby, wanna see me make your nipple disappear?</i>" She flaps her wings, tracing a dizzy course through the air before hovering in front of the goblin\'s face. Abby looks flustered, somewhat surprising for the girl. Maybe she\'s not used to other people being as direct as she is? She protests and tries to wave the fairy away, but the drunk\'s fluttering path is too chaotic, and Pastie lands atop Abby\'s shoulder, tiny hands making short work of the buckles keeping the goblin\'s oiled leather plates secure. The goblin girl\'s breastplate falls away, making her pert, green tits bounce in the open air. She shouts at the fairy to stop, but Pastie is too set on her prank to be dissuaded. She grabs Abby\'s long, red braid and wraps it around the goblin\'s head, stuffing the knotted hair into Abby\'s open mouth much quicker than you thought the drunk girl could manage.  Abby coughs and tries to spit the hair out, but her sharp teeth catch the curves and hold it in place. Pastie giggles and stuffs more of it in, jamming nearly a foot-long braid into the goblin\'s mouth, tangling the gag even further around her teeth as she does so.\n\n', false );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVSexII );
+		EngineCore.doNext( this, this.scyllaPtVSexII );
 	};
 	Scylla.prototype.scyllaPtVSexII = function() {
 		this.scyllaSprite();
@@ -888,7 +888,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Abby screams into her gag in orgasm, far more sensitive to being used than you would\'ve expected. She flexes her knees outward, hips bucking for friction against her armor. Her hands make a dive for your crotch and pulls out your ' + Descriptors.multiCockDescriptLight() + '. She leans forward to your groin and grabs your shaft by the root, whipping it back and forth to smack herself in the face, gasping in pleasure at the degradation as she strokes it to life with masterful technique. With each meaty thwack against her pudgy cheeks and pug nose, it grows harder until she can\'t fit her small hands around it anymore, and she is forced to use both hands to encircle your ' + Descriptors.cockDescript( x ) + '. You grab the little goblin from her chair and peel off the rest of her armor, throwing the sopping wet leather to the floor and begin to line her twitching cunt up with your shaft when you happen to glance at Scylla, still sitting and watching you succumb to your addiction with sad worry on her face.', false );
 		EngineCore.dynStats( 'lus', 20 );
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVSexIII );
+		EngineCore.doNext( this, this.scyllaPtVSexIII );
 	};
 	Scylla.prototype.scyllaPtVSexIII = function() {
 		EngineCore.outputText( '', true );
@@ -910,7 +910,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>Please stop calling me fat,</i>" she asks, innocently. "<i>You know, if that\'s all right with you.</i>"\n\n', false );
 		CoC.player.orgasm();
 		//[Next];
-		EngineCore.doNext( this.scyllaPtVSexIV );
+		EngineCore.doNext( this, this.scyllaPtVSexIV );
 	};
 	Scylla.prototype.scyllaPtVSexIV = function() {
 		this.scyllaSprite();
@@ -919,7 +919,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'When the four of you are ready to leave, Scylla gives you a big hug and thanks you for coming. Pastie, barely able to keep her overinflated form aloft, gives you a drunk kiss on the nose before slowly flying away. Even Abby gives you a friendly smack on the ass, rubbing her own tender rump gingerly. While your travels have guaranteed you\'ll always - and frequently - need a release, you don\'t think you\'re as much a slave to it as you used to be.', false );
 		//[Libido Down];
 		EngineCore.dynStats( 'lib', -1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//[Take Advantage] (at least 3 dicks);
@@ -934,13 +934,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			EngineCore.outputText( 'No sense in playing coy when you\'re the drug in a room full of addicts. You use both hands to pull out your fleshy sheath of monstrous organs, letting them hang in the open air, twitching under the surveillance of three sets of horny eyes. "<i>I brought enough for the whole class,</i>" you grin, by way of invitation. The nun shakes her head, trying to clear her mind and failing, giggling involuntarily. The goblin trembles, her fists balled into pale knuckles.  "<i>Can\'t fight nature,</i>" she sneers, through clenched teeth. "<i>Like mother, like daughter.</i>" Pastie hiccups, trying to figure out what\'s happening.\n\n', false );
 			EngineCore.outputText( 'Scylla sinks to her knees and reaches out for your ' + Descriptors.cockDescript( 0 ) + ', wrapping long, thin fingers around it, almost worshipfully. Abby, meanwhile, crosses the distance between you faster than you would\'ve believed. "<i>If this is how it\'s gotta be, might as well do it right, ya dummies!</i>" she announces in her nasally tone, producing several vials from a small pouch. "<i>Normally use these at weapons, but we might as well get wasted on \'em.</i>" She waves Pastie over and the three girls line up in front of your tools, the fairy looking confused, the nun panting, and the complaining goblin a little too helpful for how much she protests.\n\n', false );
 			//[Next];
-			EngineCore.doNext( this.addictionScyllaTakeAdvantageDicksII );
+			EngineCore.doNext( this, this.addictionScyllaTakeAdvantageDicksII );
 		}
 		//[Second and on];
 		else {
 			EngineCore.outputText( 'Walking in on the three girls, you\'re a little surprised to find them apparently expecting you. Scylla has a deep blush across her pale cheeks but Pastie and Abby seem only too eager to see you again. "<i>Gotta admit, that las\' time was the most fun I\'ve had in *hic!* in years,</i>" the fairy admits, already kicking off her crystalline heels and wriggling out of her gossamer dress. Abby says nothing, but produces more bottles and rolls them around in her fingers, coyly, giving you a wicked wink. The nun sighs and manages a weak smile, "<i>This is not what I wanted for these sessions, but I supposed it\'s better that we release our urges with you than with someone less savory.</i>" You weren\'t expecting them to jump onboard the orgy thing so willingly, but then again, the self-restraint in the room could fit in a thimble and still have room for your thumb. Ah well, you shrug, on to the sex!\n\n', false );
 			//[Next];
-			EngineCore.doNext( this.addictionScyllaTakeAdvantageDicksII );
+			EngineCore.doNext( this, this.addictionScyllaTakeAdvantageDicksII );
 		}
 	};
 	//[Every Time];
@@ -954,7 +954,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'The goblin girl looks at the spunk-lust on Scylla\'s face and the drunken revelry the fairy is getting up to in the bottle and sighs. She grabs the third bottle and holds it to the light. She\'s marked this one with a big, black label with a red exclamation mark in the middle. Judging by the delicate way she holds it, she seems almost afraid of the contents. "<i>All right, mom, let\'s see what it\'s like ta be a numbskull...</i>" she mutters, popping the cork off with a thumb and clenching her eyes as she drinks it in one gulp. Before your eyes, the goblin undergoes a startling transformation. Her small breasts swell larger and larger until they burst out of her leather armor, spilling green flesh across her chest. Her hips and butt wage a similar battle against her leather skirt, bursting the iron studs holding it together, bare skin jiggling in the warm air. Her lips bloat and plump up until they\'re tiny clones of Scylla\'s cock-sucking pucker, wobbling when she shakes her head. Her eyelids droop heavily and a blissful smile spreads across her face, annoyance and protests evaporating to the airheaded pleasure of the bimbo liqueur\'s seething influence. She giggles absently. "<i>Tee hee, I feel funny. Good funny.</i>" She notices your still-straining cocks and licks her lips. "<i>Gosh, those for me? Tha\'s, like, SO NICE of ya, guy!</i>" Glancing at Scylla\'s milking tongue, she puts her hand to her mouth and gasps. "<i>Wow, you\'re, like, SOOOO pretty, Scy! Wanna race? First one ta get some cum wins!</i>" She giggles and makes kissy-lips at the nun.\n\n', false );
 		//[Next];
 		EngineCore.dynStats( 'lus=', 100, 'cor', 1 );
-		EngineCore.doNext( this.addictionScyllaTakeAdvantageDicksIII );
+		EngineCore.doNext( this, this.addictionScyllaTakeAdvantageDicksIII );
 	};
 	Scylla.prototype.addictionScyllaTakeAdvantageDicksIII = function() {
 		EngineCore.outputText( '', true );
@@ -971,7 +971,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 2 ) + ' pulses, unsatisfied, and you stoop to grab the inebriated, encapsulated fairy from the ground. You try to shake her loose, but the drunk seems to have finished off half a bottle of goblin ale and her belly is overburdened with the liquid weight. Her lower torso slides out of the neck of the glass, but her bloated belly gets stuck in the neck, pinning the girl in place. Shrugging, you position the trapped girl over your cockhead and push at the tiny slit between her delicate legs. To your considerable surprise, she slides open, fairy pussy stretching like elastic around the tip of your ' + Descriptors.cockDescript( 2 ) + '. Apparently her overdose of Goblin Ale has made her considerably deeper and wider than her fey frame would suggest. The fairy is yelling something, but the glass drowns out her voice, so you go ahead and push deeper, delighting in the feel of Pastie\'s pussy sucking down inch after inch of your cock. Her body distorts wildly until she\'s little more than a flesh-colored condom from the neck down. She\'s just too tight to hold on long, however, and your ' + Descriptors.cockDescript( 2 ) + ' erupts inside her, seed overflowing even the renewed elastic capacity of her womb. The pressure pops the girl back into the bottle and you jam your cockhead into the neck of the glass as your spunk splatters over the trapped, semen-stuffed girl. Before long, your shuddering orgasm has begun to fill the bottle and Pastie floats to the narrow top, buoyed by her liquid-fat body. When your ejaculate slows to a trickle, you let the bottle drop, the sperm-bubble of a fairy utterly blitzed and swimming helplessly inside the sea of spunk.\n\n', false );
 		//[Next];
 		CoC.player.orgasm();
-		EngineCore.doNext( this.addictionScyllaTakeAdvantageDicksBonusAndEpilogue );
+		EngineCore.doNext( this, this.addictionScyllaTakeAdvantageDicksBonusAndEpilogue );
 	};
 	Scylla.prototype.addictionScyllaTakeAdvantageDicksBonusAndEpilogue = function() {
 		this.scyllaSprite();
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		//[Exit text for all encounter scenarios];
 		EngineCore.outputText( 'The room is a horrible, slimy mess by the time the four of you are done and you doubt if some of those cum-stains are going to ever come out of the carpets. Scylla is still out of it, and you doubt Pastie is going to be able to move for at least 24 hours, but Abby is on her feet again, ready for another ride. You notice a flask sticking out of the busted remains of her leather armor, miraculously intact despite the rough fucking you gave her. The bottle has a little note attached to it by a string and you pluck the vial from the giggling minx, unfolding the note carefully. It reads "<i>In case of Slut-ification.</i>" The concoction is thick and swirls with a golden light that reminds you of honey. When the goblin sees the light reflecting in the bottle, her wide eyes turn into dinner plates. "<i>Oooo... so shiny...</i>" She jumps up and down eagerly, her swollen breasts and jiggling butt wobbling heavily. You drop the mixture down to Abylon and she gleefully swallows it without hesitation. Her smile slowly fades and she blinks rapidly, eyes narrowing to a furrow. Her lips and breasts deflate to normal proportions, though her rump retains its weighty size. Gradually, the bubble-brained goblin\'s expression settles back into a familiar scowl of annoyed self-repression. "<i>Damnit, I knew carrying all tha\' potions around would be trouble sooner or later</i>," she grumbles, sticking a couple of fingers in her cunny, drawing a sloppy wad of your spunk out. "<i>At least I wasn\'t hopped up on mom\'s baby fertilizer too,</i>" she sighs. Glancing at her companions, she turns back with an expression of genuine amazement. "<i>All right, I\'ll admit it: I\'m impressed. Maybe yer not sucha doof after all.</i>" She gives you a smack on the ass and scoots you out of the room. "<i>Ya still can\'t call me Abylon, but I guess I don\'t mind ya comin\' round again.</i>"  With that, the green girl shoos you out and into the hall, dicks still hanging out, tossing your clothes out after you.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Scylla #6 - Cat Scratch Fever;
@@ -1042,7 +1042,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 		EngineCore.outputText( 'The nun guides you down an alley, talking about how she saw a bunny the other day when a couple of felines rush past, jostling you as they do so. You pat your pockets and notice they\'re emptier than usual, so you let go of Scylla\'s hand and turn around to chase the thieves. As you do so, you hear a soft shuffling behind you and the nun gasps.\n\n', false );
 		//[Next][Duck! (high int/speed only)];
-		EngineCore.choices( 'Next', this.Scylla6SLOW, 'Duck!', this.Scylla6DUCK, '', null, '', null, '', null );
+		EngineCore.choices( 'Next', this, this.Scylla6SLOW, 'Duck!', this, this.Scylla6DUCK, '', null, null, '', null, null, '', null, null );
 	};
 	//(super high Intelligence or speed);
 	Scylla.prototype.Scylla6DUCK = function() {
@@ -1050,7 +1050,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You turn in time to spot the ambush and drop low, a pipe swinging just past your head and cracking a brick next to you. Sweeping low, you knock your attacker\'s legs out from under him and rise into a defensive stance. A dozen cat-morphs have crept up behind you, silently seizing Scylla. The felines hiss, startled by your acute awareness and suddenly doubting their plan of attack.  You decide to end this before it gets too bloody, so you slowly curl your fingers into a fist, audibly cracking each knuckle on your hand one after the other. You rise to your feet and flick your ear with your thumb, chuckling. "<i>You really broadcast that one,</i>" you start, speaking slowly and loudly enough for your voice to bounce around the cramped alley. "<i>But I\'m sure you\'ve got better. I mean, you know what I\'m capable of. I\'ve had demons helpless at my feet. Minotaurs three times your size cower when they remember my face. Surely you didn\'t just attack us at random? Nobody\'s luck is that bad. No, you\'re definitely trained professionals and not a miserable pack of errant transients, too drugged out to appreciate the scope of the mistake they\'ve just made. So you\'ll be ready for the worst I\'ve got. And oh, it is going to be DREADFUL.</i>"\n\n', false );
 		EngineCore.outputText( 'The cats need no further encouragement, and scatter in terror. You chuckle and brush the dirt from your clothes before helping Scylla back to her feet. The nun looks at you, worried, but places a gentle hand on your shoulder and gives you a stare with her big, blue eyes. "<i>Thank you, truly, but please take a softer touch with people. Everyone has their own challenges and whenever we can, we should pity and forgive, not threaten and terrify. Um. If that\'s okay with you?</i>" She looks embarrassed to be scolding you and hurries away, leaving you to your devices.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(Normal Characters);
 	Scylla.prototype.Scylla6SLOW = function() {
@@ -1073,7 +1073,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			if( CoC.player.str >= 85 ) {
 				kickass = this.lactateAndKickAss;
 			}
-			EngineCore.choices( 'Yell', this.Scylla6YellForHelp, 'Wait', this.Scylla6MilkyWait, 'Kick Ass', kickass, '', null, '', null );
+			EngineCore.choices( 'Yell', this, this.Scylla6YellForHelp, 'Wait', this, this.Scylla6MilkyWait, 'Kick Ass', this, kickass, '', null, null, '', null, null );
 		}
 		//else! //[Player is not Lactating];
 		else {
@@ -1089,7 +1089,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 				rapeWorld = this.Scylla6NoMilkRAPETHEWORLD;
 			}
 			//[Get Help] [Submit (VAGINA+DICk ONLY)] [Rape];
-			EngineCore.choices( 'Get Help', this.Scylla6NoMilkGetHelp, 'Submit', submit, 'Rape', rapeWorld, '', null, '', null );
+			EngineCore.choices( 'Get Help', this, this.Scylla6NoMilkGetHelp, 'Submit', this, submit, 'Rape', this, rapeWorld, '', null, null, '', null, null );
 		}
 	};
 	//[Kick Ass];
@@ -1098,7 +1098,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Cracking your neck, you decide to end this right now. Flexing your nearly unholy strength, you easily break the leather collar binding your hands and rise to your feet, dumping the cats pining you down to their asses. The felines hiss and leap backward, fearful of your might. You rub the bridge of your nose with the back of your hand, sniffing. "<i>I enjoy a good joke,</i>" you start, speaking slowly and loud enough for your voice to bounce around the cramped alley. "<i>But you have to be kidding me. Cats? I\'ve beaten demon overlords into bloody pulps. I\'ve nearly torn the head off an imp with my bare hands. I\'ve stomached a lot of crap since I came through the portal, but nothing I\'ve drank or eaten, no matter how foul, has been as hard to swallow as this pathetic little ambush. I\'m going to count to three and then I\'m going to fuck the closest thing I lay my hands on. And if a hole isn\'t convenient, I\'ll make my own. Understand? One.</i>"\n\n', false );
 		EngineCore.outputText( 'The cats need no further encouragement, and scatter in terror. You chuckle and brush the dirt from your clothes before helping Scylla down from her perch. The nun looks relieved but you can see worry in her big, blue eyes as she places a gentle hand on your shoulder. "<i>Thank you, truly, but please take a softer touch with people. Life gives everyone challenges and whenever we can, we should pity and forgive, not threaten and harm. Um. If that\'s okay with you?</i>" She looks embarrassed to be scolding you and hurries away, leaving you alone in the alley.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yell];
 	Scylla.prototype.Scylla6YellForHelp = function() {
@@ -1108,7 +1108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'One of the guards, a canine woman with shaggy golden brown and crisp white fur, stoops down to pull the leather ball gag from your mouth, leaving the taste of catnip on your tongue. She unties you and instructs several of her men to get Scylla down. When the two of you are free and dressed again, the dog-lady gestures at the cats with a growl.\n\n', false );
 		EngineCore.outputText( '"<i>Sorry about this. These damned milk-freaks have been coming out of the woodwork lately. A real menace, if you ask me. Don\'t worry, they\'ll never bother you again.</i>" She pauses, as an unpleasant thought strikes her and she makes a face. "<i>Unless... you were just up to some moronic exhibition-bondage crap?</i>" She manages to blush despite the stern tone, bobbed ears lowering. The cats look pitifully at you, tired, hungry, and horny despite their predicament. Will you turn them in, or lie to cover for them?\n\n', false );
 		// [Truth] [Lie];
-		EngineCore.choices( 'Truth', this.Scylla6AfterYellTruth, 'Lie', this.Scylla6AfterYellLie, '', null, '', null, '', null );
+		EngineCore.choices( 'Truth', this, this.Scylla6AfterYellTruth, 'Lie', this, this.Scylla6AfterYellLie, '', null, null, '', null, null, '', null, null );
 	};
 	//[Truth];
 	Scylla.prototype.Scylla6AfterYellTruth = function() {
@@ -1116,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>These drifters attacked us in broad daylight,</i>" you spit in disgust. "<i>Lock them up, banish them from the city, do whatever it is you do. I never want to see these furry freaks again.</i>"\n\n', false );
 		EngineCore.outputText( '"<i>Gladly,</i>" the Collie watchwoman replies, her tail wagging rapidly. The watch tie up the cat-morphs and lead them out of the alley in a single-file march. "<i>Cats,</i>" the dog curses. You vaguely wonder if that would be considered racist here in Tel\'Adre, but decide you really don\'t care. Scylla looks a little perturbed that you had all the felines arrested, but you suspect the nun would\'ve forgiven them for rape and murder too, if you hadn\'t called for help. Well, she can just forgive your latest transgression, you grumble to yourself, annoyed by her lack of appreciation. You head back to camp.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Lie];
 	Scylla.prototype.Scylla6AfterYellLie = function() {
@@ -1126,7 +1126,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>But I\'m going to fine you for this!</i>" she barks, annoyed. "<i>Keep your sex life behind closed doors and don\'t waste the watch\'s time again!</i>" She collects her fee and disperses the Guard with another bark before turning to leave herself, tail curled up in irritation. The cats scatter too, but you\'re pretty sure you\'ll see them again as long as you\'re still lactating. Scylla\'s not sure what you told the watch, but she thanks you for your kindness with a kiss on the forehead and excuses herself; it\'s been a busy day and she\'s late for the soup kitchen. You muse that she\'ll probably end up feeding the same cats just recently denied a meal.', false );
 		CoC.player.gems -= 10;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Wait];
 	Scylla.prototype.Scylla6MilkyWait = function() {
@@ -1144,7 +1144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		//NEXT;
 		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 10 + CoC.player.sens / 10) );
-		EngineCore.doNext( this.Scylla6MilkyWaitII );
+		EngineCore.doNext( this, this.Scylla6MilkyWaitII );
 	};
 	//[Next];
 	Scylla.prototype.Scylla6MilkyWaitII = function() {
@@ -1172,7 +1172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
 		//[Next];
-		EngineCore.doNext( this.Scylla6MilkyWaitIII );
+		EngineCore.doNext( this, this.Scylla6MilkyWaitIII );
 	};
 	Scylla.prototype.Scylla6MilkyWaitIII = function() {
 		EngineCore.spriteSelect( 59 );
@@ -1181,7 +1181,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		//[Gain gems. End encounter.];
 		CoC.player.gems += 25;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Get Help];
 	Scylla.prototype.Scylla6NoMilkGetHelp = function() {
@@ -1191,7 +1191,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'One of the guards, a canine woman with shaggy golden brown and crisp white fur, looms over the cats, growling in a low, dangerous tone. She instructs several of her men to get Scylla down while the other guards keep their weapons trained on the captives. When the nun is free, at your side, and dressed again, the dog-lady gestures at the cats with a growl.\n\n', false );
 		EngineCore.outputText( '"<i>Sorry about this. These damned milk-freaks have been coming out of the woodwork lately. A real menace, if you ask me. Don\'t worry, they\'ll never bother you again.</i>" She pauses, as an unpleasant thought strikes her and she makes a face. "<i>Unless... you were just up to some moronic exhibition-bondage crap?</i>" She manages to blush despite the stern tone, bobbed ears lowering. The cats look pitifully at you, tired, hungry, and horny despite their predicament. Will you turn them in, or lie to cover for them?\n\n', false );
 		// [Truth] [Lie];
-		EngineCore.choices( 'Truth', this.Scylla6NoMilkTruth, 'Lie', this.Scylla6NoMilkLie, '', null, '', null, '', null );
+		EngineCore.choices( 'Truth', this, this.Scylla6NoMilkTruth, 'Lie', this, this.Scylla6NoMilkLie, '', null, null, '', null, null, '', null, null );
 	};
 	//[Truth];
 	Scylla.prototype.Scylla6NoMilkTruth = function() {
@@ -1199,7 +1199,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '"<i>These drifters attacked us in broad daylight,</i>" you spit in disgust. "<i>Lock them up, banish them from the city, do whatever it is you do. I never want to see these furry freaks again.</i>"\n\n', false );
 		EngineCore.outputText( '"<i>Gladly,</i>" the Collie watchwoman replies, her tail wagging rapidly. The Watch bind the cat-morphs and lead them out of the alley in a single-file march. "<i>Cats,</i>" the canine curses. You vaguely wonder if that would be considered racist here in Tel\'Adre, but decide you really don\'t care. Scylla looks a little perturbed that you had all the felines arrested, but you suspect the nun would\'ve forgiven them for rape too, if you hadn\'t called for help. Well, she can just forgive your latest transgression, you grumble to yourself, annoyed by her lack of appreciation. You head back to camp to forget about this whole mess.\n\n', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Lie];
 	Scylla.prototype.Scylla6NoMilkLie = function() {
@@ -1209,7 +1209,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>But I\'m going to fine you for this!</i>" she barks, annoyed. "<i>Keep your sex life behind closed doors and don\'t waste the watch\'s time again!</i>" She collects her fee and disperses the Guard with another bark before turning to leave herself, tail curled up in irritation. The cats scatter too, but you\'re pretty sure you\'ll see them again. Scylla\'s not sure what you told the Watch, but she thanks you for your kindness with a kiss on the forehead and excuses herself; it\'s been a busy day and she\'s late for the soup kitchen. You muse that she\'ll probably end up feeding the same cats just recently denied a meal.\n\n', false );
 		CoC.player.gems -= 10;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Submit] (Only available to players with vaginas);
 	Scylla.prototype.Scylla6NoMilkSubmit = function() {
@@ -1227,7 +1227,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Scylla\'s skin is sweet, her breast warm and yielding, but there is a tingling sensation between your eyes as you kiss her reluctantly at first, and deeper by degrees. An icy prickle runs down your spine when your tongue rolls along the pout of her lower lip and tastes the inside of her moist, clenching mound. A trickle of milk washes down your mouth like an intoxicating cream and you push your face into Scylla\'s tit harder, to lick deeper inside her swollen body. The plush softness of her breast molds against your face and her body jiggles with the sudden urgency of your thirst. Scylla squeaks and a rush of milk laps against your needy lips. You swallow gratefully, white rivulets running down the sides of your mouth.\n\n', false );
 		EngineCore.outputText( 'Before you can take a second gulp, the cat-morphs pull you back, your lips and hers still puckered from the broken kiss, milk leaking from both of you. Either the felines were satisfied that you haven\'t been further corrupted or their needs have overwhelmed their better judgment. They crowd around the nun\'s heaving chest and lap up her flowing bounty with a dozen thirsty tongues. As you regain your breath, you notice your throbbing erection and a different but no less pressing hunger fills you.\n\n', false );
 		EngineCore.dynStats( 'lus', 75 );
-		EngineCore.doNext( this.Scylla6NoMilkSubmitII );
+		EngineCore.doNext( this, this.Scylla6NoMilkSubmitII );
 	};
 	//[Next];
 	Scylla.prototype.Scylla6NoMilkSubmitII = function() {
@@ -1241,7 +1241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.cuntChange( 36, true );
 		EngineCore.dynStats( 'lib', 2, 'sen', -1, 'lus', 80, 'cor', 1 );
 		//[Next];
-		EngineCore.doNext( this.Scylla6NoMilkSubmitIII );
+		EngineCore.doNext( this, this.Scylla6NoMilkSubmitIII );
 	};
 	Scylla.prototype.Scylla6NoMilkSubmitIII = function() {
 		EngineCore.spriteSelect( 59 );
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 				EngineCore.outputText( 'The nun\'s belly bulges with sperm and she slurps at your shaft, trying to keep your cum inside her. The seeping drool leaving sticky webs of leaking sperm between her forehead and your groin, however, tell you that even Scylla\'s profane digestion isn\'t fast enough to keep all of your seed in the swelling stomach. She lets out a pitiful whimper and you feel some deep, dark part of your mind rouse itself. With inhuman focus, you concentrate on the nun\'s soft, surrendering body and feel her horns growing, answering your will. The nub-like bone grows, looping around her ears and under her jaw, slowly curling like an anaconda surrounding its prey. Gradually, the horns tighten until you\'ve sculpted a collar of bone around the subjugated girl\'s throat. She lets out a choked gurgle and you hear her nipple mouths let out a deep gasp. With its escape cut off, your cum begins to inflate Scylla\'s stomach much more rapidly and she coos in appreciation, her tongue spiraling around your shaft and milking your orgasm with renewed enthusiasm.', false );
 			}
 		}
-		EngineCore.doNext( this.Scylla6NoMilkSubmitIV );
+		EngineCore.doNext( this, this.Scylla6NoMilkSubmitIV );
 		CoC.player.orgasm();
 	};
 	//ALL - [Next];
@@ -1296,7 +1296,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.createKeyItem( 'Silver Kitty-Bell', 0, 0, 0, 0 );
 		CoC.player.gems += 50;
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Rape];
 	Scylla.prototype.Scylla6NoMilkRAPETHEWORLD = function() {
@@ -1308,7 +1308,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'Scylla\'s moaning provides enough cover for you to creep along quietly, sliding through the shadows until you\'re arm\'s reach from the black herm. Your cock is quite stiff from your peep show and small globs of pre-cum bubble up with every stroke you give it. Rubbing the lubrication around your tip, you tense your legs and spring. With blinding speed, you hook your arms around the ebony-furred girl\'s elbows, pinning her hands behind her and dragging her tight ass to your groin. With a hooking dip, you thrust your cockhead up, just barely penetrating her dark pussy with an inch of your pecker. You\'re pleased to note she\'s sopping wet and you lean forward to whisper in her startled ear. "<i>If you say anything, I\'ll have to pull out.</i>"\n\n', false );
 		EngineCore.dynStats( 'lus', 75, 'cor', 1 );
 		//[Next];
-		EngineCore.doNext( this.Scylla6NoMilkRapeII );
+		EngineCore.doNext( this, this.Scylla6NoMilkRapeII );
 	};
 	Scylla.prototype.Scylla6NoMilkRapeII = function() {
 		EngineCore.spriteSelect( 59 );
@@ -1323,7 +1323,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 
 		EngineCore.outputText( 'The mastiff-cocked cat-morph bites her tongue at your dominance and she creams onto your shaft, yowling in surrendering pleasure. Her knot begins to swell as her dick attempts to complete the spurting her pussy has begun. Scylla\'s lips are so large and swollen, however, that the bulge can\'t fit past them. The nun\'s tongue snakes out of her maw and wraps around the herm\'s base, between the fist-sized bulb and the ebony-furred groin. With almost tentacle flexibility, her tongue tugs with every thrust, trying to provide extra assistance, her gullet noisily slurping with all the suction she can muster. You take longer, deeper, harder thrusts, trying your best to push the herm\'s knot past Scylla\'s jaw. You slam her hard enough to make the clap of her ass on your abs rouse the milk-sedated cats around you, lazy heads rising to see the stranger in their midst fucking the bound nun\'s face, with a cat girl as a condom.\n\n', false );
 		//[Next];
-		EngineCore.doNext( this.Scylla6NoMilkRapeIII );
+		EngineCore.doNext( this, this.Scylla6NoMilkRapeIII );
 	};
 	Scylla.prototype.Scylla6NoMilkRapeIII = function() {
 		EngineCore.spriteSelect( 59 );
@@ -1339,7 +1339,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -1 );
 		//[Next];
-		EngineCore.doNext( this.Scylla6NoMilkRapeIV );
+		EngineCore.doNext( this, this.Scylla6NoMilkRapeIV );
 	};
 	Scylla.prototype.Scylla6NoMilkRapeIV = function() {
 		this.scyllaSprite();
@@ -1348,7 +1348,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '"<i>I\'m sorry for this,</i>" the girl apologizes. It\'s hard to tell if she\'s genuinely sorry or just still experiencing the submissive streak you fucked into her. "<i>We were just so hungry and your friend was so tempting. Please take what we\'ve got. After today, I don\'t think they\'ll need to eat for a week.</i>" She presses a few meager gems into your hand and pulls the silver bell from her collar. "<i>And carry this, so I can find you again,</i>" she whispers hopefully, flinching as Scylla\'s tongue snakes into her asshole to slurp down more of your cum. You leave them to their sticky cleanup with a pleased sigh. If only all trips to the soup kitchen could be so satisfying.', false );
 		CoC.flags[ kFLAGS.KATHERINE_MET_SCYLLA ] = 1;
 		CoC.player.createKeyItem( 'Silver Kitty-Bell', 0, 0, 0, 0 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//This scene is available if the player has at least two tentacle dicks, and appears when the player chooses to "<i>share an addiction</i>" under the heading [Tentacles].  Additional text becomes available if the player has four or six tentacle dicks.;
 	//-------------------------------------------------------------------------------------------------;
@@ -1377,7 +1377,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			//[Next];
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.shareTentaclesWithScylla2 );
+		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla2 );
 	};
 	Scylla.prototype.shareTentaclesWithScylla2 = function() {
 		EngineCore.clearOutput();
@@ -1422,7 +1422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		//[Next];
 		EngineCore.dynStats( 'lib', 0.5, 'lus=', 100, 'cor', 0.25, 'resisted', false );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.shareTentaclesWithScylla3 );
+		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla3 );
 	};
 	Scylla.prototype.shareTentaclesWithScylla3 = function() {
 		EngineCore.clearOutput();
@@ -1459,7 +1459,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 0.5 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.shareTentaclesWithScylla4 );
+		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla4 );
 	};
 	//[Next];
 	Scylla.prototype.shareTentaclesWithScylla4 = function() {
@@ -1477,7 +1477,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		if( CoC.player.cumQ() < 28000 ) {
 			CoC.player.cumMultiplier += 2;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Solo Feed Scylla;
@@ -1501,8 +1501,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		}
 		//[Feed] [Leave];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Feed', this.feedScyllaSomeJizzDatJunkieNeedsIt );
-		EngineCore.addButton( 4, 'Back', SceneLib.telAdre.barTelAdre );
+		EngineCore.addButton( 0, 'Feed', this, this.feedScyllaSomeJizzDatJunkieNeedsIt );
+		EngineCore.addButton( 4, 'Back', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//[Feed];
 	Scylla.prototype.feedScyllaSomeJizzDatJunkieNeedsIt = function() {
@@ -1565,7 +1565,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.dynStats( 'sen', -1 );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.feedingScyllaCumStepTwo );
+		EngineCore.addButton( 0, 'Next', this, this.feedingScyllaCumStepTwo );
 	};
 	Scylla.prototype.feedingScyllaCumStepTwo = function() {
 		EngineCore.clearOutput();
@@ -1624,7 +1624,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -1 );
 		//[Next];
-		EngineCore.addButton( 0, 'Next', this.cumFeedScyllaShesACoolGirl );
+		EngineCore.addButton( 0, 'Next', this, this.cumFeedScyllaShesACoolGirl );
 	};
 	Scylla.prototype.cumFeedScyllaShesACoolGirl = function() {
 		EngineCore.fatigue( 10 );
@@ -1640,7 +1640,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 				if( CoC.player.balls > 0 ) {
 					CoC.player.ballSize++;
 				}
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			//[High Cum production (over 250,000 mL)];
 			else {
@@ -1657,8 +1657,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 				}
 				//[Offer][Decline];
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Offer', this.beScyllasPersonSemenSquirtingMilkMaid );
-				EngineCore.addButton( 4, 'Leave', this.declineToBeASpunkPumpintJizztrocity );
+				EngineCore.addButton( 0, 'Offer', this, this.beScyllasPersonSemenSquirtingMilkMaid );
+				EngineCore.addButton( 4, 'Leave', this, this.declineToBeASpunkPumpintJizztrocity );
 			}
 		} else {
 			//[Low Cum Production (under 250,000 ml)];
@@ -1669,7 +1669,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 				if( CoC.player.balls > 0 ) {
 					CoC.player.ballSize++;
 				}
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 			//[High Cum production (over 250,000 mL)];
 			else {
@@ -1685,14 +1685,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 					}
 					//[Offer][Decline];
 					EngineCore.menu();
-					EngineCore.addButton( 0, 'Offer', this.beScyllasPersonSemenSquirtingMilkMaid );
-					EngineCore.addButton( 4, 'Leave', this.declineToBeASpunkPumpintJizztrocity );
+					EngineCore.addButton( 0, 'Offer', this, this.beScyllasPersonSemenSquirtingMilkMaid );
+					EngineCore.addButton( 4, 'Leave', this, this.declineToBeASpunkPumpintJizztrocity );
 				} else {
 					CoC.player.cumMultiplier += 1 + Utils.rand( 5 );
 					if( CoC.player.balls > 0 ) {
 						CoC.player.ballSize++;
 					}
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
 			}
 		}
@@ -1702,7 +1702,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.clearOutput();
 		this.scyllaSprite();
 		EngineCore.outputText( 'In retrospect, a thirst like Scylla\'s is only going to grow as time goes on and you\'d just as soon not be accountable for the girl\'s limitless needs.  She seems capable of taking care of herself in your absence, so there\'s no reason to formalize the favors you do for her.  You accept the nun\'s grateful thanks and take your leave.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Offer];
 	Scylla.prototype.beScyllasPersonSemenSquirtingMilkMaid = function() {
@@ -1713,7 +1713,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( '\n\nRing in hand, you head back to camp.' );
 		CoC.player.createKeyItem( 'Opal Ring', 0, 0, 0, 0 );
 		EngineCore.outputText( '\n\n(<b>Gained Key Item: Opal Ring</b>)' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Scylla.prototype.openTheDoorToFoursomeWivScyllaAndFurries = function() {
 		EngineCore.clearOutput();
@@ -1801,7 +1801,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		//[Next];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -1 );
-		EngineCore.doNext( this.scyllaFurryFoursomePartDues );
+		EngineCore.doNext( this, this.scyllaFurryFoursomePartDues );
 	};
 	//Could totally wake to an interstitial scene with other shit happening if I get time/energy.;
 	Scylla.prototype.scyllaFurryFoursomePartDues = function() {
@@ -1819,7 +1819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 			CoC.player.ballSize++;
 		}
 		CoC.flags[ kFLAGS.SCYLLA_FURRY_FOURSOME_COUNT ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'cylla', new Scylla() );
 } );

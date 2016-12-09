@@ -66,9 +66,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] !== 0 || CoC.player.hasKeyItem( 'Traveler\'s Guide' ) >= 0 ) {
-			EngineCore.addButton( 4, 'Leave', this.phoukaFaerieFireLeave );
+			EngineCore.addButton( 4, 'Leave', this, this.phoukaFaerieFireLeave );
 		}
-		EngineCore.addButton( 0, 'Follow', this.phoukaStuck );
+		EngineCore.addButton( 0, 'Follow', this, this.phoukaStuck );
 	};
 	PhoukaScene.prototype.phoukaFaerieFireLeave = function() {
 		if( CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] === 0 ) {
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		} else {
 			EngineCore.outputText( '\n\nAt the moment you don\'t feel the need to meet one of those ' + this.phoukaNameText( 'phouka', 'creatures' ) + ' again.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaStuck = function() {
 		EngineCore.clearOutput();
@@ -96,10 +96,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		}
 		EngineCore.menu();
 		if( hasAlcohol ) {
-			EngineCore.addButton( 0, 'Offer Drink', this.phoukaStuckOfferWhiskey );
+			EngineCore.addButton( 0, 'Offer Drink', this, this.phoukaStuckOfferWhiskey );
 		}
-		EngineCore.addButton( 1, 'Talk', this.phoukaTalk );
-		EngineCore.addButton( 2, 'Fight', this.phoukaStartFight );
+		EngineCore.addButton( 1, 'Talk', this, this.phoukaTalk );
+		EngineCore.addButton( 2, 'Fight', this, this.phoukaStartFight );
 	};
 	PhoukaScene.prototype.phoukaStuckOfferWhiskey = function() {
 		EngineCore.clearOutput();
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		this.phoukaForm = this.PHOUKA_FORM_BUNNY;
 		if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) ) {
 			EngineCore.menu();
-			EngineCore.addButton( 1, 'Drink', this.phoukaDrinkAccept );
+			EngineCore.addButton( 1, 'Drink', this, this.phoukaDrinkAccept );
 		} else {
 			this.phoukaDrinkWhilePregnant( true );
 		}
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 	PhoukaScene.prototype.phoukaMasturbating = function() { //Old Irish folklore again - Phoukas were supposed to be responsible for the berries rotting away at the end of the year
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You are wandering through the bog when you hear the unmistakable sound of someone fapping like there\'s no tomorrow.  You sneak up on the small group of shrubs expecting to find an imp who has finally been overcome by his own lust.  Instead it\'s a ' + this.phoukaNameText( 'phouka', 'small black faerie' ) + ' you see madly jerking off.  He grunts and strains but seems unable to finish.  With an annoyed look he dives for the bush, grabbing some small ripe berries from a branch.  The ' + this.phoukaName() + ' rubs the berries on his cock until it drips with blue and black fruit juices.  He tosses the remains of the fruits to the ground and goes back to wanking.\n\nAfter another minute or so he finally thrusts his hips forward in mid-air and begins squirting streams of thick grey cum all over the bushes.  He produces far more cum than he should be able to for a creature his size.  He aims the last several streams directly onto the berries for some reason.  By the time he\'s done the bush looks like it\'s covered in a layer of off-white frosting.\n\nThe ' + this.phoukaName() + ' gives a satisfied <i>“Ha!”</i> and flies off.  Glancing at the bush you decide you won\'t be making any preserves from the fruits in the bog and turn back toward camp.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaStartFight = function() {
 		EngineCore.outputText( '\n\nYou can’t move your lower half, but you roll your shoulders and stare the little monster down.  He’s not taking you without a fight.' );
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 					}
 					EngineCore.menu();
 					this.phoukaSexAddStandardMenuChoices();
-					EngineCore.addButton( 4, 'Fight', this.phoukaStartFight );
+					EngineCore.addButton( 4, 'Fight', this, this.phoukaStartFight );
 					break;
 				case 7:
 				case 8: //Decides he doesn't want you
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 					if( CoC.flags[ kFLAGS.PHOUKA_LORE ] === 0 ) {
 						CoC.flags[ kFLAGS.PHOUKA_LORE ] = 1;
 					} //Now you know what to call them
-					EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 					break;
 				default: //(9, 10 or 11) Offers to share some whiskey
 					EngineCore.outputText( ' buzzes around in a wide circle and finally comes to a stop near a broken tree.  He lands and reaches into a hollow, pulling out a glass bottle larger than he is.\n\nThe ' + this.phoukaName() + ' has some trouble with the stopper and once again seems to melt in front of your eyes.  He grows and changes into the form of a large, black furred bunny, nearly four feet tall that has a very human face and hands.  The bunny yanks the stopper free and pulls some leather drinking cups from the same hollow.  Finally the ' + this.phoukaName() + ' looks back at you, holding up the bottle.\n\n<i>“I could beat you, of course.  But it looks like it might be a long fight, and I don’t feel like starting one of those without drinkin more whiskey.”</i> The ' + this.phoukaName() + ' spreads his large bunny feet wide to give himself more support while he tips the cup back.  He hacks and coughs, but after the drink, he grins at you a little less lustily. <i>“Great stuff, this.  We phouka make it right here in the bog.  Best water, best peat, best everything for making phouka whiskey.”</i>' );
@@ -194,8 +194,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 					if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) ) {
 						EngineCore.outputText( '  He pours some of the clear amber liquid into the other cup and offers it to you.' );
 						EngineCore.menu();
-						EngineCore.addButton( 0, 'Refuse', this.phoukaDrinkRefuse );
-						EngineCore.addButton( 1, 'Drink', this.phoukaDrinkAccept );
+						EngineCore.addButton( 0, 'Refuse', this, this.phoukaDrinkRefuse );
+						EngineCore.addButton( 1, 'Drink', this, this.phoukaDrinkAccept );
 					} else {
 						this.phoukaDrinkWhilePregnant( false );
 					}
@@ -223,9 +223,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			EngineCore.outputText( ' what\'s up for grabs.  <i>“Go on and have some already. I try not to drink alone.  Always end up fucked by an imp or a drider or something that way.”</i>' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Refuse', (playerOfferedTheBooze ? this.phoukaDrinkRefuseAfterOffer : this.phoukaDrinkRefuse) );
+		EngineCore.addButton( 0, 'Refuse', this, (playerOfferedTheBooze ? this.phoukaDrinkRefuseAfterOffer : this.phoukaDrinkRefuse) );
 		if( acceptable ) {
-			EngineCore.addButton( 1, 'Drink', this.phoukaDrinkAccept );
+			EngineCore.addButton( 1, 'Drink', this, this.phoukaDrinkAccept );
 		}
 	};
 	PhoukaScene.prototype.phoukaDrinkAccept = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			EngineCore.outputText( 'The rabbit morph sits down heavily on the wet ground and sips his booze.  <i>“Don\'t want to fuck, don\'t want to drink.  What gives?  Live a little and let me have fun with your pregnant pussy.  I’ll get ya off, and it’s not like I can knock you up again.  Course, that\'d be fun too.”</i>' );
 			EngineCore.menu();
 			this.phoukaSexAddStandardMenuChoices();
-			EngineCore.addButton( 0, 'Leave', this.phoukaDrinkRefusePregnantLeave );
+			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkRefusePregnantLeave );
 		} else { //Less obvious pregnancy or player not pregnant
 			EngineCore.outputText( '<i>“You damn prude.  That does it! I don\'t have to sit around listening to this.  I try to be friendly like some people say ya should instead of just raping ya.  What\'s it get me, huh?”</i>' );
 			if( (CoC.player.lust > 66) || ((CoC.player.cor > 50) && (CoC.player.lust > 33)) ) {
@@ -276,18 +276,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			} else {
 				EngineCore.menu();
 			}
-			EngineCore.addButton( 0, 'Leave', this.phoukaDrinkRefuseLeave );
+			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkRefuseLeave );
 		}
 	};
 	PhoukaScene.prototype.phoukaDrinkRefuseLeave = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You extract yourself from the mud and get out of the bog before the phouka changes its mind.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaDrinkRefusePregnantLeave = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
 		EngineCore.clearOutput();
 		EngineCore.outputText( '<i>“Ah fuck.  You\'re a killjoy.  Don\'t you know the best time to get porked is when you\'ve already got a bun in the oven?”</i>\n\nThe black bunny waves you away dismissively. <i>“Fine, yeah, go home.  I hope the little bastard hurts when it pops out.  I would have stretched you out but good.”</i>' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaDrinkRefuseAfterOffer = function() {
 		EngineCore.clearOutput();
@@ -312,7 +312,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		if( playerIsInebriated ) {
 			EngineCore.outputText( '\n\nWhen the bottle runs out the bunny stands up, nearly falls down again and looks at you with his eyes crossing. <i>“Okay, this is good.  This is like the parties in the olden days.  You stay here, I\'ll go find sumore booze an\' maybe sum buddies o\' mine too.  Great booze, great party.  That\'s ther way!”</i> Then the bunny melts away, the swirling mess of black fur slowly contracting and reforming itself as a little black faerie again.  He waves and takes off on a dangerous looking spiraling course through the trees.\n\nAs the fuzziness from the whiskey begins to fade you realize [if (corruption <= 66)it probably isn\'t the best idea to stick around][if (corruption > 66)that you could get away if you want to].  If your new drinking buddy really does bring back some friends you\'ll probably experience the kind of \'party\' that will make your jaw click when you talk and leave all your holes sore for a week.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Leave', this.phoukaDrinkLeave );
+			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkLeave );
 		} else {
 			if( playerNotDrinking ) {
 				EngineCore.outputText( '\n\nThe stories continue and the phouka gets progressively more and more drunk. Finally he topples over, utterly drunk.' );
@@ -334,11 +334,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				} //Genderless
 			}
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Leave', this.phoukaDrinkLeave );
+			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkLeave );
 			if( CoC.player.lust >= 33 ) {
-				EngineCore.addButton( 1, 'Ride Faerie', this.phoukaSexFaerieNonCombat ); //Works for all
+				EngineCore.addButton( 1, 'Ride Faerie', this, this.phoukaSexFaerieNonCombat ); //Works for all
 				if( CoC.player.hasCock() ) {
-					EngineCore.addButton( 2, 'Fuck Faerie', this.phoukaSexFaerieFemaleNonCombat );
+					EngineCore.addButton( 2, 'Fuck Faerie', this, this.phoukaSexFaerieFemaleNonCombat );
 				} //Male or Herm Only
 			}
 		}
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			EngineCore.outputText( '\n\nIf you wanted' );
 		}
 		EngineCore.outputText( ' you could take advantage of the phouka’s predicament, but right now you’d rather go and check on the portal.  Thanks to the whiskey, the water soaking your [legs] doesn\'t matter to you quite so much as you slog back towards camp.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaHalloween = function() {
 		CoC.flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ] = OnLoadVariables.date.fullYear;
@@ -372,19 +372,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			EngineCore.outputText( '\n\nYou\'re about to accept when you notice how a few of the phouka in the back are looking at you.  It\'s a look you recognize from merchants who used to stop in Ingnam to sell their wares.  The \'a sucker born every minute\' look.  You realize none of the phouka have so much as tasted any treacle and you start to wonder what this sugary substance really is.' );
 		}
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Taste', this.phoukaHalloweenTreacleEater );
+		EngineCore.addButton( 0, 'Taste', this, this.phoukaHalloweenTreacleEater );
 		if( CoC.player.inte > 80 ) {
-			EngineCore.addButton( 4, 'Leave', this.phoukaHalloweenLeave );
+			EngineCore.addButton( 4, 'Leave', this, this.phoukaHalloweenLeave );
 		}
 	};
 	PhoukaScene.prototype.phoukaHalloweenLeave = function() {
 		EngineCore.outputText( '\n\nFeeling you\'re better off not finding out you excuse yourself, telling them they can enjoy the treacle amongst themselves.  As you walk away you just catch the boss telling the others <i>“Watch out fer that one, ' + CoC.player.mf( 'He', 'She' ) + '\'s a smart one.”</i>' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaHalloweenTreacleEater = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You take the cup and squeeze the bellows.  Then you tip a bit of the fluid into your mouth and are rewarded with a thick and sweet substance that is also mildly sticky.  After rolling it around your mouth you swallow. <i>“Well, looks like [he] likes it.”</i> says the boss.  You drink a little more.  As you do you notice a subtle aftertaste that you have difficulty placing.  It\'s hard to make out through all that sugar. \n\n<i>“You want some more?”</i> asks the boss. <i>“After all, it\'s always a pleasure to share our treacle with a newcomer.”</i> You try another cup, hoping to work out what that other taste is.  You feel like you should be able to place it.  After you swallow this batch you notice the grins of the phouka around you.  It finally hits you - that other taste is phouka spunk.  The phouka see the look on your face and start rolling on the ground laughing.\n\n<i>“Treacle Mining!  And [he] bought it!“</i>\n\n<i>“Oh, ho, \'Pumping treacle can be exhausting\'.  Oh, boss yer a killer!“</i>\n\n<i>“Boss, you\'ve done it again, yer the master o\' the long con, no one can argue that.”</i>\n\nYes, indeed, you\'ve been pranked but good by the little winged bastards.  Only a bit of smeared mud hid the fact that the words \'wank tank\' were carved into the small barrels.  As you storm off towards your camp you hear the leader call out <i>“If ye ever want to taste treacle again I\'ve got some for ye.  Just ask and I\'ll put it in yer mouth, instead of yer [if (hasVagina = true)cunt][if (hasVagina = false)ass].  Or if you want we can bury it in another barrel and cover it with tarpaper for ya.”</i> Their laughter rings in your ears until after you leave the bog.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaLeaveOnLustWin = function( newScreen ) {
 		if( newScreen === undefined || newScreen ) {
@@ -429,10 +429,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 					EngineCore.outputText( '.  It would be so easy to rape this perverted faerie, how can you resist?' );
 				}
 				EngineCore.menu();
-				EngineCore.addButton( 0, 'Leave', this.phoukaLeaveOnLustWin );
-				EngineCore.addButton( 1, 'Anal Ride', this.phoukaSexFaeriePostCombat ); //Works for all
+				EngineCore.addButton( 0, 'Leave', this, this.phoukaLeaveOnLustWin );
+				EngineCore.addButton( 1, 'Anal Ride', this, this.phoukaSexFaeriePostCombat ); //Works for all
 				if( CoC.player.hasCock() ) {
-					EngineCore.addButton( 2, 'Fuck Faerie', this.phoukaSexFaerieFemalePostCombat );
+					EngineCore.addButton( 2, 'Fuck Faerie', this, this.phoukaSexFaerieFemalePostCombat );
 				} //Male or Herm Only
 			}
 		}
@@ -517,10 +517,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 	};
 	PhoukaScene.prototype.phoukaSexAddStandardMenuChoices = function() { //This happens several times so it's broken out here in case additional options get added later
 		if( CoC.player.hasVagina() ) {
-			EngineCore.addButton( 1, 'Bunny', this.phoukaSexBunnyChoice );
-			EngineCore.addButton( 2, 'Horse', this.phoukaSexHorseChoice );
+			EngineCore.addButton( 1, 'Bunny', this, this.phoukaSexBunnyChoice );
+			EngineCore.addButton( 2, 'Horse', this, this.phoukaSexHorseChoice );
 		}
-		EngineCore.addButton( 3, 'Goat', this.phoukaSexGoatChoice );
+		EngineCore.addButton( 3, 'Goat', this, this.phoukaSexGoatChoice );
 	};
 	PhoukaScene.prototype.phoukaSexBunny = function( postCombat, lustLoss ) { //Player must have a vagina for bunny-morph sex
 		EngineCore.clearOutput();
@@ -629,7 +629,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			Combat.cleanupAfterCombat();
 		} else {
 			EngineCore.outputText( '\n\nYou collect your clothes and scramble to get out of the bog before anything else finds you.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
 		}
 	};
 	PhoukaScene.prototype.phoukaSexGoatChoice = function() {
@@ -726,7 +726,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				Combat.clearStatuses( false );
 				Combat.awardPlayer(); //This will provide loot and return to camp, 1 hour used
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} //Return to camp, 1 hour used
 		}
 	};
@@ -775,7 +775,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 			Combat.clearStatuses( false );
 			Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaSexFaerieFemaleNonCombat = function() {
@@ -877,7 +877,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				Combat.clearStatuses( false );
 				Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 			} else {
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} //Return to camp, 1 hour used
 		} else {
 			if( postCombat && CoC.player.gems > 0 ) {
@@ -893,7 +893,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 				Combat.cleanupAfterCombat();
 			} else {
 				EngineCore.outputText( 'collect your clothes and begin the long march out of the bog.  ' );
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
 			}
 			if( CoC.player.cor <= 50 ) {
 				EngineCore.outputText( 'As you trudge back to camp you have to wonder - why did you decide to visit the bog again?' );

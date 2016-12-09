@@ -150,8 +150,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor.id === 'LMArmor' ) {
 				bikiniTits = CoC.player.armor.lustyMaidenPaizuri;
 			}
-			EngineCore.choices( 'Your Ass', this.victoryButtholeRape, 'Your Cock', cockRape, 'Your Vagina', vaginaRape, 'Her Butt', anal, 'Lay Egg', eggs,
-				'', null, '', null, '', null, 'B.Titfuck', bikiniTits, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Your Ass', this, this.victoryButtholeRape, 'Your Cock', this, cockRape, 'Your Vagina', this, vaginaRape, 'Her Butt', this, anal, 'Lay Egg', this, eggs,
+				'', null, null, '', null, null, '', null, null, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			Combat.cleanupAfterCombat();
 		}
@@ -745,7 +745,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			anemone.applyVenom( 1 );
 			return;
 		}
-		EngineCore.choices( 'Give', this.giveMino, 'Don\'t Give', this.dontGiveMino, '', null, '', null, '', null );
+		EngineCore.choices( 'Give', this, this.giveMino, 'Don\'t Give', this, this.dontGiveMino, '', null, null, '', null, null, '', null, null );
 	};
 	//'Don't Give':;
 	AnemoneScene.prototype.dontGiveMino = function() {
@@ -790,10 +790,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			if( CoC.player.hasVagina() ) {
 				vaginaRape = this.rapeAnemoneWithPussy;
 			}
-			EngineCore.choices( 'Your ass', this.victoryButtholeRape, 'Your Cock', cockRape, 'Your Vagina', vaginaRape, '', null, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.choices( 'Your ass', this, this.victoryButtholeRape, 'Your Cock', this, cockRape, 'Your Vagina', this, vaginaRape, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//anal;
 	AnemoneScene.prototype.anemoneButtPlugginz = function() {
@@ -857,7 +857,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		if( !CoC.player.isTaur() ) {
 			hotdog = this.hotdogTheAnemone;
 		}
-		EngineCore.choices( 'FUCK IT', this.anemoneQuoteUnquoteAnal, 'Hotdog', hotdog, '', null, '', null, 'Fuck Off', this.fuckingAssholelessAnemoneeeez );
+		EngineCore.choices( 'FUCK IT', this, this.anemoneQuoteUnquoteAnal, 'Hotdog', this, hotdog, '', null, null, '', null, null, 'Fuck Off', this, this.fuckingAssholelessAnemoneeeez );
 	};
 	//[FUCK IT] (if cock fit 48, use cock; else use clit scenes);
 	AnemoneScene.prototype.anemoneQuoteUnquoteAnal = function() {
@@ -1245,7 +1245,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		EngineCore.outputText( '\n\nAnd... she\'s plunging the dipper into the barrel around her ankles.  You can hear it scraping the sides and bottom as she swishes it around to fill it up.  Politely and carefully handing it back to you, she resumes her seat and the water level rises slightly to cover her legs.  You stare at the dipper and then at her; she returns your gaze unflinchingly, splashing some liquid on her exposed gills with an idle hand.' );
 		EngineCore.outputText( '\n\nDoes she expect you to drink this?  And does she plan to live in your camp?  Won\'t it be absurdly toilsome to evict someone from your water barrel without speaking a word of their language or using physical force?  Your mind, unwilling to fathom answers to these questions - which is just as well since they\'re all variations on \'yes\' - latches onto the trivial like a lifeline.  The water level was definitely lower than you left it before your nap.  Maybe she absorbed it through her skin as she grew to adulthood?  This might explain why her hips and thighs are better developed than her chest and \'hair\'.' );
 		EngineCore.outputText( '\n\nChanging tack to work your hesitant brain around to the real issue, you address her again; assisted by clumsy pantomime, you ask her if she intends to stay in your barrel forever.  She smiles widely, her eyes lighting up, then makes a show of bowing her head graciously several times.  Oh... she thought it was an invitation.  The wind spills out of your sails and your shoulders slump in the face of her cheerful imperturbability.  Looks like words won\'t work; you\'ll have to reach her with your fists.  Do you eject the anemone from your camp?' );
-		EngineCore.choices( 'Keep It', this.keepAnemoneKid, 'Eject', this.getRidOfAnemone, '', null, '', null, '', null );
+		EngineCore.choices( 'Keep It', this, this.keepAnemoneKid, 'Eject', this, this.getRidOfAnemone, '', null, null, '', null, null, '', null, null );
 		//[yesno];
 	};
 	//[yes, i am allergic to fun. sweep the leg, johnny! get 'em a body bag!];
@@ -1256,7 +1256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		EngineCore.outputText( '\n\nUpon reaching your destination, you dump the contents of the anemone\'s erstwhile apartment into the babbling brook, then point down-current toward the lake and set your jaw.  Glancing at your stony demeanor, the blue girl steps into the water, moistens her gills, and then begins the long trek to her ancestral home.' );
 		//(set Kidswag to -1);
 		CoC.flags[ kFLAGS.ANEMONE_KID ] = -1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[no, bonsai anemone is awesome and fuck the haters];
 	AnemoneScene.prototype.keepAnemoneKid = function() {
@@ -1273,7 +1273,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		EngineCore.outputText( '\n\n(<b>Kid A can be found in your "Stash"!</b>)' );
 		//set Kidswag flag to 1;
 		CoC.flags[ kFLAGS.ANEMONE_KID ] = 1;
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
 	//KID A FOLLOWER STUFF;
@@ -1334,16 +1334,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 
 		//Tutor, N.Watch, and Evict require the anemone to be present;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Item', item );
-		EngineCore.addButton( 1, weaponT, weaponB );
+		EngineCore.addButton( 0, 'Item', this, item );
+		EngineCore.addButton( 1, weaponT, this, weaponB );
 		if( CoC.flags[ kFLAGS.KID_SITTER ] <= 1 ) {
 			if( CoC.flags[ kFLAGS.ANEMONE_WEAPON_ID ] !== 0 && CoC.player.fatigue <= 90 ) {
-				EngineCore.addButton( 3, 'Tutor', this.tutorAnemoneKid );
+				EngineCore.addButton( 3, 'Tutor', this, this.tutorAnemoneKid );
 			} else if( CoC.player.fatigue > 90 ) {
 				EngineCore.outputText( '\n\nYou\'re too tired to tutor Kid A.' );
 			}
-			EngineCore.addButton( 4, 'Watch', this.anemoneWatchToggle );
-			EngineCore.addButton( 8, 'Evict', this.evictANemone );
+			EngineCore.addButton( 4, 'Watch', this, this.anemoneWatchToggle );
+			EngineCore.addButton( 8, 'Evict', this, this.evictANemone );
 			var sex = false;
 			if( CoC.flags[ kFLAGS.HAD_KID_A_DREAM ] > 0 && CoC.flags[ kFLAGS.ANEMONE_KID ] >= 2 ) {
 				if( this.kidAXP() >= 40 ) {
@@ -1359,7 +1359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 							sex = true;
 						}
 						if( sex === true ) {
-							EngineCore.addButton( 2, 'Sex', this.kidASex, false );
+							EngineCore.addButton( 2, 'Sex', this, this.kidASex, false );
 						}
 					} else {
 						EngineCore.outputText( '\n\nYou aren\'t aroused enough to have sex with her right now.' );
@@ -1369,7 +1369,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				}
 			}
 		}
-		EngineCore.addButton( 9, 'Back', SceneLib.inventory.stash );
+		EngineCore.addButton( 9, 'Back', SceneLib.inventory, SceneLib.inventory.stash );
 	};
 	//[Item](only appears if hourssinceKiditem flag >= 16);
 	AnemoneScene.prototype.getAnemoneItem = function() {
@@ -1485,7 +1485,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		if( !foundItem ) {
 			EngineCore.outputText( '\n<b>You have no appropriate items to have your offspring hold.</b>' );
 		}
-		EngineCore.addButton( 9, 'Back', SceneLib.inventory.stash );
+		EngineCore.addButton( 9, 'Back', SceneLib.inventory, SceneLib.inventory.stash );
 	};
 	AnemoneScene.prototype.placeInAnemone = function( slot ) {
 		EngineCore.clearOutput();
@@ -1494,7 +1494,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		//(set Kidweapon to item name, remove from inventory);
 		CoC.flags[ kFLAGS.ANEMONE_WEAPON_ID ] = CoC.player.itemSlots[ slot ].itype.id;
 		CoC.player.itemSlots[ slot ].removeOneItem();
-		EngineCore.doNext( this.approachAnemoneBarrel );
+		EngineCore.doNext( this, this.approachAnemoneBarrel );
 	};
 	//[Take Weapon];
 	AnemoneScene.prototype.takeOutOfAnemone = function() {
@@ -1527,7 +1527,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				CoC.flags[ kFLAGS.ANEMONE_WATCH ] = 1;
 			}
 		}
-		EngineCore.doNext( this.approachAnemoneBarrel );
+		EngineCore.doNext( this, this.approachAnemoneBarrel );
 	};
 	//[Tutor](only appears if Kid A is armed and present);
 	AnemoneScene.prototype.tutorAnemoneKid = function() {
@@ -1535,7 +1535,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		//(if lust > 99, output);
 		if( CoC.player.lust > 99 ) {
 			EngineCore.outputText( 'You\'re way too horny to focus on any sort of weapon instruction right now, and the anemone can see it in your expression as your gaze wanders over her body; she blushes a deep blue and shrinks into her barrel with a shy glance.' );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
 		EngineCore.outputText( 'The anemone obediently climbs out of her barrel, ' );
@@ -1714,7 +1714,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			EngineCore.outputText( '\nYour bleary eyes open to a familiar-looking upside-down blue face.  It takes a minute before your brain can reconstruct the events preceding your lapse in consciousness; as soon as your expression gives a hint of understanding, Kid A sheepishly greets you.' );
 			EngineCore.outputText( '\n\n"<i>Um... hi.</i>"' );
 			//(lose 8 hours, restore HP amount consonant with 8hrs rest);
-			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 			CoC.player.createStatusAffect( StatusAffects.PostAnemoneBeatdown, 0, 0, 0, 0 );
 			return;
 		}
@@ -1734,7 +1734,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				EngineCore.outputText( ' to relieve your burden with, then resumes the search with a hint of desperation.  Finally and after exhaustive prodding, she withdraws her hand and chews her lip in consternation.' );
 				EngineCore.outputText( '\n\nAppearing to reach a decision, she reaches out and pats you apologetically on the head, then stands up and heads back to her barrel.' );
 				//no effect on lust, pass 1 hour;
-				EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
 		}
 		//else if no HP or lust outcome triggered: pass 1 hour, gain 40 xp, increment fatigue by 10;
@@ -1743,7 +1743,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				CoC.player.XP += 30;
 			}
 			EngineCore.fatigue( 10 );
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	AnemoneScene.prototype.kidASex = function( cont ) {
@@ -1789,7 +1789,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			if( CoC.flags[ kFLAGS.ANEMONE_KID ] < 3 ) {
 				CoC.flags[ kFLAGS.ANEMONE_KID ] = 3;
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 			return true;
 		}
 		//sex revisited, for when KidXP >= 40 and confidence is mounting;
@@ -1899,7 +1899,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			if( CoC.flags[ kFLAGS.ANEMONE_KID ] === 1 ) {
 				CoC.flags[ kFLAGS.ANEMONE_KID ] = 2;
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 			return true;
 		}
 		//femsex;
@@ -1933,7 +1933,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			if( CoC.flags[ kFLAGS.ANEMONE_KID ] === 1 ) {
 				CoC.flags[ kFLAGS.ANEMONE_KID ] = 2;
 			}
-			EngineCore.doNext( SceneLib.camp.returnToCampUseEightHours );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 			return true;
 		}
 		return false;
@@ -1944,7 +1944,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		EngineCore.outputText( 'Really evict the anemone?' );
 		EngineCore.spriteSelect( 71 );
 		//[Yes][No];
-		EngineCore.doYesNo( this.reallyEvictDaAnemone, this.approachAnemoneBarrel );
+		EngineCore.doYesNo( this, this.reallyEvictDaAnemone, this, this.approachAnemoneBarrel );
 	};
 	//Yes];
 	AnemoneScene.prototype.reallyEvictDaAnemone = function() {
@@ -1958,7 +1958,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		EngineCore.outputText( '\n\nThe two girls continue to greet each other in this fashion as their attention shifts away from you, and you wonder exactly what kind of pernicious meme you\'ve inflicted on the anemone community.' );
 		//set Kidswag to -1, pass 1 hour;
 		CoC.flags[ kFLAGS.ANEMONE_KID ] = -1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//dreams: possible once KidXP >= 40; function as visible notice of sex-readiness;
 	//if KidXP drops below threshold for sex due to bad training, no more dreams and no more sex;
@@ -2001,7 +2001,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			EngineCore.outputText( '  Sighing, you turn over and attempt to return to sleep despite the pervading smell of semen.' );
 		}
 		EngineCore.dynStats( 'lus', 50 + CoC.player.sens / 2, 'resisted', false );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Kid-and-kid interaction scenes:;
 	//Cows one-time scene(plays the first time Kidswag > 0, Kidweapon is populated, and PC has 5+ delicious well-Marbled steak children);
@@ -2055,7 +2055,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		else {
 			EngineCore.outputText( '\n\nThe anemone doesn\'t hesitate, but bursts into the middle of the shark-girls like a bomb, shrieking and making huge splashes, scattering them in multiple directions.  She quickly scoops up both skins\' worth of water and then runs, giggling giddily with the shark-girls dogging her heels until she\'s halfway back to camp.' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//goblins at night:;

@@ -34,9 +34,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			if( CoC.player.hasVagina() ) {
 				if( CoC.player.isTaur() ) {
 					maleRape = this.centaurOnImpStart;
-					EngineCore.addButton( 1, 'Group Vaginal', this.centaurGirlOnImps );
+					EngineCore.addButton( 1, 'Group Vaginal', this, this.centaurGirlOnImps );
 				} else {
-					EngineCore.addButton( 1, 'Female Rape', this.rapeImpWithPussy );
+					EngineCore.addButton( 1, 'Female Rape', this, this.rapeImpWithPussy );
 				}
 			} else if( maleRape === null && !CoC.player.hasFuckableNipples() && !canFeed && !canBikiniTits && !CoC.player.canOvipositBee() ) {
 				Combat.cleanupAfterCombat(); //Only happens when there's no way to fuck the imp
@@ -44,19 +44,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			}
 			EngineCore.addButton( 0, (CoC.player.isTaur() ? 'Centaur Rape' : 'Male Rape'), maleRape );
 			if( CoC.player.hasFuckableNipples() ) {
-				EngineCore.addButton( 2, 'NippleFuck', this.noogaisNippleRape );
+				EngineCore.addButton( 2, 'NippleFuck', this, this.noogaisNippleRape );
 			}
 		}
 		if( canFeed ) {
-			EngineCore.addButton( 3, 'Breastfeed', this.areImpsLactoseIntolerant );
+			EngineCore.addButton( 3, 'Breastfeed', this, this.areImpsLactoseIntolerant );
 		}
 		if( canBikiniTits ) {
-			EngineCore.addButton( 4, 'B.Titfuck', CoC.player.armor.lustyMaidenPaizuri );
+			EngineCore.addButton( 4, 'B.Titfuck', CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri );
 		}
 		if( CoC.player.canOvipositBee() ) {
-			EngineCore.addButton( 8, 'Oviposit', this.putBeeEggsInAnImpYouMonster );
+			EngineCore.addButton( 8, 'Oviposit', this, this.putBeeEggsInAnImpYouMonster );
 		}
-		EngineCore.addButton( 9, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
 	};
 	ImpScene.prototype.rapeImpWithDick = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			this.centaurOnImpFemale();
 		} else {
 			EngineCore.outputText( 'Do you focus on your maleness or girl-parts?', false );
-			EngineCore.choices( 'Male', EngineCore.createCallBackFunction( this.centaurOnImpMale, true ), 'Female', EngineCore.createCallBackFunction( this.centaurOnImpFemale, true ), '', null, '', null, '', null );
+			EngineCore.choices( 'Male', null, EngineCore.createCallBackFunction( this, this.centaurOnImpMale, true ), 'Female', null, EngineCore.createCallBackFunction( this, this.centaurOnImpFemale, true ), '', null, null, '', null, null, '', null, null );
 		}
 	};
 	//Player has a cock}};
@@ -1724,7 +1724,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				}
 			}
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	ImpScene.prototype.impRapesYou = function() {
 		EngineCore.outputText( '', true );
@@ -2001,9 +2001,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			//Leave // Rape];
 			EngineCore.menu();
 			if( CoC.player.lust >= 33 ) {
-				EngineCore.addButton( 0, 'Sex', this.sexAnImpLord );
+				EngineCore.addButton( 0, 'Sex', this, this.sexAnImpLord );
 			}
-			EngineCore.addButton( 9, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
 		}
 	};
 	ImpScene.prototype.loseToAnImpLord = function() {
@@ -2032,19 +2032,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 
 		EngineCore.menu();
 		//Continues in, Male Anal, Female Vaginal, or Breastfeed;
-		EngineCore.addButton( 9, 'Leave', Combat.cleanupAfterCombat );
+		EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
 		if( CoC.player.lust >= 33 ) {
 			if( CoC.player.hasCock() && CoC.player.cockThatFits( CoC.monster.analCapacity() ) >= 0 ) {
-				EngineCore.addButton( 0, 'FuckHisAss', this.impLordBumPlug );
+				EngineCore.addButton( 0, 'FuckHisAss', this, this.impLordBumPlug );
 			}
 			if( CoC.player.hasCock() ) {
-				EngineCore.addButton( 1, 'Get Blown', this.getBlownByAnImpLord );
+				EngineCore.addButton( 1, 'Get Blown', this, this.getBlownByAnImpLord );
 			}
 			if( CoC.player.hasVagina() ) {
-				EngineCore.addButton( 2, 'Ride Cock', this.femaleVagRape );
+				EngineCore.addButton( 2, 'Ride Cock', this, this.femaleVagRape );
 			}
 			if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
-				EngineCore.addButton( 3, 'Breastfeed', this.feederBreastfeedRape );
+				EngineCore.addButton( 3, 'Breastfeed', this, this.feederBreastfeedRape );
 			}
 		}
 	};

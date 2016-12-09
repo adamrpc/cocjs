@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nYou jump to your feet, readying your [weapon] for battle as you scan the perimeter.  A moment later, and you see a ponderous figure step out of the shadows behind a large rock.  At first glance, it looks like a normal girl dressed in a simple deerskin poncho, her bright red hair falling past her shoulders to rest on a pair of absolutely massive breasts.  Timidly, she steps forward, giving you a good look at her less human attributes: a pair of avian legs stick out beneath the hem of her clothes, and a large plume of feathers stick up from her big bubble-butt, each red feather nearly reaching the back of her head.  And her breasts... each easily the size of a goblin, so massive that it seems she can barely wobble along.' );
 		EngineCore.outputText( '\n\n"<i>G-gobble?</i>"  she asks quietly, her big blue eyes pleading at you.' );
 		//[Shoo her Off] [Let her Approach];
-		EngineCore.choices( 'Let Approach', this.letZeTurkeyApproach, 'Shoo Away', this.shooTurkeyAway, '', null, '', null, '', null );
+		EngineCore.choices( 'Let Approach', this, this.letZeTurkeyApproach, 'Shoo Away', this, this.shooTurkeyAway, '', null, null, '', null, null, '', null, null );
 	};
 	//Shoo her Off -McGirt;
 	Thanksgiving.prototype.shooTurkeyAway = function() {
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\n"<i>G-gobble?</i>"  she repeats, cocking her head to the side.' );
 		EngineCore.outputText( '\n\nRolling your eyes, you yell at the strange girl until she finally gets the idea and; with a few more sorrowful gobbles, she wobbles off again, looking for someone else to bother.' );
 		EngineCore.outputText( '\n\nShaking your head, you sit back down and eat.' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Let her Approach;
 	Thanksgiving.prototype.letZeTurkeyApproach = function() {
@@ -56,12 +56,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nYou raise an eyebrow.  Is that all she can say?' );
 		EngineCore.outputText( '\n\n"<i>Gobble?</i>"  she asks again, her hand drifting onto your leg.  You feel [eachCock] involuntarily stiffening as her slender, alabaster fingers slide along your thigh.  "<i>Gobble,</i>" she repeats, brushing your stiffening prick through your [armor].  Oh, is that what she wants?  Well then....' );
 		//(Baste Her) (That's Enough);
-		EngineCore.choices( 'Baste Her', this.basteThatTurkeyBooty, 'No Thanks', this.noThanksTurkeyGal, '', null, '', null, '', null );
+		EngineCore.choices( 'Baste Her', this, this.basteThatTurkeyBooty, 'No Thanks', this, this.noThanksTurkeyGal, '', null, null, '', null, null, '', null, null );
 	};
 	Thanksgiving.prototype.noThanksTurkeyGal = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You reluctantly push her away.  You\'ve no need to ram your dick down some new monstrosity\'s gullet.  The girl forlornly gobbles one last time, then prances off into the fading evening light, globular ass jiggling.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Baste Her -McGirt, reluctantly;
 	Thanksgiving.prototype.basteThatTurkeyBooty = function() {
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nThe turkey-girl smiles at you and flops onto her back, spreading her meaty thighs to give you a good look at the trimmed red bush between her legs, and the glistening slit of her vagina.  It looks like she wants some stuffing....' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.choices( 'Stuff Her', this.stuffDatTurkeyWithSpoo, '', null, '', null, '', null, 'That\'ll Do', this.thatllDoTurkey );
+		EngineCore.choices( 'Stuff Her', this, this.stuffDatTurkeyWithSpoo, '', null, null, '', null, null, '', null, null, 'That\'ll Do', this, this.thatllDoTurkey );
 	};
 	//Stuff Her -McGirt, this is awful by the way.;
 	Thanksgiving.prototype.stuffDatTurkeyWithSpoo = function() {
@@ -104,9 +104,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.flags[ kFLAGS.HEL_FUCKBUDDY ] === 1 && CoC.flags[ kFLAGS.HEL_REDUCED_ENCOUNTER_RATE ] === 0 ) {
 			EngineCore.outputText( '\n\nAs you lay atop the turkey, you hear a faint, almost pleading, "<i>Gobble?</i>"  from her. Furrowing your brow, you pick yourself up to look at the cum-slathered turkey.  As soon as you\'re off her, she rolls over onto her hands and knees, her big bubble butt sticking up in the air for you, her plume of feathers tickling your cheeks.  She... still wants more?</i>"' );
-			EngineCore.choices( 'Spit-Roast', this.spitRoastThatTurkey, '', null, '', null, '', null, 'That\'s Enough', this.thatllDoTurkey );
+			EngineCore.choices( 'Spit-Roast', this, this.spitRoastThatTurkey, '', null, null, '', null, null, '', null, null, 'That\'s Enough', this, this.thatllDoTurkey );
 		} else {
-			EngineCore.doNext( this.thatllDoTurkey );
+			EngineCore.doNext( this, this.thatllDoTurkey );
 		}
 	};
 	//SPITROAST HER! GangHel Style ;
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nYou pull out of her with a wet squelch, grinning as a flood of your spunk starts to pour from her abused asshole, mixing in with the titgravy and two other loads you blew on her previously.  Supported by her huge tits, the turkey-girl goes limp, finally contented by the third fucking, her body stained and completely covered in your cum.  Looking around her, you see Hel lying on her back, snoring quietly after her own tail-based orgasm, her own body coated liberally with femcum and globs of your own spunk that rubbed off on her.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.doNext( this.thatllDoTurkey );
+		EngineCore.doNext( this, this.thatllDoTurkey );
 	};
 	Thanksgiving.prototype.thatllDoTurkey = function() {
 		EngineCore.clearOutput();
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 			CoC.player.createPerk( PerkLib.PilgrimsBounty, 0, 0, 0, 0 );
 			EngineCore.outputText( '\n\n(<b>Perk Gained: Pilgrim\'s Bounty - Lower lust values no longer reduce the size of your orgasm.</b>)' );
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Let her Approach:;
 	Thanksgiving.prototype.femaleLetZeTurkeyGalApproach = function() {
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\n"<i>Gobble?</i>" This time her question is punctuated by her hand drifting onto your leg.  You feel your body warming slightly as her slender, alabaster fingers slide along your thigh.  "<i>Gobble.</i>" She repeats, fingertips brushing against the crotch of your [armor] as she squeezes your thigh gently.' );
 		EngineCore.outputText( '\n\nIt looks like you\'ve found yourself a dinner guest...' );
 		//[Appetiser] [Main Course] [Dessert];
-		EngineCore.choices( 'Appetizer', this.turkeyAppetizer, 'Main Course', this.femaleAndTurkeyMainCourse, 'Dessert', this.haveTurkeyGirlDesertInYourCunt, '', null, '', null );
+		EngineCore.choices( 'Appetizer', this, this.turkeyAppetizer, 'Main Course', this, this.femaleAndTurkeyMainCourse, 'Dessert', this, this.haveTurkeyGirlDesertInYourCunt, '', null, null, '', null, null );
 	};
 	//Appetiser:;
 	Thanksgiving.prototype.turkeyAppetizer = function() {
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nShe cries out at the penetration and you feel her tunnel grip your fingers as they try to go deeper inside her.  She stiffens up, moaning and groaning as an orgasm wracks her body, her thighs quaking with pleasure and hands going and breasts bouncing as she gasps in air.  You rest your thumb on her clit as she cums, rapidly rolling over the nub and her hips thrust into your hand, desperate to feel your fingers touch as much of her as they can.  Her nipples jut out through the poncho as she contorts herself, her fingers clamping down on them harshly as the pleasure overwhelms her, causing what could only be called an eruption from each nub.  Gravy spurts out, splattering against her already sodden clothing as you feel the tasty liquid streaking down her body beneath the material.  The warmth spreads across your hand, though it is no match for the heat between your legs as you watch the girl writhing in pleasure.' );
 		EngineCore.outputText( '\n\nUnable to stop yourself, you wrench your hand out from beneath her garment and before the girl can tell what\'s happening, you start to pull it up over her head, finally unleashing those fantastic breasts to the fresh air.  She nearly squawks as you drag her up from her relaxed position to free the material trapped beneath her, but calms down once you manage to get the thing over her head, throwing the soaked cloth out of the way.' );
 		CoC.player.orgasm();
-		EngineCore.doNext( this.femaleAndTurkeyMainCourse );
+		EngineCore.doNext( this, this.femaleAndTurkeyMainCourse );
 	};
 
 	//Main Course:;
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nFinally though, her climax begins to die down.  She holds you close for a few moments, gulping down air after her body-shaking finish.  You continue to drain her breast, though you feel your [vagina] starting to leave a damp patch on the inside of your armour, dripping down your thighs to soak into the log beneath you.  The hand on your head begins to move its way out of your hair, trailing down your neck almost lovingly as her breathing starts to return to normal.  Her touch is almost electric against your skin and you suddenly find yourself very aware of how much your body has been reacting whilst your brain was fixated on her mind-numbingly good goo.' );
 		EngineCore.outputText( '\n\nFinally, unable to withstand it any longer, you break your lips away from her teat and push the girl to the ground, your hunger for her body finally having overcome your hunger for her gravy.  She looks up at you with a confused expression to begin with, but once she sees your hands darting to the clasps of your armor, a much more sultry look crosses her features.' );
 		EngineCore.dynStats( 'lus', 30 );
-		EngineCore.doNext( this.haveTurkeyGirlDesertInYourCunt );
+		EngineCore.doNext( this, this.haveTurkeyGirlDesertInYourCunt );
 	};
 	//DESERT;
 	Thanksgiving.prototype.haveTurkeyGirlDesertInYourCunt = function() {
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		//HP set to full, EngineCore.fatigue to 0?;
 		EngineCore.fatigue( -100 );
 		EngineCore.HPChange( 3000, false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Turkey Girl II: Return of the Cockgobbler (Cockwielders);
 	//{Thanksgiving Day event, nat. Cockmeisters only.};
@@ -227,15 +227,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 || CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT ) ) {
 				EngineCore.outputText( '\n\n<b>You could let her come, like last year, or great her in a whole new way (by clicking \'Hello Again\')</b>' );
-				EngineCore.addButton( 2, 'Hello Again', this.helloAgain );
+				EngineCore.addButton( 2, 'Hello Again', this, this.helloAgain );
 				CoC.flags[ kFLAGS.MORE_TURKEY ] = 0;
 			} else {
 				EngineCore.outputText( '\n\n<b>You might be able to have some new, kinky fun with Gobbles this year if you had something lusty on you...</b>.' );
 				CoC.flags[ kFLAGS.MORE_TURKEY ] = 1;
 			}
 		}
-		EngineCore.addButton( 0, 'Shoo Off', this.shooTurkeyAway );
-		EngineCore.addButton( 1, 'Let Her Come', this.letZeTurkeyApproach );
+		EngineCore.addButton( 0, 'Shoo Off', this, this.shooTurkeyAway );
+		EngineCore.addButton( 1, 'Let Her Come', this, this.letZeTurkeyApproach );
 	};
 	Thanksgiving.prototype.helloAgain = function() {
 		EngineCore.clearOutput();
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		}
 		EngineCore.outputText( '.  She bobs up and down your length, hefting up her huge rack when she\'s at the peak to rub your sensitive underside, trying to titfuck you but just too damn big to get them into the action.  You suppose you\'ll have to take care of that...' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.gravyBoatDatTurkturk );
+		EngineCore.addButton( 0, 'Next', this, this.gravyBoatDatTurkturk );
 		//Gravy boat?;
 	};
 	//Gravy Boat;
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.seasonHerDatTurkeyBitch );
+		EngineCore.addButton( 0, 'Next', this, this.seasonHerDatTurkeyBitch );
 	};
 	//Season Her;
 	Thanksgiving.prototype.seasonHerDatTurkeyBitch = function() {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\n"<i>Gobble!</i>" she answers, rolling off of you and hiking her legs up, knees sinking into her bust to show off her slit for you, so eager and inviting.  You rise to your [feet], grabbing the lusty fowl behind her hooked knees and pulling her in to line up with your ' + CoC.player.multiCockDescriptLight() + '.  "<i>G-gobble!</i>" she begs, fluttering her plumage against your [legs], staring up at you imploringly as her skin further reddens, so hot with desperate lust you can practically feel the sexual hunger radiating off of her.  Time to finish this turkey off in style!' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.turkeyDesertBitches );
+		EngineCore.addButton( 0, 'Next', this, this.turkeyDesertBitches );
 	};
 	//Dessert;
 	Thanksgiving.prototype.turkeyDesertBitches = function() {
@@ -405,7 +405,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\n"<i>Gobble,</i>" you agree, wrapping the giddy turkey up in your arms and planting one last kiss on her big ol\' boob.  She stares sedately at you with big, blue eyes, a cute little smile on her lips as you withdraw from her, wiping the last of your spunk on her feathery thigh.  Running your hand through the turkey-girl’s hair, you whisper what a good little cockgobbler she is.  However, you soon find that the poor thing’s passed out, your rut finally over with.  Still, she\'s left you with a nice soft tit-pillow to lay your head down upon as you pick up the lunch you’d been preparing to eat before the eager slut arrived.' );
 		EngineCore.outputText( '\n\n“<i>That’ll do, turkey,</i>” you say, patting her jiggling tit and scrapign soem of the excess gravy out of your lunch.  “<i>That’ll do.</i>”' );
 		CoC.player.orgasm();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	//Ham Roast: Getting All Up In A Honey Pot (Female and Genderless only);
 	//{Yeah what Savin said up there};
@@ -421,9 +421,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.dynStats( 'lus', 5 );
 		EngineCore.menu();
 		if( CoC.player.gems >= 1 ) {
-			EngineCore.addButton( 0, 'Throw gem', this.getARoastPiggueOinkOinkOinkMotherfucker );
+			EngineCore.addButton( 0, 'Throw gem', this, this.getARoastPiggueOinkOinkOinkMotherfucker );
 		}
-		EngineCore.addButton( 1, 'Nah', SceneLib.telAdre.barTelAdre );
+		EngineCore.addButton( 1, 'Nah', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//[ In For A Gem... ] [ Not My Style ];
 	//{Return to The Wet Bitch menu};
@@ -451,13 +451,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nThen the plump whore\'s eyes suddenly turn more seductive, giving you a come-hither look as she oinks rather sexily, something that you didn\'t think would be possible until now.' );
 		//[ Next ];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.morePigRoast );
+		EngineCore.addButton( 0, 'Next', this, this.morePigRoast );
 	};
 	Thanksgiving.prototype.morePigRoast = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You climb on top of the bed with her, letting your [armor] slip off in the process. She oinks playfully, letting you know that she approves of the action. You smile at her, your hand reaching down to explore her dribbling nethers, slipping a finger into her love-tunnel with ease. You let a dumb grin spread across your features as you feel her searing folds, so hot and slippery with sticky, liquid lust.' );
 		EngineCore.outputText( '\n\n"<i>Oink?</i>" she asks eagerly, ready for more.' );
-		EngineCore.addButton( 0, 'Next', this.tenderizeDatPigSloot );
+		EngineCore.addButton( 0, 'Next', this, this.tenderizeDatPigSloot );
 	};
 	//[ Tenderize Her ];
 	//Ham Roast -> Tenderize Her (Female and Genderless versions);
@@ -478,8 +478,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
 		//[ Hardcore ] [ Softcore ];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Softcore', this.hamRoastTenderizeHerSoftcore );
-		EngineCore.addButton( 1, 'Hardcore', this.tenderizeHerHardcore );
+		EngineCore.addButton( 0, 'Softcore', this, this.hamRoastTenderizeHerSoftcore );
+		EngineCore.addButton( 1, 'Hardcore', this, this.tenderizeHerHardcore );
 	};
 	//Ham Roast -> Tenderize Her -> Hardcore;
 	Thanksgiving.prototype.tenderizeHerHardcore = function() {
@@ -495,7 +495,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
 		//[ Next ];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl );
+		EngineCore.addButton( 0, 'Next', this, this.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl );
 		//{Route to: here};
 	};
 	//Ham Roast -> Tenderize Her -> Softcore;
@@ -512,7 +512,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nYou lose yourself in the excitement, your own [vagOrAss] twitching with delight each time your paddle comes down on her bubbly buttocks.' );
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl );
+		EngineCore.addButton( 0, 'Next', this, this.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl );
 		//[ Next ];
 	};
 	Thanksgiving.prototype.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl = function() {
@@ -522,7 +522,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nAfter you\'re sure you\'ve worked as much of the soothing cream into her ass as it will take, you gently pat it with an almost loving caress.' );
 		EngineCore.outputText( '\n\n"<i>Oink...</i>" the slut sighs appreciatively, her tears finally coming to a stop as you get ready for the second part of your night together.' );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.spankEpilogueForRizzles );
+		EngineCore.addButton( 0, 'Next', this, this.spankEpilogueForRizzles );
 		//[ Next ];
 	};
 	Thanksgiving.prototype.spankEpilogueForRizzles = function() {
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		EngineCore.outputText( '\n\nYou tongue her pleasure buzzer, prodding it with your wet tongue and enveloping it with your slobbering oral muscle, sending the whore over the edge as she sprays the creamy syrup into your mouth. You guzzle it down eagerly; the pig slut\'s biggest orgasm yet gushing into your [face], causing your cheeks to puff out as you drink more and more of the delicious fluid, losing track of time.' );
 		//[ Next ];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.getDoneEatingOutPigSlut );
+		EngineCore.addButton( 0, 'Next', this, this.getDoneEatingOutPigSlut );
 	};
 	Thanksgiving.prototype.getDoneEatingOutPigSlut = function() {
 		EngineCore.clearOutput();
@@ -628,7 +628,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 			EngineCore.outputText( ', feeling your body expand as you waddle out back towards camp with belly full of sweet syrup' );
 		}
 		EngineCore.outputText( '. For only one gem, that was a pretty good time...' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseTwoHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	SceneLib.registerScene( 'thanksgiving', new Thanksgiving() );
 } );

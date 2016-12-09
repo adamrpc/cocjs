@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 	//const SALON_PAID:int = 441;;
 	Salon.prototype.hairDresser = function() {
 		EngineCore.outputText( 'While exploring the mountain, you find a cleverly concealed doorway.  From inside you can hear the sound of blades being sharpened.  Do you enter the doorway?', true );
-		EngineCore.doYesNo( this.salonGreeting, SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this, this.salonGreeting, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.salonGreeting = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 	};
 	Salon.prototype.favoriteSalonMenu = function() {
 		this.salonPurchaseMenu();
-		EngineCore.addButton( 6, 'Payments', this.salonFavoritesPaymentMenu );
+		EngineCore.addButton( 6, 'Payments', this, this.salonFavoritesPaymentMenu );
 	};
 	Salon.prototype.salonFavoritesPaymentMenu = function() {
 		var blow = null;
@@ -51,15 +51,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.LYNNETTE_PREGNANCY_CYCLE ] >= 4 && CoC.player.hasCock() ) {
-			EngineCore.addButton( 5, 'Fuck Goblin', this.fuckLynnette );
+			EngineCore.addButton( 5, 'Fuck Goblin', this, this.fuckLynnette );
 		}
-		EngineCore.addButton( 0, 'Goblin Blow', blow );
-		EngineCore.addButton( 1, 'Canine', this.gloryholeDoggie );
-		EngineCore.addButton( 2, 'Imp', this.gloryholeImp );
-		EngineCore.addButton( 3, 'Minotaur', this.gloryholeMinotaur );
-		EngineCore.addButton( 4, 'Incubus', this.gloryholeIncubus );
-		EngineCore.addButton( 8, 'Buy MinoCum', minoCum );
-		EngineCore.addButton( 9, 'Back', this.favoriteSalonMenu );
+		EngineCore.addButton( 0, 'Goblin Blow', this, blow );
+		EngineCore.addButton( 1, 'Canine', this, this.gloryholeDoggie );
+		EngineCore.addButton( 2, 'Imp', this, this.gloryholeImp );
+		EngineCore.addButton( 3, 'Minotaur', this, this.gloryholeMinotaur );
+		EngineCore.addButton( 4, 'Incubus', this, this.gloryholeIncubus );
+		EngineCore.addButton( 8, 'Buy MinoCum', this, minoCum );
+		EngineCore.addButton( 9, 'Back', this, this.favoriteSalonMenu );
 	};
 
 	Salon.prototype.salonPaymentMenu = function() {
@@ -73,22 +73,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.LYNNETTE_PREGNANCY_CYCLE ] >= 4 && CoC.player.hasCock() ) {
-			EngineCore.addButton( 5, 'Fuck Goblin', this.fuckLynnette );
+			EngineCore.addButton( 5, 'Fuck Goblin', this, this.fuckLynnette );
 		}
-		EngineCore.addButton( 0, 'Goblin Blow', blow );
-		EngineCore.addButton( 1, 'Canine', this.gloryholeDoggie );
-		EngineCore.addButton( 2, 'Imp', this.gloryholeImp );
-		EngineCore.addButton( 3, 'Minotaur', this.gloryholeMinotaur );
-		EngineCore.addButton( 4, 'Incubus', this.gloryholeIncubus );
-		EngineCore.addButton( 8, 'Buy MinoCum', minoCum );
-		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
-		//EngineCore.choices('Goblin Blow',blow,'Canine',this.gloryholeDoggie,'Imp',this.gloryholeImp,'Minotaur',this.gloryholeMinotaur,'Incubus',this.gloryholeIncubus,'',0,'',0,'',0,'Buy MinoCum',minoCum,'Leave',13);;
+		EngineCore.addButton( 0, 'Goblin Blow', this, blow );
+		EngineCore.addButton( 1, 'Canine', this, this.gloryholeDoggie );
+		EngineCore.addButton( 2, 'Imp', this, this.gloryholeImp );
+		EngineCore.addButton( 3, 'Minotaur', this, this.gloryholeMinotaur );
+		EngineCore.addButton( 4, 'Incubus', this, this.gloryholeIncubus );
+		EngineCore.addButton( 8, 'Buy MinoCum', this, minoCum );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.buyMinoCum = function() {
 		if( CoC.player.gems < 60 ) {
 			EngineCore.outputText( 'You can\'t afford any minotaur cum right now!', true );
 			if( CoC.flags[ kFLAGS.SALON_PAID ] === 0 ) {
-				EngineCore.doNext( this.salonGreeting );
+				EngineCore.doNext( this, this.salonGreeting );
 			} else {
 				this.salonPurchaseMenu();
 			}
@@ -144,15 +143,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		}
 
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Cut Short', cutShort2 );
-		EngineCore.addButton( 1, 'Cut Med.', cutMedium2 );
-		EngineCore.addButton( 2, 'Cut Long', cutLong2 );
-		EngineCore.addButton( 3, 'Lengthen', lengthening );
-		EngineCore.addButton( 4, 'Buy Products', this.dyeMenu );
-		EngineCore.addButton( 5, 'Buy MinoCum', minoCum );
-		EngineCore.addButton( 7, 'Mud Facial', mudFacial2 );
-		EngineCore.addButton( 8, 'Sand Facial', sandFacial2 );
-		EngineCore.addButton( 9, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.addButton( 0, 'Cut Short', this, cutShort2 );
+		EngineCore.addButton( 1, 'Cut Med.', this, cutMedium2 );
+		EngineCore.addButton( 2, 'Cut Long', this, cutLong2 );
+		EngineCore.addButton( 3, 'Lengthen', this, lengthening );
+		EngineCore.addButton( 4, 'Buy Products', this, this.dyeMenu );
+		EngineCore.addButton( 5, 'Buy MinoCum', this, minoCum );
+		EngineCore.addButton( 7, 'Mud Facial', this, mudFacial2 );
+		EngineCore.addButton( 8, 'Sand Facial', this, sandFacial2 );
+		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairDresserGreeting = function() {
 		EngineCore.spriteSelect( 38 );
@@ -280,7 +279,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 			EngineCore.dynStats( 'lus', 45, 'cor', 2 );
 		}
 		EngineCore.outputText( 'Abruptly, the demon-dong slips through your grasp and out the hole.  You hear a loud thump as something lands on the ground. Poor thing.\n\n', false );
-		EngineCore.doNext( this.hairDressingMainMenu );
+		EngineCore.doNext( this, this.hairDressingMainMenu );
 	};
 
 	Salon.prototype.gloryholeDoggie = function() {
@@ -298,7 +297,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 			EngineCore.dynStats( 'lus', 30, 'cor', 0.3 );
 		}
 		EngineCore.outputText( 'A young goblin comes by with a bowl for you to make your payment into.  You spit out the gunk and wipe your mouth, as the goblin carries the seed away.  You notice a trail of clear drops on the ground behind her.  She must be anticipating something...', false );
-		EngineCore.doNext( this.hairDressingMainMenu );
+		EngineCore.doNext( this, this.hairDressingMainMenu );
 	};
 	Salon.prototype.gloryholeIncubus = function() {
 		CoC.player.slimeFeed();
@@ -314,7 +313,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 			CoC.player.lust = 99;
 		}
 		EngineCore.statScreenRefresh();
-		EngineCore.doNext( this.hairDressingMainMenu );
+		EngineCore.doNext( this, this.hairDressingMainMenu );
 	};
 	Salon.prototype.gloryholeMinotaur = function() {
 		CoC.player.slimeFeed();
@@ -330,7 +329,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( 'Your head spins from the minotaur\'s musk, and you idly mop up and swallow the cum on your ' + CoC.player.face() + '. A goblin aide comes in with a bowl, and gently scrapes the cum off your tits with a smooth, flat rock. Once you\'re cleaned up and you\'re dressed, the aide leads you back to Lynnette.\n\n', false );
 		EngineCore.dynStats( 'lus', 33, 'cor', 1 );
 		CoC.player.minoCumAddiction( 10 );
-		EngineCore.doNext( this.hairDressingMainMenu );
+		EngineCore.doNext( this, this.hairDressingMainMenu );
 	};
 	Salon.prototype.goblinHairDresserFacefuck = function() {
 		EngineCore.spriteSelect( 38 );
@@ -369,7 +368,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( 'Lynnette and her daughters crowd around you with razor-sharp scissors, effortlessly paring down your ' + Descriptors.hairDescript() + '.  When they\'ve finished, you\'re left with ', true );
 		CoC.player.hairLength = 1;
 		EngineCore.outputText( Descriptors.hairDescript() + '.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.cutMedium = function() {
 		EngineCore.spriteSelect( 38 );
@@ -382,7 +381,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( 'Lynnette and her daughters crowd around you with razor-sharp scissors, effortlessly paring down your ' + Descriptors.hairDescript() + '.  When they\'ve finished, you\'re left with ', true );
 		CoC.player.hairLength = 10;
 		EngineCore.outputText( Descriptors.hairDescript() + '.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.cutLong = function() {
 		EngineCore.spriteSelect( 38 );
@@ -395,7 +394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( 'Lynnette and her daughters crowd around you with razor-sharp scissors, effortlessly paring down your ' + Descriptors.hairDescript() + '.  When they\'ve finished, you\'re left with ', true );
 		CoC.player.hairLength = 25;
 		EngineCore.outputText( Descriptors.hairDescript() + '.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairGrow = function() {
 		EngineCore.spriteSelect( 38 );
@@ -410,7 +409,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		CoC.flags[ kFLAGS.HAIR_GROWTH_STOPPED_BECAUSE_LIZARD ] = 0;
 		CoC.player.hairLength += temp;
 		EngineCore.outputText( Utils.num2Text( temp ) + ' more inches of ' + CoC.player.hairColor + ' hair.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.buyDye = function( itype ) {
 		EngineCore.outputText( '', true );
@@ -421,13 +420,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Lynnette pulls open a cabinet in the corner, displaying a wide array of exotic hair-dyes.  Which kind do you want?', false );
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Blue', this.buyDye, ConsumableLib.BLUEDYE );
-		EngineCore.addButton( 1, 'Orange', this.buyDye, ConsumableLib.ORANGDY );
-		EngineCore.addButton( 2, 'Pink', this.buyDye, ConsumableLib.PINKDYE );
-		EngineCore.addButton( 3, 'Purple', this.buyDye, ConsumableLib.PURPDYE );
-		EngineCore.addButton( 4, 'Green', this.buyDye, ConsumableLib.GREEN_D );
-		EngineCore.addButton( 5, 'Ext.Serum', this.buyDye, ConsumableLib.EXTSERM );
-		EngineCore.addButton( 9, 'Back', this.hairDressingMainMenu );
+		EngineCore.addButton( 0, 'Blue', this, this.buyDye, ConsumableLib.BLUEDYE );
+		EngineCore.addButton( 1, 'Orange', this, this.buyDye, ConsumableLib.ORANGDY );
+		EngineCore.addButton( 2, 'Pink', this, this.buyDye, ConsumableLib.PINKDYE );
+		EngineCore.addButton( 3, 'Purple', this, this.buyDye, ConsumableLib.PURPDYE );
+		EngineCore.addButton( 4, 'Green', this, this.buyDye, ConsumableLib.GREEN_D );
+		EngineCore.addButton( 5, 'Ext.Serum', this, this.buyDye, ConsumableLib.EXTSERM );
+		EngineCore.addButton( 9, 'Back', this, this.hairDressingMainMenu );
 	};
 
 	Salon.prototype.minotaurCumBukkakeInSalon = function() {
@@ -525,7 +524,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		//[NEXT];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 2, 'cor', 2 );
-		EngineCore.doNext( this.minotaurSalonFollowUp );
+		EngineCore.doNext( this, this.minotaurSalonFollowUp );
 	};
 	Salon.prototype.minotaurSalonFollowUp = function() {
 		EngineCore.spriteSelect( 38 );
@@ -550,7 +549,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( 'You sit back in a comfortable chair and pull on a lever to recline it.  The goblins buzz around you, gathering up \'special mud\'.  You close your eyes, letting them plaster your ' + CoC.player.face() + ' with the stuff in hopes that it will improve your complexion as much as you\'ve been promised.  A pair of cucumber slices are laid out on your eyes, obscuring your view.\n\n', false );
 		EngineCore.outputText( 'With that finished, the crowd of busty, green-skinned women disperses to leave you in peace.  Time drags on, but eventually the mud hardens and cracks.  As if on cue, tiny hands emerge with wet rags to scrub your face clean.  Once they\'ve finished, you feel like a whole new you! (+10 femininity)', false );
 		CoC.player.modFem( 100, 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.sandFacial = function() {
 		EngineCore.spriteSelect( 38 );
@@ -558,7 +557,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( 'You sit back in a comfortable chair and pull on a lever to recline it.  The goblins buzz around you, gathering up \'special sand\'.  You close your eyes, letting them splatter your ' + CoC.player.face() + ' with the rough, textured goop.  It doesn\'t feel very good, but that won\'t matter if it makes you as handsome as it\'s supposed to.\n\n', false );
 		EngineCore.outputText( 'After a while the goblin girls come back and clean the stuff from your face. (+10 masculinity)', false );
 		CoC.player.modFem( 0, 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/*
 	 Salon.LYNNETTE_PREGNANCY_CYCLE = 1022; //0-3 = pregnant. 4-6 = not.

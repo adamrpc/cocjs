@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 			EngineCore.outputText( 'Unable to bear its unnatural arousal, the infested hellhound\'s flames dim as he stops his attack. The two heads look at you, whining plaintively.  The hellhound slowly pads over to you and nudges its noses at your crotch.  It seems he wishes to pleasure you.\n\n', true );
 			if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 				EngineCore.outputText( 'You realize your desires aren\'t quite sated.  You could let it please you.  Do you?', false );
-				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene.hellHoundGetsRaped, '', null, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene, SceneLib.hellHoundScene.hellHoundGetsRaped, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 			} else {
 				EngineCore.outputText( 'You turn away, not really turned on enough to be interested in such an offer from such a beast.', false );
 				Combat.cleanupAfterCombat();
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, $log
 	InfestedHellhound.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe infested hellhound\'s heads both grin happily as it advances towards you...', false );
-			EngineCore.doNext( SceneLib.infestedHellhoundScene.infestedHellhoundLossRape );
+			EngineCore.doNext( SceneLib.infestedHellhoundScene, SceneLib.infestedHellhoundScene.infestedHellhoundLossRape );
 		} else if( hpVictory ) {
 			SceneLib.infestedHellhoundScene.infestedHellhoundLossRape();
 		} else {

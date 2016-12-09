@@ -168,7 +168,9 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 			toolTipViewText = '';
 		}
 		button.labelText = label;
-		button.callback = callback;
+		button.callback = function() {
+			return callback.apply();
+		};
 		button.toolTipText = toolTipViewText;
 		button.visible = true;
 	};
@@ -240,7 +242,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 	};
 	//////// Bottom Button Methods ////////
 	// TODO button set-up code to use callback and toolTipViewText here.
-	MainView.setButton = function( index, label, callback, toolTipViewText ) {
+	MainView.setButton = function( index, label, obj, callback, toolTipViewText ) {
 		if( label === undefined ) {
 			label = '';
 		}
@@ -252,7 +254,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 			return;
 		}
 		if( label ) {
-			MainView.showBottomButton( index, label, callback, toolTipViewText );
+			MainView.showBottomButton( index, label, EngineCore.createCallBackFunction( obj, callback ), toolTipViewText );
 		} else {
 			MainView.hideBottomButton( index );
 		}
@@ -274,7 +276,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		return MainView.menuButtons[ name + 'Button' ];
 	};
 	////////
-	MainView.setMenuButton = function( name, label, callback ) {
+	MainView.setMenuButton = function( name, label, obj, callback ) {
 		if( label === undefined ) {
 			label = '';
 		}
@@ -286,7 +288,9 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 			button.labelText = label;
 		}
 		if( callback ) {
-			button.callback = callback;
+			button.callback = function() {
+				return callback.apply( obj );
+			};
 		}
 	};
 	MainView.showMenuButton = function( name ) {
@@ -343,15 +347,19 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		MainView.selectSprite( -1 );
 	};
 	MainView.registerSave = function( saveManager ) {
-		MainView.menuButtons.dataButton.callback = saveManager.saveLoad;
+		MainView.menuButtons.dataButton.callback = function() {
+			return saveManager.saveLoad.apply( saveManager );
+		};
 	};
 	var _charCreationManager = null;
 	MainView.registerCharCreation = function( charCreationManager ) {
 		_charCreationManager = charCreationManager;
-		MainView.menuButtons.newGameButton.callback = charCreationManager.newGameGo;
+		MainView.menuButtons.newGameButton.callback = function() {
+			return charCreationManager.newGameGo.apply( charCreationManager );
+		};
 	};
 	MainView.resetNewGameButton = function( ) {
-		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', _charCreationManager.newGameGo );
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', _charCreationManager, _charCreationManager.newGameGo );
 	};
 	MainView.spriteSelect = function( choice ) {
 		if(choice === undefined) {

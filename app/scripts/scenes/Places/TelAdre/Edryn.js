@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'You stay with her and chat, learning more about your newborn child and otherwise having a pleasant time with your quadruped lover.', false );
 			EventParser.cheatTime( 1 );
 			CoC.flags[ kFLAGS.EDRYN_NEEDS_TO_TALK_ABOUT_KID ] = 0;
-			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//Mid-this.pregnancy talk;
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'Edryn smiles pleasantly as you approach, ', false );
 			EngineCore.outputText( 'offering you a spot at the table across from her.  She pushes aside the piled-up dishes and shifts uncomfortably on her pregnant bulk.  You smile at her and enjoy a light chat for a while, until Edryn runs out of food.  She excuses herself, and rises to go to the restroom.\n\n', false );
 			//Edryn pregnant offer;
-			EngineCore.doNext( this.pregdrynOffer );
+			EngineCore.doNext( this, this.pregdrynOffer );
 			return;
 		}
 		//Post kids talk;
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			if( CoC.player.totalCocks() === 0 ) {
 				EngineCore.outputText( 'She looks down, eyes fixing on your crotch for a moment before she sighs, "<i>Why did you get rid of your dick?  I like you a lot, but I don\'t really want to have sex with you like you are now.</i>"\n\nIt looks like you won\'t get to have any fun with her right now.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				return;
 			}
 			//(WANG FITS);
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 				EngineCore.outputText( 'She winks at you as she gets up and trots off, giving her butt a sensual sway to draw your eyes.  Her potent scent hangs in the air, and your body reacts immediately and intensely, flooding you with arousal.  ', false );
 				EngineCore.outputText( 'You look down at your ' + Descriptors.multiCockDescriptLight() + ' and curse, irritated at how easily she can affect you.  There\'s no way you\'ll be turning her down this time.  You get up and follow her back to her room, intent on taking care of the need between your legs.\n\n', false );
 				//Sex;
-				EngineCore.doNext( this.pregdrynOffer );
+				EngineCore.doNext( this, this.pregdrynOffer );
 				return;
 			}
 			//(Too small);
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 				} else {
 					EngineCore.outputText( 'I\'d love to help you, but I don\'t have any supplies for you.  I\'m sure you\'ll find a way.</i>"\n\n', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 					return;
 				}
 				SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 				else {
 					EngineCore.outputText( 'She says, "<i>You should find some Reducto or something to shrink that down.  I haven\'t come across any more so you\'ll have to get it yourself.</i>"\n\n', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 					return;
 				}
 			}
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 				} else {
 					EngineCore.outputText( '\n\nYou wait until she returns, wishing for once that things could be normal.  Though the remaining conversation is pleasant, you have a hard time enjoying yourself, and eventually bid the pretty centaur farewell.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				}
 			}
 		}
@@ -233,14 +233,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			if( CoC.player.hasVagina() && CoC.player.lust > 70 ) {
 				EngineCore.outputText( 'and as wet as you are right now, you find her scent to be intriguing.  Some part of you is curious what it would taste like.  When the centauress returns you compliment her on her shapely backside, but she only smiles politely and informs you that she "<i>doesn\'t swing for your team,</i>" whatever that means.  The rest of the conversation is quite pleasant, but all good things must come to an end.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 			}
 			//Everybody else is all 'BLEH';
 			else {
 				EngineCore.outputText( 'but the potent musky scent only reminds you of how different things are here.', false );
 				EngineCore.outputText( '\n\nYou wait until she returns, wishing for once that things could be normal.  Though the remaining conversation is pleasant, you have a hard time enjoying yourself, and eventually bid the pretty centaur farewell.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 			}
 		}
 	};
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 				EngineCore.outputText( 'Oh my, you\'re a little bit small for my tastes love.  Maybe you should try some of the local delicacies and trot back here so I can help you out, ok?</i>"\n\n', false );
 				EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				return;
 			}
 			//Too big;
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 				EngineCore.outputText( 'Oh wow, you\'re a little bit too big for me to handle, love.  Maybe you should try to find something to shrink that down a little, not too much, and trot back here so I can help you out, ok?</i>"\n\n', false );
 				EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 				EventParser.cheatTime( 1 );
-				EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+				EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				return;
 			}
 			//Big enough;
@@ -307,7 +307,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			} else {
 				EngineCore.outputText( '(Do you fuck her?)', false );
 			}
-			EngineCore.doYesNo( this.edrynSexSelecter, SceneLib.telAdre.barTelAdre );
+			EngineCore.doYesNo( this, this.edrynSexSelecter, SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 		} else if( CoC.player.cockTotal() > 0 ) {
 			//(HORSE CONT);
 			if( CoC.player.horseCocks() > 0 ) {
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 					EngineCore.outputText( '"<i>Wow, that\'s huge!  Sweetheart, you\'ll need to be a bit smaller if you want to play with me.  Why not go out and find something to shrink it down to something a horse like me can handle, then maybe we can play, ok?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 					return;
 				}
 				if( CoC.player.cockArea( x ) >= 24 ) {
@@ -338,14 +338,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 					} else {
 						EngineCore.outputText( '(Do you fuck her?)', false );
 					}
-					EngineCore.doYesNo( this.edrynSexSelecter, SceneLib.telAdre.barTelAdre );
+					EngineCore.doYesNo( this, this.edrynSexSelecter, SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				}
 				//(HORSE TOO SMALL);
 				else {
 					EngineCore.outputText( '"<i>Ouch, is that all?  Sweetheart, you\'ll need to be a bit bigger if you want to play with me.  Why not go out and try some of the local delicacies, then maybe we can play, ok?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 					return;
 				}
 			}
@@ -356,7 +356,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 					EngineCore.outputText( '"<i>Wow, that\'s huge!  Sweetheart, you\'ll need to be a bit smaller if you want to play with me.  Why not go out and find something to shrink it down to something a horse like me can handle, then maybe we can play, ok?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 					return;
 				}
 				//(cont Normal);
@@ -374,14 +374,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 					if( cost > 0 ) {
 						EngineCore.outputText( '\n\n(Do you pay ' + Utils.num2Text( cost ) + ' gems to fuck her?)', false );
 					}
-					EngineCore.doYesNo( this.edrynSexSelecter, SceneLib.telAdre.barTelAdre );
+					EngineCore.doYesNo( this, this.edrynSexSelecter, SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				}
 				//(rejected);
 				else {
 					EngineCore.outputText( '"<i>Wow, that\'s it?  I\'m sorry but you\'ll have to be a bit bigger before you can play with me.  Why not try some of the local specialties and come back when you\'re a bit bigger?</i>"\n\n', false );
 					EngineCore.outputText( 'You\'re a bit disappointed with the outcome. It doesn\'t look like you\'ll be getting any centaur tail tonight.', false );
 					EventParser.cheatTime( 1 );
-					EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+					EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 				}
 			}
 		}
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		if( cost > CoC.player.gems ) {
 			EngineCore.outputText( 'You realize you can\'t afford to stay with the sexy centaur, and leave full of disappointment and arousal.', true );
 			EventParser.cheatTime( 1 );
-			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//Pay gems and update sidebar;
@@ -486,7 +486,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		if( CoC.player.lust < 30 ) {
 			CoC.player.lust = 30;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.fuckEdrynNonTaur = function() {
 		EngineCore.spriteSelect( 14 );
@@ -567,7 +567,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		if( CoC.player.lust < 30 ) {
 			CoC.player.lust = 30;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.edrynBar = function() {
 		if( CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 0 && CoC.time.hours >= 14 && CoC.time.hours <= 19 && (CoC.time.hours < 17 || CoC.flags[ kFLAGS.EDRYN_NUMBER_OF_KIDS ] === 0) ) {
@@ -635,7 +635,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( '  Eventually, though, Hel gives you a sultry look and asks if you\'re up for a little group activity.  Are you?\n\n', false );
 		}
 		//(Display Options: [Threesome] [Leave];
-		EngineCore.choices( 'Edryn3Some', edryn, 'Fox Girls', SceneLib.helScene.heliaPlusFoxyFluffs, '', null, '', null, 'Leave', this.leaveHelInZeBitch );
+		EngineCore.choices( 'Edryn3Some', this, edryn, 'Fox Girls', SceneLib.helScene, SceneLib.helScene.heliaPlusFoxyFluffs, '', null, null, '', null, null, 'Leave', this, this.leaveHelInZeBitch );
 	};
 	//First Time - Leave;
 	Edryn.prototype.leaveHelInZeBitch = function() {
@@ -646,7 +646,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'You brush Helia\'s request off, saying you aren\'t much interested in a group right now.  She sighs dejectedly, but quickly recovers and gives you a knowing wink.  "<i>Well, maybe later.  I know you like some group play as much as I do.</i>"\n\n', false );
 			EngineCore.outputText( 'You spend the rest of the hour quietly chatting with Helia before giving her a friendly kiss goodbye and stepping away.', false );
 		}
-		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//First Time -- Threesome;
 	Edryn.prototype.helEdrynThreeSomeStartYerEngines = function() {
@@ -665,7 +665,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( '"<i>Well, normally I\'m a twosome sort of girl, but... For you two, I can make an exception.</i>"\n\n', false );
 			EngineCore.outputText( 'Grinning, the three of you make your way up to Edryn\'s private chambers.', false );
 		}
-		EngineCore.doNext( this.threesomeEdrynAndHel );
+		EngineCore.doNext( this, this.threesomeEdrynAndHel );
 	};
 	//THREESOME SEX;
 	Edryn.prototype.threesomeEdrynAndHel = function() {
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '"<i>Oh yeah. We... We gotta go again sometime,</i>" Hel agrees, nearly falling off Edryn\'s back.  You give each of the girls a long kiss before collecting your ' + CoC.player.armorName + ' and walking off back to camp.\n\n', false );
 		CoC.player.orgasm();
 		SceneLib.helFollower.helAffection( 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Pregdryn:;
 	Edryn.prototype.findOutEdrynIsPregnant = function() {
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '<b>How do you react?</b>', false );
 		var aroused = (CoC.player.totalCocks() > 0 ? this.arousedByPregdryn : null);
 		//[Shocked] [Pleased] [Aroused (Requires Wang)];
-		EngineCore.choices( 'Shocked', this.shockedByEdrynsPregnancy, 'Pleased', this.pleasedbyPregdryn, 'Aroused', aroused, '', null, '', null );
+		EngineCore.choices( 'Shocked', this, this.shockedByEdrynsPregnancy, 'Pleased', this, this.pleasedbyPregdryn, 'Aroused', this, aroused, '', null, null, '', null, null );
 	};
 	//Shocked;
 	Edryn.prototype.shockedByEdrynsPregnancy = function() {
@@ -712,7 +712,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( 'You stammer for an answer, unsure of what to say in light of this startling revelation.  Edryn looks on the verge of tears and all you can do is struggle for words.  She grips the table, her knuckles turning white while her eyes flick from side to side in a panic.', false );
 		EngineCore.outputText( '\n\n<b>What do you do?</b>', false );
 		//[Accept it] [Reject it];
-		EngineCore.choices( 'Accept It', this.shockedByPregdrynThenAccept, 'Reject It', this.beAnAssholeToPregdryn, '', null, '', null, '', null );
+		EngineCore.choices( 'Accept It', this, this.shockedByPregdrynThenAccept, 'Reject It', this, this.beAnAssholeToPregdryn, '', null, null, '', null, null, '', null, null );
 	};
 	//Accept it;
 	Edryn.prototype.shockedByPregdrynThenAccept = function() {
@@ -721,7 +721,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( 'Leaning forward, you grab hold of Edryn\'s hands and cradle them in your grip.  She looks back up at your eyes and reads your expression, breaking into a smile as she reads the feelings on your face.\n\n', false );
 		EngineCore.outputText( '"<i>Thank you!  You had me really going for a moment there, you know that?  Wow, that is a weight off my chest,</i>" exhales Edryn.  She climbs up onto her hooves and whispers, "<i>I\'ve got to use the little ponies\' room, I\'ll be right back lover,</i>" before she departs.\n\n', false );
 		//[To Pregnant Offer];
-		EngineCore.doNext( this.pregdrynOffer );
+		EngineCore.doNext( this, this.pregdrynOffer );
 	};
 	//Reject it;
 	Edryn.prototype.beAnAssholeToPregdryn = function() {
@@ -732,7 +732,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '<b>(Edryn will no longer speak with you.)</b>', false );
 		CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] = 1;
 		//Use the 1 hour cheat thinger;
-		EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//Pleased;
 	Edryn.prototype.pleasedbyPregdryn = function() {
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( 'You crack into a smile and congratulate the lusty centaur.  She giggles with relief at your words and wipes a bead of sweat from her brow as you finish.  Edryn exclaims, "<i>I\'m so glad you\'re happy about this!  I don\'t expect you to drop your quest and move in with me or anything like that, but it\'ll be wonderful to hear the clipper-clopper of little hooves in this town.</i>"\n\n', false );
 		EngineCore.outputText( 'Edryn pulls back from the table and stretches, her muscles visibly loosening as the tension oozes out of her imposing frame.  She whispers, "<i>Be right back lover, I\'ve got to make a stop at the little ponies\' room,</i>" before she departs.\n\n', false );
 		//[To Pregger Offer];
-		EngineCore.doNext( this.pregdrynOffer );
+		EngineCore.doNext( this, this.pregdrynOffer );
 	};
 	//Aroused;
 	Edryn.prototype.arousedByPregdryn = function() {
@@ -749,7 +749,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You break into a grin bordering on lecherousness and congratulate the lusty centaur.  Her eyes widen for a moment, shocked from your expression, then narrow into a sultry expression.  Edryn teases, "<i>I think someone has a bit of a pregnancy fetish, hrmm?  Is it the thought of my tits getting swollen with milk or the idea of me being jiggly and randy all the time that does it for you?</i>"  She shivers, the outlines of her prominent nipples straining against her already-tightly-stretched tunic.  Edryn\'s eyes drop down and a rueful smile works its way across her face as she admits, "<i>Great, now I\'m turned on too!  Let me go use the little ponies\' room. Then, MAYBE, we can help take care of each other.</i>"\n\n', false );
 		//[To Pregger Offer];
-		EngineCore.doNext( this.pregdrynOffer );
+		EngineCore.doNext( this, this.pregdrynOffer );
 	};
 
 	//Pregger Offer;
@@ -835,7 +835,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'She looks down, eyes fixing on your crotch for a moment before she sighs, "<i>Why did you get rid of your dick?  I like you a lot, but I don\'t really want to have sex with you like you are now.</i>"\n\nEdryn leaves looking a little depressed.', false );
 			//Bar menu?;
 			EventParser.cheatTime( 1 );
-			EngineCore.doNext( SceneLib.telAdre.barTelAdre );
+			EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 			return;
 		}
 		//(MEETS SIZE REQUIREMENTS);
@@ -855,17 +855,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'The centaur doesn\'t wait for a reply, and takes off at a trot towards her quarters.  A few drips have splattered across the floor, leaving a trail for you to follow.  You get up, dazed with arousal and leaking pre-cum, and stagger through the bar to her room, practically lust-drunk.', false );
 			EngineCore.dynStats( 'lus', 50 );
 			//TO SEX!;
-			//EngineCore.doNext(this.fuckPregEdryn);;
+			//EngineCore.doNext( this, this.fuckPregEdryn);;
 			EngineCore.outputText( '\n\nHow do you want to handle this?  ' );
 			EngineCore.menu();
 			EngineCore.outputText( 'You could have some great, pregnant taur sex.' );
-			EngineCore.addButton( 0, 'Preg. Fuck', this.fuckPregEdryn );
+			EngineCore.addButton( 0, 'Preg. Fuck', this, this.fuckPregEdryn );
 			if( CoC.player.biggestCockArea() >= 300 ) {
 				EngineCore.outputText( '  Since at least part of you isn\'t acceptable to her, you could eat her out until you get off from her pheromones alone.' );
-				EngineCore.addButton( 1, 'NoFitEating', this.jizzFromEatingPregdrynOut );
+				EngineCore.addButton( 1, 'NoFitEating', this, this.jizzFromEatingPregdrynOut );
 			}
 			EngineCore.outputText( '  Or, you could go down on her until you\'re in a frenzy, then fuck her wildly.' );
-			EngineCore.addButton( 2, 'Eat,Rut,Fuck', this.eatEdrynPussyLikeABawss );
+			EngineCore.addButton( 2, 'Eat,Rut,Fuck', this, this.eatEdrynPussyLikeABawss );
 			return;
 		}
 		//(PC TOO BIG);
@@ -875,7 +875,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'A thoughtful look crosses the centaur\'s face as she continues to pant in your ear, "<i>Come on, lets go back to my room.  I\'ll find a way to tend to that monster if you\'ll eat me out.  Maybe the pheromones wafting off my cunt will get you off without me even touching you?  I\'ve seen it happen before with some of my clients, and with how strong my scent is now...</i>"\n\n', false );
 			EngineCore.outputText( 'Edryn releases you and climbs up on all fours, making her way towards her room in the back of the establishment.  The smell of her need hangs heavy in the air, and you follow it like a lost puppy.  Of course, puppies don\'t have their massive, rock-hard maleness visible to everyone around them.  Thankfully, you reach her door quickly, and bolt inside.', false );
 			//Go to 'too big or too small eat out';
-			EngineCore.doNext( this.jizzFromEatingPregdrynOut );
+			EngineCore.doNext( this, this.jizzFromEatingPregdrynOut );
 			EngineCore.dynStats( 'lus', 50 );
 			return;
 		}
@@ -885,7 +885,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 			EngineCore.outputText( 'She laughs at the expression on your face and continues, "<i>Oh don\'t be like that.  The truth is the truth.  You\'re still the father of my child.  Why don\'t we go back to my room?  You can eat me out till the centaur pheromones overpower your little dick and make it squirt, okay?</i>"\n\n', false );
 			EngineCore.outputText( 'The centaur doesn\'t wait for a reply, and takes off at a trot towards her quarters.  A few drips have splattered across the floor, leaving a trail for you to follow.  You get up, dazed with arousal and leaking pre-cum, and stagger through the bar to her room, practically drunk on lust.', false );
 			//Go to 'too big or too small eat out';
-			EngineCore.doNext( this.jizzFromEatingPregdrynOut );
+			EngineCore.doNext( this, this.jizzFromEatingPregdrynOut );
 			EngineCore.dynStats( 'lus', 50 );
 			return;
 		}
@@ -978,7 +978,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -0.5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//EAT THE BITCH'S CUNT OUT;
 	Edryn.prototype.jizzFromEatingPregdrynOut = function() {
@@ -1053,7 +1053,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '"<i>Turn-about is fair play!</i>" she exclaims. You leave, unable to dispute the logic.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 2 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.edrynPregChance = function() {
 		//Get out if already pregged.;
@@ -1158,11 +1158,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '\n\nHow will you have her?  You could fuck her.  Or, you could eat her out until you\'re going crazy with sexual need and completely lose control.' );
 		//[Fuck] [Eat Her Out];
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'Eat Her Out', this.eatEdrynPussyLikeABawss );
+		EngineCore.addButton( 1, 'Eat Her Out', this, this.eatEdrynPussyLikeABawss );
 		if( CoC.player.isTaur() ) {
-			EngineCore.addButton( 0, 'Fuck', this.fuckEdrynTaur );
+			EngineCore.addButton( 0, 'Fuck', this, this.fuckEdrynTaur );
 		} else {
-			EngineCore.addButton( 0, 'Fuck', this.fuckEdrynNonTaur );
+			EngineCore.addButton( 0, 'Fuck', this, this.fuckEdrynNonTaur );
 		}
 	};
 	//Eat Her Out Till Shit Goes Crazy;
@@ -1270,7 +1270,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.outputText( '\n\n\'<b>Squish-squish-squish-squish-</b>\' can be heard for several hours by anyone lucky enough to hold their ear to the door.' );
 		//[Next];
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', this.postEdrynEatOutRut );
+		EngineCore.addButton( 0, 'Next', this, this.postEdrynEatOutRut );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25, 'sen', -3 );
 	};
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		this.edrynPregChance();
 		this.edrynPregChance();
 		CoC.flags[ kFLAGS.TIMES_EATEN_EDRYN_PUSSY_RUT ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	SceneLib.registerScene( 'edryn', new Edryn() );
 } );

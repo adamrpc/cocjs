@@ -853,7 +853,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, C
 	};
 	GreenSlimeScene.prototype.slimeLoss = function() {
 		EngineCore.outputText( '', true );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		if( CoC.player.gender === 2 || (CoC.player.gender === 3 && Utils.rand( 2 ) === 0) ) {
 			switch( Utils.rand( 3 ) ) {
 				case 0:

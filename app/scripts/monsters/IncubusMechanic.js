@@ -21,19 +21,19 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 		}
 		if( CoC.player.gender === 0 ) {
 			EngineCore.outputText( '  Now would be the perfect opportunity to test his demonic tool...\n\nHow do you want to handle him?' );
-			EngineCore.choices( 'Anally', SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', SceneLib.dungeonCore.incubusVictoryService, '', null, '', null, 'Leave', Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Anally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			EngineCore.dynStats( 'lus', 1 );
 			if( hpVictory ) {
 				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do, rape him, service him, or let him take you anally?' );
-				EngineCore.choices( 'Rape', SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore.incubusVictoryRapeBackdoor, '', null, 'Nothing', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, '', null, null, 'Nothing', null, Combat.cleanupAfterCombat );
 			} else {
 				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
 				var titfuck = null;
 				if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-					titfuck = EngineCore.createCallBackFunction2( CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
+					titfuck = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
 				}
-				EngineCore.choices( 'Rape', SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', titfuck, 'Nothing', Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', null, titfuck, 'Nothing', null, Combat.cleanupAfterCombat );
 			}
 		}
 	};
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 	IncubusMechanic.prototype.wonInDungeon1 = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.incubusLossRape();
 		}

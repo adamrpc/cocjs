@@ -27,14 +27,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			EngineCore.outputText( '\n\nYour curiosity gets the better of your caution, and you admit that you\'re indeed a traveller from another world, then introduce yourself.' );
 			EngineCore.outputText( '\n\n"<i>Of course, of course.  Why don\'t you follow us, valiant warrior?  We were just about to return home; we could use a little company.</i>"  As she talks you can\'t help but notice she keeps readjusting her dress, subtly revealing a bit more of her cleavage at every shift.  You see she also takes repeated glances at your crotch, probably thinking she\'s being discreet enough.  Her nipples are hardening through her dress, her smile is teasing you; her entire body language seems to be an open invitation as well as a display of seduction.' );
 			EngineCore.outputText( '\n\nDo you follow her?' );
-			EngineCore.doYesNo( this.agreeToFollowRebecFirstTime, this.dontGoToZeVillage );
+			EngineCore.doYesNo( this, this.agreeToFollowRebecFirstTime, this, this.dontGoToZeVillage );
 		}
 		//As long as you don't follow her once, display this on subsequent encounters (Z);
 		else if( CoC.flags[ kFLAGS.TIMES_IN_DEMON_PIT ] === 0 ) {
 			EngineCore.outputText( 'After wandering across the plains for a while, you spot Rebecc, the girl you met before, amongst a group of fellow farmers; she calls out to you.  "<i>Hello again, traveler!  You seem lost... would you mind spending some time with us at our village?</i>"' );
 			EngineCore.outputText( '\n\nAs before, you notice while speaking with her that she keeps glancing at your crotch for a few seconds at a time.  She puts on a sultry smile as she nudges the edges of her dress, revealing more and more cleavage each time.  She\'s a bit shaky as well; it\'s almost as if she\'s attempting to seduce you, but is only with difficulty able to contain herself.  Will you spend time with her in the village?' );
 			//Yes/No;
-			EngineCore.doYesNo( this.agreeToFollowRebecFirstTime, this.dontGoToZeVillage );
+			EngineCore.doYesNo( this, this.agreeToFollowRebecFirstTime, this, this.dontGoToZeVillage );
 		}
 		//Second (and subsequent) encounter; only happens once PC accepted being sacrificed once (Z);
 		else {
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			EngineCore.outputText( '\n\n"<i>My home is yours, hero; alongside everyone else\'s.  You will always be welcome here.  Don\'t hesitate to come to my place; you must feel all dirty and sullied from these corrupted monsters.  Don\'t worry, I\'ll clean you up.</i>"  She winks at you and walks into her house, leaving her door open as an invitation.' );
 			EngineCore.outputText( '\n\n(<b>Owca Village added to your \'Places\' menu.</b>)' );
 			CoC.flags[ kFLAGS.OWCA_UNLOCKED ] = 1;
-			EngineCore.doNext( this.gangbangVillageStuff );
+			EngineCore.doNext( this, this.gangbangVillageStuff );
 		}
 	};
 	Owca.prototype.dontGoToZeVillage = function() {
@@ -135,9 +135,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 		//Yes/No;
 		if( CoC.flags[ kFLAGS.TIMES_IN_DEMON_PIT ] === 0 ) {
-			EngineCore.doYesNo( EngineCore.createCallBackFunction2( this.acceptRebeccsPlea, true, true ), this.declineRebeccsPlea );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, true, true ), this, this.declineRebeccsPlea );
 		} else {
-			EngineCore.doYesNo( EngineCore.createCallBackFunction2( this.acceptRebeccsPlea, false, true ), this.declineRebeccsPlea );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, false, true ), this, this.declineRebeccsPlea );
 		}
 	};
 	//Refuse plea (Z);
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] -= 5;
 		}
 		CoC.flags[ kFLAGS.TIMES_REFUSED_REBECCS_OFFER ]++;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Accept plea (Z);
 	Owca.prototype.acceptRebeccsPlea = function() {
@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.outputText( '\n\nThis vivid thought only helps strengthen your determination and you resolutely march toward the pit and the tall pole at the center.  As you drop into it, you notice the ground is soft, wet and has slightly whitish stains here and there.  Your nose is immediately assaulted by a strong musk that you instantly recognize – the smell of semen.  The villagers, used as they must be to working on sullied land, seem unfazed by these details.  You decide it\'s wiser not to make any comment and let them chain you to the pole.  They silently work for a few minutes, being careful not to knot the ropes too tightly so they don\'t hurt you.  At last, they give you a few encouraging pats on your shoulder; some females give you chaste kisses on your head, others wish you good luck and give you a last thankful wave, and a few seconds later they\'re all gone. You\'re left alone and naked in a sex-scented pit, bound to a post, waiting for the arrival of lustful, soulless creatures.  The villagers have retained all of your equipment in the name of keeping it safe, assuring you that it\'ll be returned to you the next morning.' );
 		EngineCore.outputText( '\n\nPutting your dread aside, you close your eyes and attempt to sleep, vowing to save your strength for the ordeal that awaits you tonight.' );
 		//Dusk transition text (Z);
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.intoTheDemonPit, true ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.intoTheDemonPit, true ) );
 	};
 	Owca.prototype.intoTheDemonPit = function( sacrifice ) {
 		EngineCore.clearOutput();
@@ -231,11 +231,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.flags[ kFLAGS.TIMES_IN_DEMON_PIT ]++;
 		CoC.flags[ kFLAGS.DAYS_SINCE_LAST_DEMON_DEALINGS ] = 0;
 		if( sacrifice ) {
-			EngineCore.choices( 'Submit', this.loseOrSubmitToVapula, 'Fight', EngineCore.createCallBackFunction( this.fightZeDemons, true ), '', null, '', null, '', null );
+			EngineCore.choices( 'Submit', this, this.loseOrSubmitToVapula, 'Fight', null, EngineCore.createCallBackFunction( this, this.fightZeDemons, true ), '', null, '', null, '', null );
 		}
 
 		else {
-			EngineCore.choices( 'Submit', this.loseOrSubmitToVapula, 'Fight', EngineCore.createCallBackFunction( this.fightZeDemons, false ), '', null, '', null, '', null );
+			EngineCore.choices( 'Submit', this, this.loseOrSubmitToVapula, 'Fight', null, EngineCore.createCallBackFunction( this, this.fightZeDemons, false ), '', null, '', null, '', null );
 		}
 
 	};
@@ -388,11 +388,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			EngineCore.outputText( '\n\n<b>You\'re starting to get dangerously used to this kind of treatment.  Your holes are being stretched to accommodate monstrous sizes and don\'t hurt that much anymore.  You feel like you could stand this as long as you need to with ease... maybe it\'s time to stop volunteering?</b>' );
 		}
 		if( CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] >= 100 ) {
-			EngineCore.doNext( this.slaveToVapulaBadEnd );
+			EngineCore.doNext( this, this.slaveToVapulaBadEnd );
 		} else if( CoC.player.findStatusAffect( StatusAffects.LostVillagerSpecial ) >= 0 ) {
-			EngineCore.doNext( this.morningAfterRape );
+			EngineCore.doNext( this, this.morningAfterRape );
 		} else {
-			EngineCore.doNext( this.wakeUpAfterDemonGangBangs );//WAKE UP
+			EngineCore.doNext( this, this.wakeUpAfterDemonGangBangs );//WAKE UP
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 2, 'cor', 3 );
@@ -410,7 +410,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//PC is redirected to camp, next morning. No nightly camp scenes or dreams.;
 	};
@@ -444,7 +444,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//[(requires genitals and and corr >60);
 		if( CoC.player.cor > 60 && CoC.player.gender > 0 ) {
 			EngineCore.outputText( '\n\nDo you take advantage of them?' );
-			EngineCore.doYesNo( this.rapeZeVapula, this.noVapulaSex );
+			EngineCore.doYesNo( this, this.rapeZeVapula, this, this.noVapulaSex );
 		} else {
 			EngineCore.outputText( '\n\nThough the display as they explore each other is somewhat arousing, you can\'t really get into it as you are, and simply use your new-found freedom to climb out of the hole.  It\'s too dark to return to the village now, so you head back to camp.' );
 			CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] -= 5;
@@ -671,7 +671,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			EngineCore.outputText( '\n\nThis time you fully understand the consequences of another sacrifice.  Do you comply?' );
 			//Yes: Leads to Accept Plea scene. Attitude is raised by 5.;
 			//No: Leads to Refuse Plea scene. Attitude is lowered by 10.;
-			EngineCore.doYesNo( EngineCore.createCallBackFunction2( this.acceptRebeccsPlea, false, true ), this.declineRebeccsPlea );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, false, true ), this, this.declineRebeccsPlea );
 			return;
 		}
 		//[if attitude > 80];
@@ -727,24 +727,24 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			tavern = this.owcaTavern;
 		}
 		//[Pit][Herds][Rebecc][Tavern];
-		EngineCore.choices( 'Pit', pit, 'Herds', herd, 'Rebecc', this.rebeccMenu, 'Tavern', tavern, 'Leave', SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.choices( 'Pit', this, pit, 'Herds', this, herd, 'Rebecc', this, this.rebeccMenu, 'Tavern', this, tavern, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Tavern (Z);
 	Owca.prototype.owcaTavern = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'The tavern is nice and cozy; there are a few tables and chairs scattered around in no ordered pattern, and most clients here appear to belong to the same species.  By the crude wooden bar, you see a list of all the current drinks on sale:\n<i>' );
 		//SheepMk;
-		var milk = EngineCore.createCallBackFunction( this.owcaBuySetup, ConsumableLib.SHEEPMK );
+		var milk = EngineCore.createCallBackFunction( this, this.owcaBuySetup, ConsumableLib.SHEEPMK );
 		EngineCore.outputText( '\nSheep Milk Bottle: ' + (180 - CoC.flags[ kFLAGS.OWCAS_ATTITUDE ]) + ' gems' );
 		if( (180 - CoC.flags[ kFLAGS.OWCAS_ATTITUDE ]) > CoC.player.gems ) {
 			milk = null;
 		}
-		var goblin = EngineCore.createCallBackFunction( this.owcaBuySetup, ConsumableLib.GOB_ALE );
+		var goblin = EngineCore.createCallBackFunction( this, this.owcaBuySetup, ConsumableLib.GOB_ALE );
 		EngineCore.outputText( '\nGoblin Ale: ' + (60 - Math.round( CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] / 2 )) + ' gems' );
 		if( (60 - Math.round( CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] / 2 )) > CoC.player.gems ) {
 			goblin = null;
 		}
-		var brew = EngineCore.createCallBackFunction( this.owcaBuySetup, ConsumableLib.BROBREW );
+		var brew = EngineCore.createCallBackFunction( this, this.owcaBuySetup, ConsumableLib.BROBREW );
 		if( Utils.rand( 10 ) > CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] / 10 ) {
 			EngineCore.outputText( '\nBro Brew: 2000 gems' );
 			if( (2000) > CoC.player.gems ) {
@@ -754,13 +754,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			brew = null;
 		}
 
-		var cum = EngineCore.createCallBackFunction( this.owcaBuySetup, ConsumableLib.MINOCUM );
+		var cum = EngineCore.createCallBackFunction( this, this.owcaBuySetup, ConsumableLib.MINOCUM );
 		EngineCore.outputText( '\nMinotaur Cum: ' + (300 - CoC.flags[ kFLAGS.OWCAS_ATTITUDE ]) + ' gems' );
 		if( (300 - CoC.flags[ kFLAGS.OWCAS_ATTITUDE ]) > CoC.player.gems ) {
 			cum = null;
 		}
 		EngineCore.outputText( '</i>' );
-		EngineCore.choices( 'Sheep Milk', milk, 'Goblin Ale', goblin, 'Bro Brew', brew, 'MinotaurCum', cum, 'Back', this.gangbangVillageStuff );
+		EngineCore.choices( 'Sheep Milk', null, milk, 'Goblin Ale', null, goblin, 'Bro Brew', null, brew, 'MinotaurCum', null, cum, 'Back', this, this.gangbangVillageStuff );
 	};
 	Owca.prototype.owcaBuySetup = function( item ) {
 		if( item === ConsumableLib.SHEEPMK ) {
@@ -796,7 +796,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			EngineCore.outputText( '\n\nThe villagers thank you for your hard work and one of them hands you a bottle of sheep milk.  "<i>\'Tis good for your health.  Don\'t worry, it won\'t... mutate you.</i>"\n\n' );
 			SceneLib.inventory.takeItem( ConsumableLib.SHEEPMK, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Pit (Z);
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You announce to all the villagers present that you\'re going to guard the pit as well as the village\'s entrance against the demons, trusting them to spread the news; they seem glad that you took this initiative on your own.  Checking your equipment, you head toward the pit, ready to stand your ground against the lewd horde.' );
 		//Redirects to the Dusk Transition Scene, then to a combat with full equipment and weapons. Loss/Victory scenes as usual.;
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.intoTheDemonPit, false ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.intoTheDemonPit, false ) );
 	};
 	//Rebecc Menu (Z);
 	Owca.prototype.rebeccMenu = function() {
@@ -818,10 +818,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//[Appearance][Bath][Leave][Surprise Sex!];
 		var sex = null;
 		if( CoC.player.cor >= 66 ) {
-			sex = EngineCore.createCallBackFunction( this.rapeRebecc, false );
+			sex = EngineCore.createCallBackFunction( this, this.rapeRebecc, false );
 			EngineCore.outputText( '\n\nYou could try and force yourself on her, but you might not be welcome in town after...' );
 		}
-		EngineCore.choices( 'Appearance', this.rebeccAppearance, 'Bath', this.rebeccBathScene, '', null, 'Surprise Sex', sex, 'Back', this.gangbangVillageStuff );
+		EngineCore.choices( 'Appearance', this, this.rebeccAppearance, 'Bath', this, this.rebeccBathScene, '', null, null, 'Surprise Sex', null, sex, 'Back', this, this.gangbangVillageStuff );
 	};
 	//Rebecc Appearance (Z);
 	Owca.prototype.rebeccAppearance = function() {
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.outputText( '\n\nShe has a pair of ample, barely concealed breasts.  Although you can\'t see them outright, her thin clothing leaves little doubt that they\'re D-cups.  Her 0.5 inch nipples point through her dress whenever she\'s aroused.' );
 		EngineCore.outputText( '\n\nShe has a pussy of dubious virginity but copious wetness between her legs.  Occasionally a damp patch will appear on her dress, betraying her arousal.' );
 		EngineCore.outputText( '\n\nYou can\'t see her asshole, but it\'s safe to assume it\'s placed between her squeezable buttocks, right where it belongs.' );
-		EngineCore.doNext( this.rebeccMenu );
+		EngineCore.doNext( this, this.rebeccMenu );
 	};
 	//Rebecc Bath scene (Z);
 	Owca.prototype.rebeccBathScene = function() {
@@ -866,7 +866,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//Lust +30, Corr -2, Lib +1, slimefeed;
 		EngineCore.dynStats( 'lib', 1, 'lus', 30, 'cor', -2 );
 		CoC.player.slimeFeed();
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Rebecc Rape scene (for discerning penises) (Z);
 	Owca.prototype.rapeRebecc = function( outside ) {
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Desperate Villagers (Z);
@@ -959,7 +959,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.outputText( '\n\nIt seems that these villagers have grown weary of your repeated refusals; they are likely to react angrily if you deny them another sacrifice.' );
 		EngineCore.outputText( '\n\nDo you submit?' );
 		//Yes/No. Yes leads to Accept Plea, Attitude raised by 10. No to Villagers Fight;
-		EngineCore.doYesNo( EngineCore.createCallBackFunction2( this.acceptRebeccsPlea, false, true ), this.fightZeVillagers );
+		EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, false, true ), this, this.fightZeVillagers );
 	};
 	//Villagers Fight (Z, but pretty barebones);
 	Owca.prototype.fightZeVillagers = function() {
@@ -982,9 +982,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 		var rape = null;
 		if( CoC.player.cor >= 60 && CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
-			rape = EngineCore.createCallBackFunction( this.rapeRebecc, true );
+			rape = EngineCore.createCallBackFunction( this, this.rapeRebecc, true );
 		}
-		EngineCore.choices( 'Rape Rebecc', rape, 'Torch Village', torch, '', null, '', null, 'Leave', this.leaveOwcaAfterWhupping );
+		EngineCore.choices( 'Rape Rebecc', null, rape, 'Torch Village', this, torch, '', null, null, '', null, null, 'Leave', this, this.leaveOwcaAfterWhupping );
 	};
 	//'Leave' redirects the PC to camp; next encounter is Rebecc's Last Plea.;
 	Owca.prototype.leaveOwcaAfterWhupping = function() {
@@ -1000,10 +1000,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.dynStats( 'cor', 15 );
 		if( CoC.player.cor >= 60 && CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 			EngineCore.outputText( 'You notice Rebecc is still weeping among the scattered bodies of the beaten villagers.  Do you abuse her?' );
-			EngineCore.choices( 'Abuse Her', EngineCore.createCallBackFunction( this.rapeRebecc, true ),
+			EngineCore.choices( 'Abuse Her', null, EngineCore.createCallBackFunction( this, this.rapeRebecc, true ),
 				'', null, '', null, '', null, 'Leave', this.torchUpVillagersAndLeave );
 		} else {
-			EngineCore.doNext( this.torchUpVillagersAndLeave );
+			EngineCore.doNext( this, this.torchUpVillagersAndLeave );
 		}
 	};
 	//Fuck off village;
@@ -1029,7 +1029,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.HPChange( 50, false );
 		EngineCore.fatigue( -30 );
 		//after nightly scene, next encounter is Post-Mob Encounter;
-		EngineCore.doNext( this.loseOrSubmitToVapula );
+		EngineCore.doNext( this, this.loseOrSubmitToVapula );
 		CoC.player.createStatusAffect( StatusAffects.LostVillagerSpecial, 0, 0, 0, 0 );
 	};
 	//Post-Mob Encounter (Z);
@@ -1042,8 +1042,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//Option: Forgive. Sets Attitude to 50, quest goes back to normal.;
 		//Option: Rape. Leads to Rebecc Rape scene and ends the quest. ;
 		//Option: Leave. Redirects PC to camp, next encounter leads to Rebecc's Last Plea;
-		EngineCore.choices( 'Forgive', this.forgiveOwca,
-			'Rape', EngineCore.createCallBackFunction( this.rapeRebecc, false ), '', null, '', null, 'Leave', this.fuckThisShit );
+		EngineCore.choices( 'Forgive', this, this.forgiveOwca,
+			'Rape', null, EngineCore.createCallBackFunction( this, this.rapeRebecc, false ), '', null, '', null, 'Leave', this.fuckThisShit );
 	};
 	//Option: Forgive (Z);
 	Owca.prototype.forgiveOwca = function() {
@@ -1060,9 +1060,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.flags[ kFLAGS.OWCA_ANGER_DISABLED ] = 1;
 		//To main owca menu;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat( this.gangbangVillageStuff );
+			Combat.cleanupAfterCombat( this, this.gangbangVillageStuff );
 		} else {
-			EngineCore.doNext( this.gangbangVillageStuff );
+			EngineCore.doNext( this, this.gangbangVillageStuff );
 		}
 	};
 	//Option: Leave (Z);
@@ -1073,7 +1073,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
 	//Rebecc's Last Plea (Z);
@@ -1085,7 +1085,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//(You could rape her.) //Leads to Rebecc Rape scene. ;
 		//(You could face the villagers and demons in her stead.) ;
 		//(You could leave.) //End of quest.;
-		EngineCore.choices( 'Rape Her', EngineCore.createCallBackFunction( this.rapeRebecc, true ),
+		EngineCore.choices( 'Rape Her', null, EngineCore.createCallBackFunction( this, this.rapeRebecc, true ),
 			'Face Them All', this.faceDownHordes, '', null, '', null, 'Leave', this.leaveRebeccToBeRaped );
 	};
 	//Option: Leave (Z);
@@ -1095,7 +1095,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//[Owca Village removed from 'Places' menu.];
 		EngineCore.outputText( '\n\n(Owca has been removed from the places menu.)' );
 		CoC.flags[ kFLAGS.OWCA_UNLOCKED ] = -1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Option: Face Down the World (Z);
 	Owca.prototype.faceDownHordes = function() {
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.outputText( '\n\n"<i>It is unfair that a young innocent woman should suffer from the cowardice of her townsfolk.  Since you are all too reluctant to defend her yourselves, I\'ll do it for you.  Don\'t worry, you meek sheep.  No demon will abuse your kind on my watch.</i>"  You then ready yourself in a combat stance and wait.' );
 		EngineCore.outputText( '\n\nThe villagers keep staring at you, defiance as well as cautiousness reflected in their pondering eyes.  Caution wins out and they leave you, abandoning to your fate - and the horde.  It\'s time for you to prove your worth.' );
 		//Redirects to the Dusk Transition Scene, then to a combat with full equipment and weapons. Loss sets Submissiveness to 100 and gives Bad End.  Victory sets Attitude to 60 and it can never shrink below 1.;
-		EngineCore.doNext( EngineCore.createCallBackFunction( this.fightZeDemons, false ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.fightZeDemons, false ) );
 	};
 	//Slave to Vapula - Bad End (Z);
 	Owca.prototype.slaveToVapulaBadEnd = function() {
@@ -1153,7 +1153,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		if( CoC.player.gender > 0 && CoC.player.cor >= 66 ) {
 			enslave = this.enslaveVapulaWithYourWang;
 		}
-		EngineCore.choices( 'Disband', this.disbandHorde, 'EnslaveVapula', enslave, 'JustFuckEm', fuck, '', null, 'Skip Out', Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Disband', this, this.disbandHorde, 'EnslaveVapula', this, enslave, 'JustFuckEm', this, fuck, '', null, null, 'Skip Out', null, Combat.cleanupAfterCombat );
 	};
 	//Option: Disband (Z);
 	Owca.prototype.disbandHorde = function() {

@@ -10,8 +10,8 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, kFLAGS ) {
 		that.classNames.push('RaphaelsRapier');
 	};
 	var RaphaelsRapierProxy = new Proxy( RaphaelsRapier, {
-		construct: function( target ) {
-			return new Proxy( new target(), {
+		construct: function( Target ) {
+			return new Proxy( new Target(), {
 				get: function( target, name ) {
 					if(_.has(target.prototype, name)) {
 						return target.prototype[name];

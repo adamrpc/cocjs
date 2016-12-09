@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, C
 				this.lust += 15;
 		}
 		if( this.lust >= 100 ) {
-			EngineCore.doNext( Combat.endLustVictory );
+			EngineCore.doNext( Combat, Combat.endLustVictory );
 			return;
 		} else if( this.lust >= 85 ) {
 			EngineCore.outputText( 'The mouse is panting and softly whining, each movement seeming to make his bulge more pronounced.  You don\'t think he can hold out much longer.  ' );
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, C
 		} else if( this.lust > 50 ) {
 			EngineCore.outputText( 'The mouse\'s skin remains flushed with the beginnings of arousal.  ' );
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Jojo.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

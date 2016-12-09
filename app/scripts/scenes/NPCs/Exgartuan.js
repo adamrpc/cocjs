@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		EngineCore.outputText( 'You come closer and discover a placard.  It reads, "Fountain of Endowment".  Well, clearly it\'s supposed to enhance something, but at what cost?\n\n', false );
 		EngineCore.outputText( 'Do you drink from the fountain?', false );
 		//[Yes] [No];
-		EngineCore.doYesNo( this.drinkFountainEndowment, SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doYesNo( this, this.drinkFountainEndowment, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Exgartuan.prototype.drinkFountainEndowment = function() {
 		EngineCore.outputText( '', true );
@@ -169,8 +169,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 				choices++;
 			}
 			//Can you be infested?;
-			if( EngineCore.choices > 0 ) {
-				if( EngineCore.choices > 1 ) {
+			if( choices > 0 ) {
+				if( choices > 1 ) {
 					//Randomly pick one;
 					if( Utils.rand( 2 ) === 0 ) {
 						this.exgartuanInfestDick();
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 						this.exgartuanInfestTits();
 					}
 				}
-				if( EngineCore.choices === 1 ) {
+				if( choices === 1 ) {
 					//If tits are big enough it must be them;
 					if( CoC.player.biggestTitSize() >= 12 ) {
 						this.exgartuanInfestTits();
@@ -221,7 +221,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			EngineCore.outputText( ' now!', false );
 			changed = true;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Exgartuan.prototype.exgartuanInfestDick = function() {
 		EngineCore.spriteSelect( 15 );
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			EngineCore.outputText( 'You blush and redress, noting that Exgartuan seems to be silent and sleeping...  maybe you\'ll get a little peace now?', false );
 		}
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, (12 + Utils.rand( 7 )) );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//(NOT PLAYED WITH RECENTLY: +LUST MESSAGE);
@@ -792,20 +792,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		EngineCore.outputText( 'You redress, whistling happily as you prepare to leave.  Your victim is practically unconscious, still shaking from the intense experience and leaking eggs and honey from the organ on her backside.  Do you cut her down or leave her bound up for the locals to enjoy?', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'cor', 2 );
-		EngineCore.choices( 'Leave Her', this.leaveBeePostRape, 'Free Her', this.freeBeePostRape, '', null, '', null, '', null );
+		EngineCore.choices( 'Leave Her', this, this.leaveBeePostRape, 'Free Her', this, this.freeBeePostRape, '', null, null, '', null, null, '', null, null );
 	};
 	//[Free Her] (negates some corruption gain);
 	Exgartuan.prototype.freeBeePostRape = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You take pity on the slut and untie her.  Hopefully she\'ll recover before something worse finds her.  You\'d hate to let a tentacle-beast get your sloppy seconds.', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'cor', -1 );
 	};
 	//[Leave Her];
 	Exgartuan.prototype.leaveBeePostRape = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You smile cruelly and give her glittering vulva a gentle smack before you walk away, leaving her tied up there.  Maybe some lonely imps will find a use for her...', false );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.dynStats( 'cor', 0.5 );
 	};
 	Exgartuan.prototype.exgartuanSleepSurprise = function() {
@@ -825,7 +825,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 
 			EngineCore.outputText( 'After listlessly staring at your forced exhibitionism for a few seconds, your sleep anxiety wins over.  You bend over to begin taking off the article... only to find that it refuses to budge.  It acts as if it were adhered to your skin, resisting any actions to undo it from your groin.  After fidgeting with it for a few seconds, you let out an exasperated groan.  You\'re certainly in no mood to struggle with it nor who\'s responsible any further, reaching over and pulling up your covers.  One more sigh escapes your lips as you gaze upon the unsightly bulge before resting back on your pillow and closing your eyes.\n\n', false );
 			//[new page. If lust <75, raise to 75];
-			EngineCore.doNext( this.exgartuanBulgeTortureII );
+			EngineCore.doNext( this, this.exgartuanBulgeTortureII );
 			return;
 		} else {
 			EngineCore.outputText( 'Something interrupts your relatively peaceful sleep midway through the night.  Once pleasant dreams shift and morph to nightmares in a heartbeat!  You\'re gagging, choking even, and no matter how you twist and struggle you can\'t breathe!   Spikes of terror jump-start your heart and propel you back to wakefulness at breakneck speed.  Your eyes snap open and you try to sit up, but pain lances through your groin and throat, holding you in position.  Completely panicked, you look as far down as your restricted vision will allow and recoil in horror.  The bulging, veiny mass of your ' + Descriptors.cockDescript( 0 ) + ' is lodged deep in your throat, arching and twitching hard enough to slide itself in and out with gentle half-strokes.\n\n', false );
@@ -1002,7 +1002,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			CoC.player.slimeFeed();
 		}
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 25 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Exgartuan.prototype.exgartuanBulgeTortureII = function() {
 		EngineCore.outputText( '', true );
@@ -1049,7 +1049,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		EngineCore.outputText( '  Too preoccupied with whatever\'s going on down below, you can\'t seem to focus enough to get the job done right.  Your peer down your body at your ' + Descriptors.cockDescript( 0 ) + ', still flaccid and on lockdown.  The most you can respond is with another deep sigh, retreating your attention to the canvas up above you.  You figure the best course of action from here is to just try and make it until morning when you can find some help.  Confessing shame to some third party seems a much better alternative to going any more rounds with this nonsense.  Your fists clench and you take some deep breaths, prepared to ride out the remainder of the night with your sanity intact.\n\n', false );
 		//[new page. lust raises to 100];
 		EngineCore.dynStats( 'lus=', 1000 );
-		EngineCore.doNext( this.exgartuanBulgeTortureIII );
+		EngineCore.doNext( this, this.exgartuanBulgeTortureIII );
 	};
 	Exgartuan.prototype.exgartuanBulgeTortureIII = function() {
 		EngineCore.outputText( '', true );
@@ -1142,7 +1142,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		//[new page. lust resets to 0. corruption raises by 2. player gains ailment "<i>Jizzpants</i>"];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 2 );
-		EngineCore.doNext( this.exgartuanBulgeTortureIV );
+		EngineCore.doNext( this, this.exgartuanBulgeTortureIV );
 	};
 	Exgartuan.prototype.exgartuanBulgeTortureIV = function() {
 		EngineCore.outputText( '', true );
@@ -1164,7 +1164,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		EngineCore.outputText( '  You pay one more glance to Exgartuan, the ' + Descriptors.cockDescript( 0 ) + ' comfortably resting away in your outfit.\n\n', false );
 		EngineCore.outputText( 'Damn demons.', false );
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 25 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Exgartuan in breasts;
 	//≥48 hours since Boobgartuan masturbation scene. ;
@@ -1208,7 +1208,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			return;
 		}
 		//[new page];
-		EngineCore.doNext( this.boobgartuanSurprise2 );
+		EngineCore.doNext( this, this.boobgartuanSurprise2 );
 	};
 	Exgartuan.prototype.boobgartuanSurprise2 = function() {
 		EngineCore.spriteSelect( 15 );
@@ -1263,7 +1263,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			EngineCore.outputText( 'For a moment, you can swear you felt them rumbling... taunting you...', false );
 			//[end of occurrence ==0];
 		}
-		EngineCore.doNext( this.boobgartuanSurprise3 );
+		EngineCore.doNext( this, this.boobgartuanSurprise3 );
 	};
 	//[new page.  occurrence ≥1 starts here];
 	Exgartuan.prototype.boobgartuanSurprise3 = function() {
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		EngineCore.dynStats( 'lus', 5, 'cor', 2 );
 		CoC.flags[ kFLAGS.BOOBGARTUAN_SURPRISE_COUNT ]++;
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, 25 );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Requirements:;
 	//Exgartuan in cock;
@@ -1611,7 +1611,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		CoC.player.changeStatusValue( StatusAffects.Exgartuan, 2, (16 + Utils.rand( 7 )) );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'exgartuan', new Exgartuan() );
 } );

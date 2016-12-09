@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	GooGirl.prototype.gooGalAttack = function() {
 		var damage = 0;
 		//return to combat menu when finished
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 			EngineCore.outputText( 'Her body quivering from your flames, the goo-girl ', false );
 		} else {
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	GooGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			EngineCore.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );
-			EngineCore.doNext( Combat.endLustLoss );
+			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.gooGirlScene.getBeatByGooGirl();
 		}

@@ -403,7 +403,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		MainView.showMenuButton( MainView.MENU_DATA );
 		EngineCore.showStats();
 		//Change settings of new game buttons to go to main menu
-		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'Main Menu', StartUp.mainMenu );
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'Main Menu', null, StartUp.mainMenu );
 		//clear up/down arrows
 		EngineCore.hideUpDown();
 		//Level junk
@@ -698,8 +698,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		//Menu
-		EngineCore.choices( 'Explore', exploreEvent, 'Places', placesEvent, 'Inventory', SceneLib.inventory.inventoryMenu, 'Stash', storage, 'Followers', followers,
-			'Lovers', lovers, 'Slaves', slaves, '', null, baitText, masturbate, restName, restEvent );
+		EngineCore.choices( 'Explore', SceneLib.exploration, exploreEvent, 'Places', this, placesEvent, 'Inventory', SceneLib.inventory, SceneLib.inventory.inventoryMenu, 'Stash', SceneLib.inventory, storage, 'Followers', this, followers,
+			'Lovers', this, lovers, 'Slaves', this, slaves, '', null, null, baitText, SceneLib.masturbation, masturbate, restName, this, restEvent );
 		//Lovers
 		//Followers
 		//Slaves
@@ -993,31 +993,31 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		EngineCore.menu();
 		if( amilyEvent !== null ) {
-			EngineCore.addButton( 0, 'Amily', amilyEvent );
+			EngineCore.addButton( 0, 'Amily', SceneLib.amilyScene, amilyEvent );
 		}
 		if( SceneLib.arianScene.arianFollower() ) {
-			EngineCore.addButton( 1, 'Arian', SceneLib.arianScene.visitAriansHouse );
+			EngineCore.addButton( 1, 'Arian', SceneLib.arianScene, SceneLib.arianScene.visitAriansHouse );
 		}
 		if( hel !== null ) {
-			EngineCore.addButton( 2, 'Helia', hel );
+			EngineCore.addButton( 2, 'Helia', SceneLib.helFollower, hel );
 		}
 		if( isabellaButt !== null ) {
-			EngineCore.addButton( 3, 'Isabella', isabellaButt );
+			EngineCore.addButton( 3, 'Isabella', SceneLib.isabellaFollowerScene, isabellaButt );
 		}
 		if( izmaEvent !== null ) {
-			EngineCore.addButton( 4, 'Izma', izmaEvent );
+			EngineCore.addButton( 4, 'Izma', SceneLib.izmaScene, izmaEvent );
 		}
-		EngineCore.addButton( 5, 'Kiha', kihaButt );
+		EngineCore.addButton( 5, 'Kiha', SceneLib.kihaScene, kihaButt );
 		if( marbleEvent !== null ) {
-			EngineCore.addButton( 6, 'Marble', marbleEvent );
+			EngineCore.addButton( 6, 'Marble', SceneLib.marbleScene, marbleEvent );
 		}
 		if( nieve !== null ) {
-			EngineCore.addButton( 7, 'Nieve', nieve );
+			EngineCore.addButton( 7, 'Nieve', SceneLib.xmasMisc, nieve );
 		}
 		if( CoC.flags[ kFLAGS.ANT_WAIFU ] > 0 ) {
-			EngineCore.addButton( 8, 'Phylla', SceneLib.antsScene.introductionToPhyllaFollower );
+			EngineCore.addButton( 8, 'Phylla', SceneLib.antsScene, SceneLib.antsScene.introductionToPhyllaFollower );
 		}
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.campSlavesMenu = function() {
 		EngineCore.clearOutput();
@@ -1062,27 +1062,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		EngineCore.menu();
 		if( amilyEvent !== null ) {
-			EngineCore.addButton( 0, 'Amily', amilyEvent );
+			EngineCore.addButton( 0, 'Amily', SceneLib.amilyScene, amilyEvent );
 		}
 		if( ceraph !== null ) {
-			EngineCore.addButton( 1, 'Ceraph', ceraph );
+			EngineCore.addButton( 1, 'Ceraph', SceneLib.ceraphFollowerScene, ceraph );
 		}
 		if( jojoEvent !== null ) {
-			EngineCore.addButton( 2, 'Jojo', jojoEvent );
+			EngineCore.addButton( 2, 'Jojo', SceneLib.jojoScene, jojoEvent );
 		}
 		if( sophieEvent !== null ) {
-			EngineCore.addButton( 3, 'Sophie', sophieEvent );
+			EngineCore.addButton( 3, 'Sophie', SceneLib.sophieBimbo, sophieEvent );
 		}
 		if( vapula2 !== null ) {
-			EngineCore.addButton( 4, 'Vapula', vapula2 );
+			EngineCore.addButton( 4, 'Vapula', SceneLib.vapula, vapula2 );
 		}
 		if( milk !== null ) {
-			EngineCore.addButton( 7, CoC.flags[ kFLAGS.MILK_NAME ], milk );
+			EngineCore.addButton( 7, CoC.flags[ kFLAGS.MILK_NAME ], SceneLib.milkWaifu, milk );
 		}
 		if( goo !== null ) {
-			EngineCore.addButton( 8, CoC.flags[ kFLAGS.GOO_NAME ], goo );
+			EngineCore.addButton( 8, CoC.flags[ kFLAGS.GOO_NAME ], SceneLib.latexGirl, goo );
 		}
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.campFollowers = function() {
 		var rathazulEvent = null;
@@ -1151,21 +1151,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				}
 				EngineCore.outputText( ' about hunting and gathering techniques.  Considering their unusual upbringing, it can\'t be as easy for them...\n\n' );
 			}
-			EngineCore.addButton( 5, 'Sophie', SceneLib.sophieFollowerScene.followerSophieMainScreen );
+			EngineCore.addButton( 5, 'Sophie', SceneLib.sophieFollowerScene, SceneLib.sophieFollowerScene.followerSophieMainScreen );
 		}
 		if( CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
 			valeria2 = SceneLib.valeria.valeriaFollower;
 		}
-		EngineCore.addButton( 0, 'Ember', ember );
+		EngineCore.addButton( 0, 'Ember', SceneLib.emberScene, ember );
 		if( SceneLib.helSpawnScene.helspawnFollower() ) {
-			EngineCore.addButton( 1, CoC.flags[ kFLAGS.HELSPAWN_NAME ], SceneLib.helSpawnScene.helspawnsMainMenu );
+			EngineCore.addButton( 1, CoC.flags[ kFLAGS.HELSPAWN_NAME ], SceneLib.helSpawnScene, SceneLib.helSpawnScene.helspawnsMainMenu );
 		}
-		EngineCore.addButton( 2, 'Jojo', jojoEvent );
-		EngineCore.addButton( 3, 'Rathazul', rathazulEvent );
-		EngineCore.addButton( 4, 'Shouldra', shouldra );
+		EngineCore.addButton( 2, 'Jojo', SceneLib.jojoScene, jojoEvent );
+		EngineCore.addButton( 3, 'Rathazul', SceneLib.rathazul, rathazulEvent );
+		EngineCore.addButton( 4, 'Shouldra', SceneLib.shouldraFollower, shouldra );
 		//ABOVE: EngineCore.ddButton(4,"Sophie",followerSophieMainScreen);
-		EngineCore.addButton( 6, 'Valeria', valeria2 );
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 6, 'Valeria', SceneLib.valeria, valeria2 );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.rest = function() {
 		this.campQ = true;
@@ -1531,48 +1531,48 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.BAZAAR_ENTERED ] > 0 ) {
-			EngineCore.addButton( 0, 'Bazaar', SceneLib.bazaar.enterTheBazaar );
+			EngineCore.addButton( 0, 'Bazaar', SceneLib.bazaar, SceneLib.bazaar.enterTheBazaar );
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 ) {
-			EngineCore.addButton( 1, 'Boat', SceneLib.boat.boatExplore );
+			EngineCore.addButton( 1, 'Boat', SceneLib.boat, SceneLib.boat.boatExplore );
 		}
 		if( CoC.flags[ kFLAGS.FOUND_CATHEDRAL ] === 1 ) {
 			if( CoC.flags[ kFLAGS.GAR_NAME ] === 0 ) {
-				EngineCore.addButton( 2, 'Cathedral', SceneLib.gargoyle.gargoylesTheShowNowOnWBNetwork );
+				EngineCore.addButton( 2, 'Cathedral', SceneLib.gargoyle, SceneLib.gargoyle.gargoylesTheShowNowOnWBNetwork );
 			} else {
-				EngineCore.addButton( 2, 'Cathedral', SceneLib.gargoyle.returnToCathedral );
+				EngineCore.addButton( 2, 'Cathedral', SceneLib.gargoyle, SceneLib.gargoyle.returnToCathedral );
 			}
 		}
 		if( this.dungeonFound() ) {
-			EngineCore.addButton( 3, 'Dungeons', this.dungeons );
+			EngineCore.addButton( 3, 'Dungeons', this, this.dungeons );
 		}
-		EngineCore.addButton( 4, 'Next', this.placesPage2 );
+		EngineCore.addButton( 4, 'Next', this, this.placesPage2 );
 		if( this.farmFound() ) {
-			EngineCore.addButton( 5, 'Farm', SceneLib.farm.farmExploreEncounter );
+			EngineCore.addButton( 5, 'Farm', SceneLib.farm, SceneLib.farm.farmExploreEncounter );
 		}
 		if( CoC.flags[ kFLAGS.OWCA_UNLOCKED ] === 1 ) {
-			EngineCore.addButton( 6, 'Owca', SceneLib.owca.gangbangVillageStuff );
+			EngineCore.addButton( 6, 'Owca', SceneLib.owca, SceneLib.owca.gangbangVillageStuff );
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
-			EngineCore.addButton( 7, 'Salon', SceneLib.salon.salonGreeting );
+			EngineCore.addButton( 7, 'Salon', SceneLib.salon, SceneLib.salon.salonGreeting );
 		}
 		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
-			EngineCore.addButton( 8, 'Tel\'Adre', SceneLib.telAdre.telAdreMenu );
+			EngineCore.addButton( 8, 'Tel\'Adre', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 		}
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.placesPage2 = function() {
 		EngineCore.menu();
 		CoC.flags[ kFLAGS.PLACES_PAGE ] = 1;
 		//turn on ruins
 		if( CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] > 0 ) {
-			EngineCore.addButton( 0, 'TownRuins', SceneLib.amilyScene.exploreVillageRuin );
+			EngineCore.addButton( 0, 'TownRuins', SceneLib.amilyScene, SceneLib.amilyScene.exploreVillageRuin );
 		}
 		if( CoC.flags[ kFLAGS.MET_MINERVA ] >= 4 ) {
-			EngineCore.addButton( 1, 'Oasis Tower', SceneLib.minervaScene.encounterMinerva );
+			EngineCore.addButton( 1, 'Oasis Tower', SceneLib.minervaScene, SceneLib.minervaScene.encounterMinerva );
 		}
-		EngineCore.addButton( 4, 'Previous', this.placesToPage1 );
-		EngineCore.addButton( 9, 'Back', MainView.playerMenu );
+		EngineCore.addButton( 4, 'Previous', this, this.placesToPage1 );
+		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.placesToPage1 = function() {
 		CoC.flags[ kFLAGS.PLACES_PAGE ] = 0;
@@ -1582,18 +1582,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		EngineCore.menu();
 		//Turn on dungeons
 		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] > 0 ) {
-			EngineCore.addButton( 0, 'Deep Cave', SceneLib.dungeon2Supplimental.enterZetazsLair );
+			EngineCore.addButton( 0, 'Deep Cave', SceneLib.dungeon2Supplimental, SceneLib.dungeon2Supplimental.enterZetazsLair );
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) >= 0 ) {
-			EngineCore.addButton( 1, 'Factory', SceneLib.dungeonCore.enterFactory );
+			EngineCore.addButton( 1, 'Factory', SceneLib.dungeonCore, SceneLib.dungeonCore.enterFactory );
 		}
 		if( CoC.flags[ kFLAGS.DISCOVERED_WITCH_DUNGEON ] > 0 ) {
-			EngineCore.addButton( 2, 'Desert Cave', SceneLib.dungeonSandwitch.enterBoobsDungeon );
+			EngineCore.addButton( 2, 'Desert Cave', SceneLib.dungeonSandwitch, SceneLib.dungeonSandwitch.enterBoobsDungeon );
 		}
 		if( CoC.flags[ kFLAGS.D3_DISCOVERED ] > 0 ) {
-			EngineCore.addButton( 3, 'Stronghold', SceneLib.d3.enterD3 );
+			EngineCore.addButton( 3, 'Stronghold', SceneLib.d3, SceneLib.d3.enterD3 );
 		}
-		EngineCore.addButton( 9, 'Back', this.places );
+		EngineCore.addButton( 9, 'Back', this, this.places );
 	};
 	Camp.prototype.exgartuanCampUpdate = function() {
 		//Update Exgartuan stuff
@@ -1617,7 +1617,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 			}
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	SceneLib.registerScene('camp', new Camp());
 } );

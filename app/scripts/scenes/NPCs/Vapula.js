@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		//[Demonic dildo added];
 		CoC.player.createKeyItem( 'Demonic Strap-On', 0, 0, 0, 0 );
 		EngineCore.outputText( '\n\n(<b>Gained Item: Demonic Strap-On</b>)' );
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Vapula.prototype.vapulaGivesPCAPresent = function() {
 		EngineCore.outputText( '\nVapula walks up to you and frowns, clearly disappointed.  "<i>Since you got rid of the only way you could properly feed me, I got you this.</i>"\n\nShe drops a strap-on into your hand as she explains, "<i>It can convert the lust of a woman into something that will be palatable to my... appetites.  You\'re welcome.</i>"' );
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.outputText( 'moved out.' );
 		EngineCore.outputText( '\n\nMaybe it\'s past time you brought them around to your way of thinking?' );
 		//Amily and Jojo removed from followers. Amily is encounterable again in the Village Place through the corrupted route and Jojo can still meditate with you.];
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//tion camp;
 	//Follower Summoning text (Z);
@@ -276,24 +276,24 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			threesome = this.vapulaThreesomeMenu;
 		}
 
-		EngineCore.choices( 'Appearance', this.fapulaFapfapfapAppearance, 'Talk', this.talkToVapulaForSomeReason, 'Feed', mFeed, 'Feed(Dildo)', fFeed, 'Threesome', threesome,
-			'Spank', spank, '', null, '', null, '', null, 'Leave', SceneLib.camp.campSlavesMenu );
+		EngineCore.choices( 'Appearance', this, this.fapulaFapfapfapAppearance, 'Talk', this, this.talkToVapulaForSomeReason, 'Feed', this, mFeed, 'Feed(Dildo)', this, fFeed, 'Threesome', this, threesome,
+			'Spank', this, spank, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.campSlavesMenu );
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 0 && CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] === 1 ) {
-			EngineCore.addButton( 6, 'Farm Work', this.sendToFarm );
+			EngineCore.addButton( 6, 'Farm Work', this, this.sendToFarm );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 1 ) {
-			EngineCore.addButton( 6, 'Go Camp', this.backToCamp );
+			EngineCore.addButton( 6, 'Go Camp', this, this.backToCamp );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_VAPULA ] === 0 ) {
-			EngineCore.addButton( 7, 'Harvest Milk', this.harvestMilk );
+			EngineCore.addButton( 7, 'Harvest Milk', this, this.harvestMilk );
 		}
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_VAPULA ] === 1 ) {
-			EngineCore.addButton( 7, 'Stop Harvest', this.stopHarvest );
+			EngineCore.addButton( 7, 'Stop Harvest', this, this.stopHarvest );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 1 ) {
-			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption.rootScene );
+			EngineCore.addButton( 9, 'Back', SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 		}
 	};
 	Vapula.prototype.sendToFarm = function() {
@@ -303,14 +303,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.outputText( '\n\n“<i>I am. Her working with a succubus will teach her just as important a lesson as it will you, slaving in the dirt for my benefit. Don’t worry... I’ll be over to check up on you frequently, and if you’re </i>really<i> good I’ll give you something better to milk than your average cow when I do.</i>” ' );
 		EngineCore.outputText( '\n\nVapula argues for a while longer, but you stand firm and eventually, complaining bitterly under her breath, the succubus stomps off in the direction of the lake. It’s difficult to believe she will be anything like a competent worker, you think, and the cloud of imps she will inevitably take with her means she’s pretty dubious in the protection stakes too; on the other hand, such close exposure to an out-and-out demon will surely have an interesting effect on Whitney.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] = 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Vapula.prototype.backToCamp = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell her to head back to camp; there are things you need to do to her you can’t do whilst she’s here. Repeatedly. Vapula fist pumps the sky.' );
 		EngineCore.outputText( '\n\n“<i>Yessssss! You will NOT regret this, [master]. Oh, I am SO out of here!</i>” She practically sprints out of the farm yard, leaving you to laugh and then cough in the dust cloud she leaves.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	Vapula.prototype.harvestMilk = function() {
 		EngineCore.clearOutput();
@@ -323,14 +323,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		}
 
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_VAPULA ] = 1;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	Vapula.prototype.stopHarvest = function() {
 		EngineCore.clearOutput();
 		EngineCore.outputText( 'You tell Vapula to stop producing succubus milk; you’re practically drowning in the stuff.' );
 		EngineCore.outputText( '\n\n“<i>Well, that was the whole idea, [master]. Sure you don’t want to drink some more? Alright, alright!</i>” A familiarly sulky expression descends on the demon’s face as you deny her her second most favourite activity.' );
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_VAPULA ] = 0;
-		EngineCore.doNext( SceneLib.farmCorruption.rootScene );
+		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	//Vapula Appearance - this bitch is purpler than a Nigerian (Z);
 	Vapula.prototype.fapulaFapfapfapAppearance = function() {
@@ -395,7 +395,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			}
 			threesomeB = this.toggleCeruleanVapulaAssist;
 		}
-		EngineCore.choices( haremT, haremB, threesomeT, threesomeB, '', null, '', null, 'Back', this.callSlaveVapula );
+		EngineCore.choices( haremT, this, haremB, threesomeT, this, threesomeB, '', null, null, '', null, null, 'Back', this, this.callSlaveVapula );
 	};
 	Vapula.prototype.toggleCeruleanVapulaAssist = function() {
 		EngineCore.clearOutput();
@@ -411,7 +411,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			CoC.flags[ kFLAGS.VAPULA_THREESOMES ] = 0;
 		}
 		//Return to talk menu;
-		EngineCore.doNext( this.talkToVapulaForSomeReason );
+		EngineCore.doNext( this, this.talkToVapulaForSomeReason );
 	};
 	Vapula.prototype.toggleVapulaHaremFucks = function() {
 		EngineCore.clearOutput();
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			CoC.flags[ kFLAGS.VAPULA_HAREM_FUCK ] = 1;
 		}
 		//Return to talk menu;
-		EngineCore.doNext( this.talkToVapulaForSomeReason );
+		EngineCore.doNext( this, this.talkToVapulaForSomeReason );
 	};
 	//Feed;
 	Vapula.prototype.feedVapulaACupOfJizz = function() {
@@ -458,7 +458,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.dynStats( 'cor', 0.5 );
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Threesome;
 	Vapula.prototype.vapulaThreesomeMenu = function() {
@@ -491,7 +491,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 				izma = this.vapulaAndIzmaThreeSome;
 			}
 		}
-		EngineCore.choices( 'Amily', amily, 'Ceraph', ceraph, 'Sophie', sophie, 'Jojo', jojo, 'Izma', izma, '', null, '', null, '', null, '', null, 'Back', this.callSlaveVapula );
+		EngineCore.choices( 'Amily', this, amily, 'Ceraph', this, ceraph, 'Sophie', this, sophie, 'Jojo', this, jojo, 'Izma', this, izma, '', null, null, '', null, null, '', null, null, '', null, null, 'Back', this, this.callSlaveVapula );
 	};
 	//Vapula-Ceraph threesome;
 	Vapula.prototype.vapulaCeraphThreesome = function() {
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.outputText( '\n\nHow will you take them?' );
 		//Plz both - requires dick;
 		//Option: Butt-fuck train. Requires Ceraph to be herm.;
-		EngineCore.choices( 'Please Both', this.vapulaCeraphThreesomePleaseBoth, 'AnalTrain', this.vapulaAndCeraphButtfuckTrainYeehaw, '', null, '', null, '', null );
+		EngineCore.choices( 'Please Both', this, this.vapulaCeraphThreesomePleaseBoth, 'AnalTrain', this, this.vapulaAndCeraphButtfuckTrainYeehaw, '', null, null, '', null, null, '', null, null );
 	};
 	//Option: Please both.;
 	Vapula.prototype.vapulaCeraphThreesomePleaseBoth = function() {
@@ -609,7 +609,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		}
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Option: Butt-fuck train. Requires Ceraph to be herm.;
 	//Ceraph-Vapula Buttfuck train;
@@ -646,7 +646,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.dynStats( 'sen', -2, 'cor', 1 );
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vapula-Sophie threesome;
 	Vapula.prototype.vapulaSophieThreesomeSelect = function() {
@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		if( CoC.player.lust < 50 ) {
 			CoC.player.lust = 50;
 		}
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vapula-Sophie threesome (as female);
 	Vapula.prototype.vapulaSophieThreesomeCunts = function() {
@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.dynStats( 'cor', 2 );
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vapula-Amily threesome;
 	Vapula.prototype.vapulaAndAmilyThreesome = function() {
@@ -778,7 +778,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.dynStats( 'cor', 2 );
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vapula/Night Succubus;
 	Vapula.prototype.vapulaAssistsCeruleanSuccubus = function() {
@@ -861,7 +861,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			tease = this.NTRSomeJojos;
 			train = this.jojoButtFuckTrain;
 		}
-		EngineCore.choices( 'Tease Jojo', tease, 'ButtfuckTrain', train, '', null, '', null, '', null );
+		EngineCore.choices( 'Tease Jojo', this, tease, 'ButtfuckTrain', this, train, '', null, null, '', null, null, '', null, null );
 	};
 	//Netorare;
 	//Butt-fuck train;
@@ -951,7 +951,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 4 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Vapula/Jojo Butt-fuck train;
 	Vapula.prototype.jojoButtFuckTrain = function() {
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.dynStats( 'lib', -1, 'sen', -2, 'cor', 2 );
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Vapula.prototype.vapulaAndIzmaThreeSome = function() {
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.dynStats( 'sen', -2, 'cor', 2 );
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feed (as female);
 	Vapula.prototype.chixFeedVapulaBlehblehIVantToZuckYourSpooo = function() {
@@ -1094,7 +1094,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		if( CoC.flags[ kFLAGS.VAPULA_HAREM_FUCK ] === 0 ) {
 			tease = this.teaseVapula;
 		}
-		EngineCore.choices( 'Feed', this.chicksFeedVapula, 'Tease', tease, '', null, '', null, '', null );
+		EngineCore.choices( 'Feed', this, this.chicksFeedVapula, 'Tease', this, tease, '', null, null, '', null, null, '', null, null );
 	};
 	//Tease;
 	Vapula.prototype.teaseVapula = function() {
@@ -1183,7 +1183,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
 		}
 		EngineCore.dynStats( 'cor', 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Feed (as female);
 	Vapula.prototype.chicksFeedVapula = function() {
@@ -1199,7 +1199,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.outputText( '\n\nYou shake your head in wonder at your succubus slave; she really is just hungry for dick.  You decide to give her what she evidently needs. You take hold of her hair and piston into her, driving down her tight throat and then back out again, using the outward pull to thrust your end further into yourself, sending rivulets of girlcum down your thighs.' );
 		EngineCore.outputText( '\n\nShe works on it for what seems like hours.  You look down at your slut; she keeps staring at you with avid yet playful eyes, never breaking eye contact as she relentlessly throatfucks herself; you feel her lips curve a little as the shape of a ravenous smile appears on her face, and her eyes are glittering with an insatiable need.  The sight is enough to increase your own arousal, and you begin to move your dildo around more freely, sawing into her face as you push it backwards, forwards, grow it, shrink it, and then eventually just make it vibrate with violent force.  Your stamina is rapidly overwhelmed and you decide to reward her effort; you savagely press Vapula\'s head against your groin, burying all eight inches of your false cock into her waiting throat; deliriously you will your throbbing dildo to expand to pack you mercilessly tight, finally pushing you over the edge.  Your ' + Descriptors.clitDescript() + ' throbs as your vagina spasms ecstatically around the bulging sex toy; vaguely you feel release at the other end, and you hear Vapula loudly and shamelessly enjoy what the dildo pumps out.  You abandon yourself to the climax and keep thrusting your ' + Descriptors.hipDescript() + ' into her face, girlcum spurting around your harness.' );
 		EngineCore.outputText( '\n\nAfter a long haze of mindless bliss, you feel long fingers undoing the strap-on and lifting it away, before curling around your thighs.  You peacefully look down to find Vapula bending into your crotch, her warm, slimy tongue touching your belly.  She looks about six months pregnant with the amount of spooge she has managed to milk from the dildo, but she is still intent upon licking you clean.  You sigh and let her, her tongue expertly gliding across your skin and exploring every corner of your dripping sex; she smacks her lips and happily hums as she goes about it, evidently enjoying you like a dessert to the fine main course she just received.  Eventually she finishes her mutually pleasurable task, and the two of you slowly get to your feet. Without a word you send her on her way to digest her lavish meal with a slap on the ass.' );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] = 0;
 		CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
@@ -1254,7 +1254,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] = 0;
 			CoC.flags[ kFLAGS.VAPULA_EARNED_A_SPANK ] = 1;
 		}
-		EngineCore.doNext( MainView.playerMenu );
+		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
 	//Spank Vapula for misbehaving.;
@@ -1308,7 +1308,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 7) );
 		}
 		CoC.flags[ kFLAGS.VAPULA_EARNED_A_SPANK ] = 0;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'vapula', new Vapula() );
 } );

@@ -98,11 +98,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 			//[Cock] [Pussy]);
 			EngineCore.menu();
 			if( CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
-				EngineCore.addButton( 0, 'Cock', this.sateRutWithSoberUrta );
+				EngineCore.addButton( 0, 'Cock', this, this.sateRutWithSoberUrta );
 			} else {
-				EngineCore.addButton( 0, 'Cock', this.sateRutWithSoberUrtaButHuegDicked );
+				EngineCore.addButton( 0, 'Cock', this, this.sateRutWithSoberUrtaButHuegDicked );
 			}
-			EngineCore.addButton( 1, 'Pussy', this.soberUrtaSatingPCHeat );
+			EngineCore.addButton( 1, 'Pussy', this, this.soberUrtaSatingPCHeat );
 		}
 		//Player in rut:;
 		else if( CoC.player.inRut && CoC.player.hasCock() ) {
@@ -121,9 +121,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 			EngineCore.outputText( '.' );
 			EngineCore.menu();
 			if( CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
-				EngineCore.addButton( 0, 'Next', this.sateRutWithSoberUrta );
+				EngineCore.addButton( 0, 'Next', this, this.sateRutWithSoberUrta );
 			} else {
-				EngineCore.addButton( 0, 'Next', this.sateRutWithSoberUrtaButHuegDicked );
+				EngineCore.addButton( 0, 'Next', this, this.sateRutWithSoberUrtaButHuegDicked );
 			}
 		}
 		//Player in heat:;
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 			EngineCore.outputText( '\n\n"<i>All right... I know what it\'s like to have troubles controlling yourself. If you really want me to...</i>"' );
 			EngineCore.outputText( '\n\nYou dispose of your [armor], your [vagina] already wet and eager for her.  You pull the vixen into an embrace under the wall of the alley, and she starts to align her huge, pre-cum dripping cock with your opening.' );
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Next', this.soberUrtaSatingPCHeat );
+			EngineCore.addButton( 0, 'Next', this, this.soberUrtaSatingPCHeat );
 		}
 	};
 
@@ -156,8 +156,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.outputText( '\n\nSomehow, the hermaphrodite seems a bit more clingy and flirty than usual, and less subtle about her relationship with you.  As you take in a deeper breath, you realize why - she does reek of one of her favorite drinks... Do you take interest, or decide it may be better to visit when she\'s her usual and a bit more sober self?' );
 		//[Interested] [Not interested];
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'NotInterested', this.notInterestedInUburDrunkUrtaRuts );
-		EngineCore.addButton( 0, 'Interested', this.interestedInUburDrunkurtaRuts );
+		EngineCore.addButton( 1, 'NotInterested', this, this.notInterestedInUburDrunkUrtaRuts );
+		EngineCore.addButton( 0, 'Interested', this, this.interestedInUburDrunkurtaRuts );
 	};
 
 	//[=Not interested=];
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.dynStats( 'lust+', 5 + CoC.player.lib / 20, 'resist', false );
 		//to Tel'Adre bar menu;
 		EngineCore.menu();
-		EngineCore.addButton( 0, 'Next', SceneLib.telAdre.barTelAdre );
+		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//[=Interested=];
 	UrtaHeatRut.prototype.interestedInUburDrunkurtaRuts = function() {
@@ -215,9 +215,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 			EngineCore.outputText( '\n\nDo you present her with your cock?  Your pussy?  Or do you just stand here and watch as she jacks herself off in the middle of the bar?' );
 			//[Cock] [Pussy] [Watch];
 			EngineCore.menu();
-			EngineCore.addButton( 0, 'Cock', this.drunkUrtaIntroPartDuex, 1 );
-			EngineCore.addButton( 1, 'Vagina', this.drunkUrtaIntroPartDuex, 2 );
-			EngineCore.addButton( 2, 'Watch', this.watchDrunkRuturtaJerkoff );
+			EngineCore.addButton( 0, 'Cock', this, this.drunkUrtaIntroPartDuex, 1 );
+			EngineCore.addButton( 1, 'Vagina', this, this.drunkUrtaIntroPartDuex, 2 );
+			EngineCore.addButton( 2, 'Watch', this, this.watchDrunkRuturtaJerkoff );
 		} else if( CoC.player.inRut && CoC.player.hasCock() ) {
 			this.drunkUrtaIntroPartDuex( 1, false );
 		} else {
@@ -292,12 +292,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.menu();
 		if( chosenSex === 1 ) {
 			if( CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
-				EngineCore.addButton( 0, 'Next', this.drunkUrtaRidesARutPCsCock );
+				EngineCore.addButton( 0, 'Next', this, this.drunkUrtaRidesARutPCsCock );
 			} else {
-				EngineCore.addButton( 0, 'Next', this.sateRutWithDrunkUrtaWithHugeDick );
+				EngineCore.addButton( 0, 'Next', this, this.sateRutWithDrunkUrtaWithHugeDick );
 			}
 		} else {
-			EngineCore.addButton( 0, 'Next', this.drunkenUrtaFucksPCInHeat );
+			EngineCore.addButton( 0, 'Next', this, this.drunkenUrtaFucksPCInHeat );
 		}
 	};
 	//[If player is in Heat AND Rut and chooses 'Watch'];
@@ -318,8 +318,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.outputText( '\n\nYou take a glance away from Urta and realize that the combination of your pheremones, her little show and your own efforts at teasing her have got the other customers very excited indeed.  Pairs and even trios are starting to make out all over, singletons are beginning to fiddle with themselves, and there\'s a couple of very interested-looking herms, all playing with their cocks, that are giving lustful looks your way and heading towards you with an inept attempt at stealth.  Things could get pretty wild if you keep teasing Urta; maybe you should knock it off?' );
 		//[Stop Teasing] [Keep Teasing];
 		EngineCore.menu();
-		EngineCore.addButton( 1, 'StopTeasing', this.stopTeasingDatHornyFox );
-		EngineCore.addButton( 0, 'KeepTeasing', this.keepTeasingDatHornyFawkes );
+		EngineCore.addButton( 1, 'StopTeasing', this, this.stopTeasingDatHornyFox );
+		EngineCore.addButton( 0, 'KeepTeasing', this, this.keepTeasingDatHornyFawkes );
 		//PCs with corruption 50+ will automatically choose Keep Teasing;
 	};
 	//[=Stop Teasing=];
@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.outputText( '\n\nAnd pop she does; pulling her head free from her cock with an audible popping sound, she throws it back with a howl more befitting a wolf than a fox as her swollen prick finally unloads its cargo, a fountain of foxy spooge spewing thick and slimy into the air and raining down all over her, plastering her from head to toe in her own jism, even as her cunt spasms and gushes fluid under her.  She cums and cums, drenching herself in herm-spunk until her legs give out and she falls flat onto her shapely rear, her cock giving one last ejaculate before it and she both fall limp onto the floor in the pool of cum.' );
 		EngineCore.outputText( '\n\nSeeing her lying there so still makes you concerned and you quickly approach; you didn\'t want to kill her!  Thankfully, she\'s still breathing; she just passed out from the overload and from drinking too much.  Looking around you, you can see that an orgy is starting to break out around you, and you quickly make a break for it.  As you go, you can\'t help but wonder what in the world you were thinking...' );
 		EngineCore.dynStats( 'lust+', 20 + CoC.player.lib / 5 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=Keep Teasing=];
 	UrtaHeatRut.prototype.keepTeasingDatHornyFawkes = function() {
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.outputText( ' from the racous orgy that is the Wet Bitch; truly an auspicious name.' );
 		//PC loses 1 hour, returns to TelâAdre, gains 15 lust, heat/rut unaffected//;
 		EngineCore.dynStats( 'lust+', 15 + CoC.player.lib / 10 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	//Sober Urta Variants ;
@@ -533,7 +533,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.dynStats( 'lust=', 0 );
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 6;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Quote:[=Sate Rut with Sober Urta: Cock Too Big=];
 	UrtaHeatRut.prototype.sateRutWithSoberUrtaButHuegDicked = function() {
@@ -584,7 +584,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		}
 		EngineCore.dynStats( 'lib+', 1, 'sen-', 2, 'lust=', 0 );
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 1;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		///Player returns to Tel'Adre Menu, usual one hor passes//;
 	};
 	//Quote:[=Sate Rut with Sober Urta=];
@@ -653,7 +653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		CoC.flags[ kFLAGS.TIMES_RUT_FUCKED_URTAS_CUNT ]++;
 		EngineCore.dynStats( 'lib+', 1, 'sen-', 2, 'lust=', 0 );
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 6;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Drunken Urta Variants ;
 	//Quote:Drunken Urta always affects heat/rut when penetration is involved (meaning she doesn't in her frottage scene and watch-her-masturbate scene), and has a 50% chance to either extinguish it or intensify it.;
@@ -743,7 +743,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 24;
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		SceneLib.urta.urtaLove( 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 	//[Sate Rut with Drunken Urta Cock too big];
 	UrtaHeatRut.prototype.sateRutWithDrunkUrtaWithHugeDick = function() {
@@ -790,7 +790,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 1;
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ]++;
 		SceneLib.urta.urtaLove( 1 );
-		EngineCore.doNext( SceneLib.camp.returnToCampUseOneHour );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Quote:[Drunken Urta Fucks Cock];
 	UrtaHeatRut.prototype.drunkUrtaRidesARutPCsCock = function() {
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		SceneLib.urta.urtaLove( 1 );
 		CoC.flags[ kFLAGS.TIMES_RUT_FUCKED_URTAS_CUNT ]++;
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 24;
-		EngineCore.doNext( SceneLib.camp.returnToCampUseFourHours );
+		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 	};
 
 	/*
