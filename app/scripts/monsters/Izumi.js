@@ -41,17 +41,17 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 	// Override won/lost calls
 	Izumi.prototype.defeated = function( ) {
 		this.cleanup();
-		SceneLib.izumiScenes.touchThatFluffyHorn();
+		SceneLib.izumiScene.touchThatFluffyHorn();
 	};
 	// Monster won, not player, gg for descriptive method names
 	Izumi.prototype.won = function() {
 		CoC.flags[ kFLAGS.IZUMI_TIMES_LOST_FIGHT ]++;
 		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) >= 0 ) {
 			this.cleanup();
-			SceneLib.izumiScenes.deathBySnuSnuIMeanGiantOniTits();
+			SceneLib.izumiScene.deathBySnuSnuIMeanGiantOniTits();
 		} else {
 			this.cleanup();
-			SceneLib.izumiScenes.fuckedUpByAFuckhugeOni();
+			SceneLib.izumiScene.fuckedUpByAFuckhugeOni();
 		}
 	};
 	// Override combat AI

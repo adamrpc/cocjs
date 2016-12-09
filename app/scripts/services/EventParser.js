@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		if( CoC.player.findStatusAffect( StatusAffects.UmasMassage ) >= 0 ) {
 			$log.info( 'Uma\'s massage bonus time remaining: ' + CoC.player.statusAffectv3( StatusAffects.UmasMassage ) );
 		}
-		SceneLib.izumiScenes.updateSmokeDuration( time );
+		SceneLib.izumiScene.updateSmokeDuration( time );
 		if( CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke ) >= 0 ) {
 			$log.info( 'Izumis pipe smoke time remaining: ' + CoC.player.statusAffectv1( StatusAffects.IzumisPipeSmoke ) );
 		}

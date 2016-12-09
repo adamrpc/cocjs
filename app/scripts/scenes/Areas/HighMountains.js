@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 			}
 		}
 		if( chooser === 3 ) {
-			SceneLib.izumiScenes.encounter();
+			SceneLib.izumiScene.encounter();
 		}
 	};
 	//"<i>Chicken Harpy</i>" by Jay Gatsby and not Savin he didn't do ANYTHING
