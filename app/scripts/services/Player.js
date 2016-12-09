@@ -1029,8 +1029,9 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		return this.spellCount() > 0;
 	};
 	Player.prototype.spellCount = function() {
+		var that = this;
 		return _.filter( [ StatusAffects.KnowsArouse, StatusAffects.KnowsHeal, StatusAffects.KnowsMight, StatusAffects.KnowsCharge, StatusAffects.KnowsBlind, StatusAffects.KnowsWhitefire ], function( item ) {
-			return this.findStatusAffect( item ) >= 0;
+			return that.findStatusAffect( item ) >= 0;
 		} ).length;
 	};
 	Player.prototype.hairDescript = function() {

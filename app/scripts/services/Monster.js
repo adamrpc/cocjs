@@ -137,13 +137,15 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 	};
 	Monster.NO_DROP = new WeightedDrop();
 	Monster.prototype.isFullyInit = function() {
+		var that = this;
 		return !_.find( _.keys( this.initsCalled ), function( key ) {
-			return ((_.has( this, key ) && this[ key ] === null) || !_.has( this, key )) && !this.initsCalled[ key ];
+			return ((_.has( that, key ) && that[ key ] === null) || !_.has( that, key )) && !that.initsCalled[ key ];
 		} );
 	};
 	Monster.prototype.missingInits = function() {
+		var that = this;
 		return _.filter( _.keys( this.initsCalled ), function( key ) {
-			return ((_.has( this, key ) && this[ key ] === null) || !_.has( this, key )) && !this.initsCalled[ key ];
+			return ((_.has( that, key ) && that[ key ] === null) || !_.has( that, key )) && !that.initsCalled[ key ];
 		} ).join( ', ' );
 	};
 	Monster.prototype._super_createCock = Monster.prototype.createCock;

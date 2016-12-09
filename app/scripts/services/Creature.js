@@ -688,12 +688,14 @@ angular.module('cocjs').factory('Creature', function ( $log, CoC, Utils, Ass, Co
 	};
 	//Find the biggest cock that fits inside a given value
 	Creature.prototype.cockThatFits = function(i_fits, type) {
-		var cockThatFits = _.filter(this.cocks, function(value) { return this._getCockCheckedValue(value, type) <= i_fits; });
+		var that = this;
+		var cockThatFits = _.filter(this.cocks, function(value) { return that._getCockCheckedValue(value, type) <= i_fits; });
 		return cockThatFits.length === 0?-1:_.indexOf(this.cocks, _.maxBy(cockThatFits, function(value) {return this._getCockCheckedValue(value, type); }));
 	};
 	//Find the 2nd biggest cock that fits inside a given value
 	Creature.prototype.cockThatFits2 = function(i_fits, type) {
-		var cockThatFits = _.filter(this.cocks, function(value) { return this._getCockCheckedValue(value, type) <= i_fits; });
+		var that = this;
+		var cockThatFits = _.filter(this.cocks, function(value) { return that._getCockCheckedValue(value, type) <= i_fits; });
 		return cockThatFits.length <= 1?-1:_.indexOf(this.cocks, nThMaxBy(cockThatFits, function(value) {return this._getCockCheckedValue(value, type); }, 1));
 	};
 	Creature.prototype.smallestCockArea = function() {
