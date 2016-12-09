@@ -72,7 +72,7 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
     var validateFields = function(o, func, fieldNames, validationFunc) {
 		var error = '';
 		_.forEach(fieldNames, function(field) {
-			if (!o.has(field) || (!validationFunc(o[field]) && o[field] !== null)) {
+			if (!_.has(o, field) || (!validationFunc(o[field]) && o[field] !== null)) {
 				error = error + 'Misspelling in ' + func + '.' + field + '. ';
 			} else if (o[field] === null) {
 				error = error + 'Null \'' + field + '\'. ';
