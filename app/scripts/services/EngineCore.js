@@ -842,13 +842,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	//Used to update the display of statistics
 	EngineCore.statScreenRefresh = function() {
-		MainView.statsView.show;
+		MainView.statsView.show();
 	};
 	EngineCore.showStats = function() {
-		MainView.statsView.show;
+		MainView.statsView.show();
 	};
 	EngineCore.hideStats = function() {
-		MainView.statsView.hide;
+		MainView.statsView.hide();
 	};
 	EngineCore.hideMenus = MainView.hideAllMenuButtons;
 	//Hide the up/down indicators
