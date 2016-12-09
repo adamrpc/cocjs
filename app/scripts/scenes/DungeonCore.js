@@ -2484,5 +2484,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		}
 		SceneLib.inventory.takeItem( ConsumableLib.GROPLUS, MainView.playerMenu );
 	};
+	DungeonCore.prototype.isInDungeon = function() {
+		return OnLoadVariables.dungeonLoc !== 0;
+	};
 	SceneLib.registerScene( 'dungeonCore', new DungeonCore() );
 } );
