@@ -255,7 +255,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		//new PG;
 		EngineCore.outputText( 'Satisfied, his dick slides from you and he flies away as mixed seed continues to spill from your abused body. Your limbs grow weak, and you fall from the tree with a hard thud before losing consciousness.  ', false );
 		//Take some damage;
-		MainView.statsView.showStatDown( 'hp' );
+		MainView.statsView.showStatDown( 'HP' );
 		// hpDown.visible = true;;
 		CoC.player.HP -= 10;
 		if( CoC.player.HP < 1 ) {

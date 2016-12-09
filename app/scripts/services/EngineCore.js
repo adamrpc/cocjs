@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 					EngineCore.outputText( 'You gain ' + changeNum + ' HP.\n', false );
 				}
 				CoC.player.HP += changeNum;
-				MainView.statsView.showStatUp( 'hp' );
+				MainView.statsView.showStatUp( 'HP' );
 			}
 		} else { //Negative HP
 			if( CoC.player.HP + changeNum <= 0 ) {

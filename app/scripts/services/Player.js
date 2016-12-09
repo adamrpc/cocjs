@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		var returnDamage = (damage > 0 && damage < 1) ? 1 : damage;
 		if( damage > 0 ) {
 			this.HP -= damage;
-			MainView.statsView.showStatDown( 'hp' );
+			MainView.statsView.showStatDown( 'HP' );
 			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE ] > 0 ) {
 				EngineCore.dynStats( 'lus', Math.ceil( damage / 2 ) );
 			}
