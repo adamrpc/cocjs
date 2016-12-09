@@ -79,9 +79,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				//Bonus lewts
 				if (CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID] !== "") {
 					EngineCore.outputText("  Somehow you came away from the encounter with " + ItemType.lookupItem(CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]).longName + ".\n\n");
-					SceneLib.inventory.takeItem(ItemType.lookupItem(CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(SceneLib.camp.returnToCamp, timePasses));
+					SceneLib.inventory.takeItem(ItemType.lookupItem(CoC.flags[kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID]), EngineCore.createCallBackFunction(SceneLib.camp, SceneLib.camp.returnToCamp, timePasses));
 				} else {
-					EngineCore.doNext(EngineCore.createCallBackFunction(SceneLib.camp.returnToCamp, timePasses));
+					EngineCore.doNext(EngineCore.createCallBackFunction(SceneLib.camp, SceneLib.camp.returnToCamp, timePasses));
 				}
 			}
 		} else { //Not actually in combat
