@@ -15,9 +15,9 @@ module.exports = function (grunt) {
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    ngtemplates: 'grunt-angular-templates'
   });
+  var serveStatic = require('serve-static');
 
   // Configurable paths for the application
   var appConfig = {
@@ -82,16 +82,16 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              serveStatic('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveStatic('./bower_components')
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                serveStatic('./app/styles')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -283,7 +283,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: '.tmp/index.html',
       options: {
         dest: '<%= yeoman.dist %>',
         flow: {
@@ -346,7 +346,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: ['{,*/}*.{png,jpg,jpeg,gif}', '!contents/**'],
           dest: '<%= yeoman.dist %>/images'
         }]
       }
@@ -406,12 +406,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
-      }
-    },
     includeSource: {
       options: {
         basePath: 'app',
@@ -424,7 +418,7 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          '<%= yeoman.dist %>/index.html': '<%= yeoman.app %>/index.html'
+          '.tmp/index.html': '<%= yeoman.app %>/index.html'
         }
       }
     },
@@ -450,6 +444,13 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        },
+        {
+            expand: true,
+            dot:true,
+            cwd: '.tmp',
+            dest: '<%= yeoman.dist %>',
+            src: [ 'index.html' ]
         }]
       },
       styles: {
@@ -527,7 +528,6 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
     'cssmin',
     'uglify',
     'filerev',
