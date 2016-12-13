@@ -788,7 +788,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	 ]);
 	 ****/
 	EngineCore.multipageChoices = function( cancelFunction, menuItems ) {
-		const itemsPerPage = 8;
+		var itemsPerPage = 8;
 		var currentPageIndex;
 		var pageCount;
 		function getPageOfItems( pageIndex ) {
