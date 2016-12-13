@@ -16,6 +16,15 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 	};
 		
 	var formatStringArray = function(stringList) {
+		if(!stringList) {
+			return '';
+		}
+		if(arguments.length === 1 && _.isString(stringList)) {
+			return stringList;
+		}
+		if(arguments.length > 1 && !_.isArray(stringList)) {
+			stringList = Array.from(arguments);
+		}
 		switch (stringList.length) {
 			case  0: return '';
 			case  1: return stringList[0];
@@ -47,22 +56,19 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 	};
 	
 	var Num2Text = function(number) {
-		if (number >= 0 && number <= 10) {
-			return NUMBER_WORDS_CAPITAL[number];
-		}
-		return number.toString();
+		return _.capitalize(num2Text(number));
 	};
 	
 	var randomChoice = function() {
 		var args = Array.from( arguments );
-		if ((args.length === 1) && (_.isArray(args[0]))) {
-			args = args[0];
-		}
 		if(args.length === 0) {
 			$log.warn('No argument passed to randomChoice');
 			return null;
 		}
-		return _.shuffle(args)[0];
+		if ((args.length === 1) && (_.isArray(args[0]))) {
+			args = args[0];
+		}
+		return _.sample(args);
 	};
 		
 	var rand = function(max) {
@@ -73,11 +79,13 @@ angular.module('cocjs').factory('Utils', function ($log, CoC_Settings) {
 		var error = '';
 		_.forEach(fieldNames, function(field) {
 			if (!_.has(o, field) || (!validationFunc(o[field]) && o[field] !== null)) {
-				error = error + 'Misspelling in ' + func + '.' + field + '. ';
+				error += 'Misspelling in ' + func + '.' + field + '. ';
 			} else if (o[field] === null) {
-				error = error + 'Null \'' + field + '\'. ';
-			} else if (o[field] < 0) {
-				error = error + 'Negative \'' + field + '\'. ';
+				error += 'Null \'' + field + '\'. ';
+			} else if (_.isNumber(o[field]) && o[field] < 0) {
+				error += 'Negative \'' + field + '\'. ';
+			}else if (o[field] === '') {
+				error += 'Empty \'' + field+ '\'. ';
 			}
 		});
 		return error;
