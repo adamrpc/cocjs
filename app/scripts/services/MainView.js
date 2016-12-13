@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 			return;
 		}
 		if( label ) {
-			MainView.showBottomButton( index, label, EngineCore.createCallBackFunction( obj, callback ), toolTipViewText );
+			MainView.showBottomButton( index, label, function() { return callback.call(obj); }, toolTipViewText );
 		} else {
 			MainView.hideBottomButton( index );
 		}
