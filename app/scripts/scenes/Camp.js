@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Saves, EngineCore, OnLoadVariables, EventParser, MainView, StatusAffects, kFLAGS, Utils, PregnancyStore, ConsumableLib, StartUp, ImageManager, PerkLib, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Saves, EngineCore, OnLoadVariables, EventParser, MainView, StatusAffects, kFLAGS, Utils, PregnancyStore, ConsumableLib, ImageManager, PerkLib, Descriptors ) {
 	function Camp() {
 		this.campQ = false;
 	}
@@ -403,7 +403,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		MainView.showMenuButton( MainView.MENU_DATA );
 		EngineCore.showStats();
 		//Change settings of new game buttons to go to main menu
-		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'Main Menu', null, StartUp.mainMenu );
+		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'Main Menu', SceneLib.startUp, SceneLib.startUp.mainMenu );
 		//clear up/down arrows
 		EngineCore.hideUpDown();
 		//Level junk

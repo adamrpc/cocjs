@@ -783,7 +783,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		var payout = 0;
 		var cap = 500;
 		//Ez mode cap doubles;
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			cap *= 2;
 		}
 		liters = Math.ceil( CoC.player.lactationQ() * (Utils.rand( 10 ) + 90) / 100 ) / 1000;
@@ -1163,7 +1163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		var payout = 0;
 		var cap = 500;
 		//Ez mode cap doubles;
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			cap *= 2;
 		}
 		//Get rid of extra digits;

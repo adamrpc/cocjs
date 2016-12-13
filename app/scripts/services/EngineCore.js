@@ -3,7 +3,7 @@
 angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings, Descriptors, AppearanceDefs ) {
 	var EngineCore = {};
 	EngineCore.silly = function() {
-		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] === 1;
+		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ];
 	};
 	var gameOverCallback = null;
 	EngineCore.registerGameOver = function( callback ) {
@@ -1457,7 +1457,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			resisted = true;
 		}
 		//Easy mode cuts lust gains!
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 && lust2 > 0 && resisted ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] && lust2 > 0 && resisted ) {
 			lust2 /= 2;
 		}
 		//Set original values to begin tracking for up/down values if

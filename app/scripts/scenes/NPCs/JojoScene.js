@@ -752,7 +752,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		var cap = 500;
 		var cumQ = 0;
 		//Ez mode cap doubles;
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			cap *= 2;
 		}
 		//Get rid of extra digits;

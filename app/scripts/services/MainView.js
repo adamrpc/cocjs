@@ -336,7 +336,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 			index = 0;
 		}
 		var sprite = _.find(sprites, function(img) { return img.startsWith(index + '-'); });
-		if( !sprite || CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
+		if( !sprite || !CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			MainView.sprite.visible = false;
 		} else {
 			MainView.sprite.visible = true;
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		if(choice === undefined) {
 			choice = 0;
 		}
-		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			MainView.selectSprite( choice );
 		} else if( choice >= 0 ) {
 			$log.debug( 'hiding sprite because flags' );

@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope, CoC, EngineCore, MainView, StartUp, Player, Monster, PlayerEvents) {
+angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope, CoC, EngineCore, MainView, SceneLib, Player, Monster, PlayerEvents) {
 	CoC.player = new Player();
 	CoC.player2 = new Player();
 	CoC.monster = new Monster();
@@ -19,6 +19,5 @@ angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope
 		}
 	};
 	$scope.$watch('main.MainView.aCb.value', EngineCore.changeHandler);
-	$rootScope.StartUp = StartUp; // TODO fix architecture
-	StartUp.mainMenu();
+	SceneLib.startUp.mainMenu();
 });

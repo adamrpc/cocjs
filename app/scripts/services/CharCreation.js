@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Game Over', this, this.gameOverMenuOverride );
 		EngineCore.addButton( 3, 'NewGamePlus', this, this.newGamePlus );
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			EngineCore.addButton( 4, 'Debug Cheat', null, MainView.playerMenu );
 		}
 		this.gameOverMenuOverride();

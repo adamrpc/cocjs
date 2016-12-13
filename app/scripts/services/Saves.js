@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		}
 		if( CoC.player.str === 0 ) {
 			// TODO : Save to file
-			EngineCore.choices( '', null, null, 'Load', this, this.loadScreen, '', null, null, 'Delete', this, this.deleteScreen, 'Back', $rootScope.StartUp.mainMenu );
+			EngineCore.choices( '', null, null, 'Load', this, this.loadScreen, '', null, null, 'Delete', this, this.deleteScreen, 'Back', SceneLib.startUp, SceneLib.startUp.mainMenu );
 			return;
 		}
 		if( SceneLib.dungeonCore.isInDungeon() ) {

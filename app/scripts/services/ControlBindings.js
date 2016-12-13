@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputManager, CoC, EngineCore, StartUp, Appearance, kFLAGS ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputManager, CoC, EngineCore, Appearance, kFLAGS ) {
 	InputManager.AddBindableControl(
 		'Show Stats',
 		'Show the stats pane when available',
@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 		'Show the main menu',
 		function() {
 			if (MainView.menuButtonIsVisible(MainView.MENU_NEW_MAIN) && MainView.menuButtonHasLabel(MainView.MENU_NEW_MAIN, 'Main Menu')) {
-				StartUp.mainMenu();
+				SceneLib.startUp.mainMenu();
 			}
 		}
 	);

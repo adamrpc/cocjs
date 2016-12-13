@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.reduceDamage = function( damage ) {
 		damage = Math.ceil( damage - Utils.rand( this.tou ) - this.armorDef );
 		//EZ MOAD half damage
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 1 ) {
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			damage /= 2;
 		}
 		if( this.findStatusAffect( StatusAffects.Shielding ) >= 0 ) {

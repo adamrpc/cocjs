@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, ImageManager, InputManager) {
-	var StartUp = {};
+angular.module('cocjs').run( function (SceneLib, $log, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, ImageManager, InputManager) {
+	function StartUp() {}
 	//MainMenu - kicks player out to the main menu
-	StartUp.mainMenu = function() {
+	StartUp.prototype.mainMenu = function() {
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 		}
@@ -22,7 +22,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 			EngineCore.outputText( ' Release Build' );
 		}
 		//doThatTestingThang();
-		StartUp.startupScreenBody();
+		this.startupScreenBody();
 		var resume = null;
 		if( CoC.player.str > 0 ) { // we're in a game, allow resume.
 			resume = MainView.playerMenu;
@@ -32,17 +32,17 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		// since the images haven\'t loaded yet.
 		// Therefore, the imageCreditScreen will just have to say 'No image pack' if you don\'t have any images
 		EngineCore.choices( '', null, null,
-			'Image Credits', null, StartUp.imageCreditsScreen,
-			'Credits', null, StartUp.creditsScreen,
+			'Image Credits', this, this.imageCreditsScreen,
+			'Credits', this, this.creditsScreen,
 			'', null, null,
-			'Instructions', null, StartUp.howToPlay,
+			'Instructions', this, this.howToPlay,
 			'', null, null,
 			'', null, null,
 			'', null, null,
-			'Settings', null, StartUp.settingsScreen,
+			'Settings', this, this.settingsScreen,
 			'Resume', null, resume );
 	};
-	StartUp.startupScreenBody = function() {
+	StartUp.prototype.startupScreenBody = function() {
 		EngineCore.outputText('<br>(Formerly Unnamed Text Game)<br><br>' + 
 			'<u>Created by: Fenoxo</u><br><br>' + 
 			'Edited By:<br>' + 
@@ -66,7 +66,7 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 			'For more information see Fenoxo\'s Blog at <b><u><a href=\'http://www.fenoxo.com/\'>fenoxo.com</a></u></b>.<br><br>' + 
 			
 			'Also go play <u><a href=\'http://www.furaffinity.net/view/9830293/\'>Nimin</a></u> by Xadera on furaffinity.', false, true);
-		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
+		if( !CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			EngineCore.outputText( '\n\n<b>Sprites disabled.</b>' );
 		}
 		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
@@ -85,13 +85,13 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 			EngineCore.outputText( '\n\n<b>It\'s Helia\'s Birthday Month!</b>' );
 		}
 	};
-	StartUp.settingsScreen = function() {
+	StartUp.prototype.settingsScreen = function() {
 		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
 		MainView.showMenuButton( MainView.MENU_DATA );
 		EngineCore.outputText( '<b>Settings toggles:</b>\n', true );
 		EngineCore.outputText( 'Debug mode enabled: <b>No</b>\n	Items consumption will occur as normal.' );
 		EngineCore.outputText( '\n\n' );
-		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] === 0 ) {
+		if( CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] ) {
 			EngineCore.outputText( 'Sprites enabled: <b>Yes</b>.\n	You like to look at pretty pictures.' );
 		} else {
 			EngineCore.outputText( 'Sprites enabled: <b>No</b>.\n	There are only words. Nothing else.' );
@@ -126,21 +126,21 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 			EngineCore.outputText( 'Hyper Happy mode <b>Off</b>\n	Male enhancement potions shrink female endowments, and vice versa.' );
 		}
 		EngineCore.choices( '', null, null,
-			'Sprite Toggle', null, StartUp.toggleSpritesFlag,
-			'EZ Mode', null, StartUp.toggleEasyModeFlag,
+			'Sprite Toggle', this, this.toggleSpritesFlag,
+			'EZ Mode', this, this.toggleEasyModeFlag,
 			'', null, null,
-			'Controls', null, StartUp.displayControls,
-			'Hyper Happy', null, StartUp.toggleHyperHappy,
-			'Low Standards', null, StartUp.toggleStandards,
-			'Silly Toggle', null, StartUp.toggleSillyFlag,
+			'Controls', this, this.displayControls,
+			'Hyper Happy', this, this.toggleHyperHappy,
+			'Low Standards', this, this.toggleStandards,
+			'Silly Toggle', this, this.toggleSillyFlag,
 			'', null, null,
-			'Back', null, StartUp.mainMenu );
+			'Back', this, this.mainMenu );
 	};
-	StartUp.displayControls = function() {
+	StartUp.prototype.displayControls = function() {
 		MainView.hideAllMenuButtons();
 		InputManager.DisplayBindingPane();
-		EngineCore.choices( 'Reset Ctrls', null, StartUp.resetControls,
-			'Clear Ctrls', null, StartUp.clearControls,
+		EngineCore.choices( 'Reset Ctrls', this, this.resetControls,
+			'Clear Ctrls', this, this.clearControls,
 			'Null', null, null,
 			'Null', null, null,
 			'Null', null, null,
@@ -148,60 +148,60 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 			'Null', null, null,
 			'Null', null, null,
 			'Null', null, null,
-			'Back', null, StartUp.hideControls );
+			'Back', this, this.hideControls );
 	};
-	StartUp.hideControls = function() {
+	StartUp.prototype.hideControls = function() {
 		InputManager.HideBindingPane();
-		StartUp.settingsScreen();
+		this.settingsScreen();
 	};
-	StartUp.resetControls = function() {
+	StartUp.prototype.resetControls = function() {
 		InputManager.HideBindingPane();
 		EngineCore.outputText( 'Are you sure you want to reset all of the currently bound controls to their defaults?', true );
-		EngineCore.doYesNo( null, StartUp.resetControlsYes, null, StartUp.displayControls );
+		EngineCore.doYesNo( this, this.resetControlsYes, this, this.displayControls );
 	};
-	StartUp.resetControlsYes = function() {
+	StartUp.prototype.resetControlsYes = function() {
 		InputManager.ResetToDefaults();
 		EngineCore.outputText( 'Controls have been reset to defaults!\n\n', true );
-		EngineCore.doNext( null, StartUp.displayControls );
+		EngineCore.doNext( this, this.displayControls );
 	};
-	StartUp.clearControls = function() {
+	StartUp.prototype.clearControls = function() {
 		InputManager.HideBindingPane();
 		EngineCore.outputText( 'Are you sure you want to clear all of the currently bound controls?', true );
-		EngineCore.doYesNo( null, StartUp.clearControlsYes, null, StartUp.displayControls );
+		EngineCore.doYesNo( this, this.clearControlsYes, this, this.displayControls );
 	};
-	StartUp.clearControlsYes = function() {
+	StartUp.prototype.clearControlsYes = function() {
 		InputManager.ClearAllBinds();
 		EngineCore.outputText( 'Controls have been cleared!', true );
-		EngineCore.doNext( null, StartUp.displayControls );
+		EngineCore.doNext( this, this.displayControls );
 	};
-	StartUp.toggleStandards = function() {
+	StartUp.prototype.toggleStandards = function() {
 		CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ] = !CoC.flags[ kFLAGS.LOW_STANDARDS_FOR_ALL ];
-		StartUp.settingsScreen();
+		this.settingsScreen();
 		return;
 	};
-	StartUp.toggleHyperHappy = function() {
+	StartUp.prototype.toggleHyperHappy = function() {
 		CoC.flags[ kFLAGS.HYPER_HAPPY ] = !CoC.flags[ kFLAGS.HYPER_HAPPY ];
-		StartUp.settingsScreen();
+		this.settingsScreen();
 		return;
 	};
-	StartUp.toggleEasyModeFlag = function() {
-		CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] = CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] === 0 ? 1 : 0;
-		StartUp.settingsScreen();
+	StartUp.prototype.toggleEasyModeFlag = function() {
+		CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] = !CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ];
+		this.settingsScreen();
 		MainView.showMenuButton( MainView.MENU_DATA );
-		StartUp.settingsScreen();
+		this.settingsScreen();
 		return;
 	};
-	StartUp.toggleSpritesFlag = function() {
+	StartUp.prototype.toggleSpritesFlag = function() {
 		CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ] = !CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ];
-		StartUp.settingsScreen();
+		this.settingsScreen();
 		return;
 	};
-	StartUp.toggleSillyFlag = function() {
+	StartUp.prototype.toggleSillyFlag = function() {
 		CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ] = !CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ];
-		StartUp.settingsScreen();
+		this.settingsScreen();
 		return;
 	};
-	StartUp.creditsScreen = function() {
+	StartUp.prototype.creditsScreen = function() {
 		EngineCore.outputText( '<b>Coding and Main Events:</b>\n', true );
 		EngineCore.outputText( '<ul>' );
 		EngineCore.outputText( '<li> Fenoxo</li>\n' );
@@ -329,9 +329,9 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		EngineCore.outputText( '<li> Gardeford (Helia x Bimbo Sophie Threesomes)</li>' );
 		EngineCore.outputText( '</ul>' );
 		EngineCore.outputText( '\nIf I\'m missing anyone, please contact me ASAP!  I have done a terrible job keeping the credits up to date!' );
-		EngineCore.doNext( null, StartUp.mainMenu );
+		EngineCore.doNext( this, this.mainMenu );
 	};
-	StartUp.imageCreditsScreen = function() {
+	StartUp.prototype.imageCreditsScreen = function() {
 		if( ImageManager.getLoadedImageCount() > 0 ) {
 			EngineCore.outputText('**Bundled Image Credits:**<br><br>' + 
 
@@ -344,16 +344,16 @@ angular.module('cocjs').factory('StartUp', function (SceneLib, $log, CharCreatio
 		} else {
 			EngineCore.outputText( '<b>No Image-Pack Found!</b>\n', true );
 		}
-		EngineCore.doNext( null, StartUp.mainMenu );
+		EngineCore.doNext( this, this.mainMenu );
 	};
-	StartUp.howToPlay = function() {
+	StartUp.prototype.howToPlay = function() {
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( '<b><u>How To Play:</u></b>\nClick the buttons corresponding to the actions you want to take.  Your \'goal\' is to obviously put an end to the demonic corruption around you, but do whatever the hell you want.  There is a story but sometimes it\'s fun to ignore it.\n\n', false );
 		EngineCore.outputText( '<b>Exploration:</b>\nThe lake is a safe zone when you start the game.  It\'s a good place to explore, and Whitney\'s farm can offer some nice stat boosts to help get you on your feet. Once you feel comfortable, the forest is probably the next safest area, but beware of tentacle monsters.  The desert is the next toughest area, and the mountains offer further challenges.  There are more areas beyond that, but that\'s a good way to get started.  You\'ll uncover plenty of new \'places\' exploring, which can be accessed from the <b>Places</b> menu.  You\'ll also find some interesting characters when you try to discover new explorable locations by choosing <b>Explore</b> twice.\n\n', false );
 		EngineCore.outputText( '<b>Combat:</b>\nCombat is won by raising an opponent\'s lust to 100 or taking their HP to 0.  You lose if your enemy does the same to you.  Loss isn\'t game over, but some losses will make it harder in the future by lowering your stats.  Beware.  Don\'t be afraid to spam the <b>Run</b> option when you\'re in over your head.\n\n', false );
 		EngineCore.outputText( '<b>Controls:</b>\nThe game features numerous hot-keys to make playing quicker and easier.\nP key - Perks Menu\nD key - Data Menu\nA key - Appearance Screen\n1 Through 5 - The top row of \'choice\' buttons.\n6 Through 0 - The bottom row of \'choice\' buttons.\nQ through T - Alternative bottom \'choice\' hotkeys.\nSpace Bar - Next/Back/Leave\nHome Key - Toggle text field background.\nS key - Stats Screen\n(Save Hotkeys - May not work in all players)\nF1-F5 - Quicksave to slot 1 through 5.  Only works when Data is visible.\nF6-F0 - Quick Load from slots 1-5.\n\n', false );
 		EngineCore.outputText( '<b>Save often using the Data Menu</b> - you never know when your journey will come to an end!', false );
-		EngineCore.doNext( null, StartUp.mainMenu );
+		EngineCore.doNext( this, this.mainMenu );
 	};
-	return StartUp;
+	SceneLib.registerScene('startUp', new StartUp());
 });
