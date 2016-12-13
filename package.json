@@ -1,5 +1,6 @@
 {
-  "name": "roulette",
+  "name": "cocjs",
+  "version": "0.0.1",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
