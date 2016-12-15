@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 				this.lust += 10 * this.lustVuln;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};

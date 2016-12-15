@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		return SceneLib.inventory.hasItemInStorage( itype );
 	};
 	Camp.prototype.returnToCamp = function( timeUsed ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( timeUsed === 1 ) {
 			EngineCore.outputText( 'An hour passes...\n' );
 		} else {
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( !CoC.isInCombat() ) {
 			EngineCore.spriteSelect( -1 );
 		}
-		EngineCore.hideMenus();
+		MainView.hideAllMenuButtons();
 		OnLoadVariables.timeQ = timeUsed;
 		EventParser.goNext( timeUsed, false );
 	};
@@ -52,13 +52,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//History perk backup
 		if( CoC.flags[ kFLAGS.HISTORY_PERK_SELECTED ] === 0 ) {
 			CoC.flags[ kFLAGS.HISTORY_PERK_SELECTED ] = 2;
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			CharCreation.chooseHistory();
 			return;
 		}
 		if( !SceneLib.marbleScene.marbleFollower() ) {
 			if( CoC.flags[ kFLAGS.MARBLE_LEFT_OVER_CORRUPTION ] === 1 && CoC.player.cor <= 40 ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.marblePurification.pureMarbleDecidesToBeLessOfABitch();
 				return;
 			}
@@ -68,96 +68,96 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			//No corrupt, Amily, or Vapula
 			//Purifying Murble
 			if( CoC.player.cor < 50 && !SceneLib.jojoScene.campCorruptJojo() && !SceneLib.amilyScene.amilyCorrupt() && !SceneLib.vapula.vapulaSlave() && CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 0 && CoC.flags[ kFLAGS.MARBLE_COUNTUP_TO_PURIFYING ] >= 200 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.marblePurification.BLUHBLUH();
 				return;
 			}
 			if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5 ) {
 				if( CoC.flags[ kFLAGS.MARBLE_WARNED_ABOUT_CORRUPTION ] === 0 && CoC.player.cor >= 50 ) {
-					EngineCore.hideMenus();
+					MainView.hideAllMenuButtons();
 					SceneLib.marblePurification.marbleWarnsPCAboutCorruption();
 					return;
 				}
 				if( CoC.flags[ kFLAGS.MARBLE_WARNED_ABOUT_CORRUPTION ] === 1 && CoC.flags[ kFLAGS.MARBLE_LEFT_OVER_CORRUPTION ] === 0 && CoC.player.cor >= 60 ) {
-					EngineCore.hideMenus();
+					MainView.hideAllMenuButtons();
 					SceneLib.marblePurification.marbleLeavesThePCOverCorruption();
 					return;
 				}
 			}
 			if( CoC.flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_1 ] === 1 && (CoC.time.hours === 6 || CoC.time.hours === 7) ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.marblePurification.rathazulsMurbelReport();
 				return;
 			}
 			if( CoC.flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_2 ] === 1 ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.marblePurification.claraShowsUpInCampBECAUSESHESACUNT();
 				return;
 			}
 		}
 		if( SceneLib.arianScene.arianFollower() && CoC.flags[ kFLAGS.ARIAN_MORNING ] === 1 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.arianScene.wakeUpAfterArianSleep();
 			return;
 		}
 		if( SceneLib.arianScene.arianFollower() && CoC.flags[ kFLAGS.ARIAN_EGG_EVENT ] >= 30 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.arianScene.arianEggingEvent();
 			return;
 		}
 		if( SceneLib.arianScene.arianFollower() && CoC.flags[ kFLAGS.ARIAN_EGG_COUNTER ] >= 24 && CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.arianScene.arianLaysEggs();
 			return;
 		}
 		if( CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] > 0 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.xmasJackFrost.processJackFrostEvent();
 			return;
 		}
 		if( CoC.player.hasKeyItem( 'Super Reducto' ) < 0 && SceneLib.milkWaifu.milkSlave() && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.milkWaifu.ratducto();
 			return;
 		}
 		if( SceneLib.xmasMisc.nieveHoliday() && CoC.time.hours === 6 ) {
 			if( CoC.player.hasKeyItem( 'Nieve\'s Tear' ) >= 0 && CoC.flags[ kFLAGS.NIEVE_STAGE ] !== 5 ) {
 				SceneLib.xmasMisc.returnOfNieve();
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				return;
 			} else if( CoC.flags[ kFLAGS.NIEVE_STAGE ] === 0 ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.snowLadyActive.snowLadyActive();
 				return;
 			} else if( CoC.flags[ kFLAGS.NIEVE_STAGE ] === 4 ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.xmasMisc.nieveComesToLife();
 				return;
 			}
 		}
 		if( SceneLib.helScene.followerHel() ) {
 			if( SceneLib.helFollower.isHeliaBirthday() && CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] >= 2 && CoC.flags[ kFLAGS.HELIA_BIRTHDAY_OFFERED ] === 0 ) {
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				SceneLib.helFollower.heliasBirthday();
 				return;
 			}
 			if( SceneLib.helScene.pregnancy.isPregnant ) {
 				switch( SceneLib.helScene.pregnancy.eventTriggered() ) {
 					case 2:
-						EngineCore.hideMenus();
+						MainView.hideAllMenuButtons();
 						SceneLib.helSpawnScene.bulgyCampNotice();
 						return;
 					case 3:
-						EngineCore.hideMenus();
+						MainView.hideAllMenuButtons();
 						SceneLib.helSpawnScene.heliaSwollenNotice();
 						return;
 					case 4:
-						EngineCore.hideMenus();
+						MainView.hideAllMenuButtons();
 						SceneLib.helSpawnScene.heliaGravidity();
 						return;
 					default:
 						if( SceneLib.helScene.pregnancy.incubation === 0 && (CoC.time.hours === 6 || CoC.time.hours === 7) ) {
-							EngineCore.hideMenus();
+							MainView.hideAllMenuButtons();
 							SceneLib.helSpawnScene.heliaBirthtime();
 							return;
 						}
@@ -165,32 +165,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		if( CoC.flags[ kFLAGS.HELSPAWN_AGE ] === 1 && CoC.flags[ kFLAGS.HELSPAWN_GROWUP_COUNTER ] === 7 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.helSpawnScene.helSpawnGraduation();
 			return;
 		}
 		if( CoC.time.hours >= 10 && CoC.time.hours <= 18 && (CoC.time.days % 20 === 0 || CoC.time.hours === 12) && CoC.flags[ kFLAGS.HELSPAWN_DADDY ] === 2 && SceneLib.helSpawnScene.helspawnFollower() ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.helSpawnScene.maiVisitsHerKids();
 			return;
 		}
 		if( CoC.time.hours === 6 && CoC.flags[ kFLAGS.HELSPAWN_DADDY ] === 1 && CoC.time.days % 30 === 0 && CoC.flags[ kFLAGS.SPIDER_BRO_GIFT ] === 0 && SceneLib.helSpawnScene.helspawnFollower() ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.helSpawnScene.spiderBrosGift();
 			return;
 		}
 		if( CoC.time.hours >= 10 && CoC.time.hours <= 18 && (CoC.time.days % 15 === 0 || CoC.time.hours === 12) && SceneLib.helSpawnScene.helspawnFollower() && CoC.flags[ kFLAGS.HAKON_AND_KIRI_VISIT ] === 0 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.helSpawnScene.hakonAndKiriComeVisit();
 			return;
 		}
 		if( CoC.flags[ kFLAGS.HELSPAWN_AGE ] === 2 && CoC.flags[ kFLAGS.HELSPAWN_DISCOVER_BOOZE ] === 0 && (Utils.rand( 10 ) === 0 || CoC.flags[ kFLAGS.HELSPAWN_GROWUP_COUNTER ] === 6) ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.helSpawnScene.helspawnDiscoversBooze();
 			return;
 		}
 		if( CoC.flags[ kFLAGS.HELSPAWN_AGE ] === 2 && CoC.flags[ kFLAGS.HELSPAWN_WEAPON ] === 0 && CoC.flags[ kFLAGS.HELSPAWN_GROWUP_COUNTER ] === 3 && CoC.time.hours >= 10 && CoC.time.hours <= 18 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.helSpawnScene.helSpawnChoosesAFightingStyle();
 			return;
 		}
@@ -201,12 +201,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( (SceneLib.sophieFollowerScene.sophieFollower() || SceneLib.sophieBimbo.bimboSophie()) && CoC.flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] === 1 ) {
 			CoC.flags[ kFLAGS.SOPHIE_DAUGHTER_MATURITY_COUNTER ] = 0;
 			SceneLib.sophieBimbo.sophieKidMaturation();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Bimbo Sophie Move In Request!
 		if( SceneLib.sophieBimbo.bimboSophie() && CoC.flags[ kFLAGS.SOPHIE_BROACHED_SLEEP_WITH ] === 0 && SceneLib.sophieScene.pregnancy.event >= 2 ) {
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			SceneLib.sophieBimbo.sophieMoveInAttempt();
 			return;
 		}
@@ -237,49 +237,49 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.flags[ kFLAGS.CORRUPT_MARAE_FOLLOWUP_ENCOUNTER_STATE ] > 0 ) {
 			if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 0 && CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] >= 8 ) {
 				SceneLib.holliScene.getASprout();
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				return;
 			}
 			if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 1 && CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] >= 7 ) {
 				SceneLib.holliScene.fuckPlantGrowsToLevel2();
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				return;
 			}
 			if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 2 && CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] >= 25 ) {
 				SceneLib.holliScene.flowerGrowsToP3();
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				return;
 			}
 			//Level 4 growth
 			if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] === 3 && CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] >= 40 ) {
 				SceneLib.holliScene.treePhaseFourGo();
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				return;
 			}
 		}
 		//Jojo treeflips!
 		if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
 			SceneLib.holliScene.JojoTransformAndRollOut();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Amily flips out
 		if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() && CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 ) {
 			SceneLib.holliScene.amilyHatesTreeFucking();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		if( CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 1 && CoC.flags[ kFLAGS.AMILY_TREE_FLIPOUT ] === 1 && !SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 0 ) {
 			SceneLib.holliScene.amilyComesBack();
 			CoC.flags[ kFLAGS.AMILY_TREE_FLIPOUT ] = 2;
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Anemone birth followup!
 		if( CoC.player.findStatusAffect( StatusAffects.CampAnemoneTrigger ) >= 0 ) {
 			CoC.player.removeStatusAffect( StatusAffects.CampAnemoneTrigger );
 			SceneLib.anemoneScene.anemoneKidBirthPtII();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Exgartuan clearing
@@ -293,62 +293,62 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//Izzys tits asplode
 		if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.ISABELLA_MILKED_YET ] >= 10 && CoC.player.hasKeyItem( 'Breast Milker - Installed At Whitney\'s Farm' ) >= 0 ) {
 			SceneLib.isabellaFollowerScene.milktasticLacticLactation();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Marble meets follower izzy when moving in
 		if( CoC.flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] === 1 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
 			SceneLib.isabellaFollowerScene.angryMurble();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Cotton preg freakout
 		if( CoC.player.pregnancyIncubation <= 280 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_COTTON &&
 			CoC.flags[ kFLAGS.COTTON_KNOCKED_UP_PC_AND_TALK_HAPPENED ] === 0 && (CoC.time.hours === 6 || CoC.time.hours === 7) ) {
 			SceneLib.cotton.goTellCottonShesAMomDad();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Bimbo Sophie finds ovi elixer in chest!
 		if( SceneLib.sophieBimbo.bimboSophie() && this.hasItemInStorage( ConsumableLib.OVIELIX ) && Utils.rand( 5 ) === 0 && CoC.flags[ kFLAGS.TIMES_SOPHIE_HAS_DRUNK_OVI_ELIXIR ] === 0 && CoC.player.gender > 0 ) {
 			SceneLib.sophieBimbo.sophieEggApocalypse();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Amily + Urta freakout!
 		if( !SceneLib.urtaQuest.urtaBusy() && CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 0 && Utils.rand( 10 ) === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00146 ] >= 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00147 ] === 0 && CoC.flags[ kFLAGS.AMILY_NEED_TO_FREAK_ABOUT_URTA ] === 1 && SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && !SceneLib.amilyScene.pregnancy.isPregnant ) {
 			SceneLib.followerInteractions.amilyUrtaReaction();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Find jojo's note!
 		if( CoC.flags[ kFLAGS.JOJO_FIXED_STATUS ] === 1 && CoC.flags[ kFLAGS.AMILY_BLOCK_COUNTDOWN_BECAUSE_CORRUPTED_JOJO ] === 0 ) {
 			SceneLib.followerInteractions.findJojosNote();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Rathazul freaks out about jojo
 		if( CoC.flags[ kFLAGS.RATHAZUL_CORRUPT_JOJO_FREAKOUT ] === 0 && Utils.rand( 5 ) === 0 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && SceneLib.jojoScene.campCorruptJojo() ) {
 			SceneLib.followerInteractions.rathazulFreaksOverJojo();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Izma/Marble freakout - marble moves in
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00237 ] === 1 ) {
 			SceneLib.izmaScene.newMarbleMeetsIzma();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Izma/Amily freakout - Amily moves in
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00236 ] === 1 ) {
 			SceneLib.izmaScene.newAmilyMeetsIzma();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Amily/Marble Freakout
 		if( CoC.flags[ kFLAGS.AMILY_NOT_FREAKED_OUT ] === 0 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() && SceneLib.marbleScene.marbleAtCamp() ) {
 			SceneLib.followerInteractions.marbleVsAmilyFreakout();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Amily and/or Jojo freakout about Vapula!!
@@ -363,19 +363,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			else {
 				SceneLib.vapula.mouseWaifuFreakout( true, true );
 			}
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Go through Helia's first time move in interactions if  you haven't yet.
 		if( CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 2 && SceneLib.helScene.followerHel() && CoC.flags[ kFLAGS.HEL_INTROS_LEVEL ] === 0 ) {
 			SceneLib.helFollower.helFollowersIntro();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//If you've gone through Hel's first time actions and Issy moves in without being okay with threesomes.
 		if( CoC.flags[ kFLAGS.HEL_INTROS_LEVEL ] > 9000 && SceneLib.helScene.followerHel() && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] === 0 ) {
 			SceneLib.helFollower.angryHelAndIzzyCampHelHereFirst();
-			EngineCore.hideMenus();
+			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Reset.
@@ -401,7 +401,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		MainView.showMenuButton( MainView.MENU_PERKS );
 		MainView.showMenuButton( MainView.MENU_STATS );
 		MainView.showMenuButton( MainView.MENU_DATA );
-		EngineCore.showStats();
+		MainView.statsView.show();
 		//Change settings of new game buttons to go to main menu
 		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'Main Menu', SceneLib.startUp, SceneLib.startUp.mainMenu );
 		//clear up/down arrows
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//Build main menu
 		var exploreEvent = SceneLib.exploration.doExplore;
 		var masturbate = (CoC.player.lust > 30 ? SceneLib.masturbation.masturbateMenu : null);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'camping' ), false );
 		//Isabella upgrades camp level!
 
@@ -801,7 +801,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		var amilyEvent = null;
 		var hel = null;
 		var nieve = null;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.NIEVE_STAGE ] === 5 ) {
 			SceneLib.xmasMisc.nieveCampDescs();
 			EngineCore.outputText( '\n\n' );
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.campSlavesMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var vapula2 = null;
 		var amilyEvent = null;
 		var ceraph = null;
@@ -1090,7 +1090,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		var valeria2 = null;
 		var shouldra = null;
 		var ember = null;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.setInCombat( false );
 		//ADD MENU FLAGS/INDIVIDUAL FOLLOWER TEXTS
 		EngineCore.menu();
@@ -1420,7 +1420,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.time.hours === 5 ) {
 			OnLoadVariables.timeQ = 1;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( OnLoadVariables.timeQ !== 1 ) {
 			EngineCore.outputText( 'You lie down to resume sleeping for the remaining ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hours.\n', true );
 		} else {

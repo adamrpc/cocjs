@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, WeaponLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, WeaponLib ) {
 	function Desert() {
 	}
 
@@ -106,13 +106,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, StatusAff
 		}
 	};
 	Desert.prototype.mirageDesert = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'While exploring the desert, you see a shimmering tower in the distance.  As you rush towards it, it vanishes completely.  It was a mirage!   You sigh, depressed at wasting your time.', true );
 		EngineCore.dynStats( 'lus', -15 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Desert.prototype.walkingDesertStatBoost = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You walk through the shifting sands for an hour, finding nothing.\n\n', true );
 		//Chance of boost === 50%
 		if( Utils.rand( 2 ) === 0 ) {

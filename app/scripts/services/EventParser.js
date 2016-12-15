@@ -328,7 +328,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				}
 			});
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		if( needNext ) {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			return true;
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				CoC.time.hours = 0;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	EventParser.growHair = function( amount ) {
 		if( amount === undefined ) {

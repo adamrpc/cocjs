@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, CockTypesEnum, ConsumableLib, CoC, EngineCore, Descriptors, Utils ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appearance, CockTypesEnum, ConsumableLib, CoC, EngineCore, Descriptors, Utils ) {
 	function GnollScene() {
 	}
 
@@ -343,7 +343,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Combat, Gnoll, Appearance, Co
 		EngineCore.doNext( this, this.yoDawgHyenaBallz3 );
 		CoC.time.hours = 7;
 		CoC.time.days++;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	GnollScene.prototype.yoDawgHyenaBallz3 = function() {
 		EngineCore.outputText( '', true );

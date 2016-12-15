@@ -432,7 +432,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 	};
 	FetishCultistScene.prototype.playerRapesCultist = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(nun worship version, this one looks like it will be a little shorter than the other one was, only two variations again)
 		if( CoC.monster.armorName === 'pervy nun\'s clothing' ) {
 			EngineCore.outputText( 'You see that the cultist\'s outfit has fixed on a naughty nun outfit with specially placed holes over her sexual parts.  As you get close to her, she goes down on her hands and knees and says to you, "<i>Mighty sex god, who have shown me your power; please, take my body!</i>"\n\n', false );

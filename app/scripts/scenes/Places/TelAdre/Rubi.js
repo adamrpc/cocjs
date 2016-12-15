@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageManager, BreastStore, Appearance, ArmorLib, PerkLib, ConsumableLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum, ImageManager, BreastStore, Appearance, ArmorLib, PerkLib, ConsumableLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function Rubi() {
 	}
 
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Rubi can be found in the Tel'Adre bakery from 12 to 20:00.  He is available to everyone, regardless of gender, corruption or transformation.  Rubi, however, is not interested in Centaurs, Naga or Driders (as of yet), and such PCs won't be able to advance beyond Relationship 19.  If players gain such bodies after reaching this level, the option to go home with Rubi won't be available.;
 	//When the player reaches Relationship 50, a special scene is triggered.;
 	Rubi.prototype.specialRelationship20scene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'As you\'re leaving the bakery, you hear the clicking of heels behind you.  Turning back you see Rubi rushing towards you shouting, "<i>Hey, wait a second!</i>"  You do, and wait for her to catch up.  Stopping in front of you, she puts her hands on her dainty knees and catches her breath.' );
 		EngineCore.outputText( '\n\n"<i>Phew, sorry I didn\'t catch you as you were leaving.  You were gone so fast,</i>" she takes a deep breath.  "<i>Look, I-I like you.</i>"  Her face flushes brightly.  "<i>But I need to tell you something.  Something about me.</i>"' );
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//[If Accept];
 	Rubi.prototype.acceptRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You wrap your arms around and pull him into a hug.  You declare that you like him no matter what sort of genitals he happened to be born with.' );
 		EngineCore.outputText( '\n\nHe wipes a tear from his eye and smiles, clutching you tightly.  "<i>Oh thank Marae, I was so worried you\'d hate me after that.</i>"' );
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//[If Reject];
 	Rubi.prototype.rejectRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'With your hands on his shoulders you carefully keep him at arm\'s length.  Putting it as delicately as you can, you tell him that you\'re just not interested in him <i>that</i> way, not anymore at least.' );
 		EngineCore.outputText( '\n\nRubi\'s eyes tear up, and you can see his lip quivering, but he puts on a brave face.  "<i>I understand.  I just had to tell you.  Look, don\'t tell anyone else about this, OK?  I don\'t want my secret to get out.</i>"  You confirm that you won\'t out him, and he gives you a small smile.' );
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Approach Rubi scenes;
 	Rubi.prototype.approachRubiScenes = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-at-cafe' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(First time);
 		if( CoC.flags[ kFLAGS.RUBI_INTRODUCED ] === 0 ) {
@@ -555,7 +555,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Choose Milk?;
 	Rubi.prototype.buyRubiMilk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(Increase thickness by a small amount?  +1 relationship);
 		//(Relationship 0-19);
@@ -585,7 +585,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Choose Tea?;
 	Rubi.prototype.getTeaFromRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(Reduce arousal and fatigue slightly?  +1 relationship);
 		//(Relationship 0-19);
@@ -614,7 +614,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Choose Chat?;
 	Rubi.prototype.chatWithRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(+1 relationship);
 		this.rubiAffection( 2 );
@@ -653,7 +653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Choose Rubi's Place?;
 	Rubi.prototype.rubisFuckingHouseYouPervert = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-at-house' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(Not available to those with a centaur, naga or drider body.);
 		//(First Time?);
@@ -700,7 +700,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 				//(Produces money daily?  Not too much, Rubi's a dumb blonde, and we don't want the PC to have a gem farm.  Enough to make it useful, not enough to make it mandatory.);
 				CoC.player.gems += CoC.flags[ kFLAGS.RUBI_PROFIT ];
 				CoC.flags[ kFLAGS.RUBI_PROFIT ] = 0;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 			EngineCore.outputText( '\n\n"<i>So baby, what do you wanna do to me?</i>" she whispers into your ear.' );
 		}
@@ -768,14 +768,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 
 	//Talk;
 	Rubi.prototype.talkToRubiInHouse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You just want to talk with Rubi for now.  What do you want to talk about?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Identity', this, this.rubiIdentity );
 	};
 	Rubi.prototype.rubiIdentity = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//Identity;
 		if( CoC.flags[ kFLAGS.TIMES_DISCUSSED_RUBIS_IDENTITY ] === 0 ) {
@@ -806,7 +806,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//He;
 	Rubi.prototype.rubiIsAHe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		CoC.flags[ kFLAGS.RUBI_SHE ] = 0;
 		EngineCore.outputText( 'Rubi nods, and will refer to himself as a "he" from now on.' );
@@ -815,7 +815,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//She;
 	Rubi.prototype.rubiIsAShe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		CoC.flags[ kFLAGS.RUBI_SHE ] = 1;
 		EngineCore.outputText( 'Rubi nods, and will refer to herself as a "she" from now on.' );
@@ -833,7 +833,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 		if( x < 0 ) {
 			x = CoC.player.biggestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(-100 Arousal);
 		EngineCore.outputText( 'You take Rubi by the hand and head into the bedroom, clutching [rubi em] close.  You sit on the edge of the soft fluffy bed and pull the little demon ' + this.rubiMF( 'boy', 'girl' ) + ' onto your lap.  The two of you kiss, letting your ' + Descriptors.tongueDescript() + ' explore the depths of your partner\'s mouth.' );
@@ -1036,7 +1036,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//(If the PC has the Deluxe Dildo) (If Orgasm Denial is activated, adds +2 to Blue Balls (Yay arousal drugs!));
 	Rubi.prototype.dildoFuckRubi = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-dildo-fuck' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(If PC has no cock);
 		if( !CoC.player.hasCock() ) {
@@ -1171,7 +1171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Tease;
 	Rubi.prototype.teaseRubi = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-tease' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(Normal and Incubus Rubi.  Activates Orgasm Denial and adds 1 to Blue Balls.);
 		CoC.flags[ kFLAGS.RUBI_ORGASM_DENIAL ] = 1;
@@ -1256,7 +1256,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Release;
 	Rubi.prototype.releaseRubi = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-orgasm-denial-release' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//Will deactivate Orgasm Denial.  To start Denying again, the PC will have to Tease.;
 		CoC.flags[ kFLAGS.RUBI_ORGASM_DENIAL ] = 0;
@@ -1353,7 +1353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Cheating Rubi;
 	Rubi.prototype.cheatingRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(Selecting the Rubi button at the Bakery while she's not there);
 		EngineCore.outputText( 'You take a seat at a table, expectantly waiting for Rubi to slide into your lap...  but she never does.  You look around the place for her, but again, there\'s no sight of her.  You flag down Dia, the caninemorph waitress, who looks haggard, and inquire as to the location of her co-worker.' );
@@ -1364,7 +1364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Don't Care);
 	Rubi.prototype.dontCareAboutNoCheatingRubis = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You shrug your shoulders.  It\'s not really your problem, is it?  You\'re free to fuck who you choose, and so is she.' );
 		EngineCore.outputText( '\n\nYou stand up and leave the bakery, deciding to wander around Tel\'Adre a bit more.' );
@@ -1373,7 +1373,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Find Her);
 	Rubi.prototype.findBimboCheatster = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You let out a disgruntled sigh.  Rubi\'s seeing someone else?!  Not on your watch!  You leave the bakery and make your way towards her neighborhood.  It doesn\'t take long, you\'ve gone with her there enough times to memorize the path, even without her leading.' );
 		EngineCore.outputText( '\n\nCreeping into her front yard, you make your way through the garden.  Where once fruits, vegetables and herbs grew are now flowers reflecting every color of the rainbow.  An odd sound makes you stop for a moment just to make sure you weren\'t caught.  You hear the sound again, and realize it\'s coming from an open window.  Sneaking forward, you peer inside for the source.' );
@@ -1384,7 +1384,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Interrupt);
 	Rubi.prototype.interruptTheNTRsYouCrazyFool = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'No one\'s sticking their dick in your ' );
 		if( EngineCore.silly() ) {
@@ -1416,7 +1416,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//(Wait);
 	Rubi.prototype.waitAndGetNTRedLikeTheBoyBitchYouAre = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-get-ntr-ed' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You decide to wait and see how this plays out.  The man fully disrobes and it\'s not at all surprising to you that he\'s not fully human.  A pair of wolf-like ears are perched upon his head, while a fluffy white and grey tail extends from his waist.  The wolfman opens his mouth to speak, but you can\'t hear what he says from out here.  Whatever it was, it certainly got Rubi\'s attention.' );
 		EngineCore.outputText( '\n\nThe blonde airhead moves from her position on the couch and kneels in front of the wolfman, whose back is to you.  From what you can see, you\'re certain she\'s sucking his cock.  Arousal and a twinge of jealousy well up inside you, and you find yourself moving around the side of the house to find a better vantage point.' );
@@ -1447,7 +1447,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Resolution);
 	Rubi.prototype.NTRbimboBitchResolution = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You look at Rubi and say that you\'re definitely going to have to talk about what just happened.' );
 		EngineCore.outputText( '\n\nShe nods and sits, covering her naked body with one of the pastel pink cushions that lie around the place.  "<i>Like, I know...  I really shouldn\'t have.  I love you baby, I really do.  But ever since...  this,</i>" she removes the cushion for a second, motioning down at her bombshell of a body, "<i>It\'s just...</i>"  She bites her lip, deep in thought as she wracks her brain for the right words to say.' );
@@ -1460,7 +1460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(No);
 	Rubi.prototype.noBimboNTR = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'Folding your arms, you shake your head.  You tell her that if this is going to work out, she has to remain faithful to you.  Sex toys and masturbation will have to do to keep her "<i>urges</i>" under control.  She looks a little sad, but nods as you speak.' );
 		EngineCore.outputText( '\n\n"<i>Of course, baby.  Whatever you say,</i>" then she giggles, "<i>At least I\'ll have you to look forward to, whenever you roll into town.</i>"' );
@@ -1470,7 +1470,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Yes);
 	Rubi.prototype.yesBimboNTR = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You contemplate it for a moment, and then slowly nod your head.  What\'s the harm in letting her blow off steam?  You know she\'ll always come back to you.  You assent to her wishes, to which she squeals and hugs you tightly, tossing the pink cushion aside.' );
 		EngineCore.outputText( '\n\n"<i>Ohh baby I love you so much!</i>"  She plants a fury of kisses all over your face, giggling constantly.  "<i>None of them could ever compare to you, but they will help.</i>"' );
@@ -1480,7 +1480,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Break Up);
 	Rubi.prototype.breakUpWithRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You think about it for a long moment and then sigh sadly.  You look Rubi dead in the eyes and explain you can\'t be with a woman who wants to cheat on her partner.  Tears form in her eyes as she sniffles, but she nods with you.' );
 		EngineCore.outputText( '\n\nAfter a moment of silence a faint whisper escapes her ruby red lips, "<i>Get.  Out.</i>"  You shrug, getting up, but as you start to leave the house, Rubi\'s voice screeches after you.  "<i>You MONSTER!  I let you turn me into this because I loved you!  I could like, live with the con- the results, but I guess the hero couldn\'t!  You\'re desp-</i>" she struggles with her bimbo-addled brain.  "<i>You\'re totally DESPICABLE,</i>" she finally says with a smirk.' );
@@ -1491,7 +1491,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(Pimp);
 	Rubi.prototype.pimpOutRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You think about it for a long while, mulling over all the possibilities.  Then something else occurs to you. She wants help controlling her urges, why not make a little money in the meantime?  You explain that she\'s free to sleep with whoever she wants, but that she could charge them for her time.  After all, if you\'re going to do what you love, you may as well get paid for it.' );
 		EngineCore.outputText( '\n\nRubi thinks it over and finally nods happily, "<i>Oh, it\'s such a great idea, baby!  I\'ll be like Edryn then!  And I\'ll give you your \'cut\' whenever you come by as well.</i>"  She giggles and plants a kiss right on your lips.  "<i>Oooh, I\'ll need more outfits, and make up, and...</i>" her voice trails off as she excitedly hurries off to her bedroom.' );
@@ -1513,7 +1513,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Actual Scene:;
 	Rubi.prototype.chocoRubiMassage = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-get-massage' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You look over [rubi eir] supplies and decide that a pampered day at Rubi\'s "spa" is just what you need.  Allowing [rubi em] to escort you to [rubi eir] bed, you catch a few peeps of a pint-sized pup-tent in Rubi\'s bottoms.  [rubi Ey] doesn\'t seem aware of your prying gaze, but [rubi ey]\'s blushing nonetheless, perhaps lost in [rubi eir] own less-than-pure thoughts as [rubi ey] guides you to the corner of [rubi eir] room.' );
 		EngineCore.outputText( '\n\n"<i>Babe, you\'ll need to... ah, take off your equipment for this,</i>" Rubi instructs, holding a bottle full of shimmering fluid as [rubi ey] prances around the room.  You arch an eyebrow at [rubi em] questioningly as you take in [rubi eir] eager expression, waiting until [rubi ey] starts to gnaw at [rubi eir] bottom lip before you ' );
@@ -1554,7 +1554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Bottle Up:;
 	Rubi.prototype.bottleUpRubiMassage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You bite the strawberry in half and mouth, "<i>No, not yet.  Just let it build up.</i>"  [rubi Ey] whines plaintively, but you cock your head to the side and say, "<i>Come on, do it for me.  Just, don\'t let any out....  Here, come off of there and come into bed with me.  We can snuggle and let you relax a bit.</i>"' );
 		EngineCore.outputText( '\n\nYou pat the bed next to your hip and assist Rubi in snuggling against you, making sure you don\'t accidentally brush [rubi eir] boner - no point in letting [rubi em] spill it all out after you\'ve kept [rubi em] on edge so long.  [rubi Ey] slowly relaxes into your shoulder, and you share a kiss with [rubi em] before feeding [rubi em] the rest of the strawberries.' );
@@ -1565,7 +1565,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Release/Not Pent Up;
 	Rubi.prototype.releaseRubiMassage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You figure after all the pampering [rubi ey] did, [rubi ey] deserves a treat.' );
 		EngineCore.outputText( '\n\nPushing the strawberry deeper, you bring its widest point to your oral entrance and let your tongue play across the chocolaty surface, melting the mocha-hued shell as your eyes lock with Rubi\'s.  [rubi Ey] groans as [rubi ey] drinks in the oral feast.  Bubbling pre-cum freely, [rubi eir] short, girly cock looks like it\'s about ready to explode.  It almost looks like an overinflated sausage except this one is dangerously close to letting loose.  [rubi Ey] manages to hold it back though, waiting for your permission to cum since [rubi ey] is on your backside after all.' );
@@ -1595,7 +1595,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Closet;
 	Rubi.prototype.goInRubisClosetSoThatYouCanComeOutOfTheCloset = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You ask to see Rubi\'s wardrobe.  [rubi Eir] eyes light up and [rubi ey] claps [rubi eir] hands together excitedly.  "<i>' );
 		if( this.rubiBimbo() && CoC.flags[ kFLAGS.RUBI_DEBIMBO ] === 0 ) {
@@ -1611,7 +1611,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Appearance;
 	Rubi.prototype.rubiAppearance = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-inspect-appearance' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You look over your naked, demon-morph lover.' );
 		EngineCore.outputText( '\n\nRubi is about five feet tall, with a very lithe, feminine body.  [rubi Eir] skin is ' );
@@ -1728,7 +1728,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Get Dressed;
 	Rubi.prototype.playDressUp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You look over Rubi\'s vast collection of clothes.  What outfit would you like Rubi to put on?\n\n' );
 		EngineCore.menu();
@@ -1811,7 +1811,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 		EngineCore.addButton( 9, 'Back', this, this.rubiAppearance );
 	};
 	Rubi.prototype.playDressUp2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You look over Rubi\'s vast collection of clothes.  What outfit would you like Rubi to put on?\n\n' );
 		EngineCore.menu();
@@ -1890,7 +1890,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 		EngineCore.addButton( 9, 'Back', this, this.rubiAppearance );
 	};
 	Rubi.prototype.dressUpRouter = function( arg ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		if( arg === 'Suitclothes' ) {
 			this.putOnASuitYouSlut();
@@ -1927,7 +1927,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Waitress Uniform;
 	Rubi.prototype.putRubiInAWaitressUniform = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the waitress uniform.  "<i>Hm, well all right, but it\'s just my work clothes,</i>" [rubi ey] replies.' );
 		EngineCore.outputText( '\n\nRubi starts off with a white bra trimmed with lace' );
@@ -1975,7 +1975,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Dashing Outfit;
 	Rubi.prototype.putOnADashingOutfitYouWhore = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the dashing outfit.  "<i>Ohh, feeling like plundering a little booty today?</i>" [rubi ey] asks with a coy smile.' );
 		EngineCore.outputText( '\n\nRubi starts off with what seems to be the skimpiest g-string you\'ve ever seen.  [rubi Ey] steps into the tiny underwear and pulls them up, ' );
@@ -2000,7 +2000,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Adventurer's Outfit;
 	Rubi.prototype.goOnAnAnalAdventureRubiNotReallyJustAnAdventurersOutfit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the adventurer\'s outfit.  "<i>Ah yes, am I going to be the Champion now?</i>" Rubi asks, balling up [rubi eir] dainty hands and putting them on [rubi eir] hips.  "<i>Rubi, Champion of Mareth!  Slayer of demons and ' );
 		if( EngineCore.silly() ) {
@@ -2032,7 +2032,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Long Dress;
 	Rubi.prototype.giveRubiALongDressToHideHerHideousBody = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the long dress.  "<i>Oohh, I just </i>love<i> that one! One second!</i>" [rubi ey] says as [rubi ey] pulls out the dress and several accessories.' );
 		EngineCore.outputText( '\n\nRubi starts with an off-pink strap-less bra' );
@@ -2065,7 +2065,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Nurse's Clothes;
 	Rubi.prototype.rubiPutsOnNursesClothesSoSheCanCheckYourTemperature = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the nurse\'s uniform.  "<i>Ohh, coming down with a bit of a fever?  Do you need a sponge bath?</i>" [rubi ey] says coyly, before gathering up the clothing.' );
 		EngineCore.outputText( '\n\n[rubi Ey] starts with a simple, only slightly lacy white bra' );
@@ -2098,7 +2098,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Rubber Fetish Clothes;
 	Rubi.prototype.rubiHasARubberFetish = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the rubber fetish outfit.  "<i>Ohoh,</i>" [rubi ey] giggles and quirks an eyebrow at you, "</i>feeling a bit kinky are we?</i>"' );
 		EngineCore.outputText( '\n\nRubi starts off, not with any clothing, but with a small dispenser of oil and lotion.  [rubi Ey] takes a small handful of the stuff, which smells slightly like lilacs, rubs [rubi eir] hands together and begins applying it to [rubi eir] ' );
@@ -2136,7 +2136,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Suitclothes;
 	Rubi.prototype.putOnASuitYouSlut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the suit.  "<i>Oh, really?  It looks nice, but you don\'t think it\'s too manly?</i>"' );
 		EngineCore.outputText( '\n\nRubi starts with a black, lacy bra' );
@@ -2163,7 +2163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Tube-Top;
 	Rubi.prototype.putOnATubeTopYouWhore = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the tube top and shorts.  "<i>Ooh, I like that one.  It\'s a little risque, but so cute!</i>"' );
 		EngineCore.outputText( '\n\nRubi starts off with what seems to be the skimpiest g-string you\'ve ever seen.  [rubi Ey] steps into the tiny underwear and pulls them up, ' );
@@ -2188,7 +2188,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Slutty Swimwear;
 	Rubi.prototype.putOnSluttySwimwearYouSkank = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the swimsuit.  "<i>Oh, but there\'s no pool or lake nearby.  Or do you just want to see me in a bikini?</i>"  Rubi giggles a moment.' );
 		EngineCore.outputText( '\n\nRubi starts off with the bikini bottoms, which consists of a strip of cloth that can barely be considered clothing.  [rubi Ey] pulls it up [rubi eir] legs and lets it cling tightly to [rubi eir] ample ass before turning around and waggling it at you.  Next comes the top, a halter-style bikini top that [rubi ey] slips over [rubi eir] head and ties up behind [rubi eir] back.  The two triangular pieces of fabric' );
@@ -2211,7 +2211,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Bimbo Minidress;
 	Rubi.prototype.putOnADressYouBimbo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the minidress.  "<i>Oh that cute little thing we picked up together?  For sure!  It\'s so cute!</i>"' );
 		EngineCore.outputText( '\n\nIt seems there\'s not much to this strapless pastel pink dress at all, as Rubi simple pulls out the short, hollow tube of fabric and slips it up [rubi eir] body, adjusting it momentarily around [rubi eir] [rubi breasts], and pulling it down enough to maintain some level of modesty, though you\'re certain that won\'t last long.  After all, [rubi ey] didn\'t put on any kind of bra or panties.  Rubi does, however, add a pair of pink pumps' );
@@ -2228,7 +2228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Bodysuit;
 	Rubi.prototype.putOnMyBodysuitYouWhore = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the bodysuit.  "<i>Oh, that thing is pretty cute,</i>" [rubi ey] says, "<i>Though there\'s not much to it.  But I suppose that\'s the point, huh?</i>"' );
 		EngineCore.outputText( '\n\nRubi giggles for a moment and retrieves the bodysuit from its hangar.  It\'s almost sheer, though with a few strategically placed opaque, flowery decorations you know it\'ll preserve Rubi\'s modesty... just barely, anyway.  Rubi sits on the edge of [rubi eir] vanity\'s seat as [rubi ey] slips the suit up [rubi eir] ' );
@@ -2252,7 +2252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Bondage Straps;
 	Rubi.prototype.putOnBondageStrapsYouBondageTrap = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the bondage straps.  "<i>Oh!  That outfit, huh?</i>"  Rubi blushes brightly' );
 		if( CoC.flags[ kFLAGS.RUBI_SKIN ] > 0 ) {
@@ -2269,7 +2269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Inquisitor's Corset;
 	Rubi.prototype.whyTheFuckIsRubiWearingAnInquisitorsCorset = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the inquisitor\'s corset.  "<i>Oh my, I really love that one.  It\'s so pretty and lacy!</i>"' );
 		EngineCore.outputText( '\n\nRubi starts with a black bra with red lace accents' );
@@ -2296,7 +2296,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Risque Waitress Uniform;
 	Rubi.prototype.putOnAWaitressUniformYouWhore = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You tell Rubi you\'d like to see [rubi em] in the risque version of [rubi eir] normal waitress uniform.  "<i>Oh, you like that outfit, huh?  I thought you might,</i>" Rubi says with a giggle.' );
 		EngineCore.outputText( '\n\nOf course, there\'s not much to this outfit, which starts off with a skirt so short it could be confused for a belt.  ' );
@@ -2329,7 +2329,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Dates;
 	Rubi.prototype.dateIntro = function( date ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//(First Time);
 		if( CoC.flags[ kFLAGS.TIMES_RUBI_DATED ] === 0 ) {
@@ -2359,7 +2359,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Costs 2 gems.;
 	Rubi.prototype.iceCreamDate = function() {
 		CoC.player.gems -= 2;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		this.rubiSprite();
 		EngineCore.outputText( '\n\nYou take your freshly dressed-up lover and head out of the little house.  Hand-in-hand you head down the streets of Tel\'Adre, looking for a good place to have a quiet meal.  Past the bakery where Rubi works, you spot a small shop labelled as a "Ice Cream Parlour".  Rubi looks inside, [rubi eir] eyes wide as [rubi ey] asks, "<i>Oh!  Can we stop in here?</i>"' );
 		EngineCore.outputText( '\n\nNodding, the two of you head inside.  It\'s a small shop, with only a few tables, most of which are empty.  There\'s a counter at the far end of the store, behind which you can see several buckets filled with icy, creamy goodness.  A male fox standing behind the counter tells you to sit anywhere, and that he\'ll come by for your orders momentarily.  You take Rubi over to a table next to the window and sit, chatting idly until the fox approaches.' );
@@ -2386,7 +2386,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 		//Costs 10 gems;
 		if( CoC.player.gems >= 10 ) {
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			EngineCore.outputText( '\n\nSince your lover is dressed up for a night on the town, you decide to take [rubi em] to the fanciest restaurant in all of Tel\'Adre.  Together, hand in hand, the two of you strike out of Rubi\'s small, yet cozy home, and head off in search of the best eatery in town.  Rubi directs you over a few streets, and you find yourself in front of "Bigby\'s Cafe", a large, imposing restaurant front.  Columns of fine marble flank the entrance to this impeccable shop.' );
 			EngineCore.outputText( '\n\nYou offer Rubi your arm, like a ' + this.rubiMF( 'gentleman', 'lady' ) + ' should, which [rubi ey] accepts graciously, and you escort [rubi em] inside.  A well-dressed bunny-boy meets you inside and escorts you to a table before handing you each a menu.  He bows and mentions that your waiter will be right with you.  You glance over your menu briefly, only recognizing a few entrees.  Many of the dishes seem to be foreign, at least to you.' );
 			EngineCore.outputText( '\n\nYour waiter, a broad-shouldered wolf man who wouldn\'t look out of place in a guard\'s uniform, arrives moments later.  Rubi orders a fillet of fish, claiming that [rubi ey] is feeling a bit nostalgic.  You decide to order the same thing, as you\'re certain you could only understand what a fraction of the things on the menu were.  The waiter nods, retrieves your menus, and heads back to the kitchen.' );
@@ -2475,7 +2475,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Must have a cock greater than Rubi's capacity.;
 	//Rubi's capacity won't go larger than 100.;
 	Rubi.prototype.anallyTrainYourBitchBoySlutHowToBeAnalForDCL = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		CoC.flags[ kFLAGS.RUBI_TIMES_ANALLY_TRAINED ]++;
 		//First Time;
@@ -2730,7 +2730,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Requires 75 Affection;
 	Rubi.prototype.getFuckedByRubi = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-fucks-you' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'Rather than wait for you to initiate something, Rubi takes you by the hands and leads you into the bedroom.  [rubi Ey] puts one arm on your shoulder and runs [rubi eir] fingers up through the hair on the back of your head before pulling you into a deep kiss.  Rubi\'s ' );
 		//(normal/furry skin);
@@ -2877,7 +2877,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//-100 arousal for PC;
 	Rubi.prototype.rubiHotdogging = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-hotdogged' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You sit on the couch next to your sexy lover and pull [rubi em] onto your lap with one smooth motion.  Rubi giggles, wiggling in place for a moment before leaning down to kiss you on the lips.  You put one hand on [rubi eir] supple ass, and another on [rubi eir] back between [rubi eir] shoulders and pull [rubi em] close, pressing your [tongue] into [rubi eir] mouth.  You sensually explore your partner\'s mouth as [rubi ey] closes [rubi eir] eyes and moans.' );
 		EngineCore.outputText( '\n\nThe two of you break the kiss long enough to gasp for breath, and go at it once more.  In your lip-locked escapade you blindly grasp at Rubi\'s clothing, stripping [rubi em] down, layer by layer until the ' );
@@ -2957,7 +2957,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Tease;
 	Rubi.prototype.teaseButtjobs = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-tease-buttjob' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'Grinning to yourself, you decide to tease the little demon ' + this.rubiMF( 'boy', 'girl' ) + ' a little further.  You plunge your thumb further into [rubi eir] ' );
 		if( CoC.flags[ kFLAGS.RUBI_NO_CUNT ] === 1 ) {
@@ -2997,7 +2997,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//Pop;
 	Rubi.prototype.popButtjobs = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-pop-buttjob' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'No, you figure Rubi has been so great lately [rubi ey] definitely deserves to cum.  You plunge your thumb further into [rubi eir] ' );
 		if( CoC.flags[ kFLAGS.RUBI_NO_CUNT ] === 1 ) {
@@ -3070,7 +3070,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//(Can give him Purified Incubus Draft, shrinks boobs, grows penis.);
 	//(Can give him Gro+ to grow either one.);
 	Rubi.prototype.giveRubiATFItem = function( itype ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		//First Time Giving a TF Item;
 		if( CoC.flags[ kFLAGS.RUBI_TIMES_GIVEN_AN_ITEM ] === 0 ) {
@@ -3522,7 +3522,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//GRO+/REDUCTO;
 	Rubi.prototype.rubiGrowPlusBreasts = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-gro-plus-tits' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You hand over the vial of blueish liquid.  Rubi takes a moment to look it over, before taking a deep breath and injecting half of the vial into one breast and the rest into [rubi eir] other breast.' );
 		//(If breast increase);
@@ -3553,7 +3553,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	//(If Penis);
 	Rubi.prototype.rubiPenisGroPlus = function() {
 		EngineCore.outputText( ImageManager.showImage( 'rubi-gro-plus-penis' ), false );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You hand over the vial of greenish liquid.  Rubi takes a moment to look it over, before taking a deep breath and injecting the entire thing into the base of [rubi eir] [rubi cock].' );
 		//(If Penis increase);
@@ -3591,7 +3591,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(If Breasts);
 	Rubi.prototype.rubiBoobsReducto = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You hand over the jar of paste.  Rubi looks it over and, after giving it a sniff, uses two fingers to scoop up some of the pale substance, smearing it over [rubi eir] breasts.  Before long, the jar is empty and [rubi eir] [rubi breasts] are covered in the stuff.' );
 		if( CoC.flags[ kFLAGS.RUBI_BREAST_SIZE ] > 0 ) {
@@ -3605,7 +3605,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//(If Penis);
 	Rubi.prototype.rubiPenisReducto = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You hand over the jar of paste.  Rubi looks it over and, after giving it a sniff, uses two fingers to scoop up some of the pale substance, smearing it over [rubi eir] penis.  Before long, the jar is empty and [rubi eir] [rubi cock] is covered in the stuff.' );
 		if( CoC.flags[ kFLAGS.RUBI_COCK_SIZE ] >= 3 ) {
@@ -3620,7 +3620,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Give Item.;
 	Rubi.prototype.pickAnItemToFeedRubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		var button = 0;
 		var closet = [];
@@ -3782,7 +3782,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 
 	//(Give Clothes);
 	Rubi.prototype.giveRubiClothes = function( itype ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.rubiSprite();
 		EngineCore.outputText( 'You hand over the spare set of clothes, and Rubi\'s eyes light up.  "<i>For me?</i>"  the little demon practically screams, ecstatic.  "<i>ThankyouthankyouthankyouTHANKYOU!</i>"' );
 		EngineCore.outputText( '\n\nRubi holds the outfit up to [rubi eir] body and grins, "<i>Ooooh, I just love it!  I mean, I\'ll have to take it to the tailors to get fitted, but I absolutely adore it!</i>"' );
@@ -3816,7 +3816,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CockTypesEnum, ImageMan
 	};
 	//Rubi's Bimbofication;
 	Rubi.prototype.hypnoBimboficationForRubiSloots = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You slither out of your [armor], flicking your tongue hungrily at the air, tasting the petite boy\'s desire. He is so attracted to you, and yet, he\'s trying so hard to be classy about it. It\'s cute in its own way, but you\'d rather see him be more... honest about his drives. You want the cute, ' );
 		if( CoC.flags[ kFLAGS.RUBI_BREAST_SIZE ] < 1 ) {
 			EngineCore.outputText( 'femmy boy' );

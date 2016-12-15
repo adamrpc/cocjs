@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, CockTypesEnum, Appearance, Combat, GoblinAssassin, Descriptors, StatusAffects, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager, CockTypesEnum, Appearance, Combat, GoblinAssassin, Descriptors, StatusAffects, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
 	function GoblinAssassinScene() {
 	}
 
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, CockTypes
 	 Dressed in leather straps that support her chest (in a lewd way) while leaving her pierced nipples exposed and slightly parting her ass to expose her pucker & femmy funbits.  Pierced pointed ears.
 	 */
 	GoblinAssassinScene.prototype.goblinAssassinEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First Time Intro;
 		if( CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_GOBLIN_ASSASSIN ] === 0 ) {
 			EngineCore.outputText( 'A needle whizzes through the air and lands next to your foot. The fine craftsmanship along the side of the glass tube only brings you to one conclusion - it\'s owner has access to precision machinery and manufacturing capabilities uncommon in this land.' );
@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, CockTypes
 	};
 	//[LOSS SEXAHNZ];
 	GoblinAssassinScene.prototype.gobboAssassinBeatYaUp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x;
 		if( CoC.player.lust <= 99 ) {
 			EngineCore.outputText( 'You collapse, utterly beaten. To make sure you\'ll be easier to handle, the victorious assassin saunters up, a pair of fluid filled needles in her hands. She jams them into your [CoC.player.legs], emptying the contents into you before you can so much as stammer a protest. Burning lust pours through your veins unbidden, and you moan out loud as the chemicals have their way with you as easily as the goblin soon will.\n\n' );
@@ -796,7 +796,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, CockTypes
 		Combat.cleanupAfterCombat();
 	};
 	GoblinAssassinScene.prototype.laySomeDriderEggsInGobboTwat = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'goblin-win-drider-egged' ) );
 		//Play standard goblin victory text;
 		EngineCore.outputText( 'The pitiful struggling of the little green-skinned creature as she tries to scramble away from you gives you a rather generous view of her drooling box.  While you feel yourself ' );

@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 				CoC.player.addStatusValue( StatusAffects.AnemoneVenom, 2, 1 );
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 
 	Anemone.prototype.defeated = function() {

@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	HolliScene.prototype.treeMenu = function( output ) {
 		if( output === undefined || output ) {
 			output = true;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		var ride = null;
 		var fuck = null;
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 	};
 	HolliScene.prototype.helpWithFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask if a plant goddess might not be able to help the farm you recently acquired.' );
 		EngineCore.outputText( '\n\n“<i>Ah yes,</i>” Holli breathes. “<i>The patch of verdant orderliness between me and mother. It feels bright and cold to me... the life that grows there so starchy and dull. Empty calories.</i>” You wait as she hums to herself absently.' );
 		// PC not had sex with Holli that day:;
@@ -186,14 +186,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 	};
 	HolliScene.prototype.doFarmFuckery = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Holli closes her eyes and hums. The sound seems to reverberate in your bones, and you feel the ground move uneasily below you. Holli’s roots shift ponderously, and you hear new growth crackling, burying eagerly through the soil, moisture being taken in. The tree woman opens her eyes to lazily grin at you as the portentous sounds below you continue.' );
 		EngineCore.outputText( '\n\n“<i>It’s happening. I hope you and your doggie enjoy what I have done!</i>”' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_HOLLI ] = 1;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HolliScene.prototype.noPlzDontFuckWithFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>Such a fickle mortal,</i>” she sighs. “<i>But I am a kind goddess. Ask me for it anytime, assuming you’ve... performed the rites.</i>”' );
 		this.treeMenu( false );
 	};
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 
 	//Sprout Phase: (edited);
 	HolliScene.prototype.getASprout = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Around the edge of your camp, you spot some plant-life beginning to sprout.  The barren, wasteland crust is fractured and broken, giving up a leafy green shoot.  It only reaches up to your knee, but the plant looks healthy and young.  Perhaps it will grow larger?  There is a central stem that supports most of the weight, but a dozen branches fork off, supporting a bevy of shiny green leaves.' );
 		EngineCore.outputText( '\n\nYou briefly wonder how something could take root in such soil and be so successful, but then you recall the corrupt goddess, Marae.  She mentioned something about having roots through this world, didn\'t she?' );
 		if( CoC.flags[ kFLAGS.CORRUPT_MARAE_FOLLOWUP_ENCOUNTER_STATE ] === 2 ) {
@@ -255,7 +255,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[Yes] Destroy Tree (edited);
 	HolliScene.prototype.destroyDatFukkinTree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You reach down and begin to excavate meticulously around the tainted sapling.  It has one central root that seems to go down forever, but after you\'ve uncovered half a foot of taproot, you grab hold of it and yank.  At first, your straining seems unnoticed by the plant, the leaves rustling as it shakes and strains under your grip.  Then, all at once, it gives with a violent SNAP.  You tumble end over end, clutching to the demon-flora tightly to your [chest].  Sighing and grumbling, you get up and toss the leafy demon into your fire.' );
 		EngineCore.outputText( '\n\nSparks and smoke issue; the fire burns purple and low as it struggles to consume the resilient plant.  Fading slowly, the wilting flames look as though they\'re about to go out; you scramble to add fuel to the guttering fire before it dies entirely.  Each chunk of dry wood that you add seems to help, and soon the rosy red of all-consuming heat has returned.  The plant\'s stem withers away into charred, black ash.' );
 		EngineCore.outputText( '\n\nYou have a hopeful feeling that you won\'t see any more of those plants cropping up.' );
@@ -266,14 +266,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[No] (edited);
 	HolliScene.prototype.letZeFuckingSproutLive = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Looking down at the sapling, you stay your wrath.  It may be corrupt, but it hasn\'t done anything to harm you just yet.  You give it a little pat on the uppermost leaves and leave it be.  It\'s not like it\'s going anywhere.' );
 		EngineCore.outputText( '\n\n(<b>\'Plant\' added to your items menu</b>.  It\'s too small to know what it will grow into yet.  You can currently remove it at your leisure.)' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Phase 2: Pussy Tentacle Flower Phase (edited);
 	HolliScene.prototype.fuckPlantGrowsToLevel2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] = 2;
 		CoC.flags[ kFLAGS.FUCK_FLOWER_GROWTH_COUNTER ] = 0;
 		EngineCore.outputText( 'The sound of creaking, snapping vines draws your attention to the corner of your camp, where the small plant had grown.  You rush in that direction without delay, raising your [weapon] in case you need to fight.  The violent noises die away before you can round the last large stone in the intervening distance, leaving you to wonder just what transpired.  Well, you don\'t have to wait long - you come around the obstruction at top speed, skidding to a stop at the view before you.' );
@@ -307,7 +307,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 
 	//Destroy It (edited);
 	HolliScene.prototype.destroyDatFuckingPlantAtP2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You know that letting this thing continue to grow would only threaten the safety of your camp.  Sighing, you trudge over to your supplies, gathering up some dry wood to stack around the invading foilage.  The plant, as if knowing what you\'re about to do, begins to wiggle from side to side, petals quivering in a panic.  However, your course is set, and this plant must die.  You take a burning log from your fire and torch the pile, feeling a little better about yourself as the blaze slowly consumes the wilting demon-plant.' );
 		EngineCore.outputText( '\n\nThe fire flutters, smoky purple sparks shooting into the air, blotting out the sky.  You cough and step back from the conflagration, waiting until it burns itself out and nothing but ash remains.  You have a hunch you won\'t be seeing any more of those plants... hopefully.' );
 		//(-5 corruption);
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Fuck It (skimmed);
 	HolliScene.prototype.fuckFuckingFuckFlowerP2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -367,7 +367,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Ride It (skimmed)(coded);
 	HolliScene.prototype.rideDatFuckingFukkFlowerP2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shuck your [armor] and slowly ease yourself towards the violet-hued creature.  As soon as you get within a few feet, the flower\'s bulb angles toward you, the petals wiggling slightly along with the stamen inside.  A few of them even stretch out towards you like longing fingertips, shaking slightly from the effort before sliding back inside.  The dull ache in your [vagina] grows a few degrees hotter at the display, your body growing flush with excitement for the coming copulation.  Throwing caution to the wind, you move forward with a confident sway of your [hips].  It\'s time to get pollinated.' );
 		EngineCore.outputText( '\n\nGrabbing hold of the plant, you tug it up against your mons and sigh.  The silky-smooth petals flatten against your thighs, the tips curling over to touch the sides of your [butt], slicking it with lubricating moisture.  You let go, and the flower holds fast to your [hips], firmly embracing you as its stamen begin to roam across your vulva.  Slowly, an intrepid tentacle ventures between your labia, into the slick passageway you\'re so ready to fill with wiggly delight.  A dribble of fresh fluid rushes out at those first, hesitant touches, and encouraged by its success, the stamen\'s brothers join in on the slippery party, plunging into your box and immediately swirling over your inner walls.' );
 		EngineCore.outputText( '\n\nDriven mercilessly by the sudden onslaught of sensation, you flop back onto the ground, but the flower comes with you, latched onto your [hips] with no sign of releasing.  The swirling tentacles twist around inside you in a tornado of ecstasy, and the pleasure, that awful, unstoppable pleasure, twists your muscles into knots.  They instinctively convulse to raise your lower lips higher, as if that would somehow propagate even deeper penetration.  One of the tentacles retracts, drawing a burst of slick cunt-lube with it.  Then, it twists around your [clit], tightening up on the over-sensitive bud until it feels like it could pop.' );
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Phase 3 Intro: (edited);
 	HolliScene.prototype.flowerGrowsToP3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Again, you hear odd noises coming from a corner of your camp - the corner where you let that tainted shrubbery grow.' );
 		if( CoC.flags[ kFLAGS.TIMES_FUCKED_FLOWER ] + CoC.flags[ kFLAGS.TIMES_RIDDEN_FLOWER ] > 0 ) {
 			EngineCore.outputText( '  The fucking probably only helped it to grow faster.' );
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Fuck Flower (skimmed);
 	HolliScene.prototype.fuckTheFlower = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		//(Similar to stage 2 fuck, but no cock limits, wetter, and more aggressive.;
 		EngineCore.outputText( 'Smiling to yourself, you shed your [armor] like a snake wriggling free of useless, old skin and expose yourself.  Of course, the tree doesn\'t react - it\'s just a tree, right?  So, feeling a little cocky (in more than one way), you prowl up to the flower, intent on venting some frustration in the best way possible.  The petals are as violet as ever and glittering with the moisture you\'ve grown used to seeing appear whenever you approach, as if by magic.  The inner folds look even softer, if a bit redder, and they drip steadily with sweet nectar.' );
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Drink Sap (edited);
 	HolliScene.prototype.drinkThePlantGirlsSap = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Regain 50 fatigue but gain 1 corruption, 0.5 libido, 15 lust, and 1 sensitivity.;
 		EngineCore.dynStats( 'lib', 0.5, 'sen', 1, 'lus', 15, 'cor', 1 );
 		EngineCore.fatigue( -50 );
@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Ride Tentacles (C);
 	HolliScene.prototype.rideTheWalrusP3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Let them pull you into the tree and bang, battering you with cum repeatedly.);
 		EngineCore.outputText( 'You eye the tentacles hiding amongst the leafy branches above, writhing obscenely around each other as they snake through the foilage.  You shed your [armor] into a worthless pile and bare your body, cupping your [chest] enticingly as you whistle up at the tree.  Your calls seem to fall on deaf ears; the whirling vines stay put up in their perch.  They\'re ignoring your delicious, feminine flesh!  Irritated, you stomp up to the trunk\'s flower and plunge your fist inside it.  Fresh fluid gushes out over your armor, releasing a spray of sweet, musky lubricants.  You blindly feel around inside the pliant plant-pussy with your fingers, giggling to yourself whenever the soft cavity clenches tightly to your arm.  Whatever this is, it can feel pleasure.' );
 		EngineCore.outputText( '\n\nEgging it on, you pump away until there\'s a waterfall of clear slime oozing down the bark, the heavy folds inside clamping tightly about your forearm.  Inside, smaller tentacles twist around your fingertips, mindlessly jerking them off as if they were tiny cocks.  You smirk and pull your arm out with deliberate slowness, ignoring the hungry suction that tries to pull you back in and the twisting tendrils that snake out after you.  Now that you\'ve taken the corrupted creature into a more empathetic position, you spread your arms to the vines above and call for them, "<i>Come on down and play.  We both want this.</i>"' );
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Torch It (edited)(C);
 	HolliScene.prototype.torchP3Tree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Requires fire-based attack and fatigue at or below 30.  Maxes fatigue and removes the tree.;
 		EngineCore.outputText( 'This has gone on long enough!  This thing cannot continue to grow in your camp any longer, and you have just the means to remove it  ' );
 		//[(nerdfire);
@@ -605,7 +605,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 
 	//Phase Four (edited);
 	HolliScene.prototype.treePhaseFourGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'An unfamiliar female voice calls out your name, high-pitched and lilting.  Unflinchingly, you respond to the call, winding your way through your camp towards the fringe, where the corrupt fuck-tree was growing.  Did a faerie get caught in it? A tiny creature like that would probably wind up as a tentacle condom before it got free.  Still, you redouble your pace and ready your [weapon].  You know well enough that a fair voice doesn\'t always match up to a fair demeanor - in Ingnam OR Mareth.' );
 		EngineCore.outputText( '\n\n"<i>Oh, [name]!  Where are yoooouuu?</i>" the voice croons.  You turn the bend to a sight both familiar and haunting.  There, in the middle of a wide, ancient-looking tree trunk, is a woman.  She\'s emerged from a split in the center of the wood, and she appears to be made of flesh, blood, and bone the same as anyone else.  However, she\'s obviously some kind of demon.  The corruption is most visible in her brown-gold eyes, tainting the sclera a solid black.  Above, a pair of gnarled oak horns sprout from her forehead, parting the woman\'s generous, dark green curls.  Her skin is a pale jade and as smooth as buttered glass, and her lips are full and pouty, curved in a knowing smile.' );
 		EngineCore.outputText( '\n\n"<i>Hello there, cutie,</i>" the verdant succubi trills, crossing her arms across her weighty G-cup melons in feigned modesty, "<i>' );
@@ -629,7 +629,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//ojo Rolls Out -Z;
 	HolliScene.prototype.JojoTransformAndRollOut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//triggers if both puru jojo and shoe tree are in camp;
 		EngineCore.outputText( '"<i>[name], come here please.</i>"' );
 		EngineCore.outputText( '\n\nJojo is calling to you from the border of the camp.  Politely, you approach the monk.  This is probably the first time since your rather violent initial meeting that he\'s addressed you so directly, and you\'re a bit curious as to why.' );
@@ -674,7 +674,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	//new overriding line for Amily's camp descript if tree is there;
 	//PC Fucked Adult Tree, Amily Leaves -Z;
 	HolliScene.prototype.amilyHatesTreeFucking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your mousey cohabitant tramps up to you, irritation plain on her expression.' );
 		EngineCore.outputText( '\n\n"<i>[name], I saw what you did with that that... tree.  I thought that was just one of those perverted plants you find in the forest, but there\'s an actual demon in it?!  I can\'t believe your poor judgment!  You do know what happens to people who give themselves to demons, right?  It hasn\'t slipped your mind that they rape and suck souls out of everyone they come across?  I don\'t even feel safe anymore with you bringing trash like that into camp!</i>"' );
 		EngineCore.outputText( '\n\nNo matter how you try to interrupt, Amily\'s not even giving you a chance to answer...' );
@@ -683,7 +683,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[Stay Quiet];
 	HolliScene.prototype.stayQuietWhileAmilyBitchesAboutFuckingArborday = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Amily berates you for some while longer, then eyeballs you.  Just as you begin to speak, she cuts you off again.' );
 		EngineCore.outputText( '\n\n"<i>I\'m not staying here anymore.  Maybe if you move or clean this place up, I\'ll return... maybe not.  Depends how many demons you insist on bringing home and fucking, I suspect.</i>"' );
 		EngineCore.outputText( '\n\nCurtly, she turns and departs, tail lashing past you.  You wonder just how sincere her last words were.' );
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[Slapaho];
 	HolliScene.prototype.slapAmilysWhoreFace = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You slap Amily across the ' );
 		if( CoC.flags[ kFLAGS.AMILY_NOT_FURRY ] === 0 ) {
 			EngineCore.outputText( 'nose' );
@@ -728,7 +728,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 
 	//(FUCK DAT TREE BITCH);
 	HolliScene.prototype.fuckHolliInZeFlowerPuss = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'With a knowing smile, you toss your [armor] aside and say, "<i>Let\'s do this.</i>"  [EachCock] juts out, hard and proud from your body, pointed straight towards the entrancing woman before you.  She leans down from her perch in the tree and rolls her shoulders from side to side, jiggling her pale green assets back and forth, traces of syrup hanging from her pendulous melons.' );
@@ -825,7 +825,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Drink From Her (edited)(C);
 	HolliScene.prototype.haveAMapleSyrupSnack = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach Holli with a hungry smile plastered across your [face], licking your chops as you eye the arboreal slut with unrestrained desire.  Of course, your gaze fixes on her heavy chest, with its distended, dripping nipples.  They leak sweet sap as you stare; the demon seems eager to feel your mouth on her slick, almond-colored buds.  Looking at you ' );
 		if( CoC.flags[ kFLAGS.HOLLI_SUBMISSIVE ] === 0 ) {
 			EngineCore.outputText( 'knowingly, Holli asks, "<i>Come for a little pick-me-up?  Well, go on; drink deeply of my nectar, </i>champion."  The last word is inundated with malicious, mocking tones.' );
@@ -846,7 +846,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Tentacle Ride (looks ok)(C);
 	HolliScene.prototype.level4RideHollisTentacruels = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		//(PC voluntary gets tentacle pounded, and high from flower pussy spores.  clitoral BJ?  Nipple suckers!};
 		EngineCore.outputText( 'You smirk knowingly and suggest to Holli that she take you for a ride... if she knows what you mean.  This earns you a pleased applause from the delighted demon dryad, and she immediately sets to helping you undress, her eager tentacles lowering from the tree and arching up like searching snakes.  You let her remove your [armor] with the patience of a goddess, shivering slightly when the sticky gear is peeled away from your eager undercarriage.' );
@@ -889,7 +889,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Bear Fruit(C);
 	HolliScene.prototype.eatHolliFruit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You reach up into Holli\'s branches and pluck ' );
 		if( CoC.flags[ kFLAGS.HOLLI_FRUIT ] === 1 ) {
 			EngineCore.outputText( 'the fruit' );
@@ -934,7 +934,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	//Beg Her To Guard (edited)(C);
 	//PC can beg or not beg?;
 	HolliScene.prototype.askHolliToWatch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 ) {
 			EngineCore.outputText( 'You ask Holli if she would mind using her tentacles to help guard the camp at night.  She rolls her eyes and taunts, "<i>I don\'t know; maybe if you get down on your knees and beg me.  0...And I mean </i>really<i> beg, with plenty of whimpering.  Lick my roots too.  After all, I should get something out of this.</i>"' );
 			EngineCore.outputText( '\n\nIt looks like she\'ll only help guard camp if you debase yourself for her.  You could try to overpower her in a show of dominance, <b>but she\'d likely act a lot more meek after such a display of assertive dominance.</b>' );
@@ -962,7 +962,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Actually beg: (edited)(C);
 	HolliScene.prototype.begHolli4Watches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You swallow your pride and drop down prostrate on the ground.  Sighing, you grudgingly say, "<i>Please, Holli, guard my camp at night.  I don\'t want to be raped by monsters.</i>"' );
 		EngineCore.outputText( '\n\nThe devilish dryad grips her tit and squirts some sap at you, taunting, "<i>You\'ll have to do better than that.  I don\'t think you really mean it.  It\'s like you\'re just going through the motions... pretending.  And you\'re not licking my roots; get to it.</i>"' );
 		EngineCore.outputText( '\n\nGrimacing, you push your face down to where the tree\'s roots enter the soil, and hesitantly extend your tongue.  You can taste the fouled earth\'s flavor on the craggy bark... disgusting.  "<i>Please...</i>"' );
@@ -980,7 +980,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	//Assert Self:;
 	//Success/Fail dependent on: Level, height, tone, width.;
 	HolliScene.prototype.domUpSomeHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		EngineCore.outputText( 'You swagger up to the tree and put your hand on the bark beside Holli.  Glancing over, she quips, "<i>Is that supposed to be intimidating?</i>"  The dryad smirks ingratiatingly.  "<i>I\'m the offshoot of a demon goddess.  I don\'t think you thought this through.</i>"' );
 		EngineCore.outputText( '\n\nSlapping your palm down on the other side, you look her right in her oddly gold and black eyes and tell her in no uncertain terms that she is going to serve and service you at your slightest whim.  Any choice she thinks she has is nothing more than an illusion.' );
@@ -1008,7 +1008,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Guard Camp;
 	HolliScene.prototype.askBrokenHolliToGuard = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Holli bows her head when you mention her guarding camp.  She asks, "<i>Shall I keep watch for foes to drain or let them into camp for you to have the pleasure of dealing with, [name]?  <b>I\'ve been ' );
 		if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 1 ) {
 			EngineCore.outputText( 'keeping watch' );
@@ -1027,7 +1027,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Guard On;
 	HolliScene.prototype.toggleBrokenHolliGuard = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 ) {
 			EngineCore.outputText( '"<i>All right, I\'ll get to have some fun then,</i>" Holli quips while rubbing her palms together in anticipation.' );
 			EngineCore.outputText( '\n\nYou suppose you can sleep better with your pet demoness taking on the lesser whelps of this land.' );
@@ -1044,7 +1044,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Dom Her With a Dick;
 	HolliScene.prototype.holliGetsDickDommed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Tossing your [armor] aside, you expose your ' + Descriptors.multiCockDescriptLight() + '.  Holli\'s eyes fixate on [oneCock], her attention rapturously contained by a single phallus.  You grip your maleness in hand and bounce it up and down into your other palm.  The solid slaps of genital impacts echo off the surrounding rocks, each sending a pleasant tingle of pleasure through the root of your manhood.  Before long, you\'re completely erect and throbbingly hard, bouncing unbidden with each and every thrum of your heart.' );
 		EngineCore.outputText( '\n\nHolli leans forward, entranced by the sight.  Her head and shoulders slip through the surprisingly pliant bark as she bends down to view the show.  Swaying beneath her, Holli\'s weighty tits dangle unrestrained and unbound.  Sappy moisture clings to her almond nipples like morning dew, dripping in small drops onto the wasted ground.  The tips of her teats have gone rigid, engorged with whatever strange substance passes for blood.  Similarly, the dryad\'s flower is in full bloom, with its vibrant petals spread open, welcomingly.  The constant lubricants make the slick lips glitter like diamonds in the light, until their owner\'s shadow eclipses the illumination.' );
 		EngineCore.outputText( '\n\nHanging out of her tree, Holli reaches for [oneCock], but stops just short.  "<i>Can I pleasure it, please?</i>"  She\'s looking up at you hopefully, like a kid hoping for a treat.' );
@@ -1111,7 +1111,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//.PC Has 10 Tentacle Go Full On Monster With Her;
 	HolliScene.prototype.fullOnTentacleTasticGangBangForHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		EngineCore.outputText( 'You remove your [armor] and expose your writhing mass of wriggling tendrils to the tree-tart.  She places a hand over her mouth and exhales, "<i>Oh my, Mother Marae sure knows how to pick them, doesn\'t she?</i>"' );
 		EngineCore.outputText( '\n\nExercising considerable control over your vegetative peckers, you extend one forward, the phallic tentacle lurching out to silence the troublesome tree in a split-second.  Holli gives up a strangled, "<i>h-urk!</i>" and rocks back into her tree\'s entrances, eyes crossed to look at the green snake protruding from her lips.  Her mouth feels good around the purple-tinged cock-tip you\'ve forced inside, but you think her throat would feel better.  Your tentacle tool stretches, lengthening with supernatural agility, and you push the fresh flesh down Holli\'s gullet, distending her throat with the imprint of your length.  Her esophagus instinctively works to swallow the obstruction, which serves you just fine.  The tight oral pleasure has you oozing droplets of pre-seed directly into her belly, but you\'re far from ready to blow.  After all, with nine more penises, satisfaction remains a good ways away.' );
@@ -1153,7 +1153,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//Vaginally Dominate Tentacles;
 	HolliScene.prototype.vaginalDomHollisTentacruels = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HOLLI_FUCKED_TODAY ] = 1;
 		EngineCore.outputText( 'You sashay over to your favorite tentacular tree and trace your finger through Holli\'s cleavage, purring, "<i>I\'m feeling a little randy.  Do me a favor and bring your \'little\' friends down to play, would you?</i>"  The commanding tone of your voice leaves little doubt that the question is anything but.  With a little bit of fear in her black, tainted eyes, Holli nods meekly.  A rain of green, phallic tentacles pours out of the robust canopy above, hanging behind you idly, though a few of them arch up like snakes sensing prey.  You hold your immobilized pet\'s chin in your hand and tilt her head up slightly so she sees you eye to eye.' );
 		EngineCore.outputText( '\n\n"<i>Good pet,</i>" you coo, releasing her and turning about, making sure to sway your [hips] hypnotically and remind her just what she\'s going to get.  The closest tentacle sways in your direction to nuzzle on your ' + CoC.player.skinFurScales() + '.  You raise your palm to support it, gliding your palm along the underside while you shrug out of your [armor].  The phallic vine eagerly rubs against you like an affectionate pet, though clear sap leaks from the moist slit at its tip.  You squeeze it just behind the purple-tinged tip and pull, dragging it over toward Holli.' );
@@ -1213,7 +1213,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HolliScene.prototype.threatenHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You snarl and threaten to burn the barked bitch to the ground if she won\'t make herself useful after you ask politely.' );
 		EngineCore.outputText( '\n\n"<i>You threaten me with fire?!  Now?  [name], you could have uprooted my sapling and tossed it in the fire.  You could have made a bonfire to char my flower to cinders.  You could even have called upon magic to torch my tree while it was still young.  Now?  My bark is stronger than iron and flush with the power of an invigorated goddess.  You had opportunities to rid yourself of me before Marae had invested this much time and energy into your gift.  Trying to destroy such a personal present now would draw her attention... and her ire.</i>"' );
 		EngineCore.outputText( '\n\nThat is a compelling point.  ' );
@@ -1236,7 +1236,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	//Hit Her With Your Hand (requires failing to threaten) -Z;
 	//replaces Threaten button once PC fails threaten;
 	HolliScene.prototype.slapDatHo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You slap the slut in the tree on the thighs, sending a ripple up her body; she regards you with a sneer, confident that her previous implication, that between her and her mother, only a fool would attack, will be enough to stop you from removing her by force.  You might still be able to if you\'re powerful enough, but... she has the energy of a demon \'goddess\' flowing into her.  You should be <b>very</b> sure of yourself before you resort to open confrontation, lest you make your campsite uninhabitable.' );
 		EngineCore.outputText( '\n\n"<i>What do you want, meat?  Come to play?</i>"' );
 		//[Cut Her Down][Call Jojo(requires talisman)][Ignore Her];
@@ -1250,7 +1250,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[Cut Her Down];
 	HolliScene.prototype.cutHerDown = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Are you serious?  You really want to be broken that badly, my little toy?</i>"  The demon folds her arms over her hefty chest, her earlier, suggestive posture completely absent now.  "<i>You know my bark is as strong as any armor, right?  That Marae herself - the land itself - bolsters me?  Take that back right now, and I\'ll let you return to my good graces... if you put your face in the dirt and plead for the duty to pleasure me whenever I want.</i>"' );
 		//(if PC weapon = Large Axe);
 		if( CoC.player.weaponName === 'large axe' ) {
@@ -1265,7 +1265,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[Call Jojo];
 	HolliScene.prototype.callDatJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.removeKeyItem( 'Jojo\'s Talisman' );
 		EngineCore.outputText( 'You take out the small talisman you got from the mouse monk, wondering just how to summon him with it.  A small string dangles from the side; when you pull it, you can feel a stitch coming undone and the weight of the talisman shifts toward the bottom.  A thick, billowing yellow smoke begins to pour out.  God, this reeks!  You hurl it away before the smell can permeate your clothing, and it sets off an echoing bang when it hits the ground!  It\'s not long before Jojo appears from the edge of the forest and calls to you.' );
 		EngineCore.outputText( '\n\n"<i>Apologies, [name], but the sound and smell were the only way I could be sure of knowing and finding you when you needed me!</i>"  He raises a cloth over his nose, then hefts his staff.  "<i>If you choose to fight this demon plant creature, I will try to start a blaze to limit her ability to regrow.  It will take a lot of wood to burn a tree so unnatural, so I will not be able to do much else but ferry tinder from the stock I\'ve been laying in.  You will have to hold her attention.</i>"' );
@@ -1278,7 +1278,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 
 	HolliScene.prototype.defeatHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] = 1;
 		//Win without Jojo -Z;
 		if( CoC.monster.findStatusAffect( StatusAffects.JojoIsAssisting ) < 0 ) {
@@ -1291,7 +1291,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 				CoC.time.days++;
 			}
 			CoC.time.hours = (CoC.time.hours + 7) % 24;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		//Win with Jojo -Z;
 		else {
@@ -1301,7 +1301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 				CoC.time.days++;
 			}
 			CoC.time.hours = (CoC.time.hours + 3) % 24;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			//[(if no Vapula)];
 			if( !SceneLib.vapula.vapulaSlave() ) {
 				EngineCore.outputText( '\n\nThe monk nods to you.  With the demon gone, you could probably invite him to remain in camp - after all, you are quite a good team.  Do you offer to let Jojo stay?' );
@@ -1318,7 +1318,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[yes gimme monk pls];
 	HolliScene.prototype.recruitJojoToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Jojo nods eagerly at you when you invite him to share your camp.  "<i>Excellent idea.  If you\'ll excuse me, I wish to attempt to purify the spot where the creature grew, and then I will fetch my things.</i>"' );
 		EngineCore.outputText( '\n\nBowing neatly, he takes his leave.' );
 		CoC.player.createStatusAffect( StatusAffects.PureCampJojo, 0, 0, 0, 0 );
@@ -1328,7 +1328,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//[no want];
 	HolliScene.prototype.dontRecruitJojoToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You hold your tongue, allowing Jojo to make his way back to the forest.' );
 		EngineCore.outputText( '\n\n(Key Item Gained Ashes)' );
 		CoC.player.createKeyItem( 'Holli\'s Ashes', 0, 0, 0, 0 );
@@ -1336,7 +1336,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//>Lose;
 	HolliScene.prototype.enjoyYourBadEndBIYAAAATCH = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Screeching in triumph, the demon holds your defeated form aloft and begins to shake you.  ' );
 		if( CoC.monster.findStatusAffect( StatusAffects.JojoIsAssisting ) >= 0 ) {
 			EngineCore.outputText( 'Jojo drops the firewood he\'s carrying and attempts to strike her, but she swats him aside brutally with a branch, leaving him clutching his stomach and retching as he stumbles away; she returns her attention to you, completely fixated.  Her oozing sap runs in streams as she heals the damage from the dwindling flames.  ' );
@@ -1496,7 +1496,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	};
 	//female champ for weiner-based bad end;
 	HolliScene.prototype.holliPlaysWithPenisesBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The young, brown-haired woman steps from the swirling portal, and the vortex collapses behind her.  Casting her eyes around the blasted, cracked landscape, she\'s surprised by the presence of two trees a short distance away, apparently healthy despite the lack of water and clouds of dust.  At first leery, she changes her mind when she cautiously edges closer and sees the huge, juicy fruits hanging from the branches of the leftmost tree.  Deciding that it <i>would</i> be wise to gather and use what she can find before dipping into her reserve, the brown-haired girl begins walking toward the strange trees.' );
 		EngineCore.outputText( '\n\nAs she approaches, the outer barks of both trees part smoothly, exposing humanoid figures.  One, a voluptuous, green, horned beauty, steps down from the fruiting tree and stretches her arms toward the girl-next-door in greeting.' );
 		EngineCore.outputText( '\n\n"<i>Hello!  You must be the new Champion!  I am Hollicynthea, a dryad in service of this land\'s goddess, Marae.  I have taken root here to provide support for those who are forced to travel through the portal, that they may establish a foothold to better resist the demons.  Though admittedly, I could use your help in securing my orchard, I will still aid you however I can.</i>"' );
@@ -1537,7 +1537,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.gameOver();
 	};
 	HolliScene.prototype.girlsGetANiceManToBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The weedy-looking young man steps out of the swirling, violet pool of the portal.  As the flickering shadows of its chaotic light recede, the lush glade that greets him is reminiscent of Ingnam\'s wilderness... apart from the nude bodies woven into the trees, bearing sundry and random erect animal cocks, voluptuous racks, wet pussies, and patches of smooth, trembling flesh - occasionally a tree will present all four.  A tent begins to form in his comfortable pants as he surveys the lewd greenery for a means to proceed.' );
 		EngineCore.outputText( '\n\n"<i>Welcome to Mareth, Champion,</i>" calls a voice behind the youth.  He turns around, blushing with shame and arousal.  A gorgeous green face with dark eyes and curved horns regards him from the shadow beside the now-empty portal frame.  As she steps toward the young man, her own nudity is revealed in her swaying breasts and bare muff.  The bulge in his pants grows even as he assumes an amateurish boxing stance.' );
 		EngineCore.outputText( '\n\n"<i>I-identify yourself!</i>" he calls, stuttering.  "<i>Friend or foe?</i>"' );
@@ -1693,7 +1693,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.gameOver();
 	};
 	HolliScene.prototype.holliAndGenderlessSittingInATree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The tall, fit traveler steps through the portal, and its swirling colors dissolve to empty air behind him.  The blasted red landscape that welcomes him does so grudgingly, filling his face with a cloud of blown dust that sets him to coughing and sputtering.  Peering through a teary squint, the man looks around for a place that might provide some shelter from the wind and allow him to get his bearings, and a pair of scraggly trees nearby would seem to fill the bill.' );
 		EngineCore.outputText( '\n\nAs he draws closer, though, it becomes evident that he\'s not the only one with the idea figures are already leaning on the trees.  Both nude, one is a gorgeous woman, albeit green-skinned and with horns, while the other appears to be ' );
 		if( CoC.player.skinType !== AppearanceDefs.SKIN_TYPE_FUR && CoC.player.skinType !== AppearanceDefs.SKIN_TYPE_SCALES ) {
@@ -1725,7 +1725,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		EngineCore.gameOver();
 	};
 	HolliScene.prototype.amilyComesBack = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Amily arrives with her belongings over her shoulder and a smile on her face.  "<i>I knew you\'d do the right thing, [name].  I\'ll get my nest set back up.</i>"\n\n(<b>Amily has moved back in!  She can be found in the lovers tab.</b>)' );
 		//CoC.flags[kFLAGS.AMILY_TREE_FLIPOUT] = 1;;
 		CoC.flags[ kFLAGS.AMILY_FOLLOWER ] = 1;

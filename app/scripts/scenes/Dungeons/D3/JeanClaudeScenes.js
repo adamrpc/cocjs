@@ -1,18 +1,18 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
 	function JeanClaudeScenes() {
 	}
 
 	JeanClaudeScenes.prototype.gogoFuckTheseBasilisksNorth = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You put your Laybans back on, carefully unlock the door and then, as quietly as you can, creep back out onto the wire gantry. The throng of greyish green below seems oblivious. It’s only when you get halfway across that you realize that you’ve been had. As soon as you are as far away from one exit as the other, two big groups of the lizards near the stairs immediately jump up and climb upwards determinedly. You speed as fast as you can to the door ahead, but the team of basilisks are ready and plough into you, grabbing your body as they reach for your shades. You desperately push and elbow them away from you but you cannot stop one from deftly hooking your Laybans off with his sickle claw.' );
 		EngineCore.outputText( '\n\nA horrible leaden weight settles upon your bones as your naked eyes gaze into a dozen basilisk eyes, your body turning into rapidly solidifying cement. You reach for your [weapon], but it’s as if it were a continent away, and the lizards press into you, grabbing your hands and [hips], forcing you to stare deeper and deeper into the ocean of depthless grey which surrounds you on all sides, and encompasses you, and where you were and what you were doing no longer matters, because the grey permeates your body and soul, and you are just an atom in a sky of peaceful, dove coloured submission, and whether you’re up or down or sideways or down doesn’t matter...' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.capturedByBasilisks );
 	};
 	JeanClaudeScenes.prototype.gogoFuckTheseBasilisks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You breathe deep, steel yourself' );
 		if( CoC.player.hasKeyItem( 'Laybans' ) >= 0 ) {
 			EngineCore.outputText( ', put your shades on' );
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		}
 	};
 	JeanClaudeScenes.prototype.capturedByBasilisks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Down. You’re staring up at the ceiling of the magpie hall, from your position upon your back. Your limbs are seized up, are not responding to any of your brain’s frantic demands, and you can only see what is in the corner of your frozen gaze, which is lots and lots of basilisks standing over you staring back.' );
 		// And now, what should we do?;
 		EngineCore.outputText( '\n\n“<i>Et maintenant, que devrions-nous faire?</i>” says one.' );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		}
 	};
 	JeanClaudeScenes.prototype.capturedByBasilisksRun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With all your willpower you tear away from the monster’s lidless gaze. His sharp claws graze your cheeks as you throw yourself backwards, turn and charge with a defiant cry into the ranks of reptiles which surround you. You have your [weapon] loose, and you swing it this way and that, adrenaline and desperation lending you strength as you send basilisks flying... but there are hundreds of them, and one of you, and too many places not to look. You strike, you punch, you scratch, you bite, but eventually your limbs tire; they seize up as you tear yourself away from one grey gaze only to find another, and the basilisks simply have to surround you, pack you tight with their bodies while one of them stares deep into your eyes, flooding your mind with a blaring, hypnotic wash. There’s a sound coming from somewhere strange, staccato bark. It’s only when the lizards return you frozen to the feet of their king that you realize what it is. The Rude King is laughing, sat on a table and doubled up with gulping mirth.' );
 		EngineCore.outputText( '\n\n“<i>You’re fast, interloper! And you fight good! But not so bright, eh? I think you think fast, but a stupid thought is a stupid thought, whether it takes a second or an hour to arrive.</i>” He reaches forward and almost tenderly takes you by the cheek again, rubbing the lines he left there with his smooth thumb, forcing you to look back into his eyes. “<i>See? All you managed was to damage yourself. That’s no good to anyone, is it?</i>” It occurs to you that since you were captured none of the basilisks have used their claws or teeth against you, and you realize why that is- they want you whole. You groan deep in your still throat as the hot, yellow glow of Jean-Claude’s eyes encompasses you.' );
 		// [go to bad ends];
@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		EngineCore.addButton( 0, 'Next', this, this.basiliskBadEnds );
 	};
 	JeanClaudeScenes.prototype.capturedbyBasilisksTaunt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stare into the yellow, hypnotic eyes and for a moment see beyond them, see them as part of this being rather than the whole, see the arrogance that sits behind them, see, perhaps, a way out of this. With all your willpower you force your mouth to open, work your vocal chords- and make a \'pfft\' noise.' );
 		EngineCore.outputText( '\n\n“<i>Some king you are,</i>” you manage. Jean-Claude draws back, looking slightly surprised, and emboldened you press on. “<i>Your servants did all the hard work- you just came out to claim all the credit at the end. Is that how it works for basilisks? You get the day-glo eyes for sucking demon dick, and then sit on your ass whilst everybody else does the thinking and fighting for you?</i>”' );
 		EngineCore.outputText( '\n\n“<i>You dare...</i>” the rex whispers, deep in his throat. His eyes have turned a yellowish white. You raise your voice, so every basilisk in the hall can hear.' );
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		Combat.startCombat( new JeanClaude() );
 	};
 	JeanClaudeScenes.prototype.beatDaFuckhugeBasilisk = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] = 1;
 		if( hpVictory ) {
 			EngineCore.outputText( 'Jean-Claude makes a sound like a tree in a gale as he falls to one knee. Breathing heavily and foaming at the mouth, he attempts to stand back up- and promptly gives at the knees, falling to the floor with a heavy thump. There is a mighty intake of breath in the room. Ignoring the spectators, you step carefully towards the shuddering mound of scales and brass, kicking away his cutlass as you do.' );
@@ -147,14 +147,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		EngineCore.addButton( 0, 'Go Away', this, this.goAway );
 	};
 	JeanClaudeScenes.prototype.goAway = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You draw yourself up to your full height, calm your slightly giddy emotions and make your voice as cold and commanding as possible. You say you aren’t anyone’s new king, but since they ask, your orders are that any basilisk still within half a mile of this place in five minutes time is going to get twice the ass-whupping you just handed out to this one. You indicate with an airy wave what was, until recently, Jean-Claude. There’s a pause, followed by a minor earthquake, as the horde of reptiles pours towards the exit. You climb onto the table and watch them go, assuring that they all do indeed vamoose. If they display any emotion at all during their mass exodus, it’s one of distinct relief.' );
 		EngineCore.outputText( '\n\nWithin a minute the huge hall is echoingly empty, the forgotten corpse of the rex and the tables of jetsam and eggs the only signs the basilisks were ever here. You are free to get up onto the gantry again and leave.' );
 		CoC.flags[ kFLAGS.D3_BASILISKS_REMOVED_FROM_MAGPIE_HALL ] = 1;
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	JeanClaudeScenes.prototype.fuckhugeBasiliskFuckedYouUp = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( !hpVictory ) {
 			EngineCore.outputText( 'You look down at the [weapon] in your hand in bleary confusion. Why are you holding it? Everything feels slow and close, your body almost painful with arousal and sensitivity, and you can’t push beyond it, can’t fathom where you are, what is happening, who you are. It’s the golden glow- it surrounds you and blots everything else out. When Jean-Claude steps in and almost kindly grabs your [weapon] out of your unresisting hands and takes you by the chin, you almost groan. So big, so powerful, so in control- everything you are not. You gladly stare into his maddening yellow eyes, gladly intensifying the feeling of delicious helplessness they give you.' );
 			EngineCore.outputText( '\n\n“<i>I told you it was a mistake, interloper,</i>” he husks. “<i>But a good one, as far as mistakes go. It got my blood pumping. You cannot enjoy something you haven’t properly earned, eh?</i>”' );
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		}
 	};
 	JeanClaudeScenes.prototype.regularBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The Rex’s yellow glow encompasses you, glaring out everything - your purpose, your memories, your sense of self, replaced only by the need to stare deeper and deeper into the pits of gold, the depthless lava of his will which rolls over you, heating you within and without. When he steps into you and puts his warm, smooth hand on your waist you almost flinch, you are that sensitive to his presence. He grins with the exhilaration of a conqueror as he draws you further into himself. The nagging undercurrents of your own body rise to the surface as you feel his warmth and smell his powerful musk;' );
 		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ' your [vagina] beads with excitement' );
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, JeanClaude, AppearanceDefs, S
 		EngineCore.gameOver();
 	};
 	JeanClaudeScenes.prototype.bwombBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The Rex’s yellow glow encompasses you, glaring out everything- your purpose, your memories, your sense of self, replaced only by the need to stare deeper and deeper into the pits of gold, the depthless lava of his will which rolls over you, heats you within and without. When he steps into you and puts his warm, smooth hand on your waist you almost flinch, you are that sensitive to his presence. He grins with the exhilaration of a conqueror as he draws you further into himself. The nagging undercurrents of your own body rise to the surface as you feel his warmth and smell his powerful musk; your [vagina] beads with excitement and the bubble which sits in front of your stomach seems to expand, flooding your system with pheromones which make your heart pump faster and your skin turn red as your body reacts to the presence of this alpha male. Jean-Claude breathes your own smell deeply, his smile widening as he stares into your unfocused, helpless eyes.' );
 		EngineCore.outputText( '\n\n“<i>So,</i>” he husks, “<i>that is true, too. Do you know I had six of my scouts beaten for telling lies? For bringing back the story about a wanderer of the mountains who smells exactly like a female basilisk? Wishful thinking, I thought- I had heard it a hundred times before. And yet here we are, interloper. Here we are. The answer to our curse. How did you do it? Why did you do it?</i>” He is fretful with excitement, his breathing heavy and tail lashing as he slides his hand down to squeeze your [butt], handling you like a choice cut of meat. You wish you could step away from your body and his, feel disgust at the deep excitement and anticipation your modified womb is pressing on you, remember the reason why you changed yourself in this way, but you can’t. You can’t tear yourself away from the golden glow, how hot and soft it makes you feel bathed in its radiance, and- you can’t remember the reason. You struggle. You wanted to help the basilisks. That can be the only reason. And you’re here now, with their leader, and... you sigh. Everything suddenly feels right, your horny body and frustrated mind clicking into sync. You wanted to help the basilisks, you changed your body to do it, and now you’re here, ready to begin. You return Jean-Claude’s smile gladly, pleased with your breakthrough.' );
 		EngineCore.outputText( '\n\n“<i>Ah, you’ve remembered the why of it,</i>” he murmurs, his rich voice resonating deep in your bones as his hypnosis rolls over your unresisting mind, like soft, unceasing fingers on your [clit]. “<i>The how of it does not really matter, does it? Not anymore. Undress me.</i>” Happily you get to work, stretching to undo the clasps of his breastplate, your hands sliding over his hot, smooth scales, glorying in his size and strength as you denude him of his tunic and helmet.' );

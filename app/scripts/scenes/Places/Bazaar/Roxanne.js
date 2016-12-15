@@ -714,12 +714,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 				}
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	//PC has a big butt and loses to normal Roxanne;
 	Roxanne.prototype.bigBootyRoxanneContestLoss = function() {
 		EngineCore.spriteSelect( 78 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Gods, your head is swimming!  The room is pitching from side to side, and you ' + CoC.player.mf( 'chuckle', 'giggle' ) + ' as you idly wonder if this is what it would be like aboard Roxanne\'s ship.  Still, the well-endowed shemale doesn\'t seem to mind your tipsy bumbling in the slightest.  She hooks her hands under your [butt] and squeezes the spacious ass-flesh appreciatively, then growls, "<i>Such a nice, round ass; perfect for stuffing with cock!  You\'re wasted as a champion.  You\'d make a better cabin-' + CoC.player.mf( 'boy', 'girl' ) + ',</i>" into your ear as she drags you towards her wagon.' );
 		EngineCore.outputText( '\n\nWooden planks rattle as you\'re pushed against the door, your cushiony cheeks smushing out to the sides to stretch your [armor].  The busty victor nuzzles your neck, leaving lewd, drunken licks all the way up to your chin.  Her moist sighs wash over you as she begins to pant faster and faster, her quickening arousal all but stealing the breath from both of your mouths.  Squishing up against your thigh, the lizard\'s semi-flaccid member is slowly filling, growing harder and harder as it floods with burgeoning passion.  At some point it escaped the pirate\'s imprisoning leather pants, and you drunkenly look down at it.' );
 		EngineCore.outputText( '\n\nReflexively, Roxanne\'s penis grows once you look down at it, gaining four or five inches in seconds.  It pauses for the split-second before its owner\'s next heartbeat, and then it expands again.  This time, it lurches upward, the sensitive glans bouncing off your [hips] before coming to rest against your belly.  The inflating cockflesh slides up to your [chest], leaving a trail of glistening pre-cum as it goes.  Roxanne coos, "<i>Oooh, let\'s get you inside before we make too much of a scene!</i>"' );

@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( Descriptors, Utils, PregnancyStore, AppearanceDefs, StatusAffects, EngineCore, ConsumableLib, Mutations, SimpleConsumable ) {
+angular.module( 'cocjs' ).run( function( MainView, Descriptors, Utils, PregnancyStore, AppearanceDefs, StatusAffects, EngineCore, ConsumableLib, Mutations, SimpleConsumable ) {
 	
 //MouseCo
 //tooltip:
 //A handful of rare aromatic beans with sharp creases in the middle, making them look like small mouse ears.  Allegedly very popular and plentiful before the mice-folk were wiped out.
 //Mouse Cocoa/MousCoco (you can change the name if you're saddlesore I guess but I'll make fun of you for having no plausible source of chocolate for your bakery if you do)
 	var mouseCocoa = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
 		if ( Utils.rand(2) === 0) {

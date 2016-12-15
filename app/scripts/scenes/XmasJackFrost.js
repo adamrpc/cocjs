@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffects, Utils, PregnancyStore, Descriptors, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, StatusAffects, Utils, PregnancyStore, Descriptors, kFLAGS, CoC, EngineCore ) {
 	function XmasJackFrost() {
 	}
 
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	 */
 	//Takes place when exploring the mountain.;
 	XmasJackFrost.prototype.meetJackFrostInTheMountains = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you explore the mountainous heights, you come across something strange - a great spray of cold, wet, soft, creamy substance.  You realise with a start that it\'s snow!  You haven\'t even seen rain since you came to this world.  What\'s more, looking around shows you other strange drifts of snow; it almost looks like a path of some sort.  Curious, you decide to follow them, see if you can track down what\'s causing it.' );
 		EngineCore.outputText( '\n\nWhile hiking up the mountain you hear a strange masculine voice.  "<i>Yeah, that should be enough... but this part needs some more!</i>"  Shortly after you hear the faint, but distinct sound of someone masturbating furiously.' );
 		EngineCore.outputText( '\n\nCurious, you slink closer; that doesn\'t sound like any imp you\'ve encountered so far... as you creep through the rocks, the target of your investigation suddenly lets out an ecstatic howl.  A great wooshing, roaring noise fills the air... which is the last thing you notice before something cold, wet and sticking lands on you in a massive flurry, knocking you to the ground and completely burying you.' );
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	};
 	//[=No=];
 	XmasJackFrost.prototype.noJizzingInMyCampPlease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You thank the giant for his offer, but you\'ll have to refuse.  You really can\'t take even one day off your quest.' );
 		EngineCore.outputText( '\n\n"<i>Pity... well, if you\'ll excuse me, this mountain ain\'t snowy enough just yet!</i>"  He resumes his furious masturbation, spraying another gush of snow on the side of the mountain.' );
 		EngineCore.outputText( '\n\nSeeing no reason to linger, you return to your camp.' );
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	};
 	//[=Yes=];
 	XmasJackFrost.prototype.jizzSnowOnMyCampPlease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look around, and then find a convenient rock to climb.  From here, you can see your camp, and you indicate to the friendly giant where it is.  "<i>Alright, I\'ll make sure to paint it white.</i>"  He chuckles once more.  "<i>I have a pretty good aim, I\'ll have you know, and my friend here can pump it far!</i>"  He pats his enormous dick.  "<i>Off you go, then.  And merry Winterfest.</i>"  He smiles turning to point his gigantic prick at your camp and beginning to masturbate furiously.' );
 		EngineCore.outputText( '\n\nYou thank him for the surprisingly kind gesture, and start to head back down to camp.  Even as you go, you can see the first huge jet of snow arcing its way across the sky...' );
 		CoC.flags[ kFLAGS.JACK_FROST_YEAR ] = OnLoadVariables.date.fullYear;
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//Back in camp;
 	XmasJackFrost.prototype.processJackFrostEvent = function() {
 		EngineCore.hideUpDown();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Each follower PC has adds a block, having no followers just plays the no followers block.;
 		//Corrupts can forget about their lust for one day to play on the snow.;
 		if( CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] === 1 ) {
@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Fuck Her=];
 	//PC needs to have a cock.;
 	XmasJackFrost.prototype.kihaXmasFuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 67 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -573,7 +573,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Lick Boobs and Finger Pussy=];
 	//All sexes!;
 	XmasJackFrost.prototype.kihaXmasFingering = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You examine Kiha.  A small snowflake lands on one of her nipples and she yelps with a start at the sudden contact.   "<i>Hey, I asked you to help warm me up, not to stare at me!</i>" she complains. ' );
 		EngineCore.outputText( '\n\nYou tell her not to worry, you know just the way to warm her all up.  "<i>Get on with it then,</i>" she grumbles.  You grab hold of the impatient dragoness\'s boobs, massaging them gently, and lick the snowflake off her nipple.  Taking it in your mouth to suckle, you nip at her erect nub.  She gasps and moans in equal parts pleasure and shock.  "<i>W-what?  Oh, that\'s nice, but, how\'s that going to help?</i>"  You unlatch from her breast momentarily to wink at her and tell her to trust you - you know what you\'re doing.  "<i>You perv,</i>" Kiha says, but she\'s smiling as she does so.' );
 		EngineCore.outputText( '\n\nYou pay no heed to her words, preferring instead to show her what you mean.  One of your hands slowly slides down her body, over her belly, and finally over her labia.  Slowly, you begin massaging her suddenly moist netherlips.  Wordlessly the mock-dragon lets you do so, moaning and hissing softly at the obvious pleasure your actions are bringing to her.  You switch breasts, turning your attention to her other nipple, and with your thumb, you press on her little pleasure buzzer.  With a hiss, Kiha reaches out and takes hold of your cheeks.  "<i>Mmm, not what I had in mind, but I\'ll go with it,</i>" she declares, gently stroking your face.' );
@@ -589,7 +589,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Fuck Her=];
 	//Needs PC with cock that fits.;
 	XmasJackFrost.prototype.penetradePureMouseWaifu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Stripping down your [armor] and indicating Amily should do the same... you tell her that you were hoping for some good old-fashioned sex between a horny ' + CoC.player.mf( 'man', 'herm' ) + ' and ' + CoC.player.mf( 'his', 'her' ) + ' lovely mousette.  You playfully ask Amily if she has any objections?' );
 		EngineCore.outputText( '\n\n"<i>Well, it\'s a little counterproductive to take your clothes off if you want to get warm,</i>" Amily notes.  Despite her words, she\'s stripping off without the slightest hesitation.  You reply that just the sight of her getting nude is already making you a little warmer... thrusting your hips so she can see your erect ' + CoC.player.multiCockDescriptLight() + '.  "<i>Flattering flirt; you always think with your dick, don\'t you?</i>" the mouse laughs.  That\'s rich; you can see her pussy dripping from here' );
 		if( CoC.flags[ kFLAGS.AMILY_WANG_LENGTH ] > 0 ) {
@@ -618,7 +618,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Make out=];
 	//For any gender.;
 	XmasJackFrost.prototype.makeOutWithPureMouseWaifu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You strip down your [armor] and suggest Amily should do the same.  "<i>Well, it\'s a little counterproductive to take your clothes off if you want to get warm,</i>" Amily notes.  Despite her words, she\'s stripping off without the slightest hesitation.  "<i>So, what\'s on your mind, lover-' + CoC.player.mf( 'boy', 'girl' ) + '?</i>" she asks.' );
 		EngineCore.outputText( '\n\nYou say that with all that\'s been going on lately, the two of you just haven\'t been able catch a break... so today, you\'d like to just forget about everything and spend some quality time with her... not by having sex... though you don\'t mind doing it either, but... you\'d just like to sit back and enjoy your pretty mousette, mother of your children, properly.  You ask if she\'s getting what you\'re saying?' );
 		EngineCore.outputText( '\n\nShe smiles at you with joy.  "<i>If all you want is to stay close to me, then I\'d be more than willing to humor you - I had thought that all last remnants of romance had been squeezed out of this world.  I\'m going to enjoy this,</i>"  she promises to.  "<i>Though... why do we need to be naked to sit and cuddle?</i>" she asks, clearly baffled.' );
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Pen Ass=];
 	//PC needs a cock.;
 	XmasJackFrost.prototype.penetradeCorruptJojoAss = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You roughly pull the mouse slut\'s tail out of the way, getting a clear look at his accommodating ass.  Your broken slut of a murine monk rises to the tips of his toes in anticipation, already moaning in delight at the thought of your ravaging his ass.  You laugh at him, telling him he has come very far ever since the first time you\'ve violated his bum.   "<i>Yes [master], thank you [master],</i>" is all Jojo\'s corrupted brain can think to say.' );
 		EngineCore.outputText( '\n\nFeeling like you\'re just wasting your time, you drop your lower garments and begin stroking yourself into an erection.  With a throaty groan, Jojo wiggles his ass, crudely trying to tempt you to start.  You roughly shove your [cock] as far as it\'ll go on the former monk\'s ass, sinking a few inches in without any resistance.  Moaning, pre already dribbling from his cock, the fallen mouse bucks eagerly back into you, trying to shove more of your cock up his ass.' );
 		EngineCore.outputText( '\n\nYou slap his ass, commenting on what a slut he is, getting so worked up about having his ass violated... does he really enjoy it that much?  "<i>Yes, oh, [master], yes I do!</i>" he vows.  Good, as he should.  You grab hold of his hips and pull them towards you, while thrusting yourself to the hilt into your mouse-slut\'s once tight ass, giving him a complementary slap on the butt in the process.  Jojo squeals like a sow in heat, thrusting back eagerly to swallow your cock, too horny to care about the pain his actions might cause him.  Without further ado, you begin pistoning yourself in and out of his ass, with nary a hint of worry about the monk\'s own enjoyment, not that you should considering each time your hips meet with a loud slap his cock pumps out a stream of pre.' );
@@ -664,7 +664,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Ride Cock=];
 	//PC needs vagina;
 	XmasJackFrost.prototype.rideCorruptJojoCock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a flourish, you easily discard your [armor].  Then you grab a hold of the mouse-slut\'s tail and twist it to the side, forcing the former monk to crash into the ground on his back, shaft half-erect and covered in melting snow, pointing upwards like a perverted pole.  You ask him if he can see anything he would like from his current vantage point.' );
 		EngineCore.outputText( '\n\n"<i>Y-yes [master],</i>" Jojo meekly declares, unable to take his eyes from your [cunt].  His cock immediately grows to full mast, which you can\'t help but think is one of his more convenient features since you remade him into this far more enjoyable version of himself.' );
 		EngineCore.outputText( '\n\nYou take his shaft into your hand, stroking it languidly, milking the mouse-slut\'s thick pre and spreading it along his shaft as you do so.  You ask him what he would like you to do.  "<i>F-fuck me, [master]!  Fuck me!</i>"  He cries, moaning as he bucks his cock furiously into your clasping hands.' );
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, StatusAffect
 	//[=Spank and Finger Ass=];
 	//Available to all.;
 	XmasJackFrost.prototype.spankNFingerCorruptJojoAss = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Not bothering to undress, you yank the mouse\'s ropy tail out of the way with brutal force, to gaze at his white, heart-shaped ass.  Jojo stands on the tips of his toes, moaning at the rough treatment that surely follows.  His ass looks so inviting... so deserving of a good hard smack... you ask the former monk-turned-slut how he would like a good beating on his ass.' );
 		EngineCore.outputText( '\n\n"<i>M-[master], please, spank me!  I\'m such a naughty boy - spank me hard!</i>" Jojo cries.  You laugh at your wanton slut.  You\'ve never seen a mouse as perverted as this, begging to be spanked and getting off on the idea... well, the slut certainly deserves it... you\'re pretty sure he has been masturbating without your permission, and you can\'t have that.' );
 		EngineCore.outputText( '\n\nJojo just wiggles his bare ass, doing his best to make it look as tempting as possible for you.' );

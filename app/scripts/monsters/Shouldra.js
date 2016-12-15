@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Des
 				this.lust += 5 * this.lustVuln;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};

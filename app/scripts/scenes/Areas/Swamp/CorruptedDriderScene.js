@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDefs, UseableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, AppearanceDefs, UseableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
 	function CorruptedDriderScene() {
 	}
 
@@ -936,7 +936,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 
 	CorruptedDriderScene.prototype.driderVagSmartFuck = function() {
 		EngineCore.spriteSelect( 77 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Drider Non-reverse Rape;
 		//Requires a cock that fits and either a spider/drider abdomen or a bundle of tough spider silk;
 		//Radar (completely correctly) said it was too rapey, so I tried to tone it down.  Let me know if it's still over the top.;
@@ -972,7 +972,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 	//[No] ;
 	CorruptedDriderScene.prototype.dontSilkRapeDrider = function() {
 		EngineCore.spriteSelect( 77 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Deciding against wasting the valuable material for little more than a quick fuck, you ponder your other options for using the defeated girl.' );
 		//(Return to 'win' menu);
 		EngineCore.doNext( this, this.defeatDriderIntro );
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 		}
 		var y = x + 1;
 		if( useItem ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			CoC.player.consumeItem( UseableLib.T_SSILK );
 			EngineCore.outputText( 'Smirking to yourself, you advance on the collapsed girl, [cock ' + y + '] straining against your clothing in anticipation of what\'s to come.' );
 		}
@@ -1023,7 +1023,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 			x = CoC.player.smallestCockIndex();
 		}
 		var y = x + 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The drider seems to be completely oblivious, apparently too focused on ignoring your hand still roaming over her chest to realize your intentions.  You start to prepare the ball of silk with one hand, keeping the other on her chest to distract her from your actions.  You notice that the silk is starting to glisten slightly as the juices on your hand begin to stain the material and the sight gives you a devious idea.  Wrapping the strands around your hand, you dip it down in between your bodies, trying to absorb as much pre-cum as possible.  You run it over your slick stomach, as well as the small of the spider-taur\'s back, making her squeak slightly at the strange, wet sensation.  As you brush the dampening sheet over your still-leaking length, you have to choke back a moan as the soft, slick, sticky silk sticks slightly to your [cock ' + y + '].' );
 		EngineCore.outputText( '\n\nYou grunt as you pull the material off, a few strands clinging stubbornly to your head as you withdraw it from between your sweat-slicked bodies.  It crosses your mind that the grasping, wet cloth could make a great toy for playing with when you\'re all alone, but you dismiss the idea for now, reasoning that you\'ve got a perfectly good slut here to play with and you might as well make the most of her.  The silk is now sodden, slowly dripping with the excess seed that you\'ve collected in it.  Deciding that it\'s now or never, you remove your hand from the drider\'s breasts, pulling the wet material taut between your hands, forming a wide strip of tough silk.  Before she can react to the sudden loss of sensation, you strike, throwing your hands over her head and wrapping the cum-soaked material around her drooling mouth.  She thrashes as you pull it tight and tie it off, but her weakened body is no match for your own lust-fueled frame, especially with her arms already out of the way.' );
 		EngineCore.outputText( '\n\nOnce you are sure the gag is secure you jump to your feet abruptly, leaving the drider to splash back into the shallow water of the swamp floor, her hair and chest becoming drenched once again as water cascades over her struggling form.  You loom over the trapped girl, your cock twitching in the air as your eyes drink in her completely exposed form, the sight compelling you to start removing your armor as quickly as possible.  She seems to be having trouble with her new facial wear; you can see her mouth moving through the wet material and it looks as if she is trying to keep the silk away from her lips by pushing at it with her tongue.  It looks as though she isn\'t a big fan of the taste that you "infused" it with and she starts to whip her head left and right, trying to wash the silk in the water that she\'s lying in.' );
@@ -1055,7 +1055,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CorruptedDrider, AppearanceDe
 			x = CoC.player.smallestCockIndex();
 		}
 		var y = x + 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Grabbing the drider by her shoulders, you find the girl surprisingly light despite your weakened state.  Swiftly dragging her through the shallow water to a patch of firmer ground, you prop her up against a web-covered tree before recovering your gear.  She mumbles slightly whilst you redress yourself; it looks like she\'s going to be out of it for a while.  ' );
 		//[if (corruption >= 70);
 		if( CoC.player.cor >= 70 ) {

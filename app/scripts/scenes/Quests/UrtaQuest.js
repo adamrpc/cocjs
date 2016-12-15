@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Revelations Talk(C)*;
 	//Requires Lover Urta;
 	UrtaQuest.prototype.talkWithUrtaAboutFamFam = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Urta recoils at the topic, but then visibly steels herself, nodding her head.  "<i>All right... they\'re really not very pleasant topics, but you and I...  I owe you a lot, ' + CoC.player.short + '.  You\'re the most special person in my life.  So, I guess I can tell you what my so-called family was like.</i>"  She looks down at the table, staring miserably at her latest drink.  "<i>Obviously, I didn\'t hatch from a stone egg or something like that, but I never really had a family.  My mother died when I was just a baby and my father hated my guts because of it.</i>"' );
 		EngineCore.outputText( '\n\nThe vixen sighs sadly, shaking her head as unpleasant memories come flooding back.  "<i>I have the dubious honor of being one of the very first herms to be born in Tel\'adre.  Oh, there were supposedly herms born before the demons, but I\'ve never met or heard of any.  So, when I come into the world, all fluffy and new, a baby girl with a little baby fox-dick between my legs, my parents absolutely freaked.  They thought I was some kind of monster, or that I was a punishment for their sins, or something like that.  The old woman was so horrified at what she\'d given birth to that, barely a month after I was born, she managed to sneak off and hang herself.</i>"  Urta laughs bitterly at that, unable to look at you.' );
 		EngineCore.outputText( '\n\n"<i>For two gems, the old man probably would have dumped me in an orphanage... but he never did.  I don\'t know why... and, a lot of nights before I met you, I wish he hadn\'t even let me live... but he raised me himself.  Always blamed me for mom\'s death, though, and never hid the fact he resented that I lived when she died.</i>"  Urta is trying to be strong and keep her voice neutral and disinterested, but it\'s obvious that there is old pain in her voice and tears fighting to escape her eyes.' );
@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Comfort Her(C)*;
 	UrtaQuest.prototype.comfortUrtaAfterFamFamTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You lean over the table and take Urta\'s hands in your own.  Her downy fur ruffles as you give her a comforting squeeze, the tension oozing from her body at your touch.  Urta sniffles a little and wipes her moistened cheek on her shoulder, muttering, "<i>Oh, ' + CoC.player.short + ', you\'re too good for me.</i>"  She pulls back and gives you a knowing smile.  "<i>You don\'t have to worry, really.  You turned this down on her luck lush into a happy woman.</i>"' );
 		EngineCore.outputText( '\n\nUrta pauses then gives you a wry smile as her voice turns husky.  "<i>Or should I say you\'ve made me a happy herm?  A VERY happy herm.</i>"  A cylindrical distension begins to rise up her dress.  The sheer fabric strains, but contains it for now.  The tip of the distortion disappears into the foxy fox\'s ample bust.  You can see the flare peaking out of that simple valley, already oozing slightly.  Urta follows your gaze down and smirks.  "<i>You know, I used to hate having this happen,</i>" she says as she stands up and stretches, showing the bulge off to you and anyone else lucky enough to glance in her direction.  Sliding into your arms, the vixen plants a ' );
 		if( SceneLib.urta.urtaDrunk() ) {
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Yeesh(C)*;
 	UrtaQuest.prototype.yeeshUrtaAfterFamFamTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You loudly exhale, "<i>Yeesh,</i>" with a bemused expression.' );
 		EngineCore.outputText( '\n\nUrta\'s tail raises up behind her, bristling and bushy.  She indignantly declares, "<i>Well fuck you, ' + CoC.player.short + '!  I just bared the scars of my youth to you, and all you can do is respond with this callous bullshit?</i>"' );
 		EngineCore.outputText( '\n\nYou casually stand and stretch.  Then, as the angry fox watches, you circle the table to come up beside her.  You roughly take hold of her tits with one arm, lifting her out of her seat and into your unavoidable embrace.  Your other hand presses down on the silky black fabric between her legs, finding the bulgy, sensitive sheath and drooping equine length you were looking for.  Urta leans back and whispers an "<i>Oooooh</i>" of pleasure, barely noting when her burgeoning length manages to raise the hem of her dress up over her hips, exposing her cock and balls to anyone lucky enough to glance in your direction.' );
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Who Cares(C)*;
 	UrtaQuest.prototype.whoCaresUrtaAfterFamFamTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Who cares?</i>" you ask, without a hint of compassion.' );
 		EngineCore.outputText( '\n\nUrta stiffens, tail rising up behind her, gone bushy with anger.  "<i>WHAT?</I>"' );
 		EngineCore.outputText( '\n\nYou rise to leave and  glance over your shoulder at her.  "<i>I don\'t care about your tragic history.  I really don\'t, and I doubt anyone else would either.</i>"' );
@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Infertility Discussion(C)*;
 	//Requires PC have discussed family with her previously.;
 	UrtaQuest.prototype.infertilityQuestions = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask her about her infertility - specifically, how someone could be infertile AND unable to use transformative items without adverse effects.  Urta stirs her drink before shrugging noncommittally.' );
 		EngineCore.outputText( '\n\n"<i>I don\'t know. Hell,  I\'ve never even heard of anyone having a reaction like mine before,</i>" Urta says.  "<i>Sure, there\'s plenty of folks who react poorly, but in those cases, nothing happens.  On the flipside, I\'ve heard of folks completely changing species from a single uncooked canine pepper.  There\'s even a few foxtaurs prowling around - centaurs that got into foxberries with unexpected results.  None of those are anything like me - nobody takes one thing and has a wildly different and opposite reaction.  And being infertile? I don\'t think anyone younger than fifty besides me is infertile in this whole gods\'-damned city.</i>"' );
 		EngineCore.outputText( '\n\nHow can that be?' );
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 
 	//Urta Appearance Screen(C)*;
 	UrtaQuest.prototype.startUrtaQuest = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		$log.debug( 'Cloning PC\'s items' );
 		// *SERIALIZE* out the players current Player object + items;
 		this.urtaQItems1 = CoC.player.itemSlot1;
@@ -226,7 +226,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		CoC.player.setWeapon( WeaponLib.URTAHLB );
 		CoC.player.setArmor( ArmorLib.URTALTA );
 		//DISPLAY SOME SHIT YO;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] = 0.75;
 		EngineCore.outputText( '<b>You are Urta, a hermaphroditic fox-morph.</b>' );
 		EngineCore.outputText( '\n\nYou have a vulpine face, fox-like ears atop your head, a bushy fox\'s tail on your ass, and paw-footed fox-like legs.  Your eyes are a rich green and your lips are a glossy black.' );
@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//The Tower of the Covenant(C)*;
 	UrtaQuest.prototype.towerOfTheCovanant = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You get up to leave the table, nervously wrapping your tail down your leg, even though ' + CoC.player2.short + ' helped you overcome that timid habit long ago.  You tell ' + CoC.player2.mf( 'him', 'her' ) + ' that ' + CoC.player2.mf( 'he', 'she' ) + ' can\'t follow.  To bring ' + CoC.player2.mf( 'him', 'her' ) + ' into the tower would require countless tests for what should only take a few brief moments if you go alone.  Secretly, you wish ' + CoC.player2.mf( 'he', 'she' ) + ' could come with you and hold you tight, to comfort you through this nerve wracking ordeal.  Lifting your chin, you marshal your courage and walk out, wiggling your bottom in ' + CoC.player2.short + '\'s direction to remind ' + CoC.player2.mf( 'him', 'her' ) + ' what ' + CoC.player2.mf( 'he', 'she' ) + '\'ll be claiming tonight if a solution can be found.' );
 		EngineCore.outputText( '\n\nThe door to the Wet Bitch closes behind you with a dull thunk, shutting you off from the warm atmosphere and intoxicating scents you\'ve come to love over your long patronage.  Instead of dwelling on the emotions tying your guts into knots, you focus on putting one furred foot in front of the other.  The crowds of Tel\'Adre\'s most inhabited district are as thick as ever, and they only get worse as you set off towards the temple.  Twice, you almost get trampled by centaurs rushing to their errands.  They have the good sense to apologize with "<i>Sorry, Urta!</i>", but they really ought to be more careful.' );
 		EngineCore.outputText( '\n\nA wolf, barely of mating age, bumps into you, trying to reach for your gem pouch with surprisingly skilled fingers.  You growl as you seize his wrist and wrestle him into a wall, slamming him into the old sandstone bricks with enough force to set loose an avalanche of dust that tickles at your nose.  The little pup\'s eyes are as wide as dinner-plates, terrified beyond measure.  You let him loose with a warning, telling him that he had better be glad he was caught by an off-duty watch-woman and not someone less savory.  He nods and scampers off as soon as he realizes you\'re done with him, vanishing into the crowds in seconds.  He\'ll probably go right back to his law-breaking, but maybe, just maybe, the encounter will make him rethink his chosen profession.' );
@@ -255,7 +255,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.towerOfTheCovenantII );
 	};
 	UrtaQuest.prototype.towerOfTheCovenantII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You step inside the dimly lit chamber and close the door behind you.  Opposite, Gul\'s frail form rocks in a chair nearly as ancient as he is.  His body is shrouded with voluminous robes that conceal much of his frail body from you, but it is his head that catches your attention.  Milky, sightless orbs stare back at you.  The reason for the lack of lighting becomes clear in that moment - Gul has gone completely, utterly blind since your last meeting.' );
 		EngineCore.outputText( '\n\n"<i>Ah, Urta; it has been some time since you visited me,</i>" the old wolf calls to you, his voice somewhat thinner with age, but still friendly and warm.  His ears twitch as you move, letting you know that while his sight is gone, he still has his hearing.' );
 		EngineCore.outputText( '\n\nYou smile, happy he remembers you, but curious just how much he can tell without his sight...  Will he be able to help you?  You walk up and give him a quick hug, thankful for his previous assistance and hopeful that his talents will again prove useful.  Without preamble, you explain why you came here, leaving nothing out.  Your cheeks burn with the shame of it all, but you soldier on through it.  Gul\'s wisdom was a blessing to you when you met him, and you\'re certain that he\'ll do what\'s right.' );
@@ -293,7 +293,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Savin Contriboots to UrtaQuest: Get Wrekt by Hel, Miko, and Mai. (Or, Needs More Foursomes);
 	//{Before embarking on the Quest for Getting a God out of My Dick, add a [Get a Drink] option before leaving Tel'Adre. Must be Fuckbuddies with Hel.};
 	UrtaQuest.prototype.getHelBangedAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Before you head out, you decide to grab some liquid fortitude at your favorite watering hole. You make your way down to the Wet Bitch, squinting as your eyes adjust to the deep shadows of Tel\'Adre\'s seediest - and sexiest - bar. You slip in, grabbing a stool at the bar; when your drink comes, you toss your gear aside like a physical weight off your shoulders, sighing heavily as you bring the hefty stein up to your lips. The cool beer goes down quickly, washing away your worries about the upcoming quest, and the recent revelations you\'ve been given. Your mind wanders to ' + CoC.player2.short + ', wondering if ' + CoC.player2.mf( 'he', 'she' ) + '\'s set you on the right course...' );
 		EngineCore.outputText( '\n\nA hard shove shocks you out of your reverie. You yelp as someone falls right on you, spilling a whole platter full of drinks right on your lap! Your own drink goes falling to the floor as a head falls flat in your crotch, her cheek brushing against your thick equine prick through the now-soaked fabric of your uniform. The young woman that\'s fallen right into your lap cries out, stuttering out apologies as she tries to stand - only to slip on spilt drinks and fall on her ass, legs spread wide under her too-short skirt, revealing the tight slit of a hairless little cunt... and a sizable prick above it. Seeing your fellow hermaprodite\'s exposed genitalia brings a sudden and unwelcome hardness to your own hidden cock. You quickly close your legs and try to wrap it up in your tail, but with your clothes utterly soaked, the mottled shaft is plain for anyone to see.' );
 		EngineCore.outputText( '\n\n"<i>Oh my gods! I-I\'m so sorry, miss,</i>" the girl whines, closing her legs as soon as she sees what she\'s showing. She\'s just as soaked as you, it seems, her white shirt now completely transparent, giving you a good look at her perky tits and small, stiff nipples. What\'s more, though, is the pair of perky ears atop her otherwise human head: they\'re just like yours - two silvery fox ears! A tail curls in behind her, retreating between her legs in fear as she tries to stand, but she only falls again, her high heels unable to gain traction in the puddle of beer she\'s sitting in.' );
@@ -318,7 +318,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Head Out;
 	UrtaQuest.prototype.leaveB4HelFucksUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As quickly as you can, you blather out some excuse and grab your gear, trying to cover your huge erection as you run toward the door, blurting an awkward thanks over your shoulder for the drink...' );
 		EngineCore.outputText( '\n\n"<i>Uh, bye!</i>" Mai calls out, waving. "<i>See you again some time?</i>"' );
 		//{Continue with UrtaQuest};
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Get "<i>Help</i>";
 	UrtaQuest.prototype.fuckHelAndKitsunesAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide to stick around.  The redhead, at least, is a friend of ' + CoC.player2.short + ', and the way the three are talking, they all seem... loose.  Maybe they can offer you the release you now need.  They\'re responsible for this, after all, you reason as you lustily say "<i>I\'ve got a little friend under the table who wants to say hello.  Maybe you girls can help him get some release, hmm? I promise, I\'ll be real good to you, too.</i>"  The fox-girls look to Helia, little tents perking up under their skirts.  The salamander licks her lips and grins, motioning for you to follow her.' );
 		EngineCore.outputText( '\n\nThe next thing you know, your back is slamming against the wall of an upstairs room, your powerful thighs locked around the salamander\'s waist, lips pressed firmly to hers.  Your wet shirt hangs open, the buttons nearly ripped off to expose your bare breasts, which press tightly against the redhead\'s slightly larger rack.  The fox-girls follow right behind, tossing their skirts and shifts aside to reveal perky C-cups and groins each sporting eight inches of knotty cock, already hard and dribbling precum eagerly as they work to free you from your straining skirt.  Your fat horsecock finally comes free, popping out from under your hem and sliding up between you and Hel\'s tits, becoming instantly enveloped in soft warmth.' );
 		EngineCore.outputText( '\n\nWith lusty grins, the twins drop to their knees and let their tongues go to work, bathing the thick black base of your stallion prick in wet kisses, dragging their tongues up and down your length with enthusiastic speed, lapping at your mottled shaft.  The salamander, meanwhile, presses you firmly against the wall and cups her huge rack, moving it and yours up and down your rod together, titfucking you with yourself.  You moan, head rolling back as the four tits run along the top half of your prick, leaving the bottom to be tended by the fox-twins.  They\'re skilled with their tongues, you manage to think as little shocks of pleasure shiver up your prick to the beat of the fast licks and gentle suckles on your base.  Soon, you\'re panting heavily, your chest heaving with pleasured gasps as the triple attack continues, slowly moving inexorably downward, tongues and breasts moving along your equine endowment.' );
@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Last Rendezvous with PC - Intro + Sex Menu(C)*;
 	UrtaQuest.prototype.visitPCPreUrtaQuest = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You set out for ' + CoC.player2.short + '\'s camp, known to you thanks to the amazing efforts of your scouts.  Behind you, the tower slowly shrinks, less imposing now that you\'ve finished that step on your journey.   Ahead lies uncertainty and struggle.  You know you\'ll likely wind up fighting the corrupted denizens of the lost regions of Mareth in your travels, and it\'s likely at least a demon or two will get in your way.  Still, as you exit the city gates, you give your home a forlorn gaze.  At least there\'s one bright patch ahead - your lover\'s camp.' );
 		EngineCore.outputText( '\n\nThe sun has set by the time you get there, but the darkness conceals your movements thanks to your natural fur color.  ' );
 		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
@@ -434,7 +434,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Last Rendezvous with PC - Sex(C)*;
 	//Put Urta dick in the PC's asshole [Cocked PCs](C)*;
 	UrtaQuest.prototype.urtaPutsHerDickInPCsWithDicks = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You push ' + CoC.player2.short + ' down onto the ground, glad that ' + CoC.player2.mf( 'he', 'she' ) + '\'s not wearing ' + CoC.player2.mf( 'his', 'her' ) + ' gear right now.  Unfortunately, you\'ve still got to get out of yours, an action made all the more difficult by the heat welling up in your groin.  Your rebellious cock is already half-stiff, lifting the hem of your armored skirt away from your thighs.  Fingers scrabbling, you struggle with your chestpiece\'s bindings.  Your nipples stiffen, scraping against the inside of it while you fight to remove it.  You straddle ' + CoC.player2.short + '\'s waist to hold ' + CoC.player2.mf( 'him', 'her' ) + ' down while you work the bothersome, restraining material free, practically grinding your semi-rigid dick against ' + CoC.player2.mf( 'his', 'hers' ) + ' in excitement.  ' + CoC.player2.mf( 'His', 'Her' ) + ' hands begin aiding you in your task, allowing your tightly compressed breasts to finally, happily breathe.   They jiggle as they flop free, and to your delight, ' + CoC.player2.short + '\'s eyes lock on them.' );
 		EngineCore.outputText( '\n\nGrabbing hold of ' + CoC.player2.mf( 'his', 'her' ) + ' head, you pull ' + CoC.player2.short + '\'s lips to one of your puckered nipples.  ' + CoC.player2.mf( 'He', 'She' ) + ' swallows it immediately, grabbing hold of your tits to squeeze and fondle them, openly enjoying the fruits of your womanly shape.  Tingles of electric enjoyment fire from your unrestrained areola when ' + CoC.player2.mf( 'he', 'she' ) + ' squeezes down on the other with ' + CoC.player2.mf( 'his', 'her' ) + ' fingers, expertly twisting the little nub around to give you the maximum pleasure.  In no time flat, you\'re humping ' + CoC.player2.mf( 'his', 'her' ) + ' ' + CoC.player2.cockDescript( CoC.player2.biggestCockIndex() ) + ' openly, letting ' + CoC.player2.mf( 'him', 'her' ) + ' guide your motions with deft, controlling touches to your onyx nipples.  Your pre-cum bubbles out unhindered, the thick gobs swaying and splattering on ' + CoC.player2.mf( 'his', 'her' ) + ' belly and rigid tool, quickly lubricating the phallic embrace into a sticky, hot mess.' );
 		EngineCore.outputText( '\n\n' + CoC.player2.short + ' releases your tender tits after a few particularly sloppy thrusts.  You can feel ' + CoC.player2.mf( 'his', 'her' ) + ' ' + CoC.player2.cockDescript( CoC.player2.biggestCockIndex() ) + ' releasing some of its own pre-cum onto your cock\'s thick spooge-vein, and ' + CoC.player2.mf( 'his', 'her' ) + ' hands fall to grab at the blanket below, unintentionally clenching at the waves of pleasure you\'re giving ' + CoC.player2.mf( 'him', 'her' ) + '.  You bend now, onto all fours' );
@@ -513,7 +513,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//PC blows Urta(C)*;
 	UrtaQuest.prototype.pcBlowsUrtasDong = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ogle your lover\'s naked form, admiring ' + CoC.player2.mf( 'his', 'her' ) + ' beauty.  When your eyes fixate upon ' + CoC.player2.mf( 'his', 'her' ) + ' sweet kissing lips... mmm, you\'d really like to feel those wrapped around your aching dick...  Mustering your courage, you embrace your partner, and gently but insistently push ' + CoC.player2.mf( 'him', 'her' ) + ' to the ground.  Leaning over to ' + CoC.player2.mf( 'his', 'her' ) + ' ear, you say, in a stage whisper, "<i>You have such a pretty mouth, and my cock\'s aching so bad... will you kiss it better?</i>"  You blush, as much from the corniness of your line as from embarrassment at what you\'re asking ' + CoC.player2.mf( 'him', 'her' ) + ' to do.' );
 		EngineCore.outputText( '\n\n' + CoC.player2.short + ' is surprised at your request, but smiles and nods, gently giving your lips a little peck.  A small promise of what\'s to come.  Feeling emboldened by ' + CoC.player2.mf( 'his', 'her' ) + ' willingness, you grab ' + CoC.player2.mf( 'his', 'her' ) + ' shoulder and pull ' + CoC.player2.mf( 'him', 'her' ) + ' deeper into a kiss, eager to savor the lips that will soon be wrapping themselves around your dick, tongue flicking through them to brush up against your lover\'s tongue.  While you\'re  preoccupied with ' + CoC.player2.mf( 'his', 'her' ) + ' mouth, ' + CoC.player2.short + '\'s hands roam your body, seeking the straps holding your leather armor together, peeling off the layers of protection in order to get to your naked body.  You moan appreciatively into the kiss when ' + CoC.player2.mf( 'he', 'she' ) + ' gives your furry breasts an appreciative grope.  "<i>Mmm, you have wonderful hands, ' + CoC.player2.short + '; I love it when you touch me like this...</i>" you croon, and then you kiss ' + CoC.player2.mf( 'him', 'her' ) + ' again to show your appreciation.' );
 		EngineCore.outputText( '\n\nAs wonderful as this feels, however, this isn\'t what you had in mind, something you become aware of when you feel your cock pushing against your lover\'s belly.  Your dick bobs up and down before you, the unflared head slightly expanding and then curling back in as arousal builds.  You break away from your lover and give ' + CoC.player2.mf( 'him', 'her' ) + ' a somewhat sheepish smile.  "<i>Looks like he\'s eager for your kiss,</i>" you giggle nervously, trying to lighten the mood by referring to your penis as if it was its own entity... though the depressing thought occurs to you that, with how often it tends to think for you, there\'s more than a little truth in that idea.' );
@@ -537,7 +537,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Put a PC dick in Urta's vag(C)*;
 	UrtaQuest.prototype.putAPCDickInUrtaCoochies = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player2.cockThatFits( SceneLib.urta.urtaCapacity() );
 		EngineCore.outputText( 'You push ' + CoC.player2.short + ' down onto the ground, glad that ' + CoC.player2.mf( 'he', 'she' ) + '\'s not wearing ' + CoC.player2.mf( 'his', 'her' ) + ' gear right now.  Unfortunately, you\'ve still got to get out of yours, an action made all that more difficult by the heat welling up in your groin.  Your rebellious cock is already half-stiff, lifting the hem of your armored skirt away from your thighs.  Fingers scrabbling, you struggle with your chestpiece\'s bindings.  Your nipples stiffen, scraping against the inside of it while you fight with to remove it.  You straddle ' + CoC.player2.short + '\'s waist to hold ' + CoC.player2.mf( 'him', 'her' ) + ' down while you work the bothersome, restraining material free, practically grinding your semi-rigid dick against ' + CoC.player2.mf( 'his', 'hers' ) + ' in excitement.  ' + CoC.player2.mf( 'His', 'Her' ) + ' hands begin aiding you in your task, allowing your tightly compressed breasts to finally, happily breathe.' );
 		EngineCore.outputText( '\n\nYour cock throbs in tune with your heartbeat, each pulsation causing a thick gobbet of anticipatory precum to splat wetly onto your lover\'s belly, but you aren\'t in the mood to indulge it this time.  If you\'re risking the possibility of never returning to your lover\'s arms again, then you want to remind yourself yet again of the first man ' );
@@ -630,7 +630,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Put Urta dick in girl PC's vag(C)*;
 	UrtaQuest.prototype.putUrtasWangInPCsCunt = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You push ' + CoC.player2.short + ' down on her back, a task made all the more difficult by your growing arousal.  Thankfully, she\'s not wearing her usual ' + CoC.player2.armorName + '.  Instead, her form is bared to your probing fingertips, pliant and exposed.  You cannot help but dip a finger into her moist delta, parting the oozing veil to enjoy the view of her ' );
 		if( CoC.player.vaginaType() !== 5 ) {
 			EngineCore.outputText( 'pink, ' );
@@ -737,7 +737,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Snuggle(C)*;
 	UrtaQuest.prototype.snuggleWithUrta = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You think it over and decide that, for once, you\'d like to focus more on love and less on lust.  "<i>Well... I\'d really just like to have a snuggle with you, ' + CoC.player2.short + ' - if that\'s alright?</i>"  You ask quietly, tail instinctively wagging in an effort to be endearing.  Your lover nods ' + CoC.player2.mf( 'his', 'her' ) + ' head and answers in the positive, opening ' + CoC.player2.mf( 'his', 'her' ) + ' arms for further effect.  You waste no time and eagerly sidle into ' + CoC.player2.mf( 'his', 'her' ) + ' arms.' );
 		//[If PC Centaur or Drider:;
 		if( CoC.player2.isTaur() || CoC.player2.isDrider() ) {
@@ -783,9 +783,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Embark(C)*;
 	UrtaQuest.prototype.morningAfterCampVisitEmbark = function( truth ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.time.days++;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Sadly, morning comes, and your time with ' + CoC.player2.short + ' comes to an end.  You push ' + CoC.player2.mf( 'his', 'her' ) + ' shoulder gently to rouse ' + CoC.player2.mf( 'him', 'her' ) + ', smiling at ' + CoC.player2.mf( 'him', 'her' ) + ' when ' + CoC.player2.mf( 'he', 'she' ) + ' wakes.  You kiss ' + CoC.player2.mf( 'him', 'her' ) + ' on the lips before rolling out from under the blanket.  The two of you eat a quiet breakfast together, simply enjoying each other\'s company.  ' );
 		if( truth ) {
 			EngineCore.outputText( '' + CoC.player2.mf( 'He', 'She' ) + ' asks again about coming with you, but you tell ' + CoC.player2.mf( 'him', 'her' ) + ' Gul\'s instructions were quite specific.  You\'ll need to tackle this alone.  The rest of breakfast passes in uncomfortable silence, broken when you rise to leave.' );
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Goblin Encounter(C)*;
 	//Intro(C)*;
 	UrtaQuest.prototype.runIntoAGoblin = function( camped ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( camped ) {
 			EngineCore.outputText( 'Holding the pendant in front of you, you set off in a random direction from the camp, hoping it will give you some kind of sign.  A couple times, you could swear it flickered with an inner light, but the passing luminance could just be a reflection of the omnipresent sun.  You wipe the sweat from your brow and turn around, a little confused as to how you should progress.' );
 		} else {
@@ -818,7 +818,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 
 	//Urta Wins(C)*;
 	UrtaQuest.prototype.winFuckAGoblinBroodmotherAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You greedily eye the ' );
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'submissive' );
@@ -846,7 +846,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Loses(C)*;
 	UrtaQuest.prototype.urtaLosesToGoblin = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Urta bad end, written by Kinathis... Buckle up for the worst writing you have ever seen!....Okay lets do this! Raaaaa!!! o-o What did i get myself into...;
 		//Loss by lust intro(C)*;
 		if( CoC.player.lust > 99 ) {
@@ -883,7 +883,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.loseToGoblinsPartIIAsUrta );
 	};
 	UrtaQuest.prototype.loseToGoblinsPartIIAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>Hours, and many orgasms later...</b>' );
 		EngineCore.outputText( '\nSitting there before your pouting angry wife, you watch as she paces back and forth in front of you.  After having learned of your sterility, she was none too pleased with you.  She\'s clearly disappointed that her virile stud was shooting blanks and all that thick, creamy cum was just for show.  "<i>So let me get this straight; you\'re completely sterile, but you know where you have to go to get your virility back,</i>" she mutters as she looks at you, hands on her wide, childbearing hips, great globs of spent horse-spunk still dripping from between her legs.' );
 		EngineCore.outputText( '\n\nNodding your head, you can\'t help but feel shame that you can\'t get your beautiful wife pregnant and give her all the daughters she wants.  "<i>I think so. Getting this... curse lifted from me will give me my fertility and virility back,</i>" you say, not remembering too much about it, but you know for sure where to go. The thought of getting back your precious virility and finally knocking up your sexy little gobby is too tempting; you have to get your quest completed!' );
@@ -894,7 +894,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.loseToGoblinsPartIIIAsUrta );
 	};
 	UrtaQuest.prototype.loseToGoblinsPartIIIAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>Several days later...</b>' );
 		EngineCore.outputText( '\nIt had been a hard journey, fighting your way through nagas, gnolls, tentacle monsters, minotaurs and even demons.  Each fight was harder than the last, but with enough motivation from your faithful, darling wife, you achieve your much desired goal.  After each lusty battle, the short, curvaceous woman helped relieve your pressure, and after each passionate session with her, you just grew more in love with your busty, goblin wife.  Each time she seemed to scream and writhe atop your insatiable prick more than she did the time before.  Your after sex make out sessions grew more heated and passionate, as if the lovely, saffron-skinned woman couldn\'t get enough from you.  Each day she seemed to grow more annoyed yet more tender and needy toward you.' );
 		EngineCore.outputText( '\n\nAfter the many fights, many fucks, and lusty nights, it was done.  Your quest to rid yourself of the trickster spirit was completed.  The spirit took hold of you so that you could make him a new body.  He told you to breed, to fuck a new body into your darling for him, and she was more than happy to be the recipient of your newly empowered seed.  The sex had been hard, rough, and full of nothing but the need to breed.  The god\'s new form had grown fast - it grew within your beloved\'s belly in a matter of moments before being birthed.  To your surprise, the god-child grew in its chosen form, spindly and fox-like in appearance, merely telling you the deed was done before leaving on its business.' );
@@ -905,7 +905,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 
 	UrtaQuest.prototype.loseToGoblinsPartIVAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>Several hours later...</b>' );
 		EngineCore.outputText( '\nSweaty, plastered in cum, and laying in a puddle of spent horsy-foxy seed, you hold onto the curvy spunk-stuffed body of your voluptuous, goblin wife.  The saffron-skinned woman lets out soft pleasured coos as she clings to you.  The poor stuffed girl completely fucked herself out after the seemingly endless sexfest. In the heat of your passionate romp, your lover starts another round of slow, sensuous cock worship, slowly stroking and licking every inch of your musky stallion and huge, breeder balls.  The soaking-wet girl sucks and stimulates your aching, well-fucked stallion-prick. Your fat bloated beast stays sandwiched between her mountainous mammaries until you cum for what very well could have been the fifth or sixth time.  Even after so many messy, sperm-squirting orgasms, you still unleash a veritable torrent of spunk so thick it paints your lover\'s body pure white with your new virility.  With her so drenched in sweat and cum it\'s hard to see the goblin underneath, but you know your faithful, loving wife doesn\'t mind.  In fact, it seems that getting drenched in your spunk just turns her on even more.' );
 		EngineCore.outputText( '\n\nWiping a great, thick glob from her face, your buttercup goblin snuggles her cum-stuffed belly against yours before smiling at you, her hands sliding around you before planting a kiss on your lips.  "<i>Mmmm... I love you, my wonderful virile stud,</i>" she purrs to you before reaching down to fondle your rising mustang once again.  Despite her dubious intentions and having brainwashed you, it seems you found the love and acceptance you always wanted.  No doubt you will be the father of a great many daughters in the months to come.   If only you could remember your old lover\'s name...' );
@@ -914,14 +914,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.urtaGameOver );
 	};
 	UrtaQuest.prototype.urtaGameOver = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>Urta has been lost to her fate...  Meanwhile, back at camp...</b>' );
 		CoC.setInCombat( false );
 		CoC.flags[ kFLAGS.URTA_QUEST_STATUS ] = -1;
 		CoC.time.days++;
 		this.resetToPC();
 		CoC.time.hours = 6;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	UrtaQuest.prototype.urtaSpecials = function() {
 		//Gone	menuLoc = 3;;
 		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 5 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You try to ready a special attack, but wind up stumbling dizzily instead.  <b>Your ability to use physical special attacks was sealed, and now you\'ve wasted a chance to attack!</b>\n\n' );
 			Combat.enemyAI();
 			return;
@@ -961,14 +961,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 9, 'Back', null, Combat.combatMenu, false );
 	};
 	UrtaQuest.prototype.urtaMetabolize = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var damage = CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 10 ) );
 		EngineCore.outputText( 'You work your body as hard as you can, restoring your fatigue at the cost of health. (' + damage + ')\nRestored 20 fatigue!\n\n' );
 		EngineCore.fatigue( -20 );
 		Combat.enemyAI();
 	};
 	UrtaQuest.prototype.urtaSecondWind = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.monster.findStatusAffect( StatusAffects.UrtaSecondWinded ) >= 0 ) {
 			EngineCore.outputText( 'You\'ve already pushed yourself as hard as you can!' );
 			EngineCore.menu();
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Combo: 3x attack, higher miss chance, guaranteed hit vs blind;
 	UrtaQuest.prototype.urtaComboAttack = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.Attacks ) < 0 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			if( CoC.player.fatigue + 25 > 100 ) {
 				EngineCore.outputText( 'You are too fatigued to use that attack!' );
 				EngineCore.menu();
@@ -1116,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Dirt Kick;
 	UrtaQuest.prototype.urtaDirtKick = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.fatigue + 5 > 100 ) {
 			EngineCore.outputText( 'You are too fatigued to use that ability!' );
 			EngineCore.menu();
@@ -1145,7 +1145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//SideWinder: 70% damage + stun chance;
 	UrtaQuest.prototype.urtaSidewinder = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.fatigue + 10 > 100 ) {
 			EngineCore.outputText( 'You are too fatigued to use that attack!' );
 			EngineCore.menu();
@@ -1270,7 +1270,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 
 	//Vault: Use the halberd to support her weight and deliver a high power kick to the enemy, deals 15% more damage. If the enemy is stunned, auto-critical. This is like the move she uses during the fight against the wolf in that scene at Tel'Adre.;
 	UrtaQuest.prototype.urtaVaultAttack = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.fatigue + 20 > 100 ) {
 			EngineCore.outputText( 'You are too fatigued to use that attack!' );
 			EngineCore.menu();
@@ -1408,7 +1408,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Has a hypno lust raising attack.;
 	//Immune to tease, focuses on eyes so much that he doesn't notice poses.;
 	UrtaQuest.prototype.nagaPleaseNagaStoleMyDick = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Encounter Intro;
 		EngineCore.outputText( 'You pick your way through the forest, intent on following the vague directions the talisman gives you... sheesh, this is like the children\'s game of hotter-colder you used to see the other kids playing when you were a little kit.  You push irritably through a dense cluster of brush; the damn thing would lead you off the beaten path, now wouldn\'t it?' );
 		EngineCore.outputText( '\n\nWhile making your way past a particularly resistant bush you suddenly step on something leathery.  A masculine voice yells and you feel movement under your foot; whatever you just stepped on suddenly whips out from under you with enough strength to pull you off balance, making you fall on your ass with a loud "<i>whuf!</i>" of shock.' );
@@ -1445,14 +1445,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//[=Leave=];
 	UrtaQuest.prototype.leaveSiriusBehind = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide that he\'s just not worth your time and leave to continue your journey.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.gnollAlphaBitchIntro );
 	};
 	//[=Rape=];
 	UrtaQuest.prototype.urtaWinFucksSirius = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You carefully remove your clothes and place them aside, then start to examine the naga\'s body, looking to see the possibilities for getting off.  Not particularly liking the idea of using his tailtip as a dildo, and given that he\'s unconscious you can hardly expect him to give you oral, you instead make your way to his groin.  There, his penis is retracted inside a strangely vaginal-like slit.  Great.  Is there anything you can actually do with this jerk?' );
 		EngineCore.outputText( '\n\nYou scratch your head in thought, not realizing the tail slowly circling your legs.  Maybe you should just jerk off on the jerk and get going...  "<i>Gotcha!</i>"  Sirius screams, springing up and tightly wrapping your body in his coils.  You shriek in surprise, instinctively dropping your halberd to try and prise off the steely loops of scaly muscle wrapping themselves around your limbs and torso, but your attempts are in vain.' );
 		EngineCore.outputText( '\n\nHe grasps the sides of your head and looks you straight into your eyes.  "<i>You\'re mine now.  Listen to my voice... feel my voice... obey my voice... let my voice caresss you... let my eyes take you.</i>"  You struggle and buck, trying to fight your way out of the coils and to remove your head from his hands, but it\'s so hard... his eyes are captivating, like they\'re reaching into the depths of your soul... no!  Fight it, Urta - you have to fight it!' );
@@ -1483,7 +1483,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.fuckSiriusRadioII );
 	};
 	UrtaQuest.prototype.fuckSiriusRadioII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Oof... ugh... just... just one more... yeah!</i>"  You gasp, moan, and shudder as your cock explodes yet again in your lover\'s mouth.  The snake-man is sprawled on the ground, supporting a belly like a centauress full-term with twins, and doesn\'t stir as you finally go limp and pull out of his mouth, drooling cum all over his face.' );
 		EngineCore.outputText( '\n\n"<i>Ugh... I\'m totally spent.  Sheesh, how long were we fucking?  I can\'t remember the last time I was that horny... come to think of it, why were we fucking?  I\'ve got ' + CoC.player2.short + ' waiting for me back home - why was I getting a blowjob from some random stranger?</i>"  You wonder; your head feels kind of fuzzy, but now it\'s clearing up.  You shake it, trying to get your thoughts straight.  You must have really been pent up, though; just look at the evidence.  Trying to be polite, you address the naga.' );
 		EngineCore.outputText( '\n\n"<i>You know, I thought you were a real jerk, but... if you were willing to help me get all this tension out of me, you mustn\'t be such a bad guy after all.  I wish I could remember how or why you offered to give me head, though...</i>"' );
@@ -1495,7 +1495,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Loses*;
 	UrtaQuest.prototype.urtaLosesToSirriusSnakeRadio = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.URTA_BECOMES_SNAKE_SLAVE ] = 1;
 		//Loss by HP:;
 		if( CoC.player.HP < 1 ) {
@@ -1543,7 +1543,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.siriusSatelliteRadioOwnsYouII );
 	};
 	UrtaQuest.prototype.siriusSatelliteRadioOwnsYouII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You yawn loudly as you wake up, stretching yourself to get the cricks out of your joints.  Your bed is a little cramped, but then, the cave you live under doesn\'t have much room.  It\'s quite comfy, really.  You hop out of bed and reach for the apron that always hangs next to it; your master has assigned chores for you to do.  He\'s already up and about, as always, but that just makes it easier for you to make his bed and then start cleaning.' );
 		EngineCore.outputText( '\n\nAs you work, you start idly thinking about your beloved master, the one who gives you the cock you so need to sate the ever-present itching in your pussy, your one and all, your everything.  You giggle at that thought.  Oh, where would you be without your wonderful Sirius?  He took you in as an orphan kit, abandoned for your unshapely deformity.  He raised you, taught you everything you needed to know in order to serve him... and when he revealed that he cared for you despite your cock?  Mmm... you\'re so lucky to have such a generous, understanding, virile man to fuck you full of naga-seed.  If there\'s one regret in your dedication to worshipping his magnificent cock, it\'s that you never seem to become pregnant; you so want to lay his eggs and give him children - the world needs more of his bloodline in it.  You giggle to yourself as you try to envision what a beautiful little hybrid of fox-morph and naga might look like.' );
 		EngineCore.outputText( '\n\nCleaning done, you start the fire and begin to reheat the meal for today\'s breakfast.  You look around eagerly, but master Sirius isn\'t back yet, and you can\'t resist whimpering in dismay.  You get so lonely when you\'re here all by yourself... plus, what if he gets into trouble out there?  He taught you to fight so that you could protect him from the lesser creatures - you should be out there with him!' );
@@ -1558,7 +1558,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Gnoll Alpha Encounter*;
 	UrtaQuest.prototype.gnollAlphaBitchIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Intro*;
 		EngineCore.outputText( 'The last two fights were wearying, but you still feel pretty good. Perhaps best of all, as your last defeated challenger fades into the distance, you become aware of the pendant glowing fairly brightly.  You must be headed in the right direction!  Setting off at a trot, you pick up your pace, covering great distance in the blink of an eye, eyes never leaving the rapidly approaching horizon.  Focus is key to travel in the uninhabited sections of Mareth, as you well know, but it also allows you to move with swiftness surpassing the fastest animal.' );
 		EngineCore.outputText( '\n\nThe terrain gives way to flat dirt with tall grasses, a vast savanna stretching away as far as your eyes can see.  You move through it heedlessly, drunk on the idea that you can find the temple on the same day that you set out!' );
@@ -1579,7 +1579,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Urta Wins*;
 	//Standard Win Rape Fuck*;
 	UrtaQuest.prototype.winRapeHyenaPrincess = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Laughing at the Amazonian princess, you unbuckle your skirt, not even bothering to shed your armor.  Sure, your hard onyx nipples are digging into the inner lining of your leather breastplate, but it\'s just another pleasant sensation feeding your arousal.  In the back of your mind, you hope ' + CoC.player2.short + ' won\'t mind this indiscretion - you can\'t afford to go wandering around unsated in a place like this.  If a succubus found you all alone and turned on, you might actually fall for her tricks, resistant as you are.  You pray that ' + CoC.player2.mf( 'he', 'she' ) + '\'ll understand.' );
 		EngineCore.outputText( '\n\nYour guilt temporarily assuaged, you round on your prize, letting her see the sheer girth of your rising horse-cock, the mottled pink and black flesh thickening and filling until it gleams in the sunlight.  The gnoll gasps while her bright-pink girl-cock sprouts from her clitoral hood, nearly matching you in size and length.  "<i>It\'s soo... big!</i>" she says, almost reverently' );
 		if( CoC.monster.HP < 1 ) {
@@ -1605,7 +1605,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//[Succubus Milk] (Or, how we CAN have nice things with a little persistence!);
 	UrtaQuest.prototype.useSuccubiMilkOnGnollPrincesses = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.SUCCUBI_MILKED_GNOLL_PRINCESS ] = 1;
 		EngineCore.outputText( 'As you wonder what to do with the defeated furry bitch, you manage to suppress your lusty urges long enough to pull the single milk-white vial off your belt, one of the most common illegal imports you\'ve had to bust in all your years in the Tel\'Adre Guard: Succubi\'s Milk.  Part of you shivers at what you\'re about to do, but another part of you is very... very excited.  Knowing full well what this potent concoction does to the body, you decide you\'d like a plumper, juicier pair of tits to play with when you fuck her.  Pinning the slut down with your foot-pad, you pop the cork.  The smell immediately assaults your senses, sending a shudder up your spine.  Grinning, you hold it up to your nose and give it a long, drawn-out sniff, savoring the nearly alcoholic odor.  The gnoll\'s breath catches in her throat. She desperately tries to scramble away, but you catch her by the snout, yanking her up into a sitting position.' );
 		EngineCore.outputText( '\n\n"<i>Let me go, bitch,</i>" the gnoll alpha growls around your fist, her words muffled until you finally let her snout go - only to fill it with milk.  She gags and tries to spit it out, but you hold her mouth shut, forcing her to suck it all down or drown in the milk.  By the time she\'s finished the bottle, her body is already changing: you can see a thin trickle of femcum sloshing down her furry thighs, her already-hefty breasts straining at the fabric of her dress until it tears, letting her tits grow freely under the compulsion of the magical milk.  And grow they do!  The gnoll\'s bosom fills out nicely, expanding a whole cup size until her tits press against your own.  As her bosom finishes growing, the thick layer of fur on them begins to fall off, revealing the darkly tanned skin underneath - and a pair of midnight black nipples, stiffening at your teasing touch.  Hair falls off all over her body, leaving a bare, flat stomach, smooth arms down to the elbows, and silky, nude thighs to her knees, leaving her with no fur except for enough to simulate a pair of fuck-me boots and long gloves.  Between her now bare thighs sits her thick clit-cock, stiff and ready thanks to the potent elixir.  Her butt gets the same treatment as her rack, filling out until it tears at her dress, revealing a brand new gropable butt for you to savor. Finally, her muzzle disappears with her fur, retracting into her face until nothing of it remains but a human-like nose and a pair of black-painted lips, agape in horror at what you\'ve done.' );
@@ -1650,7 +1650,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Urta Loses*;
 	//Lose Via Lust (Bonus Scene in Intro!)* ✓;
 	UrtaQuest.prototype.loseToGnollPrincessAndGetGangBanged = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.URTA_TAKEN_BY_GNOLLS ] = 1;
 		if( CoC.player.lust > 99 ) {
 			EngineCore.outputText( 'Sinking to your knees, utterly overwhelmed by lust, you gaze up the clit-cocked amazon, licking your chops. She responds by disdainfully pushing you down with one of her soft, padded paws.  "<i>Did you really think you could trespass in my mother\'s territory and go unpunished?</i>"' );
@@ -1682,7 +1682,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//[To Loss Epilogue]';
 	UrtaQuest.prototype.loseToGnollAsUrtaEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Loss Epilogue✓;
 		//[HP];
 		if( CoC.player.HP < 1 ) {
@@ -1743,7 +1743,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.loseToGnollAsUrtaEpilogueBAM );
 	};
 	UrtaQuest.prototype.loseToGnollAsUrtaEpilogueBAM = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Ouch!  Something smacks your face, and it fucking hurts!  You look up, seeing a strong, spotted paw pulling away, trailing a web of spooge in its wake.' );
 		EngineCore.outputText( '\n\n"<i>Wake up bitch, it\'s my turn!</i>" shouts your Mistress, pushing a horny boy away from you.  She sits down next to you, and the assembled, horny little studs retreat.  At some point the crowd must have grown, because you don\'t remember any of the slaves from her retinue - the gnolls surrounding you now are all different males.  Your belly has a thick cum-paunch, made from a combination of the sperm packed into your womb and anus.  You belch, tasting of alcohol and spunk, a taste you relish.  Cum has matted your fur to your body all over, turning it slick and off-white, and rivulets drip off you everywhere.  Even your tail appears smooth and soaked.' );
 		EngineCore.outputText( '\n\nMistress does not give you time to dwell on your current state.  She simply picks you up in those strong arms of hers, and sets you on her lap.  Gods above, she\'s big - maybe bigger than you!  Her gigantic clit sinks slowly into your cum-packed pussy, and as it penetrates deeper, poking straight through your unresisting cervix, the cum that\'s been pressurized inside you vents, right through some channel in her obscene female organ.  The gnoll princess moans lasciviously, spanking your butt hard enough to make the caked-on jizz splatter everywhere.' );
@@ -1764,7 +1764,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//The First Night Sleep*;
 	UrtaQuest.prototype.urtaNightSleep = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The sun is low in the sky by the time you finish your third encounter of the day.  It\'s time to find shelter.  The temple will have to wait until tomorrow.  You travel quite a distance, far enough that the gnoll\'s tribe should have trouble finding you if they search.  You pull out your blanket, making your camp in a concealing depression close to the edge of a forest.  There\'s no one to take an evening\'s watch for you, so you\'ll have to rely on concealment to get by.' );
 		EngineCore.outputText( '\n\nAs you settle down for a night\'s sleep, you consider your armor.  It\'s starting to chafe a little.  Wearing it to bed would be uncomfortable, likely giving you a restless sleep, but it might also give you a fighting chance if something comes after you.  Do you want to sleep naked and rest better at some risk, or do you want to sleep in your armor, safer, but tossing and turning?' );
 		EngineCore.menu();
@@ -1773,7 +1773,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Armor Sleep*;
 	UrtaQuest.prototype.urtaSleepsArmored = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.time.days++;
 		EngineCore.outputText( 'You go to sleep wearing your armor.  It turns out to have been a good idea when you\'re woken by tentacles probing at your chest-plate, seeking to undo the numerous straps holding it in place.  You roll to the side and easily squeeze out of the slippery tendrils.  Your hand falls on your halberd with practiced ease, hefting its reassuring weight in your hands as you spring up off your paws.' );
 		EngineCore.outputText( '\n\nThe tentacles wave about wildly, and the shambling mound begins to retreat.  "<i>Fuck this!</i>" it shouts, "<i>I just wanted a snack!</i>"' );
@@ -1790,7 +1790,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Sleep Naked - Nocturnal Tentacle Beast Fuck*;
 	UrtaQuest.prototype.urtaSleepsNaked = function() {
 		//NOT PLANNED AS A FIGHT;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You bed down for the night, languidly removing your armor and stretching in the pale moonlight.  The cool air feels wonderful on your skin, particularly after being bound up in that restricting armor all day.  You yawn and wrap yourself up in a blanket, swifly falling asleep in the soft grasses at the edges of the plains, comforted by the gentle hooting of the owls in the woods to the west.' );
 		EngineCore.HPChange( CoC.player.maxHP(), false );
 		EngineCore.fatigue( -100 );
@@ -1800,7 +1800,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//[Next];
 	UrtaQuest.prototype.urtaGetsTentaRaped = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'In your dreams, you\'re dancing with ' + CoC.player2.short + ' at your favorite bar, the bounty of your newly restored genitals bulging between your bodies.  You feel yourself growing warm at the closeness of your lover\'s body, already aroused and ready for another coupling.  Inhaling deeply, you savor the scent of mixed lust - sweet, so sweet. It makes you a little dizzy to be honest, and you stumble, letting ' + CoC.player2.short + ' catch you.  Mmmm, so warm.  A tongue enters your mouth, dripping more sweet scent onto your palette.  You swallow involuntarily, compulsively, as that oral organ penetrates so deeply into your throat.' );
 		EngineCore.outputText( '\n\nWait...  ' + CoC.player2.short + ' doesn\'t smell (or taste) like that.  You\'re still fucking horny, though!  Waking, you stretch and go to yawn, but all that escapes your mouth is a muffled, "<i>Mmmph!</i>"' );
 		EngineCore.outputText( '\n\nYou go to full alert in an instant.  Looming above, a wriggling monstrosity has eclipsed the moon.  Hundreds of wiggly tentacles coil and move around each other, creating a show of scintillating illumination from the moonlight that can squeeze through the cracks.  There\'s three dozen of them poised above with bulbous, purple tips that drip clear, sweet sap.  A few lack the tip, instead having pulsing mouths, capped with obscene, smiling black lips; plump, soft, and glossy.  Your blanket is gone.  The creature must have removed it.  With the tentacle leaking down your throat, you can\'t really get a good look around, but you can feel your dick on your tummy, obscenely rigid and leaking onto your breasts.  It doesn\'t seem like the beast has come after the rest of you yet...  You can still get free!' );
@@ -1824,7 +1824,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Big Orange Tentacle Finisher*;
 	UrtaQuest.prototype.urtaFinishesWithBigOrange = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Greedy for more, you stretch up to the giant, fat prick and grab hold.  As soon as you do, all the other tentacles quiver, shaking slightly.  The entire surface is already slick and well lubricated, and as soon as you begin to touch it, glowing green drops as big as teacups begin to drip from the massive, dilated cum-hole.  You marvel at the sheer, absurd size of the thing as you guide it down to your waiting nethers.  The three braided vine-cocks withdraw without your intervention to make room for this virile monstrosity.  Your black-lipped sex folds closed once empty, though it does drip with some of the milky plant-seed that already leaked inside you.' );
 		EngineCore.outputText( '\n\nYou pant in anticipation as you draw the distended dong right up to your entrance, the head easily as big as your unstretched lips.  An electric tingle radiates through your vulva at first contact, and the bulbous tendril shivers with it, caught up in the same erotic energy as your eager pussy.  An explosion of warmth goes off against your nether-lips, spreading them with liquid weight, green goo slowly inundating your passage as it exits your chosen dildo.  You caress the top of the glans, then circle below, just under the top, to that wonderfully sensitive spot.  The answering flow is so thick that most of it splatters into your fur, but you still intake a full blast of it into your quim.' );
 		EngineCore.outputText( '\n\nWhile you fondle the big boy, your ass is still getting drilled.  The tentacles smush up on your prostate over and over, making you drip nearly as much as your floral mate.  The lips that have teased your cock all this time sluggishly shift position, pressing back against your tip and slowly opening.  With sloth-like slowness, those soft lips encircle the fat, flat head of your horse-dick.  As the tight seal drifts down your length, you get your first taste of the mouth\'s interior.  The whole of the tentacle seems hollow and lubricated with some internal moisture.  Most interestingly of all, the walls are covered with wiggly little cilia, thousands of them.  Your over-aroused member is caressed and tickled from sheath to tip, buttoned up in the moist confines of the tentacle while its plump and juicy lips are smacking against your balls.' );
@@ -1844,7 +1844,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Choose Regular Tentacles*;
 	UrtaQuest.prototype.urtaFinishesWithTentacles = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Sighing, you pinch your nipples as your ride the dozens of tentacles, letting them completely envelop your body.  The lips that have teased your cock all this time sluggishly shift position, pressing back against your tip and slowly opening.  With sloth-like slowness, those soft lips encircle the fat, flat head of your horse-dick.  As the tight seal drifts down your length, you get your first taste of the mouth\'s interior.  The whole of the tentacle seems hollow and lubricated with some internal moisture.  Most interestingly of all, the walls are covered with wiggly little cilia, thousands of them.  Your over-aroused member is caressed and tickled from sheath to tip, buttoned up in the moist confines of the tentacle while it\'s plump and juicy lips are smacking against your balls.' );
 		EngineCore.outputText( '\n\nYou tug two mouths back onto your sore breasts and press them onto your abused nipples.  They suck at once, even though your milk has long been exhausted.  The aphrodisiacs inside you morph the pain and pleasure into a syrup of ecstasy for your brain to drown in, and as tentacle after tentacle begins to erupt, you climax.   The cilia girding your maleness go crazy, which causes your jism to wrench free of your body with such force that your [hips] pop from your straining muscles and your horse-cock feels about to explode.  The interior floods with your dick-milk, traveling away through the vine in fat bulges.  Again and again you pulse, filling the vine with the same orgasmic squelching that the other tentacles use to fill your holes.  Seedy spunk slops onto your tits, into your pits, over your elbows, onto your knees, and drenches your feet.  Your whole body is a dripping, jizz-drenched wreck.  Your cunny is spasming, clenching, and sucking.  You scream as the tentacle withdraws from your mouth, suddenly muffled when it splatters you with a fat deposit of alabaster cream.' );
 		EngineCore.outputText( '\n\nYou black out from the onslaught of pleasure - it\'s too much for your mere mortal brain to handle, and your mind shuts down.  It doesn\'t stop you from dreaming of sex for hours more, or from waking up a dripping wreck in the morning, soaked with vine-sperm and drained dry.' );
@@ -1856,7 +1856,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Mino & Succubi Intro*;
 	UrtaQuest.prototype.introSuccubiAndMinotaur = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'After getting and departing your makeshift camp, the pendant begins to glow again.  It flickers dully, then goes dark.  Damn!  You turn and change direction, and thankfully, the light returns.  You can see forest ahead, and you advance, your path lit by the strengthening glow of Gul\'s magical amulet.' );
 		EngineCore.outputText( '\n\nIn seconds, you\'re advancing through the dim forest, ignoring the gnarled oaks on either side, pendant in one hand, halberd in the other.  Each time the light dims, you change direction until the glow is restored.  Progress is slow, and twice you have to adjust your course to avoid tentacle beasts or worse, but you\'re confident that Taoth\'s old shrine is close by.  The air itself changes as you plunge deeper into the dark woods, becoming sinister and sickly sweet, thick with the cloying odor of corrupted plantlife and sexual juices.  Dick-shaped tentacles dangle from some of the trees.  Sometimes, they even grab at you, but you skillfully strike, severing them every time.' );
 		EngineCore.outputText( '\n\nPushing through some bushes, you finally make it to a clearing, empty save for a monolithic stone structure and hedges of writhing tentacles.  Some of the tentacles have purple penis-tips, some sucking mouths, and others familiar flat tips.  You chop through the corrupt weeds without a second thought, too focused on what must be done to let them tempt you with their honeyed embrace.  Besides, you saw enough of that last night.  Your lusts are sated and controlled for a change.' );
@@ -1887,7 +1887,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 
 	//Urta submits to the minotaur - Alternate Loss via wait or cock press*;
 	UrtaQuest.prototype.urtaSubmitsToMinotaurBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You mouth opens, drooling with hunger that you know only the sexy beast across from you can sate.' );
 		if( CoC.monster.findStatusAffect( StatusAffects.MinotaurEntangled ) >= 0 ) {
 			EngineCore.outputText( '   Seeing the fire in your eyes change from a determined glare to a lusty look, the minotaur pulls you over, carefully unwinding the chain from around you, so as not to damage you.' );
@@ -1912,7 +1912,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.submissiveMinoUrtaBadEndPtII );
 	};
 	UrtaQuest.prototype.submissiveMinoUrtaBadEndPtII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wake up feeling so blissfully bloated and utterly full.  Memories of your encounter with the minotaur come streaming back.  You submitted to the beast, and it felt... it felt goood.  Your cunny clenches at the memory, and your rigid, oozing pole pulses needily below.  You burp, tasting the salty leavings in the back of your throat for the first time.  That was good!  Gradually, you become aware of a gentle forward and back motion, making your distended gut slosh and your tits sway pendulously.' );
 		EngineCore.outputText( '\n\nYou look back and shiver excitedly.  While you were passed out, the minotaur lord must have changed positions and put his cock in your cunt!  With that knowledge, your heavily drugged brain gradually becomes aware of the exquisite ecstasy shooting through your stretched-out vagina.  You can feel him inside your womb, his fat head having long since pushed past whatever resistance your cervix could have offered.  The knowledge that this beast is utterly ruining your quim, demolishing your ability to take pleasure from any lesser lover, wars with the pleasure it brings.  Ultimately, your drug-dazed consciousness settles on wanting more.' );
 		EngineCore.outputText( '\n\nGroping at your tits, you kneed your tender nipples eagerly, whorishly even.  The minotaur  easily holds you with a hand around your middle.  He seems to realize your wakeful state, and he swiftly forces his free thumb into your mouth, giving you a sweaty, furry pacifier to keep your noisy little mouth-hole busy.  With so much cum inside you, you lack the capacity to do anything but suck.  The offending digit is salty, just like a dick, and you fellate it as if was the source of your next meal, moaning into the minotaur\'s knuckle.' );
@@ -1930,7 +1930,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.submissiveMinoUrtaBadEndPtIII );
 	};
 	UrtaQuest.prototype.submissiveMinoUrtaBadEndPtIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Naked save for the silver spiked colar around your throat, you dutifully follow your master and mistress.  Your cock bobs in front of you, tumescent and ready, but so long denied that you\'ve grown accustomed to the ever-present lust your superiors incite in you.  One thing you can\'t get used to is the craving for Fido\'s cum.  You did learn his name is actually Krott, but to say such aloud would earn you a rather unpleasant whipping from your Mistress, and not the kind that leaves you smiling.  Regardless, your head is nauseatingly clear right now, and you\'d do anything just to crawl under his loincloth and slurp down the tiniest fraction of his ballsack\'s bounty.' );
 		EngineCore.outputText( '\n\nYou begin to walk closer and closer behind him, sniffing at his swaying, pre-soaked balls.  Just one lick...' );
 		EngineCore.outputText( '\n\n"<i>Stop, we\'re here,</i>" your mistress commands, raising her hand in warning.' );
@@ -1952,7 +1952,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Win Rapes Minotaur*;
 	UrtaQuest.prototype.winRapeAMinoLordAsUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Exulting in your victory, you quickly undress, barely paying heed to the ' );
 		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'lusty' );
@@ -1987,7 +1987,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Loses Minotaur;
 	UrtaQuest.prototype.urtaLosesToMinotaurRoughVersion = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You collapse to your knees, too ' );
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'battered and bruised' );
@@ -2022,7 +2022,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButton( 0, 'Next', this, this.urtaSheHulkPartII );
 	};
 	UrtaQuest.prototype.urtaSheHulkPartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<i>"My my, aren\'t you an interesting creature... wouldn\'t you be interested in becoming my pet?  You would be above that sorry excuse of a brute and get all the cock and milk you could ever want,</i>"  she smiles seductively at you, getting up from her seated position.  "<i>I want to take a look at that fascinating body of yours.  Wouldn\'t submitting be better than fighting?  You\'ll get to taste this perfect body of mine,</i>" she says, shifting into a seductive pose, showing off the wide, voluptuous curves of her body.  Unfortunately for her, her words go right over your head; the only thoughts in your mind are how you\'re going to fuck and breed this curvy whore into a perfect little cocksleeve.' );
 		EngineCore.outputText( '\n\nPulling her whip up, the succubus snaps it like a lion tamer, grinning as you recoil from a strike on your cheek.  You growl and lunge at your prey, disregarding her whips as nothing more than weak little bug bites against your brutal new form.  The sneaky demon is fast, however, quickly jumping out of the way as you barrel into the pillar she had been sitting on.  You recover quickly - too quickly for her.  Reaching up, you grab ahold of the succubus\' soft, womanly leg and pull her back down.  Your curvaceous prey lands right on your belly, letting out a groan of dismay, her face planted right onto one of the flat, pre-soaked flares that crown your cocks.  The poor demon\'s face is completely caked in your new pheromone-packed fluids, more powerful than even that of the minotaur lord.  The much desired demon proves unable to even fight against the scent and taste that floods her nose and mouth.' );
 		EngineCore.outputText( '\n\nPulling her down off you, you\'re about to just pin her to the ground and claim your prize when she rises up on her hooves and approaches you, face wet with your smelly juices and a fierce blush on her face. She licks her lips clean of your syrupy, druggy lube.  The potent pre-spunk seems to have gone right to her head.  Her empty, vacant eyes make it clear she\'s dipped into a lusty stupor.  "<i>Ohhhh... gimme more of that sweet stuff,</i>" she begs, grabbing hold of one of your dicks, eagerly licking and sucking at its hot, throbbing flesh.  Under the sudden sensual attention, your towering spire of equine endowment lurches and spits a great, glob of thick, oily pre forth, the goopy gout landing right in the cock-hungry bitch\'s open mouth.  The sight of her happily gulping down your slippery offering as if it was the sweetest honey is too much for your lust-driven mind.  With a snarl of hunger, you lunge forward and grab the needy bitch, pushing her to the ground and grinding your two proud pricks against her body.' );
@@ -2042,7 +2042,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 
 	//Post-Encounter*;
 	UrtaQuest.prototype.beatMinoLordOnToSuccubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The succubus claps slowly as she gets up from her perch on a ruined column.  "<i>I\'m impressed.</i>"  She says, stepping in the light as she walks towards you.  You gasp, this succubus looks like a cow!' );
 		EngineCore.outputText( '\n\nShe is tall, standing at about seven feet high, and her hugely voluptuous form makes you blush.  She has breasts three times the size of her head, tipped with a cluster of four obscene, teat-like nipples, each one leaking milk down her huge mounds.   Her hips flare out into an exaggerated hourglass shape, and a long tail tipped with a fleshy spade waves across her spankable butt.  A small cowbell is tied at the base of the spade with a cute little ribbon.  Wide, cow-like horns, easily appropriate for a minotaur, rise from her head, and she flicks cow-like ears to either side whilst sashaying from side to side on her demonic, high-heeled feet.  Her skin is a vibrant purple with splotches of shiny black here and there, including one large spot covering her right eye.' );
 		EngineCore.outputText( '\n\nIn her hands, you spot a leather whip, and you idly wonder if this is what she\'s been using to domesticate that brute of a minotaur she calls a pet.' );
@@ -2085,7 +2085,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//magic-Enhanced Seduce;
 	//Urta Wins*;
 	UrtaQuest.prototype.urtaBeatsUpCowcubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//HP:;
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'The succubus trips and falls on her face, dropping her whip at your feet.  You quickly take her whip and use it to bind her hands behind her back.' );
@@ -2108,14 +2108,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//[=Leave=];
 	UrtaQuest.prototype.leaveTheCowCubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your fingers tighten on the shaft of your halberd and suddenly you bring it whipping around, the blunt end slamming into the side of the succubus-cow\'s head.  As her eyes roll up in her head and she collapses unconscious onto the ground, you spit to the side.  "<i>Be glad I didn\'t use the sharp end, CoC.monster.</i>"  With that, you continue on into the depths of the shrine... oh, if only ' + CoC.player2.short + ' was here; you\'d happily fuck ' + CoC.player2.mf( 'him', 'her' ) + ' senseless right now...  Still, it\'s something to look forward to once you\'re done inside.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Go Inside', this, this.enteringTaothsShrine );
 	};
 	//[=Rape=];
 	UrtaQuest.prototype.fuckTheCowCubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Come on girl, strip down so I can see what you\'re hiding under that leather skirt of yours.  Besides, we both know you want me, I can see that tent,</i>" she laughs, licking her lips seductively.' );
 		EngineCore.outputText( '\n\nHating yourself even as you crave what\'s coming, you undo the straps and pull your armor off of your body, casting it to the ground, allowing the third arm of your stallionhood to rise up before you in a tower of equine fuck-flesh, drooling precum down its long length.' );
 		EngineCore.outputText( '\n\n"<i>Hmm... not as big as I\'d hoped.  I mean, Fido is certainly much bigger, and I have no doubt his cum is much tastier... still, I guess we have to work with what we have, since you knocked my pet out cold,</i>" she states matter-of-factly, clearly not impressed with what she sees.' );
@@ -2145,7 +2145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Loses*;
 	UrtaQuest.prototype.urtaLosesToCowCubi = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Sinking to your knees, ' );
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'you struggle futilely to rise.  Your arms are shaking and bloody.  It\'s just too hard.  Your muscles just won\'t respond, and you fall flat on your face, unable to get up.  The succubus laughs at your plight, and places both her hands on your head.  You struggle, but you\'re too wounded to wiggle free.  Her magic begins to pulse through your brain, thrumming erotically through your consciousness.  Your heart begins to beat faster and faster, blood rushing to your extremities.  You moan, rigidly, exquisitely hard, your member rising through the soft moss below.  You might have been resistant to her magic at a distance, but nothing could protect you from this.  You NEED to fuck.' );
@@ -2189,7 +2189,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//The Old Shrine*;
 	UrtaQuest.prototype.enteringTaothsShrine = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You advance cautiously into the shrine\'s interior, wary of ambush by other demonic residents.  The interior of the shrine proves that there was battle here, easily before you were born.  Corpses reduced to yellowing bones by the passage of the time are scattered everywhere, discarded or broken weapons and mangled armor showing how hard the fighting must have been to hold this sacred place.  Most of the corpses are quite clearly those of your people, with vulpine skulls, bestial leg-bones and the distinctive vertebrae bones showing what must have been beautiful fluffy tails in life.  Other skeletons, however, are surprisingly human-like, though they invariably bear the bones of at least one and sometimes more tails - you finally figure out that they must have been kitsunes in life.  You spare a moment to contemplate the old theory that your two races are related, but then dismiss it; you\'re not here for science, you\'re here to make contact with the "<i>god-ghost</i>" haunting your body.' );
 		EngineCore.outputText( '\n\nYou continue to explore the shrine, but there is little worth talking about to be found.  Skeletons of fallen defenders - and a depressingly small number of demonic assailants - rags, rubble, ruins and dust greet you.  Finally, however, you find yourself in what has to have been the main chapel of the shrine.' );
 		EngineCore.outputText( '\n\nA huge statue dominates the room; if this is life size, then the god you seek to communicate with was big enough that he could have supported you on the palm of his open hand.  The figure is quite distorted looking; fundamentally a fox-morph, with vulpine head, ears and tail, but the body is unnaturally lean and emaciated, faux-skin stretched tight over unusually small, compact bones that make his head look oversized and out of proportion, thin limbs easily twice as long as they should be.' );
@@ -2203,7 +2203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Dead Gods Dreaming*;
 	UrtaQuest.prototype.deadGodsDreaming = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your eyes spring open and you stare in dumbfounded shock at the statue as it starts to move, joints flexing with the awful sound of stone grating on stone.  Carved eyelids open to reveal flames of myriad colors, ever-shifting before your eyes.  "<i>Welcome, vessel.  It is time that we spoke.</i>"' );
 		EngineCore.outputText( '\n\n"<i>You really are... Taoth?</i>"  You reply, wary of being tricked.' );
 		EngineCore.outputText( '\n\n"<i>I am.  Two decades ago, our enemies managed to pierce the veils of my myriad tricks and trap me here, in this shrine.  Confronted and with no way out, the demons thought they could end me, as they have some of my brothers and sisters,</i>"  the spirit notes.  Now that you\'ve gotten over the shock of it actually talking to you, it\'s more disconcerting than awe-inspiring.  The surprisingly animate features of its statue convey a slyness and a frankly less than serious nature, while its unearthly voice seems barely concerned by the state it finds itself in.  "<i>Naturally, I could not allow myself to be destroyed.  I sent my faithful - my beautiful servants - to stem the tide.</i>"  It seems genuinely penitent about this, though from the way it describes its followers, it viewed them more as objects than people.  "<i>They bought me the time to sever my life force from my mortal vessel.  As my honor guard fell, I fled, flinging my essence out in search of a fresh form, even as my body petrified behind me.</i>"' );
@@ -2229,7 +2229,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Arrives at Camp;
 	UrtaQuest.prototype.urtaArrivesAtCampForFukks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b><u>Meanwhile, back at camp...</u></b>' );
 		EngineCore.outputText( '\n\nAs you are getting ready to set out for another day in Mareth, you find yourself surprised with an unusual encounter at the very boundaries of your camp.  It\'s Urta!  She\'s come back at last... and boy, she\'s a mess; her eyes roll wildly in her head, until she sees you and fixes on you like a starving fox on a fat hen; her cock thrusts wildly before her, precum bubbling over its tip and splatting wetly into the dust before her, femcum drooling out of her gash like water and plastering her legs with shiny wetness.  The fox breaks into a run until she skids to a halt in front of you, panting with lust and exertion.' );
 		EngineCore.outputText( '\n\n"<i>Hi, ' + CoC.player.short + '...</i>" she manages to pant out.  Looking at the state of her, you take a wild guess and suggest she spoke to her \'guest\'.  "<i>Yeah... Taoth\'s promised to get out of me, but, first, we need to give him a new host body... well, <b>I</b> need to give him a new body.</i>"  Urta still has control enough to look sheepish, despite the fact her body is blatantly screaming for release.  "<i>I-I\'d rather do it with you, but ' );
@@ -2262,7 +2262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//PC Knocks Up Urta with God Child*;
 	UrtaQuest.prototype.knockUpUrtaWithGodChild = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -2314,7 +2314,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Post-Sex Epilogue*;
 	UrtaQuest.prototype.postFuckUrtaUp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When you wake, any queries you might have about Urta\'s "<i>quest</i>" having worked are instantly answered.  The snoring vixen beside you already looks very pregnant; it\'s a good thing that she went to bed naked, because you don\'t want to think about how she would have swollen up like she has whilst still in her leather jerkin.  The bulge wobbles slightly as she inhales and exhales and you wonder how you\'re going to wake her up.' );
 		EngineCore.outputText( '\n\nThankfully, Urta spares you the trouble, waking up with a moan.  "<i>Oh... I feel so full,</i>" she grumbles, struggling to get up under the weight of her belly.  When she realizes what\'s holding her down, she stops, staring at it in dumbfounded awe.  "<i>' + CoC.player.short + ', is this really...?</i>"  When you nod, she shakes her head in disbelief.   "<i>Incredible... it really is real.  Oh, ' + CoC.player.short + ', I just... I just don\'t have the words to tell you how I feel about this.</i>"' );
 		EngineCore.outputText( '\n\nYou ask her what she\'s going to do now.  Urta looks thoughtful.  "<i>Well... the Covenant would want me to stay with them and give birth to Taoth amongst them.  So, I guess, from here, I\'ll be going to them.</i>"  She looks at her belly quietly, and you have a feeling she\'d be looking at her feet instead if she could still see them.  "<i>...' + CoC.player.short + '?  I don\'t suppose you would come with me?   Please?  I know you\'re dedicated to guarding this portal, but it would really mean a lot to me if I could have you at my side for however long this pregnancy is going to last.</i>"' );
@@ -2335,7 +2335,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Pregged Urta With God-child epilogue:*;
 	UrtaQuest.prototype.preggedUrtaWithGodChildEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wake to cries of pain, emanating from the swollen vixen next to you as she clutches your shoulders desperately from the pangs of labor.  Loudly, you yell, "<i>It\'s coming!</i>" which launches the room into a flurry of activity.  Urta\'s water breaks, gushing from out from under her balls and soaking the floor ahead of her with the clear, amniotic fluids.  One contraction after another begins to hit her, causing her no small amount of pain as her body begins to prepare for the coming birth.' );
 		EngineCore.outputText( '\n\nUnfortunately for Urta, even with the labor\'s rapid onset, it takes its sweet time getting there.  For nearly five hours, you\'re kept waiting, clenching Urta\'s hand for support whenever the pain becomes too much for her to bear.  The time passes with agonizing slowness, though the room fills with more and more of the wizards as Urta\'s labor drags on.  Soft blankets and pillows are gathered, to protect the child when it exits her body, and thankfully, you begin to feel it moving through the drum-tight skin of her belly, travelling down her canal as her body compels her to push, to squeeze as hard as possible.  Then, with a tremendous, sucking, wrenching cry of pleasure, it slips free.' );
 		EngineCore.outputText( '\n\nSlick with birthing fluids, a ball of fur, skin, and bones rolls out onto gathered blankets.  Urta\'s eyes flutter and droop as exhaustion tries to claim her, but she pulls herself up on her forearms to squint at it, wondering just how the god came out.  To you, it looks little and messy, like any other newborn.  It strikes you as odd that you feel no fatherly affection for the creature.' );
@@ -2359,7 +2359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Knocks Up PC with God Child;
 	UrtaQuest.prototype.getKnockedUpWithGodChild = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Smiling coyly, you remove your [armor] and crawl into your bed, beckoning for the lust-crazed fox to follow.  You trust her, and you\'re more than willing to let her put a nice little bun in your' );
 		if( CoC.player.isPregnant() && CoC.player.pregnancyIncubation < 150 ) {
 			EngineCore.outputText( ' already filled' );
@@ -2518,7 +2518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Post-Sex Epilogue*;
 	UrtaQuest.prototype.getKnockedUpUrtaEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When you wake, you\'re ' );
 		if( CoC.player.pregnancyIncubation > 0 && CoC.player.pregnancyIncubation < 150 ) {
 			EngineCore.outputText( 'much more ' );
@@ -2541,7 +2541,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta & Pregged PC  With God-child epilogue:;
 	UrtaQuest.prototype.getKnockedUpByUrtaEpilogueII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wake to pangs of labor, an unmistakable, forceful pushing emanating from within you.  Loudly, you yell, "<i>It\'s coming!</i>" which launches the room into a flurry of activity.  Your water breaks, gushing from your [vagina] and soaking the floor ahead of you with the clear, amniotic fluids.  One contraction after another begins to hit you, causing you no small amount of pain as your cervix dilates, preparing to disgorge the new life within you.' );
 		EngineCore.outputText( '\n\nUnfortunately for you, even with your labor\'s rapid onset, it takes its sweet time getting there.  For nearly five hours, you\'re kept waiting, clenching Urta\'s hand for support whenever the pain becomes too much.  The time passes with agonizing slowness, though the room fills with more and more of the wizards as your labor drags on.  Soft blankets and pillows are gathered, to protect the child when it exits your body, and thankfully, you begin to feel it moving, travelling down your canal as your body compels you to push, to squeeze as hard as you\'ve ever tried.  Then, with a tremendous, sucking, wrenching changing of pleasure, it slips free.' );
 		CoC.player.cuntChange( 40, true, true, false );
@@ -2570,7 +2570,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Urta Goes to Knock Up Edryn with God Child*;
 	UrtaQuest.prototype.urtaAndEdrynGodChild = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Urta shudders from head to toe, barely able to restrain herself around you.  "<i>Oooooh... uh... okay, then.  I\'ll come back... when... when it\'s time, okay?</i>" she titters, almost drunkenly, already prancing off towards the desert.  The lusty vixen looks over her shoulder at you as she jogs off, a trail of lubricant spattering in her wake, her tongue lolling wildly as her eye-humps you.  After a long moment, she looks away, perhaps unable to bear gazing on you any longer.  You hope everything turns out okay...' );
 		//[Urta and Edryn disabled until birth event];
 		CoC.flags[ kFLAGS.URTA_FERTILE ] = SceneLib.edryn.pregnancy.type;       //Use these two flags to store the pregnancy that Taoth is overriding.
@@ -2592,7 +2592,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//[Next];
 	UrtaQuest.prototype.urtaAndEdrynGodChildEpilogueII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As the double doors open, you hear a painful moan from the ' );
 		//{pre-pregnant };
 		EngineCore.outputText( 'horse-girl.' );

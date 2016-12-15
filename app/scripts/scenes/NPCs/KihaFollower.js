@@ -177,7 +177,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		Combat.cleanupAfterCombat();
 	};
 	KihaFollower.prototype.loseToSpiderMob = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You collapse, unable to continue the fight.  Smirking, one of the driders whacks you over the head with the flat of her spider-leg.  You fall face-first into the mud, nearly insensate as the horde passes by you to their real prize - Kiha.  You can just see her past the mud and tall grass of the islet as she\'s dragged down by sheer numbers.  Two dozen spider-morphs, half with rock-hard cocks at the ready, descend upon her.  Before the dragoness can react, she\'s being bound with webs by a drider as a spider-boy plugs each of her holes in turn.  Kiha screams and struggles, at least until a cock is shoved into her mouth and a pair of spider-sluts jam her hands up her cunt.', false );
 		EngineCore.outputText( '[pg]You can\'t do much else but watch as the first wave of spiders cums, coating Kiha white with their jizz before a second group comes up, jamming their dicks in her still-gaping, dripping holes.  This happens twice and then thrice, until Kiha is little more than a thick, sopping pool of barely-conscious jizz, only her two demonic horns and leathery wings protruding from the cumbath to prove her identity.  Finally satisfied, the spiders begin to retreat, but not before leveling unsubtle threats against the dragoness.', false );
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	KihaFollower.prototype.kihaFriendlyGreeting = function( output ) {
 		if( output === undefined || output ) {
 			output = true;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		EngineCore.spriteSelect( 72 );
 		if( output && CoC.flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] === 1 && CoC.flags[ kFLAGS.KIHA_TALK_STAGE ] >= 7 ) {
@@ -255,7 +255,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Spar with Friendly Kiha - Intro (Z);
 	KihaFollower.prototype.sparWithKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You ask Kiha if she\'d be willing to do a mock-fight with you.  She arches an eyebrow at the suggestion, but quickly hefts her greataxe onto her shoulder and smirks at you.  "<i>You sure about this?  I won\'t hold back - and I\'ll NEVER be defeated!</i>"', false );
 		EngineCore.outputText( '[pg]You return her smug grin and ready your [weaponName].', false );
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Spar with Friendly Kiha - Player Wins (Z);
 	KihaFollower.prototype.winSparWithKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		if( !this.followerKiha() ) {
 			EngineCore.outputText( 'Kiha sways back and forth for a moment, then drops her axe with numb hands.  As soon as she does, the hot glow of the weapon\'s cutting edge fades to silver, and the weapon lands with a heavy \'thunk\' in the dirt.  The dragoness drops to her knees and slumps back against a tree, her limbs trembling weakly as she tries to rise.  "<i>You... you... haven\'t... beaten me,</i>" she mutters, even though it\'s quite clear that you have.', false );
@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Spar with Friendly Kiha - Kiha Wins (Z);
 	KihaFollower.prototype.sparWithFriendlyKihaLose = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		if( !this.followerKiha() ) {
 			EngineCore.outputText( 'You can\'t take it anymore!  You stumble away from the dragoness, but only make it a few feet before toppling over, landing right on your ass.  Dazed, you can only sit there as Kiha casually walks over and presses the haft of her axe into your throat.', false );
@@ -307,7 +307,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Hug Friendly/Warm Kiha (Z);
 	KihaFollower.prototype.hugFriendWarmKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'With a little grin, you grab Kiha in a tight surprise hug!', false );
 		EngineCore.outputText( '[pg]"<i>What... what\'re you...</i>" she stammers, but soon goes quiet with a final mutter of "<i>Idiot.</i>"', false );
@@ -320,7 +320,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	//lose some corruption?;
 	//Talk to Friendly Kiha - First Time (Z);
 	KihaFollower.prototype.talkToFriendlyKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		if( CoC.flags[ kFLAGS.KIHA_TALK_STAGE ] <= 3 ) {
 			CoC.flags[ kFLAGS.KIHA_TALK_STAGE ] = 3;
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Kiha x salamander Threesome - Introduction (Z);
 	KihaFollower.prototype.kihaXSalamander = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		//Requirements:;
 		//-PC has achieved "<i>Fuckbuddy</i>" status with Hel (via Mino threesome) OR Hel is a companion.;
@@ -381,7 +381,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//this.GTFO (Z);
 	KihaFollower.prototype.GTFO = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		CoC.flags[ kFLAGS.KIHA_AND_HEL_WHOOPIE ] = -1;
 		EngineCore.outputText( 'While Kiha and the mysterious swordsman are distracted, you pick yourself up out of the mud and high-tail it out and head back to camp.  Over your shoulder, you hear the sounds of battle raging.', false );
@@ -524,7 +524,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Warm Kiha Admittance;
 	KihaFollower.prototype.kihaAdmitsSheLikesYourWang = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		if( CoC.flags[ kFLAGS.KIHA_ADMITTED_WARM_FEELINZ ] === 0 ) {
 			CoC.flags[ kFLAGS.KIHA_ADMITTED_WARM_FEELINZ ] = 1;
@@ -541,7 +541,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Loving Hug;
 	KihaFollower.prototype.lovinHugKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		CoC.flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] = 2;
 		CoC.flags[ kFLAGS.KIHA_AFFECTION ] = 0;
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Loving Hugs 4 Girls;
 	KihaFollower.prototype.lovingHugsGirlFuckSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'Kiha gently rubs your mons and teases, "<i>Awful wet down here, huh?  I kind of figured you would be a bit less... shameless.</i>"  She goes on to drag a finger through your slippery slit, carefully keeping her claw from catching on you as she rubs your [clit].  The overload of sensation steals your retort from your lips, leaving you nothing to do but moan and lift your hips into her insistent pressure, so eager for more pleasure that your body seems to move on its own.  The dragoness giggles, "<i>Is this all I have to do to defeat you?  Just... slip a finger in your twat and turn you to jelly?</i>"', false );
 		EngineCore.outputText( '[pg]Twisting your body, you grab hold of Kiha and pull her atop you, the sudden motion dragging her away from your sensitive nethers - for now.  Pulling on her legs, you get the feisty dragon-girl\'s pussy positioned right above you.  Of course, that means her face is right above your [vag] as well.  Kiha exhales over your lips, basting your nethers in moist, arousing heat that shoots tingles of delight down your [clit].  She teases, "<i>You\'re wetter than a goblin that got into the canine peppers down here!</i>"' );
@@ -724,7 +724,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Loving Hugs 4 Genderless Tards:;
 	KihaFollower.prototype.lovingHugsForRetards = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'Kiha roughly slaps your ass, sending a shiver of sensation up your over-aroused spine.  You glare back at her while she titters, "<i>I bet that pucker is pretty sensitive huh?</i>"  Before you can answer, Kiha has pulled you into her arms, back into a warm, sensual kiss.  Her dusky lips muffle your reply before her long tongue sensually twists about your own, caressing your oral cavity until all thoughts of your reply are long forgotten.  Kiha\'s ruby tresses shroud your faces while you make out, your two bodies rubbing together.', false );
 		EngineCore.outputText( '[pg]A tickling sensation between your buttcheeks jolts you from the marvelous make-out a moment before Kiha\'s tail snakes through your sphincter and inside your [asshole].  You gasp ', false );
@@ -758,7 +758,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		var leave = SceneLib.camp.returnToCampUseOneHour;
 		if( output === undefined || output ) {
 			output = true;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.spriteSelect( 72 );
 			//Approaching Kiha @ Camp: ;
 			if( this.followerKiha() ) {
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 
 	//Hang Out (Play one at random);
 	KihaFollower.prototype.hangOutWithKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		//Hang Out 1;
 		var select = Utils.rand( 3 );
@@ -902,7 +902,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//[It's Good];
 	KihaFollower.prototype.itsGood = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You give Kiha a little wink and tell her\'s it great.  She breaks out into a big, dopey grin as you explain your delight at the fine, wood-smoked texture and delightful juiciness of the flash-cooked meat.  Kiha takes your compliments to heart, declaring, "<i>O-of course it\'s good; just the fact that </i>I<i> cooked it ought to make it obvious!</i>"' );
 		EngineCore.outputText( '[pg]You share a laugh with the pretty dragoness as she grabs a strip of meat and wolfs it down.  Now uninhibited, the two of you dig into the meal, quickly devouring Kiha\'s "<i>home cooking.</i>"  By the time you\'re done, you\'re both a greasy mess thanks to your lack of utensils, your fingers and her claws slathered with meat juices and fat.  Each of you teases the other about your states of appearance.' );
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	//Savage Every Hole With A Bigass Horsecock ;
 	//(requires 50+ minimum lust, or 80+ libido, or a lust/fuck draft);
 	KihaFollower.prototype.boneTheShitOutofKihaHolesWithHorsecock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		var c = CoC.player.cumQ();
 		var x = _.indexOf( CoC.player.cocks, _.find( CoC.player.cocks, function( cock ) {
@@ -1491,7 +1491,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	//CoC.flags[kFLAGS.KIHA_NEEDS_TO_REACH_TO_HORSECOCKING] = 1;;
 	//Kiha's Reaction to Horsecock Sex (1 time only);
 	KihaFollower.prototype.kihaReactsToHorseDicking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'Kiha folds her arms across your chest when you approach, her wordlessness letting you know that she clearly remembers the events of your last meeting.  You stop a few feet away and cross your arms, waiting to see what she\'s going to do.  In a flash, she\'s on you!  Not punching, kicking, or biting you, but hugging you, sniffling into your shoulder.  She whimpers, "<i>I... I didn\'t mean for that to happen!  I didn\'t!  I swear!</i>"' );
 		EngineCore.outputText( '[pg]You push her back and look the teary dragoness in the eyes as you ask her what she means.  She replies, "<i>You don\'t know?  Oh... okay.  Well... one of the things the demons did to us... it was supposed to make us able to manipulate our pheromones, in order to exploit our enemies.  We... we broke out before we learned how to use it.  I think... I might have used it a little bit when we had sex... and somehow... somehow I think I did it to both of us.  You might have even reacted to it somehow, I don\'t know.  You smelled so goddamn good!</i>"' );
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//BIGGUS DICKUS Cock Slurping;
 	KihaFollower.prototype.kihaPlaysWithBigassCocksFemDomAhoy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		var x = CoC.player.biggestCockIndex();
 		//Works for swamp or camp!  ;
@@ -1617,7 +1617,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Girl Camp/Warm Sex;
 	KihaFollower.prototype.kihaGirlGirlSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You pull Kiha into your arms and ask, "<i>Up for a little play?</i>"  She blushes and gives a tiny, curt nod.  You smile as you pinch Kiha\'s nipples softly, tweaking the dragoness\'s twin buds with just enough pressure to make them firm up in your grip.  Rolling them back and forth, you watch as Kiha\'s expression flashes between annoyance, desire, and unrepentant lust.  When you hear the \'drip... drip...drip...\' of her juices on the ground, you know she\'s ready.' );
 		EngineCore.outputText( '[pg]Kiha stands before you, back arched to present her chest to you, mouth open slightly, and pussy drooling wantonly.  Perfect! You lick the smooth curve of one of her well-rounded breasts, the soft flesh giving just the right amount when you nuzzle against it.  Even with Kiha\'s supernaturally warm body, you can feel her excitement heating her and see the telltale blush spreading through her chocolate-hued skin.  You lap at her nipple, then reluctantly part from her delectable breast-flesh to undress.  Tossing your [armor] to the side, you bare your body to the reptilian woman and reveal the flush of your own arousal.' );
@@ -1656,7 +1656,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Warm Kiha Sex - Anal (Needs a cock that fits her butt);
 	KihaFollower.prototype.savinTheAnalForKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		var x = CoC.player.cockThatFits( 94 );
 		if( x < 0 ) {
@@ -1837,7 +1837,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Kiha Tentacle Scene;
 	KihaFollower.prototype.fuckKihaWithATentacle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		//{Requirements: 1 tentacle dick over 18 inches long.};
 		var tentacles = _.map( _.filter( _.map( CoC.player.cocks, function( cock, index ) {
@@ -1899,7 +1899,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Kiha Camp Move In Hint (Happens once and unlocks options);
 	KihaFollower.prototype.kihaOffersToMoveIn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'While wandering through the swamp you come across Kiha, the oft-aggressive dragoness calmly sauntering up to you for a change.  You exchange greetings in the usual flirtatious manner, Kiha doing her best to maintain her air of superiority, even as her eyes rove over your body.  She steps close and bumps you, hip to hip.  "<i>Didja miss me?</i>" she asks, putting on a grin, though you can see... apprehension, perhaps, in her eyes.' );
 		EngineCore.outputText( '[pg]You smile at her nervous query and nod.  She can be a real bitch sometimes, but you know, deep down inside, she well and truly likes you.  Kiha beams and slugs your shoulder, saying, "<i>I knew it, you wimp!</i>"' );
@@ -1912,7 +1912,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Invite Kiha to Camp;
 	KihaFollower.prototype.inviteKihaForDickings = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You lean back against a tree and ask the haughty dragoness if she would like to come to your camp... maybe even stay a while.  She stops for a moment to consider, her hands clenching nervously as she digests the delicious news.  Looking back your way, her eyes brighten, her face lifts, and she cheers, "<i>REALLY!?</i>"' );
 		EngineCore.outputText( '[pg]Nodding, you take her hands and assure her, "<i>Really.  Move in with me, Kiha.</i>"' );
@@ -1960,7 +1960,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	//Kiha & Corrupt PCs -- Parting Ways;
 	//(Play the first time the PC meets Kiha while having 66+ Corruption);
 	KihaFollower.prototype.kihaBitchesOutCorruptPCs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		if( !this.followerKiha() ) {
 			EngineCore.outputText( 'You make your way through the murky swamp, your mind turning to thoughts of your dragoness ' );
@@ -1995,7 +1995,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	//You slump your shoulders, deciding not to risk confrontation.  As you step back from the dragoness, she lowers her axe, her head hanging sadly.  It seems this pains her as much as you, but... you return to camp. ;
 	//Kiha & Less-Corrupt PC -- Reunited;
 	KihaFollower.prototype.kihaUnbitchesUncorruptedFolks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		//(Play first time PC meets Kiha with 65 or less Corruption);
 		EngineCore.outputText( 'You make your way back into Kiha\'s territory, more confident now in your more sane, stable condition.  You wander over to the small islet the dragoness calls home, and call out her name.' );
@@ -2013,7 +2013,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//Kiha @ Camp: Appearance;
 	KihaFollower.prototype.kihaCampAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'Kiha is a 6 foot tall dragoness, with dark skin and blood-red scales covering much of her body.  She is naked, shameless of her nudity, and carries a tremendous enchanted greataxe, the head of which blazes with heat.  She has a sharp, predatory face with dark red eyes bearing black, reptilian slits.  Long red hair grows from her scalp, reaching down past her shoulders.  She has strong, child-bearing hips and a squishy bubble-butt.  She has two reptilian legs adorned with scales and claws, ending in soft, leathery soles.' );
 		EngineCore.outputText( '[pg]She has a pair of dusky, soft D-cup tits, with a single 0.5 inch nipple on each breast.' );
@@ -2024,7 +2024,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 
 	//New option added to Kiha's "<i>In-camp/warm</i>" dialogue menu, ['dominance' during sex];
 	KihaFollower.prototype.dominateKihasFaceWithStuffAndStuffOrSomethingIDunnoWhyImStillWritingThis = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		//NOTE: There are various random scenes that can be triggered at certain points;;
 		//the game will select them at random so that;
@@ -2044,7 +2044,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//[Back down];
 	KihaFollower.prototype.beABitchDumbass = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		//EngineCore.outputText('You break eye contact with the fierce dragoness and remain silent in the face of her challenge, unwilling to pursue the issue any further at the moment.  She snorts, dismissively.  "<i>That\'s what I thought,</i>" she sneers, narrowing her eyes in warning.  After a short pause, her fiery stare almost palpable on your cheek, she turns away once more- with an infuriating little toss of her head- and when you finally glance back at her again, you see that the corners of her mouth are turned up in a smirk.  You turn and walk away shamefully, unable to find the words to explain yourself or to defend your outburst.');;
 		EngineCore.outputText( 'You break eye contact with the fierce dragoness and remain silent in the face of her challenge, unwilling to pursue the issue any further at the moment.  She snorts, dismissively, "<i>If you don\'t fight for the things you want, people will just keep taking them from you.</i>"  Kiha lewdly spreads her legs and runs her tail over her outer lips, teasing you as hard as she can.  She smirks as your eyes glue to her groin and turns away.' );
@@ -2053,7 +2053,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//[Fight for position];
 	KihaFollower.prototype.fightForDominanceWithDragonCunnies = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( 'You inform her that you doubt she\'ll be hurting you today.  With an almost child-like sense of glee, you ready your [weapon] and step into the dragoness\'s intimidating presence.' );
 		EngineCore.outputText( '[pg]"<i>I wouldn\'t have it any other way, [name],</i>" she says as she grins, raising her axe into a more combat-ready stance.  It\'s time to prove your worth!' );
@@ -2063,7 +2063,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//[PC loses the fight];
 	KihaFollower.prototype.pcLosesDomFight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		EngineCore.outputText( '"<i>Ha! You better shape up quick!  If you lose to </i>me<i>, you\'ll certainly lose to the demons!</i>"  Kiha exclaims, victorious over your bruised and battered form.  The strain is too much, and you end up passing out.' );
 		EngineCore.outputText( '[pg]You awake on your bedspread, being tended to by Kiha as she rubs ointment on your bruises and wounds. "<i>Look, I know that was just a friendly sparring match, but seriously can\'t lose like that to the Demons.  I can\'t think of what I\'d do if my special Idiot were turned into... one of them.</i>"  Kiha says somberly.  You\'re touched by her concern, but you assure her that no demon will take you alive.  She smiles and places a hand on your shoulder, but the look she gives you seems to hint that you missed her point entirely.' );
@@ -2071,7 +2071,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 	};
 	//[PC wins the fight];
 	KihaFollower.prototype.pcWinsDomFight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 72 );
 		var x = CoC.player.cockThatFits( 67 );
 		if( x < 0 ) {
@@ -2286,7 +2286,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		Combat.cleanupAfterCombat();
 	};
 	KihaFollower.prototype.guardMyCampKiha = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 ) {
 			CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] = 0;
 			EngineCore.outputText( 'You tell Kiha you don\'t want her to guard the camp at night any more.\n\n"<i>Look Doofus, if you want to wake up with an imp-cock so deep in your ass that you taste semen, it\'s your call.  If any of them come near me, I\'m still killing them,</i>" Kiha warns before stalking off.' );

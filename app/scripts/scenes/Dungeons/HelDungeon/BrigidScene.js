@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, Combat, kFLAGS, CoC, EngineCore ) {
 	function BrigidScene() {
 	}
 
 	//Brigid the Jailer -- PC Victorious;
 	BrigidScene.prototype.pcDefeatsBrigid = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The harpy jailer collapses, ' );
 		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'too turned on' );
@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, kFLAGS, 
 	};
 	//Brigid the Jailer -- PC Defeated;
 	BrigidScene.prototype.pcDefeatedByBrigid = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
 			EngineCore.outputText( '"<i>Tsk tsk tsk,</i>" the harpy jailer croons, looming over you as you slump to the ground. "<i>You shouldn\'t have messed with me, bitch!</i>" she snaps, giving you a rough kick to the side. "<i>Now, let\'s see what Mother has to say about this...</i>"' );
 			//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, Combat, kFLAGS, 
 	};
 	//--Next--;
 	BrigidScene.prototype.brigitPostQueenDeathBadEndII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[(if M, U, or visibly pregnant F/H);
 		if( CoC.player.gender <= 1 || CoC.player.pregnancyIncubation > 0 ) {
 			EngineCore.outputText( 'A soft, ticklish feeling against your [chest] is the first thing to bring you back to reality.  Your eyes open slowly, revealing a confusing blur of orange.  "<i>[name],</i>" murmurs a familiar voice from the unfocused smear, "<i>you\'re all right... thank god.</i>"  As your head clears, the picture slowly resolves into the tear-streaked face of Kiri, the little harpy from before; she smiles as you recognize her, and wraps her arms around your neck.  You try to hold her back, but find you cannot move your hands - looking at them, you notice your wrists secured to the table you\'re lying on with metal clasps!' );

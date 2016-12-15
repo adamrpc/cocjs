@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, Combat, PerkLib, Naga, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, Combat, PerkLib, Naga, Appearance ) {
 	function NagaScene() {
 	}
 
@@ -1002,7 +1002,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 
 	NagaScene.prototype.eggUpANagaSpiderLike = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As the shiny-scaled girl collapses against the sand, you scramble forward, panting not so much with the exertion of the fight as with lust and excitement.  Surely a creature as large as her has enough room to fit all your eggs?  You feel so full, and it\'s been so long since you last had release.' );
 		EngineCore.outputText( '\n\nThe naga raises herself onto her elbows as you bear down on her, making a half-assed attempt at a rebellious glare.  When she meets your lust-mad stare, her eyes go wide, and she struggles backwards, frantically trying to get out from under you.' );
 		EngineCore.outputText( '\n\nYou\'re having none of that.  With your ovipositor already beginning to swing loose beneath you, your patience for your prey\'s shenanigans is nonexistent.  Catching her tanned shoulders with your hands, you push her down and pin her upper torso in place, though her massive tail continues to writhe beneath you.  Keeping one hand on the snake-woman\'s shoulder, you pat her down hastily, your fingers trailing across her stomach and hips in search of her slit.' );
@@ -1033,7 +1033,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	//Bee Naga Scene: Finished (Fenoxo) (edited)
 	NagaScene.prototype.beePositANagaPlease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You advance on the snake-woman before you with barely-concealed lust, a gradual trickle of your fluid drooling from the ovipositor slit behind you.  She recoils away in fear of your alien appearance, but in her current state she\'s unfit to put up more than a token resistance.  You round on her and help her up into a tender embrace, looking into her eyes as if to say, "<i>It\'s okay, this won\'t hurt.</i>"  She doesn\'t understand the words, but her searching, reptilian eyes slowly lose their fire at your reassuring gaze.' );
 		EngineCore.outputText( '\n\nGingerly, you caress her sinuous, scaled body, exploring the curvy flow of muscle as scales down to the slight, almost imperceptible flare of her humanoid waist.  She squirms against you, her tail lashing in the sands to either side, thumping anxiously.  Soon, your curious fingers find her soft opening, hidden amongst the scales, and as you press inside, you find a second set of wet lips along with a harder, pill-shaped organ that can only be a clit.  The woman\'s fanged mouth parts in a wordless expression of pleasure, and as you have her distracted, you let your stinger slide through the scales on her underbelly.' );
 		EngineCore.outputText( '\n\nThe naga winces, giving you a look of extreme betrayal while your venom pours through her defenses unhindered.  You study her face while your stinger works its magic.  The furrows in her eyebrows slowly relax and the naga\'s lips part, allowing her to pant.  Gradually, her skin flushes red with unrepentant lust, and as you empty the last of your stinger\'s reservoir into her vulnerable form, you take great pleasure in fingering her increasingly lubricated pussy.  The scales around her crotch-slit are so wet that they appear to be polished with oil, a shining stain of lust that spreads with each passing moment.  She\'s ready.' );

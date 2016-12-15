@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, Combat, OnLoadVariables, WeaponLib, PregnancyStore, Descriptors, ConsumableLib, PerkLib, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function TelAdre() {
 		/**
 		 * 3 variables that define bonuses for piercing.
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.addButton( 4, 'Back', this, this.telAdreMenu );
 	};
 	TelAdre.prototype.houses = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Whose home will you visit?' );
 		var orphanage = null;
 		if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 ) {
@@ -527,7 +527,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		if( this.piercingMat > 8 ) {
 			CoC.player.gems -= 900;
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//set up material description;
 		switch( this.piercingMat ) {
 			case 1:
@@ -852,7 +852,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.vaginas[ 0 ].clitPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeCockPierce = function() {
@@ -863,7 +863,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.cocks[ 0 ].pLongDesc = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeEarsPierce = function() {
@@ -874,7 +874,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.earsPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeEyebrowPierce = function() {
@@ -885,7 +885,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.eyebrowPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeLipPierce = function() {
@@ -896,7 +896,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.lipPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeNipplesPierce = function() {
@@ -907,7 +907,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.nipplesPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeNosePierce = function() {
@@ -918,7 +918,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.nosePLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeTonguePierce = function() {
@@ -929,7 +929,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.tonguePLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeVulvaPierce = function() {
@@ -940,7 +940,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		CoC.player.vaginas[ 0 ].labiaPLong = '';
 		EngineCore.dynStats( 'tou', -5 );
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.oswaldPawn = function() {
@@ -977,9 +977,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	};
 	TelAdre.prototype.buyCarrotFromOswald = function() {
 		CoC.player.gems -= 500;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.createKeyItem( 'Carrot', 0, 0, 0, 0 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Gems change hands in a flash, and you\'re now the proud owner of a bright orange carrot!\n\n(<b>Acquired Key Item: Carrot</b>)' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.oswaldPawn );
@@ -1015,7 +1015,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.oswaldPawnSell = function( slot ) { //Moved here from Inventory.as
 		EngineCore.spriteSelect( 47 );
 		var itemValue = Math.ceil( CoC.player.itemSlots[ slot ].itype.value / 2 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( itemValue === 0 ) {
 			EngineCore.outputText( 'You hand over ' + CoC.player.itemSlots[ slot ].itype.longName + ' to Oswald.  He shrugs and says, “<i>Well ok, it isn\'t worth anything, but I\'ll take it.</i>”' );
 		} else {
@@ -1023,13 +1023,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		}
 		CoC.player.itemSlots[ slot ].removeOneItem();
 		CoC.player.gems += itemValue;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.oswaldPawn );
 	};
 	TelAdre.prototype.oswaldPawnSellAll = function() {
 		EngineCore.spriteSelect( 47 );
 		var itemValue = 0;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		for( var slot = 0; slot < 5; slot++ ) {
 			if( CoC.player.itemSlots[ slot ].quantity > 0 && CoC.player.itemSlots[ slot ].itype.value >= 1 ) {
 				itemValue += CoC.player.itemSlots[ slot ].quantity * Math.ceil( CoC.player.itemSlots[ slot ].itype.value / 2 );
@@ -1038,7 +1038,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		}
 		EngineCore.outputText( 'You lay out all the items you\'re carrying on the counter in front of Oswald.  He examines them all and nods.  Nervously, he pulls out ' + Utils.num2Text( itemValue ) + ' gems and drops them into your waiting hand.' );
 		CoC.player.gems += itemValue;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.oswaldPawn );
 	};
 	TelAdre.prototype.anotherButton = function( button, nam, func, arg) {
@@ -1065,7 +1065,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.spriteSelect( -1 );
 		EngineCore.hideUpDown();
 		var button = 0;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.LOPPE_DISABLED ] === 0 && CoC.flags[ kFLAGS.LOPPE_MET ] === 0 && Utils.rand( 10 ) === 0 ) {
 			SceneLib.loppe.loppeFirstMeeting();
 			return;
@@ -1305,7 +1305,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.debitClothes = function( itype ) {
 		EngineCore.spriteSelect( 61 );
 		CoC.player.gems -= itype.value;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.tailorShoppe );
 	};
 	TelAdre.prototype.armorShop = function() {
@@ -1364,7 +1364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	TelAdre.prototype.debitWeapon = function( itype ) {
 		EngineCore.spriteSelect( 80 );
 		CoC.player.gems -= itype.value;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.weaponShop );
 	};
 	TelAdre.prototype.armorBuy = function( itype ) {
@@ -1387,7 +1387,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		EngineCore.spriteSelect( 64 );
 		EngineCore.outputText( '', true );
 		CoC.player.gems -= itype.value;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.armorShop );
 	};
 	TelAdre.prototype.urtaIsABadass = function() {
@@ -1517,7 +1517,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		}
 		CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] = 1;
 		CoC.player.gems -= 500;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//[Bring up gym menu];
 		this.gymMenu();
 	};
@@ -1535,7 +1535,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//Deduct gems if not a full member.;
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		//[Lift Weights] +25 fatigue!;
 		EngineCore.fatigue( 25 );
@@ -1599,7 +1599,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 		//Deduct gems if not a full member.;
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		//[Jogging] +30 fatigue!;
 		EngineCore.fatigue( 30 );
@@ -1791,7 +1791,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	//[Flirt];
 	TelAdre.prototype.yvonneFlirt = function() {
 		EngineCore.spriteSelect( 64 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You step closer, glancing from her bulging, barely contained tits to her pouting lips and expressive, violet eyes.  A shock of sweat-matted auburn hair obscures part of her face, but the tall, buxom blacksmith nervously brushes it aside as she watches.  Once you\'re close enough to touch, you quietly and sincerely proclaim, "<i>You\'re the most beautiful piece of craftsmanship in this entire store.</i>"' );
 		EngineCore.outputText( '\n\nYvonne steps back, and you swear you can see a blush blooming through her fur, a fiery glow of embarrassment that spreads to the upper curve of her immense mammaries.  She folds her arms over her apron, unintentionally smushing those gigantic tits closer together and deepening her cleavage into a canyon. An immense sigh causes the plush plateau to sway pendulously as Yvonne answers, "<i>' );
 		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 10) );
@@ -1824,14 +1824,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	//[Nevermind];
 	TelAdre.prototype.backOutOfYvonneFuck = function() {
 		EngineCore.spriteSelect( 64 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You politely decline, not wanting to interrupt her work.  Yvonne sighs and begins to pump the bellows, muttering, "<i>Then you\'d better be buying something!</i>"' );
 		EngineCore.doNext( this, this.armorShop );
 	};
 	//[Fuck];
 	TelAdre.prototype.fuckYvonneInZeBlacksmith = function() {
 		EngineCore.spriteSelect( 64 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//X = cock that fits!;
 		var x = CoC.player.cockThatFits( 75 );
 		if( x < 0 ) {
@@ -1880,7 +1880,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ArmorLib, Combat, OnLoa
 	//*Typical buy text goes here. Options are now Yes/No/Flirt*;
 	//[Flirt];
 	TelAdre.prototype.flirtWithVictoria = function( itype ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 70 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();

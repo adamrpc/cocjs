@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//Camp Menu -- [Followers] -- [Valeria];
 	Valeria.prototype.valeriaFollower = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You walk over to Valeria.  Seeing you approach, the armor-goo turns a slightly brighter shade of blue beneath her plates and grins.' );
 		EngineCore.outputText( '\n\n"<i>Hey there, partner! Need anything while we\'re safe at camp?</i>"' );
 		var sex = null;
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	};
 	//[Valeria] -- [Appearance];
 	Valeria.prototype.valeriaAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 79 );
 		EngineCore.outputText( 'Valeria is a 6 foot tall goo-girl composed of a viscous blue goop.  She is currently wearing a suit of plated armor, and wields her gooey greatsword as a weapon.  She has a beautiful feminine face with strong, angular features, and has affected short-cropped gooey hair, hanging just past her cheeks.  Her hips are average, with a muscular, gropable bum.  Unlike most goos, Valeria has formed two normal human legs ending in normal human feet out of her gooey lower body.' );
 		EngineCore.outputText( '\n\nShe has a pair of C-cup breasts, with a single 0.5 inch nipple on each breast.' );
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	};
 	//Valeria] -- [Spar];
 	Valeria.prototype.valeriaSpar = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 79 );
 		EngineCore.outputText( 'You ask Valeria if she would be up for a bit of battle practice.' );
 		EngineCore.outputText( '\n\n"<i>Hey, that\'d be great, partner. Gotta keep our skills sharp if we wanna have a chance against the demons, after all! Let\'s do it.</i>"' );
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	};
 	//[Valeria] -- [Spar] -- PC Victorious;
 	Valeria.prototype.pcWinsValeriaSpar = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 79 );
 		EngineCore.outputText( '"<i>Oof!</i>" Valeria grunts, nearly losing her human shape as she tumbles to the hard-packed dirt.  "<i>All right, all right, you win!  Take it easy, partner,</i>" she laughs, letting her greatsword dissipate back into her body.' );
 		EngineCore.outputText( '\n\nYou offer to help her up, but she easily reconstitutes herself into a standing pose, giving you a little wink afterwards.  "<i>Thanks for the ass-whoopin\', [name],</i>" she laughs.  "<i>C\'mon, let\'s get back to it.  Demons aren\'t gonna defeat themselves, after all.</i>"' );
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	};
 	//[Valeria] -- [Spar] -- PC Defeated;
 	Valeria.prototype.pcWinsValeriaSparDefeat = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 79 );
 		EngineCore.outputText( 'You collapse, ' );
 		if( CoC.player.HP < 1 ) {
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	Valeria.prototype.followersValeriaSex = function( display ) {
 		EngineCore.spriteSelect( 79 );
 		if( display === undefined || display ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'With a lusty grin, you ask your gooey friend if ' );
 			if( CoC.player.gender > 0 ) {
 				EngineCore.outputText( 'she\'s interested in a little fluid exchange' );
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//Valeria -- [Sex] -- [Dick/No Dick];
 	Valeria.prototype.valeriaDickToggle = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[If Valeria has a dick:] ;
 		if( CoC.flags[ kFLAGS.VELARIA_FUTA ] === 1 ) {
 			EngineCore.outputText( 'Before you do anything, you ask Valeria if she wouldn\'t mind hiding her facsimile of a dick, at least when you aren\'t having sex.' );
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//Valeria -- [Sex] -- [Get Fucked];
 	Valeria.prototype.valeriaGetFucked = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You disrobe and, ' );
 		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'stroking the slick lips of your [vagina], ask Valeria to fuck you.' );
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		EngineCore.spriteSelect( 79 );
 		if( clearText === undefined || clearText ) {
 			clearText = true;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '"<i>Just relax, partner,</i>" she grins, reaching up to run a hand through your [hair].  "<i>Just let ol\' Valeria take care of everything...</i>"' );
 			EngineCore.outputText( '\n\nYou bite your lip as you feel Valeria\'s feet shifting around behind you.  Suddenly there are ten tendrils of warm goo snaking around your [butt], tickling and caressing your sensitive flesh.' );
 		} else {
@@ -327,7 +327,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//Valeria -- [Sex] -- [Penetrate Her] (Dickwielders only);
 	Valeria.prototype.penetrateValeria = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Mmm, that\'s a tasty-looking cock,</i>" Valeria says as you disrobe, letting your ' + Descriptors.cockDescript( 0 ) + ' flop free.  "<i>I just might have to get a sample,</i>" she chuckles, squatting down before you and taking your shaft in hand.  Rather than giving you a simple handy, however, the goo-girl places her palm against the head of your cock and presses forward.' );
 		EngineCore.outputText( '\n\nYou gasp as her gooey skin parts, letting your ' + Descriptors.cockDescript( 0 ) + ' slip inside her.  Her palm and forearms act like a snug, wet cocksleeve, shifting and molding to perfectly fit around your prick as you slide into her up to the hilt.  She grins up at you as she gives you a handy the likes of which only a goo-girl could manage, using her penetrable palm like a cunt.  You groan as she moves her arm, slowly stroking your cock inside of her, occasionally varying her motions, making wide circles around you or moving side to side.' );
 		EngineCore.outputText( '\n\nBefore you can get too comfortable, however, Valeria sidles forward and moves your ' + Descriptors.cockDescript( 0 ) + ' from her arm to her breast with a wet POP.  She squeezes her palmable C-cups together and leans in, letting your cock slip in between them and into her gooey flesh.  You moan as the pleasurable wetness and warmth of her interior returns when the goo-girl begins to titty-fuck you, slipping her wet breasts along the length of your shaft as the head bobs in and out of her cunt-like interior.' );
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//[Valeria] -- [Sex] -- [Get Dominated];
 	Valeria.prototype.valeriaSexDominated = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Making a show of playing hesitant and nervous, you tell Valeria you\'d like her to take charge.  A wide grin quickly spreads across her girlish features.  "<i>Mmm, feeling subby today, partner?  Good, good... You just let Valeria take good care of you, ' + CoC.player.mf( 'handsome', 'cutie' ) + '.</i>"' );
 		EngineCore.outputText( '\n\nWith a sexual swing of her hips, Valeria closes the distance between you and presses her lips to yours.  One of her arms easily wraps around your neck, pulling you close to her as her other snakes into your clothes, teasing and caressing your inner thighs.  Suddenly, Valeria gives you a rough push, throwing you onto your ass.  She looms over you, licking her lips and placing one of her gooey feet firmly on your chest.  Goop seeps out of her heels, slithering out to bind your arms and [legs] as she encases your torso.' );
 		EngineCore.outputText( '\n\n"<i>Just lie back and submit, partner. It\'ll be better that way...</i>"' );
@@ -426,7 +426,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//Followers -- [Valeria] -- [Talk];
 	Valeria.prototype.talkWithValeria = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Valeria if she wouldn\'t mind just talking for a little bit.' );
 		EngineCore.outputText( '\n\n"<i>I dunno, partner,</i>" she teases, sitting down beside you, "<i>That\'s asking an awful lot.</i>"' );
 		EngineCore.outputText( '\n\nYou roll your eyes and, after a few pleasantries, venture to ask her... well, what the hell she is, exactly.  She\'s not at all like the average goo-girl wandering around Mareth.  She talks, she walks on two legs...' );
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//[Flirt];
 	Valeria.prototype.flirtWithValeria = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You slip an arm around Valeria\'s slender shoulders and pull her close.  Patting your crotch, you tell her you\'re practically a gourmet chef for a girl like her.  She giggles and slips a hand easily into your [armor], ' );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'brushing along the length of your rapidly-hardening cock' );
@@ -465,7 +465,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//[Accept];
 	Valeria.prototype.acceptValeriasNeeds = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You smile and tell Valeria that you\'re perfectly all right with her special needs' );
 		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
 			EngineCore.outputText( ' after all, you have the same ones' );
@@ -478,7 +478,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 	//[Gross];
 	Valeria.prototype.declineValeriasNeeds = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grimace and push the goo-girl away.  You\'ve got no interest in her corrupted \'needs,\' especially with a look like that on her face.  She gasps as you push her, nearly falling over; she catches herself and glowers angrily.' );
 		EngineCore.outputText( '\n\n"<i>Well, fuck you kindly, [name],</i>" she says with a huff.  "<i>Pardon me for being... me.</i>"  She turns up her chin and saunters off to a part of camp about as far away from you as possible.' );
 		//(Disable Valeria sex for 6 hours);
@@ -496,7 +496,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		}
 	};
 	Valeria.prototype.valeriaAndGooThreeStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You cautiously approach with Valeria\'s voice egging you on, "<i>We gonna fuck her? We\'re gonna fuck her, ain\'t we, [name]?</i>" She affectionately fondles your ' );
 		var list = [ '[hips]' ];
 		if( CoC.player.balls > 0 ) {
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		EngineCore.addButton( 0, 'Next', this, this.valeriaGooRapeII );
 	};
 	Valeria.prototype.valeriaGooRapeII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The lump that bumped you earlier smacks off ' );
 		if( CoC.player.biggestTitSize() >= 3 ) {
 			EngineCore.outputText( 'the valley of your cleavage' );

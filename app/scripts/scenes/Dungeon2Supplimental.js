@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	Dungeon2Supplimental.prototype.leaveZetazsLair = function() {
 		//	inDungeon = false;;
 		OnLoadVariables.dungeonLoc = 0;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You leave the cave behind and take off through the deepwoods back towards camp.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -483,7 +483,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	Dungeon2Supplimental.prototype.enterZetazsRoomFromTheSouth = function() {
 		if( CoC.flags[ kFLAGS.ZETAZ_DOOR_UNLOCKED ] === 0 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'The door won\'t budge.' );
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
@@ -539,7 +539,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			if( CoC.player.lust < 35 ) {
 				EngineCore.dynStats( 'lus', 1 );
 				CoC.player.lust = 35;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 		}
 		//[Round 2 Action];
@@ -599,7 +599,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			if( CoC.player.lust < 65 ) {
 				EngineCore.dynStats( 'lus', 1 );
 				CoC.player.lust = 65;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 		}
 		//[Round 3 Action];
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			if( CoC.player.lust < 85 ) {
 				EngineCore.dynStats( 'lus', 1 );
 				CoC.player.lust = 85;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 		}
 		//[Round 4 Action];
@@ -1431,7 +1431,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		if( CoC.player.hasCock() ) {
 			cumBath = this.valaCumBath;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.menu();
 		//(First meeting);
 		if( CoC.flags[ kFLAGS.ENCOUNTERED_VALA_AT_BAR ] === 0 ) {
@@ -1687,7 +1687,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	Dungeon2Supplimental.prototype.takeBondageStraps = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_TOOK_BONDAGE_STRAPS ]++;
 		SceneLib.inventory.takeItem( ArmorLib.BONSTRP, MainView.playerMenu );
 	};
@@ -2293,7 +2293,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 
 	Dungeon2Supplimental.prototype.theSeanShopOffer = function() {
 		EngineCore.spriteSelect( 52 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You try to sneak closer to get a closer look at him, but the demon immediately stops what he\'s doing and stares straight at you.  He laughs, "<i>Well now I know what happened to all the demons inside.  I really would\'ve expected a bunch of renegades like them to put up a better fight.</i>"\n\n' );
 		EngineCore.outputText( 'Caught, you stand up and ready your ' + CoC.player.weaponName + ', taking up a defensive stance to ready yourself for whatever new attacks this demon has.  Strangely, he just starts laughing again, and he has to stop to wipe tears from the corners of his eyes before he talks, "<i>Oh that\'s rich!  I\'m not here to fight you, Champion.  I doubt I\'d stand much of a chance anyways.  I heard there were some renegades around this area, so I thought I\'d show up to offer my services.  You see, I\'m a procurer of strange and rare alchemical solutions.  Of course you beat down everyone before I got here, but I thought I\'d stick around and see if some scouts were still around before I high-tailed it out of here.</i>"\n\n' );
 		EngineCore.outputText( 'You stare, blinking your eyes in confusion.  A demon of lust, and he\'s not interested in fighting or raping you?  He laughs again as he reads your expression and calmly states, "<i>No, I\'m far from your average incubus.  To tell the truth I enjoy a spirited debate or the thrill of discovery over sating my sexual appetite, though of course I do indulge that from time to time.</i>"\n\n' );
@@ -2302,7 +2302,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	Dungeon2Supplimental.prototype.incubusDeal = function() {
 		EngineCore.spriteSelect( 52 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Excellent!  Give me a few moments to gather my things and I\'ll be open for business!</i>" exclaims the strange demon.  If his story is true it\'s no wonder he doesn\'t get along with the rest of his kind.' );
 		//[Next – to room];
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] = 1;
@@ -2310,7 +2310,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	Dungeon2Supplimental.prototype.incubusNoDeal = function() {
 		EngineCore.spriteSelect( 52 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] = -1;
 		EngineCore.outputText( 'Sean nods, grabs a pack, and takes off running before you have a chance to kill him.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -2321,7 +2321,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			SceneLib.niamh.getBimboozeFromSean();
 			return;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Sean nods at you and slicks his hair back into place, threading it carefully around the small nubs of his horns before asking, "<i>What can I do for you?</i>"' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, ConsumableLib.NUMBROX.shortName, this, this.incubusBuy, ConsumableLib.NUMBROX );
@@ -2339,7 +2339,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	Dungeon2Supplimental.prototype.incubusBuy = function( itype ) {
 		EngineCore.spriteSelect( 52 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The incubus lifts ' + itype.longName + ' from his shelves and says, "<i>That will be ' + (itype.value * 3) + ' gems.  Are you sure you want to buy it?</i>"' );
 		if( CoC.player.gems < (itype.value * 3) ) {
 			EngineCore.outputText( '\n<b>You don\'t have enough gems...</b>' );
@@ -2350,15 +2350,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	Dungeon2Supplimental.prototype.incubusTransact = function( itype ) {
 		EngineCore.spriteSelect( 52 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems -= itype.value * 3;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.incubusShop );
 	};
 	//[Cum Bath];
 	Dungeon2Supplimental.prototype.valaCumBath = function() {
 		EngineCore.spriteSelect( 60 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//FIRST TIME INTRO;
 		if( CoC.flags[ kFLAGS.VALA_CUMBATH_TIMES ] === 0 ) {
 			EngineCore.outputText( 'You chat with Vala for a short while before bringing up a question that\'s been on your mind: if she\'s a fairy, does that mean she gets high off of cum?  The question might offend another woman, but in the overgrown fairy\'s idolizing eyes you can do no wrong.  She doesn\'t even bat an eye.  "<i>Oh, possibly.  I mean, it did before I was captured.  I\'m not sure if it would still work, now that I\'m so much bigger.</i>"  Then, in a lowered voice intended just for you, she murmurs: "<i>Though, I always feel a warm tingle from my hero, even if it\'s just the brush of your fingers on mine.</i>"  She meets your eyes with a smile like a sunrise.' );
@@ -2398,7 +2398,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	Dungeon2Supplimental.prototype.valaCumBath2 = function() {
 		EngineCore.spriteSelect( 60 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Vala tries to compose herself before you, but the girl is too antsy to go slowly, impatient hands wrapping around your [ass] and pulling you toward her lithe body, her wings aflutter with restless gaiety.  The buoyant pixie leans in to lap at the pout of your cockhead with the tip of her pink tongue while her thumbs work fervently between the junction of her legs, stroking her glistening clit like she were polishing a precious jewel.  Her fingers curl into the slavering depths of her pussy, stroking her fey folds with trembling pleasure.  Leaving one hand to continue jilling herself, Vala takes the other and uses her honey-drenched palm to polish the quivering flesh of your swelling shaft.  She encircles the crest of your fairy-slick cock with her eager pucker, sucking the steady dribble of your pre-cum as she pumps vigorously.  Before long, the twitching bliss rushing to your loins tell you that her voracious efforts have coaxed the thickening semen bubbling inside you to the edge of your restraint.  Gently, you push her off of your member, your urethra dilating as your orgasm gushes forth.' );
 		EngineCore.outputText( '[pg]Your cum spurts out in long, drooping ropes of alabaster that splash against Vala\'s face, provoking a startled jolt from the over-grown fairy.  She smiles, blinking the spunk from her eyes just as another stream lances out, pallid jizz catching her on the lips as she opens her mouth to speak.  She gasps in surprise, a curtain of ivory splashing down her chin.  The shuddering pleasure coursing through your body reaches a steady rhythm as you stroke yourself off in the throes of one, long orgasm.  Forcing yourself to breath steadily despite your racing heart, you pump your [cock] with remarkable restraint, holding back your impassioned urges to fill the fairy\'s womb with your virile seed.' );
 		EngineCore.outputText( '[pg]Vala raises her hands to gather the seed seeping down her face, guiding your rich cream across her cheek and back into her hair.  Her chest rises and falls a little faster as your keep up the regular pulses of cum, arcing through the air with every heartbeat; semi-clear fluid lacquering her pale skin as layer after layer of your ejaculate forms a slimy pearl mask that seeps down her throat and across her sizable breasts.  The fairy seems a bit flustered, panting as her head rolls on her shoulders, mouth agape and eyes sealed behind the thick, liquid lust spurting from your throbbing shaft.' );
@@ -2434,7 +2434,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Big Vala Intro;
 	Dungeon2Supplimental.prototype.valaBigYou = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.TIMES_VALA_CONSENSUAL_BIG ]++;
 		CoC.flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
 		//{FIRST TIME};
@@ -2474,7 +2474,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//Big Vala: Dom Me;
 	//Put PC on ground to make serve her orally.;
 	Dungeon2Supplimental.prototype.bigValaDomsPC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Vala tilts her head to the side, causing a gust of displaced air to blow your ' + Descriptors.hairDescript() + ' wildly.  "<i>Giving the maiden a chance to lead?  You\'re so sweet!</i>"  She tickles your chin with one immense fingertip.  "<i>But you had better give it your all, you adorable rascal, you.</i>"' );
 		EngineCore.outputText( '\n\nYou\'re gently placed on the ground between Vala\'s legs.  Looking back, you see her cross her ankles behind you while her thighs swing closer.  With no escape and the walls of your prison rapidly closing around you, the only way you can go is forward.  You slip and slide on the torrent of girl-cum that drizzles out from the gigantic faerie\'s cave-sized twat, holding onto her thighs to stay upright during your trek, lest you faceplant into cum-mud.' );
 		EngineCore.outputText( '\n\n"<i>Better hurry, Hero, if you don\'t want to be crushed!  Your prize is so close!</i>" Vala giggles, eventually pushing your [butt] with a finger to spur you along.  Reaching the ingress of her gushing pussy, you embrace the quivering, puffy edifice, the lurid lubrication slicking you from head to toe, pouring in through every crack and seam in your [armor].  A tremendous clap echoes from behind you, and you turn to see that her thighs have finally scissored closed.  You can feel the pliant flesh pressing in on you from both sides, holding you tight to the inviting lips even as the warm juices run down your [legs].  Beads of her slick moisture roll down your neck and arms, and you\'re forced to breath in nothing but air laced with her scent.' );
@@ -2541,7 +2541,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Big Vala: Lick Me (Requires Penor);
 	Dungeon2Supplimental.prototype.bigValaLicksOffDudes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giant Vala cocks an eyebrow at your request in surprise.  "<i>But, what if I accidentally swallow?  I couldn\'t live with myself if something should happen to my big... er, little Hero.</i>"  She pats you on the head affectionately, unsure of how to handle herself with all of her newfound size.' );
 		EngineCore.outputText( '\n\nYou comfortingly stroke her hand and reassure her that you want nothing more than to slide yourself in her mouth and feel her gigantic tongue sliding all over you, licking all of you like a popsicle until you can\'t take it anymore.' );
 		EngineCore.outputText( '\n\nVala seems somewhat intrigued by the way you\'re putting it, but her worried brow furrows deeper, fretting about what could go wrong.  The familiar glow of your ectoplasmic friend appears in Vala\'s eyes for a split second, and her lips suddenly begin to inflate, puckering on their own into what can only be described as a cock-sucking \'o\'.  Their surface begins to shine with unnatural lubrication, glossy with slippery promises of sensuous caresses and orgasmic pleasure.' );
@@ -2631,7 +2631,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Giant Vala + Vapula Threesome - Vala Dommy;
 	Dungeon2Supplimental.prototype.valaDommyVapula3Some = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.valaVapulaThreesome();
 		EngineCore.outputText( '\n\nWith her mind made up, Vala grabs hold of the surly demoness.  Then, leaning over your camp, she grabs a length of rope from your supplies, holding it as you would a length of twine.  She quickly loops it around the demoness, tightly restraining Vapula from her pointed heels up to her big, bouncy succubi-tits.  The tainted tart\'s arms are lashed tightly to her sides before she\'s caught on to what exactly is going on, crude rope compressing her forgiving flesh erotically, setting Vapula\'s glorious, corrupted cunt to dripping.' );
 		EngineCore.outputText( '\n\n"<i>Hey, what are you doing?</i>" the smaller woman cries as she struggles against the bonds.' );
@@ -2696,7 +2696,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Giant Vala + Vapula Threesome - Vala Lovey Dovey;
 	Dungeon2Supplimental.prototype.valaLoveyVapula3Some = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.valaVapulaThreesome();
 		EngineCore.outputText( '\n\nVala smiles tenderly and says, "<i>Oh, I\'ll be far gentler than the demons were with me.  Besides, you\'re way prettier than any imp!</i>"  She stretches out to touch Vapula, running a narrow fingertip (for a giantess) around each of the succubus\'s heavy breasts.  "<i>A cutie like you can\'t be nearly that mean...</i>"' );
 		EngineCore.outputText( '\n\nVapula affectionately licks the faerie\'s finger, unsure of where this is going but happy to reciprocate when she\'s getting stroked so sensually.  The immense pixie grips the demon gently, lifting her up to her mouth, which even now is engorging, lips puffing out obscenely.  She gasps, "<i>Oh, tho thenthitive!</i>" before running her tongue across the new, puckered bimbo-lips Shouldra\'s chosen to gift her with, shivering from the sensations her plump puckers exude.  Then, she pops the \'small\' demon inside, savoring the unnaturally curvy woman\'s sinfully sumptuous flavor.  The only portion of Vapula still exposed to the air is her face, which even now is spreading into a dopey smile.  She lays down on the plump lower lip like a puffy pillow, cooing lustily.' );
@@ -2739,7 +2739,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Dungeon2Supplimental.prototype.kinathisValaStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 50 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -2846,11 +2846,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[next];
 	Dungeon2Supplimental.prototype.valaPartIIWaifuLove = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.time.hours = 6;
 		CoC.time.days++;
 		SceneLib.camp.sleepRecovery( false );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Letting out a yawn, you curl up in the warm covers of the bed.  You sigh and smile as the smell of food wafts over you; it reminds you of your time back home.  The scent of frying meat and eggs soon becomes too much for your sleeping mind and rouses you from your slumber.  Stretching your body out, you look around and remember your night with Vala; you must have fallen asleep in her bed.  Unable to help yourself, you follow the mouth watering aroma to the kitchen and find the loving fairy-girl there.  Her gossamer wings flutter as she hovers at the stove, naked save for the apron she wears.  The sound of grease popping and crackling fills the air along with the smell of a savory, home cooked breakfast.' );
 		EngineCore.outputText( '\n\nYou can\'t help but grin, the sweet girl treating you to breakfast after spending the night with her.  Approaching her, you slip your arms around her and hug her gently.  Despite your surprise hug, Vala keeps working, though she is more than happy to press her ass against you.  "<i>Mmmm... good morning, did you sleep well, [name]?</i>" she asks as she looks up at you with a bright smile of her face.  You smile back at her and slide your hands into her apron to grope and fondle her oversized breasts, the rough touch pulling a squeak and a soft moan from her lips.  "<i>H-hey! You\'re supposed to be enjoying my food, not me!</i>" she says with a blush on her cheeks, clearly not really minding your hands on her.  Looking back at the food she is preparing, Vala reluctantly pulls away.  "<i>Breakfast is done - my treat, now let’s eat!</i>" she cheerfully announces as she takes the food off the stove and plates the mouth-watering feast.  Each plate is blessed with a trio of bacon strips, two fried eggs and two plump sausages.  Shivering in delight at the meal ahead of you, you say a heartfelt thanks to Vala before digging in with her.' );
 		EngineCore.outputText( '\n\nIt’s a wonderful change of pace from the usual food you have in the morning.  The salty, savory meats and eggs fill you up, spreading a satisfied warmth through you as you eat.  Unfortunately for you, the deliciousness of the filling meal means it’s devoured quickly, leaving you almost uncomfortably full.  Letting out a sigh, you slide an arm around your fairy lover and pull her closer, cuddling with her at the table for a moment before pulling her into your lap.  Your hands run over her body and stroke her softly as you settle into the intimate, post-meal moment.  Vala smiles and presses herself against you, her arms curling around you as she snuggles you.  "<i>My hero...  I wish we could stay like this forever, [name]</i>" she says as she nuzzles her face into your [chest].' );

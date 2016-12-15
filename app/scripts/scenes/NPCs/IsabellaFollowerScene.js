@@ -193,7 +193,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		}
 	};
 	IsabellaFollowerScene.prototype.sendToFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.isabellaSprite();
 		EngineCore.outputText( '“<i>Do you think you could do me a favor?</i>” you say to the Teutonic tit-monster. “<i>There’s a farm near here, down by the lake. I need anyone who is strong, and vigilant, and... has a lot of milk...</i>” To your relief, Isabella responds well to the idea.' );
 		if( this.isabellaAccent() ) {
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	IsabellaFollowerScene.prototype.backToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.isabellaSprite();
 		EngineCore.outputText( '“<i>Could you head back to camp? It’s just... it’s getting a little lonely at night up there.</i>” Your gambit pays off and Isabella pinches your cheek in delight.' );
 		if( this.isabellaAccent() ) {
@@ -1434,7 +1434,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//Get Licked in Return (seems incompatible with centaurs/driders due to lap-sitting);
 	IsabellaFollowerScene.prototype.receiveAllTheCowTOngues = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 31 );
 		EngineCore.outputText( 'Isabella pulls you up into her lap when you agree.  You recline against her, the two of you sinking into the plush cushions of her big chair; ' );
 		if( CoC.player.tallness <= 78 ) {
@@ -1497,7 +1497,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 
 	//Ey bitch u wan sum fuk? (Or, how Isabella learned to love the dick regardless of size and shape) (Z);
 	IsabellaFollowerScene.prototype.fuckIsabella = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 31 );
 		//AREA FOR SCENE ACCESS: (164);;
 		var x = CoC.player.shortestCockIndex();
@@ -1602,7 +1602,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//Introduction;
 	//(Chance to play when you EXPLORE the farm after Isabella moves to camp);
 	IsabellaFollowerScene.prototype.findIzzyMilking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you wander around Whitney\'s farm, your exploration brings you back toward the barn.  Wiping the sweat from your brow after nearly an hour under the hot sun, you lean back against the hard wooden wall to take a breather - only to hear a faint, yet clearly ecstatic, mooing coming from inside.  You step over to the nearest window and, peering inside, are surprised to see a familiar towering cowgirl leaning over a railing, a pair of oversized milkers chugging away at her massive mounds.  Seeing her mooing softly as the milkers suckle the thick cream from her teats soon has you well aroused at the sight... and you think you could give her a sexy surprise while she\'s getting milked.' );
 		EngineCore.menu();
 		CoC.flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] = 1;
@@ -1613,7 +1613,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//Fuck Her (Male/Dick'd Herms);
 	IsabellaFollowerScene.prototype.fuckIsabellaInTheBarn = function() {
 		var x = CoC.player.biggestCockIndex();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You quietly slip into the barn and make your way over to Isabella\'s stall.  Silently opening the door, you\'re afforded a good look at the nude, bent-over cowgirl, your eyes drinking in her lush curves and thick, soft ass - and the glistening pussy between her meaty thighs, slightly parted by a pair of mottle-skinned fingers rubbing and teasing at her big clit.' );
 		EngineCore.outputText( '\n\nStripping out of your [armor], you sidle up behind the distracted bovine and grab your ' + Descriptors.cockDescript( x ) + ', giving it a few quiet strokes until it\'s nice and hard.  Then, with a grin, you let it pop free of your grasp so that it flops down between Isabella\'s gropable cheeks, quickly buried beneath her yielding flesh.' );
 		EngineCore.outputText( '\n\n"<i>Mooooooo!</i>" she cries out in alarm, struggling to lean back to see her assailant while tangled up in the milking tubes.  Chuckling, you give her a pat on the ass and tell her to relax...  it\'s just you.' );
@@ -1652,7 +1652,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		EngineCore.addButton( 0, 'Next', this, this.isabellaBarnFuckPartII );
 	};
 	IsabellaFollowerScene.prototype.isabellaBarnFuckPartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Isabella collapses, shuddering and twitching after her orally-induced orgasm.  Playfully, you cup a hand around one of her well-milked breasts and roll her over, spreading her furry legs around your hips.  A slight groan escapes Isabella\'s lips as you loom over her, quickly taking one of her eight needy teats into your mouth.  A stream of ultra-sweet cream pours out at the slightest touch of your tongue, running down your throat just as fast as you can swallow.  The cow never seems to run out as you suckle from her, your head rising and falling with her heaving chest as she recovers from the squirting, thigh-quaking orgasm you just put her through.' );
 		EngineCore.outputText( '\n\nAs you continue to drain mouthful after mouthful of sweet cream from Isabella\'s full bosoms, you slowly move up on her, letting the crotch of your [armor] brush along the lips of her sodden box.  Isabella shudders, still so very, very sensitive after cumming mere moments before.  Your hand drifts down across your lover\'s soft, yielding flesh, your knuckles brushing along her supple thighs and many shapely curves before a lone digit comes to circle her prominent cherry nub.  Izzy\'s head rolls back, her breath catching in her throat as your tip makes a long, sensuous pass over her rose-red clit.  However, before you devolve into another righteous fingerfucking, you withdraw from her wet slit, moving a hand to your [armor] to free your [cock].  With a few quick movements, your fingers are coated in the milky sheen of your [cock smallest]\'s drooling excitement.  The throbbing shaft slips out from your grasp and glistens in the light, the underside of your pre-cum smothered tool covering her ready snatch and rubbing against the clit you just finished teasing.' );
 		EngineCore.outputText( '\n\n"<i>Oh, [name]...</i>" the cowgirl groans as a single languid movement of your hips brings your [cock smallest] to her eager fuckhole, your crown just passing between her lips to kiss the warm mouth of her cunny.  Isabella takes hold of your shoulders, further burying your face into her pillowy bosom as her fur-covered thighs wrap around your [hips], urging you ever onward, her legs pushing another inch of your prick into her.  You get the hint and start easing into her, letting Isabella\'s powerful legs guide you in, ushering your [cock smallest] into her warm, welcoming vaginal embrace.' );

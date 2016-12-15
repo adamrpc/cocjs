@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLib, kFLAGS, CoC, AppearanceDefs, EngineCore, Descriptors, Utils, PregnancyStore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, ConsumableLib, kFLAGS, CoC, AppearanceDefs, EngineCore, Descriptors, Utils, PregnancyStore ) {
 	function BunnyGirl() {
 	}
 
@@ -695,7 +695,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	//Coded or questionable parts are in {}.;
 	//Thank you for your time! Scene as follows (also in attachment):;
 	BunnyGirl.prototype.layEggsInBunbuns = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The displayed lapin in front of you has you excited, but not for a simple roll in the grass.  Your ' );
 		if( CoC.player.eggs() < 20 ) {
 			EngineCore.outputText( 'eager egg-tube slips free, ready to show the rabbit you can play the egg game too.' );
@@ -766,7 +766,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	};
 
 	BunnyGirl.prototype.ovipositBunnyEaster = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Smiling a little over-eagerly, you suggest, "<i>You know, if you really like eggs, I know where you can get a few...</i>"' );
 		EngineCore.outputText( '\n\n"<i>Oh?  Where\'s that?</i>" she responds, both her floppy ears standing up stock-straight and quivering with excitement.  She hops over to you, unconsciously letting her dripping phallus bob ponderously with each jump, the inertia turning it into a sexual pendulum of ridiculous, fourteen-inch proportions.  "<i>Are they behind you?</i>"' );
 		EngineCore.outputText( '\n\n"<i>It\'s a surprise,</i>" you promise, "<i>Get on all fours, and I\'ll give you all the eggs you could ever want.</i>"' );
@@ -823,7 +823,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	//Additional, low chance encounter in the plains. Options in parentheses should be adjusted to the following format: (Normal text/ Easter text);
 	//-----------;
 	BunnyGirl.prototype.adjathaEggsplosions = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your trek through the plains is interrupted by a shrill, piercing cry that jolts you out of the daydreams that were floating through your mind.  The piercing wail of a woman in distress grabs your attention and you hurry over the rising hills to the source of the howling bluster.  You weren\'t sure exactly what to expect, but as the source of the commotion comes into view, you have to admit this wasn\'t exactly what you thought you\'d find.' );
 		EngineCore.outputText( '\n\nLying in a shallow valley is a ' );
 		if( !CoC.isEaster() ) {
@@ -879,7 +879,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	};
 	//[Free Her] (Any gender);
 	BunnyGirl.prototype.freeHerOhGodWhyDidYouDoThis = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Taking a chance, you step up to the wriggling bunny and inspect her bonds.  The girl\'s body is covered in a ' );
 		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'sheen of sweat' );
@@ -943,7 +943,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	};
 	//[Fuck Her] (Male/Futa Only);
 	BunnyGirl.prototype.fuckTheEggBoundBun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'It\'s not often you find a treat gift wrapped so neatly for you; what kind of ingrate would you be if you just turned it down?  You step up to the wriggling bunny and inspect her carefully.  The girl\'s body is covered in a ' );
 		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'sheen of sweat' );
@@ -1030,7 +1030,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, OnLoadVariables, ConsumableLi
 	};
 	//[Get Egged] (Female/Futa only);
 	BunnyGirl.prototype.getEggflated = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Deciding it\'d be too cruel to leave her like this, you resolve to put the bunny-girl at ease. However, you\'re not so foolish that you\'re willing to just untie her - if that hungry look in her eyes is any warning.  Stepping up to the wriggling bunny, you inspect her carefully.  The girl\'s body is covered in a ' );
 		if( !CoC.isEaster() ) {
 			EngineCore.outputText( 'sheen of sweat' );

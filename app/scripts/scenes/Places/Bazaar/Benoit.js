@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLib, AppearanceDefs, PregnancyStore, ConsumableLib, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib, UseableLib, AppearanceDefs, PregnancyStore, ConsumableLib, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function Benoit() {
 	}
 
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Introduction Scenes;
 	Benoit.prototype.benoitIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var suggestText = '';
 		var suggest = null;
 		var womb = null;
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		EngineCore.outputText( '"<i>If you can see something you want in Benoit\'s Spectacular Salvage Shop, and you can walk away with it, it\'s yours,</i>" replies Benoit, theatrically sweeping his claw to take in the entirety of his stall but almost knocking over a birdcage.  "<i>Assuming you can pay whatever I\'ve decided it\'s worth, of course.  If you want to unload your garbage \'ere?  Zis is also fine.  I cannot pay what ze fat cats in Tel\'Adre can, though.  Check back every day; ze Spectacular Salvage Shop always \'as new zings to sell.</i>"' );
 	};
 	Benoit.prototype.benoitsBuyMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.BENOIT_1 ] === 0 ) {
 			this.updateBenoitInventory();
 		}
@@ -292,7 +292,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			'', null, null, 'Back', this, this.benoitIntro );
 	};
 	Benoit.prototype.benoitSellMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.BENOIT_EXPLAINED_SHOP ] === 0 ) {
 			this.buyOrSellExplanationFirstTime();
 		} else {
@@ -321,7 +321,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		if( slot === undefined ) {
 			slot = 1;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var itype;
 		var buyMod = 2;
 		if( CoC.flags[ kFLAGS.BENOIT_STATUS ] === 1 ) {
@@ -348,11 +348,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		//(+3 Affection);
 		this.benoitAffection( 3 );
 		CoC.player.gems -= Math.ceil( buyMod * itype.value );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.benoitsBuyMenu );
 	};
 	Benoit.prototype.benoitSellTransact = function( slot, sellMod ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( this.benoitLover() ) {
 			EngineCore.outputText( 'Benoit' + this.benoitMF( '', 'e' ) + ' gives your object the briefest of goings-over with ' + this.benoitMF( 'his', 'her' ) + ' fingers before stowing it away and handing over your gem reward with a trusting smile.' );
 		} else {
@@ -360,13 +360,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		}
 		CoC.player.gems += Math.ceil( CoC.player.itemSlots[ slot ].itype.value / sellMod );
 		CoC.player.itemSlots[ slot ].removeOneItem();
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//(+1 Affection);
 		this.benoitAffection( 1 );
 		EngineCore.doNext( this, this.benoitSellMenu );
 	};
 	Benoit.prototype.benoitSellAllTransact = function( totalItems, sellMod ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var itemValue = 0;
 		for( var slot = 0; slot < 5; slot++ ) {
 			if( CoC.player.itemSlots[ slot ].quantity > 0 && Math.ceil( CoC.player.itemSlots[ slot ].itype.value / sellMod ) >= 1 ) {
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			EngineCore.outputText( 'Following a painstaking examination of the items you\'ve given him with his hands and nose, Benoit grudgingly accepts them and carefully counts out your ' + Utils.num2Text( itemValue ) + ' gem reward.' );
 		}
 		CoC.player.gems += itemValue;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//(+1 Affection per item);
 		this.benoitAffection( totalItems );
 		EngineCore.doNext( this, this.benoitIntro );
@@ -445,7 +445,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 
 	//Talk;
 	Benoit.prototype.talkToBenoit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(+5 Affection per day if used);
 		if( CoC.flags[ kFLAGS.BENOIT_TALKED_TODAY ] === 0 ) {
 			CoC.flags[ kFLAGS.BENOIT_TALKED_TODAY ] = 1;
@@ -635,7 +635,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	//First talk;
 	//Requires: PC has oviposition/ovi-elixered/in heat, Affection 35+;
 	Benoit.prototype.benoitAndFemPCTalkAboutEggings = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.BENOIT_SUGGEST_UNLOCKED ] = 1;
 		EngineCore.outputText( 'Benoit seems very on edge today.  He paces up and down, returns your greeting with a stiff nod, and fiddles endlessly with the stock in reach of his counter as you search for a topic.  You ask if there\'s something wrong.' );
 		EngineCore.outputText( '\n\n"<i>Nuzzing!</i>" he barks angrily.  He coughs.  "<i>Nussing,</i>" he says in a calmer tone.  You wait.  "<i>It\'s just... ze way your body is right now,</i>" he says eventually.  "<i>It... speaks to me.  But zis is my problem,</i>" he goes on, straightening his neck and nervously tapping his claws on the counter. "<i>And I am not myself if I cannot control myself.  Please, [name], ask your questions.</i>" You look at the sad, proud basilisk and wonder when exactly the last time he got laid was.' );
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Suggest: ;
 	Benoit.prototype.eggySuggest = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.BENOIT_TESTED_BASILISK_WOMB ] === 0.5 ) {
 			this.suggestSexAfterBasiWombed( true );
 			return;
@@ -800,14 +800,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		}
 	};
 	Benoit.prototype.takeBenoitsContraceptives = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You gladly accept the herbal contraceptive and push it into your mouth, enjoying the pleasantly sharp, citrus flavour.' );
 		//  "<i>I can sell you ze stuff too,</i>" he says, twiddling his claws.  "<i>If you want.</i>";
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//No: ;
 	Benoit.prototype.dontTakeEggtraceptives = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You smile and say you don\'t mind carrying and laying a few basilisk eggs. "<i>You... you don\'t?</i>" he says hesitantly.  He faces you and for a moment looks like he\'s going to say something else; but then he shakes his head and puts the bag back into the drawer.' );
 		//"<i>Well...if you are sure.  I can sell you ze stuff if you ever change your mind.</i>";
 		EngineCore.outputText( '\n\nIn the warm afterglow you redress at leisure before leading him back inside the shop and, after squeezing his hand, take your leave.' );
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 
 	//Subsequent visit to the shop: ;
 	Benoit.prototype.firstTimeAfterBoningEncounterBenoit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Set a flag here to make sure it only happens once.;
 		CoC.flags[ kFLAGS.BENOIT_POST_FIRSTFUCK_TALK ] = 1;
 		EngineCore.outputText( 'A strange, faint noise is emanating from the salvage shop.  It\'s only when you duck cautiously into the stall proper that you realize it\'s the sound of a basilisk humming.  Benoit stops to sniff the air when you come in, immediately puts down the mug he is polishing, and beckons you inside.' );
@@ -829,7 +829,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Let him(not for horses): ;
 	Benoit.prototype.repeatSexWithBenoitLetHim = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nFor the moment you don\'t do anything; you simply stand back and let his hands slowly move across your frame.  One of his hands comes to rest upon your [nipples]; as he gently teases and kneads the soft, sensitive flesh his other hand drift downwards, across your belly, around your waist and down your velvety back.  Although he is familiar with your frame by now Benoit never seems to stop being enthralled by your body; there is an unconscious frown of concentration on his face as his smooth hands move across your warm skin, as if he were mapping you in his mind\'s eye.' );
 			EngineCore.outputText( '\n\nThis slow, gentle pressure is all very well, but you can\'t help but wonder if you can\'t awaken something a bit more bestial in the timid basilisk.  The thought of making him lose his self-control over you makes you grin, and tenderly but firmly you put your hands on his claws and tell him to stop.  He looks at you in puzzlement.  Smiling, you begin to give him some of his own treatment; your hands drift softly over his tight, smooth flesh, working down his flat stomach until they reach his long johns.  You slowly unbuckle them and let them fall, releasing his long, thin erection.  With one hand you circle the base gently; even touching this least sensitive part of his dick makes him grunt with need, the thump of his heart reverberating through his scales, and he involuntarily thrusts forwards, trying to get more of your hand upon him.  Again, you tell him to be still.  You continue to almost-masturbate him, your one hand rubbing the very base of his cock and the lips from which it thrusts, whilst you very gently sway your powerful back hips, your [vagina] beginning to moisten at the sight of the basilisk\'s intense arousal.  The scent of your sex is in the air and the fact you cannot reach back and do anything about it only intensifies your excitement.  Benoit is clenching his pointed teeth, trembling slightly like a pipe about to burst, his tail thrashing fitfully as you ponderously turn and lead your rump into him, smearing your essence over his incredibly receptive nostrils.  All he can smell is your own arousal as you begin to talk huskily, saying you\'ve been a naughty girl playing in the mountains, you\'ve teased and run away and mocked every creature you\'ve found but now a big bad basilisk has got you cornered, and what is the big bad basilisk going to do now it\'s got this naughty girl all to itself...?' );
@@ -883,7 +883,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Take charge: ;
 	Benoit.prototype.repeatBenoitFuckTakeCharge = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( '\n\nFor the moment you don\'t do anything; you simply stand back and let his hands slowly move across your frame.  One of his hands comes to rest upon your [nipple]; as he gently teases and kneads the soft, sensitive flesh his other hand drift downwards, across your belly, then slowly back along your vast equine frame.  Although he is familiar with your frame by now Benoit never seems to stop being enthralled by your body; there is an unconscious frown of concentration on his face as his smooth hands move across your warm skin, as if he were mapping you in his mind\'s eye.' );
 			//[Herm:;
@@ -979,7 +979,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Bas. Womb (not for horses);
 	Benoit.prototype.tryToConvertToBassyWomb = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[Ingredients not in inventory: ];
 		//A double dose of ovi-elixer, a bottle of reptilum, goblin ale and some basilisk blood would probably do...;
 		if( !(CoC.player.hasItem( ConsumableLib.OVIELIX, 2 ) && CoC.player.hasItem( ConsumableLib.REPTLUM ) && CoC.player.hasItem( ConsumableLib.GOB_ALE )) ) {
@@ -1030,7 +1030,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 
 	Benoit.prototype.suggestSexAfterBasiWombed = function( later ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Subsequent "<i>Suggest</i>" if initial sex option not taken: ;
 		if( later === undefined || later ) {
 			EngineCore.outputText( 'You smile coquettishly and ask if he\'s interested in taking your new body for a... test drive.  ' );
@@ -1145,7 +1145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	//Opening Talk;
 	//Requires: Affection 40+, Have already talked to Benoit at least once, have not had sex with Benoit;
 	Benoit.prototype.femoitInitialTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Benoit if he has ever thought about trying to do something to help his people\'s plight.' );
 		EngineCore.outputText( '\n\nThe basilisk is silent for a time, running his claws along the counter pensively.  "<i>Yes,</i>" he says eventually, in a quiet tone.  "<i>I \'ave.  Away from ze mountains, I \'ave \'ad time to sink.  I am not ze demons\' slave anymore, and I am a funny joke of a basilisk anyway, so I \'ave often thought about making certain... zacrifices.  If we \'ad just one female, away from zeir corruption, zen...</i>" he tails off, shrugging unhappily.  "<i>But I just torment myself sinking about zis, [name].  Ze demons made us very resistant to change.  I would need somesing very powerful for me to become... somesing useful.</i>"' );
 		/*
@@ -1166,7 +1166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	// Feminise;
 	Benoit.prototype.benoitFeminise = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		// Ingredients not in inventory;
 		if( !CoC.player.hasItem( ConsumableLib.P_S_MLK, 2 ) || !CoC.player.hasItem( ConsumableLib.L_PNKEG ) || !CoC.player.hasItem( ConsumableLib.OVIELIX ) || !CoC.player.hasItem( ConsumableLib.REPTLUM ) ) {
 			EngineCore.outputText( 'You don\'t have the necessary ingredients to attempt this yet.' );
@@ -1191,7 +1191,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 		}
 	};
 	Benoit.prototype.femoitNextDayEvent = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.BENOIT_STATUS ] = 1;
 		CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT_DONE ] = 2;
 		EngineCore.outputText( 'A strange, faint sound is emanating from the salvage shop.  It\'s only when you duck cautiously into the stall proper that you realize it\'s the sound of a basilisk humming.  Benoit stops to sniff the air when you come in, immediately puts down the mug she is polishing, and beckons you inside.' );
@@ -1203,7 +1203,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Benoite Interactions;
 	Benoit.prototype.femoitFirstTimeNo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You let her down as kindly as you can.' );
 		EngineCore.outputText( '\n\n“<i>No, you are right,</i>” she says in a casual tone, although the color is still very high in her scales. “<i>It would be way too weird zat, wouldn’t it? I will find someone though, never fear.  As I said before...</i>” Benoite points two fingers at her blind eyes and then at the stall entrance.  There’s a distinct gleam in those cloudy grey depths you think would scare the hell out of most things with a penis. “<i>I ‘ave a purpose now.</i>”' );
 		EngineCore.outputText( '\n\nCatching a subtle tone of dissapointment in Benoite\'s voice, you bid her a quick farewell and head back to camp, deciding to give her some time to recover.' );
@@ -1212,7 +1212,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	Benoit.prototype.femoitFirstTimeYes = function() {
 		CoC.flags[ kFLAGS.TIMES_FUCKED_FEMOIT ]++;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Smiling, you reach across the counter and squeeze Benoite\'s hands until her nervous babble dies out and she smiles back.  Still holding her hand, you move behind the crates and then gently lead her behind the stall\'s canopy.' );
 		EngineCore.outputText( '\n\nWhat passes for Benoite\'s back office is perfect for your purposes; the two wagons between which her stall is sandwiched close together here and the triangular space is filled with crates and unsorted salvage.  You carefully inch your blind charge to a clear cranny and push her against a wooden wall, leaning into her as you gently undo her apron.  The excited bustle, thump and clatter of the carnival sounds like it\'s coming from a million miles away.' );
 		EngineCore.outputText( '\n\n"<i>Zis is so weird,</i>" she mumbles as you drop the garment onto the packed dirt and slowly move your hands up her smooth body to take her beret; you can\'t imagine what\'s going through her head, but looking into Benoite\'s snub lizard face and cloudy grey eyes, you can only agree with the sentiment.  Still... your eyes are drawn to her softer jaw line, her swollen chest and her bright feathers.  The fact that you did this to her, literally emasculated her and that she now wants you to take her, touches something deep and you eagerly begin to peel off your [armor], blood rushing to your groin. ' );
@@ -1274,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	// Subsequent Sex;
 	// Requires: Benoite not pregnant;
 	Benoit.prototype.femoitSexIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Once again, you take Benoite\'s hand and lead her into the back room.  Your free hand roams underneath her apron as you carefully pick out a path through the junk and Benoite is swiftly in on the game too; her fingers slide downwards to pinch and fondle at her favorite parts of you.  By the time you make it into the storage space you are practically falling over each other, laughing as you fumble off each other\'s clothes.' );
 		if( !this.benoitPreggers() ) {
 			EngineCore.outputText( '\n\nBenoite\'s fingers travel down your sides as you lift her apron off her, her warm, smooth touch eventually falling upon your [cock]; already aware of every inch of you she rubs and coils you expertly, softly pumping you until your flesh is straining in her grasp. She circles a feather-light touch around your [cockHead] with one finger ever so gently, grinning slyly as she does.  Grunting with need, you push her insistently down onto the packed soil, shaking out of the last of your underclothes; Benoite spreads her thighs for you, her genital lips widened and moist with readiness.' );
@@ -1310,7 +1310,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			this.benoitKnockUp();
 			CoC.player.orgasm();
 		} else if( this.benoitRegularPreggers() && (!CoC.player.isTaur() || (CoC.player.isTaur() && (CoC.player.tallness * (5 / 6) < CoC.player.cocks[ CoC.player.longestCock() ].cockLength))) ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'Once you are both in the usual spot, neither of you waste any time undressing.  The pregnant basilisk stands there, staring blindly at you, and waiting for you to make the first move, tongue occasionally flicking past her lips to nervously wet them.' );
 			EngineCore.outputText( '\n\nYou use this opportunity to examine your reptilian lover more closely, stepping forward and reaching out with your hands.  You gently trail your fingers across her jawline, then reach up and softly ruffle the feathery crest on her head, making her coo appreciatively.  Your fingers slide down the lines of her body to cup and stroke her small, rounded chest, and then inexorably continue onwards to the hard, round, swollen mass that is her egg-laden belly.  You place your palms flat against the distended orb, feeling the pressure that the sizable clutch is exerting on the interior of her womb, massaging her sides and making her moan softly; you\'d almost swear you can hear her eggs softly clicking as you move them against each other.' );
 			EngineCore.outputText( '\n\n"<i>Enough foreplay; I sought zat we were going to fuck?</i>" she playfully reprimands, and you smirk and nod your head, knowing guiltily that she can\'t see it.  Nimbly you skip around behind her, catching her tail and rubbing it affectionately against your cheek, then tell her to find something sturdy to support her; you want her to kneel down against it.' );
@@ -1336,7 +1336,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 			EngineCore.outputText( '\n\nYou redress yourself, give the trader a hand getting back to the front of the shop without knocking anything over - she may be familiar with her shop, but her distended belly still gives her problems - and then head back to camp.' );
 			CoC.player.orgasm();
 		} else if( this.benoitVeryHeavyPreggers() || this.benoitExtremePreggers() ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			if( CoC.player.isTaur() ) {
 				EngineCore.outputText( '"<i>No.  Non!  Absolutely non!</i>" Benoite insists.  "<i>You are my amazing stallion, [name], but... it is simply too much.  Wis all zis weight on me, zere is simply no way we can do it.</i>"' );
 				EngineCore.outputText( '\n\nShe places a hand on you, working it up to your face cautiously until she\'s holding your cheek.  "<i>Truly, I am sorry.  I am eager to see you again, my \'andsome \'orse... once our children are walking on their own feet.</i>"' );
@@ -1379,7 +1379,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ItemType, ArmorLib, UseableLi
 	};
 	//Benoite Gives Birth;
 	Benoit.prototype.femoitBirths = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you enter Benoite\'s stall, you hear the sounds of gasps of pain from the backroom, mingling with the sounds of stock being knocked around. You race through and find Benoite, completely naked, leaning against a table and groaning in anguish, her tail slashing wildly through the air behind her.  "<i>[name]!  It.. it iz good zat you are here.  Ze eggs!  Zey come!</i>"' );
 		EngineCore.outputText( '\n\nShe lets out a howl of pain, claws digging deeply into the scarred wood of the tough old table she\'s leaning on, her huge belly hanging heavily over the floor. Instinct motivates you to help the soon-to-be mother of your children, and you dart around behind her.' );
 		// (First time: ;

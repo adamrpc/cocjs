@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//-PC has achieved "<i>Fuckbuddy</i>" status with Helia.;
 	//-HelAffection >= 70;
 	DungeonHelSupplimental.prototype.heliaDiscovery = function() {
-		//EngineCore.clearOutput();;
+		//MainView.clearOutput();;
 		//(Scene proc's the first time all requirements are met and the player chooses [Sleep] at camp.);
 		EngineCore.outputText( 'Before bedding down for the night, you make one last check of your camp\'s perimeter, making sure all your traps and defenses are still in place and primed in the event of a surprise nighttime assault.  As you come to the outermost parts of your makeshift camp, you notice a cloaked stranger approaching out of the evening darkness.  You\'re about to ready your [weapon], but you recognize the shapely figure of Hel the salamander walking towards you, hips a-sway underneath her loose traveling cloak.' );
 		//(If Hel has never been to camp before (ie, no Isabella threesome at camp);
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Intro Scene -- No;
 	DungeonHelSupplimental.prototype.noDungeon = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You consider for a few moments, but ultimately decide that this is a venture you\'d rather not participate in.' );
 		EngineCore.outputText( '\n\n"<i>W-What? Why not?</i>" Hel stammers, suddenly glowering at you.' );
 		EngineCore.outputText( '\n\nYou try to explain your reasons, but it seems Hel isn\'t having any of it.' );
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Intro Scene -- Yes;
 	DungeonHelSupplimental.prototype.agreeToHelpHeliaDungeon = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You mull the salamander\'s proposition over and eventually agree to assist her.  Not only will you be stopping a new race of monsters from spawning into the mountains, but you\'ll be getting into the lovely Helia\'s good graces - a win-win if ever there was one.' );
 		EngineCore.outputText( '\n\nHel breaks out into a great big smile and leaps at you, pulling you into a hug and squeezing until you damn near choke.  You return her tight embrace, and are eventually rewarded by Hel relaxing in your arms' );
 		//[if has lap: ;
@@ -116,19 +116,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 
 	//Introduction -- Not Yet.;
 	DungeonHelSupplimental.prototype.notYet = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Hel you were only checking on her, and that you\'ve still got some things to do.  She sighs and quietly asks you to hurry.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Introduction -- Dungeon;
 	DungeonHelSupplimental.prototype.goToHeliaDungeon = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Helia that yeah, you\'re as ready as you\'ll ever be.  She beams and grabs you in a tight hug.  "<i>Thanks again, [name].  You\'re a real goddamn champion, you know that?</i>"  You laugh it off, but the salamander gives you a sultry wink and starts off toward the mountains.  You\'re quick to follow her.' );
 		//(NEXT);
 		EngineCore.doNext( this, this.goToHeliaDungeon2 );
 	};
 	DungeonHelSupplimental.prototype.goToHeliaDungeon2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Within the hour, you and Helia are hiking up the narrow ledges and crevices of the high mountains, slowly but steadily climbing toward a snow-capped peak.  Hel certainly seems to know where she\'s going - she blazes a certain and steady trail, as if she knows every path and shortcut up the mountain.  By the time you near the peak, you\'re convinced she\'s been up here before - many times, even.' );
 		EngineCore.outputText( '\n\nEventually, you see the crest of a squat, thick stone tower on the mountainside.  Hel easily guides you toward it, giving you a helping hand over an unusually wide gorge that would have kept most stray minotaurs well away from the solitary spire.  As you scramble onto the tower\'s plateau, Hel grabs your shoulders and pins you to the ground - just in time to avoid the gaze of a low-flying harpy.' );
 		EngineCore.outputText( '\n\n"<i>Quiet,</i>" she hisses, lying atop you so that you can\'t jump up and expose your position.  "<i>We can\'t take them all at once out in the open... This is going to be a sneaking mission, got it?</i>"' );
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//[Armor]:;
 	DungeonHelSupplimental.prototype.takeGooArmor = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach the armor rack.  A suit of heavy plated armor sits upon it, overlaying a flexible chain vest.  Contrasting against the rotting room, the armor seems to be in pristine condition, even shining.  Perhaps someone uses this heavy equipment - but surely not a harpy? You suppose you could take it.' );
 		//(Display Options: [Take Armor] [Back]);
 		EngineCore.choices( 'Take Armor', this, this.takeGooArmor4Realz, '', null, null, '', null, null, '', null, null, 'Back', null, MainView.playerMenu );
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//[Armor] -> [Take]:;
 	DungeonHelSupplimental.prototype.takeGooArmor4Realz = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 79 );
 		EngineCore.outputText( 'You reach out to grab the armor, but as soon as your finger brushes the shiny surface, a human-like face appears in the helm!  You recoil as a daintily feminine and bright blue face takes shape out of nowhere, staring at you with eyes afire with rage.  More of the gooey substance that makes up the girl\'s face fills out the armor, yanking it off the racks on feet made of goop.' );
 		EngineCore.outputText( '\n\nQuietly, the armored goo-girl growls, "<i>You dare to disturb my rest, mortal? Prepare yourself for my vengeance!</i>"' );
@@ -199,7 +199,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//(Struggle);
 	DungeonHelSupplimental.prototype.struggleAtGooBind = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//If fail:;
 		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 ) {
 			EngineCore.outputText( 'You try and get out of the goo\'s grasp, but every bit of goop you pull off you seems to be replaced by twice as much!' );
@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Goo Armor -- PC is Victorious (Intro);
 	DungeonHelSupplimental.prototype.beatUpGooArmor = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Succumbing to your ' );
 		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'erotic abilities' );
@@ -323,7 +323,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//[Refuse Her];
 	DungeonHelSupplimental.prototype.refuseGooArmorOffer = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her to fuck off -- you don\'t need armor that might try to kill or rape you at night.' );
 		EngineCore.outputText( '\n\nShe huffs indignantly and scrambles to her feet.  "<i>Well fine, and fuck you anyway.  I hope you get raped by harpies, ' + CoC.player.mf( 'sir', 'madam' ) + '.</i>"  After a moment, she hesitantly adds, "<i>But if you change your mind later... Well, we\'ll see if you live through this place without me!</i>"  Before you can stop her, she ducks out the front door and off to... Wherever goo-armor-girl-things would go, you guess.  Still, to your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
 		EngineCore.HPChange( 1000, false );
@@ -333,7 +333,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//[Take Her];
 	DungeonHelSupplimental.prototype.takeGooArmorAndWearIt = function() {
 		EngineCore.spriteSelect( 79 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You mull the proposition over for a few moments and then agree. Why the hell not.' );
 		EngineCore.outputText( '\n\nWith an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );
 		EngineCore.outputText( '\n\nBefore she can get too excited, you remind the goo that she\'s supposed to be your armor right about now.  Clasping her hands over her mouth in embarrassment, she utters a muted apology and urges you to just "<i>put me on!</i>"  Awkwardly, you strip out of your [armor] and open up the platemail armor and clamber in.  It\'s wet and squishy, making you shudder and squirm as you squash your new friend flat against the metal armor.' );
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	DungeonHelSupplimental.prototype.harpyHordeGangBangStruggle = function( clearDisp ) {
 		if( clearDisp === undefined || clearDisp ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		//Failure: ;
 		//If fail:;
@@ -437,7 +437,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Harpy Horde -- PC is Victorious;
 	DungeonHelSupplimental.prototype.pcDefeatsHarpyHorde = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HEL_HARPIES_DEFEATED ] = 1;
 		EngineCore.outputText( 'The harpies collapse in a pile in the center of the room, all utterly defeated... except one.  The lone harpy that did not attack you throughout the fight, a rather slight girl with a shock of bright orange hair, still stands, gaping at the destruction you\'ve wrought.  Eventually, her gaze shifts up to you.' );
 		EngineCore.outputText( '\n\n"<i>Holy shit, ' + CoC.player.mf( 'dude', 'lady' ) + '.  You\'re a goddamn one-' + CoC.player.race() + '-army, aren\'t you? You... you must be [name], right? Hel... er, Miss Helia told me about you.  I\'m, uh... I\'m Kiri.  Sorry about the other girls - I\'d just spiked their drinks, but they didn\'t have time to finish them.  You\'re a little earlier than I was expecting.  Sorry,</i>" she whispers nervously, rubbing the back of her neck.' );
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Talk];
 	DungeonHelSupplimental.prototype.talkToKiri = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Kiri if she wouldn\'t mind sharing a bit of information with you.' );
 		EngineCore.outputText( '\n\n"<i>Of course,</i>" she says pleasantly, "<i>that\'s what I\'m here for!  What do you want to know?</i>"' );
 		//(Display Options: [Hel] [Harpies] [Salamander] [Kiri]);
@@ -456,7 +456,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Talk] -- [Hel];
 	DungeonHelSupplimental.prototype.askKirkAboutHel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask the harpy girl how she knows Hel, exactly.' );
 		EngineCore.outputText( '\n\n"<i>Oh, uh,</i>" she starts nervously, obviously taken aback by your question.  "<i>I\'ve known Miss Helia for quite a while now. She saved my life a couple of years ago, and, well, we\'ve been friends ever since.  When I realized what was going on here - who the salamander in the dungeon was - I couldn\'t help but try and tell her what\'s up.</i>"' );
 		EngineCore.outputText( '\n\nKnowing Hel as well as you do, you venture to ask Kiri if she and Hel are just friends.' );
@@ -465,7 +465,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Talk] -- [Harpies];
 	DungeonHelSupplimental.prototype.askKiriAboutHarpies = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Kiri about the harpies remaining in the tower and their relative strength and position - anything to give you an advantage.' );
 		EngineCore.outputText( '\n\n"<i>Right, yeah, Hel asked me to scout around and remember that stuff.  Uh... Oh yeah!</i>" she clears her throat and begins to recite:  "<i>Dungeon Level the Jailer, salamander prisoner.  Mezzanine: Phoenix Heavy Infantry unit, trained but inexperienced.  Second Floor Guard, elite bodyguards; and our Broodmother, Calais, queen of the tower.</i>"' );
 		EngineCore.outputText( '\n\nYou nod, then ask, "<i>Phoenixes?</i>"' );
@@ -474,7 +474,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Talk] -- [Salamander];
 	DungeonHelSupplimental.prototype.askKiriAboutSalamander = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask her about the salamander prisoner you\'re here to help free.' );
 		EngineCore.outputText( '\n\n"<i>Oh, yeah...</i>" Kiri says nervously "<i>About that...</i>"' );
 		EngineCore.outputText( '\n\nUh-oh.' );
@@ -487,7 +487,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Talk] -- [Kiri];
 	DungeonHelSupplimental.prototype.askKiriAboutKiri = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Kiri to tell you a little about herself.' );
 		EngineCore.outputText( '\n\n"<i>Who, me? Oh, I\'m nobody special, really...</i>" she says with a self-conscious chuckle.' );
 		EngineCore.outputText( '\n\nYou urge her to tell you something anyway.' );
@@ -497,7 +497,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	// Kiri -- [Sex] (Intro);
 	DungeonHelSupplimental.prototype.kiriSexIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Kiri if she could help you blow off some steam.' );
 		EngineCore.outputText( '\n\n"<i>Wha-WHAT!?</i>" she yelps, recoiling.  "<i>Hey, look, I owe Hel big time, but I never agreed to do... to do that!  You... no way!</i>"' );
 		EngineCore.outputText( '\n\nYou remind Kiri that here in Mareth an errant tease or stroke of skin can mean the difference between victory and being raped if you\'re too horny.  And, she promised Hel she\'d help you...' );
@@ -520,7 +520,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Sex] -- [Anal];
 	DungeonHelSupplimental.prototype.kiriSexAnal = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 60 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Kiri -- [Sex] -- [Get Licked];
 	DungeonHelSupplimental.prototype.kiriSexGetLicked = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Kiri to eat you out. She grimaces but drops to her knees and undoes the bottom of your [armor], revealing your lusty [vagina]' );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' and ' + CoC.player.multiCockDescriptLight() );
@@ -570,7 +570,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//[Valeria];
 	DungeonHelSupplimental.prototype.talkToValeria = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Now that you have a few moments to catch your breath, you ask your goo-armor what she thinks about the situation.' );
 		EngineCore.outputText( '\n\n"<i>Oh, hi,</i>" she laughs.  She pours half-way out of your armor, forming her face a few inches from yours.  Kiri leaps in shock, wide-eyed as your armor becomes a new person before you.' );
 		EngineCore.outputText( '\n\n"<i>Well hey there, cutie,</i>" Valeria says, giving Kiri a little wink.  The harpy shudders slightly and shakes the surprise off.' );
@@ -592,7 +592,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 
 	//[Torture Gear];
 	DungeonHelSupplimental.prototype.tortureGear = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.menu();
 		EngineCore.outputText( 'You walk up to the torture rack.  ' );
 		if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] === 0 ) {
@@ -633,7 +633,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//[Prisoner] (First Time);
 	DungeonHelSupplimental.prototype.helDungeonPrisonerTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HEL_PC_TALKED_WITH_HAKON ] === 0 ) {
 			EngineCore.outputText( 'You approach the Salamander strapped to the table.  He looks at you with his one good eye, warily gauging you as you approach.' );
 			EngineCore.outputText( '\n\n"<i>Well, aren\'t you a sight for sore eyes,</i>" he laughs, his voice little more than a rasp.  "<i>About time somebody put a boot up that punk bitch\'s ass.  Ha!  Hey, the name\'s Hakon.  I\'d shake your hand, but, uh, I\'m a bit tied up at the moment as it were.  So, what brings an outsider all the way up here?</i>"' );
@@ -699,7 +699,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Phoenix Platoon -- PC is Defeated;
 	DungeonHelSupplimental.prototype.phoenixPlatoonMurdersPC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You collapse, too ' );
 		if( CoC.player.lust > 99 ) {
 			EngineCore.outputText( 'turned on' );
@@ -714,14 +714,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Phoenix Platoon -- PC is Victorious;
 	DungeonHelSupplimental.prototype.phoenixPlatoonLosesToPC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With one final grunt, the last of the phoenixes collapses onto the pile of defeated warriors you\'ve left in your wake.  The once-mighty platoon of soldiers has been reduced to a bruised, lusty heap of flesh, scales and feathers.  Seeing that the battle is won, you lower your [weapon] and take a look around.' );
 		CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ]++;
 		Combat.cleanupAfterCombat();
 	};
 	//[Phoenixes];
 	DungeonHelSupplimental.prototype.checkOutDemBirdBitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You loom over the defeated heavy infantry, marveling at them.  The half-breeds were probably the most organized and efficient fighting unit you\'ve ever come across here in Mareth, and though you defeated them, you know most denizens of the region wouldn\'t have stood a chance.' );
 		var missionary = null;
 		var wanked = null;
@@ -750,7 +750,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Phoenixes -- [Missionary];
 	DungeonHelSupplimental.prototype.phoenixMissionary = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 80 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -828,7 +828,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	DungeonHelSupplimental.prototype.phoenixWanking = function() {
 		var x = CoC.player.biggestCockIndex();
 		var y = x + 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grab the healthiest looking phoenix off the top of the pile and throw the hermaphrodite on her back a few feet from her sisters.  She grunts, looking up at you with grim, fierce eyes.  "<i>I\'ll never submit!  I am a proud warrior, not some-</i>"  Yeah, whatever.  You rip her chain shirt open, revealing the large, soft globes of her D-cups beneath.  The phoenix gasps at the sudden exposure and turns her head away, determined not to look you in the eye as you take your pleasure.  You grope one of her breasts roughly, pinching the nipple between your fingers until she\'s whimpering with pain and pleasure.  You let up for just a moment and tell the girl that she\'s going to get you off with her special endowments, or you\'re going to put her in a world of hurt.' );
 		EngineCore.outputText( '\n\nWith a groan, she nods her head.  You release her sensitive breast and present your [cock ' + y + '].  Reluctantly, the phoenix-girl brings her fiery tail around and, extinguishing it, begins to snake it around your prick.  You urge her on as she wraps her long, prehensile appendage around your shaft, wringing it like a sponge as her tail\'s grip tightens.  You run your hands through the girl\'s bright red hair, stroking her gently as she starts to jerk your [cock ' + y + '] off with her tail.' );
 		EngineCore.outputText( '\n\nIt feels heavenly, and you shudder with delight as her warm, scaly tail rubs and strokes and squeezes you... But it isn\'t quite enough, not with so many other parts of her left!  You push her looped tail off the tip of your [cock ' + y + '] and tell the phoenix to put her soft, feathery red wings to good use.  She gawks at you, but a quick grope of her tits urges her to the task.  She furls her auburn wings around her shoulders, letting the fringes stroke and caress the sensitive [cockHead ' + y + '] of your cock.  You barely contain yourself at the downy touch of her feathers along your [cock ' + y + ']\'s head and length, and urge her onwards with encouraging words and more gentle, loving squeezes and teases of her lush tits.' );
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Phoenixes -- [Git Butt-rode];
 	DungeonHelSupplimental.prototype.gitButtRoadPhoenix = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grab the healthiest looking phoenix off the top of the pile and throw the hermaphrodite on her back a few feet from her sisters.  She grunts, looking up at you with grim, fierce eyes.  "<i>I\'ll never submit!  I am a proud warrior, not some-</i>" Yeah, whatever.  You rip her chain shirt open, revealing the large, soft globes of her D-cups beneath. The phoenix gasps at the sudden exposure and turns her head away, determined not to look you in the eye as you take your pleasure.  Gripping the warrior by her hefty boobs, you tell the phoenix that it\'s her lucky goddamn day: you\'re going to let her fuck your ass.' );
 		EngineCore.outputText( '\n\nThe phoenix stares up at you with a mix of eagerness and caution.  "<i>Wait... you\'re gonna let me... do that? Really?</i>"' );
 		EngineCore.outputText( '\n\nYou nod.' );
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Phoenix -- [Ride Vaginal];
 	DungeonHelSupplimental.prototype.phoenixAginal = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grab the healthiest looking phoenix off the top of the pile and throw the hermaphrodite on her back a few feet from her sisters.  She grunts, looking up at you with grim, fierce eyes.  "<i>I\'ll never submit!  I am a proud warrior, not some-</i>"  Yeah, whatever.  You rip her chain shirt open, revealing the large, soft globes of her D-cups beneath.  The phoenix gasps at the sudden exposure and turns her head away, determined not to look you in the eye as you take your pleasure.  You ignore her temporary defiance and grab her cock.' );
 		EngineCore.outputText( '\n\n"<i>Heeeey,</i>" the phoenix whines squirming to get out of your grip.' );
 		EngineCore.outputText( '\n\nYou maintain your grasp on her long, purple lizard dick and tell her that you\'re doing her a favor: you\'re going to let her fuck your [vagina].  She stops struggling at the invitation.' );
@@ -907,7 +907,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		Combat.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.ropeStruggles = function( wait ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Struggle Fail: ;
 		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 || wait ) {
 			EngineCore.outputText( 'You give a mighty try, but cannot pull free of the magic ropes!  The Harpy Queen laughs uproariously, pulling at your arms harder.' );
@@ -939,7 +939,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//HARPY QUEEN -- PC DEFEATED;
 	DungeonHelSupplimental.prototype.harpyQueenBeatsUpPCBadEnd = function( clearS ) {
 		if( clearS ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
 		//HARPY BREEDING SLUT BAD END;
@@ -971,7 +971,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//HARPY QUEEN -- PC VICTORIOUS;
 	DungeonHelSupplimental.prototype.harpyQueenDefeatedByPC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a final, loud gasp, the Harpy Queen collapses into her throne, unable to oppose you further.  Seeing their broodmother defeated, the other harpies that had been swarming around the room suddenly break off their attack and retreat, edging back to the fringes of the throne room.  Behind you, Hel stumbles out of the melee, covered in little cuts and bruises, but seeming otherwise unhurt.' );
 		EngineCore.outputText( '\n\n"<i>Y-you\'ll ruin everything,</i>" the Harpy Queen groans, trying futilely to stand.  Before she can recover, Hel walks over and plants her clawed foot right on the bitch\'s chest, pinning her down.  From a small hook on the side of the throne, you take her key-ring for the prisoner down below.' );
 		//(Acquired Key Item: "<i>Harpy Key B</i>");
@@ -982,7 +982,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Helia];
 	DungeonHelSupplimental.prototype.HeliaThroneRoom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn your attentions to the salamander, who is currently pinning down the harpy bitch to prevent her from flying off or doing something drastic.' );
 		EngineCore.outputText( '\n\n"<i>Hey, [name],</i>" Hel says as you approach.  She grabs you roughly by the [armor] and pulls you into a long kiss, only breaking it to wrap her arms and tail around you.  "<i>Thank you, lover.  From the bottom of my heart.  I couldn\'t have done it without you.</i>"' );
 		EngineCore.outputText( '\n\nYou pat her on the head and tell her it was your pleasure.' );
@@ -1000,7 +1000,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Helia] -- [Hakon];
 	DungeonHelSupplimental.prototype.heliaHakonTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide to tell Hel who, exactly, is chained up downstairs.  When you do, she simply stares at you, wide-eyed.' );
 		EngineCore.outputText( '\n\n"<i>Wha... what. No, that\'s not... It can\'t be...</i>"' );
 		EngineCore.outputText( '\n\nYou assure her that it\'s true. The salamander she came here to rescue is none other than father, Hakon.' );
@@ -1013,7 +1013,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Helia] -- [Kiri];
 	DungeonHelSupplimental.prototype.heliaKiriTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Hel about the half-breed girl that helped the two of you find this place, and offered you information below.' );
 		EngineCore.outputText( '\n\n"<i>Oh! You met Kiri? That\'s great, [name].</i>" With a little chuckle, Hel adds, "<i>She\'s a cutie, isn\'t she?  Nice ass, too.</i>"' );
 		EngineCore.outputText( '\n\nYou smack your face with your palm and ask for something a little more concrete about her.' );
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Helia] -- [Queen];
 	DungeonHelSupplimental.prototype.heliaQueenTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You nod your head toward the great big-booty broodmother.  "<i>Ah, the queen cunt herself,</i>" Hel says ruefully, cracking her knuckles.  "<i>We\'re gonna have some fun with you, little birdie...  Aren\'t we, [name]?</i>"' );
 		EngineCore.outputText( '\n\nYou ask Hel exactly what she thinks you ought to do with the \'queen cunt.\'' );
 		EngineCore.outputText( '\n\n"<i>Well, we can start by me shoving my tail so far up her twat that she\'ll never have kids again.  That\'s a goddamn start.</i>"' );
@@ -1038,7 +1038,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen];
 	DungeonHelSupplimental.prototype.harpyQueenAdvantage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You loom over the defeated Harpy Queen, who squirms underneath Hel\'s foot on her chest.' );
 		EngineCore.outputText( '\n\n"<i>Fool!</i>" she spits.  "<i>Kill me and be done with it! I\'ll not be used by the likes of you, demon-lover!</i>"' );
 		EngineCore.outputText( '\n\nWhat.' );
@@ -1051,7 +1051,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen] -- [Let Her Go];
 	DungeonHelSupplimental.prototype.letHarpyQueenGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Hel to let up. You\'re letting the bitch go.' );
 		EngineCore.outputText( '\n\n"<i>What.</i>" Hel says, deadpan.' );
 		EngineCore.outputText( '\n\n"<i>Move your damn foot!</i>"' );
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen] -- [Let Her Go] -- [Forgive];
 	DungeonHelSupplimental.prototype.harpyQueenLetHerGoForgive = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You and Hel stare each other down, the dead harpy\'s body the only thing separating you.  Two dozen enraged harpies screech and caw around you, demanding justice for their fallen queen.' );
 		EngineCore.outputText( '\n\n"<i>All right, Hel. Fine.</i>"' );
 		EngineCore.outputText( '\n\nHer eyes light up.  Not the reaction she was expecting, it seems.  "<i>So... we\'re good?</i>"' );
@@ -1103,7 +1103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen] -- [Let Her Go] -- [Berate];
 	DungeonHelSupplimental.prototype.harpyQueenLetHerGoBerate = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You and Hel stare each other down, the dead harpy\'s body the only thing separating you.  Two dozen enraged harpies screech and caw around you, demanding justice for their fallen queen.' );
 		EngineCore.outputText( '\n\n"<i>Hel, what the fuck!?</i>" you yell.  That was NOT okay--you told the bitch she could leave, and then Hel just MURDERS her; what the FUCK?' );
 		EngineCore.outputText( '\n\n"<i>Of course you wouldn\'t understand,</i>" Hel snaps, dropping the dead queen as she stands.  "<i>Your parents are probably safe and snug back in wherever the fuck you\'re from.  Me?  I had to live my whole life thinking my dad was dead; I had to watch a gang of gnolls drag my mother off to be raped to death.  Fuck you anyway, [name].  What do you know?</i>"' );
@@ -1115,7 +1115,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen] -- [Kill Her];
 	DungeonHelSupplimental.prototype.killHarpyQueen = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look from Hel to the Harpy Queen.  This bitch could have bred an entire army - and might try it again. You can\'t allow that.' );
 		EngineCore.outputText( '\n\nYou reach down and, with one quick stroke, snap her neck.  It twists easily, no harder than popping the cork of a wine bottle.  The sound of bones breaking is drowned out by the screams of harpies, screeching and cawing in horror.' );
 		EngineCore.outputText( '\n\nHel blinks at you for a second, then nods approvingly.  She turns to the aghast brood and shoos them off with her sword.  The winged bitches yell and curse, but don\'t dare to resist the two of you.' );
@@ -1135,7 +1135,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Take Staff];
 	DungeonHelSupplimental.prototype.takeQueensStaff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up the Harpy Queen\'s staff.  It is a tall whitewood staff, nearly six feet in length, and covered in glowing eldritch runes, with a singular shimmering sphere of crystal at its head, which seems to have a swirling mist within.' );
 		//(New Weapon: EldritchStaff);
 		SceneLib.inventory.takeItem( WeaponLib.E_STAFF, MainView.playerMenu );
@@ -1144,7 +1144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen] -- [Fuck Her];
 	DungeonHelSupplimental.prototype.fuckHarpyQueen = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide that the queen bitch deserves to be taught a lesson and you\'ll use her to get you off in the process.  You whisper this to Hel, who seems quite amused by the idea.' );
 		EngineCore.outputText( '\n\n"<i>Oh, I was hoping you\'d say that. So, what\'s the plan?</i>"' );
 		//(Display Options:;
@@ -1160,7 +1160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Harpy Queen Sex -- [Dick in Anal];
 	DungeonHelSupplimental.prototype.harpyQueenSexAnal = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Hel grabs the queen bitch by the shoulders and roughly tosses her onto the floor.  The gathered crowd of harpies gasp as Hel shoves the queen onto all fours for you.  You disrobe, tossing your [armor] aside and stroking your ' + CoC.player.cockDescript( 0 ) + ' to full hardness.  You kneel down behind the Harpy Queen\'s massive flanks, so wide that you feel you could stuff your torso between her cheeks.  With great effort, you peel her jiggling ass apart, revealing the tight ring of her pucker and her loose, gaping cunt.' );
 		EngineCore.outputText( '\n\nAs you position yourself behind the broodmother, Hel strips out of her skimpy bikini-mail and, grabbing the bitch by her hair, shoves her slick pussy into the harpy\'s face.  The queen struggles against Hel\'s grasp, making her inhuman hips and ass shake and jiggle seductively.  Your cock goes rock hard with the display before you, and you roughly push it into the harpy\'s buttcheeks.  You let her ass go, and shudder as the queen\'s soft flesh wraps around your ' + CoC.player.cockDescript( 0 ) + ', as tight as a virgin pussy, but at the same time so soft and giving...' );
 		EngineCore.outputText( '\n\nYou wrap your arms around her broodmotherly hips and start to thrust into her crack, hotdogging the harpy bitch.  Your dick sinks in and out of her squishy flesh, seeming to swallow your length like quicksand; you feel yourself drawn inexorably inwards, your shaft brushing against her slick pussy and tightly clenched ass.' );
@@ -1182,7 +1182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Harpy Queen Sex -- [Vaginal];
 	DungeonHelSupplimental.prototype.vaginalHarpyQueenSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You roughly toss the harpy queen to the floor and, grinning, tell her that since you\'re wrecking her plans to breed phoenixes, you\'ll just give her a brood of champion-spawn instead.  She gapes at you, wide-eyed in confusion and fear. Hel keeps her pinned down for you as you toss your [armor] aside, revealing your ' + CoC.player.cockDescript( 0 ) + '.' );
 		EngineCore.outputText( '\n\nHel swings her leg around, planting herself firmly over the Harpy Queen\'s face. She crouches down, planting her cunt just an inch above the queen\'s nose, her long fiery tail swishing just above her cunt.  "<i>You should feel honored, whore,</i>" Hel growls, grabbing the queen by the hair.  "<i>One egg fathered by my friend\'s seed is worth a thousand of your weakling sluts. Go on, thank ' + CoC.player.mf( 'him', 'her' ) + '!</i>"' );
 		EngineCore.outputText( '\n\nThe harpy struggles against Hel\'s firm grasp, until she gets a good slap from the salamander.  "<i>Gah! Thank you!  Thank you for the honor of bearing your eggs!</i>" she pleads, still squirming.  You laugh and grab her massive thighs, pulling them apart to reveal your prize.  Her cunt is a voluminous gash between her legs, gaping and drooling lubricant, stretched beyond human possibility by the dozens - hundreds, even - of eggs she\'s birthed over her long life.' );
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Throne Room -- [Harpy Queen] -- [Interrogate];
 	DungeonHelSupplimental.prototype.harpyQueenInterrogate = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Leaning over the defeated Harpy Queen, you decide to get some answers.  First, you ask her why, exactly, she kidnapped a salamander in the first place.  That\'s what brought you here, after all.' );
 		EngineCore.outputText( '\n\nGrunting under Hel\'s foot, the queen spits at you, narrowly missing your face. "<i>What the fuck kind of question is that? I stole him to steal his seed, foolish ' + CoC.player.mf( 'boy', 'girl' ) + '.</i>"' );
 		EngineCore.outputText( '\n\nWell, you suppose you had that one coming.  Next.  How did she get the phoenixes in the first place? Harpies usually don\'t birth half-breeds.' );
@@ -1242,7 +1242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//Tower of the Phoenix: Outro;
 	//(Play when the PC interacts with Hakon, in the dungeon, while possessing both HARPY KEY key items);
 	DungeonHelSupplimental.prototype.towerOutro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] === 0 ) {
 			CoC.flags[ kFLAGS.HARPY_QUEEN_EXECUTED ] = 1;
 		}

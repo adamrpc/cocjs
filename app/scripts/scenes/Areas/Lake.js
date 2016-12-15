@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
 	function Lake() {
 	}
 
@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 		//Egg chooser
 		if( Utils.rand( 100 ) < 25 && CoC.player.pregnancyIncubation > 1 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'While wandering along the lakeshore, you spy beautiful colored lights swirling under the surface.  You lean over cautiously, and leap back as they flash free of the lake\'s liquid without making a splash.  The colored lights spin in a circle, surrounding you.  You wonder how you are to fight light, but they stop moving and hover in place around you.  There are numerous colors, Pink, White, Black, Purple, and Brown.  They appear to be waiting for something; perhaps you could touch one of them?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Blue', this, this.eggChoose, 2 );
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 	};
 	Lake.prototype.findLakeLoot = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( Utils.rand( 2 ) === 0 ) {
 			EngineCore.outputText( 'You find a long and oddly flared vial half-buried in the sand.  Written across the middle band of the vial is a single word: "Equinum".\n' );
 			SceneLib.inventory.takeItem( ConsumableLib.EQUINUM, SceneLib.camp.returnToCampUseOneHour );
@@ -260,7 +260,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		}
 	};
 	Lake.prototype.eggChoose = function( eggType ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You reach out and touch the ' );
 		switch( eggType ) {
 			case  0:
@@ -287,13 +287,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lake.prototype.eggChooseEscape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You throw yourself into a roll and take off, leaving the ring of lights hovering in the distance behind you.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Just want to do a quick Ottergirl event submission after you mentioned it!
 	Lake.prototype.ottahGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.MET_OTTERGIRL ]++;
 		//First Time
 		if( CoC.flags[ kFLAGS.MET_OTTERGIRL ] === 1 ) {
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	};
 	//For Dicks
 	Lake.prototype.ottergirlLikesDongs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The moment you agree, a sly smile spreads across her face.  She jams the end of her fishing pole into the sand like a post, to prevent it from going anywhere, and stands up.  There\'s no tease, no ceremony as she strips out of her bikini bottoms and tosses them aside.  Her newly revealed mound has only the barest tuft of pubic hair, a little wisp of blonde hair amongst the sparse brown fur.' );
 		EngineCore.outputText( '\n\nYou move forward, intent on groping Callu\'s little breasts still hidden beneath the bikini top, but she holds up a hand and says, "<i>Whoa there darlin\', that ain\'t how a fish\'n\'fuck works.  You just lay down, and I\'ll take care of everything. And make sure you\'re as naked as a newborn babe.</i>"' );
 		EngineCore.outputText( '\n\nStrange, but you oblige, stripping off your [armor] and gear and tossing them aside. Callu instructs you to lay down on the beach next to her fishing pole, which you likewise oblige.  The otter-girl straddles your stomach, facing away from you, though her thick, heavy tail is thankfully kept away from your face.' );
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	};
 	//For Chicks
 	Lake.prototype.ottersForGals = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The moment you agree, a sly smile spreads across her face.  She jams the end of her fishing pole into the sand like a post, to prevent it from going anywhere, and stands up.  There\'s no tease, no ceremony as she strips out of her bikini bottoms and tosses them aside.  Her newly revealed mound has only the barest tuft of pubic hair, a little wisp of blonde hair amongst the sparse brown fur.' );
 		EngineCore.outputText( '\n\nYou move forward, intent on groping Callu\'s little breasts still hidden beneath the bikini top, but she holds up a hand and says, "<i>Whoa there darlin\', that ain\'t how a fish\'n\'fuck works.  You just lay down, and I\'ll take care of everything. And make sure you\'re as naked as a newborn babe.</i>"' );
 		EngineCore.outputText( '\n\nStrange, but you oblige, stripping off your [armor] and gear and tossing them aside.  Callu instructs you to lay down on the beach next to her fishing pole, which you likewise oblige.  The otter-girl straddles your stomach, facing away from you, though her thick, heavy tail is thankfully kept away from your face.' );
@@ -524,14 +524,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 	};
 	//For Pansies
 	Lake.prototype.avoidZeOtterPussy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shake your head and explain you can\'t.  She simply shrugs, "<i>Ain\'t no skin off my back.</i>"' );
 		EngineCore.outputText( '\n\nThe two of you sit in silence for a little while.  It doesn\'t feel like an awkward silence, just a serene, relaxing void of noise.  The gentle lapping of the water almost puts you to sleep.  Eventually, you stand, say your goodbyes and leave.  As you\'re leaving, Callu shouts, "<i>Come round any time, ya hear?</i>"  You nod absently, then make your way back to camp.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//For Fatties
 	Lake.prototype.getSomeFishYaFatty = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Callu you\'re a little more interested in the fish than the fuck, at least for today.  She shrugs once before jamming the end of her fishing pole into the sand like a post and turning towards her pack.' );
 		EngineCore.outputText( '\n\nShe retrieves a delicious-smelling slab of roasted fish, properly salted and wrapped in a large green leaf.  "<i>Here ya\'re, fresh as it comes \'less you want it still walkin\' and talkin\'.</i>"' );
 		EngineCore.outputText( '\n\nYou thank Callu for the food and take your leave.  ' );

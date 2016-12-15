@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Fera() {
 	}
 
@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 
 	Fera.prototype.pumpkinFuckEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Just ahead, in the middle of the path, lies a seeming innocuous gourd - a pumpkin to be precise.  The growth is oddly out of place.  Nothing else grows on the soft animal-forged path you now tread, and the pumpkin and its vines are moist, as if wet with morning dew.  They are the only plants in the vicinity to bear such moisture, gleaming dully in the muted arboreal light.' );
 		if( CoC.flags[ kFLAGS.PUMPKIN_FUCK_YEAR_DONE ] > 0 ) {
 			EngineCore.outputText( '  An old, haunting memory surfaces, and you realizes this seems... familiar.  Did you find this last year?  Yes... it could have been this very same pumpkin...' );
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//[HOLY SHIT YOU BE FUCKING A PUMPKIN];
 	Fera.prototype.pumpkinFuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.PUMPKIN_FUCK_YEAR_DONE ] = OnLoadVariables.date.fullYear;
 		EngineCore.outputText( 'Well, fuck it.  You\'re horny, and this little pumpkin doesn\'t look like it could stop you from fucking that gushing gourd-pussy.  As you shed your [armor], a few of the rough, slime-sweating vines feebly rise up to embrace you, but you brush them away, having no time for corrupt foolishness.  You\'re going to bust a nut in this fruit\'s sweet, supple folds, not let some malformed tentacle-horror molest you.' );
 		EngineCore.outputText( '\n\nYou kneel down before your target and examine the leaky orifice before you.  The rind around the opening is softer and smoother than human skin, yet oddly supple.  As soon as your fingers grace the surface of the moist fruit, a splash of ooze squirts from the gash to puddle at your [feet].  Curiously, you open the pumpkin\'s pussy with your fingers, feeling the slick wet walls trying to envelop your digits even as you gander at the compellingly vibrant interior.  The air seems thick with the plant\'s sweet smell, and [eachCock], regardless of your reason, seems hard as stone and painfully erect.' );
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//[Next];
 	Fera.prototype.pumpkinFuckPartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The titanic rent shivers, flaps of fruit-flesh smacking wetly for a second before splitting along their length.  The crack goes up the height of the six-foot pumpkin until it looks on the verge of splitting in two.  Suddenly, the gap widens, strings of orangey-purple goo hanging wetly between them for a moment.  Soon, the bisected fruit falls apart, at last revealing the corrupt core.  No trace of your mammoth insemination remains.' );
 		EngineCore.outputText( '\n\nStanding in the middle of the vegetational carnage is a human figure, shrouded in slime and pumpkin, but clearly alive.  Her waist-length hair shimmers, orange as the goop that drips from it as she turns to face you.  She casually brushes a wash of the filth from her head, revealing a achingly beautiful visage - pale skin, a button nose, and full, blood-red lips that glitter in the suddenly-dim light.  Burning crimson eyes lock onto you, and a voice as smooth as a razor\'s edge intones, "<i>So... YOU are my savior, hrmmm?</i>"' );
 		EngineCore.outputText( '\n\nAwestruck by the sudden development, you nod mutely, not really sure if you\'re going to have to fight this new demon, or if this woman was righteous and somehow imprisoned in the oh-so-fuckable pumpkin.  She reads the unasked questions in your eyes and begins to answer, stepping forward with hips slowly swaying.  "<i>I, my creamy little meal, am Fera, Goddess of Predation.</i>"' );
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.doNext( this, this.pumpkinFuckPartIII );
 	};
 	Fera.prototype.pumpkinFuckPartIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'SLAP!  The crack of a palm on your face rouses you, a red handprint left on your cheek.  Fera smirks at you as you stir woozily in your plant-woven prison.  "<i>Did you enjoy yourself?</i>"  You slowly nod, feeling... liberated, free.  The situation is less worrying than before.  Fera just wanted to thank you, right?' );
 		EngineCore.outputText( '\n\nThe sultry orange-haired maiden ' );
 		if( CoC.player.balls > 0 ) {
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Fera.prototype.mountPumpkin = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.PUMPKIN_FUCK_YEAR_DONE ] = OnLoadVariables.date.fullYear;
 		//>Yes [Player is pregnant, has low vaginal wetness, or has low fertility and is not in heat];
 		if( CoC.player.pregnancyIncubation > 0 || (CoC.player.wetness() < 2 && CoC.player.totalFertility() < 30) ) {
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//>Next;
 	Fera.prototype.pumpkinMountingLevelII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The pumpkin\'s titanic stem shivers, the mighty shaft trembling immensely before the pumpkin splits from the top causing it to topple.  The crack goes around the rind in multiple directions, causing it to split open like a flower as strings of orangey-purple goo hang wetly between the pieces for a moment.  A moment later, the sectioned fruit falls apart, at last revealing the corrupt core.  No trace of the mammoth copulation remains.' );
 		EngineCore.outputText( '\n\nStanding in the middle of the vegetational carnage is a human figure, shrouded in slime and pumpkin, but clearly alive.  Her waist-length hair shimmers, orange as the goop that drips from it as she turns to face you.  She casually brushes a wash of the filth from her head, revealing a achingly beautiful visage - pale skin, a button nose, and full, blood-red lips that glitter in the suddenly-dim light.  Burning crimson eyes lock onto you, and a voice as smooth as a razor\'s edge intones, <i>"So... YOU are my savior, hmmm?"</i>' );
 		EngineCore.outputText( '\n\nAwestruck by the sudden development, you nod mutely, not really sure if you\'re going to have to fight this new demon, or if this woman was righteous and somehow imprisoned in the oh-so-fuckable pumpkin.  She reads the unasked questions in your eyes and begins to answer, stepping forward with hips slowly swaying.  <i>"I, my creamy little meal, am Fera, Goddess of Predation."</i>' );
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.doNext( this, this.mountPumpkinsIII );
 	};
 	Fera.prototype.mountPumpkinsIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'SLAP!  The crack of a palm on your face rouses you, a red handprint left on your cheek.  Fera smirks at you as you stir woozy in your plant-woven prison.  <i>"Did you enjoy yourself?"</i>  You slowly nod, feeling... liberated... free.  The situation is less worrying than before.  Fera just wanted to thank you, right?' );
 		EngineCore.outputText( '\n\nThe sultry orange-haired maiden pats your sloshing middle as the vines unwind, allowing you to stand on your own feet.  You go to wipe the cum from your nose and upper lip as soon as you\'re free.  It\'s dry.  Did any of that even happen?' );
 		EngineCore.outputText( '\n\n<i>"I went ahead and gave you your reward.  It seemed fitting to enhance the power of your womb, since that was how you saved me.  My hero,"</i> Fera explains before giving you a chaste kiss on the lips.  <i>"You\'ll find yourself breeding easier and giving birth faster.  Now go, fill this world with strong offspring.  Do not disappoint me."</i>' );
@@ -236,7 +236,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	//You are just as much of a failure as he is.;
 	//Introduction;
 	Fera.prototype.feraSceneTwoIntroduction = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'While you\'re walking through the deepest, darkest parts of these overgrown woodlands, you come across a wild glade, filled with hundreds and hundreds of the most beautiful blossoming flowers. They cover the hundred or so feet across the clearing densely, some small, like dandelions and orchids, others enormous, on stalks as thick as small tree-trunks, blooming so vibrantly that you find yourself rubbing your eyes after gazing at them, dazzled by their many hued palettes. Sweet aromas of a thousand types of flowers blend together into a symphony of nasal delight, and you breathe deep, laughing loudly and openly at this wondrous find.' );
 		EngineCore.outputText( '\n\nYou flop back into the soft grasses that ring this overwhelmingly sweet glade. The nectar-sweet ambrosia that\'s carried through the air on clouds of pollen ought to be attracting some insects, shouldn\'t it? You glance around, looking for the bees and butterflies you would normally expect to thrive in such a place, but there are none. No bugs, no gnats, no aphids... just flowers... flowers everywhere. You get up and wander around a little bit, looking this way and that, hunting for any proof of life while simultaneously taking in the cacophony of dazzling colors.' );
 		EngineCore.outputText( '\n\nHere and there, you spot proof of Mareth\'s corruption in this seemingly pristine place: a flower whose petals look like plump, red lips, just waiting to be kissed, vines with distinctly phallic shapes protruding from the central stalk of the flower, and flowers whose entrances shine with slick fluids and part at your approach, appearing very much like a pair of clingy, virginal folds. And still, there are no bees. You run to the edge of the blooming meadow, and there, at last, you find what you were looking for.' );
@@ -249,14 +249,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Leave;
 	Fera.prototype.leaveFerasWonderland = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Nah, that whole place is probably some kind of giant venus fly trap. Fuck that.' );
 		CoC.flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] = OnLoadVariables.date.fullYear;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Explore Das Trees;
 	Fera.prototype.exploreFerasWonderland = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FERAS_GLADE_EXPLORED_YEAR ] = OnLoadVariables.date.fullYear;
 		EngineCore.outputText( 'Straightening to your full height, you take a few experimental sniffs and begin to walk back towards the middle of the meadow, brushing aside garish pink blooms that rise up past your waist.  That smell is getting stronger now.  How could you have missed it when you first arrived? It\'s heavenly, like a combination of every sweet treat you like with an undercurrent of passionate sexual musk blended in underneath.  You close in, ' + CoC.player.mf( '[hips] swaggering excitedly', '[hips] sashaying excitedly' ) + ', ' + CoC.player.skin() + ' flushing.  A few baby blue sunflowers bump your shoulders as you muscle past them to hone in your new favorite aroma.  You\'ve just got to know what bloom could possibly release such a heavenly scent!' );
 		EngineCore.outputText( '\n\nYou idly wonder what you would look like to any new arrivals, nose up and dragging you forward, almost like a fish on a hook, your body stumbling past chest-high blossoms that are nearly as wide as your shoulders.  A shadow dims the light as you pass under a massive flower-bulb that stretches thirty feet overhead, its petals folded into a familiar-looking, sealed sphere.  That doesn\'t stop it from dripping sweet-smelling nectar that reminds you vaguely of pussy for some reason, and you certainly don\'t notice the feet-shaped impressions that kick against the petals after you pass by.' );
@@ -311,13 +311,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Leave;
 	Fera.prototype.leaveAfterFlowerHuffing = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The farther you get from that glade, the more your head clears and the more you realize how close you came to disaster.  You resolve to avoid it in the future, lest you fall prey to that entrancing pollen and the hypnotic petals once more.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fuck the Lips;
 	Fera.prototype.fuckDemCorruptFlowerLips = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FERAS_TRAP_SPRUNG_YEAR ] = OnLoadVariables.date.fullYear;
 		EngineCore.outputText( 'You dazedly stagger forward, putting one [foot] after another on the supple flesh of the gigantic, color-swirling petal that leads to your goal plush, nectar-leaking lips at the center of the bloom.  With each plodding movement, the hues become more vibrant, the intoxicating scent becomes thicker, and the less well-reasoned your thoughts become, shutting down in the avalanche of sensory overload.  Soon, your thoughts are little more than: <i>Scent. Sex. Horny. Fuck.</i>' );
 		EngineCore.outputText( '\n\nWith a slight stumble, you work your way out of your [armor], not stopping your plodding advance in the slightest and never letting the flower\'s core out of your sight, if you can help it.  Those lips seem to be pursing ever so slightly, beckoning you to slip something inside them... something hard and throbbing, aching to unload.  You shudder as you walk, slipping on a stream of leaking nectar and falling down onto your hands, but this doesn\'t impede your progress.  You continue to climb up, hand over hand, dragging yourself up until the \'floor\' levels and you\'re about to smash yourself face-first into the flower\'s plump, mouth-like pillows.' );
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Get a Boosted Dick!;
 	Fera.prototype.dickBoostingFuntimes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You hang there, suspended, spread-eagled, and with your dick [sheath]-deep in a giant pair of fuck-hungry lips as the goddess circles you, running her dagger-sharp nails gently across your ' + CoC.player.skinFurScales() + ' until she stands behind you, arms wrapped around your [chest] and squeezing. She nips at your ear, biting it gently but getting no response from your blissed out, drug-ravaged body.' );
 		EngineCore.outputText( '\n\n"<i>Suck,</i>" the goddess commands authoritatively to the flower, and to you, she bids, "<i>Fuck.</i>"' );
 		EngineCore.outputText( '\n\nThose beautifully plump flower-lips compress down more tightly, sealing perfectly around your length' );
@@ -457,7 +457,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.addButton( 0, 'Next', this, this.postSeederUpgrade );
 	};
 	Fera.prototype.postSeederUpgrade = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You awaken fully dressed with a familiar ache between your legs.  Damn, that was a good nap.  You rise, scratching [oneCock] and smiling as you feel how hard and sensitive it is.  You\'re already feeling pretty anxious for a fuck, especially after the crazy wet dreams you had last night, and you resolve to find a nice hole to dump a few loads into before too long.  First, you had better go check back up on your camp.  You\'ve got to bring your A-game if you\'re going to fuck stronger babies into every weak pussy you come across.  Besides, the wait will only make your eventual sexual enjoyment that much messier.' );
 		//Add ten more corruption.;
 		//Add 50 lust.;
@@ -466,7 +466,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Stick a Stamen in It!;
 	Fera.prototype.stickAStamenInIt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FERAS_TRAP_SPRUNG_YEAR ] = OnLoadVariables.date.fullYear;
 		EngineCore.outputText( 'You dazedly stagger forward, one [foot] after another falling on the supple flesh of the gigantic, color-shifting petal that rises up towards the flower\'s center like steps on an ancient ziggurat.  The closer you get, the more vibrant the hues become, the thicker the scent becomes, and the simpler and more instinctive your thought processes become.  <i>Flower. Fuck. Sex. Need. Ache.</i>' );
 		EngineCore.outputText( '\n\nStumbling slightly, you begin to wriggle out of your [armor].  First one arm, then the other.  You pause briefly to slide your kit off, forgotten on the petal behind you, and come closer to those juicy, turgid stamen, so heavy and sticky and perfectly hard looking.  The slickness of the leaking nectar nearly robs you of your footing but you struggle on and catch hold at the seam between two petals, never letting your goal out of your sight.  On hands and ' );
@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Gape;
 	Fera.prototype.gapeMePleaseFera = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Fera smiles as you announce your choice.  "<i>I thought you might say that, little champion.  Now, you simply relax and enjoy the pleasure that only my normal weak-willed prey are allowed to experience.  You will be the first to taste it and be allowed free.  How wonderful!</i>"  She pets your forehead.' );
 		EngineCore.outputText( '\n\nMeanwhile, you hear a squelching, slithering sound down below as Fera pulls away, kneeling down beside you so that her lips are at your ear, washing her hot breath across it and occasionally letting her soft, pillow-like mouth press against your aural opening.  "<i>Relllaaaax,</i>" she commands, and you do.  Your body sags bonelessly into its organic cradle as a writhing mass of tentacle-like stamen contort just shy of your mons, their squirming shapes dripping almost as eagerly as you.' );
 		EngineCore.outputText( '\n\nThe mass of tendrils does not delay. It lurches forward as one unified column of hole-fucking power, plowing straight into your [vagina]' );
@@ -575,7 +575,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.addButton( 0, 'Next', this, this.gapeByFeraEpilogue );
 	};
 	Fera.prototype.gapeByFeraEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You awaken fully dressed with a familiar ache between your legs. Damn, that was a good nap.  You rise, stretching as you rub your back, sore from lying against a tree for so long.  You suppose you could hunt down a tentacle monster and see if it\'d really give you a filling' );
 		if( CoC.player.pregnancyIncubation === 0 ) {
 			EngineCore.outputText( ', but you\'d rather fuck something that\'ll get you good and pregnant with a well-hung fuck-CoC.monster, like a minotaur!' );
@@ -590,7 +590,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Tight;
 	Fera.prototype.tightLikeAToigar = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Fera smiles.  "<i>I had hoped we might do that, little champion.  Now, you simply relax and enjoy the pleasure that only my normal weak-willed prey are allowed to experience.  You will be the first to taste it and be allowed free.  How wonderful!</i>"  She pets your forehead.' );
 		EngineCore.outputText( '\n\nMeanwhile, one of the tentacles that had been holding you decides to disentangle itself from its brethren, swaying over towards Fera like a snake to a snake-charmer.  The goddess grabs the tentacle in her hands and smiles, tickling it just behind its exoticly-shaped glans in a way that makes it drip sweet-goo everywhere.  She stops before it can cum and changes posture, gripping the stalk tightly in her hand and curling her fingers inward until the tips of her nails pierce the plant-beast\'s skin.  It stiffens as if in pain and then goes limp, pinpricks of inky blackness spreading from where it\'s been punctured.  The inky coloration doesn\'t appear to be decay but rather an almost latex-like sheen.' );
 		EngineCore.outputText( '\n\nThe tentacle\'s inky spots expand to big, black blotches before combining together to turn the first foot of the thing into a rubbery onyx dong.  The corrupted, sextoy-like texture spreads like wildfire down the stalk and beyond your view, though you\'re sure it must stop somewhere, because the other tentacles never change color.  That succulent syrup that leaks from the tip changes to the same color, every bit the same tone but still completely liquid, dripping down off of it to splatter wetly on the floor as Fera strokes it once more.' );
@@ -642,7 +642,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.addButton( 0, 'Next', this, this.tightnessEpilogue );
 	};
 	Fera.prototype.tightnessEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You awaken fully dressed with a familiar ache between your legs.  Damn, that was a good nap.  You rise, stretching as you rub your back, sore from lying against a tree for so long.  You suppose you could find yourself something to fight and fuck, but you ought to head back to camp first.  You idly reach into your [armor] and slip a finger into your [vagina], feeling your tight walls instinctively clamp down and squeeze it.  It\'s nice, but it\'s just so much better when you can do that to a captive cock until it has no choice but to impregnate you with its hot seed.  What better way to save the world than by making sure that the strongest get to breed as often as possible?' );
 		EngineCore.outputText( '\n\nAs you head back to camp to prepare for your next adventure, you realize that you had some really, really fucked up dreams.  You hope you have more tomorrow night.' );
 		EngineCore.dynStats( 'lus', 20, 'cor', 10, 'resisted', false );
@@ -651,7 +651,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 	};
 	//Grow a Dick!;
 	Fera.prototype.growADickForFera = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Fera\'s luscious lips twist up into a knowing smile as you announce your decision.  "<i>Really? You\'re a girl after my own heart.  You\'re going to miss out on experiencing the pleasure I normally give my prey,</i>" she says with a gesture to one of the tentacle-like stamen as it rises up above your face, dripping its sweet nectar across the bridge of your nose.  "<i>But, you\'ll get to feel the bliss of cumming like a man, filling a nice, tight hole with a steaming-hot load of spunk again and again, and you\'ll even get to play with your cunt while you do it.  Prepare yourself, pet, for the experience of your lifetime.</i>"' );
 		EngineCore.outputText( '\n\nA juicy-sounding \'schluck\' sounds from below your [butt] when she finishes her proclamation, and a tendril far different from its flowery brethren rises up above your [legs], angling down towards your groin with an unflinching, almost robotic attention.  The tip is clearly hollow and lined with thousands of tiny, wiggling cilia, all slick and slimy with some kind of clear ooze, but that isn\'t what catches your eye.  No, there is something far more menacing protruding from the stalk\'s opening - a needle-like spike at least four inches long, though only an inch sticks past the lips of the cup-like tendril.' );
 		EngineCore.outputText( '\n\nFera crouches down next to your ear, planting her puffy, ruby kissers up against the lobe of your ear.  "<i>It won\'t hurt, my pet champion. It won\'t hurt at all.  You\'ve far too much of my sap inside you to feel pain by this point.  Instead, the only thing you\'ll experience is the erotic pleasure of allowing my voice to guide your thoughts and shape your mind, making you hotter, wetter, and more eager for a huge, throbbing cock.</i>"  She purrs an indecipherable sound of pleasure.  "<i>Get ready to feel so very good, [name]....</i>"' );
@@ -678,7 +678,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, OnLoadVariables, App
 		EngineCore.addButton( 0, 'Next', this, this.afterFeraGivesYouACawk );
 	};
 	Fera.prototype.afterFeraGivesYouACawk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You awaken fully dressed with a familiar ache between your legs.  Damn, that was a good nap. You rise, scratching your [cock] and smiling as you feel how hard and sensitive it is.  You\'re already feeling pretty anxious for a fuck, especially after the fucked up wet dreams you had last night, and you resolve to find a nice hole to dump a few loads into before too long.  First, you had better go check back up on your camp.  You\'ve got to bring your A-game if you\'re going to fuck stronger babies into every weak pussy you come across.' );
 		//Add ten more corruption.;
 		//Add 50 lust.;

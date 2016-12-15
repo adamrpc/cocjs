@@ -195,7 +195,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 				EngineCore.outputText( this.getCapitalA() + this.short + ' <b>mutilates</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		//SECOND ATTACK HERE------;
 		//Blind dodge change;
@@ -247,7 +247,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 				EngineCore.outputText( this.getCapitalA() + this.short + ' <b>mutilates</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};

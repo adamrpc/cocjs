@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( ' (' + damage + ')\n', false );
 			}
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Gnoll.prototype.gnollTease = function() {
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 				damage = CoC.player.takeDamage( damage );
 				EngineCore.outputText( ' (' + damage + ')\n', false );
 			}
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Gnoll.prototype.performCombatAction = function() {
@@ -348,7 +348,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 					damage = CoC.player.takeDamage( damage );
 					EngineCore.outputText( ' (' + damage + ')\n', false );
 				}
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 			this.gnollAttackText();
 		}

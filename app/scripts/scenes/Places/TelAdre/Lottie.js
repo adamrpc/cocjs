@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, CockTypesEnum, StatusAffects, ImageManager, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Appearance, ConsumableLib, CockTypesEnum, StatusAffects, ImageManager, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function Lottie() {
 	}
 
@@ -115,13 +115,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 			sex = this.lottieFuck;
 		}
 
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'lottie-encounter' ) );
 		if( charge ) {
 			if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 				EngineCore.outputText( 'The centauress working the door walks up to collect her fee, and you drop 10 gems for an hour at the gym into her hand.\n\n', false );
 				CoC.player.gems -= 10;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00281 ]++;
@@ -774,7 +774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 	//[Talk];
 	Lottie.prototype.talkToPigSlut = function() {
 		EngineCore.spriteSelect( 36 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var comedy1 = null;
 		//FIRST TIMER SHIT;
 		//[If 1st Time Oral];
@@ -1658,7 +1658,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, ConsumableLib, Co
 	//[Give Item – First Time] [Only Available with High INT];
 	Lottie.prototype.giveLottieAnItem = function() {
 		EngineCore.spriteSelect( 36 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var bova = null;
 		var gro = null;
 		var reducto = null;

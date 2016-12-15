@@ -589,7 +589,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	BasiliskScene.prototype.driderPCEggLaysBasilisk = function() {
 		EngineCore.spriteSelect( 75 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Leaning back on your carapace-clad abdomen, you try and look over your defeated opponent.  Even slumped over in ' );
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'exhaustion' );
@@ -665,7 +665,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	BasiliskScene.prototype.layBeeEggsInABasilisk = function() {
 		EngineCore.spriteSelect( 75 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Completely destroyed, the basilisk lays face down on the ground, struggling pathetically to get up.  You giggle at the attempt as you ' );
 		if( CoC.player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_SMALL || CoC.player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_LARGE ) {
 			EngineCore.outputText( 'buzz lightly over to the basilisk\'s writhing body' );

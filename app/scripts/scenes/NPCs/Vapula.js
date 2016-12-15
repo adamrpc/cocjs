@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	//Vapula-Followers interaction: Puru Puru Mouse (Z);
 	//switch follower names depending on conditions;
 	Vapula.prototype.mouseWaifuFreakout = function( amily, jojo ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( amily ) {
 			EngineCore.outputText( 'Amily ' );
 			if( jojo ) {
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	Vapula.prototype.callSlaveVapula = function( output ) {
 		if( output === undefined || output ) {
 			output = true;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 0 ) {
 				EngineCore.outputText( 'You gently tap Vapula on her shoulder and tell her you intend to put her goddess-like body to use.  She grunts at first but quickly smiles at you kinkily, letting you see her fangs as she voraciously stares at your crotch. You tear open the rags she\'s stitched together and cup her bouncy breasts. She swiftly responds with a passionate kiss, moaning in lust and quickly undressing you as you literally tongue-fuck each other. One of her hands darts at your crotch, slowly massaging it as she presses her body against your own, letting you feel the warmth of her jiggly bosom against your chest. You decide to return the favor; moving your own hands down, you slap her firm-yet-ample ass, getting a good grope of her purple flesh; your other hand starts exploring the depth of her vaginal recesses. She pulls back and openly cries in pleasure, her whole body shaking between your arms, a trickle of delicious succubus-saliva hanging between your lips.  After a few minutes of playful teasing, you release her; she stares at you with longing and flirtatious eyes.' );
 				EngineCore.outputText( '\n\n"<i>Want to have some fun, ' + CoC.player.short + '?</i>"' );
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		}
 	};
 	Vapula.prototype.sendToFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell your succubus concubine that she is to head towards the lake, find a farm, present herself to the lady who works there and do as she says. Vapula laughs long and hard at this.' );
 		EngineCore.outputText( '\n\n“<i>Good one [master],</i>” she guffaws. “<i>Me! Working on a farm! Taking orders from a dog! You’ve got such a wicked sense of humor, I wish I could coil it and suck it dry. You... you really can’t be serious about this, can you?</i>” she asks, sobering as she catches your expression.' );
 		EngineCore.outputText( '\n\n“<i>I am. Her working with a succubus will teach her just as important a lesson as it will you, slaving in the dirt for my benefit. Don’t worry... I’ll be over to check up on you frequently, and if you’re </i>really<i> good I’ll give you something better to milk than your average cow when I do.</i>” ' );
@@ -311,14 +311,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Vapula.prototype.backToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her to head back to camp; there are things you need to do to her you can’t do whilst she’s here. Repeatedly. Vapula fist pumps the sky.' );
 		EngineCore.outputText( '\n\n“<i>Yessssss! You will NOT regret this, [master]. Oh, I am SO out of here!</i>” She practically sprints out of the farm yard, leaving you to laugh and then cough in the dust cloud she leaves.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] = 0;
 		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	Vapula.prototype.harvestMilk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Vapula that you want her hooked up to a milking machine whenever possible; you need her fluids.' );
 		EngineCore.outputText( '\n\n“<i>Ooh, so that’s why you wanted me to come out here!</i>” Vapula grins and her fingers reach for a breast, already fantasising about insistent pressure on her nipples.' );
 		if( CoC.flags[ kFLAGS.FARM_UPGRADES_REFINERY ] === 0 ) {
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	Vapula.prototype.stopHarvest = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Vapula to stop producing succubus milk; you’re practically drowning in the stuff.' );
 		EngineCore.outputText( '\n\n“<i>Well, that was the whole idea, [master]. Sure you don’t want to drink some more? Alright, alright!</i>” A familiarly sulky expression descends on the demon’s face as you deny her her second most favourite activity.' );
 		CoC.flags[ kFLAGS.FOLLOWER_PRODUCTION_VAPULA ] = 0;
@@ -339,7 +339,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula Appearance - this bitch is purpler than a Nigerian (Z);
 	Vapula.prototype.fapulaFapfapfapAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Vapula is a 6 foot 1 inch-tall succubus with a voluptuously curvy build.  Her entire skin is purple, only growing darker whenever she\'s aroused.  She has a fairly human face with a surprising lack of horns; were it not for her skin, the only sign betraying her demonic origins would be her pair of fangs that are revealed whenever she smiles.  Her eyes are purple as well, often glinting with lust.  Her dark-purple hair grows luxuriously around her head, giving her a fierce, almost lion-like aspect, but it\'s offset by her majestic aquiline wings, leaving you wondering about her origins.  Two normal, well-formed legs grow down from her squeezable hips, swaying hypnotically as she walks.  She is wearing rags that cover only a tiny fraction of her body, concealing just her naughty bits to make the whole display more erotic.' );
 		EngineCore.outputText( '\n\nShe has a pair of jiggly, perky H-cup breasts, each one adorned with a 1-inch nipple.' );
 		EngineCore.outputText( '\n\nShe has a pink, wet pussy, although you know it can be stretched to take members of any size.  Drops of fem-juice often drip from her lush fuck-hole, leaving a trail behind her as she walks.' );
@@ -374,7 +374,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Talk (Z);
 	Vapula.prototype.talkToVapulaForSomeReason = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>You want to talk?  Well it\'s quite rare to see ' + CoC.player.mf( 'studs', 'girls' ) + ' looking for conversation with the likes of me, but go ahead.  What do you want to talk about?</i>"' );
 		//Option: Stop Fucking Harem OR Fucking Harem OK (if toggled on off);
 		//Option: Cerulean Threesome On/Off;
@@ -403,7 +403,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.choices( haremT, this, haremB, threesomeT, this, threesomeB, '', null, null, '', null, null, 'Back', this, this.callSlaveVapula );
 	};
 	Vapula.prototype.toggleCeruleanVapulaAssist = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Cerulean Threesome On (Z);
 		if( CoC.flags[ kFLAGS.VAPULA_THREESOMES ] === 0 ) {
 			EngineCore.outputText( 'You inform Vapula that a succubus might join you in the following nights, and you want her to join the party; after all, if there\'s enough cum to feed one, there should be extra to feed another one.  Vapula wiggles and chortles, excited at the prospect of meeting a fellow creature to have a good fuck.  You warn her that she\'ll have to be very skilled if she doesn\'t want to be replaced.  Vapula smiles at you seductively and gently fondles your crotch, then says, "<i>Don\'t worry; I know that deep down inside, you prefer giving your cum to me, right?</i>"  The tingle is very pleasant, and you give your slut a soft kiss before sending her on her way.  You look forward to the oncoming threesome.' );
@@ -419,7 +419,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		EngineCore.doNext( this, this.talkToVapulaForSomeReason );
 	};
 	Vapula.prototype.toggleVapulaHaremFucks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Stop Fucking Harem;
 		if( CoC.flags[ kFLAGS.VAPULA_HAREM_FUCK ] === 1 ) {
 			EngineCore.outputText( 'You tell Vapula that you\'re fed up with seeing her fucking nearly everyone at camp and getting screwed by any living creature in its surroundings.  She\'s supposed to be YOUR succubus, and no one else\'s. You insist that you don\'t want to see anything near her pussy but your own genitals. You\'re her [master], after all, and her body is yours.' );
@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Feed;
 	Vapula.prototype.feedVapulaACupOfJizz = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Vapula you\'re going to reward her for being such a good slut; idly stroking [oneCock] into erection, you command her to get on her knees so she can receive her meal.  The demoness eagerly complies and grabs hold of [oneCock].  She then proceeds to lick it, coating the entirety of your junk with her warm, sweet saliva. With an expert precision, she massages all your most sensitive points, pumping pre-cum up your urethra with ruthless efficiency.  As drops of your juices dribble from the tip of your ' + Descriptors.cockDescript( 0 ) + ' she voraciously slurps them with a gourmand\'s smile.' );
 		EngineCore.outputText( '\n\nHer ministrations feel good, but she keeps tickling you with her soft hands and pulpy lips, and her flexible tongue gives you the most infuriating tingles of pleasure.  With a groan of impatience, you grab her head and stuff your whole ' + Descriptors.cockDescript( 0 ) + ' into her mouth, literally stuffing her full of your junk.  She nearly chokes at first but her old reflexes acquired from a whole life devoted to lewdness and licentiousness start kicking in; Vapula gluttonously deepthroats your meat, softly moaning as she fingers herself with one hand and caresses your ' );
 		if( CoC.player.balls > 0 ) {
@@ -467,7 +467,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Threesome;
 	Vapula.prototype.vapulaThreesomeMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Who do you invite?' );
 		//Option: Amily;
 		var amily = null;
@@ -500,7 +500,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula-Ceraph threesome;
 	Vapula.prototype.vapulaCeraphThreesome = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Using your magical talisman you summon Ceraph, your omnibus slut; she seems to appear out of nowhere and gleefully strides toward you as you are lasciviously holding Vapula in your arms and caressing her. The naked omnibus watches your unholy embrace, bemused: "<i>I see you\'re quite busy, ' + CoC.player.mf( 'Master', 'Mistress' ) + '. I won\'t disturb you further.</i>"  You point a finger at Ceraph while your other hand keeps stroking Vapula\'s tender ass and tell her to come immediately, your voice sounding almost breathless in your lust.  Startled by the imperiousness of your tone, the omnibus comes closer, not sure what to do as you keep toying with your purple wanton bitch.  You impatiently yank Ceraph\'s arm and pull her closer to Vapula in such a way that both hell-girls are now practically pressing their lush bodies against each other.  You tell your sluts that you will have your way with both of them; you feel your ' );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'dick' );
@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Option: Please both.;
 	Vapula.prototype.vapulaCeraphThreesomePleaseBoth = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -619,7 +619,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	//Option: Butt-fuck train. Requires Ceraph to be herm.;
 	//Ceraph-Vapula Buttfuck train;
 	Vapula.prototype.vapulaAndCeraphButtfuckTrainYeehaw = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -662,7 +662,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		}
 	};
 	Vapula.prototype.vapulaSophieThreeSome = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula-Sophie threesome (as female);
 	Vapula.prototype.vapulaSophieThreesomeCunts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You call Sophie insistently, panting in anticipation as you slide into your strap-on\'s harness.  The blond-feathered bimbo doesn\'t show at first - perhaps the dumb slut forgot her name again - but as you grow more impatient you finally notice the platinum-headed woman, her enormous boobs bouncing hypnotically and her luscious thighs swaying lustfully as she walks.  She grins beatifically and coos, "<i>Yes? Is there anything I can, like, do for... ooooh, but who\'s this?  She\'s sooooooo beautiful!  She\'s got, like, big boobs and stuff!</i>"  She claps her hands with even greater excitement as she turns her attention to you, or rather your crotch.  "<i>And you\'ve grown a cock!  I\'ve made a new friend and I\'ve, like, got a nice big cock to play with!  This is the best day of my life!</i>" You think she genuinely means it.' );
 		EngineCore.outputText( '\n\nVapula sighs in consternation.  "<i>What can you do with her, ' + CoC.player.short + '? I\'m sure she\'s going to forget who I am in an hour.</i>"' );
 		EngineCore.outputText( '\n\nYou hush her up and tell her to follow you.  You walk toward the harpy bimbo as she idly fingers her twat; her eyes lighten up as you approach, always longing for some action.  "<i>Wanna fuck?</i>"  You smirk and lunge toward your bird slut, engulfing your head in her bountiful bosom and sucking on her hard nipples.  Sophie moans softly and starts stroking your head; you straighten up and with little encouragement get her to kneel, eagerly licking and kissing the purple dildo until it glitters with wet gold.  As she works it, you tell Vapula to come over and help you out.  With a mighty torsion, you both turn over that bountiful avian body, forcibly putting her on all fours and ignoring her complaints.  Her enormous ass is now fully exposed, wobbling and blushing in arousal, and her blond wings keep flapping aimlessly as the bimbo croons in incomprehension.  You dig Sophie\'s plush ass-cheeks with your fingers, rubbing the purple dildo between them, sighing with pleasure as you rotate your own hips, turning the pink end around in your wet depths, building yourself into the kind of lust maddened state sufficient to hand out the butt-fucking your poor dumb bird-bitch deserves.' );
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula-Amily threesome;
 	Vapula.prototype.vapulaAndAmilyThreesome = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -843,7 +843,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula/Jojo threesome;
 	Vapula.prototype.vapulaJojoThreesomes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You call out in the jungle, "<i>Slut!</i>"  Vapula snickers, "<i>I\'m here, you know.</i>"  You slap her ass to shut her up and quickly explain that you don\'t call her slut because she doesn\'t care, being a succubus.  There is only one fucktoy you call by that name, because he\'s in denial.  By Lethice you intend to have your way with him, and Vapula will get to participate too.  As she eagerly listens to you, her tongue inadvertently licking her lips, you hear soft steps behind you.  You look back and see Jojo walking hesitantly, intimidated by your unholy presence and the towering ex-dominatrix.  "<i>You were right, he\'s such a cute shy slut.  I bet he secretly wants some nice cock to ram his every hole.  Don\'t you, little pet?</i>"  The mousy monk huddles up little by little, bowing his head uncomfortably.' );
 		EngineCore.outputText( '\n\nYou walk up to Jojo and slap him in the face, making him whimper.  "<i>Hey, your mistress Vapula is talking to you.  Show some respect, look at her and answer.</i>"' );
 		EngineCore.outputText( '\n\nJojo only manages to mutter some terrified words.  From his mumbles, you understand that he\'s begging you not to abandon him to a demon and keep him with you.  You chortle cruelly: this poor slut must be really scared of Vapula.  "<i>Ha ha, so you acknowledge you prefer my junk to this hot body standing before you?  What a cum-craving buttslut.   I\'m sorry, Vapula, but even your luscious charms aren\'t enough to- wait, why are you keeping your hands in front of your crotch like that?  Don\'t pretend to be ashamed, bitch!  Show your beautiful mouse cock to us!  There\'s no need to be afraid, we\'re all friends.</i>"  Seeing that Jojo won\'t comply, you forcibly grab hold of his arms, revealing what Jojo was trying to hide: a raging erection, his throbbing 13 inch long rodent prick pointing at Vapula\'s naked body and dribbling pre-cum. He tries his best to look away from her but his cock stands as proud as he feels ashamed.' );
@@ -872,7 +872,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	//Butt-fuck train;
 	//Vapula/Jojo Netorare;
 	Vapula.prototype.NTRSomeJojos = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasCock() ) {
 			var x = CoC.player.cockThatFits( 100 );
 			if( x < 0 ) {
@@ -960,7 +960,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula/Jojo Butt-fuck train;
 	Vapula.prototype.jojoButtFuckTrain = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 
 	Vapula.prototype.vapulaAndIzmaThreeSome = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasCock() ) {
 			this.vapulaAndIzma( false );
 		} else {
@@ -1044,7 +1044,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Vapula/Izma threesome(F);
 	Vapula.prototype.vapulaAndIzma = function( girls ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -1092,7 +1092,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Feed (as female);
 	Vapula.prototype.chixFeedVapulaBlehblehIVantToZuckYourSpooo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You produce the demonic dildo and hold it by the hilt of its giant purple end, wagging it lazily by your side with a playful grin.  Vapula knows what that means; she is on her knees in an instant, staring at you with wolfish anticipation.' );
 		//Feed/Tease;
 		var tease = null;
@@ -1103,7 +1103,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Tease;
 	Vapula.prototype.teaseVapula = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Requires: Vapula not fucking harem;
 		if( CoC.flags[ kFLAGS.VAPULA_HAREM_FUCK ] === 0 && (CoC.flags[ kFLAGS.VAPULA_DAYS_SINCE_FED ] === 0) ) {
 			EngineCore.outputText( 'You decide you aren\'t going to give her what she wants so easily 0. You\'re also genuinely curious about how badly she needs cum, and how far you can push her.  You don\'t say anything as you slowly buckle the strap-on, sighing as you slip the small, pink end into your ' + Descriptors.vaginaDescript( 0 ) + '.  You make Vapula wait as you close your eyes and make the dildo pulse inside you, slowly filling you up and then withdrawing, letting it push up against your ' + Descriptors.clitDescript() + '.' );
@@ -1192,7 +1192,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	};
 	//Feed (as female);
 	Vapula.prototype.chicksFeedVapula = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[Teased once or twice:;
 		if( CoC.flags[ kFLAGS.VAPULA_TEASE_COUNT ] > 1 ) {
 			EngineCore.outputText( 'You push the pink end of the dildo into you with a sigh, then strap yourself into the harness so that the monstrous purple end bobs out in front of you.  You stand over a tense Vapula and tease her with it first, lightly brushing her face with the tip for a while.  She swallows thickly and licks her lips as you caress her with your cum fountain, but makes no movements towards it.  Eventually you giggle at her furious concentration and tell her you\'re going to reward her for being such a good slut, before pushing the end against her lips.  A flood of ecstatic thank-you-mistresses are swiftly muffled out as the dildo disappears into her mouth.' );
@@ -1267,7 +1267,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 	//Requires dick or vapula dildo!;
 	//Requires bipedal-ness;
 	Vapula.prototype.spankVapulaLikeABoss = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Without any warning, you grab the lusty succubus by the wrists and pull her into you, easily manhandling her surprised form until she\'s bent over your [leg], vulnerable and squealing like the gutter-slut she is.  Her wings batter at your face and chest, but after a little wrangling, you pin them flat against her back.  The best she can manage now is a few weak twitches at her wing-tips.  Her large, well-formed breasts jiggle and shake as she struggles, but all the trembling purple mountains accomplish is bringing a ready flush to your ' + CoC.player.skin() );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ' and a healthy surge of blood to [eachCock]' );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, CockTypesEnum, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, CockTypesEnum, PerkLib ) {
 	function CorruptedGlade() {
 	}
 
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		//Wallow in decadence reaction - UNFINISHED
 	};
 	CorruptedGlade.prototype.flowerFun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 92 );
 		if( CoC.player.hasCock() ) { //Sex scenes for those with cawks
 			if( CoC.player.cocks.length === 1 ) { //Single Cawk
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	CorruptedGlade.prototype.tentacleFun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 92 );
 		if( CoC.player.vaginas.length > 0 && Utils.rand( 2 ) === 0 ) {
 			//Vaginal Variant 50% of the time
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	CorruptedGlade.prototype.treeBoobFun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 92 );
 		EngineCore.outputText( 'Stepping carefully around the other hazards of the glade, you close on the strange trees with equal parts curiosity and desire.  Up close, it\'s easy to see the strange growths that sprout from the bark – dozens of full ripe-looking breasts, each capped with a swollen and leaking nipple.  You touch one, marveling at the smooth texture of its chocolate-colored skin.   In response a runner of sap oozes free of the nipple and slides down the curved surface.\n\n' );
 		EngineCore.outputText( 'You lean forwards and lick around the nipple\'s surface, sampling the sweetness of the trickling sap.   The stuff nearly overpowers you with a taste like syrupy cream as more sap drips free of the fully-erect tree-nipple.  Unable to resist testing this nonsensical oddity, you engulf the entire nipple between your lips, suckling hard.   The tree seems to oblige your efforts with a fresh discharge of the sticky sap.   Your tongue tingles and vibrates with the sinfully sweet taste in your mouth, dancing in circles around the nipple, coaxing yet more nectar from swollen plant-jug.  It\'s easy to lose yourself in that taste, falling into a rhythm of alternatively sucking, swallowing, and licking.\n\n' );

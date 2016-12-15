@@ -1,13 +1,13 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
+angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
 	function SandTrap() {
 		this.init(this, arguments);
 	}
 	angular.extend(SandTrap.prototype, Monster.prototype);
 	//Wait:
 	SandTrap.prototype.sandTrapWait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 97 );
 		if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
 			this.createStatusAffect( StatusAffects.Climbed, 0, 0, 0, 0 );

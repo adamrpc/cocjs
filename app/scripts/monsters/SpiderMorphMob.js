@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTypesEnum, AppearanceDefs, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainView, CockTypesEnum, AppearanceDefs, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function SpiderMorphMob() {
 		this.init(this, arguments);
 	}
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, CockTyp
 					this.lust += 10 * this.lustVuln;
 				}
 			}
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		this.kihaSPOIDAHAI();
 	};

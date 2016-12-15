@@ -39,8 +39,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputM
 			'Quickload the current game from slot ' + (value + 1),
 			function() {
 				if (MainView.menuButtonIsVisible(MainView.MENU_DATA) && Saves.loadGame('CoC_' + (value + 1))) {
-					EngineCore.showStats();
-					EngineCore.statScreenRefresh();
+					MainView.statsView.show();
+					MainView.statsView.show();
 					EngineCore.outputText('Slot ' + (value + 1) + ' Loaded!', true);
 					EngineCore.doNext( MainView, MainView.playerMenu);
 				}

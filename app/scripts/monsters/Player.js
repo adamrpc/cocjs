@@ -1421,7 +1421,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		}
 		if( CoC.monster.findStatusAffect( StatusAffects.TwuWuv ) >= 0 ) {
 			this.inte += CoC.monster.statusAffectv1( StatusAffects.TwuWuv );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			MainView.statsView.showStatUp( 'inte' );
 		}
 		if( this.findStatusAffect( StatusAffects.NagaVenom ) >= 0 ) {

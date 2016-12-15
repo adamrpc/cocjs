@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	Masturbation.prototype.masturbateMenu = function() {
 		EngineCore.menu();
 		if( CoC.player.hasCock() && (CoC.player.cocks[ 0 ].cockType === CockTypesEnum.BEE) ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'Although your bee cock aches you know that there\'s no way for you to get relief on your own.  When you touch your shaft or think about cumming images of the bee girl and the sound of her hypnotic buzzing fill your mind.' );
 			EngineCore.addButton( 0, 'Next', null, MainView.playerMenu );
 			return;
@@ -134,7 +134,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	};
 	//Non-shitty masturbation
 	Masturbation.prototype.masturbateGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) >= 0 ) {
 			EngineCore.outputText( 'You\'d love to masturbate, but your sexual organs\' numbness makes it impossible.  You\'ll have to find something to fuck to relieve your lust.' );
 			EngineCore.doNext( MainView, MainView.playerMenu );
@@ -775,7 +775,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	};
 	//Genderless people suck!
 	Masturbation.prototype.genderlessMasturbate = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Early prep
 		if( CoC.player.cor < 15 ) {
 			EngineCore.outputText( 'You sheepishly find some rocks to hide in, where you remove your clothes.\n\n' );
@@ -1918,7 +1918,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//(D. Dildo) – a floppy pink dildo with aphrodisiac reservoir
 	Masturbation.prototype.deluxeDildo = function() {
 		CoC.player.slimeFeed();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[USE FEMALE]
 		if( CoC.player.hasVagina() ) {
 			//(highcor)
@@ -2013,7 +2013,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//onaHole use - game should already have checked if player has a cock! CHECK BEFORE CALLING
 	Masturbation.prototype.onaholeUse = function() {
 		//Clear text for new stuff
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Flag after first use!
 		if( CoC.player.findStatusAffect( StatusAffects.PlainOnaholeUsed ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.PlainOnaholeUsed, 0, 0, 0, 0 );
@@ -2036,7 +2036,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		this.onaholeContinuation();
 	};
 	Masturbation.prototype.deluxeOnaholeUse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Flag after first use!
 		if( CoC.player.findStatusAffect( StatusAffects.DeluxeOnaholeUsed ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.DeluxeOnaholeUsed, 0, 0, 0, 0 );
@@ -2094,7 +2094,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.allNaturalOnaholeUse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First use!
 		if( CoC.player.findStatusAffect( StatusAffects.AllNaturalOnaholeUsed ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.AllNaturalOnaholeUsed, 0, 0, 0, 0 );
@@ -2125,7 +2125,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.stimBeltUse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//FIRST TIME USAGE
 		if( (CoC.player.hasKeyItem( 'Self-Stimulation Belt' ) >= 0) ) {
 			//First use! Flag after first use!
@@ -2152,7 +2152,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		}
 	};
 	Masturbation.prototype.allNaturalStimBeltUse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'All-Natural Self-Stimulation Belt' ) >= 0 ) {
 			//First time!
 			if( CoC.player.findStatusAffect( StatusAffects.UsedNaturalSelfStim ) < 0 ) {
@@ -2192,7 +2192,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		CoC.player.slimeFeed();
 	};
 	Masturbation.prototype.allNaturalSelfStimulationBeltContinuation = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'In shock, you scream as you realize the nodule has instantly grown into a massive, organic dildo. It bottoms out easily and rests against your cervix as you recover from the initial shock of its penetration. As the pangs subside, the infernal appendage begins working itself. It begins undulating in long, slow strokes. It takes great care to adjust itself to fit every curve of your womb. Overwhelmed, your body begins reacting against your conscious thought and slowly thrusts your pelvis in tune to the thing.\n\n' );
 		EngineCore.outputText( 'As suddenly as it penetrated you, it shifts into a different phase of operation. It buries itself as deep as it can and begins short, rapid strokes. The toy hammers your insides faster than any man could ever hope to do. You orgasm immediately and produce successive climaxes. Your body loses what motor control it had and bucks and undulates wildly as the device pistons your cunt without end. You scream at the top of your lungs. Each yell calls to creation the depth of your pleasure and lust.\n\n' );
 		EngineCore.outputText( 'The fiendish belt shifts again. It buries itself as deep as it can go and you feel pressure against the depths of your womanhood. You feel a hot fluid spray inside you. Reflexively, you shout, "<b>IT\'S CUMMING! IT\'S CUMMING INSIDE ME!</b>" Indeed, each push of the prodding member floods your box with juice. It cums... and cums... and cums... and cums...\n\n' );
@@ -2204,7 +2204,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	};
 	Masturbation.prototype.allNaturalSelfStimulationBeltBadEnd = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Whatever the belt is, whatever it does, it no longer matters to you.  The only thing you want is to feel the belt and its creature fuck the hell out of you, day and night.  You quickly don the creature again and it begins working its usual lustful magic on your insatiable little box.  An endless wave of orgasms take you.  All you now know is the endless bliss of an eternal orgasm.\n\n' );
 		EngineCore.outputText( 'Your awareness hopelessly compromised by the belt and your pleasure, you fail to notice a familiar face approach your undulating form.  It is the very person who sold you this infernal toy.  The merchant, Giacomo.\n\n' );
 		EngineCore.outputText( '"<i>Well, well,</i>" Giacomo says.  "<i>The Libertines are right.  The creature\'s fluids are addictive. This poor woman is a total slave to the beast!</i>"\n\n' );
@@ -2215,7 +2215,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.gameOver();
 	};
 	Masturbation.prototype.lickYerGirlParts = function() { //Female cat masturbation
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.findPerk( PerkLib.Flexibility ) < 0 ) {
 			EngineCore.outputText( 'You undress from your ' + CoC.player.armorName + ' and take a seat down on the ground. You spread your legs and look down at your sex. It\'s aching for something more than just your fingers, and you have a craving to taste the lustful juices leaking out. A very perverted idea of cats flashes through your brain, putting a naughty smile on your face. You lay on your side and spread your legs, giving you a perfect view of your ' + CoC.player.vaginaDescript() + ' You lean your head down towards the pleasure-hole, only to be stopped half-way there. You stick your tongue out, trying to add a few more inches, but this doesn\'t do anything except increase your appetite and your lust as a drop of warm saliva falls onto your ' + CoC.player.vaginaDescript() + '. You stretch and wriggle your tongue out in a fruitless effort to taste your dripping wet cunt, craving the feeling of your tongue caressing your lips and penetrating into your depths... but it is not to be. You sit back up, frustrated and even more aroused than you were before.' );
 			EngineCore.dynStats( 'lus', 15 );
@@ -2243,7 +2243,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.catAutoLick = function() { //Male cat masturbation
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//NOT FEXIBLE
 		if( CoC.player.findPerk( PerkLib.Flexibility ) < 0 ) {
 			//Fails [Herm has a 50/50 chance of getting either.]
@@ -2319,7 +2319,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.meditate = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You find a flat, comfortable rock to sit down on and meditate.  As always, meditation brings a sense of peace and calm to you, but it eats up two hours of the day.' );
 		EngineCore.dynStats( 'lus', -50, 'cor', -0.3 - 0.3 * CoC.player.countCockSocks( 'alabaster' ) );
 		if( CoC.player.findPerk( PerkLib.Enlightened ) >= 0 && CoC.player.cor < 10 ) {
@@ -2328,7 +2328,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	Masturbation.prototype.dualBeltMasturbation = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look at the thing in front of you and sigh, your ' + CoC.player.multiCockDescriptLight() + ' and ' + CoC.player.vaginaDescript() + ' dripping with fluids. With a nervous sigh you step into the underwear looking device and slip it up your legs, the cold metal feeling so good on your ' + CoC.player.skinDesc + ', sending a rush of feelings up your body. You slip your ' + CoC.player.cockDescript() + ' down and into a hole on the front of the belt, the extra length sticking out on the other side of it. Underneath the hole and right above your pussy is another metal square with what feels like a small nub on the inside rubbing against your clit. Shivering from the feeling of it, you stay there for a moment, waiting in anticipation. Finally, you reach down to the side of the belt and flick the switch to the on position.\n\n' );
 		EngineCore.outputText( 'The belt whirs to life, shaking on your waist, sending jolts of pleasure through your clit as the small inside nub hits it. "<i>Ohh...</i>" Suddenly, the ring around your cock vibrates and then tightens hard around your cock, the belt sinking onto your body and locking in place. Worry sets in instantly as you try to wiggle and take it off, but it is no use. You see something black bubble from the edges of the metal, worried even more that it might be some sort of acid. It begins to creep across your skin at a disturbing rate, going down your ' + CoC.player.legs() + ' and encasing them in the blackness, wrapping your cock, ' );
 		if( CoC.player.tailType > AppearanceDefs.TAIL_TYPE_NONE ) {
@@ -2383,7 +2383,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.centaurMasturbation = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var canMasturbateHugeCock = CoC.player.hasCock() && (CoC.player.tallness * (5 / 6) < CoC.player.cocks[ CoC.player.longestCock() ].cockLength);
 		if( CoC.player.hasFuckableNipples() ) {
 			if( canMasturbateHugeCock && Utils.rand( 2 ) === 0 ) { //50/50 chance of either if you can do both
@@ -2744,7 +2744,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//[Maturbate] -- [Fake Mare] (Cock Centaurs Only)
 	Masturbation.prototype.centaurDudesGetHorseAids = function() {
 		var x = CoC.player.biggestCockIndex();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.keyItemv1( 'Fake Mare' ) === 0 ) {
 			if( CoC.player.cor < 50 ) {
 				EngineCore.outputText( 'Deciding to give the mare-like cocksleeve you got from Whitney a try, you spend a few awkward minutes dragging the lump of metal off to someplace secluded and setting it up.  When you\'re done, you stand behind a wood-and-iron replica of a mare, adjusted to the perfect height for you.  Looking "<i>her</i>" over, your eyes are drawn to the slick black lips of the Onahole between her legs, craftily shaped like a horsecunt, and what looks like a second, smaller one above it simulating an anus.\n\n' );
@@ -2802,7 +2802,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	};
 	//[Masturbate] -- [CentaurPole] -- [Fem/Herm Centaurs]
 	Masturbation.prototype.centaurGirlsGetHorseAids = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.keyItemv1( 'Centaur Pole' ) === 0 ) {
 			//[If low Corruption
 			if( CoC.player.cor < 50 ) {
@@ -2830,7 +2830,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//Self/Exgartuan
 	//Bee Eggs in Huge Cock (Slywyn) (edited)
 	Masturbation.prototype.getHugeEggsInCawk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Bee Eggs in Huge Cock + Exgartuan (Slywyn)(edited)
 		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && CoC.flags[ kFLAGS.TIMES_EGGED_IN_COCK ] === 0 ) {
 			//requires Exgartuan awake
@@ -3028,7 +3028,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//I Regret Nothing/Exgartuan know the formatting well, so going to make some mistakes I suppose.
 	//Scene Requires Fuckable Nipples, I'm going to aim at breasts around HH Cup or higher, since Exgartuan will push you over that from the bare minimum breast size - I'm thinking that breast pregnancy chance without Exgartuan will be nil/low and with Exgartuan will be extant/reasonable
 	Masturbation.prototype.layEggsInYerTits = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 2 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 			//Exgartuan; breasts should be HH or larger, fuckable nipples, only if Exgartuan is awake
 			EngineCore.outputText( 'Smiling mischieviously to yourself, you look down to your possessed [chest] and tell Exgartuan that you have something you very much would like to do for her.' );
@@ -3150,7 +3150,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		} ) ), function( cock ) {
 			return cock.cockType === CockTypesEnum.TENTACLE;
 		} ) );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.cor < 15 ) {
 			EngineCore.outputText( 'You sheepishly find some rocks to hide in, where you remove your clothes.\n\n' );
 		} else if( CoC.player.cor < 30 ) {
@@ -3373,7 +3373,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 				tentacle = x;
 			}
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[Standard text for stripping off goes here]
 		if( CoC.player.cor < 15 ) {
 			EngineCore.outputText( 'You sheepishly find some rocks to hide in, where you remove your clothes.\n\n' );
@@ -3450,7 +3450,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//Unique this.Masturbation Scene (by Frogapus)
 	//Select [Gilded Sock] from Masturbation menu
 	Masturbation.prototype.gildedCockTurbate = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var gildedCock;
 		for( gildedCock = 0; gildedCock < CoC.player.cocks.length; gildedCock++ ) {
 			if( CoC.player.cocks[ gildedCock ].sock === 'gilded' ) {
@@ -3490,11 +3490,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.player.gems += gems;
 		CoC.flags[ kFLAGS.GILDED_JERKED ]++;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.stickADildoInYourVagooSlut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasVirginVagina() ) { //LOW CORRUPTION DEFLOWER
 			if( CoC.player.cor <= 50 ) {
 				EngineCore.outputText( 'You blush nervously as you grasp your phallic toy. The firm dildo bends slightly as you hold it in your hand. You feel perverse to consider doing this, and shakingly undo the bottom of your [armor].' );
@@ -3531,12 +3531,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1.5 );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dildo in the butt because why not?
 	Masturbation.prototype.dildoButts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'A kinky idea crosses your mind, and you grab your dildo. Finding a safe spot a short distance from camp, you undo your [armor] and rest on your [butt].' );
 		EngineCore.outputText( '\n\nYou adjust your position as you spread your [legs], giving you the most comfortable access to your [asshole]. You sloppily lick an experimental finger and carry it down to the eager entrance between your cheeks. ' );
 		if( CoC.player.analCapacity() <= 8 ) {
@@ -3570,7 +3570,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		EngineCore.outputText( '\n\nSome time later, you gather your things and return to camp.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 0.5 );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Masturbation.prototype.midasCockJackingGemsRoll = function() {

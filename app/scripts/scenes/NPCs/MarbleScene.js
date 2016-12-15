@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.choices( 'Caress', this, this.caressMarble, 'Suckle', this, this.suckleMarble, 'Rape', this, this.rapeDAHMARBLEZ, '', null, null, 'Leave', this, this.turnOffMarbleForever );
 	};
 	MarbleScene.prototype.turnOffMarbleForever = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		//CoC.player.createStatusAffect(StatusAffects.No_More_Marble,0,0,0,0);;
 		CoC.flags[ kFLAGS.MARBLE_WARNING ] = 1;
@@ -503,7 +503,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Initial non-friends state (Z);
 	MarbleScene.prototype.marbleWarningStateMeeting = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'While walking through one of the farm\'s fields, you notice the cow-girl Marble coming out of the barn ahead of you.  When she sees you, she pulls a bit of an irritated face before donning a fake smile and saying, "<i>Yes?  Can I help you?  Or were you just leaving again?</i>"  Well... that wasn\'t terribly nice.  The two of you didn\'t exactly get off to a good start before, but maybe you\'d like to correct that?  On the other hand, she\'ll probably ask you to suckle her breasts if you do apologize; maybe it would be best to just avoid her for now - or perhaps entirely?  Then again also, you could pick a fight over her behavior towards you.' );
 		//PC chooses: apologize, pick a fight, leave, leave forevs;
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Leave (Z);
 	MarbleScene.prototype.leaveNonFriendsMarble = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'Smiling politely and just as insincerely as Marble, you beg her pardon and excuse yourself.' );
 		//end event, initial non-friends event can repeat in future explorations;
@@ -519,7 +519,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Leave forever (Z);
 	MarbleScene.prototype.leaveNonFriendsMarble4EVERRRR = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		CoC.player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
 		CoC.flags[ kFLAGS.MARBLE_WARNING ] = 2;
@@ -529,7 +529,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.apologizetoWalkingTitsIMEANMARBLE = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'Wanting to make up for before, you apologize for your behavior and ask Marble if there is a way you could make it up to her.  She\'s pleasantly surprised by your answer, and after a few moments of contemplation says, "<i>Well, all right then.  My breasts are still a bit sore - after all, I have to milk them every day - so do you think you could give them that personal touch?</i>"  You figured she would ask this of you... quite the one-track mind.' );
 		EngineCore.outputText( '\n\nMarble looks around before ducking inside the field of tall stalks of grain next to her.  After a moment, you follow her into the crops that are waving in the breeze.  Her trail through the many plants isn\'t that hard to follow, but from the sounds of the giggles up ahead, this has turned into a game.' );
@@ -563,7 +563,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Pick a Fight (Z);
 	MarbleScene.prototype.pickAFight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'You make known your displeasure at her attitude toward you.  "<i>So now I\'m the one who has a problem, huh?  That\'s very funny, I distinctly remember you being the jerk.  You get my hopes up, then just leave?</i>"  Oh, you\'ve nearly had it with this self-adoring boob fetishist, and say as much.  "<i>WHAT DID YOU CALL ME?!</i>" she screams in shock and anger.  You say it again, right to her face, and then she turns around, incensed, and stomps off quickly toward the barn.  "<i>Wait right there, my hammer\'s got something to say to that.</i>"' );
 		//[Stay][Fuck That];
@@ -571,7 +571,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//[Stay];
 	MarbleScene.prototype.stayForFights = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'You fold your arms over your chest and scowl as Marble trudges back over the fields carrying a huge hammer.  Part of you feels terribly juvenile to be solving an argument with violence - but the other part is cheering at the opportunity to put the bossy cow in her place.' );
 		//go to battle;
@@ -579,7 +579,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//[Fuck That];
 	MarbleScene.prototype.getOutOfDodge = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'The hell you will... the truth is the truth no matter how many talking hammers show up.  Catharsis completed, you leave the farm and its cows behind.' );
 		//makes the battle available as the next Marble encounter, as if PC had raped her;
@@ -623,7 +623,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Rape in room (Z);
 	MarbleScene.prototype.rapeMarbleInHerRoom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		EngineCore.outputText( 'You aren\'t going to give up on this opportunity, but you don\'t want to have an audience either.  So you drag Marble and her hammer back to her room, and throw Marble onto her bed, grabbing and twisting her nipples, causing her to cry out in pain and pleasure.' );
 		//continue onto original rape;
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Force-feed (by Spy) (Z);
 	MarbleScene.prototype.forceFeedMarble = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		//[If player has Feeder perk];
 		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
@@ -1830,7 +1830,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.spriteSelect( 41 );
 		if( genders < 0 ) {
 			genders = -genders;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		//(CoC.player is male);
 		if( genders === 1 ) {
@@ -2159,7 +2159,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		var marbleGoEvent = null;
 		var goEventString = '';
 		//Text to display for when the Marble button is pressed;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 2 ) {
 			EngineCore.outputText( 'How will you interact with Marble?' );
 		}
@@ -2206,7 +2206,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			'Back', SceneLib.camp, SceneLib.camp.campLoversMenu );
 	};
 	MarbleScene.prototype.marbleTalkOverhaul = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What do you want to discuss with Marble?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Info', this, this.marbleInfo );
@@ -2225,7 +2225,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 	};
 	MarbleScene.prototype.marbleSleepToggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.SLEEP_WITH ] !== 'Marble' ) {
 			EngineCore.outputText( 'Marble says, "<i>That sounds lovely, Sweetie.</i>"' );
 			CoC.flags[ kFLAGS.SLEEP_WITH ] = 'Marble';
@@ -2241,7 +2241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Kid playtime;
 	MarbleScene.prototype.marbleKidsPlaytime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var choices = [];
 		choices.push(1);
 		if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
@@ -2362,7 +2362,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	//Break up with Marble (Z);
 	MarbleScene.prototype.breakUpWithMarble = function() {
 		EngineCore.spriteSelect( 41 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Are you sure you want to break up with Marble?  You won\'t be able to get her back if you do so.' );
 		//CoC.player chooses yes or no, no simply returns to the last menu;
 		EngineCore.doYesNo( this, this.definitelyBreakUpWithWithMarble, this, this.interactWithMarbleAtCamp );
@@ -2370,7 +2370,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	//[Yes];
 	MarbleScene.prototype.definitelyBreakUpWithWithMarble = function() {
 		EngineCore.spriteSelect( 41 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach Marble and tell her that you need a bit of space and some time away from her.  She freezes at your words, and asks you to repeat yourself.  You do so and she nods, her face almost impassive.  "<i>I guess I\'ll go back to the farm.  ' );
 		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
 			EngineCore.outputText( 'I\'ll see you there when you need my milk, alright?' );
@@ -2604,7 +2604,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		return false;
 	};
 	MarbleScene.prototype.giveItem = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What item do you want to give Marble?' );
 		EngineCore.menu();
 		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 1 ) ) {
@@ -2688,7 +2688,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				//- PC is not a centaur;
 				//- PC has a sex;
 				//- PC has Marble's Milk perk;
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				EngineCore.outputText( 'You tell Marble you\'re a little bit horny and you\'re wondering if she\'d be willing to do something special for you in private.  Hearing you whisper your idea, she giggles and strokes your [face].' );
 				EngineCore.outputText( '\n\n"<i>That\'s so cute, sweetie!  Of course I could do that for you.</i>"' );
 				EngineCore.outputText( '  She leads you by the hand to sit in a more comfortable place.' );
@@ -2800,7 +2800,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			}
 			//ORAL;
 			else if( Utils.rand( 2 ) === 0 && CoC.player.gender > 0 ) {
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				//PC must be (humanoid?) male, female, or herm;
 				//PC's cock must be less than 10-15 inches long (how much until pushing in all the way would be trouble?);
 				EngineCore.outputText( 'You walk up to your big-breasted lover, a feverish look in your eyes.  "<i>Hmm... looks like you need to release some tension, don\'t you sweetie?</i>"  You nod in approbation, ' );
@@ -2971,7 +2971,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		//NAGAS;
 		else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You approach Marble and ask her if she can help you get some sexual release.  Marble smiles at you and says, "<i>Well, my slithering sweetie, I think I can.</i>"  She motions for you to lie on your back and stretch out your long body on the warm, cracked earth.  Then she moves to the base of your tail and sits herself down on the ground.' );
 			EngineCore.outputText( '\n\n"<i>It\'s a long journey to your special place, sweetie; I hope you enjoy the trip,</i>" she says as she runs her fingers down your tail, gently playing with the end.  "<i>Look at this cute little candy, just for me.</i>"  She lifts your tail up to her mouth, then sticks out her inhumanly long tongue and starts to run it around the tip.  The feel of it sends tingles up your spine.  "<i>Aww, did I make you shiver with pleasure, sweetie?</i>"  Marble teases, and sets your tail back down.' );
 			EngineCore.outputText( '\n\n"<i>Now sweetie, how about a nice tail massage?</i>" she says, putting her hands on the exposed underside of your tail and starting to rub the soft scales.  You sigh softly as she gently moves up your length, massaging your tail with shallow downward strokes.  "<i>Enjoying yourself?  Let me make this even better for you,</i>" she gently intones as she gets close to your groin.  She removes her top, and lowers her large breasts to your serpentine length.  Marble grins at you, then turns around and, pushing her breasts down on your tail, starts to slither herself back down your length, giving you an enticing view of her rump.  All the while, her fingers continue to play with the sensitive underside of your tail just ahead of her soft body.' );
@@ -3582,7 +3582,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Ask for sex;
 	MarbleScene.prototype.atNightAskMarbleForSomeSexMaybe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn to face Marble, and ' );
 		//if (Marble's lust is negative);
 		if( CoC.flags[ kFLAGS.MARBLE_LUST ] < 0 ) {
@@ -3603,7 +3603,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	//SEKCS;
 	MarbleScene.prototype.marbleNightSexIntro = function( clear ) {
 		if( clear === undefined || clear ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -4041,7 +4041,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		return size;
 	};
 	MarbleScene.prototype.giveMurbleProBova = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.MARBLE_BOVA_LEVEL ] === 0 ) {
 			EngineCore.outputText( 'You hand Marble the bottle of ProBova.  She considers it for a few moments before looking at you and saying, "<i>Judging by the label, this is probably going to make me even more cowlike then I already am, sweetie.  I\'m not really opposed to the idea, but it will be permanent.  Are you sure you want me to drink it?</i>"' );
 			//CoC.player chooses yes/no;
@@ -4054,7 +4054,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//if yes;
 	MarbleScene.prototype.giveMarbleTheProBovas4Sho = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		CoC.player.consumeItem( ConsumableLib.PROBOVA );
 		if( CoC.flags[ kFLAGS.MARBLE_BOVA_LEVEL ] === 0 ) {
@@ -4082,7 +4082,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//Appearance;
 	MarbleScene.prototype.marbleAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 41 );
 		//Gives Marble's appearance screen, some of these values change depending ;
 		//on her level of corruption.;
@@ -4172,7 +4172,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	//- PC is a naga;
 	//- Marble has a cock;
 	MarbleScene.prototype.giveMarbleTailjobRelease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Marble that while you\'re not in a mood to suck her off today, you\'re not just going to leave her alone with it, either, and ask for her permission to do an exotic alternative.  Slowly, she nods, apparently not so sure about what you mean or whether she should agree.' );
 		EngineCore.outputText( '\n\nYou grin at her and slowly move your serpentine tail towards her leg, then up her bovine-like calf and towards her thighs.  Her body shivers at the sensation, and when she looks down, she finally gets the idea and smiles back at you, kindly.' );
 		EngineCore.outputText( '\n\nMoving your serpentine tail between her thighs, you decide to start with her original set of genitalia, slowly sliding the tip across her already somewhat moist labia.  You gently push it in, causing her to nearly jump up in surprise, her large breasts jiggling pleasantly as you tease the inside, close to the entrance.  Suddenly, you push more of your tail in and wiggle it inside of her, causing her hips to shake, her mouth to moan and her groin to moisten.  After a short period of wiggling, you shift the muscles in your tail and deliver a few pumps into her pussy, causing her soft butt to shake and forcing another moan.' );
@@ -4205,7 +4205,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	// TheDarkMaster's Marble in her Milker;
 	MarbleScene.prototype.milkMarble = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.MARBLE_MILKED_BEFORE ] < 1 ) {
 			EngineCore.outputText( 'With an unusually bright look in her eye, Marble comes up to you and asks, "<i>Hey sweetie, I was just about to go get milked when I realized that you\'ve never actually been with me for it.  How would you feel about getting a tour of the setup that Whitney has for me?</i>"  Then a mischievous look crosses her face, "<i>Maybe we could even do something a little... intimate too?</i>"' );
 			EngineCore.outputText( '[pg]There is no harm in checking out her stall, at least.  You agree to go with her.' );
@@ -4244,7 +4244,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 
 	MarbleScene.prototype.milkMarbleCunnilingling = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You suggest that maybe she\'d like it if you licked her vagina while being milked.' );
 		EngineCore.outputText( '[pg]A huge smile spreads across her face, "<i>Oh sweetie, that sounds like it would be wonderful!  You\'re the best; you know that?</i>"' );
 		EngineCore.outputText( '[pg]She takes a seat on the edge of the chair in the middle of the room and spreads her legs wide.  Her skirt slips up her ' );
@@ -4295,7 +4295,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 
 	MarbleScene.prototype.milkMarbleFuckDatCowPussy = function() {
 		var x = CoC.player.cockThatFits( this.marbleCuntCapacity() );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wonder aloud if maybe she\'d be interested in a little intercourse action. You\'d be perfectly prepared to provide for her.' );
 		EngineCore.outputText( '[pg]"<i>Hmm, well, your offer is tempting, but I\'m going to have to see what\'s available before I make a final decision.</i>"' );
 		EngineCore.outputText( '[pg]With a flourish, you remove your [armor] and do a little sweep over your ' + Descriptors.cockDescript( x ) + ', asking her if everything is to her needs.' );
@@ -4365,7 +4365,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 
 	MarbleScene.prototype.milkMarbleTakeHerDick = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask her if maybe she wants to penetrate you while she is using that milking machine.' );
 		EngineCore.outputText( '[pg]She looks thoughtful for a moment, tapping her finger against her lips while her tail swishes back and forth.  With the tubes coming off of her nipples, it actually looks rather comical.' );
 		EngineCore.outputText( '[pg]Spotting your look, she frowns at you, "<i>Oh, you think this is silly do you, [name]?  I\'ll have you know that I\'m seriously trying to figure out how to make this work.</i>"  She indicates her rather physical attachment to the room, and the furnishings it has available to it.' );
@@ -4405,7 +4405,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 
 	MarbleScene.prototype.milkMarbleOnTheBar = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You suggest that you\'d be interested in playing with her while she\'s draped over the bar on the one side of the room.' );
 		EngineCore.outputText( '[pg]She narrows her eyes at you, considering the proposition.  "<i>I don\'t know sweetie, doesn\'t really sound like something I\'d like that much.  I\'d like to be in a position where I can do more than just take it...</i>"' );
 		EngineCore.outputText( '[pg]You assure her that you\'ll make it good enough that it will be worth while to let you have complete control.' );
@@ -4433,7 +4433,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	MarbleScene.prototype.milkMarbleBarFollowTail = function() {
 		var x = CoC.player.cockThatFits( this.marbleCuntCapacity() );
 		var y = CoC.player.cockThatFits2( this.marbleCuntCapacity() );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Marble where her tail will lead you.' );
 		EngineCore.outputText( '[pg]She gives a low chuckle, "<i>Why don\'t you wait and find out?</i>"' );
 		if( x >= 0 ) {
@@ -4478,7 +4478,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 
 	MarbleScene.prototype.milkMarbleBarCunnilingling = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Marble to release your wrist so you can get into a better position for taking care of her.  You\'re feeling an ache to harvest her other womanly fluid.' );
 		EngineCore.outputText( '[pg]"<i>Of course sweetie, I\'m feeling very wet down there.  I definitely think I\'m going to need you to take care of that.</i>"' );
 		EngineCore.outputText( '[pg]She released you, and allows you to kneel down behind her and get a good whiff of her rich womanly scent.  It throws your mind into a haze for a few moments, and you\'re brought back out with a swish of wind as her tail swings side to side over her entrance, the base lifted up eagerly.  You rest your head to the side of her entrance, and lean against the part of her body where ass meets thigh while letting one hand play across the other leg.' );
@@ -4505,7 +4505,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 
 	MarbleScene.prototype.milkMarbleBarPullTail = function() {
 		var x = CoC.player.cockThatFits( this.marbleCuntCapacity() );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Probably against your better judgment, you decide to take charge and grab onto Marble\'s tail, roughly untwisting it off of you and yanking it upwards.' );
 		EngineCore.outputText( '[pg]"<i>Ow!  What the hell sweetie?!</i>"' );
 		EngineCore.outputText( '[pg]You ignore her protests and smack her ass once, then roughly penetrate her with your ' + Descriptors.cockDescript( x ) + ' while yelling at her to take it.' );
@@ -4563,7 +4563,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 
 	MarbleScene.prototype.milkMarbleLeaveAfterBar = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You don\'t answer Marble and instead continue to finger her womanhood until she cries out in orgasm.  You tell her you\'d be happy to help her out again whenever she\'d like someone to accompany her to get milked.' );
 		EngineCore.outputText( '[pg]She is a bit disappointed that you didn\'t go further after getting her on the bar, but doesn\'t have a problem with you leaving.  She does tell you that she\'s looking forward to having you in her milker again some time.' );
 		var pLust = Math.ceil( 5 + CoC.player.lib / 20 );
@@ -4573,7 +4573,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 
 	MarbleScene.prototype.milkMarbleNoMilking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shake your head and say that you think you\'ll be fine.' );
 		EngineCore.outputText( '[pg]"<i>Oh, alright then sweetie, I\'ll see you later.</i>"  She takes a seat in the chair in the middle of the room and picks up where she left off in her book.  You excuse yourself and return back to camp.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );

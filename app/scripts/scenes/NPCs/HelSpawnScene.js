@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Hel’s New Appearance Screen: Taking Things Into Account;
 	HelSpawnScene.prototype.heliasAppearanceScreen = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'Hel the salamander stands seven feet tall, with pale skin and thick, bright-red scales covering her arms and legs, though she has a normal human torso and face.  A fiery tail swishes gaily behind her, blazing with a ' );
 		if( CoC.flags[ kFLAGS.HEL_BONUS_POINTS ] < 150 ) {
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//' + CoC.flags[kFLAGS.HELSPAWN_NAME] + '’s Appearance Screen;
 	HelSpawnScene.prototype.helSpawnsAppearanceScreen = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HELSPAWN_DADDY ] === 0 ) {
 			EngineCore.outputText( 'Your ' );
 		} else {
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//No;
 	HelSpawnScene.prototype.noYouDontLoveHeliaYouMonster = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'As much as you enjoy the sex, as much as you like Hel, you can\'t say you feel that way towards her.  You grasp her shoulders, telling her as gently as possible how you feel.  She nods slowly as you speak, rubbing at her eyes by the time you\'re finished.' );
 		EngineCore.outputText( '\n\n"<i>Well, thanks for being honest, [name].  I... I really do appreciate it.  But, maybe you can still help me with my problem.  I\'ll understand if not, but still, I have to ask: ' );
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Yes;
 	HelSpawnScene.prototype.yesHeliaILoveYourButtHoleReaming = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'Smiling, you tell her yes.  The salamander cries out with joy, jumping into your arms and kissing you, squeezing you so tightly that you feel like you\'re about to black out by the time she breaks the kiss, stepping back with chest heaving.' );
 		EngineCore.outputText( '\n\n"<i>Wh-why didn\'t you tell me before, anyway?</i>" she asks, nuzzling her cheek into your [chest].  "<i>Could have saved me all this trouble.</i>"' );
@@ -202,7 +202,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//[Have a Kid] (PC has a Dick);
 	HelSpawnScene.prototype.haveAKid = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		SceneLib.helScene.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SALAMANDER );
 		EngineCore.outputText( 'You tell Hel that you\'re in this with her, that you want to give her that child she seems so desperate for.  She beams at you, smiling from eye to eye before leaping into your arms, pressing her lips hard to yours.  You kiss her back, wrapping your arms around her hips to support her as her powerful legs wrap around your waist; you push her up against the ruined wall, hands searching across her taut, hot flesh until you toss her bikini top aside, letting her hefty tits free.  "<i>Oh god yes,</i>" she moans as you trail kisses from her lips, down her neck to her stiffening nipple.  "<i>I want this so much, more than anything.  Give it to me, [name].  Don\'t hold back!</i>"  Your fingers sink into her pliant flesh as you suckle on her exposed teat, groping her other tit and soft ass as she moans and squirms in your arms.  Clumsily, Hel\'s claws brush down your body, peeling off your [armor] until your ' + Descriptors.cockDescript( 0 ) + ' flops into her lap.  She locks her scaled fingers around your manhood, roughly stroking you until you\'re stiff as diamonds in her grasp.' );
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		CoC.time.days++;
 	};
 	HelSpawnScene.prototype.HaveAHellKidPartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '<b>Several Hours Later...</b>\n' );
 		EngineCore.outputText( 'With the last ounce of energy in your sixth - or is it seventh? - wind, you deliver a sharp crack across Helia\'s beet-red backside and roar out as another potent surge of seed rushes into her snow-white hole, still slick with the leavings of your last half-dozen discharges.  You grab her thick hips and slam your ' + Descriptors.cockDescript( 0 ) + ' deep inside her as the last shot fills her womb a little bit fuller, the excess spurting out to wet the cum-stained ground beneath the salamander\'s knees.' );
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelSpawnScene.prototype.getAnotherDad = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		//[Another Dad] (PC has no dick);
 		if( !CoC.player.hasCock() ) {
@@ -311,7 +311,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Mai;
 	HelSpawnScene.prototype.maiWouldBeTheBestInseminator = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You tell Hel that you think Mai would make a lovely father.  Helia nods her agreement, saying, "<i>Yeah, I agree.  She\'s a beauty, and I\'m sure our child will be stunning... you wouldn\'t mind if she visited, right?  I mean, you and I will be raising our kid - and he\'ll be ours for sure - but I\'m sure Mai will want to at least visit her kid.</i>"' );
 		EngineCore.outputText( '\n\nYou nod, and say that\'s fine.  Hel beams at you, giving you a peck on the cheek before running back to camp, saying she\'s going to go track down the foxy sisters as soon as she can.  You suppose the next time you see her, Hel\'s probably going to be pregnant with the child you\'ll be helping to raise.' );
@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Spiderboy;
 	HelSpawnScene.prototype.spiderboyWouldBeBestDad = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You tell Helia to go find a spider boy to jump.  She beams at you, and skips off toward the swamp calling, "<i>Thank you, thank you thank you, [name]!</i>" over her shoulder as she goes.  You suppose the next time you see her, Hel\'s probably going to be pregnant with the child you\'ll be helping to raise.' );
 		SceneLib.helScene.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_PLAYER, PregnancyStore.INCUBATION_SALAMANDER ); //Yes, it's the spider's baby, but that's already tracked separately
@@ -332,7 +332,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//I Will (PC ain't got a wang);
 	HelSpawnScene.prototype.growingDicks4Hel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You tell Hel to give you a little while, that you\'ll go find something to grow a cock for her.' );
 		EngineCore.outputText( '\n\n"<i>Thank you!  Thank you so much, [name].  I really, really wanted for it to be our child. I\'ll wait, but hurry.  I don\'t know how much longer I can stand this... this need!</i>"' );
@@ -342,7 +342,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//[No Kids];
 	HelSpawnScene.prototype.noKidsHel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You shake you head and say no, you don\'t want to have children.  Not right now, anyway.  ' );
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( SceneLib.helFollower.heliaCapacity() ) >= 0 ) {
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Sure;
 	HelSpawnScene.prototype.sureHelGimmeSpidahBoyDetails = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'Hel chuckles, shaking her head.  "<i>So I go to the swamp and just shout out \'Who wants to fuck a baby into this fertile womb, you chitiny bastards,\' and sure enough, I got plenty of volunteers.  Whole horde of creepy crawlies came out of the woodwork, but I saw the looks in their eyes, all of \'em.  I don\'t want my kid half way to cumming out his soul before he\'s had a chance, you know?  So I did my berzerker thing, fought \'em off.  The swamp\'s getting more and more dangerous every month, I think.  Something in the water maybe, who knows.  Anyway, after I dispatched the crazies, I went deeper, just a little' );
 		if( SceneLib.kihaFollower.followerKiha() ) {
@@ -404,7 +404,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Nah // Combine;
 	HelSpawnScene.prototype.dontTellMeAboutSpiderboy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>So, let\'s just say I came away from that encounter carrying enough cute spiderboy cum to fill a bucket.  If I\'m not carrying his child now, then I\'m hopeless.  But... you know, I think I can feel it, [name].  I shouldn\'t be able to, but I can.  Oh, god,</i>" Hel says, looking pointedly away from you, staring wide-eyed into the morning sky.' );
 		EngineCore.outputText( '\n\n"<i>What\'s wrong?</i>"' );
@@ -431,7 +431,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 
 	//Hel Got Knocked Up by Some Random Slut at the Bar, and Nobody Was Really Surprised, All Things Considered. ;
 	HelSpawnScene.prototype.sureHelGimmeMaiDetails = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>You know, it\'s not easy for me to get around in Tel\'Adre.  I lived my whole life in the middle of shit-all nowhere, the wide-open plains.  But here\'s a ruined city, packed full of abandoned buildings and thousands of people.  Took half the night to find Miko and Mai\'s place, this little bungalow-thing near the walls.  I probably got turned around three or four times, nearly gang-raped by this big pack of cats... man, fuck cities.  But anyway, I was lucky that Mai answered the door; she\'d just been going to bed, I guess.  Miko was gone, off with some new girlfriend.  Or maybe getting gang-banged by cat people, since that\'s a thing that happens there apparently.  Who knows.</i>"' );
 		EngineCore.outputText( '\n\n"<i>Well, it\'s kind of awkward to tell a good friend, \'Hey, I want to bear your children. Present your cock, slut!\'  At the same time, it\'s not really fair to just jump her britches and ride her \'til the sun rises without her knowing what\'s up.  Also, the tail being white\'s a dead giveaway, unless I fuck her with my cloak on.  So, I take Mai to their kitchen, pour us some wine, ask her how\'s things, make small talk.  That gets her suspicious, of course, and finally I have to say, \'So, remember the last few weeks, we\'ve been hanging out, and you keep saying how much you want to have kids, but can\'t find a good man or woman and you don\'t want to raise your spawn in the city, anyway?  Yeah, so, I kinda want to have kids too and this is really sudden but what do you say, lover girl?  You and me, let\'s make a baby!\'</i>"' );
@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Nah // Combine;
 	HelSpawnScene.prototype.dontTellMeAboutMai = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>So, let\'s just say I came away from that encounter carrying enough foxy herm cum to fill a bucket.  If I\'m not carrying her child now, then I\'m hopeless.  But... you know, I think I can feel it, [name].  I shouldn\'t be able to, but I can.  Oh, god,</i>" Hel says, looking pointedly away from you, staring wide-eyed into the morning sky.' );
 		EngineCore.outputText( '\n\n"<i>What\'s wrong?</i>"' );
@@ -476,7 +476,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Hel enters 'bulging' state, play at random from camp menu:;
 	//if(CoC.flags[kFLAGS.HELIA_PREGNANCY_INCUBATION] < 300 && CoC.flags[kFLAGS.HEL_PREGNANCY_NOTICES] === 0) {;
 	HelSpawnScene.prototype.bulgyCampNotice = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'As you\'re walking through camp, your eyes wander over toward Helia, sunning herself on a stone near the edge of camp.  You can just see that her belly\'s starting to bulge out from under her, and Hel\'s hands lie protectively over her full womb, absently rubbing the bulge of her stomach.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -484,7 +484,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Hel enters 'swollen' state, play at random from camp menu:;
 	//if(CoC.flags[kFLAGS.HELIA_PREGNANCY_INCUBATION] === 200 && CoC.flags[kFLAGS.HEL_PREGNANCY_NOTICES] === 1);
 	HelSpawnScene.prototype.heliaSwollenNotice = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You note that Hel\'s wandering aimlessly around camp, one hand over her belly as she mumbles to herself.  You could swear she was cursing her now quite swollen belly, but suddenly she gives a girlishly happy cry and waves you over.\n' );
 		EngineCore.outputText( '\n"<i>Come feel, [name], quick! It\'s kicking!</i>"\n' );
@@ -499,7 +499,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Boy;
 	HelSpawnScene.prototype.youWantABoy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>Is that so? Yeah, I can see it.  ' );
 		if( CoC.player.hasCock() && !CoC.player.hasVagina() ) {
@@ -513,7 +513,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Girl;
 	HelSpawnScene.prototype.youWantAGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>Yeah, a girl would be pretty great.  ' );
 		//if PC is male:;
@@ -529,7 +529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Hel enters 'gravid' state, play at random from camp menu:;
 	//if(CoC.flags[kFLAGS.HELIA_PREGNANCY_INCUBATION] === 100);
 	HelSpawnScene.prototype.heliaGravidity = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		//Shouldn't be needed, bet this was originally here to stop duplicate notices:	flags[kFLAGS.HEL_PREGNANCY_INCUBATION]--;;
 		EngineCore.outputText( 'You can\'t help but notice that Hel\'s starting to have a hard time getting around, lately - and she\'s been sticking closer and closer to camp, barely leaving at all the last few days.  Now, she\'s fussing around her part of camp, trying to beat some spare logs into a crib one-handed.  You can\'t remember the last time you saw her walking around without a hand on her back to support her gravid belly, the other absently rubbing or poking at it, already playing with the child inside her.' );
@@ -546,7 +546,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Hel Talk 7 (New, play first time PC [Talk]s to Hel once she's at least 'swollen');
 	HelSpawnScene.prototype.heliaTalkSeven = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HELIA_TALK_SEVEN ] = 1;
 		EngineCore.outputText( 'You take Hel with you to a secluded spot at the edge of camp and sit with her, asking how she\'s doing as you run a hand across her pregnant belly.  She nuzzles against you, wrapping her lengthy tail around your waist as her cheek nestles into the nape of your neck.  "<i>It\'s... not like I expected, [name].  Whenever I used to think of being a mother, I always sort of skipped the whole \'carry the little bastards around in your belly\' part.  I just feel so... full, I guess?  Like I just ate a horse, and the horse is inviting its friends to come party at night whenever I try to sleep.  Heh, this little firebrand just loves to kick and squirm at night, let me tell you.  Speaking of which-</i>"  Hel takes your hand in hers and places it over her belly, letting you feel the subtle little movements inside her as your growing child pushes out toward the world.' );
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//[Hel's Lifestyle];
 	//Encourage Her;
 	HelSpawnScene.prototype.encouragePregalia = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You squeeze Hel\'s shoulder and tell her that she\'s going to be a great mother, and that her child would do well to learn from a beautiful, powerful warrior like dear old mom.  ' );
 		if( CoC.flags[ kFLAGS.HEL_LOVE ] === 1 ) {
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Hel's Lifestyle;
 	HelSpawnScene.prototype.helsLifestyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'Being very serious for a moment, you tell Hel that if she\'s worried about her terrible choices rubbing off on her kid, maybe she ought to reconsider some of the things she\'s done less of a slut, drink less, be less of a bloodthirsty maniac in battle.  Slowly, Hel nods to the rhythm of your words.  "<i>Yeah, maybe... maybe I should.  I don\'t know if I can change though, [name].  I\'m not as young as I was - or at least, I don\'t feel it - and I\'ve been living the way I have been for years.  I don\'t know if I could just give up the shit I do partying and the drinking, the fighting and the fucking.  It\'s part of who I am, ' );
 		if( CoC.flags[ kFLAGS.HEL_LOVE ] === 1 ) {
@@ -594,7 +594,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//IT'S TIME! (Play the morning of the 15th Day of Helia's pregnancy);
 	HelSpawnScene.prototype.heliaBirthtime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'The morning dawns like any other, though as you\'re getting dressed, you can\'t help but notice Hel waddling back from the edge of camp, both hands firmly gripping her positively massive belly.  You walk over just in time to hear her groan, "<i>Oh fuck me sideways and call me a harpy, this shit sucks.</i>"  You put an arm around her to steady the sickened salamander, but she barely notices you as she flops down beside her still, nearly grabbing a glass before stopping herself.  "<i>Fucking shit fuck I am so done with this.  I - oh god,</i>" she doubles over, squeezing her belly.  "<i>Ow ow oh god ow.</i>"' );
 		EngineCore.outputText( '\n\nYou ask Hel if she\'s okay, which earns you a bestial growl and a murderous look.  Her look softens a moment later when she doubles over again, seized by agony.  "<i>Just about time, [name].  Oh fuck, this hurts something fierce.</i>"' );
@@ -611,7 +611,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		EngineCore.addButton( 0, 'Next', this, this.heliaBirthEpilogue );
 	};
 	HelSpawnScene.prototype.heliaBirthEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		//It's a girl! ;
 		//If PC was the father: ;
@@ -631,7 +631,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//[NEXT];
 	HelSpawnScene.prototype.nameDatHelspawn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You and Helia share a laugh, looking down at ' );
 		if( CoC.flags[ kFLAGS.HELSPAWN_DADDY ] === 0 ) {
@@ -651,7 +651,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		EngineCore.spriteSelect( 68 );
 		//Easter Egg Names Hel WILL NOT ALLOW:;
 		if( MainView.nameBox.value === '' || MainView.nameBox.value === 'Hellgirl' || MainView.nameBox.value === 'Kid' || MainView.nameBox.value === 'Phoenix' || MainView.nameBox.value === 'Savin' || MainView.nameBox.value === 'Helia' || MainView.nameBox.value === 'Mini-doofus' ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			if( MainView.nameBox.value === '' ) {
 				EngineCore.outputText( '<b>You must select a name.</b>', false );
 			} else if( MainView.nameBox.value === 'Hellgirl' ) {
@@ -676,7 +676,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		MainView.nameBox.visible = false;
 		//[Name Field];
 		//Easter Egg Names:;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HELSPAWN_NAME ] === 'Helspawn' ) {
 			EngineCore.outputText( '"<i>That\'s what I was gonna call her!  Except not at all.  God dammit, seriously, [name]?</i>"\n\n' );
 		}
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Hel Talk 8 (Only while HelSpawn is still a baby);
 	HelSpawnScene.prototype.heliaTalkEight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.HEL_TALK_EIGHT ] = 1;
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'Watching your little daughter crawl around, you and Hel sit down together arm in arm, smiling as the little salamander girl plays with bits and pieces of Hel\'s gear.' );
@@ -773,7 +773,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//From Hel's menu: [Play with Kid];
 	HelSpawnScene.prototype.playWithYourKid = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'Picking ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' up off the ground, you spin the giggling little girl around, laughing as your ' );
 		if( CoC.flags[ kFLAGS.HELSPAWN_DADDY ] !== 0 ) {
@@ -790,7 +790,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Event: Helspawn Graduates from Baby to Teenager;
 	//(Play as the PC wakes up);
 	HelSpawnScene.prototype.helSpawnGraduation = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HELSPAWN_GROWUP_COUNTER ] = 1;
 		CoC.flags[ kFLAGS.HELSPAWN_AGE ]++;
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Event: Helspawn Discovers Booze;
 	//(Play at random during Teenage Helspawn days);
 	HelSpawnScene.prototype.helspawnDiscoversBooze = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HELSPAWN_DISCOVER_BOOZE ] = 1;
 		EngineCore.outputText( 'As you\'re moving through camp, you notice Hel\'s away from her little nook - probably off visiting the family, seeing as her cloak\'s gone.  You wouldn\'t have given her part of camp a second look, except for a sudden whiff of brimstone and burning brewery on the wind.  Cocking an eyebrow, you creep over to Hel\'s still, quiet as ' );
@@ -836,7 +836,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Scold Her;
 	HelSpawnScene.prototype.scoldHelSpawn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You cross your arms over your chest and ask your little salamander exactly what she thinks she\'s doing.' );
 		EngineCore.outputText( '\n\n"<i>Uh, I\'m... uh...</i>" she starts before you pick her up by the scruff of the neck, pulling her away from the still.  She squirms and flails drunkenly in your grasp, but is unable to escape in her condition.  "<i>P-put me down, ' + this.championRef() + '!</i>" she squeals, but you only tsk your tongue as you drag her away, dropping her on your bedroll, well away from the booze.' );
@@ -854,7 +854,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Encourage Her;
 	HelSpawnScene.prototype.encourageHelspawn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>Move over, you,</i>" you say, sliding down beside your little salamander as you pop the tap open again.  "<i>Gotta pace yourself, see,</i>" you add, taking a long draught before closing it off again, savoring the potent taste of Hel\'s mighty brew.' );
 		EngineCore.outputText( '\n\n"<i>Wha...?</i>" ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' starts to say, before catching on as you drink, inviting her to join you.' );
@@ -880,7 +880,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Event: Helspawn Chooses a Fighting Style;
 	//(Play during the day when returning to camp);
 	HelSpawnScene.prototype.helSpawnChoosesAFightingStyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'As you make your way back to camp, you begin to hear the sounds of fighting from ahead.  Readying your [weapon], you pick up the pace until your campsite comes into view.  You relax, seeing that it\'s only ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' and her mother.  Helia\'s standing near the center of camp, ' );
 		if( SceneLib.camp.companionsCount() > 3 ) {
@@ -905,7 +905,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Archery (Dat Snipermander);
 	HelSpawnScene.prototype.snipermanders = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HELSPAWN_WEAPON ] = 'bow';
 		EngineCore.outputText( 'You tell Hel to take a break got this handled. Grabbing your bow and quiver from over your shoulder, you hand them over to ' );
@@ -952,7 +952,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Teach Her {Sword and Boardmander};
 	HelSpawnScene.prototype.swordAndBoardmander = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HELSPAWN_WEAPON ] = 'scimitar and shield';
 		EngineCore.outputText( 'You tell Hel to take a break got this handled.  You grab some kindling and string from your supplies, and a few minutes later you\'ve got a pair of small, vaguely sword-like practice weapons pieces together.  Tossing one to the young salamander, you tell her to come get some.' );
@@ -999,7 +999,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Berzerker (Das Barbarimander);
 	//{if PC has 200 gems};
 	HelSpawnScene.prototype.dasBarbarimander = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HELSPAWN_WEAPON ] = 'scimitar';
 		if( CoC.player.gems >= 200 ) {
@@ -1048,7 +1048,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Do Nothing;
 	HelSpawnScene.prototype.helspawnDoNothing = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You turn around and head back to your bed.  As soon as you\'re under your blanket, your ears are assaulted with the quiet moans and grunts of pleasure coming from ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '\'s bed as she and her first little boyfriend get it on.  You can practically hear the tail-pegging from here.  How cute!' );
 		//{HelspawnSlutty +10};
@@ -1057,7 +1057,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Stop Them;
 	HelSpawnScene.prototype.helSpawnStopFucking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You sigh and step out of the shadows, grabbing the feminine little spider boy by the shoulder and yanking him away from ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '.  "<i>And just what the hell do you two think you\'re doing?</i>" you yell, scowling ' );
 		if( CoC.player.tallness >= 90 ) {
@@ -1103,7 +1103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Capstone Event: Helspawn's All Grown Up;
 	//{Play the morning after Event 3};
 	HelSpawnScene.prototype.helspawnAllGrownUp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'You wake up the next morning, and soon find your eyes drawn to where ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lies, barely an arm\'s reach from her mother\'s hammock, still snoring peacefully.  You sigh wistfully as you get up and get dressed, still thinking of the night before and your girl\'s little misadventure with the spider.  God, she\'s grown up fast.  Faster than you could have imagined - or her mother, for that matter.  Helia, too, is still reeling from her daughter\'s rapid, mutagenic growth.  But there\'s nothing to be done about that, now, and it seems she\'s reached what passes for adulthood in this strange world.  She\'s had the body of a woman for some time now, and it seems the mind and desires of one as well.' );
 		EngineCore.outputText( '\n\nA part of you is sad to see her all grown up, and now you know it\'s time to treat your ' );
@@ -1121,7 +1121,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 
 	//Helspawn’s Main Menu @ Camp [Followers Tab];
 	HelSpawnScene.prototype.helspawnsMainMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You call ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' over to you and she comes running, ' );
 		if( CoC.player.tallness <= 72 ) {
 			EngineCore.outputText( 'grabbing you off your [feet] and clutching you in a tight hug' );
@@ -1145,7 +1145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Hug;
 	HelSpawnScene.prototype.hugHelspawn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//{if PC is less than 6' tall:};
 		if( CoC.player.tallness <= 72 ) {
 			EngineCore.outputText( 'You reach up and pull ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' down to your level, wrapping your arms tight around her slender shoulders.  Grinning from ear to ear, the towering girl squeezes you right back, her powerful muscles just about crushing your smaller body.  Her tail slips around your [hips], the warm leather binding you to your beloved ' );
@@ -1173,7 +1173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Talk;
 	HelSpawnScene.prototype.talkToHelspawn = function() {
 		//{Note: Talk 1 displays first and only once, followed by a random selection from the other scenes. Most of Helspawn's talk scenes involve other characters from camp, since after all, it takes a village!};
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var temp = Utils.rand( 5 );
 		//Talk 1;
 		if( CoC.flags[ kFLAGS.HAD_FIRST_HELSPAWN_TALK ] === 0 ) {
@@ -1267,7 +1267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Boyfriend;
 	HelSpawnScene.prototype.helSpawnBoyfriend = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>So tell me about this spider boy.</i>"' );
 		EngineCore.outputText( '\n\n"<i>Alex?</i>" ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' asks, brightening up.  "<i>I met him on the way to Tel\'Adre.  Mom was stopping to, uh, take care of a few stray witches, and I ended up wandering off...</i>" she says, launching into the tale of her meeting the effeminate spider boy, and the whirlwind romance that brought them giggling back to camp in the middle of the night.  It\'s typical teen talk, but then, you\'re not much older than she seems, now, and you remember the days at home when you could have done the same.  You grin as she recounts her first kiss, and note the bright blush on her cheek.' );
 		EngineCore.outputText( '\n\nMaybe she ought to keep seeing this boy after all...' );
@@ -1276,7 +1276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 
 	//StopFucking;
 	HelSpawnScene.prototype.dontFuckAlex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Stroking ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '\'s hair, you try to tell her that there\'s a better way, that she doesn\'t have to just fuck everything she comes across.  Her mother\'s that way, sure, but she could do so much better, so much more with herself than giving in to constant lust.' );
 		//{If Sluttymander:};
 		if( CoC.flags[ kFLAGS.HELSPAWN_PERSONALITY ] >= 50 ) {
@@ -1293,7 +1293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Incest / You & Me;
 	HelSpawnScene.prototype.incestWithHelspawn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You cup ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '\'s cheek, turning her to you... only to have her leap you, straddling your [legs] as her powerful arms wrap around your neck.  Her thin lips press hard to yours, slender tongue probing against yours as her svelte body presses against you.  You respond in kind, grabbing her big ass and squeezing, kneading the delicious curves as she starts to grind against you, breath hot and heavy on your ' + CoC.player.skinFurScales() + '.  "<i>I said I love you, ' + this.championRef() + ',</i>" she grins, so close you can practically feel the beat of her heart through her perky breasts.  "<i>Glad to know you feel the same way.</i>"' );
 		EngineCore.outputText( '\n\nYou grin as the beautiful salamander strokes your cheek, and says, "<i>You\'re a hell of a lot better than any femmy spider boy, ' + this.championRef() + '.  I\'m a lucky girl to have someone like you to raise me... and to love me.</i>"' );
 		EngineCore.outputText( '\n\nYou kiss her again and send her on her way with a sharp swat on the ass.  She gives it a sexy wiggle as she walks, winking back at you as she saunters off.' );
@@ -1303,7 +1303,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//[Oh God EW];
 	HelSpawnScene.prototype.ohGodEwKihaAndHelspawnSuckAtCooking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You spew the stew onto the ground and grab a nearby waterskin, trying to flush the taste from your mouth.  Kiha and ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' look on with horror as you wipe your mouth and begin to try and coherently explain just how god awful whatever that... STUFF... you just put in your mouth was.  Shock turns to anger before you’re halfway through admonishing the pair of scaly redheads.  Kiha scowls at you and snatches the ladle from you.' );
 		EngineCore.outputText( '\n\n"<i>Oh, what the fuck do you know anyway, you big ass!  It\'s perfectly fine, isn\'t it ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '?</i>" she growls, spooning up a mouthful of the stuff before you can stop her.  A heartbeat after she swallows, Kiha goes completely stiff; her eyes growing as wide as saucers as they water.  She collapses backwards, falling onto her back with a muted <i>THUD</i>.' );
 		EngineCore.outputText( '\n\n"<i>K-Kiha?</i>" ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' yelps, watching the dragoness collapse into a pile of limp scales and leather.  "<i>Are you okay?  Is she okay, ' + this.championRef() + '?</i>"' );
@@ -1319,7 +1319,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelSpawnScene.prototype.umYum = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Um, yum?' );
 		EngineCore.outputText( '\n\nCringing, you set the offered bowl back down, squeaking out that it\'s delicious, thank you very much, but you have something to take care of right now; maybe you can have more later.  Kiha rolls her eyes and shoos you off before she and ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' spoon out their lunch.' );
 		EngineCore.outputText( '\n\nAs you\'re wandering off looking for somewhere to hurl, you hear the tell-tale groans and gagging of a pair of scaly ladies who\'ve just realized what kind of abomination they\'ve created.' );
@@ -1328,13 +1328,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Sure;
 	HelSpawnScene.prototype.helSpawnSureMilkHerLater = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You chuckle, telling her to let the poor girl sleep.  There\'ll be plenty of milk later.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Now;
 	HelSpawnScene.prototype.helSpawnMilkHerNow = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Oh, no.  You\'re not getting out of your chores that easy, kiddo.  In you go,</i>" you say, giving her a little push toward the edge of the pool.' );
 		EngineCore.outputText( '\n\n' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' gives a rebellious huff as she clambers down, slipping down to the bottom and giving ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' a gentle nudge.  "<i>C\'mon, cutey, wake up.  Time to relieve some pressure.</i>"' );
 		EngineCore.outputText( '\n\nYawning powerfully, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' rises to her knees and rubs the sleep from her eyes' );
@@ -1357,7 +1357,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Spar;
 	HelSpawnScene.prototype.sparHelspawn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' if she\'s up for some battle practice, and she answers with an eager nod as she grabs her weapon.' );
 		//If Sluttymander: ;
 		if( CoC.flags[ kFLAGS.HELSPAWN_PERSONALITY ] >= 50 ) {
@@ -1413,7 +1413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//PC kicks Helspawn's shit in, surprising nobody. ;
 	HelSpawnScene.prototype.beatUpYourDaughter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//{If Sluttymander loses to lust (you monster)}:;
 		if( CoC.flags[ kFLAGS.HELSPAWN_PERSONALITY ] >= 50 && CoC.monster.lust > 99 ) {
 			EngineCore.outputText( '"<i>N-no more...</i>" the slutty little salamander moans, slumping down to the ground, arms wrapping around herself.  "<i>Fuck, you\'re sexy... so horny...</i>" she groans, hands slipping down to her soaked bikini bottom.' );
@@ -1448,7 +1448,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Mai Visits Her Kid;
 	//{Requires Helspawn be Mai's daughter; play when returning to camp:};
 	HelSpawnScene.prototype.maiVisitsHerKids = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( 'As you head back into camp, you notice Hel and ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' are sitting around the cook fire in the center of camp, with your foster daughter balanced precariously on the lap of her own father, Mai the fox-girl.' );
 		EngineCore.outputText( '\n\n"<i>Heyya, lover mine, look who stopped in!</i>" Hel calls, waving you over until you slip down beside her, a warm, leathery tail quickly wrapping around your waist.' );
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Spider Bro's Gift;
 	//{Requires Helspawn be fathered by a spiderbro. Play at morning.};
 	HelSpawnScene.prototype.spiderBrosGift = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.SPIDER_BRO_GIFT ] = 1;
 		EngineCore.outputText( 'As you\'re getting ready to head out for the day, you notice ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' prancing around camp with a long, brightly-colored scarf wrapped around her neck, standing painfully in contrast with her midnight-black scales and pale flesh.' );
@@ -1494,7 +1494,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Hakon and Kiri Come to Visit;
 	//{Play as the PC returns to camp in the evening / late afternoon};
 	HelSpawnScene.prototype.hakonAndKiriComeVisit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HAKON_AND_KIRI_VISIT ] = 1;
 		EngineCore.outputText( 'As you\'re returning to camp, you notice Helia running around like a chicken with her head cut off, fussing about damn near everything in her part of the camp' );
@@ -1538,7 +1538,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	//Eventually needed to get into Helia Expansion 5: The Valley of Fire;
 	//lol like I'll ever actually get there;
 	HelSpawnScene.prototype.goHuntingBitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>Sure,</i>" you say, quickly earning approving nods from Hakon and Helia.' );
 		EngineCore.outputText( '\n\n"<i>No mercy for gnolls!  Right, sweetheart?</i>" Hel shouts, grabbing a mug of ale and lifting it in the air.' );
@@ -1548,7 +1548,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 	};
 	//Maybe not;
 	HelSpawnScene.prototype.noHuntingBitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 68 );
 		EngineCore.outputText( '"<i>I\'ll pass,</i>" you say with a laugh, earning a shrug from the salamanders.' );
 		EngineCore.outputText( '\n\n"<i>Well, maybe you\'ll change your mind next time.  Plenty of evil furbags to go around!</i>" Hel says with a laugh.  "<i>C\'mon, let\'s find something for the folks to eat, huh?</i>"' );

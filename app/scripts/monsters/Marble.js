@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
 	function Marble() {
 		this.init(this, arguments);
 	}
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedD
 			damage = CoC.player.takeDamage( damage );
 		}
 		EngineCore.outputText( 'You are struck by a two-handed overhead swing from the enraged cow-girl.  (' + damage + ' damage).', false );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		Combat.combatRoundOver();
 	};
 	Marble.prototype.marbleSpecialAttackTwo = function() {
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, $log, WeightedD
 		if( damage > 0 ) {
 			CoC.player.takeDamage( damage );
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		Combat.combatRoundOver();
 	};
 	Marble.prototype.defeated = function() {

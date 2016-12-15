@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SimpleUseable', function( Useable, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'SimpleUseable', function( Useable, MainView, EngineCore ) {
 	function SimpleUseable() {
 		this.init(this, arguments);
 	}
@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'SimpleUseable', function( Useable, EngineCor
 		that.canUseText = args[ 5 ];
 	};
 	SimpleUseable.prototype.canUse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( this.canUseFunction !== null ) {
 			this.canUseFunction();
 		} else {

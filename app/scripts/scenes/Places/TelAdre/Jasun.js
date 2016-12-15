@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, EngineCore ) {
 	function Jasun() {
 	}
 
@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, EngineCore ) {
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			EngineCore.outputText( 'You toss ten gems to centaur and head towards the back.\n\n', false );
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		//AT CHANGING ROOM (1ST TIME);
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00179 ] === 0 ) {

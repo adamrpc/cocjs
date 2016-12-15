@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, CockTypesEnum, ConsumableLib, AppearanceDefs, Appearance, EventParser, PregnancyStore, Utils, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Edryn() {
 		this.pregnancy = new PregnancyStore( kFLAGS.EDRYN_PREGNANCY_TYPE, kFLAGS.EDRYN_PREGNANCY_INCUBATION, 0, 0 );
 		this.edrynHeliaLastThreesomeCheck = 0;
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		}
 		//Pay gems and update sidebar;
 		CoC.player.gems -= cost;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//Actually choose the sex scene;
 		this.edrynFucktroduction();
 		//Increment sex count;
@@ -898,7 +898,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 
 	//Fucking;
 	Edryn.prototype.fuckPregEdryn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 14 );
 		EngineCore.outputText( ImageManager.showImage( 'edryn-preggo-fuck' ) );
 		var x = CoC.player.cockThatFits( 300 );
@@ -1104,7 +1104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 	//During orgasm contracts into cock-milking rings that happen so fast and so frequently you can't even track them;
 	//Intro:;
 	Edryn.prototype.edrynFucktroduction = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 14 );
 		EngineCore.outputText( '', true );
 		var x = CoC.player.cockThatFits( 300 );
@@ -1172,7 +1172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 	};
 	//Eat Her Out Till Shit Goes Crazy;
 	Edryn.prototype.eatEdrynPussyLikeABawss = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'edryn-eat-her-out' ) );
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
@@ -1280,7 +1280,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, CockTypesEn
 		EngineCore.dynStats( 'lib', 0.25, 'sen', -3 );
 	};
 	Edryn.prototype.postEdrynEatOutRut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When Edryn and you wake, your genitals are so sore and sensitive that getting cleaned up is almost painful.  The centauress even goes so far as to comment that she\'ll have to pay someone to mop up the mess, but there\'s a proud twinkle in her eye.  Somehow, your [armor] got splattered with vaginal juices during the sexcapade, and as you put them back on, [eachCock] regains its familiar hardness.  You chew on your lower lip as you slip out after saying goodbye, rock-hard and smelling totally of Edryn\'s lust.  A limited applause goes up at your departure, mixed with hooting and catcalls.  What a fuck!' );
 		EngineCore.hideUpDown();
 		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 5 );

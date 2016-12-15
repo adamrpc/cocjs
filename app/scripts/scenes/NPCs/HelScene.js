@@ -1135,7 +1135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			EngineCore.outputText( 'To your relief, after a few seconds you hear "<i>' + CoC.player.short + '!</i>" from both Isabella and Hel.  The two women momentarily stop their squabbling to help you; your head is soon resting upon Isabella\'s sizable cleavage while Hel ties a long length of plains grass over a cut in your sternum.\n\n', false );
 		}
 		CoC.player.takeDamage( 10 );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//(Diplomacy Continued);
 		EngineCore.doNext( this, this.salamanderXIsabellaDiplomacy2 );
 	};
@@ -1658,7 +1658,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//Telling Hel to Not Get Hooked on Some Random Dude's Dickjuice (Or, How Hel Learned to Love Monogamy. Kind of.);
 	//[Mino Cum];
 	HelScene.prototype.telHelToGetOffTheMInoCock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you lie in your post-coitus afterglow with your lover, a thought makes its way into your mind just took a load of minotaur cum up the twat.  That\'s... that\'s not good. You tell her as much, adding that ' );
 		if( CoC.player.minotaurAddicted() ) {
 			EngineCore.outputText( 'you know firsthand' );
@@ -1680,14 +1680,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Keep Going];
 	HelScene.prototype.helCanFuckMinosWhenever = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide not to deter Hel from her minotaur-raping ways.  Nothing bad could come of your salamander friend fucking a few more \'taurs than she already has, right?  You\'re sure she can just manage her addiction, or lack thereof, just fine on her own.' );
 		//(Return to post-threesome menu);
 		EngineCore.doNext( this, this.helChatMenu );
 	};
 	//[Satisfy Her];
 	HelScene.prototype.satisfyHelSoSheStopsMinoFucking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'After a moment of contemplation, you give the salamander a lusty grin and tell her you\'ll just have to satisfy her tremendous sexual appetite yourself.  She seems taken aback by your offer, blinking hard at you.' );
 		EngineCore.outputText( '\n\n"<i>Well, that\'s a hell of an offer,</i>" she laughs, rolling over to straddle your [hips].  "<i>Careful you don\'t make a promise you can\'t keep, lover mine...  We salamanders have incredible libidos.  Would be a shame if you couldn\'t keep up...</i>"' );
 		//{If PC has high libido};
@@ -1729,7 +1729,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//Hel Sexual Ambush;
 	//(Proc's once per day when [Exploring] anywhere);
 	HelScene.prototype.helSexualAmbush = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you make your way around, you hear footfalls rapidly approaching.  Alarmed, you lift your [weapon] and spin - just in time for a blazing salamander to bull-rush you to the ground.  The two of you tumble back, eventually coming to a stop with Hel straddling you, already throwing off her scale bikini and clawing at your [armor] - you can see that her thighs are slick with her juices and her skin is flushed with arousal.' );
 		EngineCore.outputText( '\n\n"<i>Come on, [name],</i>" she growls, throwing her top aside, letting her big, bouncy breasts free. "<i>You wanted me not to fuck \'taurs?  Fine... but I NEED you.  NOW!</i>"' );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 20 );
@@ -1745,7 +1745,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Leave] (From Sexual Ambush);
 	HelScene.prototype.pussyOutOfHelSexAmbush = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You push Hel off of you and tell her that you just aren\'t interested in fucking right now.' );
 		EngineCore.outputText( '\n\n"<i>What,</i>" she says, completely deadpan.  "<i>WHAT!?</i>"' );
 		EngineCore.outputText( '\n\n"<i>No sex for you,</i>" you answer.' );

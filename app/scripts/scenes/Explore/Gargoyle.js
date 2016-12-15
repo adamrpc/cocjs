@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Introduction, 1st Time:[/b];
 	Gargoyle.prototype.gargoylesTheShowNowOnWBNetwork = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(When using the “Explore” option; perhaps a 15-25% chance of discovery per go);
 		EngineCore.outputText( 'You set off in search of new horizons, setting off from camp in a completely new direction than you\'ve ever tried before.  Away from the parts of Mareth you have thus far discovered, much of the world seems to be a barren wasteland' );
 		//if Desert is discovered:;
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//(Advance time by 1 hour) ;
 	Gargoyle.prototype.gargoyleMeeting2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You finally close the distance between yourself and the strange structure, which begins to take shape ahead.  Though it\'s half-buried under what must be years of built-up sand and debris, you can clearly make out high stone walls supported by vaulted arches, broken every so often by the shattered remains of stained-glass windows and a pair of utterly destroyed oaken doors nearly hidden behind a row of tall marble pillars, many of which have long since crumbled.  High above the ground, you can see a pair of tall, slender towers reaching up to the heavens, one of which has been nearly obliterated by some unimaginably powerful impact, leaving it a stump compared to its twin.  From the rooftops, strange shapes look down upon you – stone statues made in the image of demons, dragons, and other monsters.' );
 		//[b]You have discovered The Cathedral[/b] (If Fen wants to make this a Place; otherwise it can be encountered in the future via the Explore –> Explore function. Whichever works better. );
 		EngineCore.outputText( '\n\nYou arrive at the grounds around the ruins, cordoned off by a waist-high wrought-iron fence that surrounds the building and what once might have been a beautiful, pastoral garden, now rotting and wilted, its trees chopped down or burned, twig-like bushes a mere gale\'s difference from being tumbleweeds.  A few dozen tombstones outline the path to a gaping maw that was once the great wooden doors.  Seeing no obvious signs of danger, you make your way inside, stepping cautiously over the rubble and rotting debris that litters the courtyard.' );
@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Don't Break[/b];
 	Gargoyle.prototype.dontBreakThatShit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Oh, no.  Nope.  Nuh-uh.  Not going to happen.  You\'re not falling for that trick!  No, siree.  As soon as you chop those chains, it\'ll probably just come to life and try to kill - or rape - you.  Feeling rather smart, you turn on a heel and exit the cathedral – there\'s nothing else to see right now.' );
 		EngineCore.outputText( '\n\nIf you change your mind, you can always come back.  The statue\'s been here for decades, it can wait a while longer.' );
 		//(Return player to Camp, advance time an hour);
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Break Chains[/b];
 	Gargoyle.prototype.breakZeChains = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Introduces two new values: ' + CoC.flags[kFLAGS.GAR_NAME] + ', the gargoyle's name, given by the Champion, and Confidence, a value that has a base score of 0 (submissive/slave) rising to 100 (equal). Negatives are possible.;
 		EngineCore.outputText( 'You swing your [weapon] up over your head and strike the chains.' );
 		//if using your hands:;
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		if( MainView.nameBox.value === '' || MainView.nameBox.value === '0' ) {
 			// Name flag is used to track access into Gargoyles content. Default is '0' so somewhere the '0' string is coalescing to integer 0.;
 			// Solution? Fuck you for naming your Gargoyle '0'.;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b>You must name her.</b>', false );
 			MainView.nameBox.value = '';
 			MainView.nameBox.visible = true;
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		CoC.flags[ kFLAGS.GAR_NAME ] = MainView.nameBox.value;
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = false;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>' + CoC.flags[ kFLAGS.GAR_NAME ] + ',</i>" she purrs, "<i>' + CoC.flags[ kFLAGS.GAR_NAME ] + ', ' + CoC.flags[ kFLAGS.GAR_NAME ] + '.  Master has interesting taste.</i>"' );
 		EngineCore.outputText( '\n\nShe continues to kneel before you expectantly.  You suppose you could give her an order – perhaps something humorous, or perhaps something carnal – or maybe just talk to her, though as yet she seems a bit... odd.' );
 		this.gargoyleStarterMenu();
@@ -119,14 +119,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Funny Order[/b];
 	Gargoyle.prototype.giveGargoyleAFunnyOrder = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'If she\'s so intent on playing the servant, you suppose you can play along.  Summoning up your most commanding voice, you snap, "<i>ROLL OVER!</i>"' );
 		EngineCore.outputText( '\n\nTo her credit, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' hesitates only for a moment before dropping to the floor and rolling belly-up, limbs upraised like a puppy in training.  Stifling a chuckle, you lean down and do just that, giving her a quick belly rub.  Her skin is cool to the touch, and impeccably smooth, as you might expect from a marble statue.  Seemingly pleased, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' scrambles back to a low crouch before you, awaiting your next command.' );
 		this.gargoyleStarterMenu();
 	};
 	//[b]Carnal Order[/b];
 	Gargoyle.prototype.carnalOrder = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Well, well. ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' seems willing to follow any order you give, no matter how carnal, and you could not help but notice her rather <i>arousing</i> attributes earlier.  Smirking wickedly, you command your new gargoyle to finger herself.' );
 		EngineCore.outputText( '\n\n"<i>Master reminds me of the last master,</i>" she says quietly, almost coldly, but does not hesitate to flop onto her taut butt and spread her legs wide for you.  Easily, she slips three fingers into her slit, which stretches slightly to accommodate the insertion.  Watching you intently, she begins to rapidly piston her fingers in and out, masturbating to a rhythm near that to your ' );
 		if( CoC.player.cor < 40 ) {
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Talk (First Time)[/b];
 	Gargoyle.prototype.firstGargoyleTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide against giving ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' an order for now.  Instead, you right a nearby toppled pew and seat yourself across from the crouching gargoyle, returning her intense stare with one of your own.' );
 		EngineCore.outputText( '\n\n"<i>Why were you chained up?</i>" you finally ask, glancing at the shattered bonds on the ground.' );
 		EngineCore.outputText( '\n\n"<i>Master found a new toy and soon grew tired of me.  Still, she did not want me stolen.</i>"' );
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Berate[/b];
 	Gargoyle.prototype.berateTheGargoyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence - 10);
 		this.gargoyleConfidence( -10 );
 		EngineCore.outputText( 'A pillar of rage boils up inside you.  You are [name], Champion of Ingnam, you tell her, rising to your feet, fists clenched.  Your duty is the same as hers was, to protect your home.  And she failed.  She let all those people down.  You tell her that she\'s worthless, disgusting, a failure.' );
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Reassure[/b];
 	Gargoyle.prototype.reassureTheGargoyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence +10);
 		EngineCore.outputText( 'You can\'t help but feel sorry for the poor gargoyle.  It isn\'t hard to figure out what happened, and in truth, she reminds you a bit of yourself – and of the consequences if you ever fail.  You reach over and put a hand on her smooth, cold shoulder.  As reassuringly as you can, you tell her that you are [name], the Champion of Ingnam.  Your duty isn\'t entirely dissimilar to what hers was, while you hope you\'ll never know what she\'s gone through, you can certainly sympathize.' );
 		EngineCore.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' looks up at you, her ruby-red eyes shining in the dim hit of light in the cathedral.  You cup her cheek and give her a smile.  "<i>Come on, now,</i>" you reply, offering her a hand up.  "<i>Let\'s get out of here.</i>"' );
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	Gargoyle.prototype.returnToCathedral = function( woken ) {
 		CoC.flags[ kFLAGS.FOUND_CATHEDRAL ] = 1;
 		if( !woken ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			if( Utils.rand( 3 ) === 0 ) {
 				EngineCore.outputText( 'You make your way back to the ruined Cathedral in the wastelands.  You notice some of the debris has been cleared away from the courtyard, and some of the windows have been boarded up.  ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s obviously been working since you last left, trying to make the building more habitable.  With your path less obstructed than before, you enter.' );
 			}//[b]Player Returns to the Cathedral B[/b];
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Sex[/b];
 	Gargoyle.prototype.gargoyleSexMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' and tell her you have some... pressure that needs relieving.' );
 		//(if Confidence =< 69:;
 		if( this.gargoyleConfidence() <= 69 ) {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Anal[/b];
 	Gargoyle.prototype.gargoyleAnal = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her to get on all fours as you shed your [armor], unleashing your already-hardening cock.  Nervously, the gargoyle does as you command, quickly finding a clear bit of floor and getting on her hands and knees.  You kneel down behind her, peeling her taut ass-cheeks apart to reveal her tight slit and the marble ring of her tiny asshole.  Grinning, you slather up your forefinger with your tongue, lubing it up as best you can before pressing it to her backdoor.' );
 		EngineCore.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' makes a sharp little gasp as you push your finger into her.  You slide into her with surprising ease, reveling in how <i>cold</i> her interior is.  She\'s like ice inside!  You start thrusting your finger faster, trying to get her warmed up a little as your prepare her anus.  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' squirms and moans softly as you finger-fuck her bum, slowly changing from moans of discomfort to little gasps of pleasure.' );
 		EngineCore.outputText( '\n\nDeciding you\'ve gotten her more than ready, you grasp your [cock biggest] and push the head against her still-tight ass.  Her mouth forms a sharp “O” of pleasure as you grab her hips and push into her.  Though you\'ve lubed her up plenty, her passage is still incredibly tight, and so cool inside it takes a force of will to keep your cock from wilting.  But all it takes is one look at her face over her shoulder, eyes rolled back in pleasure, to keep you thrusting in at full mast.' );
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Vaginal[/b];
 	//no limits;
 	Gargoyle.prototype.gargoyleCoochiiGetsPlowed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 60 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -361,7 +361,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Tit-Fuck[/b];
 	Gargoyle.prototype.titFuckTheGargoyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You situate yourself on a pew and spread your legs.  You pat your thighs, telling ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to sit between your legs as you fish out your [cock biggest].  She approaches, hesitantly placing herself on the floor between your legs as you recline and stroke your shaft to full hardness.  You let the gargoyle sit there, watching you wide-eyed as you continue to masturbate.  Though you\'re only preparing for the main act, you can\'t help but enjoy the sensation of such a basic sexual act, made all the more pleasurable by the creature at your feet, her face barely an inch from your cock\'s head as you stroke yourself.' );
 		EngineCore.outputText( '\n\nOnce you\'re satisfied at your cock\'s rigid hardness, you tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to put those big, soft tits of hers to work.  "<i>M-Master?</i>" she gasps, making a cute little “o” with her mouth just an inch from your shaft.  You repeat the order, and giver her a thump on the nose with your cock for emphasis.  Shyly, she cups her D-cups and leans into you, squeezing your [cock biggest] between them.' );
 		EngineCore.outputText( '\n\nWith a little encouragement, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' starts to rise and fall on her knees, dragging your shaft through her soft, cool mounds.  With a pleasured sigh, you reach down and stroke her hair, petting the girl as she begins to slowly but steadily titfuck you.  Still mumbling encouragements, you sit back and let the pleasure run over you, reveling in the incredible softness of her sizable chest massaging your cock, making steady progress toward stroking the cum out of you.' );
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Strap-On[/b];
 	//(Coding this one may be a *little* complex);
 	Gargoyle.prototype.strapOnGargoyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giving a quick look around the ruins, you tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to go find something that can bring you two a little <i>closer</i>.' );
 		EngineCore.outputText( '\n\n"<i>Closer?</i>" she asks, confused.  You roll your eyes and tell her to grab the holy rod sitting on the altar and put it through a leather strap.  She hesitates for a moment, but dutifully does as you ask, returning a moment later with the smooth, silver cylinder and a leather thong.  With a bit of work, you\'ve created a simple strap-on out of the holy rod, and instruct ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to put it on.  Now she\'s getting it!  The gargoyle slips into the leather, giving a cute little shiver as one end of the rod slips inside her.  Before she has a chance to recompose herself, you grab her rod-cock in one hand and give her a gentle push with the other.' );
 		EngineCore.outputText( '\n\nShe lays down with you atop her, straddling her waist as you stroke her rod, rewarded with sharp pleasure-gasps from the statue-girl.  You\'re hardly stimulating her pussy with these actions – she must be able to feel <i>through</i> the rod, as if it were a real cock.  Amused, you start to jerk the rod off, sliding it through your clenched fist with slow, measured strokes.  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' squirms under the pleasurable attention, and is soon groping her big breasts and bucking her hips into your fists, shoving more of her rod-cock into your hand with each of your jerks.' );
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Tail Fuck[/b];
 	//Requires Vag;
 	Gargoyle.prototype.tailFuckGargoyleScene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Without warning, you grab ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s thick, spiked tail and give it a playful yank.  She lets out a surprised "<i>EEP,</i>" but settles down after you tell her to cop a squat and stiffen it up.  Obediently, she assumes a low crouch and stiffens her tail into a “U” shape between her legs, its tip pointed straight up between your belly and her face.  You ruffle her hair and strip out of your [armor], soon standing nude before the gargoyle.  At a command from you, the brutal stone spikes protruding from her tail\'s tip retract, leaving the appendage a smooth, cool surface.' );
 		EngineCore.outputText( '\n\nWith a little balancing help from a nearby pew, you balance yourself over the narrow tip of her tail and slowly lower yourself down upon it.  The tip slips through your lower lips easily, its stone cold surface sending a chill up your spine as you slide down the gargoyle\'s shaft.' );
 		CoC.player.cuntChange( 15, true, true, true );
@@ -439,7 +439,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Use Her – Male/Herm[/b];
 	Gargoyle.prototype.useGargoyleMaleHerm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach the motionless statue with a lustful look in your eye. Quickly, you strip out of your [armor] and circle around the frozen girl.  With some effort, you\'re able to lift her heavy, spiked tail out of the way, revealing the tight cunt hidden between her legs.  You drop to your knees behind the gargoyle and bury your face in her crack, slurping at her vag, getting it nice and moist in preparation for your cock.' );
 		EngineCore.outputText( '\n\nTo your surprise, the gargoyle does not even respond to your tongue as you slide it inside her.  She\'s completely motionless – even the walls of her love canal are still as you spread your saliva around inside her.  After a few minutes of preparation, you grab your [cock biggest] and slide on home.  Despite her natural tightness, it\'s relatively easy going thanks to the liberal lubrication you applied moments ago, and soon you\'re buried up to the hilt inside the gargoyle.  You give a few quick thrusts into her tight, smooth hole that quickly build up to a fast, hard fucking.' );
 		EngineCore.outputText( '\n\nBut you aren\'t quite satisfied just pounding an insensate hole.  Knowing that you have the power to "revive" ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' through touch, you decide to put this to rather devious use.  You reach around her body and grab one of her breasts, giving it a few hard squeezes until you hear the faintest gasp from the little gargoyle.  You release it immediately.  Your hand switches down to her taut ass and gives it a loud swat.  You repeat the action twice, and finally feel her cunt contract – just a bit – around your shaft.  You switch your attentions down to her thighs, gently running your hands along both expanses of gray skin beneath your thrusting [cock biggest].  You feel her shudder, ever so slightly, but just as she\'s on the verge of reviving, you pull back your hands.' );
@@ -452,7 +452,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Use Her (Female)[/b];
 	Gargoyle.prototype.useHerGargoyleFemale = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You casually strip out of your [armor] and start to tease your cunt as you circle around the crouching gargoyle.  You lament her lack of male genitalia, but that will by no means stop you from sating your lust on the gargoyle.  You grab her tail, itself only just flexible enough to reposition thanks to her rigor-mortis-like state, and bend its tip to face straight up.' );
 		EngineCore.outputText( '\n\nWith a harsh squeeze, the heavy stone spikes on the tip of her tail retract, leaving her tail as unnaturally smooth as the rest of her.  You adjust her tail to just the right height for you, and slide down onto her.  It\'s easy going, thanks to her tail\'s sculpted smoothness, and soon you\'re bottomed out deep enough to feel the pointed tip trying to force its way into your womb.  You moan lewdly as you buck your hips on her appendage, starting to ride it like a big, fat cock.' );
 		EngineCore.outputText( '\n\nCompletely insensate, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' remains in her low crouch ahead of you, not so much as breathing.  Still, she stretches you nice and wide as your bounce on her tail, spearing yourself over and over again on her smooth appendage.  By way of reward, you reach forward and slip a few fingers into her cool, tight cunny.  She can\'t respond as such, but you\'re confident she can still feel you sliding your fingers inside her, pushing in for each bounce you make atop her meaty tail.' );
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Ritual (First Time)[/b];
 	Gargoyle.prototype.ritualGargoyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.RITUAL_INTRO ] === 0 ) {
 			CoC.flags[ kFLAGS.RITUAL_INTRO ] = 1;
 			EngineCore.outputText( 'You note that the sanctuary\'s altar has been cleared of rubble, and a number of candles have been lit upon it. Resting atop the flat stone surface is a simple iron bowl filled with what appears to be water. Curious, you ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' what she\'s been up to.' );
@@ -489,7 +489,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Body[/b];
 	//(PC decreases Libido and Sensitivity. Suffers 20% Max HP damage, to a minimum of 1 pt. remaining);
 	Gargoyle.prototype.bodyRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you could stand to reverse some of the corruption that has affected your body.  With an solemn nod, she takes you to a side alcove near the altar and instructs you to spread your arms and legs.  Hesitantly, you do so, and from the floor and ceiling ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' produces leather straps with rough looped straps.  Before you can react, she binds your arms and legs, spreading you eagle against the cold stone wall.' );
 		EngineCore.outputText( '\n\n"<i>With pain comes purity,</i>" ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' says, so quietly you can barely hear her.  "<i>Prepare yourself, Master,</i>" she adds, and your heart nearly skips a beat when you hear the crack of a whip behind you.  Oh, shit, this is going to hu-CRACK!  You see stars as white-hot pain arcs through your body, making you scream into the wall.  You can feel the burning streak left across your back by the bullwhip, throbbing mercilessly in the moments before CRACK!  She hits you again, throwing you forward against your bonds with the force of the blow.' );
 		EngineCore.outputText( '\n\nOver your ragged, pained breathing, you can just hear ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' chanting: "<i>With pain comes purity... CRACK!  With agony comes enlightenment... CRACK!  Through torment comes holiness... CRACK!</i>"  The last crack of the whip leaves you groaning, breathless, sagging in your bonds. Somehow, though, you do feel... cleaner?  Like a weight was just lifted from your heart.  And you know you\'re going to be thicker-skinned after that!  Quietly, reservedly, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' releases you from your bonds, and you stagger into her waiting arms.  She helps you over to the altar and lays you down, letting you rest after your ordeal.  She stands over you, watching you pant and gasp.  You suppose you could get some vengeance for her brutality – or you could be kind.  What do you do?' );
@@ -503,7 +503,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Nothing[/b];
 	Gargoyle.prototype.noReactionToBodyRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You simply lie still and try to recover from ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s "gentle ministrations."  After a few minutes, you\'ve caught your breath and, gathering your possessions, make your way out of the Cathedral without another word.  Damn, you\'re sore.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//(Return PC to camp, advance time 1 hour);
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Revenge[/b];
 	//(Confidence -5);
 	Gargoyle.prototype.gargoyleRevengeAfterBodyRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Seeing ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' just standing over you, gloating, causes you to sneer and lash out.  You strike her dead-center in the chest, throwing her back against the tree-idol at the church\'s head.  She slumps to the floor, looking meekly away from you.  While she\'s stunned, you gather your [armor] and stagger out of the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( -5 );
@@ -520,7 +520,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Cuddle[/b];
 	//(Confidence +5);
 	Gargoyle.prototype.gargoyleCuddleAfterBodyRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Despite the pain she\'s caused you, you know ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' did it at your command – and hell, it could only have helped you.  Before she can react, you reach up and pull the gray gargoyle down into a kiss, pressing firmly against her soft, cold lips.  She makes a cute little gasp, but soon relaxes into your hold, allowing you to shift her weight so that she\'s nearly lying atop you.  You sigh contentedly and wrap your gargoyle in a tight hug, holding her close for the few minutes it takes you to recover.  When you\'re feeling up to it, you rustle her hair and thank her for her... gentle ministrations.  If she could blush, you\'re sure she would be as she looks upon you with gleaming fiery eyes.  You gather your belongings and exit the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( 5 );
@@ -529,7 +529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]“Mind”[/b];
 	//(PC Decreases Corruption and Lust, increases Intelligence);
 	Gargoyle.prototype.mindGargoyleRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you\'ve been plagued with dirty thoughts, and would like to undo some of the corruption that\'s spread to your mind.  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' nods respectfully and tells you to kneel before the altar. You do so, assuming a low, supplicating stance before the tree-idol at the Cathedral\'s head as the gargoyle picks up the bowl of water and raises it on high.' );
 		EngineCore.outputText( '\n\n"<i>Blessed is ' + CoC.player.mf( 'he', 'she' ) + ' who seeks purity,</i>" she says, closing her eyes and bowing her head, "<i>Blessed is ' + CoC.player.mf( 'he', 'she' ) + ' who seeks wisdom; and blessed is ' + CoC.player.mf( 'he', 'she' ) + ' who lusts after holiness and virtue before pleasures of the flesh.</i>"' );
 		EngineCore.outputText( '  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' brings the invocation to a quiet close, and rests the bowl back upon the altar. "<i>Drink of this, Master,</i>" she says, offering you the bowl, "<i>and be healed of mind.</i>"' );
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Banishment[/b];
 	//(PC is cleared of Worms and/or Exgartuan);
 	Gargoyle.prototype.banishmentGargoyleRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Talking about ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s rituals, you explain that you seem to have picked up ' );
 		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
 			EngineCore.outputText( 'a hitchhiker' );
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Nothing[/b];
 	Gargoyle.prototype.dontFreakOutAfterBanishment = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You simply lie still and try to recover from ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s “gentle ministrations. ” After a few minutes, you\'ve caught your breath and, gathering your possessions, make your way out of the Cathedral without another word. Damn, you\'re sore.' );
 		//(Return PC to camp, advance time 1 hour);
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -608,7 +608,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Revenge[/b];
 	//(Confidence -5);
 	Gargoyle.prototype.getRevengeForBanishments = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Seeing ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' just standing over you, gloating, causes you to sneer and lash out.  You strike her dead-center in the chest, throwing her back against the tree-idol at the church\'s head.  She slumps to the floor, looking meekly away from you.  While she\'s stunned, you gather your [armor] and stagger out of the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( -5 );
@@ -617,7 +617,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Cuddle[/b];
 	//(Confidence +5);
 	Gargoyle.prototype.cuddleForBanishments = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Despite the pain she\'s caused you, you know ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' did it at your command – and hell, it could only have helped you.  Before she can react, you reach up and pull the gray gargoyle down into your lap, hugging her around the waist and putting a quick kiss into the nape of her neck.  Giggling, she wraps her tail around you, giving you a gentle squeeze as she nuzzles into your chest.  You stay like that for a few minutes, cuddling the cute gargoyle, but eventually you know you need to check on things back at camp.  When you\'re feeling up to it, you rustle her hair and thank her for her... gentle ministrations.  If she could blush, you\'re sure she would be as she looks upon you with gleaming fiery eyes.  You gather your belongings and exit the Cathedral.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( 5 );
@@ -626,7 +626,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Kinky Rituals (First Time)[/b];
 	//(While Confidence 70+);
 	Gargoyle.prototype.gargoyleKinkyRituals = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.KINKY_RITUALS_SPOKEN ] === 0 ) {
 			EngineCore.outputText( 'You broach the subject of rituals to your gargoyle and are met with a surprisingly coy smile from her.  You ask her what\'s on her mind, to which ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' chuckles and says, "<i>I\'ve been thinking, Master. If you so desire, it may be possible to... enhance... the rituals that I\'ve been using.</i>"' );
 			EngineCore.outputText( '\n\nYou ask her exactly what she has in mind.' );
@@ -649,7 +649,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Body[/b];
 	Gargoyle.prototype.kinkyBodyRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence +2);
 		//(PC decreases Libido and Sensitivity. Suffers 20% Max HP damage, to a minimum of 1 pt. remaining);
 		EngineCore.outputText( 'You tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you could stand to reverse some of the corruption that has affected your body.  With an eager nod, she strips you down, takes you to a side alcove near the altar and instructs you to spread your arms and legs.  Putting your trust in your little gargoyle, you do so, allowing her to bind you spread-eagle with long leather straps.' );
@@ -687,7 +687,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//(Confidence +2);
 	//(PC Decreases Corruption and Lust, increases Intelligence);
 	Gargoyle.prototype.mindRitualPervy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.gargoyleConfidence( 2 );
 		EngineCore.outputText( 'You tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you\'ve been plagued with dirty thoughts, and would like to undo some of the corruption that\'s spread to your mind.  With a deep nod conveying both a respect for your choice and an eagerness to engage in the ritual, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' tells you to kneel before the altar.  You do so, assuming a low, supplicating stance before the tree-idol at the Cathedral\'s head as the gargoyle clears off the altar save for the humble bowl of water.' );
 		EngineCore.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' lifts herself to perch atop the alter with a single beat of her wings, coming to rest cross-legged before you.  Grinning a sexy grin, she picks up the small waterbasin and lifts it up to her lips, taking a small drink of it.  "<i>Blessed is ' + CoC.player.mf( 'he', 'she' ) + ' who seeks the pure,</i>" she begins to chant, lowering the bowl from her thin lips. As she does so, she slowly raises her left leg, resting her toes upon your chin.  Locking eyes with you, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' lowers the basin to her thigh and begins to pour, letting the water trickle sensually down her stone-smooth leg.  "<i>Blessed is ' + CoC.player.mf( 'he', 'she' ) + ' who seeks wisdom,</i>" she purrs as you instinctively open your mouth, allowing the holy water to trickle in from her foot.' );
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Banish[/b];
 	//(Confidence +2);
 	Gargoyle.prototype.banishPervRitual = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(PC is cleared of Worms and/or Exgartuan);
 		EngineCore.outputText( 'You explain to ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you seem to have picked up ' );
 		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
@@ -772,7 +772,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Talk[/b];
 	Gargoyle.prototype.talkToGargoyle = function( output ) {
 		if( output === undefined || output ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You take a seat on one of the sanctuary\'s pews, motioning for ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to join you.' );
 			//If Confidence <50:;
 			if( this.gargoyleConfidence() < 50 ) {
@@ -813,7 +813,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]History A[/b];
 	Gargoyle.prototype.talkToGargoyleHistoryA = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' what she can tell you about the history of Mareth.  She shrugs lightly.  "<i>I can\'t tell you much, Master.  I\'ve spent my entire life on these grounds.  Most of what I know was doctrine taught by the church. Is that acceptable?</i>"' );
 		EngineCore.outputText( '\n\nYou tell her that, sure, you\'d like to hear it.  "<i>The church-folk believe – believed – that the goddess Marae created intelligent life here many generations ago, long before the demons came.  She was the highest goddess amongst many, an embodiment of the natural world.  She brought forth the animal-morphs who created this cathedral in her honor.  Using magical knowledge, the priests of this church sought to mirror Marae\'s power, creating creatures such as myself.  Eventually, though, the demons came, I know not from where, and began to spread their corruption.  The priests... tried to resist... t-to ward against...  I\'m sorry, Master,</i>" she says, sniffling.  You notice that she\'s turned away from you, trying to hide her shame.  "<i>I don\'t want to think about this anymore.  Please,</i>" she begs.  The memory of her failure to protect the people of the church still weighs heavily upon her.  You suppose you could berate her for her emotionality, or try and comfort her.' );
 		//(Display Options: [Berate] and [Comfort]);
@@ -823,7 +823,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Berate[/b];
 	Gargoyle.prototype.berateGargoyleForBeingDumb = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence -5);
 		this.gargoyleConfidence( -5 );
 		EngineCore.outputText( '\n\nYou attempt to give ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' a none-too-gentle swat on the head, and tell her off for presuming to refuse you information.  The harshness of your voice only causes her to sob openly, however, and recoil away from you before you can hit her.  You sigh with frustration, and storm out of the cathedral before you have to listen to a moment more of your servant\'s cries.' );
@@ -832,7 +832,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Comfort[/b];
 	Gargoyle.prototype.comfortGargoyleDumbness = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence +3);
 		this.gargoyleConfidence( 10 );
 		EngineCore.outputText( 'You sigh and reach over to ' + CoC.flags[ kFLAGS.GAR_NAME ] + '; ' );
@@ -846,7 +846,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]History B[/b];
 	Gargoyle.prototype.historyOfGargoylesB = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit about the demons coming to Mareth' );
 		if( this.gargoyleConfidence() >= 70 ) {
 			EngineCore.outputText( ' if she\'s up to it' );
@@ -864,7 +864,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]History C[/b];
 	Gargoyle.prototype.gargoyleHistoryC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(PC has both Isabella and Izma as followers);
 		if( SceneLib.izmaScene.izmaFollower() && SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit about the world of Mareth.  Giving it a few moments of quiet thought, she answers do not have any experience outside of the church grounds, Master, but I remember the words of the last Master, and the parishioners before her.  There are... the world has a vast expanse of plains and woodlands, broken up by a mountain range and lake.  Those last two are populated by savage beasts, minotaurs, cow-girls, anemone, and shark-people, both of whom will rend your flesh or rape you half to death.</i>"' );
@@ -910,14 +910,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//MARBLE;
 	//[b]Not Exclusive[/b];
 	Gargoyle.prototype.marbleAintExclusiveBiatch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You run a hand through ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s hair and reassure her that being with Marble won\'t affect the way you interact with her – you\'re more than able to be fond of many girls at once.  This doesn\'t seem to entirely please her, but neither does she throw a tantrum, so you suppose that\'s good enough.' );
 		this.returnToCathedral( true );
 	};
 	//[b]Doesn't Count[/b];
 	//(Confidence -5);
 	Gargoyle.prototype.gargoyleDoesntCountAsAWaifu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You scoff and tell her not to worry – it\'s not like you\'re cheating on Marble by being around her, after all.  She\'s just a statue – a toy, really. Her head sinks low, and the little gargoyle lets out a shudder that might just have been a sob.  You shake your head and change the subject.' );
 		//(Return PC to ' + CoC.flags[kFLAGS.GAR_NAME] + ''s main menu);
 		this.gargoyleConfidence( -5 );
@@ -926,13 +926,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//IZMA;
 	//[b]Not Exclusive[/b];
 	Gargoyle.prototype.sharkgirlsArentExclusiveBiatch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You run a hand through ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s hair and reassure her that being with Izma won\'t affect the way you interact with her – you\'re more than able to be fond of many girls at once.  This doesn\'t seem to entirely please her, but neither does she throw a tantrum, so you suppose that\'s good enough.' );
 		this.returnToCathedral( true );
 	};
 	//[b]Doesn't Count[/b];
 	Gargoyle.prototype.gargoylesDontCountAsSharkWaifus = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence -5);
 		this.gargoyleConfidence( -5 );
 		EngineCore.outputText( 'You scoff and tell her not to worry – it\'s not like you\'re cheating on Izma by being around her, after all.  She\'s just a statue – a toy, really.  Her head sinks low, and the little gargoyle lets out a shudder that might just have been a sob.  You shake your head and change the subject.' );
@@ -943,7 +943,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//IZMA & ISABELLA;
 	//[b]Dodge[/b];
 	Gargoyle.prototype.izmaAndIsabellaDodge = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence -5);
 		this.gargoyleConfidence( -5 );
 		EngineCore.outputText( 'You make a shitty joke and laugh awkwardly, trying to avoid the topic altogether.  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' makes a pitiful little sniffle, but takes the hint and falls silent, allowing you to change the subject.' );
@@ -953,7 +953,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Slave[/b];
 	//(Confidence -15);
 	Gargoyle.prototype.gargoylesAreSlavesYo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.gargoyleConfidence( -15 );
 		EngineCore.outputText( 'Well, really, what is she but a slave?  She\'s just a toy when you want sexual release, a servant to perform rituals at your demand, and a bit of eye-candy besides.  She\'s not even a real person – not really.  You tell her that, quite bluntly.  She makes no response, verbally at least, but she does give off a sob-like shudder and curls up into a little ball where she sits, hiding her face from you.' );
 		EngineCore.outputText( '\n\nSince you\'ve temporarily broken the gargoyle, you mosey on back to camp.' );
@@ -963,7 +963,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Girlfriend[/b];
 	Gargoyle.prototype.gargoylesAreGirlfriends = function() {
 		//(Confidence +15);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.gargoyleConfidence( 15 );
 		EngineCore.outputText( 'You smile at ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' and tussle her hair.  Warmly, you tell her that, if she wants, she can be your girlfriend too.  Polyamory is just your thing, you suppose.  With a happy gasp, the little gargoyle leaps into your lap and wraps her arms around you, hugging you so tight you almost can\'t breathe.  She gives you a flurry of little kisses all along your neck and cheek before planting a long, deep one on your lips.  You kiss her back, soon laughing amicably as you return her embrace.  Once she\'s calmed down, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' settles into your lap, resting her cheek against your chest and wrapping her tail and wings lovingly around you.  You give her a little peck on the forehead and nuzzle your chin into her hair, content to stay like this forever.' );
 		EngineCore.outputText( '\n\nYet, you\'re soon surprised when ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' withdraws slightly from you, though her arms are still hooked about your neck.  "<i>Master... if you want me to be your girlfriend, then... we should – if you want, Master, of course – maybe...  Master, will you make love to me?</i>" she blurts, suddenly taken aback by her own forwardness.' );
@@ -993,7 +993,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 
 	//[b]Cathedral A[/b];
 	Gargoyle.prototype.talkCathedralA = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little about the Cathedral around you.  She visibly brightens at the idea.  "<i>This is the greatest structure for miles around,</i>" she claims proudly, motioning toward the vaulted ceiling and the remaining stained glass windows.  "<i>Well, it isn\'t much to look at now, Master, but it was magnificent.  People came from all around to pray here.  It was wonderful...</i>" she trails off, looking misty-eyed into the distance, remembering.' );
 		EngineCore.outputText( '\n\n"<i>Master?</i>" she asks, looking you in the eye.  "<i>I...  I want to rebuild the Cathedral.  I know there... there\'s no one to return to it, but...  I don\'t know.  It feels like repairing the damage that\'s been done would be a victory.  Just a little tiny one, but still a victory.</i>"  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' makes a sudden little gasp and says, "<i>I-If that\'s all right with you, Master?</i>"' );
 		EngineCore.outputText( '\n\nYou could tell her it\'s pointless or encourage her.' );
@@ -1005,7 +1005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Pointless[/b];
 	//(Confidence -2);
 	Gargoyle.prototype.pointlessGargoylesArePointless = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.gargoyleConfidence( -5 );
 		EngineCore.outputText( 'You roll your eyes and try to explain how foolish that is.  It\'s a building in the middle of nowhere; the demons sure as hell don\'t care about it, especially when there are no people around to corrupt or enslave.  You command her not to waste her time repairing the building any more than is necessary to make it bearable for you when you\'re there; anything more than that is effort wasted.' );
 		EngineCore.outputText( '\n\n"<i>I...Of course, Master.  H-How silly of me.</i>"' );
@@ -1016,7 +1016,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Encourage[/b];
 	//(Confidence +2);
 	Gargoyle.prototype.encourageGargoyleWaifuToDoSomething = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.gargoyleConfidence( 10 );
 		EngineCore.outputText( 'You give ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' a pat on the head and tell her it\'s a wonderful idea.  She makes a happy squeak and immediately flutters over to a pile of debris and starts cleaning it up.  Before you know it, the little gargoyle\'s on a roll, whistling a jaunty tune as she starts repairing some of the more obvious damage.  Seeing her so engrossed, you can\'t help but smile.  You wander over and start to give her a hand.' );
 		EngineCore.outputText( '\n\nWithin the hour, the two of you have made a sizable dent in the debris of the Cathedral, and ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' has even managed to hang one of the candelabras back up in the rafters.  Exhausted, you say goodbye to the happy little gargoyle and head on back to camp.' );
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Cathedral B[/b];
 	Gargoyle.prototype.cathedralBTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit more about the religion that called the Cathedral its home.  Happily, this seems to be an engaging topic for the little gargoyle, who eagerly explains worshiped a pantheon of gods – the beings that inhabited this world before the animal-morphs were raised up, and long before the demons came.  Marae was the chief goddess,</i>" she says, nodding to the tree-shaped icon at the head of the sanctuary.  "<i>She taught the people rituals to better their lives, rituals to purify their minds and bodies, and even helped them learn the basics of life.  These gods were creators, raising up the animals of the world to intelligence, mirroring that of the humans.  For that, they were worshiped and... in some cases, imitated.</i>"' );
 		EngineCore.outputText( '\n\nYou ask her if she means herself, and she nods.  "<i>The high priests of the church created me and many others to be their protectors.  We were carved of stone and animated by magic - powerful magic.  We were the perfect servants and guardians... and now I\'m the only one left.</i>"' );
 		EngineCore.outputText( '\n\nShe falls into a deep, melancholy silence.  You soon try to change the subject.' );
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Cathedral C[/b];
 	Gargoyle.prototype.cathedralC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you sit down with ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to talk, you remember her words when you first met indicating that she could not – or would not – leave the Cathedral, even if you asked her to.   You ask her about that.' );
 		EngineCore.outputText( '\n\n"<i>Master,</i>" ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' says, now looking you straight in the eye, "<i>the Cathedral is my home, the only home I\'ve ever known.  Even if I could leave, I would not want to' );
 		if( this.gargoyleConfidence() > 69 ) {
@@ -1054,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Comfort[/b];
 	//(Comfort +10);
 	Gargoyle.prototype.comfortGargoyle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' up and wrap her in a tight hug, telling her that\'s everything\'s going to be all right and that you\'re here for her.  She makes a happy, girlish squeal and hugs you back, quickly wrapping her legs around your waist and planting a kiss on your cheek.  You sit back down, resting her on your lap, and ruffle her hair.  She grins and hugs you tighter until you\'re almost struggling to breathe.' );
 		EngineCore.outputText( '\n\n"<i>Thank you, Master,</i>" she whispers into your ear, giving it a little kiss.  "<i>I\'ll always be here for you, too.  I swear it.</i>"' );
 		EngineCore.outputText( '\n\nYou spend a few more minutes with your little gargoyle, patting her head and hugging on her.  But, eventually, you know it\'s time to head back to camp.  You say your goodbyes and head for the door.' );
@@ -1067,7 +1067,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Berate[/b];
 	//(Confidence -10);
 	Gargoyle.prototype.berateDatGargoyle4SomeSavin = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Right.  Because becoming a living footstool for you was TOTALLY worth everyone she ever knew being raped out of their minds.  You give ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' a hard swat and remind her exactly how moronic she\'s being.  She recoils, shying away from you as you stand up and head for the door.  Over your shoulder, you tell her you\'re glad she\'s bound here – that way she can\'t fuck up and get you killed, too.' );
 		//(Return PC to camp, advance time 1 hour);
 		this.gargoyleConfidence( -10 );
@@ -1089,7 +1089,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]' + CoC.flags[kFLAGS.GAR_NAME] + ' A[/b];
 	//(Confidence +3);
 	Gargoyle.prototype.garNameA = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Curious about your gargoyle, you ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit about her life before you arrived.  She makes a nervous chuckle at the request, and shyly says, "<i>Master is too kind...  I am no one special...</i>"' );
 		EngineCore.outputText( '\n\nYou urge her on, adding that you can make it a command if you have to.  She fidgets awkwardly for a moment, but finally says, "<i>If Master insists.  I was sculpted in a village not far from here.  The high priest ordered me and a dozen others from the finest sculptor in the land.  We were perfect, in a way.  Each of us was unique, complete, made to be as human as you ' );
 		if( CoC.player.race() === 'human' ) {
@@ -1126,7 +1126,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]' + CoC.flags[kFLAGS.GAR_NAME] + ' B[/b];
 	Gargoyle.prototype.garNameB = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Confidence +3);
 		EngineCore.outputText( 'Settling in for what could be a long talk, you ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' if she\'s finally ready to tell you about her last Master.  She sighs heavily, but with a bit of encouragement, she begins to speak was... an unusual specimen, I should think.  She was so very beautiful, so very gentle,</i>" the gargoyle says, almost wistfully.' );
 		EngineCore.outputText( '\n\nBut her voice changes, hardening into a cold whisper, "<i>And so very cruel.  To her, I was a living toy, nothing more than a way to sate her lusts when she desired.  And she was sadistic, using some sort of shock magic on me if I so much as hesitated at her commands.  I came to dread her every word, especially her demands for pleasure – she got off on pain, I think, and thoroughly enjoyed inflicting it on me.</i>"' );
@@ -1141,7 +1141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	Gargoyle.prototype.garNameC = function() {
 		//(Confidence +3);
 		this.gargoyleConfidence( 5 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' if she\'s finally ready to talk to you about what happened to her previous Master, and what happened to her since.  Hesitantly, she agrees to your request.  "<i>Master was a dark sorceress, gifted with the skill of manipulating the bodies of others, though it caused them incredible pain.  I think... perhaps her fascination with me came from my immutability, that she couldn\'t change my body to her whims through her magic.  So she sought to change my mind, breaking my will and shaping me to her desires.</i>"  With a rueful smile, she adds, "<i>You could say that she made me the creature I am today.</i>"' );
 		EngineCore.outputText( '\n\nShe continues, "<i>After Master had lived here two, maybe three years – all the while experimenting on and manipulating the monsters that came near – we were eventually visited by a demon.  Not an imp or minor monster, but a true demon of great power.  An omnibus who fancied herself a master of magic, who\'d heard of Master\'s skill through the mangled imps that managed to crawl away after Master had had her fun.  He challenged her to a duel for her magic and her body.  Fueled by hubris, she accepted.</i>"' );
 		EngineCore.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' pauses in her story, sniffling and wiping the back of her hand across her eye, even though she can produce no tears.  "<i>I knew what would happen.  I tried to tell her.  I\'d seen what demons can do, experienced their cruelty firsthand.  But I\'m not even a person; my opinions don\'t matter.  We both knew that.  She even chained me, left me, so that I would not interfere.  And so out she went, all arrogance and bravado.</i>"' );
@@ -1155,7 +1155,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Comfort[/b];
 	//(Confidence +15);
 	Gargoyle.prototype.comfortGarNameC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pull ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' onto your lap and run your hand through her hair.  You tell her that she\'s wrong – dead wrong.  She is a person, and she is not helpless.  She\'s anything but.' );
 		EngineCore.outputText( '\n\nThe little gargoyle curls up on your lap and gives you a shy little smile.  "<i>Thank you, Master.  I-I-I...</i>" she stutters off, visibly trembling.  "<i>I wish you were right, Master.  I really do.  But, I\'m not.  I\'m not a person, and I don\'t have free will.  It\'s a nice dream, but...</i>"' );
 		EngineCore.outputText( '\n\nYou cut her off right there.  You COMMAND her to stop thinking like that, telling her that you\'ve never met anyone more human than she is.  She does have free will – and someday, perhaps she can get it back.  Until then, you promise that you would never give her an order that she didn\'t want to go through with, and that you would never abandon her like her last Master did.' );
@@ -1169,7 +1169,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//[b]Berate[/b];
 	//(Confidence -10);
 	Gargoyle.prototype.berateGargoyleC = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You laugh, and tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' exactly what you think about her – that for a talking lump of rock, she\'s too damn talkative and way the hell too emotional about everything.  She sits there, very quietly, listening to your every word.  She even nods, from time to time, agreeing with you!  You\'re not sure if that makes you angrier or not.' );
 		EngineCore.outputText( '\n\nWhen you\'re done explaining exactly what the fuck is wrong with her, you lean back and ask her what she\'s going to do about it.' );
 		EngineCore.outputText( '\n\n"<i>Be less emotional, Master,</i>" she says, as evenly as she can.  "<i>I won\'t dwell on the past anymore, Master.  I live only to serve you, of course.  What else could I do?  Please, Master, give me any command you desire.  I await them eagerly, without hesitation, my Master.</i>"' );
@@ -1180,7 +1180,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[b]Appearance[/b];
 	Gargoyle.prototype.gargoyleAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '' + CoC.flags[ kFLAGS.GAR_NAME ] + ' is a gray marble statue that, through magics you can\'t quite grasp, has been animated.' );
 		EngineCore.outputText( '\n\nShe stands roughly six feet tall, with a slender, girly frame.  She wears no clothes, seemingly possessing no modesty at all, and uses her brutally spiked tail as a weapon.  She has a cute, somewhat angular face that is very feminine.  Her skin and hair are a light shade of gray, though she has solid, ruby-red eyes which ' );
 		if( this.gargoyleConfidence() < 70 ) {

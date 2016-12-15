@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 				this.lust += 5 * this.lustVuln;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
@@ -343,13 +343,13 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 				this.lust += 5 * this.lustVuln;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
 	GnollSpearThrower.prototype.defeated = function() {
 		if( this.short === 'alpha gnoll' ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'The gnoll alpha is defeated!  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Hell, you could even dose her up with that succubi milk you took from the goblin first - it might make her even hotter.  Do you?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest, CoC.urtaQuest.winRapeHyenaPrincess );

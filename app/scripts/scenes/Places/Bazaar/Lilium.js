@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStore, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, PregnancyStore, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function Lilium() {
 	}
 
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, PregnancyStor
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00267 ]++;
 		CoC.player.gems -= 200;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//Sex Menu here;
 		var buttFuck = null;
 		var nippleFuck = null;

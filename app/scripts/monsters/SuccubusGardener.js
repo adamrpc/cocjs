@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 
 			opts[ Utils.rand( opts.length ) ]();
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		Combat.combatRoundOver();
 	};
 	SuccubusGardener.prototype._superHandleStun = SuccubusGardener.prototype.handleStun;
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		}
 	};
 	SuccubusGardener.prototype.grappleStruggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var numRounds = CoC.player.statusAffectv1( StatusAffects.Tentagrappled );
 		if( Utils.rand( CoC.player.str ) > this.str / (1 + (numRounds / 2)) ) {
 			EngineCore.outputText( 'You scrabble desperately against the tentacles enveloping your body, pulling against the cast-iron grip around your limbs. You tug against them again and again, and with one final mighty heave, you slip free of their grasp!' );
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		}
 	};
 	SuccubusGardener.prototype.grappleWait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.squeeze();
 	};
 	SuccubusGardener.prototype.squeeze = function() {

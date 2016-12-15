@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	 */
 	TentacleBeastScene.prototype.encounter = function() {
 		$log.debug( 'Tentacle event here' );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 100 );
 		//Tentacle Encounter - beware legalese!
 		//Gender hilarity chance.
@@ -197,7 +197,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		EngineCore.gameOver();
 	};
 	TentacleBeastScene.prototype.tentacleLossRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 100 );
 		//Genderless madness
 		if( CoC.player.gender === 0 ) {
@@ -625,7 +625,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	TentacleBeastScene.prototype.tentacleRapeContinuation = function() {
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 1, 'int', -0.5, 'lib', 2, 'sen', 1, 'cor', 0.5 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 100 );
 		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'You next feel the wretched sensation of another tentacle pushing its way past your anus and into your rectum. You cry more out of frustration and anger than pain as the foreign body settles a few inches inside your body. With a furious, coordinated rhythm, the monstrosity begins swelling the tentacle in your ass and ' );
@@ -700,7 +700,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		}
 	};
 	TentacleBeastScene.prototype.tentacleRapeContinuationForFemales = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 100 );
 		if( CoC.player.vaginas.length === 1 ) { //single coochie
 			EngineCore.outputText( 'Satisfied, the creature drops you smartly, withdraws its limbs from you, and lumbers away.  Covered completely in cum, you see that your clitoris has swollen up to ' );

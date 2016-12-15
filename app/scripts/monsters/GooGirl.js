@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 				this.lust += 5 * this.lustVuln;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};

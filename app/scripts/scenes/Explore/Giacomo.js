@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	//End of Interface Implementation;
 	Giacomo.prototype.giacomoEncounter = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.giacomo === 0 ) {
 			this.firstEncounter();
 		} else if( CoC.player.findStatusAffect( StatusAffects.WormOffer ) < 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) { //If infested && no worm offer yet
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		}
 		var deworm = (CoC.player.findStatusAffect( StatusAffects.WormOffer ) >= 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ? this.wormRemovalOffer : null);
 		EngineCore.choices( 'Potions', this, this.potionMenu, 'Books', this, this.bookMenu, 'Erotica', this, this.eroticaMenu, 'Worm Cure', this, deworm, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.firstEncounter = function() {
 		EngineCore.outputText( 'As you travel, you see another person on the road.  He is tethered to a small cart that is overloaded with a hodgepodge of items.  He is dressed in a very garish manner, having a broad, multicolored hat, brocaded coat and large, striped pantaloons.  His appearance is almost comical and contrasts with his severe and hawkish facial features.  The man sees you, smiles and stops his cart.\n' );
@@ -87,23 +87,23 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.potionMenu = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Which potion or tincture will you examine?' );
 		EngineCore.choices( 'Vitality T.', this, this.pitchVitailtyTincture, 'Scholars T.', this, this.pitchScholarsTea,
 			'Cerulean P.', this, (CoC.player.gender !== 2 ? this.pitchCeruleanPotion : null), '', null, null, 'Back', this, this.giacomoEncounter );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.bookMenu = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Which book are you interested in perusing?' );
 		EngineCore.choices( 'Dangerous Plants', this, this.pitchDangerousPlantsBook, 'Traveler\'s Guide', this, this.pitchTravellersGuide, 'Hentai Comic', this, this.pitchHentaiComic,
 			'Yoga Guide', this, (CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] > 0 ? this.pitchYogaGuide : null), 'Back', this, this.giacomoEncounter );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.eroticaMenu = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giacomo\'s grin is nothing short of creepy as he offers his wares to you.  What are you interested in?' );
 		if( CoC.player.gender === 1 ) {
 			EngineCore.choices( 'Dildo', this, this.pitchDildo, 'Onahole', this, this.pitchOnahole, 'D Onahole', this, this.pitchDeluxeOnahole, '', null, null, 'Back', this, this.giacomoEncounter );
@@ -117,65 +117,65 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		if( CoC.player.gender === 0 ) {
 			EngineCore.choices( 'Dildo', this, this.pitchDildo, 'Onahole', this, this.pitchOnahole, 'Stim-Belt', this, this.pitchSelfStimulationBelt, '', null, null, 'Back', this, this.giacomoEncounter );
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.pitchVitailtyTincture = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giacomo holds up the item and says, "<i>Ah, yes!  The quintessential elixir for all travelers, this little bottle of distilled livelihood will aid you in restoring your energy on your journey and, should you be hurt or injured, will aid the body\'s ability to heal itself.  Yes ' + CoC.player.mf( 'sir', 'madam' ) + ', this is liquid gold for pilgrim and adventurer alike.  Interested?  It is <b>15 gems</b></i>."  ' );
 		EngineCore.doYesNo( this, this.buyVitailtyTincture, this, this.potionMenu );
 	};
 	Giacomo.prototype.buyVitailtyTincture = function() {
 		EngineCore.spriteSelect( 23 );
 		if( CoC.player.gems < 15 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 15 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.potionMenu );
 		} else {
 			CoC.player.gems -= 15;
 			SceneLib.inventory.takeItem( ConsumableLib.VITAL_T, this.potionMenu );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchScholarsTea = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giacomo holds up a pouch of dried, fragrant leaves and begins his spiel, "<i>Have you ever wondered how scholars and other smart folk keep up such a mental effort for so long?  They make a tea out of this fine mixture of quality plants and herbs.  Nothing but the best, this mysterious mixture of herbs in its Orange Pekoe base makes anyone, short of a lummox, as brainy as the finest minds of the land.  All you do is steep the leaves in some water and drink up!  Hot or cold, straight or sweetened with honey, your mind will run circles around itself once it has this for fuel.  Buy it now and I will throw in the strainer for free!  Interested?  Only <b>15 gems</b>!</i>"  ' );
 		EngineCore.doYesNo( this, this.buyScholarsTea, this, this.potionMenu );
 	};
 	Giacomo.prototype.buyScholarsTea = function() {
 		EngineCore.spriteSelect( 23 );
 		if( CoC.player.gems < 15 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 15 - CoC.player.gems ) + ' more gems to purchase this item.  ' );
 			EngineCore.doNext( this, this.potionMenu );
 		} else {
 			CoC.player.gems -= 15;
 			SceneLib.inventory.takeItem( ConsumableLib.SMART_T, this.potionMenu );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchCeruleanPotion = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giacomo makes his comical over-the-shoulder search and holds up a sky-blue bottle.  He grins widely as he begins his pitch, "<i>My friend, you truly have a discerning eye.  Even the most successful of men seek to attract more women for pleasure and status.  This, my friend, will attract the most discerning and aroused of women.  Women attracted by this fine unction will NEVER say no.  I GUARANTEE that she will want pleasure every time you demand pleasure!  A bit of a caution to you, brother.  Some say this works TOO well.  If you aren\'t man enough to handle the women this urn draws to you, you\'d best say so now and I will offer something more to your liking.  However, if you have the heart for it, I can sell you this little gem for <b>75 gems</b></i>!"  ' );
 		EngineCore.doYesNo( this, this.buyCeruleanPotion, this, this.potionMenu );
 	};
 	Giacomo.prototype.buyCeruleanPotion = function() {
 		EngineCore.spriteSelect( 23 );
 		if( CoC.player.gems < 75 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 75 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.potionMenu );
 		} else {
 			SceneLib.inventory.takeItem( ConsumableLib.CERUL_P, this.potionMenu );
 			CoC.player.gems -= 75;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchDangerousPlantsBook = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Dangerous Plants' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own the book \'Dangerous Plants\'.</b>' );
 			EngineCore.doNext( this, this.bookMenu );
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyDangerousPlantsBook = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 10 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 10 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.bookMenu );
@@ -195,12 +195,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 			EngineCore.doNext( this, this.bookMenu );
 			CoC.player.gems -= 10;
 			CoC.player.createKeyItem( 'Dangerous Plants', 0, 0, 0, 0 );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchTravellersGuide = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Traveler\'s Guide' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own the book \'Traveler\'s Guide\'.</b>' );
 			EngineCore.doNext( this, this.bookMenu );
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyTravellersGuide = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 1 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need 1 gem to purchase this item.' );
 			EngineCore.doNext( this, this.bookMenu );
@@ -220,12 +220,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 			EngineCore.doNext( this, this.bookMenu );
 			CoC.player.gems -= 1;
 			CoC.player.createKeyItem( 'Traveler\'s Guide', 0, 0, 0, 0 );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchHentaiComic = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Hentai Comic' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a Hentai Comic!</b>' );
 			EngineCore.doNext( this, this.bookMenu );
@@ -236,7 +236,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyHentaiComic = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 10 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 10 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.bookMenu );
@@ -245,17 +245,17 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 			EngineCore.doNext( this, this.bookMenu );
 			CoC.player.gems -= 10;
 			CoC.player.createKeyItem( 'Hentai Comic', 0, 0, 0, 0 );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchYogaGuide = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Giacomo holds up the book with a small degree of reverence.  The cover is leather, with the lettering stitched in by hand.  "<i>This, my friend,</i>" begins Giacomo, "<i>is a strange book indeed.  I traded for it in the east, where they practice a form of exercise known as yoga.  This volume in particular deals with those of, shall we say, unusual body shapes.  Because of its rarity and usefulness, I simply cannot let it go for less than 100 gems and believe me, at this price I\'m practically cutting my own throat.  Care to broaden your horizons?</i>"' );
 		EngineCore.doYesNo( this, this.buyYogaGuide, this, this.bookMenu );
 	};
 	Giacomo.prototype.buyYogaGuide = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Yoga Guide' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a yoga guide!</b>' );
 		} else if( CoC.player.gems < 100 ) {
@@ -264,13 +264,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 			EngineCore.outputText( 'You exchange 100 gems for the tome.  Now you can finally enjoy a workout with Cotton!' );
 			CoC.player.createKeyItem( 'Yoga Guide', 0, 0, 0, 0 );
 			CoC.player.gems -= 100;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		EngineCore.doNext( this, this.bookMenu );
 	};
 	Giacomo.prototype.pitchDildo = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Dildo' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a Dildo!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyDildo = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 20 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -290,12 +290,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 			EngineCore.doNext( this, this.eroticaMenu );
 			CoC.player.gems -= 20;
 			CoC.player.createKeyItem( 'Dildo', 0, 0, 0, 0 );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 	};
 	Giacomo.prototype.pitchSelfStimulationBelt = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Self-Stimulation Belt' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a Self-Stimulation Belt!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -306,7 +306,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buySelfStimulationBelt = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 30 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 30 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -316,11 +316,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		CoC.player.createKeyItem( 'Self-Stimulation Belt', 0, 0, 0, 0 );
 		EngineCore.doNext( this, this.eroticaMenu );
 		CoC.player.gems -= 30;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.pitchAllNaturalSelfStimulationBelt = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'All-Natural Self-Stimulation Belt' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own an All-Natural Self-Stimulation Belt!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyAllNaturalSelfStimulationBelt = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 40 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 40 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -350,11 +350,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		CoC.player.createKeyItem( 'All-Natural Self-Stimulation Belt', 0, 0, 0, 0 );
 		EngineCore.doNext( this, this.eroticaMenu );
 		CoC.player.gems -= 40;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.pitchOnahole = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Plain Onahole' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a Plain Onahole!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyOnahole = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 20 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -375,11 +375,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		CoC.player.createKeyItem( 'Plain Onahole', 0, 0, 0, 0 );
 		EngineCore.doNext( this, this.eroticaMenu );
 		CoC.player.gems -= 20;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.pitchDeluxeOnahole = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Deluxe Onahole' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a Deluxe Onahole!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyDeluxeOnahole = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 50 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 50 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -400,11 +400,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		CoC.player.createKeyItem( 'Deluxe Onahole', 0, 0, 0, 0 );
 		EngineCore.doNext( this, this.eroticaMenu );
 		CoC.player.gems -= 50;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.pitchAllNaturalOnahole = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'All-Natural Onahole' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own an All-Natural Onahole!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyAllNaturalOnahole = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 150 ) {
 			EngineCore.outputText( '\n\nGiacomo sighs, indicating you need ' + String( 150 - CoC.player.gems ) + ' more gems to purchase this item.' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -432,11 +432,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		CoC.player.createKeyItem( 'All-Natural Onahole', 0, 0, 0, 0 );
 		EngineCore.doNext( this, this.eroticaMenu );
 		CoC.player.gems -= 150;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Giacomo.prototype.pitchDualStimulationBelt = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Dual Belt' ) >= 0 ) {
 			EngineCore.outputText( '<b>You already own a dual belt!</b>' );
 			EngineCore.doNext( this, this.eroticaMenu );
@@ -447,20 +447,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	};
 	Giacomo.prototype.buyDualStimulationBelt = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 50 ) {
 			EngineCore.outputText( 'You do not have enough gems to purchase this item.' );
 		} else {
 			EngineCore.outputText( 'You are a bit dubious at the pleasure it could offer you, but it would be better than being raped by the creatures constantly... maybe to even work out some excess lusts... hesitantly, you reach into your bag and grab 50 gems, handing it to him.  He greedily snatches it from your palm and hands you with the belt with a smile.  "<i>I promise you won\'t be disappointed.</i>"  He counts the gems and waves goodbye.\n\n(<b>Dual Belt acquired!</b>)' );
 			CoC.player.createKeyItem( 'Dual Belt', 0, 0, 0, 0 );
 			CoC.player.gems -= 50;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		EngineCore.doNext( this, this.eroticaMenu );
 	};
 	Giacomo.prototype.wormRemoval = function() {
 		EngineCore.spriteSelect( 23 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You toss the gems at the merchant, who calmly hands you the bottle. Gulping down the liquid, your guts light up as if you swallowed fire. Pain overwhelms your body and you drop to your knees convulsing. You curse the merchant for poisoning you, yet you can only choke out gibberish through your groans. The pain quickly focuses from your stomach to your crotch as the worms inside you are clearly NOT happy with what you have done. You fall onto your back as the thrashing overwhelms you. With an unexpected climax, every worm in your body fights to escape your gonads. The fat worm that resided deep in your sex lazily pushes itself out last.\n\n' );
 		EngineCore.outputText( 'Upon seeing the fat worm, Giacomo displays a freakish celerity by jumping off his cart, grabbing an empty container and collecting the fat worm. Regaining your senses, you look at him with inquisitive shock at what he just did.\n\n' );
 		EngineCore.outputText( '"<i>You have to realize that I AM a merchant, after all.</i>", he calmly replies. "<i>Hell for you is heaven for someone else. This bugger will easily fetch 10,000 gems to some noble looking for a quick buzz. Don\'t WE know better!</i>"\n\n' );
@@ -474,7 +474,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		CoC.player.removeStatusAffect( StatusAffects.Infested );
 		EngineCore.dynStats( 'lib', -1, 'lus', -99, 'cor', -4 );
 		CoC.player.gems -= 175;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		SceneLib.inventory.takeItem( ConsumableLib.VITAL_T, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Giacomo.prototype.wormRemovalOffer = function() {
@@ -533,7 +533,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		EngineCore.doNext( this, this.ceruleanSuccubusEncounterPart2 );
 	};
 	Giacomo.prototype.ceruleanSuccubusEncounterPart2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 8 );
 		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'Your natural instincts immediately take over and you open your mouth and allow her nipple inside.  Immediately, your mouth has a mind of its own as you press your head firmly into her breast and begin suckling the unnaturally long teat like a starving baby.  The demon-woman laughs in satisfaction.  "<i>To think, that you believed me to do you harm!</i>" she taunts.  "<i>Drink, little man.  Feed your lust as you will soon feed mine.</i>"  Immediately, you feel her milk flood your mouth.  Its taste immediately reminds you of the potion you got from Giacomo.  You realize the potion was not a potion at all, but this demon\'s breast milk!  Concerned only for your blind libido, the suction of your mouth coaxes torrents of the devil\'s fluid into your mouth and down your throat.  She continues teasing your cock only enough to maintain your erection.  In time, your stomach signals that you are full and you break the seal from her tit, making a loud \'pop\'.  She briefly hoses you down with milk, soaking you.\n\n' );
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		EngineCore.doNext( this, this.ceruleanSuccubusEncounterPart3 );
 	};
 	Giacomo.prototype.ceruleanSuccubusEncounterPart3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 8 );
 		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'Rotating herself into a 69 position, she seizes your throbbing member and effortlessly begins deep throating.  Her thighs wrap around your head and confront you with her surprisingly hairy pussy.  Her clitoris is long and erect, begging for attention and the smell of her pheromones enslaves you.  You bury your face into her furry mound, ignoring your normal revulsion to such an unshaved state and begin eating her as well as any woman you have ever pleased.  The demon takes your cock out of her mouth to cry in delight.  "<i>YES, LITTLE MAN!</i>" she screams.  "<i>LICK ME!  TEASE ME!  LOVE MY WOMB WITH YOUR TONGUE!</i>"  She responds by clamping her mouth around the head of your penis and sucking smartly.  A sharp pain in your ass signals the entry of her bony fingers working their way to your inner manhood.  Finding the root of your sex easily, she mashes down to force you to cum.\n\n' );
@@ -568,7 +568,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 	Giacomo.prototype.ceruleanSuccubusEncounterPart4 = function() {
 		EngineCore.spriteSelect( 8 );
 		if( CoC.player.gender === 1 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'She stands up and helps you to your feet.  While dazed, ' );
 			if( CoC.player.tallness < 80 ) {
 				EngineCore.outputText( 'you see that she towers over you.  She must stand well over seven feet in height.  ' );

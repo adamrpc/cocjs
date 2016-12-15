@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 	function Cinnabar() {
 	}
 
@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, CoC, kFLAGS, Uti
 		}
 		//(Enough cash);
 		CoC.player.gems -= 50;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Once you give your assent, Cinnabar\'s paws dive into your ' + CoC.player.armorName + ', gliding over your ' + CoC.player.skinDesc + ' before re-emerging above your gem-pouch.  She deftly grabs her payment and snakes back through, tickling your belly with her soft, well-groomed fur.  You look at her, then yourself, then her again.  How the hell was she flexible enough to do that?  Cinnabar giggles and curls her tail around your ' + CoC.player.legs() + ', looping it like a long, flexible rope.  She hugs you and murmurs, "<i>Where will my ' + CoC.player.mf( 'master', 'mistress' ) + ' take ' + CoC.player.mf( 'his', 'her' ) + ' slutty, fuck-hungry companion?</i>"  Her tongue flicks your ear like a snake tasting its prey, and though her attitude sounds submissive and weak, your horny \'companion\' is clearly hiding a fiery, aggressive streak.\n\n', false );
 		EngineCore.outputText( 'Before you can make an answer, Cinnabar\'s hands are back inside your ' + CoC.player.armorName + ', tugging your ' + Descriptors.nippleDescript( 0 ) + ' towards an unmarked wagon that\'s clearly her home.  You smirk and rub her between her legs, feeling the moistness of her sloppy cunt through her now-dampened dress.  Before she can tease you any more, you hook a finger up, pushing her dress into her hungry snatch.  It\'s easy to lead the giggling rat-whore like this, and when you reach the door she slides her tail into the lock, clicking it open with ease.\n\n', false );
 		EngineCore.outputText( 'With surprising strength, she drags you inside, kicking the door shut.   She hurredly strips, struggling a little with the tight dress, and you take the cue to disrobe as well.  You get done first, just in time to notice she\'s stopped with the wet patch on her nose.  She\'s sniffing and tweaking a nipple, masturbating herself as if she\'s completely forgotten about you.  A crimson eye peeks through the upraised dress-slit, and you realize she\'s imploring you to take advantage.\n\n', false );

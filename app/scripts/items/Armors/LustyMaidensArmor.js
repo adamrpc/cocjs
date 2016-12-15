@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ArmorLib, SceneLib, AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( MainView, ArmorLib, SceneLib, AppearanceDefs, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, EngineCore, CoC ) {
 	function LustyMaidensArmor() {
 		this.init(this, arguments);
 	}
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( ArmorLib, SceneLib, AppearanceDefs, kFL
 		if( monster === null ) {
 			monster = CoC.monster;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You make sure ' + monster.a + monster.short + ' is comfortably lying down, ' + monster.pronoun3 + ' ' + monster.cockDescriptShort( 0 ) + ' exposed to the air' );
 		if( monster.lust < 50 ) {
 			EngineCore.outputText( ', soft and not yet ready.  You purr throatily as you touch the burgeoning boner, tracing your thumb across the sensitive urethral bulge.  It pulses slowly at your touch, and the base begins to fill with blood, thickening against your palm.  You splay your remaining fingers just under the ' + monster.cockHead() + ', tickling around the glans until that too is flooding with blood, expanding under your caresses until it slowly lifts away from ' + monster.pronoun3 + ' abdomen.' );

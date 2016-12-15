@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Utils, AppearanceDefs, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, AppearanceDefs, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Ifris() {
 	}
 
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, AppearanceDefs, kFLAGS
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			EngineCore.outputText( 'The centauress working the door walks up to collect her fee, and you drop 10 gems for an hour workout into her hand.\n\n', false );
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		EngineCore.outputText( 'You set the machine to a weight that you know won\'t be too much for you and lay back on the bench. You feel her eyes on your form, a little shiver running down your spine as she openly admires you as you take a grip on the handlebars and push. It\'s not long before you\'ve worked up a nice sweat, your muscles burning, but you can\'t shake that distracted feeling as she gazes at you so appreciatively.\n\n', false );
 		EngineCore.outputText( 'As you finish your sets, she smiles a little wider at you, reaching over and tracing one fingertip teasingly along your jawline.\n\n', false );
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, AppearanceDefs, kFLAGS
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			EngineCore.outputText( 'The centauress working the door walks up to collect her fee, and you drop 10 gems for an hour workout into her hand.\n\n', false );
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		EngineCore.outputText( 'You look at the settings on the machine for a moment before deciding to give the red cutie something to really remember. You set the bar on the bottom rung, rubbing your hands together a few times in preparation as you lay on the bench. Her red eyes go a little wide, slender black eyebrows lifting on her smooth forehead as she watches you. You can\'t help but feel as though she\'s almost rooting for you, the way she does a cute little hop and clasps her hands together...\n\n', false );
 		//4b2-PC fails strength requirement considerably!-;

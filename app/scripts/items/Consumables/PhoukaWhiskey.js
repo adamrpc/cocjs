@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, StatusAffects, PregnancyStore, kFLAGS, CoC, Utils, Useable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( ConsumableLib, MainView, StatusAffects, PregnancyStore, kFLAGS, CoC, Utils, Useable, EngineCore ) {
 	function PhoukaWhiskey() {
 		this.init(this, arguments);
 	}
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, StatusAffects, Pregnancy
 			//The four stats we’re affecting get paired together to save space. This way we don’t need a second StatusAffect to store more info.;
 			EngineCore.dynStats( 'lib', libidoChange, 'sens', -sensChange, 'spe', -speedChange, 'int', -intChange );
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	PhoukaWhiskey.prototype.phoukaWhiskeyExpires = function( player ) {
 		var numDrunk = player.statusAffectv2( StatusAffects.PhoukaWhiskeyAffect );
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, StatusAffects, Pregnancy
 		} else {
 			EngineCore.outputText( '\n<b>The fuzzy, happy feeling ebbs away.  The weight of the world’s problems seems to settle on you once more.  It was nice while it lasted and you wouldn’t mind having another whiskey.</b>\n' );
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	ConsumableLib.registerConsumable( 'P_WHSKY', new PhoukaWhiskey() );
 } );

@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	}
 
 	ImpScene.prototype.impVictory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var canFeed = (CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0);
 		var canBikiniTits = (CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor.id === 'LMArmor');
 		EngineCore.outputText( 'You smile in satisfaction as ' + CoC.monster.a + CoC.monster.short + ' collapses and begins masturbating feverishly.' );
@@ -1981,7 +1981,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//IMP LORD;
 	ImpScene.prototype.impLordEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'A large corrupted imp crosses your path. He flashes a cruel smile your way.  No way around it, you ready your ' + CoC.player.weaponName + ' for the fight.' );
 		Combat.startCombat( new ImpLord() );
 	};
@@ -1992,7 +1992,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	//Common Drops: Imp Food & Incubus Draft;
 	//Rare Drops: LaBova & Minotaur Blood;
 	ImpScene.prototype.defeatImpLord = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'The greater imp falls to the ground panting and growling in anger.  He quickly submits however, the thoroughness of his defeat obvious.  You walk towards the imp who gives one last defiant snarl before slipping into unconsciousness.' );
 			Combat.cleanupAfterCombat();
@@ -2007,7 +2007,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		}
 	};
 	ImpScene.prototype.loseToAnImpLord = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasVagina() && (CoC.player.gender === 2 || Utils.rand( 2 ) === 0) ) {
 			this.getRapedAsAGirl();
 		} else if( CoC.player.hasCock() ) {
@@ -2020,7 +2020,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//Rape;
 	ImpScene.prototype.sexAnImpLord = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grin evilly and walk towards the defeated corrupted creature.  He doesn\'t take notice of you even though you\'re only inches away from him.  You remove your [armor] slowly, enjoying the show the imp is giving you.  But soon it\'s time for you to have fun too.' );
 		//(No line break);
 		//if(CoC.player doesn't have centaur legs);
@@ -2050,7 +2050,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//MALE ANAL;
 	ImpScene.prototype.impLordBumPlug = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'implord-win-male-fuck' ), false );
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		if( x < 0 ) {
@@ -2102,7 +2102,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//MALE BLOW;
 	ImpScene.prototype.getBlownByAnImpLord = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'implord-win-male-bj' ), false );
 		EngineCore.outputText( 'You lay your [cock biggest] along the demon\'s muscular chest.  Thrusting experimentally, your [cock biggest] leaves a thick trail of precum across the imp\'s cheek.  You begin to moan as you continue your casual thrusting across the imp\'s body.  The defeated creature squirms under you in protest, oblivious to the fact that the squirming is only increasing your stimulation.  It doesn\'t take you long to coat the imp\'s face and part of his chest in your thick precum.  Casually stepping back, you look at the imp from top to bottom, and back again.  You can\'t help but chuckle at what you see.' );
 		EngineCore.outputText( '\n\nYour scent has overwhelmed the imp, his thick red dick is painfully hard and dripping, while he pants like a dog.  No longer being pinned down seems to have improved his mood however as he gets to his knees and crawls back towards your [cock biggest].  The imp sits between your [feet] and looks up at you nervously.' );
@@ -2155,7 +2155,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//FEMALE VAGINAL;
 	ImpScene.prototype.femaleVagRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'implord-win-female-fuck' ), false );
 		EngineCore.outputText( 'With little ceremony you grab the imp\'s ' + CoC.monster.cockDescriptShort( 0 ) + ' and begin to jerk your hand up and down roughly.  The little muscular beast begins to whine loudly, in protest to the rough and likely painful mistreatment of his ' + CoC.monster.cockDescriptShort( 0 ) + '.  In spite of the protests, the rough treatment goes over well, as the creature begins to leak hot demon pre across your hand, which you smear across the shaft as a natural hot lube.' );
 		EngineCore.outputText( '\n\nLicking your lips, you squat above the little demon, positioning your ' + Descriptors.vaginaDescript( 0 ) + ' above the thick log of meat.  You stay still for a moment, and question if this was a good idea.  The demon was so thick you hadn\'t even been able to fit your hand around his shaft.  There was little chance you\'d get out of this without some rather rough stretching, but the scent of the demon\'s arousal, and your corrupt lust spur you onwards.' );
@@ -2190,7 +2190,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//FEEDER BREASTFEED RAPE;
 	ImpScene.prototype.feederBreastfeedRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'implord-win-female-breastfeed' ), false );
 		EngineCore.outputText( 'Standing over the fallen creature you lean forward and grab him by the horns, forcing his face against your [chest].  He protests wildly for a few moments, until you tire of this game.  Pushing him back to the ground, you step on his chest, keeping him pinned.  You start massaging your [nipple] and quickly feel your corrupt milk building up.  Timing things just right, you pinch your [nipple] one last time, causing a small eruption of milk to shoot out, just as you give the imp a swift kick to the gut.' );
 		EngineCore.outputText( '\n\nThe kick knocks the wind out of the little demon, causing him to gasp.  His mouth opens just long enough and wide enough for the corrupt milk to go straight down his throat.  The reaction is almost instant; his eyes go wide with horror and disgust, but quickly change to awe and desire.  The poor thing tries to get up from under you but can\'t escape.' );
@@ -2245,7 +2245,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//MALE LOSE;
 	ImpScene.prototype.loseToImpLord = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'implord-loss-male' ), false );
 		EngineCore.outputText( 'Unable to control your lust you fall to the ground, remove your ' + CoC.player.armorName + ' and begin masturbating furiously.  The powerful imp saunters over to you smirking evilly as he towers over your fallen form. You look up at him nervously.  He grabs your chin with one of his clawed hands, while the other digs through his satchel.  He pulls out a vial filled with glowing green liquid, and pops the cork stopper off with his thumb. Before you can react, the demon forces open your mouth and pours the liquid in.  Instinct reacts faster than logic and you swallow the substance as it\'s poured down your throat.' );
 		EngineCore.outputText( '\n\nYou cough and splutter, grabbing your gut, as a hot pain fills your stomach.  The imp laughs as you roll around in agony for several long moments, before the burning turns to an arousing warmth that spreads to your [hips] and [asshole].  Groaning, you feel your cheeks flush with arousal, and your eyes glaze over once more with insatiable lust.' );
@@ -2283,7 +2283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	//FEMALE LOSE;
 	ImpScene.prototype.getRapedAsAGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'implord-loss-female' ), false );
 		EngineCore.outputText( 'You collapse from exhaustion, your [vagina] beginning to soak your [armor].  You groan loudly, desperately trying to continue the fight, or flee, but the exhaustion is too much.  You close your eyes for a moment, but hearing a loud thud near your face causes you to painfully open your eyes.  You see a large bestial hoof near your face, while the other hoof is used to roll you onto your back.' );
 		EngineCore.outputText( '\n\nYou try to move, but before you can even begin to squirm a hoof presses hard between your ' + Descriptors.breastDescript( 0 ) + '.  You gasp as the air is temporarily knocked out of your lungs.  The demon chuckles at your last feeble attempt to free yourself.  He holds his ' + CoC.monster.cockDescriptShort( 0 ) + ' stroking it lewdly, a cruel smirk stretching across his face.  You watch as several beads of pre begin to drip from his tip onto your stomach.' );
@@ -2312,7 +2312,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		Combat.cleanupAfterCombat();
 	};
 	ImpScene.prototype.putBeeEggsInAnImpYouMonster = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//IMP EGGS;
 		//(functions for bipedal bee morphs.  At time of writing, unsure as to whether bee abdomen worked for centaur/naga/goo forms);
 		EngineCore.outputText( ImageManager.showImage( 'imp-egg' ), false );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTypesEnum, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
 	function Holli() {
 		this.init(this, arguments);
 	}
@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 	//attack noun: lash;
 	//Failing to Escape -Z;
 	Holli.prototype.escapeFailWithHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ' );
 		if( CoC.player.canFly() ) {
 			EngineCore.outputText( 'beat your wings and ' );
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 		Combat.combatRoundOver();
 	};
 	Holli.prototype.struggleOutOfHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Boost odds of success. Round 3 guaranteed.;
 		CoC.player.addStatusValue( StatusAffects.HolliConstrict, 1, 9 );
 		//Struggle Succeed;
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 	};
 	Holli.prototype.waitForHolliConstrict = function( newScreen ) {
 		if( newScreen === undefined || newScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		EngineCore.outputText( 'The ominous roseate shaft hovers over you, and its owner strokes the base lewdly, moaning.  "<i>Oooh, gonna... cum!</i>" she shrieks.  As a low moan escapes her, the stalk bloats and begins to spill milky-white sap into your mouth!  Held rigid, you\'re eventually forced to swallow just to breathe; the sap slides into your stomach and warmth radiates to your midsection and groin, making you feel flushed and hot.  Holli sighs in satisfaction, evidently more relaxed after her climax.' );
 		//lower monster lust by medium-lots and apply med sens-based lust damage;
@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, CockTypesEnum, C
 	//heal -Z;
 	//used if monster HP < some level;
 	Holli.prototype.healHolli = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The bark splits part way and the woman\'s mouth suddenly explodes with color, her lips folding out into a rather yonic-looking orchid.  Copious white-tinted sap oozes from the bloom, coating her bark and healing the lesions.  Petals rustle as she speaks wetly through it.  "<i>Your efforts are nothing!  Throw yourself on my mercy; be my slave and do my bidding!</i>"' );
 		//heal some fuckin' hp;
 		this.addHP( 200 );

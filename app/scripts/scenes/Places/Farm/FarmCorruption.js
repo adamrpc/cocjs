@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, ConsumableLib, StatusAffects, Appearance, Utils, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDefs, ConsumableLib, StatusAffects, Appearance, Utils, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function FarmCorruption() {
 		this.slotNames = [
 			'collarbone',
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		return modValue;
 	};
 	FarmCorruption.prototype.collectTheGoodies = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		// Get gems;
 		if( CoC.flags[ kFLAGS.FARM_CORRUPTION_DAYS_SINCE_LAST_PAYOUT ] >= 7 ) {
 			EngineCore.outputText( 'You stroll over to the big rock at the edge of the pepper patch, smiling as you see a small burlap sack shoved underneath a fold in the stone. You scoop it up, open it and count out ' + CoC.flags[ kFLAGS.FARM_CORRUPTION_GEMS_WAITING ] + ' gems.\n\n' );
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 			CoC.player.gems += CoC.flags[ kFLAGS.FARM_CORRUPTION_GEMS_WAITING ];
 			CoC.flags[ kFLAGS.FARM_CORRUPTION_GEMS_WAITING ] = 0;
 			CoC.flags[ kFLAGS.FARM_CORRUPTION_DAYS_SINCE_LAST_PAYOUT ] = 0;
-			EngineCore.showStats();
+			MainView.statsView.show();
 		}
 		if( CoC.flags[ kFLAGS.FARM_SUCCUMILK_STORED ] > 0 || CoC.flags[ kFLAGS.FARM_INCUDRAFT_STORED ] > 0 || CoC.flags[ kFLAGS.FARM_EGG_STORED ] > 0 || CoC.flags[ kFLAGS.FARM_CONTRACEPTIVE_STORED ] > 0 ) {
 			EngineCore.outputText( 'Your ‘farmers’ have been busy under the watchful eye of their assigned task mistress. A small bundle of goods have been stashed with the gems just awaiting your arrival.\n\n' );
@@ -495,7 +495,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 		if( CoC.player.cor >= 70 && this.corruptFollowers() >= 2 && CoC.player.level >= 12 ) {
 			if( CoC.flags[ kFLAGS.FARM_CORRUPT_PROMPT_DISPLAY ] === 0 ) {
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
 					this.takeoverPromptKelly();
 				} else if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 ) {
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 				this.takeoverPromptMerge( true );
 				return true;
 			} else if( CoC.flags[ kFLAGS.FARM_CORRUPT_PROMPT_DISPLAY ] === 3 || CoC.flags[ kFLAGS.FARM_DISABLED ] === 1 ) {
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				this.takeoverPromptMerge();
 				return true;
 			} else {
@@ -561,7 +561,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 2, 'Never', this, this.takeoverPromptNever );
 	};
 	FarmCorruption.prototype.takeoverPromptNow = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stride down to the farm and leap over a gate. You move casually, swaggering towards the pepper field with no obvious intent. When Whitney spots you and slowly stands up from her weeding, you raise your hand in friendly greeting' );
 		if( CoC.player.weaponName !== 'fists' ) {
 			EngineCore.outputText( ', and to demonstrate your peacefulness, you theatrically hold up your [weapon] and then discard it with a careless swing of your arm.' );
@@ -625,12 +625,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.takeoverPromptLater = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stare for a moment longer, then turn and head back to camp. You will show mercy she does not deserve... for now.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.takeoverPromptNever = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FARM_CORRUPTION_DISABLED ] = 1;
 		EngineCore.outputText( 'You close your eyes and take deep, shuddering breaths, drawing in the sweet, grass scented air and listening to the quiet, gentle peace which surrounds this place. The putrid ideas and viciously colorful images crowding your mind fade bit by bit, your blood cools and slowly, eventually, you find inner tranquility.  You promise yourself that come what may you’ll never do anything to this patch of peace you found in this world so long ago, if only as a reminder of what you once were. A heavy lump gathering in your throat, you turn and leave.' );
 		// (Option never displayed again, -5 Corruption);
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.rootScene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 62 );
 		if( CoC.flags[ kFLAGS.WHITNEY_DISABLED_FOR_DAY ] === 2 ) {
 			CoC.flags[ kFLAGS.WHITNEY_DISABLED_FOR_DAY ] = 3;
@@ -795,7 +795,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		return false;
 	};
 	FarmCorruption.prototype.keltAChangeInManagement = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>Hear there’s been a change in management,</i>” says Kelt, clopping to a halt in front of you. You confirm that that is the case. The big centaur looks at you thoughtfully. There’s something different in his dark eyes and rugged scowl than his usual wearied contempt. Grudging admiration?' );
 		EngineCore.outputText( '“<i>Find it difficult to believe someone like you could put a bitch in her place,</i>” he says eventually. “<i>Perhaps you’ve got bigger balls than I thought you had.' );
 		if( CoC.player.balls === 0 ) {
@@ -919,7 +919,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.farmMenu );
 	};
 	FarmCorruption.prototype.dogeNotCorruptYet = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.flags[ kFLAGS.FARM_CORRUPTION_APPROACHED_WHITNEY ] = 1;
 		// Farm Corruption drops below 30 after being higher: ;
@@ -1017,7 +1017,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 	};
 	FarmCorruption.prototype.dogeNotCorruptLeaveFirstTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.flags[ kFLAGS.WHITNEY_LEAVE_0_60 ] = 1;
 		// Leave first time: [otherwise defaults to main farm menu] ;
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( this, this.rootScene );
 	};
 	FarmCorruption.prototype.dogeNotCorruptLeave6190 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.flags[ kFLAGS.WHITNEY_LEAVE_61_90 ] = 1;
 		// Leave first time: ;
@@ -1067,14 +1067,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		return false;
 	};
 	FarmCorruption.prototype.whitneyAppearanceNotCorrupt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Whitney is a 5’8” dog morph, dressed in a modest cotton blouse and faded long skirt, which has a hole cut in it to allow her short, perky tail to poke through. Her muzzle is suggestive of a golden retriever but really she could be any breed. Her fur is sandy, dusking to black at her extremities. Her ears are floppy, her eyes are a dark brown which matches her shoulder-length hair. She is beyond the flush of youth, however it is obvious from looking at her that she has never known childbirth; though hardened from many years of farm work her frame is relatively slim, her hips and ass widened only with muscle, her small breasts pert against her unprepossessing work-clothes. She has one anus, nestled between her tight buttcheeks where it belongs.' );
 		EngineCore.menu();
 		this.dogeNotCorruptYetMenu();
 	};
 	FarmCorruption.prototype.whitneyAppearanceCorrupt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Whitney is a 5’8” dog' );
 		if( this.whitneyDefurred() ) {
@@ -1116,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.dogeCorruptedMissionComplete( false );
 	};
 	FarmCorruption.prototype.prosperityGoNotCorrupt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You ask her how the help is coming on.' );
 		var lowProtection;
@@ -1176,7 +1176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 	};
 	FarmCorruption.prototype.investmentBreastMilker = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You say you’d like a breast milker installed, one that you could make use of. Whitney frowns, but doesn’t seem as thrown by this idea as you expected.' );
@@ -1195,17 +1195,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'No', this, this.turnDownInvestment );
 	};
 	FarmCorruption.prototype.doBreastMilkerInvestment = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.player.gems -= 1000;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		EngineCore.outputText( 'You silently hand over a hefty bag of gems. Whitney stows it away.' );
 		EngineCore.outputText( '\n\n“<i>Should have that ready to go by tomorrow, if y’all come back then.</i>”' );
 		CoC.flags[ kFLAGS.QUEUE_BREASTMILKER_UPGRADE ] = 1;
 		EngineCore.doNext( this, this.rootScene );
 	};
 	FarmCorruption.prototype.investmentCockMilker = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You say you’d like a semen extractor built, one that you could make use of. Whitney frowns, but doesn’t seem as thrown by this idea as you expected.' );
@@ -1223,10 +1223,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'No', this, this.turnDownInvestment );
 	};
 	FarmCorruption.prototype.doCockMilkerInvestment = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.player.gems -= 1000;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You silently hand over a hefty bag of gems. Whitney stows it away.' );
 			EngineCore.outputText( '\n\n“<i>Should have that ready to go by tomorrow, if y’all come back then.</i>”' );
@@ -1238,7 +1238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( this, this.rootScene );
 	};
 	FarmCorruption.prototype.investmentRefinery = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You say you want a machine built that could concentrate the fluids your followers produce into actual transformatives. Whitney shudders, but is in no position to argue.' );
@@ -1256,17 +1256,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'No', this, this.turnDownInvestment );
 	};
 	FarmCorruption.prototype.doRefineryInvestment = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.player.gems -= 1500;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		EngineCore.outputText( 'You silently hand over a hefty bag of gems. Whitney stows it away.' );
 		EngineCore.outputText( '\n\n“<i>I will try and get... that... ready in a few days time, if y’all come back then.</i>”' );
 		CoC.flags[ kFLAGS.QUEUE_REFINERY_UPGRADE ] = 1;
 		EngineCore.doNext( this, this.rootScene );
 	};
 	FarmCorruption.prototype.investmentContraceptive = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You ask Whitney if she knows of any natural contraceptive that grows in Mareth.' );
@@ -1284,10 +1284,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'No', this, this.turnDownInvestment );
 	};
 	FarmCorruption.prototype.doContraceptiveInvestment = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.player.gems -= 750;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You hand over the dough. Whitney stows it away.' );
 			EngineCore.outputText( '\n\n“<i>It doesn’t take long to grow, but it’ll still take time,</i>” she says. “<i>I’ll lay the seeds tomorrow and you’ll be able to start pickin it in a week’s time.</i>”' );
@@ -1300,7 +1300,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( this, this.rootScene );
 	};
 	FarmCorruption.prototype.investmentMilktank = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			// If Bathgirl normal:;
@@ -1332,7 +1332,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'No', this, this.turnDownInvestment );
 	};
 	FarmCorruption.prototype.doMilktankInvestment = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			EngineCore.outputText( 'You press the gems into your taskmaster’s hand, turn and leave without another word. Your thoughts turn to huge, delightfully plush brown boobs and luxurious milky baths; it will be well worth it. ' );
@@ -1346,7 +1346,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( this, this.rootScene );
 	};
 	FarmCorruption.prototype.turnDownInvestment = function( money ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( !this.whitneyCorrupt() ) {
 			// Any “No” option:;
@@ -1363,7 +1363,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.investmentMenu();
 	};
 	FarmCorruption.prototype.deFurDoge = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You put away the gem and move into Whitney, holding her gaze as you gently place your finger and thumb along her jaw line. She doesn’t pull away and lets out a shuddering sigh as you touch her.' );
 		EngineCore.outputText( '\n\n“<i>I’m glad you have finally opened your mind to everything I can do for you, understood what our relationship truly is,</i>” you say. “<i>And I’m ready to teach you all sorts of things. However...</i>” you pinch into her muzzle very slightly and Whitney tenses, unable to tear her gaze away from your eyes. “<i>This isn’t acceptable. Walking, talking animals are an aberration in my eyes. And you know what happens to aberrations, don’t you Whitney?</i>” She doesn’t reply; she’s deep under your influence, deep under your words. “<i>But you’re a smart girl. A girl who has worked with transformatives her whole life. So I’ll come back tomorrow, and you will be different, in a more suitable form, and then we will discuss your exciting new future properly. Ok?</i>”' );
@@ -1375,7 +1375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.dontDeFurDoge = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( '“<i>I told you there was something you had to do, to demonstrate you fully understood your new reality,</i>” you say, your gaze boring into hers. Whitney’s lips begin to form words, but you ride roughshod over them. “<i>I think you know what it is.</i>” She blinks a couple of times, comprehension dawning on her face, before silently turning and heading towards her house. Whilst she is gone, you stride over to the woodpile to retrieve what you yourself will need for this.' );
 		EngineCore.outputText( '\n\nWhitney pauses when she sees the hatchet resting on your shoulder; she clutches the object she holds in her own hands tighter.' );
@@ -1402,7 +1402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'Make Dom', this, this.makeDogeDommy );
 	};
 	FarmCorruption.prototype.makeDogeSubby = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You again retrieve your gem, and once more begin to rhythmically turn it; this time, however, you walk steadily towards Whitney, your voice getting louder in her ears and the shining light in her unfocused eyes getting brighter as you go on.' );
 		EngineCore.outputText( '\n\n“<i>Felt good to do that, didn’t it? To do away with the idea you could stop me, to be entirely open and defenseless to me. Because you are defenseless to me now, aren’t you Whitney?</i>” As you talk, you stop rotating the jewel but continue to hold it directly in front of her eyes, whilst you place your other hand on her hip, sliding it upwards, enjoying the firm contours of your new slave.' );
@@ -1425,7 +1425,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.makeDogeDommy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You again retrieve your gem, and once more begin to rhythmically turn it. This time, however, you walk steadily towards Whitney, your voice getting louder in her ears, the shining light in her unfocused eyes getting brighter as you go on.' );
 		EngineCore.outputText( '\n\n“<i>You liked doing that, didn’t you Whitney? That letting go, that burst of pure violence, passion given physical form. You always had that within you, but for some reason you chose to bury it, stifle it under a life of complete tedium. Until </i>I<i> came along. Until </i>I<i> I gave you slaves to order around and forced those desires to the surface, an unquenchable thirst to overcome and make your own.</i>”' );
@@ -1461,7 +1461,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 			return;
 		}
 		if( output ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			this.whitneySprite();
 		}
 		if( this.whitneyDom() && output ) {
@@ -1488,7 +1488,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.rootScene );
 	};
 	FarmCorruption.prototype.whitneySubPleasure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var doFunctor = null;
 		var functorOnNext = false;
@@ -1575,7 +1575,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.outputText( '\n\n“<i>First,</i>” you say, settling yourself down, “<i>Put one hand in your knickers. Find that nice, wet pussy of yours.</i>” You watch her, a smile twitching the corners of your mouth as, blushing furiously, she shifts around in front of you. “<i>You know how to do that, right? All those lonely nights on the farm... good. Nice and easy. Eyes down.</i>” You say the last part adamantly, opening your [hips] wider as you do. Whitney swallows a bit as she strokes at her tiny button whilst staring at your ' + ((CoC.player.hasCock()) ? '[eachCock]' : '[vagina]') + ', already ' + ((CoC.player.hasCock()) ? 'semi-turgid' : 'moist') + ' from the display put on by your fresh, nervous slave. “<i>Good,</i>” you murmur. “<i>Now... reach forward, and begin to lick.</i>”' );
 	};
 	FarmCorruption.prototype.firstCockOralTraining = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Slowly the dog woman does as you ask, bending forward and opening her mouth to lap at the end of your [cock biggest] with her flat tongue. Awkwardly, with one hand in her panties, she grasps your base with her other hand to steady herself with a grunt and sends her tongue running down your sensitive underside; you sigh at the delicious sensation, letting her know exactly what pleases you as she runs her wet, warm muscle over every inch she can reach, quickly making you fully erect and pulsing with urgency. Rather than engulf your head with her mouth though, she keeps tonguing at you, faster and faster. You frown down. It’s pleasant but not satisfying, and she’s already lost herself in the act, eyes closed and lapping at your groin like a dog going at her...' );
 		EngineCore.outputText( '\n\n“<i>Stop,</i>” you say firmly. She looks up at you, slightly dazed. “<i>I am not your butt and I don’t need cleaning. Do it slowly...</i>” you wait until she’s licking at your head again, before pushing gently forwards. “<i>and now swallow me. That’s it!</i>” You sigh as the end of your [cock biggest] is enveloped in fleshy warmth. Her sharp teeth rub uncomfortably against your bulging skin but with a few whispered instructions they disappear, and you begin to slowly push into her sucking wetness, each time pushing further into her mouth.' );
@@ -1600,7 +1600,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.cockOralTrainingStageOne = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Sighing, you slide out of the bottom half of your [armor] and tell her with a smile it’s time for another lesson. Whitney wrings her ' + ((this.whitneyDefurred()) ? 'hands' : 'paws') + ' at the sight of your [cock biggest] fretfully. You don’t think it’s that she’s reluctant, merely afraid she’ll do a poor job. So you make your instructions gentle and patient. You tell her to start frigging herself again whilst looking at your exposed crotch, and then when she seems to have lost her anxiety a bit, you tell her to start licking.' );
 		EngineCore.outputText( '\n\nWhat follows is an occasionally frustrating but ultimately satisfying fifteen minutes. She can’t seem to kick the instinct to lap at your cock as if it were her own groin, and whilst it’s both a pleasing sensation and quite funny to look at, you have to instruct her quite firmly to make her actually suck you. She has a bit of a problem with multi-tasking, sometimes stopping either working her clit or sucking your cock when she gets too much into one or the other.' );
@@ -1627,7 +1627,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.firstCockOralTrainingStageTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Undoing the bottom half of your [armor], you tell her with your usual fond smile it’s time for another lesson. You notice a slight difference in the dog woman kneeled in front of you this time; the usual nervous energy seems to have deserted her, and she focuses on your [cock biggest] with a still, quiet determination. You settle yourself down, open your [hips] and, pausing, give no further instruction. ' );
 		EngineCore.outputText( '\n\nYour faith is immediately repaid. Knowing exactly what to do, Whitney slides one of her hands into her undergarments, levelly keeping her gaze on [eachCock], huffing and puffing a bit as she works herself up before opening her mouth and laying her hot, ever-so-slightly rough tongue on your cock head. After only a few careful licks, lapping over all the sensitive spots she knows will make you bulgingly hot, she opens wide and envelopes your [cockHead biggest] in wet, warm flesh. You make a sound of deep approval as she bobs her head up and down, needing no encouragement from you to work your shaft up and down, engulfing more and more of it into her welcoming mouth. ' );
@@ -1740,7 +1740,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.cockOralTrainingStageTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Not saying a word, you undo the bottom half of your [armor], exposing your [cock biggest] with a soft smile. Without any need for instruction Whitney gets to work, her hand delving into her underwear with a contented sigh, her eyes focused on the task in front of her as she steadily stokes the heat in her crotch with tight, urgent jerks of her slim body.' );
 		//Male;
@@ -1798,7 +1798,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.firstCockOralTrainingStageThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You smile at Whitney as you take off your... you stop, frowning down at her. Did she whimper just then? She’s completely still, staring at you intently with her big, deep, brown eyes. Without saying a word and pretending to be interested in the sky above, you continue to disrobe, doing it slowly, placing every piece of your [armor] down on the ground with careful deliberation. There is no mistaking it this time - as your [cock biggest] finally bobs into view Whitney moans deep in her throat, squirming uncomfortably in her kneeling position as her gaze bores deep into your crotch. You smile softly, sit yourself down, open your [hips] wide, and wait.' );
 		//Male ;
@@ -1943,7 +1943,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.cockOralTrainingStageThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You smirk at the dog woman knelt before you, letting the silence draw out. She watches you with barely contained anticipation, constantly running her tongue over her lips, her short tail whipping against her skirt as you slowly take off the lower components of your [armor]. As before you do it at a tortuously slow pace; you savor the stifled moans and whimpers below you.' );
 		EngineCore.outputText( '\n\nWhen you finally settle down and heft your [cock biggest] into view as the last of Whitney’s restraint breaks down and she pants openly, her tongue lolling out as she stares avidly at the instrument of her downfall. You let it brush gently against her face' );
@@ -2114,7 +2114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.cockOralTrainingMaxed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You settle yourself down and discard the lower half of your [armor]. Whitney cannot stop licking her lips as she watches, making their bee-stung black plumpness shine wetly. She is in position long before you heft your [eachCock] into view, already semi-erect with the lustful knowledge of what is to come: back straight, hands up, wrists bent, begging you wordlessly with her brown eyes full of red desire and slowly wagging tail.' );
 		EngineCore.outputText( '\n\n“<i>Please [master], may I suck your cock?</i>” You let a heavy moment go by.' );
@@ -2269,7 +2269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.firstVaginaOralTraining = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Slowly the dog woman does as you ask, bending forward, opening her mouth and pushing her mouth against your [vagina] with her flat tongue. Awkwardly, with one hand in her panties, she scooches forward, wraps a thin, strong arm around one of your [hips] to steady herself with a grunt before lapping at your pearly sex, exploring it with careful slides and flicks of the tongue. ' );
 		EngineCore.outputText( '\n\nYou sigh at the delicious sensation, letting her know exactly what pleases you as she runs her wet, warm muscle across every inch she can reach. It’s clumsy, she doesn’t seem to be able to find your [clit]' );
@@ -2297,7 +2297,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vaginaOralTrainingStageOne = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Sighing, you slide out of the bottom half of your [armor] and tell her with a smile it’s time for another lesson. Whitney wrings her ' + ((this.whitneyDefurred()) ? 'hands' : 'paws') + ' at the sight of your [vagina] fretfully. You don’t think it’s that she’s reluctant; she’s just afraid she’ll do a poor job. So your instructions are gentle and patient. You tell her to start frigging herself again whilst looking at your exposed crotch, and then when she seems to have lost her anxiety a bit, you tell her to start licking.' );
 		EngineCore.outputText( '\n\nWhat follows is an occasionally frustrating but ultimately satisfying half hour. She can’t seem to kick the instinct to lap at your twat as if it were her own groin, and whilst it’s both a pleasing sensation and quite funny to look at, you have to instruct her quite firmly to make her actually reach into you and pleasure your tunnel. She has a bit of a problem with multi-tasking, sometimes stopping either working her clit or licking your pussy when she gets too much into one or the other. ' );
@@ -2319,7 +2319,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.firstVaginaOralTrainingStageTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Undoing the bottom half of your [armor], you tell her with your usual fond smile it’s time for another lesson. You notice a slight difference to the dog woman kneeled in front of you this time; the usual nervous energy seems to have deserted her, and she focuses on your crotch with a still, quiet determination. You settle yourself down, open your [hips] and, pausing, give no further instruction. ' );
 		EngineCore.outputText( '\n\nYour faith is immediately paid off. Knowing exactly what to do, Whitney slides one of her hands into her undergarments, levelly keeping her gaze on your [vagina], huffing and puffing a bit as she works herself up before opening her mouth and laying her hot, ever-so-slightly rough tongue on your sex. After only a few careful licks, lapping over all the sensitive spots she knows will make you drip, she opens wide and sends her tongue twisting and seeking into your wet, warm flesh. You make a sound of deep approval as she bobs her head up and down, needing no encouragement from you to first curl at your pink walls before withdrawing to inundate your folds in worship. Godsdamn, she’s even found your [clit] at last; she circles it a few times before delightfully smoothing over it, making it bulge well out of its hood. She whimpers around you and begins to move her tongue faster, thrusting in deep, mouth fucking you. If she keeps this up you’re going to reach your high in no time...' );
@@ -2376,7 +2376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vaginaOralTrainingStageTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Not saying a word, you undo your [armor], exposing your whole body with a soft smile. Without any need for instruction Whitney gets to work, her hand delving into her underwear with a contented sigh, her eyes focused on the task in front of her as she steadily stokes the heat in her crotch with tight, urgent jerks of her slim body.' );
 		EngineCore.outputText( '\n\nShe begins as you already bid her, hugging your waist as she laps at your [chest], eyes closed as she silently sends her warm, wet tongue rolling and questing across your softness, varnishing every inch of them with saliva before taking each of your [nipples] into her mouth to bathe them in close, sucking attention. It’s a process which is beautifully sensuous' );
@@ -2409,7 +2409,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.firstVaginaOralTrainingStageThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You smile at Whitney as you take off your... you stop, frowning down at her. Did she whimper just then? She’s completely still, staring up at you intently with her big, deep, brown eyes. Without saying a word and pretending to be interested in the sky above, you continue to disrobe, doing it slowly, placing every piece of your [armor] down on the ground with careful deliberation. There is no mistaking it this time - as you spread your [hips] and expose your [vagina] Whitney moans deep in her throat, squirming uncomfortably in her kneeling position as her gaze bores deep into your crotch. You smile softly, sit yourself down, open your [legs], and wait.' );
 		EngineCore.outputText( '\n\nOnce you have settled yourself down the dog woman immediately sends her hand burying into her underwear, her heavy breath catching in her throat as she stares at you. It only takes a few seconds of urgent jerking before she spasms forward, her tongue out and eager to begin. She radiates heat as she pushes into your abdomen, pressing her mouth into your [chest]. Eyes closed, she silently sends her warm, flannel-like tongue rolling and questing across your softness, varnishing every inch of them with saliva, catching your skin gently here and there in her teeth, making the blood rise to the surface just so you can enjoy her licking all the more;' );
@@ -2456,7 +2456,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vaginaOralTrainingStageThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You smirk at the dog woman knelt before you, letting the silence draw out. She watches you with barely contained anticipation, constantly running her tongue over her lips, her short tail whipping against her skirt as you slowly take off the lower components of your [armor]. As before you do it at a tortuously slow pace; you savor the stifled moans and whimpers below you. ' );
 		EngineCore.outputText( '\n\nWhen you finally settle down and expose your [vagina] the last of Whitney’s restraint to sit quietly breaks down and she pants openly, her tongue lolling out as she stares avidly at the instrument of her downfall. You send a hand roaming down your front, sighing dreamily as you touch a [nipple] as you slide down before gasping as you pierce your [vagina] with a single finger, already gleaming with the knowledge of what is ahead. The air is perfumed with your heavy musk.' );
@@ -2506,7 +2506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vaginaOralTrainingMaxed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You settle yourself down and dismantle your [armor]. Whitney cannot stop licking her lips as she watches, making their bee-stung black plumpness shine wetly. She is in position long before you expose your [vagina] into view, already moist with the lustful knowledge of what is to come: back straight, hands up, wrists bent, begging you wordlessly with her brown eyes full of red desire and slowly wagging tail.' );
 		EngineCore.outputText( '\n\n“<i>Please milady, may I lick your pussy?</i>” You let a heavy moment go by.' );
@@ -2565,7 +2565,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.whitneyDomPleasure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( CoC.flags[ kFLAGS.WHITNEY_DOM_FIRST_PLEASURE ] === 0 ) {
 			this.firstWhitneyDomPleasure();
@@ -2601,7 +2601,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 	};
 	// TODO : Split this up;
 	FarmCorruption.prototype.whitneyDomBondageOral = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Whitney climbs on top of your supine form, her hands pressing into your [chest], firm hips clenching around your abdomen as she considers you.' );
 		EngineCore.outputText( '\n\n“<i>Yes,</i>” she says after a moment, “<i>this’ll do. Lie still.</i>”' );
@@ -2681,7 +2681,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.whitneyDomStraponDoggy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Once her clothes are off, Whitney climbs onto the bed with you. She takes a few seconds to consider you, and you can’t help but do the same to her; drink in her slim, supple frame, her narrow thighs and arms threaded with tight muscle, moderated by the slight touches of softness here and there. Particularly her small, perky breasts with their hard, brown nipples. Your eyes come up to meet hers, knowing and wicked.' );
 		EngineCore.outputText( '\n\n“<i>Glad you’re enjoying the view,</i>” she says, a grin twitching the corners of her mouth. “<i>Now you’re going to return the favor. Turn around. On your knees.</i>” Slowly you do ' + ((!CoC.player.isBiped()) ? 'as close as you can to what' : '') + ' she asks, shifting yourself around on your lower body until you are facing the other way. A hand firmly presses into the back of your head, forcing your nose down into the clean-smelling sheets and your ass up. Heat spreads across your face as Whitney’s other hand lands on your [butt] and moves across it with a testing, admiring possessiveness.' );
@@ -2777,7 +2777,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.whitneyDomRide = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Flicking off her underwear, Whitney clambers onto the bed and then onto you, her warm hands and thighs pushing you into the mattress. She looks down at [eachCock] once she’s on top, semi-turgid from the sensation of her strong, slim thighs around your midriff and the sight of her small, pert breasts jouncing briskly to her own movements. There’s a hard, almost cruel lust in her eyes; it’s a look that should by rights make you shrivel but instead only makes you feel warmer, more pliable underneath her.' );
 		EngineCore.outputText( '\n\n“<i>Lie still,</i>” she commands levelly. You do as she says and gaze at the ceiling as you feel nimble fingers grab your wrists, wrap the leather binds secured to each corner of the bedstead around them and jerk them taunt with a sharp, sure yank.' );
@@ -2862,7 +2862,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.brandingMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		if( CoC.flags[ kFLAGS.FARM_CORRUPTION_BRANDING_MENU_UNLOCKED ] === 0 ) {
 			EngineCore.outputText( 'You idly put an arm around Whitney, drawing her into you. You want her in the right frame of mind before you lead her down this path of inquiry. Her breath is hot and heavy against your [chest], her desire-lit eyes unable to tear away from yours as your hand slides down the curve of her back and round around her enjoyably tight ass. You ask her what she knows about branding.' );
@@ -2875,7 +2875,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 			}
 			EngineCore.addButton( 1, 'No', this, this.dontGetBrandingStuff );
 		} else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'Your thoughts turn to the ingenious magic of your tattooing gear, stashed away in the barn. Grinning, you consider who you will summon to brand.' );
 			if( CoC.player.gems < 50 ) {
 				EngineCore.outputText( '\n\n<b>You don\'t have enough gems to afford a new brand for any of your slaves.</b>' );
@@ -3216,15 +3216,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		return count;
 	};
 	FarmCorruption.prototype.brandWhitney = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Whitney knows exactly what it means when you head off to the barn where she stashed your “branding” equipment; the dog girl is already eagerly stripped down by the time you’ve returned. You hold the pots of ink and consider where, and what, to put on her.' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.brandSlotSelect();
 	};
 	FarmCorruption.prototype.brandAmily = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You retrieve the pots of ink and paper from the barn and, smiling, tell your pet mouse you’re going to give her a treat.' );
 		EngineCore.outputText( '\n\n“<i>How exciting!</i>” she squeaks. “<i>Is it your' );
 		if( CoC.player.hasCock() ) {
@@ -3236,18 +3236,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 		EngineCore.outputText( ', [master]? That’s my favorite type of treat.</i>” You consider where, and what, to put on her.' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.amilyBrandSlotSelect();
 	};
 	FarmCorruption.prototype.brandJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You retrieve the pots of ink and paper from the barn and, smiling brightly, tell your pet mouse you’re going to give him a special treat. Jojo knows all too well the nature of your treats. He closes his eyes and waits for the worst as you consider where and what to put on him.' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.jojoBrandSlotSelect();
 	};
 	FarmCorruption.prototype.brandBimboSophie = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You retrieve the pots of ink and paper from the barn and, smiling, tell your pet harpy you’re going to give her a treat.' );
 		if( !this.hasTattoo( 'sophie' ) ) {
 			EngineCore.outputText( '\n\n“<i>Oh wow like cool, a tattoo kit!</i>” she says excitedly, her eyes fastening immediately on what you’re carrying. “<i>Where did you get that, babe? I’ve been looking like all over for one of those.</i>” How on Mareth could she possibly...? You’re beginning to suspect bimbo liqueur contains a more profound magic than you originally assumed.' );
@@ -3257,7 +3257,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 			EngineCore.outputText( '\n\nShaking your head, you consider where and what you’re going to put on her.' );
 		}
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.bimboSophieSlotSelect();
 	};
 	FarmCorruption.prototype.brandVapula = function() {
@@ -3266,14 +3266,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.outputText( '\n\n“<i>Hhh, I love it when you get all forceful, [master],</i>” Vapula purrs. She narrows her eyes at you provocatively. “<i>Treat me then. I’ve been ever so good.</i>”' );
 		EngineCore.outputText( '\n\nYou consider where and what you’re going to put on her.' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.vapulaSlotSelect();
 	};
 	FarmCorruption.prototype.brandKelly = function() {
 		EngineCore.outputText( 'You retrieve the pots of ink and paper from the barn and smilingly tell your centaur cumslut you’re going to give her a treat.' );
 		EngineCore.outputText( '\n\n“<i>Ok,</i>” she says meekly, her wide, green eyes on the objects in your hand. “<i>It won’t hurt, will it?</i>” Like you fucking her in the ass, you tell her soothingly, any initial pain will be more than worth the eventual satisfaction. As she blushes rosily, you consider where and what you’re going to put on her.' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.kellySlotSelect();
 	};
 	FarmCorruption.prototype.brandSmallMilky = function() {
@@ -3281,7 +3281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.outputText( '\n\n[bathgirlName] looks at your tattooing paraphernalia apprehensively.' );
 		EngineCore.outputText( '\n\n“<i>Skin pictures? O-ok, I guess.</i>” She breaks her brittle display of casualness with a laugh. “<i>I’ve always quite liked butterflies - You don’t see them out in the desert much. If you’re going to draw something - maybe you could...?</i>”' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.smallMilkySlotSelect();
 	};
 	FarmCorruption.prototype.brandBigMilky = function() {
@@ -3289,21 +3289,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.outputText( '\n\n[bathgirlName] blinks up at you, and then frowns hard as she considers this.' );
 		EngineCore.outputText( '\n\n“<i>Bath time?</i>” she eventually replies.' );
 		CoC.player.gems -= 50;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		this.bigMilkySlotSelect();
 	};
 	FarmCorruption.prototype.getBrandingStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		CoC.player.gems -= 500;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		EngineCore.outputText( 'You stroke at her tiny, bulging button relentlessly until she releases a wordless bark of ecstasy, soaking your hand with a gratifyingly large gush of femcum. As she pants into your chest you wipe one hand clean on her clothes and press the money into her ' + ((this.whitneyDefurred()) ? 'hands' : 'paws') + ' with the other.' );
 		EngineCore.outputText( '\n\n“<i>Make it happen,</i>” you murmur into her floppy ear, before turning and leaving.' );
 		CoC.flags[ kFLAGS.QUEUE_BRANDING_UPGRADE ] = 1;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.dontGetBrandingStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You stroke at her tiny bulging button until you adjudge she’s on the edge, before withdrawing your hand completely. Maybe some other time, you say airily.' );
 		EngineCore.outputText( '\n\n“<i>Oh [master],</i>” groans Whitney, in a tone of deepest exasperation, her hands between her thighs.' );
@@ -3314,7 +3314,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.dogeCorruptedMissionComplete();
 	};
 	FarmCorruption.prototype.brandingAvailableTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( '“<i>[Master]! [Master], I’ve done as you asked,</i>” says Whitney, her tail wagging frantically as you approach. Her eyes are lit with glee and she’s got a cow with her on tether. You settle down and watch as she produces unassuming pots of black and red ink, and a sheaf of what looks like blotting paper.' );
 		EngineCore.outputText( '\n\n“<i>Thought nobody sold this stuff anymore,</i>” she says with a shake of the head as she unstops a vial. A sharp, solvent smell presses into your nostrils. “<i>But it’s amazing what you kin’ find in that bazaar place, ain’t it? Watch.</i>” She dips a long' );
@@ -3332,7 +3332,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, 'No', this, this.dontTestBranding );
 	};
 	FarmCorruption.prototype.testBranding = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You return her devilish grin with interest.' );
 		EngineCore.outputText( '\n\n“<i>Since you’ve been such a productive girl, I guess you do deserve a reward. Take your clothes off.</i>” ' );
@@ -3460,7 +3460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 	};
 	FarmCorruption.prototype.brandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
@@ -3477,7 +3477,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.brandSlotSelect );
 	};
 	FarmCorruption.prototype.amilyBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.amilyTribalTattoo, slot );
@@ -3493,7 +3493,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.amilyBrandSlotSelect );
 	};
 	FarmCorruption.prototype.jojoBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on his ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.jojoTribalTattoo, slot );
@@ -3509,7 +3509,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.jojoBrandSlotSelect );
 	};
 	FarmCorruption.prototype.bimboSophieBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.bimboSophieTribalTattoo, slot );
@@ -3526,7 +3526,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.bimboSophieSlotSelect );
 	};
 	FarmCorruption.prototype.vapulaBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.vapulaTribalTattoo, slot );
@@ -3542,7 +3542,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.vapulaSlotSelect );
 	};
 	FarmCorruption.prototype.kellyBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.kellyTribalTattoo, slot );
@@ -3559,7 +3559,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.kellySlotSelect );
 	};
 	FarmCorruption.prototype.smallMilkyBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.smallMilkyTribalTattoo, slot );
@@ -3576,7 +3576,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 9, 'Back', this, this.smallMilkySlotSelect );
 	};
 	FarmCorruption.prototype.bigMilkyBrandSelect = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What will you draw on her ' + this.slotNames[ slot ] + '?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Tribal', this, this.bigMilkyTribalTattoo, slot );
@@ -3727,7 +3727,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.tribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
@@ -3751,7 +3751,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.tattooMerge();
 	};
 	FarmCorruption.prototype.amilyTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
 			this.amilyCollarboneIntro();
@@ -3774,7 +3774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.jojoTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across his ';
 		if( slot === 0 ) {
 			this.jojoCollarboneIntro();
@@ -3796,7 +3796,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophieTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
 			this.bimboSophieCollarboneIntro();
@@ -3820,7 +3820,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vapulaTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
 			this.vapulaCollarboneIntro();
@@ -3843,7 +3843,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.kellyTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
 			this.kellyCollarboneIntro();
@@ -3866,7 +3866,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.smallMilkyTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
 			this.smallMilkyCollarboneIntro();
@@ -3895,7 +3895,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bigMilkyTribalTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A tribal tattoo, all snaking, erotic lines, across her ';
 		if( slot === 0 ) {
 			this.bigMilkyCollarboneIntro();
@@ -3917,7 +3917,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bigMilkyHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
 			this.bigMilkyCollarboneIntro();
@@ -3939,7 +3939,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bigMilkyPropertyOfTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
 			this.bigMilkyCollarboneIntro();
@@ -3961,7 +3961,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bigMilkyBathToyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Bath Toy” tattooed across her ';
 		if( slot === 0 ) {
 			this.bigMilkyCollarboneIntro();
@@ -3983,7 +3983,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bigMilkyMegaMilkTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Mega Milk” tattooed across her collarbone.';
 		this.bigMilkyCollarboneIntro();
 		CoC.flags[ kFLAGS.MILKY_TATTOO_COLLARBONE ] = tText;
@@ -3991,7 +3991,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bigMilkyCockCozyTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Cock Cozy” tattooed across her collarbone.';
 		this.bigMilkyCollarboneIntro();
 		CoC.flags[ kFLAGS.MILKY_TATTOO_COLLARBONE ] = tText;
@@ -3999,7 +3999,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.heartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
@@ -4023,7 +4023,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.tattooMerge();
 	};
 	FarmCorruption.prototype.amilyHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
 			this.amilyCollarboneIntro();
@@ -4046,7 +4046,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.jojoHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on his ';
 		if( slot === 0 ) {
 			this.jojoCollarboneIntro();
@@ -4068,7 +4068,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophieHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
 			this.bimboSophieCollarboneIntro();
@@ -4092,7 +4092,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vapulaHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
 			this.vapulaCollarboneIntro();
@@ -4115,7 +4115,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.kellyHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
 			this.kellyCollarboneIntro();
@@ -4138,7 +4138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.smallMilkyHeartTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A plump, red love heart tattoo on her ';
 		if( slot === 0 ) {
 			this.smallMilkyCollarboneIntro();
@@ -4167,7 +4167,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.smallMilkyPropertyOfTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
 			this.smallMilkyCollarboneIntro();
@@ -4196,7 +4196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.smallMilkyBathToyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Bath Toy” tattooed across her ';
 		if( slot === 0 ) {
 			this.smallMilkyCollarboneIntro();
@@ -4225,7 +4225,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.smallMilkyMegaMilkTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Mega Milk” tattooed across her collarbone.';
 		this.smallMilkyCollarboneIntro();
 		EngineCore.outputText( '“<i>[name],</i>” [bathgirlName] groans with laughter, deep embarrassment coloring her tan cheeks as she looks down at what you’ve written. “<i>Everyone can see that!</i>” That’s the whole point you reply, with a rakish grin. She sighs in exasperation as you kiss her fondly on the forehead and take your leave.' );
@@ -4233,7 +4233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.smallMilkyCockCozyTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Cock Cozy” tattooed across her collarbone.';
 		this.smallMilkyCollarboneIntro();
 		EngineCore.outputText( '“<i>[name],</i>” [bathgirlName] groans with laughter, deep embarrassment coloring her tan cheeks as she looks down at what you’ve written. “<i>Everyone can see that!</i>” That’s the whole point you reply, with a rakish grin. She sighs in exasperation as you kiss her fondly on the forehead and take your leave.' );
@@ -4265,7 +4265,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		return count;
 	};
 	FarmCorruption.prototype.smallMilkyButterflyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A butterfly, its four leaf-like wings in flight, tattooed across her ';
 		if( slot === 0 ) {
 			this.smallMilkyCollarboneIntro();
@@ -4315,14 +4315,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.kellyHorseshoeTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A horseshoe imprinted firmly on each shoulder.';
 		this.kellyShouldersIntro();
 		CoC.flags[ kFLAGS.KELLY_TATTOO_SHOULDERS ] = tText;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.kellyPropertyOfTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
 			this.kellyCollarboneIntro();
@@ -4345,7 +4345,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.kellyNo1FillyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“#1 Filly” tattooed across her ';
 		if( slot === 0 ) {
 			this.kellyCollarboneIntro();
@@ -4368,7 +4368,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.kellyDickWonTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“I Fought the Dick And the Dick Won” tattooed in fine text across her ';
 		if( slot === 0 ) {
 			this.kellyCollarboneIntro();
@@ -4391,7 +4391,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.propertyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
@@ -4415,7 +4415,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.tattooMerge();
 	};
 	FarmCorruption.prototype.amilyPropertyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
 			this.amilyCollarboneIntro();
@@ -4438,7 +4438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.jojoPropertyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across his ';
 		if( slot === 0 ) {
 			this.jojoCollarboneIntro();
@@ -4460,7 +4460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.jojoSissySlutTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Sissy Slut” tattooed across his ';
 		if( slot === 0 ) {
 			this.jojoCollarboneIntro();
@@ -4482,7 +4482,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophiePropertyOfTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
 			this.bimboSophieCollarboneIntro();
@@ -4506,7 +4506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vapulaPropertyOfTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Property of [Name]” tattooed across her ';
 		if( slot === 0 ) {
 			this.vapulaCollarboneIntro();
@@ -4529,7 +4529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vapulaCumAddictTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Cum Addict” tattooed across her ';
 		if( slot === 0 ) {
 			this.vapulaCollarboneIntro();
@@ -4552,14 +4552,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vapulaButtslutTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Buttslut” tattooed in a red love heart across her lower back.';
 		this.vapulaLowerBackIntro();
 		CoC.flags[ kFLAGS.VAPULA_TATTOO_LOWERBACK ] = tText;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.vapulaDildoPolisherTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Dildo Polisher” tattooed across her ';
 		if( slot === 0 ) {
 			this.vapulaCollarboneIntro();
@@ -4582,7 +4582,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophieSwallowTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = 'A swallow with its tapering wings in flight across her ';
 		if( slot === 0 ) {
 			this.bimboSophieCollarboneIntro();
@@ -4606,7 +4606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophieBreedingBitchTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Breeding Bitch” tattooed across her ';
 		if( slot === 0 ) {
 			this.bimboSophieCollarboneIntro();
@@ -4630,21 +4630,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophieCockGoesHereTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Cock Goes Here” tattooed across her lower back.';
 		this.bimboSophieLowerBackIntro();
 		CoC.flags[ kFLAGS.SOPHIE_TATTOO_LOWERBACK ] = tText;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.bimboSophieWideLoadTattoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Wide” tattooed across one butt cheek and “Load” tattooed on the other.';
 		this.bimboSophieButtIntro();
 		CoC.flags[ kFLAGS.SOPHIE_TATTOO_BUTT ] = tText;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.no1Tattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var tText = '“No. 1 Bitch” tattooed across her ';
 		if( slot === 0 ) {
@@ -4668,7 +4668,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.tattooMerge();
 	};
 	FarmCorruption.prototype.amilyBreedingBitchTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Breeding Bitch” tattooed across her ';
 		if( slot === 0 ) {
 			this.amilyCollarboneIntro();
@@ -4691,7 +4691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.champCocksuckerTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var tText = '“Champion Cocksucker” tattooed across her ';
 		if( slot === 0 ) {
@@ -4715,7 +4715,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.tattooMerge();
 	};
 	FarmCorruption.prototype.amilyCockGoesHereTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Cock Goes Here” tattooed across her ';
 		if( slot === 0 ) {
 			this.amilyCollarboneIntro();
@@ -4738,7 +4738,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.jojoCockGoesHereTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Cock Goes Here” tattooed across his ';
 		if( slot === 0 ) {
 			this.jojoCollarboneIntro();
@@ -4760,7 +4760,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.amilyMommysGirlTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Mommy’s Girl” tattooed across her ';
 		if( slot === 0 ) {
 			this.amilyCollarboneIntro();
@@ -4783,7 +4783,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.jojoMommysBoyTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var tText = '“Mommy’s Boy” tattooed across his ';
 		if( slot === 0 ) {
 			this.jojoCollarboneIntro();
@@ -4805,7 +4805,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.champPussylickerTattoo = function( slot ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		var tText = '“Champion Pussylicker” tattooed across her ';
 		if( slot === 0 ) {
@@ -4829,7 +4829,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.tattooMerge();
 	};
 	FarmCorruption.prototype.dontTestBranding = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'Maybe later, you say. Whitney looks disappointed.' );
 		EngineCore.outputText( '\n\n“<i>Fine. I’ll put it in the barn so if you ever get the urge to, um, mark some cattle, it’s there. Be warned though [master], that ink ain’t cheap- each mark’ll cost 50 gems.</i>”' );
@@ -5065,7 +5065,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 	};
 	FarmCorruption.prototype.wantOrgyRoom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( '“<i>[Master],</i>” says Whitney haltingly, after she’s knelt in front of you. “<i>May I make a suggestion?</i>” You shrug nonchalantly. “<i>Well... it’s just you often roll in here looking quite worn out, like. From fightin’ demons and dragons and such, whatever it is you do out there in the wastelands. It must be real important, cause you’re often banged up. To mention nothing of you needing to take care of... your chattel...</i>” she closes her eyes and sighs deeply. ' );
 		EngineCore.outputText( '\n\nYou move your [legs] restlessly when the silence drags out a bit. “<i>Well, understand I ‘kin only talk as a farmer. But if I got a prime ' + CoC.player.mf( 'stud', 'mare' ) + ' who is constantly exerting themselves - a lot of the time it’s them who’s doing it not me, they’re just so big and, and dominant they don’t want to stop throwing themselves around even for a moment - they get stress injuries. Which just get worse the more they try and pretend they don’t exist. Now I ain’t saying you got something like that, but when I see you come here, all forceful and fretful, and then leave in such a rush - it breaks my heart a little. Cos’ I could help you, at least a bit. Don’t look after livestock your whole life without learning some about muscle groups and medicine. I could help you not be the [guy] who suddenly keels over in the middle of a fight screamin’ their hamstring’s gone.</i>”' );
@@ -5083,17 +5083,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.addButton( 1, noT, this, this.noOrgyRoomPlz );
 	};
 	FarmCorruption.prototype.getOrgyRoom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'It’s a heavy investment, but her description of what she intends has definitely piqued your interest. Slowly you turn and, with a flick of the head, indicate the rock where she leaves the farm’s profit each week. Whitney breaks out onto a wide grin, her hands scrunching up on her skirt.' );
 		EngineCore.outputText( '\n\n“<i>You won’t regret this [master], I promise!</i>”' );
 		CoC.player.gems -= 2200;
-		EngineCore.showStats();
+		MainView.statsView.show();
 		CoC.flags[ kFLAGS.QUEUE_ORGYROOM_UPGRADE ] = 1;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.noOrgyRoomPlz = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You tell her it’s a fine idea, but it will have to wait for now.' );
 		EngineCore.outputText( '\n\n“<i>I can wait,</i>” your taskmistress murmurs, the picture of serenity. “<i>I just don’t know if the knot in your triceps can. It would be a good investment [master], trust me.</i>”' );
@@ -5101,7 +5101,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		// Orgy Room added to Investments menu;
 	};
 	FarmCorruption.prototype.orgyRoomTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You can hear Whitney humming to herself happily as you approach her outside the milking shed, and when she sees you she rushes over to clutch at your arm excitedly.' );
 		EngineCore.outputText( '\n\n“<i>It’s finished [master], c’mon, let me show you!</i>” You are lead by the hand to the front of her whiteboard farmstead, which carries the bald, awkward look of a facade recently rebuilt, and then spirited inside. She leads you to her front room and, grinning proudly from ear to ear, steps to one side to let you in.' );
@@ -5130,7 +5130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	FarmCorruption.prototype.orgyRoomSubMassage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You say in a grand, wearied tone that you’ve arrived from another hard day of bringing Mareth to its knees, and that you require the services of your pet masseuse. ' );
 		EngineCore.outputText( '\n\n“<i>At once, [master]!</i>” Whitney’s eyes flick across your body once and then she is on her feet, running to the farmstead. You follow at a more leisured pace, enjoying the warm, sultry air of your farm, allowing her time to get herself prepared. By the time you pace through her front door and enter the orgy room, an even warmer breath of air is there to press into your face.' );
@@ -5235,7 +5235,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 	};
 	FarmCorruption.prototype.orgyRoomSubMassageHappyEnding = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You silently rise from the slab and put your arm around your masseuse’s tight body. It radiates heat into you as you send a hand sliding down the curve of her back to squeeze at her tight, supple butt.' );
 		EngineCore.outputText( '\n\n“<i>M-[master].</i>” Whitney giggles, lowering the gaze of her red-flecked eyes and pushing her hands into your chest with faux-modesty. “<i>You’ll undo all the muscle therapy we’ve done if you go and get oil all over - oop!</i>”' );
@@ -5260,7 +5260,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		}
 	};
 	FarmCorruption.prototype.subHappyEndingMale = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var cockThatFits = CoC.player.cockThatFits( this.whitneyVagCapacity() * 1.33 ) + 1;
 		var hasBiggerCock = false;
 		if( CoC.player.cockArea( cockThatFits - 1 ) !== CoC.player.biggestCockArea() ) {
@@ -5311,7 +5311,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, AppearanceDefs, Consuma
 		this.happyEndingMerge();
 	};
 	FarmCorruption.prototype.subHappyEndingFemale = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.whitneySprite();
 		EngineCore.outputText( 'You drift across and envelope her in your body, your [chest] pushing into the soft suppleness of her small breasts. Feeling your urge but not overcome by it in your relaxed state you instead take time to enjoy the give and take of your slave’s body, her flat stomach planing over yours, the feeling of her hard nipples against your chest, her long, ' + ((this.whitneyDefurred()) ? 'smooth' : 'downy') + ' legs tangling with yours in the slow motion of the water.  Her breath catches in her chest, panting and trembling there as you push your hand between her thighs, brushing through the neat thatch of her public hair to sink your fingers into her tight, welcoming hole.  You winch one of your [legs] over hers, pushing your [vagina] against hers, sighing as your lips touch and rub over each other. ' );
 		if( CoC.player.hasCock() ) {

@@ -247,7 +247,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		}
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 			CoC.player.gems -= 10;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			EngineCore.outputText( 'The centauress collects ten gems for gym fees before the two of you can get into it.\n\n', false );
 		}
 		//(Yes) LAMAZE;
@@ -1253,14 +1253,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	//Champion, I'm PREGGERS!;
 	//Like the Edryn scene, when you enter the Gym after knocking Cotton up, she will immediately approach you about it.;
 	Cotton.prototype.cottonPregnantAlert = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you enter the gym, keen to work out (in one way or another), you spot Cotton in her usual area.  She\'s pacing around, and a worried look is plastered across her face. When she sees you, she smiles a little and approaches you. Whatever it is, it clearly can\'t wait.' );
 		//-Next-;
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.cottonPregnantAlertII );
 	};
 	Cotton.prototype.cottonPregnantAlertII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'cotton-you-got-her-preggo' ) );
 		EngineCore.outputText( '"<i>Hello, pet,</i>" she says, and you notice worry in her voice.  There are slight bags under her eyes, and her crimson ponytail is a little unkempt, with hair jutting out at odd angles.  Something clearly has her frazzled.' );
 		EngineCore.outputText( '\n\n"<i>I\'ll just come right out with it. I went to the Covenant today...  I\'m pregnant,</i>" she says, matter-of-factly, "<i>and it\'s yours.</i>"' );
@@ -1282,7 +1282,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Leave Her)*;
 	Cotton.prototype.beABadCottonDad = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shake your head.  You certainly can\'t deal with a kid.  You tell her point blank that you want nothing to do with the child.  Tears well up in her eyes, and her mouth opens and closes several times, without a single sound coming out.' );
 		EngineCore.outputText( '\n\nAfter a moment, she squares her jaw, and a determined look comes over her face.  The confident woman you first met seems to reappear.  She wipes the tears from each eye, and states, "<i>Fine then.  I can do this on my own.</i>"' );
 		EngineCore.outputText( '\n\nShe turns to walk away, then stops, swivels back towards you ' );
@@ -1303,7 +1303,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Stay)*;
 	Cotton.prototype.beAGoodCottonDad = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You take her by the shoulders and nod.  You confirm that of course you\'ll be there for her, whatever she needs.' );
 		EngineCore.outputText( '\n\nA smile spreads across her face and she hugs you, squeezing tightly, "<i>Oh thank Marae.  I don\'t expect you to just pack up and move in, I\'m totally fine with our current arrangement, but just having you around for emotional support would be wonderful.</i>"' );
 		EngineCore.outputText( '\n\nShe plants a kiss on your lips, and returns to the yoga section of the gym.' );
@@ -1317,7 +1317,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	Cotton.prototype.cottonPopsOutAKid = function() {
 		var kid = 0;
 		//(Replaces Yoga session);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'cotton-giving-birth' ) );
 		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 0 ) {
 			EngineCore.outputText( 'Cotton is waiting at her usual spot, sipping casually from a bottle of water, her hugely rounded, brown-skinned orb of a belly exposed as it has been since she outgrew her maternity shirt.  She winces and rubs her belly with a grimace as you approach, which prompts you to ask if she\'s been feeling all right.' );
@@ -1533,7 +1533,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	//Play this scene the first time Contraception is toggled;
 	//Cotton must be pregnant or have CottonKids =>1 to activate this option;
 	Cotton.prototype.cottonContraceptionToggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//REPEATS;
 		if( CoC.flags[ kFLAGS.COTTON_CONTRACEPTION_TALK ] > 0 ) {
 			this.repeatContraceptionToggleCotton();
@@ -1567,7 +1567,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//[=Stop Taking=];
 	Cotton.prototype.tellCottonStopEatingHorsePills = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Cotton that, if they\'re going to be that useless to her, and she doesn\'t mind the idea of potentially having more kids, she has your permission to stop taking them.' );
 		EngineCore.outputText( '\n\nShe nods and says, "<i>Starting tomorrow I\'ll go ahead and stop, then.</i>"' );
 		EngineCore.outputText( '\n\nYou thank her for understanding you and change the subject.' );
@@ -1578,7 +1578,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//[=Keep Taking=];
 	Cotton.prototype.tellCottonToKeepFiringBlanksAsshole = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Cotton you\'d rather not force her to have any more kids, so she should keep taking the herbs; in your opinion, imperfect protection is better than no protection.' );
 		EngineCore.outputText( '\n\nCotton nods, "<i>All right then.  As they say, better safe than ' );
 		if( !EngineCore.silly() ) {
@@ -1595,7 +1595,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//Turn On;
 	Cotton.prototype.repeatContraceptionToggleCotton = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Play this scene if Contraception chosen when Cotton Contraception is turned off;
 		if( CoC.flags[ kFLAGS.COTTON_HERBS_OFF ] === 1 ) {
 			EngineCore.outputText( 'You tell Cotton that, while you know it\'s not a perfect solution, you want her to start taking her herbs again.' );
@@ -1624,7 +1624,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	//Telling Cotton*;
 	//This scene plays automatically the first time the PC reaches stage 2 of Cotton Pregnancy.;
 	Cotton.prototype.goTellCottonShesAMomDad = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Convinced that Cotton is the father of the child in your womb, at daybreak, you pack your usual things and head off to Tel\'Adre.  Stopping in at the gym, you ask for directions to Cotton\'s place, and then make your way there.' );
 		EngineCore.outputText( '\n\nIt turns out that Cotton lives in a small apartment, away from the main section of town, sandwiched between a somewhat shabby-looking tailor shop and a small, but very well-kept deli.  You muster your courage and then knock insistently at the door.  "<i>Coming, coming! -Yawn- Who is it at this time of morning?</i>" Cotton calls from inside, pulling open the door with a disgruntled look on her sleepy features.  She blinks in surprise to see you standing there, while you apologize for disturbing her so early.  Still, you have something important to discuss with her, you explain, and then ask her if you can come in.' );
 		EngineCore.outputText( '\n\n"<i>Ah... sure, pet.  I was just about to have breakfast anyway; join me?</i>" she asks, politely, holding the door open and indicating you can come in.  You thank her, and follow her to the kitchen.  There, the pajama-wearing horse-morph pours two bowls full of mixed oats & grains, adding some milk before offering one to you.  You thank her and tuck in ravenously, noting you\'ve been craving this stuff.  Cotton watches you eat with a little perturbation, but quietly eats her own bowl.  When you are both finished, she gently clears her throat.  "<i>So, what brings you here, my little pet?  It can\'t have been just to have breakfast with me,</i>" she notes.' );
@@ -1811,7 +1811,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	//Present amongst ordinary Cotton options before Yoga;
 	//Requires PC has at least one CottonKid;
 	Cotton.prototype.visitCottonKids = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Cotton that, if it\'s okay with her, you\'d like to skip exercising today; you were hoping that you could visit your ' );
 		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] === 1 ) {
 			EngineCore.outputText( 'kid' );
@@ -2092,7 +2092,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//Feed;
 	Cotton.prototype.feedYourCottonKids = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You interrupt Cotton by pointing out that you have breasts full of milk; you\'d be happy to nurse the little ' );
 		if( CoC.flags[ kFLAGS.COTTON_OLDEST_KID_GENDER ] >= 2 ) {
 			EngineCore.outputText( 'filly ' );
@@ -2195,7 +2195,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//Stay Quiet;
 	Cotton.prototype.letCottonFeedKids = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You quietly watch on as Cotton removes her top, exposing her dark-skinned breasts topped by chocolatey nipples.  Your child coos and giggles, knowing it\'s feeding time, its little underdeveloped hands reaching for the breast hungrily.  She smiles and brings the foal up to the breast, where it latches on and begins suckling hungrily.' );
 		EngineCore.outputText( '\n\nThe two of you sit and watch the child feed with wild abandon, silently enjoying each other\'s company.  "<i>It amazes me how much milk these little guys can pack away,</i>" Cotton remarks with a smile.' );
 		EngineCore.outputText( '\n\nWell, you say, they need their milk to grow up big, strong, and sexy, just like Cotton herself.  You grin and squeeze the muscular tightness of Cotton\'s ass as you finish saying this.' );

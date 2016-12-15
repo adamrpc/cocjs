@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 				}
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 				this.lust += 5 * this.lustVuln;
 			}
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};

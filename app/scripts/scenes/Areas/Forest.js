@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
 	function Forest() {
 	}
 
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, Utils, EngineCore,
 		//Marble randomness
 		if( CoC.player.exploredForest % 50 === 0 && CoC.player.exploredForest > 0 && CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 			//can be triggered one time after Marble has been met, but before the addiction quest starts.
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'While you\'re moving through the trees, you suddenly hear yelling ahead, followed by a crash and a scream as an imp comes flying at high speed through the foliage and impacts a nearby tree.  The small demon slowly slides down the tree before landing at the base, still.  A moment later, a familiar-looking cow-girl steps through the bushes brandishing a huge two-handed hammer with an angry look on her face.' );
 			EngineCore.outputText( '\n\nShe goes up to the imp, and kicks it once.  Satisfied that the creature isn\'t moving, she turns around to face you and gives you a smile.  "<i>Sorry about that, but I prefer to take care of these buggers quickly.  If they get the chance to call on their friends, they can actually become a nuisance.</i>"  She disappears back into the foliage briefly before reappearing holding two large pile of logs under her arms, with a fire axe and her hammer strapped to her back.  "<i>I\'m gathering firewood for the farm, as you can see; what brings you to the forest, sweetie?</i>"  You inform her that you\'re just exploring.' );
 			EngineCore.outputText( '\n\nShe gives a wistful sigh. "<i>I haven\'t really explored much since getting to the farm.  Between the jobs Whitney gives me, keeping in practice with my hammer, milking to make sure I don\'t get too full, cooking, and beauty sleep, I don\'t get a lot of free time to do much else.</i>"  She sighs again.  "<i>Well, I need to get this back, so I\'ll see you later!</i>"' );

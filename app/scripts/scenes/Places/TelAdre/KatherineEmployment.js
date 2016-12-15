@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Appearance, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function KatherineEmployment() {
 	}
 
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 	var KBIT_TRAINING_TALK_KATH = 16;
 	var KBIT_TRAINING_URTA_HELP = 32;
 	KatherineEmployment.prototype.employmentTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Katherine if she’s ever thought about trying to get a job, so she can settle into a home of her own and get off the streets.\n\n' );
 		EngineCore.outputText( '“<i>Oh, sure, plenty of times.</i>”  The feline shrugs.  “<i>But it’s never worked out; nobody’s ever been willing to hire me... I guess I just don’t look very employable.</i>”  She sighs and picks at a thread hanging from her usual tatters.\n\n' );
 		EngineCore.outputText( 'You ask if she’d like you to look around for her.  You don’t know why, but folks in this world seem to take a liking to you on sight; maybe you’ll have better luck persuading somebody in town to take her on as an apprentice of some kind?\n\n' );
@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( this, this.tryShops );
 	};
 	KatherineEmployment.prototype.tryShops = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look around the city for a shop that might be a good place for Kath to work.  Shrugging, you start with the nearest building - the Pawn Broker’s.\n\n' );
 		EngineCore.outputText( 'As you approach Oswald, the dog-morph sighs and looks right at you.  “<i>I suppose you’re here to ask if I’ll give a job to that cat who’s always skulking out back, yes?</i>”  You nod, surprised that he would have figured it out, he smiles at your surprise.  “<i>I heard the two of you talking from the backroom.</i>”  Then his face turns solemn and he replies, “<i>Sorry; I know this seems cold, but I’m already living hand to mouth as it is - I can’t afford to take on a partner.</i>”\n\n' );
 		EngineCore.outputText( 'You tell him that you understand, and you’ll try elsewhere.  “<i>Good luck,</i>” he says as you exit his shop.\n\n' );
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( this, this.tryTheWatch );
 	};
 	KatherineEmployment.prototype.tryTheWatch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You sigh in disappointment.  Absolutely nothing; not one person in Tel’Adre seems to be willing to hire Kath.  You’re about to go back to Katherine in defeat, when suddenly you stop, inspiration striking you in a flash of brilliance: The City Watch surely always needs new recruits, right?  Especially given all the rape-crazy monsters out there in the world.' );
 		var pissedOffUrta = (CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1);
 		var pissedOffEdryn = (CoC.flags[ kFLAGS.EDRYN_NEVER_SEE_AGAIN ] === 1);
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		//Triggers when you go to talk to Edryn in the Wet Bitch and;
 		//    (KATHERINE_UNLOCKED === 1 && KATHERINE_TRAINING > 0;
 		//    && (KATHERINE_TRAINING & KBIT_TRAINING_TALK_EDRYN) === 0);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach the' );
 		if( SceneLib.edryn.pregnancy.isPregnant ) {
 			EngineCore.outputText( ' gorging' );
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 	KatherineEmployment.prototype.talkToUrta = function() {
 		//Triggers when you go to talk to Urta in the Wet Bitch;
 		//    (KATHERINE_UNLOCKED === 1 && KATHERINE_TRAINING > 0 && (KATHERINE_TRAINING & KBIT_TRAINING_TALK_URTA) === 0);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Urta that you actually need to talk to her about something business related.  The gray-furred vixen gives you a quizzical expression.  “<i>Oh?  What do you mean?</i>”\n\n' );
 		EngineCore.outputText( 'You explain Katherine’s situation; how you met the cat, her life as an unemployed, homeless vagrant, her desire to find an honest living, and your hopes that Urta can help you get her a place in the Watch.\n\n' );
 		EngineCore.outputText( 'The vulpine herm sighs and taps a finger on the table.  “<i>Just because I’m letting you into my pants doesn’t mean you can just walk all over the rules, you know? 0...But, well, we do always need recruits... still, she’ll have to pass the tests to get in, just like anyone else.</i>”\n\n' );
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 			this.initiateTrainingWithUrta();
 			return true;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you approach Katherine’s alleyway, you take a mental inventory of your preparations, to see if it’s time to begin her training.  You realize that once Kath’s training has begun, she will no longer have time to engage in your usual activities until her training is complete, so perhaps you should postpone the final preparations and just pay her a recreational visit instead?' );
 		var withUrta = this.trainKathWithUrta;
 		if( !SceneLib.urta.urtaLove() || (CoC.flags[ kFLAGS.KATHERINE_TRAINING ] & KBIT_TRAINING_TALK_URTA) === 0 ) {
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		SceneLib.katherine.katherineVisitNormal( false );
 	};
 	KatherineEmployment.prototype.trainKath = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Back in camp you thought long and hard about what it would take to turn Katherine into a watch officer.  You recalled what you learned about the watch and their duties you decided there were three major areas where you need to improve Katherine’s knowledge and skills.\n\n' );
 		EngineCore.outputText( 'The watch sometimes has to patrol in the desert around Tel’Adre.  She’s probably never been outside the city, so giving Kath some amount of wilderness survival is going to be necessary.\n\n' );
 		EngineCore.outputText( 'Then there are the more martial skills.  Kath has probably never fought alone and every fight she’s been in alone has probably been a fight to escape.  At least with all your skills you can really give her a leg up in combat training.\n\n' );
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 	};
 	KatherineEmployment.prototype.katherineTrainingStage1 = function( clearOut ) {
 		if( clearOut === undefined || clearOut ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		EngineCore.outputText( (CoC.flags[ kFLAGS.KATHERINE_TRAINING ] === 0 ? '  You' : 'Kath readies herself quickly and you') + ' lead her on a long, winding trek through the desert sands.  You always keep Tel’Adre in sight so that if the two of you are somehow separated Kath will be able to find her way home.\n\n' );
 		EngineCore.outputText( 'You show her some strategies and good tricks for staying alive out here and moving across the sand without tiring yourself as much.  Kath’s good at listening and while she doesn’t improve much you know she’ll do better tomorrow.\n\n' );
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingStage1Success = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She tips out the contents and says, “<i>I’ve lived on the street for almost a year now.  Building and finding shelter?  That I can do.</i>”\n\n' );
 		EngineCore.outputText( 'Since Kath is tired it takes a while.  She takes the various bits of wood, fasteners and stakes from the sack and and puts them in separate piles on the ground.  Despite the wind she manages to link the supports and fasteners together and raises the frame.\n\n' );
 		EngineCore.outputText( 'Lashing down the canvas takes a lot more effort, but Kath is soon sitting inside a completed tent.  It’s not perfect, the wind can still blow through a few seams and gaps, but it’s not bad either.\n\n' );
@@ -264,7 +264,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingStage1Failure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She tips out the contents and says, “<i>I’ve lived on the street for almost a year now.  Building and finding shelter?  That I can do.</i>”\n\n' );
 		EngineCore.outputText( 'You know things are off to a bad start when Kath begins to assemble the tent frame immediately rather than making sure she\'s using the right parts.  She’s tired and not thinking too clearly.  Soon she has fasteners attached to the wrong supports.  Then she takes apart one bit of the frame only to assemble it backwards.\n\n' );
 		EngineCore.outputText( 'The wind nearly blows the canvas away from her and she ends up sifting some of the sand trying to locate a missing strut.  When she finds it hidden under the canvas she plops down on her butt, exhausted.\n\n' );
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingStage1Horny = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath tips the contents of the sack on the ground.  Then she lies down and pulls the sack itself over her body.  You hope she’s just playing, but when you try explain that the sack hardly qualifies as decent shelter you hear a wet ‘schlick’ noise.\n\n' );
 		EngineCore.outputText( 'You’re in the desert, so there are only so many things that could sound so wet.  You rip the sack off her and are treated to a view of Kath with her hands jammed down her pants.\n\n' );
 		EngineCore.outputText( 'She sits up, embarrassed despite the fact there’s no one else within a mile.  “<i>Come on ' + CoC.player.short + ' - You had me walking all over the place.  My cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' kept rubbing against my pants.  I need to do this to even think straight.</i>”\n\n' );
@@ -298,7 +298,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingStage2Success = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'By the time Kath gets back you’ve pulled the training swords and lightweight clubs from the sack.  You show her a variety of moves, some for swords and some for fighting in close with an opponent.  After several minutes of instruction you tell Kath that it’s time to put what she’s learning to practice.\n\n' );
 		EngineCore.outputText( 'Both of you square off and Kath bounces from foot to foot looking for an opening.  She tries striking you again and again.  Every once in a while she nails you with a quick hit or a surprise move after a feint.  For your part you manage to knock away her weapon a few times and show her how to defeat some blocks.\n\n' );
 		EngineCore.outputText( 'When Kath starts to tire you tell her she did well today and pack up the training aids.  If she keeps showing this kind of improvement it won’t take long before she’s a match for any criminal in Tel’Adre and many monsters outside it.\n\n' );
@@ -307,7 +307,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours ); //Use up two hours, go back to camp
 	};
 	KatherineEmployment.prototype.katherineTrainingStage2Failure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'By the time Kath gets back you’ve pulled the training swords and lightweight clubs from the sack.  Kath grabs some weapons and starts practicing thrusts and swings.  You give her a few pointers and then she assumes a combat stance and tells you she’s ready to party.\n\n' );
 		EngineCore.outputText( 'You take up your training sword and begin making some quick, simple thrusts and feints, testing to see if Kath uses the blocks you’ve taught her.  Instead she tries to bat your sword away so she can get in close.\n\n' );
 		EngineCore.outputText( 'Time and again you try a manoeuvre you showed her only to see her put up the wrong block.  It’s a bit discouraging so you switch to some hand to hand combat for a while.  Here again Kath’s fighting just seems to be off, though she starts to improve her grappling slowly.\n\n' );
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours ); //Use up two hours, go back to camp
 	};
 	KatherineEmployment.prototype.katherineTrainingStage2Horny = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Katherine returns much sooner than you expected and with energy to spare.  Her pupils are dilated and her head and tail both flick continuously from side to side.  “<i>There is the most amazing smell over that way,</i>” she says, pointing inland toward a patch of bushes.\n\n' );
 		EngineCore.outputText( 'You don’t need to go over to the bushes to find out what the smell is; it’s all over her.  It’s a sweet-yet-creamy scent, unlike anything back home.  It seems whisker fruits, or at least the blossoms of the tree it comes from, have a certain effect on your feline friend.\n\n' );
 		EngineCore.outputText( 'As you smell Katherine she is likewise busy sniffing you.  She rubs her nose against your cheek, her whiskers tickling your face, and says, “<i>This place is really nice... I know what we could do.</i>”' );
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingStage3Success = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You press on and tell her that she just found some miscreants trying to pickpocket an older lady and she’s chased one down an alley.  The thief has stopped next to two other people and all three are now claiming he’s been there all afternoon.  Now how is she going to deal with the situation?\n\n' );
 		EngineCore.outputText( 'Katherine marches toward you, hand on the grip of her club.  She levels a stare at you and says, “<i>I’m placing you under arrest.  Come with me to the watch house quietly or I will be forced to subdue you.</i>”\n\n' );
 		EngineCore.outputText( 'You try to talk your way out of it, but to no avail.  Kath isn’t prepared to let you get away.  She offers to let your friends accompany you as witnesses, but that’s all.  When you still refuse she takes a step forward and pulls out her club.\n\n' );
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingStage3Failure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You press on and tell her that she just found some miscreants trying to pickpocket an older lady and she’s chased one down an alley.  The thief has stopped next to two other people and all three are now claiming he’s been there all afternoon.  Now how is she going to deal with the situation?\n\n' );
 		EngineCore.outputText( 'Katherine marches toward you, hand on the grip of her club.  She levels a stare at you and says, “<i>I’m placing you under arrest.  Come with me to the watch house quietly or I will be forced to subdue you.</i>”\n\n' );
 		EngineCore.outputText( 'You manage to throw her off kilter by interrupting her whenever she tries to explain why she wants to arrest you.  You question how she has the right to do that, since there’s no witness here to identify you and you have two other people who swear you’ve been here with them.\n\n' );
@@ -392,7 +392,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 	};
 
 	KatherineEmployment.prototype.katherineTrainingStage3Horny = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You try to press on and explain the crime she has to deal with but you realize Katherine is shifting uncomfortably.  ' + (SceneLib.katherine.cockLength <= 10 ? 'At first you aren’t sure why, but Kath’s embarrassment tips you off.  A little bulge is developing between her legs.' : 'The reason is immediately apparent.  The crotch of Katherine’s pants is bulging thanks to her sizeable dog dick.') + '  “<i>I’m sorry ' + CoC.player.short + ', I really want to keep training.  It’s just when you were touching me and straightening me up you smelled nice and it feels like its been so long since we had fun.</i>”\n\n' );
 		EngineCore.outputText( 'You tell Kath that she needs to control herself.  What if this happened while she was out on patrol?  You are about to start explaining what the criminal is up to when Kath’s tattered pants give way.  Her canine member pops out and smacks audibly against her midriff.\n\n' );
 		EngineCore.outputText( 'Kath looks down at her treacherous cock and back up at you.  She straightens up again, assuming the correct posture for a watch officer and puffing her chest out.  In a stern, commanding voice she says, “<i>I arrest officer Katherine for indecent exposure.</i>”\n\n' );
@@ -501,7 +501,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingCompleteUrtaLover = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You spend the next few hours alternately waiting in the bar and strolling around the block to stretch your legs, all the while wondering how Kath is doing.  You’ve just stepped back into the bar when you hear footsteps fast approaching from behind.\n\n' );
 		EngineCore.outputText( 'Kath races into the bar and leaps into your arms, nearly knocking you off your feet.  “<i>I did it!  I did it!</i>” she cries while hugging you tight enough to squeeze the breath out of you.  “<i>Oh thank you ' + CoC.player.short + ', I couldn’t have done it without you.  The tests were hard but I knew what she wanted.</i>”\n\n' );
 		EngineCore.outputText( 'You stroke her hair and Katherine finally calms down enough to show you her new badge.  “<i>I’m starting tomorrow.  Oh - and that’s not even the best part.  I didn’t know about this, but because I’m in the watch they can give me papers that show I have a good job, that I’m a good citizen.  I forget what it’s called, but it means I’ll be able to get a house really soon cause they know I’m good for it and I’ll be earning a wage.</i>”\n\n' );
@@ -513,14 +513,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 	};
 	
 	KatherineEmployment.prototype.katherineTrainingCompleteNeverSpokenOrPermanentlyPissed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You go back to Kath’s alley and pace back and forth, waiting.  Hours later Kath races into the alley and leaps into your arms, nearly knocking you off your feet.  “<i>I did it!  I did it!</i>” she cries while hugging you tight enough to squeeze the breath out of you.  “<i>Oh thank you ' + CoC.player.short + ', I couldn’t have done it without you.  The tests were hard but I knew what she wanted.</i>”\n\n' );
 		EngineCore.outputText( 'You stroke her hair and Katherine finally calms down enough to show you her new badge.  “<i>I’m starting tomorrow.  Oh - and that’s not even the best part.  I didn’t know about this, but because I’m in the watch they can give me papers that show I have a good job, that I’m a good citizen.  I forget what it’s called, but it means I’ll be able to get a house really soon cause they know I’m good for it and I’ll be earning a wage.</i>”\n\n' );
 		EngineCore.outputText( 'She looks around at the alley and says, “<i>We had some fun times here, but I won’t miss living on the street.</i>”  She gives you a kiss and adds, “<i>I have to run.  I’ve got equipment to pick up and patrol routes to memorize.  Next time you’re in town, look for me at the Wet Bitch; I’ll try to hang around there.</i>”' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours ); //Use up 4 hours, go back to camp
 	};
 	KatherineEmployment.prototype.katherineTrainingCompleteUrtaThoughtYouDidntLikeHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You spend the next few hours alternately waiting in the bar and strolling around the block to stretch your legs, all the while wondering how Kath is doing.  You’ve just stepped back into the bar when you hear footsteps fast approaching from behind.\n\n' );
 		EngineCore.outputText( 'Kath races into the bar and leaps into your arms, nearly knocking you off your feet.  “<i>I did it!  I did it!</i>” she cries while hugging you tight enough to squeeze the breath out of you.  “<i>Oh thank you ' + CoC.player.short + ', I couldn’t have done it without you.  The tests were hard but I knew what she wanted.</i>”\n\n' );
 		EngineCore.outputText( 'You stroke her hair and Katherine finally calms down enough to show you her new badge.  “<i>I’m starting tomorrow.  Oh - and that’s not even the best part.  I didn’t know about this, but because I’m in the watch they can give me papers that show I have a good job, that I’m a good citizen.  I forget what it’s called, but it means I’ll be able to get a house really soon cause they know I’m good for it and I’ll be earning a wage.</i>”\n\n' );
@@ -530,14 +530,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( this, this.urtaForgivesYou );
 	};
 	KatherineEmployment.prototype.urtaForgivesYou = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She leads you over to her table and soon you’re ' + (CoC.player.isPregnant() ? 'drinking some hot chocolate while Urta sips some kind of hard liquor' : 'sipping some harsh form of whiskey with her') + '.  Urta starts by complimenting you on Kath’s training.  It seems few candidates are that well prepared on their first attempt to take the tests.  She seems nervous, even acts bit deferential to you.\n\n' );
 		EngineCore.outputText( 'From how she’s acting you feel there’s more to this talk than that but it takes a while, and several more drinks, for Urta to work up her courage.  Finally she says, “<i>From the way Katherine acted I know you two are together.</i>”  She tilts her glass and looks at the amber liquid.  “<i>From the testing I can tell Kath is a herm.  I mean, we did some combat tests, some grappling.  It’s kind of hard to miss.</i>”\n\n' );
 		EngineCore.outputText( 'After a long pause she adds “<i>So... I think I misjudged you.  That time you saw me, just out back of this place.  A lot of people hate herms and I thought you must be like that.</i>”  She looks down again and adds, “<i>I guess I never gave you the chance to set the record straight.</i>”' );
 		EngineCore.choices( 'Flirt', SceneLib.urta, SceneLib.urta.flirtWithUrta, 'Friends', this, this.friendsWithUrta, 'Destroy Her', this, this.destroyUrta, '', null, null, '', null, null );
 	};
 	KatherineEmployment.prototype.friendsWithUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her that you don’t have any problem with herms, in fact you find some of them quite attractive.\n\n' );
 		EngineCore.outputText( 'There’s an awkward silence for a few moments.  Then Urta says, “<i>Well you sure seem to be good for Kath.  Anyone who can take a street urchin and train her up into a fine watch recruit is in my good books.  Come and talk to me anytime.</i>”' );
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] = 0; //This pair of values can't happen any other way. It puts Urta into friend mode. She is willing to talk
@@ -545,13 +545,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours ); //Use up 4 hours, go back to camp
 	};
 	KatherineEmployment.prototype.destroyUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She’s been giving you the cold shoulder all this time and <b>now</b> she wants to make up?  Fuck this fox bitch!  You tell Urta in no uncertain terms that you don\'t hate herms - you hate her.  She’s a drunk, pushy, ugly bitch and no one will ever love her.  She makes you sick and she’d better leave you and your girl alone.\n\n' );
 		EngineCore.outputText( 'Urta looks like she’s about to fly into a rage, but instead you see tears forming in the corners of her eyes.  Soon she’s sobbing into her drink.  You walk out of the bar and head back to camp, sure that Urta is too devastated to ever talk about this to Kath.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours ); //Use up 4 hours, go back to camp
 	};
 	KatherineEmployment.prototype.trainKathWithUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a smile, you turn and make your way to the Wet Bitch.  Once inside you easily spot Urta and sit at her table.\n\n' );
 		EngineCore.outputText( 'Urta smiles openly and warmly, her tail abandoning it’s habitual position obscuring her sizable cock to instead wag in vulpine greeting.  “<i>Hello, ' + CoC.player.short + '; so, how is your would-be watchman coming along?</i>” she asks.  Then she takes another look at you and smirks.  “<i>From that look on your face, I’m thinking you’re here to ask for my help, yes?</i>”\n\n' );
 		EngineCore.outputText( 'You nod in confirmation, telling Urta that you are here to give her more information on Kath, so the two of you can come up with a good training schedule for her.\n\n' );
@@ -579,7 +579,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doYesNo( this, this.chastityBeltFun, this, this.noChastityFunForNow );
 	};
 	KatherineEmployment.prototype.chastityBeltFun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You lift the chastity belt off her hands and look it over.  Then give her a lusty look.  Realizing what you’re thinking, she protests, “<i>Lover, no, just... no.  I already told you it gets me so worked up I’m ready to burst when I get it off - the last time I dared wear that, when I finally got it off, I damn near flooded the whole house venting the pressure that had built up in my balls!  Please, I love you, but don’t make me wear that again!</i>” she begs you.\n\n' );
 		EngineCore.outputText( 'Flooded the house?  Your smile widens and you look at the belt... then back at her again.  You raise your eyebrows, as if asking an unspoken question.  Urta winces and whimpers like the fox she so resembles.  “<i>Please, ' + CoC.player.short + ', please don’t look at me like that... I don’t want to do it, it hurts when I’m trapped in that thing.</i>”  she pleads.\n\n' );
 		EngineCore.outputText( 'You look down at the floor in disappointment... then look back at her, trying to make the best ‘puppy eyes’ you can manage.  Urta does a fullbody wince... and then sighs loudly.  “<i>Why, why can I never resist you, lover?  Alright, give the damn thing here,</i>” she tells you, holding out one hand hesitantly.  “<i>Though I hope you know that you won’t be able to do anything to me while I’m wearing it either, so I don’t see how you plan on getting satisfaction out of me being in it!</i>” she barks defiantly.\n\n' );
@@ -587,7 +587,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		SceneLib.urta.chastityBeltFun( false );
 	};
 	KatherineEmployment.prototype.noChastityFunForNow = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Perhaps some other time...  You shake your head and tell Urta that, for now, this is all you had to discuss with her.\n\n' );
 		EngineCore.outputText( 'Urta sighs softly, slumping.  “<i>Okay, lover.  Business before pleasure, I can understand that.  I’ll see you around, okay?</i>”  She concludes in a hopeful tone.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -699,7 +699,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'From Oswald\'s pawnshop you retrace your steps to the safehouse where Urta is getting Kath into shape and rap your knuckles against the door.\n\n' );
 		if( CoC.flags[ kFLAGS.KATHERINE_TRAINING ] >= 100 ) {
 			this.katherineTrainingWithUrtaComplete();
@@ -745,7 +745,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage1Success = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When she’s done, what stands before you is a pretty well-made tent.  Some room for improvement, but, all in all, you think it’s acceptable.  Looking at Urta, she seems to agree; she nods and then smiles at Kath.  “<i>Not bad, kitty, not bad; I’d say you pass this test.</i>”\n\n' );
 		EngineCore.outputText( '“<i>...I did it?</i>” Kath repeats, eyes widened in shock.  “<i>...I did it!</i>” she cheers, dancing with glee in front of you, laughing with joy.\n\n' );
 		EngineCore.outputText( 'You laugh at her reaction, clapping in order to congratulate her.  Urta smiles slightly, then schools her face to look stern.  “<i>Alright, kitty, you passed the test - now let’s see you do it again!</i>”\n\n' );
@@ -764,7 +764,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage1Failure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The end result of all Kath’s hard work, however, isn’t very good.  It looks like a stiff breeze would knock it over... and, seconds later, that’s what happens.  Kath’s face falls and she scuffs idly at the floor with one foot, while Urta sighs and shakes her head gently and you quietly encourage her to try again.\n\n' );
 		EngineCore.outputText( '“<i>I’m going to keep trying this until I get it right,</i>” Kath vows to you.\n\n' );
 		EngineCore.outputText( '“<i>You better; I can’t move on to the next phase until you’ve passed this test,</i>” Urta points out.\n\n' );
@@ -779,7 +779,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage1Horny = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath tries and fidgets, but eventually casts the tent equipment aside.  “<i>It’s no use, I’m too horny!  I didn’t get a chance to jerk myself off this morning... and prickvixen here walking around with no pants on and flashing her goods in my face all the time isn’t helping!</i>” she wails.\n\n' );
 		EngineCore.outputText( '“<i>I do not flash my goods in anyone’s face!</i>” Urta protests, blushing with embarrassment.\n\n' );
 		EngineCore.outputText( '“<i>Then what about at breakfast, when you were washing up?  Tail wagging all over the place - I could look right at your pussy every time it wasn’t hanging between your legs,</i>” Kath drawls.\n\n' );
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( this, this.circlejerkTrainingEnding );
 	};
 	KatherineEmployment.prototype.circlejerkTrainingEnding = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When you come to you\'re lying on your back - fairly clean, but still matted in some places with the results of your session with the lovely herms.  You stretch the kinks out of your limbs and sit up.  Immediately, you gaze upon Urta, scolding Kath for something she did wrong... both already dressed.  You don’t really catch what’s being said as Kath retorts... so the two are still bickering... you sigh.  Upon closer inspection though... you see something different... rather than scowling at each other they’re... smiling?  Well, well.  It seems these two can get along after all.\n\n' );
 		EngineCore.outputText( 'With a groan you rise to your feet, looking around to see if you can spot your ' + CoC.player.armorName + '.  “<i>Hello, sleepy-head; \'bout time you woke up.</i>” Kath suddenly declares, spotting you getting up.  Urta turns to confirm and smiles.  “<i>Well, I guess we wore you out, huh?</i>” she jokes.  No kidding... you might have to think twice next time you decide to join them...\n\n' );
 		EngineCore.outputText( '“<i>Well, maybe we’ll need to get together like this a little more often; we’re a trio now, aren’t we?</i>” Urta asks, smiling - and not a playful smile, a genuine one.\n\n' );
@@ -876,7 +876,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage2Success = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath lunges at Urta, aiming a punch straight at the vixen’s face.  Urta ducks under the blow effortlessly, then charges Kath.  With a confident smirk, Kath intercepts Urta and pulls her down and over her body, throwing the surprised vixen over her head and down on the floor with an audible <b>thud</b>.\n\n' );
 		EngineCore.outputText( 'The fox-herm lays there on the floor, looking quite stunned indeed.  She finally shakes her head and looks up at Kath.  “<i>I can’t believe that happened - do you know nobody’s ever beaten me before?  Nice job, Kath.</i>”\n\n' );
 		EngineCore.outputText( 'You applaud the cat-herm, clearly the plan worked flawlessly.' );
@@ -884,7 +884,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage2Failure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath lunges at Urta, aiming a punch straight at the vixen’s face.  Urta ducks under the blow effortlessly, then charges Kath.  With a confident smirk, Kath intercepts Urta and pulls her down and over her body, trying to throw the surprised vixen over her head, but unfortunately, Urta twists her body around and pins the helpless cat-herm under her into a submission hold.\n\n' );
 		EngineCore.outputText( '“<i>In a hold like this, you’re helpless.  Time to give up, kitty,</i>” Urta says in a matter of fact tone of voice.\n\n' );
 		EngineCore.outputText( '“<i>No way!  I’m not a coward - I won\'t give up that easily!</i>” Kath protests indignantly.\n\n' );
@@ -895,7 +895,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage2Horny = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath lunges toward Urta, trying to goad her into charging just as you suggested.  When Urta closes Kath tries to duck under Urta’s blow and throw her.  Urta realizes what’s happening at the last moment and manages to get an arm around Kath.  The two of them collapse to the ground as a mess of limbs as each of your girlfriends tries to pin the other.\n\n' );
 		EngineCore.outputText( 'You think to yourself that the fight could still go either way.  Even though Urta is stronger Kath’s extra flexibility means that pinning her is way more difficult than it should be.  Time and time again Urta locks one of Kath’s arms behind her only to have Kath twist in some impossible way and yank it free again.\n\n' );
 		EngineCore.outputText( 'Kath manages to roll on top and wraps her legs around Urta’s waist.  Urta bucks and tries to pry Kath off but she’s locked on like a vice.  You think Kath might just have the upper hand this time - and then she lets out a deep purr and tries to kiss Urta.\n\n' );
@@ -957,7 +957,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage3Success = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You enact your part while Kath enacts hers... at one point she seems to cower at your harsh words, but then she picks herself up and lunges at you, attempting to wrist-lock you.  Being far more experienced in combat, you manage to escape Kath’s inexperienced hold.  You are about to turn around when Urta interrupts the scene.\n\n' );
 		EngineCore.outputText( '“<i>That’s enough, the pair of you,</i>” the fox states in her most authoritative tone.  Kath immediately lets you go, and Urta favors her with a smile.  “<i>Well done, kitty-Kath; your holds need some work, but you pass this test.</i>”\n\n' );
 		EngineCore.outputText( 'You congratulate her as well, at first you really thought she was going to give up trying, but she really pulled through.  However if she truly intends to catch you she’ll have to work a LOT more on her holds, you wink at her.\n\n' );
@@ -970,7 +970,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage3Failure = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You enact your part while Kath enacts hers... at one point you hurl a string of insults at Kath and, unfortunately, the cat cowers, looking at you with a hurt expression and slumping her shoulders as you continue.\n\n' );
 		EngineCore.outputText( '“<i>Alright, that’s enough, stop it the pair of you!</i>” Urta snaps, suddenly interposing herself between you.\n\n' );
 		EngineCore.outputText( 'Kath sniffles, visibly weeping in front of you.  “<i>H-how could you be so cruel to me, ' + CoC.player.short + '?  I-I thought you cared about me!</i>” she wails.\n\n' );
@@ -1005,7 +1005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaStage3Horny = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath stands up straight and tells you you’re going to have to leave.  You tell her it’s a public street and you can do what you like.  To emphasize this you slide your hands up your thighs and turn.  It’s a move you’ve had goblins and other monsters pull on you out there in the wilderness.\n\n' );
 		EngineCore.outputText( 'Kath stammers slightly as she gets a good look at your ass, the fabric of your clothes pulled tightly across it.  Again she orders you to leave.  You slowly shift your ass from side to side and ask her how long it’s been since she got any.  Katherine purrs, probably hoping you won’t hear her.\n\n' );
 		EngineCore.outputText( 'Urta moves in next to Kath and says “<i>We’re going to have to work on that.  It’s a sure bet that perps will <b>whoa!</b></i>”  Kath has got her hands on Urta’s breasts and is purring much more loudly now.  Urta swats her away and back up.  “<i>No Kath, fight it.  This is exactly what some perps will do.</i>”\n\n' );
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.choices( 'Spitroast', SceneLib.katherineThreesome, spitroast, '369', SceneLib.katherineThreesome, three69, 'Try Leaving', SceneLib.katherineThreesome, SceneLib.katherineThreesome.roastYou, '', null, null, '', null, null );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaComplete = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you approach the safehouse, you wonder what else is on the agenda for Katherine’s training.  However, when you get there, Urta is outside, looking expectantly up and down the streets.  She sees you and grins widely, tail wagging openly in her happiness.\n\n' );
 		EngineCore.outputText( 'You smile and wave to the excited vixen, approaching her.  Once you’re close enough you ask what is the reason for all that happiness?  Could it be that she’s just that happy to see you? you joke.\n\n' );
 		EngineCore.outputText( '“<i>You know I’m always happy to see you, ' + CoC.player.short + '.</i>”  Urta says with a smile - indeed, you think you can see the faintest signs of that familiar stirring in her oversized prick.  “<i>But this time, I\'ve got good news; introducing the Watch’s newest Corporal, Katherine!</i>”  She proclaims in a proud, excited tone, stepping away from the door and performing a surprisingly elegant bow as it flies open and out marches a very proud-looking black cat-morph.  Clad in a new helmet and chainmail jerkin, sporting a decent-looking broadsword at her hip, Kath smiles at you, pride and nervousness mingling on her face as she awaits your opinion.\n\n' );
@@ -1046,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.doNext( this, this.katherineTrainingWithUrtaCompleteContinued );
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaCompleteContinued = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Later that ' + (CoC.time.hours + 3 > 18 ? 'evening' : 'day') + '...\n\n' );
 		EngineCore.outputText( 'You laugh at Urta’s joke, indicating that if that were you, things would have been very different.  Then you take a sip of your drink.  Kath is currently gulping her way down a very large, fruity-smelling drink, while Urta, having finished her joke, is chugging down yet another ' + (SceneLib.urta.pregnancy.isPregnant ? 'virgin margarita.  You and Kath already had a laugh about how inappropriate it is for any of you to be drinking something \'virgin\'' : 'of her favorite bottles of alcohol, the strange amber-colored stuff with the JD label - odd, you can’t remember what it’s called') + '.  The two herms seem to be having a great time here.\n\n' );
 		EngineCore.outputText( 'Once you finish your drink you announce that you will have to leave shortly.  “<i>Wha?  Already?  But we\'re just getting started!</i>” Urta protests.  “<i>Yeah, ' + CoC.player.short + '.  Don’t be such a spoilsport!</i>” Kath protests alongside, stopping momentarily to sip her drink.  “<i>Wow... tish shtuff is really good... no wonder you’re always here drinking your face off prickvixen,</i>” Kath comments happily.  The vixen laughs drunkenly and retorts “<i>Look who’s slurring their words already!  You’re such a lightweight, my little pussy.</i>”\n\n' );
@@ -1067,14 +1067,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		}
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaCompleteLeave = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You apologize to the amorous herms, but you really have to be going...\n\n' );
 		EngineCore.outputText( '“<i>Aw...</i>” the two sigh, clearly disappointed.  “<i>Well, I guess we’ll just try to have fun without you... but we’ll miss you,</i>” Urta says.  “<i>Yeah, so hurry back, lover,</i>” Kath winks, right before Urta reaches up and, to Kath’s own visible surprise, pulls her into a kiss... damn, but she must be drunk.\n\n' );
 		EngineCore.outputText( 'On the way out, you pay your tab and wave to the two girls, who seem too busy with each other to notice... well... you’ll just find out how this ends via gossip later...' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours ); //Return to camp, use up four hours
 	};
 	KatherineEmployment.prototype.katherineTrainingWithUrtaCompleteStay = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide that another hour is a necessary sacrifice to make, in order to indulge your lusts, as well as the lusts of the two herms eyeing you with predatory glares of hunger.  You confidently strut back towards the table and tell them that they’ve managed to convince you to stay.  The two shoot up in their seats with an excited cry, then hug each other in glee, rubbing cheeks as they smile their most winning smile.  “<i>Ooh, I can’t wait to get started on some serious fun!</i>” Urta laughs, then blinks in shock as Kath licks her playfully on the tip of her nose.  “<i>Why, you lewd little...</i>” she licks back, which somehow induces the two herms to end up making out with each other...\n\n' );
 		EngineCore.outputText( 'You cough, feeling the need to remind the two girls that, not only are you feeling a bit left out... but also that it’s not polite to invite someone over and then forget about them.  The two stop what they’re doing with a visible start, giving you a matching pair of sheepish looks.\n\n' );
 		EngineCore.outputText( '“<i>Right, ah, of course, ' + CoC.player.short + '.  So, what do you want me to do to you?</i>” Kath purrs, tail languidly waving in delight.\n\n' );
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		EngineCore.choices( 'Let \'em fuck', SceneLib.katherineThreesome, SceneLib.katherineThreesome.doubleStuffKath, 'DP Kath', SceneLib.katherineThreesome, dpKath, '', null, null, '', null, null, '', null, null );
 	};
 	KatherineEmployment.prototype.katherineGetsEmployed = function() {	//This scene plays automatically the first time that the player goes to Tel’Adre after Kath’s training is done
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you make your way past the familiar sight of the gate guards to Tel’Adre, you think one of them looks familiar.  Then, a moment later, you recognize who she is and stop.  There, grinning widely at you, clad in the usual armor and helmet of the Watch and with a brand-new sword strapped to her waist, is Katherine.\n\n' );
 		EngineCore.outputText( '“<i>Hi, ' + CoC.player.short + ' - what, didn’t you recognize me?</i>” she jokes.  “<i>I finally did it!  I’m in the Watch now - I have a job and a home and everything, and I owe it all to you' + (CoC.flags[ kFLAGS.KATHERINE_TRAINING ] === 200 ? ' and Captain Urta' : '') + '!</i>”\n\n' );
 		EngineCore.outputText( 'You smile proudly and congratulate her, asking how she’s handling the changes?\n\n' );
@@ -1110,7 +1110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, AppearanceDefs, Appearance, U
 		SceneLib.telAdre.telAdreMenuShow();
 	};
 	KatherineEmployment.prototype.postTrainingAlleyDescription = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You go into the alleyway behind Oswald\'s shop.  It seems empty without a happy cat-morph to greet you.\n\n' );
 		EngineCore.outputText( 'Looking closely you notice a few of the secret hiding spots among the crates have been emptied.  Kath must have been here to collect some of her more sentimental possessions.\n\n' );
 		if( !SceneLib.katherine.isAt( SceneLib.katherine.KLOC_KATHS_APT ) ) { //Only possible if she's already been seen on guard duty at the gate and you've slept once since

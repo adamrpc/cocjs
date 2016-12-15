@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ConsumableLib, Combat, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ConsumableLib, Combat, OnLoadVariables ) {
 	function Mountain() {
 	}
 
@@ -276,7 +276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		}
 	};
 	Mountain.prototype.joinBeingAMinoCumSlut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The prospect of getting a huge dose of that fresh minotaur cum is just too much to bear.  Before you realize what\'s happening, you\'re moving out of your rocky hiding spot and making your way down to the two bovine creatures, stripping your [armor] as you go.  By the time you reach the two figures, you\'re as naked as they are.  You shiver softly, whether due to some chill in the air or desperate anticipation, you can\'t say.' );
 		EngineCore.outputText( '\n\nThe cow-girl is bent over, her hands on a low ledge with the minotaurs hands on either side of her ample ass.  She moans, more like a moo than a human groan, as the minotaur plunges into her quaking depths.  As you step forward, suddenly unsure of yourself, both the bull and the cow turn their sharp gazes on to you.  You feel very small' );
 		if( CoC.player.tallness <= 96 ) {
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		SceneLib.inventory.takeItem( ConsumableLib.MINOCUM, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Mountain.prototype.watchAMinoCumSlut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Deciding not to risk it, you settle back into your nook in the rocks and watch on eagerly.  The cow-girl turns and places her hands on a low ledge, causing her to bend over, her ample ass facing the minotaur.  The minotaur closes the distance between them in a single step.' );
 		EngineCore.outputText( '\n\nShe bellows, almost moaning, as the minotaur grabs her cushiony ass-cheeks with both massive hands.  Her tail raises to expose a glistening wet snatch, its lips already parted with desire.  She moos again as his rapidly hardening bull-cock brushes her crotch. You can\'t tear your eyes away as he positions himself, his flaring, mushroom-like cock-head eliciting another moan as it pushes against her nether lips.' );
 		EngineCore.outputText( '\n\nWith a hearty thrust, the minotaur plunges into the cow-girl\'s eager fuck-hole, burying himself past one -- two of his oversized cock\'s three ridge rings.  She screams in half pain, half ecstasy and pushes back, hungry for his full length.  After pulling back only slightly, he pushes deeper, driving every inch of his gigantic dick into his willing partner who writhes in pleasure, impaled exactly as she wanted.' );
@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CoC, kFLAGS, Utils, Sta
 		EngineCore.addButton( 0, 'Next', this, this.watchMinoCumSlutII );
 	};
 	Mountain.prototype.watchMinoCumSlutII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'They go at it for nearly an hour, oblivious to you watching them, before their intensity heightens as they near orgasm.  The results are almost explosive, both of them crying out as they begin twitching uncontrollably.  Clinging desperately to the cow-girl\'s ass, the minotaur pumps so much cum into her depths that it begins spurting out.  This accidental lubrication releases his grip and the pair collapse to the ground.  Yet the minotaur isn\'t finished, his man-milk spraying into the air almost like his still-erect dick is a hose and splattering down onto both of them.' );
 		EngineCore.outputText( '\n\nAs you look at the two cum-covered creatures laying there in their exhausted sex-induced stupors, the minotaur\'s thick horse-cock now slowly deflating, you realize that you\'ve been touching yourself.  You make yourself stop in disgust.' );
 		EngineCore.outputText( '\n\nOnly now do you notice other faces peeking over ledges and ridges.  You count at least two goblins and one imp who quickly pull back.  From the sounds, they were busy getting themselves off.  Apparently this isn\'t an uncommon show, and the locals enjoy it immensely.' );

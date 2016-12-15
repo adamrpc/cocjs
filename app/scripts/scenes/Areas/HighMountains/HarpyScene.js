@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Combat, Descriptors, Utils, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kFLAGS, Combat, Descriptors, Utils, AppearanceDefs ) {
 	function HarpyScene() {
 	}
 
@@ -605,7 +605,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		EngineCore.dynStats( 'lib', 1 );
 	};
 	HarpyScene.prototype.harpyScissorSurprise = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stare down at the defeated harpy, watching as ' );
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'her arms tremble from the effort of trying to keep her body from collapsing to the floor.' );
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	};
 	//{New page}
 	HarpyScene.prototype.harpyScissorSurprisePtII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Planting your [foot] squarely on her chest you push her onto her back, her tongue still vainly lapping at the air in a lust-filled daze on the way down.  Before she has time to recover you remove the remainder of your [armor] and grab her wrists, coming down on top of her and pinning her arms above her head as you straddle her [if (isHerm = true) your cock resting on her toned stomach].  Her tits heave gently as she squirms, desperately trying to stimulate her soaked pussy.  She starts to rub her legs together but you stop her almost immediately, grabbing a leg just above the talon with your free hand and yanking it away, revealing her obscenely puffy sex and drenched thighs.  She whimpers pathetically at you, virtually begging for release, the desperation and desire in her eyes clear to see.' );
 		EngineCore.outputText( '\n\nGrinning at the girl, you shift so that your legs intertwine, steadying yourself as your crotch hovers above her own.  Your firm grip on her leg allows you to spread her thighs even further, your knee blocking her from closing her legs.  She\'s writhing madly by now, trying to break your grip and do something to quench the need between her legs, most of the feathers on her thighs having become a sodden mess.  Gently thrusting your hips, your slick lips brush tantalisingly across the harpy\'s own, drawing out a soft sigh from your own mouth and a gasp of pleasure from the other party.  Releasing her leg, you reposition it so that it is now trapped by your own. You move a hand to her breasts and start pinching and flicking the hard nubs of her nipples, teasing her with the lack of attention to her pussy.  She moans and quivers, clenching her teeth as she tries desperately not to cry out.  You move your hips again, putting a little more force behind it this time and fully grinding your crotches together.  The feeling of her wet lips slipping across your own, your stiff button bumping into hers, is overpowering.  You moan loudly, but it is completely muffled as your partner arches her back and cries out like the little slut she is, her body spasming wildly.  Was that all it took to push her over the edge?  Unluckily for her, you\'re not even close to finishing yet.' );
 		EngineCore.outputText( '\n\nHer sensitive snatch is still quivering as you continue to slide against it, the small feathers on her thighs tickling your ' + CoC.player.skin() + ' as you mash together faster and faster.[if (isHerm = true) "  Your [cock] bounces with each thrust that hits, the harpy\'s stomach with a sharp slap and spraying ropes of pre-cum over her, covering her abdomen and the bottom of her breasts with thick streaks of fluid."]  The harpy shudders with each long stroke of your hips and you lean forwards, lying your upper body down on top of hers and squashing your [chest] against her own pert tits.[if (isHerm = true) "  The move traps your throbbing [cock] between your two taut, sweat-slicked bodies, the crushing sensation nearly making you peak.  You steel yourself though, your shaft instead releasing a veritable flood of pre-cum, the slick juice pooling in the harpy\'s bellybutton and making its way down the cleft of her pussy, soaking both the ground and your interlocked thighs even more."]  Your move the hand that had been playing with her nipples, sliding it sensually down her side, [if (isHerm = true) "smearing some of the pre-cum leaking from between your bodies into the girl\'s skin as it goes, eventually "]slipping around to her full asscheeks and squeezing one of the soft pillows roughly.  You start pulling her hips so they slam into yours in time with your own thrusts, relishing in the force of the contact between your two bodies, feeling the ripples of her luscious ass with each hit. Her heavy panting seems to get even more husky as your face gets closer to hers, hard nipples gently prod your boobs as her chest heaves with exertion. Her recent orgasm does little to help her body keep up with your savage assault.' );
@@ -657,7 +657,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		Combat.cleanupAfterCombat();
 	};
 	HarpyScene.prototype.spoidahsLegEggsInHarpeis = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//requires spiderbite or naga bite
 		EngineCore.outputText( 'Perched above the downed bird-bitch, you look her over as you weigh up your options.  Your eyes slide across her petite breasts, tracing her curves until your gaze rests upon her flared hips and curvaceous ass.  Unfortunately your appreciation of the finer things in life is interrupted by the feather-brained eyecandy; she simply will not stop squawking.' );
 		EngineCore.outputText( '\n\nYou watch her golden-hued lips move, though every bit of noise that escapes them just heightens your irritation a little more.  The sight of her lipstick as it catches the light makes you wonder; the harpies use drug-laced cosmetics to catch potential mates.  Without males, the eggs they lay will never hatch.' );
@@ -707,7 +707,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	};
 	//Fuck a harpy with the players throbbing clit.
 	HarpyScene.prototype.clitFuckAHarpy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Eyeing the hapless bird-woman up and down, you feel your lusts kindling.  Moisture seeps from your [vagina] as you watch the harpy ' );
 		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'moan and masturbate, dipping her fingers into her honey-pot with wild abandon.' );

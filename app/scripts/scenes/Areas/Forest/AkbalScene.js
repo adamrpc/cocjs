@@ -864,7 +864,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	 Evasion+5
 	 */
 	AkbalScene.prototype.akbalBigButtSubmit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-bigbuttanaled' ) );
 		EngineCore.outputText( 'Smiling in anticipation of servicing the jaguar-lord once more, you remove your [armor] and drop down to all fours, slowly lowering your face down to the ground.  You give your [butt] a slow back-and-forth wiggle as your cheek comes to rest on the dirt, degrading yourself for your demon-god\'s enjoyment.' );
 		EngineCore.outputText( '\n\nA deep-timbred voice resounds through your open mind, purring, "<i>A suitable offering.</i>"  The pleased undertones leave no doubt as to your feline master\'s opinion - he likes how you look back there.  The panther\'s softly-padded paws land on your [butt] almost immediately, though as they squeeze and explore the spacious expanse, they gradually twist and lengthen, forming into human digits.  Bones crack and tendons creak as the angle of Akbal\'s butt-groping pressure changes, suggesting a taller, bipedal shape.  You flick your eyes down submissively, but for a second, you get to see your panther-lord looming over you, fascinated by your bubbly butt.  His body is muscular and toned, sheathed in a veneer of silky black fur that shines like oil.  He is, in a word, glorious.' );
@@ -943,7 +943,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	//Akbal’s My Bitch Expansion
 	//Auto Rape Intro Scene
 	AkbalScene.prototype.akbitchEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you explore the deep woods you begin to hear a soft slurping sound. In this world you know that any strange sound, especially the wet ones, most likely means something dangerous is up ahead... or something dangerous is fucking something a little less dangerous.  As you cautiously advance you spy the pelt of the jaguar demon, Akbal.  The demon jaguar sits in the middle of the clearing with one leg extended as he repeatedly swipes his wide tongue against his hole, probably cleaning up imp spunk thanks to you.  He is so utterly focused on the task that he doesn’t notice your approach.' );
 		CoC.flags[ kFLAGS.AKBAL_BITCH_Q ] = 1;
 		//{corruption < 40/choose no}
@@ -959,7 +959,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	AkbalScene.prototype.akbitchNoThnx = function( clear ) {
 		if( clear === undefined || clear ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -971,7 +971,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//{Choose Rape}
 	AkbalScene.prototype.takeAdvantageOfAkbitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You creep behind the many woods trees surrounding Akbal’s clearing until your eyes chance upon a vine.  It’s spongy, long, and hard to rip apart - in other words: perfect.' );
 		//{if player has feet/centaur}
 		if( !CoC.player.isNaga() ) {
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//Basic AMB Scene (no +70 stats)
 	AkbalScene.prototype.basicAkbitchScene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a grin, you tug on Akbal’s collar, and he lets out a barely suppressed purr.  ' );
 		if( CoC.flags[ kFLAGS.AKBAL_TIMES_BITCHED ] === 1 ) {
 			EngineCore.outputText( 'The smile on your [face] spreads even wider as the unexpected sound tells you you’ve turned this demonic sexual predator into your own personal slut.  As if to confirm this, h' );
@@ -1039,7 +1039,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//Butt Fuck - Vaginal - Anal
 	AkbalScene.prototype.buttFuckbuttFuckbuttFuckAkbal = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-male-buttfuck' ) );
 		//[if (hasCock = true)]
 		if( CoC.player.hasCock() ) {
@@ -1062,7 +1062,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//- page turn -
 	AkbalScene.prototype.fuckAkbitchsButt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-male-buttfuck2' ) );
 		EngineCore.outputText( 'Without warning, Akbal’s insides become vacuum tight.  Convulsions rocket through his body and you realize he has reached his climax without any attention to his barbed dick.  ' );
@@ -1089,7 +1089,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	AkbalScene.prototype.topAkbitchFromDaBottom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-male-akbalonback' ) );
 		//[{if goo legs}]
 		if( CoC.player.isGoo() ) {
@@ -1109,7 +1109,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.addButton( 0, 'Next', this, this.topAkbitchFromBottomDuex );
 	};
 	AkbalScene.prototype.topAkbitchFromBottomDuex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-male-akbalonback2' ) );
 		//-page turn-
 		//{tight/virgin vag/ass}
@@ -1153,7 +1153,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	//AMB Strength Scene
 	//70+
 	AkbalScene.prototype.akbitchHighStrengthVariant = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a wicked grin, you rip off your [armor] and grab the bound demon by the scruff on his neck.  He does this sexy little wiggle as you hoist him until he reaches eye level, easily manipulating his light weight as you inspect his slim, toned body.  His chest heaves, his nipples stand at attention, and his erect demon-cat dick drools a heavy river of thick cream, darkening the fur on his sack and inner thighs.  This is going to be fun.' );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-male-highstrength' ) );
@@ -1257,7 +1257,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	//AMB Speed Scene
 	//70
 	AkbalScene.prototype.akbalBitchSpeed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Akbal groans as he lies face first in the dirt.  His body has already morphed into a more humanoid form.  You smile as you watch him hump the grass, two hollows forming in his ass cheeks as they clench and unclench.  The sight of him futilely trying to stimulate himself gets you so hot you practically rip off your [armor] and grab the tied up demon with a grin.' );
 		EngineCore.outputText( '\n\n"<i>[Master],</i>" Akbal’s chorus of voices croons in your mind.' );
 		var x = CoC.player.biggestCockIndex();
@@ -1346,7 +1346,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	//AMB Toughness Scene
 	//70
 	AkbalScene.prototype.akbitchToughness = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[if (toughness > 70)]
 		EngineCore.outputText( 'You look down at your handywork and marvel at the fact that being ambushed and dominated has turned the demon on enough for him to shift forms.  Yet you wonder how much the demon jaguar really likes this type of thing...  You grab the vine hanging from his makeshift collar with a malicious grin spreading across your [face].  You step away and with a silent tug, you tell him to come.  His pride sparkles in his burning green eyes and he remains, baring his teeth in a low growl.  One more sudden yank causes him to begin wiggling on the ground, his hands being tied behind his back making it harder for him to move.  Every muscle on his lean body is tense and you know this self-proclaimed "<i>god</i>" hates you.  You smile as you watch his muscled ass shift beneath his spotted fur as he shortens the distance between the two of you.  Once he’s close enough you squat. Reaching down you grab his face and look into those desperately defiant eyes.  You can tell from the way he moves his hot little ass around that his erection is bothering him.  His eyes fall to your [feet] as he tries to stifle a purr.' );
 		EngineCore.outputText( '\n\nAs the sound hits your ears, ' );

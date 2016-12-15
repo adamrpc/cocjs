@@ -134,11 +134,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		}
 	};
 	XmasBitch.prototype.futaDickXmasElfClr = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.dickXmasElfGo();
 	};
 	XmasBitch.prototype.futaVagXmasElfClr = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.vagFuckXmasElf();
 	};
 
@@ -285,7 +285,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 			}
 			EngineCore.outputText( '<b>New Perk Acquired - Elven Bounty!</b>', true );
 		} else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b>Perk Enhanced - Elven Bounty!</b>' );
 			if( XMAS_BITCH_STATUS === 1001 ) {
 				CoC.player.addPerkValue( PerkLib.ElvenBounty, 1, 250 );

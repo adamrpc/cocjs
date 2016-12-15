@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		}
 	};
 	CeraphFollowerScene.prototype.helpWithFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.ceraphSprite();
 		EngineCore.outputText( 'You ask Ceraph if she can help you with the farm you recently acquired.' );
 		EngineCore.outputText( '\n\n“<i>You mean work on a farm? Don’t be ridiculous, [name]!</i>” She chortles, before coughing as she catches your expression. “<i>I don’t think me or any of my pets are cut out for farming,</i>” she says, tapping her chin. “<i>Or at least not that kind you have in mind. But I could mark the place as being under demon protection if you like. I can only do it once,</i>” she warns. “<i>And it will wear off eventually.</i>”' );
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		EngineCore.addButton( 1, 'Later', this, this.noFarmShitYet );
 	};
 	CeraphFollowerScene.prototype.doFarmShit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.ceraphSprite();
 		EngineCore.outputText( '“<i>I’ll go over there tonight then,</i>” she says. There’s a far-away gleam of excitement in her eyes as she tugs on a nipple; only now does it occur to you what ‘marked as being under demon protection’ might entail. “<i>Anything else, [master]?</i>”' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_CERAPH ] = 1;
@@ -95,13 +95,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		this.ceraphFollowerAppearance( false );
 	};
 	CeraphFollowerScene.prototype.noFarmShitYet = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.ceraphSprite();
 		EngineCore.outputText( '“<i>Very well,</i>” she smirks. “<i>Anything else?</i>”' );
 		this.ceraphFollowerAppearance( false );
 	};
 	CeraphFollowerScene.prototype.ceraphSexMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var maleFuck = null;
 		var femaleFuck = null;
 		var hermFuck = null;
@@ -1519,7 +1519,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	};
 	CeraphFollowerScene.prototype.giveFollowerBodyBits = function() {
 		EngineCore.spriteSelect( 87 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Ceraph just what all giving up a body-part would entail.  Your submissive demonic slut presses herself against you, stroking her hands under your ' + CoC.player.armorName + ' as she answers, "<i>Well, [Master], I would use my body-shifting black magics to remove a choice portion of your \'fun-bits\', if you know my meaning.' );
 		if( CoC.player.hasCock() || CoC.player.hasVagina() || CoC.player.hasBreasts() ) {
 			if( CoC.player.hasCock() ) {
@@ -1574,7 +1574,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	};
 	CeraphFollowerScene.prototype.ceraphFollowerCockTaking = function( smallest ) {
 		EngineCore.spriteSelect( 87 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		if( smallest ) {
 			x = CoC.player.smallestCockIndex();
@@ -1607,7 +1607,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	};
 	CeraphFollowerScene.prototype.ceraphFollowerCuntTaking = function() {
 		EngineCore.spriteSelect( 87 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You undress, just enough to point at your [vagina].  Ceraph smiles happily and muses, "<i>I have just the troublesome slut that could learn a thing or two by having her mouth replaced by a pussy.  Face-fucking is such an effective discipline technique, thank you dear.</i>"' );
 		EngineCore.outputText( '\n\nCeraph\'s fingernails stab at your ' + CoC.player.skinDesc + ' painfully, dragging them in a circular motion around your vulva.  The pain of the action fades to a gentle, throbbing heat while her fingers go deeper, corkscrewing through your flesh.  A second later she pulls back, a featureless pillar of flesh wrapped in skin and sitting in her hand, topped with your ' + Descriptors.vaginaDescript() + '.  The other end is capped with a strange, arcane mark, seemingly tattooed into the skin.  You glance down, expecting to find your groin ruined, but the spot your vagina once occupied is replaced with bare, unmarked skin.', false );
 		EngineCore.outputText( '\n\nThe demon slips a finger into her hand-held pussy, and you inexplicably moan, still feeling every sensation with perfect clarity.  She plays with it for a few more seconds, the gentle \'schlick-schlick-schlick\' of her fingers carrying through the air before she seems to tire of teasing you.', false );
@@ -1626,7 +1626,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 			rowNum = 0;
 		}
 		EngineCore.spriteSelect( 87 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = rowNum;
 		//Store nipplecuntz or milks;
 		if( CoC.player.breastRows[ x ].fuckable ) {
@@ -1689,7 +1689,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	//NippleCunt Stuffing (Ceraph grows dick-nipples to plow your lusty twats!);
 	CeraphFollowerScene.prototype.stuffSomeNippleCunts = function() {
 		EngineCore.spriteSelect( 87 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Wanting to take advantage of some of the more extreme of your body\'s changes, you pull down your [armor] to bare your hungry nipple-twats, the well-lubricated tips of your nipples slowly opening in anticipation of what\'s to come.  You kick the discarded gear aside and command, "<i>Slave, fuck my nipples.</i>"' );
 		EngineCore.outputText( '\n\nCeraph looks at you, then down at your chest, and finally back up at you with a look of incredulousness glinting in her eyes.  "<i>You want... [Master] is... kinky,</i>" she coos, peeling out of her tight outfit to bare her demonic bosom.  Your demonic slave approaches, hips swaying as her bottom falls away to display her puffy purple womanhood' );
 		if( CoC.flags[ kFLAGS.CERAPH_HIDING_DICK ] === 0 ) {
@@ -1751,7 +1751,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	//Portal Fuck (AKA Ceraph Hung Out With Cinnabar, Req's PC dick);
 	CeraphFollowerScene.prototype.portalFuckWithFollowerCeraph = function() {
 		EngineCore.spriteSelect( 87 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 100 );
 		var y = x + 1;
 		//FIRST TIME:;
@@ -1802,7 +1802,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	CeraphFollowerScene.prototype.layEggsInSlaveCeraph = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Either Type on Ceraph Follower: Finished (Posthuman) (Zedit);
 		EngineCore.outputText( 'You ' );
 		if( !CoC.player.isTaur() ) {
@@ -1853,7 +1853,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	//Ceraph Pegging + Bonus Petplay!;
 	//Adds 'Submission' option to the roleplay menu.;
 	CeraphFollowerScene.prototype.sumissivenessToCeraphFollower = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 87 );
 		EngineCore.outputText( 'When you broach the idea of submitting to your fetish queen, delight washes across Ceraph\'s face.  Before another word can be spoken, she lashes out with her whip (where did she get that from?) and catches you around the neck with the taut leather, yanking hard enough to drag you to the ground and make you sputter for air.  The shining leather slides off as soon as your hands hit the ground, but the demoness is already standing above you, pushing on you with her stiletto-like heels to roll you aside.' );
 		EngineCore.outputText( '\n\n"<i>That\'s a better place for a useless little ' + CoC.player.mf( 'boy', 'girl' ) + ' like you, down in the dirt where you belong,</i>" the demoness declares, pacing back and forth.  She crouches next to you and whispers in your ear, "<i>The safe word is \'apple\', you pitiful pig.</i>"' );
@@ -1911,7 +1911,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 	};
 	//[Apple];
 	CeraphFollowerScene.prototype.sayAppleToCeraph = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 87 );
 		EngineCore.outputText( 'Fuck this!  "<i>Apple!</i>"' );
 		EngineCore.outputText( '\n\nCeraph gets up with a shocked expression painted on her violet features.  "<i>Didn\'t you have any fun?</i>" she asks.  "<i>We were just about to the good part!</i>"' );
@@ -1924,7 +1924,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		if( dog === undefined ) {
 			dog = true;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 87 );
 		EngineCore.outputText( '"<i>' );
 		if( dog ) {
@@ -2140,7 +2140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		if( dog === undefined ) {
 			dog = true;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 87 );
 		EngineCore.outputText( '"<i>' );
 		if( dog ) {

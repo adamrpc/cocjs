@@ -724,7 +724,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 		CoC.flags[ kFLAGS.DOMINIKA_TIMES_HYPNO_BJ ]++;
 		CoC.time.days++;
 		CoC.time.hours = 7;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'dominika', new Dominika() );

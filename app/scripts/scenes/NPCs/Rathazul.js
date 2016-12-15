@@ -82,13 +82,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		}
 	};
 	Rathazul.prototype.rathazulMoveToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul smiles happily back at you and begins packing up his equipment.  He mutters over his shoulder, "<i>It will take me a while to get my equipment moved over, but you head on back and I\'ll see you within the hour.  Oh my, yes.</i>"\n\nHe has the look of someone experiencing hope for the first time in a long time.' );
 		CoC.player.createStatusAffect( StatusAffects.CampRathazul, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Rathazul.prototype.rathazulMoveDecline = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul wheezes out a sigh, and nods.\n\n"<i>Perhaps I\'ll still be of some use out here after all,</i>" he mutters as he packs up his camp and prepares to head to another spot along the lake.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -308,7 +308,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.purifySomething = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul asks, "<i>What would you like me to purify?</i>"' );
 		EngineCore.menu();
 		//Item purification offer;
@@ -328,7 +328,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 
 	Rathazul.prototype.rathazulPurifyIncubiDraft = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
 			EngineCore.doNext( this, this.returnToRathazulMenu );
@@ -337,12 +337,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.destroyItems( ConsumableLib.INCUBID, 1 );
 		SceneLib.inventory.takeItem( ConsumableLib.P_DRAFT, this.returnToRathazulMenu );
 		CoC.player.gems -= 20;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
 
 	Rathazul.prototype.rathazulPurifySuccubiMilk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
 			EngineCore.doNext( this, this.returnToRathazulMenu );
@@ -351,12 +351,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.destroyItems( ConsumableLib.SUCMILK, 1 );
 		SceneLib.inventory.takeItem( ConsumableLib.P_S_MLK, this.returnToRathazulMenu );
 		CoC.player.gems -= 20;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
 
 	Rathazul.prototype.rathazulPurifySuccubiDelight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
 			EngineCore.doNext( this, this.returnToRathazulMenu );
@@ -365,12 +365,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.destroyItems( ConsumableLib.SDELITE, 1 );
 		SceneLib.inventory.takeItem( ConsumableLib.PSDELIT, this.returnToRathazulMenu );
 		CoC.player.gems -= 20;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
 
 	Rathazul.prototype.rathazulPurifyLaBova = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 20 ) {
 			EngineCore.outputText( 'Rathazul says, "<i>You do not have enough gems for that service.</i>"' );
 			EngineCore.doNext( this, this.returnToRathazulMenu );
@@ -379,12 +379,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.destroyItems( ConsumableLib.LABOVA_, 1 );
 		SceneLib.inventory.takeItem( ConsumableLib.P_LBOVA, this.returnToRathazulMenu );
 		CoC.player.gems -= 20;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
 	Rathazul.prototype.rathazulDebimboOffer = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 ) {
 			if( SceneLib.sophieBimbo.bimboSophie() ) {
 				EngineCore.outputText( 'Rathazul glances your way as you approach his lab, a thoughtful expression on his age-lined face.  "<i>Tell me, [name], do you truly enjoy having that vacuous idiot around, lusting after you at all hours of the day?</i>" he asks, shaking his head in frustration.  "<i>She\'s clearly been subjected to the effects of Bimbo Liqueur, which as you can plainly see are quite indeed potent.  However, like most things in Mareth, it can be countered - at least partially.</i>"  Rathazul folds his long, clawed fingers together, his tail lashing behind him as he thinks.  "<i>Perhaps with a sufficient quantity of something called Scholar\'s Tea... I could counter the stupefying effects of the elixir... oh my, yes... hmm...</i>"  Rathazul nods, stroking at the few long wisps of fur that hang from his chin.' );
@@ -408,21 +408,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	//Creation Of The Draft:*;
 	Rathazul.prototype.makeADeBimboDraft = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 49 );
 		EngineCore.outputText( 'Rathazul takes the teas and the gems into his wizened palms, shuffling the glittering jewels into a pouch and the teas into a large decanter.  He promptly sets the combined brews atop a flame and shuffles over to his workbench, where he picks up numerous pouches and vials of every color and description, adding them to the mix one after the other.  The mixture roils and bubbles atop the open flame like a monstrous, eerie thing, but quickly simmers down to a quiet boil.  Rathazul leaves it going for a while, stirring occasionally as he pulls out a smaller vial.  Once most of the excess liquid has evaporated, he pours the concoction into the glass container and corks it, holding it up to the light to check its coloration.' );
 		EngineCore.outputText( '\n\n"<i>That <b>should</b> do,</i>" he mutters to himself.  Rathazul turns, carefully handing you the mixture.  "<i>This should counter the mental-inhibiting effects of the Bimbo Liqueur, but I have no idea to what extent those who imbibe it will retain of their time spent as a bimbo...</i>"\n\n' );
 		//Take items;
 		CoC.player.gems -= 250;
 		CoC.player.consumeItem( ConsumableLib.SMART_T, 5 );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		SceneLib.inventory.takeItem( ConsumableLib.DEBIMBO, this.returnToRathazulMenu );
 	};
 
 	Rathazul.prototype.rathazulArmorMenu = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var beeArmor = (CoC.player.hasItem( UseableLib.B_CHITN, 5 ) ? this.craftCarapace : null);
 		var gelArmor = (CoC.player.hasItem( UseableLib.GREENGL, 5 ) ? this.craftOozeArmor : null);
 		var silk = null;
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'You sort 500 gems into a pouch and toss them to Rathazul, along with the rest of the webbing.  The wizened alchemist snaps the items out of the air with lightning-fast movements and goes to work immediately.  He bustles about with enormous energy, invigorated by the challenging task before him.  It seems Rathazul has completely forgotten about you, but as you turn to leave, he calls out, "<i>What did you want me to make?  A mage\'s robe or some nigh-impenetrable armor?</i>"\n\n', false );
 		CoC.player.gems -= 500;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.destroyItems( UseableLib.T_SSILK, 5 );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Armor', this, this.chooseArmorOrRobes, 1 );
@@ -522,11 +522,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.buyDyes = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul smiles and pulls forth several vials of colored fluids.  Which type of dye would you like?' );
 		EngineCore.outputText( '\n\n<b>(-50 Gems)</b>' );
 		CoC.player.gems -= 50;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Auburn', this, this.buyDye, ConsumableLib.AUBURND );
 		EngineCore.addButton( 1, 'Black', this, this.buyDye, ConsumableLib.BLACK_D );
@@ -539,28 +539,28 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.buyDye = function( dye ) {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		SceneLib.inventory.takeItem( dye, this.returnToRathazulMenu );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 	};
 	Rathazul.prototype.buyDyeNevermind = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You change your mind about the dye, and Rathazul returns your gems.\n\n(<b>+50 Gems</b>)' );
 		CoC.player.gems += 50;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.returnToRathazulMenu );
 	};
 	Rathazul.prototype.buyReducto = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var cost = (CoC.flags[ kFLAGS.AMILY_MET_RATHAZUL ] >= 2 ? 50 : 100);
 		if( CoC.player.gems >= cost ) {
 			EngineCore.outputText( 'Rathazul hands you the Reducto with a nod before returning to his work.\n\n' );
 			CoC.player.gems -= cost;
 			SceneLib.inventory.takeItem( ConsumableLib.REDUCTO, this.returnToRathazulMenu );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		} else {
 			EngineCore.outputText( '"<i>I\'m sorry, but you lack the gems I need to make the trade,</i>" apologizes Rathazul.' );
@@ -569,13 +569,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.growLethiciteDefense = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul asks, "<i>Are you absolutely sure?  Growing this thorn canopy as a defense will use one third of the crystal\'s power.</i>"\n\n(Do you have Rathazul use the crystal to grow a defensive canopy?)' );
 		EngineCore.doYesNo( this, this.growLethiciteDefenseYesYesYes, this, this.growLethiciteDefenseGuessNot );
 	};
 	Rathazul.prototype.growLethiciteDefenseYesYesYes = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul nods and produces a mallet and chisel from his robes.  With surprisingly steady hands for one so old, he holds the chisel against the crystal and taps it, easily cracking off a large shard.  Rathazul gathers it into his hands before slamming it down into the dirt, until only the smallest tip of the crystal is visible.  He produces vials of various substances from his robe, as if by magic, and begins pouring them over the crystal.  In a few seconds, he finishes, and runs back towards his equipment.\n\n"<i>You may want to take a step back,</i>" he warns, but before you have a chance to do anything, a thick trunk covered in thorny vines erupts from the ground.  Thousands of vine-like branches split off the main trunk as it reaches thirty feet in the air, radiating away from the trunk and intertwining with their neighbors as they curve back towards the ground.  In the span of a few minutes, your camp gained a thorn tree and a thick mesh of barbed vines preventing access from above.' );
 		CoC.player.createStatusAffect( StatusAffects.DefenseCanopy, 0, 0, 0, 0 );
 		CoC.player.addStatusValue( StatusAffects.MaraesLethicite, 2, 1 );
@@ -583,7 +583,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.growLethiciteDefenseGuessNot = function() {
 		EngineCore.spriteSelect( 49 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rathazul nods sagely, "<i>That may be wise.  Perhaps there will be another use for this power.' );
 		EngineCore.doNext( this, this.returnToRathazulMenu );
 	};

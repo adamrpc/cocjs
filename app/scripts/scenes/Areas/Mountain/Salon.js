@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, Appearance, Descriptors, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, PerkLib, Appearance, Descriptors, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
 	function Salon() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		} else {
 			CoC.player.gems -= 60;
 			EngineCore.outputText( 'You happily give Lynnette 60 gems and pick up the bottle full of glistening, heavenly cum.  ', true );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			SceneLib.inventory.takeItem( ConsumableLib.MINOCUM, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 		EngineCore.outputText( '\n\n<b>(Salon unlocked in \'places\' menu from camp)</b>', false );
 	};
 	Salon.prototype.hairDresserRepeatGreeting = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 38 );
 		//Chance for mino craziness here;
 		if( Utils.rand( 5 ) === 0 && (CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0) ) {
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 			EngineCore.dynStats( 'lus', 1, 'cor', 1 );
 			CoC.player.lust = 99;
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( this, this.hairDressingMainMenu );
 	};
 	Salon.prototype.gloryholeMinotaur = function() {
@@ -572,7 +572,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, PerkLib, App
 	 */
 	//Impregnate;
 	Salon.prototype.fuckLynnette = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Checks to see if you've cum withint hte past 24 hours.;
 		if( CoC.flags[ kFLAGS.LYNNETTE_FUCK_COUNTER ] === 0 ) {
 			EngineCore.outputText( 'At your suggestion, Lynnette\'s eyelashes flutter dangerously low. She gives you a smokey look and asks, "<i>Is that so?</i>" She circles around you, looking you up and down with eyes that seem to bore right through your [armor]. She must see something she likes, because she dips forward, parting her weighty melons around your ' );

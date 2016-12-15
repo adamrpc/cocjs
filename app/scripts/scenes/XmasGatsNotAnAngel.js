@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS, CoC, EngineCore ) {
 	function XmasGatsNotAnAngel() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 
 	XmasGatsNotAnAngel.prototype.christmasEncounterAngelJunk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.menu();
 		//[Not Christmas];
 		//[Explore > High Mountains];
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 	};
 	XmasGatsNotAnAngel.prototype.dontExploreGatsChristmasTale = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//i. No;
 		EngineCore.outputText( 'In a place like the high mountains, there\'s no warning to be found if you happen to be confronted by danger.  Deciding not to take your chances, you continue to walk down the path you came, leaving the peaks to head straight back to camp.' );
 		EngineCore.outputText( '\n\nIt\'s certainly warmer there.' );
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//ii. Yes;
 	XmasGatsNotAnAngel.prototype.encounterQuoteUnquoteAngel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( !SceneLib.xmasBitch.isHolidays() ) {
 			EngineCore.outputText( 'You haven\'t found anything as of yet, so you figure you might as well keep going.  Following the quiet tune from above, you trace the spiralling side of the snow-capped behemoth, eventually reaching a small cliff hanging beneath the mountain\'s peak.  Upon the cliff, a small lake encompasses the area.  Though it remains frozen, a single soldier lies inside, hugged by an icy grave.' );
 			EngineCore.outputText( '\n\nThe source of the song you had heard appears to be coming from a small, elderly woman huddling over the lake.  She holds a small fishing rod piercing through the icy shell of the water, though by the looks of it there aren\'t even any fish to be found.  Trotting over, you manage to catch her attention.  The old lady pats the soft, snowy ground beneath her, offering a seat by her side.' );
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//5. Solution;
 	XmasGatsNotAnAngel.prototype.findTheWindUpKey = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Upon reaching the base of the mountain, you set off on your quest for the grief-stricken giantess.  A sunken grotto hidden around the mountain\'s base, you recall.  In all your treks over this bump in the land, you\'ve never noticed anything even vaguely resembling the little shelter she described.  However, "sunken" gives you a vital hint to help begin your quest in the right direction.  You remember a steep valley, flooded and forgotten in its tiny alcove amidst the towering earth.  It takes little time at all until you\'ve worked your way around to the unremarkable crater, pushing your way past the dense growth and through the humid mist surrounding it.' );
 		EngineCore.outputText( '\n\nIn a surprisingly bold move, you strip free of your [armor], not wishing to waste thoughts worrying about wet or ruined articles of clothing.  The majority of your time in this land is spent in the nude as it is, so a skinny dip isn\'t so out of the ordinary.  A simple dive into the unusually clear waters marks the next branch of your search.  Sunlight sparkles as it draws rays through the crystal-clean pond, highlighting the darker recess underneath an outcropping of jagged rock.  You surface for another gasp of air before embarking on the next leg of your journey.' );
 		EngineCore.outputText( '\n\nAn odd green glow fades in ahead of you, marking the exit from the engulfed tunnel.  Surprisingly cool, fresh air fills your lungs as you emerge onto the stony beach.  Brushing your [hair] clear away from your face, you can hardly believe your eyes as they set upon the cramped cave.  The entire opening is bathed in a dim green light, radiating from glowing rocks and gems embedded into every imaginable surface.  Dotted among them are tiny, slightly brighter specks of red and pink.  You can\'t help but stare in silent awe at the sight, glancing down at your wet hands to bask in the deep, inviting glow.  This has to be the place.' );
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//ii. Bringing the Key Back;
 	//Activates upon returning to the High Mountains after the previous scene, before X amount of hours or X amount of time past Dec 25th (presumably);
 	XmasGatsNotAnAngel.prototype.giveThatBitchAKeyYo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//if in time!;
 		if( CoC.flags[ kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY ] < 150 ) {
 			EngineCore.outputText( 'All throughout your perilous climb, you cannot help but ogle at the brilliant little crystal key.  You have a suspicion as to how this innocent little key will help the crying colossus on the peak, but you are not completely sure this is the artifact she required.  But you have a hunch that it is.' );
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//6. Corrupt End #1;
 	XmasGatsNotAnAngel.prototype.theWorstEndingEverDotJPG = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Requirements: Choosing [Fuck the Soldier] at the prompt;
 		EngineCore.outputText( 'Still listlessly spinning the windup key around your pointer finger, you gaze back down at the pile of armor buried in the snow.  A strange amount of curiosity surrounds this peculiar set of protection, only mounting the longer you stare at it.  It isn\'t like you owe anything to the slumbering titan.  Just what could she see in something a mere fraction her size?  Maybe this is some sort of dominating fantasy of hers; you\'ve been around the block enough times to know that not everything is at it appears.  There\'s no telling just what she has in store for her little creation.  You may actually get to be a hero!' );
 		EngineCore.outputText( '\n\nAnd, hey, if the windup key does fuck all, at least you get a free set of armor out of the deal!' );
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	//7. Corrupt End #2;
 	//Requirements: Choosing [Fuck the Angel] at the prompt;
 	XmasGatsNotAnAngel.prototype.fuckTheAngelBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The spirit lies comfortably upon the pillowy white ground, laying in wait for the moment she awakes to her mechanical lover.  Unfortunately, you\'re the one with the key.  The one with the fate of two lovers twirling around your finger.  They\'re both quite still, frozen upon your decision.  Well!  No need to wait any longer - there\'s fun to be had this winter, and the sight of that divine giantess is getting you antsy.' );
 		EngineCore.outputText( '\n\nRunning towards the mocha-colored titan, you disturb the side of the mountain peak, causing lumps of snow to fall upon her head.  It\'s one way to wake her up for sure, as she slowly removes her head from the cliff\'s edge.' );
 		EngineCore.outputText( '\n\n"<i>Hnn... ? North, is that you?</i>"' );
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.addButton( 0, 'Next', this, this.fuckTheAngelBadEndPartII );
 	};
 	XmasGatsNotAnAngel.prototype.fuckTheAngelBadEndPartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'It shakes, and - wait, it\'s shaking?  You walk towards him, still naked from your recent session with his lover.  It appears to be vibrating with a sense of... sadness, you\'d guess.  You look inside, but nothing can be found.  Was it really dead, or just unable to move?  It soons stops though, and both you and the giantess stare at the cold figure of the soldier.' );
 		EngineCore.outputText( '\n\nOf course, you kick it over, while it thumps into the snow.  Whatever it was doing before, it\'s certainly gone now.  You turn back to your new lover, and - oh no.' );
 		EngineCore.outputText( '\n\nShe\'s sobbing, and it\'s hardly a light drizzle, either.  Her eyes are filled with a watery melancholy that you haven\'t quite seen before.  She spits, trying to regain her composure.' );
@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//8. Good End;
 	XmasGatsNotAnAngel.prototype.goodEndForChristmasMiracleICant = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Requirements: Choosing [Give the Key] at the prompt;
 		//completely fucking tender let's get moe;
 		EngineCore.outputText( 'After everything you\'ve heard, the decision seems clear enough.  Holding your prize above your head, you start forward, calling to the gargantuan woman to announce your successes.  Her eyes flutter open at your voice, and she raises her head to regard you.  Seeing the key to her love (both metaphorically and physically), her expression brightens exponentially.  She beams a brilliant and nearly blinding grin, allowing herself hope for the first time in quite a while.  "<i>[name], did you... could you have...</i>"' );
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.addButton( 0, 'Next', this, this.goodEndForChristmasMiracleICantII );
 	};
 	XmasGatsNotAnAngel.prototype.goodEndForChristmasMiracleICantII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'North throws his arms out wide, armor hardly protesting to the sudden movement.  The action gives the giantess pause for a moment, but she swiftly understands the motivation and raises her hand to the beckoning knight.  She crooks her little finger toward North, and he throws himself around it, expressing his feelings in a tight and passionate hug.  The giantess gazes down at her little knight with a loving smile, and they hold the pose for a remarkably long time.' );
 		EngineCore.outputText( '\n\nThe seemingly divine titan worryingly crooks her eye over to you, and in an attempt to shoosh you away, she nods her head towards the mountain\'s exit, implying that they\'re going to spend some time to themselves. Of course, there\'s a chance you can probably stick around for some weird-ass action. Would you prefer to stay behind, or do you excuse them temporarily?' );
 		EngineCore.menu();
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//If Leave;
 	XmasGatsNotAnAngel.prototype.goodEndLeaveBeforeSexings = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You get the message, feeling that letting them do their own thing might be for the best.  With a hasty pardon, you promptly turn around and walk a good twenty yards down the mountainside, idly playing in the snow while the two reunited lovebirds do their thing.' );
 		EngineCore.outputText( '\n\nYou hear the sound of a gentle humming in the distance, and you figure that the two lovers might be quite done with their \'honeymoon\'.' );
 		//[Go to Conclusion];
@@ -371,7 +371,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//If Stay;
 	XmasGatsNotAnAngel.prototype.stayForPretendNTRGoodWinjobSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You prefer to stay here, but the frosty giant has already gone back to her mechanical man, so you hold your explanation and continue to observe.' );
 		EngineCore.outputText( '\n\nFinally, she draws away, North reluctantly releasing his hold on her pinky.  The giant woman unexpectedly groans, running her arms from her chest to what you could only assume to be her waist - you can\'t exactly see from your current perch, and as you wish to remain as impartial a bystander that you can in this situation, you don\'t bother inching to the edge of the cliff.' );
 		EngineCore.outputText( '\n\nHer shoulders shift back, and with a little grunt, she... begins to raise herself, by the looks of it!  She shuffles back as her hips rise, lifting her butt above the cliff, and then slamming the soft pillows against the rock.  While it groans in protest, the overhang holds the weight well enough, leaving you and North face-to-face with his lover\'s titanic undercarriage.' );
@@ -409,7 +409,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	//[Conclusion];
 	XmasGatsNotAnAngel.prototype.conclusionOfGiantessGoodEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The air is crisp, and the light powdering of snow floats through the air as if playing an invisible melody.  The warm couple are together.  Lifting her head, the giantess beams at you with a refreshing sense of spirit.' );
 		EngineCore.outputText( '\n\n"<i>I can\'t believe anything that has happened to me today... it\'s all thanks to you.  Thank you for bringing North back to me, and thank you for relighting a fire that had gone out so, so long ago.</i>"' );
 		EngineCore.outputText( '\n\nYou bow in some sense of obligation, yet the chestnut titaness giggles at your formality.  North automatically returns the gesture, and you all share a moment of laughter.  The mechanical soldier is lifted up by her lover and placed upon her shoulder, his legs dangling off the edge.  You give them a friendly nod and a happy smile before realizing how tired you were after this whole affair.  Telling the two as much, you chuckle victoriously, proud of your exploits and of the potential stories you could tell regarding the reunion of an spirit and her favorite little soldier.' );

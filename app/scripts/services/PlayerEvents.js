@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				if( CoC.player.lib < 1 ) {
 					CoC.player.lib = 1;
 				}
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 				EngineCore.outputText( '\n<b>Your body calms down, at last getting over your heat.</b>\n' );
 				needNext = true;
 			} else {
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				if( CoC.player.lib < 10 ) {
 					CoC.player.lib = 10;
 				}
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 				EngineCore.outputText( '\n<b>Your body calms down, at last getting over your rut.</b>\n' );
 				needNext = true;
 			} else {

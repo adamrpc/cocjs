@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables ) {
 	function Bog() {
 	}
 
@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, EngineCore, kFLAG
 		} else if( Utils.rand( 2 ) === 0 ) {
 			SceneLib.chameleonGirlScene.encounterChameleon();
 		} else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You wander around through the humid muck, but you don\'t run into anything interesting.' );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}

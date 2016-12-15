@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Pregnancy() {
 	}
 
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Mutations, StatusAffects, Pre
 			if( CoC.player.lib < 10 ) {
 				CoC.player.lib = 10;
 			}
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			CoC.player.removeStatusAffect( StatusAffects.Heat );
 			displayedUpdate = true;
 		}

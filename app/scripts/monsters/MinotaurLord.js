@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, WeaponLib, Combat, EngineCore, CockTypesEnum, Utils, AppearanceDefs, Monster, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView, CoC, WeaponLib, Combat, EngineCore, CockTypesEnum, Utils, AppearanceDefs, Monster, StatusAffects ) {
 	function MinotaurLord() {
 		this.init(this, arguments);
 	}
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, CoC, Weap
 		Combat.combatRoundOver();
 	};
 	MinotaurLord.prototype.defeated = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The minotaur lord is defeated!  ' );
 		EngineCore.outputText( '  You could use him for a quick fuck to sate your lusts before continuing on.  Do you?' );
 		EngineCore.menu();

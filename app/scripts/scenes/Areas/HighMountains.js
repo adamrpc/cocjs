@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 	//"<i>Chicken Harpy</i>" by Jay Gatsby and not Savin he didn't do ANYTHING
 	//Initial Intro
 	HighMountains.prototype.chickenHarpy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 90 );
 		if( CoC.flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ] === 0 ) {
 			EngineCore.outputText( 'Taking a stroll along the mountains, you come across a peculiar-looking harpy wandering around with a large wooden cart in tow.  She\'s far shorter and bustier than any regular harpy you\'ve seen before, reaching barely 4\' in height but managing to retain some semblance of their thick feminine asses.  In addition to the fluffy white feathers decorating her body, the bird-woman sports about three more combed back upon her forehead like a quiff, vividly red in color.' );
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 	};
 	//If Give Two
 	HighMountains.prototype.giveTwoOviElix = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 90 );
 		CoC.player.consumeItem( ConsumableLib.OVIELIX );
 		CoC.player.consumeItem( ConsumableLib.OVIELIX );
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 	};
 	//If Give Three
 	HighMountains.prototype.giveThreeOviElix = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 90 );
 		CoC.player.consumeItem( ConsumableLib.OVIELIX, 3 );
 		EngineCore.outputText( 'You hand over three elixirs, the harpy ecstatic over the fact that you\'re willing to part with them.  In return, she unties a side of the sheet atop the cart, allowing you to take a look at a large collection of her eggs.' );
@@ -162,7 +162,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 	};
 	//All Text
 	HighMountains.prototype.getHarpyEgg = function( itype ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 90 );
 		CoC.flags[ kFLAGS.EGGS_BOUGHT ]++;
 		EngineCore.outputText( 'You take ' + itype.longName + ', and the harpy nods in regards to your decision.  Prepping her cart back up for the road, she gives you a final wave goodbye before heading back down through the mountains.\n\n' );
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 	};
 	//If No
 	HighMountains.prototype.leaveChickenx = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 90 );
 		EngineCore.outputText( 'At the polite decline of her offer, the chicken harpy gives a warm smile before picking her cart back up and continuing along the path through the mountains.' );
 		EngineCore.outputText( '\n\nYou decide to take your own path, heading back to camp while you can.' );

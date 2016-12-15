@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, Descriptors, $log, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descriptors, $log, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
 	function Clara() {
 		this.init(this, arguments);
 	}
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, Descriptors, $lo
 		//PC wins via turn count;
 		if( CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) >= 0 && CoC.player.statusAffectv1( StatusAffects.ClaraCombatRounds ) >= 10 ) {
 		} else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			//PC wins via health;
 			if( this.HP <= 0 ) {
 				EngineCore.outputText( 'The pissed off cowgirl finally collapses to the ground.  She tries to stand up again, but finds that she can’t.  "<i>Noo!</i>" she cries out in frustration, "<i>You were the perfect slave!  We were meant to be toogether!</i>"\n\n' );

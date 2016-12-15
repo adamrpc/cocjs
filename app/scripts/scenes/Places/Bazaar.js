@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, ConsumableLib, AppearanceDefs, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PerkLib, ArmorLib, ConsumableLib, AppearanceDefs, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function Bazaar() {
 	}
 
@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 
 	//[Ask];
 	Bazaar.prototype.askJoeyAboutOffer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask the effeminate masseuse what had him so concerned a moment ago.  He grimaces.  "<i>Well, I recently came in possession of a cock milker, one of the old magic-powered ones.  The trouble is, I obviously don\'t need one, and neither does anyone else.  Worse still, the thing takes up a fair bit of my room.  I guess they\'ve already got \'alternatives\',</i>" he sighs.  "<i>So now it\'s just collecting dust in the back room, and I hate seeing a nice piece of craftsmanship like that go to waste.  Even if my talents have rendered it defunct,</i>" he murmurs with a trace of pride.' );
 		EngineCore.outputText( '\n\nHe stares at you momentarily.  "<i>Say, you wouldn\'t happen to want it, would you?  Maybe something for those long, lonely nights?  Heck, you could probably jury rig it to collect lots of semen.  Good quality cum fetches a decent price,</i>" he says a little too knowingly.  "<i>A sound investment, yeah?  I\'ll let it go for, oh, say, five hundred gems.</i>"  What?  The cocky little f-  "<i>Hah, just pulling your leg!</i>" he laughs.  "<i>It\'s yours for two hundred gems.  Because I\'m such a nice guy.</i>"' );
 		EngineCore.outputText( '\n\nWhat do you think? Will you take the cock massager for 200 gems?' );
@@ -196,18 +196,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//[No];
 	Bazaar.prototype.noMilkerPlzJoey = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decline; it\'s not really the sort of thing you need in your camp.  "<i>Ah well,</i>" Joey shrugs, "<i>I\'ll just have to hang onto it for now I guess.  Shame.  Anyway,</i>" he resumes his usual grin, "<i>is there something else you need?  A massage, perhaps?</i>"' );
 		//return to normal options, scene is never brought up again;
 		EngineCore.doNext( this, this.enterTheBazaar );
 	};
 	//[Yes];
 	Bazaar.prototype.buyCockMilker = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Fantastic, fantastic!  Let me get it from the back.</i>"  Joey rushes behind a curtain, audibly rummaging through the storeroom.  Soon he comes back, carrying a bunch of tubes and nozzles.  "<i>Here you go!</i>"  He dumps the collection of junk in your arms, taking the gems from you in the same motion.  You hastily begin stuffing the contraption in your pack.  "<i>Now, don\'t get too attached.  A machine\'s never gonna beat the real thing.</i>"  He flexes his delicate fingers.  "<i>Speaking of which, need something?</i>"' );
 		EngineCore.outputText( '\n\n(<b>Key Item Acquired: Cock Milker</b>)' );
 		CoC.player.gems -= 200;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.createKeyItem( 'Cock Milker', 0, 0, 0, 0 );
 		EngineCore.choices( 'JoeyMassage', this, this.joeyMassage, 'Androgyny', null, null, 'Joey\'sOffer', null, null, '', null, null, 'Leave', this, this.enterTheBazaar );
 	};
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			return;
 		}
 		CoC.player.gems -= 500;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Joey takes your hand in his and insistently pulls towards the back rooms.  "<i>Once we have this all done ', false );
 		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'you\'ll be able to be as cute as me!', false );
@@ -246,7 +246,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		}
 		CoC.player.slimeFeed();
 		CoC.player.gems -= 10;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Joey bounces on his feet excitedly, the little poof-ball above his exposed, heart-shaped ass twitching happily.  His soft hand takes yours and leads you towards one of the back rooms, dragging you inside just before the door is silently closed.  The small wooden chamber houses a single, padded bed that\'s clearly meant for you, and at Joey\'s insistence you disrobe to lie down on it.  You put your face through a rounded oval and lie down, taking the idle moment to glance around.  A small coal-fired steam-oven isn\'t far past the bed, and you can make out Joey\'s small, human feet as he stokes it.\n\n', false );
 		EngineCore.outputText( 'One of your chosen masseuse\'s soft, demure hands rests on your shoulder while the oven starts and begins to vent warm steam through the room.  Joey starts by leaping atop you in a single bound to  straddle your back and rub your shoulders.  His small, skilled fingers work wonders, working out the constant tension this strange land has inspired in you since your arrival.  Each insistent, languid touch dissolves a knot of worry, sending shivers of contentment through you that make you feel as if you\'re melting into the bed.\n\n', false );
 		EngineCore.outputText( 'Once he feels the tension from your upper body has been released, the girly bunny-boy slides himself lower, placing his taut, barely-covered rear atop your ' + Descriptors.buttDescript() + '.  Joey\'s hands slide down along your spine, smoothing out every knotted muscle in your back as he goes.  You could swear his fingers are magic; you feel like a lump of clay being worked by a master sculptor.  Sighing dreamily, you lie there and groan while he finishes the small of your back, muscles rendered into goo-like softness.\n\n', false );
@@ -548,7 +548,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//'Greta\'s Garments' - Interior;
 	Bazaar.prototype.gretasGarments = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.FOUND_SOCKS ] === 1 && CoC.flags[ kFLAGS.SOCK_COUNTER ] === 0 ) {
 			EngineCore.outputText( 'As you enter the store, you\'re surprised to see that a variety of products line the shelves.  Clothing of various materials, sizes and shapes lay folded on shelves and tables around the little shop.  A lone, surprisingly anatomically correct mannequin stands by the counter nude except for a thin lacy piece of fabric held taut over its wooden penis.' );
 			EngineCore.outputText( '\n\nThe demoness, Greta, spies you looking at the strange piece of clothing.  "<i>Aha, you\'re back!</i>" she says, throwing her arms wide, which has the unintentional but not unappreciated effect of making her enormous boobs jiggle.  "<i>As you can see, I\'m back in full production.  I finally got that pesky backlog taken care of... although this one shy customer, a quiet browser, if you will, keeps me on my toes with new orders.  I swear he and his partner will be the death of me!</i>"' );
@@ -593,7 +593,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Ask About Inventory;
 	Bazaar.prototype.askGretaAboutInventory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Curious about the lack of selection, you broach the topic with the slutty shopkeeper, asking just where the items she has for sale are at.' );
 		EngineCore.outputText( '\n\nThe demoness, who must be Greta, laughs, "<i>Oh, it\'s sweet of you to ask, but I just got set up here.  You wouldn\'t know how hard it is not to go around taming every sweet little boner on display out there, but there\'s something to be said for earning profit with your own sweat, effort, and charm.</i>"  She presses her hands against the sides of her chest and turns her tremendous cleavage into a canyon of mammary delight.' );
 		EngineCore.outputText( '\n\n"<i>See something you like?</i>" Greta asks, drawing your dazed eyes back up to her face.  "<i>Well it isn\'t on the menu today, though you do look like a scrumptious little morsel if I do say so myself.  I\'ve got a lot of work to do if I\'m going to keep up with all the demand for my products!</i>"' );
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Ask About Bikini:;
 	Bazaar.prototype.askGretaAboutZeBikini = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Oh, that?</i>" Greta asks.  "<i>That\'s an old project of mine.  Some slutty bitch that called herself a pure maiden used to wear it, right up until I got her to forsake her vows, grow a dick, and fuck me until she was addicted to the taste of my cunt and the flavor of my milk.  From what I heard, she came from a place where similarly attired warriors battled to become Queen of some silly country.  Anyway, that gear had some powerful magics on it that pain my kind to handle.  I\'ve been trying to corrupt it into something more fun in my spare time, but it just hasn\'t been going well.</i>"' );
 		EngineCore.outputText( '\n\nThe succubi sets down a half-sewn sock and grumbles, "<i>Do you have any idea how hard it is to unweave a ward while simultaneously infusing it with corruption?</i>"' );
 		EngineCore.outputText( '\n\nYou shrug.' );
@@ -629,10 +629,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Buy Bikini;
 	Bazaar.prototype.buyGretasBikini = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.OWN_MAIDEN_BIKINI ] = 1;
 		CoC.player.gems -= 500;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Greta\'s eyes widen in surprise.  "<i>Really?</i>"' );
 		EngineCore.outputText( '\n\nYou nod and pull out your gems, counting out the exact amount for her.  As soon as you finish, Greta pulls you over the counter and kisses you on the lips, her tongue sensually assaulting your surprised palate. Before you can react, she pulls back with a hum of pleasure.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, sugar!  Have fun and be safe, and if you don\'t want to be safe, come visit me sometime!</i>"' );
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Cock-socks Available - First Time;
 	Bazaar.prototype.browseDemSocksSon = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'What type of cock-sock do you want to look at?' );
 		//Cock-sock Menu;
 		EngineCore.menu();
@@ -657,14 +657,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Wool Cock-sock;
 	Bazaar.prototype.woolCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You spy a thick, woolen sock sitting on a counter and take it up to Greta.  "<i>Ah, yes.  That\'s our basic sock.  Warm and cozy, great for those chilly nights.  That one\'s a mere 10 gems.  A steal, of course.</i>"' );
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'wool';
 		this.cockSelectionMenu();
 	};
 	//Alabaster Cock-sock;
 	Bazaar.prototype.alabasterCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up a one sock and inspect it.  It\'s a pure white cock sock, edged with delicate lace.  It almost appears to be some kind of bridal wear... although you don\'t know of any kind of bride that would wear something like this.  "<i>Ah yeah, that\'s a popular one.  Some folks like the purity that it suggests... though I can\'t guess why.  It\'s 25 gems, though.</i>"' );
 		//[Buy] [Back];
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'alabaster';
@@ -672,42 +672,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Cockring Cock-sock;
 	Bazaar.prototype.cockringCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up one sock, surprised to find how heavy it is.  Large metal rings encircle the base of the smooth cock-sock, with one loose ring dangling down, no doubt intending to wrap around the base of your ball sack.  "<i>Oh yes, that\'s a fun one. Those rings will constantly constrict your manhood, so you\'ll always be hard and ready to go.</i>" She giggles and waves a hand, "<i>That\'s actually a very popular sock... so many demons come in to get these for their harems.  It\'s 100 gems.</i>"' );
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'cockring';
 		this.cockSelectionMenu();
 	};
 	//Viridian Cock-sock;
 	Bazaar.prototype.viridianCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up one sock and inspect it.  The whole thing is a rich, natural green color and completely lace, accentuated with vivid red roses.  Just touching it makes you feel healthier and more alive.  "<i>Ahh, that\'s a fun one right there.  It hastens your natural healing.  Very useful, and pretty, too, if I say so myself.  It\'s 1,000 gems.</i>"  You pale at the price, but Greta waves a hand, "<i>Trust me, honey, it\'s worth it.</i>"' );
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'viridian';
 		this.cockSelectionMenu();
 	};
 	//Scarlet Cock-sock;
 	Bazaar.prototype.scarletCockSocK = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up one sock and inspect it.  It\'s an incredible plush red, and made of soft satin and detailed with red lace.  It seems smaller than the other socks you\'ve seen, and you can\'t help but wonder how tight it will feel on your dick.  "<i>Mmm, that one\'s special.  It increases the blood flow to your little dick, enabling it to grow a lot faster.  This one goes quick.  Everyone wants to be a minotaur!  It\'s 250 gems.</i>"' );
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'scarlet';
 		this.cockSelectionMenu();
 	};
 	//Cobalt Cock-sock;
 	Bazaar.prototype.cobaltCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up one sock and inspect it.  It\'s a cool, soft blue color, made from satin and detailed in light blue lace.  It seems extremely small, compared to the other socks in the shop, and you can\'t help but think it must be extremely uncomfortable to wear.  "<i>Oho, that\'s a fun one right there.  The cute little femboys go crazy for it.  As you can see, it\'s a bit small, and it will actually inhibit your cock from growing too big.  It\'s 250 gems.</i>"' );
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'cobalt';
 		this.cockSelectionMenu();
 	};
 	//Gilded Cock-sock;
 	Bazaar.prototype.gildedCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up one sock and inspect it, surprised to see how rigid and heavy it is.  Unlike the others in the shop, this one seems to be made of a cool golden metallic material.  Glittering gems are embedded into the top side, while the bottom is cinched closed with leather cords.  "<i>You\'ve got a good eye,</i>" Greta says, her eyes twinkling greedily.  "<i>With that bad boy, you can actually convert some of your... sweet cum into even sweeter gems.  Of course, with that kind of awesome power, you\'ve got to understand that it\'ll cost you 3,000 gems.</i>"' );
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'gilded';
 		this.cockSelectionMenu();
 	};
 	//Amaranthine;
 	Bazaar.prototype.amaranthineCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pick up one sock and inspect it.  It\'s a silky smooth lavish purple color, with fine lace depicting some kind of six-legged wolf-like creature.  Overall, though, the sock is an odd shape, seemingly intended for someone with a knot AND some kind of equine-like flare.  Greta\'s eyebrows raise as she sees the item you\'re holding,  "<i>Ohh, that one.  That, honey, was an experiment.  I took some magic channeled down from the stars themselves and infused it into a new sock, and that was the result.  Truth be told, I\'m not entirely sure what it does, but I\'ll sell it to you for 1,000 gems.</i>"' );
 		//Increase fertility by a small amount;
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 'amaranthine';
@@ -725,7 +725,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	Bazaar.prototype.pickACockForSock = function() {
 		//Buy Cock-sock;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You take the cock-sock over to the counter where Greta sits, knitting even more garments and place down the gems required.  "<i>Aha, good choice, honey!</i>" the succubus says, snatching up the money and stashing it away.  "<i>Now let\'s get that bad boy fitted on you.</i>"' );
 		//[If PC only has one cock, jump immediately to Putting It On, else: ;
 		if( CoC.player.cockTotal() === 1 ) {
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		}
 	};
 	Bazaar.prototype.cockSockTarget = function( target ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.SOCKS_BOUGHT ]++;
 		//Putting it On - First Time;
 		if( CoC.flags[ kFLAGS.SOCKS_BOUGHT ] === 1 ) {
@@ -765,7 +765,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Yes;
 	Bazaar.prototype.yesPutDatSockOnMe = function( target ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var conflict = false;
 		if( CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'amaranthine' ) {
 			CoC.player.gems -= 1000;
@@ -812,7 +812,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			{ // There's no conflict. DO IT!!!
 			}
 			CoC.player.cocks[ target ].sock = CoC.flags[ kFLAGS.SOCK_HOLDING ];
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			EngineCore.outputText( 'With one hand she lifts your limp cock up, giving it a pleasant little stroke.' );
 			EngineCore.outputText( '\n\nHer other hand approaches, her thumb, fore- and middle-fingers holding the sock open as she slips it over your ' + CoC.player.cockHead( target ) + '.  She pulls it snugly into place and then gives your penis a little kiss.  The second her lips make contact with your flesh, a chill runs across your body, followed by a flood of warmth.' );
 			EngineCore.outputText( '\n\nGreta smiles knowingly and returns to her chair behind the counter.' );
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		}
 	};
 	Bazaar.prototype.noCockSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.SOCK_HOLDING ] = 0;
 		EngineCore.outputText( 'You shake your head.  Greta sighs, "<i>Figures.  Here\'s your money back, honey.  Come back when you change your mind.</i>"' );
 		//(Back to menu);
@@ -839,7 +839,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Remove Cock-sock;
 	Bazaar.prototype.takeOffDatSock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Which cock-sock would you like to get removed?' );
 		//(display list of socked cocks);
 		var button = 0;
@@ -852,7 +852,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		}
 	};
 	Bazaar.prototype.removeTargettedSock = function( index ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Select-A-Cock!;
 		EngineCore.outputText( 'You walk up to the counter top.  Greta the succubus looks up at you over her latest creation, and you explain you\'d like to remove a cocksock.' );
 		EngineCore.outputText( '\n\n"<i>Ah, all right then,</i>" she says smoothly, setting aside her knitting needles.  "<i>Making room for a new sock, or just looking to get rid of this one?  No matter, it\'s a simple counterspell.</i>"  Greta stands up from her chair, though she\'s only on her feet for a moment before she kneels down in front of you, placing one hand under your ' + Descriptors.cockDescript( index ) + '.  With her free hand, she runs a little circle around your ' + CoC.player.cockHead( index ) + ', muttering something under her breath.' );
@@ -901,9 +901,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	 */
 	//'Sweet Massage';
 	Bazaar.prototype.joeySweetMassage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems -= 20;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'Joey claps excitedly, his little puffy tail bouncing happily.  "<i>Great!  It\'s a customer favorite, so I\'m sure you\'ll just love, love, love it!</i>"  He takes your hand and leads you towards the back rooms, letting the door shut behind the two of you with a soft click.  As usual, in the center of the room is a padded bed meant for you, and at Joey\'s insistence you disrobe to lie down on it.  You put your face through the rounded oval and relax, taking the moment to watch Joey\'s bare feet with their cute painted nails prance in and out of sight as he bustles around the room.  He pauses briefly by the coal-fired steam-oven, stoking it for a minute before turning back towards you.' );
 		EngineCore.outputText( '\n\nThe warm, steamy air caresses your ' + CoC.player.skinFurScales() + ' even before Joey does, running down your back, butt and [legs].  In no time at all, the air in the room is thick and warm, making you feel delightfully lazy with every breath, and a bead of sweat forms on your brow.  The bed shifts a bit as Joey leaps up onto it, straddling your waist, while he starts working his fingers over your shoulders.  His petite hands are surprisingly talented, finding every little knot you\'ve accumulated in your journeys and unravelling them with one blissful touch.' );
 		EngineCore.outputText( '\n\nAs usual, he works his way down your body, sliding his hairless body against yours as he goes.  His magic fingers work out a particularly troublesome knot in your lower back in no time, then he moves to your arms and legs.  He doesn\'t stop until you feel like putty, so relaxed you wonder if you\'re even capable of movement.  Afterwards he simply rubs you down, checking for any missed tension spots.  The whole while his little cock strains the little white thong he sports, occasionally pressing against your back, butt or leg.' );
@@ -916,7 +916,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 		EngineCore.addButton( 1, 'No', this, this.eggsInButt, false );
 	};
 	Bazaar.prototype.eggsInButt = function( eggButt ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( eggButt ) {
 			EngineCore.outputText( 'You nod your head to the little femboy, who jumps with joy, splattering a little string of chocolate cum across the floor.  He walks around behind you and asks you to raise your butt.  You do so, surprised to find you can move after that initial massage, raising your ass high into the air and positioning your knees under you.  You can\'t see what he\'s doing back there, but when you feel a warm splash of liquid against your [asshole], you let your mind\'s eye go to work.' );
 			EngineCore.outputText( '\n\nJoey gathers up another dollop of the chocolatey cum and smears it across your butthole. Then he takes two fingers and gently prods inwards, sinking in knuckle-by-knuckle.  He works the two fingers in, pumping and sliding them around, coating your walls with his jizz.  When the bunny-boy retracts his fingers, you find yourself aching for his touch, wanting something, anything, inside you.  You don\'t want for long, of course, as Joey retrieves the giant painted egg and presses it up against your empty asshole.  He pushes it forward, your cum-lubed ass parting to make way.  It stretches you further and further outwards, nearing discomfort levels, but then you round the widest point and your [asshole] devours it with a wet <i>schluck</i>.' );
@@ -995,7 +995,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//Visit the Bizarre Bazaar at night.;
 	Bazaar.prototype.nightBazaarButtfuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'While wandering the bazaar at night you feel an unease growing in your stomach. As you walk your dimly lit path, you pause and notice a rather dark pathway that you haven\'t seen before. Curiosity sparks in your wandering mind and you can\'t help but wonder how long it has been here and where it leads. Should you wander down this dark path despite the thoughts bubbling in your head that it\'s a bad idea?' );
 		EngineCore.outputText( '\n\nDismissing that nagging feeling in the back of your mind, you head down the unlit path toward adventures unknown.  You comfort yourself with the prospects of adventure and the excitement of exploration.  Your ever-optimistic mind is lost in wonder when a flap of a large tent to your side suddenly bursts open.  "<i>Fine! I\'m goin\', I\'m goin\'! Put a fuckin\' cock in it!</i>"' );
 		EngineCore.outputText( '\n\nYou turn your head to find the source of the gruff, yelling voice and find a large figure storming from the tent.  As you squint in the darkness to make out the figure, you think you see them fumble with the pockets of their pants.  You realize the figure has noticed you when two glowing, green eyes lock onto you.  "<i>Why, hello there...</i>"  The guttural voice utters slowly.  They draw closer, and soon the only sound in the alley that you can focus on is your heartbeat and the figure\'s shuffling footsteps over the dirty trail.  Your heart pounds as your mind races to figure out what to do.  In this isolated, dark pathway you can\'t help but feel the figure is going to try and take advantage of you.  Your back presses to the cold trunk of the adjacent tree as the figure drunkenly swaggers toward you.' );
@@ -1008,7 +1008,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<Option 1 Escape>;
 	Bazaar.prototype.escapeFromCertainRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tear yourself away from the feline. Wide, surprised eyes stare at you as you make a break for it.  You run as quickly as your legs can carry you, the echoes of the feline\'s feet padding behind you urging you to run faster.  You flee through the trees mindlessly, darting down whatever path you see first.  In your panic, though, you quickly wear yourself out.  How far did you run? Where are you now?  You lean against a trunk and pant for breath.  Thankfully no one seems to be around, including your pursuer.  You pat yourself off as you notice the bright lights of the bazaar nearby and retreat back to the well-lit collection of tents.' );
 		//gtfo;
 		EngineCore.menu();
@@ -1016,7 +1016,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<Option 2 Wait>;
 	Bazaar.prototype.waitOnStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Uncertainty plagues you as you wait to see what happens.  The large feline reaches the entrance of the large tent.  His free hand grips the tent and, as you let out a loud yelp, you are shoved forcefully through.' );
 		//Pass go and collect 200 rape;
 		EngineCore.menu();
@@ -1024,7 +1024,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<Option 3 Assault>;
 	Bazaar.prototype.assaultYoRapistYo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Strength Check;
 		//[(If strength is less than 50);
 		if( CoC.player.str < 50 ) {
@@ -1048,7 +1048,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<Option 1 Leave>;
 	Bazaar.prototype.assaultWinAndLeave = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shove the large tiger man across the dirt.  His annoyed growls are muffled by the dirt his face is sliding across.  You issue a warning about picking fights with those stronger than he is and leave him lying in the dirt, his pride battered and bruised.  The dirt under your heel grinds in the darkness as you turn and casually continue down the path until you find yourself back in the bazaar.' );
 		//gtfo;
 		EngineCore.menu();
@@ -1056,7 +1056,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<Option 2 Abuse Ass(Visible with 70 or more corruption)>;
 	Bazaar.prototype.abuseHisAss = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your tongue flicks from your lips at all the possibilities that course through your mind.  "<i>Lemme go!</i>"  The feline barks out from under you, though you have better ideas.  You move your free hand back and roughly pull down his pants, exposing his muscled rump to the cool, night air.  Feeling a firm cheek beneath your hand, you rub and squeeze it almost affectionately before swatting the cheek roughly, coaxing a strained grunt from the tiger man\'s mouth.' );
 		//[(If player doesn't have cock);
 		if( !CoC.player.hasCock() ) {
@@ -1116,7 +1116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//((If waited, or failed assault  //Pass go collect 200 rape));
 	Bazaar.prototype.collectSomeButtSmex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your body crashes into a wooden table and you choke, feeling the wind knocked out of you.  You struggle to lift your head and catch your breath, only to find yourself laying in... poker chips?' );
 		EngineCore.outputText( '\n\n"<i>The fuck ya doin\'? This isn\'t booze!</i>" A voice shouts.' );
 		EngineCore.outputText( '\n\n"<i>Might be better though.</i>"' );
@@ -1202,14 +1202,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<option 1 Suck tiger>;
 	Bazaar.prototype.suckOffATiger = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You go with the barbed length.  You quickly take it into your mouth and suckle on the barbed tip.  The tiger\'s face melts from argument to pleasure.  "<i>Looks like he likes mine better than your short sausage.</i>"  The tiger gloats, the bear growling low and angrily.  Not to invite a fight over your face, you grip the bear\'s cock with one hand and begin to stroke over the thickness, though your fingers are unable to wrap all the way around it.  The pair give out pleased moans of resignation as you pleasure them.  The satyr still pounds away at your ' + Descriptors.buttDescript() + ' as you suck off the tiger, his hands gripping your head as he throatfucks your eager mouth.  You slither your tongue under his shaft and let out a muffled moan as the barbs tingle over your throat, lips, and tongue.  With a rough thrust he buries your face into his furred groin, making his heavy sack slap your cheek.  The tiger man fucks your face furiously as you feel the satyr finishing in your ass.  Thick tiger cock continues to pound down your throat as warmth spreads within your gut, satyr cum flooding your inner walls.' );
 		//bumpy road;
 		this.finalGayFinallee( 0 );
 	};
 	//<option 2 Suck bear>;
 	Bazaar.prototype.suckOffABear = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn your head and open wide, slowly squeezing the hefty bear cock past your lips.  Your jaw stretches to its limit around it and you suckle with wet, slurping noises.  You lavish all the attention you can on the fat rod in your mouth, using your tongue to lick and slurp the constant drool of pre-cum.  You flick your nimble tongue over the swollen cockhead and hear a low, pleased grunt from the bear.  Overhead, the tiger stares jealously.' );
 		EngineCore.outputText( '\n\n"<i>Bitches know the better cock when they see it.</i>"  The bear lords over the tiger, making the angry feline snarl. Thinking quickly, you reach up a hand and begin to stroke along the barbed member while pushing the massive bear girth further past your lips, suppressing gags while the fat cockhead blunts against the back of your throat.  A hand grips the back of your head as the bear\'s hips begin to rock in and out of your wet mouth.  Soon, your lips are wet with the combination of saliva and copious bearspunk.  The hand on your head pushes you against the bear\'s groin, nestling your face in his furred, musky crotch while burying every inch of his fat cock down your mouth and plugging your throat.  Your eyes begin to water from the strain on your jaw and throat as the fat bear cock pulses, filling your mouth and pouring pre-cum straight down your gullet.  The bear begins to fuck your face, giving you a chance to gasp for breath every now and then.  This goes on for some time before you feel the satyr\'s cock pulse in your ass, spooge quickly filling you up.  Thick bear-cock pounds down your throat and distracts you from the satyr, though you can\'t help but feel the warmth of cum spreading deep within your gut and flooding your inner walls.' );
 		//crazy steel jaw;
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 	};
 	//<Option 3 Suck none>;
 	Bazaar.prototype.suckOffNone = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Unwilling to wrap your lips around either of their lengths, you reach up with your hands and start to stroke the pair of arguing men off.  Each ceases their bickering to look down at you in confusion.  Their dazed expressions don\'t last long, quickly melting into pleasured, half-lidded gazes and moans.  Their drooling cockheads glaze your cheeks white with their pre-cum, making you reek of their strong, salty musk.  They seem eager for more and press their hard dicks over your face, prodding your closed lips with hot, pre-slicked cockheads.  You shut your eyes, one hand from each of them pressing the back of your head more into their needy cocks.  Your lips part just enough to taste their copious pre-cum, moans escaping your parted lips quietly as the satyr begins ramming his hips against you hard while his pent-up balls unload in your ass and paint your lower body with cum.' );
 		//no furry plx;
 		this.finalGayFinallee( 2 );
@@ -1265,7 +1265,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			//Gained 1 lust draft, lost a few gems(9 or so?);
 			SceneLib.inventory.takeItem( ConsumableLib.L_DRAFT, SceneLib.camp.returnToCampUseOneHour );
 			//Time set to morning;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		//((Ending 2 , suck bear, //crazy steel jaw));
 		else if( road === 1 ) {
@@ -1302,7 +1302,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			//Gained 1 lust draft, lost a few gems(9 or so?);
 			SceneLib.inventory.takeItem( ConsumableLib.L_DRAFT, SceneLib.camp.returnToCampUseOneHour );
 			//Time set to morning;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		//((Ending 3 , suck none, //No furry plx));
 		else {
@@ -1337,7 +1337,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PerkLib, ArmorLib, Con
 			//Lust sated;
 			//Gained 1 lust draft, lost a few gems(9 or so?);
 			SceneLib.inventory.takeItem( ConsumableLib.BIMBOLQ, SceneLib.camp.returnToCampUseOneHour );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			//Time set to morning;
 		}
 	};

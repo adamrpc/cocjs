@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, MainView, PerkLib, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function Library() {
 	}
 
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 
 	//(first visit);
 	Library.prototype.firstTowerVisit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You make your way to the largest fixture of the city, the impressive tower in the center.  The large spire could easily hold everyone you know ten times over and still have room to spare.  It is far too large for a city with Tel\'adre\'s population – but then, you reflect, so is Tel\'adre itself.' );
 		EngineCore.outputText( '\n\nThe front entryway appears to be fairly heavily guarded, and the two elites at the entryway turn you aside, directing you towards a different entrance - a public library.  Following the directions, you quickly come upon a different face of the tower.  You might have expected some epic pair of double doors, ten times your height, barely opening with a dramatic creak as you push them out of your way.  Instead you see a polite little entryway with hinges so well maintained they shine.  No frowning gargoyle door knockers, simply a small knob and a keyhole, as though it was someone\'s apartment.' );
 		EngineCore.outputText( '\n\nA single room takes up the entirety of the space on the first floor.  Staircases up and down can be seen on opposing ends, but the majority of the room is furnished with simple seats and tables.  Scrolls and books litter the surfaces, likely pulled from a series of shelves set under the curving staircase.  There does not seem to be a connection between this library and the actual core of the tower.' );
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 		}
 	};
 	Library.prototype.towerFollowUpVisits = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === -1 ) {
 			{ //Return visits before you meet Quinn. Either you meet him or you continue to go to the library at night like some bibliophile vampire
 			}
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 	};
 	//[Study];
 	Library.prototype.studyInTA = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[Study, 6:00-17:00];
 		if( CoC.time.hours <= 17 ) {
 			EngineCore.outputText( 'You ask Quinn if you can use the library to study and learn.' );
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 	};
 	//[You OK?];
 	Library.prototype.youOkayBuddy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'A bit perturbed by Quinn\'s countenance and apparent exhaustion you can\'t help but inquire as to his well-being.' );
 		EngineCore.outputText( '\n\n"<i>The sycophants that clutter this town thought it would be amusing to fornicate wildly and rapidly within the library with no regard for where their filth would wind up or what would be damaged in the process.  So no, I am not particularly well.</i>"  He answers the question with a slight sarcastic bend in his voice that you don\'t feel as though there was any real need for.  "<i>It will take months to go through every tome and list the damages and details.  Updating the index, cross-referencing between existing damages, re-evaluating the justifications of placing it on the shelf... it\'s enough to slab a man.</i>"  Quinn looks back at the library behind him and shakes his head in disappointment.' );
 		EngineCore.outputText( '\n\nYou clarify that you were more referring to the fact that he is pale as fuck.' );
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, PerkLib, Utils, St
 	};
 	//[Mali];
 	Library.prototype.talkToMali = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.TIMES_VISITED_MALI ] === 0 ) {
 			EngineCore.outputText( 'You mention to Quinn that you\'re looking to speak with Mali.  "<i>Ah, Asa Mali, our very own Alissyn del Aliana.</i>"  Quinn chuckles and rubs his chin.  You think you\'re talking about the same person.  "<i>How mysterious that she of all people should have a visitor.  Am I setting up a forbidden tryst?  A secret rendezvous?  Or perhaps, given the nature of her work, something far more... ominous.</i>"  He looms curiously, but you clear your throat and ask if she\'s in.  Disappointed, he sighs and gestures up the stairs.  "<i>Yes, our sylvan sorceress is not that much of a socialite.</i>"' );
 			EngineCore.outputText( '\n\nTurning on his heel he ascends and unlocks a hidden, secure-looking door to the second floor, beckoning you to follow him.  The staircase loops around the wall of the tower, and you pass many closed doors as you make your way up.  Strange and unfamiliar sounds come from more than a few of them, but Quinn seems to ignore them completely.  Apparently they\'re to be expected from the tower.  Finally, after climbing higher than any other building in the town (but yet with a great deal more to go), he turns and raps sharply on a wooden door.' );

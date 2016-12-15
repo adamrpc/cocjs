@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS, CoC, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemType, kFLAGS, CoC, EngineCore, ConsumableLib ) {
 	function Lumi() {
 	}
 
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 	Lumi.prototype.lumiShop = function() {
 		EngineCore.spriteSelect( 37 );
 		//Set item handling to lumi shop;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Lumi if you can see her potions.  She smiles at you and pulls out several bottles from her desk and shows them to you.\n\n"<i>Gawantied qwality, made by Lumi herself,</i>" she says proudly.\n\n', false );
 		EngineCore.outputText( 'Lust Draft - 15 gems\nGoblin Ale - 20 gems\nOviposition Elixir - 45 gems\n', false );
 		//The player is given a list of choices, clicking on one gives the description and the price, like Giacomo.;
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 	//Lust Draft;
 	Lumi.prototype.lumiLustDraftPitch = function() {
 		EngineCore.spriteSelect( 37 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You point at the bottle filled with bubble-gum pink fluid.\n\n"<i>De lust dwaft? Always a favowite, with it you nevar have to worwy about not bein weady for sexy time; one of my fiwst creations. 15 gems each.</i>"\n\n', false );
 		EngineCore.outputText( 'Will you buy the lust draft?', false );
 		EngineCore.doYesNo( this, Utils.curry( this, this.lumiPurchase, ConsumableLib.L_DRAFT ), this, this.lumiShop );
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 	//Goblin Ale;
 	Lumi.prototype.lumiPitchGobboAle = function() {
 		EngineCore.spriteSelect( 37 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You point at the flagon. "<i>Oh? Oh thats Lumi\'s... actually no, dat tispsy stuff for 20 gems. You\'ll like if you want to be like Lumi. Do you like it?</i>"\n\n', false );
 		EngineCore.outputText( 'Will you buy the goblin ale?', false );
 		EngineCore.doYesNo( this, Utils.curry( this, this.lumiPurchase, ConsumableLib.GOB_ALE ), this, this.lumiShop );
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 	//Ovi Elixir;
 	Lumi.prototype.lumiPitchOviElixer = function() {
 		EngineCore.spriteSelect( 37 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You point at the curious hexagonal bottle. "<i>De Oviposar Elixir? Made baithsed on da giant bee\'s special stuff dey give deir queen. It will help make de burfing go faster, an if you dwink it while you awen pweggy, iw will give you some eggs to burf later. More dwinks, eqwals more and biggar eggs. Lumi charges 45 gems for each dose.</i>"\n\n', false );
 		EngineCore.outputText( 'Will you buy the Ovi Elixir?', false );
 		EngineCore.doYesNo( this, Utils.curry( this, this.lumiPurchase, ConsumableLib.OVIELIX ), this, this.lumiShop );
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 
 	Lumi.prototype.lumiPurchase = function( itype ) {
 		EngineCore.spriteSelect( 37 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//After choosing, and PC has enough gems;
 		var cost = 0;
 		if( itype === ConsumableLib.OVIELIX ) {
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 		if( CoC.player.gems >= cost ) {
 			EngineCore.outputText( 'You pay Lumi the gems, and she hands you ' + itype.longName + ' saying, "<i>Here ya go!</i>"\n\n', false );
 			CoC.player.gems -= cost;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			SceneLib.inventory.takeItem( itype, this.lumiShop, this.lumiLabChoices );
 		} else {
 			//After choosing, and PC doesn't have enough gems;
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Utils, ItemType, kFLAGS
 			nextItem = ConsumableLib.MYSTJWL;
 		}
 		CoC.player.gems -= 100;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.player.consumeItem( itype );
 		EngineCore.outputText( '', true );
 		EngineCore.outputText( 'Lumi grabs the item from you and runs over to her table, stopping for only a second to put her apron on.  ', false );

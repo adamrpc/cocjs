@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, AppearanceDefs, Utils, CoC_Settings, StatusAffects, CoC, EngineCore, WeightedDrop, Combat, PerkLib, kFLAGS ) {
+angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Creature, AppearanceDefs, Utils, CoC_Settings, StatusAffects, CoC, EngineCore, WeightedDrop, Combat, PerkLib, kFLAGS ) {
 	function Monster() {
 		this.init(this, arguments);
 	}
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, Creature, Appe
 				var damage = this.eOneAttack();
 				this.outputAttack( damage );
 				this.postAttack( damage );
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 				EngineCore.outputText( '\n', false );
 			}
 			if( this.statusAffectv1( StatusAffects.Attacks ) >= 0 ) {

@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function KatherineThreesome() {
 	}
 
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 	 eatOutVala					Not available if Kath has no cock
 	 */
 	KatherineThreesome.prototype.circlejerk = function() { //Not available if Kath has no cock
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'There’s no reason to not have some fun with the two of them... plus you don’t think you’d be able resist the allure of joining two of your favourite girls in their bonding.  Stripping off your ' + CoC.player.armorName + ' you step behind the two girls and embrace Urta into a hug, hands wandering her body to loosen the straps of her armor.\n\n' );
 		EngineCore.outputText( 'Urta seems to jump at your touch.  “<i>' + CoC.player.short + '?  What are you doing, you naughty [boy]?</i>”  She giggles.  Kath looks at you and smirks, “<i>Couldn’t resist getting into this, huh, ' + CoC.player.short + '?  Well, why not?  After all, we’re technically a </i>ménage à trois</i>, aren’t we?</i>”\n\n' );
 		EngineCore.outputText( 'You give both girls a winning smile and tell them that you’ll be joining in on their fun shortly, but first you have to take care of a problem... Urta here is a bit overdressed... and come to think of it, so is Kath.\n\n' );
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		}
 	};
 	KatherineThreesome.prototype.threeSixtyNine = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK ) ) {
 			EngineCore.outputText( 'You drag the ' + (SceneLib.katherine.hasCock() ? 'eager herms' : 'lusty pair') + ' to one of the backrooms.  Urta locks the door' );
 		} else {
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.roastYou = function() { //Not available if Kath has no cock
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK ) ) {
 			EngineCore.outputText( 'You lead the horny herms toward one of the bar’s backrooms.  You get inside and lock the door but as you turn around Urta jumps you from behind, twisting your arm and pulling you to the floor.  Kath laughs and starts helping Urta as she removes your clothes.\n\n“<i>You’re too slow today ' + CoC.player.short + '.  I’m horny as anything and I can tell from her scent that Katherine is dying for a good fuck too.  Just relax and we’ll take really good care of you.</i>”' );
 		} else {
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.spitroastKath = function() { //Works for all except genderless characters
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var atBar = SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR ) || SceneLib.katherine.isAt( SceneLib.katherine.KLOC_BAR_DRUNK );
 		if( atBar ) {
 			EngineCore.outputText( 'You lead the ' + (SceneLib.katherine.hasCock() ? 'horny herms' : 'lusty pair') + ' toward one of the bar’s backrooms.  You get inside, lock the door and when you turn around you see that Urta has grabbed Kath from behind to make sure she couldn’t jump you.' );
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.pinAndFuck = function() { //Kath is sober, Urta is drunk //Not available if Kath has no cock
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When you get to Urta’s table she pulls you both in for a hug and takes the opportunity to bury her head between Katherine’s breasts' + (CoC.player.hasBreasts() ? ' and then between yours' : '') + '.  Not wanting to fuck your herms at the table you get Urta’s attention by tugging on her ear and motion at one of the vacant backrooms.  The drunken fox herm gets up and wanders toward the door, her arms around you both.  It’s not for support but so that she can grope all your favorite bits.  On Urta’s other side you can see Kath smiling as Urta massages the base of her tail.\n\n' );
 		EngineCore.outputText( 'Once the three of you get inside the room together Urta gets aggressive.  She shoves both you and Kath against the wall and starts trying to pull your clothes off.  As she concentrates on ' + SceneLib.katherine.clothesChoice( 'unbuttoning Kath’s blouse', 'sliding her hands inside Kath’s bodysuit', 'unlacing Kath’s dress', 'pulling the robe off Kath’s shoulders', 'slipping the stretchy tube top over Kath’s head', 'reaching inside the nurse’s top to grope Kath’s breasts' ) + ' you decide that today Urta won’t be setting the pace.\n\n' );
 		EngineCore.outputText( 'You sweep her legs out from under her and she falls sideways into your arms.  Twisting her around you push Urta to the floor facedown and ' );
@@ -461,7 +461,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		}
 	};
 	KatherineThreesome.prototype.pinAndFuckMountUrta = function() { //Plays for anyone without a cock and for herms who select this option
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You roll Kath and Urta over so you can get access to Urta’s equine cock.  It’s a little soft but a couple of strokes along its cum slicked length start to change that.  Urta opens her eyes and tries to focus on you but you’re already ' + (CoC.player.hasVagina() ? 'sliding your pussy against her shaft' : 'rubbing her horsecock against your anus') + '.  Underneath you both Kath lets out a happy “<i>Oh!</i>”  You’re guessing Urta’s muscles are clamping down on Kath’s cock' + SceneLib.katherine.cockMultiple( '', 's' ) + '.\n\n' );
 		EngineCore.outputText( 'As you sink onto Urta’s cock ' );
 		if( !CoC.player.hasVagina() ) {
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.pinAndFuckStuffKath = function() { //Plays for any males and for herms who select this option
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When Kath flopped on top of Urta her legs spread apart and gave you a great view of ' + (CoC.player.cocks.length > 1 ? 'three' : 'two') + ' things.  Her' + SceneLib.katherine.cockMultiple( '', ' lower' ) + ' knot, hot and hard, buried in Urta’s pussy' + SceneLib.katherine.cockMultiple( ' and her dripping slit', ', her dripping slit and her supple sphincter, both' ) + ' waiting for your cock.  ' + (CoC.player.cocks.length > 1 ? 'They look' : 'It looks') + ' so wet, so empty.  Neither Katherine nor Urta notice as you ' + (CoC.player.isNaga() ? 'slither' : 'step') + ' around them, position yourself behind Kath, line up your dick' + (CoC.player.cocks.length > 1 ? 's and feed them' : ' and feed it') + ' into Kath\'s body.\n\n' );
 		EngineCore.outputText( 'Kath may be tired but she’s still in the mood.  She clenches her pussy ' + (CoC.player.cocks.length > 1 ? 'and ass around your cocks' : 'around your cock') + ' and lets out a low moan.  You ' );
 		if( CoC.player.cor < 25 ) {
@@ -561,12 +561,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.watch = function( urtaIsDrunk ) { //Kath is sober (or drunk), Urta is drunk
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'By the time you reach Urta’s table she’s downed the last of her beverage.  She stands up and gives both of you big hugs.  You feel her horsecock grind against you and you see Kath looking self-conscious after her hug from Urta.\n\n' );
 		this.watchMainBody( urtaIsDrunk );
 	};
 	KatherineThreesome.prototype.watchNoIntro = function( urtaIsDrunk ) { //Kath is sober (or drunk), Urta is drunk
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.watchMainBody( urtaIsDrunk );
 	};
 	KatherineThreesome.prototype.watchMainBody = function( urtaIsDrunk ) { //Kath is sober, Urta is drunk
@@ -622,7 +622,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.kathLicksOutUrta = function() { //Kath is drunk, Urta is sober
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kath begins to twitch and pant as Urta plays with her ears, which leads her to start stroking Urta\'s tail.  Pretty soon a deep \'thunk\' from beneath the table lets you know how much Urta appreciates the attention.  There\'s no need to get involved, so you smile at Urta and lean back.  You can have fun with either of them later and right now you\'re content to watch and see what develops as the ' + (SceneLib.katherine.hasCock() ? 'herms' : 'girls') + ' get more and more aroused.\n\n' );
 		EngineCore.outputText( 'The show gets underway when Urta lets go long enough to shift in her seat.  Apparently her cock was getting stiff enough to make her position uncomfortable.  Kath blinks out of her slightly dazed state and gives you an evil grin.  Before Urta can notice or react Kath ducks under the table and Urta\'s eyes go wide.  Her hands snap to her chair, holding her steady as you hear sounds of wet fabric sliding from below.\n\n' );
 		EngineCore.outputText( '"<i>Oh - oh yeah - that\'s a good kitty, you want to take care of my cock?</i>" moans Urta, throwing her head back.\n\n' );
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.katherine, SceneLib.katherine.katherineSex );
 	};
 	KatherineThreesome.prototype.knothole = function() { //Kath is drunk, Urta is sober //Not available if Kath has no cock
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Urta scratches behind Kath’s ear and suggests slipping into one of the back rooms.  As soon as you get her inside Kath strips off her clothes and tackles Urta.  Urta is unprepared, but her combat experience is more than enough to deal with Kath when she’s drunk.  Urta laughs and easily gains control of the horny ' + SceneLib.katherine.catGirl( 'cat girl', 'feline' ) + '.  Katherine starts to struggle, so Urta sweeps her legs out from under her, presses Kath to the floor and asks if she’s going to be good.\n\n' );
 		EngineCore.outputText( 'Kath mutters, “<i>Yes,</i>” but keeps trying to get loose.\n\n' );
 		EngineCore.outputText( 'Urta just sighs and looks up at you with an expression that asks ‘will she ever learn?’  She twists Kath’s arms behind her back, but that doesn’t stop her struggling either.  Then Urta snickers to herself.  She hauls Kath along the floor toward a large knothole.  “<i>Gonna cooperate?</i>” she asks the struggling cat ' + SceneLib.katherine.catGirl( 'girl', 'morph' ) + '.\n\n' );
@@ -687,7 +687,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.sandwich = function() { //Kath is drunk, Urta is sober //Not available if Kath has no cock
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Urta scratches behind Kath’s ear and suggests slipping into one of the back rooms.  As soon as you close the door behind you Kath jumps into Urta’s arms and gives her a long kiss.\n\n' );
 		EngineCore.outputText( 'When they come up for air Urta says, “<i>Just a minute Kath, let me get ready,</i>” in a playful tone, trying to push Kath away long enough to get her clothes off.  Kath locks lips with Urta again while her fingers work on the laces of Urta’s clothes.\n\n' );
 		EngineCore.outputText( 'When Urta is mostly naked Kath gets behind her and puts her cock' + SceneLib.katherine.cockMultiple( '', 's' ) + ' between Urta’s thighs.  Taken by surprise Urta closes her legs.  Kath grabs Urta’s hips and purrs in her ear as she starts to slide her member' + SceneLib.katherine.cockMultiple( '', 's' ) + ' in and out.  You see them start to glisten with Urta’s juices and when Kath next pulls back she winks at you.  Her ' + SceneLib.katherine.cockMultiple( '', 'upper cock pressing against Urta’s ass and her lower ' ) + 'cock ' + (SceneLib.katherine.cockNumber === 1 && SceneLib.urta.pregnancy.isPregnant ? 'pressing against Urta’s ass' : 'slipping between the folds of Urta’s dripping snatch') + '.  Urta’s jaw quivers and she holds her breath, waiting for her fucking to begin.\n\n' );
@@ -821,7 +821,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.orgy = function() { //Both Kath and Urta are drunk
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your attempt to draw them off into one of the backrooms comes too late.  Urta kisses Kath and Kath responds by undoing Urta’s belt.  Her massive schlong smacks the underside of the table on its way to freedom.  The deep wooden ‘knock’ silences most of the bar and everyone looks your way to see what’s going on.\n\n' );
 		EngineCore.outputText( 'Urta is so drunk that she doesn’t care that her prick is standing erect and waving free in the open air.  Kath cares even less about what people think and slowly draws her hand down Urta’s cock, from the tip to the root.  Urta shudders under the attention and quickly undoes ' + SceneLib.katherine.clothesLowerChoice( 'Kath’s blouse', 'Kath’s blouse', 'the upper part of Kath’s bodysuit', 'the laces on Kath’s dress', 'the front of Kath’s robe' ) + ', freeing her ' + SceneLib.katherine.breasts.adj() + ' breasts.\n\n' );
 		EngineCore.outputText( 'Urta’s next move is to grab you by the hand and twist your arm, drawing you over to the seat next to the one she and Kath are sharing.  For her part, Kath slides off the rest of her outfit and then starts eagerly groping your ' );
@@ -887,7 +887,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 	};
 
 	KatherineThreesome.prototype.doubleStuffKath = function() { //Both Kath and Urta are drunk
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask your two ' + (SceneLib.katherine.hasCock() ? 'herms' : 'lovers') + ' if they want to go somewhere more private.\n\n' );
 		var urtaHasHouse = CoC.player.hasKeyItem( 'Spare Key to Urta\'s House' ) >= 0;
 		EngineCore.outputText( 'Urta ' + SceneLib.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (SceneLib.katherine.hasCock() ? SceneLib.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and says, “<i>That’s a good idea.  My ' + (urtaHasHouse ? 'old ' : ' ') + 'apartment’s close enough.</i>”\n\n' );
@@ -990,7 +990,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.doublePenetrateKath = function() { //Both Kath and Urta are drunk
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask your two ' + (SceneLib.katherine.hasCock() ? 'herms' : 'sluts') + ' if it’s time to commandeer one of the back rooms.\n\n' );
 		EngineCore.outputText( 'Urta ' + SceneLib.katherine.clothesLowerChoice( 'runs her hand up Kath’s thigh', 'slides her hand under Kath’s skirt', 'rubs the ' + (SceneLib.katherine.hasCock() ? SceneLib.katherine.cockAdj() + 'bulge in the ' : '') + 'crotch of Kath’s bodysuit', 'slides her hand under Kath’s dress', 'slides her hand between the folds of Kath’s robe' ) + ' and gives you a wolfish smile.\n\n' );
 		EngineCore.outputText( 'You have to help them both to one of the backrooms and you can feel the eyes of many of the bar’s patrons on your back.  As soon as the door is closed and barred Urta presses Kath against the wall and starts giving her tongue.\n\n' );
@@ -1179,7 +1179,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PregnancyStore, AppearanceDef
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KatherineThreesome.prototype.valaCommonStart = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You put your arms around both of them and cop a feel.  From Kath you get a pleased purr and from Vala a contented sigh.  You tell them both that you’ve got an idea and lead them toward the back of the bar.\n\n' );
 		EngineCore.outputText( 'As soon as you lock the door you decide to concentrate on Vala.  Pinching her nipples and kissing her deeply gets her in the mood awfully quickly.  Looks like she wasn’t just bored but horny too.\n\n' );
 		EngineCore.outputText( 'You turn, expecting ' + (CoC.flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] > 5 ? 'Kath to have readied herself.  Sure enough' : 'to have to convince Kath of what you want.  Instead') + ' you find her part way through stripping her clothes off.' );

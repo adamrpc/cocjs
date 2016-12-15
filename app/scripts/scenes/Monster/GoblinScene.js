@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, PerkLib, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager, PerkLib, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
 	function GoblinScene() {
 	}
 
@@ -810,7 +810,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, ImageManager, PerkLib, 
 		Combat.cleanupAfterCombat();
 	};
 	GoblinScene.prototype.laySomeDriderEggsInGobboTwat = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'goblin-win-drider-egged' ) );
 		//Play standard goblin victory text;
 		EngineCore.outputText( 'The pitiful struggling of the little green-skinned creature as she tries to scramble away from you gives you a rather generous view of her drooling box.  While you feel yourself ' );

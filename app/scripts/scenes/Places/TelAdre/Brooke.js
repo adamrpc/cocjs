@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, StatusAffects, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Brooke() {
 	}
 
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//Occurs automatically after the second time you choose to hit the showers after a workout.  From then, the choice to ‘hit the showers’ then becomes either visit the machine or to actually go to the shower.;
 	Brooke.prototype.meetBrookeFirstTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'brooke-first-meeting' ) );
 		EngineCore.outputText( 'After yet another successful, and rewarding, workout, you begin your way down the hallways of the gym back to your favorite machine in the building.  Even after putting in so much effort, you’ve yet to finish – you still have to work <i>every</i> muscle, after all.  However, as you walk down the halls, breath still heavy and feeling the sweat drip off your brow, you pause, taking a few sniffs.  Once you’re out of the gym and into somewhat fresher air, you smell something, and it smells <i>rank</i>.  Smelling around a bit, you lift an arm and whiff your pit – it’s you!  Maybe, for once, you should actually have a wash; as you are now, the monsters would smell you long before they’d see you.' );
 		EngineCore.outputText( '\n\nYou\'re familiar enough with the layout of the building to know that the showers are connected with the locker room.  You make your way there easily – the gym is surprisingly empty for this hour, with only a handful of other people around using some of the machines.  You make your way to the lockers first, to remove your [armor], stripping down to nothing, and grabbing a towel to wrap around your body.  You don\'t really expect anyone to be there in the showers before you, but the sound of running water as you approach tells you otherwise.' );
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Brooke.prototype.repeatChooseShower = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.time.hours < 16 || CoC.time.hours > 18 || CoC.player.tone < 30 ) {
 			//Before 16 18:00, affection <= 19;
 			if( this.brookeAffection() <= 19 ) {
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//Third encounter; body tone 30 minimum;
 	Brooke.prototype.brookeThirdEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You head your way back to the showers after stopping at the lockers to store your [armor].  You wonder to yourself if you\'ll see Brooke there again.  She seems like the fond, friendly type, and you both have at least one mutual interest, after all.  If nothing else, she\'s certainly not hard on the eyes.' );
 		EngineCore.outputText( '\n\nYou walk into the showers, hearing one of the stalls going.  As you enter, you see Brooke, her head just poking over the walls of the stall, busy gently scrubbing at her fur.  You can\'t tell from your distance if she uses a shampoo or anything.  Again, you\'re both alone, and one of her ears perks up as she hears you approach.  She whips her shoulder-length hair back, swiping the water from her eyes, as she turns to your direction.  <i>"Oh, hey [name],"</i> she says, giving you a warm smile.  <i>"How\'s it hanging today?"</i> You answer that, so far, it\'s been more of the same, and she nods affirmatively.  She resumes her shower wordlessly while you take your own stall – you choose to take the third one down, leaving one between you in case she\'d prefer the privacy.  You remove your towel and start the nozzle.' );
 		EngineCore.outputText( '\n\n<i>"So, [name],"</i> she says casually, going back to gently rubbing the water underneath her fur.  <i>"Where ya from?  How\'d you get to Tel\'Adre?"</i>  You decide to give her the short version: you\'re from a faraway place called Ingnam.  You found your way to Tel\'Adre from wandering aimlessly in the desert for a bit, and were lucky enough to come across the city before a naga\'s den or something.  You consciously choose to leave out the whole \'Champion\' business.  <i>"Ingnam, huh?  Never heard of it. Must have been quite the journey from there to here."</i>' );
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	// Between 16 and 18:00, Affection <= 19;
 	Brooke.prototype.lowAffectionBrookeMeeting = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You head your way back to the showers, feeling the sweet ache of your muscles as you easily find your way there.  Brooke is there, already rinsing the day\'s work out of her muscles.  She hears you coming in, and turns to give you a warm greeting, which you happily return.' );
 		EngineCore.outputText( '\n\nThe shower goes by smoothly, the both of you talking idly about whatever happens to come to mind.  Learning from your previous encounter, you try to keep the topics away from Tel\'Adre while still asking her about herself, and answer her own questions about yourself whenever she asks.  All in all, things go by rather well, and once again she leaves the showers before you, giving you a wave before she leaves.' );
 		EngineCore.outputText( '\n\nYour shower proceeds uneventfully, and just a short while later, you\'re clean as a whistle and out the door.' );
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	// Between 16 and 18:00, Affection >= 20, <= 39, body tone 40 minimum, one-time event;
 	Brooke.prototype.mediumLowBrookeAffectionOneTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Another good workout and another fine sheen of sweat to wash off.  The day hasn\'t been so bad so far, and you start to whistle to yourself as you head to the showers, dropping your [armor] off in a locker beforehand.  Glancing out one of the windows, you guess that Brooke ought to be there around this time of day; and as you approach, you hear the sounds of rushing water.  Sure, it could actually be someone else, but you have a feeling it\'s the Shepherd girl.' );
 		EngineCore.outputText( '\n\nSure enough, there she is, although she\'s looking a little... melancholy.  She\'s staring down at her feet, letting the water rush over her body, not really moving or anything.  One of her ears perks as she hears you coming, and she turns to face you.  <i>"Oh,"</i> she sighs, <i>"hey, [name]."</i>' );
 		//[if (isTaur = true)];
@@ -179,7 +179,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	// [=Don't help=];
 	Brooke.prototype.dontHelpBrookeShower = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You say that she\'s right, and that you don\'t really know each other well enough to share a shower together, even if it\'s as innocent as just washing each other\'s hard-to-reach places.  <i>"Yeah, okay,"</i> she sighs again, going back to scrubbing hard at her fur.  You take your usual place two stalls down, and while you try to make conversation with Brooke, she\'s just not that into it.  The rest of the shower is mostly awkward silence, and as usual, she leaves before you do.' );
 		EngineCore.outputText( '\n\nYour shower proceeds uneventfully, and just a short while later, you\'re clean as a whistle and out the door.' );
 		//(Brooke's affection resets to zero);
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	// [=Help=];
 	Brooke.prototype.helpBrookeOut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You assure her that asking for help washing her back isn\'t such a big deal at all, and is in fact kind of refreshing.  In a world where rape is as common as a \'hello\', just a friendly wash is a breath of fresh air.  She smiles and thanks you, as you drop the towel and enter into her stall, picking up a small bar of soap and start running it over the moist fur of her back as you both stand under the running water.' );
 		EngineCore.outputText( '\n\nIt\'s tempting to go slowly with Brooke\'s fur – this is the first time you\'ve got a \'hands-on\' experience with her and you just want to admire the body she\'s put so much effort into.  You try to go at a steady pace, though: she only asked for a wash, and you don\'t want her to get the wrong idea...' );
 		if( CoC.player.hasCock() ) {
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	// Between 16 and 18:00, Affection >= 20, <= 39;
 	Brooke.prototype.mediumLowBrookeAffection = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'After another workout session, you head back to the showers, stopping at the lockers to set down your [armor] and to grab a towel.  You hear the sound of rushing water as you approach and, as usual, you find Brooke in her usual stall.  She\'s busy lightly scrubbing at her fur, but she easily picks out the sound of your footsteps over the water.  <i>"Hey, [name]!"</i> she says, turning to face you with a smile.  <i>"Right on time, sweetheart.  I could use some company to talk to.  Care to hear a gal pal out?"</i>' );
 		EngineCore.outputText( '\n\nYou tell her that you\'d be glad to.  You step into the stall next to her, lathering up your hands and begin to rub the suds into your [hair].  She finishes doing the same to her own, before crossing her arms over the wall of the stall between you, facing you with a smile.  She waits patiently while you lather yourself – you could take this opportunity to start the conversation yourself, for once.' );
 		EngineCore.outputText( '\n\nWhat do you talk about?' );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//Between 16 and 18:00, Affection >=40, after first-time sex;
 	Brooke.prototype.mediumBrookeAffectionMeetingAfterSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'After another workout session, you head back to the showers, stopping at the lockers to set down your [armor] and to grab a towel.  You hear the sound of rushing water as you approach and, as usual, you find Brooke in her usual stall.  She\'s busy lightly scrubbing at her fur, but she easily picks out the sound of your footsteps over the water.  <i>"Hey there, sexy!"</i> she calls, turning to face you with a smile.  <i>"You\'re just in time.  The water\'s plenty warm, but my stall is getting cold.  Care to help warm it up?"</i>' );
 		EngineCore.outputText( '\n\nYou tell her that you\'d be glad to.  You step into her stall, lathering up your hands and getting to work rubbing the suds into her sore shoulders.  She moans and leans into your touch, letting your now-practiced hands work their magic on her.' );
 		EngineCore.outputText( '\n\nShe remains quiet while you continue to massage her shoulders, letting the warm water wash over you both.  You\'re no stranger to taking this opportunity to start the conversation yourself, and you begin to think of a topic to talk about.' );
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Working Out=];
 	Brooke.prototype.talkWithBrookeAboutWorkingOut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Brooke how she manages to work out, given her condition.  You can understand the legs and the washboard abs, but she\'s still packing more heat in her arms and shoulders than most people do in their bodies.' );
 		EngineCore.outputText( '\n\n<i>"Well, thanks for that compliment!"</i> she says jovially.  <i>"It\'s nice to hear someone finally recognize all my hard work.  But anyway, your question.  Yeah, working my stomach, ass and legs are the easy part.  Working arms, though, that\'s where the, uh..."</i> she pauses, looking at her hands and flexing her fingers.  She must not like thinking about it too much.  <i>"That\'s where the challenge is."</i>' );
 		EngineCore.outputText( '\n\nShe turns her face to the showerhead while she explains.  <i>"First, nothing involving hands.  Dumbbells, barbells, bench-presses, squats, deadlifts – all out, even with a spotter.  If it weighs more than just a few pounds or so, I can\'t lift it with one hand.  Working biceps and forearms was a bit of a hurdle, but with some experimentation, I found a way around my... \'condition.\'' );
@@ -294,7 +294,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Gym Members=];
 	Brooke.prototype.talkToBrookeAboutGymFolks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask about what she thinks of the other gym members.  Surely she\'s seen them as often as you have, given how frequently she visits the place.' );
 		EngineCore.outputText( '\n\n<i>"What, you mean, like, personality wise?  If they\'re my type?  Hot-or-not?  What do you mean?"</i>  You chuckle, saying you probably could have been more specific, but now that she mentions it, why not all three?  <i>"Well, hey, why not?  You invite a girl to talk, and she\'ll talk.' );
 		EngineCore.outputText( '\n\nThat centaur lady who owns the place is an all right sort, I guess.  Never really paid much attention to her.  I pay for my lifetime membership and she leaves me be.  Got a nice rack on her, but truth be told, I\'m not the biggest fan of centaurs.  I know how racist that sounds and everything, and I even hate myself for admitting it, but...  I don\'t know; I think it has to do with my pa being a horse-morph.  It just looks unsettling to me.' );
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Her Rockin Bod=];
 	Brooke.prototype.brookesRockinBod = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You say that you recall her talking about wanting to get buff since a young age.  She even got a dumbbell for one of her birthdays, you recall.  What pushed her to want to become such a pinnacle of modern-day fitness?' );
 		EngineCore.outputText( '\n\n<i>"Ooh, keep talking sweet things, sweet thing,"</i> she moans, her eyes drifting dreamily closed.  <i>"I love it when a ' + CoC.player.mf( 'guy', 'girl' ) + ' notices all my hard work."</i>  She stops, expecting you to keep admiring her body, when you remind her that you asked her a question first.  <i>"You did?  Oh, right!  Why I... yeah, why I work out.' );
 		EngineCore.outputText( '\n\nWell, if you remember that I got a dumbbell for my birthday, then you probably remember that my pa was a horse.  I really looked up to my pa; sweetest pa that ever lived, I\'ll have you know.  I always loved how he could lift my whole bed all by himself, or how he could lift me onto his shoulders with just one hand.  Always wanted to be able to do those things myself, to lift like no other Shepherd could lift, to one day give my own kids that sort of thrill."</i>' );
@@ -378,7 +378,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//[=Grope=];
 	// Affection >= 40, <= 70, after first-time sex, raises lust by 30;
 	Brooke.prototype.gropeDatBrooke = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'brooke-grope-her' ) );
 		EngineCore.outputText( 'Brooke has an amazing body and she knows it.  She consciously chose to flaunt it in front of you by asking you to \'wash her back\'.  The tightness of her muscles; the upright perkiness of her breasts; the taut, flawless features of her thighs... you bet if you smacked her ass, it\'d be like slapping clay.' );
 		//[if (hasCock = true)];
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//[=Penetrate her=];
 	//Requires at least one penis;
 	Brooke.prototype.penetrateBrooke = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( this.brookeCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//[=Anal=];
 	//Requires at least one penis;
 	Brooke.prototype.brookeAnal = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( this.brookeCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -573,7 +573,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//[=Tribadism=];
 	//Requires a vagina;
 	Brooke.prototype.tribadism = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'brooke-gym-female-tribadism' ) );
 		EngineCore.outputText( 'You fondle her full breasts, wet and heavy from the shower water beating down on them.  She moans and leans into your touch as you squish and fondle her flesh, flicking and pinching at her nipples.  You bend your head down and start kissing at her neck – trying to avoid getting any fur sticking to your tongue.  She loves it, and drags her ass over your pelvis some more, humping against' );
 		//[if (isHerm = true);
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Down on her=];
 	Brooke.prototype.goDownOnBrooke = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'brooke-gym-goDown' ) );
 		EngineCore.outputText( 'With your right hand, you fondle at her breast, kneading it gently and enticingly, squashing the nipple in the palm of your hand, while with your left, you scratch and rake your fingers across her abs, feeling every crest of every muscle.  She giggles at your tickling and moans at your groping, leaning more of herself into you with each passing moment.  Impishly, you ask her in a dull whisper if she\'s got anything to eat.' );
 		EngineCore.outputText( '\n\nBrooke\'s eyes open, and, after a confused moment, turns her head and says <i>"what?"</i> with a dumb expression.  Hoping to be a bit clearer without making it obvious, you narrow your eyes and you lick your lips lavishly.  It takes her another second before she catches your meaning.  <i>"Oh!"</i> she nearly yelps, <i>"uh... yeah, I... yeah."</i>  Although you can\'t tell, you\'re sure she\'s blushing, unable to come up with anything witty on the spot, and you laugh, kissing her lovingly on the cheek.' );
@@ -687,7 +687,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//[=Get laid=];
 	// Requires a gender;
 	Brooke.prototype.getLaidByBrooke = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( this.brookeCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -836,7 +836,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//[=Double-dicked=];
 	//Requires at least two penises;
 	Brooke.prototype.doubleDicked = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( this.brookeCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -956,7 +956,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	//Dick that fits or cunt.;
 	//CoC.flags[kFLAGS.BROOKE_MEDIUM_SCENE] === 1;
 	Brooke.prototype.mediumAffectionOneTimeEvent = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wander your way back into the showers, stopping once again at the lockers to deposit your [armor].  Right on time, you hear the tell-tale sound of rushing water just up ahead, and as usual, you see Brooke washing at her fur lightly in the first shower stall.' );
 		EngineCore.outputText( '\n\nWith your first step, her ears perk, and she turns to you.  She smiles once more; you can\'t tell at this distance, but her smile looked a little... devious.  Or maybe playful.  You\'re not sure what the difference is.  <i>"Hey, [name],"</i> she says, giving you a wink.  <i>"The water\'s warm, but my stall is cold... care to come and warm it up?"</i>' );
 		EngineCore.outputText( '\n\nAnother invite to wash her back.  She either exhausted herself in the gym and she can barely lift her arms – and you wouldn\'t be surprised if that were the case – or she\'s got something on her mind.  You agree, playing along for now, and step into her stall, right behind her.  Lecherously, you find yourself excited at using your hands to see her body again.' );
@@ -980,7 +980,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.addButton( 0, 'Next', this, this.brookeSpecialMediumSceneContinued );
 	};
 	Brooke.prototype.brookeSpecialMediumSceneContinued = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( this.brookeCapacity() );
 		if( x < 0 && CoC.player.hasCock() ) {
 			x = CoC.player.smallestCockIndex();
@@ -1220,7 +1220,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	// Affection = 70, after first-time sex, talk to Heckel between 13 and 15:00, must not be a first-time encounter with Heckel, requires a gender;
 	Brooke.prototype.specialHeckelAndBrookeEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stroll into the gym, looking for Heckel, but she\'s not at her usual routine, running laps around the gym.  The gym itself is a little bare; there aren\'t a lot of people using the machines dotted around the room.  Perfectly good and ready machines, barbells, bench-presses, et al sit ready and waiting for someone to test their mettle on them.' );
 		EngineCore.outputText( '\n\nIn one of the corners of the room, you hear a bit of a commotion.  Despite the size of the room, the echoes of the commotion make it a bit confusing as to just where the noise is coming from.  Do you look to your left, towards the butterfly machines, or do you look to your right, towards the leg press?' );
 		//[=Butterfly=] [=Leg Press=] [=Leave=];
@@ -1231,7 +1231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Leave=];
 	Brooke.prototype.leaveHeckelEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Well, whatever.  You came here looking for Heckel, and she\'s not here, as far as you can tell.  You turn around and leave the gym, without investigating the cause of the commotion.' );
 		//Return to Tel'Adre, no time loss;
 		EngineCore.menu();
@@ -1239,7 +1239,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Butterfly=];
 	Brooke.prototype.butterflyMachinesGooooo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look to your left, seeing a group of people standing around a pair of the butterfly machines in the distance.  Anthromorphic animals of all shapes and sizes stand shoulder-to-shoulder, \'ooh\'ing at whatever spectacle it is they\'re keeping you from seeing.  You approach, and you manage to worm your way between a pair of buff matrons, intent on getting a better look at what the fuss is.' );
 		EngineCore.outputText( '\n\nThere, one on each machine, is Heckel and Brooke, each gliding through their reps.  The muscles on their arms bulge and their tits press out into their tank-tops with each press, and, going from the movement in the back of the machines, they\'ve both got an absurd amount of weight on, far too much for you to guess just by eyeballing them.  You turn to the dog on your right and ask how long they\'ve been going at it; he answers, \'for too long\'.' );
 		EngineCore.outputText( '\n\nHeckel has a confident grin on her face, exhaling with each press and inhaling with each ease.  She\'s going quickly and easily, and if it weren\'t for the sweat on her brow, you\'d think she\'d just stepped in with how much energy she had.  Brooke, meanwhile, looks determined but unfocused, and her reps are decidedly slower – she takes a while going in and she eases off too quickly.  Her eyes fall on yours, and she feels a burst of energy for but a moment, but after only a few more reps, she collapses in the chair, her arms immediately going limp.' );
@@ -1252,7 +1252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.addButton( 0, 'Next', this, this.brookeAndHeckelStuffPartTwo );
 	};
 	Brooke.prototype.brookeAndHeckelStuffPartTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She kicks open the door to the locker room, and promptly tosses you both in.  Brooke flops onto the closest bench, exhausted, but you merely stagger, still alert and with your wits about you.  <i>"Strip,"</i> Heckel commands, eyeing you dominantly, before she moves to Brooke and, gripping onto her tank top with both hands, easily rips it open, revealing Brooke\'s braless breasts underneath.  Heckel, with surprising eagerness, grips her own shirt with one hand and her shorts with the other, tugging them apart and wiggling out of them simultaneously with practiced speed.' );
 		EngineCore.outputText( '\n\nHeckel pushes Brooke down so the Shepherd girl is lying flat on her back, and quickly straddles her by the waist.  Naked from top to bottom, Heckel grips Brooke around the ribs and begins roughly grinding her bare cock against her belly.  Brooke moans a bit, her arms hanging limply at her sides while the hyena has her way with her.  Heckel\'s black dog dick remains semi-limp, only straight enough to not drag through Brooke\'s fur, but that changes with each wanton thrust.' );
 		EngineCore.outputText( '\n\n<i>"Hurry it up,"</i> Heckel says gruffly at you, noticing that you\'ve taken to watching her rough dominance instead of stripping down like she\'s told you to.' );
@@ -1262,7 +1262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.addButton( 1, 'No', this, this.nopeOutofBroke );
 	};
 	Brooke.prototype.nopeOutofBroke = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shake your head at Heckel, not feeling like playing second fiddle today.' );
 		EngineCore.outputText( '\n\nThe muscled hermaphrodite shrugs and chortles, "<i>Suit yourself.  This bitch...</i>"  She grope\'s Brooke\'s tit.  "<i>...knew the rules of our little wager.</i>"' );
 		EngineCore.outputText( '\n\nYou aren\'t exactly pleased with the situation, but what these two get into in their free time is their business. Before you go, you ask Brooke if she\'s okay with this.</i>"' );
@@ -1272,7 +1272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Brooke.prototype.submitHeckelXBrookeThreesome = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'brooke-gym-heckelbrooke3some' ) );
 		EngineCore.outputText( 'Once you snap out of it, you comply, hastily removing your [armor] and leaving you just as naked as her.  Although you never really agreed to something like this in the first place, you <b>did</b> come here to see Heckel for a reason, and seeing the two of them like they are <b>is</b> really hot...' );
 		EngineCore.outputText( '\n\nHeckel smiles when she sees you\'ve finally complied.  Her ten-inch dog dick, now fully erect, stands just a bit away from Brooke\'s taut belly, pointing right at the Shepherd girl\'s face.  She stands up, pulling herself away from Brooke, and roughly grabs her by the wrist, pulling her onto the floor so she can have the bench to herself.  Heckel sits, splaying her legs, letting her fist-size testicles hang low and her proud, hard dick standing tall.  Brooke pulls herself to her knees, understanding what Heckel intends, but the hyena keeps her at bay with her knee for the moment.  Instead, Heckel looks at you and crooks her finger, telling you to approach.  You do.' );
@@ -1344,7 +1344,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.addButton( 0, 'Next', this, this.brookeAndHeckelStuffPartThree );
 	};
 	Brooke.prototype.brookeAndHeckelStuffPartThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You gasp for breath yourself, your eyes still seeing stars from the fantastic oral Brooke gave you.  You look towards Brooke, but not really <i>at</i> her, your mind a bit of a blank slate after such an ordeal.  Brooke doesn\'t seem much better off herself: her own orgasm finally easing off a bit, she eventually remembers that she\'s supposed to be going down on you, completely forgetting that you\'ve already finished.  It takes until you feel your genitals being a little overstimulated to finally realize what\'s happening, and you tell Brooke to stop.' );
 		EngineCore.outputText( '\n\n<i>"Huh, wha... ?"</i> she asks, a bit startled by your command.  She looks up at you, then around the locker room you\'re both in, then to Heckel, motionless on her back.  <i>"Sorry,"</i> she says, <i>"I kind of phased out for a minute there.  That was pretty intense, even for Heckel."</i>  You ask her what she means by that.  <i>"Well, Heckel and I, this isn\'t the first time we\'ve had this little \'competition\' of ours.  I win some and she wins some, but no matter what, at the end of the day, someone\'s getting fucked.  But <b>that</b> was something else.  If I had to guess, she was probably trying to show off to you, [name].  Showing how she\'s all super-strong and dominant and can go for hours and hours, you know, typical alpha bullshit."</i>' );
 		EngineCore.outputText( '\n\nYou\'re surprised Heckel doesn\'t immediately reply with some snarky, indignant response.  Instead, what you hear is a heavy snore from the hyena atop the Shepherd girl.  Brooke chuckles a bit at the sound.  <i>"Well, maybe not hours,"</i> she says, and you laugh at the remark yourself.  <i>"It\'ll be a while before her knot deflates, and a bit longer than that for her to wake up, so don\'t feel like you have to wait up for me.  Getting fucked by her is great and all, but I made the mistake of sticking around for a bit too long once and we wound up not leaving until closing time.  Save yourself while you still can; I\'ll catch up in a bit."</i>  You ask if she\'s sure, and in response, she lovingly kisses the inside of your thigh.  <i>"Sure I\'m sure, sweet thing.  You have things to do, I bet.  Just get going."</i>' );
@@ -1356,7 +1356,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 	};
 	//[=Leg Press=];
 	Brooke.prototype.legPressInsteadOfThreesome = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look to your right, seeing a group of people standing around a pair of the leg press machines in the distance.  Anthromorphic animals and centaurs of all shapes and sizes stand shoulder-to-shoulder, \'ooh\'ing at whatever spectacle it is they\'re keeping you from seeing.  You approach, and you manage to worm your way between a pair of buff matrons, intent on getting a better look at what the fuss is.' );
 		EngineCore.outputText( '\n\nThere, one on each machine, is Brooke and Heckel, each gliding through their reps.  The muscles on their legs bulge and their asses pull tight into their shorts with each press, and, going from the movement in the back of the machines, they\'ve both got an absurd amount of weight on, far too much for you to guess just by eyeballing them.  You turn to the horse on your left and ask how long they\'ve been going at it; he answers, \'for too long\'.' );
 		EngineCore.outputText( '\n\nBrooke has a cocksure grin on her face, exhaling with each press and inhaling with each ease.  She\'s going steadily and casually, and if it weren\'t for the sweat on her legs, you\'d think she\'d just stepped in with how much energy she had.  Heckel, meanwhile, looks focused but strained, and her reps are decidedly slower – her muscles quake pressing out and she eases off too quickly.  Her eyes fall on yours, and she feels a burst of determination for but a moment, but after only a few more reps, she collapses in the chair, her legs limply falling to the floor.' );
@@ -1369,7 +1369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.addButton( 0, 'Next', this, this.brookeVHeckelBrookeWins2 );
 	};
 	Brooke.prototype.brookeVHeckelBrookeWins2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'brooke-gym-heckelbrookedominance' ) );
 		EngineCore.outputText( 'You and Brooke help Heckel into the locker room.  <i>"[name], close the door and strip down,"</i> Brooke says, shouldering the rest of Heckel\'s weight as they lumber towards the bench.  Brooke whispers some sexy nothings into Heckel\'s ear while you do as you\'re asked, making sure there\'s some semblance of privacy in the wide-open locker room while you go about stripping off your [armor] until you\'re in the nude.' );
 		EngineCore.outputText( '\n\nYou look back to the two bodybuilders just in time to see Brooke roughly throw Heckel onto her ass on the bench.  With surprising quickness and dexterity, Brooke leans forward, gripping onto the neck of Heckel\'s tank-top, and plants the fabric in her mouth.  With a huge yank, the Shepherd girl rips off Heckel\'s shirt, leaving the hyena naked from the waist up.  Brooke bends farther down, doing the same to her shorts while she squirms and wiggles out of her own.  Heckel does nothing to resist, despite her arms still having more than enough strength to shove Brooke off if she wanted.  In fact, judging from the half-mast of her erection, you\'d be willing to guess Heckel is enjoying the fact that she lost as much as Brooke was.' );
@@ -1467,7 +1467,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, StatusAffects, 
 		EngineCore.addButton( 0, 'Next', this, this.brookeVHeckelBrookeWins3 );
 	};
 	Brooke.prototype.brookeVHeckelBrookeWins3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look forward, not really at anything, dazed and winding down from the amazing sex with the two fighters.  Your legs burn and your heart pounds, winded from such an energetic session, and you rub against Heckel just a little, enjoying the afterglow against the hyena\'s body.  Brooke looks distant; her tongue hangs from her mouth as she looks to the ceiling, barely cognizant, twitching her hips idly as she relishes in the feel of having Heckel\'s submissive prick and the load upon load of cum so deep inside her.  You ask her if she\'s okay, and when she doesn\'t respond, you reach over Heckel and give her a shake.' );
 		EngineCore.outputText( '\n\n<i>"Huh, wha... ?"</i> she asks, a bit startled by the motion.  She looks in your eyes, then around the locker room you\'re both in, then to Heckel, motionless between you both.  <i>"Sorry,"</i> she says, <i>"I kind of phased out for a minute there.  That was pretty intense, even for me."</i>  You ask her what she means by that.  <i>"Well, Heckel and I, this isn\'t the first time we\'ve had this little \'competition\' of ours.  I win some and she wins some, but no matter what, at the end of the day, someone\'s getting fucked.  But <b>that</b> was something else.  I guess I got a little carried away because you were here with me, [name]; I had an audience to prove once and for all that I was better than Heckel – better at the gym, and better at fuckin\'."</i>' );
 		EngineCore.outputText( '\n\nYou\'re surprised Heckel doesn\'t immediately reply with some snarky, indignant response.  Instead, what you hear is a heavy snore from the hyena' );

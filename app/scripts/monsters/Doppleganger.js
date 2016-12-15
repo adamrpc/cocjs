@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, MainView, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat, Descriptors ) {
 	function Doppleganger() {
 		this.init(this, arguments);
 	}
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 		this.addTalkShit();
 	};
 	Doppleganger.prototype.mirrorTease = function( damage, successful ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You move your hands seductively over your body, and - you stop. The doppelganger stops too, staring at you with wicked coyness, ' + CoC.player.mf( 'his', 'her' ) + ' hands frozen on ' + CoC.player.mf( 'his', 'her' ) + ' form exactly where yours are. Glaring back, you begin your slow, lustful motions again, as your reflection does the exact same thing. It’s a lust off!' );
 		if( damage > 0 && successful ) {
 			EngineCore.outputText( '\n\nYou determinedly display and twist your carnality to what you know are its best advantages, ignoring what the doppelganger is doing- you’re extremely familiar with it, after all. After a few slow seconds crawl past a blush settles upon your reflection’s face, and ' + CoC.player.mf( 'he', 'she' ) + ' hands falter and stop being able to follow yours as ' + CoC.player.mf( 'he', 'she' ) + ' stares at what you’re doing.' );
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, CoC, Mo
 		this.addTalkShit();
 	};
 	Doppleganger.prototype.addTalkShit = function() {
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		if( this.HP < 1 ) {
 			EngineCore.doNext( Combat, Combat.endHpVictory );
 			return;

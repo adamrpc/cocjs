@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat ) {
+angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, CoC, kFLAGS, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat ) {
 	function Izumi() {
 		this.init(this, arguments);
 	}
@@ -155,7 +155,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 	};
 	// Struggle against izumi's chokeslam
 	Izumi.prototype.chokeSlamStruggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var brokeFree;
 		if( Utils.rand( CoC.player.str ) > this.str / 2 ) {
 			brokeFree = true;
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 	};
 	// OH HEY ITS A THING
 	Izumi.prototype.chokeSlamWait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your feet dangle uselessly in the air as Izumi holds you aloft.  Why bother resisting?  She\'s just so <i>strong</i>, her fingers wrapped so completely around your neck...' );
 		CoC.player.takeDamage( 75 + Utils.rand( 15 ) );
 		if( CoC.flags[ kFLAGS.PC_FETISH ] >= 2 ) {
@@ -285,11 +285,11 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 			Combat.combatRoundOver();
 		} else {
 			if( Utils.rand( 2 ) === 0 ) {
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				EngineCore.outputText( '“Hah!  Say goodnight, ‘cause I’m going to choke the fight right out of you!”  She cries exuberantly, forcibly mashing your face into her bosom.  It would appear that she is trying to throttle you, but only having one hand is making the task difficult.  You can breathe just fine, but having your face forced into the constantly jostling mass of tit-flesh before you is distracting to say the least.\n\n' );
 				EngineCore.outputText( 'You scrabble desperately against Izumi’s grip, trying not to think about where you’re placing your hands, or how soft and pliant the flesh beneath you is, or any number of other upsetting little details - but to no avail.  Izumi’s grip is incredibly strong.  You hang there for a moment, trying to get your breath back for another attempt as Izumi jostles and presses against you from all sides.' );
 			} else {
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				if( CoC.player.hasCock() ) {
 					EngineCore.outputText( 'Assaulted by the sensation of being pressed against such warm flesh, you can already feel [eachCock] starting to stiffen against your will.  Your hardening erection' );
 					if( CoC.player.totalCocks() > 1 ) {
@@ -323,7 +323,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 	// Player breaks free of tiSmother and applies damage to Izumi
 	Izumi.prototype.titSmotherEscape = function() {
 		$log.debug( 'Escaping TitSmother!' );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.str < 90 ) {
 			EngineCore.outputText( 'Straining with all your might, you still can’t quite manage to break Izumi’s grip, but you do manage to somehow slide upwards through the valley of her bust.  Izumi’s face looms into view, the enormous woman gritting her teeth as she attempts to crush the fight out of you.  In an act of desperation, you rear back and then knife forwards in a brutal headbutt.\n\n' );
 			EngineCore.outputText( '“Ack!”  Your forehead connects with her chin in a collision that probably hurts you as much as her, judging by the searing pain that lances through your forehead as she drops you to the floor. Meanwhile, this.Izumi staggers back, rubbing at her chin.  “Ow.  That hurt, kid!”  She says reproachfully.  The two of you take a moment to shake the cobwebs from your heads before dropping back into your combat stances, a little more wary this time around.\n\n' );
@@ -341,7 +341,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, CoC, kFLAG
 	};
 	// Wait handler for titsmother attack
 	Izumi.prototype.titSmotherWait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		$log.debug( 'Waiting during TitSmother' );
 		EngineCore.outputText( 'With your face crushed into the Oni\'s cleavage, you can\'t help but wonder; why bother resisting?  She\'s just so <i>strong</i>, and her breasts feel so lushious against your [face]...' );
 		EngineCore.dynStats( 'lus', CoC.player.lib / 10 + 5 + Utils.rand( 5 ) );

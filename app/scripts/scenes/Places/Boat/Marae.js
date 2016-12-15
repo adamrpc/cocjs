@@ -149,13 +149,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		}
 	};
 	Marae.prototype.grabHerBoob = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You reach forward to cop a feel.  The goddess\' eyes go wide with fury as a massive branch swings down, catching you in the sternum.  It hits you hard enough that you land in your boat and float back a few feet into the water.  Nothing to do but leave and hope for another chance at her breasts...' );
 		CoC.player.takeDamage( CoC.player.HP - 1 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Marae.prototype.runFromPervertedGoddess = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn and run for the boat, leaving the corrupt goddess behind.  High pitched laugher seems to chase you as you row away from the island.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};

@@ -25,17 +25,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	DungeonSandWitch.prototype.leaveBoobsDungeon = function() {
 		OnLoadVariables.dungeonLoc = 0;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You leave the door behind and take off through the desert back towards camp.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	DungeonSandWitch.prototype.fightCumWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'A robed witch crests one of the dunes, her sable skin glistening with moisture in the unforgiving desert sun.  She spies you, and her dusky lips curl up in a smile while a white staff materializes in her hands.  Playfully, the woman calls, "<i>I\'m going to cast a spell on you...</i>"' );
 		Combat.startCombat( new CumWitch() );
 	};
 	DungeonSandWitch.prototype.openZeDoorToParadize = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Touch Sphere to Open: ;
 		if( CoC.flags[ kFLAGS.ENTERED_SANDWITCH_DUNGEON ] === 0 ) {
 			EngineCore.outputText( 'You hesitantly touch the dark sphere, admiring its smooth, glossy finish.  Almost as soon as you come in contact with it, it recedes into the wall.  The doorway rumbles, a giant slab vanishing into the sandy depths, opening a portal to the inside.  Meticulous carvings inlaid with pearl depict large breasted witches in great quantity, and though the specific means of the glyphs are foreign to you, it\'s clear this place is some kind of sanctuary for sand witches.' );
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			this.memeberedFolksFindTrueWuv();
 			return;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[If defeated by HP loss];
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'You fall to the dirt floor, beaten and bruised, no longer having the will to keep fighting.  The sand witches all gather around you, snickering on how weak you are.  Your vision is blurry as you look up at the dark figures towering over your prone form, you can only wonder what they\'ll do to you.' );
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[if for fun];
 	DungeonSandWitch.prototype.sandWitchMobNotBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wake up hours later outside the dungeon with all your belongings, surprisingly not missing any gems.' );
 		OnLoadVariables.dungeonLoc = 0; //Replaces	inDungeon = false;
 		CoC.player.orgasm();
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Sand-witch mob Bad end for Females];
 	DungeonSandWitch.prototype.sandWitchMobBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'When your mind finally starts straightening things out, you wake up on a bed with your ass, cunt, and more sore than you can remember.  You rub the achy bits as you notice a cloaked figured with a wide-brimmed pointy hat sitting by your bedside, reading a white book.  When the figure sees you\'ve awaken from your slumber, she places a bookmark in the volume and sets it on the nearby nightstand.' );
 		EngineCore.outputText( '\n\n"<i>Good morning sister, did you have a nice nap?</i>"' );
 		EngineCore.outputText( '\n\nSister? You\'re not related to this girl... are you?' );
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Membered Folks Get Milked;
 	DungeonSandWitch.prototype.memeberedFolksFindTrueWuv = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//HP;
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'Slumping down under the weight of your myriad injuries, you fitfilly struggle to hold yourself upright.  The struggle proves to be in vain when your [legs] fold and the ground rushes up, filling your view with hard-packed earth for the split-second before you impact.  Stars and blackness fill your vision as you lie there dazed, too hurt to even make an attempt at rising.  High-pitched, feminine titters of laugher irritate your ears as the girls react to your state.  Well, you\'ll show them.  You use every ounce of your willpower to force your arms into action, and with all the speed of a wallowing pig, you roll yourself over.  The effect is less than impressive, but at least you can see the crowd of woman looming over you.  The shadows from their numerous, milky bosoms cast you into darkness as the enormity of your defeat sets in.' );
@@ -342,7 +342,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		EngineCore.addButton( 0, 'Next', this, this.memeberedFolksFindTrueWuv2 );
 	};
 	DungeonSandWitch.prototype.memeberedFolksFindTrueWuv2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b><u>One week later...</u></b>\n' );
 		EngineCore.outputText( 'The door cracks open, shedding light on the sordid, coiled scene that you\'ve spend the past few days languishing in.  At some point, you learned that your companion had been named Ophelia by the sisters, and as your cum-spurting, pussy-licking, cock-milking orgy continued, you were drawn closer and closer to her.  Sure, the first night you slept alone (or as alone as you can be with a bundle of tentacles ' );
 		if( CoC.player.cockTotal() === 1 ) {
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		EngineCore.addButton( 0, 'Next', this, this.memeberedFolksFindTrueWuv3 );
 	};
 	DungeonSandWitch.prototype.memeberedFolksFindTrueWuv3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You wake from your stupor in a room full of sex toys, some of them being used by the busty witches.  It doesn\'t take long for one of them to see your state, offer you food and a drink, and present her sopping cunts to you.  You note that these women are both pregnant, but their libidos have obviously gone through the roof.  Thrusting inside her immediately, you gorge yourself on the proffered nourishment and do your duty as a captive love-slave, pleasing their holes again and again until they\'re so full of your cum that it slops from their lips in lewd waves with every virile ejaculation.' );
 		EngineCore.outputText( '\n\nSometimes, when you seem unhappy, they let you spend the night with Ophelia.  She\'s as attentive and caring as when you first met, even if she has grown larger and more powerful.  Her sweet personality shines through despite her inhuman appearance, and she\'ll tenderly milk you all night long while the two of you share stories of your lives.' );
 		EngineCore.outputText( '\n\nEventually, she\'s deemed purified enough to traverse the caves on her own, and though Ophelia does not lactate, the sisters make great use of her fluids.  Your monstrous lover spends most of her time with you, however.  Your adventure ended, but you found a love who genuinely treasures you and ensures that you get to experience dozens of orgasms an hour for days at a time...' );
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//PC Wins;
 	DungeonSandWitch.prototype.yoYouBeatUpSomeSandWitchesYOUMONSTER = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.SANDWITCH_MOB_DEFEATED ] = 1;
 		EngineCore.outputText( 'The sand witches all collapse to the floor in a vast puddle of milk and pussy juice, ' );
 		if( CoC.monster.HP < 1 ) {
@@ -397,7 +397,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Dicked Win Sex;
 	DungeonSandWitch.prototype.dicksHaveSexWithAWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Looking over the ' );
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'painfully ' );
@@ -524,7 +524,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Sapphic Win Sex;
 	//Forced cunnlingus, rimjob, and clit-and-nipple sucking.;
 	DungeonSandWitch.prototype.forceCunnilingusRimjobClitAndNipple = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You eye the defeated mob' );
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( ' through their torn-up robes, noting many large, dripping breasts and more than a few pairs of supple cunt-lips' );
@@ -910,7 +910,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	//*PC Loss - Female - Become Sand Witch;
 	DungeonSandWitch.prototype.turnIntoASammitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Helplessly, you ' );
 		if( CoC.player.lust > 99 ) {
 			if( CoC.player.hasVagina() ) {
@@ -990,7 +990,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		EngineCore.addButton( 0, 'Next', this, this.chicksLoseToSandWitchesBadEndFinale );
 	};
 	DungeonSandWitch.prototype.chicksLoseToSandWitchesBadEndFinale = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>Some time later...</b>' );
 		EngineCore.outputText( '\nYou smile and rub your hands across your womb.  True to her word, the Cum Witch got both your wombs pregnant in short order, and you couldn\'t be happier.  Your sisters have doted on you ever since they discovered your devotion to milk-production and child-incubation.  At first, they were a bit disturbed by your seemingly endless love for the Cum Witch\'s cum, but as you produced more and more milk (and children) they stopped worrying about making you stay clothed or cleaning her cum from your skin.  Not long after that, you moved in with her as a live-in cum-dump. Life is good.' );
 
@@ -1000,7 +1000,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Male Loss - Turned Into Cum Pump;
 	DungeonSandWitch.prototype.cumWitchCumPumpBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Laid low by ' );
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'your wounds' );
@@ -1050,7 +1050,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		EngineCore.dynStats( 'lib', 100, 'sen', 100 );
 	};
 	DungeonSandWitch.prototype.beACumPumpPartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>*SNAP*</b>  You yawn and begin to blink the sleep from your eyes, shielding your gaze from the room\'s ambient light with your hand.  Your head is muzzy, like you stayed up too late or overindulged in milk again.  A soft hand is massaging your balls, caressing the orbs with the tenderness of a lover. They feel warm... and full.  ' );
 		if( CoC.player.balls === 0 ) {
 			EngineCore.outputText( 'Wait a moment, you don\'t - didn\'t - have balls! Turning your accusing stare towards the busty witch, you watch in wonder as the newly grown sack slowly turns taut, stretched by the burgeoning size of your cum-stuffed spunk-factories.  She pats your newly-stuffed nutsack and remarks, "<i>I had to make sure you were suitably virile...  Besides, I needed to make sure you\'d only sire daughters for us.  We don\'t need that many like you, my loyal ' + CoC.player.mf( 'stud', 'cum donor' ) + '.</i>"' );
@@ -1108,7 +1108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		EngineCore.addButton( 0, 'Next', this, this.cumPumpVolumeThree );
 	};
 	DungeonSandWitch.prototype.cumPumpVolumeThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With the champion brainwashed into a little more than a loyal cum-pump for the sand witches, they grow in number and strength with alarming speed.  In the space of eight years, the desert is transformed into a verdant forest.  For better or for worse, the witches finally rival the demons in power.  They spread their influence wider, eventually ' );
 		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
 			EngineCore.outputText( 'destroying' );
@@ -1120,7 +1120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Repeat Desert Loss Male;
 	DungeonSandWitch.prototype.repeatLoseToCumWitchForDudes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//HP:;
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'Collapsing under the weight of your injuries, you tumble back onto your [butt], kicking up a cloud of sand as you fall fully prone.  Laughing at your predicament, the ebony futanari cooly advances, tossing her wide-brimmed hat aside as she goes.  "<i>Oh you poor, poor Champion.  Did you ask the Sand Mother to let us out so that we could this?  Does the strong, mighty ' + CoC.player.mf( 'hero', 'heroine' ) + ' have a thing for submitting to my touches and fat cock?  Or perhaps, you want something else...</i>"' );
@@ -1240,7 +1240,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Take The Too Big Loss Facial;
 	DungeonSandWitch.prototype.tooBigCumWitchLossFacial = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Ruefully, you tell her that you don\'t mind a little cum in exchange for having your own abilities enhanced.  The knowing grin that spreads across her face makes it seem like she knew the result was a foregone conclusion.' );
 		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( '  You shudder at the knowledge of what\'s going to happen to you.  Just why did you agree to this?' );
@@ -1287,7 +1287,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Avoid The Too Big Loss Facial;
 	DungeonSandWitch.prototype.tooBigCumWitchLossNoFacial = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her you\'d rather not get a face full of her spunk.  Judging by the sour look on her face, she seems to be honestly surprised by your choice, like she never expected that anyone would choose not to get a faceful of her spunk.  This bitch clearly has spent too much time with her nymphomaniac sisters.' );
 		EngineCore.outputText( '\n\nShe growls, "<i>Your loss, ' + CoC.player.mf( 'handsome', 'beautiful' ) + '.  I\'m still gonna, gonna... get mine.</i>"  The Cum Witch forcibly twists her hips to angle your [cock biggest] off to the side, shuddering as her black cock convulses on top of you, spraying a fresh gout of goo on top of you, and she hasn\'t even cum yet.  Her balls are quaking needily, pulsing and bouncing as they prepare to blow' );
 		if( CoC.player.balls > 0 ) {
@@ -1307,7 +1307,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//TDM's generic loss to cum witch scene;
 	//requires that the PC have a dick that can fit inside the cum witch's vagina.  The scene can be used with herms.;
 	DungeonSandWitch.prototype.TDMsLoseToCumWitchScene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -1408,7 +1408,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Victory Intro;
 	DungeonSandWitch.prototype.cumWitchDefeated = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(HP);
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'The chocolate-skinned witch collapses down onto her hands and knees with the tattered remnants of her robes swirling about her.  With her clothing destroyed, you\'re treated to the perfect view of her semi-erect cock and swollen testes swaying enticingly beneath her, paired with the glimmering wetness of her juicy cunny - also on display.  Her udder-like melons sway and jiggle in sympathy to her uncoordinated swaying.  She grumbles, "<i>You\'ve beaten me, interloper...</i>"' );
@@ -1448,7 +1448,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Decline Sex;
 	DungeonSandWitch.prototype.declineSandWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Dusting yourself off, you lower your [weapon] and leave the cum witch to recover from the humiliation of losing to you.  The haunted, hungry look in her eyes leaves little doubt that she\'ll challenge you again or that she still wants to fuck you.  For now, she slips down into her own puddled cum, idly touching herself.' );
 		if( CoC.isInCombat() ) {
 			Combat.cleanupAfterCombat();
@@ -1458,7 +1458,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Male Victory Sex;
 	DungeonSandWitch.prototype.menFuckUpSomeCumWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		var y = CoC.player.cockThatFits2( CoC.monster.vaginalCapacity() );
 		EngineCore.outputText( 'You shuck out of your [armor] in eager anticipation, [eachCock] aleady ' );
@@ -1581,7 +1581,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Male 'Too Big' Victory Sex;
 	DungeonSandWitch.prototype.maleTooBigVictorySex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You slip out of your [armor] with deliberate slowness, the tight, constraining pressure on your massive tool shifting in the most delicious way.  The uncomfortable yet tantalizing weight lessens gradually, and at the first hint of freedom, your ' + Descriptors.cockDescript( x ) + ' flops free to taste the freedom of the open air, nearly doubling in size as your blood surges through it.  The witch\'s eyes look up in confusion at your prodigious proportions and widen in shock.' );
 		EngineCore.outputText( '\n\n"<i>Y-you\'re bigger than me...</i>" she drawls, her mouth hanging open in shock at the declaration.  She covers the hanging orifice with her palm, lamely trying to conceal her shock at your gargantuan boner.' );
@@ -1621,7 +1621,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Female Victory Sex;
 	DungeonSandWitch.prototype.ladyVictorySex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You disrobe, casting aside the garments with a feminine sigh.  As soon as you expose yourself, the witch\'s eyes twinkle happily.  She caresses her stiff tool and tweaks one of her nipples as she watches you.  "<i>If you wanted to get fucked by little old me, all you had to do was bend over, honey.</i>"' );
 		EngineCore.outputText( '\n\nPlanting a [foot] on her hip, you stop her fidgeting with a menacing glare.  "<i>You don\'t get to fuck me, witch.  I\'m fucking YOU,</i>"  you decree.  The well-endowed ganguro slut creases her pretty face into a frown, but meekly nods.  Her pussy still seems puffy and wet, and her cock hasn\'t shrunk at all.  You sidle up and push a few fingers into her twat, testing the waters.  As you expected, her fluids are as bountiful as most sand witch\'s breasts.  She squirms weakly at the attention, and her cock bobs happily on her belly.  You affectionally pat the dark-hued member and playfully tug on her ebon skin.' );
 		EngineCore.outputText( '\n\n"<i>Ahh... don\'t tease me!</i>" she protests as she tries to wriggle away from your probing fingers.  You pinch your fingers into a tight circle around her sack and pull down, stopping her in her tracks.  The lusty woman whines plaintively, but you tighten your grip and jam your fingers deeper inside her.  In spite of her discomfort, the ebony babe\'s nipples are sticking straight up, huge and puffy.  Her cock is leaking trickles of precum all over her belly, and she gasps, "<i>Noo...</i>"' );
@@ -1659,7 +1659,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//Tentacle Victory Gangbang;
 	//3+ Tentas;
 	DungeonSandWitch.prototype.tentacleVictoryGangbangCumWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The defeated sorceress eyes you questioningly as you step closer, and her surprise only deepens when you part your [armor] to expose your ' + CoC.player.multiCockDescriptLight() + '.   You gleefully twist your multiple members around each other into a many-layered helix, oily, pre-dripping plant-cocks squirming together in a bundle of barely-restrained, bubbling lust.  The pliant flesh pulsates happily at its freedom and immediately takes a twist towards the horny witch, pausing above her as if considering the tightness of her slick folds or the softness of her erect cock\'s skin.' );
 		EngineCore.outputText( '\n\nWith your erections poised to strike, the blonde can only stare and worry.  Her lower lip quivers with uncertainty, but as she soon as she dares to protest, you unspool a wiggling wang and stuff it so deep into her gullet that all she can say is, "<i>-uRMMPH!!!</i>"  The ebony girl\'s throat bulges obscenely while your monstrous tool burrows deeper, nesting the purple-hued head deep in her supple, exquisitely textured throat.  The suction generated by her attempts to breath only make your cock swell larger inside her, pumping you up as effectively as a goblin-machined sex-toy.' );
 		EngineCore.outputText( '\n\nGroaning from the sensations, you relax the control that kept your bundle of cock twined into a single dick and allow them to fly freely.  The quickest cock immediately snaps down to nuzzle at the cunt-lips, smearing your fluids into her own.  The quick rubs stir the sensual fluids into a bubbly, off-white mess of slippery debauchery.  Unfortunately for it, that early cock is soon supplanted by another of your tentacle members.  The new one glides along the underside of the first, then squeezes between the other dick and the glorious wet slit, arching down to nestle itself inside.  The witch arches her back, eyes rolling wildly, as she struggles both to breathe and endure the sudden, forceful penetration.' );
@@ -1706,7 +1706,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Repeat Desert Loss Female & Herm;
 	DungeonSandWitch.prototype.savinMakesAwesomeFemdom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(HP);
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'Unable to further withstand the witch\'s magical assault, you topple over into the soft, warm sands. Before you can recover, the witch is on top of you, her powerful legs straddling your [hips]. Her long, dainty fingers lock through your [armor], pulling your face out of the sand and rolling you over to look up at her.' );
@@ -1760,7 +1760,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Resist;
 	DungeonSandWitch.prototype.resistSavinStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'It takes nothing more than a gentle push to put the witch on her back.  She gasps as you straddle her, [legs] spread around her wide, birthing hips, her cock buried to the hilt inside you.  To your surprise, she reaches up from her now-submissive position, stroking your cheek and purring like a pleasured cat.  You lean down, kissing her lips for once, rather than her teats, leaving a pearly milk stain on the full black lines.  With a smile, you plant your hands on her chest to steady yourself as you begin to rise and fall on her cock, dragging the massive thing nearly out of you before sliding back down with tantalizing slowness, reveling in the sensation of being filled to the brim once again.  Again and again you buck your hips and bounce on her cock, picking up the pace to a fury of lusty fucking, a symphony of moans and primal grunts echoing out across the desert as you breed the witch, coaxing the cum you need so desperately out of her thick, throbbing pole.' );
 		EngineCore.outputText( '\n\n"<i>Yes, oh please,</i>" she groans, clutching at your [hips] as you ride her cock, "<i>take my seed inside yourself, become great with my children....  We need it, both of us, yes?  Don\'t hold back... FUCK ME!</i>"' );
 		EngineCore.outputText( '\n\nYou slam yourself down on her rod one last time, screaming with pleasure as the first blast of cum smears your inner walls, painting your insides white with potent witchseed.  Your cunt grasps her prick, milking it as the witch groans in feral pleasure, bucking her hips into you as seed fills you and more, spilling out around her cock until the sand seems like snow beneath you.' );
@@ -1774,7 +1774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Do Nothing;
 	DungeonSandWitch.prototype.doNotResistSavin = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You need her inside you, to be filled with her seed... her children.  To be dominated, to be bred.  You sink into the witch\'s embrace, letting her slowly, lovingly pump her thick hips into you, taking more and more of her pre-cum and milk into you until you feel bloated, heavy-laden with white witchseed and the food you\'ll soon be making for your shared offspring.  The cum witch is incredibly gentle, her motions always tender, taking the best of care of you -- loving, in their way -- as she fills you with her cock again and again.  You bask in the fullness of it, going limp from pleasure, content to let her fuck you full of little witches, to be the mother of the dunes as you deserve.' );
 		EngineCore.outputText( '\n\n"<i>A good girl, beautiful girl.  So strong, so eager.  So willing.  You\'ll make a fine mother, a good broodmare, won\'t you?</i>"  You nod eagerly, punctuated by her thrusting harder, faster into you. "<i>Our children will be wonderful, beautiful witches, the queens of the desert.  Your womb will be the building block of the demons\' downfall.... Now take my seed, and make it yours, a child for us both.</i>"' );
 		EngineCore.outputText( '\n\nYou can do nothing more than gasp, milk sputtering from your lips as the first hot spurt of cum pierces your womb.  The witch rocks her hips, pumping you with load after load of creamy seed, filling you with the hope of offspring until thick semen stains your thighs, pouring out around her massive, dominating rod.  The witch seems to go on forever with an infinite reserve of cum inside her, pumping you full of more and more until the dune is snow-white with excess witchseed.' );
@@ -1788,7 +1788,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 
 	DungeonSandWitch.prototype.lionpaws = function( skipped ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[skip riddles, just request from menu (requires some event occurrence > 1)];
 		if( skipped ) {
 			EngineCore.outputText( '"<i>Really, [name]?</i>"  Sanura smirks and shakes her head.  "<i>I probably shouldn\'t do this sort of thing just because you ask for it, but your fascination with my paws is too cute to ignore.  Go on, then, strip for me and I\'ll get to it.</i>"  You oblige, happily tossing aside your armor.  [EachCock], already standing erect with anticipation, bounces freely before you.  The sphinx eyes ' );
@@ -1933,7 +1933,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//SPHINX RIDDLES for the Gentleman Gamer;
 	//Accept the Riddle Challenge;
 	DungeonSandWitch.prototype.riddleGameGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.RIDDLE_ONE ] = 0;
 		CoC.flags[ kFLAGS.RIDDLE_TWO ] = 0;
 		CoC.flags[ kFLAGS.RIDDLE_THREE ] = 0;
@@ -1994,7 +1994,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	//RIDDLE 1;
 	DungeonSandWitch.prototype.riddleOne = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Hmm, here\'s an old one, but a good one, I think.  One of my favorites, but stop me if you know the answer already: \'I walk on four legs in the morning, two in the afternoon, and three in the evening.  What am I?\'</i>"' );
 		EngineCore.menu();
 		//[A Sphinx] (if PC int < 50 add this Centaur]) [A Man] (if PC int < 35 add this: [Stilts]) [Fuck it, Attack];
@@ -2008,7 +2008,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Special Occurrence: Pick [A Sphinx];
 	DungeonSandWitch.prototype.riddleOneSphinx = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The sphinx narrows her eyes at you, crossing her arms over her chest.  "<i>You don\'t say?  Come on, step it up, [name].  Sorry, but that\'s wrong.  Let\'s try again.</i>"' );
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.RIDDLE_ONE ] === this.riddleOne ) {
@@ -2022,7 +2022,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 2;
 	DungeonSandWitch.prototype.riddleTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Mmm, I\'ve always been fond of this one.  Delightfully simple, really - don\'t overthink it, dear.  \'I always run, yet never walk; I murmur often, yet never talk; and I\'ve a bed, yet never sleep.  What am I?\'</i>"' );
 		//[A River] [A Whisper] (if PC int < 50 add this Nail]) (if PC int < 35 add this: [A Bunny Girl]) [Fuck it, Attack];
 		EngineCore.menu();
@@ -2038,7 +2038,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 3;
 	DungeonSandWitch.prototype.riddleThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Ooh, this is a morbid one: \'Whoever makes me, sells me.  He who buys me, never uses me. And he who uses me, well, they\'ll never know it.  What am I?\'</i>"' );
 		EngineCore.menu();
 		//[Poison] (if PC int < 50 add this Condom]) (if PC int < 35 add this: [Arrows]) [A Coffin] [Fuck it, Attack];
@@ -2054,7 +2054,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 4;
 	DungeonSandWitch.prototype.riddleFour = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Here\'s a classic for you: \'I\'m always hungry, and must be fed always, lest I flicker away.  Yet I will always bite the hand that feeds me, if it touches me.  What am I?\'</i>"' );
 		EngineCore.menu();
 		//(if PC int < 35 add this Fairy]) [Fire] [A Dog] (if PC int < 50 add this: [Disease]) [Fuck it, Attack];
@@ -2070,7 +2070,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 5;
 	DungeonSandWitch.prototype.riddleFive = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>A favorite of my dear Goblin friends: \'When young, I am sweet in the sun; in middle age, I make you gay; but when I\'m old, I\'m more valuable than gold.  What am I?\'</i>"' );
 		EngineCore.menu();
 		//(if PC int < 50 add this) (if PC int < 35 add this: [Women]) [Wine] [Cheese] [Fuck it, Attack];
@@ -2086,7 +2086,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 6;
 	DungeonSandWitch.prototype.riddleSix = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>This riddle always makes me a bit sad, but... \'My life lasts but hours, and in service I\'m devoured.  Thin, I am quick, fat I am slow, and wind is ever my foe.  What am I?\'</i>"' );
 		//(if PC int < 35 add this Goblin]) [A Candle] (if PC int < 50 add this: [A Boat]) [An Arrow] [Fuck it, Attack];
 		EngineCore.menu();
@@ -2102,7 +2102,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 7;
 	DungeonSandWitch.prototype.riddleSeven = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>In service to the Sand Witches, I can sympathize with this riddle\'s speaker: \'Each morning I appear to lie at your feet; all day I\'ll follow you no matter how fast you run, yet I\'ll nearly perish in the midday sun.  What am I?\'</i>"' );
 		//[A Shadow] [A Dog] (if PC int < 35 add this) (if PC int < 50 add this: [The Breeze]) [Fuck it, Attack];
 		EngineCore.menu();
@@ -2118,7 +2118,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 8;
 	DungeonSandWitch.prototype.riddleEight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Tsk, a sad tale this, fleeting as a melody on the breeze: \'You\'ve heard me before, and will again, till fast I die - then you\'ll but summon me again.  What am I?\'</i>"' );
 		//(if PC int < 35 add this Demon]) (if PC int < 50 add this: [Religion]) [An Idea] [An Echo] [Fuck it, Attack];
 		EngineCore.menu();
@@ -2134,7 +2134,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 9;
 	DungeonSandWitch.prototype.riddleNine = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Like a cat comes this riddle of many lives: \'Three lives have I, gentle enough to sooth the skin, light enough to caress the sky, or hard enough to shatter stone.  What am I?\'</i>"' );
 		EngineCore.menu();
 		//(if PC int < 35 add this Dick]) [Water] [A Voice] (if PC int < 50 add this: [Faith]) [Fuck it, Attack];
@@ -2150,7 +2150,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 10;
 	DungeonSandWitch.prototype.riddleTen = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Devious, this: \'Whoever makes me, tells it not; he who takes me, knows it not; and he who knows me, takes me not.  What am I?\'</i>"' );
 		//[Disease] [Counterfeits] (if PC int < 35 add this in a River]) (if PC int < 50 add this: [Tattered Scrolls]) [Fuck it, Attack];
 		EngineCore.menu();
@@ -2166,7 +2166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 11;
 	DungeonSandWitch.prototype.riddleEleven = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>The lovely Naga that roams this desert knows my speaker well: \'A box without hinges, lock or key, yet I\'ve golden treasure within me.  What am I?\'</i>"' );
 		//(if PC int < 35 add this Treasure Chest]) (if PC int < 50 add this: [Pure Honey]) [Eggs] [Booze Bottles] [Fuck it, Attack];
 		EngineCore.menu();
@@ -2182,7 +2182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//RIDDLE 12;
 	DungeonSandWitch.prototype.riddleTwelve = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Here we\'ve one that speaks to the stars and the earth at once: \'One by one we fall from the heavens, down into the depths of the past; our world is ever upturned, so that yet some time will last.  What are we?\'</i>"' );
 		//(if PC int < 50 add this Stars]) (if PC int < 35 add this: [Angels]) [Sand] [Rain] [Fuck it, Attack];
 		EngineCore.menu();
@@ -2199,7 +2199,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	//ANSWER A RIDDLE RIGHT (Like a Boss);
 	DungeonSandWitch.prototype.answerCorrect = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.RIDDLE_THREE ] === 0 ) {
 			EngineCore.outputText( 'The sphinx-girl sighs, "<i>That\'s... correct.  Not bad, I suppose.  Well, we\'re not done yet... I\'ve still got some tricks up my sleeves.  Er, so to speak.</i>"' );
 			EngineCore.menu();
@@ -2226,7 +2226,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	//THE SPHINX BEAT YOU AT HER OWN -- WAIT A SECOND;
 	DungeonSandWitch.prototype.answerWrong = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>That\'s... wrong, I\'m afraid,</i>" she says, a proud smile playing across her lips.  "<i>Wrong, wrong, wrong.  Well, perhaps </i>I<i> was wrong about </i>you<i> after all...  Here I thought you\'d be some fun.  Still, though, at least your body will serve me well, I think.  Yes, you\'ll do nicely.  Go on then, love, strip out of your [armor] for me.  A deal\'s a deal, after all...</i>"' );
 		//(Display Options: [Submit] [Fuck it, Attack]);
 		//(Submit goes to appropriate loss scene);
@@ -2236,7 +2236,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//FUCK IT, ATTACK (First Time);
 	DungeonSandWitch.prototype.fuckItAttack = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'To hell with this. You ready your [weapon] to beat your way through the damned sphinx, but as soon as you make a threatening move, the half-lion makes a shrill "<i>EEEP</i>" and throws her hands up in surrender. "<i>Please, th-there\'s no need for violence! I\'ve no loyalty to these witches, they </i>force<i> me to guard the door. I\'ve no desire to fight you; I\'ll not stop you if you wish to enter the lair.</i>"' );
 		//[Options: Enter, Leave. Either way, Sanura won't be encountered again];
 		CoC.flags[ kFLAGS.SANURA_DISABLED ] = 1;
@@ -2246,7 +2246,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Fuck Her;
 	DungeonSandWitch.prototype.fuckDatSphinx = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Grinning lustily at the pretty leonine girl, you tell her it\'s time to have some fun. With an easy grace, she slips the sky blue shift from her shoulders, exposing her pert, palmable breasts.  "<i>Well, you did win my game, after all... I\'m yours to do with as you wish, my brilliant ' + CoC.player.mf( 'handsome', 'beautiful' ) + ' friend.</i>"' );
 		//Male Options: [Get Blown] [Pawjob];
 		//Female Options: [Force Dildos];
@@ -2264,7 +2264,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Get Blown (Males & Herms);
 	DungeonSandWitch.prototype.getBlown = function( submit ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shed your armor, unleashing your ' + CoC.player.multiCockDescriptLight() + ' into the dry heat of the desert.  Sanura licks her lips hungrily as you beckon her over, leaning back against the stone pillar to give her a good look at your fuckmeat.  The sphinx approaches, a sashay in her animalistic hips; soon she\'s running her small, delicate hands across your ' + CoC.player.skinFurScales() + ', brushing against all the right places.  Fingertips trace along your [chest], circling your [nipples] with slow, teasing strokes before descending, tracing along your belly and down to your [hips]' );
 		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ', one hand slipping down to cup your [balls], rolling them in her palm until a white trickle escapes your [cockHead biggest]' );
@@ -2343,7 +2343,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Force Dildos (CuntCommanders & Genderless);
 	DungeonSandWitch.prototype.forceDildos = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You start to peel out of your [armor], but a twirled finger from Sanura has you turn to face the stone pillar and brace yourself.  With silent grace, the half-cat slinks up to you, wandering hands moving to explore your body, her slender fingers tracing along the supple curves of your [butt] and [hips], slowly moving toward your [chest] with slow, teasing motions, her every shift sending shivers up your spine.  Your breath catches as her fingers brush your [nipples], gently squeezing them' );
 		//if MilkyTits:;
 		if( CoC.player.lactationQ() >= 200 ) {
@@ -2381,7 +2381,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//Fuck Dat Lionpussy;
 	//Written by Third. Available to those who BEAT Sanura's riddle challenge.;
 	DungeonSandWitch.prototype.fuckDatLionPussah = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You disrobe, tossing your [armor] aside into a small pile.  You stretch your muscles in the dry desert air and exult in the warm rays beating down on your ' + CoC.player.skinFurScales() + ' and ' + CoC.player.multiCockDescriptLight() + '.  Sanura pads around you, taking in your appearance with her chestnut-colored eyes before clicking her tongue approvingly.  Her leonine tail swishes across the top of your [cock biggest], stroking it with the silky soft tuft of fur at its tip.  You shiver at the contact, unsure of what to think.  Your penis, on the other hand, has no such conflictions, and immediately begins to rise.' );
 		//(Small dicks) ;
 		if( CoC.player.biggestCockArea() < 6 ) {
@@ -2462,7 +2462,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Submission Options;
 	DungeonSandWitch.prototype.sphinxSubmissionOptions = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.TIMES_SUBMITTED_TO_SANURA ]++;
 		EngineCore.outputText( 'Having lost the Riddle Game, you do as the sphinx-girl commands: you pull off your [armor], leaving yourself bare under the desert sun. "<i>Now then, my dull little pet, what shall I do with you...</i>"' );
 		EngineCore.menu();
@@ -2476,7 +2476,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Horsecock Symphony;
 	DungeonSandWitch.prototype.fenPutsHisShittyFetishInYoSphinx = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Starting to disrobe, ' );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'you flop your ' + CoC.player.multiCockDescriptLight() + ' free in the dry desert heat, allowing ' );
@@ -2606,7 +2606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//Getting a Milk Slut, Purity Style;
 	//{Having beat the Sammiches, and made Momma Witch your friend, add a button labeled [Free Slaves] to Momma's menu. Needs to have met Milk Slut.};
 	DungeonSandWitch.prototype.freeSlaves = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Thinking back to the poor, mind-broken tittymonster of a bath girl you met here in the witches\' coven, you tell the Sand Mother it\'s about time to free her and any other slaves she\'s got hidden away.' );
 		EngineCore.outputText( '\n\nThe Sand Mother cocks an eyebrow at you, and makes a rather haughty scoff from atop her throne.  "<i>You may have beaten my guardians, but what makes you think you can just order something like that, outsider?  The slaves are vital to the workings of the coven; we can\'t simply </i>release<i> them.</i>"' );
 		if( CoC.player.inte <= 20 ) {
@@ -2629,7 +2629,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Yes (No Change);
 	DungeonSandWitch.prototype.yesDemandMilkRelease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell the Sand Mother that everyone deserves freedom, even if they\'re addle-minded, or useful.  She can\'t just <i>keep people</i> because she feels like they\'re better off in her care.' );
 		EngineCore.outputText( '\n\nShe sighs, shaking her head sadly as she starts back toward the throne room.  "<i>You\'re a bleeding heart idealist, [name].  You\'d condemn the girl to torment for the sake of your petty morality.  There\'s no room for sentimentality these days.  Every soul I keep from becoming a demon, even if I keep them in chains, is on my conscious.  Yet I bear that weight gladly, [name].  Perhaps one day, when you\'re ready to take on that same responsibility, you\'ll understand.</i>"' );
 		//[PC is left in Milk Room];
@@ -2639,13 +2639,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//No (No Change);
 	DungeonSandWitch.prototype.noDemandMilkRelease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You suppose not, when she puts it that way.  The poor girl\'s probably better off here than in the clutches of the demons.  Seeing you relent, the Sand Mother smiles and pats your shoulder.  "<i>I\'m glad you can see things my way, [name].  There is wisdom in you.  Come, let us speak of other things,</i>" she says, leading you back to her throne room.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Gimme her (Gimme dat delicious milk slut);
 	DungeonSandWitch.prototype.gimmeDatDeliciousMilkWaifuINeedMoreWaifusCauseTheTwoCowslutsWerentEnoughForMyInsatiableLacticLustandDesire = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You have a better idea: give the girl to you.  You can care for and protect her in your camp, but also give her at least as much freedom as is safe in these dire times.' );
 		EngineCore.outputText( '\n\nThe Sand Mother sighs, shaking her head sadly.  "<i>You\'re an idealist, [name].  But there is wisdom in your words.  Perhaps...  perhaps you are correct.  However, she is quite useful to our coven.  Perhaps I could be persuaded to part with her, if certain recompense was made.  Two thousand gems should be sufficient.</i>"  The sorceress looks at you, awaiting your answer.' );
 		if( CoC.player.gems < 2000 ) {
@@ -2659,7 +2659,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 	};
 	DungeonSandWitch.prototype.TwoExpensive4Me = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You explain that you can\'t afford that much.' );
 		EngineCore.outputText( '\n\nThe Sand Mother shrugs and says, "<i>Then ask after her when you do.</i>"  She doesn\'t stick around long enough for you to reply, leaving you standing there with the milk girl.' );
 		EngineCore.outputText( '\n\n"<i>Bath time?</i>"' );
@@ -2668,7 +2668,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		//	EngineCore.doNext( SceneLib.camp, SceneLib.camp.campMenu);;
 	};
 	DungeonSandWitch.prototype.BuyHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems -= 2000;
 		EngineCore.outputText( 'You hand over two thousand of your hard-earned gems.' );
 		EngineCore.outputText( '\n\nThe Sand Mother quips, "<i>Very well, take the girl.  Give her freedom, and keep her safe.  She has more than earned a life of ease after years of faithful service.  The others we keep...  there is a city not far from here.  I will deliver my other servants there in the night.  Perhaps they will find solace in the arms of the last free city in Mareth.</i>"' );
@@ -2736,7 +2736,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 
 	DungeonSandWitch.prototype.sandMotherStuffGOA = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//*Encounter Repeat:;
 		if( CoC.flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] > 0 ) {
 			EngineCore.outputText( 'The Sand Mother slightly inclines her head in your direction as you enter her throne room.  She is every bit as imposing as you recall, or at least as imposing as a woman with four watermelon-sized jugs on her chest can be.  "<i>You have returned to us, far traveler.  Is there something you desire from the coven of the sands?  Simply ask for what you need, and we shall aid you against the demon Queen.</i>"  The lactation-obsessed arch-enchantress idly pushes a whitish-blonde curl out of her eyes as she awaits your reply.' );
@@ -2777,7 +2777,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Explain to Sand Mother;
 	DungeonSandWitch.prototype.explainYourSelfToZeSandBitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You explain that you came here through a portal from a place called Ingnam, sent as a champion to defend your land from the demons.  Recounting your travels and experiences here, you confidently explain your discovery of this coven, and your misconceptions about the sand witches.  They seemed as lust crazed as the rest of the lands, and you had assumed them to be in league with the demons you found so frequently.' );
 		EngineCore.outputText( '\n\nThe Queen Witch listens with rapt attention to your tale, but when you finish, all she does is close her eyes, seemingly lost in thought.  You pause, awaiting her reply.  Seconds tick by, then merge into minutes.  You idly tap your [foot].  Will she ever get done mulling over your words?' );
 		EngineCore.outputText( '\n\nSuddenly, the Queen jerks up, looking you in the eye with her strange, white-irised gaze.' );
@@ -2795,7 +2795,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			//(Award XP);
 			CoC.player.XP += 200;
 			MainView.statsView.showStatUp( 'xp' );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			//(Set friendly);
 			CoC.flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] = 1;
 			//Options: Turn off Sand Witches, Turn on Sand Witches, Fuck (if PC is male or fem), Discuss history, Discuss Coven's Current State;
@@ -2805,7 +2805,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Fight;
 	DungeonSandWitch.prototype.fightTheSandWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You brandish your [weapon] and advance threateningly.  The Sand Witch Queen slowly rises, pulling a scepter from beneath her robes with a resolute look in her eyes.  "<i>You shall regret this action for a time, until we\'ve corrected your diseased way of thinking.  Now, taste the power of a Sand Mother!</i>"' );
 		Combat.startCombat( new SandMother(), true );
 	};
@@ -2909,7 +2909,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	//*Defeat the Sand Mother;
 	DungeonSandWitch.prototype.defeatTheSandMother = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.SAND_MOTHER_DEFEATED ] = 1;
 		EngineCore.outputText( 'Panting ' );
 		if( CoC.player.HP < 1 ) {
@@ -2932,7 +2932,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 	};
 	DungeonSandWitch.prototype.loseToTheSandMother = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//DUDALICIOUS;
 		if( CoC.player.hasCock() ) {
 			this.loseToSandMotherBadEnd();
@@ -2944,7 +2944,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	//Talk Her Down;
 	DungeonSandWitch.prototype.talkDownTheMother = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Calmly, you approach the Sand Mother\'s throne, saying, "<i>I am no demon, witch.  I am [name], and I am ' );
 		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'a champion' );
@@ -2959,7 +2959,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		CoC.player.XP += 200;
 		MainView.statsView.showStatUp( 'xp' );
 		// xpUp.visible = true;;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//(Set friendly);
 		CoC.flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] = 1;
 		CoC.setInCombat( false );
@@ -2967,7 +2967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Tentacle Gangbang;
 	DungeonSandWitch.prototype.tentacleGangBang = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//>Requires 5+ tentacles.  Every hole is plowed.;
 		EngineCore.outputText( 'Grinning, you discard your [armor] with glee, releasing your wriggling bunch of genital appendages to wave in the air, slithering over each other\'s spongy, sweat and pre slicked skin.  They wave in the air menacingly, an orgy of glistening green cocks just waiting to be let loose upon the formidable female flesh before you.  Fearfully, the Sand Mother pushes herself against the wall, stammering, "<i>No... ' );
 		if( CoC.flags[ kFLAGS.TIMES_TENTACLED_SAND_MOTHER ] === 0 ) {
@@ -3038,7 +3038,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Fuck Her Cunt;
 	//>Sets to resisting with options for repeat rapes.;
 	DungeonSandWitch.prototype.fuckTheSandMothersCunt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( !CoC.isInCombat() ) {
 			Combat.startCombat( new SandMother(), true );
 			CoC.setInCombat( false );
@@ -3140,7 +3140,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*ScissorAnDrink;
 	DungeonSandWitch.prototype.scissorAndDrink = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//>Sets to resisting with options for repeat rapes.;
 		EngineCore.outputText( 'Looking at the Sand Mother, you can\'t help but feel a flutter of heat swim through your nethers, and as you close in, you can feel the moisture gathering on your mons in anticipation.  The ultra-curvy witch\'s teats have turned her robe into a set of four soaked tents, and you can tell from the scent she\'s giving off that she\'s as ready for a little womanly love as you are.  You squeeze one of her breasts until the exceedingly well-endowed woman is moaning, squirting milk through her silken robes to dribble down the curvature of her bust\'s underside.  You collect some on a fingertip before roughly thrusting it into her protesting lips to silence the insipid complaints she\'s started voicing.' );
 		EngineCore.outputText( '\n\n"<i>Shut up.  You and your ilk have done nothing but cause me trouble.  The least you can do is cooperate and enjoy it while I get off on you,</i>" you growl, giving her heavy chest a firm squeeze in warning.' );
@@ -3190,7 +3190,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Lose Male Loss;
 	//>Get turned into breeder or sumthin.;
 	DungeonSandWitch.prototype.loseToSandMotherBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Stumbling back into a wall, you try to hold your ' );
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'battered body aloft, but your wounds are too great, robbing you of strength.' );
@@ -3300,7 +3300,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Epilogue:;
 	DungeonSandWitch.prototype.menLoseToQueenMotherVolI = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The champion woke to a body changed.  ' + CoC.player.mf( 'He', 'She' ) + ' now looked every bit the mirror image of the Cum Witch - a thick, girthy cock, two swollen balls, a pair of pendulous breasts, and skin as dark as the blackest night.  She had become one of them, a futanari witch with an insatiable libido.  As best as she could remember, she had been born a scant ten years earlier, and aged to maturity in five.  She volunteered to be a cum witch when the call went out and beat out over two dozen of her lusty sisters for the vaunted position.  Now, the elder Cum Witch was her best friend, and the two gleefully spent their days dick-deep in double-cunts, knocking up their sisters with reckless abandon.  In their free time, they studied spells and practiced stuffing each other with increasingly large seminal deposits.' );
 		EngineCore.outputText( '\n\nTwo years later, at the call of the Great Mother, the sand witches went to war.  ' );
 		if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
@@ -3316,7 +3316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//>Get turned into sand witch.;
 	//Additional Sand Witch Entry (BY XODIN);
 	DungeonSandWitch.prototype.loseToSandMother = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The world grows dizzy as your ' );
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'heavily punished and aching body is filled with too much agony to continue.' );
@@ -3414,7 +3414,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Epilogue:;
 	DungeonSandWitch.prototype.sandMotherBadEndsLadiesEpilogue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The Champion awoke to a body changed. ' + CoC.player.mf( 'His', 'Her' ) + ' body had been transformed in to that of a Sand Witch\'s.' );
 		//if player had six breasts;
 		if( CoC.player.bRows() > 2 ) {
@@ -3449,7 +3449,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Friendly Fuck (Optional?);
 	//>Fuck her friendly style.;
 	DungeonSandWitch.prototype.friendlySandMotherFuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		Combat.startCombat( new SandMother(), true );
 		CoC.setInCombat( false );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
@@ -3653,7 +3653,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Friendly Milk-Ride (Optional?);
 	//>Lesbo milk-filling;
 	DungeonSandWitch.prototype.lesboMilkFilling = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.TIMES_FRIENDLY_FUCKED_SAND_MOTHER ]++;
 		//First Time:;
 		if( CoC.flags[ kFLAGS.TIMES_FRIENDLY_FUCKED_SAND_MOTHER ] === 1 ) {
@@ -3741,7 +3741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*History;
 	//>Learn about the origin of the sand witches.;
 	DungeonSandWitch.prototype.sandWitchHistory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You inquire about the history of the sand witches, and how they came to be.  The Sand Mother gives you a benign smile and offers, "<i>With pleasure.  It is so rare that I get to recount the story to one not of our order.</i>"  She utters a few spidery words that seem to ring in your ears, and a luminous, floating illusion appears before her, all floating shapeless colors.  As she begins to talk, the blobs shift into the actors in her tale, allowing you to view the story as it happens.' );
 		EngineCore.outputText( '\n\n"<i>A little over a score of years in the past, Mareth was a different place.  The desert was a tiny fraction of its current size, and tribes of all sizes and descriptions were settled all over.  In some places, it would be difficult to walk anywhere without stumbling into some town, trading post, or village.  A small city of human mages had sprung up atop the mountain, the descendants of settlers from ages past.  From this stock, both Sand Witches and demons were born.</i>"  The Sand Mother frowns as if she\'s swallowing a sour grape, clearly upset at sharing ancestry with such a repugnant foe.' );
 		EngineCore.outputText( '\n\nIntrigued, you ask exactly how the two human factions came into being, and why these women wound up with doubled chests.  The Sand Mother nods and continues, "<i>A worthy question, to be sure.  Details of the great fall are hazy, of course, but my mother, the Great Mother and some of my older sisters lived through it.  I have yet to pry a detailed account from one of them.  I do know that the fall was hailed as a discovery of immortality and immense magical power all in one.  Within the span of a few hours, most had gleefully abandoned their souls in exchange for additional power and freedom from the tyranny of old age.  The Great Mother did not.</i>"' );
@@ -3757,7 +3757,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Current State;
 	//>Learn about the current state of the sand witches and their plans;
 	DungeonSandWitch.prototype.currentStateOfInterwebs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You inquire as to the current state of the sand witches, and this coven in particular. The Queen Witch\'s brow creases in thought as she considers your request, tapping her chin and gazing into the intricate, swirling lights above.' );
 		EngineCore.outputText( '\n\n"<i>I suppose I would say that our situation is good, on the whole,</i>" she admits, "<i>We do not lack for nourishment, thanks to our magics.  Our caves shield us from the worst sandstorms and ensure we are never too cold or warm.  And until recently, we believed our dwellings to be well hidden and secure.</i>"  The Sand Mother gives you a wry look and a knowing sigh.  "<i>We both know we were wrong to think so.  Still, our defenses have not been breached by an agent of corruption yet, and this experience will give my sisters and I plenty to consider.  Better you broke down the front door than the Demon Queen\'s armies.</i>"' );
 		EngineCore.outputText( '\n\nGently adjusting herself on her throne, the sorceress recounts, "<i>We are many, and the cum witch\'s magics only continue to swell our numbers.  Accelerated growth was one of the first things the great Mother pioneered, so it only takes a few years for a new witch to mature to adulthood and swell our numbers.  Goblins and imps outbreed us by a wide margin, but that\'s to be expected.</i>"  A proud smile graces the Sand Mother\'s face as she brags, "<i>Between the covens I know of, we should have the numbers to challenge the demons in a head-on assault in a year or two.</i>"' );
@@ -3783,7 +3783,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//(Requires met cum witch or had history chat);
 	//>Ask about the role of cum witches in the covens.;
 	DungeonSandWitch.prototype.discussCumWitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You inquire as to why they have cum witches.' );
 		EngineCore.outputText( '\n\n"<i>Oh, the Cum Witches?  Well, that order arose out of need rather than desire.  We needed to procreate, and just any old male would not suffice.  The Great Mother needed something beyond the ability of a normal human male - a body that knows what it is to be a woman combined with almost limitless virility and carefully engineered seed that would swell our numbers with exactly what we need.  She had learned how to shape bodies to her whims, so forming a phallus and specialized, high output gonads was something easily done.</i>"' );
 		EngineCore.outputText( '\n\nThe Sand Mother blushes a bit at this, fidgeting nervously in her chair.  With your curiosity piqued, you ask her, "<i>Well, how are they chosen?</i>"' );
@@ -3815,14 +3815,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Send them out:;
 	DungeonSandWitch.prototype.sendOutCumWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You request she put the cum witches\' boundless virility and desire to work for the coven, letting some of them out to venture the sands in search of new recruits.  (<b>From now on, there\'s a chance you\'ll encounter cum witches in the desert.</b>)' );
 		CoC.flags[ kFLAGS.CUM_WITCHES_FIGHTABLE ] = 1;
 		this.sendOutOrKeepInEnding();
 	};
 	//Keep Them In:;
 	DungeonSandWitch.prototype.keepCumWitchesIn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You request she put a hold on sending out the cum witches.  Their aggressive, sexual recruitment methods are getting in your way, and for now, it would be best if they were out of your way.' );
 		CoC.flags[ kFLAGS.CUM_WITCHES_FIGHTABLE ] = 0;
 		this.sendOutOrKeepInEnding();
@@ -3833,7 +3833,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//Bolster Numbers:;
 	DungeonSandWitch.prototype.moreCumWitchesPlease = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Bimbo version:;
 		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
 			EngineCore.outputText( 'Wouldn\'t it be better if there were like, lots of cum witches, with yummy cocks that you could suck?' );
@@ -3858,7 +3858,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Pick Mothers;
 	//>Ask about how Sand Mothers are chosen.;
 	DungeonSandWitch.prototype.askHowSandMothersAreChosen = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask the Sand Mother how her people choose who will be a Sand Mother of a new coven.' );
 		EngineCore.outputText( '\n\nThe statuesque woman smirks ruefully, "<i>Politics, of course.</i>"  Politics?  She sees the confused look on your face and explains, "<i>It shouldn\'t surprise you.  You' );
 		if( CoC.player.race() === 'human' ) {
@@ -3877,7 +3877,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Leave Alone/Send Lackeys;
 	//>Request sand witches stop or start attacking you.;
 	DungeonSandWitch.prototype.leaveAloneSendLackeysToggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Leave Alone;
 		if( CoC.flags[ kFLAGS.SAND_WITCH_LEAVE_ME_ALONE ] === 0 ) {
 			EngineCore.outputText( 'You request that the scouts in the desert stop bothering you with their barbed offers of magic.  Fighting them is not something you want to have to do.  It\'s a waste of effort on both sides you that feel should come to an end.' );
@@ -3906,7 +3906,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Lactaid;
 	//>Get lactaid;
 	DungeonSandWitch.prototype.getLactaidFromWitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ' );
 		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'politely request' );
@@ -3925,7 +3925,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Labova;
 	//>Get Labova;
 	DungeonSandWitch.prototype.getLaBova = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask for some La Bova' );
 		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( ' with a blush' );
@@ -3948,7 +3948,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//TURN EM OFF!;
 	DungeonSandWitch.prototype.unfriendlyWitchToggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.SAND_WITCH_LEAVE_ME_ALONE ] === 0 ) {
 			EngineCore.outputText( 'Imperiously, you fold your arms and tell the queen of the milky slatterns to cease her coven\'s constant, badgering attacks out on the sands.  Her face registers an incredulous expression at the decree, and she matches your confrontation pose, her forearms pressing deep into the recesses of her prodigious bust.  You await her response, and for a moment, you think you\'re going to have to fight her again.  Then, her stern gaze wavers as she sags into her throne, defeated before she could even start to resist.' );
 			EngineCore.outputText( '\n\n"<i>Fine.  I guess then...</i>" she casts her incandescent gaze to the side, "<i>...you won\'t be able to force yourself on them.</i>"  You chuckle at that.' );
@@ -3972,7 +3972,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Raid LaBova/Lactaid;
 	DungeonSandWitch.prototype.takeLaBovaOrLactaid = function( lactaid ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Smirking, you circle around the Sand Mother\'s throne towards the secure chests behind her.  She stiffens when you come close but doesn\'t make a move.  The poor little witch is afraid of you, and with good reason.  You gather the item you came for, condescending patting the sorceress\'s platinum tresses on your way back in front of her throne.  She glares at you.\n\n' );
 		//New lines and take appropriate item.;
 		if( lactaid === undefined || lactaid ) {
@@ -3982,14 +3982,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 	};
 	DungeonSandWitch.prototype.pullLever = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'There is a loud rumbling from the direction of the cavernous commons...' );
 		CoC.flags[ kFLAGS.SANDWITCH_THRONE_UNLOCKED ] = 1;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//*Take Fertile Pills ✓Kirbu;
 	DungeonSandWitch.prototype.takeFertilePills = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) < 0 ) {
 			EngineCore.outputText( 'You aren\'t under the effects of a contraceptive, so taking a pink pill would do nothing.' );
 		}//{Contraceptives};
@@ -4005,7 +4005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Take Barren Pills✓Kirbu;
 	DungeonSandWitch.prototype.takeBarrenPills = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//{Already contraceptive'ed} ;
 		if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) >= 0 ) {
 			EngineCore.outputText( 'You\'re already under the effects of contraceptives.  Taking one of the brown pills wouldn\'t do anything.' );
@@ -4026,7 +4026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Friendly Cum Witch Blessing;
 	//✓Kirbu;
 	DungeonSandWitch.prototype.friendlyCumWitchBlessing = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask the Cum Witch if she could use her magic to gift you with some kind of blessing since she has such an affinity for sexualized magics and fertility.  ' );
 		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'Blushing, ' );
@@ -4061,7 +4061,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Nevermind ✓Kirbu;
 	DungeonSandWitch.prototype.changeMindAboutBlessings = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Thinking better of it, you grab your [armor] and get dressed, telling the jizz-obsessed enchantress that you don\'t need her gifts for now.' );
 		EngineCore.outputText( '\n\n"<i>Awww, and I thought we were going to have some fun,</i>" the sable seductress purrs.  "<i>Perhaps you\'ll see the error of your ways and come back for a proper blessing soon.</i>"  She pumps her fat cock until thick dribbles of sperm-tinted pre-cum slobbers out of her drooling dick-tip once more.  "<i>Don\'t be a stranger.</i>"' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -4071,7 +4071,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		if( virility === undefined ) {
 			virility = true;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your choice made, you lower yourself until you are seated on your [legs], your face aligned at the perfect height to fellate her drippy, onyx dong.  You can still smell the scent of freshly-fucked pussy hanging around her shaft like some kind of sexual haze.  She saunters up, wide ebony hips swaying hypnotically as her male-half sways pendulously, closer and closer.  Her hands come to rest on your head and run through your ' + Descriptors.hairDescript() + ' with slow strokes as she nudges her crown against your upper lip, letting it smear her juices under your nose and across your cheek.  The eleven inches throb pleasantly against the side of your face, the veins standing out in stark relief as you glance down to her orange-sized cum-factories, held in a tight, smooth pouch just below.' );
 		EngineCore.outputText( '\n\nUnthinkingly, you reach out to fondle the heavy package, your fingers curling around the woman\'s soft sack and rolling the swollen testes back and forth.  The black beauty grabs her shaft and lays it across your nose, up between your eyes, and onto your forehead, forcing you to go cross-eyed as you admire it.  An electric tingle runs through her fingers and into your scalp, short-circuiting your thoughts for a second.' );
 		EngineCore.outputText( '\n\n...Her cock is gorgeous.  Your mouth waters just looking at it.  You lick your lips before hesitantly extending your tongue out, lapping at the bottommost portions of her divine dick.  The taste of her sweat and caked-on girl-cum is so strong that it makes you shiver.  Another jolt of power slips into you.  It tastes <b>soo good</b>!  You slobber all over it, trying to gather up every taste of her old, spent seed onto your tongue, your eyes fixated on the erection as it dribbles a trail of liquid need down the bridge of your nose.  It likes you!  A ecstatic thrill shivers through your spine at the knowledge that you\'ve pleased it so excellently, and you gingerly grab hold of it, pulling back so that you can plunge the entire thing straight into your mouth.' );
@@ -4122,7 +4122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Impregnating Pregnant Sand Witches by Xodin (NEEDS EDIT);
 	DungeonSandWitch.prototype.knockUpSomeDoubleStuffedSandWitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Figuring these horny, pregnant sluts should be more than receptive to a little sex, you shed your [armor].\n\n' );
 		EngineCore.outputText( 'The heavily pregnant sand witches all stare at your [cock biggest] with rapt attention before they begin crawling towards you.  "<i>Please!</i>" each of them cry out.  "<i>Too horny!  Too many hormones!</i>"  Some of them crawl on their hands and knees with their quadruple breasts and pregnant bellies dragging along the ground.  "<i>We need more!</i>"  One cries out.  "<i>More cock!</i>" cries another.  "<i>More children!</i>" begs a third rubbing her belly.  "<i>Fill us!</i>" chants one before the others chime in.  "<i>Yes; Fill us! Fill us!  Fill us!</i>"  They paw at your genitals with sexual hunger burning in their eyes.  The smell of wet pussies permeates the air, encouraging your body\'s own arousal.' );
 		EngineCore.dynStats( 'lus', 33 );
@@ -4148,7 +4148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//~ FUCK ONE;
 	DungeonSandWitch.prototype.fuckOneSandWitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 50 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -4290,7 +4290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	// FUCK TWO AT ONCE;
 	DungeonSandWitch.prototype.fuckTwoPregWitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 50 );
 		var y = CoC.player.cockThatFits2( 50 );
 		EngineCore.outputText( 'These hormonally overwrought witches are each little more than five huge fleshy orbs of tits and bellies, desperately crawling towards you on hands and knees as their stares fixate on your ' + Descriptors.cockDescript( y ) + '.  ' );
@@ -4414,7 +4414,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//~ FUCK EM ALL;
 	DungeonSandWitch.prototype.fuckAllThePregWitches = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The witches crawl forwards with their bellies and double rows of milk filled tits impeding their movements. Despite their glistening tanned bodies and highly toned legs they still amount to little more than lewd piles of fleshy orbs, each one with double pairs of cunts including ones insatiably starving for cum to fill their empty second wombs. Each of their light brown and sweaty bodies looks equally appetizing, and as [eachCock] slowly engorges it becomes clear that if you\'re going to fuck any of them then you\'re going have to fuck all of them.  Anything less than knocking up all of the witches simply won\'t do.  By the time you\'re done with them, half of the next generation of sand witches will call you \'father\'.' );
 		EngineCore.outputText( '\n\nAs [eachCock] starts rising in to the air, it isn\'t difficult to make your way behind the slow moving witches and encourage them to raise their dual pussies in to the air.  Each of their torsos are heavily weighted down to the ground, but this aids in their tilting their pelvises to ensure their dripping pussies are properly displayed between their toned thighs.  Two pairs of dark and swollen labia present themselves to you on each witch, and you can easily see how one pair of nether lips are gaping wide from the pressure built up in the womb it leads to.  The other pair is just as swollen but seems to be dripping pussy juices with greater desire as it thirsts to fill its empty womb with seed.  The rivers of pussy juice keep the thighs and undersides of the pregnant bellies on each of these whores incredibly wet and slick.' );
 		var multi = false;
@@ -4669,7 +4669,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//*Sand Witch Milk Bath -McGirt;
 	DungeonSandWitch.prototype.milkBathsAhoy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Well, you can probably squeeze in a quick bath.  You\'ve already dealt with the bulk of their number, and this area seems devoid of any more of them.  Your [armor] easily slides into a pile alongside of rounded, stone tub while the dusky titty-CoC.monster looks on with anticipation.  Once nude, you hop down inside and say, "<i>Bath Time.</i>"' );
 		EngineCore.outputText( '\n\nWith trembling anticipation, the black-skinned milk-slave reaches down for her teat-like nipples.  Her huge, plate-sized areola bead with white perspiration in anticipation, and the woman\'s hands nearly disappear into her chest-globes as she struggles to grasp her engorged nipples.  You drop the plug into the drain and look up.  Cooing in delight, the huge-breasted girl finally manages to get her shivering fingertips around each of her aching milk-spouts.  She massages her nipple-flesh for a moment, her eyes lidded and heavy from pleasure, and she releases the first heavy torrent of white into the tub.  Surprisingly, the fluid is thin and watery, less milk-like than you\'d think.  Whether the witches or the woman\'s physiology is to blame you cannot tell.  Her eyes are too vacant to give any clues, and her mouth is too busy making sighs of relief to speak.' );
 		EngineCore.outputText( '\n\nPearly fluid quickly fills the first few inches of the tub, spouting as it is in numerous forking streams from its mocha spouts.  Dark-skinned hands massage the soft female flesh with smooth, unbroken motions, squeezing each teat from base to tip before retreating back to the bottom.  The steady back-and-forth motions cause the streams to rise and fall to the tempo, but the flow stays thick and steady enough to splatter your [hips] with white. You relax against one of the benches and idly trace your hands through the water, enjoying the feeling of the milk on your ' + CoC.player.skinFurScales() + ' as it rises higher and higher.  Your only companion, the chocolate-skinned woman, continues to knead her engorged breasts as you watch, and you have to admit, you feel a sexual thrill sliding down your spine as you watch her heavy breasts work to fill your tub.' );
@@ -4697,7 +4697,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Next] (Relax);
 	DungeonSandWitch.prototype.finishMilkBath = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You sit in the tub for a while, letting the fragrant fluids soak into your ' + CoC.player.skinFurScales() + '.  Yet, you have work to do, and eventually, you tire of relaxing in the sand witches\' endless white bounty.  You pull out the tub\'s plug and climb out, finding a towel on the wall.  Thankfully, the milk doesn\'t seem to leave behind any residue, and you feel clean and refreshed, if a bit horny.' );
 		//(+Lust, -Fatigue);
 		EngineCore.dynStats( 'lus', 10 );
@@ -4706,7 +4706,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Milk Girl];
 	DungeonSandWitch.prototype.grabTheMilkGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You call out to the milk slave before she can slink away, and wade over to the side of the tub, leaving your face a few scant inches from her massive, milk-laden jugs. She cocks her head to the side, obviously unused to the attention, and quietly whispers, "<i>' + CoC.player.mf( 'M-master?', 'M-mistress?' ) + '</i>"' );
 		EngineCore.outputText( '\n\nYou flash her a mischievous grin before grabbing a handful of her giant tits and pulling, yanking her into the tub with you. The milk-maid lets out a sharp cry of surprise as she tumbles in, a huge splash of cream spraying over the rim of the tub, painting the walls white. Gasping, her head pops back over the surface of her own milk, long ebony hair dripping onto the tops of her seemingly-buoyant teats, which bob over the milky waves with a strangely serene, regal grace.  "<i>' + CoC.player.mf( 'M-master?', 'M-mistress?' ) + '</i>" the slave girl repeats, her lower lip quivering with fright as she wades through her own lactation, slowly retreating to the edge of the tub. Smiling, you reach out and stroke her cheek, telling her it\'s all right, that you thought she might like a bath, too. She starts to reply in her broken dialect, but you cut her off with a playful stroke of her massive mounds, urging her over toward you. Though still nervous, she does as you ask, sliding up under your arm and onto your lap. Once seated, she looks ups to you with saucer-like brown eyes until you cup her cheek and give her a short, tender kiss, pressing your lips to her dusky mounds. To your delight, she seems to melt at your touch, relaxing in an instant as you hold her as close as you can, seperated only by her prodigious chest' );
 		if( CoC.player.biggestTitSize() >= 8 ) {
@@ -4764,7 +4764,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Don't];
 	DungeonSandWitch.prototype.dontFuckMilkBathBabe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You allow the girl to continue for a long, long while until your entire body feels deeply refreshed, her milk having soaked into your body and making you feel fresh and revitalized. You start to thank the milk girl for the pleasurable company, but when you open your mouth, she slips into your arms and presses her lips to yours.  Chuckling to yourself, you hold the girl as tight against yourself as her udders will allow, turning her to the side to let her nuzzle her cheek into your [chest], kissing the top of her head before the two of you climb from the pool.  You have to help her out, her massive extra weight nearly dragging her back in except for your quick reflexes.  You gather your [armor] and ruffle the milk slave\'s hair before turning back to the task at hand.' );
 		//[+Lust, +HP, -Fatigue];
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
@@ -4773,7 +4773,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Fuck Her] (PC has a Dick);
 	DungeonSandWitch.prototype.fuckMilkbabeWithPenor = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 50 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -4799,7 +4799,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Fuck Her] (PC has Cooch & C+cups);
 	DungeonSandWitch.prototype.ladyFucks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn around in the milky pool, pulling the cute little slave tight against you.  She gasps with surprise, but settles as soon as you press your lips to hers, your hands wandering across her huge teats and supple, milky body.  She nuzzles up against you, her head resting on your [chest] as you hold her against yourself, stroking her dark hair.  After a few moments of such a simple pleasure, the little slave girl shifts her cheek along your breast, wrapping her full, dusky lips around your [nipple].  You let out a long moan as she suckles gently' );
 		if( CoC.player.lactationQ() >= 200 ) {
 			EngineCore.outputText( ', drawing out a trickle of milk from your motherly reserves.  She gulps deeply, smiling up at you as a trickle of your milk runs down her chin, dripping into the pool of her own' );
@@ -4829,7 +4829,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	};
 	//[Drink & Masturbate];
 	DungeonSandWitch.prototype.drinkNFap = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Wait,</i>" you call out to the ebony woman, letting the milk obscure your hands as you begin to masturbate, "<i>I want a drink.</i>"  Sheepishly, the milk slave obliging shifts to drag her tits back into place.' );
 		EngineCore.outputText( '\n\nShe begs, "<i>Forgiveness please, [Master].  Bath slut would love to give you more milk.</i>"  She rolls her shoulders, sending an enticing jiggle through the milk-weighted fluid-factories on the edge of the tub, the sable flesh of her nipples blotted by fresh drops of white.  The milky morsels roll down the undercurve of the black slut\'s tits before dripping into the tub and sending tiny waves of cream through the tub.  Her well-used teat looks almost over-engorged by this point, puffy, swollen, and a little red, even through her coal-dark skin.  Thick streams of her alabaster nectar start to run from each of her nipple-tips as you lean closer, the anticipation already too much for the ever-full milk-machine of a woman.' );
 		EngineCore.outputText( '\n\nTaking her nipple in, you give it an experimental lick.  It\'s sweet from the pearly fluid, but her skin tastes faintly of her body\'s salts as well, not unpleasantly.  You look down at the boob before you and realize that even with the milk-spout in your mouth, you\'ve only devoured a small portion of her teat.  The majority of her areola spreads out before you, nearly the size of a dinner plate but far more exciting.  After taking a few swallows of her body\'s watery treat, you reach down to your ' );

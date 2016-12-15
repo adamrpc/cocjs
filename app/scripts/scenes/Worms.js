@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 	 For further information and license requests, Dxasmodeus may be contacted through private message at the Futanari Palace. http://www.futanaripalace.com/forum.php. */
 	Worms.prototype.wormEncounter = function() {
 		EngineCore.spriteSelect( 76 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.MetWorms ) < 0 ) { //First encounter
 			EngineCore.outputText( 'As you are exploring, a rather pungent, peaty smell assails your nostrils. You hear a strange rustling and an off-kilter squishing noise in the distance. As you explore the area you come upon a most grotesque sight. Before you is a cohesive mass of writhing, wriggling worms! While normally solitary creatures, these appear to have coalesced into a monstrous living colony!\n\n' );
 			EngineCore.outputText( 'You have never before seen such a bizarre freak of nature. You see the mass of annelids creep about across your path. It stops and spreads slightly in your direction before halting. The stench of the mass is indescribable and a thick, viscous slime covers each of the countless worms forming the collective.\n\n' );
@@ -41,43 +41,43 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 	};
 	Worms.prototype.wormToggle = function() {
 		EngineCore.spriteSelect( 76 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'While wandering, you come across a crudely illustrated sign.  It depicts an imp in obvious discomfort, covered in white little worms.  It looks as if one of them is even crawling into the imp\'s penis!\n\nHow do you feel about that?' );
 		EngineCore.choices( 'Aroused', this, this.wormsOn, 'Grossed Out', this, this.wormsOff, 'Who Cares?', this, this.wormsPartiallyOn, '', null, null, '', null, null );
 	};
 	Worms.prototype.wormsOn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You actually think it\'s kind of a hot idea, and wonder if such creatures actually exist in this land as you make your way back to camp.' );
 		CoC.player.createStatusAffect( StatusAffects.WormsOn, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsPartiallyOn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shrug and keep walking, not sure how you feel about the strange sign.' );
 		CoC.player.createStatusAffect( StatusAffects.WormsOn, 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.WormsHalf, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsOff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shudder in revulsion and figure the sign to be the result of someone\'s perverted fantasy.' );
 		CoC.player.createStatusAffect( StatusAffects.WormsOff, 0, 0, 0, 0 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsConfront = function() {
 		EngineCore.spriteSelect( 76 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn to confront the worms and combat begins!' );
 		Combat.startCombat( new WormMass() );
 	};
 	Worms.prototype.wormsDoNothing = function() {
 		EngineCore.spriteSelect( 76 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You do nothing, allowing the worms to enter combat range!' );
 		Combat.startCombat( new WormMass() );
 	};
 	Worms.prototype.wormsRun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.spe > Utils.rand( 35 ) ) {
 			EngineCore.outputText( 'Your instincts overwhelm you and you immediately turn around and run like hell in the opposite direction. You look behind you as your heart feels as if it is about to burst only to discover that the creature did not follow you. You take a moment to catch your breath and consider yourself fortunate.' );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		EngineCore.outputText( 'The worm colony strikes at you with its makeshift limbs. It strikes you for ', false );
 		EngineCore.outputText( String( temp ), false );
 		EngineCore.outputText( ' damage and the limb splatters, dispersing the worms comprising the false arm.', false );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n', false );
 		Combat.combatRoundOver();
 		return;

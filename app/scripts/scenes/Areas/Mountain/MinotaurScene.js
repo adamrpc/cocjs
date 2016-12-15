@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore ) {
 	function MinotaurScene() {
 	}
 
@@ -576,7 +576,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 	MinotaurScene.prototype.getRapedByMinotaur = function( autoRape ) {
 		EngineCore.spriteSelect( 44 );
 		CoC.player.slimeFeed();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//BY BUTTS MCGEE
 		//====================================================================
 		//((This would be a Minotaur Loss Rape if the PC fulfills either of the following conditions.))
@@ -1082,7 +1082,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 	};
 
 	MinotaurScene.prototype.layEggsInAMinotaurSpiderLike = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.canOvipositBee() ) {
 			this.layBeeEggsInCowbutt();
 			return;
@@ -1145,7 +1145,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 	//Bee on Minotaur: Finished (Woodrobin) (Zedit)(CODED)
 	//r.j.mote@gmail.com
 	MinotaurScene.prototype.layBeeEggsInCowbutt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Looking down at the defeated minotaur' );
 		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( ', stroking his flared cock desperately' );
@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, CoC, AppearanceDefs, 
 	//{CHECK: If male PC with big butt (Over... I have no idea what butt numbers are), use this}
 	//{CHECK: If female or herm PC with big butt and vagina too small to fit minotaur cock, use this}
 	MinotaurScene.prototype.getMinoHawtDawged = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.lust > 99 ) {
 			EngineCore.outputText( 'You collapse to your knees, hands racing to your crotch and your ' );
 			//(If Male or Herm:

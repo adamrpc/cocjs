@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
 	function PhoukaScene() {
 		this.phoukaForm = 0; //This keeps track of the form of the phouka across different scenes and through combat
 		this.PHOUKA_FORM_FAERIE = 0;
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		}
 	};
 	PhoukaScene.prototype.phoukaFaerieFire = function() { //In old Irish legends the Phouka are responsible for Will-o’-the-wisps. In the deep woods it’s Kitsune, but in the bog it’s a Phouka
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you’re wading through the bog a flickering light off in the distance catches your eye.  ' );
 		if( CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] !== 0 ) {
 			EngineCore.outputText( 'You recall your last encounter with one of these \'lanterns\' out here in the bog.\n\nPerhaps it would be best to leave this faerie fire alone.' );
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaStuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var hasAlcohol = CoC.player.hasItem( ConsumableLib.P_WHSKY, 1 );
 		EngineCore.outputText( 'You follow some firmer ground into one of the many copses of dead trees.  The bog is quiet and still here.  Up ahead you see something glint in the hollow of a dead tree, but before you can investigate the firm ground beneath your feet liquefies and you begin to sink.\n\nYou try to leap to another muddy lump of exposed ground, but even before you land it has gone soft as well.  You are soon encased in mud almost to your waist.\n\nThat\'s when you feel something slick and warm dart past you in the muck.  Wherever it goes it drags a thick net behind it.  Your ' );
 		if( CoC.player.isNaga() ) {
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		EngineCore.addButton( 2, 'Fight', this, this.phoukaStartFight );
 	};
 	PhoukaScene.prototype.phoukaStuckOfferWhiskey = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pull out the bottle and ask the ' + this.phoukaName() + ' if he might be interested in a drink.  He looks at the bottle and says <i>“Well we both know where ya picked that up, hmmm?”</i>  Then he smiles and adds <i>“Course that’s some other phouka’s problem if he let ye beat him.”</i>' );
 		if( CoC.flags[ kFLAGS.PHOUKA_LORE ] === 0 ) {
 			CoC.flags[ kFLAGS.PHOUKA_LORE ] = 1;
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		}
 	};
 	PhoukaScene.prototype.phoukaMasturbating = function() { //Old Irish folklore again - Phoukas were supposed to be responsible for the berries rotting away at the end of the year
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You are wandering through the bog when you hear the unmistakable sound of someone fapping like there\'s no tomorrow.  You sneak up on the small group of shrubs expecting to find an imp who has finally been overcome by his own lust.  Instead it\'s a ' + this.phoukaNameText( 'phouka', 'small black faerie' ) + ' you see madly jerking off.  He grunts and strains but seems unable to finish.  With an annoyed look he dives for the bush, grabbing some small ripe berries from a branch.  The ' + this.phoukaName() + ' rubs the berries on his cock until it drips with blue and black fruit juices.  He tosses the remains of the fruits to the ground and goes back to wanking.\n\nAfter another minute or so he finally thrusts his hips forward in mid-air and begins squirting streams of thick grey cum all over the bushes.  He produces far more cum than he should be able to for a creature his size.  He aims the last several streams directly onto the berries for some reason.  By the time he\'s done the bush looks like it\'s covered in a layer of off-white frosting.\n\nThe ' + this.phoukaName() + ' gives a satisfied <i>“Ha!”</i> and flies off.  Glancing at the bush you decide you won\'t be making any preserves from the fruits in the bog and turn back toward camp.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		CoC.player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 );
 	};
 	PhoukaScene.prototype.phoukaTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask the ' + this.phoukaName() );
 		if( CoC.player.level < 10 ) {
 			EngineCore.outputText( ' if perhaps there\'s some way he could release you.' );
@@ -234,7 +234,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		}
 	};
 	PhoukaScene.prototype.phoukaDrinkAccept = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You accept the cup and give it a careful sniff.  Who knows what the phouka put in this stuff?  The smell reminds you of some scents from the old general store back home.  You try some and find it remarkably smooth for something supposedly cooked up from bog water and peat.  The black bunny gives you a crooked smile and settles down next to you, pouring out some more of the powerful spirits.\n\nBy the time you and the phouka have drunk half the bottle, both of you are feeling a lot better.' );
 		CoC.player.slimeFeed();
 		switch( ConsumableLib.P_WHSKY.phoukaWhiskeyDrink( CoC.player ) ) {
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		this.phoukaDrinkTalk( false );
 	};
 	PhoukaScene.prototype.phoukaDrinkRefuse = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) && (CoC.player.pregnancyIncubation <= 100) ) { //Pregnancy is obvious to the phouka
 			EngineCore.outputText( 'The rabbit morph sits down heavily on the wet ground and sips his booze.  <i>“Don\'t want to fuck, don\'t want to drink.  What gives?  Live a little and let me have fun with your pregnant pussy.  I’ll get ya off, and it’s not like I can knock you up again.  Course, that\'d be fun too.”</i>' );
 			EngineCore.menu();
@@ -285,17 +285,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		}
 	};
 	PhoukaScene.prototype.phoukaDrinkRefuseLeave = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You extract yourself from the mud and get out of the bog before the phouka changes its mind.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaDrinkRefusePregnantLeave = function() { //In every path that leads here the character learns the creature is called a phouka, so no phoukaName() calls needed
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<i>“Ah fuck.  You\'re a killjoy.  Don\'t you know the best time to get porked is when you\'ve already got a bun in the oven?”</i>\n\nThe black bunny waves you away dismissively. <i>“Fine, yeah, go home.  I hope the little bastard hurts when it pops out.  I would have stretched you out but good.”</i>' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaDrinkRefuseAfterOffer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The phouka looks disappointed but downs one of the cups and says <i>“How come chicks that’re knocked up are always such stick in the muds?”</i> He starts to sip the second cup, looks over at you and chuckles. <i>“I guess in yer case you’ve got a good excuse - ye are stuck in the mud!”</i> The phouka keeps drinking and it isn’t long before he starts to reminisce.' );
 		this.phoukaDrinkTalk( true );
 	};
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 	};
 	PhoukaScene.prototype.phoukaHalloween = function() {
 		CoC.flags[ kFLAGS.TREACLE_MINE_YEAR_DONE ] = OnLoadVariables.date.fullYear;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Once again you find yourself wading through the cold, wet mire of the bog.  You are, as usual, keeping your eyes open for any of the bog\'s varied inhabitants, but it\'s your ears that lead you to them.  Scraping noises.  Loud enough they can\'t be far off and regular enough that they can\'t be natural.  You ready yourself, your mind imagining all sorts of causes for the noise.  No one in this world would bother burying a body, would they?  Perhaps a witch is scraping the inside of her cauldron?  Wait, why would you even think that?  Must be the time of year.\n\nYou sneak up on the source of the sound, a large mound of solid land poking up from the bog, almost like an island.  A few twisted trees still cling to life here.  What you find is a surprise.  In a small clearing are half a dozen phouka.  One is buzzing around in faerie form and is wearing a small white cap.  The others have taken the form of goat-morphs and are carefully clearing dirt away from something.  The one in faerie form spots you and stands up, motioning for you to come over.\n\n<i>“Hey there!  Good timing on yer part.  We were just about to stab fer the treacle.  Looks like a big load of it, so we\'ll never get it all in the barrels.”</i> You look over and see two kegs, each about half the size of your water barrels back at camp.  Since these phouka seem friendly (and don\'t seem to want to rape you right now) you decide to take a closer look.\n\nThey have excavated a small patch of soil, about 2 feet on a side.  Only a foot down there\'s a seamless black membrane.  You\'ve never seen anything like it before, so you ask what they\'re doing.  The phouka with the white cap responds <i>“You\'ve never seen treacle mining before? How de you think we get all the sugar?”</i>\n\nSince you still look confused he continues. <i>“Treacle builds up underground, leaks inta big bubbles like this from tree roots.  The bubbles build up a skin of hard black treacle te protect the white treacle.”</i> He gestures at the black substance beneath the soil.\n\nOne of the goat-morph phouka stands and comes over. <i>“Okay boss, it\'s all cleaned off.”</i> The phouka you\'ve been talking to buzzes over to the hole and checks it over. <i>“Yes, yes. Ye done good work, it\'s spotless.  Is the pump ready?”</i> Another of the goat-morphs nods, holding up a kind of bellows with two hoses sticking out of it. <i>“Perfect! Right, two barrels o\' treacle comin right up.”</i>\n\nHe turns back to you and adds <i>“Pumping treacle can be exhausting, so if ye give us a hand we\'ll let you eat some of the leftovers.  Unless I missed my guess there\'s so much down there we\'ll all be able te eat our fill.”</i>' );
 		if( CoC.player.gender === 2 ) {
 			EngineCore.outputText( '\n\nOne of the goat-morph phouka turns to the white cap and says <i>“Women aren\'t supposed to pump treacle.”</i> The white capped phouka growls and turns around, smacking the goat-morph with his cap. <i>“I got the cap, I\'m the boss round here!  I say she can pump, so pump she can!”</i> The boss pulls his cap back on and the goat-morph quickly backs off.' );
@@ -387,13 +387,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaHalloweenTreacleEater = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You take the cup and squeeze the bellows.  Then you tip a bit of the fluid into your mouth and are rewarded with a thick and sweet substance that is also mildly sticky.  After rolling it around your mouth you swallow. <i>“Well, looks like [he] likes it.”</i> says the boss.  You drink a little more.  As you do you notice a subtle aftertaste that you have difficulty placing.  It\'s hard to make out through all that sugar. \n\n<i>“You want some more?”</i> asks the boss. <i>“After all, it\'s always a pleasure to share our treacle with a newcomer.”</i> You try another cup, hoping to work out what that other taste is.  You feel like you should be able to place it.  After you swallow this batch you notice the grins of the phouka around you.  It finally hits you - that other taste is phouka spunk.  The phouka see the look on your face and start rolling on the ground laughing.\n\n<i>“Treacle Mining!  And [he] bought it!“</i>\n\n<i>“Oh, ho, \'Pumping treacle can be exhausting\'.  Oh, boss yer a killer!“</i>\n\n<i>“Boss, you\'ve done it again, yer the master o\' the long con, no one can argue that.”</i>\n\nYes, indeed, you\'ve been pranked but good by the little winged bastards.  Only a bit of smeared mud hid the fact that the words \'wank tank\' were carved into the small barrels.  As you storm off towards your camp you hear the leader call out <i>“If ye ever want to taste treacle again I\'ve got some for ye.  Just ask and I\'ll put it in yer mouth, instead of yer [if (hasVagina = true)cunt][if (hasVagina = false)ass].  Or if you want we can bury it in another barrel and cover it with tarpaper for ya.”</i> Their laughter rings in your ears until after you leave the bog.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );  //Return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaLeaveOnLustWin = function( newScreen ) {
 		if( newScreen === undefined || newScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -402,7 +402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		Combat.awardPlayer(); //This will provide loot and return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaPlayerWins = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( hpVictory ) { //You win by physical damage, the phouka cheats and runs
 			EngineCore.outputText( 'The seriously injured ' + this.phoukaName() + ' stumbles backward, but before you can strike again it twists and stretches in mid-air, dropping to the ground in the form of a long black eel.  You\'re pretty sure you hear the eel curse at you as it dives into the mire and sinks out of view.\n\nWith your attacker gone you struggle and strain to get yourself free of the thick mass of roots and muck around your [legs].  Your lower half is soaked and you decide to head home.' );
 			Combat.clearStatuses( false );
@@ -528,7 +528,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		EngineCore.addButton( 3, 'Goat', this, this.phoukaSexGoatChoice );
 	};
 	PhoukaScene.prototype.phoukaSexBunny = function( postCombat, lustLoss ) { //Player must have a vagina for bunny-morph sex
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( postCombat ) {
 			EngineCore.outputText( 'As you collapse the ' + this.phoukaName() );
 			if( this.phoukaForm === this.PHOUKA_FORM_BUNNY ) {
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		this.phoukaSexBunny( false, false );
 	};
 	PhoukaScene.prototype.phoukaSexGoat = function( postCombat, lustLoss ) { //Player does not have a vagina or has chosen anal
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( postCombat ) {
 			if( lustLoss ) {
 				EngineCore.outputText( 'Panting with need, you begin to strip off your [armor].  The ' + this.phoukaName() + ' watches the show with an evil smile.' );
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		this.phoukaSexGoat( false, false );
 	};
 	PhoukaScene.prototype.phoukaSexHorse = function( postCombat, lustLoss ) { //Player has a vagina
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( postCombat ) {
 			EngineCore.outputText( 'As you collapse the ' + this.phoukaName() );
 			if( this.phoukaForm === this.PHOUKA_FORM_HORSE ) {
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, CoC, kFLAGS, Util
 		this.phoukaSexHorse( false, false );
 	};
 	PhoukaScene.prototype.phoukaSexFaerie = function( postCombat ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The faerie doesn\'t look like he\'s in any condition to refuse your orders.  You grab him by his tiny pointed ears to get his attention.  The ' + this.phoukaName() + ' looks startled.  A firm, commanding voice should be all you need to get what you want.  You let him know that you\'re in charge right now and you\'ve decided you want to feel his cock inside your [vagOrAss].  The ' + this.phoukaName() + ' looks both surprised and worried. <i>“I... I don\'t know if I have the control right now,”</i> he sputters.  He concentrates for a moment, his form goes fuzzy, but then he snaps back.  You rub his cock and ask if he can manage just one change. <i>“Errr - maybe?”</i> As you stroke his inch long pecker, he furrows his brow and sure enough you see it begin to grow.  Then it deflates like a balloon.\n\nHe brushes your hand away. <i>“Just gimme a sec,”</i> he says, now determined to grow his cock.  You\'re beginning to wonder if that vein on his forehead is going to pop when suddenly his cock expands to be over a foot long.  Just as suddenly, it shrinks again and his balls expand.  Then, they shrink but his hips expands.  It\'s painful to look at.\n\nAfter another few moments all his parts stabilize and you\'re left looking at a much larger ' + this.phoukaName() + ', about four and a half feet tall, with cock and balls both only slightly larger than those of a normal human. <i>“Huh”</i> he says, looking himself over, <i>“well that\'s new.  Didn\'t know I could do that.”</i> He tugs on his cock and fondles his balls, then declares, <i>“Yup, everything\'s workin,”</i> and smiles at you.\n\n' );
 		if( CoC.player.isTaur() ) {
 			EngineCore.outputText( 'You know you can’t really keep control of him.  Once he’s behind your rear legs he’ll be able to do whatever he wants.  Before he realizes that, you spin round and flick your tail at him.  He grins and slides his fingers over your rump.  You let your belly settle against the thick mire of the bog and your partner gently slides his cock inside you.  He must know a thing or two about centaurs thanks to being able to take the form of a stallion.  His fingers start to massage some sensitive areas on the insides of your rear thighs.  Then he starts to nibble at the base of your tail with his teeth.  You can’t help but moan and he takes that as a sign to pick up the pace.  Soon enough his human-sized cock is slamming in and out of your ' );

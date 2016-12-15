@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( WeaponLib, CoC, kFLAGS, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, MainView, CoC, kFLAGS, Weapon, EngineCore ) {
 	function DragonShellShield() {
 		this.init(this, arguments);
 	}
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, kFLAGS, Weapon, EngineC
 	};
 	DragonShellShield.prototype.useText = function() { //Produces any text seen when equipping the armor normally
 		if( CoC.flags[ kFLAGS.TIMES_EQUIPPED_EMBER_SHIELD ] === 0 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'Turning the sturdy shield over in inspection, you satisfy yourself as to its craftsmanship and adjust the straps to fit your arm snugly.  You try a few practice swings, but find yourself overbalancing at each one due to the deceptive lightness of the material.  Eventually, though, you pick up the knack of putting enough weight behind it to speed it through the air while thrusting a leg forward to stabilize yourself, and try bashing a nearby rock with it.  You smile with glee as ' );
 			if( CoC.player.str < 80 ) {
 				EngineCore.outputText( 'bits and pieces from the surface of the' );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descriptors, HermCentaur, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancyStore, Descriptors, HermCentaur, Combat, kFLAGS, CoC, EngineCore ) {
 	function HermCentaurScenes() {
 	}
 
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 	var CENTAUR_RELEASED = 2;
 	var CENTAUR_FUCKED = 3;
 	HermCentaurScenes.prototype.beatThePony = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a heavy \'thud\', the demonic red-head slumps onto her side in the grass.  Her tail flails fitfully' );
 		if( hpVictory ) {
 			EngineCore.outputText( ' as she tries to rise' );
@@ -47,14 +47,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.addButton( 6, 'Kill', this, this.killHer );
 	};
 	HermCentaurScenes.prototype.killHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Sighing, you advance on the downed demon, trying to ignore the horrified look in her eyes as you end her.' );
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_KILLED;
 		EngineCore.menu();
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.letHerGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You dust off your [armor] and wave nonchalantly at the equine demoness.  She slowly staggers up, watching you warily.  Dismissively, you tell her to leave before she earns your ire - her queen will be dealt with soon enough.  She clops off in a huff towards the exit.' );
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_RELEASED;
 		EngineCore.menu();
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 			y = CoC.player.smallestCockIndex();
 		}
 
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shrug out of your [armor] as you close with the defeated beast-woman.  Looking at her like this, she almost seems more animal than woman.  Her hundreds of pounds of muscular equine flesh twist and contort as you approach, shifting her bulk to allow you unimpeded access to either of her trembling, moist genitals.  Glancing up to her pale, freckled face, you trap her green eyes with your own and say, "<i>' + ((CoC.player.cor > 50) ? 'I\'m gonna wreck it!' : 'We do this my way.') + '</i>"' );
 		EngineCore.outputText( '\n\nReduced a whimpering mare, the demon-taur can do naught but eagerly nod and lift her tail at the sight of your encroaching erection' );
 		if( CoC.player.cocks.length > 1 ) {
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 	var TENTACOCK = 2;
 	HermCentaurScenes.prototype.femFuckHer = function() {
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_FUCKED;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Tossing aside your [armor], you close in on the defeated equine with a lusty gaze on your [face].  The defeated demon looks up at you with the reluctant anticipation of one who\'s getting what they want in EXACTLY the wrong way.  You swat the rebellious mare\'s flank, disdainfully sliding your [foot] across her gushing gash to watch her twitch and moan like the beast she is.  Of course the demontaur would enjoy such debasement.  You prace forward, being sure to jostle her gurgling balls, and enjoy the spurts of lurid white liquid that escape her tremendous, pulsating member.' );
 		EngineCore.outputText( '\n\nHungry green eyes look up questioningly.  "<i>Are you going to do this?  Are you going to fuck me... breed me?  I can change my cock... I can make it any size or shape you want!  Just, please don\'t crush my balls!</i>"' );
 		EngineCore.outputText( '\n\nFinally, a demon with some common sense!  You idly trace your [foot] along the underside of her leaky horse-cock while pondering this newest development.  She\'ll need to match her size to your [vagina] for sure, but what kind of cock do you want her to have?' );
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.addButton( 2, 'Tentacles', this, this.femFuckHerII, TENTACOCK );
 	};
 	HermCentaurScenes.prototype.femFuckHerII = function( cockType ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[Tentacle];
 		if( cockType === TENTACOCK ) {
 			EngineCore.outputText( 'You give her throbbing maleness an affection pat and proclaim, "<i>Make it a tentacle, one that will fit me properly.  Then we can fuck.</i>"' );
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		}
 	};
 	HermCentaurScenes.prototype.femLoss = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Dropping down, you' );
 		if( hpVictory ) {
 			EngineCore.outputText( ' try to pull yourself up with on your palms, utterly defeated in spite of the centaur\'s complete lack of physical attacks.' );
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.addButton( 0, 'Next', this, this.femLossII );
 	};
 	HermCentaurScenes.prototype.femLossII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Later, you wake when something hard digs into your back, and as you crack your eyes open, the first thing you see is a set of equine hindquarters and prodigiously large testes.  Your next realization is that you\'re moving... not just moving, being dragged!  You glance downward and see that you\'re joined with the centauress once again, only this time, you can\'t see any distortion in your middle.  Your belly is stuffed so full of cum that you can\'t see the fleshy spear, but you can certainly feel it.  It\'s different now... narrower at the tip, but obscenely bloated at the base.  Even now, you can feel it stretching you to your limits to make a tight seal and slowly leaking a fresh river of jism to assault your ovaries.' );
 		EngineCore.outputText( '\n\nThe demon has you knotted on a giant dog-cock!  When did she get one of those!?  You gasp in surprise, pain, and pleasure in equal measure.  She hears you and looks over her shoulder, still slowly walking, and she smiles as she says, "<i>Welcome back.  I\'m just taking you to your stall and making sure my devilish little children get a proper foothold in your womb.  Relax and enjoy - we\'ll get you fixed up once you\'re secured in your stall.</i>"' );
 		EngineCore.outputText( '\n\nYou slump down as you\'re dragged through dirt, over carpets, and through halls.  Various demons leer at you as you pass, snickering at the fallen champion, now little more than a willing mare.  The humiliation makes your cheeks go red but your [vagina] drool. Some part of you is clearly enjoying it, though you aren\'t sure if it\'s a natural enjoyment or something this creature has done to you.  You sigh and shrug, raising your hands to fondle your breasts as you\'re dragged to your new home.  You may as well enjoy yourself.' );
@@ -292,14 +292,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.addButton( 0, 'Next', this, this.femLossIII );
 	};
 	HermCentaurScenes.prototype.femLossIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>Months later...</b>' );
 		EngineCore.outputText( '\n\nYou sigh as your latest litter of imps clamor around your nipples, hungry for their mother\'s milk.  They\'re such greedy, ceaselessly ravenous creatures.  Having their clutching mouths on your nipples all the time makes it so hard to sleep, and it doesn\'t help that the \'father\' insists on rutting with you and knotting you for hours until she\'s \'sure\' your pregnant.' );
 		EngineCore.outputText( '\n\nThe rest of your days are lived out like that, interrupted only for fresh injections of demonic chemicals and thick centaur-cum.  Amazingly, the demon\'s experiments bear fruit, and you have the honor of birthing the first true demon offspring - the first of many.  Though you\'re eventually traded to a new owner once you\'re well used and other sluts have been similar prepared, you keep a sense of a perverse pride through it all.  You were the first demon mother.  You helped the new species propagate and assure their dominance over lesser forms of life, like yourself.' );
 		EngineCore.gameOver();
 	};
 	HermCentaurScenes.prototype.maleLoss = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var y = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( y < 0 ) {
 			y = CoC.player.smallestCockIndex();
@@ -375,7 +375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Utils, PregnancyStore, Descri
 		EngineCore.addButton( 0, 'Next', this, this.maleLossII );
 	};
 	HermCentaurScenes.prototype.maleLossII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As the years roll by, you see lots of pussy, and lots of injections.  They test all kinds of cocktails on you.  Ones that makes your balls swell, or your seed runny, or thick, or even black.  Eventually, one of your children comes out as something other than an imp.  The first proper demon infant.  Too fucked up to feel anything but pride, you can only marvel at your amazing virility as you seed the birth of a new species, knocking up every demon with a cunt in a month-long orgy.  Your jism fuels the ascendency of an entire race, dooming Mareth.' );
 		EngineCore.gameOver();
 	};

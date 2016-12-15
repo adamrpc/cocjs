@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Useable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Useable, PerkLib, EngineCore ) {
 	var PURE_HONEY_VALUE = 40;
 	var SPECIAL_HONEY_VALUE = 20;
 	function BeeHoney() {
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CockTypesEnum, CoC, Stat
 		var special = (this.value === SPECIAL_HONEY_VALUE);
 		var changes = 0;
 		var changeLimit = 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		//Chances of boosting the change limit.;
 		if( Utils.rand( 2 ) === 0 ) {

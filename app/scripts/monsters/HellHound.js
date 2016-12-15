@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 			temp = CoC.player.takeDamage( temp );
 			EngineCore.outputText( 'Both the hellhound\'s heads breathe in deeply before blasting a wave of dark fire at you. While the flames don\'t burn much, the unnatural heat fills your body with arousal. (' + temp + ' damage)', false );
 			EngineCore.dynStats( 'lus', 20 - (CoC.player.sens / 10) );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			if( CoC.player.HP <= 0 ) {
 				EngineCore.doNext( Combat, Combat.endHpLoss );
 				return;

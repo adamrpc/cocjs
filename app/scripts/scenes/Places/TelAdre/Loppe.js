@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Descriptors, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
 	function Loppe() {
 	}
 
@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	 */
 	//Appearance (edited) (C);
 	Loppe.prototype.appearanceOfLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.LOPPE_FURRY ] === 0 ) {
 			EngineCore.outputText( 'Loppe is a 6\'2" bunny-girl with deep brown eyes set in her pretty face.  Shoulder-length black hair and a pair of snow-white rabbit ears adorn the top of her head, tilted and lying backward to conceal the insides.  Curiously, her face is that of a normal human woman.' );
 			EngineCore.outputText( '\n\nHer body is covered in smooth olive-colored skin, save for her wrists, where she has a pair of fluffy cushion-like fur bracelets; her legs are what you would expect of a bunny, curved and with elongated furry feet; her fur color is snow-white.  Her butt is firm and girly; it fills out her shorts nicely.  If you were to look at her from behind, her hips and butt would form a perfect heart shape.  A long, elegantly-cared for black horse\'s tail falls from her butt, easily reaching to the back of her knees.' );
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//First Meeting (edited) (C);
 	//Happens randomly when choosing to go into the bar after 16:00;
 	Loppe.prototype.loppeFirstMeeting = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Wandering towards the bar, you notice an unusual commotion; there are a lot more people hanging around here than is usual for the time of day.  Feeling curious, you go over to investigate, and ask a bystander what all of this is about.' );
 		EngineCore.outputText( '\n\n"<i>You don\'t know?  Today we\'re having a show at the bar.  A dancer is going to be dancing for us.  You should go and have a look, it\'s very beautiful!</i>"' );
 		EngineCore.outputText( '\n\nDo you watch the show?' );
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Uninterested=];
 	Loppe.prototype.noLoppeInterest = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Dancers aren\'t really your thing, and you shake your head.' );
 		//(disable repeat and NPC);
 		CoC.flags[ kFLAGS.LOPPE_DISABLED ] = 1;
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Not Now=];
 	Loppe.prototype.mebbeLaterToLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You\'re not really in the mood for this right now, so you leave the bar.' );
 		//(go to T'A main menu, repeat event in 15 days.);
 		EngineCore.menu();
@@ -74,7 +74,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Yes=];
 	Loppe.prototype.yesToMeetingLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.LOPPE_MET ] = 1;
 		EngineCore.outputText( 'There\'s no harm in staying a while...' );
 		EngineCore.outputText( '\n\nYou make your way through the crowd, pushing past the doorway to try and find a table to sit down at.  The place is really jam-packed, and it\'s not helped by the fact that a small makeshift stage has been set up in the center of the room.  The bartender is working flat-out to provide drinks for all the thirsty people, and you wonder where in the world you\'ll find a place to sit down and watch.  After a lot of elbowing, narrowly avoiding being stepped on, and small confusions, you manage to find what you think is a good place to watch the \'show\'.' );
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 		EngineCore.addButton( 0, 'Next', this, this.yesToLoppeMeetingTwo );
 	};
 	Loppe.prototype.yesToLoppeMeetingTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-show-at-bar' ) );
 		EngineCore.outputText( 'Suddenly the bar goes silent and the lights dim; a figure clad in a white mantle steps onto the stage; discarding the covering with a swift movement, it reveals the comely visage of a bunny-girl - a literal bunny-girl, in that apart from the obvious bunny ears and the hints of rabbit-like legs, she actually looks otherwise human despite the prevalence of anthropomorphic animals in this city.' );
 		EngineCore.outputText( '\n\nA strange, exotic robe adorned with floral designs decorates her body, and her face is completely white, delicately painted to make her look like a porcelain doll; her eyes are shaded with a red eyeliner and her lips with a crimson lipstick.  The black hair atop her head is done in a small bun, perched just above her flattened bunny ears.  She smiles at her audience and takes a pair of fans out of her long sleeves, opening them and beginning to motion in graceful, fluid movements.  You watch mesmerized as an unusual, but calming, music begins playing in the background; while the small makeshift stage begins to glow with a strange substance, the dancer begins going through her preparatory motions.' );
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Not Really=];
 	Loppe.prototype.notReallyInterestedInLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decline, and the girl gives you a look of disappointment.' );
 		EngineCore.outputText( '\n\n"<i>Well, that\'s... too bad.  Erm, if you change your mind, look me up, ok?  I spend a lot of time in the gym.  Gotta keep fit and maintain my dancer\'s body!</i>"  For emphasis, or perhaps enticement, she runs her hands along her frame, flattening the robes to show off her curves... and a suspicious bulge tenting between her legs.  Following your gaze down to it, the girl turns bright red, claps a hand over her crotch and excuses herself, mumbling as she goes.' );
 		EngineCore.outputText( '\n\n"<i>Dammit, came on too strong...</i>"' );
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Sure=];
 	Loppe.prototype.sureBakeryWithLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You consider the time of day, and the girl offering, and decide that it can\'t hurt.  Loppe smiles and takes your hand, leading you towards a nearby bakery.' );
 		EngineCore.outputText( '\n\n"<i>Carrot cake!</i>" she happily pips to nobody in particular.  "<i>With a side of chocolate-chip cookies, and some cupcakes.  Can\'t wait!</i>"' );
 		EngineCore.outputText( '\n\nThe carrot cake was something you could have seen coming, but what\'s with the cookies and cupcakes?  Is one little, dainty-looking bunny-girl really going to eat all that?' );
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 			}
 			//remove 30 gems;
 			CoC.player.gems -= 30;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		} else {
 			EngineCore.outputText( '\n\nAs mostly specialty items not on the usual menu, the price for her items is a bit high.  You look at Loppe and admit you don\'t have the money on you to pay for the both of you.  The dancer smiles at you.  "<i>Don\'t worry about it, [name]; I asked you out, so it\'s my treat.  Go ahead and order whatever you want.</i>"  You thank Loppe and tell the waitress, a fetching young cat-woman, what you\'d like; Loppe takes thirty gems from her pocket and hands them over.' );
 		}
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//[=NoWay=];
 	//Removes Loppe from game.;
 	Loppe.prototype.NoWayLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Loppe lets out a breath she had obviously been holding in a bitter sigh, the ghost of the words, "<i>I knew it</i>" echoing faintly as she does so.  "<i>Well, I understand.  I just had to give it a try all the same.  It was nice talking to you, [name].  Might see you again, someday.  Sorry for wasting your time...</i>"' );
 		EngineCore.outputText( '\n\nShe drains her drink and stands up, walking out on you and her snack.' );
 		CoC.flags[ kFLAGS.LOPPE_DISABLED ] = 1;
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Okay=];
 	Loppe.prototype.okayLoppeLetsGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Loppe looks at you, studying you to see if you\'re mocking her.  But when she detects only honesty, she sighs and breaths a sigh of relief.  "<i>Sugar, you really are sweet.  I can\'t tell you the number of times I\'ve been rejected just because I\'m a herm... anyways, we can chat later.  Our food is here.</i>"  She points toward the waitress holding your orders in a tray.  You nod to her in agreement and turn your attention towards the food, ready to savor the sweets.' );
 		EngineCore.outputText( '\n\nLoppe\'s dress robe - a kimono, as she calls it - is very well-made, and it really hides her package well.  You wouldn\'t have thought she was a hermaphrodite if she hadn\'t revealed it during your little tête-à-tête.  You ask if her deception is, perhaps, intentional? She did say she got rejected plenty of times for being a herm.' );
 		EngineCore.outputText( '\n\n"<i>Haha, I have no problems with my sex.  It\'s just coincidence that this kimono is really good at hiding it.</i>"  Loppe grins at you, then gives you a sultry look.' );
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=No=];
 	Loppe.prototype.noLoppesHouse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Loppe gives a disappointed sigh, but smiles at you all the same.  "<i>I understand... if you ever feel like talking some more, you can find me in the gym.  I need to keep myself in tip-top shape for my dancing shows, after all.</i>"' );
 		EngineCore.outputText( '\n\nShe sighs again, picks up her last cookie, and leaves.' );
 		//Loppe can now be found in the Gym;
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Yes=];
 	Loppe.prototype.yesLoppesHouse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Loppe can now be found in the Gym;
 		EngineCore.outputText( 'The dancer smiles mischievously at you.  "<i>Wonderful.  I\'m going to show you just how great my body looks without this dress.  You wouldn\'t believe how much time I spend in the gym, working out.</i>"  Loppe grabs her last cookie in one hand and your arm in the other, leading you away - presumably to her house.  Enroute, she giggles constantly, provoking a question from you.' );
 		EngineCore.outputText( '\n\n"<i>I always get giddy when I can spend time with a sexy thing like you...</i>" she replies, "<i>but I was just recalling some of my earlier encounters.  I should warn you, I tend to get very, and I do mean <b>very</b> carried away during the act.  Things can get pretty intense.</i>"' );
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Generic Meeting (edited) (C);
 	//Loppe can be found from 6 to 15:00 (yeah she works out like a boss!);
 	Loppe.prototype.loppeGenericMeetings = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide to approach the bunny-girl.  Loppe smiles and wipes the sweat off her brow with the towel.  "<i>Hey there, [name], nice seeing you around here.  So... do you want to do something?  Talk, maybe?  Or go to my place for a \'workout\'?</i>" she asks with a smirk.' );
 		//Appearance;
 		//Talk;
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Talk (edited) (C);
 	Loppe.prototype.talkWithLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'That \'workout\' is going to have to be postponed; you have some questions.' );
 		EngineCore.outputText( '\n\nLoppe giggles, and her horse-tail waves as she does so.  "<i>I\'d much rather let my body speak for me, but alright.  Let\'s go to the cafeteria; I could use a break anyway.</i>"  You follow her and find a seat in a booth on the corner.' );
 		EngineCore.outputText( '\n\n"<i>Okay then, what do you want to talk about?</i>"' );
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Loppe (edited) (C);
 	Loppe.prototype.talkWithLoppeAboutLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell the laquine that you\'re curious about her, that you\'d like to know more about her: who she is, where she comes from, et cetera.' );
 		EngineCore.outputText( '\n\nLoppe nods.  "<i>Okay, but it\'s kind of a long story, so I hope you have time.</i>"' );
 		EngineCore.outputText( '\n\nYou wouldn\'t have expected anything else, and rest your chin on a hand patiently.' );
@@ -310,7 +310,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Children (edited) (C);
 	//req LoppeSexed > 0 and LoppeChat > 0;
 	Loppe.prototype.askLoppeAboutChildren = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide to ask Loppe for her thoughts on children.  Has she considered having any?' );
 		EngineCore.outputText( '\n\n"<i>Kids, huh?  I suppose I\'ve never given it much thought, but I guess I\'d be willing if I ever found the right person, you know?  Don\'t want a rehash of my mom\'s story... plus I have my job as a dancer right now.  But I suppose I would like to have children in the future, to give my mom a bunch of grandkids... I\'m sure she would like that,</i>" Loppe finishes with a smile.' );
 		EngineCore.outputText( '\n\nIt makes sense she wouldn\'t want to be a mother right now... but, what about being a father?  How can she control that?' );
@@ -336,7 +336,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[No Opinion] (spacebar default);
 	Loppe.prototype.noOpinionOnLoppeArt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decline to answer, waving the question off.  Loppe raises an eyebrow at that.  "<i>Haven\'t thought about it either, huh?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Just making conversation,</i>" you reply.' );
 		EngineCore.outputText( '\n\nLoppe nods, finishes her meal quietly, and departs.  "<i>See you later, [name].</i>"' );
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Don't Really Want Them=];
 	Loppe.prototype.loppeIDontReallyWantKidsYouStupidTwat = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You confess you aren\'t really a \'kids\' person; you don\'t think you could ever envision yourself as a parent, especially in this crazy world.' );
 		EngineCore.outputText( '\n\n"<i>I see...</i>" Loppe says, a bit disappointed.  "<i>Well, it\'s good to know your opinion on the matter.  If you\'ll excuse me, I should get back to my exercises.</i>"' );
 		EngineCore.outputText( '\n\nYou watch her go, then casually remove yourself from your seat and exit.' );
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 
 	//[=They're Okay=];
 	Loppe.prototype.loppeKidsAreOkayIfYoureARabbitOrSumthin = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You finally announce that you\'re hardly what you\'d call interested in being a parent, but you think that you could eventually see yourself having kids.  You don\'t think you\'d be too upset if one day you found you were going to have a little bundle of joy, but you must admit you probably wouldn\'t go and try to have kids on purpose.' );
 		EngineCore.outputText( '\n\n"<i>So, you\'ll just leave that to chance?  Or are you waiting for that someone special as well?</i>" Loppe asks.' );
 		EngineCore.outputText( '\n\nShe grins at you.  "<i>No need to answer.  I\'m sure you\'ll find someone special if you look.  Anyways, it\'s good to know your opinion on the matter.  If you\'ll excuse me, I should get back to my exercises.</i>"' );
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Someday=];
 	Loppe.prototype.loppeIWantKidsSomedayJeezeQuitHasslingMe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You always saw yourself as having children at some point in your future.  Coming through the portal, though, you gave up on that dream; when you first arrived, it seemed like the world had nothing in it but imps and goblins and other twisted monsters - what kind of family could you make with people like that?' );
 		EngineCore.outputText( '\n\nLoppe smiles at you. "<i>I know the world might be a bit screwed up now, but I have hope that everything will go back to normal... or at least close enough.  So... do you have anyone \'dear\' to you yet?  Any plans for a family, as of right now?</i>"' );
 		EngineCore.outputText( '\n\nYou slyly suggest that you\'ll tell her who you like as soon as she tells you.' );
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Soon=];
 	Loppe.prototype.loppeIWantKidsSoonOkayCanWeFuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a faint smile, you declare that having children is definitely in your future.  You want to be a parent; all you need is to find somebody who feels similar to you.' );
 		EngineCore.outputText( '\n\nLoppe smiles at you.  "<i>I\'m sure you will.  Maybe, if the time is right, I might be willing to help you build you a nice, big family... just maybe.</i>"  Loppe shoots you a sultry stare.' );
 		EngineCore.outputText( '\n\nHmm... is that a suggestion?' );
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Player can pick the character they want to talk about via buttons; if no options are present, auto-leave.;
 	//Must also have met the character they want to talk about at least once, and said character must not have been disabled from the game. Otherwise we might have awkward results...;
 	Loppe.prototype.gossipWithLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Loppe if she has any comments on the other residents of Tel\'Adre.  The laquine smiles at you.  "<i>It\'s not polite to pry into other people\'s lives, y\'know?</i>"' );
 		EngineCore.outputText( '\n\nLoppe closes her eyes, weighing your request carefully, before replying, "<i>Even so, I think I\'ll humor you... I do get to meet all sorts of people in my line of work.  But you\'ll have to be a bit more specific; why don\'t you tell me who you\'d like to talk about?</i>"' );
 		EngineCore.menu();
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Urta:;
 	Loppe.prototype.gossipWithLoppeAboutUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(if UrtaSex or UrtaLover flags are NOT active);
 		if( CoC.flags[ kFLAGS.TIMES_FUCKED_URTA ] <= 0 || CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] === -1 ) {
 			EngineCore.outputText( '"<i>Ah, so you\'ve met Watch Captain Urta?  She\'s famous around here, you know; people say she\'s a legendary bare-knuckle brawler and one of the toughest guards on the force.  The only problem is that she\'s not really that easy to approach... I guess she prefers to keep to herself.  Although she acts very friendly with that pretty centauress, Edryn.</i>"' );
@@ -445,14 +445,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=No=];
 	Loppe.prototype.noLoppeWhosFuckingUrta = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shake your head, claiming that you have no idea what she\'s talking about.  Loppe looks at you, then shrugs, clearly not caring if you don\'t have any gossip on the subject to share.' );
 		//end scene;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[=It's Me=];
 	Loppe.prototype.itsMeFuckingUrtaLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//set LoppeUrtaKnowledge = 1;
 		CoC.flags[ kFLAGS.LOPPE_URTA_CHATS ] = 1;
 		EngineCore.outputText( 'Loppe is surprised at this news.  "<i>Really?  I would never have guessed... anyways, that is not important right now!  Give me all the juicy details of your rendezvous!  I thought I saw her packing something non-regulation into her trousers, but... let\'s just say the watch uniforms aren\'t as concealing as a kimono.</i>"  She looks at you expectantly, like a rabbit that\'s found the literal carrot patch.  You smile back, then gently tap her on the nose to chastise.' );
@@ -469,7 +469,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Play Along=];
 	Loppe.prototype.playAlongWivLoppesesUrtaGossip = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'And... what would she do if, hypothetically, you <i>did</i> have a fetish for dickgirls ready to give a stallion an inferiority complex?' );
 		EngineCore.outputText( '\n\nLoppe gives it some thought.  "<i>There\'s not enough paper in Tel\'Adre to list the things I would do, sugar.  It\'d be a long, hard punishment, but I\'m sure we could eventually come - to a mutual understanding.</i>" Loppe winks at you, laying special emphasis on the last words.' );
 		EngineCore.outputText( '\n\nYou exaggeratedly shiver at the prospect, and tell her she\'s starting to paint a very pretty picture... reaching out with a [foot], you gently stroke her calf, asking if she\'s sure she\'d be okay with that.' );
@@ -489,7 +489,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Admit=];
 	Loppe.prototype.admitToLoppeThatYouLoveZeHorsecock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You look her in the eyes and tell her she\'s hit the nail on the head; you do have a fetish for chicks with dicks, and having a horsecock makes a dickgirl even sexier to you.' );
 		EngineCore.outputText( '\n\n"<i>Huh.</i>"  Loppe rubs her chin.  "<i>Y\'know?  I always thought I\'d be getting a lover despite my endowments... certainly not because of them.</i>"' );
 		EngineCore.outputText( '\n\nSo, she doesn\'t think less of you for it...' );
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 
 	//[Admit -> No];
 	Loppe.prototype.dontLoppesHouse4Fucks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Loppe raspberries you.  "<i>You tell me you love herms with big horse cocks and now you won\'t have sex with me?  You\'re one big tease, [name].</i>"' );
 		EngineCore.outputText( '\n\nThe dancer finishes her drink and leaves you, with a sly glance out of the corner of her eye.  It\'s unlikely that you\'ve heard the last of this...' );
 		//return to wherever;
@@ -519,7 +519,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Deny=];
 	Loppe.prototype.denyToLoppeThatYouLoveZeHorsecock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Not in the mood to play along with Loppe\'s little game, you simply state that your reasons are your own and will stay that way for now.' );
 		EngineCore.outputText( '\n\n"<i>Aww, sugar.  You\'re no fun...</i>" Loppe says, pouting at your refusal to play along with her games.  "<i>But you\'re really sweet, so I guess I can forgive you.</i>"  The dancer gets up and gives you a quick peck on the cheek.  "<i>I should get back to my training now.  I\'ll see you later!</i>"' );
 		EngineCore.outputText( '\n\nLoppe waves and runs off to get back to her routine.' );
@@ -528,7 +528,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Scylla:;
 	Loppe.prototype.gossipWithLoppeAboutScylla = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>The nun who likes sucking on dicks?</i>" Loppe asks you.  "<i>Yes, I\'ve run into her at the Wet Bitch.  She offered to blow me too.  I was tempted, y\'know?  She has those wonderful looking lips... nice big breasts too... but ultimately I wound up refusing.  It\'s just... not right.</i>"' );
 		EngineCore.outputText( '\n\nHuh... if there were anyone you\'d be willing to bet would gladly accept Scylla\'s offer, that would be Loppe.' );
 		EngineCore.outputText( '\n\n"<i>It\'s just that she\'s a nun, y\'know?  Or at least looks like one.  I mean... I\'m not sure if this is some kind of fetish of hers or she really is a nun, but it\'d be just weird to have one sucking me dry.</i>"' );
@@ -538,14 +538,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Jasun:;
 	Loppe.prototype.gossipWithLoppeAboutJasun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>The male shark living in the pools of the gym?  Oh boy, is he self-obsessed.  He spends his days swimming and bodybuilding; looks almost cubical because of how much time he spends with the weights and things.  He\'s also an arrogant prat, but fortunately he\'s easy to ignore and he doesn\'t go sticking his nose into trouble.  Just brush him off and he\'s harmless.</i>"' );
 		EngineCore.outputText( '\n\nSounds like Loppe has had to deal with him herself.' );
 		EngineCore.outputText( '\n\n"<i>I went for a swim in the pools once, had the inconvenience of running into him,</i>" Loppe replies.  "<i>Bastard seems to hate anything and anyone that has a cock of their own; all I did was say hello - I wasn\'t even trying to flirt - and he tells me to stay away, calls me a floozy!  What a jerk.</i>"' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Loppe.prototype.gossipWithLoppeAboutHeckel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask if Loppe\'s ever had a run-in with a herm hyena who\'s usually running in the track at the gym.' );
 		EngineCore.outputText( '\n\nAt this, Loppe scowls.  "<i>Oh, her?  Yeah, I\'ve seen her once or twice.  Thinks she runs the gym.  Alpha bitch my sweet bunny ass...</i>" she grumbles to herself.  "<i>Her name\'s Heckel.  Don\'t know too much about her except she wandered in from the plains one day; she lives to prove she\'s stronger than everyone, and she\'s a real jerkass.  Why do you ask?</i>"' );
 		EngineCore.outputText( '\n\nYou shrug. At that, she shakes her head.  "<i>Maybe there\'s more than what you see with her, but she\'s too caught up in that precious \'queen bitch of the universe\' routine of hers.  I don\'t mind catching, but I expect a little respect while I do it - I am not going to let anyone just throw me down, bust their nut in my ass and then fall asleep on me.</i>"  She lets out an indignant huff at the thought.  "<i>Plus, you try and compliment her on anything about her femininity, she goes nuts!  Personally, I wouldn\'t be too surprised to hear she used to be a guy and she\'s overcompensating since she grew a pussy and boobs.</i>"' );
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Edryn:;
 	Loppe.prototype.gossipWithLoppeAboutEdryn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>That pretty centauress watchwoman that hangs in the Wet Bitch when she\'s off duty?  Yes, it\'s no secret that she specializes in particular sorts of wetwork for those with... compatible endowments,</i>" Loppe says, giving you a lecherous wink.' );
 		EngineCore.outputText( '\n\nSomething in her look suggests a question to you.' );
 		EngineCore.outputText( '\n\n"<i>Well... maybe I\'ve used her once or twice,</i>" the dancer admits.  "<i>But she costs 200 gems a ride and, frankly, she thinks I overdo things too much, so she wouldn\'t have me back even if I wanted to pay that much.</i>"  Loppe looks rather sheepish as she smiles nervously, then looks right at you.  "<i>Well... I shouldn\'t need her anyways, right?  Not as long as you come see me once in a while.</i>"' );
@@ -562,7 +562,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Lottie:;
 	Loppe.prototype.gossipWithLoppeAboutLottie = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>That pig-girl that started hanging around the gym in the evenings?  I heard about her... I believe she wants to get fit,</i>" Loppe comments conversationally.' );
 		//(if PC's training Lottie);
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00299 ] === 1 ) {
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Cotton:;
 	Loppe.prototype.gossipWithLoppeAboutCotton = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>That pretty horse-girl that\'s always practicing yoga?  Not really, but she looks friendly.  As does that beast in her shorts.</i>"  Loppe flinches at the memory of it.  "<i>I\'m very familiar with Cotton\'s not so little friend... though you\'ll find out that size isn\'t everything, sugar.  For instance, can she last long enough to fuck every little ounce of energy out of you?  I don\'t think so...</i>"' );
 		EngineCore.outputText( '\n\nUncharacteristically defensive... perhaps Loppe has a bit of a complex?' );
 		EngineCore.outputText( '\n\nThe dancer giggles, snapping you out of your musing.  "<i>That technique she has is something, but mine\'s not bad either.  I\'m game for some fun anytime, especially if it\'s with a cutie like you, sugar.</i>" She reaches out to give your cheek a small caress.' );
@@ -587,7 +587,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Working (edited);
 	//req LoppeChat > 0;
 	Loppe.prototype.talkWithLoppeAboutWorking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Her curse naturally impacts her social life, but what about work?  How do she and her mother put food on the table?' );
 		EngineCore.outputText( '\n\nLoppe smiles and shakes her head.  "<i>Well, I am training to become a proficient masseuse and acupuncturist.  Most of my income comes from dancing though, which is why I work so hard to maintain my figure.  But I\'ve always admired mom\'s work... and if I learned her trade I\'d be able to take some weight off her shoulders, plus we\'d get to spend more time together.</i>"' );
 		EngineCore.outputText( '\n\n"<i>I see... do you enjoy it?  Is it difficult?</i>"' );
@@ -602,7 +602,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Her Mother (edited);
 	Loppe.prototype.chatWithLoppeAboutHerMom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//req LoppeChat > 0;
 		EngineCore.outputText( 'Loppe rubs her chin, deep in thought.  "<i>Where do I start?  I guess by saying that my mom is a super mom.  She raised me all on her own, and she\'s always had time for me, despite having to keep up with her job.  I love her very much.</i>"' );
 		EngineCore.outputText( '\n\nRemembering what Loppe mentioned when you last talked about her family life, you ask if she could tell you a bit more about her mother.  For example, what\'s her name?  What sort of person is she?' );
@@ -636,7 +636,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Her Village (edited);
 	//req LoppeChat > 0;
 	Loppe.prototype.chatWithLoppeAboutLoppesVillage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask if Loppe would be willing to tell you about her village.' );
 		EngineCore.outputText( '\n\nAt this, Loppe smiles.  "<i>It was quiet and peaceful.  We lived by a river far from here, on floodplains.  We grew crops, wove linen, made art... we were just your basic nobodies; do no harm to others and all that.  We knew of the demons, but we trusted in our isolation and peaceful ways to keep ourselves from needing armaments.</i>"  She shakes her head sadly, obviously well aware now of what a foolish belief that was.' );
 		EngineCore.outputText( '\n\n"<i>Our customs... well, it\'s kind of hard to be specific; your strange is my normal and all that.</i>"  She laughs.  "<i>Most of us dressed like I did when we met... well, if they could afford it.  To be honest, kimonos are very expensive garb - if you had them, you usually didn\'t wear them except to formal occasions; festivals, parties, that kind of thing,</i>" the dancer elaborates.' );
@@ -647,7 +647,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Sex;
 	Loppe.prototype.loppeSexChoice = function( bakery ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First Time Intro (edited);
 		if( CoC.flags[ kFLAGS.LOPPE_TIMES_SEXED ] === 0 ) {
 			//first-time only output, if not coming from bakery date;
@@ -807,7 +807,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Cowgirl Cock Ride: (edited);
 	//Loppe's vag capacity = 80-100;
 	Loppe.prototype.loppeRidesCocks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-rides-your-cocks' ) );
 		EngineCore.outputText( 'Looking over the hermaphroditic, horse-cocked bunny-girl, you contemplate your options.  You settle yourself ' );
 		//[(not centaur)];
@@ -911,7 +911,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//{If NoFace:;
 	Loppe.prototype.loppeRidesYouNoFaceJizz = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var y = CoC.player.cockThatFits2( this.loppeCapacity() );
 		EngineCore.outputText( 'You let go of the horse-dicked rabbit and she gratefully swivels herself fully upright, cock jutting out over your belly - instinctively, your ' );
 		if( CoC.player.isTaur() ) {
@@ -929,7 +929,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//{If Facial:};
 	Loppe.prototype.loppeRidesYouSpunksInYourEye = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( this.loppeCapacity() );
 		var y = CoC.player.cockThatFits2( this.loppeCapacity() );
 		EngineCore.outputText( 'You keep your ' );
@@ -949,7 +949,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//{If HoseHer:;
 	Loppe.prototype.loppeRidesYouHoseHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You let go of Loppe, and she gratefully swivels herself fully upright, cock jutting out over your belly - your hand lunges forward and places itself palm upright underneath the shaft, fingers curling around as you push it further up and up until it\'s pointing, as best you can make it, at her face!  You can feel it throbbing like mad against your fingers, can feel the impressive bulge of semen as it distends her urethra and surges up towards her flared tip.  With an ululation of ecstasy, she literally explodes into orgasm, cum geysering from her cock and squarely into her face, causing her to choke and splutter at the surprise facial, the pearly spooge splattering down her throat and onto her breasts.  With a laugh she shakes her head, closing her eyes and opening her mouth; even as she continues to bounce and buck and grind against you, her cock keeps spurting cum, and she clumsily tries to catch it, eagerly swallowing down mouthful after mouthful.  She\'s actually quite good at it, but despite her best efforts, her hair, ears, face and breasts end up completely plastered in cum... not that this stops her from milking you with her lower hole' );
 		if( CoC.player.cockTotal() > 1 ) {
 			EngineCore.outputText( 's' );
@@ -1080,7 +1080,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//For tentacle variant, you need a tentacle cock 14</i>" long or more.;
 	//Not available to centaurs.;
 	Loppe.prototype.loppeWorshipsDicks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-worships-your-cock' ) );
 		EngineCore.outputText( 'As your eyes sweep over the naked half-breed\'s form, they focus on her equine masculinity, already standing proud and eager at the prospect of sex.  Distinctly aware of your own male appendage' );
 		if( CoC.player.cockTotal() > 1 ) {
@@ -1164,7 +1164,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Female;
 	//Get Vagina-Fucked: (edited);
 	Loppe.prototype.getFuckedInYerTwatYaCunt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-sticks-it-in-your-vagoo' ) );
 		EngineCore.outputText( 'As you contemplate the delicious possibilities that the herm presents, your eyes are drawn to her admirable piece of horse-meat.  With a half-grin, you settle yourself on her bed, ' );
 		//[(mans);
@@ -1341,7 +1341,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Any(C);
 	//Get Ass-Fucked, for not horses: (edited)(C);
 	Loppe.prototype.getButtFuckedNonHoarseByLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-sticks-it-in-your-butt' ) );
 		EngineCore.outputText( 'You swallow as your eyes are drawn to the equine sausage jutting out between the bunny-girl\'s legs, and know you just have to have it.  Slowly, you spread yourself upon Loppe\'s bed, scooting up toward the head and pillows and kneeling, [butt] in the air, inviting the laquine to do with you as she will.' );
 		EngineCore.outputText( '\n\nLoppe giggles.  "<i>So you want it that way, huh?  You sure about this, sugar?</i>"' );
@@ -1493,7 +1493,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Get Ass-Fucked: Centaur Enhanced Edition (edited)(C);
 	//Replaces the normal anal scene in case you're a centaur.;
 	Loppe.prototype.getAssFuckedByLoppeAsACentaur = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-sticks-it-in-your-butt-you-centaur' ) );
 		EngineCore.outputText( 'You swallow as your eyes are drawn to the equine sausage jutting out between the bunny-girl\'s legs, and know you just have to have it.  But is she confident in her ability, even with your shape?' );
 		EngineCore.outputText( '\n\n"<i>Confident enough,</i>" she replies, winking at you.  "<i>I\'m not some blushing virgin, after all.  You\'re hardly the first centaur who wanted to take a shot at me, sugar.</i>"' );
@@ -1627,7 +1627,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//SqueezeDick: (edited)(C);
 	//LoppeSexed must be true.;
 	Loppe.prototype.loppeSqueezedickWhateverThatIs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-orgazm-denial' ) );
 		//(if LoppeDenial === 0);
 		if( CoC.flags[ kFLAGS.LOPPE_DENIAL_COUNTER ] === 0 ) {
@@ -1693,7 +1693,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Let Go=];
 	Loppe.prototype.letsLoppeGoCum = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-comes-after-orgasm-denial' ) );
 		EngineCore.outputText( 'As your fingers slacken on the laquine\'s straining shaft, they\'re practically pushed away by the violent force of long-delayed ejaculation, which rockets out of her horse-cock with immense speed and volume as you back away.  For an instant you almost think like she\'s going to punch a hole through the wall.  She screams, both in pleasure and relief as she fountains cum like a perverted geyser.  Spooge flies through the air, spilling all over the room; you manage to avoid the brunt of it, but some droplets inevitably hit you.' );
 		EngineCore.outputText( '\n\nOnce she is done, all Loppe can do is smile goofily at you, dizzy due to her explosive climax.  "<i>Why are you spinning?</i>" she asks, disjointedly.' );
@@ -1718,7 +1718,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//[=Hold=];
 	Loppe.prototype.superLoppeOrgasmDenialGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-comes-after-moar-orgasm-denial' ) );
 		EngineCore.outputText( 'For fear of not being able to hold her back anymore, you return both hands to tightly gripping her shaft.  Tears escape Loppe\'s eyes as she\'s denied yet again.  "<i>Stop...</i>" she says meekly.' );
 		EngineCore.outputText( '\n\nYou give her shaft a few more strokes, prompting another chain reaction of orgasms, and another, and another.  By the time you\'ve stopped drawing them out, Loppe\'s balls look so inflated you doubt she\'d be able to touch the floor, were she to stand.  With one last stroke, you release and watch as the laquine gasps, screaming soundlessly as a veritable eruption of cum splashes violently against the wall, instantly painting the entirety of the room cum white, including both occupants.  But one layer is not enough... the obscene volcano of jism continues to paint in layer after layer, and you\'re unable to protect anything but your eyes from the white rain showering your naked form.' );
@@ -1756,7 +1756,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//Boobjob Loppe: (edited, pending boob size decision)(C);
 	//Needs DD-(cup) boobs.;
 	Loppe.prototype.boobjobLoppe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-give-her-a-titty-fuck' ) );
 		EngineCore.outputText( 'You contemplate your options, unthinkingly rubbing your breasts.  As you do so, you notice your lover is observing your hands very keenly.  With a grin, you grope your tits and ask if Loppe likes your display.' );
 		EngineCore.outputText( '\n\n"<i>Jiggly... wait, what?  What was the question?</i>"' );
@@ -1842,7 +1842,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Leave (edited);
 	Loppe.prototype.beATeaseAndLeaveLoppeAfterSexInvite = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'loppe-teaze-and-leave' ) );
 		EngineCore.outputText( 'Despite the hybrid beauty standing stark naked before you, you decide that you aren\'t in the mood after all.' );
 		EngineCore.outputText( '\n\nLoppe shoots you a look of annoyance and disappointment.  "<i>Well, if you really don\'t want to do anything, there\'s nothing I can do.  But nevertheless, that was very mean of you, [name]; teasing a poor, innocent laquine with the promise of sex...</i>"  She pouts exaggeratedly, possibly hoping you\'ll relent.' );
@@ -1860,7 +1860,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	//req LoppeChat > 1;
 	Loppe.prototype.fondleAndTease = function( output ) {
 		if( output === undefined || output ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You lean in over the table and tell Loppe you\'d like to talk about her.  She looks vaguely confused.  "<i>Well, I already told you about everything I can think of.  Was there something you wanted to explore in more detail?</i>"' );
 			EngineCore.outputText( '\n\nSomething like that.  You smile and surreptitiously slip your free hand underneath the table to grab the bulging crotch of her tight shorts, gently squeezing the sheathed horse-prick.  "<i>I thought we could explore this subject a bit more thoroughly.</i>"' );
 			EngineCore.outputText( '\n\nLoppe gasps as you massage her rapidly erecting shaft.  She bites her lower lips to stifle a moan and looks at you through half-lidded eyes.  "<i>Oh, really?  Keep talking... I\'m listening.</i>"' );
@@ -1879,7 +1879,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Handjob (edited)(C);
 	Loppe.prototype.teaseLoppeNHJ = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You know exactly how to help her with her problem.  Loppe looks at you and gives a quizzical little smile.  "<i>Uh... yeah, I kind of know how you can help me too.  Why do you say that?</i>" She asks, clearly baffled and obviously expecting you to lead her out of the cafe and back to her place for some quick nookie.' );
 		EngineCore.outputText( '\n\nYou smile mischievously as your hand darts under the table to bat her own away and give her wild stallion a little pinch.  "<i>W-what are you thinking?  We\'re exposed here!</i>" she yelps, sounding surprisingly shy for someone normally so confident in the bedroom.  "<i>Y-yes, I\'d like being touched more, but... not here!  There are people all around!</i>"' );
 		EngineCore.outputText( '\n\nShe squeals from your next caress, then nervously slaps her hand over her mouth, looking aghast.  "<i>As long as you keep to yourself, no one is going to know,</i>" you reply.  Another stroke to her obscene bulge prompts one more seam to burst.' );
@@ -1914,7 +1914,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Suck (edited)(C);
 	Loppe.prototype.teaseLoppeNSuck = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You lean over the table and give the laquine a kiss.  Confused, but not displeased, Loppe eagerly returns it, then watches as you break the lip lock and start to slide yourself under the table.  "<i>Umm... sugar?  What are you doing?</i>"' );
 		EngineCore.outputText( '\n\nYou stop in your tracks and smile at her; she needs to vent some steam, so you\'re just going to give her an outlet.  Loppe giggles.  "<i>Okay!  I\'d love that, but there\'s no need for you to duck under the table; let\'s go back to my house... you\'re going to have to walk ahead of me though, since I have a pickle to deal with here.</i>"' );
 		EngineCore.outputText( '\n\n"<i>Don\'t wanna,</i>" you reply, childishly.  You reach out and caress her swollen cock in emphasis, running your tongue briefly around your lips and giving her a hint as to what you have in mind.' );
@@ -1964,7 +1964,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, ImageManager, Descriptors, Ap
 	};
 	//Kiss 'n' Run (edited)(C);
 	Loppe.prototype.teaseLoppeKissRun = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Feeling wicked, you give the bunny-girl\'s bulging horsecock a few comforting pats, then lean across the table and press your lips against hers.  You kiss her passionately, the relieved laquine closing her eyes and murmuring softly as she sinks into the kiss, her engorged cock literally throbbing under your fingers, but trusting you to help her find the quick release that she needs to spare herself embarrassment.' );
 		EngineCore.outputText( '\n\n... Which is when you promptly pull your hand off of her strained shorts, push yourself off from the table, and back away, telling Loppe that as much as you\'d like to play, you have other engagements to pursue.' );
 		EngineCore.outputText( '\n\nLoppe looks at you in shock.  "<i>H-hey!  You can\'t just go after getting me all worked up like this!  What am I supposed to do?</i>" she demands, pointing to her bulging shorts under the table.' );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore ) {
+angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib, CoC_Settings, CoC, kFLAGS, EngineCore, StatusAffects, Utils, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, Appearance, PregnancyStore ) {
     var Mutations = {};
 	Mutations.ceruleanPotion = function(player) {
 		player.slimeFeed();
@@ -6826,7 +6826,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 		EngineCore.dynStats("sen", 10, "lus", 5);
 	};
 	Mutations.foxTF = function(enhanced, player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if (!enhanced) {
 			EngineCore.outputText("You examine the berry a bit, rolling the orangish-red fruit in your hand for a moment before you decide to take the plunge and chow down.  It's tart and sweet at the same time, and the flavors seem to burst across your tongue with potent strength.  Juice runs from the corners of your lips as you finish the tasty snack.");
 		} else {
@@ -7209,7 +7209,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 		}
 	};
 	Mutations.godMead = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText("You take a hearty swig of mead, savoring the honeyed taste on your tongue.  Emboldened by the first drink, you chug the remainder of the horn's contents in no time flat.  You wipe your lips, satisfied, and let off a small belch as you toss the empty horn aside.");
 		//Libido: No desc., always increases.
 		//Corruption: No desc., always decreases.
@@ -7240,7 +7240,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 //Item: Dragon Egg (Z) (FEN CODED TO HERE - OR AT LEAST COPIED INTO THE CODE FOR FUTURE CODING)
 //Itemdescription - "A large, solid egg, easily the size of your clenched fist.  Its shell color is reddish-white, with blue splotches."
 	Mutations.eatEmberEgg = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Effect:
 		//Boosts the special effect of Dragonbreath by 20% for 1 use. ie: if Tainted's breath weapon has a 80% chance to stun on hit, +20% equals 100% chance to stun.
 		EngineCore.outputText("You crack the shell easily and swallow the large yolk and the copious amounts of albumen - the yolk is blue, while the rest is crimson-tinted.  It tastes like... well, it tastes mostly of spiced mint, you think.");
@@ -7260,7 +7260,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 //Fox Jewel (Magatama)
 //Consume:
 	Mutations.foxJewel = function(mystic, player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
 		if ( Utils.rand(2) === 0) {
@@ -7565,7 +7565,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 	};
 //Fish Fillet
 	Mutations.fishFillet = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if (!CoC.isInCombat()) {
 			EngineCore.outputText("You sit down and unwrap your fish fillet. It's perfectly flaky, allowing you to break it off in bite-sized chunks.  The salty meal disappears quickly, and your stomach gives an appreciative gurgle.");
 		} else {
@@ -7583,7 +7583,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 //Trap Oil
 //Flavour Description: A round, opaque glass vial filled with a clear, viscous fluid.  It has a symbol inscribed on it, a circle with a cross and arrow pointing out of it in opposite directions.  It looks and smells entirely innocuous.
 	Mutations.trapOil = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
 		if ( Utils.rand(2) === 0) {
@@ -7906,7 +7906,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 //PurPeac
 //Purity Peach - Inventory
 	Mutations.purityPeach = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText("You bite into the sweet, juicy peach, feeling a sensation of energy sweeping through your limbs and your mind.  You feel revitalized, refreshed, and somehow cleansed.");
 		EngineCore.fatigue(-15);
 		EngineCore.HPChange(Math.round(player.maxHP() * 0.25), false);
@@ -7915,7 +7915,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 //This sweet-smelling produce looks like an eggplant but feels almost squishy, and rubbery to the touch. Holding it to your ear, you think you can hear some fluid sloshing around inside.
 //>When Used
 	Mutations.purpleFruitEssrayle = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText("You bite into the fruit Essrayle gave you with little hesitation.  It's amazingly sweet, with a texture that's rather gummy.  The juice is a candied grape syrup that fills your cheeks and flows down your throat with far more fluid than the size of the plant should allow.  You hastily devour the entire thing, unable to stop yourself once you've started.");
 		EngineCore.outputText("\n\nA tingling warmth shifts to a roaring inferno in your veins, your heart-rate spiking abruptly.  The intensity of it almost makes your body feel molten!  But, as quickly as it came, the sensation fades into merely a pleasing warmth that settles in your chest.");
 		if (player.averageNipplesPerBreast() < 4) {
@@ -7936,7 +7936,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 //tooltip:
 //A dried fig with two lobes and thin dark rings just below its stem.  The skin is wrinkly and it looks vaguely like a bulging scrotum.
 	Mutations.ringtailFig = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//eat it:
 		EngineCore.outputText("You split the fruit and scoop out the pulp, eating it greedily.  It's sweet and slightly gritty with seeds, and you quickly finish both halves.");
 		var changes = 0;
@@ -8238,13 +8238,13 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 		}
 	};
 	Mutations.herbalContraceptive = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		// Placeholder, sue me
 		EngineCore.outputText("You chew on the frankly awfully bitter leaves as quickly as possible before swallowing them down.");
 		player.createStatusAffect(StatusAffects.Contraceptives, 1, 48, 0, 0);
 	};
 	Mutations.princessPucker = function(player) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText("You uncork the bottle, and sniff it experimentally.  The fluid is slightly pink, full of flecks of gold, and smelling vaguely of raspberries.  Princess Gwynn said it was drinkable.\n\n");
 		EngineCore.outputText("You down the bottle, hiccuping a bit at the syrupy-sweet raspberry flavor.  Immediately following the sweet is a bite of sour, like sharp lime.  You pucker your lips, and feel your head clear a bit from the intensity of flavor.  You wonder what Gwynn makes this out of.\n\n");
 		EngineCore.outputText("Echoing the sensation in your head is an answering tingle in your body.  The sudden shock of citrusy sour has left you slightly less inclined to fuck, a little more focused on your priorities.\n\n");
@@ -8268,7 +8268,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, SceneLib, CoC_Sett
 		//- Upon finding Ferret Fruit: “While searching the plains, you find an odd little tree with a curved trunk. The shape of its fruit appears to mimic that of the tree. A few of the fruits seem to have fallen off. You brush the dirt off of one of the fruits before placing in in your (x) pouch. (if there is no room in your inventory, you get the generic option to use now or abandon)
 		//- If you hover over the fruit in your inventory, this is its description:  “This fruit is curved oddly, just like the tree it came from.  The skin is fuzzy and brown, like the skin of a peach.”
 		//-Upon eating the fruit:
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText("Feeling parched, you gobble down the fruit without much hesitation. Despite the skin being fuzzy like a peach, the inside is relatively hard, and its taste reminds you of that of an apple.  It even has a core like an apple. Finished, you toss the core aside.");
 		//BAD END:
 		if(player.ferretScore() >= 6) {

@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		if( CoC.player.gems < 0 ) {
 			CoC.player.gems = 0;
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
@@ -972,7 +972,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	};
 	//Intro;
 	Raphael.prototype.orphanageIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( this.RaphaelLikes() ) {
 			if( CoC.flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ] === 0 ) {
 				EngineCore.outputText( 'You spend some time around Tel\'Adre looking for the orphanage Raphael mentioned, but you can\'t seem to find a building that looks like one.  Instead you resort to asking the locals, but their reactions are weird. Upstanding citizens, friendly and polite, turn away from you at the merest notion of it.  Young men get excited but dare not speak of it, women blush and turn away like you\'ve just solicited them and, strangest of all, most children have never even heard of it.' );
@@ -1042,7 +1042,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		}
 	};
 	Raphael.prototype.raphaelIntroPageTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>This place isn\'t really an orphanage, is it?</i>" you ascertain sagely, still waiting for a reply.' );
 		EngineCore.outputText( '\n\n"<i>It\'s what my humble little abode is called by the rest of the city.  I can assure you that it does indeed harbor a majority of the city\'s orphans, but alas, it has a fair few other functions I must confess.  I had hoped to keep this fact from someone as insightful and perceptive as you, but I should have known better.</i>"' );
 		EngineCore.outputText( '\n\n"<i>What are they, these other functions?</i>"' );
@@ -1053,7 +1053,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	};
 	//Raphael's Shit Expanded;
 	Raphael.prototype.evenMoreRaphaelIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You drift away from the charming rogue, knowing where he would lead you the moment you let him.  You turn your attention towards the rest of the roof and begin to notice what else there is up here.  Through an unsightly hole in the roof you can still trace the golden glow coming from inside.  The burlesque girls - all of them vixens of a crimson red - flicker on-stage like distant dancing flames.  They\'re so far down that it\'s hard to see, but the light bleeding through the floorboards beneath your feet does much to illuminate quite another sight, there on the top of the roof and underneath the darkening sky.' );
 		EngineCore.outputText( '\n\nThere\'s an entire garden up here.  A great many makeshift arbors, broken flowerbeds and dilapidated lattices, bearing the weight of a vast and verdant display of flora, lush enough to no longer need the support.  There\'s even a certain kind of humidity here that dampens the air, despite the altitude.  Such coolness and moisture is pleasant out here in a desert city.  Many of these dark-green plants are roses, bearing burgundy buds that couldn\'t be far removed from bursting into full bloom.' );
 		EngineCore.outputText( '\n\n"<i>It\'s a little pastime I entertain, this garden of mine.  I\'ve heard a tale that gentlemen are supposed to pursue the nobler arts - gardening being one of them.  Naturally, I couldn\'t help but tack on and see how I\'d do instead.</i>"' );
@@ -1067,7 +1067,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		EngineCore.addButton( 0, 'Next', this, this.kissRaphaelFirstTimeOrphanage );
 	};
 	Raphael.prototype.getTheFuckOutOfDodge = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You politely inform Raphael that you have to go, and though he seems crestfallen, he demurs, "<i>Very well then, ma chère.  I shall await you in the hours of late evening, in case you change your mind.</i>"' );
 		EngineCore.outputText( '\n\nWell, that went well.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -1075,7 +1075,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	//RaphSex;
 	//Sex1;
 	Raphael.prototype.kissRaphaelFirstTimeOrphanage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You drift into Raphael as easily as you would into a pillow.  The young thief leans in over you and begins to devour you softly with gentle tongue and nimble hands.  You are all too eager to reciprocate and let him pass through your mouth and across your back.  You try to wrestle him for control over your tangled tongues, but it turns all too quickly into a metaphor for his swordplay.  All your twirls and wriggles are met by sensuous swirls across areas of your tongue you never even knew you had.  Raphael has instantly turned it into an major erogenous zone.  You give up, but once again the fox does not relent.  He keeps lashing your tongue until you\'re forced to writhe limply to the rhythm.  When you attempt to imagine what would happen, were he to do the same to your already throbbing ' + Descriptors.clitDescript() + ', your knees shudder.  When Raphael, just faintly, places his paws on the sides of your spine in just the right way, you nearly climax.  You fall into his waiting hand and he catches you by the neck and lower back.  You\'re enveloped in a soft sea of groping warmness.  His playful growls carry further into your body than they should.' );
 		EngineCore.outputText( '\n\nHe moves you back, further into the garden.  Just before you hit a rose entwined lattice, Raphael takes hold of you and lifts you up, pinning you squarely against it at mid-height.  Slightly startled by the gesture, you spread your arms to find a grip, but discover it to be easy, up against the plants.  The lattice is indeed rotten to the core, and it crumbles at your touch.  The thick, stubborn rosebushes, however, manage to hold your weight.  You quickly find two branches to grasp and your posterior finds a nook to sit upon.  Your legs you wrap around the fox\'s hips, as the rogue smiles at you with admiration and zeal.' );
 		EngineCore.outputText( '\n\nThere\'s a brief moment of vulnerability, as he finds an opening into your pants.  As sure as a master thief would find his way into the vault of a city, he quickly opens it.  The thorns at your back do bite while you hang limply between trunk and fox with your privates exposed mid air, but you are soon relieved of your awkward neglect when Raphael tilts his hips and drives deep a much larger implement.  Finally the embrace is whole again as you can feel his pelvis thump in against your netherlips. His bone-hard length has already breached you.' );
@@ -1092,7 +1092,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	};
 	//After Sex1;
 	Raphael.prototype.followupToFirstTimeOrphanageRaphSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[ Scene after rose garden sex on top of the orphanage roof ];
 		EngineCore.outputText( 'You wake up startled.  The last thing you remember is a sunset rendezvous with the russet rogue upon a rooftop garden of roses, but when you look around you realize you\'re lying in a foreign bed.  It\'s an odd room you find yourself in.  It\'s a small wooden dive, but warmly decorated and enchanted by the playful flicker of candlelight shadows and the haunting undulation of curtains breezing in the wind.  There are pillows on the large bed, silken bedspreads and a worn rug.  A large wardrobe, a distant vanity, a table full of tools and the small creaky bed cast silhouettes in the darkness.  A single candle on the bedstand beside you provides all the light available and casts long shadows across the rough wooden floorboards.  You don\'t appear to be trapped, however.  The room has no door, but a large window opening leads out into the night sky.  For a moment you\'re startled by just how late it already is, but not enough to contain your curiosity.' );
 		EngineCore.outputText( '\n\nThere are cracks in the wooden floorboards and you get down on your knees and try to peek through the slits.  You\'re still in the orphanage, you confirm.  The same strange golden light that escaped momentarily when Raphael opened the front door can be seen on the other side and appears to surround the room like some magic entity.  You can hear music within the light, the faint sound of merry singing, children laughing and the soft hymn of ringing silver permeates it.  By comparison, this space is a sheltered oasis of musty calm and homely austerity.  Judging from the sundry of burglary tools on the nearby table and the easy access, this is some kind of a staging room for a thief\'s forays into the city, or a quick getaway pad when said forays go wrong.' );
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 
 	//Cunnilingus;
 	Raphael.prototype.cunnilingusWithRaphael = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Raphael kisses you on the lips for lack of resistance, backs off and then beams like he had an idea.  "<i>Tonight I\'m trying to pull off an especially tough job, so I feel like having sex would throw me off my game, but what is it again I always say about rogues and leaving ladies wanting?</i>"  He winks, before kissing you on the neck and moving his fingers around and across your back to undo your clothes.  You gasp and start doing the same to him, not adverse to seeing him naked every once in a while.  Undoing the slip-hooks on his jacket, you bare his broad, downy fur chest, while he manages to slip down a now bare back and tries to undo the last of your [armor].  The fox is a good sport when you\'re already naked, and he allows you to take off his pants.  His bright red fox cock bobs seductively in front of the flawless white fur of his crotch, but it becomes clear that Raphael does not intend to use his fiery rapier this time.  Instead, he lays you down on your back, carefully positioning you with kisses and brushes.  When you\'re finally down on the bed with legs wide, he lies on his stomach down in front of you and neglects his shaft by smothering it in the silk of the bedspread.  Instead, he slithers forward with his face and throws your inner thighs a few kisses.' );
 		EngineCore.outputText( '\n\n"<i>This silver tongue of mine...</i>"  He kisses your [leg].  "<i>Isn\'t just for charming...</i>"  He moves up a little higher.  "<i>...or forming cheap accents.</i>"  He rolls his lips up your thigh before pausing and looking you straight in the eye.  "<i>Let me show you how the red carpet leads to the heavens.</i>"' );
 		EngineCore.outputText( '\n\nWith his paws, Raphael raises up your butt and crotch just a few inches into the air, as if elevating it for a special occasion.  It encourages you to bend your knees and spread your legs, opening yourself up and presenting your womanhood fully.  Lacking all shame and still looking you into the eyes, the fox then does the lewdest thing.  Maintaining eye contact and without blinking, he rolls out his long red tongue and brushes it against your ' + Descriptors.vaginaDescript( 0 ) + '.  The sensation of the bawdy rough thing lapping up your sensitive gash\'s gathered dew takes you completely by surprise and you let your head fall back and moan.  It feels like he\'s worshipping you by lapping through the trembling fruit.  At the very zenith of his lashes, he takes extra time to twirl around your ' + Descriptors.clitDescript() + ' in a vortex of swirling tastebuds.' );
@@ -1128,7 +1128,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	};
 	//Second Raphael variable sex scene on top:;
 	Raphael.prototype.girlOnTopOfRedFoxesOhMy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The fox has not far to go when he tries to kiss you on the lips.  Bold enough to enter the lion\'s den, you\'re assertive enough to not only meet his inquisitive snout head on, but take the initiative by climbing onto the Rogue.  You smile at each other as you grab him by his leather jacket and wrestle for a position on top.  There you sit on his lap, take him by his neck and press the kiss.  You can already feel his vulpine phallus rise up below his leather and in between your bodies.  Raphael\'s being good however and lets you have your fun. Only when you start plucking at his vest does he return the gesture.  Between your nimble hands and his, clothing is quickly shed and you soon find yourself straddled naked on top the fox\'s equally bare fur.  Raphael gives himself an easy time at it; now that you\'ve gone this far, the fox simply sits back and leans in against the wall of pillows stacked behind him.  He gives you an expectant stare, like he\'s eager to see what you\'ve got.' );
 		EngineCore.outputText( '\n\nIt\'s not hard to figure out what that is.  His bright red cock is already erect and standing in attention up against your ass.  You reach down, fetch it and still marvel at how hard, smooth and slick it feels to the touch.  You play with it for a while by stroking it up and down, teasing the fox.  The pointy tip you run between your leg and trace it through the lips of your nethers before rubbing it around your bothered ' + Descriptors.clitDescript() + '.  You make the young man mewl with pleasure, his cock more sensitive than you expected.' );
 		EngineCore.outputText( '\n\n"<i>Uno momento, señorita.</i>"  Raphael purrs, and with a sly smile, takes out what looks like a thin piece of skin.  "<i>A latex condom.</i>"  He tells you.  "<i>I think neither of us would want you bothered by my spawn.  Normally I slip it on unbeknownst to my lovers, but then again, none of them have been as proactive as you have been now.</i>"' );
@@ -1144,7 +1144,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 	};
 	//Available side by side to having sex: Dialogue scenes.;
 	Raphael.prototype.talkWithRedFoxLooksOutHesASpy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The rogue is hard to distract and just talk to when he goes after the knots on the back of your dress.  Whatever you want to discuss can surely wait until after you\'re disrobed.  When you mention demons after trying to bring up the subject, however, Raphael loses the playful glaze in his eyes and turns serious.  Putting the moves on you gets rather awkward when someone mentions a menace motivated by only debauchery.  He tones it down somewhat and instead, focuses on being a good host by meandering through his loft in search of something to drink and two glasses.' );
 		EngineCore.outputText( '\n\n"<i>What about them?</i>"  He shrugs, "<i>They don\'t bother me.  They\'re not much for material wealth or fancy clothes, are they?</i>"  He chuckles as he manages to retrieve a wooden goblet and a crystal glass.  "<i>Unless it concerns golden phalluses or a jeweled nipple piercing.  Then I\'d be all over it, although even I would need to consider stealing such \'used\' goods.</i>"' );
 		EngineCore.outputText( '\n\nYou jokingly refer him to an incubus and how a man like him should have come to know quite a few succubi on his journeys.  Raphael flashes a guilty little smile on return, some mineral water on hand.  "<i>Hope you don\'t mind?  It\'s better that I not drink alcohol before going on the job.</i>"  He sits down besides you and pours it, offering you the crystal glass.' );

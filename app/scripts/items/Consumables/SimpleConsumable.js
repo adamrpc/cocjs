@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SimpleConsumable', function( CoC, Useable, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'SimpleConsumable', function( CoC, Useable, MainView ) {
 	function SimpleConsumable() {
 		this.init(this, arguments);
 	}
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'SimpleConsumable', function( CoC, Useable, E
 		that.effect = args[ 3 ];
 	};
 	SimpleConsumable.prototype.useItem = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.effect( CoC.player );
 		return false; //Any normal consumable does not have a sub-EngineCore.menu. Return false so that the inventory runs the itemDoNext function after useItem.
 	};

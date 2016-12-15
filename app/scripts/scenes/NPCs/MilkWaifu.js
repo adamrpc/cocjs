@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 
 	//Arriving at Camp;
 	MilkWaifu.prototype.arriveWithLacticWaifuAtCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'It\'s slow going, having to support your milky friend all the way back to camp, but after a few hours, you manage to make it home.  By the time you arrive, you see that the Sand Mother has kept her word, and a small part of the camp\'s perimeter has been cleared away, your belongings moved aside to make room for a large pool, its radius easily ten feet, buried in the hard-packed dirt of the wasteland.  A metallic brim surrounds the pool, just wide enough to sit or lie on with your [legs] dangling into the milky waters that will soon be filling it.' );
 		EngineCore.outputText( '\n\nSeeing the pool, the milk girl gasps with glee, stumbling over to it before collapsing onto all fours, chest resting on her massive tits and ass up in the air, bare for all to see.  "<i>Bath Slut milk time?</i>" she asks, her bright brown eyes looking up at yours pleadingly.' );
 		EngineCore.outputText( '\n\nSpeaking of which, you don\'t really have anything to call this dusky beauty.  You suppose you could just keep calling her "Bath Slut," but that\'s hardly a fitting name for a free girl...' );
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 
 	MilkWaifu.prototype.nameZeMilkBath = function() {
 		if( MainView.nameBox.value === '' || !isNaN( MainView.nameBox.value ) ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b>You must give her a name.</b>', false );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Next', this, this.nameZeMilkBath );
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			MainView.nameBox.value = 'Bath Slut';
 			return;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.MILK_NAME ] = MainView.nameBox.value;
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = false;
@@ -74,7 +74,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.ratducto = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Looking up, you see the old rat alchemist Rathazul approaching, nose buried in an ancient-looking tome.  "<i>Good news, [name]!</i>" he calls, just before tripping over the prone milkmaid, going sprawling across the ground.' );
 		EngineCore.outputText( '\n\n"<i>Gah!  Help, I can\'t get up!</i>" he shouts, flailing around until you rush over and pull him to his feet.' );
 		EngineCore.outputText( '\n\n"<i>Ah, thank you, youngling.  But...  egad, [name], what have you dragged in this time?</i>" he mumbles, fishing a pair of spectacles out of his pocket to examine ' + CoC.flags[ kFLAGS.MILK_NAME ] + '.  "<i>Why, it\'s a girl...  a very, um, busty girl at that.  Gods be good, how the devil does she stand with all that...  those...  those things on her chest?</i>"' );
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 
 	//Milky's Menu (Accessed from the FOLLOWERS tab);
 	MilkWaifu.prototype.milkyMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 0 ) {
 			EngineCore.outputText( 'You wander over to ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s pool, and find the dusky girl sitting at its rim, ' );
 			if( CoC.flags[ kFLAGS.MILK_SIZE ] === 0 ) {
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		}
 	};
 	MilkWaifu.prototype.sendToFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You describe to [bathgirlname] the lake, and the farm which is situated close to it. Gently you tell her you want her to go there, present herself to the dog woman who owns it, and do as she says.' );
 		EngineCore.outputText( '“<i>Ok,</i>” says [bathgirlname], cautiously testing the idea out. “<i>You’ll come and visit sometimes, right?</i>” Of course. Mollified, the former sand witch slave gets to her feet and cautiously picks her way towards the lake. She won’t be much use protection-wise but she’ll give your milk production a boost.' );
 		if( CoC.player.cor >= 90 ) {
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.backToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//TODO;
 		EngineCore.outputText( '“<i>I want you to head on back to camp,</i>” you tell her. “<i>You’ll be more useful to me there.</i>” [bathgirlName]’s brow crinkles but she seems to accept your instruction.' );
 		EngineCore.outputText( '“<i>As you wish.</i>” She wipes her hands before walking slowly down and out of the farm’s gate.' );
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//Appearance;
 	MilkWaifu.prototype.milkWriteFuAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '' + CoC.flags[ kFLAGS.MILK_NAME ] + ' is a five-foot-five human female, with darkly tanned skin and ebony hair.  ' );
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] >= 2 ) {
 			EngineCore.outputText( 'Over her supple body, she wears a simple cloth shirt which cuts off just above her knees, hiding her newly-gained modesty, with a pair of silk painties and a simple bra beneath it.  ' );
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//Reducto;
 	MilkWaifu.prototype.superReductoUsage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' that it\'s about time she got rid of those massive tits of hers.  She cocks her head to the side, looking at you without comprehension.  You fish the giant vial of Reducto Rath gave you from your pack and hold it up for her to examine.  She hesitantly takes it from your hand and rolls it around, sniffing at the foul-smelling stuff.  She turns up her nose at it.' );
 		EngineCore.outputText( '\n\n"<i>Come on, you\'ll feel a lot better afterwards, I promise,</i>" you say, crouching down beside her, locking onto ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s big brown eyes.' );
 		EngineCore.outputText( '\n\nIf by nothing else than your soothing tone, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' stops fussing about the Reducto and does her best to curl up in your lap, giving you free access to her big ol\' rack.  You tussle her hair and start thinking about how to go about this.' );
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//Milk Bath (HHH or Giant boobs only);
 	MilkWaifu.prototype.milkBathTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Tussling ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s hair, you tell her her breasts look a bit full.  She smiles up at you eagerly as you disrobe.  Once nude, you hop down inside and say, "<i>Bath Time.</i>"' );
 		EngineCore.outputText( '\n\nWith trembling anticipation, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' reaches down for her ' );
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] === 0 ) {
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Next] (Relax);
 	MilkWaifu.prototype.relaxWithMilkWaifu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You sit in the tub for a while, letting the fragrant fluids soak into your ' + CoC.player.skinFurScales() + '.  You spend the better part of an hour lounging, letting your cares float away in ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s endless white bounty.  Finally though, you pull out the tub\'s plug and climb out, finding a towel nearby.  Thankfully, the milk doesn\'t seem to leave behind any residue, and you feel clean and refreshed, if a bit horny.' );
 		//(+Lust, -Fatigue);
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Communal Bath] (PC must have 3+ of the following followers);
 	MilkWaifu.prototype.communalBath = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you relax in the tub, you decide it\'s hardly fair to have all this milk and just hog it to yourself.  You sit up and give a sharp whistle, getting the attention of the rest of camp.  "<i>Jump on in, everyone!</i>" you shout, quickly grabbing ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' by the waist and dragging her in.  She tumbles into her own lactation with a sharp cry of surprise, breaching a moment later with a splutter.' );
 		//If PC has Isabella: ;
 		if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Milk Girl];
 	MilkWaifu.prototype.pullInZeMilkGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You call out to ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' before she can wander away, and wade over to the side of the tub, leaving your face a few scant inches from her hefty milkers.  She smiles as you reach up, nuzzling her cheek into your hand, purring your name happily.' );
 		EngineCore.outputText( '\n\nYou flash her a mischievous grin before grabbing her waist and pulling, yanking her into the tub with you.  The milk-maid lets out a sharp cry of surprise as she tumbles in, a huge splash of cream spraying over the rim of the tub, painting the campground white.  Gasping, her head pops back over the surface of her own milk, long ebony hair dripping onto the tops of her seemingly-buoyant teats, which bob over the milky waves with a strangely serene, regal grace.  "<i>[name]?</i>" ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' yelps as she wades through her own lactation, slowly retreating to the edge of the tub.  Chuckling, you reach out and stroke her cheek, telling her that you thought she might like a bath, too.  She starts to reply, but you cut her off with a playful stroke of her massive mounds, urging her over toward you.  She trusts you implicitly and does as you ask, sliding up under your arm and onto your lap.  Once seated, she looks up to you with saucer-like brown eyes until you cup her cheek and give her a short, tender kiss, pressing your lips to her dusky mounds.  To your delight, she seems to melt at your touch, relaxing in an instant as you hold her as close as you can, seperated only by her prodigious chest' );
 		if( CoC.player.biggestTitSize() >= 7 ) {
@@ -479,7 +479,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//	[Don't];
 	MilkWaifu.prototype.dontFuckTheMilkWaifu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You allow the girl to continue for a long, long while until your entire body feels deeply refreshed, her milk having soaked thoroughly into your body and making you feel fresh and revitalized.  You start to thank the milk girl for the pleasurable company, but when you open your mouth, she slips into your arms and presses her lips to yours.  Chuckling to yourself, you hold the girl as tight against yourself as her udders will allow, turning her to the side to let her nuzzle her cheek into your [chest], kissing the top of her head before the two of you climb from the pool.  You have to help her out, her massive extra weight nearly dragging her back in except for your quick reflexes.  You gather your [armor] and ruffle the milk slave\'s hair before grabbing a towel and wandering back to the heart of camp.' );
 		//[+Lust, +HP, -Fatigue];
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 10, 'resisted', false );
@@ -489,7 +489,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Fuck Her] (PC has a Dick);
 	MilkWaifu.prototype.fuckTheMilkWaifu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn around and pull the milk-slut against you, her massive teats pressing hard against your [chest] until they spurt.  You stroke her cheeks, bringing her lips up to yours.  Her hand finds your [cock] again, stroking you with mounting speed as your tongue finds its way into her mouth, your hands wandering down to grope her sizable ass and flared, breeder\'s hips.  Your lover sighs heavily, breath filled with lust as you push her up against the rim of the tub, her legs spreading wide for easy access to her milk-lubed cunt.  She locks her arms around your shoulders, moaning happily as you press into her, your [cock] slipping easily into her sodden box.' );
 		EngineCore.outputText( '\n\nSubmerged beneath a sea of creamy milk, it\'s so very, very easy to slide into ' + CoC.flags[ kFLAGS.MILK_NAME ] + ', ' );
 		if( CoC.player.cockArea( 0 ) < 20 ) {
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Fuck Her] (PC has Cooch & C+cups);
 	MilkWaifu.prototype.beARugMunchingMilkDyke = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn around in the milky pool, pulling the cute little milkmaid tight against you.  She gasps with surprise, but settles as soon as you press your lips to hers, your hands wandering across her huge teats and supple, milky body.  She nuzzles up against you, head resting on your [chest] as you hold her against yourself, stroking her dark hair.  After a few moments of such a simple pleasure, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' shifts her cheek along your breast, wrapping her full, dusky lips around your [nipple].  You let out a long moan as she suckles gently, ' );
 		if( CoC.player.lactationQ() >= 200 ) {
 			EngineCore.outputText( 'drawing out a trickle of milk from your motherly reserves.  She gulps deeply, smiling up at you as a trickle of your milk runs down her chin, dripping into the pool of her own' );
@@ -540,7 +540,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Drink & Masturbate];
 	MilkWaifu.prototype.drinkAndFapturbate = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Wait,</i>" you call out to the ebony woman, letting the milk obscure your hands as you begin to masturbate, "I want a drink.</i>"  Sheepishly, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' obligingly shifts back toward you, presenting her huge teats.' );
 		EngineCore.outputText( '\n\n"<i>Sorry, [name],</i>" she whines, still meek as ever, "<i>Drink more.</i>"' );
 		EngineCore.outputText( '\n\nShe rolls her shoulders, sending an enticing jiggle through the milk-weighted fluid-factories on the edge of the tub, the sable flesh of her nipples blotted by fresh drops of white.  The milky morsels roll down the undercurve of the dusky slut\'s tits before dripping into the tub and sending tiny waves of cream through the pool.  Her well-used teat looks almost over-engorged by this point, puffy, swollen, and a little red, even through her darkly-tanned skin.  Thick streams of her alabaster nectar start to run from each of her nipple-tips as you lean closer, the anticipation already too much for the ever-full milk-machine of a woman.' );
@@ -611,7 +611,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MilkWaifu.prototype.nyanCatMilkTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Milk Time!  (HHH Boobs ver.);
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] === 1 ) {
 			EngineCore.outputText( '"<i>Milk time!</i>" you say, giving ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' a playful swat on her upturned ass, walking around her to the pool.  You jump in and toss your [armor] back out as the milky witch gets situated, well aware of just how much milk this poor girl\'s about to blast you with, even with her much reduced bosom.  Still, she\'s gotta be milked, and you\'re thirsty.  Milk time indeed.' );
@@ -677,7 +677,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Finish Normally];
 	MilkWaifu.prototype.finishMilkNormall = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You whisper a few soothing words into ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s ear, but are unrelenting in your task.  With squeezing and kneading fingers, you continue to coax the milk from her tits until she\'s practically white with flowing cream.  A few minutes later though, you can physically feel her explode over the edge of bliss: the stream of milk from her stiff nipples doubles, blasting an arc several feet long as her voice breaks, a shrill cry to the heavens; ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s entire body shudders, her legs nearly giving out as the boobgasm rocks her slender frame.' );
 		EngineCore.outputText( '\n\nAs soon as the explosive boobgasm subsides, she collapses back against you, chest heaving with pleasured exhaustion.  The milky stream trickles down to naught, her breasts momentarily depleted.  ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' looks up at you and smiles ever so slightly, caressing your cheek before cupping her obviously-sore teats and staggering to her feet, searching for a towel.' );
 		EngineCore.outputText( '\n\n"<i>Thank you, [name],</i>" she says simply as you dry yourself off.' );
@@ -687,7 +687,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Suckle];
 	MilkWaifu.prototype.suckleDatMilk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You release ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s breasts, giving her a moment to catch her breath as you pull her up onto your lap, turning her to face you.  She looks at you with lust-marred eyes, breath hot and heavy on your ' + CoC.player.skinFurScales() + ' as you gently caress her heaving bosom.  You wrap your fingers around her left teat, coaxing out the slightest of trickles before bringing it to your waiting lips.  You kiss her reddened peak, tongue rolling across the peak of her teat, rewarded with a strong gush of sweet cream that bulges your cheeks before you can swallow.  It\'s as if she never runs dry; an ever-flowing stream of milk pours from her breast, forcing you to swallow again and again, barely able to keep up until cream trickles down your cheeks.' );
 		EngineCore.outputText( '\n\nIn response to your gentle suckles and the flicking of your tongue across her sensitive buds, ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' whimpers and shivers, your every touch electric to the ever-lactating girl.  Her slender arms wrap around your shoulders, holding herself to you as you greedily drink from her bountiful reserves.  She gasps as you reach down and sink your fingers into the full orbs of her ass, rubbing and kneading the soft, yielding flesh just as you did her breasts before.  Her cute gasps of pleasure fill the air, and she gives a shrill cry of surprise and ecstasy as you switch from one leaking teat to the other, which explodes a deluge of milk into your waiting mouth at the barest touch, flesh quivering in motherly release as you drink gallon after gallon.' );
 		EngineCore.outputText( '\n\nOver a few short minutes, ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s breath becomes increasingly erratic, her chest heaving hard, pushing your face from her with every heavy breath she takes.  The girl\'s voice soon gives out, giving way to husky moans and whispers of praise to your oral skills, thanking you again and again for the gentle, tender release you\'re bringing her to.  She runs her fingers through your hair as her body undulates atop you, responding to every suckle and caress with more milk and shudders of pleasure.' );
@@ -699,7 +699,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//[Fuck Her] (Needs a dick what fits);
 	MilkWaifu.prototype.fuckDatMilkSlat = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 50 );
 		EngineCore.outputText( 'Sitting behind the milky girl, chest pressed to her back tight enough to feel her every breath, you can\'t help but feel ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s full, round ass brushing against your ' + Descriptors.cockDescript( x ) + '.  Responding to her touch, your prick begins to stiffen, filling out through your [armor] and into the valley of ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s ass.  She gasps ever so slightly when she feels your prick pushing against her silky undergarments, but you can feel her heart race, her flesh heating as she starts to move her ass more deliberately, rubbing you from stem to head.' );
 		EngineCore.outputText( '\n\nOne of your hands drifts down from ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s teats, fingers tracing along her supple skin and ample curves to the hem of her panties.  You pull them down with one smooth motion, baring the full mounds of her dusky ass cheeks.  She pushes back immediately, humping up and down your rod as you work to free yourself from your [armor].  Finally, your ' + Descriptors.cockDescript( x ) + ' pops free from its binds, only to be instantly buried in ' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s rear cleavage; she gives a happy, girlish giggle when your throbbing rod pushes through her valley, practically bouncing on your cock.  You wrap your arms around her waist, one hand working her still-needy teats as the other dives between her legs, easily slipping a few fingers into her sodden gash.  ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' moans lustily as your digits enter her, biting her lower lip when your fingertips caress her inner walls and spasming muscles, soon soaked in her feminine fluids.  Your thumb swirls around the bud of her clit, drawing ragged gasps of pleasure from her lips until you silence her with a kiss, driving your tongue into her mouth as your fingers assault her cunt, fingering her until she\'s nice, wet, and ready.' );
@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 	};
 	//Titfuck (ie, an Excuse for Savin to use 'Lactic Lust' because Fen just taught him that and he has fallen in love) (Requires DD or HHH tittehs & a dick);
 	MilkWaifu.prototype.titFuckDatMilkSlut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You sit down beside ' + CoC.flags[ kFLAGS.MILK_NAME ] + ' and give her a little push onto her back.  A tiny gasp escapes her lips, but is silenced as you move over top her and giver her a long, tongue-filled kiss.  Her surprise turns into a lusty moan as you ' );
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] === 2 ) {
 			EngineCore.outputText( 'pull off her shirt and bra' );

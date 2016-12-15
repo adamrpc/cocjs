@@ -31,6 +31,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				if( display ) {
 					EngineCore.outputText( 'Your HP maxes out at ' + CoC.player.maxHP() + '.\n', false );
 				}
+				if(CoC.player.HP < CoC.player.maxHP()) {
+					MainView.statsView.showStatUp( 'HP' );
+					MainView.statsView.show();
+				}
 				CoC.player.HP = CoC.player.maxHP();
 			} else {
 				if( display ) {
@@ -38,11 +42,16 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				}
 				CoC.player.HP += changeNum;
 				MainView.statsView.showStatUp( 'HP' );
+				MainView.statsView.show();
 			}
 		} else { //Negative HP
 			if( CoC.player.HP + changeNum <= 0 ) {
 				if( display ) {
 					EngineCore.outputText( 'You take ' + (-changeNum) + ' damage, dropping your HP to 0.\n', false );
+				}
+				if(CoC.player.HP > 0) {
+					MainView.statsView.showStatDown( 'HP' );
+					MainView.statsView.show();
 				}
 				CoC.player.HP = 0;
 			} else {
@@ -50,18 +59,15 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 					EngineCore.outputText( 'You take ' + (-changeNum) + ' damage.\n', false );
 				}
 				CoC.player.HP += changeNum;
+				MainView.statsView.showStatDown( 'HP' );
+				MainView.statsView.show();
 			}
 		}
-		EngineCore.statScreenRefresh();
-	};
-	EngineCore.clone = angular.copy;
-	EngineCore.clearOutput = function() {
-		MainView.clearOutput();
 	};
 	EngineCore.rawOutputText = function( output, purgeText ) {
 		//OUTPUT!
 		if( purgeText ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			MainView.setOutputText( output );
 		} else {
 			MainView.appendOutputText( output );
@@ -95,7 +101,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.addButton( 0, 'Next', null, MainView.playerMenu );
 	};
 	EngineCore.doubleAttackOptions = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 0 ) {
 			EngineCore.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
@@ -131,8 +137,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.doubleAttackOptions();
 	};
 	EngineCore.levelUpGo = function() {
-		EngineCore.clearOutput();
-		EngineCore.hideMenus();
+		MainView.clearOutput();
+		MainView.hideAllMenuButtons();
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		//Level up
 		if( CoC.player.XP >= (CoC.player.level) * 100 ) {
@@ -154,32 +160,32 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.levelUpStatStrength = function() {
 		EngineCore.dynStats( 'str', 5 ); //Gain +5 Str due to level
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your muscles feel significantly stronger from your time adventuring.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatToughness = function() {
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
 		$log.debug( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
-		EngineCore.statScreenRefresh();
-		EngineCore.clearOutput();
+		MainView.statsView.show();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You feel tougher from all the fights you have endured.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatSpeed = function() {
 		EngineCore.dynStats( 'spe', 5 ); //Gain +5 speed due to level
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your time in combat has driven you to move faster.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatIntelligence = function() {
 		EngineCore.dynStats( 'int', 5 ); //Gain +5 Intelligence due to level
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your time spent fighting the creatures of this realm has sharpened your wit.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.perkBuyMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var perkList = EngineCore.buildPerkList();
 		if( perkList.length === 0 ) {
 			EngineCore.outputText( '<b>You do not qualify for any perks at present.  </b>In case you qualify for any in the future, you will keep your ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point' );
@@ -213,7 +219,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			return;
 		}
 		//Store perk name for later addition
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You have selected the following perk:\n\n' );
 		EngineCore.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
 		EngineCore.menu();
@@ -399,7 +405,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		return perkList;
 	};
 	EngineCore.applyPerk = function( perk ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.perkPoints--;
 		//Apply perk here.
 		EngineCore.outputText( '<b>' + perk.perkName + '</b> gained!' );
@@ -412,7 +418,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		if( perk.ptype === PerkLib.Tank2 ) {
 			EngineCore.HPChange( CoC.player.tou, false );
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
@@ -712,7 +718,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.showBottomButton( pos, text, callback, toolTipText );
 		EngineCore.flushOutputTextToGUI();
 	};
-	EngineCore.hasButton = MainView.hasButton;
 	EngineCore.removeButton = function( arg ) {
 		var buttonToRemove = 0;
 		if( _.isString(arg) ) {
@@ -840,17 +845,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		EngineCore.choices('Next', obj, event);
 	};
-	//Used to update the display of statistics
-	EngineCore.statScreenRefresh = function() {
-		MainView.statsView.show();
-	};
-	EngineCore.showStats = function() {
-		MainView.statsView.show();
-	};
-	EngineCore.hideStats = function() {
-		MainView.statsView.hide();
-	};
-	EngineCore.hideMenus = MainView.hideAllMenuButtons;
 	//Hide the up/down indicators
 	EngineCore.hideUpDown = function() {
 		MainView.statsView.hideUpDown();
@@ -908,7 +902,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			//Blood mages use HP for spells
 			if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 ) {
 				CoC.player.takeDamage( mod );
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 				return;
 			}
 		} else if( type === 2 ) { //Physical special reductions
@@ -940,7 +934,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( CoC.player.fatigue < 0 ) {
 			CoC.player.fatigue = 0;
 		}
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	EngineCore.changeFatigue = EngineCore.fatigue;
 	EngineCore.displayStats = function( ) {
@@ -1655,7 +1649,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		//Refresh the stat pane with updated values
 		MainView.statsView.showUpDown();
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	EngineCore.range = function( min, max, round ) {
 		var num = (min + Math.random() * (max - min));

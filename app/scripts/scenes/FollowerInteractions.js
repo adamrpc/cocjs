@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	};
 	//[Amily rages at what you've done to jojo (corrupted after she met pure jojo) – encountered when visiting corrupt jojo for faps]
 	FollowerInteractions.prototype.amilyIsPissedAtYouForRuiningJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.AMILY_PISSED_PC_CORRUPED_JOJO ]++;
 		EngineCore.outputText( 'You call for your personal fuck-pet to come take care of your needs, but he doesn\'t answer.  You call again, and once more, the mouse does not appear.  Irritated, you get up and walk towards the woods.  At the edge you find Jojo.  He\'s unconscious and humping the ground, with a dart stuck in his ass.  You pluck the drugged dart from his furry cheek and examine it.  It\'s one of Amily\'s!\n\n' );
 		EngineCore.outputText( '"<i>What did you DO TO HIM!?</i>" her voice shrieks.  She\'s behind you!  You pivot, praying the enraged mouse doesn\'t hit you with the same dart, and you see Amily half-hidden behind a rock.  Her blowgun is clutched in a trembling hand as she sobs with grief.  So she figured it out...\n\n' );
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//[Tell Amily to fuck off]
 	FollowerInteractions.prototype.tellAmilyToFuckOffRuinedJojo = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You chuckle, "<i>He\'s a better fuck like this than you ever were.  Why don\'t you piss off and leave us alone?</i>"\n\n' );
 		EngineCore.outputText( 'The sadness she exudes is palpable, but her eyes harden into ice as she replies, "<i>Fine. I don\'t want anything to do with a demon anyway.</i>"  She turns around and jogs off, glancing back over her shoulder with tears in her eyes before she disappears.\n\n' );
 		EngineCore.outputText( 'No doubt she ran back to the ruins.  Perhaps you could gather some appropriate drugs to teach her a lesson?' );
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//[Fix Him]
 	FollowerInteractions.prototype.agreeToHelpAmilyFixJojo = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You nod, ' );
 		if( CoC.player.cor < 33 ) {
 			EngineCore.outputText( 'feeling genuinely sorry for what you\'ve done.' );
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	};
 	//[Amily finds tentacle Jojo]
 	FollowerInteractions.prototype.amilyDiscoversJojoWithTentaclesAndShitOhBoy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.AMILY_DISCOVERED_TENTATLE_JOJO ]++;
 		EngineCore.outputText( 'You settle down for a nice fuck with your tentacle-mousey, but your pet doesn\'t answer your calls.  Snarling in irritation, you set off towards the woods to find your corrupted fuck-toy.  It does not take long.  Jojo\'s body is face-down in the dirt, unconscious.  You can see his hips pumping weakly as his cum-oozing tentacles fuck each other.  There\'s a dart in his neck, and with great trepidation, you pluck the needle-tipped weapon from the horror-rodent.  It\'s one of Amily\'s!\n\n', false );
 		EngineCore.outputText( '"<i>What did you DO TO HIM!?</i>" her voice shrieks.  She\'s behind you!  You pivot, praying the enraged mouse doesn\'t hit you with the same dart, and you see Amily half-hidden behind a rock.  Her blowgun is clutched in a trembling hand as she sobs with grief.  So she figured it out...\n\n', false );
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		}
 	};
 	FollowerInteractions.prototype.AmilyLeavesBirdJojoTentacles = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You flip her the bird.  She was a shitty fuck anyways.  Amily\'s eyes flood with tears, but her expression hardens with rage.  The mouse yells, "<i>Like I\'d want to stay with a demon like you anyway!</i>"  She turns and jogs off into the distance.  Amily stops just before you lose sight of her and looks over her shoulder with tears in her eyes.  You\'ve utterly crushed her heart.  She starts jogging again and disappears from your life forever.  Meanwhile, Jojo begins to stir.  It appears he\'ll be ready to serve soon...\n\n' );
 		EngineCore.outputText( 'No doubt she ran back to the ruins.  Perhaps you could gather some appropriate drugs to teach her a lesson?' );
 		if( CoC.player.inte >= 45 ) {
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//[STOP – in the name of love]
 	FollowerInteractions.prototype.stopJojoDeathInTheNameOfLove = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grab her by the shoulders and say, "' );
 		if( CoC.player.inte < 40 ) {
 			//(NOT SMART)
@@ -193,7 +193,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//[Let Her Kill Jojo]
 	FollowerInteractions.prototype.whyWouldDoThis = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You can\'t watch the grisly deed and avert your eyes.  She slits the once-pious monk\'s throat and it\'s done.  The two of you build a cairn of rocks over the mouse\'s body, as fitting a burial as you\'re able to provide for him.' );
 		//(-99 lust)
 		EngineCore.dynStats( 'lus', -99 );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	};
 	//[Rathazul and Corrupt/Tentacle Jojo] – Occurs instead of camp
 	FollowerInteractions.prototype.rathazulFreaksOverJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.RATHAZUL_CORRUPT_JOJO_FREAKOUT ]++;
 		EngineCore.outputText( 'Rathazul comes up to you with a serious, worried expression.  You ask him what\'s wrong, and he explains, "<i>There is a creature in the woods.  I\'ve seen glimpses of it numerous times, and I believe it to be some kind of demon-tainted mouse.  We must deal with it, lest it strike while we are unawares!</i>"\n\n' );
 		EngineCore.outputText( 'You work hard to keep a straight face.  The \'creature\' is clearly your fuck-pet, Jojo.  What do you tell the old mouse?  ' );
@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//	[Jojo is yours]
 	FollowerInteractions.prototype.tellRathazulYouOwnJojo = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Rathazul, "<i>Oh that\'s just Jojo.  He\'s been corrupted, but he isn\'t evil and he hangs around because he knows I like to sleep with him.</i>"\n\n' );
 		EngineCore.outputText( 'Rathazul scratches his head in confusion and stutters, "<i>You, uh, f-fuck the creature?  Well, umm... okay.  I guess I don\'t have to worry about it then...</i>"\n\n' );
 		EngineCore.outputText( 'He blushes red and lurches back towards his laboratory, muttering under his breath about crazy kids.' );
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//[I can handle it]
 	FollowerInteractions.prototype.tellRathazulYouCanHandleIt = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Rathazul, "<i>Don\'t worry about it.  I\'ve been all over the woods and fought that mouse before.  He\'s a pushover, and if he tries to sneak up on either of us I\'ll take care of it.</i>"\n\n' );
 		EngineCore.outputText( 'Rathazul looks you over and asks, "<i>Why didn\'t you kill it?  With all the corruption in this world, we would be better off nipping these things in the bud.</i>"\n\n' );
 		EngineCore.outputText( 'You answer, "<i>Do I look like a demon to you?  I don\'t kill my enemies if I can help it.  Trust me, we\'re safe.</i>"\n\n' );
@@ -272,7 +272,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 	//[Its harmless]
 	FollowerInteractions.prototype.TellRathazulJojoIsHarmless = function() {
 		SceneLib.jojoScene.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You explain to Rathazul, "<i>That\'s just Jojo.  He got pretty fucked up and is hoping I\'ll let him fuck me.  The little mouse is a push-over, and nothing to worry about.</i>"\n\n' );
 		EngineCore.outputText( 'Rathazul looks a little incredulous at the declaration and he asks, "<i>Can we do something about him?  He\'s very creepy.</i>"\n\n' );
 		EngineCore.outputText( 'You snort disdainfully and answer, "<i>It\'s fine.  He\'s not interested in you – it\'s me he wants, and he won\'t be getting any of me unless I decide to let him.</i>"\n\n' );

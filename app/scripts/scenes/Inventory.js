@@ -34,9 +34,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 			EngineCore.spriteSelect( -1 );
 			this.callNext = this.inventoryMenu; //In camp or in a dungeon player will return to inventory menu after item use
 		}
-		EngineCore.hideMenus();
+		MainView.hideAllMenuButtons();
 		EngineCore.hideUpDown();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b><u>Equipment:</u></b>\n' );
 		EngineCore.outputText( '<b>Weapon</b>: ' + CoC.player.weaponName + ' (Attack - ' + CoC.player.weaponAttack + ')\n' );
 		EngineCore.outputText( '<b>Armor : </b>' + CoC.player.armorName + ' (Defense - ' + CoC.player.armorDef + ')\n' );
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		}
 	};
 	Inventory.prototype.stash = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( -1 );
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
@@ -264,7 +264,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		}
 	};
 	Inventory.prototype.useItemInInventory = function( slotNum ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.itemSlots[ slotNum ].itype instanceof Useable ) {
 			var item = CoC.player.itemSlots[ slotNum ].itype;
 			if( item.canUse() ) { //If an item cannot be used then canUse should provide a description of why the item cannot be used
@@ -329,7 +329,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		EngineCore.addButton( 9, 'Abandon', this, this.callOnAbandon ); //Does not doNext - immediately executes the callOnAbandon function
 	};
 	Inventory.prototype.useItemNow = function( item, source ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( item.canUse() ) { //If an item cannot be used then canUse should provide a description of why the item cannot be used
 			this.useItem( item, source );
 		} else {
@@ -337,7 +337,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		}
 	};
 	Inventory.prototype.replaceItem = function( itype, slotNum ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.itemSlots[ slotNum ].itype === itype ) {
 			EngineCore.outputText( 'You discard ' + itype.longName + ' from the stack to make room for the new one.' );
 		} else {
@@ -351,7 +351,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		this.itemGoNext();
 	};
 	Inventory.prototype.unequipWeapon = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), this.inventoryMenu );
 	};
 	Inventory.prototype.armorRackDescription = function() {
@@ -409,7 +409,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		this.pickItemToTakeFromStorage( this.gearStorage, 0, 9, 'rack' );
 	};
 	Inventory.prototype.pickItemToTakeFromStorage = function( storage, startSlot, endSlot, text ) {
-		EngineCore.clearOutput(); //Selects an item from a gear slot. Rewritten so that it no longer needs to use numbered events
+		MainView.clearOutput(); //Selects an item from a gear slot. Rewritten so that it no longer needs to use numbered events
 		EngineCore.hideUpDown();
 		if( !this.itemAnyInStorage( storage, startSlot, endSlot ) ) { //If no items are left then return to the camp menu. Can only happen if the player removes the last item.
 			MainView.playerMenu();
@@ -426,7 +426,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		EngineCore.addButton( 9, 'Back', this, this.stash );
 	};
 	Inventory.prototype.pickFrom = function( storage, slotNum ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var itype = storage[ slotNum ].itype;
 		storage[ slotNum ].quantity--;
 		SceneLib.inventory.takeItem( itype, this.callNext, this.callNext, storage[ slotNum ] );
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		return itype instanceof Weapon;
 	};
 	Inventory.prototype.pickItemToPlaceInStorage = function( placeInStorageFunction, typeAcceptableFunction, text, showEmptyWarning ) {
-		EngineCore.clearOutput(); //Selects an item to place in a gear slot. Rewritten so that it no longer needs to use numbered events
+		MainView.clearOutput(); //Selects an item to place in a gear slot. Rewritten so that it no longer needs to use numbered events
 		EngineCore.hideUpDown();
 		EngineCore.outputText( 'What item slot do you wish to empty into your ' + text + '?' );
 		EngineCore.menu();
@@ -479,7 +479,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		EngineCore.doNext( this, this.pickItemToPlaceInWeaponRack );
 	};
 	Inventory.prototype.placeIn = function( storage, startSlot, endSlot, slotNum ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x;
 		var temp;
 		var itype = CoC.player.itemSlots[ slotNum ].itype;

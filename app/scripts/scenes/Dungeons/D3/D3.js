@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 	D3.prototype.discoverD3 = function() {
 		if( CoC.flags[ kFLAGS.D3_DISCOVERED ] === 0 && CoC.player.hasKeyItem( 'Zetaz\'s Map' ) >= 0 && CoC.player.level >= 10 && Utils.rand( 5 ) === 0 ) {
 			CoC.flags[ kFLAGS.D3_DISCOVERED ] = 1;
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'During your exploration, you come across a familiar looking patch of ground. In fact... you pull out Zetaz’s map, your eyes widening as they realize what you’ve just found Keep. You follow a concealed trail past several harpy nests directly to an almost invisible cave entrance. You never would’ve found it without the map.' );
 			EngineCore.outputText( '\n\n<b>You’ve discovered a hidden entrance to Lethice’s lair. It can be accessed from the Dungeons submenu in the future.</b>' );
 			EngineCore.outputText( '\n\nDo you step inside, or wait until you’re better prepared?' );
@@ -231,9 +231,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 	};
 	D3.prototype.move = function( roomName ) {
 		$log.debug( 'Entering room', roomName );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( this.rooms[ roomName ] === undefined ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'Error: Couldn\'t find the room indexed as: ' + roomName );
 			EngineCore.menu();
 			return;
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 		return eggs;
 	};
 	D3.prototype.goToEggPile = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You head down the stairs into the hall proper to inspect the ramble hoard of eggs the basilisks collected. They’re mostly unfertilised harpy ovum, but you quickly pick out a number of differently coloured transformative eggs stolen from Gods know who.' );
 		EngineCore.menu();
 		var flagNum = CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ];
@@ -397,13 +397,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 
 		//menuLoc = 9999;;
 		// Should actually be handled by the fallthrough of doNext(1) in the takeItem shit;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pluck out ' + item.longName + ' ' );
 		CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ] += eggMask;
 		SceneLib.inventory.takeItem( item, MainView.playerMenu ); //MainView.playerMenu is equivalent to doNext(1)
 	};
 	D3.prototype.fallbackFromMagpieHallS = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'No, there has to be a better way.' );
 		if( CoC.player.hasKeyItem( 'Laybans' ) < 0 && CoC.player.inte >= 50 ) {
 			EngineCore.outputText( '  Surely the demons themselves are not immune to the basilisks’ glares - the darkened screen is proof of that. How do they interact with the creatures, then? Maybe if you keep poking around, you might find an answer.' );

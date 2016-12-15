@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, Appearance, CockTypesEnum, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Farm() {
 	}
 
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.spriteSelect( 62 );
 
 			if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 && CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-				EngineCore.clearOutput();
+				MainView.clearOutput();
 				EngineCore.outputText( 'As soon as you head to the farm, Whitney comes storming up to meet you.  "<i>What in tarnation do you think you\'re pulling?!</i>"' );
 				EngineCore.outputText( '\n\nYou hold your hands up, knowing full-well what the angry bitch is on about.  "<i>I didn\'t do anything he wouldn\'t have done to me.</i>"' );
 				EngineCore.outputText( '\n\nWhitney fumes, "<i>You might be right on that count, but the difference is that Kelt didn\'t keep coming to you to do it.  I don\'t much like him.</i>"  Whitney spits for emphasis before continuing, "<i>But I felt bad enough for him to let him stick around, so long as he left me an\' everybody else well enough alone.  The boy\'s got... an aura or something, and sure, you likely would\'ve wound up like he is.</i>"  She glares back at the farm for emphasis.  "<i>But only if you enjoyed it enough to keep hanging around the dipstick.  You... you just kept hounding him... drugging him with them demon fluids over and over.  The poor thing can barely sleep without whimpering after your dick.</i>"' );
@@ -108,7 +108,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 	//[NO];
 	Farm.prototype.whitneyMilkerRefusal = function() {
 		EngineCore.spriteSelect( 62 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Whitney shrugs and the two of you resume your conversation.  But like all good things, it has to come to an end.  The two of you go your separate ways.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		CoC.player.createKeyItem( 'Breast Milker - Installed At Whitney\'s Farm', 0, 0, 0, 0 );
 		CoC.player.gems -= 250;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 	};
 	Farm.prototype.breastMilkerNoPurchase = function() {
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, Descriptors, Consumable
 			EngineCore.outputText( 'out into a collection plate.  Whitney really put a lot of work into this! ', false );
 			CoC.player.gems += payout;
 			CoC.flags[ kFLAGS.WHITNEY_GEMS_PAID_THIS_WEEK ] += payout;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		if( CoC.player.countCockSocks( 'gilded' ) > 0 ) {
 			var gems = Utils.rand( 2 ) + CoC.player.countCockSocks( 'gilded' );

@@ -407,7 +407,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 2, 'Climb Up', this, this.dungeonEnterRoom, SceneLib.dungeonHelSupplimental.DUNGEON_HEL_GUARD_HALL );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_STAIR_WELL ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			//Room 3: Stair Well;
 			EngineCore.outputText( '<b><u>Stair Well</u></b>\n', true );
 			//(Upon clicking in:);
@@ -434,7 +434,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_DUNGEON ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Dungeon</u></b>\n', true );
 			//(Intro -- Before Fight);
 			if( CoC.flags[ kFLAGS.HEL_BRIGID_DEFEATED ] === 0 ) {
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_MEZZANINE ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Mezzanine</u></b>\n', true );
 			//(Intro; Before Battle);
 			if( CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ] === 0 ) {
@@ -480,7 +480,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonHelSupplimental.DUNGEON_HEL_THRONE_ROOM ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Throne Room</u></b>\n' );
 			//Throne Room Descript (Before Combat!);
 			if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Strange Gateway in the Sands</u></b>\n' );
 			if( CoC.flags[ kFLAGS.SANURA_DISABLED ] > 0 ) {
 				EngineCore.outputText( 'Just ahead, in one of the larger dunes, is a square stone doorway, built into the side of a large, sparkling mountain of sand.  You never would have noticed it if the sun hadn\'t been at the perfect angle to trace a rectangular shadow down the side of the incline.  As you approach, you notice a familiar obsidian orb embedded into the side of it.  It\'s obviously the mechanism to open it.' );
@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 4, 'Leave', SceneLib.dungeonSandWitch, SceneLib.dungeonSandWitch.leaveBoobsDungeon );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Cavernous Commons</u></b>\n' );
 			EngineCore.outputText( 'Dancing lights swirl around the roof of the cavern, twirling around each other in patterns too intricate to follow.  Whatever they are, they\'re clearly magical, and they lend this place an otherworldly ambience unmatched by anything you\'ve seen.  This huge room reminds you of your village commons in a way - it\'s clearly a communal area.  There\'s a water-pump in the northwest corner and a blazing purple bonfire in the center of the chamber, heating the cool underground air.  The ground is dirt, rather than sand, and hard-packed as any road.  Various chairs and benches are set up for witches to relax in.  ' );
 			if( CoC.flags[ kFLAGS.SANDWITCH_MOB_DEFEATED ] === 0 ) {
@@ -573,7 +573,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_ENTRANCE_GATEWAY );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Main Hall</u></b>\n' );
 			EngineCore.outputText( 'The supernatural illumination so prevalent to the east is present here as well, though in smaller quantity and vastly diminished brightness.  Swirls of bluish-white hue slide along the ceiling in slow, measured motions, a stark contrast to the jubilant dancing of the preceding cavern.  The ceiling is almost twelve feet high in places, with the sides of the east-west passage dipping down the lowest.  The floor is sandstone here, as you would expect in a desert cave, though it is liberally obfuscated with an array of woven rugs.  Sand Witches march by on errands, only pausing to give you disinterested glances.  Most of them bear the signs of pregnancy or have young girls in tow.  Whatever the case, there doesn\'t seem to be any fight in these women.  Along the north and south walls are small, door-sized openings, draped with heavy curtains that easily muffle any noise.  To the west, the tunnel bores on unimpeded.  However, to the east the cave opens up into a much, much larger chamber.' );
 			EngineCore.addButton( 0, 'North', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CHILDRENS_PLAYROOM );
@@ -582,13 +582,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_PREGNANT_LUST_ROOM );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CHILDRENS_PLAYROOM ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Eastern Portion North Side (Children\'s Play Room)</u></b>\n' );
 			EngineCore.outputText( 'Behind the thick curtain is the last thing you would expect to see.  There\'s nearly a dozen children and three busty, pregnant sand witches watching them.  Toys have been scattered everywhere by the young blonde children.  Their wardens were busy knitting when you intruded, but they glare at you balefully and make shooing gestures.  Unless you had planned to rob children of their toys and beat up pregnant women, there\'s nothing to be had here.' );
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_MAIN );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_PREGNANT_LUST_ROOM ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Eastern Portion South Side (Lust Room)</u></b>\n' );
 			EngineCore.outputText( 'This room is surprisingly large - big enough to hold the ' + Utils.num2Text( Utils.rand( 6 ) + 5 ) + ' heavily pregnant women inside plus perhaps a dozen more.  Like the outer tunnel, this room is lit by magic, though its contents are equally mundane, if a great deal more... interesting.  There\'s female sex-toys of every variety on almost every surface.  They sit in piles on the floor, they hang from the walls, and there are even some mounted on the wall, to be fucked in place.  Many such toys have multiple shafts and come in shapes from standard to canine to obscenely equine.  All of the witches are presently engaged in coitus with each other or their \'marital aids\', but once you enter, they glance at you with hungry, lust-filled eyes.' );
 			if( EngineCore.silly() ) {
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Main Hall (Western Portion)</u></b>\n' );
 			EngineCore.outputText( 'The smooth tunnel comes to an end here, blocked by the omnipresent sandstone.  The sapphire light plays beautifully across the rough-hewn stone as you watch, but you don\'t take the time to give it much thought.  To the east, the arching hallway leads back towards a large common area of a cave.  Along the north and south walls are door-sized openings, blocked with rugs of fine make and thick fabric.  They don\'t leave enough of a gap for any light or sound to bleed into the hall.  You\'ll have to take a peek if you want to see what\'s going on.' );
 			if( CoC.flags[ kFLAGS.ESSRAYLE_ESCAPED_DUNGEON ] === 0 && CoC.flags[ kFLAGS.MET_ESSY ] > 0 ) {
@@ -619,13 +619,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_PHARMACY );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_NURSERY ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Western Portion North Side (Nursery)</u></b>\n' );
 			EngineCore.outputText( 'As soon as you clear the curtain, you realize there\'s nothing of interest to you here.  The room is lit with rose pink globes, and the furniture in the room is filled with sleeping mothers, nursing infants, or older children taking naps.  The room is packed with bodies, and while it smells strongly of femininity, there\'s nothing worth looking into present here.' );
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_WEST_WARRENS_WEST );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_PHARMACY ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>West Warrens Western Portion South Side (Pharmacy)</u></b>\n' );
 			EngineCore.outputText( 'This room is so tiny it can barely get away with being called that.  If anything, it\'s more of a small, cozy nook.  There isn\'t anyone else here, though the room is illuminated by the same omnipresent magics found elsewhere in this little cave of wonders.  Standing silent vigil on the southern wall, a large chest looms over you, stretching most of the way to the ceiling.  It is completely, almost impossibly neat, with every drawer fully and completely closed.  Spurred on by this strangeness, you pop a few of them open.  One drawer has pink pills, another brown.  Searching drawer by drawer until you discover that every single compartment houses the same dual medicines.  You glance about the room and spy a faded parchment on the wall.  It reads "<i>Tnangerp rof knip, nerrab rof nworb.</i>"  There is an opening in the wall to the north.' );
 			if( CoC.flags[ kFLAGS.SANDWITCH_THRONE_UNLOCKED ] === 0 ) {
@@ -637,7 +637,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 3, 'Pink Pill', SceneLib.dungeonSandWitch, SceneLib.dungeonSandWitch.takeFertilePills );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens Main Hall (Western Portion)</u></b>\n' );
 			EngineCore.outputText( 'This smooth, sandstone tunnel proceeds in a perfectly straight line from east to west, as if aligned to some titanic, invisible compass buried below the floor.  Flickering white plumes of illumination undulate through the air along the arched ceiling, trailing streamers of pearl incandescence that light the entire chamber with ghostly brightness.  You are at the entrance to the eastern warrens - the commons are still clearly visible to the west, and the pathway to the east goes on a-ways.  Hand woven tapestries adorn the walls, telling the history of this enclave in pictographic form, from its inception to present day.  Further east, you can see a few empty places, ready to be covered with more cloth, once the next chapter of history is ready to be told.  To the north, there is a small opening in the wall, blocked off by plain white curtains.' );
 			EngineCore.addButton( 0, 'North', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER );
@@ -645,14 +645,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 5, 'West', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens West Portion North Side (Sleeping Chamber)</u></b>\n' );
 			EngineCore.outputText( 'Inside this expansive but cosy chamber are a few dozen beds, arranged in neat patterns marred only by a few cots that dare to be positioned adjacent to one another.  Clearly this is the tribe\'s primary sleeping area.  The floor is obscured by heavy, hand-woven rugs that ruffle oh so softly against your [feet].  Instead of the usual ghostly lights you\'ve grown to expect, the interior of this dwelling is lit by glass-paneled constructs resembling lanterns.  There is no fuel or wick of course, only flicking phantasmal illumination trapped as if it were a flame.  Shutters allow the lanterns to be dimmed, but as you are alone in here for now, there\'s no reason to make it harder to see.  There is a door to the east and a curtained off opening to the south.' );
 			EngineCore.addButton( 1, 'East', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_BATH_ROOM );
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_BATH_ROOM ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens East Portion North Side (Bath Room)</u></b>\n' );
 			EngineCore.outputText( 'As soon as you step in, you can smell a sweet, dairy-like scent in the air, but as your eyes adjust to the dimmer lighting, you realize you\'ve stumbled into the sand witches\' bathroom!  Fluffy towels hang from the wall, ready for use.  There\'s one giant tub in the center of the room, recessed deep into the floor.  It has a number of seats carved into the side with a small, open hole in the bottom.  Hanging from the ceiling, a long chain dangles down, topped with a plug.' );
 			CoC.flags[ kFLAGS.MET_MILK_SLAVE ] = 1;
@@ -663,21 +663,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 5, 'West', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SLEEPING_CHAMBER );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens Main Hall (Eastern Portion)</u></b>\n' );
 			EngineCore.outputText( 'Coming to an end here, the eastern warrens\' main hall ends in little more than a bare, flat stone wall.  The area is well illuminated by the familiar magical lights, giving you a good view of the historical tapestries and blank spaces yet to be filled in.  You can\'t help but wonder if the Witches will simply stop recording their history once this area is full, or if they will expand in order to give themselves more room.  Looking over the events depicted here, it\'s clear that this enclave is one of the oldest, roughly two decades old.  There are pictures of a blond haired woman in fluttering, golden robes leaving a town of demons behind and journeying towards the desert.  Could that be how the sand witches began?  You shake your head and look over the rest of the room.  There\'s a curtained off doorway to the south, and of course, the tunnel leads back to the west.' );
 			EngineCore.addButton( 5, 'West', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_MAIN );
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens East Portion South Side (Cum Witch\'s Bedroom)</u></b>\n' );
 			EngineCore.outputText( 'As soon as you brush back the curtain, you\'re assaulted by a pungent, salty smell.  It almost reminds you of tepid ocean water... or cum.  Regardless, you force your way in and take a look around.  This area has all the furnishings of a small domicile and comes complete with a solid oak bed and mattress.  The mattress and sheets seem to be cared for with immaculate precision, perhaps magically aided.  There is a simple dresser here, and though it looks to have been fashioned by crude tools, the wood looks sturdy and serviceable.  All of the drawers are closed, of course.  A few books sit on a nearby table, but it\'s obvious they\'re written in a language beyond your comprehension.  Whoever wrote them either did so in a different tongue or a magical language that would take years to decipher.  A thick curtain walls this chamber off from the eastern warrens\' main hall, to the north.  To the west, there is a thinner, gauzy sheet hanging from an opening in the rock - likely leading to a similar room.' );
 			EngineCore.addButton( 0, 'North', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_EAST_WARRENS_EAST );
 			EngineCore.addButton( 5, 'West', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_OFFICE );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_OFFICE ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Eastern Warrens West Portion South Side (Cum Witch\'s Office)</u></b>\n' );
 			if( CoC.flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] > 0 ) {
 				//{SAND WITCHES NOW FRIENDLY};
@@ -718,14 +718,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 1, 'East', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CUM_WITCH_BEDROOM );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Sacrificial Altar</u></b>\n' );
 			EngineCore.outputText( 'This chamber clearly holds some kind of important significance to the witch coven.  The floor and walls are covered in shining white, reflective tiles, and a large number of carved jugs ring the outer edge of the room.  The entire place smells faintly of milk.  Sniffing, you close in on the source of the aroma.  It\'s emanating from what looks like a golden well, positioned dead-center before you.  The various containers also smell faintly of the alabaster treat, and oddly, you can\'t catch even a single whiff of spoilage; it all smells fresh.  There must be some magic at work.  Peeping over the edge of the well, you can barely make out what seems like a sea of milk stored below: white-capped ivory waves sloshing around in a chamber so large you can\'t see the walls of it.  It must be preserved through magic.\n\nThere is a doorway to the south and one on the north wall.' );
 			EngineCore.addButton( 0, 'North', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM );
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_CAVERNOUS_COMMONS );
 		}
 		if( OnLoadVariables.dungeonLoc === SceneLib.dungeonSandWitch.DUNGEON_WITCH_THRONE_ROOM ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( '<b><u>Sand Mother\'s Throne</u></b>\n' );
 			EngineCore.outputText( 'This chamber is lit by swirling vortexes of magical colors, each hue dancing around another in coordinated motions.  The walls are made of hewn sandstone inlaid with ivory engravings that appear to depict what must be flowing milk.  Ahead there is a huge, white throne, also made from ivory.  It is a magnificent piece of craftsmanship.  Clearly, you have found the leader\'s throne room.  There is a robed figure atop it.' );
 			EngineCore.addButton( 2, 'Approach', SceneLib.dungeonSandWitch, SceneLib.dungeonSandWitch.sandMotherStuffGOA );
@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation, SceneLib.masturbation.masturbateMenu );
 	};
 	DungeonCore.prototype.enterFactory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
 			EngineCore.outputText( 'Rounding a bend in the mountainous foothills, you stumble upon a large, rusted and eerily silent iron structure with a number of tall gray smokestacks.  A bevy of green-tinged copper pipes stem from the rear of the building, climbing up the steep mountainside toward a jagged hole in its face.  Most of these are cracked open along their seams and both the pipes and mountainside are glazed with pink tinted runoff.\n\nThere are no windows to the hellish factory, with only a single iron door adorning the front wall.\n\nDo you enter the factory or leave?' );
 		} else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
@@ -759,25 +759,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.leaveFactory = function() {
 		OnLoadVariables.dungeonLoc = 0;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You slip out the door and disappear, heading back towards your camp, leaving the hellish factory behind.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	DungeonCore.prototype.factoryShutdown = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You resolve to shut down the factory, then destroy the controls.  You spend a few moments making sure you aren\'t about to do something disastrous.  A few deep breaths calm your nerves, letting you focus on pressing the correct buttons.  The constant thrumming of the machinery slowly dies down, closely followed by a chorus of disappointed moans.  You step over to the window and watch as the captives come out of their drug induced sex-comas.  A great deal of them gather up and leave, though you are unsure what their destination is.  A few seem to be gathering back around the equipment, and puzzling out how to operate it.  Maybe they liked being here...' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		CoC.player.createStatusAffect( StatusAffects.DungeonShutDown, 0, 0, 0, 0 );
 	};
 	DungeonCore.prototype.factoryOverload = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You resolve to shut down the factory by overloading the storage tanks, rendering much of the equipment inoperable and difficult to repair.  With a quick twist of a knob, you override the pressure vents for the storage tanks.  Within minutes, you hear the sounds of popping rivets and straining pumps.  You look out over the factory floor and watch as many of the pipes fracture, dripping seed over the moaning captives.  Smoke rises from pumps as they short out and overheat.  The entire building shudders as a massive blast echoes from somewhere to the west.  A high pitched whine fills the building as the last motors shriek and die.  The captives slowly start to come to as the flood of drugs and artificial pleasure come to a stop.  Many break down and cry, others begin unhooking themselves and exploring their surroundings.  You watch with interest as many of them rally together and make for an exit.   The remaining survivors begin scavenging parts from the machinery and puzzling out how to use it.  Perhaps they liked it here.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		CoC.player.createStatusAffect( StatusAffects.DungeonShutDown, 0, 0, 0, 0 );
 		CoC.player.createStatusAffect( StatusAffects.FactoryOverload, 0, 0, 0, 0 );
 	};
 	DungeonCore.prototype.relieveTension = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First time...;
 		if( CoC.player.findStatusAffect( StatusAffects.TensionReleased ) < 0 ) {
 			EngineCore.outputText( 'You nod and step forwards, allowing her to hook up a modified harness and inject you with the demonic concoction.  In no time heat boils through your veins, pooling on your chest and crotch.  ' );
@@ -885,7 +885,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	DungeonCore.prototype.factoryFinisher = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You crack your sleep-fuzzed eyes, blinking at the sudden light as you try to get your bearings and remember where you are.  A nearby voice is moaning like a bitch in heat, or a drunk slut.  You giggle a bit at the thought as you work at focusing your eyes.  You feel warm and happy, particularly in your chest and groin.  The cobwebs of sleep clear from your mind with agonizing slowness, but you find it hard to worry about with how warm and wonderful you feel.  It\'s almost like hot wet mouths are latched onto your crotch and breasts, licking and sucking in perfect rhythm.  ', false );
 		if( CoC.player.cocks.length === 0 || CoC.player.biggestTitSize() <= 1 ) {
 			EngineCore.outputText( 'A small inner voice pipes up to remind you that you don\'t have ', false );
@@ -931,14 +931,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusTalkOne = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>I suppose I really should thank you for coming down all by your lonesome.  The boss is gonna be sooo happy we found you.  Just think, in an hour or two we can get you strapped in and working with the others,</i>"  says the secretarial succubus as she saunters over, still sipping her coffee, "<i>You\'re so cute!  I tell you what, if you agree to come with me, I\'ll, like, make sure the experience is pleasurable.</i>"\n\n' );
 		EngineCore.outputText( 'She runs a stocking covered foot up your leg and thigh, almost to your groin.  Giggling, the succubus pulls it away and asks, "<i>So are you ready and willing?</i>"' );
 		EngineCore.choices( 'For what?', this, this.succubusTalkTwo, 'Yes', this, this.succubusBadEnd, 'No', this, this.succubusRefuseOffer, '', null, null, '', null, null );
 	};
 	DungeonCore.prototype.succubusTalkTwo = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The succubus looks at you with a bemused expression, "<i>You haven\'t figured it out yet?  Really?  What do you think we make at this factory, bubble-gum?</i>" she asks with a cruel smile, "<i>We take human and once-human champions like you, pump you full of aphrodisiacs, body-altering drugs, and corrupting agents, and then milk you of your tainted fluids continually for the rest of your life!  And don\'t even start to ask why, I\'ll tell you – there are still pockets of purity out there that repel cute demons like me.  So the best way to deal with those is just to release a river of drug-filled sex-juice at them.  By the time the area dries off, the locals welcome us with open arms... and spread legs.</i>"' );
 		EngineCore.choices( 'Sick!', this, this.succubusRefuseOffer, 'Sounds Fun', this, this.succubusBadEnd, '', null, null, '', null, null, '', null, null );
 	};
@@ -949,12 +949,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusRefuseOffer = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She frowns, "<i>I was secretly hoping you would say that... I\'m going to make you beg me to hook you into the machines.  Just wait.</i>"' );
 		EngineCore.doNext( this, this.succubusCombatStart );
 	};
 	DungeonCore.prototype.secretarialSuccubusInsult = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You laugh mockingly at the stupid demon, roaring, "<i>I\'m the bloody champion you vapid cunt!</i>"\n\nShe whirls, her beautiful face marred by rage.  It looks like you have a fight on your hands...' );
 		//(START FIGHT – Succubus Defense -10);
 		this.succubusCombatStart();
@@ -962,7 +962,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusBadEnd = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The blue skinned seductress steps forward and wraps her arms around you, pulling your head down and crushing it into her heavenly breasts as she speaks, "<i>My my, aren\'t you the kinky little play-toy.  Let\'s get you hooked up.</i>"\n\n' );
 		EngineCore.outputText( 'She catches you off-guard, lifting your feet off the ground.  You realize she has somehow grown taller.  You stretch to see what\'s going on, but have no leverage to pry your face from the smooth globes of flesh that smother you.   Vaguely, the click-clack of heels reaches you through the walls of flesh.  You\'re being moved deeper into the facility.   A creaky door opens, allowing you to hear the loud humming of machinery, mixed with what sounds like desperate sexual moans.\n\n' );
 		EngineCore.outputText( 'Abruptly you are pulled free from the succubus\' fleshy prison and bodily thrown into padded restraints.  Blinded by the sudden onslaught of light, you blink away tears as restraints are placed securely around your wrists.  Warm lips press against your own as a foreign tongue penetrates your lips, mouth-raping you.  It tastes of sweet exotic spices, like nothing you\'ve ever had before.   Helpless to do anything but return the kiss, you respond, sliding your tongue along the slippery sweetness of your captor\'s.  You risk opening your eyes and see your inhuman captor to be enjoying the kiss every bit as much as you.' );
@@ -970,7 +970,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusBadEndPartTwo = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'In no time flat your blood begins to burn hot with the fires of unnatural lust.  ' ); //Arousal
 		if( CoC.player.biggestLactation() < 1 ) { //Tits – regular
 			EngineCore.outputText( 'Your ' + Descriptors.nippleDescript( 0 ) + 's begin prodding painfully against your ' + CoC.player.armorName + ', every touch serving to make them harder and more erect.  ' );
@@ -1047,7 +1047,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusBadEndPartThree = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The beautiful seductress that bound you giggles and says, "<i>Oh it only gets better baby,</i>" as she pushes another button.  You see a number of needles lower from the equipment above.  Two pause at chest height.  Faded parchment labels on the tubes mark them as "Gro+".  You spot the same markings on at least some of the hoses gathering around your groin.  A few are marked with different labels, but you cannot make out the demonic script.  As one, the hoses rear back, then plunge forward, burying themselves into your supple flesh and injecting their drugged payload into your body.  It hurts at first, but the drugs fog your mind, blocking the pain with pulsing waves of desire.   You begin cumming as your body erupts with artificial pleasure.\n\n' );
 		//Nipples;
 		EngineCore.outputText( 'The suction pulls squirt after squirt of milk from your breasts as your ' + Descriptors.allBreastsDescript() + ' start to grow, swelling heavier as they enlarge to produce more milk.  You squeal with delight as your nipples turn black, tainted by corruptive chemicals that are slowly dripped into you.  ' );
@@ -1087,7 +1087,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusLossRape = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.cocks.length > 0 ) {
 			if( CoC.player.lust > 99 ) {
 				EngineCore.outputText( 'Driven half mad with lust, you drop to your knees. Your fingers fly over your body as you pry off every last piece of your ' + CoC.player.armorName + ', displaying just how hard your alluring opponent has gotten you.  The succubus saunters over, every sinuous step radiating the inhuman sexuality that pours off her skin like heat from a bonfire.\n\n', false );
@@ -1176,7 +1176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.succubusVictoryRape = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		//MALE;
 		if( CoC.player.cocks.length > 0 && (CoC.player.gender !== 3 || Utils.rand( 2 )) ) {
@@ -1281,7 +1281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.dungeonSuccubusForceScissor = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You shiver with anticipation as you hook your leg under her thick thighs, lining up your ' + Descriptors.vaginaDescript( 0 ) + ' as you press forwards.  The anticipation builds as your matched honeypots grow ever closer.  Making contact, your folds part as her purplish-red clit slips betwixt your nether-lips, vibrating slightly in tune with the succubus\' heartbeats.  You gasp, feeling your own ' + Descriptors.clitDescript() + ' erecting and rubbing against her smooth mound.\n\n', false );
 		if( CoC.player.clitLength >= 3 ) {
 			EngineCore.outputText( 'You groan with wanton desire as your ' + Descriptors.clitDescript() + ' continues to grow and grow until reaching full size and slipping inside the defeated slut\'s sloppy pleasure-hole.  ', false );
@@ -1294,7 +1294,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.dungeonSuccubusForceFeed = function() {
 		EngineCore.spriteSelect( 55 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You chuckle as you decide to release some of the pent up pressure in your ' + Descriptors.allBreastsDescript() + '.  Laying down over your conquest, you grasp her wrists and pin them to the floor as you shove your tits in her face', false );
 		if( CoC.player.biggestTitSize() > 6 ) {
 			EngineCore.outputText( ', nearly smothering the succubus with the swell of tit-flesh', false );
@@ -1372,21 +1372,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.drinkCoffee = function() {
 		EngineCore.spriteSelect( 96 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You take a sip of the rich creamy coffee and suddenly feel refreshed. As you replace the coffeepot, the busty coffee-maker comes to life, grabbing her thick dusky nipples and squeezing out a trickle of scaldingly hot liquid. You can see her eyes roll up into her head from what you assume to be pleasure as she automatically refills the missing coffee, mouth open with ecstasy.  Her movements gradually slow as she quivers almost imperceptibly. A contented smile graces her features as immobility overtakes her, freezing her back in place.  You wonder if \'Mrs. Coffee\' was created, or is a victim of this place\'s dark master.' );
 		EngineCore.dynStats( 'lus', 1 );
 		EngineCore.HPChange( 35, false );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	DungeonCore.prototype.takeIronKey = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You take the <b>Iron Key</b> to keep with your other important items.' );
 		CoC.player.createKeyItem( 'Iron Key', 0, 0, 0, 0 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	DungeonCore.prototype.openFactoryDoor = function() {
 		if( CoC.player.hasKeyItem( 'Iron Key' ) < 0 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'The door is locked with a key that is not in your possession.' );
 		} else {
 			OnLoadVariables.dungeonLoc = 1;
@@ -1394,7 +1394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		this.dungeonEnterRoom( OnLoadVariables.dungeonLoc );
 	};
 	DungeonCore.prototype.takeCockMilker = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You puzzle out how to build a fully functional cock-milker from the spare parts here and assemble it.\n\nYou gained a <b>Cock Milker</b>!' );
 		EngineCore.outputText( '\n\nYou\'ll need a little help to use it though.' );
 		CoC.player.createKeyItem( 'Cock Milker', 0, 0, 0, 0 );
@@ -1402,7 +1402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	DungeonCore.prototype.takeBreastMilker = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You puzzle out how to build a fully functional breast-milker from the spare parts here and assemble it.\n\nYou gained a <b>Breast Milker</b>!' );
 		EngineCore.outputText( '\n\nYou\'ll need a little help to use it though.' );
 		CoC.player.createKeyItem( 'Breast Milker', 0, 0, 0, 0 );
@@ -1411,7 +1411,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.talkToIncubus = function() {
 		EngineCore.spriteSelect( 30 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Hentai Comic' ) >= 0 ) {
 			EngineCore.outputText( 'The incubus speaks to you with a calm, deep voice, "<i>And so the insect, heedless of its path, stumbled directly into the spider\'s web.  Tiny insect... wait, what is that book you\'re carrying?  Is that hentai?  It IS!  Let me offer you a deal – I\'m not really hungry or interested in fighting. So if you hand over the comic, I\'ll happily ignore your presence here. Though, I guess you could also just submit. Then I could put you to work and still get the comic.</i>"' );
 			EngineCore.choices( 'Fight', this, this.startIncubusFight, 'Trade', this, this.tradeComic, 'Submit', this, this.submitToIncubus, '', null, null, '', null, null );
@@ -1439,7 +1439,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.tradeComic = function() {
 		EngineCore.spriteSelect( 30 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You hand over the Hentai Comic tentatively to the male sex demon.  As soon as he has it in his grubby mitts he sits down and starts thumbing through the pages, toying with his half-hard member the entire time.  He must really like porn.' );
 		CoC.player.removeKeyItem( 'Hentai Comic' );
 		CoC.player.createStatusAffect( StatusAffects.IncubusBribed, 0, 0, 0, 0 );
@@ -1742,19 +1742,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusStartCombat = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You strike a combat pose and prepare your ' + CoC.player.weaponName + '.  She smiles and saunters around the desk, letting something bulbous and fleshy drop free from between her nether-lips.  You watch in shock as it hardens into a dick, growing right from where her clit should be.\n\nShe taunts, "<i>Like what you see cow?  I\'ll be sure to visit you in the pens.</i>\'"' );
 		CoC.player.createStatusAffect( StatusAffects.FactoryOmnibusDefeated, 0, 0, 0, 0 ); //This won't matter if you lose to her
 		Combat.startCombat( new OmnibusOverseer(), true );
 	};
 	DungeonCore.prototype.omnibusAcceptOffer = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She smiles, sauntering closer.  Your eyes widen in shock as her vulva are spread apart by something inside her.   A slick and growing cock emerges, sprouting from where her clit should be located.  She\'s a hermaphrodite.  You don\'t have time to contemplate the implications, as the demoness used your temporary distraction to sink a needle into your neck.  You sigh and black out almost instantaneously, letting her catch you with her strong arms and soft bosom.' );
 		EngineCore.doNext( this, this.factoryFinisher );
 	};
 	DungeonCore.prototype.omnibusVictoryEvent = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.monster.lust > 99 ) {
 			EngineCore.outputText( 'The omnibus trembles where she stands, her proud demonic dick twitching and pulsating as her desires totally overwhelm her.  The tainted nodules covering the purplish hermaphrodite\'s member ripple and swell from the base towards the tip, culminating with an explosive eruption of sticky, white demon-seed.  She moans with shame and pleasure, pumping larger and larger volumes of cum onto her office\'s floor.  She drops to her knees, too exhausted and ashamed by her premature orgasm to continue fighting.\n\n' );
 			EngineCore.outputText( '"<i>Ooooh no.  You can\'t tell the other demons I got off so easily!  I\'ll never live it down,</i>" she cries, "<i>You\'ve beaten me, please if you let me go and promise not to tell the other demons I\'ll use my magic to give you a gift!  My magic is powerful, I can do nearly ANYTHING with it when the subject desires the changes.</i>"\n\n' );
@@ -1775,7 +1775,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusVictoryGrowBreasts = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Grow if none;
 		if( CoC.player.breastRows.length === 0 ) {
 			EngineCore.outputText( '<b>Your chest swells out, forming rounded C-cup globes, capped with tiny erect nipples!</b>' );
@@ -1820,7 +1820,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusVictoryGrowDick = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//No dick?  Grow one!;
 		if( CoC.player.cocks.length === 0 ) {
 			EngineCore.outputText( 'A sudden pressure builds in your groin.  You look down in wonder, more than a little turned on by the prospect of growing your own penis.  Your skin ripples and bulges outwards, the sensation turning from pressure to feelings of intense warmth.  The bump distends, turning purple near the tip as it reaches three inches in size.  You touch it and cry out with pleasure, watching it leap forwards another inch in response.  Your tiny dick\'s crown becomes more and more defined as it grows larger, until you have what looks like a normal six inch dick.  You sigh with happiness and desire at your new addition.  Before you can enjoy it, another wave of heat washes through you, making your new addition respond.  It grows painfully hard as it crests eight inches in length.  ' );
@@ -1894,7 +1894,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusVictoryNormalFace = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var changed = false;
 		if( CoC.player.horns > 0 || CoC.player.antennae > AppearanceDefs.ANTENNAE_NONE ) {
 			EngineCore.outputText( 'Your forehead itches intensely.  You cannot help but stratch madly at it.  ' );
@@ -1929,7 +1929,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusVictoryNormalChest = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var changed = false;
 		if( CoC.player.breastRows.length > 1 ) {
 			CoC.player.removeBreastRow( 1, CoC.player.breastRows.length - 1 );
@@ -1971,7 +1971,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.spriteSelect( 16 );
 		//Temp used to track changes;
 		var changed = false;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You feel a strange shivering sensation pass through you.  ' );
 		//Remove multiple.;
 		if( CoC.player.cocks.length > 1 ) {
@@ -2029,7 +2029,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusVictoryNormalLegs = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HUMAN ) {
 			EngineCore.outputText( 'You feel as if you should slap yourself for stupidy.  Your legs are already normal!  You flush hotly as the corrupt magics wash over you, changing nothing.' );
 		} else {
@@ -2053,20 +2053,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusVictoryLetGo = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You refuse to fall for her ploy, and decide not to take her up on her offer.  However, being that she is so thoroughly defeated, you allow her to escape, promising her far worse should she ever oppose you in the future.\n\n"<i>Thank you, merciful hero!</i>" she says and she sprints out the door.  Wings unfurl from her back and she takes flight, disappearing out a skylight above the main factory floor.' );
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusVictoryKillHer = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You step forwards and grab her by the head.  With an abrupt twist you snap her neck, ending at least one small part of the demonic threat.' );
 		CoC.flags[ kFLAGS.D1_OMNIBUS_KILLED ] = 1;
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusLossRape = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.HP < 1 ) {
 			EngineCore.outputText( 'You stagger into the desk, clutching tightly just to stay upright.  ', false );
 		} else {
@@ -2086,7 +2086,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	};
 	DungeonCore.prototype.omnibusLossRape2 = function() {
 		EngineCore.spriteSelect( 16 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(Multi dicks);
 		if( CoC.player.cocks.length > 1 ) {
 			EngineCore.outputText( 'In her hand is a mass of shining green material.  She turns to face you, bringing it closer and letting you see the lights shift and change on its luminescent surface.\n\n', false );
@@ -2454,14 +2454,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.gameOver();
 	};
 	DungeonCore.prototype.takeSupervisorsKey = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You search the desk and find a silver key labelled \'Supervisor\'.\n\n(Supervisor\'s Key acquired!)' );
 		CoC.player.createKeyItem( 'Supervisor\'s Key', 0, 0, 0, 0 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	DungeonCore.prototype.openPumpRoom = function() {
 		if( CoC.player.hasKeyItem( 'Supervisor\'s Key' ) < 0 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'The door is locked with a key that is not in your possession.' );
 		} else {
 			OnLoadVariables.dungeonLoc = DungeonCore.DUNGEON_FACTORY_STORE_ROOM;

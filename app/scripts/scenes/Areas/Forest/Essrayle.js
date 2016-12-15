@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 
 	//Restriction on meeting Essy I'd figure is you can't be genderless, Essy is a very sexual being and if she doesn't detect a sex in someone, she's bluntly not interested. I'd imagine she'd be more receptive to nagas, those rather cowish in species, and characters with very, very large breasts.
 	Essrayle.prototype.essrayleMeetingI = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.MET_ESSY ] === 0 ) {
 			EngineCore.outputText( 'You blunder along through the thick foliage, swatting aside stray branches and the long grasses that try to impede your progress.  A clearing appears up ahead, giving you a goal to reach.  Honestly, you could use a brief break.  Forging through the brush, tromping, and causing a general ruckus, you practically burst into the glen in no time.' );
 			EngineCore.outputText( '\n\nYou realize you\'re not alone.  The other occupant looks at you a bit startled, and you look back with more awe than anything.  It is a woman, isn\'t it?  You can\'t be fully sure.  Her body is slender, soft green in hue, and she has an elfish, noseless face.  Green, grassy hair cascades down her back, and a large, wooden horn rises from her forehead, ornamented like something you would see on a beetle rather than a person.' );
@@ -55,14 +55,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	//>If No
 	Essrayle.prototype.noPlantsForMe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Essy pouts, ears flattening to the sides a bit.  "<i>I see,</i>" she nods, looking at you with thinly masked disappointment.  She seems to instantly put on a false smile and move aside, gesturing to the path ahead with a sweep of the arm.  "<i>Well, in that case, you must be going somewhere important.  Best not keep you waiting.  I do wish you luck in your adventures!</i>" She continues to beam as you head on off, leaving her behind you in no time.  Though as you leave, you swear you hear a mumbled, "<i>Leave it to me to find the prudish ones.</i>"' );
 		CoC.flags[ kFLAGS.TURNED_DOWN_ESSY_FIRST_MEETING ] = 1;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//>If Yes
 	Essrayle.prototype.plantsForMe = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.ACCEPTED_ESSY_FIRST_MEETING ] === 0 ) {
 			CoC.flags[ kFLAGS.ACCEPTED_ESSY_FIRST_MEETING ] = 1;
 			EngineCore.outputText( 'Essrayle giggles, sending ripples through her ample breasts.  "<i>Oh, why thank you!  It\'s nothing major - I doubt it\'ll be much of a burden to you.  But in my travels, I\'ve grown wilted and depleted of the energy to go on.  I\'m soooo hungry!  Would you please-?</i>"  She leaves the question hanging, looking to you imploringly.  Hastily your hand goes to where your supplies are housed, but you stop as she waves a hand dismissively.  "<i>No, no, I don\'t mean biscuits or the like.</i>"  Confused, you frown, but soften as you feel her hand rest upon your [chest].  "<i>I require a special kind of food to do what I do, one that won\'t exhaust your supplies in the least.</i>"\n\n' );
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 		if( BE === undefined ) {
 			BE = 0;
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Yes
 		if( BE === 1 ) {
 			EngineCore.outputText( 'Essy grins, nodding.  "<i>Precisely.  I don\'t doubt they\'ll be even more fun given enough exposure here.</i>"\n\n' );
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 
 	//Look Closer
 	Essrayle.prototype.approachTrappedEssy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.ESSY_DUNGEON_FUCKED ] === 0 ) {
 			EngineCore.outputText( 'Where once the leafy maiden sported two enormous, watermelon sized breasts, she now is host to four mammoth jugs that put her former bust to shame.  The heaving tits glisten with moisture and almost seem to swell with every exhausted breath she takes.  Her hips - what you can see of them beyond the plant\'s gigantic udders - are immersed in a black, rich soil that fills the pot to its lip.  A glaze is prominent in her purple eyes, and she seems quite exhausted from something.' );
 			EngineCore.outputText( '\n\nAs you draw nearer she bolts upright, sending oceanic ripples through her bloated breasts that gives a liquid jiggle to her whole body.  "<i>Who\'s there?  It can\'t be time already!</i>" she blurts out frantically, before noticing you.  A violet blush stains her emerald cheeks as she recognizes you and her panic is swiftly replaced by a gentle smile.  "<i>Oh, hey, it\'s you again.</i>"' );
@@ -256,7 +256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	//[Feed Her]
 	Essrayle.prototype.feedTrappedEssy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Well, it\'s not like she\'s going anywhere right now, and she probably would love a good fuck from a friend anyway.' );
 		EngineCore.outputText( '\n\nYou approach Essrayle once more, taking advantage of her dazed state to disrobe and sidle up to the enchanted flower pot before she realizes your intentions.  From this angle you can clearly see that her hands are sunk deep into the soil around her bubbly hips.  She blinks, confused by your sudden forwardness, but soon moans out loudly as your palms sink into the girl\'s recently massaged teats, fingers sinking deeply into the tender flesh.' );
 		CoC.flags[ kFLAGS.ESSY_DUNGEON_FUCKED ]++;
@@ -276,7 +276,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	//(Cock)
 	Essrayle.prototype.hasCockFeedEssy = function( newPage ) {
 		if( newPage === undefined || newPage ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	Essrayle.prototype.hasPussyFeedEssy = function( newPage ) {
 		if( newPage === undefined || newPage ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -326,7 +326,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	//(After defeating the Cum Witch)
 	Essrayle.prototype.essyWitchVictory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As before, you find Essrayle in the glade, but now she appears to be freed from her restraints.  The rune-engraved flower pot is turned over, damp soil spilled out over the ground.  The plant-girl giggles as she folds her arms between both her upper and lower sets of breasts.  "<i>I guess this means you were successful and I should show a hero some gratitude,</i>" she coos warmly.  With a rippling of her hefty bulb, she approaches, tits bouncing and jiggling with voluptuous abundance.' );
 		EngineCore.outputText( '\n\n"<i>I\'ve gotta say, though, I did have a lot of fun there, and I even got some awesome souvenirs out of it!</i>"  She grins as she shakes all four breasts from side to side, their taunt green skin flush and swollen with their bulging bounty.  "<i>I love \'em!  It was a great idea to come here!</i>"  Again she moves her chest, somehow managing to roll her milk-inflated breasts in wide, wobbling circles.  She pauses playing with herself, perhaps remembering that she hasn\'t rewarded you yet, and gives a big, welcoming smile when she notices that your attention seems fixated on her out-thrust tits.' );
 		EngineCore.outputText( '\n\nWith beaming delight she leans closer to you, exposing the full depth of her doubled cleavage, and puts a finger beneath your chin.  "<i>My eyes are up here,</i>" she remarks teasingly. "<i>Now, how to best reward you?</i>" She frowns in thought, idily tracing a finger about her top-left tit in circles, squishing into the yielding, almost fluid surface.  "<i>Well, a seasoned adventurer like you would probably love some big shiny sword or magical armor or whatnot, but I don\'t tend to carry such things.</i>"' );
@@ -340,17 +340,17 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	//[No]
 	Essrayle.prototype.declineEssyPrizes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Essy sighs and shakes her head.  "<i>What a let down!</i>"  She shrugs, throwing all four arms into the air helplessly, and digs about in the pouch she keeps on her vine belt.  "<i>Here, hope this tickles your fancy.</i>"  She reaches out and places a number of glittering gems into your hand.  "<i>They don\'t do me much good anyway.</i>"' );
 		//(Player gains some more gems)
 		CoC.player.gems += 100 + Utils.rand( 70 );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( '\n\n"<i>Well, maybe in the future you\'ll change your mind and find another way to do it on your own.  But I guess for now I\'ll just see you around!  Thanks for the save, hun!</i>"  The planty beauty blows you a kiss before she heads off, bulging breasts jiggling and bouncing steadily all the way.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Yes]
 	Essrayle.prototype.acceptEssyPrizes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Essrayle beams.  "<i>That\'s what I thought!  You know a good thing when you see it!</i>"  She takes you by the hand and guides you to sit on the side of the overturned pot.  Shuffling backwards, she pokes her leafy, green tongue out of the corner of her mouth while tapping the side of her head with a finger.  "<i>Now... how did that go?</i>"  She frowns in scatterbrained thought, trying to remember for a time before her expression lights up with ditzy delight once more.  "<i>Oh, wait, I know! You stay right there, my little sprout.</i>"' );
 		EngineCore.outputText( '\n\nShe hurries out of the glade, a rather impressive feat for one with such an over-burdened bust, much less a bulb for legs!  Just as you\'re getting bored, she finally returns, bouncing into sight with a giddy air.  "<i>Sorry!</i>" she giggles, licking some pale, creamy fluid from her lips, "<i>I had to do a bit of negotiation.</i>"  She settles back next to you once more and produces a small scroll, opening it up and chanting in the tongue of the sand witches.' );
 		EngineCore.outputText( '\n\n"<i>Ytnuob ruoy htiw sdnas eht doolf. Edit yklim eht wolf tel!</i>"' );
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	//[Yes]
 	Essrayle.prototype.yesGimmeGiantNipplesEssy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She smiles knowingly and, reaching into her pouch once more, Essy produces a strange looking fruit.  It seems almost like a plum-colored eggplant, but it feels soft and rubbery to the touch.  "<i>Here ya go!  Whenever you\'d like, enjoy this!</i>"  She places the strange thing in your hands.  "<i>Call it my gift to another chest connoisseur.</i>"' );
 		this.essyRewardEpilogueOUTTIES();
 		//[gain purple fruit] [Next]
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 	};
 	//[No]
 	Essrayle.prototype.noGimmeGiantNipplesEssy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She shrugs her shoulders, giving one bundle of milk-drooling nipples a soft squeeze.  "<i>Eh, to each their own, I suppose.</i>"' );
 		this.essyRewardEpilogueOUTTIES();
 	};
@@ -411,7 +411,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descr
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Essrayle.prototype.askMotherToReleaseEssy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.SAND_WITCHES_COWED ] === 0 ) {
 			EngineCore.outputText( 'You point out that the witches have a friend of yours trapped here with magic and you\'d like her released.' );
 			EngineCore.outputText( '\n\nThe Sand Mother cocks her head to the side before understanding dawns on her luminescent eyes.  "<i>The plant-woman?  She seeks pleasure like a demon, yet lacks the corruption we would expect.  I can give the order to turn her loose, but see her out, and should she return, I cannot promise her freedom again.</i>"' );

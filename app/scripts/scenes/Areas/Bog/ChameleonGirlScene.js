@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//Savin's Note is way too much intro shit for a repeat-encounter; I'm adding a 2nd Time + intro below.
 	// TIMES_MET_CHAMELEON:int = 561;
 	ChameleonGirlScene.prototype.encounterChameleon = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		Combat.startCombat( new ChameleonGirl() );
 		EngineCore.spriteSelect( 89 );
 		if( CoC.flags[ kFLAGS.TIMES_MET_CHAMELEON ] === 0 ) {
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//LOSS SCENES (Intro) (Z edited)
 	ChameleonGirlScene.prototype.loseToChameleonGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		//-Lose by lust
 		if( CoC.player.lust > 99 ) {
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//VICTORY SCENES INTRO(Z edited)
 	ChameleonGirlScene.prototype.defeatChameleonGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		//-Win by lust
 		if( CoC.monster.lust > 99 ) {
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//-Herm Victory (Z edited)
 	ChameleonGirlScene.prototype.fuckDatChameleonAsACoolGuyGirlHerm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//-Male (Z edited)
 	//(Savin's note only makes a lot of sense for biggus dickus characters; consider an alternative for traps/weany dick characters. We don't all have even footlongs) (yuh)
 	ChameleonGirlScene.prototype.manFucksChameleonWithBiggishWang = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You approach the fallen girl, and she looks up at you, a pleading expression in her eyes.  You might feel worse for her if she hadn\'t tried to assault you in a bog.  Reaching down behind her, you find the knot of the cloth covering her breasts, and with a quick pull you yank it off and toss it aside, then drop your [armorName], revealing your erect prick.  Her eyes widen when she sees it and her mouth parts slightly, letting a bit of her tongue slip out to lick her lips.  Quietly disdainful of the slutty girl\'s open arousal, you decide that if she wants to taste it so badly, she may.  But when you put your hand on the back of her head to push her onto your stiff cock, she manages to work up the strength to grab your arm with a free hand and resist its impulse.  Looking her over, you can see that her sudden burst of energy is due to ' );
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//-Female (for herms without dicks) (Z edited)
 	ChameleonGirlScene.prototype.femaleHasWinSexWithChamCham = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		EngineCore.outputText( 'You shed your ' + CoC.player.armorName + ' and approach the fallen chameleon girl' );
 		if( CoC.monster.lust > 99 ) {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//Item Use Scenes Intro (Victory) (Z edited)
 	ChameleonGirlScene.prototype.useAnItemOnTheChamcham = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		EngineCore.outputText( 'Looking at the poor girl kneeling pathetically before you, you almost feel sorry for her.  But, she did try to rape you and claim that you were on \'her\' territory.  You rummage through your bags, trying to find a fun way to punish her.  Fun for you, at least.' );
 		//player must have either a purified or unpurified Succubi Milk (also requires cock,) Incubus Draft, or Lust & Sens Draft (both) in inventory
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//-P. Succubi Milk or Succubi Milk (Z edited)
 	//Prerequisite: at least one dick
 	ChameleonGirlScene.prototype.giveTheChameleonASuccubiMilk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		EngineCore.outputText( 'You find a bottle of Succubi Milk tucked away in a pouch.  A wicked smile comes to your face as you imagine filling her so full of the stuff that her tits grow to the point where she can\'t even move, but you ultimately decide that just one dose will suffice for now.' );
 		EngineCore.outputText( '\n\nContainer in hand, you stride towards the collapsed girl.  She sees the glass full of liquid in your hand and tries to scramble away, but you\'re too fast for her, taking her by the shoulder to hold her forcefully in place.  With her mouth tightly closed, she shakes her head and tries to voice her disapproval through sealed lips.  You release her shoulder and dart your hand to her nipple, pinching it almost violently.  Her eyes water and she gasps, opening her mouth just long enough for you to put the neck of the bottle between her lips and tip the bottom of the glass up; the liquid spills into her mouth, and massaging her throat causes her to reflexively swallow the whole container\'s worth of fluid.' );
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//-Lust and Sens Draft (you you you you you need to find more ways to start sentences without using pronouns, she?) (Z edited)
 	ChameleonGirlScene.prototype.doseDatChameleonWithLustAndSensitivityDrafts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 89 );
 		EngineCore.outputText( 'You dig through your bags and come across a particularly tortuous combination of fluids.  With a Lust Draft in one hand and a Sensitivity Draft in the other, you return to the chameleon girl, swirling them and smiling at her menacingly.  She starts to protest, but you cut her off by shoving the opening of the Lust Draft vial into her open mouth.' );
 		EngineCore.outputText( '\n\nHer eyes widen in shock as the sticky fluid pours over her tongue.  She clearly hasn\'t had a taste of the stuff before, and her eyelids half-close as it starts to take effect.  She sways and barely manages to catch herself before falling.  "<i>What... what is this stuff?  Why do I...</i>"  Her thoughts run away from her, and she groans, arousal overpowering her.  Too turned on to fight further, she doesn\'t resist as you easily remove the cloth covering her breasts and use it to bind her wrists, pulling her hands away from her groin in the process.  You lift her chin up and pry her mouth open with your thumb, to tip the bottle of Sensitivity Draft inside.  She swallows the stuff almost greedily, apparently expecting more of the first drink, then smacks her lips and licks them, trying to collect the residue.' );

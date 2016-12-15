@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		EngineCore.addButton( 0, 'Next', this, this.displacerDreamII );
 	};
 	Dreams.prototype.displacerDreamII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<b>The dream shifts once more.</b>  Gone are the alien woman\'s clothes.  She now lays naked on the cool metal floor.  A light covering of midnight blue fur runs down her back and sides, but her front is completely smooth tanned skin.  The wolf-like alien giggles softly, clearly trying to keep her voice down.  There must be others like her, or like you around.' );
 		EngineCore.outputText( '\n\nYou urge her to remain quiet before clamping your lips around one of her perky nipples, lavishing it with your tongue.  The alien woman coo\'s, murmuring, "<i>Oh, Captain</i>" repeatedly.  You run your tongue down her body, stopping at her moist cunt... which looks somehow different than you expected.  Rather than pink folds, her slick pussy is colored a cobalt blue.  You blink your eyes a couple times, just to make sure you\'re not seeing double.  Two hard, dark blue clits peek out from two separate hoods... this woman has two clitorises!' );
 		EngineCore.outputText( '\n\nYour shock is short-lived however.  Of course she has two clits, it would be weird if she didn\'t, you think to yourself.  You lean down and delve into her cunt, tongue first.  Your long muscle snakes into her body, tasting her insides before slurping back out to tease her outer lips.' );
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		EngineCore.addButton( 0, 'Next', this, this.displacerDreamIII );
 	};
 	Dreams.prototype.displacerDreamIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The details of the dream immediately begin to slip away.  You strain your brain, trying to commit everything to memory, but it slips out of your mind like water through a sieve.' );
 		EngineCore.outputText( '\n\nSoon, even the details of the wolf-girl are gone, and you curse silently to yourself.  All you can really remember right now is the metal cave... and the glittering gem-like pillar.  You wonder if such a thing exists in the real world, and then dismiss it.  Such a thing is totally beyond the scope of reality.' );
 		EngineCore.outputText( '\n\nAs you settle back in to sleep, you feel a soft squirming beneath the covers.  Lifting the blanket, you can\'t stop your jaw from dropping.  There, between your legs is a cock just like the one in your dreams, fitting snugly into its purple cock-sock.  You give it a tentative poke, and the canine-like tip again unfurls into its starfish-like head tipped with wiggling tendrils.  How odd... was this the intended effect of the cock-sock?' );

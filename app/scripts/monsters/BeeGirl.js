@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 	}
 	angular.extend(BeeGirl.prototype, Monster.prototype);
 	BeeGirl.prototype.defeated = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gender > 0 ) {
 			if( hpVictory ) {
 				EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully, and you see an easy way to relieve it..\n\nWhat do you do to her?' );

@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
 	function BeeGirlScene() {
 	}
 
@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	//location: Forest
 	//add to exploreForest
 	BeeGirlScene.prototype.beeEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		//Intro text...
 		EngineCore.outputText( 'As you approach the edge of the forest, a sweet scent wafts into your nose. Tantalizing, teasing, alluring. As you sniff the air, you find yourself following it, as if an invisible hand is pulling you toward its origin.  Little do you know, that is essentially what\'s happening. The further and further you go, the more heavy the scent grows, as well as a sound. A sound of a buzz, but not in a maddening tone, as if someone is humming. It\'s a lovely tune, one that would stick in the back of the mind, but not in a bad way.\n\n' );
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	BeeGirlScene.prototype.beeEncounterSelect = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		EngineCore.spriteSelect( 6 );
 		//Bee appears!
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.choices( 'Fight', this, this.fightTheBeeGirl, 'Have Sex', this, this.beeEncounterAfraidFirstTimeSex, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterAfraidFirstTimeSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		this.attitude = BEE_GIRL_PLAYER_VOLUNTARY_EGGING;
 		EngineCore.outputText( 'You smile and nod to her.  She crooks her finger towards you, inviting you to come closer as she spreads her legs wide.  You walk slowly towards her, wearing a ' + (CoC.player.cor < 40 ? 'somewhat nervous ' : '') + 'smile on your face.  You decide to take the opportunity to look over her body once more.  Starting at her unusual legs and feet, you marvel at how the alien woman’s exoskeleton legs looks so much like boots, spread wide and inviting towards you.  Your eyes move up her legs to her thighs, covered in an intriguing yellow fuzz.  You find yourself wondering what that fluff would feel like to touch.  At the same time, it’s almost as if it were leading the way to her honey pot; inevitably drawing your view to it.\n\n' );
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.choices( 'Fight', this, this.fightTheBeeGirl, 'Have Sex', this, this.beeEncounterAfraidRepeatSex, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterAfraidRepeatSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You give a nod and strip off your ' + CoC.player.armorName + '.  The bee reclines back in her flower, continuing to pick away at the smaller flower in her hands while she waits for you.  The girl makes no moves until you’re right in front of her, then she gives you a smile and invites you into her embrace.  You take a deep breath to ready yourself for what is to come before falling into her arms.  She holds you close for a time, ' );
 		if( CoC.player.hasCock() ) {
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.choices( 'Fight', this, this.fightTheBeeGirl, 'Talk', this, this.beeEncounterDutyTalk, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterDutyTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'The handmaiden seems to be quite happy to talk to you for a little while.  She is quite interested in the tales you have to share, and you have a chance to hear a bit about the world from her.  After the two of you have been talking for awhile, you notice that she has been running her hand over her lady bits and you ask her about it.  <i>“Oh?  Well, I’m juzzzt zzzo horny right now, do you think you could help me out with that?  You can keep zzzome of the honey for later, and it could do zzzome incredible thingzzz to you.”</i>  Do you take her up on her offer?”</i>' );
 		if( CoC.player.inte < 50 ) {
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doYesNo( this, this.freeHoneyEvent, this, this.beeEncounterDutyLeave );
 	};
 	BeeGirlScene.prototype.beeEncounterDutyLeave = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You decline her offer, and shortly afterwards you take your leave to return to camp.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 	};
 	BeeGirlScene.prototype.beeEncounterSheBeatsYouRegularlyTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( '<i>“Zzzo, you’re being nizzze today?”</i> she smiles as she gently floats over towards you.  <i>“I know what you’re really here for, you can’t fight it anymore.”</i> she gently slaps your ' + Descriptors.buttDescript() + ' and you find yourself start to walk towards the large flower, the bee girl gently floating behind you.  She giggles at you and says, <i>“Zzzee?  You really juzzzt want the eggzzz and honey.  You’re a zzzpecial one, made juzzzt for carrying the hive’zzz eggzzz.”</i>  You fall into the flower and feel the bee girl gently land on your back.  <i>“Are you ready?”</i> she asks you.' );
 		this.beeEncounterSheBeatsYouRegularlyLastChance();
@@ -297,14 +297,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 	};
 	BeeGirlScene.prototype.beeEncounterSheBeatsYouRegularlyDontLetHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You barely manage to shake off her wiles and roll to the side.  You give her one last look before picking yourself up and running away from the clearing.  That really could have gone better.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.beeEncounterSheBeatsYouRegularlyAndYouLetHerLaysEggs = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 	};
 	BeeGirlScene.prototype.beeEncounterWithWorms = function() { //If she won't fuck infested players after combat then she shouldn't fuck them here either
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You slowly ' + (CoC.player.isTaur() ? 'trot' : 'walk') + ' toward the bee girl, your mind in a haze.  Her antennae wiggle in anticipation and she gives you a lusty smile, eager to fill your ass with her payload.  You start to take off your clothes, the last of your underwear falling to the forest floor as you reach her.\n\n' );
 		EngineCore.outputText( 'The bee maiden puts her hands on your shoulders.  She draws you gently into a kiss, but as her sweet saliva prepares you for what is to come you feel one of your annelid passengers slither down ' + (CoC.player.findStatusAffect( StatusAffects.WormPlugged ) >= 0 ? 'from your cervix and poke out of your cunt' : 'your urethra and wrap itself around the tip of your cock') + '.  The bee girl pulls back from the kiss, looks down and jumps back, the color draining from her face.\n\n' );
@@ -361,14 +361,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BeeGirlScene.prototype.fightTheBeeGirl = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You clear your head and resolve to defeat the monstrous bee-woman.' );
 		EngineCore.spriteSelect( 6 );
 		Combat.startCombat( new BeeGirl() );
 	};
 	BeeGirlScene.prototype.beeEncounterClassic = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		if( this.attitude === BEE_GIRL_TALKED_AND_LEFT || this.attitude === BEE_GIRL_TALKED_AND_LEFT_TWICE ) {
 			this.attitude = BEE_GIRL_TALKED;
@@ -676,7 +676,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	BeeGirlScene.prototype.beeSexForCocks = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		EngineCore.spriteSelect( 6 );
 		if( this.badEndWarning === true && Utils.rand( 2 ) === 0 ) {
@@ -713,7 +713,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 	};
 	BeeGirlScene.prototype.beeSexForCocksPart2 = function( giantCockIndex ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'This is all the encouragement the handmaiden needs, and she leaps forward and wraps her arms around your ' + CoC.player.cockDescript( giantCockIndex ) + '.  She eagerly starts rubbing her large chest up and down your length while using her hands to play with the tip, running them all over it.  Panting, she contiues to give your ' + CoC.player.cockDescript( giantCockIndex ) + ' a full body massage, bringing you incredible stimulation.  ' + (CoC.player.cocks[ giantCockIndex ].cockLength > 36 ? 'Even rubbing her nether lips against the base of your massive member.' : '') + '  Her body starts to feel a bit sticky and slick and sometimes catches in places, bringing you to even higher levels of pleasure.\n\n' );
 		EngineCore.outputText( 'After a time the bee peeks around your length to look at you, a mock serious look on her face.  <i>“Juzzzt what do you think you’re doing, going around and getting off without a bee?”</i> she says wagging her finger at you.  <i>“It’zzz not healthy, and you could die without proper releazzze.”</i>  She laughs and moves to the side of your member, scooping honey out of her bizarre bee vagina and spreads it onto your oversized prick.  <i>“I mean zzzeriouzzzly, nothing can actually take zzzomething this big but a queen bee,”</i> she continues while gently rubbing the honey into your skin.\n\n' );
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeDroneBadEndPart2 );
 	};
 	BeeGirlScene.prototype.beeDroneBadEndPart2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'Before too long you reach a large yellow structure that rises out of the trees, built like a layered wedding cake.  There is a strong buzzing sound all around the spire, with swarms of bees darting around, in and out of the it.  Along with the occasional bee girl as well.  <i>“Come on,”</i> your guide says to you after letting you survey the place for a time and leads you to the landing area.  As you set down, a pair of large muscular bee girls armed with spears made of chitin approach the two of you.  <i>“It’zzz okay guardianzzz, the queen azzzked me to bring thizzz boy,”</i> your guide says to them.  One of them sizes you up and looks at you closely while the other gives a few sniffs of the handmaiden’s honeypot.  She then gives a nod to the other one and the guards return to their posts.\n\n' );
 		EngineCore.outputText( 'Now free to move on, the two of you move deeper into the bee hive.  The whole place is a rush of activity.  None of the bees are ever seen at rest, humanoid or otherwise.  The small bees are constantly bringing in nectar for the hive, while the humanoid ones are busy turning the stuff into honey, storing it, or guarding the others.  The ones making the honey are really big bees, at least around the middle.  They gorge themselves on the nectar brought by the small bees, and the excrete honey in great quantities out of exaggerated bee womanhoods.  None of them spare you a glance now that you’re inside, they’re completely unlike the relaxed and loving handmaiden you’ve been spending your time with up until now.  Then again, none of them are quite as beautiful or as shapely as her either, so it isn’t like you’re complaining.\n\n' );
@@ -776,7 +776,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeDroneBadEndPart3 );
 	};
 	BeeGirlScene.prototype.beeDroneBadEndPart3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'When you enter into the queen’s chamber, your senses are assaulted with a multitude of erotic images, sounds, and scents.  There are dozens of bees all in various states of debauchery and sexual escapades.  The females are all very much like your companion, with voluptuous thin bodies, while the males are built a bit different.  While their main bodies are still fairly thin, and they generally have cute androgynous faces, their main feature would be their massive manhoods, which are all easily three to four feet long, and at least five inches in diameter.\n\n' );
 		EngineCore.outputText( 'The females outnumber the males at least four to one, but they don’t let that get in the way of having fun.  Most of them are playing with each other in pairs, letting loose all sorts of sexual moans.  Some of the lucky ones have wrapped themselves around a male bee’s large member and are panting in pleasure as they cover those organs with their honey.  For their part, there isn’t a male bee who isn’t giving their own sexual moans of pleasure, either from the attention they’re getting from their handmaiden partner, or more often the queen herself.\n\n' );
@@ -786,7 +786,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeDroneBadEndPart4 );
 	};
 	BeeGirlScene.prototype.beeDroneBadEndPart4 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( '<i>“Welcome, to my hive, beautiful one!  My daughter hazzz told me about you, and I am delighted to zzzee you before me,”</i> the queen says to you in a breathless voice, her massive breasts heaving as she pants in pleasure.  <i>“You are zzzertainly as pleazzzent to the eyes azzz zhe told me you were.”</i>  You can’t help but shiver in pleasure at her words, but it also brings another spike of pain to your massive member.  <i>“You are eager it zzzeemzzz, though I cannot zzzay that I am not azzz well,”</i> she says in response to your behaviour.  <i>“Come beautiful one, take your plazzze at my side and feel my honey cover your member and bring it zzzweet releazzze.”</i>\n\n' );
 		EngineCore.outputText( 'Her words are sweet, sweet honey to your ears, and you need no more encouragement to rush over to one of the free honey dripping slits on her abdomen, and start to push your member inside.  At once the walls contract around your member and start to liberally coat it with the wonderful honey that you needed so much.  The pain immediately leaves your body, and is replaced with a feeling of bliss as you slowly push your massive member further and further into her incredible massive honeypot.\n\n' );
@@ -799,7 +799,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	//Talk to the bee-girl
 	BeeGirlScene.prototype.beeTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		//The first time you only get the option to have eggs laid in your bum ;) BEE_GIRL_TALKED
 		if( this.attitude < BEE_GIRL_TALKED ) { //Replaced beeProgress
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	 }
 	 */
 	BeeGirlScene.prototype.beeMaidenPlay = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You nod to her and walk up to the flower.  She moves a bit to the side and pats the spot next to her.  You first slip out of your ' + CoC.player.armorName + ', then sit your ' + Descriptors.assDescript() + ' next to her.  ' );
 		if( CoC.player.cor <= 33 ) {
@@ -937,7 +937,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeMaidenConversation );
 	};
 	BeeGirlScene.prototype.beeMaidenConversation = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		if( this.conversation > 2 && CoC.player.cor > 20 ) {
 			this.conversation = 2;
@@ -976,7 +976,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		}
 	};
 	BeeGirlScene.prototype.beeMaidenFertileBeeBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'You take a deep breath before accepting the candy from your insectoid lover.  It is a small, round and shaped like a teardrop, about an inch long and half an inch thick.  You put it in your mouth.  It is soft and sweet, but has a bit of a sour aftertaste.  After a few moments you feel like your head is spinning, and you lie back down on the flower while the bee moves over you and gently caresses your face with her chitin covered arms.  Suddenly you whole body start to ache, then burn.  You look down at yourself to see what is happening, only to see a layer of black chitin slowly growing across your torso, in the same places as the bee above you!  Looks like you’re turning into a full bee now.\n\n' );
 		EngineCore.outputText( 'Your energy rapidly fades as more of your body changes.  <i>“Clozzze your eyezzz,”</i> you hear the girl say.  With the weariness in your body and the intense dizziness you’re feeling, you don’t hesitate to comply.  <i>“Relax, deep even breathzzz.”</i>  You try to steady your breathing while transformation progresses.  It isn’t easy, especially when ' + (CoC.player.hasVagina() ? 'something fundamental about your ' + Descriptors.vaginaDescript( 0 ) + ' changes, and you' : 'you feel something split open on your previously bare growing and') + ' feel something viscous start to flow out of it.  Thankfully, it isn’t gasps of pain that are making it hard to take deep breaths anymore, but gasps of pleasure.  You can’t wait to feel another part of your body rearrange itself and the experience the rush of new feelings from them.  The sensations from your new honeypot (what else could you call it, really?) in particular are almost overwhelming and every few moments another torrent of honey sprays out.\n\n' );
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeMaidenFertileBeeBadEndPart2 );
 	};
 	BeeGirlScene.prototype.beeMaidenFertileBeeBadEndPart2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'Before too long you reach a large yellow structure that rises out of the trees, built like a layered wedding cake.  There is a strong buzzing sound all around the spire, with swarms of bees darting around, in and out of it.  Along with the occasional bee girl as well.  <i>“Come on,”</i> your guide says to you after letting you survey the place for a time and leads you to the landing area.  As you set down, a pair of large muscular bee girls armed with spears made of chitin approach the two of you.  <i>“It’zzz okay guardianzzz, thizzz one just took our queen’s honey,”</i> your guide says to them.  One of them sizes you up and then leans down to examine your genitals while the other gives a few sniffs of the handmaiden’s honeypot.  They nod to one another and return to their posts.\n\n' );
 		EngineCore.outputText( 'Now free to move on, the two of you move deeper into the bee hive.  The whole place is a rush of activity.  None of the bees are ever seen at rest, humanoid or otherwise.  The small bees are constantly bringing in nectar for the hive, while the humanoid ones are busy turning the stuff into honey, storing it, or guarding the others.  The ones making the honey are really big bees, at least around the middle.  They gorge themselves on the nectar brought by the small bees, and the excrete honey in great quantities out of exaggerated bee womanhoods.  None of them spare you a glance now that you’re inside, they’re completely unlike the relaxed and loving handmaiden you’ve been spending your time with up until now.  Then again, none of them are quite as beautiful or as shapely as her either, so it isn’t like you’re complaining.\n\n' );
@@ -994,7 +994,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeMaidenFertileBeeBadEndPart3 );
 	};
 	BeeGirlScene.prototype.beeMaidenFertileBeeBadEndPart3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'When you enter into the queen’s chamber, your senses are assaulted with a multitude of erotic images, sounds, and scents.  There are dozens of bees all in various states of debauchery and sexual escapades.  The females are all very much like your companion, with voluptuous thin bodies, while the males are built a bit different.  While their main bodies are still fairly thin, and they generally have cute androgynous faces, their main feature would be their massive manhoods, which are all easily three to four feet long, and at least five inches in diameter.\n\n' );
 		EngineCore.outputText( 'The females outnumber the males at least four to one, but they don’t let that get in the way of having fun.  Most of them are playing with each other in pairs, letting loose all sorts of sexual moans.  Some of the lucky ones have wrapped themselves around a male bee’s large member and are panting in pleasure as they cover those organs with their honey.  For their part, there isn’t a male bee who isn’t giving their own sexual moans of pleasure, either from the attention they’re getting from their handmaiden partner, or more often the queen herself.\n\n' );
@@ -1004,7 +1004,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeMaidenFertileBeeBadEndPart4 );
 	};
 	BeeGirlScene.prototype.beeMaidenFertileBeeBadEndPart4 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( '<i>“Welcome,”</i> an overwhelming voice speaks into your mind.  <i>“I’ve been waiting for you to arrive, child.”</i>  The queen looks down at you smiling.  <i>“You are confused, I see.  That candy that my daughter gave you was made from my honey.  It lets me connect our minds together, and make you a true member of our hive.”</i>  Her presence alone feels so powerful, like it could blow you away in an instant.\n\n' );
 		EngineCore.outputText( 'Some small part of you panics for a moment before her will does indeed sweep through you, and blasts away everything that you once were in almost an instant.  Her will wraps around you in a tight embrace, like that of a parent who is just seeing their child again after being away for a long time.  <i>“Welcome my new daughter.”</i>  Her voice calls out in both a comforting and commanding voice.  <i>“A a member of my hive, I promise you the same promise I give all my daughters safe life and a life full of satisfying work.”</i>\n\n' );
@@ -1016,7 +1016,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 		EngineCore.doNext( this, this.beeMaidenFertileBeeBadEndPart5 );
 	};
 	BeeGirlScene.prototype.beeMaidenFertileBeeBadEndPart5 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 6 );
 		EngineCore.outputText( 'As a member of the fertile cast within the bee hive, the days run together, and the once-champion’s life is filled with nothing but eggs, and playing with the drones and other members of the fertile cast.  Just as her older sister, the young bee will one day tempt another champion to their embrace and fill them with the eggs of their hive.  They won’t even be able to comprehend that their latest incubator wouldn’t have been willing if it hadn’t been for her siren’s song.  Nor will they spare any head to the critical mission that they sent out to accomplish all those months ago.  Nothing of her old self remains now.\n\n' );
 		EngineCore.gameOver();
@@ -1065,7 +1065,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	BeeGirlScene.prototype.beeRapesYou = function() {
 		EngineCore.spriteSelect( 6 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.BEE_GIRL_COMBAT_LOSSES ]++;
 		var sexed = false;
 		//Centaur lost to giant bee:
@@ -2127,7 +2127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	BeeGirlScene.prototype.beeGirlsGetsDildoed = function() {
 		EngineCore.spriteSelect( 6 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITH_RAPE ]++;
 		EngineCore.outputText( 'You advance on your ', false );
 		if( CoC.monster.HP < 1 ) {
@@ -2153,7 +2153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	};
 	BeeGirlScene.prototype.milkAndHoneyAreKindaFunny = function() {
 		EngineCore.spriteSelect( 6 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITH_RAPE ]++;
 		CoC.player.slimeFeed();
 		EngineCore.outputText( 'You sit the bee-girl up; she\'s a bit dazed from the fight as her head moves in circles.  You kiss her honey-flavored lips, sticking your tongue into her mouth and causing her to snap out of her daze.  She\'s surprised at this unexpected show of affection, but understanding her situation, she begins kissing you back.  Both of your tongues rub and slide against one another as you occasionally plunge into each other\'s mouth.  Your hand rubs up her thigh onto her honeypot.  You drive two fingers into it, circling them around.  Making sure they are covered in her sweet love-honey, you pull the two fingers out and raise them up.  The bee-girl sees your honey-covered fingers and slowly pulls back from the kiss.  You suck the honey off the index then you point the middle at her mouth and push forward.  Her lips wrap around the finger and suck it into her mouth as her tongue laps around it, cleaning all the honey off it.  You take the finger out of her mouth and examine the work she did.\n\n', false );
@@ -2183,7 +2183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, Utils, StatusAffects, En
 	//requires spiderbite or nagabite
 	//Play standard victory text
 	BeeGirlScene.prototype.layEggsInABeeSpiderLike = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stand over the defeated bee, sizing up your latest catch.  She watches you fearfully as your gaze slides down her prone form, taking in every inch of her body.  Your eyes stop over her abdomen as you notice the girl\'s dripping, barely concealed ovipositor.  A wide' );
 		if( CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS || CoC.player.faceType === AppearanceDefs.FACE_SPIDER_FANGS ) {
 			EngineCore.outputText( ', fanged' );

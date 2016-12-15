@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//Approach:;
 	Niamh.prototype.approachNiamh = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'niamh-approach-in-bar' ) );
 		if( Utils.rand( 5 ) === 0 && CoC.flags[ kFLAGS.MET_NIAMH ] > 0 && (CoC.player.hasItem( ConsumableLib.BIMBOLQ ) || CoC.player.hasItem( ConsumableLib.SUCMILK )) ) {
 			this.corruptOrBimboNiamhIntro();
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[Get Beer];
 	Niamh.prototype.getANiamhBeer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'niamh-get-beer' ) );
 		EngineCore.outputText( '"<i>That\'ll be two gems,</i>" she replies.  You hand over the payment, which she holds up to the light and scrutinizes thoroughly.  Satisfied, she drops the things into a sack at her waist.  "<i>Sorry,</i>" she mutters. "<i>I do want to get this damned beer out o\' me, but this is still my primary livelihood; I canno\' afford to be cheated.  Anyway, here\'s your mug - you can keep that f\'r another two gems; I get \'em cheap.  Go ahead and fill it up, but keep in mind what you\'re tweakin\', right?</i>"' );
 		//Feeder;
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		//General Ending;
 		EngineCore.outputText( '\n\nYou think her breasts may have decreased in size somewhat, but with how massive they are it\'s hard to tell.  She blushes, trying her hardest to conceal the grinding against her chair.  "<i>Faith, you\'re good with yer hands,</i>" she veritably purrs.  "<i>Will ye be drinkin\' it here or takin\' the mug t\'go?</i>"' );
 		CoC.player.gems -= 2;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//[Here][To Go];
 		var togo = null;
 		if( CoC.player.gems >= 2 ) {
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[Here];
 	Niamh.prototype.drinkNiamhsBeerInTelAdre = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.lactationQ() >= 300 && CoC.player.biggestTitSize() >= 5 && Utils.rand( 2 ) === 0 && CoC.flags[ kFLAGS.MET_NIAMH ] > 0 ) {
 			EngineCore.outputText( '"<i>Skoal!</i>" you cheer as you down the delicious mug of booze.  The incredibly potent beverage warms you down to your chest and beyond.  The heat of the alcohol trails like fire down into your gut and warms your genitals, causing you to feel more aroused.  The buzz of the beverage makes you light headed, as if thinking had become a little more difficult.' );
 			EngineCore.outputText( '\n\nYou start to stumble as your sense of balance shifts and you realize the heat in your body is expanding outwards.  Looking down you see it isn\'t the heat that\'s expanding, but your own bountiful tits.  Each of your [fullChest] have gained two full cup sizes, and within seconds they\'ve gained even more.  Beneath your clothes your areola darken in color and you can feel each nipple throbbing with the need to expel its milky contents.' );
@@ -227,10 +227,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[To Go];
 	Niamh.prototype.blackCatBeerToGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>That\'ll be two more gems, then,</i>" the girl says.  "<i>Though, if your hands get any more skillful I might have to pay you to take it,</i>" she flirts.  You pass over two more gems, and she gratefully bags them and beams you a smile.' );
 		CoC.player.gems -= 2;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//both output;
 		if( CoC.time.hours <= 15 ) {
 			EngineCore.outputText( '\n\n"<i>Thanks for the business, ' + CoC.player.mfn( 'laddie', 'lassie', 'customer' ) + '!  Remember, Niamh sells her Black Cat Beer every day from 8 until 4.</i>"  You nod your head in thanks and step away from the table.' );
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//Talk;
 	Niamh.prototype.talkToNiamh = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//(first time only);
 		if( CoC.flags[ kFLAGS.TALKED_NIAMH ] === 0 ) {
 			EngineCore.outputText( 'You ask the cat-girl to tell you about her past.' );
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//Leave;
 	Niamh.prototype.leaveNiamh = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide that you don\'t really want to talk to this strange cat-girl and, as politely as possible, excuse yourself.' );
 		//Player returns to Wet Bitch menu;
 		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
@@ -298,7 +298,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	//is affected by Black Cat Beer item effects;
 	Niamh.prototype.blackCatBeerEffects = function( character, clearScreen, newLine ) {
 		if( clearScreen === undefined || clearScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		if( newLine ) {
 			EngineCore.outputText( '\n\n' );
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	//20% chance of Nyam using this as her opening if PC has >= 90 corruption and either item in inventory;
 	//[corruption chance encounter];
 	Niamh.prototype.corruptOrBimboNiamhIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Heya, favored customer,</i>" the busty kitty greets as you approach.  "<i>I have a favor to ask!  My drink\'s empty, and I get bored of me own brew,</i>" Niamh explains.  "<i>Would ya mind fetchin\' me somethin\', or are ye gonna force me to sample me own goods once more?</i>"' );
 		EngineCore.outputText( '\n\nYou pause, contemplating your options.  While you know of many drinks The Wet Bitch sells, most of them... aren\'t exactly fit for human - or feline - consumption, in your opinion.  You\'re stricken with a particularly naughty thought.  Perhaps you could fetch something... ' );
 		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[Maybe Later];
 	Niamh.prototype.maybeLaterNiamh = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You chuckle nervously and shake your head, citing your ignorance of all things alcoholic.  Niamh sighs resignedly, reaching forward and grabbing one of her elongated nipples.  With practiced ease, she fills her flagon and takes a deep swig of it.  "<i>Can\'t blame me for wantin\' a change of pace,</i>" she mutters.  "<i>Now, would ye like your own glass of Black Cat Beer, or are ya gonna keep starin\' at me tits?</i>"' );
 		var beer = null;
 		if( CoC.player.gems >= 2 ) {
@@ -379,7 +379,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[Succubus Milk] or [Bimbo Liqueur];
 	Niamh.prototype.taintNiamh = function( bimbo ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You grab Niamh\'s glass and one more and head off, making sure to turn a corner before commandeering an empty table.  Plunking the mugs down in front of you, you mutter to yourself as she moves away.' );
 		//[if sucmilk];
 		if( !bimbo ) {
@@ -421,7 +421,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	Niamh.prototype.niamhPostTelAdreMoveOut = function() {
 		//Move her into the bazaar;
 		CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] = -1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Upon one of your routine searches, you\'re given pause as a half-coherent mess of a song comes tumbling across the grasses.  You move toward the cacophony of sound, fairly confident in what you will find.  Indeed, stumbling and shambling towards you comes a ' );
 		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 1 ) {
 			EngineCore.outputText( 'demonic-looking' );
@@ -447,13 +447,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[no];
 	Niamh.prototype.niamhCorruptMobileSnackTurnDown = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You turn her down, fabricating a little tale about how you just got done drinking a delicious beverage, and you couldn\'t possibly have anything more.  She nods sagely, pauses, and loudly belches.  Even in her soused state, she retains some semblance of manners, so she chuckles nervously while moving a hand to her lips.  "<i>Sorry \'bout tha\'...</i>" she mutters, slinking off.  You have a feeling you\'ll see her again.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[yup];
 	Niamh.prototype.niamhCorruptedMobileSnackDrinkTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Of course you do!  You went through the trouble of getting her boobs to their current condition; drinking from the tap is exactly what you had in mind.  A smile brightens Niamh\'s features, and she plops down heavily on the ground, waving you over to sit next to her.  ' );
 		//[bimbo version];
 		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
@@ -490,7 +490,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	Niamh.prototype.bimboChampagne = function( character, clearScreen, intro ) {
 		if( clearScreen ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		if( intro ) {
 			if( (character.findPerk( PerkLib.FutaFaculties ) >= 0 && character.findPerk( PerkLib.FutaForm ) >= 0) || (character.findPerk( PerkLib.BimboBody ) >= 0 && character.findPerk( PerkLib.BimboBrains ) >= 0) ) {
@@ -558,7 +558,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		EngineCore.outputText( '\n' );
 	};
 	Niamh.prototype.bazaarNiamh = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Bimbo Niamh:;
 		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
 			if( CoC.flags[ kFLAGS.TIMES_NIAMH_BAZAAR_MET ] === 0 ) {
@@ -596,7 +596,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//[bimbo/corrupted beer drink texts];
 	Niamh.prototype.bazaardNiamhDrink = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems -= 2;
 		EngineCore.outputText( 'Approaching the fallen-from-grace (yet completely content) catgirl, you toss her a couple gems and request a glass of the house drink.' );
 		//Bimbo:;
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//{If player drinks from the tap:};
 	Niamh.prototype.drinkFromZeTap = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your eyes lock onto her large, ever-dribbling nipples, the froth of spilt champagne caked on the table supporting her mammoth breasts, and you know you just have to have it from the source.  You push your way forward and seat yourself on a plush cushion that, from its many tears and suspicious-smelling stains, has seen better days, then grasp the huge boob in front of you, making the ditzy catgirl yowl in anticipation of pleasure.' );
 		EngineCore.outputText( '\n\nThe wonderful taste explodes into your mouth as her well-trained teat gushes forth its precious elixir.  Delightfully fizzy, the frothy fluid is a rich, sugary-sweet delicacy, with a strangely gooey texture that just makes it all the yummier to swallow.  You gulp and slurp and suckle, dimly aware that somebody else has taken advantage of Niamh\'s free nipple.  A strange tingling feeling sweeps through your body; like pins and needles, only wonderfully pleasurable, so much so that you can feel your mind starting to dim.  Desperate for greater pleasure you suck harder and harder, gorging yourself on as much fluid as you can get, as fast as you can make it pour into your mouth - everything seems to fade away into nothing except the wonderful taste of this fizzy booze and your insatiable thirst for more of it.  You just keep drinking and drinking and, like, it just feels better and better - you find your mind totally shutting down...' );
 		EngineCore.outputText( '\n\nYou snap back to your senses with a jolt, finding yourself flat on your back and gazing up at the sky.  "<i>Like, are you alright, [name]?</i>" Niamh asks, amused.  "<i>My fizzy titties, like, really hit some people harder than they can, y\'know, deal with.  You okay?</i>"' );
@@ -623,7 +623,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//grabbing Bim Cham in a to-go box;
 	Niamh.prototype.getBimboChampFromNiamh = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You explain your need for a bottle of her champagne; the ditzy kitty takes several moments to register your words, then nods idly.  "<i>Works fer me!</i>" she responds, reaching behind her and rummaging in a large burlap bag.  She produces a flask from the sack\'s depths, unscrewing the cap and attempting to line it up with a nipple.  Try as she might, she just can\'t quite reach all the way, and with an airy giggle, she passes it to you instead.' );
 		EngineCore.outputText( '\n\nWith a resigned sigh, you accept the flask and kneel, flicking both nipples experimentally.  Pressing her elbows against her boobs, Niamh moans, the combination of your stimulation and her pressure beginning a steady trickle of delicious-looking champagne.  The mere smell of the stuff makes you feel a bit dumber!' );
 		EngineCore.outputText( '\n\nPushing that slightly scary thought to the side, you lean in, firmly grasping one stiff nipple and forcing it to the mouth of your container.  Ignoring her increasingly loud and frequent groans, you dutifully milk the bubbly into the flask, stopper it up, and rise.  Niamh tries to follow you, too aroused by the milking to resist her carnal urges, but you easily push her to the side, her ponderous melons throwing her off balance.' );
@@ -635,7 +635,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	Niamh.prototype.bazaarSex = function() {
 		var x = CoC.player.biggestCockIndex();
 		var y = x + 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.NIAMH_STATUS ] === 2 ) {
 			//Bimbo:Fuck a Bimbo Catgirl and Suck Dem Boozetits Like You Got a Pair (Or at least a dick; gotta have one of them);
 			EngineCore.outputText( 'As you approach the bimbofied cat-girl, your eyes wander lustily toward her huge, beer-lactating tits.  Seeing you stare, she giggles and shakes her chest enticingly, letting the huge, liquid-filled mounds wobble.  "<i>Like, like what you see, [name]?</i>" she purrs, her long black tail wagging excitedly behind her.' );
@@ -660,7 +660,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	//[Meet Sean with bimbo champagne in inventory];
 	//five bimbo champagne required, takes 24 hours to proc and 500 gems to do.;
 	Niamh.prototype.seanBimboBrewing = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The uncharacteristically gentlemanly incubus raises his eyebrow as you produce an armful of filled flasks and drop them onto his mostly-empty table.  "<i>I assume you\'d like me to do something special with these,</i>" he quips, somewhat dryly.' );
 		EngineCore.outputText( '\n\nYou smirk and explain to him the nature of the contents of the containers, as well as the nature of your visit.' );
 		EngineCore.outputText( '\n\nHe picks up one of the flasks and screws off the cap, leaning forward and wafting the drink to his nostrils.  "<i>Not as potent as the real stuff,</i>" he confirms, recapping the thing and setting it next to the others.  "<i>I can do it,</i>" he decides, "<i>but it will take a good amount of time and a good amount of effort.  Five hundred gems and I\'ll have it done by tomorrow.</i>"' );
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	//yeah I got this;
 	Niamh.prototype.yeahSeanLetsBimbooze = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Perfect!</i>" he says, moving forward to gather up the flasks.  "<i>You can go, now.  This is a delicate process, and any mistakes may lead to an outbreak of large-breasted and dim-witted fauna.</i>"  He pauses, gauging your expression.  "<i>... Which is <b>not</b> a good thing,</i>" he adds.  Almost as an afterthought, he extends his hand toward the table, saying, "<i>I\'d like the payment now, if you\'d please.</i>"  You separate out the appropriate number of gems for the demon.  He snatches it up and idly throws it behind him, where you hear a clunk and tinkle as it strikes something and rolls a bit.' );
 		EngineCore.outputText( '\n\n"<i>Now shoo, I must do work!</i>" he scolds, ushering you out of the cave.  "<i>Come back tomorrow!</i>"  Satisfied, you leave his shop.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -685,7 +685,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
 		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
 		CoC.player.consumeItem( ConsumableLib.BIMBOCH );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] = 25;
 	};
 	//back to camp;
@@ -693,7 +693,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	//set some kinda sorta flag to allow the 00:00 function to trigger the next scene;
 	//24 hours later;
 	Niamh.prototype.getBimboozeFromSean = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Sean turns as you enter, managing a thin smile as he regards you.  "<i>Excellent timing, I have just finished this!</i>"' );
 		EngineCore.outputText( 'He scoops a familiar-looking bottle from a tabletop, passing it off to you.  "<i>Be somewhat careful with this,</i>" he warns as you take it.  "<i>The original\'s deleterious effect on the mind has been duplicated, I assure you.</i>"\n\n' );
 		EngineCore.outputText( 'You drop the vial into a pouch on your person.\n\n' );
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	};
 	// [LEAVE];
 	Niamh.prototype.leaveWithBeerTits = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The offer is tempting but right now you\'d much rather deal with your boozy boobs privately.  You take off while trying to keep your [armor] modestly in place over your tits but it\'s difficult.  Your nipples constantly leak and drip a trail of alcohol all the way back to camp.  Thankfully by the time you arrive the effects seem to have mostly worn off.  Your nipples return to dripping milk, but although they\'ve shrunk back down a bit they don\'t quite shrink all the way, leaving you with somewhat larger endowments than you had before.' );
 		CoC.player.growTits( 2, CoC.player.bRows(), false, 2 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -712,7 +712,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	// Non-holidays have small payout of gems proportional to lactation.  Boob rating increases by 1.;
 	// Holidays have larger payout of gems proportional to lactation.  Boob rating increases by 2.;
 	Niamh.prototype.sellYourBooze = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems += 2;
 		var temp = Math.round( CoC.player.lactationQ() / 100 );
 		if( temp > 40 ) {
@@ -720,7 +720,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		}
 		CoC.player.gems += temp;
 		CoC.player.gems = Math.round( CoC.player.gems );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		//If player has only two breasts.;
 		if( CoC.player.bRows() === 1 ) {
 			EngineCore.outputText( 'With a chipper giggle Niamh pulls you closer to the bar.  With both hands she helps you heft your tits up and on to the counter.' );
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 	//First Paragraph;
 	//===============;
 	Niamh.prototype.barBeerOrgyTits = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//If [CoC.player has pussy];
 		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( 'The drooling of your [vagina] gets worse as the constant "tapping of your kegs" drives your sense of self-restraint to its limits.  The hands of various drunks start moving more aggressively over your breasts, eventually winding their way down between your thighs.' );

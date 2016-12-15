@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		EngineCore.doNext( this, this.slimeBadEnd2 );
 	};
 	GooGirlScene.prototype.slimeBadEnd2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'One year later...' );
 		EngineCore.outputText( '\n\nThe new champion has managed to escape imprisonment in the demons\' sick plots, but the monsters and trials of this land have taken their toll on him.  He undresses and slips into the water, hesitant around his newly enlarged member, but once he slips beneath the soothing waters he forgets all about it and just relaxes.' );
 		EngineCore.outputText( '\n\nHis reprieve is rudely interrupted as something thick and viscous wraps around his legs, gripping them with vicelike tightness.  He kicks futilely, accomplishing nothing but making the once-champion\'s goopy body jiggle as it slowly envelops more and more of the young man.  Suspended so that his head barely breaks the surface of the water, his entire body is wrapped up in more and more of the slime.  It curls around his member, slick and moist, gently massaging away his desire to resist.  The new champion relaxes and accepts it, twitching as the slime manages to caress a particularly tender spot.' );
@@ -457,7 +457,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 	};
 
 	GooGirlScene.prototype.layBeeEggsInGoo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stand triumphantly over the goo-girl, pondering how best to use her to sate your needs.  The girl doesn\'t seem quite interested in you anymore however, looking down between your feet instead.  Curious as to what grabbed her attention all of the sudden you look down behind you to find a small puddle of honey forming on the ground.  Your ovipositor twitches delightedly, dripping - and that\'s when you know just how to deal with your urges.' );
 		EngineCore.outputText( '\n\nYou turn about, raising your bee abdomen over the defeated goo.  Sweet golden honey dribbles down and splatters across her breasts, staining them gold and adding girth to her slowly-swelling tits.  The goo quakes and ripples behind you, delighted by the honey now merging with her body.  She opens her mouth wide and lolls out her tongue in a silent pant, catching some of the amber goop in her mouth.' );
 		EngineCore.outputText( '\n\nHaving acquired a target, you plunge your swelling ovipositor into her mouth, instantly distorting her cheeks and distending her neck as her mass is displaced around your injector.  The tightening and contracting as her form tries to re-contort itself around your egg hose is immensely pleasurable, robbing strength from your knees and eliciting a burst of honey into the hungry googirl\'s form.  You collapse to the ground with your bee abdomen still raised, pumping her full of sweet sludge.  A moan escapes your lips as you feel the first egg begin its journey down your canal and you begin panting heavily, working the first of many eggs through your ovipositor.' );

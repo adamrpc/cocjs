@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, UseableLib, Utils, Useable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( $log, MainView, CoC, SceneLib, ConsumableLib, UseableLib, Utils, Useable, EngineCore ) {
 	function KitsuneGift() {
 		this.init(this, arguments);
 	}
@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, Use
 		that.classNames.push('KitsuneGift');
 	};
 	KitsuneGift.prototype.useItem = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Curiosity gets the best of you, and you decide to open the package.  After all, what\'s the worst that could happen?\n\n' );
 		//Opening the gift randomly results in one of the following:;
 		switch( Utils.rand( 12 ) ) {
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, Use
 				EngineCore.outputText( '\n\n<b>You\'ve received ' + Utils.num2Text( gems ) + ' shining gems from the kitsune\'s gift!  How generous!</b>' );
 				CoC.player.gems += gems;
 				//add X gems to inventory;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 				break;
 			//[Kitsune Tea/Scholar's Tea] //Just use Scholar's Tea and drop the 'trick' effect if you don't want to throw in another new item.;
 			case 3:
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( $log, CoC, SceneLib, ConsumableLib, Use
 				EngineCore.outputText( '\n\n<b>The kitsune\'s familiar has stolen your gems!</b>' );
 				// Lose X gems as though losing in battle to a kitsune;
 				CoC.player.gems -= 2 + Utils.rand( 15 );
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 				break;
 			//[Prank];
 			case 7:

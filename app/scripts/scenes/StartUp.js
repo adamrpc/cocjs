@@ -7,7 +7,7 @@ angular.module('cocjs').run( function (SceneLib, $log, CharCreation, CoC, Engine
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 		}
-		EngineCore.hideStats();
+		MainView.statsView.hide();
 		//Reset newgame buttons
 		MainView.setMenuButton( MainView.MENU_NEW_MAIN, 'New Game', CharCreation, CharCreation.newGameGo );
 		MainView.hideAllMenuButtons();

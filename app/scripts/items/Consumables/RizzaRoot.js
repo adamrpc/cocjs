@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, PerkLib, Utils, SimpleConsumable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, PerkLib, Utils, SimpleConsumable, EngineCore ) {
 	function RizzaRoot() {
 		this.init(this, arguments);
 	}
@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, PerkLib, Utils, SimpleCo
 		that.classNames.push('RizzaRoot');
 	};
 	RizzaRoot.prototype.rizzaRootEffect = function( player ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var changes = 0;
 		var changeLimit = 1;
 		if( Utils.rand( 2 ) === 0 ) {

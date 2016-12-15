@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, Tamani, AppearanceDefs, Appearance, CockTypesEnum, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, Tamani, AppearanceDefs, Appearance, CockTypesEnum, PerkLib ) {
 	/*NOTES:
 	 Tamani encountered if you have a dick, short alternate female scene available.
 	 Variables:
@@ -270,7 +270,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		EngineCore.choices( 'Take Her', this, this.tamaniSexWon, 'Let Her', this, this.tamaniSexLetHer, 'No', this, this.tamaniStartFight, '', null, null, '', null, null );
 	};
 	TamaniScene.prototype.tamaniStartFight = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Tamani adopts a fighting pose and says, "<i>If I have to I\'ll beat my children out of you!</b>"' );
 		Combat.startCombat( new Tamani() );
 	};
@@ -1039,7 +1039,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 		Combat.cleanupAfterCombat();
 	};
 	TamaniScene.prototype.tamaniBeaten = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With the goblin defeated, you\'re finally free to tend to your body\'s true desires, even if they may be different than the ones the goblin was intent on stoking.  You shed your [armor] like a second skin, shrugging out of the offending garments with ease.  With your nude form revealed, Tamani ' );
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'licks her lips in anticipation, eyes locked on [eachCock]' );
@@ -1080,7 +1080,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 	};
 	//Butts McGee Facesitting Tamaniz
 	TamaniScene.prototype.preferTamaniFemdom = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Tamani Facesit
 		//===========Tamani============
 		//((Female PC has a third option when they encounter Tamani, labeled 'Like girls' if this is implemented; it gets them the following text.))
@@ -1092,7 +1092,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 	};
 	//(('Refuse' choice))
 	TamaniScene.prototype.declineZeFacesits = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her you\'re not interested.' );
 		EngineCore.outputText( '\n\nThe curvy goblin kicks you with a snarl, making you instinctively grab at one [leg] and hop around on the other - until she kicks it too, knocking you down.  "<i>Fine, bitch. Have it your way. But if I find you taking <b>my</b> cocks again, you\'re going to be in trouble!</i>"  She darts off before you can get a word in edgewise, leaving you alone.' );
 		//((Needs non-leg and centaur equivalents))
@@ -1100,7 +1100,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, PregnancySt
 	};
 	//(('Accept' choice))
 	TamaniScene.prototype.acceptTamaniFacesits = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You eye the goblin\'s wide hips again before you nod, anticipating the idea.' );
 		EngineCore.outputText( '\n\nTamani\'s impish smirk blooms into a wide grin, and the little goblin gently shoves you.  "<i>Lay down, then!</i>" she tells you.  You decide to comply, reaching for your [armor] - but she stops your hand.  "<i>No need to strip, skank. Just lay down,</i>" she tells you, pushing again.  You shrug and comply with her request, finding a comfortable spot on the ground to lay on, and then look over at her.' );
 		EngineCore.outputText( '\n\nShe\'s pulled a vial off of one of the straps of fabric draped over her body and uncorked it; she empties the vial\'s purple-hued contents into a hand, not even looking at you, and then smears them all over her pussy.  The goblin gives a lusty moan as her fingers dig in, jilling herself as her knees shake, and a heat starts to build between your legs as you watch her getting off.  Just as your hands are about to creep south for a little self-pleasuring of your own, Tamani starts to walk over to you, her engorged, green cunt dripping with her juices, rather than the fluid she just rubbed all over it.' );

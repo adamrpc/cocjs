@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockTypesEnum, PregnancyStore, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, Kelt, CockTypesEnum, PregnancyStore, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//Items;
 	//Besides, the PC needs 15 succubi Milk to turn Kelt female. If the PC has a pink egg, only 10 are needed. If the PC has a large pink egg (or two pink eggs), only 5 are needed. ;
 	//Effects;
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Encounters;
 	//First encounter;
 	Kelly.prototype.breakingKeltOptions = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		if( (!CoC.player.hasCock() && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 || CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
 			SceneLib.keltScene.keltEncounter();
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Resist;
 	Kelly.prototype.resistKeltsBSBreakHimIntro = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
 			EngineCore.outputText( 'You are more and more annoyed by Kelt\'s rudeness and dick-waving.  The centaur may be imposing at first and his archery skills are impressive, but you\'re sure that behind his false display of virility, there\'s nothing an experienced champion like you can\'t deal with.  With your superior strength and speed, you could probably take him by surprise and teach him a good lesson.  Of course, you won\'t ever be able to learn archery from him after that.' );
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Not Now: Nothing happens. The PC may carry on lessons like normal and they can still begin the mind-breaking process whenever they wish as long as they meet the above requirements.;
 	//Yes: Carry on the mindbreak;
 	Kelly.prototype.neverBreakKeltIntoKelly = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] = 1;
 		EngineCore.outputText( 'You decide that trying to break Kelt is something you\'d never want to do.  Besides, he\'s teaching you a useful skill, and there\'s just something charming about that bastard...' );
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 
 	Kelly.prototype.breakKeltGo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'You approach the uppity centaur with glinting eyes, determined to take him down.  Kelt mistakes your anger for desire and sneers.' );
 		EngineCore.outputText( '\n\n"<i>What do you want, you little ' + CoC.player.mf( 'sissy', 'bitch' ) + '?  I\'m done with you.  I\'m already doing you a favor by teaching you a skill sluts like you will never use nor master.</i>"' );
@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Second encounter;
 	/*10 succubi milk (or 1 pink egg - large or small - and 5 succubi milk) */
 	Kelly.prototype.secondKeltBreaking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 35 );
 		EngineCore.outputText( 'You stroll up to Kelt, not afraid to tame the beastman a second time.  As soon as he spots you, he snorts and tramples the floor furiously.  At the same time, he turns his head back as if he was ready to gallop at any moment.  Torn between his fear of you and his desire for revenge, he doesn\'t dare charge you, but he doesn\'t move away either.  You profit from his indecision to walk straight up to him until you are face to face.  But his masculine visage doesn\'t appeal to you, for your main focus is the tool hanging between his hind legs.' );
 		EngineCore.outputText( '\n\nYou point at it and laugh.' );
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 
 	//Defeat Him In Fight #1;
 	Kelly.prototype.defeatKellyNDBREAKHIM = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Cut these: You swing your [weapon], ready to use force against the restless centaur if necessary.;
 		//Cut these: "<i>Easy now, okay? You don't have your bow, and you know what I can do with my [weapon]. Now if you just calm down I promise I'll be much nicer this time.</i>";
 		//lust/HP: ;
@@ -379,7 +379,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Win Second Fight (Third Feminizing Encounter):;
 	Kelly.prototype.breakingKeltNumeroThree = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'Slumping down, ' );
 		} else {
@@ -461,7 +461,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Fourth encounter;
 	/*This one requires you not to have lost any corruption since the last encounter you had with her (so if you did, just get back to your former corruption level).*/
 	Kelly.prototype.finalKeltBreaking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You resolutely walk up to the centaur slut for her final lesson.  This time you don\'t even need to find her: she rushes to you on her own, her eyes glinting with need.' );
 		EngineCore.outputText( '\n\n"<i>[Master], [Master]!  You\'re finally here.  I-I haven\'t been sleeping well since you left.  I\'ve been dreaming about you... about your cock.  I haven\'t been able to eat properly, it\'s like I\'m in a state of constant hunger that can\'t be satisfied... except by you.</i>"' );
 		EngineCore.outputText( '\n\nWith a coy grin, you ask her what she wants from you.' );
@@ -528,13 +528,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 
 	//Kelt Defeats PC after 1st Breaking But Before Last;
 	Kelly.prototype.keltFucksShitUp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you collapse, defeated, Kelt saunters up, shouldering his bow.  "<i>Who\'s the bitch now,</i>" he taunts, rearing back as his voice cracks in a rather emasculated manner.  "<i>You are!</i>"  His hooves come down on your back, and concussive waves of pain roll through your body as you\'re trampled black and blue.  Then, you see blackness.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.keltFucksShitUpII );
 	};
 	Kelly.prototype.keltFucksShitUpII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You awaken at the periphery of the farm, thankful to be alive.  Kelt is nowhere to be seen.  You have to wonder if Whitney saved you or the dumb beast was too stupid to finish you off.  Whatever the case, you head back to camp to lick your wounds.  <b>The worst indignity of all is that he broke a lot of your succubi milks.</b>  He\'ll likely have regained some more of his maleness by the time you\'re ready to attempt teaching him another lesson.' );
 		CoC.player.consumeItem( ConsumableLib.SUCMILK, 5 );
 		//Roll Kelt back one obedience level - at the worst he drops to the level of the first fight;
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 
 	//Appearance;
 	Kelly.prototype.kellyAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Kelly is a 6 foot 3 inch tall centauress with a svelte body and generous curves.  Her feminine face is pretty human in appearance, and her lovely traits would be adorably innocent if it weren\'t for her emerald eyes shining with lusty need whenever she looks at you.  Plump lips that seem to have been made for cock-sucking adorn her hungry mouth.  A long, single ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] );
 		//[chestnut brown/sable black/garish purple/bright pink/slutty blonde) ;
 		EngineCore.outputText( ' braid hangs between her shoulders, giving you easy leverage when you have your way with her.  Her torso is likewise human-looking, only stopping below her navel where her equine part starts growing.  She stands on four horse hooves, her lower body looking almost like a horse\'s- aside from the pointed ' + CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] + ' demon\'s tail which sprouts where her horse tail should, and her cute, pink, human-like asshole.' );
@@ -642,7 +642,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		EngineCore.addButton( 0, 'Next', this, this.approachKelly );
 	};
 	Kelly.prototype.approachKelly = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Fix hair color!;
 		if( CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] === 0 ) {
 			CoC.flags[ kFLAGS.KELLY_HAIR_COLOR ] = 'chestnut brown';
@@ -764,7 +764,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Virginity paragraph;
 	//[Not Virginal];
 	Kelly.prototype.fuckKellysCunt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Centaur on Centaur Sex;
 	/*Requires a centaur lower body.*/
 	Kelly.prototype.taurOnTaurSexKelly = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.KELLY_VAGINALLY_FUCKED_COUNT ]++;
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
@@ -909,7 +909,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Tentacle;
 	//Requires two or more tentacle dicks.;
 	Kelly.prototype.tentaFuckKelly = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a mischievous grin, you remove your [armor], fully revealing your ' + Descriptors.multiCockDescriptLight() + '.  The plant-like appendages wriggle around the horny centauress, inspecting her body from every angle.  You feel your own lust rising as the tentacle peckers grow harder, their green heads turning pink in arousal.  Kelly stammers, confused: "<i>W-what are you-</i>"' );
 		var one = -1;
 		var two = -2;
@@ -976,7 +976,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Makes her cunt become horse-like.;
 	Kelly.prototype.giveKellyEquinum = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Taking the long, flared vial in your hand, you get a wicked idea - what if you gave your personal mare-slave a cunt that was better suited to her depraved, animalistic shape?  What if you turned that pretty, pink pussy into a slobbering, black mare-cunt?' );
 		EngineCore.outputText( '\n\nKelly sees you behind her and nervously asks, "<i>[Master]?  What are you doing?</i>"' );
 		EngineCore.outputText( '\n\n"<i>Hush pet, I\'m just finishing what I started.  Soon you\'ll have a cunt fit for dumping gallons of jizz into, just like you wanted.</i>"' );
@@ -991,7 +991,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Succubi Milk - Rehumanizes Her Pussy;
 	Kelly.prototype.giveKellySuccubiMilk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You produce a vial of succubi milk and dangle it before Kelly, the ivory demon-juice sloshing audibly inside.  Kelly licks her lips immediately, running her hands across her perky nipples without meaning to.  She asks, "<i>[Master], is that what I think it is?</i>"' );
 		EngineCore.outputText( '\n\nNodding, you uncork it and hand it to her.  "<i>I got tired of you having that nasty-ass horse-pussy and figured it was time you had a tight, little human-cunt to better service me,</i>" you comment as she begins to drink.  Kelly moans as she guzzles it, spattering feminine lubricants behind her as she messily orgasms, just from drinking the tainted potion!  She convulsively spurts and gulps again and again, climaxing as her body takes in the treat you conditioned it to love.' );
 		EngineCore.outputText( '\n\nCircling behind her, you lift her tail and watch her pussy get smaller, more petite, even as it squirts fragrant discharges of lubricant behind it.  You\'re careful to enjoy it, but you enjoy watching its color lighten in hue to a rosy pink, the lips shrinking to more human-like proportions and shape.  Even her clitty gets a little smaller, looking exactly like something you\'d expect to find on one of the girls back home.  Of course, none of the girls back home were your person brood-mare sex-slave.' );
@@ -1005,7 +1005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Punish(C);
 	Kelly.prototype.punishKelly = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.TIMES_PUNISHED_KELLY ]++;
 		//First time: ;
 		if( CoC.flags[ kFLAGS.TIMES_PUNISHED_KELLY ] === 1 ) {
@@ -1043,7 +1043,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.TIMES_RIM_JOBBED_BY_KELLY ]++;
 		EngineCore.outputText( '"<i>You aren\'t worthy of my dick,</i>" you say, as you slowly peel off your [armor]; you do it facing away from Kelly so that she can take in your [butt] as you slowly wriggle free of your underclothing.  "<i>But I still need servicing.  So...</i>"' );
 		//[Naga: ;
@@ -1136,7 +1136,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ]++;
 		//First Time: ;
 		if( CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] === 1 ) {
@@ -1322,7 +1322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 
 	Kelly.prototype.takeKellysVirginity = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -1413,7 +1413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//TFs;
 	//Canine Pepper;
 	Kelly.prototype.giveKellyAPepper = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First: ;
 		if( CoC.flags[ kFLAGS.KELLY_TIMES_PEPPERED ] === 0 ) {
 			EngineCore.outputText( 'You instruct Kelly to open wide; you\'ve got something that will allow her to serve her [master] even better.  You imagine she once saw Whitney farm these things, but if your centauress slave knows its properties she doesn\'t show it; dutifully she opens her mouth, making an "<i>aaaaaaah</i>" noise until you pop the glossy red fruit onto her tongue.  You stand back and watch as she munches thoughtfully and then swallows.' );
@@ -1450,7 +1450,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//[Requires: Not a centaur];
 	//[If [dick0] larger than 18 inches: Requires Kelly have 4 breasts];
 	Kelly.prototype.kellyTitJob = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x;
 		if( CoC.flags[ kFLAGS.KELLY_BONUS_BOOB_ROWS ] === 0 ) {
 			x = CoC.player.cockThatFits( 18, 'length' );
@@ -1530,7 +1530,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Sex scene;
 	//notice this could be adapted into a normal scene minus the paragraph referring to her pregnancy;
 	Kelly.prototype.kellyPregSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x;
 		if( CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 			x = CoC.player.biggestCockIndex();
@@ -1591,7 +1591,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Talk n Hand;
 	Kelly.prototype.talkNHandToKelly = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First: You tell her you'd just like to talk.;
 		if( CoC.flags[ kFLAGS.KELLY_TALK_N_HAND_TIMES ] === 0 ) {
 			EngineCore.outputText( '"<i>Talk?  Oh, that\'s the least interesting thing I can do with my mouth, [Master],</i>" Kelly purrs.  That may be, you say, but she can amuse you with her hands whilst she amuses you with her voice.  The centaur gets the picture and grins.  ' );
@@ -1757,7 +1757,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Requirements: PC used “punish” at least once, 3+ days have gone by and “punish” has not proced*;
 	Kelly.prototype.rewardKelly = function() {
 		CoC.flags[ kFLAGS.KELLY_REWARD_COOLDOWN ] = 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First time: ;
 		if( CoC.flags[ kFLAGS.KELLY_TIMES_REWARDED ] === 0 ) {
 			EngineCore.outputText( 'There seems to be an added bounce to Kelly\'s canter today.  She prances a bit playfully in front of you, grinning, whipping her demonic tail so that the high, sweet smell of her gushing pussy is in the air.  You realize she is calling your attention to her backside, which is unmarked.' );
@@ -1797,7 +1797,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Hair Dye;
 	//Requires: Black dye, purple dye, blonde dye, pink dye, brown dye in inventory.  Dye can't be given if her hair is that color already, e.g. brown can't be given straight away;
 	Kelly.prototype.dyeKellysBitchAssHair = function( color ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her you\'ve brought her a gift as you rummage around in your pockets.  Kelly looks apprehensive but pleasant surprise forms on her face when she catches the small vial of dye you throw at her.' );
 		EngineCore.outputText( '\n\n"<i>Oh wow, thanks [Master]! It\'s been ages since I did my hair.' );
 		if( CoC.flags[ kFLAGS.KELLY_TIMES_DIED_HAIR ] === 0 ) {
@@ -1850,7 +1850,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	//Apple Sauce;
 	//Req Dick that fits.;
 	Kelly.prototype.giveKellyAppleSauce = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First time:;
 		if( CoC.flags[ kFLAGS.KELLY_TIMES_APPLESAUCED ] === 0 ) {
 			EngineCore.outputText( 'You tap your chin idly and ask Kelly what she likes eating.  Aside from dick, you add, rolling your eyes as she opens her mouth eagerly.' );
@@ -2024,7 +2024,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, Kelt, CockT
 	};
 	//Blowjob;
 	Kelly.prototype.kellyBJsAhoy = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You step into Kelly, a question fading on her lips as you put your arms around her waist and answer it by drawing her face into yours.  You kiss her hungrily, pushing your tongue into her hot mouth.  It\'s almost an instinctive reaction - it\'s difficult to look at her face and not be drawn to her plump, pert lips, to not want to touch them, to use them.  And godsdamn, does she know how to use them.  She responds to your kiss in kind, humming blissfully as she eagerly accepts your tongue, rolling and curling it with her own, entwined like two lovers, drawing it further into her warm wetness as her pillowy boobs push into your [chest], her sweet, horny smell invading your nostrils as her overfull lips mash into your own, rubbing at your philtrum gently.' );
 		EngineCore.outputText( '\n\nYou are already ragingly hard, [eachCock] throbbing to the idea of those warm, expert folds of flesh sliding over ' );
 		if( CoC.player.cockTotal() === 1 ) {

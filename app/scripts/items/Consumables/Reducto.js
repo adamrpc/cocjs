@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum, CoC, Utils, Useable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, SceneLib, CockTypesEnum, CoC, Utils, Useable, EngineCore ) {
 	function Reducto() {
 		this.init(this, arguments);
 	}
@@ -20,14 +20,14 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		var rdtCock = (CoC.player.cockTotal() > 0 && CoC.player.biggestCockArea() > 6 ? this.reductoCock : null);
 		var rdtHips = (CoC.player.hipRating > 2 ? this.reductoHips : null);
 		var rdtNipples = (CoC.player.nippleLength > 0.25 ? this.reductoNipples : null);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ponder the paste in your hand and wonder what part of your body you would like to shrink.  What will you use it on?' );
 		EngineCore.choices( 'Balls', this, rdtBalls, 'Breasts', this, rdtBreasts, 'Butt', this, rdtButt, 'Clit', this, rdtClit, 'Cock', this, rdtCock,
 			'Hips', this, rdtHips, 'Nipples', this, rdtNipples, '', null, null, '', null, null, 'Nevermind', this, this.reductoCancel );
 		return (true);
 	};
 	Reducto.prototype.reductoBalls = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You smear the foul-smelling paste onto your ' + CoC.player.sackDescript() + '.  It feels cool at first but rapidly warms to an uncomfortable level of heat.\n\n' );
 		CoC.player.ballSize -= Utils.rand( 4 ) + 2;
 		if( CoC.player.ballSize < 1 ) {
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoBreasts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You smear the foul-smelling ointment all over your ' + CoC.player.allBreastsDescript() + ', covering them entirely as the paste begins to get absorbed into your ' + CoC.player.skinDesc + '.\n' );
 		CoC.player.shrinkTits( true );
 		if( Utils.rand( 2 ) === 0 && CoC.player.biggestTitSize() >= 1 ) {
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoButt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You smear the foul-smelling paste onto your ' + CoC.player.buttDescript() + '.  It feels cool at first but rapidly warms to an uncomfortable level of heat.\n\n' );
 		if( CoC.player.buttRating >= 15 ) {
 			CoC.player.buttRating -= (3 + Math.ceil( CoC.player.buttRating / 3 ));
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoClit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You carefully apply the paste to your ' + CoC.player.clitDescript() + ', being very careful to avoid getting it on your ' + CoC.player.vaginaDescript( 0 ) + '.  It burns with heat as it begins to make its effects known...\n\n' );
 		CoC.player.clitLength /= 1.7;
 		//Set clitlength down to 2 digits in length;
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoCock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.cocks[ 0 ].cockType === CockTypesEnum.BEE ) {
 			EngineCore.outputText( 'The gel produces an odd effect when you rub it into your ' + CoC.player.cockDescript( 0 ) + '.  It actually seems to calm the need that usually fills you.  In fact, as your ' + CoC.player.cockDescript( 0 ) + ' shrinks, its skin tone changes to be more in line with yours and the bee hair that covered it falls out.  <b>You now have a human cock!</b>' );
 			CoC.player.cocks[ 0 ].cockType = CockTypesEnum.HUMAN;
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoHips = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You smear the foul-smelling paste onto your [hips].  It feels cool at first but rapidly warms to an uncomfortable level of heat.\n\n' );
 		if( CoC.player.hipRating >= 15 ) {
 			CoC.player.hipRating -= (3 + Math.ceil( CoC.player.hipRating / 3 ));
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoNipples = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You rub the paste evenly over your ' + CoC.player.nippleDescript( 0 ) + 's, being sure to cover them completely.\n\n' );
 		//Shrink;
 		if( CoC.player.nippleLength / 2 < 0.25 ) {
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CockTypesEnum,
 		SceneLib.inventory.itemGoNext();
 	};
 	Reducto.prototype.reductoCancel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You put the salve away.\n\n' );
 		SceneLib.inventory.returnItemToInventory( this );
 	};

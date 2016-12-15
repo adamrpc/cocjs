@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 	};
 	//Shield Bash (Shieldmander Only);
 	Helspawn.prototype.helSpawnShieldBash = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var damage = Math.ceil( this.str - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		// Stuns a bitch;
 		EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lashes out with her shield, trying to knock you back!' );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib ) {
 	function ErlKingScene() {
 	}
 
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		return baseVal;
 	};
 	ErlKingScene.prototype.firstWildHuntEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you explore between the tall, ancient trees, you notice a thick fog beginning to spill out from between the trees and over the mossy ground. As the haze pours forth and flows past your [feet], you notice the forest around you growing distinctly darker and colder. \n\n' );
 		EngineCore.outputText( 'A shiver of unnatural fear runs up your spine, just as a hunting horn sounds from the distance.  You gasp, your breath materializing as a puff of fine, white mist.  Just as the echoes of the horn fade, a chorus of canine howls breaks through the' );
 		if( CoC.time.hours >= 0 && CoC.time.hours <= 10 ) {
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.addButton( 1, 'Run', this, this.firstWildHuntChase, false );
 	};
 	ErlKingScene.prototype.firstWildHuntChase = function( waited ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( !waited ) {
 			EngineCore.outputText( 'You stumble your way through the woods, but no matter which way you turn, you are greeted by bone-chilling fog.  Soon, canine snarls come from all sides.\n\n' );
 			EngineCore.outputText( 'You’re surrounded.\n\n' );
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		}
 	};
 	ErlKingScene.prototype.repeatWildHuntEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you wander through the Deepwoods, a familiar chilly fog begins to gather around your [feet], and in the distance, you hear the sound of a hunting horn and the baying of Hounds.\n\n' );
 		EngineCore.outputText( 'The Erlking is coming for you!\n\n' );
 		if( CoC.player.wingType !== AppearanceDefs.WING_TYPE_NONE ) {
@@ -185,7 +185,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.addButton( 1, 'Wait', this, this.repeatWildHuntWait );
 	};
 	ErlKingScene.prototype.repeatWildHuntWait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The fog pours in like a wave, surrounding you and blurring the forest around you.  You hear the thunder of hooves approaching, followed by the baying of hounds.\n\n' );
 		EngineCore.outputText( 'Unfazed, you cross your arms and stand firm, staring down the menacing fog. \n\n' );
 		EngineCore.outputText( 'The sounds of the hunt grow louder and louder until the trees themselves appear to be shaking with the sounds of the approaching hunt.  You stand tall, refusing to play the Huntsman’s twisted game.\n\n' );
@@ -206,7 +206,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		}
 	};
 	ErlKingScene.prototype.repeatWildHuntEscaped = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The Erlking might be the Master of the Hunt, but you are no one’s prey.  You immediately begin running, moving like the wind through the Deepwoods, your heart beating hard in your chest.' );
 		if( CoC.player.isGoo() ) {
 			EngineCore.outputText( 'You move like quicksilver over the forest floor, your slimy bottom half flowing over all obstacles, oozing you faster and faster, ever onward.' );
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.repeatWildHuntCaught = function( pScore ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		// Player Hunt Score < 150.  The Erlking captures you.
 		//If your score is above 100, the Erlking has his way with you.
 		// If your score is below 100, Gangbang by his Hounds (canine anthros).
@@ -330,7 +330,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.addButton( 4, 'Revenge', this, this.howDareYou );
 	};
 	ErlKingScene.prototype.whatsMyPrize = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stand up, brushing yourself off, and ignore the Erlking’s clearly-visible dick, stating that you’d like some compensation for all the trouble.\n\n' );
 		EngineCore.outputText( '“<i>Of course, of course!</i>” laughs the Erlking, reaching into one of his saddle bags, and retrieving a small bundle.  He tosses it to you.  “<i>Better luck to you on the next hunt!</i>”\n\n' );
 		EngineCore.outputText( '“<i>Next hunt?</i>” you begin, but before you can get the words out, the Erlking is already on his horse, thundering away through the trees.\n\n' );
@@ -350,7 +350,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 	};
 	ErlKingScene.prototype.stopTheMadness = function() {
 		CoC.flags[ kFLAGS.ERLKING_DISABLED ] = 1;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[This ends all the Erlking Encounters]
 		EngineCore.outputText( 'You have had enough of this maniac and his insane hunt.\n\n' );
 		EngineCore.outputText( 'Supremely irritated, you tell him to stop hunting you. \n\n' );
@@ -363,7 +363,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 	};
 	ErlKingScene.prototype.surrenderToTheHounds = function() {
 		//[Bad End]
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You sit there, shivering, unable to shake off the effects of the fog, looking up in utter fear at the huntsman who has pursued you for so long.\n\n' );
 		EngineCore.outputText( 'In a quavering voice, you bow your head, and ask him to take you as his prey once and for all.\n\n' );
 		EngineCore.outputText( '“<i>My poor hind,</i>” he mutters.  You feel his gloved hand on your head, running through your [hair] as your shoulders slump.  “<i>Perhaps I hounded you too fiercely,</i>” he murmurs, cupping your cheek.\n\n' );
@@ -446,7 +446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.gameOver();
 	};
 	ErlKingScene.prototype.predatoryPrey = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stand, unable to take your eyes from the Erlking’s slim body and erect dick.\n\n' );
 		EngineCore.outputText( 'You smile seductively, asking the Erlking exactly what he’s offering.\n\n' );
 		EngineCore.outputText( '“<i>Exactly what you’re thinking,</i>” rumbles the Erlking.  You feel the voice vibrating up through your arm.  Maybe it’s the lingering effects of the fog, but you need the Huntsman inside you, his arms around you, and as he slips one arm around at the small of your back, the other behind your head, fingers entwined in your [hair], you melt into his embrace.  \n\n' );
@@ -522,7 +522,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.howDareYou = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[ends the Hunt permanently, Opens Princess Option]
 		EngineCore.outputText( 'You’ve had more than enough of the Erlking and his insane hunt.  You rise to your [feet], slapping away his outstretched hand.  He frowns, but before he can react, you’ve charged forward and knocked the black wood cane out of his hand.  It spins off into the undergrowth, out of sight.  The light in his eyes dims, as does the glow from his antlers.\n\n' );
 		EngineCore.outputText( 'He stumbles backward, pained as if you’d struck him directly.  A look of confusion crosses his ridiculous deer face.  “<i>Wait - my cane - it fortifies me against the rigors of this land... </i>” he gasps, suddenly staggering.\n\n' );
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.encounterPrincessGwynn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you wander through the Deepwoods, you hear a rustling in the bushes.  You turn to see a flash of pink between the trees.  A slim, graceful figure steps out from behind a tree, wearing a dark green cloak and a small, leather shoulder bag.  It takes you a moment to recognize the Princess, the once-Erlking.  Her deer-like face and large, doe eyes peer timidly at you.\n\n' );
 		EngineCore.outputText( '“<i>Muh-M’lord?</i>” she asks softly.  Her lithe arms push through the low branches and trees as she steps closer to you.  She’s timid and twitchy, quite different from the ominous and powerful huntsman she’d once been.  In a moment, you see why.\n\n' );
 		var selector = Utils.rand( 6 );
@@ -614,7 +614,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.addButton( 4, 'Gifts', this, this.gwynnGibsGifts );
 	};
 	ErlKingScene.prototype.gwynnSucksDicks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>Yes, of course, M’Lord!</i>” Gwynn burbles, happily, dropping down to her knees.  In an instant, your [cock] is in her wet mouth.  Her time in the woods has developed her skill as she moans around your [cock], slurping wetly at it.\n\n' );
 		EngineCore.outputText( 'Her slim tongue rubs against the underside of your shaft, massaging it in time to the bobbing of her head.  Her index finger and thumb form a slim O at the base of your dick, pumping it counter to her head bobs, giving you continuous stimulation as she hums.\n\n' );
 		EngineCore.outputText( 'She hums as she works, sounding like the happiest little slut in the world.  She expertly works your cock, stroking and pumping your meat with her wet, hungry mouth and you feel yourself breathing heavily as her slurping grows louder and more eager.  \n\n' );
@@ -629,7 +629,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGetsButtfuxed = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>At once, M’Lord!</i>” she says, clapping her hands excitedly.  She bounces up in the air, then bounds low to the ground, pulling a small bottle from her purse, and dumping a liberal amount of raspberry-scented lube on your cock.  She works it in, her slim fingers massaging your cock to full attention before she hops around.\n\n' );
 		EngineCore.outputText( '“<i>Princess Gwynn is always prepared!</i>” she chirps happily.\n\n' );
 		EngineCore.outputText( 'She drops her shoulders to the ground and raises her white rump in the air, her pink, tufted tail twitching excitedly.  “<i>Your Princess is ready for you, m’Lord!</i>”\n\n' );
@@ -644,7 +644,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnNomsDaCunts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>Yes Ma’am,</i>” she says, licking her lips.  She points to a nearby stump, gesturing for you to have a seat on the soft moss.  As you do, she wastes no time in dropping her pink muzzle to your pussy.  \n\n' );
 		EngineCore.outputText( 'Her tongue eagerly plunges between your folds, running up and down the length of your pussy. Each time her muzzle bobs up, her candy-pink nose rubs against your clit, and she purrs, closing her eyes and nuzzling it.  She slowly laps at your slit, gradually building speed.\n\n' );
 		EngineCore.outputText( 'You sigh happily, bracing yourself with your arms and leaning back.  Princess Gwynn slurps noisily at your muff, her tongue moving faster and faster.  You gasp, pleasure building in your whole body as she withdraws her tongue from your pussy, wrapping her lips around your pleasure button.\n\n' );
@@ -662,7 +662,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGetsDickmilked = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>My Lord, are you sure?</i>” she says, tilting her head to the side.\n\n' );
 		EngineCore.outputText( 'You assure her that this is what you want and order her onto her back, lying on the soft, mossy ground.  One lithe arm is draped over her head, the other crosses over her chest, as she bites her lip, looking up at you nervously.\n\n' );
 		EngineCore.outputText( 'Her dick is already rigid, a foot long and mottled pink and white, like clouds at dawn.  You kneel down next to her and grasp it slowly, your fingers finding natural handholds along her triple prepuce rings.\n\n' );
@@ -680,7 +680,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, kFLAGS, ConsumableLib, 
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGibsGifts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '“<i>Do you have any presents for your Master?</i>” you ask casually.\n\n' );
 		EngineCore.outputText( 'Princess Gwynn claps her hands, bouncing on one foot, then the other.  “<i>Yes I do, M’Lord!  Yes I do!</i>”  She stops bouncing long enough to rifle through her purse, pulling out a small, pink bottle. \n\n' );
 		EngineCore.outputText( '“<i>This is my lube!</i>” she says with a smile.  “<i>Well, I use it for lube.  But you can also drink it to help control yourself when you don’t want to go crazy with lust,</i>” she babbles.  Her chirpy voice and new, even more bubbly attitude makes you unsure about this claim.  You give her a look and she blinks at you with wide eyes.  “<i>It’s yummy,</i>” she assures you with a bob of her head. \n\n' );

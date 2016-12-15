@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, CoC, PerkLib, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, SandWitch, kFLAGS, CockTypesEnum ) {
+angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC, PerkLib, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, SandWitch, kFLAGS, CockTypesEnum ) {
 	function Kitsune() {
 		this.init(this, arguments);
 	}
@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, CoC, PerkLib, 
 	};
 	//Struggle - event 5077 in combat.as
 	Kitsune.prototype.kitsuneStruggle = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Struggle:
 		EngineCore.outputText( 'You struggle against the kitsune\'s tails with all your might, desperately trying to free yourself before she has her way with you.' );
 		//Success
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, CoC, PerkLib, 
 		}
 	};
 	Kitsune.prototype.kitsuneWait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Happily, you slump deeper into the fluffy tails, eliciting an amused giggle from the kitsune.' );
 		if( EngineCore.silly() ) {
 			EngineCore.outputText( '  You\'re so glad you got to touch fluffy tail.' );

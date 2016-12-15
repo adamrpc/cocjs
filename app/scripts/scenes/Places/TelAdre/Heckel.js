@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Appearance, CockTypesEnum, kFLAGS, Descriptors, CoC, EngineCore ) {
 	function Heckel() {
 	}
 
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kF
 	};
 	//First time Sex;
 	Heckel.prototype.heckelTraining = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var dom = null;
 		//Rejection;
 		//Tone not high enough or fat too high;
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kF
 			if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 				EngineCore.outputText( 'The centauress working the door walks up to collect her fee, and you drop 10 gems for an hour workout into her hand.\n\n', false );
 				CoC.player.gems -= 10;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 			EngineCore.outputText( 'You follow her towards the changing rooms, which are built into the wall like large shower stalls near the actual showers.  There is a larger locker room connecting them and the showers, making you pause.  It takes you a moment to realize that in a place where genders are so blurred, separating showers by genitalia is apparently impossible.  The locker room is unisex, and by the time you figure that out and walk in your guide has already disappeared.  A moment later, you hear the sound of a shower from around the corner.\n\n', false );
 			EngineCore.outputText( 'You wander down the rows of aisles, but the room appears to be deserted.  Either the gym isn\'t doing as well as you thought, or this isn\'t a popular time to work out in Tel\'Adre.  You barely finish walking into sight of the showers when the nozzle shuts off.  A moment later, Heckel walks out with a towel around her torso, her mouth splitting into a grin at the sight of you.  Her fur is matted down from the shower, and with every step you can see the movement of her toned muscles across her body.  Her fur is so short that it starts springing back to normal even as she approaches you, but you can see her muscles move under her skin even still.\n\n', false );
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kF
 			if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
 				EngineCore.outputText( 'The centauress working the door walks up to collect her fee, and you drop 10 gems for an hour workout into her hand.\n\n', false );
 				CoC.player.gems -= 10;
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 			EngineCore.outputText( 'You know the drill as you follow Heckel into the locker room. You watch her undress before she walks into the shower room, admiring the way her toned ass moves in counterpoint to her tail. She shoots you a fang-filled grin as she disappears around the corner, and you use the opportunity to shed your own clothes.\n\n', false );
 			EngineCore.outputText( 'By the time she comes back into the locker room, you\'re completely naked. She doesn\'t bother to cover herself as she towels her fur off, making the coarse hair stand on end in more than a few places. She tosses the towel aside as she passes you, her black cock already bobbing between her legs. She sits down on one of the simple wooden benches and pats the spot next to her, beckoning you over.\n\n', false );
@@ -255,7 +255,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kF
 	};
 
 	Heckel.prototype.dominateHeckel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Smirking, you fold your arms and tell her to bend over - ' );
 		if( CoC.flags[ kFLAGS.TIMES_DOMMED_HECKEL ] === 0 ) {
 			EngineCore.outputText( 'there\'s a new top dog just waiting to claim the town bitch' );
@@ -308,7 +308,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Appearance, CockTypesEnum, kF
 	};
 	//[Fuck Heckel];
 	Heckel.prototype.dominateHeckelConclusion = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.cockThatFits( 70 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();

@@ -1405,7 +1405,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 	//[vagina selection with BoobGartuan in tow] ;
 	ShouldraScene.prototype.ginaBoobgartuanShouldra = function() {
 		EngineCore.spriteSelect( 67 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Ah,</i>" she sighs while settling into your form, "<i>only ladyparts... well... ugh.</i>"  You can sense her disappointment, and regardless of the ridiculousness of the situation, you feel cheering her up would be helpful. On sudden inspiration, you begin to tickle and tease your ' + Descriptors.allBreastsDescript() + '.  Before long, the ghost girl\'s protests change to grunts of satisfaction.  "<i>Those are... nice,</i>" she admits, and with her pleasure in mind, you knead the torpedoes more forcibly, eliciting a small gasp from her.  What you didn\'t have in mind, however, was the occupant of the oversized orbs you\'re handling.  With a boobquake that actually forces your hands away, the archdemon Exgartuan surges to alertness.' );
 		EngineCore.outputText( '\n\n"<i>RIGHT, THEN, WHAT THE FUCK IS THIS!?</i>"  Several moments pass before you realize your demonic knockers are referring to your temporary "roommate."    Before you can begin to explain, the spirit moves her essence up into your shoulder, her head pushing out of the skin to get a better look at your moving, talking ' + Descriptors.allBreastsDescript() + '.' );
 		EngineCore.outputText( '\n\n"<i>Who the fuck is THIS?</i>?" she retorts, her sharp tone making you wince.  "<i>And why are you in this gal\'s boobs?  Oh, and-</i>"  She\'s cut short, her face contorting into a mask of discomfort.  The specter\'s head begins bobbing, as if she something were tugging her foot.  With a small yelp, she disappears completely, pulled back into your body, and... into your breasts?  Indeed, you can actually feel the spirit moving into the ' + Appearance.biggestBreastSizeDescript() + ', and you can\'t help but shudder at the sensation.  As you\'re moving a hand curiously to your endowments, a voice -- it has to be the ghost girl\'s -- rings out.  "<i>Oh nooo!  I\'ve been caught!</i>" she wails, but despite the words, you detect nearly cloying overtones of arousal.  While you\'re pondering her change of heart, you suddenly fall into a dream-like trance.  When your vision clears, you\'re struck with a vision of two figures in a huge chamber. The walls, you notice, have a suspiciously fleshy texture.' );
@@ -1437,7 +1437,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 	 Scene is selectable along with original two*/
 	ShouldraScene.prototype.slimeGhostGalForHerms = function( clearOut ) {
 		if( clearOut ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		EngineCore.outputText( 'Your naked trot towards the emerald ooze stops as worry washes over your sexual cravings.  The contemplative expression forming on your face catches the attention of your ghostly friend.  "<i>I know exactly what you\'re mulling over, but don\'t worry,</i>" she assures you with a condescending chuckle.  The haunted blob slowly approaches you, seamlessly transitioning from its shapeless form to a perfect representation of the apparition mid-stride.  "<i>' );
 		//{event occurrence === 0};

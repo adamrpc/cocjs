@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Doppleganger, AppearanceDefs, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
 	function DopplegangerScenes() {
 	}
 
 	DopplegangerScenes.prototype.getDemGlasses = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You step into the room and move across to the optician stand. The metal door clicks shut behind you. A feeling of unease grows in your gut as you walk further into the room; the place seems gloomier and larger than it did from the door. You almost jump out of your skin as somebody suddenly emerges to your right- but of course it’s just you, reflected in the intricately decorated, oval-shaped mirror which centers the room. You smile at your own silliness, before watching your expression change to a frown. You seem very sharply focused in it; the room behind you barely seems there at all. Some kind of enchantment to refine a demon’s appearance, you guess.' );
 		EngineCore.outputText( '\n\nYou turn away and head over to the upright display of dark shades, pulling a pair out of their indents. They are completely reflective on the side facing away from your eyes, and the word \'Laybans\' is engraved down one arm. Whatever they are used for, you know one thing for certain are going to look ice cool wearing them. Pleased, you turn back towards the door- and get a start. Was the standing mirror facing this way when you came in here? Maybe it is double sided, but... you grin uneasily at your own reflection. It grins back. It looks a great deal more confident than you think your smile should look, given the circumstances. You find it difficult to look away now you are confronted with a clear, full length image of what you look like; for so long now you’ve relied on the vague, faltering surface of the stream near your camp it’s almost startling to be given such a clear picture of yourself.' );
 		if( CoC.player.humanScore() > 4 ) {
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs,
 	DopplegangerScenes.prototype.punchYourselfInTheBalls = function() {
 		CoC.flags[ kFLAGS.D3_DOPPLEGANGER_DEFEATED ] = 1;
 		CoC.player.createKeyItem( 'Laybans', 0, 0, 0, 0 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The doppelganger falls to the floor, sobbing and broken. For one long moment you feel the nagging pull to exactly replicate [his] actions... and then it’s gone. The world comes back sharply into focus. You have won.' );
 		EngineCore.outputText( '\n\n“<i>No...</i>” your mirror image snivels in front of you. “<i>Ten years, ten years I waited for this. You can’t put me back in there, you can’t!</i>” You gaze down at what you look like when you are defeated open, eyes glazed, ' + CoC.player.hairDescript() + ' muddled, your flesh trembling and clenching, the very picture of a bitch awaiting further subjugation. No wonder 90% of Mareth is so keen on wanting to make this sight happen. The doppelganger chances a look up, catches your expression, and freezes. “<i>You... you wouldn’t.</i>”' );
 		EngineCore.menu();
@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs,
 		EngineCore.addButton( 1, 'End It', this, this.killYourself );
 	};
 	DopplegangerScenes.prototype.fuckYourself = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'This, you feel, is an opportunity which is not likely to arise again.' );
 		if( CoC.player.hasVirginVagina() ) {
 			EngineCore.outputText( '  You smile widely at your clone as you undress. Now neither of you will be virgins.' );
@@ -178,14 +178,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, Doppleganger, AppearanceDefs,
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.killYourself = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '\n\nYou hold its gaze for a moment more, and then with a single, fluid movement turn and smash your [weapon] into the engraved mirror. A shrill scream mingles with the sound of breaking glass, but by the time the shards begin to tinkle and chime to the floor it’s keened away, and when you turn back the doppelganger is gone. The shrill sound could have been the sound of the mirror itself when you hit it, you suppose. This could all have been a very strange fugue. Certainly, standing here now in this dishevelled storage room, it’s difficult to believe what just happened. Shaking your head, you make sure the protective glasses you came here for are still in your pocket before heading to the door and leaving.' );
 		Combat.cleanupAfterCombat();
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.inSovietCoCSelfFucksYou = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Everything feels so vague, so inconstent; your body and mind shimmer like a lake hit by rain, incapable of focusing, incapable of holding onto a shape, a slave to any force that wants to form you. Who are you? It is obvious, isn’t it. Your image floats in front of you, the only clear thing you can perceive. It grins triumphantly, and you grin back is all you can do. Its movements define you, dominate you utterly, within and without. When it steps forward and puts its hand out, it isn’t by choice you mimic the action - it is all you can do. Your fingers stretch out to meet their mirror image, but before they meet they touch a cold, invisible barrier. Glass. True understanding of your situation permeates you like spreading oil, but you cannot gasp, scream in horror, pull at your hair. You slowly pull away from the mirror’s surface, your grin widening, because that is what the demon who has taken your form is doing.' );
 		EngineCore.outputText( '\n\n“<i>Beautiful,</i>” you and [he] breathe. “<i>I will do great things with this body, [name], things you couldn’t have imagined, poor soulful innocent that you were. I will take my revenge with it, but first...</i>” [He] stares at [his] reflection smoulderingly as [he] raises [his] hands to [his] armor. [He] forces you to take off your clothes with [him], and you feel it just as clearly as if you were controlling the actions; the way your underclothes whisper off you, the way your naked flesh goose bumps in the coolness of the room' );
 		if( CoC.player.hasCock() ) {

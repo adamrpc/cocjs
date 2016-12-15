@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	};
 	IncubusMechanicScenes.prototype.payDaToll = function() {
 		CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_PAID;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems -= 500;
 		EngineCore.outputText( '\n\nYou unceremoniously fill a small pouch with 500 gems and toss it to the incubus.' );
 		EngineCore.outputText( '\n\nHe lamely says, "<i>You know, I wasn\'t really serious about the gems. Are you sure you don\'t want to suck my dick instead?</i>" The demon offers you your bag full of money back.' );
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.useLiftPostDefeat = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You spend a minute or two fiddling with the lift controls, trying to understand how, exactly, to control the contraption. When you think you\'ve got a handle on the system, you tug on a lever with authority and hastily step onto the platform.' );
 		EngineCore.outputText( '\n\nThere\'s a railing to hold onto as you\'re lowered down to the mountains. While the platform does rock from side to side along the slow trip down, its motions are not erratic enough to put you in any significant danger. Even better, you aren\'t bothered by a single harpy along the way. This section of the high mountains seems to have been cleansed of them.' );
 		EngineCore.outputText( '\n\nThe platform touches down roughly thirty minutes after your departure, and you head back to camp with all due haste.' );
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	};
 	IncubusMechanicScenes.prototype.suckIncubusDick = function() {
 		CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_SUCKED;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.gems < 500 ) {
 			EngineCore.outputText( 'You spare a glance to your depleted pouches and admit, "<i>I guess I\'ll suck your dick then.</i>"' );
 		} else {
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	};
 	IncubusMechanicScenes.prototype.beatDaMechanic = function( hpVictory ) {
 		CoC.flags[ kFLAGS.D3_MECHANIC_LAST_GREET ] = MECHANIC_FOUGHT;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The mechanic collapses, his overalls' );
 		if( hpVictory ) {
 			EngineCore.outputText( ' falling off his prone from, shredded.' );
@@ -163,13 +163,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	};
 	IncubusMechanicScenes.prototype.killMechanic = function() {
 		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_KILLED;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'He proves blessedly easy to kill, and you roll the body off the cliffs to avoid alerting any of Lethice\'s other ilk.' );
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	IncubusMechanicScenes.prototype.letMechanicGo = function( hpVictory ) {
 		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_RELEASED;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Feeling merciful, you point off the side of the cliff. <i>"Leave this place and never return. If you do, I might have to kill you. I\'d rather not shed any more blood than necessary, but I will do what I have to in order to cleanse this land. Leave and never return. Maybe you can find your own peace without driving everything around you to corruption."</i>' );
 		EngineCore.outputText( '\n\nThe incubus' );
 		if( hpVictory ) {
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 			x = 0;
 		}
 
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '\n\nThe incubus may have done his best to seduce you with his' );
 		if( !hpVictory ) {
 			EngineCore.outputText( ' throbbing hard' );
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	var MECHANIC_DOG_COCK = 2;
 	IncubusMechanicScenes.prototype.rideMechanicsCock = function() {
 		CoC.flags[ kFLAGS.D3_MECHANIC_FIGHT_RESULT ] = MECHANIC_FUCKED_YOU;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Well, he does have quite the thick, throbbing piece of male genitalia on display for you.... There\'s no sense in letting a good cock go to waste, right? You stalk over to him, looming over the defeated demon with a predatory grin. Your tongue flicks out to lick your lips. Meanwhile, your lower ones go suddenly and irrevocably slick, excited and instantly ready for a helping of thick demon-cock. Your [vagina] is getting warmer and warmer as you tease the poor demon, leaving him to wonder if you\'re going to kill him or fuck him. The worry is as obvious on his face as the upraised tumescence that jabs spear-like out from his crotch, aimed straight at you.' );
 		EngineCore.outputText( '\n\nAbruptly, you drop your [butt] down on top of him, sitting square on top of his chest' );
 		if( CoC.player.tailType !== 0 ) {
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	};
 	IncubusMechanicScenes.prototype.rideMechanicsCockII = function( cType ) {
 		CoC.flags[ kFLAGS.D3_MECHANIC_COCK_TYPE_SELECTION ] = cType;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Demon first:;
 		if( cType === MECHANIC_DEMON_COCK ) {
 			EngineCore.outputText( 'Giving the incubus\'s sweaty cock an affectionate squeeze, you decide, "<i>I think I like this just the way it is."</i> With your hand, you cup his balls and tenderly stroke his surprisingly smooth, supple sack for emphasis, rewarding him for not struggling any further. He moans and releases a dollop of pre-cum from his tip, coating his own glans is liquid excitement. Around his swollen crown, the bumps flare and expand out to reach their full size. You can\'t help but wonder what it would feel like to have his dick inside you, pulsating, sliding, and dragging its many stimulating knobs all over your slick, sensitive inner walls.' );
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		}
 	};
 	IncubusMechanicScenes.prototype.maleLossToMechanic = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Turned into living Sybian, more or less. Always hard and with a magic cockring that vibrates your dick on contact with pussy.;
 		//Lust loss;
 		if( !hpVictory ) {
@@ -564,7 +564,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		EngineCore.doNext( this, this.maleLossToMechanicII );
 	};
 	IncubusMechanicScenes.prototype.maleLossToMechanicII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'An agonizingly perfect pussy is suddenly pressing down on your cock, subsuming it in slick, hot depths that cling and squeeze with undulations so skillful you\'d be cumming already if it weren\'t for the magic ring.' );
 		EngineCore.outputText( '\n\nYou gasp, "<i>Please! Let me cum! I need it!</i>"' );
 		EngineCore.outputText( '\n\nLaughing, the fair voice of a less-than-fair demon coos, "<i>If you do a good job getting me off, maybe.</i>" She stuffs her spaded tail into your mouth, effectively gagging you and forcing you to breathe through your nostrils. "<i>Now hush up or I\'ll get rid of that noisy little hole. Momma\'s gonna have some nice, long cums on you, toy."</i> She begins to bounce in a slow up-and-down movement. Ordinarily such an experience would be marvellous, but to you, it\'s sexual torture. Your demonically-charged member aches with need, so close and yet forever so far.' );
@@ -577,13 +577,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		EngineCore.doNext( this, this.maleLossToMechanicIII );
 	};
 	IncubusMechanicScenes.prototype.maleLossToMechanicIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The champion finally got to cum once Lethice had her turn, but by that point, pussy was all ' + CoC.player.mf( 'he', 'she' ) + ' could think about. Release came more frequently with the demon queen\'s permission. It didn\'t really matter, though. The champion was addicted to riding on the edge of climax, broken into nothing more than a demonic vibrator.' );
 		EngineCore.gameOver();
 	};
 
 	IncubusMechanicScenes.prototype.errybodyelseLossToMechanic = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Get turned into girl-lube pot.;
 		//Genderless Lust Loss;
 		if( !CoC.player.hasVagina() && !hpVictory ) {

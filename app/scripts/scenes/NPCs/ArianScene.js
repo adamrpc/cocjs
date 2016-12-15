@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Happens randomly while visiting Tel'Adre. If player doesn't choose to help, Arian is removed from the game.;
 	//If you don't help, Arian is removed from the game.;
 	ArianScene.prototype.meetArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you wander Tel\'Adre\'s streets, you pass by one of the many dark alleys that litter the half-empty city; you hear the sound of hacking, rasping coughs.  Following your ears, you see a hooded figure wrapped in a form-concealing cloak slumped against the wall, bent over and coughing loudly, wheezing for breath.  They really don\'t sound very well at all... on the other hand, it could be a setup for muggers or something.  Maybe you shouldn\'t try playing the good samaritan here...' );
 		//[Help] [Don't Help];
 		EngineCore.menu();
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Don't Help=];
 	ArianScene.prototype.dontHelpArianWhenYouMeetHim = function( never ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Not liking the risks it presents - after all, they could be a mugger, or have something nasty and highly contagious - you keep on walking.  You\'ve not gone too far before a pair of figures, elegantly dressed ferret-morphs, nearly slam into you, running quickly.  You shout at them to watch where they\'re going, but they ignore you, instead heading straight for the alleyway you just passed.  You watch as they grab the hooded figure and pull them to their feet.  The ferrets start chattering at their target; though you can\'t make out precisely what they\'re saying, it sounds like a scolding, even as they take a bottle from a pouch they\'re carrying and make the hooded figure drink it.  The cloaked man\'s coughs start to subside, and they promptly take an arm each and half-lead, half-carry him away.  You wonder what that was all about, but decide it doesn\'t matter and press on.' );
 		//Disable the bitch if appropriate.;
 		if( never ) {
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Help=];
 	ArianScene.prototype.helpArianWhenYouMeetHim = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_PARK ] = 1;
 		CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] = 1;
 		CoC.flags[ kFLAGS.ARIAN_CAPACITY ] = 50;
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//But you can just spam it if you want, there is no schedule and Arian will magically be at the park whenever you go there.;
 	//Use variable ArianPark to determine the number of visits.;
 	ArianScene.prototype.visitThePark = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you enter the ragged remnants of the park, you spot the sickly lizan, Arian, sitting at his usual bench, and greet him.  "<i>Oh, hello there [name].  Good to see you.</i>"  He waves lazily.' );
 		//Visit 1;
 		if( CoC.flags[ kFLAGS.ARIAN_PARK ] === 1 ) {
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//First Visit;
 	ArianScene.prototype.visitAriansHouse = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 29 || CoC.flags[ kFLAGS.ARIAN_VIRGIN ] === 1 ) {
 			this.arianHealth( 1 );
 		}
@@ -506,14 +506,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		}
 	};
 	ArianScene.prototype.dontSleepWithArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide not to sleep with Arian at night, for now.' );
 		CoC.flags[ kFLAGS.SLEEP_WITH ] = '';
 		this.arianHomeMenu();
 	};
 	//[=Eavesdrop=];
 	ArianScene.prototype.eavesDropOnArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You sidle up to the door, pressing your ear against the wood and start to listen intently.' );
 		EngineCore.outputText( '\n\n"<i>Curse my illness... curse my dreams... oh, [name]... if only you knew....</i>"  Arian pants and moans, the distinct fapping sound of a hand slapping reaches your ears.  "<i>Ah! The things you do to me... the things I wish you would do to me... ah....</i>"' );
 		EngineCore.dynStats( 'int', 1 );
@@ -523,7 +523,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Peep=];
 	ArianScene.prototype.peepOnArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Curious, you decide to take a little peek through the lock; you press yourself against it as best you can, looking through into the bedroom beyond.  True to what your ears heard, the sickly albino\'s health has improved enough for him to focus on more... carnal matters.  Naked from the waist down, he sits on the edge of his bed, groinal slit disgorging a single, average-sized phallus.  Maybe 6 inches long, it\'s a bright purple-red color, covered in strange lumps' );
 		if( CoC.player.lizardCocks() > 0 ) {
 			EngineCore.outputText( ' just like yours' );
@@ -539,7 +539,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Leave=];
 	ArianScene.prototype.leaveFappingArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide to let Arian have some privacy and leave for the moment... after all, what the lizan mage does in his free time is not really your business....' );
 		EngineCore.outputText( '\n\nAs you make your way back to the entryway, Boon sees you and asks, "<i>Leaving already? Usually you stay with master Arian for at least an hour... what happened?</i>"' );
 		EngineCore.outputText( '\n\nYou tell Boon that Arian seems to be a bit busy at the moment, so you\'ll just come back later.' );
@@ -550,7 +550,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Barge in=];
 	ArianScene.prototype.bargeInOnArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'With a wry smirk you turn the knob and find that Arian\'s door is unlocked; without missing a beat, you open the door and step in right in time to see a sticky rope of pre paint Arian\'s slender belly as he scrambles to cover himself up.' );
 		EngineCore.outputText( '\n\n"<i>[name]!  W-Wait, I can explain!  I swear I... I... oh, Marae!</i>"  He hides himself under the covers of his bed, his white-scaled face red with shame.' );
 		EngineCore.outputText( '\n\nSlowly you approach the hiding lizard, and sit on his bed.  You let him know you\'re flattered to be his object of desire, and that there\'s no need to hide himself.  If he felt this way about you he should just have said so.' );
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Like Male=];
 	ArianScene.prototype.hermsLikeMaleArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell him that\'s not the case for you; you don\'t have a problem with him being a guy.  In fact, you think he looks very cute, earning you a nervous smile.  Arian relaxes, letting you look over his body and decide what you want to do....' );
 		//(Should you penetrate him or mount him?);
 		//Penetrate - (Proceed to appropriate scene);
@@ -613,7 +613,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Prefer Female=];
 	ArianScene.prototype.hermsLikeFemaleArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell him that while you do like to play with guys once in a while, you prefer girls.' );
 		EngineCore.outputText( '\n\n"<i>So... you\'d prefer if I was a girl... right?</i>"' );
 		EngineCore.outputText( '\n\nYou scratch your chin in thought, and imagine how he would look as a girl; then you tell him you\'d love it if he was a girl.  "<i>Okay then... I... I\'ll do it!</i>"' );
@@ -633,7 +633,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Don't mind=];
 	ArianScene.prototype.youDontMindBeingGayForArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell him that you don\'t have a problem with males, as long as they\'re cute.  You smile at him.  "<i>You... do you really think I\'m cute?</i>"' );
 		EngineCore.outputText( '\n\nYou nod, it\'s not everyday you see a grown man acting like a hopeless virgin.  At the mention of the word ‘virgin\' Arian recoils.... Surprised by this development you ask him if he really is a virgin.' );
 		EngineCore.outputText( '\n\nArian hides his face once more inside his covers and says in a whisper, "<i>Yes....</i>"' );
@@ -649,7 +649,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Like Girls=];
 	ArianScene.prototype.youLikeGirlsNotSickLizardDudes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell him that you prefer females.... Arian looks at you expectantly.  "<i>So... if I was a girl... then you wouldn\'t mind?</i>"' );
 		EngineCore.outputText( '\n\nYou scratch your chin in thought; and let him know that if he was a girl, then you wouldn\'t mind at all.  "<i>Okay then... I... I\'ll do it!</i>"' );
 		EngineCore.outputText( '\n\nYou raise your eyebrows. What is he planning on doing?' );
@@ -674,7 +674,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//((if ArianHealth >= 10) && (ArianSDialogue === 0))//May give Vitality T. and Arian will accept it.;
 	ArianScene.prototype.arianStoryDialogue1 = function() {
 		this.arianHealth( 1 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You feel like you\'d like to know a bit more about Arian, so you ask if he would mind sharing some of [Arian eir] history with you.  After all, as a survivor from at least the early days of the demon war, and a wizard to boot, he\'s got to have some stories up [Arian eir] voluminous sleeves.' );
 		EngineCore.outputText( '\n\nArian nods.  "<i>I guess it isn\'t fair that I\'m the only one that gets to hear your stories... but before we start....  How long ago do you think this whole demon trouble started?</i>"' );
 		EngineCore.outputText( '\n\nYou shrug your shoulders; ' );
@@ -725,7 +725,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	////((if ArianHealth >= 20) && (ArianSDialogue === 1)) ;
 	//Can sex Arian.;
 	ArianScene.prototype.arianStoryDialogue2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'You look Arian over, remarking that he seems to be getting better after all.' );
 		EngineCore.outputText( '\n\n"<i>Thanks to you.</i>" Arian smiles, then he looks down and sighs.  You ask him what\'s wrong.' );
@@ -748,14 +748,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//=Drop It=;
 	ArianScene.prototype.arianStory2DropIt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Though you do feel a little curious, you decide to stop making him uncomfortable, and tell him that it\'s okay, you\'ll let him get some sleep now.' );
 		EngineCore.outputText( '\n\n"<i>Thanks, [name].  I\'ll see you later then.</i>"  Arian tucks himself in.  You watch until he\'s settled in, and then start the trek back to your home-away-from home in the Marethian wilderness.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//=Pry=;
 	ArianScene.prototype.arianStoryPry = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Oh, no, you\'re not letting him wriggle out of this that easily.  You playfully tap [Arian eir] nose and tell him he should come clean and confess' );
 		if( CoC.player.cor < 40 ) {
 			EngineCore.outputText( '; he\'ll sleep better with the burden off [Arian eir] conscience' );
@@ -768,7 +768,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//((if ArianHealth >= 30) && (ArianSDialogue === 2));
 	//Will Teach Magic;
 	ArianScene.prototype.arianDialogue3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'Before you can say anything, Arian asks you, "<i>[name], I\'ve been wondering....  Do you have any interest in magic?  You\'ve done so much for me; I believe I should return the favor somehow.</i>"' );
 		//ArianSDialogue++;;
@@ -780,7 +780,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//=Yes=;
 	ArianScene.prototype.yesArianShouldMagicTeach = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell [Arian em] that sounds fascinating.  You\'d love to learn how to cast spells the way [Arian ey] can, and you\'re grateful [Arian ey] wants to take you on as an apprentice.  Especially when [Arian ey]\'s already so busy with the ones [Arian ey] already has.  Arian rubs the back of [Arian eir] neck.  "<i>Sorry, [name].  But I can\'t actually teach you how to cast spells the same way I do....  That would take years to teach, not to mention it\'s very dangerous; I mean, look at what it\'s done to me....</i>"  [Arian Ey] smiles at you.  "<i>But I could still teach you about magic in general - how to cast more spells, how to make them more powerful, the principles behind every spell....  Basically, theory that might help you in the pursuit of magical studies.  I spent my whole childhood buried in books, so I\'m sure I could help you out somehow.</i>"' );
 		EngineCore.outputText( '\n\nYou smirk and point out that\'s basically what you meant, but you\'re definitely still interested either way.  Arian nods happily.  "<i>Okay, then, where to start....</i>"' );
 		//(Go to Talk about Magic);
@@ -789,7 +789,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//=No=;
 	ArianScene.prototype.noArianShouldntMagicTeach = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You think it over for a moment, and then tell Arian that while you are flattered by the offer and willing to consider it, you can\'t say that you want to study magic right this moment.  You\'d like to discuss it at some other time, please.' );
 		EngineCore.outputText( '\n\nArian nods happily.  "<i>Certainly, I\'d be happy to be of some help to you.  So... is there something you\'d like to do today?</i>"' );
 		//(display options) ;
@@ -798,7 +798,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//((if ArianHealth >= 50) && (ArianSDialogue === 3));
 	//Give Talisman, Imbue unlocked.;
 	ArianScene.prototype.arianImbue = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'Before you can say anything, Arian gasps, "<i>Oh, [name].  I have a surprise for you.</i>"  Arian says with a smile.' );
 		EngineCore.outputText( '\n\nA surprise?  What is it?' );
@@ -825,14 +825,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//=Yes=;
 	ArianScene.prototype.yesPlotSexArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You approach the awkwardly amorous lizan and place your arms around [Arian eir] neck.  Leaning in close, you whisper into [Arian eir] ear that [Arian ey] only had to ask.' );
 		//(Display Sex Menu);
 		this.arianSexMenu( false );
 	};
 	//=No=;
 	ArianScene.prototype.noPlotSexNauArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You apologize to the lizan, telling [Arian em] that you aren\'t in the mood right now....' );
 		EngineCore.outputText( '\n\nArian looks a bit disappointed, but doesn\'t press the issue.  "<i>Oh... Okay then, but... maybe, next time?</i>" [Arian ey] asks hopefully, smiling nervously despite [Arian eir] embarrassment....' );
 		EngineCore.outputText( '\n\n Maybe next time, you agree. Arian grins at you.  "<i>Okay, then.  Is there something else you\'d like to do?</i>"' );
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//((if ArianHealth >= 75) && (ArianSDialogue === 4));
 	//Will treat Corruption.;
 	ArianScene.prototype.arianPlot4 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'Before you can say anything, Arian says, "<i>Oh, I have good news, [name]!</i>"' );
 		EngineCore.outputText( '\n\nGood news?  What is it?' );
@@ -856,7 +856,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//((if ArianHealth === 100) && (ArianSDialogue === 5));
 	ArianScene.prototype.arianPlot5 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'Before you can say anything, Arian stops you.  "<i>I\'ve been meaning to ask you something, [name].  I\'ve been feeling a lot better lately; in fact, I may be even better than I was before.</i>"  Arian blushes.' );
 		EngineCore.outputText( '\n\n"<i>I wanted to ask you if we could... well... live together?</i>"  Arian bites [Arian eir] lower lip.' );
@@ -878,7 +878,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Accept=];
 	ArianScene.prototype.acceptArianMovingIntoCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Arian you\'d be delighted to have [Arian em] move in with you.  Arian\'s face lights up like a kid\'s who\'s been given a bucket of candy.  "<i>Really!?  Great!  I\'ll pack my stuff and we can go right away!</i>"' );
 		//(Skip to ‘Invite to Camp');
 		EngineCore.menu();
@@ -886,14 +886,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Deny=];
 	ArianScene.prototype.denyAriansMoveIn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Arian you\'d like some time to think about it.  Arian looks disappointed at first, but smiles at you all the same.  "<i>I understand... no pressure....  So, what are we going to do today?</i>"' );
 		//(Display Options);
 		this.arianHomeMenu();
 	};
 	//Talk;
 	ArianScene.prototype.talkToArianChoices = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Arian you\'d like to talk to [Arian em].  Arian smiles at the prospect of chatting with you.  "<i>I love talking with you; so what do you want to talk about?</i>"' );
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.ARIAN_VIRGIN ] > 0 ) {
@@ -914,7 +914,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Magic Lessons, teaches white magic and increases int. Up to 100.;
 	//Gain a pretty nice boost, 4 lessons per day, only.;
 	ArianScene.prototype.arianMagicLessons = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'You ask Arian if [Arian ey] wouldn\'t mind giving you some magic lessons.' );
 		//(if ArianMLesson >= 4);
@@ -1024,7 +1024,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Sex:;
 	//Available after the first time you have sex. (ArianVirgin > 0);
 	ArianScene.prototype.arianSexingTalk = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 1 );
 		EngineCore.outputText( 'You smirk knowingly at [Arian em] and ask how [Arian ey] feels about sex now that [Arian ey]\'s had [Arian eir] first time?' );
 		EngineCore.outputText( '\n\nArian bites [Arian eir] lower lip in embarrassment.  "<i>I... umm... can\'t we talk about something else?</i>"  You shake your head and tell [Arian em] there\'s nothing to be ashamed of.  The two of you have already shared intimacy after all; and you\'d like to know [Arian eir] kinks and wishes as well.' );
@@ -1131,7 +1131,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 
 	//[=Yes=];
 	ArianScene.prototype.yesYouButtslutIllFuckYou = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'How could you refuse such a request?  You tell [Arian em] to strip and get ready.' );
 		EngineCore.outputText( '\n\nArian jumps to the task and eagerly strips, laying down in bed and swaying [Arian eir] tail back and forth as [Arian ey] waits for you to do the same.' );
 		//(Go to Give Anal);
@@ -1140,14 +1140,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=No=];
 	ArianScene.prototype.goddamnitNoYouButtSlut = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You apologize, but you really can\'t do that right now.  Arian looks a bit disappointed, but smiles at you all the same.  "<i>Oh... okay.  Next time then?</i>"' );
 		EngineCore.outputText( '\n\nYou nod.' );
 		this.sexTalkFinish( false );
 	};
 	ArianScene.prototype.sexTalkFinish = function( newl ) {
 		if( newl ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -1157,7 +1157,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Invite to Camp:;
 	//Only available if ArianHealth === 100.;
 	ArianScene.prototype.inviteArianToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask the lizan if [Arian ey] still really wants to leave [Arian eir] comfortable home in the city and come out to live with you in your little camp in the wastelands?' );
 		EngineCore.outputText( '\n\n"<i>Of course I do!</i>" Arian says enthusiastically.' );
 		EngineCore.outputText( '\n\nWell, if [Arian ey] really wants to do that... though why [Arian ey] would want to do that escapes you... [Arian ey] can come and move in.  But [Arian ey] will need to bring [Arian eir] own tent and sleeping bag and stuff like that, you warn the overenthusiastic lizard-' );
@@ -1196,7 +1196,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		EngineCore.addButton( 0, 'Next', this, this.takeYerLizardHomePartII );
 	};
 	ArianScene.prototype.takeYerLizardHomePartII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Upon arriving at the camp, the first thing Arian notices is the shimmering portal.  "<i>Is this... where you came from?</i>" Arian asks.' );
 		EngineCore.outputText( '\n\nYou nod your head and confirm that, yes, this was the doorway from your world into Mareth.' );
 		EngineCore.outputText( '\n\n"<i>I heard that sometimes people from other worlds wandered into Mareth through portals, but I have never seen one up close before.</i>"  Arian stares deeply at the portal.  "<i>It\'s beautiful... and menacing, too.</i>"  Shaking [Arian em]self out of [Arian eir] reverie, Arian takes an open spot close to your tent.' );
@@ -1229,7 +1229,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//ArianHealth must be at least 20 before you can even pick Sex as an option.;
 	ArianScene.prototype.arianSexMenu = function( output ) {
 		if( output === undefined || output ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You ask Arian if [Arian ey] feels strong enough to do a little lovemaking.' );
 			//(if ArianHealth < 30);
 			if( CoC.flags[ kFLAGS.ARIAN_HEALTH ] < 30 ) {
@@ -1311,7 +1311,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//PC must have a cock that fits (cock area 50 or less);
 	ArianScene.prototype.giveArianAnal = function() {
 		var x = CoC.player.cockThatFits( 50 );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.arianHealth( 3 );
 		CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] += 10;
 		if( CoC.flags[ kFLAGS.ARIAN_ANAL_XP ] >= 100 ) {
@@ -1628,7 +1628,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Get Blown:;
 	//PC must have a cock.;
 	ArianScene.prototype.getBlownByArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
@@ -1713,7 +1713,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-penetrate' ) );
@@ -1840,7 +1840,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Get Anal:;
 	//Arian must have a cock.;
 	ArianScene.prototype.getButtWreckedByArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
@@ -2020,7 +2020,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Blow:;
 	//Arian must have a cock.;
 	ArianScene.prototype.suckAriansDick = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
@@ -2128,7 +2128,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//PC must have a vagina.;
 	//Arian must have a cock.;
 	ArianScene.prototype.getPenetratedByArianAndHisHitlerMustache = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
@@ -2306,7 +2306,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//PC must have at least 2 cocks that fit. That means two cocks with a cock area of <= 50.;
 	//This isn't meant to give AnalXP, but given the fact that Arian's ass will get pen'd it would also be justified. Up to you Fen!;
 	ArianScene.prototype.doublePenetrateArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		EngineCore.outputText( ImageManager.showImage( 'arianfemale-home-doublepenetrate' ) );
@@ -2413,7 +2413,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//ArianCockSize needs to be below 3. (ArianDblCock does not affect this decision.) ;
 	//PC cock area must be <= 30.;
 	ArianScene.prototype.arianDocking = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_VIRGIN ] += 1;
 		this.arianHealth( 3 );
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
@@ -2518,7 +2518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//Give Item;
 	ArianScene.prototype.giveArianAnItem = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Thinking about the many items in your possession, you ask if Arian would be willing to take something for you?' );
 		//(if ArianHealth < 10) //May not give anything.;
 		if( CoC.flags[ kFLAGS.ARIAN_S_DIALOGUE ] < 1 ) {
@@ -2585,7 +2585,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//increases ArianHealth by 4.;
 	//Remove this option once Arian's health hits 100.;
 	ArianScene.prototype.arianVitalityTincture = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Fishing around amongst your pockets, you withdraw a vial of that strange potion Giacomo peddles and offer it to the sickly lizan, explaining it will bolster [Arian eir] constitution and fill [Arian em] with permanent vitality.' );
 		EngineCore.outputText( '\n\nArian smiles gratefully at you.  "<i>Thanks for doing this for me, [name].</i>"' );
 		EngineCore.outputText( '\n\nYou tell [Arian em] it\'s no trouble, then smirk and note it\'s not as if that sleazy peddler\'s hard to find out there in the wasteland, anyway.  You see the look on the lizan\'s face and hasten to assure [Arian em] that you\'re certain the potion works, you just don\'t trust that weasely merchant as far as you can throw him.' );
@@ -2605,7 +2605,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//If cock(s) size is maxed, next dose reduces breast size.;
 	//If at min breast size, next dose reverts Arian to male. (Lose breasts and vagina.);
 	ArianScene.prototype.giveIncubusDraftToArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.P_DRAFT );
 		EngineCore.outputText( 'Fishing around in your pockets, your hand closes on the vial of purified incubus draft.  You offer this to Arian, asking ' );
 		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
@@ -2733,7 +2733,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Extra doses increase breasts size.;
 	//If breasts is at maximum size, extra doses reduce Cock Size. Removing first the second cock and then the first one if necessary.;
 	ArianScene.prototype.succubiMilkForArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.P_S_MLK );
 		EngineCore.outputText( 'Fishing out the bottle of purified demon\'s milk, you ask if Arian is willing to get ' );
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
@@ -2834,7 +2834,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Triggers Scene with temporary lactation;
 	//If Arian has breasts, Increases breasts size by 1.;
 	ArianScene.prototype.giveArianLactaid = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.LACTAID );
 		EngineCore.outputText( 'Your hand closes around the vial of lactation-inducing potion that is Lactaid.  You almost reject it automatically, but then you stop and think.  There\'s odder things in this world, after all.  You remove the vial and ask Arian if [Arian ey] would be willing to let you see what lizan milk tastes like.' );
 		EngineCore.outputText( '\n\n"<i>I don\'t know.  Lizans don\'t actually lactate, since we lay eggs, so I don\'t know if this...</i>"  Arian squints [Arian eir] eyes to read the label on the vial you\'re holding.  "<i>...Lactaid will even work.  But if you want to try, I suppose it couldn\'t hurt... right?</i>"  Arian smiles nervously.' );
@@ -2891,7 +2891,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Reduces the size of a part;
 	//Has a Back option, it displays no text, just cancels the interaction and goes back to previous menu.;
 	ArianScene.prototype.giveArianReducto = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Eyeing Arian up and down, you fish your pouches for a tube of Reducto.  Once you\'ve found it, you hand it over to Arian and tell [Arian em] you\'d like [Arian em] to reduce something for you.' );
 		EngineCore.outputText( '\n\n"<i>Umm... sure, which part?</i>"' );
 		//(Display Options);
@@ -2907,7 +2907,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Breasts:;
 	//Cannot go flat;
 	ArianScene.prototype.useReductoOnAriansBreasts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.REDUCTO );
 		EngineCore.outputText( 'You point at Arian\'s ' );
 		if( CoC.flags[ kFLAGS.ARIAN_BREASTS ] === 1 ) {
@@ -2936,7 +2936,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Removes 2nd cock if at minimum size.;
 	//Cannot remove cocks.;
 	ArianScene.prototype.useReductoOnArianCocks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.REDUCTO );
 		EngineCore.outputText( 'You point at [Arian eir] crotch, mentioning that you\'d like [Arian em] to be smaller.' );
 		EngineCore.outputText( '\n\n"<i>Oh, ok then.</i>"  Arian opens [Arian eir] robes and squeezes the tube of Reducto on an open palm.' );
@@ -3006,7 +3006,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Lose AnalXP, can't reduce it past 1.;
 	//How much AnalXP should be lost per use is up to Fen.;
 	ArianScene.prototype.useReductoOnAriansAsshole = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.REDUCTO );
 		EngineCore.outputText( 'You ask Arian to hand the tube of reducto back over to you, telling [Arian em] that you want to make [Arian em] a little tighter when you do [Arian em] from behind.  The lizard-' );
 		if( CoC.flags[ kFLAGS.ARIAN_COCK_SIZE ] > 0 ) {
@@ -3072,7 +3072,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Makes Arian horny and high, like giving catnip to a cat in some ways. ;
 	//Chance to make Arian grow a second dick, if [Arian ey] has only one. (high chance: 50%);
 	ArianScene.prototype.giveArianReptilum = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.consumeItem( ConsumableLib.REPTLUM );
 		EngineCore.outputText( 'Fingering the vial of reptilium, you smirk to yourself.  Quickly wiping it off your face, you instruct Arian to close [Arian eir] eyes and open [Arian eir] mouth, as you have a special surprise for [Arian em].' );
 		EngineCore.outputText( '\n\nArian, quickly complies.  "<i>Okay, but can you at least tell me what is this about?</i>"  [Arian ey] asks in curiosity.' );
@@ -3206,7 +3206,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Balancing it is up to Fen.;
 	//Reduce corruption, maybe libido, once per day.;
 	ArianScene.prototype.treatCorruption = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Arian if [Arian ey] thinks [Arian ey] can help you reduce some of the taint that has infected your soul.' );
 		if( CoC.flags[ kFLAGS.ARIAN_TREATMENT ] === 1 ) {
 			EngineCore.outputText( '\n\nArian solemnly shakes [Arian eir] head.  "<i>Sorry, [name].  But I have already treated you once today, and if I did it again it could be hazardous to you... sorry.</i>"' );
@@ -3241,7 +3241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Perhaps introduce a cooldown to the talisman?;
 	//Ultimately, balance is in Fen's hands.;
 	ArianScene.prototype.imbueTalisman = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Arian that, if it\'s not too much trouble, you\'d like [Arian em] to ' );
 		if( CoC.player.hasKeyItem( 'Arian\'s Talisman' ) >= 0 ) {
 			EngineCore.outputText( 'place a spell in the enchanted talisman [Arian ey] created for you' );
@@ -3270,7 +3270,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		EngineCore.addButton( 9, 'Back', this, this.arianHomeMenu );
 	};
 	ArianScene.prototype.arianSpellPlace = function( spell ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Arian that you want [Arian em] to place the ' + spell + ' spell in your talisman for you.' );
 		EngineCore.outputText( '\n\n"<i>Okay. Please, hand me the ingredients and I\'ll have it imbued in a moment.</i>"  [Arian Ey] smiles at you.  Fishing around amongst your belongings, you gather the necessary items and hold them out to the lizan.' );
 		EngineCore.outputText( '\n\nArian eagerly nabs the offered ingredients and moves to [Arian eir] work desk.  [Arian Ey] takes a nearby bowl and fills it with water, then looks around.  "<i>Hmm... I\'m forgetting something... oh, right!  I\'m going to have to ask you for your talisman, too, [name].</i>"  [Arian Ey] extends a hand to you.' );
@@ -3321,7 +3321,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Sleep With Arian;
 	ArianScene.prototype.sleepWithArian = function( newl ) {
 		if( newl ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		}
 		CoC.flags[ kFLAGS.SLEEP_WITH ] = 'Arian';
 		EngineCore.outputText( 'Tired after a whole day of adventuring, you decide to retire and catch some shut-eye.  While going through the day\'s events, you recall Arian had offered to let you stay in [Arian eir] tent and sleep with [Arian em] in [Arian eir] bed.  Your tired body could surely use a soft bed today, and maybe a certain lizan to keep you company too.  With that in mind, you head to [Arian eir] tent.' );
@@ -3378,14 +3378,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Sleep=];
 	ArianScene.prototype.dontListenToLowAnalXPArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You gently stroke the lizan\'s side and plant a soft, gentle kiss on [Arian eir] neck.  At your ministrations, Arian sighs and slowly falls still again.  You wait, but it seems that whatever dreams [Arian ey] was having have faded and [Arian ey]\'s truly asleep now, allowing you to go back to sleep yourself.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.camp, SceneLib.camp.sleepWrapper );
 	};
 	//[=Listen=];
 	ArianScene.prototype.listenToLowAnalXPArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 1;
 		EngineCore.outputText( 'You turn you head to try and catch what Arian might be dreaming about.' );
 		EngineCore.outputText( '\n\n"<i>In my ass?  Are you sure?</i>"' );
@@ -3407,7 +3407,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Sleep=];
 	ArianScene.prototype.dontListenToMediumAnalXPArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You gently stroke the lizan\'s side and plant a soft, gentle kiss on [Arian eir] neck.  At your ministrations, Arian sighs and slowly falls still again.  You wait, but it seems that whatever dreams [Arian ey] was having have faded and [Arian ey]\'s truly asleep now, allowing you to go back to sleep yourself.' );
 		SceneLib.camp.sleepRecovery( false );
 		EngineCore.menu();
@@ -3415,7 +3415,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Listen=];
 	ArianScene.prototype.listenToMediumAnalXPArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_MORNING ] = 1;
 		EngineCore.outputText( 'You turn you head to try and catch what Arian might be dreaming about.' );
 		EngineCore.outputText( '\n\n"<i>Hmm... no, not my muffins.</i>"' );
@@ -3455,14 +3455,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//[=Sleep=];
 	ArianScene.prototype.dontTeaseHighAnalXPArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You gently stroke the lizan\'s side and plant a soft, gentle kiss on [Arian eir] neck.  At your ministrations, Arian sighs and slowly falls still again.  You wait, but it seems that whatever dreams [Arian ey] was having have faded and [Arian ey]\'s truly asleep now, allowing you to go back to sleep yourself.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.camp, SceneLib.camp.sleepWrapper );
 	};
 	//[=Tease=];
 	ArianScene.prototype.TeaseHighAnalXPArian = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 			EngineCore.outputText( ImageManager.showImage( 'arianfemale-camp-dreamingArian' ) );
 		} else {
@@ -3504,7 +3504,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Always happens the morning after sleeping with Arian.;
 	//Outcome slightly modified by AnalXP.;
 	ArianScene.prototype.wakeUpAfterArianSleep = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasCock() ) {
 			if( CoC.flags[ kFLAGS.ARIAN_VAGINA ] > 0 ) {
 				EngineCore.outputText( ImageManager.showImage( 'arianfemale-camp-dreamingArian' ) );
@@ -3687,7 +3687,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//It always happens the first time you visit Arian, every 30th day.;
 	//If you don't visit Arian, you miss this event, and the eggs she would be laying.;
 	ArianScene.prototype.arianEggingEvent = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_EGG_EVENT ] = 1;
 		if( CoC.flags[ kFLAGS.ARIAN_EGG_CHAT ] === 0 ) {
 			CoC.flags[ kFLAGS.ARIAN_EGG_CHAT ]++;
@@ -3728,7 +3728,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		if( color === undefined ) {
 			color = 'pink';
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ] = color;
 		EngineCore.outputText( 'You tell Arian you\'d like her to make you a ' + color + ' egg.' );
 		EngineCore.outputText( '\n\n"<i>All right,</i>" Arian replies, closing her eyes and beginning to focus her magic.' );
@@ -3740,7 +3740,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	};
 	//Leave;
 	ArianScene.prototype.leaveEggs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell her that you don\'t want any colored eggs from her this month.  The lizan nods, deciding it\'s not necessary for her to spell out that this means she\'ll just produce ordinary eggs and eat them for breakfast after she\'s laid them.  "<i>So, do you want something?</i>" she asks.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -3750,7 +3750,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 	//Even if you miss, trigger it the next visit anyways, so as long as you don't miss the egging event, you don't miss out on your colored eggs.;
 	//Randomly decide between small or large egg, I'd say 50% chance of either.;
 	ArianScene.prototype.arianLaysEggs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var color = CoC.flags[ kFLAGS.ARIAN_EGG_COLOR ];
 		CoC.flags[ kFLAGS.ARIAN_EGG_COUNTER ] = 0;
 		EngineCore.outputText( 'As you approach the tent, you wonder if Arian\'s ready to lay those eggs...  Your contemplations are promptly interrupted as you hear a pained moan coming from inside.  Seems like Arian is in labor!  Without delay, you rush inside, to be greeted by the sight of naked lizan-' );
@@ -3808,7 +3808,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		//Cocks are going to be more or less forgotten here.;
 		//PC must have the dildo sex toy from Giacomo to access this scene;
 		//PC and Arian must both have vaginas to access this scene;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//1st time:;
 		if( CoC.flags[ kFLAGS.TIMES_ARIAN_DILDOED ] === 0 ) {
 			EngineCore.outputText( 'Looking over your reptilian girlfriend, your eyes go down her body' );

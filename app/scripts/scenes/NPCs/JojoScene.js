@@ -103,13 +103,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//CORRUPT CAMP JOJO;
 	JojoScene.prototype.corruptCampJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 0 ) {
 			//Corrupt Amily and Jojo sexings;
 			if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && SceneLib.amilyScene.amilyFollower() && this.campCorruptJojo() && CoC.flags[ kFLAGS.AMILY_X_JOJO_COOLDOWN ] <= 0 && Utils.rand( 5 ) === 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 0 ) {
 				CoC.flags[ kFLAGS.AMILY_X_JOJO_COOLDOWN ] = 7;
-				EngineCore.hideMenus();
+				MainView.hideAllMenuButtons();
 				this.amilyTeachingJojoBJ();
 				return;
 			}
@@ -226,7 +226,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.harvestJojoDraft = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You tell Jojo that you want him hooked up to a cock milker whenever possible; you need his fluids.' );
 		EngineCore.outputText( '\n\n“<i>Th-that’s why you wanted me to come out here? To... harvest me?</i>” Jojo’s mouth opens to the monstrosity of it, even as his dick strains helplessly to the selfsame idea.' );
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	JojoScene.prototype.stopHarvestJojoDraft = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You tell Jojo to stop producing incubus draft; you’re practically drowning in the stuff. Jojo closes his eyes, and you grin as you envisage the image you’ve just planted in his mind.' );
 		EngineCore.outputText( '\n\n“<i>Would you like that, Jojo? To literally drown in your [master]’s fluids? Well, maybe later. For now, when you’re fapping to the idea, squirt your useless cum somewhere other than into a bottle, got that?</i>”' );
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	JojoScene.prototype.sendToFarm = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You tell your pet mouse' );
 		if( this.tentacleJojo() ) {
@@ -266,7 +266,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.backToCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You tell him to head back to camp; there are things you need to do to him you can’t do whilst he’s here. Repeatedly. Jojo trembles, manages a bow, and then slowly trails off towards camp.' );
 		CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] = 0;
@@ -782,7 +782,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( payout > 0 ) {
 			CoC.player.gems += payout;
 			CoC.flags[ kFLAGS.WHITNEY_GEMS_PAID_THIS_WEEK ] += payout;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00331 ]++;
 			if( payout === 1 ) {
 				EngineCore.outputText( Utils.Num2Text( payout ) + ' gem rolls out into a collection plate.  Whitney really put a lot of work into this!  You pocket the gem and g', false );
@@ -1030,7 +1030,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//Scene 1: Amily Teaches Jojo How To Give Blowjobs. (Z);
 	JojoScene.prototype.amilyTeachingJojoBJ = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//First time version	;
 		if( CoC.flags[ kFLAGS.TIMES_AMILY_AND_JOJO_PLAYED_TIMES ] === 0 ) {
 			EngineCore.outputText( 'Your pet mice make an appearance as you\'re plotting your next move, Amily practically dragging Jojo behind her, ignoring the thick ropes of spunk he drizzles on the ground in his path.  He pants and whines, "<i>-don\'t wanna suck cocks!  Fucking is totally better.</i>"' );
@@ -1060,7 +1060,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Scene 1 Result: Male Gets BJ (Z);
 	JojoScene.prototype.BJRidesGETYOUONE = function() {
 		SceneLib.amilyScene.amilySprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You step into view and knowingly ask just what all the fuss is about.  Amily meekly prostrates herself before you, apologizing, "<i>I\'m sorry, [master], I merely wanted to help your boyslut learn to satisfy your needs better.</i>"  You wait, just long enough to make her nervous.  The pregnant pause hangs in the air as both your murine whores look increasingly worried, their large, radar-like ears twitching fitfully about as they await your response.  Laughing, you undo your [armor] and ask Amily how she planned to teach without a proper \'teaching tool\'.' );
 		EngineCore.outputText( '\n\nThe succubus-tainted mouse looks up at you with lust pooling in her large, languid eyes.  "<i>As you command, [master],</i>" she whispers eagerly as she rises her feet, her spaded tail curling behind Jojo\'s neck, dragging him closer to you.  Flopping free, [oneCock] dangles enticingly in the air before them, swaying back and forth to a rhythm that seems almost hypnotic to your poor, corrupted sluts.  They zero in on your [cock biggest] as if it were the only thing in the world.  Even Jojo\'s reluctant attitude evaporates when faced with the irresistable allure of your swinging manhood.  He sits at your [feet] as eagerly as his teacher, his expression an ecstatic portrait of mesmeric cock-worship.' );
 		EngineCore.outputText( '\n\nTaking your [cock biggest] in hand, Amily begins to caress it in adoring reverence before beginning her lecture.  "<i>It\'s important to make sure you\'ve gotten your [master]\'s attention before really getting into it, particularly if [he] isn\'t fully hard yet.  As you can see, [name] is already pleased by my devotion to [his] cock.  Of course, the direct approach can often work just as w-</i>"  Amily cuts herself off by jamming ' );
@@ -1096,7 +1096,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Fill Amily's Mouth (Z);
 	JojoScene.prototype.fillAmilysMouth = function() {
 		SceneLib.amilyScene.amilySprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Amily to open wide, and she gleefully yanks your [cock biggest] away from Jojo.  He whines pathetically but, servile as he is, the mouse-boy' );
 		if( CoC.player.balls > 0 ) {
 			EngineCore.outputText( ' leans down to desperately suckle at your [sack], subserviently worshipping your bloated testes and their liquid bliss one after another; tonguing, sucking, and moaning into the spunk - bloated mass of your ambrosial scrotum.' );
@@ -1113,7 +1113,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Fill Amily's Twat (requires not short-ass, weak-ass nigga) (Z);
 	JojoScene.prototype.stuffAmilysMouthWithPostBJCUM = function() {
 		SceneLib.amilyScene.amilySprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Amily to hurry up and climb on.  With a squeak of joy, she bounds up into your arms, immediately sinking her plush little pussy onto your lap and swallowing your cocktip.  Surprising you with her control, she holds herself like that, restraining herself from taking in your whole [cock biggest] and instead bouncing up and down atop your peak while Jojo attends to the lower portion of your manhood with his eager tongue.  He tentatively licks along the swell of your shaft, sucking at the sensitive underside and planting desperate kisses over your length, lapping up Amily\'s freely flowing juices as she rides the crest of your pulsing tip.  The mouse-girl\'s ears tickle as they brush against you, her voice husky with desperate need.  "<i>Please, [master], give slut your seed.  Her cunny needs to be filled sooo badly.  Make me your pregnant, baby-bloated whore, [master]!</i>"' );
 		EngineCore.outputText( '\n\nAs if you\'d resist such an invitation!  You squeeze your demon mouse tightly and push her further down, impaling her juicy snatch ' );
 		EngineCore.outputText( 'on your rigid fuck-tool' );
@@ -1129,7 +1129,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Fill Jojo's Mouth (Z);
 	JojoScene.prototype.fillJojosMouthWithHotStickyCum = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You point at Jojo and command, "<i>Open wide.</i>"  The former monk happily opens his muzzle broadly, so far open that his buck-teeth practically vanish into the roof of his mouth.  Amily looks disappointed, but then she consoles herself by [if (hasBalls = true) sinking down to covetously suck your swollen balls while ]tugging on your shaft, squeezing it from stem to stern with hard, fast pumps.  Jojo\'s tongue slips out to lick the beading pre-cum from your [cock biggest] as it flexes powerfully in the other slut\'s grip.  Warmth races through your loins as you feel your orgasm approaching.' );
 		EngineCore.outputText( '\n\nAn explosion of bliss burns in your head as [eachCock] spews its load.  Thick waves of pent-up jism spray out from your cum-slit, filling Jojo\'s mouth with honey-thick cream, and splatter across his nose and hair.  He gurgles as his mouth fills with your musky spunk and opens wider, keenly trying to catch as much of your seed as possible with his cum-dribbled face before he slurps it down in one sputtering gulp.[if (cumQuantity < 500) "  You discharge your alabaster lacquer again and again, white-washing his already pale fur until his face seems little more than a glistening mask, dripping with your seething unguent.  Bound to your will, he patiently awaits your permission to swallow, his pacified mouth full to the brim, leaking out the sides in twin ivory cascades. You nod curtly and the tamed mouse-boy obeys happily, savoring the humbling salt of your overpowering jizz as it rolls down his throat." else "  You spurt again and again, splattering heavy ropes of goo across his face and fur.  His mouth floods, too full of jizz to contain it all, giving the vanquished monk a thick glaze of cum that very quickly leaves his body with an oily sheen."][if (cumQuantity >= 1000)   He swallows, taking a blast of spunk across his brow, and opens up again, giving you another hole to aim for.  Another eruption of your virile seed rushes past his lips and coats the back of his throat in your fluid ivory, nearly drowning him as the column of jism gushes into his windpipe and up his nostrils, surging out of his nose.  The domesticated mouse gulps desperately at your slimy passion while your fountaining cum arcs to dump fat globs on his shuddering body.]  You finish and shove your [cock biggest] into his throat for cleaning.  Jojo happily obliges.' );
 		EngineCore.outputText( '\n\nWhile one of your mouse-toys is polishing your rod, the other is masturbating and panting.  "<i>Please, [master], may I... may I have some cum?  Can I... I lick him clean?  He\'s so...</i>"  She inhales and luridly moans, "<i>...messy.</i>"  You give her your assent as you withdraw your spit-shined pecker from Jojo\'s maw, not caring how the two of them get their rocks off so long as your harem is kept well-trained and willing.' );
@@ -1140,7 +1140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Scene 2: Amily And Jojo Fuck (w/o Tentacles) (Z);
 	JojoScene.prototype.amilyAndJojoFuck = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You find a nearby rock to perch on as the two mice begin to get more lewd with their actions.  Amily uses her tail to sit Jojo down in front of her, squeezing his taut balls in her hand and gasping when he spews a thick stream of pre-cum.  You use the commotion as cover to squeeze out of your [armor] and get comfortable.  Thankfully, neither of them hears you, or if they do, they don\'t care.  Amily titters, "<i>Wow, no wonder [master] keeps you around with a cum-fountain like that!</i>"  She gently traces a fingertip along the swollen underside of Jojo\'s cock, giggling when he, over-stimulated, immediately starts dripping fluid on her fingers.' );
 		EngineCore.outputText( '\n\nJojo moans, "<i>Ugh... stop... please Amily, please, can I cum?</i>"  Amily jerks and shakes her head in disappointment.  She mouths, "<i>Not yet,</i>" and stands back up, turning around and pulling Jojo\'s muzzle into her slippery twat with her demonic tail.  The former monk\'s protests are muffled by Amily\'s sodden quim, and he soon begins to eagerly slurp at her drooling cunny.  With each enthusiastic lick, she reaches between her knees to caress Jojo\'s corruption-engorged cock, egging him on to please her more thoroughly.' );
 		EngineCore.outputText( '\n\n"<i>R-right there,</i>" Amily moans, "<i>Lick my clit!  Suck it!  Suck it bitch!</i>"  Jojo reaches around her to find her tits, and he begins to knead them in his hands while he eats her out, matching his movements to the rhythm of his graceful tongue and the pulsing suction of his mindless lust on her drenched joybuzzer.  She shudders and cries out in euphoric mastery. "<i>Yes!  Fuck yes!  Good bitch! GOOD BIIITCH!</i>"  Jojo\'s muzzle and face darken from a sudden onslaught of moisture, and you realize Amily has just cum so hard her gushing orgasm has soaked his face with her glistening honey.  She tumbles down onto her hands and knees, groaning and shuddering as the spasming climax wracks her body and mind.' );
@@ -1203,7 +1203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.jojoDefenseToggle = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 ) {
 			CoC.player.removeStatusAffect( StatusAffects.JojoNightWatch );
 			EngineCore.outputText( 'You tell Jojo that you no longer need him to watch the camp at night.  He nods, then speaks.  "<i>Alright.  Please let me know if you require my help again.</i>"' );
@@ -1219,7 +1219,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		this.jojoSprite();
 		CoC.player.removeStatusAffect( StatusAffects.JojoNightWatch );
 		CoC.player.removeStatusAffect( StatusAffects.PureCampJojo );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ask Jojo if he\'d like to go on a hunt through the woods to clear out some of the corrupted creatures, and the mouse readily agrees.  He asks if you\'ve been getting a bit stir-crazy from having your camp in one place as the two of you walk into the woods...' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.jojoRape, false );
@@ -1227,7 +1227,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	JojoScene.prototype.defeatedJojo = function( hpVictory ) {
 		this.jojoSprite();
 		if( CoC.player.lust > 33 && CoC.player.gender > 0 ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You smile in satisfaction as Jojo' + (hpVictory ? ' collapses, unable to continue fighting' : ' collapses and begins masturbating feverishly') + '.  Sadly you realize your own needs have not been met.  Of course, you could always rape the poor thing...\n\nDo you rape him?' );
 			EngineCore.doYesNo( this, this.postCombatRape, null, Combat.cleanupAfterCombat );
 		} else {
@@ -1277,7 +1277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.jojosFirstRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You pretend to agree, and follow Jojo into the woods.  You bide your time, waiting for him to relax.  Eventually the mouse stumbles, and you have your chance!\n\n' );
 		if( CoC.player.gender === 1 ) {
 			EngineCore.outputText( 'You push him hard, following through to pin his small frame.  He struggles but you twist his arm expertly and hold him down with your larger bodyweight.  He squirms as you tear off the bottom of his outfit, protesting mightily as you force him into the dirt and expose his toned bottom.\n\n' );
@@ -1357,7 +1357,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.jojosSecondRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The poor mouse is already hard... his cock is throbbing eagerly as it protrudes through the opening in his robe, looking nearly eight inches long.  You\'re pretty sure it wasn\'t that big last time.\n\n' );
 		this.monk += 1;
 		CoC.player.orgasm();
@@ -1404,7 +1404,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.jojosThirdRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		$log.debug( 'Monk(3) rape' );
 		EngineCore.outputText( 'It\'s no wonder the monk\'s body has betrayed him so thoroughly, his ' + CoC.monster.cockDescriptShort( 0 ) + ' is nearly ten inches long, pulsing with hot need.\n\n' );
 		if( CoC.player.gender === 1 ) {
@@ -1582,7 +1582,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.jojosFourthRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Jojo flops down, eyes filled with anticipation.  His self-control has really slipped away.  The corrupted and horny mouse on display here is anathema to the studious monk you met before.  His cock is close to a foot long and over two inches thick, veiny with arousal.\n\n' );
 		//Male Version;
 		if( CoC.player.gender === 1 ) {
@@ -1773,7 +1773,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.jojosFifthRape = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Jojo smiles serenely, pleased at the outcome, a foot of tumescent mouse-meat bobbing at attention.\n\n' );
 		//Placeholder till I'm less lazy;
 		EngineCore.outputText( 'You fuck your mousey slut for what feels like hours, orgasming until both of you are tired and worn out.  ' );
@@ -1785,7 +1785,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 	};
 	JojoScene.prototype.loseToJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( this.monk === 2 || this.monk === 3 ) {
 			EngineCore.outputText( 'Jojo glares down at you, and begins praying, slowly laying prayer papers all over your battered form.  You feel rage that quickly dissipates, replaced with a calm sense of peace.  You quickly lose consciousness, but are happy he defeated you.\n\nWhen you wake, you discover a note fighting allowed me to exorcise most of your inner demons.  A part of me wanted to seek revenge for what you had done to me, but I know it was the taint on your soul that was responsible.  If we meet again I would be happy to meditate with you.\n\n          -Jojo.</i>"' );
 			CoC.player.orgasm();
@@ -1846,12 +1846,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 				EngineCore.hideUpDown();
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'cor', 1 );
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 			//HP Defeat;
 			else {
 				EngineCore.outputText( 'You black out from the pain of your injuries.\n\n' );
-				EngineCore.statScreenRefresh();
+				MainView.statsView.show();
 			}
 		}
 		Combat.cleanupAfterCombat();
@@ -1881,7 +1881,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoBJCruel = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You yell out into the jungle, "<i>Slut!</i>" Minutes later Jojo slips into your camp from the jungle\'s shadows, dropping to his knees with a timid look of fear in his eyes. You step forward and grip the fur between his shell-like ears firmly, hissing angrily, "<i>When I call for you, you need to be here. Do I need to teach you your place again?</i>"  ' );
 		EngineCore.outputText( 'He shakes his head as you say this, trying to marshal up the strength to resist you. You draw your teeth back in a snarl of anger at this resistance and punch the mouse in the gut, dropping him to his knees gasping for breath.  ' );
@@ -1901,7 +1901,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoBJGentle = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'As if on command, Jojo slips into your camp from the jungle\'s shadows, dropping to his knees with a timid look of fear in his eyes. You step forward and caress your fingers through the fur between his shell-like ears, whispering softly to him, "<i>It\'s all right, my beautiful slut, it will all be over soon.</i>"' );
 		EngineCore.outputText( '  He whimpers as you say this, feeling the corruption flowing off of your body like an alluring musk, drawing him deeper into your service.  ' );
@@ -1925,7 +1925,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoCunnilingus = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You decide to finally reward your slut for all his service to you, summoning him to your camp for pleasure. He meekly appears at your bidding and you direct him to lie down on the ground before you. He does as you ask and you gently spread his legs, settling down between them.  ' );
 		EngineCore.outputText( 'He looks at you in confusion that turns to bliss as you start to lick and caress his sheath and balls, urging the male to a full erection.  ' );
 		switch( Utils.rand( 3 ) ) {
@@ -1945,7 +1945,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoVaginalGentle = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Feeling the urge to be filled, you summon your mouse slut to you and smile as he quickly responds, moving to kneel before you reverently. You let your hand caress the side of his head, then order him to lay back.  ' );
 		EngineCore.outputText( 'He swallows and nods, nervously obeying, stretching himself out on his back on the ground. He watches as you crawl slowly up his body and press a firm kiss to his muzzle, which he returns with the impossible lust you have planted within him. You can feel his member stirring between your legs, rising up firm against your ' + (CoC.player.hasCock() ? 'own endowments' : 'crotch') + ' as you grind your dripping slit along it.  ' );
 		if( CoC.player.vaginalCapacity() < 10 ) {
@@ -1970,7 +1970,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoVaginalSmother = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You feel the need to gain a little sexual relief and a mischievous idea comes to your mind, making you grin wickedly. You slip off into the jungle to seek out your monk mouse fuck toy, and when you find him, you practically pounce atop him, pinning him to his back. He struggles in surprise until he realizes that it is you, at which point he blushes and tries to look away, unable to help the erection that you are sitting against as you straddle him.  ' );
 		EngineCore.outputText( 'You crawl further up his body and grin down at him as you press your already dripping pussy to his mouth and command sharply, "<i>Start licking if you want to breathe.</i>" His eyes go wide, but you can feel his tongue already starting to work at your lusty slit.  ' );
 		if( CoC.player.vaginas.wetness > 4 ) {
@@ -1988,7 +1988,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoAnalCruel = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You decided that it is time to seek out your pet monk slut, and stalk into the jungle after the mouse. It doesn\'t take long to find him, so you move silently to avoid his notice. You move with a predator\'s grace as you sneak up behind him, your hand reaching down to grab hold of his tail firmly as you shove him against a nearby tree.  ' );
 		EngineCore.outputText( 'You press your body up behind him' + (CoC.player.biggestTitSize() >= 2 ? ', mashing your breasts against his back' : '') + ' and hiss into his ear, "<i>Hello slut...</i>" You keep hold of the base of his tail, hiking it up to lift his ass enough that he has to go to his toes to stay standing. You listen to him whimper softly as he feels your stirring loins press against the cleft of his oh-so-fuckable ass.  ' );
@@ -2007,7 +2007,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoAnalGentle = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You watch as Jojo slinks into your camp from the dense jungle, moving timidly with his eyes focused on your feet. The sight of such a once pious monk reduced to your submissive fuck toy stirs your loins and brings a smile to your lips.  ' );
 		EngineCore.outputText( 'You pull him against your body in a firm and possessive hug, and press your lips to his in a forceful kiss, laughing as you break the kiss to the sight of his discomfort. You pay it little mind as you gently force him back onto the ground and spread his legs. You can see in his eyes that he knows what is coming, and you can see that he is as eager for it as he is humiliated by that eagerness.  ' );
@@ -2027,7 +2027,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoAnalSmother = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You feel the need to gain a little sexual relief and a mischievous idea comes to your mind, making you grin wickedly. You slip off into the jungle to seek out your monk mouse fuck toy, and when you find him, you practically pounce atop him, pinning him to his back. He struggles in surprise until he realizes that it is you, at which point he blushes and tries to look away, unable to help the erection that you are sitting against as you straddle him.  ' );
 		EngineCore.outputText( 'You crawl further up his body and grin down at him as he stares at your exposed pussy. You suddenly spin, sitting down the other way, so that your ass cheeks envelope his muzzle, trapping his nose and mouth against your tight pucker. "<i>Get that tongue up in there slut.</i>"  ' );
 		switch( Utils.rand( 3 ) ) {
@@ -2048,7 +2048,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.corruptJojoBreasts = function() { //Should only be available to players with biggestBreastSize > 2
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You lay yourself out for a quiet moment of self pleasure, your hands moving to your breasts and fondling them gently, when the sound of a snapping twig brings your attention to the edge of camp. Jojo stands timidly, half hidden within the shadows just outside your encampment, watching you with a look of submissive desire. You smile and lift your hand, beckoning him towards you with a crook of your finger.  ' );
 		EngineCore.outputText( 'Your mouse slut obediently slips from the darkness and into your camp, approaching you and kneeling at your side. You can see the lust in his eyes as he looks at your breasts, longing and love reflecting wonderfully. You nod your approval and let him worship your bosom.  ' );
 		if( CoC.player.biggestLactation() > 1 ) { //For suckling the scene is the same regardless of player's gender
@@ -2073,7 +2073,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//[Jojo Whispered Sex scene];
 	//(Requires the Whispered perk and Jojo as follower);
 	JojoScene.prototype.whisperJojobait = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'akbal-deepwoods-male-jojosex' ) );
 		var x = CoC.player.biggestCockIndex();
 		EngineCore.outputText( 'You close your eyes and begin to think of Jojo.  You can feel the former monk\'s presence far away in the forest, futilely trying to meditate and rid himself of the corruption you so generously bestowed upon him.  He is sitting with one paw on his knee, and the other on his rigid tool.\n\n' );
@@ -2117,7 +2117,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//Bee on C. Jojo: Finished (Fenoxo) (Zedit);
 	JojoScene.prototype.beeEggsInCorruptJojo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Drawing Jojo close, you gently tease your fingertips along the soft fur of his cheeks, buzzing reassuring noises into his dish-shaped ears.  The greedy little slut perks up and nuzzles against you happily.  His hand, soft and delicate, reaches down inside your [armor] to touch your groin.  Its partner strays south to the mouse\'s own erection, gathering his copious pre to smear a fresh layer across his hardness.  You let him be for now, allowing him to build your lust higher and higher.  The show draws your ovipositor out of its slit and fills it with fresh blood, hardening the tubular organ into an approximation of a large phallus.' );
 		EngineCore.outputText( '\n\nJojo, for his part, seems oblivious to the swelling protrusion or your malicious grin.  Once fully hard, you whisper to him, instructing for him to get on all fours and let you fuck him.  ' );
 		if( !CoC.player.hasCock() ) {
@@ -2194,7 +2194,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Note: Since you are not corrupt here Jojo cannot sense you. ;
 	//Requirements: Level 4, Corruption < 20;
 	JojoScene.prototype.lowCorruptionJojoEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'Tired of exploring the forest for the moment, you decide to head back to camp.  Not feeling like taking the scenic route, you move to step through some bushes, but immediately your mind registers a yelp.  The instant you move to look at the source of the noise, a white blur smacks you right on your head.' );
 		if( CoC.player.tou >= 50 && CoC.player.isBiped() === true ) {
@@ -2218,7 +2218,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	// Yes;
 	JojoScene.prototype.acceptJojosApology = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You forgive him for hitting you and apologize for spooking him yourself, prompting a relieved sigh.\n\n' );
 		EngineCore.outputText( '“<i>Thanks, it’s a relief to meet a friendly face,</i>” he says, his mouth breaking into a smile. “<i>Oh, where are my manners!</i>”\n\n' );
@@ -2226,7 +2226,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//No;
 	JojoScene.prototype.refuseJojosApology = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'With a smile you curl up a fist and knock the unsuspecting mouse morph upside the head, causing him drop his staff and rub the spot where you slugged him.  As he looks up at you you give his angry expression a shrug, telling him that now the two of you are even.\n\n' );
 		EngineCore.outputText( '“<i>O-Kay</i>” The mouse says slowly, suddenly watching your movements very closely with those quick little eyes of his, “<i>But I guess it’s fair, no harm done right?</i>”\n\n' );
@@ -2253,7 +2253,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.meditateInForest = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Jojo smiles and leads you off the path to a small peaceful clearing.  There is a stump in the center, polished smooth and curved in a way to be comfortable.  He gestures for you to sit, and instructs you to meditate.\n\nAn indeterminate amount of time passes, but you feel more in control of yourself.  Jojo congratulates you, but offers a warning as well.  "<i>Be ever mindful of your current state, and seek me out before you lose yourself to the taints of this world.  Perhaps someday this tainted world can be made right again.</i>"' );
 		EngineCore.dynStats( 'str', 0.5, 'tou', 0.5, 'int', 0.5, 'lib', -1, 'lus', -5, 'cor', (-1 - CoC.player.countCockSocks( 'alabaster' )) );
 		if( CoC.player.findStatusAffect( StatusAffects.JojoMeditationCount ) < 0 ) {
@@ -2301,7 +2301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.player.findStatusAffect( StatusAffects.EverRapedJojo ) >= 0 || CoC.flags[ kFLAGS.JOJO_MOVE_IN_DISABLED ] === 1 ) {
 			EngineCore.outputText( 'You offer Jojo the chance to stay at your camp, but before you can finish your sentence he shakes his head \'no\' and stalks off into the woods, remembering.' );
 		} else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'You offer Jojo the chance to stay at your camp.  He cocks his head to the side and thinks, stroking his mousey whiskers.\n\n"<i>Yes, it would be wise.   We would be safer together, and if you like I could keep watch at night to keep some of the creatures away.  I\'ll gather my things and be right there!</i>"\n\nJojo scurries into the bushes, disappearing in a flash.  Knowing him, he\'ll be at camp before you!' );
 			CoC.player.createStatusAffect( StatusAffects.PureCampJojo, 0, 0, 0, 0 );
 		}
@@ -2311,7 +2311,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	// Player approaches pure Jojo in camp, gets offer to mediate if > 10 cor -- responses;
 	//[Yes];
 	JojoScene.prototype.acceptOfferOfHelp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( '<i>“Thank Marae.  You’re much stronger than I, my friend... to hold so much corruption and still retain your will.  But let us not tempt fate,”</i> he says before the two of you get to it.\n\n' );
 		this.doClear = false;
@@ -2319,13 +2319,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//[No];
 	JojoScene.prototype.refuseOfferOfHelp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'You assure Jojo you\'re fine, and that you\'ll consider his offer.  “<i>But... I... we...</i>” he stammers. “<i>Alright, but please do not let the corruption get the better of you.  You’re my friend and I couldn\'t bear to lose you to its vile influence.</i>”  He recomposes himself and asks, “<i>So... is there anything I can assist you with?</i>”\n\n' );
 		this.jojoCampMenu();
 	};
 	JojoScene.prototype.jojoCamp = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		if( CoC.flags[ kFLAGS.AMILY_MET_PURE_JOJO ] === 0 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() ) {
 			SceneLib.followerInteractions.amilyMeetsPureJojo();
@@ -2394,7 +2394,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 
 	//Appearance;
 	JojoScene.prototype.jojoAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		EngineCore.outputText( 'Jojo is a white furred mouse-morph with dish-like ears and a small muzzle below a sometimes twitchy nose. He watches you with striking blue eyes.\n\n' );
 		EngineCore.outputText( 'He\'s wearing pale blue monk robes that are form fitting yet loose enough to allow him to move freely if the need arises. He also wears prayer beads, a cloth sash that holds his robe close and baggy pants cover his legs all the way to his mouse-like footpaws; on the back of his pants a small hole is cut to allow his ropy pink tail freedom.\n\n' );
@@ -2428,7 +2428,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Jojo’s Past;
 	//Village Convo;
 	JojoScene.prototype.jojoTalkVillage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'You decide to ask Jojo about his village.\n\n' );
@@ -2448,7 +2448,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//Joining the Monks convo;
 	JojoScene.prototype.jojoTalkJoiningTheMonks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'You decide to ask Jojo why he decided to become a monk in the first place.\n\n' );
@@ -2462,7 +2462,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//Fall of the Monks convo;
 	JojoScene.prototype.jojoTalkFallOfTheMonks = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'You decide to ask Jojo if he\'d be willing to tell you exactly what happened to the monks of his order.\n\n' );
@@ -2477,7 +2477,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	//Forest Convo;
 	JojoScene.prototype.jojoTalkForestConvo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'You think for a while and decide to ask Jojo how he ended up in the forest.\n\n' );
@@ -2512,7 +2512,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Yourself;
 	//Origin;
 	JojoScene.prototype.jojoTalkYourOrigin = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'As you start up a conversation with Jojo, the two of you speak at length about nothing really important or noteworthy, just small talk.  That is until the monk brings up the subject of your background.  You tell him about Ingnam and your family there, and the tradition of sending a champion through the portal.  When he asks why anyone would choose to come here, you tell him how legends say that in years a champion wasn’t sent through the portal, terrible things happened to the village.\n\n' );
@@ -2553,7 +2553,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Dungeon Convo: Factory;
 	//Requirements: Completed Demon Factory -- CoC.player.findStatusAffect(StatusAffects.DungeonShutDown) >= 0;
 	JojoScene.prototype.jojoTalkFactory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'You tell Jojo about your having successfully found and stopped the demonic factory.  You tell him how you found out the factory was there and how you defeated the demons inside. He seems impressed.\n\n' );
@@ -2572,7 +2572,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Dungeon Convo: Sand Cave;
 	//Requirements: Completed Sand Witch Dungeon;
 	JojoScene.prototype.jojoTalkSandCave = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		EngineCore.outputText( 'You tell Jojo about your discovery of a cave that served as a base for the sand witches of the desert. You tell him about the whole ordeal, and he listens with wide eyes and jaw agape. When you tell him about meeting the Sand Mother Jojo gasps.\n\n' );
@@ -2646,7 +2646,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	//Training;
 	// Initiate first time as a talk option, and then display as a 'base menu' option?;
 	JojoScene.prototype.apparantlyJojoDOESlift = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.jojoSprite();
 		//{First Session only};
 		if( CoC.flags[ kFLAGS.UNLOCKED_JOJO_TRAINING ] === 0 ) {
@@ -2775,7 +2775,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	};
 	JojoScene.prototype.wormRemoval = function() {
 		this.jojoSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '"<i>Excellent, young one,</i>" Jojo continues. "<i>Your dedication to purification is admirable. Relax and know that the parasites will leave you soon.</i>"\n\n' );
 		EngineCore.outputText( 'Jojo gets up and walks over to a backpack hidden in the bushes. He removes a lacquered box. He removes and combines a rather noxious combination of herbs, oils and other concoctions into a mortar and grinds it with a pestle. After a few minutes, he ignites the mixture and uses a feathered fan to blow the fumes over you. The smell of the mix is nauseating and repugnant. Your stomach turns and you fight the urge to vomit. Eventually, you are no longer able to resist and you purge yourself onto the ground. Cramping from your vomiting fits, you wrack with discomfort, which slowly builds to genuine pain. As the pain sets in, you feel a stirring deep in your crotch. The worms inside you are stirring and thus are compelling another unwanted orgasm. Unable to control your body, your cock explodes, launching cum and worms everywhere. Jojo begins fanning faster as he sees the worms leave your body.\n\n' );
 		EngineCore.outputText( '"<i>Further endurance is needed, young one,</i>" Jojo says. "<i>The root of your problem must leave before you may pursue further purification. Healing is always twice as uncomfortable as the illness requiring attention.</i>"\n\n' );

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, CoC, EngineCore ) {
 	function SuccubusGardenerScenes() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		return CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] === 1;
 	};
 	SuccubusGardenerScenes.prototype.fuckUpTheGardener = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The succubus drops to her knees, grabbing a tentacle and thrusting it into wanton sex forcefully enough to make you wince. She doesn\'t seem to mind, in fact, her lips spread into a wordless \'o\' of pleasure as she begins rocking back and forth atop, lost to her own lusts. She\'s in no state to stop you from moving on. Hell, she\'s probably going to be busy with the tentacles for a long, long time. You suppose you could try and put her mouth to use, but there are a LOT of tentacles awfully close. It might be best to move on or end her quickly.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'End Her', this, this.endHer );
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.addButton( 2, 'Fuck Her', this, this.tentaFail );
 	};
 	SuccubusGardenerScenes.prototype.tentaFail = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Start setting up to fuck the succubus -> surprise tentacle grape, idiot.;
 		EngineCore.outputText( 'There\'s no way you\'re going to pass up an opportunity to put a succubus\'s lips to use. Pillowy' );
 		if( CoC.player.hasVagina() ) {
@@ -139,19 +139,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		}
 	};
 	SuccubusGardenerScenes.prototype.tentaFailII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '\n\nYou\'re held captive, overwhelmed by your own senses, and brought to nirvana ceaselessly. The demons never even try to free your fate, held captive as you are by one of the eldest tentacle beasts. You spend the rest of your life feeding it, incapable of focusing on anything but your own feelings of ecstasy.' );
 		EngineCore.gameOver();
 	};
 	SuccubusGardenerScenes.prototype.endHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You circle behind her an put and end to her evil while she is busy with her pet, then turn to walk away. When you look back over your shoulder, her body is gone. Nothing remains but an empty pathway.' );
 		CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_KILLED;
 		EngineCore.menu();
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.leaveHer = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Figuring that the succubus\'s pets can keep her busy indefinitely, you turn away. A shriek of pleasure draws your attention back, and you turn in time to see dozens of coiling, leafy masses encircling her every limb, bodily carrying her into a wall of twisting, leaking cocks and pussies. Her orifices are stuffed with pumping lengths that froth with spit and girlcum, and her eyes, equal parts alarmed and aroused, widen before disappearing into the forest of green.' );
 		CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_LEFT;
 		EngineCore.menu();
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		}
 	};
 	SuccubusGardenerScenes.prototype.femGenderlessLoss = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You drop to the ground, defeated and degraded' );
 		if( hpVictory ) {
 			EngineCore.outputText( ', not even able to push your bruised body up onto its [feet].' );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.addButton( 0, 'Next', this, this.femGenderlessLossII );
 	};
 	SuccubusGardenerScenes.prototype.femGenderlessLossII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your fall doesn\'t take you very far. A cushion of interceding plants stops you long before any harm could befall you, holding you nearly horizontally above the rich, loamy earth. There\'s a bit of a salty-sweat scent in the air. You can\'t quite identify it, but then again, you don\'t really have time to. Bands of floral flesh are circling around your arms and [legs]. They aren\'t constrictive. As a matter of fact, they\'re kind of comforting - like being surrounded in a lovers arms. Of course, these arms conform perfectly to your flesh, pressing down on you from all sides.' );
 		EngineCore.outputText( '\n\nIt grows dark as the tentacles adjust to your presence within their midst. Those not actively engaged in sliding across your [skinFurScales] are straightening once more, blocking the light and warmth of the sun out for what is perhaps the last time. Bands of slick, wet plant roll across your shoulders and [chest], enveloping them much like your limbs a moment before. A narrow band slides over your collarband and worms around your neck into an impromptu collar, tight enough that it\'s impossible to ignore but loose enough to allow you to breathe.' );
 		EngineCore.outputText( '\n\nWetness drizzles your [vagina]' );
@@ -308,7 +308,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.gameOver();
 	};
 	SuccubusGardenerScenes.prototype.maleLoss = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You drop to the ground, defeated and degraded' );
 		if( hpVictory ) {
 			EngineCore.outputText( ', not even able to push your bruised body up onto its [feet].' );
@@ -325,7 +325,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.addButton( 1, 'Feeder', this, this.maleLossFeeder );
 	};
 	SuccubusGardenerScenes.prototype.maleLossPet = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<i>"I\'ll be your doggie,"</i> you gasp with an accompanying needy arch of your back.' );
 		EngineCore.outputText( '\n\nPressing down on your [cock] once more, the succubus giggles, <i>"Oh, you\'ve chosen wisely, my little pet. Oh... oh my, has pet got a bone?"</i> She bends over, stripping your [armor] with effortless efficiency to expose the eagerly pulsating length.' );
 		if( CoC.player.biggestCockLength() >= 18 ) {
@@ -447,7 +447,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.addButton( 0, 'Next', this, this.maleLossPetII );
 	};
 	SuccubusGardenerScenes.prototype.maleLossPetII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Your kennel is amazing! It\'s the perfect size for you to crawl into, there\'s holes in it so that you don\'t get too hot while you wait to be let out. There\'s even one big enough for you to slip' );
 		if( CoC.player.cocks.length > 1 ) {
 			EngineCore.outputText( ' a' );
@@ -489,12 +489,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.addButton( 0, 'Next', this, this.maleLossPetIII );
 	};
 	SuccubusGardenerScenes.prototype.maleLossPetIII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The champion, more canine than [man], became little more than one mutt among many that the demons had tamed, used for everything from breeding to hunting escaped slaves, and ' + CoC.player.mf( 'he', 'she' ) + ' loved it, delighted in it even. Eventually, ' + CoC.player.mf( 'his', 'her' ) + ' owner bred her numerous times, creating a bloodline of strong, loyal servants that eventually helped keep all of Mareth under the demon\'s heels.' );
 		EngineCore.gameOver();
 	};
 	SuccubusGardenerScenes.prototype.maleLossFeeder = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( '<i>"I\'ll... I\'ll play with the tentacles,"</i> you gasp out, as much to yourself as the succubus, finally coming to terms with your shameful predicament. Somehow, being forced to endlessly climax seems subtly more dignified than crawling around on a leash. You tell yourself that you\'ll simply bide your time - wait for a chance to slip free of the vines\' ceaseless squirming. You resolve not to give up even though you\'ve lost this battle.' );
 		EngineCore.outputText( '\n\nThe succubus\'s lips curl cruelly. <i>"Oh. You still think you\'ll get a chance to escape, don\'t you?"</i> She throws her head back and laughs. <i>"How wrong you are, Champion. How wrong you are..."</i> Turning to the botanical wall, the enchanting gardener at you, giving you quite the view of her well-formed backside.' );
 		EngineCore.outputText( '\n\nSomething slick and smooth wraps around your [leg], moving slowly and patiently but with great strength. You can feel the firmness of its grip tightening while a second latches on. The twinned tentacles circle up your body in alternating corkscrew patterns, gliding across your [skinFurScales] with self-lubricated ease. You try to scrabble away, but the tendrils merely lift you aloft like a child would a toy. Meanwhile, the succubus merely flicks' );
@@ -560,7 +560,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, kFLAGS, Descriptors, Utils, S
 		EngineCore.addButton( 0, 'Next', this, this.maleLossFeederII );
 	};
 	SuccubusGardenerScenes.prototype.maleLossFeederII = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Trapped in a hellish loop of constant yet unsatisfied orgasm, you\'re pulled into the sea of tentacles. Your eyes have rolled back too far to see the grinning demoness or her confidently swaggering derriere, but if they could, they\'d grow wide with worry once the twisting, dripping vines blocked her out. Hunger and thirst soon compete with pleasure for your attention. The swelling of your belly has already receeded, the fluid inside long side converted to ivory jets of release.' );
 		EngineCore.outputText( '\n\nA stalk as thick as your leg rises up, its tip nearly divided by a gash big enough to swallow a man whole, and' );
 		if( CoC.player.biggestCockLength() < 6 ) {

@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//Minerva appearance (normal)
 	//http://i46.tinypic.com/20z1f1x.jpg
 	MinervaScene.prototype.minervaAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Minerva is a siren. She stands 8\'5" with navy blue skin and a white belly, neck and inner thighs. Orange and white stripes adorn her legs, tail and back.  Her head is topped with fiery red orange hair that frames her face with well kept bangs and also slide down her back in a pair of long braids.  Her eyes are bright electric blue on pure black sclera.  The siren\'s body is adorned with an expansive array of golden studs and rings, one through an eyebrow, a pair on her lips and even one in her nose.  From her ears hangs large hoop earrings while a trio of studs sits higher up.  Along the fin that tips her tail are a set of five gold rings linked together by a fine silver chain.' );
 		EngineCore.outputText( '\n\nAttention-grabbing large red and orange feathered wings sprout from her back; the same feathers flow down her arms like those of a harpy.  Two DD-cup sized breasts rests on her chest, they would look large on a human, but on Minerva, they appear quite average.  Each breast is topped with a firm gold stud pierced nipple about half an inch thick.' );
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//Basic intros
 	//1-1 First Encounter.
 	MinervaScene.prototype.firstMinervaEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Returning to the mountains, you begin to climb; the usual search for loot and, perhaps, some harpies driving your upward efforts.  Perhaps you\'ll run into' );
 		//If Sophie Bimbo=0:
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 && !SceneLib.sophieFollowerScene.sophieFollower() ) {
@@ -92,14 +92,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//[Ignore Path]
 	MinervaScene.prototype.ignoreMinervasPath = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Deciding to play it safe, you turn away from the new path and continue your search elsewhere.' );
 		// PC returns to camp.
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Take Path]
 	MinervaScene.prototype.takeMinervasPath = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Knowing that a new path could lead to great things, you can\'t help but wonder where this one could lead.' );
 		EngineCore.outputText( '\n\nYour curiosity gets the better of you, and you head down this new path.  Winding along the dangerous mountainside, you come upon what looks like a ruined tower built into the mountain.  It was probably erected as some kind of outpost by some long-forgotten people.  Panting from your long trek, you decide to use the tower as shelter and recover your strength.  Cautiously, you approach the ruins and peek inside.' );
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//[Follow]
 	MinervaScene.prototype.followMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Deciding that you want to know more about Minerva, you follow her into the tower.  "<i>So, now that you\'re inside, would you like to talk?  Or perhaps to partake in some of the peaches that grow on my trees?</i>" she asks, looking at you with interest.' );
 		//[Talk] [Drink] [Eat] [Leave]
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//[Leave](for first encounter options)
 	MinervaScene.prototype.leaveMinervasFirstEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You decide that you don\'t want to risk going into Minerva\'s lair as, for all you know, it could be a trap.  Therefore, you turn around and skedaddle back down the mountain.  As you leave, Minerva turns and watches you for a bit, a sad look on her face before she turns back and heads inside her home, alone.' );
 		// PC returns to camp.
@@ -195,7 +195,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//1-2 Repeat Encounter 1.  Use any time.
 	MinervaScene.prototype.repeatEncounterMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You make your way up the mountain, looking for the oasis tower that you know has to be around here somewhere in the thick mist.  With a bit of searching, you locate the right path and head for the oasis, finally reaching it.  Panting from your long trek, you enter the tower through its crumbling doorway, wondering if Minerva will be home.' );
 		EngineCore.outputText( '\n\nUpon entering the humble home, you assess the state of the oasis.  The usual fruit trees and the clean pond are still here. Upon taking a closer look, you spot Minerva in the spring as she floats out from behind the cover of a tree.  The shark-like harpy is relaxing in the pure waters like she normally does.' );
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//1-3 Repeat Encounter 2.  Use if 3rd+ time visiting Minerva.
 	MinervaScene.prototype.minervaThirdPlusEncounter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You make your way back up the mountain, passing the usual harpy nests as you go, looking for the oasis tower that you know has to be around here somewhere in the thick mountain mists.  After a tedious amount of time spent searching, you finally locate the path and start your journey toward the oasis.  The promise of a respite from your climb, along with food and company, compels you to continue until you finally reach the oasis tower.  Thankfully, you don\'t have to search long before you promptly catch sight of the crumbling tower.  Panting from your long trek, you enter the tower through a rusted, creaky door.' );
 		if( CoC.flags[ kFLAGS.MET_MINERVA ] === 4 ) {
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//Romancing scenes encounter with all sub scenes.
 	//1-1 Cute Encounter. Minerva has taken a special liking to the pc by talking to her 5 times.
 	MinervaScene.prototype.minervaAfterFiveTalksRomancing = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		CoC.flags[ kFLAGS.MET_MINERVA ]++;
 		EngineCore.outputText( 'You make your way back up the mountain, passing the usual harpy nests as you go, looking for the oasis tower that you know has to be around here somewhere.  With a bit of searching, you locate the right path and head for the tower.  The promise of a respite from your climb, along with food and company, impels you to continue until you reach the oasis tower.  Thankfully, you don\'t have to search for long, promptly catching sight of the crumbling tower.  Taking in the sights, you look around, assessing the state of the oasis.  The usual fruit trees remain, and the clean pond is still here, but you don\'t see Minerva anywhere.' );
@@ -271,7 +271,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//[Flight]
 	MinervaScene.prototype.goForASkyRideWithMinervaHeartBaring = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You grin with excitement and' );
 		if( CoC.player.isGoo() ) {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//Opening her heart
 	MinervaScene.prototype.minervaOpensHerHeartAndDisplaysHerVentricals = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Holding you gently in her arms as she looks deeply into your eyes, the siren stammers, "<i>H-hey... I\'ve been meaning to talk to you about something.  I\'ve been thinking about you... and me...  You\'re the first real person to come here.  I mean, the harpies come around to get me to breed them, but that\'s all they\'re really interested in.  But you... you keep coming back, and it\'s not always sex with you.  You talk to me and spend time with me... you\'re actually interested.  I\'ve been alone for a long time with no one but a couple of birdbrained harpies talk to.  Until you came around, that is- you changed all that.</i>"' );
 		EngineCore.outputText( '\n\nYou look at the blue-skinned harpy-shark.  She looks to be blushing, though her cheeks are flared purple instead of red or pink. Minerva even appears flustered, like she doesn\'t quite know what to say.  It\'s clear she isn\'t used to this sort of thing, and it\'s making her ordinarily sharp features look softer... and it\'s actually kind of cute.  "<i>Hey, are you listening?  I\'m trying to have a moment with you here! This is... really important to me,</i>"  she declares with an exaggeratedly irritated pout before softening again.' );
@@ -315,7 +315,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//Kiss
 	MinervaScene.prototype.yeahSureMinervaILikeYouAndShit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You already know your answer.  Smiling, you lean in and kiss the siren\'s glossy black lips, an act which prolongs the blush on her face, though it doesn\'t take long for Minerva to recover.  She pushes you off of her and tackles you into the pool.  Sitting on top of you, the redhead smirks down at you before grabbing onto your shoulder and forcing you into a welcome kiss, her long, demonic tongue quickly snaking into your mouth to deepen the passionate smooch.' );
 		EngineCore.outputText( '\n\nYou can\'t help but return her grasp when Minerva starts to kiss you again.  Your hands slowly move over her smooth, wet skin, and touch every part of her you can reach, feeling her curves, her firm, gently toned muscles, down her thin waspish waist that flows out into her generous hips, and her ample, squeezable ass.  As soon as you reach her butt, your hands squeeze her, eliciting a gasp from your new lover and making her break the kiss.  "<i>Why, you... not satisfied with a kiss, are you?</i>" your siren asks with a toothy grin.' );
@@ -335,7 +335,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//[Reject]
 	MinervaScene.prototype.rejectMinervasLove = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You stare at Minerva awkwardly as she waits for your response, her electric blue eyes looking at you with hope.  ' );
 		if( CoC.player.cor < 45 ) {
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 
 	//[Land]
 	MinervaScene.prototype.dontFlyWithWithMeYouCrazyBitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You look down at the ground with a little uncertainty; you\'re already so high up.  Looking back at the grinning siren, you rapidly shake your head.  You very much don\'t want to be flying, especially not with such a gut clenching fall beneath you.  Minerva\'s grin lessens somewhat, clearly a bit disappointed that you don\'t want to go flying with her.  She nods despite her disappointment, and glides back down to the tower ground, setting you down on the soft moss that surrounds the pure hot spring.' );
 		EngineCore.outputText( '\n\nMinerva looks at you nervously, as if she wants to say something, but then she just smiles and shakes her head.  "<i>Well... now that you\'re safe and sound on the ground, is there anything I can do for you, hun?</i>"' );
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//1-2 Repeatable Cute, Romantic Encounter. Only if PC accepted Minerva's feelings. Add to normal encounters.
 	MinervaScene.prototype.repeatableMinervaRomanceScene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You make your way back up the mountain, passing the usual harpy nests as you go.  Climbing through the clouds, you reach a height that has only become easier thanks to the repeated effort.  You make your way back up the mountain, passing the usual harpy nests as you go, looking for the oasis tower that you know has to be around here somewhere in the thick mountain mists. The promise of a respite from your climb, along with food and company, compels you to continue until you finally reach the oasis tower.  Without pausing to catch your breath you head for the tower, the desire to see your siren lover beating out the nagging fatigue you feel from the tough climb.  Your legs are pumping hard as you hoof it down the path, soon enough happening upon the shape of the ruined tower that encloses Minerva\'s oasis.' );
 		EngineCore.outputText( '\n\nNot wasting any time, you head right for the tower.  Upon entering the humble home, you take in the sights and assess the state of the oasis, looking for your favorite flying shark girl.  Before you can really get a good look, though, you\'ve been grabbed and pulled into what seems to be a dance, your hands taken by Minerva\'s as she spins you and hugs you tightly.  "<i>I was wondering when you would return to me, I\'ve missed you so much, [name]!  I\'m so glad you could come by,</i>" Minerva says before leaning in to plant a kiss on your neck.  "<i>So, hun, what shall we do?  Here to give me some company?  Or maybe you want to have some fun?</i>"  she asks playfully as she presses her hips against yours, giving away her desires.' );
@@ -440,7 +440,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//-repeatable
 	//Scenes occur in order, starting with part 1 and reset after part 3 is told. Talking is still somewhat random but backstory scenes will trigger in order.
 	MinervaScene.prototype.talkingToMinervaAboutBackstory = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//PART 1
 		if( CoC.flags[ kFLAGS.MINERVA_BACKSTORY ] === 0 ) {
@@ -505,7 +505,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//3-2 Talk Scene 2 - talks about the spring
 	//-repeatable
 	MinervaScene.prototype.talkAboutTheSpringWithMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Telling Minerva that you want to sit down and talk brings a pleasant smile to her face. The siren is more than happy to talk with you.  "<i>Really?  You want to talk with me?  All right, well, what do you want to know?</i>"  she asks as she sits down, cross-legged on the soft, pillowy moss across from you.  Looking at the spring, you feel an inkling urging its way up from inside you, and riveting questions begin to form in your mind.  Minerva has been here for a while... maybe she knows something about it?' );
 		EngineCore.outputText( '\n\n"<i>The spring?</i>"  Minerva questions, before looking over at its pure waters. "<i>Well... truth be told, I don\'t really know much about it.  I know it has special properties, though.  Over time, it can reduce the corruption of anything in it, and it makes the soil very fertile, helping plants grow abnormally quickly.  It can even bless a weapon with special properties, like how my own halbard wounds the corrupt,</i>" she says, sighing.' );
@@ -521,7 +521,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//3-3 Talking Scene 3 - talks about her shark girl daughter
 	MinervaScene.prototype.talkWithMinervaAboutSharkGirlDaughter = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//- requires that backstory has been told
 		//- if already romanced Minerva shamefully confesses she may have fathered a granddaughter with her first daughter -repeatable
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//3-4 Talk Scene 4 - talks about her corruption
 	//- romance yes only or if you trick her into thinking you love her. - Repeatable until Minerva is purified or corrupted
 	MinervaScene.prototype.talkToMinervaAboutHerCorruption = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Telling Mineva that you just want to talk brings a smile to her face, the siren eager to speak with you.  Guiding you over to a soft spot of moss by the spring, she sits next to you and looks into the pond, her smile slowly fading as she looks into the clear waters.' );
 		EngineCore.outputText( '\n\nLooking at her, you notice her sad expression and ask what\'s bothering her; she looked happy just moments before, what could be troubling her now?  The tall redhead looks over at you before sighing and turning around to face you.  She puts a hand to her chest and holds it there.  "<i>What I\'m about to tell you... is very personal to me.  It\'s the reason I\'m here, the reason I can\'t really leave this place,</i>" she says as she looks you in the eyes, clearly quite serious about this.' );
@@ -567,7 +567,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//3-5 Motherhood
 	//-talks about how she wishes to be a real mother, have an actual loving family and not made from being raped- repeatable
 	MinervaScene.prototype.minervaMotherhood = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Telling Minerva that you want to sit down and talk with her seems to astonish her; she certainly didn\'t expect you to just want a chat.  After her initial surprise, she smiles pleasantly.  "<i>Really?  You want to talk with me?  All right, well, what do you want to know?</i>"  she asks as she sits down cross-legged on the soft moss across from you.' );
 		EngineCore.outputText( '\n\nYou rack your brain trying to think of what to talk about.  Unable to really think about anything important to discuss, you lean back and relax, deciding that you could talk for once - instead of just listen - about random things you have seen.  You elaborate on the creatures you have encountered, the things that have tried to sexually assault you, knock you up or try to force you to impregnate them.  Perhaps she can learn something from your own trials and errors in this land.' );
@@ -621,7 +621,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//3-6 Bath Time - romance only
 	MinervaScene.prototype.bathTimeTalkWithMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Telling Minerva that you want to sit down and talk with her brings a smile to her lips; she certainly didn\'t expect you to want to just chat, but is clearly happy to talk.  "<i>Really?  You want to talk with me?  All right, well, what do you want to know?</i>"  she asks, before looking off to the side, clearly distracted.  "<i>You know... if you don\'t mind, instead of talking, we could take a bath together.  Relax and just spend some time together,</i>" she says with a hopeful look on her face.' );
 		//[Yes] [No]
@@ -631,14 +631,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//[No] // add and take to another talking scene
 	MinervaScene.prototype.noBathTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Looking down, she sighs, a brief moment passes before she returns her attention to you.  "<i>Well, that\'s all right, maybe next time.  So you wanted to talk; what would you like to know?</i>"' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Next', this, this.minervaTalkSelect, false );
 	};
 	//[Yes]
 	MinervaScene.prototype.bathTimeWithMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Seeing how hopeful she is makes you chuckle; you have to admit, a bath with the curvy siren would be nice.  Nodding and agreeing to bathe together brings a bright, sharky smile to Minerva\'s face.  Her black, glossy lips split nearly ear to ear, showing how excited she is with your request.  "<i>R-really?!  That\'s great!  Oh, I\'m so happy,</i>" she states joyously, suddenly blushing and playing with one of her long, orange-red bangs.  "<i>I mean... Thank you, I was really hoping to spend some quality time together.</i>"' );
 		EngineCore.outputText( '\n\nWithout waiting, Minerva grabs your hand and pulls you to the spring, her excitement as clear as the lust on a goblin.  As soon as the two of you reach the edge, Minerva leaps into the spring... unfortunately for you, she didn\'t let go, instead yanking you into the water with her and soaking you - perhaps the blushing siren got a little <i>too</i> excited?' );
@@ -660,7 +660,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//PC Chooses Sex from Minerva's Options:
 	MinervaScene.prototype.minervaSexMenu = function( display ) {
 		if( display === undefined || display ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.spriteSelect( 95 );
 			EngineCore.outputText( 'You tell Minerva that, this time, you\'d like to have sex with her.' );
 			//Default, first time:
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//4-1= sex scene 1 male/herm:  Anal
 	//-pc pushes Minerva down onto her chest ass up and fucks her ass = needs penis
 	MinervaScene.prototype.fuckMinervasAsshole = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		var x = CoC.player.cockThatFits( this.minervaACapacity() );
 		if( x < 0 ) {
@@ -797,7 +797,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//4-2= sex scene 2:  Cowgirl
 	//normal/pure  - Cowgirl position, Minerva on top needs penis.
 	MinervaScene.prototype.minervaCowgirlSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		var x = CoC.player.cockThatFits( this.minervaVCapacity() );
 		if( x < 0 ) {
@@ -923,7 +923,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features.  Her legs, her curvy hips... your eyes travel past the thick growing bulge in her shorts, up past her scarred, toned belly and to the siren\'s large, luscious breasts before finally reaching her face.  Grinning to the blue and gray herm, you decide what you want from her.' );
@@ -1006,7 +1006,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//(tool tip: There is a LITTLE bit of ball kissing on the pc's part)
 	//any- PC goes down on Minerva for some oral fun.
 	MinervaScene.prototype.goDownOnAHermAndLoveItYouDirtySlutYou = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features, starting with her long legs, and her wide, flared hips.  Your eyes travel past the thick bulge in her shorts, going up her scarred toned belly and up to the siren\'s perky DD-cup breasts before finally reaching her face.  Grinning to the blue and grey herm, you tell her you want to give her some pleasure for a change, your words bringing some surprise to her face.  "<i>R-really?  You want to focus on me and my pleasure?</i>" she asks, pleasantly surprised that you want her to be the focus of pleasure this time, a smile full of shark-like teeth soon spreading across her face, "<i>Well, if you\'re sure, how could I reject such an offer?</i>"' );
@@ -1037,7 +1037,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	// Balls
 	MinervaScene.prototype.lickMinervasBalls = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Not even close to being done, you tease her some more.  The tip of your tongue dances along her outer lips before moving down to her smooth, hairless sack to give her male parts some extra attention.  Kissing her swollen, taut scrotum, you slowly lick and tease it as your hands work her rock hard shaft.  Her fat, sperm-filled balls react to your touch, swelling and pulling up as if getting ready to blow.  You can swear you can hear the poor, hefty testicles audibly churning with their thick creamy seed, eager to stuff some poor woman\'s pussy and impregnate them.  Closing your eyes, you latch on, sucking the tight sack and teasing the sensitive orbs inside.  "<i>H-hey, careful down there!  Those things are fragile!</i>"  she squawks in delight as you take your time giving the juicy pair some much-needed attention.' );
 		this.noBallsMinervaAndContinuation( false );
@@ -1045,7 +1045,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	// No Balls and continuation
 	MinervaScene.prototype.noBallsMinervaAndContinuation = function( clear ) {
 		if( clear === undefined || clear ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 		} else {
 			EngineCore.outputText( '\n\n' );
 		}
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features.  Starting with her long legs, and moving up to her wide, flared hips, your eyes travel past the thick bulge in her shorts, going up her scarred belly to the siren\'s perky DD-cup breasts before finally reaching her face.' );
@@ -1167,7 +1167,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		CoC.flags[ kFLAGS.TIMES_MINERVA_SEXED ]++;
 		EngineCore.outputText( 'Looking the lean, toned herm up and down, your eyes trail over her every curve as you think over your options, figuring out what kind of sexual adventure you\'d like to go on with the redheaded siren.  Your eyes undressing what little clothes she has on as you visually molest the sharky herm.  Your intense gaze is drawing a blush from the herm, her eyes looking away shyly.  "<i>Hey... you know how it makes me feel when you look at me like that... but I am glad you like how I look,</i>" the bashful herm admits before grinning, thrusting her hip out, posing for you and showing off her body.' );
@@ -1221,7 +1221,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//4-9= sex scene 9: lesing out
 	//pure/normal - pc gets eaten out
 	MinervaScene.prototype.pcGetsEatenOutByMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'Thinking about just what kind of heated, heart-pounding, lusty fun you want to have with your siren lover, your eyes look the shark-like harpy up and down, taking in her features.  Starting with her long legs, and moving up to her wide, flared hips, your eyes travel past the thick bulge in her shorts, going up her scarred belly to the siren\'s perky DD-cup breasts before finally reaching her face.' );
 		EngineCore.outputText( '\n\nGrinning to the blue and grey herm, you decide what you want from her.  Your eyes quickly fall to her succulent, glossy black lips, and the long demonic tongue hidden inside.  Your mind wanders through your kinky fantasies, conjuring up images of all the things that scandalously long tongue could do to you, and settles on wanting a piece of the sweet oral pleasure you know Minerva could give you.' );
@@ -1295,7 +1295,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 
 	MinervaScene.prototype.loseToMinerva = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//PC loss by physical
 		if( CoC.player.HP < 1 ) {
@@ -1318,7 +1318,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	};
 	//Victory text for tainted
 	MinervaScene.prototype.beatUpDatSharpie = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//Win by damage
 		if( CoC.monster.HP < 1 ) {
@@ -1338,7 +1338,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	//Item/oasis interactions
 	//Purity/Corruption Peach
 	MinervaScene.prototype.eatSomethingYouCunt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		//Acquiring:
 		EngineCore.outputText( 'You walk over to the fruit trees surrounding the spring, examining the strange treats.  You decide that one ripe fruit, one resembling a peach, is the best choice, and pluck it from the tree.  Thanking Minerva for letting you have it, you stow it away safely and head back to camp.\n\n' );
@@ -1356,7 +1356,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	 */
 	//Spring Water
 	MinervaScene.prototype.getADrinkYouBitch = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.spriteSelect( 95 );
 		EngineCore.outputText( 'You ask Minerva if she\'s okay with allowing you to drink from her spring.  She replies with a nod, a smile and a casual wave towards the pool.  Making it quite clear that you can drink your fill.' );
 		//[Bottle] [Drink]

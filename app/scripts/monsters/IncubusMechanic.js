@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTypesEnum, WeightedDrop, ConsumableLib, kFLAGS, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainView, CockTypesEnum, WeightedDrop, ConsumableLib, kFLAGS, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
 	function IncubusMechanic() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, CockTy
 		}
 	};
 	IncubusMechanic.prototype.defeatedInDungeon1 = function( hpVictory ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( hpVictory ) {
 			EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.' );
 		} else {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Utils, Useable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, Utils, Useable, EngineCore ) {
 	function WingStick() {
 		this.init(this, arguments);
 	}
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, CoC, Utils, Useable, Eng
 		return false;
 	};
 	WingStick.prototype.useItem = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You toss a wingstick at your foe!  It flies straight and true, almost as if it has a mind of its own as it arcs towards ' + CoC.monster.a + CoC.monster.short + '!\n' );
 		if( CoC.monster.spe - 80 > Utils.rand( 100 ) + 1 ) { //1% dodge for each point of speed over 80
 			EngineCore.outputText( 'Somehow ' + CoC.monster.a + CoC.monster.short + '\'' );

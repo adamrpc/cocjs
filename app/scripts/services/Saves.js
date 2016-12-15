@@ -52,8 +52,8 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 					$log.info( 'Loading save with name', saveFileName, 'at index', index );
 					if( that.loadGame( saveFileName ) ) {
 						EngineCore.doNext( null, MainView.playerMenu );
-						EngineCore.showStats();
-						EngineCore.statScreenRefresh();
+						MainView.statsView.show();
+						MainView.statsView.show();
 						EngineCore.outputText( 'Slot ' + index + ' Loaded!', true );
 					}
 				} );
@@ -234,7 +234,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		EngineCore.outputText( '', true );
 		this.loadGameObject( saveFile, slot );
 		EngineCore.outputText( 'Game Loaded' );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		if( CoC.player.slotName === 'VOID' ) {
 			$log.info( 'Setting in-use save slot to: ' + slot );
 			CoC.player.slotName = slot;

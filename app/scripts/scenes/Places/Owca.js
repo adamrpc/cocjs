@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	/* Written by Nonesuch and PKD, edited by Abraxas, Anzuaz, 05095coc and some helpful anons; ideas suggested by Abraxas, G3 and some helpful anons. */
 
 	Owca.prototype.gangbangVillageStuff = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.OWCA_UNLOCKED ] === 1 ) {
 			this.owcaMainScreenOn();
 		} else {
@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//First encounter (Z);
 	Owca.prototype.gangbangVillageFirstGoRound = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.DECLINED_TO_VISIT_REBECCS_VILLAGE ] === 0 && CoC.flags[ kFLAGS.TIMES_REFUSED_REBECCS_OFFER ] === 0 && CoC.flags[ kFLAGS.TIMES_IN_DEMON_PIT ] === 0 ) {
 			//[Attitude is set to 50];
 			CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] = 50;
@@ -52,13 +52,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 	};
 	Owca.prototype.dontGoToZeVillage = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.DECLINED_TO_VISIT_REBECCS_VILLAGE ]++;
 		SceneLib.camp.returnToCampUseOneHour();
 	};
 	//First plea (Z);
 	Owca.prototype.agreeToFollowRebecFirstTime = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.TIMES_REFUSED_REBECCS_OFFER ] === 0 ) {
 			EngineCore.outputText( 'How could you refuse an invitation from such an alluring girl?  You eagerly agree to go to her village; everyone sets out at once, chatting with each other jovially, but your attention is squarely focused on Rebecc.  She seems impressed by the tales of your adventures and has nothing but praise for your endless bravery, delivered while clinging to your arm and pressing her body against yours.  Her sweet scent is invigorating, and a significant amount of blood flows toward your ' );
 			if( CoC.player.gender === 0 ) {
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Refuse plea (Z);
 	Owca.prototype.declineRebeccsPlea = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You can\'t give in to her demand; you are a proud warrior fighting demons.  You were certainly not meant to serve as a scapegoat or sex-toy.  She sighs in disappointment.  "<i>Well, I should have expected that.  I wasn\'t full of hope either.  No hard feelings.</i>"  Everyone is looking at you with sad or apathetically hostile eyes, making you feel uncomfortable.  You quickly leave the village and return to your camp.' );
 		//[Attitude is set to 50];
 		if( CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] > 5 ) {
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Accept plea (Z);
 	Owca.prototype.acceptRebeccsPlea = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] += 10;
 		if( CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] > 100 ) {
 			CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] = 100;
@@ -185,13 +185,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.intoTheDemonPit, true ) );
 	};
 	Owca.prototype.intoTheDemonPit = function( sacrifice ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//N is the number of hours left before night;
 		if( CoC.time.hours < 21 ) {
 			var passed = 21 - CoC.time.hours;
 			EngineCore.outputText( '<b>' + Utils.Num2Text( passed ) + ' ' + (passed > 1 ? 'hours pass' : 'hour passes') + '...</b>\n' );
 			CoC.time.hours = 21;
-			EngineCore.statScreenRefresh();
+			MainView.statsView.show();
 		}
 		EngineCore.outputText( 'You are awakened by a sudden cackling, and open your eyes; you are almost entirely surrounded by darkness, and the dim light provided by the menacing red moon only makes the landscape bleaker.' );
 		EngineCore.outputText( '\n\nYou look around, puzzled.  Nothing seems to break the ever-present, nightly silence.  Then, as if to tease you, the cackling is heard again, this time behind you.  You turn around and eventually spot its origin: a crowd of silhouettes, all rushing in your direction, tittering and giggling like a bunch of naughty kids about to play a dirty trick.  As they get closer and closer to the pit, their colorful bodies and alien features are given a shining outline by the bloody moon; it seems that they are all full demons, sporting horns, claws, tails and wings.  Most of them are naked, shamelessly displaying gigantic erections or cavernous pussies as well as watermelon-sized, milk-dribbling tits.  Some of them are wearing leather straps that barely cover their taboo parts, as if to mock all notions of human prudishness.  You even spot an imp wearing a weird greenish vine like a belt; you stare at him for a few seconds, knowing something is out of place, then realize the belt is actually the imp\'s very flexible tentacle dick.' );
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Submit/Fight;
 	Owca.prototype.fightZeDemons = function( sacrifice ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//Fight leads to the Horde Fight;
 		//When acting as sacrifice, Item button is disabled; Fight, Run, and Phys Special buttons are disabled unless PC has str >= 80; Run is furthermore prevented entirely if PC is non-winged; outputs text: "<i>You'd like to run, but you can't scale the walls of the pit with so many demonic hands pulling you down!</i>";
 		//PC's weapon is temporarily set to fists and armor to comfortable clothes during a Horde Fight if he triggered it in response to a sacrifice request, but not if triggered through volunteering to guard the pit later once the village is unlocked;
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 
 	//Loss scene/Submit (gangrape) (Z);
 	Owca.prototype.loseOrSubmitToVapula = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Vapula taunts you as she circles around you.  "<i>Look at the slutty pet!  Ain\'t you a slutty pet?  Yes, you are!  Don\'t pretend you\'re not hungry for some fat demon cock, I know you are.</i>"  As she speaks, the crowd gathers closer.  A few creatures show some temerity, giving you pinches and gropes as they near.  The cock-belted imp unties his tentacle; the horror wriggles and squirms as it drops to the ground and slithers toward you.  The tip of the absurdly long pecker inspects your body, pressing itself against your flesh, massaging you in the most sensual places, wetting you with sap-like pre-cum and teasingly grinding itself against your mouth, and then your ' + Descriptors.assholeDescript() );
 		if( CoC.player.hasVagina() ) {
 			EngineCore.outputText( ', followed by your ' + Descriptors.vaginaDescript( 0 ) );
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.flags[ kFLAGS.REBECCS_LAST_PLEA ] = 0;
 	};
 	Owca.prototype.wakeUpAfterDemonGangBangs = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.time.hours = 7;
 		CoC.time.days++;
 		EngineCore.outputText( 'When you wake up, you are alone, and your restraints are broken.  You are sloshing in a pool of stinky juices; your mouth and ears are still full of it.  Your whole body is covered with a thin white layer that must certainly be dried spooge.  Underneath, you\'re nothing but bruises and every movement seems to hurt.  A few meters away, outside the pit, you notice your items and your gear.  The village itself appears to be empty... your best assumption is that the residents are hiding, either from shame at having sacrificed you or from awkwardness at the prospect of talking to a sloshing, crusty cumdumpster.  Wearily, you head back to your camp.' );
@@ -416,7 +416,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Victory (Z);
 	Owca.prototype.defeetVapulasHorde = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.REBECCS_LAST_PLEA ] = 0;
 		if( CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] <= 0 ) {
 			this.subdueVapula();
@@ -452,7 +452,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 	};
 	Owca.prototype.noVapulaSex = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] -= 5;
 		Combat.cleanupAfterCombat();
 	};
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] -= 10;
 		//Victory rape with penis [Anal Orgy and Bukkake] (NTR Vapula) (Z);
 		if( CoC.player.hasCock() ) {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'The demon horde struggles before you.  With a disdainful smile, you fully expose your genitals for everyone to see.  ' );
 			//[if cocks];
 			if( CoC.player.hasCock() ) {
@@ -565,7 +565,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 		//Victory rape using vagina/anus [Take Dicks in All Holes](Z);
 		else {
-			EngineCore.clearOutput();
+			MainView.clearOutput();
 			EngineCore.outputText( 'The demon horde struggles before you.  With a disdainful smile, you fully expose your genitals for everyone to see.  ' );
 			//[if cocks];
 			if( CoC.player.hasCock() ) {
@@ -653,7 +653,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	//Main Owca Village menu (Z);
 	//[displayed after the second encounter text and right away in subsequent encounters];
 	Owca.prototype.owcaMainScreenOn = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.REBECCS_LAST_PLEA ] === 1 && !SceneLib.vapula.vapulaSlave() ) {
 			this.rebeccsLastPlea();
 			return;
@@ -731,7 +731,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Tavern (Z);
 	Owca.prototype.owcaTavern = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The tavern is nice and cozy; there are a few tables and chairs scattered around in no ordered pattern, and most clients here appear to belong to the same species.  By the crude wooden bar, you see a list of all the current drinks on sale:\n<i>' );
 		//SheepMk;
 		var milk = EngineCore.createCallBackFunction( this, this.owcaBuySetup, ConsumableLib.SHEEPMK );
@@ -774,15 +774,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 	};
 	Owca.prototype.buyOwcaShit = function( bleh, price ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.gems -= price === undefined ? 0 : price;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.outputText( 'The bartender hands you a bottle and grabs your gems before attending other clients, leaving you to your own business.\n\n' );
 		SceneLib.inventory.takeItem( bleh, this.owcaTavern );
 	};
 	//Herds (Z);
 	Owca.prototype.herds = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The herders greet you warmly.  "<i>Welcome, champion!  It is indeed a pleasure to have the honor to talk to such a noble and revered hero.</i>"  You reply with equal grace and ask in a more formal tone if there\'s anything you can do to help them out.' );
 		EngineCore.outputText( '\n\n"<i>Well, our sheep badly need to be sheared and we could really use an extra pair of hands to get the work done.</i>"  The herder proceeds to hand you some tools, and redirects you to a group of villagers working actively.  You rapidly join them and soon enough you are having a pleasant conversation, chatting and laughing as you collect the wool, so much so that you don\'t see where time goes; in what seems like minutes you\'re already done.' );
 		//attitude +5, int +1;
@@ -801,14 +801,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Pit (Z);
 	Owca.prototype.zePit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You announce to all the villagers present that you\'re going to guard the pit as well as the village\'s entrance against the demons, trusting them to spread the news; they seem glad that you took this initiative on your own.  Checking your equipment, you head toward the pit, ready to stand your ground against the lewd horde.' );
 		//Redirects to the Dusk Transition Scene, then to a combat with full equipment and weapons. Loss/Victory scenes as usual.;
 		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.intoTheDemonPit, false ) );
 	};
 	//Rebecc Menu (Z);
 	Owca.prototype.rebeccMenu = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You knock and step into the old shack, accustoming yourself to the meager light.  As soon as you close the door behind you, you spot Rebecc stepping out of a little backroom.' );
 		EngineCore.outputText( '\n\n"<i>' + CoC.player.short + '!  You came!  I was just preparing a hot bath.  My poor darling, you must have gone through a really perilous ordeal.  Here, do you want to get cleaned up?</i>"' );
 		//Option: Appearance: Leads to Rebecc Descrpition.;
@@ -825,7 +825,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Rebecc Appearance (Z);
 	Owca.prototype.rebeccAppearance = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Rebecc is a 5-foot, 7-inch sheep-girl, with a cute human visage decorated by two little nubby horn protrusions and plush and fuzzy curled white hair that cascades down over her shoulders.  Her face is expressive, with her glinting blue eyes and avid mouth accurately reflecting her whole range of emotions.  Her complexion is extremely pale, although the exposed parts of her body are rather tanned due to hours of labor under the scorching sun.  She is currently wearing a coarse peasant dress, a layer of thin white cloth that clearly outlines her appealing curves.  Her fine hips and legs sway with elegance when she walks and you can guess a bountiful wiggly rump hides behind the back of her gown.' );
 		EngineCore.outputText( '\n\nShe has a pair of ample, barely concealed breasts.  Although you can\'t see them outright, her thin clothing leaves little doubt that they\'re D-cups.  Her 0.5 inch nipples point through her dress whenever she\'s aroused.' );
 		EngineCore.outputText( '\n\nShe has a pussy of dubious virginity but copious wetness between her legs.  Occasionally a damp patch will appear on her dress, betraying her arousal.' );
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Rebecc Bath scene (Z);
 	Owca.prototype.rebeccBathScene = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'She grabs your hand and leads you to her bathroom, a tiny place almost entirely occupied by an enormous circular container acting as a bathtub, full of hot steaming milk.  You watch her, puzzled.' );
 		EngineCore.outputText( '\n\n"<i>What?  Don\'t you bathe in milk in your village?  We have plenty of it here in Owca, you know; more than clean water.  We use it for everything; it has curing properties.</i>"  Whispering seductively, she adds, "<i>It\'s also ideal for purging brave demon fighters from any taint they may have caught.</i>"' );
 		EngineCore.outputText( '\n\nShe stares at you with insistent and playful eyes.  "<i>Now come on, you know where I\'m going with this.  Let me help you out of your clothes.</i>"' );
@@ -870,7 +870,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Rebecc Rape scene (for discerning penises) (Z);
 	Owca.prototype.rapeRebecc = function( outside ) {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( CoC.player.hasCock() ) {
 			EngineCore.outputText( 'Within three strides you are upon Rebecc; you slap her twice on her cheeks, brutally yank her hair and in a harsh gesture, you turn her around.  The woman yells, "<i>W-what are you doing?  No, please stop!</i>"  Completely caught unaware, she gasps and jolts in surprise, crying loudly until you slap her again to shut her up.' );
 			EngineCore.outputText( '\n\nYou quickly proceed to denude her, tearing her peasant dress to reveal her bountiful, jiggling breasts.  This enormous rack is begging to be touched; you ruthlessly grope them, forcefully bringing her nipples into their erect state.  She tries to struggle away but you hold her tight, her resistance and endless writhing making [eachCock] harder; to better please yourself, you pull it free of your [armor].  You grind against her plush butt through the coarse cloth of her dress until it is completely drenched with pre-cum, then feverishly remove it, tearing the poor girl\'s gown to rags in the process to give you a clear view of her ample buttocks.  Pressing yourself on her more, you thoroughly enjoy the soft touch of her healthy rump.  You pinch and grope her fat butt repeatedly, making her whimper in humiliation, until it goes red from your rough treatment.  Gods, this girl has a fine ass; you give it a few slaps here and there as it jiggles in the most enticing way.' );
@@ -952,7 +952,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	//Desperate Villagers (Z);
 	//[Dialogue once Attitude reaches 0 or less, pops automatically as you go to the village];
 	Owca.prototype.desperateVillages = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you approach the group of huts, you hear a vague rumble, as if many people were talking at the same time.  Walking closer, you see all the villagers gathering outside and arguing violently; among them you spot your friend, Rebecc.  As soon as she sees you she hurries over with desperate, wet eyes.' );
 		EngineCore.outputText( '\n\n"<i>They want to put you back into the pit by force!  I and some others have tried arguing with them but they won\'t hear anything!  The demons have been harassing us a lot due to the lack of sacrifices, please do something!</i>"' );
 		EngineCore.outputText( '\n\nShe is rudely pushed aside by a tall muscular man with a pitchfork in his hand.  He starts talking in a slow, harsh voice.  "<i>You supposed to be brave.  Go ahead.  Make sacrifice.  Or do we need to make you brave, be it against your own will?</i>"' );
@@ -963,7 +963,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Villagers Fight (Z, but pretty barebones);
 	Owca.prototype.fightZeVillagers = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//You are fighting the villagers (level 14):;
 		Combat.startCombat( new Farmers() );
 		CoC.monster.createStatusAffect( StatusAffects.GenericRunDisabled, 0, 0, 0, 0 );
@@ -973,7 +973,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 
 	//Defeat Villagers (only displayed if corruption >= 60ish) (Z);
 	Owca.prototype.beatUpOwca = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The last of the villagers drops his improvised weapon.  They are all lying defenseless before you.  At last, you notice Rebecc, the only one still conscious, curled up as she weeps uncontrollably.  She is clearly oblivious of her surroundings, undoubtedly shocked by the violent fight.  Even if she calls herself your friend, you don\'t think you\'d be able to reason with her after pummeling her kin.  What do you do?' );
 		//Rape Rebbecc/Torch Village (needs Akbal's fire or Whitefire)/Leave;
 		var torch = null;
@@ -994,7 +994,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Village Torching scene - requires a fire skill (Z);
 	Owca.prototype.torchOwcaMotherFuckers = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'These ignorant folks deserve to be punished for trying to take you by force.  You muster your strength and release a wave of magical flame.  The raw heat and energy is enough to set entire thatched roofs ablaze.  You ignite house after house, the poor constructions unable to withstand your fiery might, until there are enough burning that the wind can carry the flames to all other buildings nearby.  A few minutes later, the entire village is ablaze; hovels are crumbling under their own weight and the crude roads are being littered with fallen debris.  You watch Owca burn silently, arms crossed.  Finally, when the last building has been thoroughly reduced to a pile of rubble and ashes, you quickly search for any valuables among the villagers\' belongings.  Fortunately their gems haven\'t been melted; you pack a substantial amount of them away before leaving.  You cast a thoughtful glance at the remains of what used to be a peaceful village; ironically enough, the only structure you preserved was the pole in the pit, an ultimate mockery of their futile struggles against forces that ridiculously outmatch them.' );
 		CoC.flags[ kFLAGS.OWCA_UNLOCKED ] = -1;
 		EngineCore.dynStats( 'cor', 15 );
@@ -1008,18 +1008,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Fuck off village;
 	Owca.prototype.torchUpVillagersAndLeave = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You don\'t think you\'re going to see these villagers again, and you don\'t really want to.' );
 		//Corruption +15 (plus extra for rape), ~ 1000 gems, EngineCore.fatigue set to 100;
 		CoC.player.gems += 900 + Utils.rand( 150 );
 		EngineCore.fatigue( 100 );
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		Combat.cleanupAfterCombat();
 	};
 	//End of quest;
 	//Lose to Villagers (Z);
 	Owca.prototype.loseToOwca = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You kneel down and then fall, overwhelmed by the villagers\' fury and numbers.  Without hesitation, the angry mob jumps on you; you recoil in terror, persuaded that you\'re going to be beaten to death.  Instead, you are carelessly lifted and completely stripped off; ' );
 		if( CoC.player.weaponName !== 'fists' ) {
 			EngineCore.outputText( 'your ' + CoC.player.weaponName + ' is taken away and ' );
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	//Post-Mob Encounter (Z);
 	Owca.prototype.morningAfterRape = function() {
 		CoC.player.removeStatusAffect( StatusAffects.LostVillagerSpecial );
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'The village is utterly silent and almost deserted.  The few people you see look away when they spot you, probably ashamed of what they did last time.  Doors are locked and windows are closed as you pass by; everyone is obviously afraid of directly confronting their victim.  You head toward Rebecc\'s house, your last friend.  As you open her door, you hear a muffled wail; you recognize the pretty farmer\'s voice.  She is laying on her bed, weeping uncontrollably; once she finally notices your presence, she looks up to you with tear-filled eyes, sobbing convulsively as she talks.' );
 		EngineCore.outputText( '\n\n"<i>T-they forced you to be abused... I promise I didn\'t want that!  I tried to convince them... they wouldn\'t listen... they threw you to the pit... at least I made them give you back your belongings as usual... now you must hate me, don\'t you?  Oh, I\'m so sorry!  It\'s all my fault!</i>"' );
 		EngineCore.outputText( '\n\nWhat do you do?' );
@@ -1047,7 +1047,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Option: Forgive (Z);
 	Owca.prototype.forgiveOwca = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'Swallowing your pride, you tell her that it\'s all right and that you hold no grudge against her; the villagers were obviously desperate, to have resorted to such extreme measures.  You assure her' );
 		if( CoC.player.cor >= 50 ) {
 			EngineCore.outputText( ', lying through your teeth,' );
@@ -1067,7 +1067,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Option: Leave (Z);
 	Owca.prototype.fuckThisShit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You stare at the wretched, whimpering creature before you for a moment.  There\'s nothing to say.  Without a word, you head back to your camp, carefully closing Rebecc\'s door behind you as you leave.' );
 		CoC.flags[ kFLAGS.REBECCS_LAST_PLEA ] = 1;
 		if( CoC.isInCombat() ) {
@@ -1078,7 +1078,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Rebecc's Last Plea (Z);
 	Owca.prototype.rebeccsLastPlea = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As you arrive on the border of the cursed village, you see someone is running in your direction.  You recognize Rebecc instantly; she seems to stumble and stagger at every step, and her face is tear-stricken.  Intrigued, you catch the crying woman by the waist as she runs past you sightlessly; she falls into your arms, nearly tripping as she abandons herself to your embrace.  Unsure of what to do, you ask her why she is panicking, though it takes a while before your words reach her.' );
 		EngineCore.outputText( '\n\n"<i>They... they chose me!</i>" she wails, choking back.  "<i>They voted and I was chosen to be thrown in the pit!  They\'re angry at me for befriending you and I was blamed for the recent troubles with the demons!  They think you\'ve abandoned us and I\'m responsible for all this... they hate me!  They hate you too!  I\'m going to be tied up, abused and broken... and everyone will pretend nothing happened!  I don\'t want to go to the pit; I don\'t know what to do!</i>"' );
 		EngineCore.outputText( '\n\nWhat do you do?' );
@@ -1090,7 +1090,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Option: Leave (Z);
 	Owca.prototype.leaveRebeccToBeRaped = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Rebecc you don\'t want to have anything to do with her or her sick people and promptly turn around.  She wails and begs you at first but you\'re faster than the tear-blinded girl, and she soon falls behind.  Your safe, simple camp looms large in your thoughts, pushing out any desire to return to this wicked village and its wicked people.' );
 		//[Owca Village removed from 'Places' menu.];
 		EngineCore.outputText( '\n\n(Owca has been removed from the places menu.)' );
@@ -1099,7 +1099,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Option: Face Down the World (Z);
 	Owca.prototype.faceDownHordes = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You tell Rebecc to go hide on the plains; you\'re going to handle the villagers as well as the demon horde on your own.  She cries, "<i>But ' + CoC.player.short + '!  You stand no chance against this ruthless horde!  Besides, the villagers won\'t trust you.  They\'ll think you want to cheat them... they\'ll tie you up to prevent you from getting away!</i>"' );
 		EngineCore.outputText( '\n\nYou tell her not to worry and before her whining protestations can begin, you\'re already marching toward the village.  As you walk between the tiny houses, people keep staring at you with hostile or even despising eyes.  Some start following you as you walk to the pit, ignoring all the whispers and rumours rumbling about you.  When you\'re finally standing before the pole, with the whole town gathered around you, you speak in a loud, clear voice.' );
 		EngineCore.outputText( '\n\n"<i>It is unfair that a young innocent woman should suffer from the cowardice of her townsfolk.  Since you are all too reluctant to defend her yourselves, I\'ll do it for you.  Don\'t worry, you meek sheep.  No demon will abuse your kind on my watch.</i>"  You then ready yourself in a combat stance and wait.' );
@@ -1109,7 +1109,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Slave to Vapula - Bad End (Z);
 	Owca.prototype.slaveToVapulaBadEnd = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		//[Displayed if Vapula Submissiveness reaches 100];
 		EngineCore.outputText( 'When you wake up, you find yourself tied and gagged in a strange cave.  A pair of smelly red fruits dangle before your eyes, dripping sap.  Chattering and moaning sounds come from everywhere, and your crotch feels numb.  You come back to your senses and realize your mouth is full of cock - the red \'fruits\' are actually an imp\'s balls, and the \'sap\' the drippings of a pussy just behind them!  You struggle to remove the rod of dickflesh but there\'s not much you can do, bound as you are.  Your constant writhing only makes the hermaphrodite imp harder and she grabs a fistful of your hair as she cums, hard.  Her balls shrink even as the sticky vaginal wetness running along their underside swells, and you can feel the veins in her dong pulsate as she unloads an enormous deposit of spooge in your throat; you are forced to swallow the unnaturally hot globs just to clear room to breathe.  Gods, it is so humiliating... yet, somehow, it\'s also strangely habit-forming.  Each gulp is easier than the last.  You hear an inhuman snicker as the shaft is pulled out, wiped clean of any residual cum by your lips.  The glittering pair of balls is removed from your sight as the imp is pushed aside.' );
 		EngineCore.outputText( '\n\n"<i>Sooo... my little pet has just woken up.  Are you done gobbling cock yet?</i>"' );
@@ -1134,7 +1134,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	//Subdue Vapula Scene - begins Vapula Follower Content(Z);
 	//[Triggered if submissiveness reaches 0 when beating the horde.] ;
 	Owca.prototype.subdueVapula = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'At last, the final demon falls, ' );
 		if( CoC.monster.HP < 1 ) {
 			EngineCore.outputText( 'overwhelmed by your might' );
@@ -1157,7 +1157,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Option: Disband (Z);
 	Owca.prototype.disbandHorde = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You start speaking in a calm, measured voice.  "<i>Here we are again.  I cannot count how often we\'ve been in this same situation: you struggling before me, powerless.  How often do you need to be reminded your place?  Back off.  We don\'t want your kind here.  Go find some other prey; fuck each other for all I care.  Just stop bothering us.  If I see you or your minions hanging around this village again, you will regret it.  All of you.</i>"' );
 		EngineCore.outputText( '\n\nHer eyes are progressively filling with fear as you deliver your ultimatum, conscious of finding someone with more power than her.  She squirms uncomfortably in your grasp and nods feebly.' );
 		EngineCore.outputText( '\n\nYou give the wanton succubus a loud slap for good measure and discard her.' );
@@ -1170,7 +1170,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	};
 	//Option: Enslave - penis version (requires D2 completion and libido >= 60 and corr >= 70) (Z);
 	Owca.prototype.enslaveVapulaWithYourWang = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		if( !CoC.player.hasCock() ) {
 			this.enslaveVapulaAsACuntWielder();
 			return;
@@ -1202,7 +1202,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	//Option: Enslave - vagina version (requires D2 completion and libido >= 60 and corr >= 70 and, apparently, no centaurs)(Z);
 	//NOTE: No Centaurs. Fuck Centaurs.;
 	Owca.prototype.enslaveVapulaAsACuntWielder = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You speak in a feverish voice.  "<i>You\'re such a bitch.  Damn, why did you ever think you were going to make me your slut?  How many times do you need to be shown that I\'m not the bottom in our relationship?  You deserve to be turned in to Lethice so she can make you her personal fuck-toy; at least you\'ll remember your place.</i>"' );
 		EngineCore.outputText( '\n\nAs soon as you mention the name of the demon lord, the struggling woman in your grasp recoils, her purple eyes widening in fright.  She whimpers, terrified, "<i>Please don\'t!  You don\'t know her!  She\'s going to kill me, or worse!  She hates me!  If you do this, she will... she will...</i>"  Her voice breaks as she keeps muttering unintelligible words, half-paralyzed in horror.' );
 		EngineCore.outputText( '\n\n"<i>So you\'re a renegade, huh?  Very interesting.  I guess that\'s why a proud succubus is now forced to rely on marauding and scavenging.  But surely it wasn\'t Lethice who forced you to gang-rape a villager every week, right?</i>"' );

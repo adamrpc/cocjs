@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Useable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, SceneLib, CoC, Utils, Useable, EngineCore ) {
 	function GroPlus() {
 		this.init(this, arguments);
 	}
@@ -18,13 +18,13 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		var gpClit = (CoC.player.vaginas.length > 0 ? this.growPlusClit : null);
 		var gpCock = (CoC.player.cockTotal() > 0 ? this.growPlusCock : null);
 		var gpNipples = (CoC.player.totalNipples() > 0 ? this.growPlusNipples : null);
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You ponder the needle in your hand knowing it will enlarge the injection site.  What part of your body will you use it on?  ' );
 		EngineCore.choices( 'Balls', this, gpBalls, 'Breasts', this, gpBreasts, 'Clit', this, gpClit, 'Cock', this, gpCock, 'Nipples', this, gpNipples, '', null, null, '', null, null, '', null, null, '', null, null, 'Nevermind', this, this.growPlusCancel );
 		return (true);
 	};
 	GroPlus.prototype.growPlusBalls = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		EngineCore.outputText( 'You sink the needle deep into your ' + CoC.player.sackDescript() + '.  It hurts like hell, but you push down the plunger and the pain vanishes as the needles contents flow into you.\n\n' );
 		//1 in 4 BIG growth.;
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusBreasts = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		EngineCore.outputText( 'You sink the needle into the flesh of your ' + CoC.player.allBreastsDescript() + ' injecting each with a portion of the needle.\n\n' );
 		if( CoC.player.breastRows.length === 1 ) {
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusClit = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		EngineCore.outputText( 'You sink the needle into your clit, nearly crying with how much it hurts.  You push down the plunger and the pain vanishes as your clit starts to grow.\n\n' );
 		CoC.player.clitLength++;
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusCock = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		EngineCore.outputText( 'You sink the needle into the base of your ' + CoC.player.multiCockDescriptLight() + '.  It hurts like hell, but as you depress the plunger, the pain vanishes, replaced by a tingling pleasure as the chemicals take effect.\n\n' );
 		if( CoC.player.cocks.length === 1 ) {
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusNipples = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		EngineCore.outputText( 'You sink the needle into each of your ' + CoC.player.nippleDescript( 0 ) + 's in turn, dividing the fluid evenly between them.  Though each injection hurts, the pain is quickly washed away by the potent chemical cocktail.\n\n' );
 		//Grow nipples;
@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, SceneLib, CoC, Utils, Us
 		SceneLib.inventory.itemGoNext();
 	};
 	GroPlus.prototype.growPlusCancel = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'You put the vial away.\n\n' );
 		SceneLib.inventory.returnItemToInventory( this );
 	};

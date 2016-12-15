@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, CockTypesEnum, ImageManager, PerkLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, StatusAffects, CockTypesEnum, ImageManager, PerkLib, Descriptors, Utils, kFLAGS, CoC, EngineCore ) {
 	function Scylla() {
 		this.action = null;
 		this.scyllaLastActionSelectionTime = null;
@@ -185,7 +185,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		this.scyllaSprite();
 		CoC.flags[ kFLAGS.FED_SCYLLA_TODAY ] = 1;
 		CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ]++;
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-help-round-two' ), false );
 		EngineCore.outputText( 'The Wet Bitch is particularly busy today and you\'re obliged to sit at the bar after shouldering your way through the crowd. Before you can even place an order, the bartender slides you a note. Curious, you unfold the crisp, white parchment. The note is written in such a light hand that you have to strain to read it in the dim bar. The flowing, graceful message reads: "<i>Dear ' + CoC.player.short + ', I am sorry to impose upon you once more, but if you don\'t mind, could you maybe help me one more time? I am in one of the rooms upstairs, could you come up and see me?  In your debt, Scylla.</i>"\n\n', false );
 		EngineCore.outputText( 'Dropping some gems on the counter, you grab a bottle of sweet wine and head to Scylla\'s room. You knock and step inside, closing the door behind you. Scylla is sitting on the bed, her hands nervously folded in her lap. She\'s still trying to wear a nun\'s habit, but her inflated body has made it more a satin glove than a shapeless robe. Her jet hair is tousled around her face in thick curls and tumbles around her ample breasts, which have grown to double-Ds since the last time you saw her. The bulging belly you gave her has vanished, however, and now her waist is so narrow and sunken that you can see her ribs under her dress. Her hourglass figure looks like it\'s about to snap in the middle.\n\n', false );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	};
 	Scylla.prototype.scyllaRoundThreeCUM = function() {
 		this.scyllaSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-help-round-two-jizz' ), false );
 		CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ]++;
 		//Standard;
@@ -1125,7 +1125,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'You pull the watchwoman aside, away from the too-honest nun, and explain that it was all just a misunderstanding. You asked the cats to tie you up because you\'ve got a bit of a bondage fetish, but you forgot the safe word in your pleasure. You promise it won\'t happen again. The Collie woman eyes you suspiciously but is stuck- without your testimony, she\'s got to let the cats go.\n\n', false );
 		EngineCore.outputText( '"<i>But I\'m going to fine you for this!</i>" she barks, annoyed. "<i>Keep your sex life behind closed doors and don\'t waste the watch\'s time again!</i>" She collects her fee and disperses the Guard with another bark before turning to leave herself, tail curled up in irritation. The cats scatter too, but you\'re pretty sure you\'ll see them again as long as you\'re still lactating. Scylla\'s not sure what you told the watch, but she thanks you for your kindness with a kiss on the forehead and excuses herself; it\'s been a busy day and she\'s late for the soup kitchen. You muse that she\'ll probably end up feeding the same cats just recently denied a meal.', false );
 		CoC.player.gems -= 10;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Wait];
@@ -1180,7 +1180,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'When the last feline has drunk their fill of you and the nun and their bloated masturbation burns off the arousal of their theft, they clumsily untie the constricting collars from your arms and help take Scylla down from her perch. They avoid meeting your eyes, perhaps ashamed or maybe just still too horny, but they press a few meager gems into your hand, trying to pay for the milk they stole. Scylla refuses what they offer her, instead giving them the money she had on her. She manages to gently scold them for not asking first while keeping her blushing gaze hidden behind a veil of her shimmering curls. You help the nun gather up the torn scraps of the top half of her robe and ineffectually drape them around her milk-inflated chest. She tries to put her habit back on but her horns have grown into twisting loops atop her head and are slow to recede while the lusty felines are still around. Before anything else can jump you, you excuse yourself and slink away, rubbing your achingly sore nipples under your ' + CoC.player.armorName + ' as you do so.', false );
 		//[Gain gems. End encounter.];
 		CoC.player.gems += 25;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Get Help];
@@ -1208,7 +1208,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.outputText( 'You pull the Watchwoman aside, away from the too-honest nun, and explain that it was all just a misunderstanding. You asked the cats to tie the nun up because the two of you have got a bit of a bondage fetish, but they got a little caught up in the role play and when they didn\'t stop after your companion used the safe word, you panicked. You promise it won\'t happen again. The Collie woman eyes you suspiciously but has no choice but to take your word for it- without your testimony, she\'s got to let the cats go.\n\n', false );
 		EngineCore.outputText( '"<i>But I\'m going to fine you for this!</i>" she barks, annoyed. "<i>Keep your sex life behind closed doors and don\'t waste the watch\'s time again!</i>" She collects her fee and disperses the Guard with another bark before turning to leave herself, tail curled up in irritation. The cats scatter too, but you\'re pretty sure you\'ll see them again. Scylla\'s not sure what you told the Watch, but she thanks you for your kindness with a kiss on the forehead and excuses herself; it\'s been a busy day and she\'s late for the soup kitchen. You muse that she\'ll probably end up feeding the same cats just recently denied a meal.\n\n', false );
 		CoC.player.gems -= 10;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Submit] (Only available to players with vaginas);
@@ -1295,7 +1295,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		CoC.flags[ kFLAGS.KATHERINE_MET_SCYLLA ] = 1;
 		CoC.player.createKeyItem( 'Silver Kitty-Bell', 0, 0, 0, 0 );
 		CoC.player.gems += 50;
-		EngineCore.statScreenRefresh();
+		MainView.statsView.show();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Rape];
@@ -1353,7 +1353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	//This scene is available if the player has at least two tentacle dicks, and appears when the player chooses to "<i>share an addiction</i>" under the heading [Tentacles].  Additional text becomes available if the player has four or six tentacle dicks.;
 	//-------------------------------------------------------------------------------------------------;
 	Scylla.prototype.shareTentaclesWithScylla = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-share-tentacle-addiction-one' ), false );
 		EngineCore.outputText( 'The girls pale as your writhing tentacle cocks snake out of your [armor], twisting and coiling in the air, already swollen with your excitement.  Scylla opens her mouth, but words fail her and the nun\'s puffy, crimson lips set into a worried pucker instead.  Abylon folds her arms over her chest and rolls her eyes.  "<i>Some security they\'ve got in this city,</i>" the goblin mutters.  Pastie turns white as her name, sobering up instantly.  Letting out a high-pitched "<i>Eeeek!</i>" she launches herself at the window, wings fluttering at top speed.  In her panic, however, it seems she\'s forgotten about the glass.  With a sharp crack, the fairy bounces off the window pane and tumbles to the ground, stunned and fluttering ineffectually.  Gesturing broadly at the quivering forest of cockflesh, you offer a simple smile and slowly close the door behind you.' );
 		//[Silly Mode:;
@@ -1380,7 +1380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla2 );
 	};
 	Scylla.prototype.shareTentaclesWithScylla2 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-share-tentacle-addiction-two' ), false );
 		//[Two Tentacles:;
 		if( CoC.player.tentacleCocks() <= 2 ) {
@@ -1425,7 +1425,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla3 );
 	};
 	Scylla.prototype.shareTentaclesWithScylla3 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-share-tentacle-addiction-three' ), false );
 		EngineCore.outputText( 'With your members in place, you take a moment to drink in the sensations pulsing through your flesh.  Scylla appears almost relieved as her crimson puckers wrap around the peaks of your undulating tentacles, their lengths coiled around her statuesque limbs and squeezing her inflated breasts a little tighter with every inch she sucks down.' );
 		//[four cocks:;
@@ -1463,7 +1463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	};
 	//[Next];
 	Scylla.prototype.shareTentaclesWithScylla4 = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( 'As your orgasm wanes and you are able to catch your breath, the firmness gradually ebbs from your tentacle dicks.  Uncoiling them, your excess length shrinks back into your loins, restoring you, more or less, to normal.  Scylla slumps against the side of the bed, her eyes closed in a private communion, beatific face plastered and dripping with your seed.' );
 		//[four cocks:;
 		if( CoC.player.tentacleCocks() >= 4 ) {
@@ -1485,7 +1485,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	//(If player has the "<i>Opal Ring,</i>" change text on 3rd event);
 	Scylla.prototype.scyllasFlyingSolo = function() {
 		this.scyllaSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-feed-bar-intro' ), false );
 		if( CoC.flags[ kFLAGS.TIMES_SOLO_FED_NUN ] === 0 ) {
 			EngineCore.outputText( 'Glancing around the bar, you spy the modestly attired, statuesque nun sitting alone in a booth.  She seems to be watching the bar patrons nervously, absently chewing at the ruby gloss of her plump lower lip.  Taking a moment longer, you realize that she\'s only staring at the male patrons, with a look halfway between worry and desire creasing her pale features.  Curling a loose lock of thick, jet-black hair with one hand, her other trembles atop the table, long, slender fingers drumming an anxious beat on the thick wood.  There is a lean, hungry look in her bright, blue eyes that would be positively predatory worn by anyone else— on the nun, it merely looks desperate.  She\'s so fixated on those around her that she doesn\'t even notice as you approach her booth until you clear your throat.' );
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	};
 	//[Feed];
 	Scylla.prototype.feedScyllaSomeJizzDatJunkieNeedsIt = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-feed-jizz-solo-one' ), false );
 		this.scyllaSprite();
 		CoC.flags[ kFLAGS.TIMES_SOLO_FED_NUN ]++;
@@ -1568,7 +1568,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.addButton( 0, 'Next', this, this.feedingScyllaCumStepTwo );
 	};
 	Scylla.prototype.feedingScyllaCumStepTwo = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-feed-jizz-solo-two' ), false );
 		this.scyllaSprite();
 		if( CoC.flags[ kFLAGS.TIMES_SOLO_FED_NUN ] === 1 ) {
@@ -1629,7 +1629,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	Scylla.prototype.cumFeedScyllaShesACoolGirl = function() {
 		EngineCore.fatigue( 10 );
 		this.scyllaSprite();
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		EngineCore.outputText( ImageManager.showImage( 'scylla-feed-jizz-solo-three' ), false );
 		if( CoC.flags[ kFLAGS.TIMES_SOLO_FED_NUN ] === 1 ) {
 			//[Low Cum Production (under 250,000 ml)];
@@ -1699,14 +1699,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	};
 	//[Decline];
 	Scylla.prototype.declineToBeASpunkPumpintJizztrocity = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.scyllaSprite();
 		EngineCore.outputText( 'In retrospect, a thirst like Scylla\'s is only going to grow as time goes on and you\'d just as soon not be accountable for the girl\'s limitless needs.  She seems capable of taking care of herself in your absence, so there\'s no reason to formalize the favors you do for her.  You accept the nun\'s grateful thanks and take your leave.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Offer];
 	Scylla.prototype.beScyllasPersonSemenSquirtingMilkMaid = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.scyllaSprite();
 		EngineCore.outputText( 'You explain the proposition to the sated nun, who listens attentively.  She\'s hesitant at first, saying that she could never impose so much on you after all the kindness you\'ve done her, asking nothing in return.  You dismiss her reservations  with a laugh and explain the sort of trials you\'ve already endured in graphic enough detail to make her blush a bright crimson.  After so much strife, feeding a nun in the most pleasurable way possible is hardly the chore she makes it out to be.  Though you can\'t guarantee that you\'d be able to stop by every day, with the sheer amount you can leave her, Scylla should have enough cum to keep herself from losing control.  You note that she\'ll have to see about picking up plenty of condoms for next time, though.' );
 		EngineCore.outputText( '\n\nWith a small nod, Scylla agrees.  "<i>Thank you, [name], this is more kindness than I could have ever asked for.</i>"  Her eyes light up and she reaches into a small pouch within her robe, producing a small band of pale white stone.  "<i>This is an opal ring from my home,</i>" she explains.  "<i>It normally signifies an oath, though in this case, I believe it is more a promise between friends.  I\'d like you to take it, with my gratitude.</i>"  She presses the ring into your hand with a wide smile, thanking you once more before rising to her feet, wobbling a bit at the liquid weight still inside her.  "<i>Please don\'t trouble yourself about the clean up.</i>"  Gesturing at the parcels you\'ve left today, she adds, "<i>I\'ll move these to my room and take care of the mess.  Meeting the kind soul who, ah, lent us their room today will give me a chance to ask where they got these condoms.  For next time,</i>" she cheerfully laughs.' );
@@ -1716,7 +1716,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Scylla.prototype.openTheDoorToFoursomeWivScyllaAndFurries = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.scyllaSprite();
 		EngineCore.outputText( 'The door audibly creaks when you slip into the Wet Bitch’s back room, but the chamber’s occupants are none the wiser, too busy passionately rutting to hear something as subtle as a hinge’s protest. Scylla is on her knees (of course), her breasts ballooned to gargantuan sizes, big enough that the sit on the floor with her while two white-furred girls pound away at her noisily slurping lipples.' );
 		EngineCore.outputText( '\n\nThe form on the left is the smaller of the two - a white-furred mouse-girl that can’t be more than an inch over five feet tall, her slit dripping so freely that a small puddle has formed betwixt her thrusting, well-muscled thighs. A frankly monstrous rod juts from where the pink bud of a clit ought to be, as thick around as the rodent woman’s arm and yet somehow fitting snugly between one of the nun’s extra lips all the same, stretching them into a scarlet ‘o’ of cock-devouring hunger.' );
@@ -1805,7 +1805,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EventParser, StatusAffects, C
 	};
 	//Could totally wake to an interstitial scene with other shit happening if I get time/energy.;
 	Scylla.prototype.scyllaFurryFoursomePartDues = function() {
-		EngineCore.clearOutput();
+		MainView.clearOutput();
 		this.scyllaSprite();
 		EngineCore.outputText( 'A strong hand slaps down on your chest, rousing you from slumber. <i>“Whaa...?”</i>' );
 		EngineCore.outputText( '\n\n<i>“Wake up, Champion,”</i> Winter commands with an authority that seems entirely out of place after seeing her moaning and begging. <i>“Scylla’s sleeping off her feeding, but she wanted us to get you up - something about having to guard a door or something.”</i>' );
