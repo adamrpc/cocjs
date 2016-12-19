@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nYou jump to your feet, readying your [weapon] for battle as you scan the perimeter.   A moment later, and you see a ponderous figure step out of the shadows behind a large rock.   At first glance, it looks like a normal girl dressed in a simple moccasin poncho, her bright red hair falling past her shoulders to rest on a pair of absolutely massive breasts.   Timidly, she steps forward, giving you a good look at her less human attributes: a pair of avian legs stick out beneath the hem of her clothes, and a large plume of feathers stick up from her big bubble-butt, each red feather nearly reaching the back of her head.   And her breasts...  each is easily the size of a goblin, so massive that it seems she can barely wobble along.' );
 		MainView.outputText( '\n\n“<i>G-gobble?</i>”  she asks quietly, her big blue eyes pleading at you.' );
 		//[Shoo Off] [Let her Come] [Hello again!];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 || CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT ) ) {
 				MainView.outputText( '\n\n<b>You could let her come, like last year, or great her in a whole new way (by clicking \'Hello Again\')</b>' );
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 			MainView.outputText( 'and swallowing your shaft until her throat is bulging with your massive manhood' );
 		}
 		MainView.outputText( '.  She bobs up and down your length, hefting up her huge rack when she\'s at the peak to rub your sensitive underside, trying to titfuck you but just too damn big to get them into the action.  You suppose you\'ll have to take care of that...' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.gravyBoatDatTurkturk );
 		//Gravy boat?;
 	};
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nLooks like she wants you to return the favor!' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.seasonHerDatTurkeyBitch );
 	};
 	//Season Her;
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\n"<i>Gobbles, gobble,</i>" you command, poking a finger into her drooling slit.' );
 		MainView.outputText( '\n\n"<i>Gobble!</i>" she answers, rolling off of you and hiking her legs up, knees sinking into her bust to show off her slit for you, so eager and inviting.  You rise to your [feet], grabbing the lusty fowl behind her hooked knees and pulling her in to line up with your ' + CoC.player.multiCockDescriptLight() + '.  "<i>G-gobble!</i>" she begs, fluttering her plumage against your [legs], staring up at you imploringly as her skin further reddens, so hot with desperate lust you can practically feel the sexual hunger radiating off of her.  Time to finish this turkey off in style!' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.turkeyDesertBitches );
 	};
 	//Dessert;
@@ -419,7 +419,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nYou grin. You could really go for a wild night right about now and a cheap whore sounds like just the right thing to ease your... stress.' );
 		//{Lust = lust + 10};
 		EngineCore.dynStats( 'lus', 5 );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.gems >= 1 ) {
 			EngineCore.addButton( 0, 'Throw gem', this, this.getARoastPiggueOinkOinkOinkMotherfucker );
 		}
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nShe finally opens her eyes and lets out a surprised, "<i>Oink!</i>" when she sees you observing her with an amused glint in her eyes.' );
 		MainView.outputText( '\n\nThen the plump whore\'s eyes suddenly turn more seductive, giving you a come-hither look as she oinks rather sexily, something that you didn\'t think would be possible until now.' );
 		//[ Next ];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.morePigRoast );
 	};
 	Thanksgiving.prototype.morePigRoast = function() {
@@ -477,7 +477,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nYou look around the room for a more fitting tool to use on this pain-loving slut, even as you turn the whore\'s jiggling butt cheeks into a pair of booty bongos.' );
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
 		//[ Hardcore ] [ Softcore ];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Softcore', this, this.hamRoastTenderizeHerSoftcore );
 		EngineCore.addButton( 1, 'Hardcore', this, this.tenderizeHerHardcore );
 	};
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nYou lose yourself in the excitement, your own [vagOrAss] twitching with delight each time your whip comes down on her bubbly buttocks.' );
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
 		//[ Next ];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl );
 		//{Route to: here};
 	};
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\n"<i>Oink! OINK! <b>OINK!</b></i>" her pathetic squealing only excites you more, the sounds of loud strikes from your paddle filling the room.' );
 		MainView.outputText( '\n\nYou lose yourself in the excitement, your own [vagOrAss] twitching with delight each time your paddle comes down on her bubbly buttocks.' );
 		EngineCore.dynStats( 'lus', 25, 'resisted', false );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.spankEpilogueColonYoureAHorriblePersonForAbusingADumbPigGirl );
 		//[ Next ];
 	};
@@ -521,7 +521,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nYou grab a handy bottle of <i>Booty Balm</i> and squirt a generous amount on your palm and on each of her butt cheeks, working it in gently and easing a least some of the pain from her juicy rump.' );
 		MainView.outputText( '\n\nAfter you\'re sure you\'ve worked as much of the soothing cream into her ass as it will take, you gently pat it with an almost loving caress.' );
 		MainView.outputText( '\n\n"<i>Oink...</i>" the slut sighs appreciatively, her tears finally coming to a stop as you get ready for the second part of your night together.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.spankEpilogueForRizzles );
 		//[ Next ];
 	};
@@ -541,7 +541,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\n\nThe taste reminds you so much of home; the candied sweet potatoes you use to have every year around this time. You need more, inserting your oral muscle as far is it can go into her soaking depths and thrashing it around inside, swirling it to lick up as much of the gooey syrup as you can. Lewd slurping sounds fill the air as the slutty pork roast\'s groans get more high-pitched, quickly approaching another climax.' );
 		MainView.outputText( '\n\nYou tongue her pleasure buzzer, prodding it with your wet tongue and enveloping it with your slobbering oral muscle, sending the whore over the edge as she sprays the creamy syrup into your mouth. You guzzle it down eagerly; the pig slut\'s biggest orgasm yet gushing into your [face], causing your cheeks to puff out as you drink more and more of the delicious fluid, losing track of time.' );
 		//[ Next ];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.getDoneEatingOutPigSlut );
 	};
 	Thanksgiving.prototype.getDoneEatingOutPigSlut = function() {

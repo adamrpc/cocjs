@@ -177,7 +177,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		this.cottonMenu();
 	};
 	Cotton.prototype.cottonMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yoga', this, this.acceptYoga );
 		if( CoC.flags[ kFLAGS.COTTON_KID_COUNT ] > 0 ) {
 			EngineCore.addButton( 1, 'Visit Kids', this, this.visitCottonKids );
@@ -1256,7 +1256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		MainView.clearOutput();
 		MainView.outputText( 'As you enter the gym, keen to work out (in one way or another), you spot Cotton in her usual area.  She\'s pacing around, and a worried look is plastered across her face. When she sees you, she smiles a little and approaches you. Whatever it is, it clearly can\'t wait.' );
 		//-Next-;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.cottonPregnantAlertII );
 	};
 	Cotton.prototype.cottonPregnantAlertII = function() {
@@ -1276,7 +1276,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		}
 		MainView.outputText( '</i>"' );
 		//[Leave Her] [Stay];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Stay', this, this.beAGoodCottonDad );
 		EngineCore.addButton( 1, 'Leave Her', this, this.beABadCottonDad );
 	};
@@ -1561,7 +1561,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		MainView.outputText( '</i>"' );
 		CoC.flags[ kFLAGS.COTTON_CONTRACEPTION_TALK ] = 1;
 		//[Stop Taking] [Keep Taking];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Stop Taking', this, this.tellCottonStopEatingHorsePills );
 		EngineCore.addButton( 1, 'Keep Taking', this, this.tellCottonToKeepFiringBlanksAsshole );
 	};
@@ -2024,11 +2024,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 				}
 				MainView.outputText( ' for the poor mare-morph, rather than letting her use a bottle, or whatever she\'s going to do.' );
 				//[Feed] [Stay Quiet];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Feed', this, this.feedYourCottonKids );
 				EngineCore.addButton( 1, 'Stay Quiet', this, this.letCottonFeedKids );
 			} else {
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', this, this.letCottonFeedKids );
 			}
 			return;

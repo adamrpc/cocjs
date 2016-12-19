@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( 'up at you ' );
 		}
 		MainView.outputText( 'with a soft expression; her features are maternal and friendly, but there\'s a playful twinkle in her eye that makes her look younger than she really is.  For all that, she\'s clearly a mature woman but still strong and attractive.  Black hair, starting to go gray at the tips, is worn in a long, elegant braid, the end knotted around an elaborate butterfly hairpin.  While her fur is a beautiful shade of chestnut brown, her large eyes are a deep brown, almost black.  She casually flicks an equine ear in a manner that reminds you very much of Loppe, and you have a strong feeling that this is Uma, Loppe\'s mother.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.firstVisitPart2 );
 	};
 
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'You give them your best confused expression, realising that Uma and her daughter must have similar tastes in humor; she was evidently joking with you.\n\n' );
 		MainView.outputText( 'Uma is the first to break the awkwardness.  "<i>Well then, care to give me the details?  How did you two meet?  When did you start fooling around?  Has my daughter worked so hard you had to seek a healer yet?</i>"\n\n' );
 		MainView.outputText( 'Loppe holds your hand and the two of you begin detailing how you met....\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.firstVisitPart3 );
 
 	};
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		// There's still a flag left over from Loppe's initial content that I dont' think is actually used.;
 		CoC.flags[ kFLAGS.LOPPE_PC_MET_UMA ] = 1;
 		// Player returns to Camp;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( 'You sigh softly, but accept Uma\'s sexuality is the way it is and apologize for the problem.\n\n' );
 			MainView.outputText( '"<i>Don\'t worry about that, it\'s nothing personal.  I just don\'t swing that way.  Although, if you were to make yourself a bit more feminine, I might consider it.  Maybe you could find yourself a nice little beauty salon somewhere?  I heard there are some treatments that can make you absolutely gorgeous.</i>"\n\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Massage', this, this.massageMenu );
 		EngineCore.addButton( 1, 'Acupunct.', this, this.acupunctureMenu );
 		EngineCore.addButton( 2, 'Talk', this, this.talkMenu );
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"Muscles sore and aching?  Weary down to your bones?  A nice relaxing massage can alleviate your pain and fatigue, and help you unwind more effectively," is how the fourth option describes itself.\n\n' );
 		MainView.outputText( 'Finally, the last message in the catalogue reads, "Need a little more power?  Going to have a fight on your hands soon?  With the special arts of do-in, we can boost your muscles and let you deliver a real knock-out punch - it doesn\'t last forever, so be careful!"\n\n' );
 		MainView.outputText( 'You contemplate your choices carefully.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Relief', this, this.massageRelief );
 		EngineCore.addButton( 1, 'Lust', this, this.massageLust );
 		EngineCore.addButton( 2, 'Modelling', this, this.massageModelling );
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.clearOutput();
 		MainView.outputText( 'You apologize and tell Uma that you\'ve changed your mind, you don\'t want a massage right now.\n\n' );
 		MainView.outputText( '"<i>Very well, dear.</i>"  Uma takes the catalogue back.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.enterClinic, true );
 	};
 	/**
@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( 'Uma sighs and shakes her head.  "<i>Sorry dear, but if you can\'t pay I can\'t treat you.</i>"\n\n' );
 			MainView.outputText( 'You sigh in turn, and tell her that you accept that; she is a business-woman, after all.  You\'ll have to come back another day, when you do have the money to pay for it.\n\n' );
 			MainView.outputText( 'Wishing her well, you calmly let yourself out of the shop and head back to camp.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
@@ -313,7 +313,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( ' flushing with arousal at the idea of being naked before the mare, ' );
 		}
 		MainView.outputText( 'and move over to lay yourself on the table.  You get yourself comfortable and tell Uma that you\'re ready.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.massageCommence, selectedMassage );
 	};
 	/**
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'You thank the mare and get dressed, bidding her farewell before you exit the clinic. Once outside, true to her words, you start to feel better... in fact you feel amazing!  It\'s no wonder her treatment is expensive, you feel just... amazing!\n\n' );
 		// Apply bonus & back to camp!;
 		this.applyMassageBonus( selectedMassage );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.MAX_MASSAGE_BONUS_DURATION = 24;			// Duration of the bonus
@@ -560,7 +560,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( '"<i>Well, since I have already modified your chi in the past, we would first have to undo those changes... I cannot predict how further modifications to the natural flow through your body could interact.  Reversing past changes becomes increasingly more complex, so I have to warn you that it can become a costly process.</i>"\n\n' );
 			MainView.outputText( 'You tell her that you understand what she\'s saying, and consider the decision carefully.  You ask her how difficult she estimates the process would be, given the past sessions you have endured.\n\n' );
 			MainView.outputText( 'The mare takes a moment to inspect you carefully, seeming to look through rather than at you.  "<i>This could be quite a challenge, even for my skills... but, seeing as you\'re my little hoppers special someone, just for you I will have to ask for ' + String( sessionCost ) + ' gems.  That\'s half the price of what I\'d usually charge for work this difficult.</i>"\n\n' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Undo', this, this.needleworkSession, UmasShop.NEEDLEWORK_UNDO );
 		} else {
 			MainView.outputText( '"<i>Are you sure, dear?  While the effects of a Do-in massage will fade eventually, acupuncture is fairly... permanent.  Though I can only give you the effects of one type of needlework at a time...</i>"\n\n' );
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( '"<i>One of my special needleworks favored by mages will redirect chi from your muscles to your mind; your blows will be weaker, but your spells will be far more potent.</i>"\n\n' );
 			MainView.outputText( '"<i>Finally, I can use my needles to rearrange your chi flow and optimise your offense; your blows will be far more powerful, but your natural defense will be impaired, making you more vulnerable to strikes by the enemy.</i>"\n\n' );
 			MainView.outputText( 'The mare tries to remember any other types of needlework that might be useful to you, but ultimately, she can\'t think of anything else.  "<i>That\'s all you might use, I think...</i>"  She then pauses.  "<i>As for a price, given you\'re my little Loppe\'s special someone, shall we say ' + String( sessionCost ) + ' gems?  That\'s half-price of what I\'d usually charge.</i>"\n\n' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Speed', this, this.needleworkSession, UmasShop.NEEDLEWORK_SPEED );
 			EngineCore.addButton( 1, 'Lust', this, this.needleworkSession, UmasShop.NEEDLEWORK_LUST );
 			EngineCore.addButton( 2, 'Defense', this, this.needleworkSession, UmasShop.NEEDLEWORK_DEFENSE );
@@ -587,7 +587,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		if( CoC.player.gems < sessionCost ) {
 			MainView.outputText( 'You click your tongue and apologize to Uma, but you don\'t have enough gems to pay for your treatment...\n\n' );
 			MainView.outputText( 'Uma sighs, "It\'s okay, dear.  Just come back when you do, my doors are always open."' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
@@ -606,7 +606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.clearOutput();
 		MainView.outputText( 'You shake your head and tell Uma that you\'d actually rather not get one of her acupuncture treatments at this point in time.\n\n' );
 		MainView.outputText( '"<i>Very well, dear.  It\'s important that you think this through, they\'re not easy to undo.</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.enterClinic, true );
 	};
 	/**
@@ -627,7 +627,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( '"<i>Alright dear,</i>" Uma replies, pocketing the gems.  "<i>Let\'s go then.</i>"  She motions for you to follow her.' );
 			CoC.player.gems -= 125;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.doNeedleworkSession, selectedSession );
 	};
 	/**
@@ -655,7 +655,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>No, you can get up and get dressed dear.  The needles are out and your chi should be stable enough now... though you won\'t feel much of a change until some time has passed. </i>"  She takes off her gloves and scratches her chin before continuing, "<i>I should think you will start to feel the changes soon; maybe by the time you get back to your home, if not shortly after.</i>"\n\n' );
 		MainView.outputText( 'You thank her for her work, get yourself up and proceed to dress.  You politely excuse yourself and start the long journey back to your camp.\n\n' );
 		this.applyNeedlework( selectedSession );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.clearOutput();
 		MainView.outputText( 'You tell Uma that you\'d like to chat; you\'re interested in getting to know her better, and who knows, maybe she can help you get to know her daughter better?\n\n' );
 		MainView.outputText( '"<i>Sure, what would you like to talk about?</i>"  Uma replies with a smile.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Job', this, this.talkJob );
 		EngineCore.addButton( 1, 'Sexuality', this, this.talkSexuality );
 		EngineCore.addButton( 2, 'Loppe', this, this.talkLoppe );
@@ -694,7 +694,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'You tell her that you appreciate her taking the time to explain her job to you; maybe at some point in the future you\'ll have a need for her special skills, but, right now, you think you\'ve taken enough of her time.\n\n' );
 		MainView.outputText( '"<i>It\'s always pleasure speaking to the [man] that wooed my little Loppe, dear.  Come visit soon, will you?</i>"\n\n' );
 		MainView.outputText( 'You promise you\'ll try, and then head back to camp.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
@@ -718,7 +718,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'Uma nods.  "<i>It does, but as you can see, the clinic is pretty empty most of the time.  It just so happens that we\'re really expensive, especially considering our... extra services.  But don\'t worry, [name].  Since you\'re my little Loppe\'s [boyfriend], I\'ll be happy to give you a pretty good discount on our services.</i>"\n\n' );
 		MainView.outputText( 'You laugh at that, thanking her for her generosity and her time, and then tell her it\'s time for you to go.  Uma smiles at you and says, "<i>Come visit me again soon.</i>"\n\n' );
 		MainView.outputText( 'You promise that you will, and then head out of the quaint little clinic and back to camp.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
@@ -736,7 +736,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 	 * Centralise the end-of-talk loppe stuffs
 	 */
 	UmasShop.prototype.talkLoppeJoiner = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
@@ -857,7 +857,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'Uma chuckles.  "<i>Of course not, dear.  This was just her street name... though her last name was Kuchibiru, which means lips...</i>"\n\n' );
 		MainView.outputText( 'You shake your head, not sure you want to ask why she\'d use such a street name.  You tell the mare to continue; she was saying that Loppe had been blossoming into a pretty young herm who caught the eyes of many in the village?\n\n' );
 		MainView.outputText( '"<i>Yes.  One day, I had my little Loppe take a request to the local carpenter, which happens to be close to where Puff used to... hunt.</i>"\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart2 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart2 = function() {
@@ -875,7 +875,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'Puff sighed.  Yep, ol\' thrusty was going to see some action today.  She was about to turn and head home when a sudden gust of wind hit her right in the face with a stray piece of paper.  Struggling to remove the offending litter with a growl, she saw... it was as if Marae herself had answered her pleas.  Fourteen inches of equine deliciousness, with a pair of heavy, cum churning balls swinging under it, it was enough to make her lick her lips with a wolfish smile, and who was it attached to?  Slowly looking up - what the? - That was the young bunny girl she saw browsing the bakery earlier! The young bunny quickly used her hands to push her short robes down and hide her package, looking left and right to see if anyone had spotted her, then sighing with relief. That must have been embarrassing... But luckily someone did spot her!\n\n' );
 		MainView.outputText( 'Somehow, then and there, Puff just knew she had to have that young bunny over for lunch. Taking a quick look at her pocket mirror to see if she was presentable enough she cleared her throat and struck the sexiest pose she could muster whilst leaning against the wall to the carpentry.\n\n' );
 		MainView.outputText( 'When Loppe approached the carpentry, written request in hand, a melodic, feminine voice called,  "<i>Hey, bunny-girl!</i>"\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart3 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart3 = function() {
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>...Loppe. My name\'s Loppe Kemono.</i>"  The laquine answered.  "<i>Good... I\'ll remember that.  So hurry along with your task, Loppe, and when you\'re done go to my place, over there.</i>"  She points towards a small house a little ways away.  Slowly approaching the laquine, she whispers in her ears.  "<i>I\'ll be waiting...</i>"  With that the wolfess sashays away to her home.\n\n' );
 		MainView.outputText( 'Swallowing nervously, heart pounding like a drum, Loppe does her best to not watch Puff go - she\'s already hard enough, after all.  Long minutes pass as she tries to quell her raging erection, and then finally she remembers what she\'s supposed to be doing and heads to the carpentry store.\n\n' );
 		MainView.outputText( 'Back in her house, Puff goes to the bathroom to freshen up and prepare for the young laquine.  But first, she should add the laquine\'s name to her list.  Being a hooker and proud of her trade, she kept a list with the names of all customers she\'d serviced in the past.  It was sorta like a trophy list... but she marked the people who had been able to pleasure her the most, for future contact.  Well, she hoped this girl knows how to use her pony, she really needed more favorites on her list. Humming to herself she quickly retrieved the notebook from the cupboard nearby, and carefully added Loppe\'s name to it, then she closed it and stripped naked; those clothes would only get in the way...\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart4 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart4 = function() {
@@ -932,7 +932,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'Puff starts having second thoughts about this arrangement.  "<i>Err, maybe we shouldn\'t go at it that long - Ahh - it might not be healthy.</i>"\n\n' );
 		MainView.outputText( '"<i>What? But you promised!</i>" Loppe pleads, eyes widened to make herself more appealing.  "<i>Plus, weren\'t you \'going to fuck me until you ran my balls dry\'?</i>"  She quotes the wolfess jokingly.  "<i>I thought you took pride in being a - Yesss - a whore, and never left a customer unsatisfied.</i>"  Loppe continues to tease.\n\n' );
 		MainView.outputText( '"<i>That sounded like a challenge... okay!  You\'re on bunny-girl!</i>"  Puff replies with a grin.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart5 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart5 = function() {
@@ -943,7 +943,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>You... That was incredible, Puff.  Thanks.</i>"  The laquine give a peck on the comatose she-wolf\'s cheek.  "<i>Sorry, but I really have to get back now.</i>"  She says, redressing herself and making her way home.\n\n' );
 		MainView.outputText( 'As she began heading merrily home, the laquine whistled with glee; she just got laid!  And by the utterly gorgeous Puffy Lips, no less!  Nothing could ruin her day now... at least, not until she took a look at the sun...\n\n' );
 		MainView.outputText( '"<i>Oh crap!  Mom\'s gonna kill me for staying out this late!</i>"  The half-breed wailed, clasping her head in anguish.  She promptly began sprinting home at full speed, desperate to get there as quickly as possible and assuage the full fury of a mother whose daughter is out past her bedtime.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstGirlPart6 );
 	};
 	UmasShop.prototype.talkLoppesFirstGirlPart6 = function() {
@@ -1000,7 +1000,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>It wasn\'t always like this, back then we were just simple people trying to live simple lives.</i>"\n\n' );
 		MainView.outputText( 'You admit that, and tell her to continue.\n\n' );
 		MainView.outputText( '"<i>So they started dating.  And as is normal for a young couple, one day, after they had come back from a nice dinner, he suggested that he wanted to see Loppe naked.</i>"\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart2 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart2 = function() {
@@ -1025,7 +1025,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>Only if you can catch me.</i>"  Hyou raspberries Loppe, getting ready to avoid his girlfriend\'s lusty advances...\n\n' );
 		MainView.outputText( 'With the best growl she can manage, the horse-dicked rabbit hops through the air to snatch her feline boyfriend, but he jumps away with a laugh.  Gracefully he dances around and around the bedroom, the increasingly frustrated rabbit trying to cut him off.  Finally, with one perfectly timed leap, she slams into him and knocks him over onto the bed with a mutual \'whoof!\' of startled shock.  Belly to belly they catch their breath, and then Loppe rises back up, completing the pinning maneuver.  "<i>Haha, caught you!</i>"  Loppe taunts, then blinks in surprise; what\'s that funny-nice feeling?  Rearing back, she looks down at their two bellies, seeing their mutual erections rubbing their sensitive flesh against each other, a sight which makes her blush.  "<i>S-sorry, Hyou, I didn\'t mean to...</i>"  \n\n' );
 		MainView.outputText( '"<i>Don\'t worry about that, I don\'t mind.  So, you managed to catch me... what do you intend to do with me now?  Hmm?</i>"  Hyou asks, ears twitching cutely.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart3 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart3 = function() {
@@ -1053,7 +1053,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'A distant part of Loppe\'s mind catches these words and files them away with suspicion.  The rest of it is too busy melting at the sensations of losing her female virginity.  She continues to eagerly buck and thrust and impale herself, anxious in pushing on to her first <i>real</i> climax as a woman.\n\n' );
 		MainView.outputText( 'Hyou yowls one last time and bucks against Loppe, his claws digging into her hips as his eyes cross, looking straight at a dollop of pre that seems to have formed on the flared tip of Loppe\'s member.  Finally, he relaxes and lets his orgasm overtake him, spewing rope after rope of cum inside Loppe\'s eager pussy.\n\n' );
 		MainView.outputText( 'The laquine moans in pleasure at the sudden sensation of being filled... then blinks in surprise as she feels the cat-prick inside her needy pussy going soft.  "<i>What\'s wrong?  What happened?</i>" She asks, baffled; she tries to ride the limp dick a little more, but it\'s futile.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart4 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart4 = function() {
@@ -1085,7 +1085,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '<b>One very long, messy, multi-orgasmic bout of sex later...</b>\n\n' );
 		MainView.outputText( 'Hyou purrs, licking at his cum-caked arms, happily.  His belly is distended with the massive amount of laquine-cum sloshing about inside.  "<i>Wow.  I have to say Loppe, you\'re one of a kind.  Best sex ever!</i>"  He sighs, continuing to lick at his arms.  "<i>Sorry for only getting your female half once.  I swear I don\'t know what\'s wrong with me... but it just felt so good when you started fucking me with that wonderful, big, horse-cock of yours, that I just lost it... sorry.</i>"\n\n' );
 		MainView.outputText( '"<i>It\'s okay, Hyou...</i>" Loppe sighs.  She cradles her stomach, which looks no different than it did when she started, and looks enviously at the engorged midriff of her boyfriend, very visible proof of her masculine potency.  "<i>Still, we\'ll try and concentrate more on that part next time, okay?</i>" She asks.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.talkLoppesFirstBoyfriendPart5 );
 	};
 	UmasShop.prototype.talkLoppesFirstBoyfriendPart5 = function() {
@@ -1133,7 +1133,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'You can\'t resist noting that it sounds like Uma would end up giving Loppe a little sister if Usagi did come back. \n\n' );
 		MainView.outputText( 'Uma nods thoughtfully at your words.  "<i>A sister or two?  Definitely.  Hey, why not go out on a limb and say five or six little sisters?  I loved being a mom, being pregnant was actually kind of hot, and I\'m still young enough to do some serious breeding.</i>"  She pats her belly with a defiant expression.  But then she slumps and sighs longingly.  "<i>But I want my Usagi back first...</i>" She mourns.\n\n' );
 		MainView.outputText( 'You tell her to keep hoping; as strong a warrior as Uma described her to be, you\'re sure that the bunny-herm is still out there, somewhere.  You politely withdraw to give Uma a chance to compose herself, heading back to camp.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**
@@ -1186,7 +1186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		this.buildSexMenu();
 	};
 	UmasShop.prototype.buildSexMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'EroMassage', this, this.sexEroticMassage );
 		EngineCore.addButton( 1, 'Eat Her Out', this, this.sexEatHerOut );
 		if( CoC.player.gender >= 2 && CoC.player.lowerBody !== 4 ) 
@@ -1281,7 +1281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		var hoursSinceCum = CoC.player.hoursSinceCum;
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.player.hoursSinceCum = Math.ceil( hoursSinceCum * 0.75 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexGetFingered = function() {
@@ -1394,7 +1394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( 'You chuckle at her, painstakingly hauling yourself up, and get dressed.  Thanking Uma for showing you her magic fingers, you blow her a teasing kiss and then head back to camp.\n\n' );
 		}
 		EngineCore.dynStats( 'lust=', 0 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexHandjob = function() {
@@ -1462,7 +1462,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		}
 		MainView.outputText( '.  See you later, dear.  And don\'t be a stranger,</i>" the mare tells you as she waves you goodbye.\n\n' );
 		EngineCore.dynStats( 'lust=', 0 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Needs Cock.;
@@ -1706,7 +1706,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		}
 		EngineCore.dynStats( 'lust=', 0 );
 		CoC.flags[ kFLAGS.UMA_TIMES_SUCKED_YOU ]++;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	UmasShop.prototype.sexEatHerOut = function() {
@@ -1763,7 +1763,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'You lick your lips and wipe the aftermath from your face, smiling broadly at the mare\'s flattery.  Shaking herself, Uma yawns loudly, one hand in front of her face to be more demure.  "<i>That really felt wonderful... I think... I think I\'m going to take a little rest.  Would you be a dear and flip the sign to Closed on your way out, dear?</i>" she asks, settling back on her table as if she really is about to have a nap here in her own workroom. \n\n' );
 		MainView.outputText( 'You rub her thigh affectionately, promising to do so, then redress yourself and head back to camp.\n\n' );
 		EngineCore.dynStats( 'lust', 30 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	/**

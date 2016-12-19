@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] > 0 ) {
 			if( !CoC.player.hasCock() ) {
 				MainView.outputText( 'You can\'t keep trying to break Kelt without the proper tool to do it with.' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farm, SceneLib.farm.farmExploreEncounter );
 				return;
 			}
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			return;
 		}
 		MainView.outputText( 'Having met Kelt, you know he\'s liable to subject you to plenty of abuse in exchange for training.  Are you going to endure it, resist, or never resist?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Endure', SceneLib.keltScene, SceneLib.keltScene.keltEncounter );
 		EngineCore.addButton( 1, 'Resist', this, this.resistKeltsBSBreakHimIntro );
 		EngineCore.addButton( 2, 'Never', this, this.neverBreakKeltIntoKelly );
@@ -80,12 +80,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			//[if (PC doesn't have items);
 			if( !(CoC.player.hasItem( ConsumableLib.SUCMILK, 15 ) || (CoC.player.hasItem( ConsumableLib.SUCMILK, 10 ) && this.hasPinkEgg()) || (CoC.player.hasItem( ConsumableLib.P_S_MLK, 10 ) && this.hasPinkEgg()) || CoC.player.hasItem( ConsumableLib.P_S_MLK, 15 )) ) {
 				MainView.outputText( ' Unfortunately, you don\'t have anything that could be useful to tame his arrogant maleness.  You want items that would make his disgracious horsecock and balls shrink.  A nice set of breasts on his human chest would be fine, too.  You know you\'re going to need A LOT of such items - or very potent ones.' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farm, SceneLib.farm.farmExploreEncounter );
 			} else {
 				MainView.outputText( '\n\nDo you take his maleness down and teach him the lesson he deserves?' );
 				//Yes/Not Yet/Never;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Yes', this, this.breakKeltGo );
 				EngineCore.addButton( 1, 'Not Yet', SceneLib.farm, SceneLib.farm.farmExploreEncounter );
 				EngineCore.addButton( 2, 'Never', this, this.neverBreakKeltIntoKelly );
@@ -97,11 +97,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			if( !(CoC.player.hasItem( ConsumableLib.SUCMILK, 10 ) || CoC.player.hasItem( ConsumableLib.P_S_MLK, 10 ) || (CoC.player.hasItem( ConsumableLib.SUCMILK, 5 ) && this.hasPinkEgg()) || (CoC.player.hasItem( ConsumableLib.P_S_MLK, 5 ) && this.hasPinkEgg())) ) {
 				MainView.outputText( '\n\nYou\'d gladly teach him another lesson so he can keep his true gender and learn his place, but you don\'t have anything to turn him female again.  You should fetch appropriate items to begin the \'lesson\'.</i>"' );
 				//back to farm];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farm, SceneLib.farm.farmExploreEncounter );
 				return;
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.secondKeltBreaking );
 		}
 		//Third encounter;
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			//[if (less than 5 succubi milk);
 			if( !(CoC.player.hasItem( ConsumableLib.SUCMILK, 5 ) || CoC.player.hasItem( ConsumableLib.P_S_MLK, 5 )) ) {
 				MainView.outputText( 'You must acquire enough Succubi Milk to remove any male remnants off Kelly\'s body before confronting \'him\' again.' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', SceneLib.farm, SceneLib.farm.farmExploreEncounter );
 				return;
 			}
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		MainView.spriteSelect( 35 );
 		CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] = 1;
 		MainView.outputText( 'You decide that trying to break Kelt is something you\'d never want to do.  Besides, he\'s teaching you a useful skill, and there\'s just something charming about that bastard...' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Go To Kelt', SceneLib.keltScene, SceneLib.keltScene.keltEncounter );
 		EngineCore.addButton( 1, 'Go Home', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -530,7 +530,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 	Kelly.prototype.keltFucksShitUp = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'As you collapse, defeated, Kelt saunters up, shouldering his bow.  "<i>Who\'s the bitch now,</i>" he taunts, rearing back as his voice cracks in a rather emasculated manner.  "<i>You are!</i>"  His hooves come down on your back, and concussive waves of pain roll through your body as you\'re trampled black and blue.  Then, you see blackness.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.keltFucksShitUpII );
 	};
 	Kelly.prototype.keltFucksShitUpII = function() {
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			}
 			MainView.outputText( '\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.approachKelly );
 	};
 	Kelly.prototype.approachKelly = function() {
@@ -683,7 +683,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			MainView.outputText( '\n\nAs soon as you enter the big, grassy expanse beyond the barns, your centaur slave canters over, radiating happiness and hunger.' );
 			MainView.outputText( '\n\n"<i>[Master], you\'ve come to visit! Is it feeding time?</i>"' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.kellyAppearance );
 		if( CoC.player.lust < 33 ) {
 			MainView.outputText( '\n<b>You aren\'t aroused enough to pursue sex with your toy right now.</b>' );
@@ -730,7 +730,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		}
 	};
 	Kelly.prototype.kellySexMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 			if( CoC.player.cockThatFits( 300 ) >= 0 || CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] === 1 ) {
 				if( this.pregnancy.isPregnant ) {
@@ -986,7 +986,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] = 1;
 		MainView.outputText( '\n\n<b>Kelly has now has a soaking-wet horsecunt!</b>' );
 		CoC.player.consumeItem( ConsumableLib.EQUINUM );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.approachKelly );
 	};
 	//Succubi Milk - Rehumanizes Her Pussy;
@@ -1000,7 +1000,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		CoC.flags[ kFLAGS.KELLY_CUNT_TYPE ] = 0;
 		MainView.outputText( '\n\n<b>Kelly now has a human-like pussy.</i>' );
 		CoC.player.consumeItem( ConsumableLib.SUCMILK );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.approachKelly );
 	};
 	//Punish(C);
@@ -1027,7 +1027,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			MainView.outputText( '\n\n"<i>Do you need punishing?</i>"' );
 			MainView.outputText( '\n\n"<i>Yes, [Master], I do,</i>" she says, slightly louder and straightening her back.  You smile softly.  Such a good girl.' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.TIMES_RIDDEN_KELLY_FOR_PUNISHMENT ] > 0 && CoC.player.statusAffectv1( StatusAffects.TelAdre ) < 1 ) {
 			MainView.outputText( 'You\'d like to take Kelly for a ride, but you don\'t have any good ideas for public places to humiliate her.' );
 		} else {
@@ -1771,7 +1771,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		}
 		CoC.flags[ kFLAGS.KELLY_TIMES_REWARDED ]++;
 		//*Don't know how the current “punish” system works so leave the function up to you.  Ideally each option should turn up 50% of the time after first punish;
-		EngineCore.menu();
+		MainView.menu();
 		//Hair Dye/Apple Sauce;
 		//[chestnut brown/sable black/garish purple/bright pink/slutty blonde) ;
 		if( CoC.player.cockThatFits( 300 ) >= 0 && CoC.player.hasCock() ) {
@@ -1844,7 +1844,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		} else {
 			MainView.outputText( '\n\nYO dog, ' + color + ' is definitely not working right. Please report this to fenoxo using the report a bug link on the site.' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.approachKelly );
 	};
 	//Apple Sauce;

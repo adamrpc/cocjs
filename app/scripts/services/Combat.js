@@ -116,7 +116,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (Combat.combatRoundOver()) {
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		var attacks = Combat.normalAttack;
 		var magic = (Combat.canUseMagic() ? Combat.magicMenu : null);
 		var pSpecials = Combat.physicalSpecials;
@@ -444,13 +444,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		MainView.clearOutput();
 		if (CoC.player.fatigue + EngineCore.physicalCost(25) > 100) {
 			MainView.outputText("You're too fatigued to fire the bow!");
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
 		if (CoC.monster.findStatusAffect(StatusAffects.BowDisabled) >= 0) {
 			MainView.outputText("You can't use your bow right now!");
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -619,14 +619,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.bite = function() {
 		if(CoC.player.fatigue + EngineCore.physicalCost(25) > 100) {
 			MainView.outputText("You're too fatigued to use your shark-like jaws!", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
 		//Worms are special
 		if(CoC.monster.short === "worms") {
 			MainView.outputText("There is no way those are going anywhere near your mouth!\n\n", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -1053,7 +1053,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.player.fatigue + EngineCore.physicalCost(15) > 100) {
 			MainView.outputText("You're too fatigued to use a charge attack!");
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -3662,7 +3662,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		MainView.clearOutput();
 		MainView.outputText("What spell will you use?\n\n");
 		//WHITE SHITZ
@@ -4231,7 +4231,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		MainView.outputText("", true);
 		if(CoC.player.fatigue + EngineCore.physicalCost(15) > 100) {
 			MainView.outputText("You're too fatigued to use a charge attack!", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -4426,7 +4426,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//FATIIIIGUE
 		if(CoC.player.fatigue + EngineCore.physicalCost(10) > 100) {
 			MainView.outputText("You just don't have the energy to bite something right now...", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -4479,7 +4479,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//FATIIIIGUE
 		if(CoC.player.fatigue + EngineCore.physicalCost(10) > 100) {
 			MainView.outputText("You just don't have the energy to bite something right now...", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -4946,7 +4946,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Rut doesnt let you run from dicks.
 		if(CoC.player.inRut && CoC.monster.totalCocks() > 0) {
 			MainView.outputText("The thought of another male in your area competing for all the pussy infuriates you!  No way will you run!", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -4960,19 +4960,19 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.monster.findStatusAffect(StatusAffects.GenericRunDisabled) >= 0 || SceneLib.urtaQuest.isUrta()) {
 			MainView.outputText("You can't escape from this fight!");
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
 		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.monster.statusAffectv1(StatusAffects.Level) < 4) {
 			MainView.outputText("You're too deeply mired to escape!  You'll have to <b>climb</b> some first!");
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
 		if(CoC.monster.findStatusAffect(StatusAffects.RunDisabled) >= 0) {
 			MainView.outputText("You'd like to run, but you can't scale the walls of the pit with so many demonic hands pulling you down!");
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -4986,7 +4986,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		} else if(CoC.monster.short === "minotaur tribe" && CoC.monster.HPRatio() >= 0.75) {
 			MainView.outputText("There's too many of them surrounding you to run!", true);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
@@ -5258,7 +5258,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		//Berserk
 		if(CoC.player.findPerk(PerkLib.Berzerker) >= 0) {
 			EngineCore.addButton(0,"Berzerk", null, Combat.berzerk);
@@ -5307,7 +5307,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if (CoC.player.hairType === 4) {
 			EngineCore.addButton(0, "AnemoneSting", null, Combat.anemoneSting);
 		}

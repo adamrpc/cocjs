@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 			CoC.player.createStatusAffect( StatusAffects.CampRathazul, 0, 0, 0, 0 );
 		}
 		//{Next};
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pageTwoOfVisitingTheRatForMurblesPurification );
 	};
 	MarblePurification.prototype.pageTwoOfVisitingTheRatForMurblesPurification = function() {
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\n"<i>Then that’s the solution!</i>" Marble declares, full of cheer. But then her face falls. "<i>But it’ll take me a few days to get from here to home, and then more to get back. ' + CoC.player.short + ', I don’t want to leave you here alone if you need my help,</i>" she insists.' );
 		MainView.outputText( '\n\nDo you tell her it’s okay, or tell her you’re not ready to send her away?' );
 		//[Go] [Stay];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Go', this, this.murbleShouldGoRunAlongAndGetHerCuntySisterSoTheyCanBeCuntsTogether );
 		EngineCore.addButton( 1, 'Stay', this, this.stayHereAndDontGoGetYerSisterShesABitch );
 	};
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nClara glares at the alchemist at this.  Then Marble shakes her head, before informing you all that, "<i>Sorry, we Lacta Bovines can’t get milked by hand all that well, the milkers would work best.  Don’t worry, it shouldn’t take too long.</i>"  She pulls on her younger sister’s shoulder again, and Clara gives one more stomp of her hoof before following her older sister out of the camp.' );
 		MainView.outputText( '\n\nYou turn back to Rathazul, and notice that he is looking oddly concerned about something.  He then says something under his breath before turning back to his cup.  All you catch sounds like "<i>up to no good.</i>"' );
 		//page break;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.partTwoOfClaraShowingUpAndBeingACunt );
 	};
 	MarblePurification.prototype.partTwoOfClaraShowingUpAndBeingACunt = function() {
@@ -329,7 +329,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		//Rathazul’s response to being asked if he wants some tea (since Rath needs to be in camp for this scene to trigger, he isn’t a part of the if statements).;
 		MainView.outputText( '\n\nRathazul looks at you surprised for a moment, then shakes his head.  "<i>Thank you for the offer, but I have some already over there.</i>"  He indicates the foul smelling cup (that was tea?!), and turns back to his work on Clara’s milk.  Aw well.  With Marble still back at the campfire, you guess that’s everyone.' );
 		//continue to Clara's drugging attempt, new page;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.dumbshitCowCuntsTryToDrugYouBecauseTheyreCunts, teaDrinkers );
 	};
 	//Clara’s drugging attempt;
@@ -362,7 +362,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		//Marble’s response;
 		MainView.outputText( '\n\nMarble puts her hand to her forehead, before demanding, "<i>What, what are you doing Clara?!</i>"  Clara turns to her sister and with that smirking face tells her, "<i>I’m collecting the catch that you decided to foolishly throw away.</i>"  Marble falls to the ground as you feel yourself start to slip thanks to the drugged tea.  Just before you pass out, the visage of a pretty young woman fills your vision and says, "<i>Come on now, let’s run away toogether.</i>"' );
 		//new page ;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.partTwoOfLowIntelligencePCsFallingForTheIncrediblyObviousCowCuntsTrap );
 	};
 	MarblePurification.prototype.partTwoOfLowIntelligencePCsFallingForTheIncrediblyObviousCowCuntsTrap = function() {
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		}
 		MainView.outputText( ' you’re still wearing your [armor].' );
 		//PC chooses fight or submit.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fight', this, this.fightCowCuntAfterBeingTotesMcGoatsDrugged );
 		EngineCore.addButton( 1, 'Submit', this, this.voluntarilyChooseCowCuntBadEndYouBad );
 	};
@@ -419,7 +419,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.clearOutput();
 		MainView.outputText( 'Giving into the desires that your addiction has granted you, you return to Clara’s breast, much to the young cow-girl’s moans and sighs of pleasure.  "<i>Ahh, yes, that\'s a goood ' + CoC.player.mf( 'boy', 'girl' ) + ',</i>" is whispered in your ear.' );
 		//go to Clara’s bad end;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.loseToClara, false );
 	};
 	//Medium Intelligence Outcome;
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( 'While Clara is handing out the cups, you can’t help but think how strange everything about this feels.  You can’t put your finger on what exactly is wrong, but neither can you put the unsettling feeling out of your mind.' );
 		MainView.outputText( '\n\nOnce everyone has a cup, Clara smiles at all of you and holds her own cup up to her mouth and says, "<i>To Marble’s purification and meeting new friends.</i>"  You carefully consider your own cup; you feel like maybe you shouldn’t drink this....' );
 		MainView.outputText( '\n\nDo you drink the tea anyway?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Drink Tea', this, this.lowIntelligenceGetsDruggedByCowSluts );
 		EngineCore.addButton( 1, 'Don\'t', this, this.mediumIntelligenceDoesntDrinkCowCuntsTea );
 		//CoC.player chooses either to drink or not to drink.  Drinking is the same as the low intelligence auto drink.;
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nGone?  You wonder, why would you be gone?  "<i>Isn’t it obvious?  This is our chance to run away toogether, and not have to worry about old romantic baggage!</i>" she cries out with a crazed grin on her face, "<i>You’re the perfect milk mate for me, and I won’t let you slip out of my fingers.  If I have to force you to come away with me and get hoooked on my milk, I will.  So don’t make this hard on yourself.  Oh, and if you try to run, I will kill Marble, that rat, and anyone else you’ve got in this camp.  Now, drink, your, tea.</i>"  She pulls open her shirt and then holds up another cup towards you, all the while looking more and more deranged.' );
 		MainView.outputText( '\n\nIt seems you’re going to have to either give into her desires, or fight her.  There is no other option, and after the episode with the tea, it will be a one-on-one fight.' );
 		//PC chooses: fight or submit;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fight', this, this.mediumIntelligencesFightCowCunts );
 		EngineCore.addButton( 1, 'Submit', this, this.mediumIntelligencesSubmitCowCunts );
 	};
@@ -466,7 +466,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.clearOutput();
 		MainView.outputText( 'You sigh and accept the cup from the cow-girl’s hands and down its contents.  In moments, your vision clouds over, and you fall into her soft arms.  Just before everything goes black, you hear a voice say, "<i>Come on now, lets run away toogether.  I’ll make sure you’re addicted before you next wake up.</i>"' );
 		//go to bad end;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.loseToClara, false );
 	};
 	//High Intelligence Outcome;
@@ -482,7 +482,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		}
 		MainView.outputText( ', just not drink any tea yourself, or drink it anyway?' );
 		//Player chooses to drink tea, not drink tea, or Call Clara Out.  Choosing to drink is the same as the low intelligence drinking, choosing not to drink is the same as the mid intelligence option.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Drink Tea', this, this.lowIntelligenceGetsDruggedByCowSluts );
 		EngineCore.addButton( 1, 'Don\'t Drink', this, this.mediumIntelligenceDoesntDrinkCowCuntsTea );
 		EngineCore.addButton( 2, 'CallHerOut', this, this.highIntelligenceCallClaraOut );
@@ -521,7 +521,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 			}
 			MainView.outputText( '\n\nYou stand up as well and ready your ' + CoC.player.weaponName + ', since even with such opposition it looks like the mad cow-girl still plans on fighting you.  A few minutes and bruises later, her beaten body proves this to have been a bit of a mistake on her part.' );
 			//Proceed to after combat in camp.;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.defeatClaraCuntInAFight, true );
 		}
 		//No other fighters in camp;
@@ -572,7 +572,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		}
 		
 		//new page;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.losingToCowCuntsPageII );
 	};
 	MarblePurification.prototype.losingToCowCuntsPageII = function() {
@@ -603,7 +603,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\n"<i>I LOVE YOU, I LOVE ONLY YOU, AND I WILL LOVE ONLY YOU!</i>"' );
 		MainView.outputText( '\n\n"<i>YESSSSS!</i>" the mad woman shrieks, with unfocused eyes and a look of absolute bliss.  She pants for a few moments then looks at you again and quietly says, "<i>You’re mine now, all mine.</i>"' );
 		//new page;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.cowCuntBadEndPartIII );
 	};
 	//Nursing from Clara;
@@ -621,7 +621,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( ', then they suddenly grip down tight.  "<i>Let’s see if you can pick up the pace.  Drink faster, my love slave!</i>"  You do as the voice asks, and loud moans of pleasure follow.' );
 		MainView.outputText( '\n\nYou suck as hard as you possibly can need to!  You can’t possibly care about anything else than satisfying your need, and you want to do it in the best possible way for the subject of your love.  You don’t know how long this continues for, but eventually you’re pulled back abruptly from the tap from which the elixir of the gods flows.  You notice that your [leg] is wet.  You look down and find that Clara’s dress is soaked, right in front of her womanhood.  "<i>Time to switch nipples, ' + CoC.player.mf( 'lover-boy', 'lover-girl' ) + '</i>" Clara says breathlessly, calling your gaze back up.  "<i>This time, we’re going to try it a bit slower.</i>"' );
 		//new page;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.cowCuntBadEndPartIV );
 	};
 	MarblePurification.prototype.cowCuntBadEndPartIV = function() {
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nIt then becomes rather apparent exactly what Clara really wants to play with now, and you feel her fingers slip down and around your body.  She gets herself a handful of your ' + Descriptors.buttDescript() + ', and then slips her fingers into your crevice.  That finger doesn\'t stop until it\'s pushed itself inside your ' + Descriptors.assholeDescript() + ' and triggered a response that makes Clara laugh with delight.  Feeling emboldened, the bovine girl thrusts another finger into your back entrance and starts wiggling them around.' );
 		MainView.outputText( '\n\nBy now you’re so over aroused from nursing that you cum on the spot from her playing with your ass.  The nipple that you’d been sucking on up until now slips out of your mouth, and the woman holding you lies you back on the ground, smiling.  Clearly your orgasm did not go unnoticed by her.  "<i>I’m definitely going to have to find new ways to play with you after this,</i>" she says, that crazed smile back on her face, "<i>but for now, I think it is time for soome sex.</i>"' );
 		//Proceed to either the has fitted cock, no fitted cock, or has not cock variants.;
-		EngineCore.menu();
+		MainView.menu();
 		if( !CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Next', this, this.cocklessPCsGetAbusedByCowCunts );
 		} else if( CoC.player.cockThatFits( 20 ) < 0 ) {
@@ -674,7 +674,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nAny fears that you’re going to be left wanting are quickly dispelled, as when the once virgin woman finishes her second orgasm, she starts to violently pump her body up and down.  The abrupt change in the kind of sex you’re having catches you off guard and blows your mind almost instantly.  Clara isn’t doing much better, as all that is coming out of her mouth at this point is just mindless pleasure-filled babbling.' );
 		MainView.outputText( '\n\nThe sex is not much more than a blur of pleasurable sensations, lust addled nonsense, the wet slapping of two bodies hitting one another, and the bouncing of two giant breasts.  It is worth noting that Clara does improve her sexual skills quite considerably during the interim.  Once you get to the end of the frantic lovemaking, she adds hip rotations, pelvic thrusts, and rubbing to her desperate pumping.' );
 		MainView.outputText( '\n\nBy that time the two of you are completely exhausted, and Clara collapses on top of you.  She grips your arms before wrapping you up in a big hug against her chest.  "<i>I’ll never let you leave me, you’re mine forever and ever...</i>" she whispers in your ear before falling asleep.  You aren’t sure if you should be happy or not at that prospect.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.finalBadEndWithCowCunt );
 	};
 	//PC does not have a cock that fits, but does have at least one cock;
@@ -697,7 +697,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( 'She continues ranting for several minutes before turning to you.  "<i>YOOU!  Didn’t you ever stop to consider the needs of dainty girls like me before you started abusing transformatives?</i>"  She sighs, apparently running out of steam.  "<i>Who knew this plan would be so hard?' );
 		MainView.outputText( '\n\n"<i>Well, I can’t actually fuck you, but I guess I can get something else from you.  Just remember that the first thing that we’re fixing is that size problem of yours, got it?</i>"' );
 		//Proceed to cockless scene.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.cocklessPCsGetAbusedByCowCunts );
 	};
 	//PC is cockless;
@@ -740,7 +740,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 			MainView.outputText( '\n\nYou manage to recover for long enough to notice that Clara seems a bit disappointed. "<i>You know, that really wasn’t all I thought ooral was cracked up to be,</i>" she comments.  "<i>I’m definitely going to be looking for another way to make you able to please me.  It isn’t like you’re in any position to complain or stop me anyway; you’re mine now.</i>"  The last thing you see before passing out is that sick grin of hers, and the last thing you hear are those worrying words filling your ears.  "<i>Forever, and ever...</i>"' );
 		}
 		//Proceed to bad end;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.finalBadEndWithCowCunt );
 	};
 	//Bad End: Clara’s Milk Slave;
@@ -849,7 +849,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 			MainView.outputText( 'egg Marble into violating Clara with her cock, ' );
 		}
 		MainView.outputText( ' or try to calm Marble down so that she doesn\'t do anything to her sister.' );
-		EngineCore.menu();
+		MainView.menu();
 		//PC chooses what kind of victory scene they want to do to Clara.;
 		//options are: Spank (can always do), Threesome (if the PC has a cock that is under 20 area, or a vagina), 'NTR' (if PC has a cock that will fit Marble, or a vagina), Marble cock (if Marble has a cock), and Calm down (always possible).;
 		EngineCore.addButton( 0, 'Spank', this, this.murbleSpanksCowCunt );
@@ -882,7 +882,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nYou mention to the girl on the ground that she should take a look at what her sister found.  Those tear filled eyes open wide in absolute terror at the sight.  "<i>You\'re, hah, you\'re crazy!</i>" she manages to gasp out between sobs.  Like most of the pitiful girl\'s comments up until now, this one is ignored.  The harsh mistress of the law has come, and that mistress is going to make a bad bovine\'s bum blue.' );
 		MainView.outputText( '\n\nMarble picks her sister up off the ground and roughly tosses her onto one of the sitting logs around the firepit.  Clara continues to sob and beg for the abuse to stop, but it is all in vain.  Marble squats down slightly behind her, winds up, and brings down the first of many harsh smacks against her rear end.  Your mate doesn\'t let up on her punishment until every last inch of Clara\'s heinous hindquarters has been covered in blue welts.  By this point, the wannabe kidnapper and slaver is nothing but a slobbering, incoherent mess.' );
 		//continue to calm Marble down;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.calmMurblesFatAssDown );
 	};
 	//PC and Marble rape Clara;
@@ -947,7 +947,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		}
 		CoC.player.orgasm();
 		//proceed to calm Marble down;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.calmMurblesFatAssDown );
 	};
 	//NTR Clara;
@@ -981,7 +981,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		//set lust to 0;
 		CoC.player.orgasm();
 		//Proceed to calm Marble down;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.calmMurblesFatAssDown );
 	};
 	//Futa Marble rapes Clara;
@@ -1001,7 +1001,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nThe futa in this equation pants for a few moments, then asks, "<i>Have... you, ha... learned your lesson now?</i>"  When the answer comes in an incoherent moan, it looks like Marble might be about to start round two!' );
 		EngineCore.dynStats( 'lus', 20 );
 		//proceed to Calm Marble down;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.calmMurblesFatAssDown );
 	};
 	//Calm Marble down;
@@ -1022,7 +1022,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nEventually the two of you separate, and you get a chance to see Marble\'s face once more.  While her eyes are red, puffy, and rimmed with tears, they shine with joy, matching the great smile on her lips.  "<i>Thank you sweetie, without you, I would have been more like... her,</i>" she indicates her sister, a small frown once again creasing her features.' );
 		MainView.outputText( '\n\nYou suggest that now would probably be a good time to check on Rathazul, before deciding what to do with Clara.  "<i>Good idea, it will give me some time to clear my head.</i>"  The two of you leave the tied up bovine where she is and head over to the elderly alchemist\'s side of the camp.' );
 		//Proceed to Rathazul finishing Marble's Potion.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.rathazulFinishingMarblesPotion );
 	};
 	//Rathazul Finishing Marble’s Potion;
@@ -1043,7 +1043,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( 'So come back a little later.</i>"  The rodent returns to his reactions.' );
 		MainView.outputText( '\n\nYou turn to your cow-girl lover and ask her what she\'d like to do in the meantime.  She hesitates, visibly bothered by something.  "<i>Actually, I think I need some time on my own to think about what my sister said.  Come and get me when the formula is finished, okay?</i>"  You nod and she heads off to the edge of the camp.' );
 		MainView.outputText( '\n\nYou\'ve got some time to kill now, you guess.  Is there something you want to spend it doing?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.theFormulaIsDone );
 	};
 	//Let Marble know the formula is done;
@@ -1081,7 +1081,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nWe could cut the monster\'s claws, you suggest.' );
 		MainView.outputText( '\n\n"<i>You mean, purify her?  That\'s brilliant!  Goddess knows, if anyone deserves that, it\'s her.  We won\'t have to lock her up to know she\'s safe, and she\'ll have to find something better to do with her life then getting slaves!</i>"' );
 		//continue to Marble is purified;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.purifyMarbleComplete );
 	};
 	//Marble is purified;
@@ -1145,7 +1145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 			MainView.outputText( '\n\nIt\'s with very light hearts and spirits you and the father of your children return to report the results of the formula.  "<i>Excellent!  I will be sure to watch them closely to be sure that there are no lingering effects, but you and your family are likely now the first pure bovine-kin on Mareth in a long time.</i>"' );
 		}
 		//continue to Dealing with Clara;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.dealingWithCowCuntPostPurification );
 	};
 	//Dealing with Clara;
@@ -1161,7 +1161,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nMarble sighs, then speaks once more, "<i>I figured you should know at least that, sister, before we decided what to do with you.</i>"  She turns to you, "<i>Well, ' + CoC.player.short + ', you were the one she tried to kidnap and enslave.  What do you think we should do with her?</i>"' );
 		MainView.outputText( '\n\nAs you and Marble were discussing before, purifying Clara would be a very fitting punishment for her.  It will forever prevent her from ever addicting anyone to her, and you won\'t need to worry about letting her out.  Of course, she certainly won\'t like that one bit.' );
 		//PC chooses to purify or not to purify.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Purify', this, this.purifyMurblesSister );
 		EngineCore.addButton( 1, 'Don\'t', this, this.dontPurifyClara );
 	};
@@ -1179,7 +1179,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nIf you\'re feeling especially generous, you could just let her go, with not more than a promise to never come back or try to kidnap you again.' );
 		CoC.flags[ kFLAGS.CLARA_PURIFIED ] = 1;
 		//PC makes their choice: Tel'Adre, SceneLib.camp cage, let go.";
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Cage', this, this.cageDatCowCunt );
 		EngineCore.addButton( 1, 'Let Go', this, this.letGoOfMarblesCowCuntSister );
 	};
@@ -1191,7 +1191,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		CoC.flags[ kFLAGS.CLARA_IMPRISONED ] = 1;
 		//Clara is marked as having been purified and caged in camp.;
 		//continue to purification quest final;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.purificationQuestFinal );
 	};
 	//Let go;
@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nYou and Marble untie Clara from her bonds, give her her things, and escort her out of the camp.  She doesn\'t even look at either of you until she is at the edge and you tell her to leave and never come back.  She gives you one look, a look of pure rage and anger, of one who is swearing vengeance, then as soon as it started, it is over.  She steps out of the camp, and warps away into the world.' );
 		//Clara is marked as having been purified and released.;
 		//continue to purification quest final;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.purificationQuestFinal );
 	};
 	//Don't purify;
@@ -1211,7 +1211,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nYou guess you could also build a cage in the camp if you really want to keep an eye on her yourself.  That will make her another mouth to feed, and you\'ll have to hear her ranting every day.  Still, the saying does go, "keep your enemies closer."' );
 		MainView.outputText( '\n\nIf you\'re feeling especially generous, you could just let her go, with not more than a promise to never come back or try to kidnap you again.' );
 		//PC makes their choice: Tel'Adre, SceneLib.camp cage, let go.";
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Cage', this, this.stickUnpurifiedClaraInACage );
 		EngineCore.addButton( 1, 'Let Go', this, this.letCorruptCowCuntGo );
 	};
@@ -1224,7 +1224,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		//Clara is marked as having not been purified and caged in camp;
 		CoC.flags[ kFLAGS.CLARA_IMPRISONED ] = 1;
 		//continue to purification quest final;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.purificationQuestFinal );
 	};
 	//Let go;
@@ -1235,7 +1235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.outputText( '\n\nYou release her from her bonds, give her her things, and escort her from the camp.  She gives you a wicked smile, then steps out of the camp and warps away.  You hope that wasn\'t a mistake.' );
 		//Clara is marked as having not been purified and released;
 		//continue to purification quest final;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.purificationQuestFinal );
 	};
 	//Purification quest final;
@@ -1262,7 +1262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 		MainView.clearOutput();
 		MainView.outputText( 'Do you want to ask Marble to grow her breasts bigger?' );
 		//PC chooses yes or no;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.actuallyGrowPureMarblesTittiesForFunzies );
 		EngineCore.addButton( 1, 'No', SceneLib.marbleScene, SceneLib.marbleScene.giveItem );
 	};
@@ -1304,7 +1304,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 	MarblePurification.prototype.pureMurbleUsesReducto = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Do you want to ask Marble to shrink her breasts down?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.pureMurblePCChoosesYesToShrinkeyTits );
 		EngineCore.addButton( 1, 'No', SceneLib.marbleScene, SceneLib.marbleScene.giveItem );
 	};

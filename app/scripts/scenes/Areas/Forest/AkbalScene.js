@@ -952,7 +952,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}//{corruption > 40}
 		else {
 			MainView.outputText( '\n\nDo you take advantage of him again?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 1, 'No', this, this.akbitchNoThnx );
 			EngineCore.addButton( 0, 'Yes', this, this.takeAdvantageOfAkbitch );
 		}
@@ -1002,7 +1002,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//{intelligence > 60}
 		MainView.outputText( '\n\nAkbal suddenly stops struggling and you hear someone shout your name. You smile, knowing the voice is Akbal’s attempt to distract you.  Ignoring his desperate ploy, you grab the demon by the shoulders and slam him into the ground.  He struggles, you push him down again.  After throwing a fit of swearing and cursing, he goes limp.  Accepting his fate, he tells you to get on with it.  With his arms still behind his back, you tie a portion of the vine around his neck like a collar and leave the rest hanging from the main part, resembling a leash.  This is going to be fun.' );
 		CoC.flags[ kFLAGS.AKBAL_TIMES_BITCHED ]++;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Normal', this, this.basicAkbitchScene );
 		//AMB Strength Scene
 		//70+
@@ -1031,7 +1031,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'e lifts his tail, giving you a perfect view of his entire package, from his self-lubing sphincter to his full balls, and rock-hard, demon-cat dick.  Through lust, his will has been broken, and now he is yours.' );
 		MainView.outputText( '\n\nWhat will you do with him?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Fuck Him', this, this.buttFuckbuttFuckbuttFuckAkbal );
 		}
@@ -1057,7 +1057,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//{If penis = 7in-12in} else if (CoC.player.cocks[x].cockLength < 12)
 		MainView.outputText( '\n\nAkbal groans deep in his chest as you invade his lube-dripping tailhole. He begins to pull away from your [cock biggest] as you push forward.  A sharp tug on his collar corrects this and you resume your efforts to enter his body.  Once your [cockHead biggest] is inside him, he swoons and pushes his muscular rump back onto your [cock biggest] without need for further instruction.  Every time your full length slides into him, he gives a sharp yelp, a hungry sound that shows both his tightness and his need for your [cock biggest].  He maintains a fevered pace and even throws his head back as he pleasures himself on your [cock biggest].' );
 		//{if penis > 12in} else 				MainView.outputText('\n\nAkbal howls and cringes as you begin to stuff yourself into his tight tailhole.  His hips swerve and you have to yank your forest-made collar to keep your [cock biggest] buried within his gloriously wet and unbelievably tight hole.  Once you’ve managed to get your [cockHead biggest] past his tight ring, he begins to whine again.  You have to pull his collar to force him down the length of your [cock biggest], but once a foot of your massive dick is inside him, your advance is halted.  Before you even think to complain his insides begin to squirm, shifting to make room for the rest of your [cock biggest].  You reach down and grab his hips, pulling him back until his plump muscled cheeks softly mash against your trunk.  He howls as you maintain a firm grip on his slender hips, not allowing him to move an inch.  Through your fully embedded [cock biggest] you can feel his hole quivering as it pumps massive gobs of that creamy, slick lube in an attempt to make the fuck easier.  A yank on the collar causes the demon to begin slowly forcing himself up and down the length of your [cock biggest].  After a few incursions Akbal picks up the pace and becomes lost in fucking himself up and down your giant pole.  His natural lube even slides out and drips down your [legs] as he repeatedly smashes his insatiable ass into you.  Unbidden, a groan finds its way out your mouth as the demon works you over, having gone from neophyte to pro in a matter of minutes.');
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.fuckAkbitchsButt );
 	};
 	//- page turn -
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			MainView.outputText( ' makes you cringe.  Your new toy laps at your [vagOrAss] and sends shivers coursing through your body as your [vagina] becomes drenched.  Something about his saliva causes an almost electric sensation to shoot through you. When you can stand it no more, you push the demon onto his back and look upon his rigid tool as it quivers.' );
 		}
 		MainView.outputText( '\n\nThe bound demon’s legs stretch straight out, his barbed dick flexing in anticipation.  You touch it, feeling the wetness of the self-lubing demon dick cling to your fingers as you feel one of the barbs.  It is spongy, soft but not too soft.  The demon hisses as you tease him, your fingers sliding across the rubbery barbs that cover his rock-hard sex organ.  When you begin to lower yourself onto his shuddering dick, the demon begins to purr.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.topAkbitchFromBottomDuex );
 	};
 	AkbalScene.prototype.topAkbitchFromBottomDuex = function() {

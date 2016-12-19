@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nShe slows down, finally managing to look your way.  "<i>So we scraped some gems together, and we\'re going to try and get a place in that old city - Tel\'Adre.  And, well, I was wondering...</i>" she sighs and runs her scaly hands through her hair, searching for the words she wants to say.  "<i>Look, [name], you\'re my best friend, bar none.  In the time we\'ve been together, I\'ve had more fun than the rest of my life combined.  Maybe I\'m crazy, but...  I think we\'re good together, you know?  So, if you think the same - and I understand if you just wanna keep things the way it\'s been, I do... but maybe you\'d like to move in with us?  With me...</i>"' );
 		MainView.outputText( '\n\nYou stare at the salamander, momentarily taken aback by her offer.  However, you know that, even if you wanted to, your duties as Champion bind you here, to the portal.  You cannot go with her... But perhaps there\'s another way to keep Hel close, if you want to take things further at all.' );
 		//(Display Options: [I can't] [Come2Camp] [Just Friends];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'I Can\'t', this, this.iCantLetFireButtsRapeMyCampsButt );
 		EngineCore.addButton( 1, 'Come2Camp', this, this.comeToCampHeliaIWantTailInButt );
 		EngineCore.addButton( 2, 'JustFriends', this, this.justFriendsWithAnalTailWaifu );
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\n<i>"Alright, alright,"</i> Hel finally says, making a show of huffing and rolling her eyes.  <i>"I guess, if you just can\'t live without me...  Well, Dad and Kiri will be fine, as long as I\'m still helping, and - and they\'d want me to be happy."</i>  With a wolfish grin, Hel hooks her arms around your neck, pressing herself close to you, a lusty look in her eyes.  <i>"And believe me, lover mine.  Nothing on the planet would make me happier than being with you."</i>' );
 		MainView.outputText( '\n\nYou smile at the salamander and give her a long, affectionate kiss.  Hel seems to melt in your arms, going languid as her tongue slips past your lips, entwining with yours.  You and Hel run your hands over each other\'s bodies, stroking, groping and teasing as you kiss, eventually pushing Hel against the wall.  She gasps, hiking her legs around your waist as you begin to play with the straps of her scale bikini and thong.' );
 		MainView.outputText( '\n\nFinally, she breaks the kiss long enough to say, <i>"Oh, I am going to enjoy living with you..."</i>' );
-		EngineCore.menu();
+		MainView.menu();
 		//place holder;
 		CoC.time.hours++;
 		EngineCore.addButton( 0, 'Next', this, this.afterMoveInBoningAnalFireTail );
@@ -274,13 +274,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			if( CoC.player.inte >= 40 || CoC.player.inte / 5 + Utils.rand( 20 ) + 1 > 10 ) {
 				MainView.outputText( 'Or, maybe there\'s a way to make this work...' );
 				//(Display Option: [Boot Sophie] [Boot Hel] [Work it Out]);
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Boot Sophie', this, this.bimboSophieGetsBooted4Firebutt );
 				EngineCore.addButton( 1, 'Boot Hel', this, this.bootHelOutForBimboSophie );
 				EngineCore.addButton( 2, 'Work It Out', this, this.workItOutWithSophieAndFireTits );
 				return;
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Boot Sophie', this, this.bimboSophieGetsBooted4Firebutt );
 			EngineCore.addButton( 1, 'Boot Hel', this, this.bootHelOutForBimboSophie );
 			return;
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.playerMenu();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.helFollowersIntro );
 	};
 
@@ -434,7 +434,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			if( display ) {
 				MainView.outputText( 'You call your salamander lover over, and in a few moments Hel walks your way, hips and tail swaying gaily as she moves.  She wraps an arm around your shoulders, pressing her soft, warm body against yours, and grins.  <i>"Heyya, lover mine.  You need anything?"</i>' );
 			}
-			EngineCore.menu();
+			MainView.menu();
 			//Hel Camp Follower menu;
 			//Options:;
 			//Talk;
@@ -490,7 +490,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			SceneLib.helSpawnScene.heliaTalkEight();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Discuss', this, this.talkToHel );
 		if( CoC.time.hours >= 21 ) {
 			EngineCore.addButton( 1, 'Cuddle', this, this.hugASmokeyTail );
@@ -610,7 +610,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( '\n\n"<i>So just finally speaks, \'Ohhhh, what have we here?  A pair of precious little salamanders come to pay tribute to the Amazon Queen?  Well, well, how very thoughtful of you... Why, you even brought me dinner,\' and a couple of her femboys grab the packs of food we stole -- then push us down on our knees.  We\'d been disarmed, but now Dane and I are disrobed. They cut our clothes right off of us, left us naked in front of the queen bitch.  So she just grins some more, real menacing-like, and says, \'Well, I must find some way to show my appreciation...\'</i>"' );
 			MainView.outputText( '\n\n"<i>And then suddenly we\'re surrounded by dozens of naked gnoll-boys...</i>"' );
 			MainView.outputText( '\n\nYou think you know where this is going...  Do you want to listen to the rest of Hel\'s story?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Listen', this, this.listenToHelTalkAboutGnolls );
 			EngineCore.addButton( 1, 'Shut Up', this, this.shutUpHelTalks );
 			return;
@@ -838,7 +838,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( '\n\nBefore you can give an answer, Hel presses her lips to yours, her breath coming hot against your face as her hands run across your back and [butt].' );
 			MainView.outputText( '\n\nHel smiles prettily as you give your assent.  <i>"On a night like this, there\'s no one I\'d rather be with, [name]..."</i>\n\n' );
 			CoC.flags[ kFLAGS.SLEEP_WITH ] = 'Helia';
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', SceneLib.camp, SceneLib.camp.doSleep );
 			return;
 		}
@@ -883,7 +883,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		//PC has Vag: [Get Licked];
 		//All: [Tail Peg];
 		//Morph-based: [Possession] [Mount Her] [Hanging 69] [Coil Her Up] [Tentafuck]);
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 			//85 vag capacity by base;
 			if( CoC.player.cockThatFits( this.heliaCapacity() ) >= 0 && buttons < 9 ) {
@@ -971,7 +971,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\n"<i>Hey, I can hear you!</i>"' );
 		MainView.outputText( '\n\nSorry.' );
 		MainView.outputText( '\n\nWith your beautiful plaything ready to go, you scan around camp for someone or something to play with...' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Izma', this, this.possessIzma );
 	};
 	//Possession -- Izma (who has a dick still);
@@ -1265,7 +1265,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( '\n\n"<i>I just don\'t feel like it, alright?  Can we just do something else instead?</i>"' );
 			MainView.outputText( '\n\nYou could just drop the issue.... or push it, and see what\'s on Hel\'s mind.' );
 			//[Drop it] [Push it];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Drop It', this, this.heliaFollowerMenu );
 			EngineCore.addButton( 1, 'Push It', this, this.pushHelToSwim );
 		}
@@ -1287,7 +1287,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 				MainView.outputText( '\n\nHel rolls her eyes, but cups her goo-coated breasts, giving Val - and her teats - a playful pinch.  With a yelp of surprise, though, Hel goes tumbling onto the riverbank, propelled by a pair of blue feet, a laughing voice echoing behind her as the two tumble into the sand.  "<i>Why, you!</i>" Hel giggles, spanking her own goo-covered ass in punishment.' );
 				MainView.outputText( '\n\nSince both the girls are here, and in such playful spirits... do you want to have some fun?' );
 				//[Display Val x Hel Threesome options];
-				EngineCore.menu();
+				MainView.menu();
 				//99999;
 			}
 			//Swim With Hel -- Lust less than 33;
@@ -1303,7 +1303,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( 'You decide to fish for some answers, and ask Hel why she\'s so insistent on not going for a dip. She seems awfully... defensive... for someone who\'s just not in the mood (for once).  Hel continues to look away from you, nervously circling in the dirt with her foot-claws as she consciously tries to avoid your gaze.  You stare at her expectantly for a long minute, almost ready to give up when she finally says can\'t swim, okay?  Water scares the living shit outta me.</i>"' );
 		MainView.outputText( '\n\nJust as you\'re about to respond, Hel snaps, "<i>Don\'t you make fun of me!  E-everyone\'s got something they\'re scared off, you know?</i>"' );
 		//[Teach Her] [Drop it];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Teach Her', this, this.teachHelToSwim );
 		EngineCore.addButton( 1, 'Drop It', this, this.heliaFollowerMenu );
 	};
@@ -1344,7 +1344,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		//needs wings or 50+ str, dick, added as an option "<i>Carry her to camp</i>" when you defeat Hel while she is in Fuckbuddy mode.;
 		//[Vapula];
 		//[Kiha];
-		EngineCore.menu();
+		MainView.menu();
 		if( SceneLib.vapula.vapulaSlave() && CoC.player.lust >= 33 && CoC.player.hasCock() ) {
 			if( CoC.player.cockThatFits( this.heliaCapacity() ) >= 0 ) {
 				EngineCore.addButton( 1, 'Vapula', this, this.heliaAndVapula );
@@ -1437,7 +1437,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nKiha looks to you, eyebrow arched questioningly.  You nod, and tell her it\'ll be fun.' );
 		MainView.outputText( '\n\n"<i>Well, if it\'s okay with [name]...  I guess I could grace you with the sexual prowess of a dragon.</i>"' );
 		//[Play sex-appropriate scene; herms can choose];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.gender === 1 ) {
 			EngineCore.addButton( 0, 'Next', this, this.dudeHeliaAndKihaThreeSome );
 		} else if( CoC.player.gender === 2 ) {
@@ -1523,7 +1523,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( 'You look over to your stash and give a sharp whistle, calling Valeria over.  An amorphous blue blob soon pops up, forming into Valeria\'s shapely body as she strides over to give Helia a big hug.  Your salamander lover giggles, squeezing Val so hard she pops in half, only to reform beside you as you ask if she\'d like to join in on your fun.  She beams, nodding quickly.  "<i>Thanks for the invite, partner... I was getting pretty hungry, you know...</i>"' );
 		}
 
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.helXValeriaFemalePC );
 	};
 	//Hel x Valeria Female Version;
@@ -1567,7 +1567,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( '\n\n"<i>Is that a fact?  Well, I guess that gives us more time to party at night!</i>"' );
 			CoC.flags[ kFLAGS.HEL_GUARDING ] = 0;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.heliaFollowerMenu );
 	};
 	//The Set Up;
@@ -1673,7 +1673,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nYou do a take from the dildo to her face and back again. How in the gods’ names is she going to take such an expansive member up her ass? You’ve wanted to put your [cock biggest] up there for some time, but seeing something mimicking your unholy size in person really drives home what an absurd insertion this is going to be. It’s not too late - you could stop her now.' );
 		MainView.outputText( '\n\nDo you stop Helia?' );
 		//[Yes] [No];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Anal Train', this, this.yesMakeHeliaAGapeSlut );
 		EngineCore.addButton( 1, 'Stop', this, this.noGapeSlutForHelia );
 	};
@@ -1729,7 +1729,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nHel rolls her eyes, overly dramatic.  "<i>Ugh, come on, [name].  I asked you last week to come to town with me.  Dad and Kiri are probably waiting for us.</i>"' );
 		MainView.outputText( '\n\nYou can\'t recall Hel inviting you to anything, but whatever.  You could go along with the sexy salamander - and you can tell by her attire that it\'s going to be something special - or say no and hang around camp while she goes and has fun.' );
 		CoC.flags[ kFLAGS.HELIA_BIRTHDAY_OFFERED ] = 1;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Stay Home', this, this.stayHomeFromHeliaParty );
 		EngineCore.addButton( 0, 'Go To Party', this, this.goWithHelia );
 	};
@@ -1741,7 +1741,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	HelFollower.prototype.helPartyMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		//this.heliaDrinks;
 		if( CoC.flags[ kFLAGS.HELIA_BDAY_DRINKS ] === 0 ) {
 			EngineCore.addButton( 0, 'Drinks', this, this.heliaDrinks );
@@ -1949,7 +1949,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			return;
 		}
 		// Choice;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Cock', this, this.helAndSluttyHarpyMale );
 		EngineCore.addButton( 1, 'Pussy', this, this.helAndSluttyHarpyFemale );
 		EngineCore.addButton( 9, 'Back', this, this.heliaThreesomes );
@@ -2038,7 +2038,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nHel grasps handfuls of Sophie’s feathers as her body locks in orgasm. Sophie lies insensate against the taller girl\'s neck, tongue hanging out and drooling onto her skin. You lean over the senseless bimbo, giving Hel a long apology kiss.' );
 		MainView.outputText( '\n\n<i>“Don’t think I’ll just do this whenever you want”</i> She says when the kiss is broken, but she’s smiling as she says it, so you smile back and retrieve your armor. Sophie has fallen asleep on top of Helia, who seems to also have resigned to take a nap.' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelFollower.prototype.helAndSluttyHarpyFemale = function() {
@@ -2073,7 +2073,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nYou slide off of the two insensate girls, using what strength you have left to retrieve your armor. You give Hel a kiss that she returns to the best of her ability, and ruffle Sophie’s head feathers. In a surprising move Helia swirls Sophie around and plants a big kiss on her lips.' );
 		MainView.outputText( '\n\n<i>“But don\'t think this means I want to do it again,”</i> she says before shakily sauntering off to find somewhere to collapse. Sophie simply giggles and curls up to sleep in the puddle of juices the three of you made. You massage your aching muscles and get back to your champion duties.' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	HelFollower.prototype.helAndSluttyHarpyGenderless = function() {
@@ -2087,7 +2087,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '\n\nHer body doesn’t know how to react to the sunshine-stained chemicals coursing through her veins, but it seems to have defaulted to good feelings. You wrap your arms around both girls and reach down between their legs. They moan into each others mouths as you begin rubbing their sexes with fervor. Sophie’s eyes glaze over as your rubbing brings her to orgasm. Her mouth hangs open, and Helia takes the opportunity to swirl her tongue around the harpies. ' );
 		MainView.outputText( '\n\nYour hand slides across Sophie’s stomach to squeeze one of her massive mammaries. The busty harpy responds by doing the same to Hel, squeezing one of her sizeable tits. You double your efforts on Helia and she practically melts despite her natural body heat. The steamy salamander crumples, falling to the side and pulling Sophie with her. You lean over and kiss both girls on the forehead before leaving them to rest, and hopefully feel more open about each other.' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'helFollower', new HelFollower() );

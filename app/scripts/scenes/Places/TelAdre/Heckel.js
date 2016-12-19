@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Appearance, CockTyp
 		if( CoC.player.str < 75 ) {
 			MainView.outputText( 'Even with your mighty struggling, you cannot overcome the relentless hyena, and your shaking hand is forced down, eventually pressed flat into the wood.' );
 			MainView.outputText( '\n\nHeckel proudly declares, "<i>Your ass is mine, bitch.  Bend over.</i>"  You sigh, ashamed to have lost and more than a little emasculated.  Well, you made a wager.  Time to live up to it...' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.heckelLovesDaAnal, 1 );
 			CoC.flags[ kFLAGS.TIMES_LOST_HECKEL_DOM_CHALLENGE ]++;
 		}
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Appearance, CockTyp
 			MainView.outputText( '...</i>"' );
 			MainView.outputText( '\n\nTime to claim your prize...' );
 			EngineCore.dynStats( 'str', 0.5 );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.dominateHeckelConclusion );
 			CoC.flags[ kFLAGS.TIMES_DOMMED_HECKEL ]++;
 		}

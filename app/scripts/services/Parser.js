@@ -766,7 +766,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			// tell the parser where to exit to at some point
 		} else if( _.has(this.parserState, sceneName) ) {
 			$log.debug( 'Have scene "' + sceneName + '". Parsing and setting up menu' );
-			EngineCore.menu();
+			MainView.menu();
 			this.buttonNum = 0; // Clear the button number, so we start adding buttons from button 0
 			ret = $showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) );
 			MainView.clearOutput();

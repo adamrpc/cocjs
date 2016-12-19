@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 			MainView.outputText( '\n\nYou ask her if everything\'s all right – she\'s usually much more upbeat and relaxed than this.  She\'s usually the one who starts the conversation.  She looks back down, not immediately answering, before drawing her head back and taking a deep breath through her nose.  <i>"I have a favor to ask,"</i> she says.  <i>"We don\'t really know each other out of the gym, so this is going to seem really forward, okay?"</i>  You nod, patiently waiting for what she\'s going to ask you.  <i>"I... well, could you... wash my back?"</i>' );
 			MainView.outputText( '\n\nThat\'s all?  That\'s not so bad.  Just a friend innocently washing another friend\'s back.  Still, you could refuse her request, if you\'d rather.  What do you do?' );
 			//[=Help=][=Don't help=];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Help', this, this.helpBrookeOut );
 			EngineCore.addButton( 1, 'Don\'t Help', this, this.dontHelpBrookeShower );
 		}
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( '\n\nYou tell her that you\'d be glad to.  You step into the stall next to her, lathering up your hands and begin to rub the suds into your [hair].  She finishes doing the same to her own, before crossing her arms over the wall of the stall between you, facing you with a smile.  She waits patiently while you lather yourself – you could take this opportunity to start the conversation yourself, for once.' );
 		MainView.outputText( '\n\nWhat do you talk about?' );
 		//talk menu here;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Working Out', this, this.talkWithBrookeAboutWorkingOut );
 		EngineCore.addButton( 1, 'GymMembers', this, this.talkToBrookeAboutGymFolks );
 		EngineCore.addButton( 2, 'Her Bod', this, this.brookesRockinBod );
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( '\n\nWhat do you talk about?' );
 		//talk menu here!;
 		//[=Working Out=] [=Gym Members=] [=Her Rockin Bod=] [=Grope=];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Working Out', this, this.talkWithBrookeAboutWorkingOut );
 		EngineCore.addButton( 1, 'Gym Members', this, this.talkToBrookeAboutGymFolks );
 		EngineCore.addButton( 2, 'Her Bod', this, this.brookesRockinBod );
@@ -401,7 +401,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		EngineCore.dynStats( 'lus', 33, 'resisted', false );
 		MainView.outputText( '\n\nWhat is your weapon of choice?' );
 		//[=Penetrate her=] [=Anal=] [=Tribadism=] [=Down on her=] [=Get laid=] [=Double-dicked=];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( this.brookeCapacity() ) >= 0 ) {
 			EngineCore.addButton( 0, 'Penetrate', this, this.penetrateBrooke );
 		}
@@ -490,7 +490,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		if( CoC.player.cockArea( x ) >= 61 ) {
 			MainView.outputText( 'Bluntly, you ask Brooke what her opinion is on anal.  <i>"What, with you?"</i> she asks, leaning her ass back and trapping your ' + Descriptors.cockDescript( x ) + ' between her asscheeks expertly.  You moan with pleasure, but before you get the wrong idea, she hums disapprovingly.  She was actually using her ass to measure your ' + Descriptors.cockDescript( x ) + '!  <i>"Sorry, sweet thing, but maybe not this time.  I just got in from the gym, and working a beast like that into my ass would be a workout in of itself.  I\'m up for anything else, though."</i>' );
 			//Go back to 'grope' menu;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 4, 'Back', this, this.gropeDatBrooke );
 			return;
 		}
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		//if {all cockFits  >= 61};
 		if( y < 0 || CoC.player.cockThatFits( x ) >= this.brookeCapacity() ) {
 			MainView.outputText( 'You hump against her, enjoying the warm, wet feel of her fur against your sensitive monsters.  Brooke moans out, enjoying the way you\'re using her body, but freezes slightly when one of them begins to press and ply against her butthole.  <i>"Sorry, sweet thing, but maybe not this time.  Much as I\'d love me some double-dickings, one of those things in my butt would be one too many.  I\'m down for something else, though."</i>' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.gropeDatBrooke );
 			return;
 		}
@@ -976,7 +976,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( '\n\nFinally, her hands travel down to your [butt], giving each cheek as strong a squeeze as her damaged hands can give.  You take that as an invitation, and you return suit, finally getting your hands on her firm butt.  It has barely any movement or jiggle to it, but given the body tone of the Shepherd you\'re groping, you\'re neither surprised nor disappointed.  <i>"You stepped up to the plate that one time days ago.  I got to know you, and you got to know me.  And... I got to watch you.  Every time I saw you, you were trimmer; buffer; <b>sexier</b>.  Every day it was harder to not throw it all to the wind and fuck you then and there.' );
 		MainView.outputText( '\n\nSo hopefully,"</i> she says, closing the gap between your faces, <i>"you won\'t mind if this horny bitch indulges herself."</i>  With that, she presses her lips against yours, although this time, there is no resistance or apprehensiveness tongue quickly slips out, running unimpeded into your mouth and dancing along with yours.  She turns you to the side, pushing your back up against the stall wall, her mouth never leaving yours as she hungrily, ravenously, explores your mouth with her tongue.  There was nothing teasing or cutesy about it: Brooke wants you, and wants you <b>bad.</b>' );
 		//[=Next=];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.brookeSpecialMediumSceneContinued );
 	};
 	Brooke.prototype.brookeSpecialMediumSceneContinued = function() {
@@ -1224,7 +1224,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( 'You stroll into the gym, looking for Heckel, but she\'s not at her usual routine, running laps around the gym.  The gym itself is a little bare; there aren\'t a lot of people using the machines dotted around the room.  Perfectly good and ready machines, barbells, bench-presses, et al sit ready and waiting for someone to test their mettle on them.' );
 		MainView.outputText( '\n\nIn one of the corners of the room, you hear a bit of a commotion.  Despite the size of the room, the echoes of the commotion make it a bit confusing as to just where the noise is coming from.  Do you look to your left, towards the butterfly machines, or do you look to your right, towards the leg press?' );
 		//[=Butterfly=] [=Leg Press=] [=Leave=];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Butterfly', this, this.butterflyMachinesGooooo );
 		EngineCore.addButton( 1, 'Leg Press', this, this.legPressInsteadOfThreesome );
 		EngineCore.addButton( 4, 'Leave', this, this.leaveHeckelEncounter );
@@ -1234,7 +1234,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.clearOutput();
 		MainView.outputText( 'Well, whatever.  You came here looking for Heckel, and she\'s not here, as far as you can tell.  You turn around and leave the gym, without investigating the cause of the commotion.' );
 		//Return to Tel'Adre, no time loss;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[=Butterfly=];
@@ -1248,7 +1248,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( '\n\nHeckel practically drags Brooke behind her, making her way through the crowd, and she just happens to pass by you.  She pauses slightly, before realizing who you are.  <i>"Oh, [name],"</i> Heckel says casually.  <i>"Enjoy the show?"</i>  She grins proudly, and rather than answer, you ask her what she plans to do with Brooke.  <i>"Well... "</i> she hums, looking back to her victim.  Brooke\'s still a bit shaky, weak from all the exercise, but at least meets Heckel eye-to-eye.  <i>"I could tell you, but you know what?  Fuck that.  You\'re coming too."</i>' );
 		MainView.outputText( '\n\nHeckel uses her other hand to grab you by the collar of your [armor], and, before you have a chance to object, presses her lips to yours, aggressively slipping her tongue in for a brief moment.  Some of the matrons from the crowd behind you whistle and cat-call, but you\'re too stunned from the reaction to reply, and before you know it, you and Brooke are pulled into the locker rooms.' );
 		//[=Next=];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.brookeAndHeckelStuffPartTwo );
 	};
 	Brooke.prototype.brookeAndHeckelStuffPartTwo = function() {
@@ -1257,7 +1257,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( '\n\nHeckel pushes Brooke down so the Shepherd girl is lying flat on her back, and quickly straddles her by the waist.  Naked from top to bottom, Heckel grips Brooke around the ribs and begins roughly grinding her bare cock against her belly.  Brooke moans a bit, her arms hanging limply at her sides while the hyena has her way with her.  Heckel\'s black dog dick remains semi-limp, only straight enough to not drag through Brooke\'s fur, but that changes with each wanton thrust.' );
 		MainView.outputText( '\n\n<i>"Hurry it up,"</i> Heckel says gruffly at you, noticing that you\'ve taken to watching her rough dominance instead of stripping down like she\'s told you to.' );
 		MainView.outputText( '\n\nDo you comply?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.submitHeckelXBrookeThreesome );
 		EngineCore.addButton( 1, 'No', this, this.nopeOutofBroke );
 	};
@@ -1340,7 +1340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( 'Heckel\'s orgasm begins to wind down, but her feminine moans and gasps don\'t stop even as she\'s finished.  It takes her a bit longer to finally stop, and, exhausted from this workout on top of the one from before, she finally collapses onto Brooke, letting her weight rest entirely on the Shepherd girl beneath her.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.brookeAndHeckelStuffPartThree );
 	};
 	Brooke.prototype.brookeAndHeckelStuffPartThree = function() {
@@ -1365,7 +1365,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		MainView.outputText( '\n\nBrooke hoists Heckel behind her, making her way through the crowd, when she just happens to pass by you.  She hesitates for only a moment before she recognizes you.  <i>"Hey, [name], good timing!  You enjoy the show?"</i>  She bounces Heckel on her shoulder easily, and Heckel just kind of flops about, too tired to retaliate.  Rather than answer, you ask Brooke what she plans to do with her.  <i>"Well... "</i> she hums, looking to Heckel\'s exhausted shell, <i>"I could tell you, but you know what?  That\'s no fun.  Grab her other shoulder and I\'ll show you what I have in mind."</i>  To solidify her implication, she gives you a sultry wink and deliberately licks her lips, begging you with her eyes to say yes.' );
 		MainView.outputText( '\n\nYou accept, and wrap Heckel\'s right arm around your own shoulders.  You don\'t <i>really</i> know what to expect, but judging from the lecherous leers and callous cat-calls that follow behind you, Heckel and Brooke with every step out of the gym and into the locker rooms, you have a pretty solid idea.' );
 		//[=Next=];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.brookeVHeckelBrookeWins2 );
 	};
 	Brooke.prototype.brookeVHeckelBrookeWins2 = function() {
@@ -1463,7 +1463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 		//[=Next=];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.brookeVHeckelBrookeWins3 );
 	};
 	Brooke.prototype.brookeVHeckelBrookeWins3 = function() {

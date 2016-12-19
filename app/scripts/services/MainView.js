@@ -227,11 +227,23 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		}
 		return MainView.bottomButtons[ index ].visible;
 	};
+	MainView.menu = function() { //The newer, simpler menu - blanks all buttons so addButton can be used
+		MainView.hideBottomButton( 0 );
+		MainView.hideBottomButton( 1 );
+		MainView.hideBottomButton( 2 );
+		MainView.hideBottomButton( 3 );
+		MainView.hideBottomButton( 4 );
+		MainView.hideBottomButton( 5 );
+		MainView.hideBottomButton( 6 );
+		MainView.hideBottomButton( 7 );
+		MainView.hideBottomButton( 8 );
+		MainView.hideBottomButton( 9 );
+	};
 	MainView.menuButtons = {
 		newGameButton: {visible: false, labelText: 'New Game', callback: null, toolTipText:'New Game'},
 		dataButton: {visible: false, labelText: 'Data', callback: null, toolTipText:'Data'},
 		statsButton: {visible: false, labelText: 'Stats', callback: CoC.displayStats, toolTipText:'Stats'},
-		levelButton: {visible: false, labelText: 'Level', callback: CoC.levelUpGo, toolTipText:'Level'},
+		levelButton: {visible: false, labelText: 'Level', callback: null, toolTipText:'Level'},
 		perksButton: {visible: false, labelText: 'Perks', callback: CoC.displayPerks, toolTipText:'Perks'},
 		appearanceButton: {visible: false, labelText: 'Appearance', callback: Appearance.appearance, toolTipText:'Appearance'}
 	};

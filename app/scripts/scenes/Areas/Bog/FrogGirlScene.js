@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Pregna
 		}
 		CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_FROG ]++;
 		MainView.outputText( '\n\nDo you follow the music into the arms of the frog girl, or resist her melody?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Follow', this, this.followDatFrog );
 		EngineCore.addButton( 1, 'Resist', this, this.resistDatFrog );
 	};
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Pregna
 		MainView.outputText( '\n\nYou giggle again, loving the way the world spins with every egg fed into you.  She lays egg after egg into you.  It’s finally too much for you and your mind collapses.  The world completely dissolves into a swirling collage of color, sensation, and sound.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.getFrogButtFilled );
 	};
 	FrogGirlScene.prototype.getFrogButtFilled = function() {
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Pregna
 		MainView.outputText( '\n\n"<i>Okay, geeze, sorry,</i>" she says, holding up her wide-fingered palms.  "<i>Sorry - I’m done, no harm, no foul.  Be on your way</i>"' );
 		MainView.outputText( '\n\nShe wrinkles up her noseless face and slouches down into the water, sinking down until it reaches the bottoms of her eyes, huffing out a bubbling sigh.' );
 		MainView.outputText( '\n\nYou admit to being a bit curious as to why she attempted to lure you in, but you do have your own tasks at hand.  On the other hand, she did just try to lure you in for unwanted sex.  Are you just going to let her get away with that?  Do you question the frog girl, continue on your way, or teach her a lesson?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Question', this, this.questDatFrogGirl );
 		EngineCore.addButton( 1, 'TeachLesson', this, this.teachDatFrogALesson );
 		EngineCore.addButton( 4, 'Leave', this, this.leaveFrogBe );
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Pregna
 		MainView.outputText( '\n\n"<i>So I was gonna...</i>" she shifts her eyes from side to side quickly, "<i>...drug you... and then fill up your ass with my eggs.</i>"  She mumbles the last part quickly, apparently hoping that you won’t hear it.' );
 		MainView.outputText( '\n\nBefore you can react, she adds quickly, "<i>It wouldn’t hurt you - or the eggs - you’d just carry them for a few days until they hatch.  And then I wouldn’t have to deal with them.  It’s win-win, really!</i>"' );
 		MainView.outputText( '\n\nYou wonder what it would be like to carry the massive load of eggs. Do you want to offer to carry the frog’s eggs or continue on your way?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 4, 'Leave', this, this.continueOnYourWay );
 		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 0, 'Vaginally', this, this.superBonusFrogEggsInYerCooch );
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Pregna
 		MainView.outputText( '\n\nYou giggle again, loving the way the world spins with every egg fed into you.  She lays egg after egg into you.  It’s finally too much for you and your mind collapses.  The world completely dissolves into a swirling collage of color, sensation, and sound.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.voluntarilyGetEggedEpilogue );
 	};
 	//**
@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Pregna
 		MainView.outputText( '\n\nThere’s no actual pain to it, just more slime, and you grasp at the edge of the tree pool to steady yourself as the world turns sideways.  You close your eyes for a moment to try to make the world stop spinning, and sink down in the pool.' );
 		MainView.outputText( '\n\nWhen you open your eyes again, the frog girl is standing over you.  The sky behind her looks like it’s on fire, and she’s covered in spinning lights.  "<i>Okay, I’ll admit, I’m a terrible mother, but I’m pretty sure you’d be worse,</i>" she huffs, slapping her tongue against your face once more.' );
 		MainView.outputText( '\n\nColors, lights, and sounds erupt, and you black out, unable to take any more.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.lessonFollowup );
 	};
 	FrogGirlScene.prototype.lessonFollowup = function() {

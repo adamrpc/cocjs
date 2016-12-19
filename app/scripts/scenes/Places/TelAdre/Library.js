@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, MainView, PerkLib,
 		} else {
 			this.towerFollowUpVisits();
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.TIMES_BEEN_TO_LIBRARY ] === 0 || CoC.time.hours <= 17 ) {
 			EngineCore.addButton( 1, 'You Okay?', this, this.youOkayBuddy );
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00175 ] > 0 ) {
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, MainView, PerkLib,
 			MainView.outputText( 'You ask Quinn if you can use the library to study and learn.' );
 			MainView.outputText( '\n\n"<i>I\'m afraid that I may have not made myself clear earlier, the library is not presently open,</i>" Quinn sighs, rubbing his forehead.  "<i>This means that it is closed, which is the opposite state of open.  While it is in this state its services are unavailable to the general public.  The general public in this particular instance are also the ones directly responsible for the necessity of it closing, leading to further hesitation in the Covenant\'s willingness to hasten the opening.  Your interest is noted, filed, and considered, but will be regarded as a data point and not the quote unquote voice of the people.</i>"' );
 			MainView.outputText( '\n\nQuinn pauses for a few more moments, looking you in the eye thoughtfully before finishing with "<i>That means no, in case we\'re unclear.</i>"' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 4, 'Back', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 		}
 		//[Study, 18:00-20:00];
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, MainView, PerkLib,
 			else {
 				MainView.outputText( '\n\nSelecting a book randomly from the scattered tomes, you find a historical text documenting life in Mareth.  It\'s dreadfully dull, and though you do your best to learn what you can the dry work is putting you to sleep.  Eventually you close the book and accept that you\'re not going to be learning anything tonight.' );
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};

@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		MainView.outputText( 'or (even) some demon enclave that needs destroying.  With a quick check of your [weapon], you begin the long trek towards the shimmer in the distance.' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.gargoyleMeeting2 );
 		CoC.time.hours++;
 	};
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		CoC.flags[ kFLAGS.FOUND_CATHEDRAL ] = 1;
 		MainView.outputText( '\n\n<b>You have discovered the cathedral. You can return here in the future by selecting it from the \'Places\' menu in your camp.</b>\n' );
 		//(Display [Break Chains] and [Don't Break] options);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Don\'t Break', this, this.dontBreakThatShit );
 		EngineCore.addButton( 0, 'Break Chains', this, this.breakZeChains );
 	};
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '\n\nThat raised more questions than it answered.  Taking things slow for now, you ask her name.\n\n"<i>I... I am... I simply am.  What would Master call me?</i>"' );
 		//[Display a textbox, into which the player can type in a name. This new value will be called ' + CoC.flags[kFLAGS.GAR_NAME] + ', henceforth. ] (Confidence +10);
 		MainView.nameBox.value = '';
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.nameZeGargoyle );
 	};
 	Gargoyle.prototype.nameZeGargoyle = function() {
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.nameBox.value = '';
 			MainView.nameBox.visible = true;
 			MainView.nameBox.width = 165;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.nameZeGargoyle );
 			return;
 		}
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	};
 	Gargoyle.prototype.gargoyleStarterMenu = function() {
 		//(Display options [Funny Order], [Carnal Order]. and [Talk]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Funny Order', this, this.giveGargoyleAFunnyOrder );
 		EngineCore.addButton( 1, 'Carnal Order', this, this.carnalOrder );
 		EngineCore.addButton( 2, 'Talk', this, this.firstGargoyleTalk );
@@ -155,7 +155,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '\n\nSuddenly, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' breaks the stare and looks away, as if in shame.  "<i>The demons\' doom that even now blights Mareth took its toll here, too.  The people of a town no longer here believed they were safe under Marae\'s roof.  Protected.  Their faith was. 0. 0. Misplaced.</i>"' );
 		MainView.outputText( '\n\nIt seems the events that led to the cathedral\'s destruction weigh heavily on ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s heart.  What do you do?' );
 		//(Display options: [Berate] and [Reassure]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Berate', this, this.berateTheGargoyle );
 		EngineCore.addButton( 1, 'Reassure', this, this.reassureTheGargoyle );
 	};
@@ -198,7 +198,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 				MainView.outputText( 'You wander into the Cathedral grounds, and are rather alarmed to see a pair of little green goblin sluts poking around outside, trying to cart off some of the stone tombstones for their nefarious schemes.  They see you approaching, however, and quickly flee – more interested in salvage than fighting or fucking today.  Chuckling to yourself, you enter.' );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		//[b]Cathedral Interior – 06:00 –> 09:00 & 18:00 –> 21:00[/b];
 		if( CoC.time.hours <= 9 || CoC.time.hours >= 18 || woken ) {
 			if( !woken ) {
@@ -270,7 +270,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		} else {
 			MainView.outputText( '  Her ruby-red eyes lock with yours and a sultry grin plays across her gray marble features.  She slides an arm around your waist and presses her sizable, surprisingly soft breasts against your chest.  "<i>How would Master have me?</i>"' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		//(If Male, display options: [Vaginal] [Anal] [Titfuck] [Strap-on] [Leave]);
 		if( CoC.player.gender === 1 ) {
 			EngineCore.addButton( 1, 'Anal', this, this.gargoyleAnal );
@@ -478,7 +478,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( 'You walk to the church\'s alter, shortly followed by ' + CoC.flags[ kFLAGS.GAR_NAME ] + '.  You ask her if she\'s still able to perform the church\'s Rituals, to which she replies "<i>Of course, Master.  Do you have need of one?</i>"' );
 		}
 		//(Display Options: [Body] [Mind] [Banish (only with Exgartuan or Worms)] and [Leave]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Body', this, this.bodyRitual );
 		EngineCore.addButton( 1, 'Mind', this, this.mindGargoyleRitual );
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
@@ -496,7 +496,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		EngineCore.dynStats( 'lib', -0.5, 'sen', -2 );
 		CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 2 ) );
 		//(Display options: [Nothing] [Revenge] and [Cuddle]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Nothing', this, this.noReactionToBodyRitual );
 		EngineCore.addButton( 1, 'Cuddle', this, this.gargoyleCuddleAfterBodyRitual );
 		EngineCore.addButton( 2, 'Revenge', this, this.gargoyleRevengeAfterBodyRitual );
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( 'You walk to the church\'s alter, shortly followed by ' + CoC.flags[ kFLAGS.GAR_NAME ] + '.  You tell her you need one of her holy rituals, but that you\'d prefer to have some fun as well.  Grinning, she says, "<i>It would be my pleasure, my Master. What shall we do?</i>"' );
 		}
 		//(Display Options: [Body] [Mind] [Banish (only with Exgartuan or Worms)] and [Leave]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Body', this, this.kinkyBodyRitual );
 		EngineCore.addButton( 1, 'Mind', this, this.mindRitualPervy );
 		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
@@ -787,7 +787,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 		//(Display Options: [History] [Cathedral] ' + CoC.flags[kFLAGS.GAR_NAME] + ' [Leave]);
 		//(Whenever the player selects a topic, play one of the following dialogue scenes then return the PC to the main interaction menu and increase Confidence by +10, unless noted otherwise. Once a scene has been played, it will not play again. Once all three in a topic are played, it closes.);
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.GAR_HISTORY ] < 3 ) {
 			EngineCore.addButton( 0, 'History', this, this.historyGo );
 		}
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' what she can tell you about the history of Mareth.  She shrugs lightly.  "<i>I can\'t tell you much, Master.  I\'ve spent my entire life on these grounds.  Most of what I know was doctrine taught by the church. Is that acceptable?</i>"' );
 		MainView.outputText( '\n\nYou tell her that, sure, you\'d like to hear it.  "<i>The church-folk believe – believed – that the goddess Marae created intelligent life here many generations ago, long before the demons came.  She was the highest goddess amongst many, an embodiment of the natural world.  She brought forth the animal-morphs who created this cathedral in her honor.  Using magical knowledge, the priests of this church sought to mirror Marae\'s power, creating creatures such as myself.  Eventually, though, the demons came, I know not from where, and began to spread their corruption.  The priests... tried to resist... t-to ward against...  I\'m sorry, Master,</i>" she says, sniffling.  You notice that she\'s turned away from you, trying to hide her shame.  "<i>I don\'t want to think about this anymore.  Please,</i>" she begs.  The memory of her failure to protect the people of the church still weighs heavily upon her.  You suppose you could berate her for her emotionality, or try and comfort her.' );
 		//(Display Options: [Berate] and [Comfort]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Berate', this, this.berateGargoyleForBeingDumb );
 		EngineCore.addButton( 1, 'Comfort', this, this.comfortGargoyleDumbness );
 	};
@@ -876,7 +876,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( '\n\nGiving her a pat on the head, you encourage her to speak her mind.  Meekly she whimpers, "<i>If master has many girlfriends... what am I?</i>"' );
 			MainView.outputText( '\n\nOh shit.  Here we go.  You suppose you could dodge the bullet, or you could tell her what you really think she just a slave you wandered into owning, or do you think something more of her?' );
 			//(Display Options: [Dodge] [Slave] [Girlfriend];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Dodge', this, this.izmaAndIsabellaDodge );
 			EngineCore.addButton( 1, 'Slave', this, this.gargoylesAreSlavesYo );
 			EngineCore.addButton( 2, 'Girlfriend', this, this.gargoylesAreGirlfriends );
@@ -887,7 +887,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( '\n\nYou cut ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' off right there, and explain that one of those \'savage beasts\' is your lover, Marble, who\'s really quite sweet.  The gargoyle makes a horrified gasp and covers her mouth.  "<i>I\'m so sorry, Master! I didn\'t know...  All I\'d heard were stories, years ago.  I didn\'t mean... but...  I-I didn\'t know Master had a girlfriend,</i>" she whines pitifully.  Obviously, knowing that she\'s not your only lady-friend has upset the poor thing.' );
 			MainView.outputText( '\n\nWell.  What do you say to that you\'re not exclusive with Marble, or that ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' doesn\'t count, being a statue and all?' );
 			//(Display Options: [Not Exclusive] [Doesn't Count]);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Not Exclusive', this, this.marbleAintExclusiveBiatch );
 			EngineCore.addButton( 1, 'Doesn\'tCount', this, this.gargoyleDoesntCountAsAWaifu );
 		}
@@ -896,7 +896,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit about the world of Mareth.  Giving it a few moments of quiet thought, she answers do not have any experience outside of the church grounds, Master, but I remember the words of the last Master, and the parishioners before her.  There are... the world has a vast expanse of plains and woodlands, broken up by a great mountain range.  There is a lake not far from here, if I recall; a race of very dangerous shark-folk live there.</i>"  With a chuckle, you tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you\'re more than well aware of that; indeed, you consider one such creature to be your mate, your beta.  She makes a slight gasp, and gushes out an apology.  "<i>I\'m so sorry, Master!  I hadn\'t realized... I thought...</i>" she falls silent for a moment, then says shyly, "<i>I wasn\'t aware Master had a girlfriend.</i>"  Obviously, knowing that she\'s not your only lady-friend has upset the poor thing.' );
 			MainView.outputText( '\n\nWell. What do you say to that you\'re not exclusive with Izma, or that she doesn\'t count, being a statue and all?' );
 			//(Display Options: [Not Exclusive] [Doesn't Count]);
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Not Exclusive', this, this.sharkgirlsArentExclusiveBiatch );
 			EngineCore.addButton( 1, 'Doesn\'tCount', this, this.gargoylesDontCountAsSharkWaifus );
 		} else {
@@ -970,7 +970,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		//(Male Display Options: [Vaginal] [Leave]);
 		//(All Other Display Options: [Strap-on] [Leave]);
 		//(Use normal sex scenes for above options, as well as Leave options.;
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Vaginal', this, this.gargoyleCoochiiGetsPlowed );
 		} else {
@@ -998,7 +998,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '\n\n"<i>Master?</i>" she asks, looking you in the eye.  "<i>I...  I want to rebuild the Cathedral.  I know there... there\'s no one to return to it, but...  I don\'t know.  It feels like repairing the damage that\'s been done would be a victory.  Just a little tiny one, but still a victory.</i>"  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' makes a sudden little gasp and says, "<i>I-If that\'s all right with you, Master?</i>"' );
 		MainView.outputText( '\n\nYou could tell her it\'s pointless or encourage her.' );
 		//(Display Options: [Pointless] [Encourage]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Pointless', this, this.pointlessGargoylesArePointless );
 		EngineCore.addButton( 1, 'Encourage', this, this.encourageGargoyleWaifuToDoSomething );
 	};
@@ -1047,7 +1047,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '\n\nAll but her, you\'re quick to point out.  "<i>All but me,</i>" she echoes.  "<i>One of the demons took a liking to me, and wanted to keep me as a pet.  I suppose I was lucky; the bonds the priests put upon me saved me from being dragged off and abused until the end of days... by him, at least. And without them, I never would have met you,</i>" she adds sweetly, once again looking up at you expectantly.  You can see the sadness in her eyes, but also hope.' );
 		MainView.outputText( '\n\nYou could comfort the little gargoyle, or you could remind her of the ramifications of her failure.' );
 		//(Display Options: [Comfort] and [Berate]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Berate', this, this.berateDatGargoyle4SomeSavin );
 		EngineCore.addButton( 1, 'Comfort', this, this.comfortGargoyle );
 	};
@@ -1148,7 +1148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '\n\nShe continues, "<i>She never stood a chance.  Master was obliterated, utterly and completely beaten.  The last I saw of her, she was being dragged away by the hair, kicking and screaming, begging for my help.  But I could do nothing.  I was helpless, I was powerless.  As always.</i>"' );
 		MainView.outputText( '\n\nShe falls silent, heaving a heavy, hopeless sigh.  You could reassure her that she isn\'t a helpless non-person, or perhaps you\'d be better served by berating her about her emotional weakness?' );
 		//(Display Options: [Comfort] [Berate]);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Comfort', this, this.comfortGarNameC );
 		EngineCore.addButton( 1, 'Berate', this, this.berateGargoyleC );
 	};

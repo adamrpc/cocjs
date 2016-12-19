@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 		if( Utils.rand( 100 ) < 25 && CoC.player.pregnancyIncubation > 1 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 			MainView.clearOutput();
 			MainView.outputText( 'While wandering along the lakeshore, you spy beautiful colored lights swirling under the surface.  You lean over cautiously, and leap back as they flash free of the lake\'s liquid without making a splash.  The colored lights spin in a circle, surrounding you.  You wonder how you are to fight light, but they stop moving and hover in place around you.  There are numerous colors, Pink, White, Black, Purple, and Brown.  They appear to be waiting for something; perhaps you could touch one of them?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Blue', this, this.eggChoose, 2 );
 			EngineCore.addButton( 1, 'Pink', this, this.eggChoose, 3 );
 			EngineCore.addButton( 2, 'White', this, this.eggChoose, 4 );
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 
 			//[Facesitting] [Fuck Her] [Fish] [Skedaddle]
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.lust < 33 ) {
 			MainView.outputText( '\n\nYou aren\'t aroused enough to fuck her.' );
 		} else {

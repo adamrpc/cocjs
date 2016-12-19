@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors
 		}
 		CoC.flags[ kFLAGS.MET_ESSY ]++;
 		//[Yes] [No]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Yes', this, this.plantsForMe );
 		EngineCore.addButton( 2, 'No', this, this.noPlantsForMe );
 	};
@@ -96,14 +96,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors
 			}
 			MainView.outputText( '  "<i>You certainly have a lovely pair, but they could always be better, don\'t you think?</i>"' );
 			//[Yes] [No]
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 1, 'Yes', this, this.plantsForMe2, 1 );
 			EngineCore.addButton( 2, 'No', this, this.plantsForMe2, 2 );
 		}
 		//Else
 		else {
 			//[Next]
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.plantsForMe2, 0 );
 		}
 	};
@@ -247,7 +247,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors
 			MainView.outputText( 'Essrayle sits here in her pot just like you left her.  She seems to be a bit out of it once more, not realizing you\'re there.  Her heavy breasts jiggle and ripple with the least amount of movement, apparently drawing nutrients from her soil to refill themselves.  Just watching the oblivious girl pant and swell with bovine surplus is oddly arousing, and having sampled her sap already... no wonder the sand witches keep her here.  Judging by the steady leak coming from her four breasts, it seems likely the ethereal hands have recently given her a good milking, but you\'re sure she wouldn\'t mind a more personal touch.' );
 		}
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
-		EngineCore.menu();
+		MainView.menu();
 		//Option: [Feed her] [leave]
 		if( CoC.player.gender > 0 ) {
 			EngineCore.addButton( 0, 'Feed Her', this, this.feedTrappedEssy );
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors
 		}
 		if( CoC.player.gender === 3 ) {
 			MainView.outputText( '  How best to make use of this floral beauty?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Cock', this, this.hasCockFeedEssy, true );
 			EngineCore.addButton( 1, 'Pussy', this, this.hasPussyFeedEssy, true );
 		}
@@ -334,7 +334,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors
 		MainView.outputText( '\n\nNoticing your drooping stare, a sly smile creeps over her lips.  "<i>But I think I\'ve got an idea that would make you very happy.</i>"  Both of her upper hands go to her cleavage, pulling her fat, squishy tits apart before releasing them, letting the girl\'s mammary mountains slap together in quivering wobbles.  "<i>Yes, something we could both be very happy with, that you\'d truly enjoy.</i>"  Her lower hands cup the bottoms of her lower breasts and begin to leisurely bounce them in her palms.  "<i>After all, that\'s the important thing yourself.</i>"' );
 		MainView.outputText( '\n\n"<i>Now, I may be a visitor to this world, but I\'ve learned some things.</i>"  She grins and crosses her other two arms atop those jiggling, swaying, lush beauties.  "<i>Since you seem to like these four so much, perhaps you\'d like to join the club?</i>"  this.Essrayle winks coyly, "<i>How about it?</i>"' );
 		CoC.flags[ kFLAGS.ESSRAYLE_ESCAPED_DUNGEON ] = 1;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.acceptEssyPrizes );
 		EngineCore.addButton( 1, 'No', this, this.declineEssyPrizes );
 	};
@@ -384,7 +384,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors
 		MainView.outputText( ', filling with warm, fluid weight.  They jiggle and wobble against each other and your belly as they adjust to their brimming plumpness.  You now proudly sport [fullChest].' );
 		MainView.outputText( '\n\nGrinning, this.Essrayle nods happily, rolling the scroll back up.  "<i>Yes, that looks veeerry good on you!</i>\”  She ogles your chest for a while before glancing down at her own.  "<i>But I think I could do you one better, since you\'ve been so sweet to me,</i>" the all-natural beauty coos happily.  "<i>As a special bonus to you, how\'d you like to have these too?</i>" she moos, running her finger about her four, plump nipples, giving you a seductive smile.' );
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.yesGimmeGiantNipplesEssy );
 		EngineCore.addButton( 1, 'No', this, this.noGimmeGiantNipplesEssy );
 	};

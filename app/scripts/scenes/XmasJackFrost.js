@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\n"<i>Rock and dust, huh?  Now... that\'s no way to be spending Winterfest...</i>"  He shakes his head.  "<i>If you don\'t mind, little one, I could help you bring a bit of snowy joy to your camp... if you don\'t mind telling me where it is.</i>"  Then he chuckles.  "<i>And if you don\'t mind WHERE that snow is going to be cumming from.</i>"  He laughs at his own joke.' );
 		MainView.outputText( '\n\nWhat do you say?  Do you take the ice giant\'s deal and get a day off playing in the snow on your camp?' );
 		//[Yes] [No];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.jizzSnowOnMyCampPlease );
 		EngineCore.addButton( 1, 'No', this, this.noJizzingInMyCampPlease );
 	};
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		if( CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] === 1 ) {
 			MainView.outputText( 'As you approach your camp, you can see that Jack Frost\'s efforts are paying off.  A great, constant flurry of snowflakes is gently drifting down, swaying in the wind as it makes its inevitable descent towards the ground.  A layer of snowflakes is quickly building up, growing wider and deeper as more snow is launched from out of the mountains to rain down on your camp. You can\'t help but enjoy the cool air as the snowflakes fall down languidly onto the ground.  It\'s so beautiful you almost forget the rather perverted origin of it all.\n\n' );
 			CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 2;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		}
 		//No followers;
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			MainView.outputText( '\n\n"<i>Maybe you\'re right... it has been a long time.</i>"  Rathazul smiles.  "<i>I think I would like to build a snowmouse.</i>"' );
 			MainView.outputText( '\n\nYou ask if he\'d like a hand doing that, being as it\'s been so long since he had a chance to do that?  Rathazul nods.  "<i>I would love it!  Help me with the base.</i>"' );
 			MainView.outputText( '\n\nYou begin gathering snow along with the old rat...' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 			CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 3;
 			return;
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 				MainView.outputText( '\n\nYou calmly wipe the snow off your face and smile evilly at the monk, asking him if he realizes this means war...' );
 				MainView.outputText( '\n\n"<i>Bring it on,</i>" Jojo states, already bouncing another snowball in his palm.' );
 				MainView.outputText( '\n\nLaughter echoes as the two of you exchange snowballs...' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 				CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 5;
 			}
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 				MainView.outputText( '\n\nYou casually approach him from behind, stripping off your [armor].  Once behind his heart-shaped ass, you pull on his tail and reach down to grope at his shaft and balls.  Silly slut, you tell him.  This is not how one fucks in the snow... if he doesn\'t know how to do it right, you\'ll be happy to demonstrate.' );
 				//(How should you demonstrate?);
 				//[Pen Ass] [Ride Cock] [Spank and Finger Ass];
-				EngineCore.menu();
+				MainView.menu();
 				if( CoC.player.hasCock() ) {
 					EngineCore.addButton( 0, 'Pen Ass', this, this.penetradeCorruptJojoAss );
 				}
@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 				MainView.outputText( '\n\nYou grin at her then envelop her lips into a kiss... sounds like a plan, you\'re feeling a bit cold and this would be a nice way to warm you right up...' );
 				MainView.outputText( '\n\nIt\'s not really possible to smirk and kiss at the same time, but your murine lover does her level best to try.  Breaking the kiss with a smile, she tugs you gently towards your tent.  "<i>Come on then, lover-' + CoC.player.mf( 'boy', 'girl' ) + ', let\'s go and get warmed up...</i>" She coos.  Her hands start to remove your clothes, "<i>So, what do you have in mind, exactly...?</i>"' );
 				//[Penetrate Her] [Make out];
-				EngineCore.menu();
+				MainView.menu();
 				if( CoC.player.hasCock() ) {
 					EngineCore.addButton( 0, 'Penetrate', this, this.penetradePureMouseWaifu );
 				}
@@ -225,7 +225,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 					}
 				}
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 			return;
 		}
@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			MainView.outputText( '\n\nCoughing up some snow, you concede defeat, congratulating Ember on winning ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' first snowball fight... but then, you smirk and tell ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' this was all beginner\'s luck... and next time you\'ll beat ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' for sure.' );
 			MainView.outputText( '\n\n"<i>So you say, but the truth is you know you\'ll never beat me,</i>" Ember brags.  Then ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' lowers her eyelids and gives you a coy look.  "<i>And now, for the victor, a prize,</i>" ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' growls, then swoops in to kiss you passionately.  Several minutes pass before ' + SceneLib.emberScene.emberMF( 'he', 'she' ) + ' breaks the kiss, a somewhat goofy smile on ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' face.  "<i>I\'m going to go and play in the snow some more.  See you, [name].</i>"  ' + SceneLib.emberScene.emberMF( 'He', 'She' ) + ' giggles, then ambles off.' );
 			MainView.outputText( '\n\nYou wave ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' away - maybe being beaten isn\'t so bad.  Your thoughts turn to Ember\'s passionate kiss...  It certainly is a nice sight, to see ' + SceneLib.emberScene.emberMF( 'him', 'her' ) + ' so happy.  Having it snow on your camp was a great idea after all.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		}
 		//Marble (Written by TDM himself);
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 				MainView.outputText( '\n\nYou start to speak, slowly at first, but pick up speed as you go.  You tell her about the patter of raindrops on the roof of your home, and about the feel of water droplets falling on your face when running outside.  Of the snow flurries that can fill the air for days, and about the new great white landscapes that they brought.  Finally you tell her about how the land looks and smells refreshed at the end of a rainfall, and the games that you and the other kids use to play in the refreshed land, or in the snow drifts.' );
 				MainView.outputText( '\n\nYou finish, and silence once again fills the air as you two continue to watch the snow fall.  "<i>Sweetie?</i>" Marble suddenly speaks out, "<i>I want to have kids with you some day.</i>"  You look at her somewhat surprised, she continues to simply look ahead, continuing, "<i>I want them to experience those things too, and there is no one else that I\'d rather have them with then you.</i>"  There isn\'t much else to do but to look back at the falling flakes once more.' );
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 			return;
 		}
@@ -428,7 +428,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			MainView.outputText( '\n\nAs you finally finish cumming, Helia lifts her head and starts to laugh.  "<i>Oh, man, not how I\'d usually do it, but whoo, what a ride, huh?</i>" she laughs.  You laugh as well.  It certainly felt good, though this is far from what you\'re used to.  You have to give Helia\'s wrestling idea some credit.  Rolling around with her, grinding together was pretty hot - in more ways than one.' );
 			MainView.outputText( '\n\n"<i>Oh, were you maybe wanting another turn, lover?</i>"  Helia insinuates, gently tapping her fingers on your chest.  You make a show of considering her offer, then, with a smile, say that sounds like a reasonable proposal.  You promptly wrap the salamander-girl, into a tight hug, spreading her legs so you can have access to her dripping vagina...' );
 			CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 10;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 			return;
 		}
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 				MainView.outputText( '\n\nIsabella smiles and releases her arm from around your neck to instead stroke your [hair].  "<i>Yeah, that\'s good, [name].  I love to empty these big boobs of mine, but I think I love you more,</i>" she says this last-part in a stage whisper, clearly intending for you to hear it.  You decide that for now, you\'ll just busy yourself with the cow-girl\'s teats, you can return the feelings later...' );
 			}
 			CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 11;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		}
 		//Kiha;
@@ -511,7 +511,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			MainView.outputText( '\n\nYou waste no time in leading her away to a snowy clearing nearby.  Once there you look the shivering dragon-girl over, considering your options...' );
 			//[Fuck her] [Lick Boobs and Finger Pussy];
 			CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 12;
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.hasCock() && CoC.player.cockThatFits( 67 ) >= 0 ) {
 				EngineCore.addButton( 0, 'Fuck Her', this, this.kihaXmasFuck );
 			}
@@ -566,7 +566,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nYou smile at the dragon-girl standing above you, careful to maintain your rhythm in fucking that wonderful pussy of hers.  Kiha smiles back at you, even as she continues to ride you for all she\'s worth.  You glide your hands over her sides to grasp her shoulders and pull her closer.  The mock-dragon eagerly allows you to pull her into your embrace, mashing her breasts against your [chest] and kissing you passionately.  You return the lip-lock with equal intensity, feeling the familiar pressure of a oncoming orgasm.' );
 		MainView.outputText( '\n\n"<i>I... oh, [name], I\'m close!</i>" Kiha gasps.  You try to reply and tell her so are you, but words fail you.  Instead you moan at her and thrust yourself as far into her as you can, painting her walls white with your seed as you spew rope upon rope towards her ready womb.  The dragoness manages to throw you a lustful smirk.  "<i>Cumming already, lo-oh oh OH!</i>"  She screams, arching her back and spewing flames out into the snowy sky above as she cums violently, flooding your crotch with all the lubricants and orgasm-fluids she can produce.' );
 		MainView.outputText( '\n\nOnce her orgasm has subsided, the dragon-girl comes crashing down on top of you.  You laugh lightly and ask her what was she saying?  "<i>...I guess that this snow stuff isn\'t so bad after all,</i>" she admits, then sneaks a smooch to try and keep you from laughing at her.  You\'re happy to return the kiss and lay with her for a while longer, basking the heat of your each other, as well as your afterglow...' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		return;
 	};
@@ -582,7 +582,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nYou click your tongue, mocking her for giving in to a little pleasure.  Isn\'t she supposed to be all strong and mighty?  "<i>I\'ll never be defeated,</i>" right?  "<i>Shush, love,</i>" she pants unthinkingly.  You laugh at your scaly lover\'s reaction, patting her butt gently.  Then, you ask her if she\'s feeling warmer now?  If she isn\'t, you\'ll be happy to warm her up some more, even going so far as to send a questing hand to prod her moist opening.' );
 		MainView.outputText( '\n\n"<i>Well, I suppose you could get me a little hotter... if you can take the heat, my doofus,</i>" she croons, snuggling tighter against you...' );
 		EngineCore.dynStats( 'lus', 20 + CoC.player.sens / 20 + CoC.player.lib / 20 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		return;
 	};
@@ -612,7 +612,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nYou agree with her and enjoy your closeness a while longer...' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 	};
 	//[=Make out=];
@@ -636,7 +636,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nYou tell her it feels perfect, and you\'ll fight hard to ensure you will all have more moments like this in the future...  "<i>Well, I\'ll be rooting for you all the way... though, right now, I think I\'d rather you just shut up and enjoy the moment,</i>" she adds.' );
 		MainView.outputText( '\n\nYou chuckle, even though she\'s the one that\'s been chatting your ears off this whole time?  "<i>Yes, even though I\'m the one that\'s been chatting your ears off,</i>" Amily replies with a smile.  You suggest that perhaps all you need to do to stop talking is finding something to keep your mouths busy.  "<i>Oh?  What are you suggesting?</i>" she asks, her tail gently looping around your midriff.  Your reply is to simply draw her into a kiss...' );
 		EngineCore.dynStats( 'lus', 30 + CoC.player.sens / 10 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 	};
 
@@ -657,7 +657,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nGood, now he should get his face cleaned up.  You order him to lick himself clean.  Without hesitation, Jojo starts doing exactly what you said, slurping up all of the cum-slush on his face and using his fingers to scrape the rest into his reach.  He then begins licking at his arms and chest, clearly not intending to stop until he has it all.   You nod in satisfaction, telling him to keep at it, you want to see him eat it all up...' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -3, 'sen', -1, 'cor', 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 5;
 	};
@@ -682,7 +682,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nYou just stand and watch as he works, waiting for him to finish cleaning you up so you can get started on your next task...' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -3, 'sen', -1, 'cor', 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 5;
 		//Preggers chance!;
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 		MainView.outputText( '\n\nWith a gasp and a howl, Jojo does as you command, a fountain of tainted mouse-spooge gushing from his cock, soaking into the snow to create a great slushy puddle.  He cums and he cums until he\'s totally exhausted his strength, collapsing bonelessly into the puddle he\'s just created, his tail slipping off of your wrist as he does so.' );
 		MainView.outputText( '\n\nYou laugh at the mouse-slut\'s blissed out face of pleasure, feeling like you managed to chip away another part of his broken will.  Before you leave him to pass out on his snowy puddle of mouse-cum you ask him, what is his name?  "<i>S - Slut...</i>"  Is the moaning reply.  Satisfied, you decide to leave for the moment.  Maybe you\'ll get back to him and break him in a little more later...' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', true );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 5;
 	};

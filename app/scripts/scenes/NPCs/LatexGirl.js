@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			return;
 		}
 		//[Next] (Go to aftermath);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.PCCarriedGooBackHome );
 	};
 	//Goo -> Latex Aftermath:;
@@ -190,14 +190,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		}
 		MainView.outputText( '  Abruptly, you ask her what you should call her besides \'girl\' or \'slave\'.  Even pets need names, after all.' );
 		MainView.outputText( '\n\n"<i>Name?  My name is the warmth of my soul and the scent of the forgotten sea... or it was, before you made me like... this.  I don\'t think I could even communicate with my people properly at this point.  To your ears, I have no name, and honestly... my old name may as well be a forgotten memory.</i>"  A solitary onyx teardrop runs from the corner of her eye, hardening on her cheek.  She brushes it away with a sniffle.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.PCCarriedGooBackHomeII );
 	};
 	LatexGirl.prototype.PCCarriedGooBackHomeII = function() {
 		MainView.clearOutput();
 		MainView.outputText( '"<i>Call me what you want, my name doesn\'t matter.</i>"' );
 		MainView.outputText( '\n\nWhat will you name her?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = true;
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		if( MainView.nameBox.value === '' ) {
 			MainView.clearOutput();
 			MainView.outputText( '<b>You must select a name.</b>', false );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 			return;
 		}
@@ -326,7 +326,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			MainView.outputText( '\n\nYou take her by the hand and lift her to her feet, leading her to camp.  She plies you with questions, but you ignore her, bringing her back to a secluded portion of home.  Once safe and secure, you abruptly ask her what you should call her besides \'girl\' or \'slave\'.  Even pets need names, after all.' );
 			MainView.outputText( '\n\n"<i>Name?  My name is the warmth of my soul and the scent of the forgotten sea... or it was, before you made me like... this.  I don\'t think I can even communicate with my people properly at this point.  To your ears, I have no name, and honestly... my old name may as well be a forgotten memory.</i>"  A solitary onyx teardrop runs from the corner of her eye, hardening on her cheek.  She brushes it away with a sniffle.' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.encounterLeftBehindGooSlaveII );
 	};
 	LatexGirl.prototype.encounterLeftBehindGooSlaveII = function() {
@@ -334,7 +334,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		MainView.outputText( '"<i>Call me what you want, my name doesn\'t matter.</i>"' );
 		MainView.outputText( '\n\nWhat will you name her?' );
 		//{To standard name prompts};
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = true;
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		MainView.outputText( '\n\nShe wiggles but fails to rise, too encumbered by solidifying tits to move.  Her arms have congealed into smooth onyx up to the elbows by now, and her asscheeks are equally dark spheres of reflective material, just begging to be touched.  Below that, her pool is shrinking, pulling inward even as it becomes more opaque.  It divides in two, gradually twisting around itself until two shapely calves are visible, capped with a dainty pair of feet.  These solidify almost instantly - the transformation is accelerating!  Permeable membrane swiftly gives way to reflective, glossy latex all over her shuddering form, crafting the goo-girl into a visage of a bondage-slut\'s wet dream.  With her whole body changed from liquid to solid, the once-goo collapses into unconsciousness, black eyelids closing over her solid ' + CoC.monster.skinTone + ' eyes.' );
 		MainView.outputText( '\n\nWorried that you might have killed her, you dart forward to check her breathing.  Whew!  She\'s okay, just out like a lamp.  You hold the poor girl in your arms for a long moment, looking around for somewhere to put her, for someone to help you deal with... whatever\'s she\'s just done to herself.  It looks like you\'ve got yourself a latex goo-girl... or a latex-girl... whatever.  Leaving her out here seems cruel, as she\'d certainly be snatched up by some horrid monster...  She\'d be safer back at your camp, though that might be committing to a more long-term project than you\'re ready for.' );
 		//[Take her Home] [Leave Her];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Take Home', this, this.niceGuysTakeLatexHome );
 		EngineCore.addButton( 4, 'Leave Her', this, this.leaveTheLatexGooGirl );
 	};
@@ -402,7 +402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			return;
 		}
 		//[Next] (Go to PURE aftermath);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pureGooGalRecruitAftermath );
 	};
 	//PURE Aftermath(F);
@@ -420,14 +420,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		MainView.outputText( '\n\nAs gently as you can, you try to tell her what happened black egg and milk fell out of your pack and splattered onto - into - her, and changed her.  She moans in misery, hugging her hands across her expansive chest and shuddering, an action made all the more marvelous by the way her twisted body jiggles and shines in the light.  You can\'t help but notice how sexy her body is, how sensual it seems, her latex form practically crying out for your touch and caress...  Just as the girl inside that body is crying in sorrow and desperation, you remind yourself.' );
 		MainView.outputText( '\n\nTrying to be comforting isn\'t easy without knowing her name, though. You ask her, trying to be as friendly as you can as you sit down beside her.' );
 		MainView.outputText( '\n\n"<i>Name?  My name is the warmth of my soul and the scent of the forgotten sea... or it was, before you made me like... this.  I don\'t think I could even communicate with my people properly at this point.  To your ears, I have no name, and honestly... my old name may as well be a forgotten memory.</i>"  A solitary onyx teardrop runs from the corner of her eye, hardening on her cheek.  She brushes it away with a sniffle.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pureGooGalRecruitAftermathII );
 	};
 	LatexGirl.prototype.pureGooGalRecruitAftermathII = function() {
 		MainView.clearOutput();
 		MainView.outputText( '"<i>Call me what you want, my name doesn\'t matter.</i>"' );
 		MainView.outputText( '\n\nWhat will you name her?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGooNice );
 		MainView.nameBox.value = '';
 		MainView.nameBox.visible = true;
@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		if( MainView.nameBox.value === '' ) {
 			MainView.clearOutput();
 			MainView.outputText( '<b>You must select a name.</b>', false );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.nameZeLatexGoo );
 			return;
 		}
@@ -497,7 +497,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		}
 		MainView.outputText( '</i>" she muses, her mood brightening.  "<i>I-I suppose I should start to get used to it... to all of this.  I... thank you, friend.  You didn\'t have to take me back here, to help me, but you did.  I\'m grateful, truly I am.  But I don\'t think I would survive long out in the wilds, on my own.  I\'ve lived my whole life as a goo, and it will take some time - years, maybe - to relearn how to survive on my own.  I know it\'s a lot to ask, but would you mind if I stayed here?  With... with you?  At least until I can get on my, uh, feet, as it were,</i>" she says, her hands tracing along her body down to her new, dainty little feet.' );
 		//[Keep Her] [Boot her Out];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Keep Her', this, this.niceGuysKeepTheirGooGals );
 		EngineCore.addButton( 1, 'Boot Her', this, this.bootOutNiceGoo );
 	};
@@ -662,7 +662,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		MainView.outputText( '\n\n<b>Fluid % ' + Math.round( this.gooFluid() ) );
 		MainView.outputText( '\n<b>Happiness % ' + Math.round( this.gooHappiness() ) );
 		MainView.outputText( '\n<b>Obedience % ' + Math.round( this.gooObedience() ) );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 9, 'Back', SceneLib.camp, SceneLib.camp.campSlavesMenu );
 		EngineCore.addButton( 0, 'Feed Her', this, this.feedLatexy );
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
@@ -700,7 +700,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 	LatexGirl.prototype.useLatexy = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'How will you use your pet?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 0, 'DomWithVag', this, this.femalePCDomFucksLatexGoo );
 			if( CoC.flags[ kFLAGS.GOO_DICK_LENGTH ] > 0 ) {
@@ -762,11 +762,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			MainView.outputText( '  She rolls her eyes and says, "<i>Sorry, but I think you\'ve made me change quite enough for right now.</i>"' );
 			MainView.outputText( '\n\nShe\'s going to have to learn to be a little more obedient before she\'ll do that.' );
 			this.gooObedience( -3 );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.approachLatexy );
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.GOO_DICK_LENGTH ] > 0 ) {
 			if( CoC.player.hasItem( ConsumableLib.CANINEP ) && CoC.flags[ kFLAGS.GOO_DICK_TYPE ] !== CockTypesEnum.DOG ) {
 				EngineCore.addButton( 2, 'Canine Pepper', this, this.latexyEatsADickItem, ConsumableLib.CANINEP );
@@ -858,7 +858,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 			}
 			this.gooObedience( 2 );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.approachLatexy );
 	};
 	//Setting Preferred Bust Size(F);
@@ -869,7 +869,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		if( this.gooObedience() < 60 ) {
 			MainView.outputText( '\n\nShe puts her hands on her hips and shouts, "<i>As if!  I\'ll make \'em as big or as small as I want!  You\'re already getting a sexy latex woman who\'s dependent on you for sexual fluids - you don\'t need to micromanage everything about me too!</i>"  She blushes a little when she realized she just discussed her new self as \'sexy\'.  She must like this a little more than she lets on.' );
 			this.gooObedience( -2 );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.approachLatexy );
 			return;
 		}
@@ -880,7 +880,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		else {
 			MainView.outputText( '\n\nShe nods and casually hefts her tits in her hands, bouncing them back and forth with a slutty expression on her face.  "<i>How big do you want me to be, [Master]?  I could be a big-breasted whore for you, barely able to move under the weight of my own tits.  Then you\'d have a mountain of latex cleavage to play in.  Or, I could keep them as pert, apple-sized breasts that just barely fit into your hands.  I\'d be a glossy, petite slut for you then, wouldn\'t I?</i>"  She groans at the thoughts coursing through her obedient, depraved little mind and whimpers, "<i>Just keep me well fed if you want them full, [Master].  Without enough fluid, I can\'t keep them big!</i>"  ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' watches you, awaiting the command to change herself.' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( this.gooTitClass( this.gooTitSize() ) !== 1 ) {
 			EngineCore.addButton( 0, 'A-Cups', this, this.changeLatexyTits, 1 );
 		}
@@ -1019,7 +1019,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		if( CoC.player.lust < 33 && CoC.player.gender > 0 ) {
 			MainView.outputText( '  You aren\'t aroused enough to try and feed her any sexual fluids.' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 0, 'Cum, Indirect', this, this.feedLatexyCumIndirectly );
 			EngineCore.addButton( 1, 'Cum, Direct', this, this.feedLatexyCumDirectly );
@@ -1380,7 +1380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{DISOBEDIENT:};
 		else {
 			MainView.outputText( '\n\nAt the sound of your command, her suction redoubles.  That suckling heat plumps your [cock biggest] even bigger inside her, bombarding you with cacophonous sensation that scatters your bodily control like leaves in the breeze.  You give a strangled whimper as you slide down the stone, landing softly on your [butt] before the sensuous shape of your rebellious pet.  Her lips are locked vacuum tight to your groin, pumping up and down with wet, hungry smacks.  You arch your back into her ministrations, rolling your eyes back into your head.  What need is there for sight when the jolts of pleasure coming from your [cock biggest] are so powerful that they make the previous orgasm seem a wasted, worthless thing.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Let Her', this, this.maleDirectFeedLatexGooGoneWrong );
 			EngineCore.addButton( 1, 'Try2Assert', this, this.tryToAssertMaleDomWhileLatexGooDrains );
 		}
@@ -1443,7 +1443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		MainView.outputText( ' into something that gives you even stronger strokes of pleasure.  If you could roll your eyes down to look, you\'d see ' + CoC.flags[ kFLAGS.GOO_NAME ] + '\'s fingers merging together, joining into a single cylinder.  Dark-oil begins to drip from that tight grip, made all the more difficult to endure by the pleasant, purple-tinged latex lips that form on the bottom of her \'hand\', a mock-pussy complete with latex-based lubricant.  At the bottom of every downstroke, your dick bursts free from the top, appearing just long enough for her to slurp languidly on your [cockHead].' );
 		MainView.outputText( '\n\nOrgasm slams into you with the force of a sledgehammer, turning your vision red and ringing your ears.  More wet slurps and squelches emanate from your groin as ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' drinks deeper of your essence, coaxing fresh spurts of white from your thoroughly milked [balls].  As you fire your liquid bliss into her, your tired eyelids close.' );
 		MainView.outputText( '\n\n"<i>You\'re not done yet, are you?</i>" a sultry voice whispers, accompanied by fresh ministrations to your maleness.  "<i>You promised to feed me, [Master], now come on, squirt in my slippery squeezes.  Give me your spunk!</i>"  The voice begs and pleads, only silencing itself to plant itself back on your [cock biggest] again.  You lapse from conscious thought, only stirring to lift your hips high and release a fresh draught of nutrients for your greedy pet.' );
-		EngineCore.menu();
+		MainView.menu();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -3 );
 		EngineCore.addButton( 0, 'Next', this, this.feedCumDirectEpilogue );
@@ -1566,7 +1566,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		//{DISOBEDIENT; chose not to/could not Assert Control};
 		else {
 			MainView.outputText( '\n\nAt the sound of your order, your pet\'s efforts redouble.  Her slick onyx opening latches tight to your [clit] while what feels like a foot of thick tongue thrashes inside you.  As sensitive as you are after cumming, you simply can\'t endure such rampant stimulation.  The strength goes out of your [legs] in weak little twitches as you slump back against a boulder, the rough stone slowing your descent as you slide to the ground.  ' + CoC.flags[ kFLAGS.GOO_NAME ] + '\'s mouth stays locked to your [vagina], attached with vacuum-like tightness.  You can actually feel your vulva puffing larger under the suction.  Hotter and more sensitive, your labia plump up nice and thick.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Let Her', this, this.letLatexGooDrainCuntDry );
 			EngineCore.addButton( 1, 'Try2Assert', this, this.assertControlOverCuntDrainingLatexGoo );
 		}
@@ -1583,7 +1583,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		}
 		MainView.outputText( '  The lurid squelches of her pumping, dildo-like limb fill the air, easily drowning out your more coherent vocalizations.  There\'s nothing you can do but cum for your latex goo-girl.  Nothing to do but feel pleasure and orgasm, feeding her every drop of your liquid pleasure, again and again.' );
 		MainView.outputText( '\n\nA whimper of protest slips out of your mouth, your [vagina] cums again, and ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' drinks deeply once more.  With eyelids fluttering closed, you pass beyond conscious awareness, yielding your body to ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' to claim again and again.' );
-		EngineCore.menu();
+		MainView.menu();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -3 );
 		EngineCore.addButton( 0, 'Next', this, this.feedCumDirectEpilogueGirls );

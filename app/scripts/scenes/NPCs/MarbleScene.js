@@ -1810,7 +1810,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			if( CoC.player.gender === 3 ) {
 				MainView.outputText( 'Marble\'s eyes widen as you show off your equipment.  "<i>You have both?</i>" she says in awe. "<i>I\'m not sure if I can pleasure both parts of you at the same time... which would you prefer to use?</i>"\n\nWhich of your genitals do you want to have sex with?', false );
 				//– player chooses: dick(s)/vagina, base on choice, treat the rest of the encounter as if they were male or female;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Maleness', this, this.marbleSex2Continued, -1 );
 				EngineCore.addButton( 1, 'Female', this, this.marbleSex2Continued, -2 );
 				return;
@@ -2208,7 +2208,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	MarbleScene.prototype.marbleTalkOverhaul = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'What do you want to discuss with Marble?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Info', this, this.marbleInfo );
 		if( (CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] < 5 && CoC.flags[ kFLAGS.MARBLE_LUST ] >= 20) || (CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5 && CoC.flags[ kFLAGS.MARBLE_TIME_SINCE_NURSED_IN_HOURS ] >= 4) ) {
 			MainView.outputText( '[pg]<b>Marble is fidgeting around uncomfortably, perhaps she needs to be milked?</b>' );
@@ -2233,7 +2233,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			MainView.outputText( 'Marble folds her arms across her bountiful bosom and sighs, "<i>If you say so, Sweetie.</i>"' );
 			CoC.flags[ kFLAGS.SLEEP_WITH ] = '';
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.marbleTalkOverhaul );
 	};
 	MarbleScene.prototype.sleepWith = function( arg ) {
@@ -2606,7 +2606,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	MarbleScene.prototype.giveItem = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'What item do you want to give Marble?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 1 ) ) {
 			EngineCore.addButton( 1, 'OviElixir', this, this.marbleOvulatesLikeMadDawg );
 		}
@@ -4231,7 +4231,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5 ) {
 			CoC.flags[ kFLAGS.MARBLE_TIME_SINCE_NURSED_IN_HOURS ] = 0;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Cunnilingus', this, this.milkMarbleCunnilingling );
 		if( CoC.player.cockThatFits( this.marbleCuntCapacity() ) >= 0 && (CoC.player.isBiped() || CoC.player.isNaga() || CoC.player.isGoo()) ) {
 			EngineCore.addButton( 1, 'Fuck Her', this, this.milkMarbleFuckDatCowPussy );
@@ -4421,7 +4421,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( CoC.player.cockThatFits( this.marbleCuntCapacity() ) > 0 ) {
 			MainView.outputText( '[pg]You idly consider grabbing and pulling on her tail, so you could have a chance to take charge, though Marble would probably try and take control in that case for sure...' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Follow Tail', this, this.milkMarbleBarFollowTail );
 		EngineCore.addButton( 1, 'Cunnilingus', this, this.milkMarbleBarCunnilingling );
 		if( CoC.player.cockThatFits( this.marbleCuntCapacity() ) >= 0 ) {

@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 					}
 				}
 				//[URTAZ PLACE] [Suck Off] [Eat Out];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Her Place', this, this.goBackToUrtasForLuvinz );
 				if( CoC.flags[ kFLAGS.URTA_CUM_NO_CUM_DAYS ] >= 5 ) {
 					EngineCore.addButton( 1, 'Suck Off', this, this.slurpFawkesCocksForFunAndInflation );
@@ -450,7 +450,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 					temp = this.giveTheFoxSomeEggs;
 				}
 				//As per normal drunk-fawks;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Jerkoff', this, this.getAPublicFacialFromUrta );
 				EngineCore.addButton( 1, 'Anal Ride', this, this.takeUrtaInTheButtPublically );
 				EngineCore.addButton( 2, 'Lay Eggs', this, temp );
@@ -488,7 +488,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 				}
 				temp = this.giveTheFoxSomeEggs;
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Jerkoff', this, this.getAPublicFacialFromUrta );
 			EngineCore.addButton( 1, 'Anal Ride', this, this.takeUrtaInTheButtPublically );
 			EngineCore.addButton( 2, 'Lay Eggs', this, temp );
@@ -526,7 +526,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			}
 		}
 		//[Under Table BJ] [Public Jerkoff onto your face] [Public Buttfucking (Receiver)] [Tender lovemaking @ Urtas] [Minotaur Cum-Addict Special?] [TABLE FUCK];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.URTA_CUM_NO_CUM_DAYS ] >= 5 ) {
 			EngineCore.addButton( 0, 'Hidden BJ', this, this.slurpFawkesCocksForFunAndInflation );
 		} else {
@@ -1364,7 +1364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		if( CoC.player.hasVagina() ) {
 			femaleRides = this.rideUrtaTenderFemale;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fuck Vagina', this, vaginal );
 		EngineCore.addButton( 1, 'Ride(Vaginal)', this, femaleRides );
 		EngineCore.addButton( 2, 'Ride(Anal)', this, this.tenderTakeItUpTheAssFromUrta );
@@ -2357,7 +2357,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		MainView.outputText( 'She caresses a nipple and visibly shivers as she says, "<i>You teased me the whole way here, and I\'m COMPLETELY ready for you, any way you could want.</i>"\n\n', false );
 		MainView.outputText( 'She blushes and continues, "<i>So, what\'ll it be, lover?  A little injection of fox-cream or something else?</i>"', false );
 		MainView.outputText( '\n\nHow do you want to fuck with the vixen?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasVagina() ) {
 			MainView.outputText( '  She could ride your vagina.' );
 			EngineCore.addButton( 0, 'Ride Vag', this, this.rideUrtasCoochLoveyDovey );
@@ -2530,7 +2530,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			this.urtaAndScyllaBoningLikeBitchesSober();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00147 ] === 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00145 ] > 0 ) {
 			MainView.outputText( 'You meander towards the back-rooms and a canine waitress springs forward with a key clutched in her paw.  She blushes furiously and explains that she was tipped generously to hand it to you if you arrived.  You accept the proffered tool and smile.  It must be cheaper to pay someone to wait with a key than to fix the door each time the three of you meet up!  You snicker to yourself as you plunge the key into the lock\'s waiting receptacle, turn it, and push your way inside.  The scene in front of you is as arousing as it is familiar.\n\n', false );
 			MainView.outputText( 'Urta is sitting down on a crate with her legs splayed and her torso leaning drunkenly in your direction.  Her tongue is hanging out and her eyes are lidded from alcohol as she notices you and gives another high-pitched whine, not of pain, but pleasure.  The source of her \'distress\' is a black-robed figure with curly black locks of hair that hang around her head like a halo and thick, glossy red lips.  Those same lips are currently wrapped firmly around Urta\'s twitching, lust-swollen horse-cock just above her sheath.  You can clearly see the slight bulge of Urta\'s medial ring highlighted through the corrupted nun\'s neck as she bobs up and down, so absorbed in feeding her addiction that she failed to notice your entrance.\n\n', false );
@@ -3217,7 +3217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		this.urtaDialogueMenu();
 	};
 	Urta.prototype.urtaDialogueMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Urta', this, this.urtaDiscussesSelf );
 		EngineCore.addButton( 1, 'Edryn', this, this.urtaDiscussesEdryn );
 		EngineCore.addButton( 2, 'The Watch', this, this.urtaDiscussesTheWatch );
@@ -3306,7 +3306,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			}
 		}
 		MainView.outputText( '</i>"  She winks at you before blowing you a playful raspberry.\n' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.URTA_FERTILE ] === 1 ) {
 			MainView.outputText( '\n<b>Urta is currently fertile.</b>' );
 			EngineCore.addButton( 0, 'No Fertile', this, this.urtaFertilityToggle );
@@ -3333,7 +3333,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			MainView.outputText( 'Urta throws her hands up and cheers, "<i>Yesss!</i>"  Realizing that everyone is looking over at the two of you now, she gives a sheepish smirk and glances back at you.  "<i>I can\'t wait!</i>"' );
 			CoC.flags[ kFLAGS.URTA_FERTILE ] = 1;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Back', this, this.urtaFertilityDiscussion );
 	};
 	Urta.prototype.urtaPregOthersToggle = function() {
@@ -3353,7 +3353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			MainView.outputText( 'Urta smiles salaciously, like a cat that got the cream.  Then, without warning, she kisses you square on the lips, passionately frenching you.  After nearly a full minute of frenzied kissing, she says, "<i>This is gonna be fun!</i>"' );
 			CoC.flags[ kFLAGS.URTA_PREG_EVERYBODY ] = 1;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Back', this, this.urtaFertilityDiscussion );
 	};
 	//[=Edryn=];
@@ -4382,7 +4382,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			MainView.outputText( '\n\nUrta rolls her eyes and declares, "<i>Fine, but you\'ll help me clean up the mess, love.</i>"  She\'s practically panting as she says so, cock jutting in the air as ribbons of pre dangle from that rigid tower.  Watching through lusty, half-hidden eyes, the vixen seems curious as to just how messy you want to get.' );
 		}
 		//[Peg Her Ass] [Fill Me Up];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.cockThatFits( this.urtaCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Peg Her Ass', this, this.pegUrtasAssMessy );
@@ -4551,7 +4551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		CoC.flags[ kFLAGS.TIMES_FUCKED_URTA ]++;
 		CoC.player.slimeFeed();
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.UrtaGetsPeggedCleanUp );
 	};
 	Urta.prototype.UrtaGetsPeggedCleanUp = function() {
@@ -4718,7 +4718,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nUrta smirks, glancing from your slickening groin up to your eyes, and says, "<i>Come on, you horn-dog, let\'s go clean up your mess.  You can help me fill a few condoms later.</i>"' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.cleanUpAfterUrtaCreamInjectsYou );
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 2;
 		this.urtaLove( 2 );
@@ -5167,7 +5167,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		}
 		MainView.outputText( 'ginger fox can\'t resist an offer like that.  Stepping past a group of drunken canines, you make your way out into the city in search of a runner.  You\'re in luck!  One of the orphans that works for him is panhandling nearby.  You step closer, nearly doing a double take when you see the size of his take.  The little guy has made more money begging than most honest craftsman can make in a hard day\'s work.  Sighing, you pass him the note with instructions that he deliver it directly to Raphael.  At first, he feigns ignorance, but after he recognizes you, he nods solemnly.  Apparently being the consort of a master of thieves has its PerkLib.' );
 		MainView.outputText( '\n\nTurning back, you saunter confidently into the bar and get yourself that bottle of wine.  Deception is thirsty work after all.  The next fifteen minutes pass in a blur of grape-stained enjoyment and simple people watching.  There\'s a scout who\'s just returned from the outside a table over, cuddling with his crush.  They\'re all over each other, sharing the happiness of two long-separated lovers.  On the other side of you, two centaurs are trying to play poker, but one of them is apparently cheating, at least according to the younger stallion.  You take another swallow of the subtle brew and recline, just taking it all in before the real work starts.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.raphaelAndUrtaPartTwo );
 	};
 	Urta.prototype.raphaelAndUrtaPartTwo = function() {
@@ -5261,7 +5261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		MainView.outputText( '\n\nYou feel Urta\'s body shift around a few times, her legs bumping into your new "home" as she struggles to get comfortable.  Then, surprisingly, you can hear muffled snoring.  After being subjected to ruined orgasm after ruined orgasm, Urta just fell asleep!  Figuring there\'s not much you can do about it from in here, you relax your body as well.  As you calm down, you feel your body beginning to lose its shape.  If you think about it, you can regain your form, so rather than worry about it, you let yourself soften, mixing with Urta\'s spunk as you too drift off into a peaceful sleep.' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		//Next;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.urtasRuinedOrgasmsFromGooPartII );
 	};
 	Urta.prototype.urtasRuinedOrgasmsFromGooPartII = function() {
@@ -5464,7 +5464,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		MainView.outputText( '\n\n"<i>I thought it might look good on you!  You know, for some role playing,</i>" she says when you press.  Your eyebrow automatically quirks upwards.  She wanted you to wear this?  It\'s certainly a nice collar, exquisitely made.  You don\'t think a collar like this would come cheap.  Seeing your face, Urta rises from the bed and takes the leather collar from your hands a second time, throwing it in a nearby trash can.  "<i>Look, I was drunk when I got it...  don\'t worry about it, okay [name]?  I love you just the way you are, and don\'t you dare think otherwise!  Now, are we going to get to it?</i>" she asks, sitting on the edge of the bed once more.' );
 		MainView.outputText( '\n\nWell?  Shall you ignore the collar and let it get thrown out with the trash?  Or you could show her you\'re interested in a little petplay...' );
 		//[Ignore (Takes you back to the sex menu, removes Collar from menus)] [Wear];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Ignore', this, this.ignoreUrtasCollar );
 		EngineCore.addButton( 0, 'Wear', this, this.wearZeCollar );
 	};
@@ -5533,7 +5533,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		MainView.outputText( '\n\n"<i>Hmm, what does my pet want to do with me today?</i>" she asks with a mischievous look.' );
 		CoC.flags[ kFLAGS.URTA_PETPLAY_DONE ]++;
 		//[Doggystyle] ['Reward'] [Walkies! (Not available first time)];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Doggystyle', this, this.doggyStyle );
 		EngineCore.addButton( 1, '"Reward"', this, this.getAPetReward );
 		EngineCore.addButton( 2, 'Walkies', this, this.urtaTakesPCOnWalkies );
@@ -5686,7 +5686,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		EngineCore.dynStats( 'sen', 2 );
 		CoC.flags[ kFLAGS.URTA_TIME_SINCE_LAST_CAME ] += 4;
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 2;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.partTwoOfDoggieStyle );
 	};
 	Urta.prototype.partTwoOfDoggieStyle = function() {
@@ -5844,7 +5844,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		CoC.flags[ kFLAGS.URTA_COMFORTABLE_WITH_OWN_BODY ] += 2;
 		MainView.outputText( '...' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.feedTheBeastPartII );
 	};
 	Urta.prototype.feedTheBeastPartII = function() {

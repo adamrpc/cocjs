@@ -814,7 +814,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		if( CoC.player.fatigue + EngineCore.physicalCost( 10 ) > 100 ) {
 			MainView.outputText( 'You just don\'t have the energy to wrap yourself so tightly around someone right now...', true );
 			//Gone		menuLoc = 1;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}
@@ -828,7 +828,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		if( CoC.monster.short === 'pod' ) {
 			MainView.outputText( 'You can\'t constrict something you\'re trapped inside of!', true );
 			//Gone		menuLoc = 1;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
 			return;
 		}

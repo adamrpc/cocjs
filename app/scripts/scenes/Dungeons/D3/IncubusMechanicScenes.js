@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		MainView.outputText( '\n\nYou shake your head. If you wanted to suck his dick, you would\'ve said so. "<i>A deal is a deal.</i>"' );
 		MainView.outputText( 'The male sighs. "<i>Fine, fine. You\'ve gotta run out of gems sometime anyway, right?</i>" You smirk and step onto the platform, chuckling at the incubus as his visage vanishes behind the lip of a sheer cliff. There\'s a railing to hold onto as you\'re lowered down to the mountains. While the platform does rock from side to side along the slow trip down, its motions are not erratic enough to put you in any significant danger. Even better, you aren\'t bothered by a single harpy along the way. This section of the high mountains seems to have been cleansed of them.' );
 		MainView.outputText( '\n\nThe platform touches down roughly thirty minutes after your departure, and you head back to camp with all due haste.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.useLiftPostDefeat = function() {
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		MainView.outputText( '\n\nYou both sag back, sated in entirely different ways. He looks more than a little drained, shuddering in bliss and gasping, "<i>I, ung... I was a little pent-up.</i>" In spite of that, his balls begin to swell up almost immediately, becoming a little bit larger than they were a moment ago. You have a hunch that if you sucked him again, he\'d cum just as hard, and while the thought sends a shiver of pleasure through your well-stuffed body, you remember that you wanted to get back to camp.' );
 		MainView.outputText( '\n\nStumbling onto the elevator, you cradle your cum-pregnant middle and gesture for him to lower you. He does so, a smile that would shame a cheshire cat plastered on his face as he disappears behind the lip of a cliff. <b>Damn, that was hot.</b> You wind up masturbating most of the way down the elevator before stumbling into your camp as a pent-up, sexually fixated wreck.' );
 		EngineCore.dynStats( 'lib+', 5, 'cor+', 5, 'lus+', 100 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.exitD3 );
 	};
 	IncubusMechanicScenes.prototype.beatDaMechanic = function( hpVictory ) {
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 			MainView.outputText( ' hanging open as he reaches down for his exposed, dangling cock to wildly masturbate.' );
 		}
 		MainView.outputText( ' He seems surprisingly human like that, just as mortal as anyone. You could let him go, play with him some, or cleanse the world of another demon.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Kill', this, this.killMechanic );
 		EngineCore.addButton( 1, 'Let Go', this, this.letMechanicGo, hpVictory );
 		if( CoC.player.hasCock() ) {
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		}
 		MainView.outputText( '\n\nWhat kind of dick would you like the incubus to have when you fuck him?' );
 		// [Demon] [Horsecock] [Dogcock];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Demon', this, this.rideMechanicsCockII, MECHANIC_DEMON_COCK );
 		EngineCore.addButton( 1, 'Horse', this, this.rideMechanicsCockII, MECHANIC_HORZ_GOG );
 		EngineCore.addButton( 2, 'Dog', this, this.rideMechanicsCockII, MECHANIC_DOG_COCK );

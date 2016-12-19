@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00142 ] > 0 ) {
 			minoCum = this.goblinHairDresserFacefuck;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.LYNNETTE_PREGNANCY_CYCLE ] >= 4 && CoC.player.hasCock() ) {
 			EngineCore.addButton( 5, 'Fuck Goblin', this, this.fuckLynnette );
 		}
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00142 ] > 0 ) {
 			minoCum = this.buyMinoCum;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.LYNNETTE_PREGNANCY_CYCLE ] >= 4 && CoC.player.hasCock() ) {
 			EngineCore.addButton( 5, 'Fuck Goblin', this, this.fuckLynnette );
 		}
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 			sandFacial2 = this.sandFacial;
 		}
 
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Cut Short', this, cutShort2 );
 		EngineCore.addButton( 1, 'Cut Med.', this, cutMedium2 );
 		EngineCore.addButton( 2, 'Cut Long', this, cutLong2 );
@@ -424,7 +424,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		MainView.spriteSelect( 38 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Lynnette pulls open a cabinet in the corner, displaying a wide array of exotic hair-dyes.  Which kind do you want?', false );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Blue', this, this.buyDye, ConsumableLib.BLUEDYE );
 		EngineCore.addButton( 1, 'Orange', this, this.buyDye, ConsumableLib.ORANGDY );
 		EngineCore.addButton( 2, 'Pink', this, this.buyDye, ConsumableLib.PINKDYE );

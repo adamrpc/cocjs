@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, $log
 		MainView.outputText( '\n\nShe nudges you with her forefinger, picking at your clothes with her nail in a vain attempt to undo the straps to your armor.' );
 		MainView.outputText( '\n\n"<i>Hey, undress real quick.  I just got another idea.</i>"' );
 		MainView.outputText( '\n\nBefore you can object, you realize that the size difference between you would make it pretty hard to resist her demand.  Deciding that it\'s safer to play along, you undress in short order, tossing your [armor] to the ground below.  After the last scrap of clothing is gone, she gives you a light tap that causes you to fall back on her hand.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pureMacroValaCont );
 		EngineCore.addButton( 1, 'Be A Toy', this, this.pureValaAndShouldraMacroMax );
 	};

@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 				MainView.outputText( '“<i>How do you want to celebrate?</i>” asks Kath.  You can see the matching pair of ' + (this.hasCock() ? 'bulges' : 'smiles') + ', one to each side.  They both put their arms around you, pressing their breasts against you deliberately.  But hey, who are you to argue?  A threesome seems like an awfully good idea.' );
 				CoC.flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] = 32;
 				var button = 0;
-				EngineCore.menu();
+				MainView.menu();
 				if( CoC.player.hasCock() ) {
 					EngineCore.addButton( button++, '369', SceneLib.katherineThreesome, SceneLib.katherineThreesome.threeSixtyNine );
 				}
@@ -912,7 +912,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		MainView.outputText( '“<i>How do you want to celebrate?</i>” asks Kath.  You can see the matching pair of ' + (this.hasCock() ? 'bulges' : 'smiles') + ', one to each side.  They both put their arms around you, pressing their breasts against you deliberately.  But hey, who are you to argue?  A threesome seems like an awfully good idea.' );
 		CoC.flags[ kFLAGS.KATHERINE_URTA_AFFECTION ] = 32;
 		var button = 0;
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( button++, '369', SceneLib.katherineThreesome, SceneLib.katherineThreesome.threeSixtyNine );
 		}
@@ -956,7 +956,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 			return;
 		}
 		MainView.outputText( (this.isAt( Katherine.KLOC_KATHS_APT ) ? 'She sits on the edge of the bed' : 'She leans back in her chair') + ' and says “<i>I’d love to talk.  What’s on your mind?</i>”' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Gangs', this, this.talkGangs );
 		EngineCore.addButton( 1, 'The Watch', this, this.talkWatch );
 		EngineCore.addButton( 2, 'Her Home', this, this.talkHome );
@@ -1714,7 +1714,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 			}
 			MainView.outputText( '\n\n<b>Right now Katherine only shares her milk with ' + Utils.formatStringArray( sharingArray ) + '.</b>' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( !sharingWithFriends && !this.milkOption( Katherine.KBIT_MILK_SHARE_WITH_OLD_GANG ) ) {
 			EngineCore.addButton( 0, 'Helena', this, this.talkMilkShareWithHelena );
 		}
@@ -1738,7 +1738,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		if( this.milkOption( Katherine.KBIT_MILK_SHARE_WITH_HELENA ) ) {
 			MainView.outputText( 'You ask Kath if she could stop sharing her milky bounty with Helena.\n\n' );
 			MainView.outputText( '“<i>I can, but... it really feels nice to help her.  Do I have to stop?</i>”' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Yes', this, this.talkMilkShareWithHelenaAnswer, true );
 			EngineCore.addButton( 1, 'Don\'t Stop', this.talkMilkShareWithHelenaAnswer, false );
 		} else {
@@ -1842,7 +1842,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 				MainView.outputText( 'not to keep her breasts in check.  There\'s no limit on her' );
 		}
 		MainView.outputText( ' lactation.</b>\n\nIn the future what should she limit herself to?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( this.breasts.preventLactationIncrease !== BreastStore.LACTATION_LIGHT ) {
 			EngineCore.addButton( 0, 'Light', this, this.talkMilkLimitationChange, BreastStore.LACTATION_LIGHT );
 		}
@@ -2062,7 +2062,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		var honey = CoC.player.hasItem( ConsumableLib.BEEHONY ) || CoC.player.hasItem( ConsumableLib.PURHONY );
 		var pinkEgg = CoC.player.hasItem( ConsumableLib.PINKEGG ) || CoC.player.hasItem( ConsumableLib.L_PNKEG );
 		var button = 0;
-		EngineCore.menu();
+		MainView.menu();
 		if( hasJob && this.hairColor !== 'rich auburn' && CoC.player.hasItem( ConsumableLib.AUBURND ) ) {
 			EngineCore.addButton( button++, 'Auburn Dye', this, this.giveKatDyeAuburn );
 		}
@@ -3521,7 +3521,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 			MainView.outputText( 'Kath purrs and buries her head in Urta’s bosom.\n\n' );
 			MainView.outputText( 'You get the feeling you are going to have to intervene quickly if you don’t want them to fuck right here and now.' );
 			var button = 0;
-			EngineCore.menu();
+			MainView.menu();
 			if( this.submissiveness() < 3 ) {
 				EngineCore.addButton( button++, 'Orgy', SceneLib.katherineThreesome, SceneLib.katherineThreesome.orgy );
 				MainView.outputText( '\n\nYou' );
@@ -3563,7 +3563,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 			MainView.outputText( 'You smile and say, “<i>Only if you ask nicely.</i>”\n\n' );
 			MainView.outputText( 'Kath stands up and offers you her hand.  “<i>I guess I’d better bring you along.  I might need help and besides, you always have some fun ideas.</i>”\n\n' );
 			MainView.outputText( 'Urta looks up as the two of you cross the open floor, her horse cock rising rapidly.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Watch', SceneLib.katherineThreesome, SceneLib.katherineThreesome.watch, true );
 			if( this.hasCock() ) {
 				EngineCore.addButton( 1, 'Pin & Fuck', SceneLib.katherineThreesome, SceneLib.katherineThreesome.pinAndFuck );
@@ -3572,7 +3572,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 			MainView.outputText( 'Katherine looks over at Urta’s table.  Urta catches her looking and gestures for both of you to come over.\n\n' );
 			MainView.outputText( 'Kath offers you her hand and says, “<i>I guess we’d better get over there.  It looks like Urta’s really horny and I wouldn’t want to disappoint her.</i>”\n\n' );
 			MainView.outputText( 'Given the warmth you feel from Katherine’s body you think that she’s projecting some of her own feelings onto Urta.  It doesn’t matter much to you.  No matter how you play this you’re likely to wind up with a pair of hot, naked herms on your hands.  Life as the champion can be so tough sometimes.\n\n' );
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.gender === AppearanceDefs.GENDER_NONE ) {
 				if( this.hasCock() ) {
 					EngineCore.addButton( 0, 'Roast You', SceneLib.katherineThreesome, SceneLib.katherineThreesome.roastYou );
@@ -3595,7 +3595,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		MainView.clearOutput();
 		MainView.outputText( 'Kath looks like she’s ready for some fun but before you get started something else catches your eye.  You note that Vala is sitting at one end of the bar, her tray propped up beside her.  It looks like a slow night and Vala seems bored.  ' + (CoC.flags[ kFLAGS.KATHERINE_VALA_AFFECTION ] < 5 ? 'You decide it’s time to expand their horizons and' : 'You know they enjoy each other’s company so you') + ' motion for her to come over.\n\n' );
 		MainView.outputText( 'Vala flies over quickly.  When she arrives you pat the seat next to you. You’re sitting between your submissive cat ' + this.catGirl( 'girl', 'morph' ) + ' on one side and your supersized faerie on the other.  You certainly walked a strange path to wind up here.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fist Them', SceneLib.katherineThreesome, SceneLib.katherineThreesome.fistKathAndVala );
 		if( this.hasCock() ) { //All but the fisting scene require Kath be a herm
 			EngineCore.addButton( 1, 'Eat Out', SceneLib.katherineThreesome, SceneLib.katherineThreesome.eatOutVala );
@@ -4526,7 +4526,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 			CoC.flags[ kFLAGS.KATHERINE_LOCATION ] = Katherine.KLOC_STREETS;
 		}
 		MainView.outputText( 'With a smirk, you suggest a taste test.  Katherine blinks, then smiles. “<i>Fine by me... but who\'s going to be the taster?</i>”\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		if( this.hasCock() ) {
 			EngineCore.addButton( 0, 'PC Sucks', this, this.giveKatOralPenisWingWang );
 		} else {
@@ -5273,7 +5273,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		//[Get Help] [Intervene] [Leave];
 		//Can’t leave if below 25 corruption - you’re a champion after all.;
 		//Can’t get help if at or above 75 corruption - you’re a perverted monster after all.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Get Help', this, this.getHelpVsKittyKats );
 		EngineCore.addButton( 1, 'Intervene', this, this.interveneWithKittyKats );
 		EngineCore.addButton( 4, 'Leave', this, this.leaveKittyKatsLikeANeeeeeerrrrd );
@@ -5363,7 +5363,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		MainView.outputText( '\n\n“<i>P - Please - nooo!</i>” she cries, but it’s too late.  Her belt can’t cinch tight enough and her cock snakes through the gap between her tattered pants and her belly.  You suspect she’d be turning bright red if it weren’t for her fur.  Speaking of red, the cock is bright red and doesn’t belong on any kind of cat.  The continued swelling near the base confirms it.  Katherine has the cock of a canine, and that cock has a huge knot.' );
 		MainView.outputText( '\n\nShe whimpers, “<i>I just wanted food,</i>” and tries to hide her cock by curling into a ball under you. ' );
 		MainView.outputText( '\n\nIf you help Kath, it might pay off in more than karma... if you\'re into that sort of thing.  You could also turn your back on her, likely forever.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Help', this, this.helpKathAfterInterruptu );
 		EngineCore.addButton( 1, 'Leave', this, this.leaveKathYouDontWantThatNastyHermCock );
 	};
@@ -5429,7 +5429,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		MainView.outputText( '\n\nYou ask who’s in charge.  A middle-aged woman steps forward.  She’s got ginger colored fur and decent sized muscles for a cat morph.  She must be the Evelyn that Kath mentioned last time.  Her blue eyes study you carefully.' );
 		MainView.outputText( '\n\nYou could try to bargain for some time with Kath, you could donate some gems to feed them, or you could try threatening her.' );
 		//[Bargain] [Donate] [Threaten];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Bargain', this, this.bargainForKittahKatPussah );
 		EngineCore.addButton( 1, 'Donate', this, this.donateToCatSlutsYouCatSlut );
 		EngineCore.addButton( 2, 'Threaten', this, this.threatenCatSluts );

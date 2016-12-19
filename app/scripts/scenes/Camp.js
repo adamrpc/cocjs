@@ -991,7 +991,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( SceneLib.arianScene.arianFollower() ) {
 			MainView.outputText( 'Arian\'s tent is here, if you\'d like to go inside.\n\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( amilyEvent !== null ) {
 			EngineCore.addButton( 0, 'Amily', SceneLib.amilyScene, amilyEvent );
 		}
@@ -1060,7 +1060,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			MainView.outputText( 'Your well-endowed, dark-skinned milk-girl is here.  She flicks hopeful eyes towards you whenever she thinks she has your attention.\n\n' );
 			milk = SceneLib.milkWaifu.milkyMenu;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( amilyEvent !== null ) {
 			EngineCore.addButton( 0, 'Amily', SceneLib.amilyScene, amilyEvent );
 		}
@@ -1093,7 +1093,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		MainView.clearOutput();
 		CoC.setInCombat( false );
 		//ADD MENU FLAGS/INDIVIDUAL FOLLOWER TEXTS
-		EngineCore.menu();
+		MainView.menu();
 		if( SceneLib.emberScene.followerEmber() ) {
 			SceneLib.emberScene.emberCampDesc();
 			ember = SceneLib.emberScene.emberCampMenu;
@@ -1529,7 +1529,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			this.placesPage2();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.BAZAAR_ENTERED ] > 0 ) {
 			EngineCore.addButton( 0, 'Bazaar', SceneLib.bazaar, SceneLib.bazaar.enterTheBazaar );
 		}
@@ -1562,7 +1562,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
 	};
 	Camp.prototype.placesPage2 = function() {
-		EngineCore.menu();
+		MainView.menu();
 		CoC.flags[ kFLAGS.PLACES_PAGE ] = 1;
 		//turn on ruins
 		if( CoC.flags[ kFLAGS.AMILY_VILLAGE_ACCESSIBLE ] > 0 ) {
@@ -1579,7 +1579,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		this.places();
 	};
 	Camp.prototype.dungeons = function() {
-		EngineCore.menu();
+		MainView.menu();
 		//Turn on dungeons
 		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] > 0 ) {
 			EngineCore.addButton( 0, 'Deep Cave', SceneLib.dungeon2Supplimental, SceneLib.dungeon2Supplimental.enterZetazsLair );

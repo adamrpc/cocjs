@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'You inhale hard and try to clear your head, forcing yourself not to sleepwalk downwards into the Sandtrap\'s waiting embrace.  The creature doesn\'t seem to mind your hesitation; it smiles softly and confidently, waiting for you with the infinite patience of its kind.  You need to make a choice here fast, before your burning body makes it for you.' );
 		//Fight/Desztiny/Leave
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fight', this, this.sandTrapBadEndFight );
 		EngineCore.addButton( 1, 'Desztiny', this, this.desztiny );
 		EngineCore.addButton( 4, 'Leave', this, this.leaveSandTrapBadEnd );

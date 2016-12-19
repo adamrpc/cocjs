@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		}
 		CoC.flags[ kFLAGS.TIMES_MET_CHICKEN_HARPY ]++;
 		//[Give Two][Give Three]		[Not Really, No]
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasItem( ConsumableLib.OVIELIX, 2 ) ) {
 			EngineCore.addButton( 0, 'Give Two', this, this.giveTwoOviElix );
 		}
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		CoC.player.consumeItem( ConsumableLib.OVIELIX );
 		MainView.outputText( 'You hand over two elixirs, the harpy more than happy to take them from you.  In return, she unties a corner of the sheet atop the cart, allowing you to take a look at her collection of eggs.' );
 		//[Black][Blue][Brown][Pink][Purple]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Black', this, this.getHarpyEgg, ConsumableLib.BLACKEG );
 		EngineCore.addButton( 1, 'Blue', this, this.getHarpyEgg, ConsumableLib.BLUEEGG );
 		EngineCore.addButton( 2, 'Brown', this, this.getHarpyEgg, ConsumableLib.BROWNEG );
@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		CoC.player.consumeItem( ConsumableLib.OVIELIX, 3 );
 		MainView.outputText( 'You hand over three elixirs, the harpy ecstatic over the fact that you\'re willing to part with them.  In return, she unties a side of the sheet atop the cart, allowing you to take a look at a large collection of her eggs.' );
 		//[Black][Blue][Brown][Pink][Purple]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Black', this, this.getHarpyEgg, ConsumableLib.L_BLKEG );
 		EngineCore.addButton( 1, 'Blue', this, this.getHarpyEgg, ConsumableLib.L_BLUEG );
 		EngineCore.addButton( 2, 'Brown', this, this.getHarpyEgg, ConsumableLib.L_BRNEG );

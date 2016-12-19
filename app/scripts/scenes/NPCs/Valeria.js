@@ -570,7 +570,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		MainView.outputText( ', but the troublesome, liquid armor shakes her head negatively.' );
 		MainView.outputText( '\n\n"<i>You just sit tight, [name]. I\'m gonna give my sister a fun new experience and fill you with so much pleasure that you\'ll feel like you\'re gonna pop.</i>" She disappears back into the azure blob before you can respond. The fading ripples almost mock your inability to reply as they smooth into nonexistence.' );
 		EngineCore.dynStats( 'lus=', 100 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.valeriaGooRapeII );
 	};
 	Valeria.prototype.valeriaGooRapeII = function() {

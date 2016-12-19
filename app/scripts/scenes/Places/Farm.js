@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			} else {
 				MainView.outputText( 'Whitney\'s farm is remarkably large for such a humble operation.  What do you want to do?', true );
 			}
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
 				if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
 					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly, SceneLib.kelly.breakingKeltOptions );

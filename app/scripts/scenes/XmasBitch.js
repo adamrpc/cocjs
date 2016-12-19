@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 			this.vagFuckXmasElf();
 		} else {
 			MainView.outputText( 'Which part will you ravish her with?\n\n' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Male', this, this.futaDickXmasElfClr );
 			EngineCore.addButton( 1, 'Female', this, this.futaVagXmasElfClr );
 		}

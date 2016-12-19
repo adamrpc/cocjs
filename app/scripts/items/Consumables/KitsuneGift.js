@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( $log, MainView, CoC, SceneLib, Consumab
 			default:
 				$log.debug( 'Kitsune\'s gift roll foobar...' );
 		}
-		return false; //Any other case does not have a sub-EngineCore.menu.
+		return false; //Any other case does not have a sub-menu.
 	};
 	ConsumableLib.registerConsumable( 'KITGIFT', new KitsuneGift() );
 } );

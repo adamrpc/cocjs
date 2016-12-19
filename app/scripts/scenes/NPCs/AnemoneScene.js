@@ -1338,7 +1338,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		}
 
 		//Tutor, N.Watch, and Evict require the anemone to be present;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Item', this, item );
 		EngineCore.addButton( 1, weaponT, this, weaponB );
 		if( CoC.flags[ kFLAGS.KID_SITTER ] <= 1 ) {
@@ -1478,7 +1478,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			return item === ConsumableLib.W__BOOK || item === ConsumableLib.B__BOOK || item === ConsumableLib.W_STICK || item instanceof Weapon;
 		}
 
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.hideUpDown();
 		var foundItem = false;
 		for( var x = 0; x < 5; x++ ) {

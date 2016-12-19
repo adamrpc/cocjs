@@ -182,7 +182,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			MainView.outputText( 'During your exploration, you come across a familiar looking patch of ground. In fact... you pull out Zetaz’s map, your eyes widening as they realize what you’ve just found Keep. You follow a concealed trail past several harpy nests directly to an almost invisible cave entrance. You never would’ve found it without the map.' );
 			MainView.outputText( '\n\n<b>You’ve discovered a hidden entrance to Lethice’s lair. It can be accessed from the Dungeons submenu in the future.</b>' );
 			MainView.outputText( '\n\nDo you step inside, or wait until you’re better prepared?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Enter', this, this.enterD3 );
 			EngineCore.addButton( 1, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return true;
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 		if( this.rooms[ roomName ] === undefined ) {
 			MainView.clearOutput();
 			MainView.outputText( 'Error: Couldn\'t find the room indexed as: ' + roomName );
-			EngineCore.menu();
+			MainView.menu();
 			return;
 		}
 		var tRoom = this.rooms[ roomName ];
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			MainView.outputText( 'Error: Room entry function for room indexed as \'' + roomName + '\' was not set.' );
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( !tRoom.RoomFunction() ) {
 			this.generateRoomMenu( tRoom );
 		}
@@ -309,7 +309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 					MainView.outputText( '  You take the Laybans out of your pocket, turning them around in your hands as you consider. Are you going to try this?' );
 				}
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes, SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisks );
 			EngineCore.addButton( 1, 'Fall Back', this, this.fallbackFromMagpieHallS );
 			return true;
@@ -352,7 +352,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 	D3.prototype.goToEggPile = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'You head down the stairs into the hall proper to inspect the ramble hoard of eggs the basilisks collected. They’re mostly unfertilised harpy ovum, but you quickly pick out a number of differently coloured transformative eggs stolen from Gods know who.' );
-		EngineCore.menu();
+		MainView.menu();
 		var flagNum = CoC.flags[ kFLAGS.D3_EGGS_AVAILABLE ];
 		if( !(flagNum & BLACK) ) {
 			EngineCore.addButton( 0, 'Black', this, this.takeEgg, BLACK );
@@ -409,13 +409,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			MainView.outputText( '  Surely the demons themselves are not immune to the basilisks’ glares - the darkened screen is proof of that. How do they interact with the creatures, then? Maybe if you keep poking around, you might find an answer.' );
 		}
 		MainView.outputText( '\n\nYou head back through the archway into the gloomy antechamber.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Next', this, this.move, 'antechamber' );
 	};
 	D3.prototype.magpiehallnRoomFunc = function() {
 		if( CoC.flags[ kFLAGS.D3_JEAN_CLAUDE_DEFEATED ] === 0 ) {
 			MainView.outputText( 'You find yourself back in the small booth, with the locked door leading out into the Magpie Hall. Just like the one on the opposite side, there is a darkened screen here through which you can see hundreds of basilisks milling down below, sorting through the vast amount of junk and eggs they have collected from the mountainside. They don’t seem to have taken any extra precautions following your narrow escape of them- the gantry remains free of any guards, and the door on the other side looks open.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Go!', SceneLib.jeanClaudeScenes, SceneLib.jeanClaudeScenes.gogoFuckTheseBasilisksNorth );
 			EngineCore.addButton( 1, 'Stronghold', this, this.move, 'tunnel2' );
 			return true;
@@ -460,7 +460,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			MainView.outputText( '\n\n<i>"Why hello there,"</i> the corrupt temptress says with a tone that\'s the auditory equivalent to a pat on the head. <i>"You must be [name]. Did you come all this way just to join my garden?"</i> The corner of the succubus\' mouth curls ever so slightly, her lips gleaming invitingly. <i>"Or perhaps you could be my first non-floral pet. Would you like that?"</i> She arches her back to present her breasts to you, held aloft by their own incredible, perfect shape and framed by a skimpy underbust covering that only serves to highlight her hard, perky nipples. They gleam with moisture - milk you suppose.' );
 			MainView.outputText( '\n\nShe smiles encouragingly. <i>"What\'ll it be?"</i>' );
 			//[Surrender] [Fight];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Fight', null, Combat.startCombatImmediate, new SuccubusGardener() );
 			EngineCore.addButton( 1, 'Surrender', SceneLib.succubusGardenerScenes, SceneLib.succubusGardenerScenes.surrenderToTheGardener );
 			return true;
@@ -525,7 +525,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 		MainView.outputText( 'A circle of polished stone wraps around a colossus here in the center of the courtyard, ringed by cushioned benches that would be a delight to sit on were they not stained with bodily fluids of all colors and sexes. You didn’t think pink cum was possible, but the demons’ endless sexual creativity doesn’t seem to be bound by such notions. You can leave east and west from here.' );
 		if( CoC.flags[ kFLAGS.D3_STATUE_DEFEATED ] === 0 ) {
 			MainView.outputText( '\n\nWait... what’s that?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', SceneLib.livingStatueScenes, SceneLib.livingStatueScenes.encounter );
 			return true;
 		}

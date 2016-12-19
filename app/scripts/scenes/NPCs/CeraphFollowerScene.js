@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		this.ceraphSprite();
 		MainView.outputText( 'You ask Ceraph if she can help you with the farm you recently acquired.' );
 		MainView.outputText( '\n\n“<i>You mean work on a farm? Don’t be ridiculous, [name]!</i>” She chortles, before coughing as she catches your expression. “<i>I don’t think me or any of my pets are cut out for farming,</i>” she says, tapping her chin. “<i>Or at least not that kind you have in mind. But I could mark the place as being under demon protection if you like. I can only do it once,</i>” she warns. “<i>And it will wear off eventually.</i>”' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Do It', this, this.doFarmShit );
 		EngineCore.addButton( 1, 'Later', this, this.noFarmShitYet );
 	};
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		if( CoC.player.lust < 33 ) {
 			MainView.outputText( '\n\n<b>You aren\'t turned on enough for sex.</b>', false );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.gender > 0 ) {
 			EngineCore.addButton( 8, 'Be A Pet', this, this.sumissivenessToCeraphFollower );
 		}
@@ -1901,7 +1901,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		}
 		//+50 lust, affected by resistance;
 		EngineCore.dynStats( 'lus', 50 );
-		EngineCore.menu();
+		MainView.menu();
 		//[Mewl once] [Bark once] [Either twice][Apple];
 		EngineCore.addButton( 0, 'Mewl Once', this, this.barkToCeraphOnce, false );
 		EngineCore.addButton( 1, 'Bark Once', this, this.barkToCeraphOnce, true );

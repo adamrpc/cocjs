@@ -1376,7 +1376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 			MainView.outputText( '\n\nScylla meets your gaze, her pure, sapphire eyes peering through her long, elegant lashes.  She opens her mouth once more to speak, perhaps to try to dissuade you from giving into temptation, perhaps to ask if she could be first.  The words die on her lips as the seething thirst inside her boils up, dulling the clarity of her eyes with a decidedly impure hunger.  She whispers a prayer and you can feel your body reacting to the nun\'s lustful desire, her corrupted supplications flowing across your flesh like sanctified oil.  [EachCock] pulse as blood surges through their lengths, growing longer and thicker with every heartbeat.  They expand and swell until each is at least five feet long, resembling true tentacles more than the simple cocks they once were.  You marvel at the famished depravity of the holy woman, but you must admit, her charity seems boundless.' );
 			//[Next];
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla2 );
 	};
 	Scylla.prototype.shareTentaclesWithScylla2 = function() {
@@ -1421,7 +1421,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		}
 		//[Next];
 		EngineCore.dynStats( 'lib', 0.5, 'lus=', 100, 'cor', 0.25, 'resisted', false );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla3 );
 	};
 	Scylla.prototype.shareTentaclesWithScylla3 = function() {
@@ -1458,7 +1458,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2, 'cor', 0.5 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.shareTentaclesWithScylla4 );
 	};
 	//[Next];
@@ -1500,7 +1500,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 			MainView.outputText( 'Scylla is happily walking from table to table, greeting friends, inquiring how families are doing, and offering a sympathetic ear to the less fortunate.  If it weren\'t for her massive chest and scarlet pucker, you could almost imagine her as a normal clergy member, helping the community with unflapping kindness.  Spotting you through the tavern\'s crowd, she excuses herself from a conversation and sways over to you, all eight feet of the nun jiggling gently as she offers a warm smile.  Though she\'s in control of her impulses, you notice her waist is looking a little slim.  Catching up with the maiden, it isn\'t long before your attentive eyes pick up on the subtle hints warning you that her hunger is building.' );
 		}
 		//[Feed] [Leave];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Feed', this, this.feedScyllaSomeJizzDatJunkieNeedsIt );
 		EngineCore.addButton( 4, 'Back', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
@@ -1564,7 +1564,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.feedingScyllaCumStepTwo );
 	};
 	Scylla.prototype.feedingScyllaCumStepTwo = function() {
@@ -1656,7 +1656,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 					CoC.player.ballSize++;
 				}
 				//[Offer][Decline];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Offer', this, this.beScyllasPersonSemenSquirtingMilkMaid );
 				EngineCore.addButton( 4, 'Leave', this, this.declineToBeASpunkPumpintJizztrocity );
 			}
@@ -1684,7 +1684,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 						CoC.player.ballSize++;
 					}
 					//[Offer][Decline];
-					EngineCore.menu();
+					MainView.menu();
 					EngineCore.addButton( 0, 'Offer', this, this.beScyllasPersonSemenSquirtingMilkMaid );
 					EngineCore.addButton( 4, 'Leave', this, this.declineToBeASpunkPumpintJizztrocity );
 				} else {

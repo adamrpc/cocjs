@@ -4,7 +4,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	function Masturbation() {
 	}
 	Masturbation.prototype.masturbateMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() && (CoC.player.cocks[ 0 ].cockType === CockTypesEnum.BEE) ) {
 			MainView.clearOutput();
 			MainView.outputText( 'Although your bee cock aches you know that there\'s no way for you to get relief on your own.  When you touch your shaft or think about cumming images of the bee girl and the sound of her hypnotic buzzing fill your mind.' );
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	};
 	Masturbation.prototype.fappingItems = function( menus ) {
 		if( menus === undefined || menus ) {
-			EngineCore.menu();
+			MainView.menu();
 			menus = true;
 		}
 		var button = 0; //Will be greater than zero by the end if the player owns any fapping items

@@ -1236,7 +1236,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		}
 		MainView.outputText( '\n\nWhat would you like to do to her?', false );
 		//[Heal][Use][Wake][Leave];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fix Her', this, this.tryToHealVala );
 		if( CoC.player.gender > 0 ) {
 			EngineCore.addButton( 1, 'Use', this, this.useValaOHYEAHSNAPINTOASLIMJIM );
@@ -1432,7 +1432,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			cumBath = this.valaCumBath;
 		}
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		//(First meeting);
 		if( CoC.flags[ kFLAGS.ENCOUNTERED_VALA_AT_BAR ] === 0 ) {
 			CoC.flags[ kFLAGS.ENCOUNTERED_VALA_AT_BAR ]++;
@@ -2323,7 +2323,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		}
 		MainView.clearOutput();
 		MainView.outputText( 'Sean nods at you and slicks his hair back into place, threading it carefully around the small nubs of his horns before asking, "<i>What can I do for you?</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, ConsumableLib.NUMBROX.shortName, this, this.incubusBuy, ConsumableLib.NUMBROX );
 		EngineCore.addButton( 1, ConsumableLib.SENSDRF.shortName, this, this.incubusBuy, ConsumableLib.SENSDRF );
 		EngineCore.addButton( 2, ConsumableLib.REDUCTO.shortName, this, this.incubusBuy, ConsumableLib.REDUCTO );
@@ -2461,7 +2461,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		MainView.outputText( '\n\nThe enhanced faerie giggles down at you from over her plus-sized mammaries in between moans.  "<i>Oh, [name], I feel a bit light-headed,</i>" she giggles, drunk with the empowering sensations.  She\'s already three times your height, with the smooth skin of her thighs thickening to either side of you.  You take a step back when the gushing lube winds a small stream by your [feet].  The cracked earth around you is rapidly turning into mud, and you grab onto Vala\'s knee for support.  Shouldra\'s phantasmal voice chuckles, "<i>I hope you know what you\'re getting into, Champ.  Don\'t think I\'m done when she finishes growing!</i>"' );
 		MainView.outputText( '\n\nVala reaches down between her legs and begins to piston a finger inside herself, the digit easily as wide as both your arms combined, yet, in her sloppy, oozing cunt, it\'s barely big enough.  Slowly, her growth diminishes, only fading once she\'s tall enough to make you question if you could even measure her height.  Her voice echoes out with enough force to vibrate through you, "<i>Ha!  I\'d like to see the imps try anything now!</i>"  Of course her words still maintain their girlish pitch, something made more clear when she stoops down to circle surprisingly delicate fingers around your waist before lifting you in front her face.  Her glistening lips, cute nose, and big, pink eyes dominate your view.  What do you ask her to do?' );
 		//[Dom Me] [Lick Me];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Dom Me', this, this.bigValaDomsPC );
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 1, 'Lick Me', this, this.bigValaLicksOffDudes );
@@ -2841,7 +2841,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.VALA_TIMES_CONSENSUAL_SEX ]++;
 		EngineCore.dynStats( 'lib', -1, 'sen', -2 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.valaPartIIWaifuLove );
 	};
 	//[next];

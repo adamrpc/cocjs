@@ -154,4 +154,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.statsView.show.calls.count()).toBe(0);
 		expect(coc.player.HP).toBe( 0 );
 	});
+	it('Should define displayPerks', function() {
+		expect(engineCore.displayPerks).toBeDefined();
+	});
 });

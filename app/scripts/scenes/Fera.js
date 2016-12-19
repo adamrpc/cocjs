@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		MainView.outputText( '\n\nA single, normal-looking bee, is lazily buzzing down onto a flower a few inches away, heedless of your presence. It homes right in on the sweet-smelling divot in the center of the petals, touching down without slowing or stopping to investigate the new arrival. Instead, it crawls deeper into the floral creases, hunting pollen and nectar. The petals snap up and around, slamming together with the speed of a clockwork trap, their edges seamlessly joined together into a single, entrapping sphere, perfectly encapsulating the poor insect. You hear a muffled buzz as the bug vainly attempts to escape, and then nothing. Whatever happened inside, the bee isn\'t struggling anymore.' );
 		MainView.outputText( '\n\nA creeping shiver crawls down your back until you straighten and take in your surroundings once more. This place is too pretty for you to stay down in the dumps for too long, and besides, a particularly intriguing fragrance is tickling your nose. It seems to come from the center of the glade, where the biggest, most vibrant blooms have sprouted. Do you want to explore the center, around some of the huge flowers, or head back to the safety of your camp?' );
 		//[Explore] [Leave];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Explore', this, this.exploreFerasWonderland );
 		EngineCore.addButton( 4, 'Leave', this, this.leaveFerasWonderland );
 	};
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 			return;
 		}
 		MainView.outputText( '\n\nYou bite your lip and search your feelings, gasping in more breaths of the delectable scent as you mull over your options.  Your eyes look down at the ramp-like lower petals, immediately chasing the shifting colors back up to the center, and a whimper escapes your lips.  You briefly recall that you only wanted to find the source of the scent' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.inte >= 40 ) {
 			MainView.outputText( ', and with that accomplished, you could head back to camp.  Now, though, you\'d rather stay; it smells and looks too good to leave this place.  If you focus on your better sense, you could still leave.' );
 			if( CoC.player.hasCock() ) {
@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		MainView.outputText( '\n\nThere isn\'t enough guidance in that question to rouse a response from your supine form, so Fera continues on, smiling all the while.  "<i>Oh, I\'m going to do it, [name].  You\'re going to do this for me.</i>"  She idly slips a finger along the underside of [oneCock] and licks her lips.' );
 		//[next];
 		EngineCore.dynStats( 'lus=', 100 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.dickBoostingFuntimes );
 	};
 	//Get a Boosted Dick!;
@@ -453,7 +453,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 10, 'cor', 5 );
 		CoC.player.createPerk( PerkLib.FerasBoonSeeder, 0, 0, 0, 0 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.postSeederUpgrade );
 	};
 	Fera.prototype.postSeederUpgrade = function() {
@@ -507,7 +507,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		MainView.outputText( '\n\nWith the question asked, she awaits your slow-moving mind\'s answer.  No is not an option you\'re even capable of considering at this point.  Which do you want?' );
 		//[Gape] [Tight] [Dick];
 		EngineCore.dynStats( 'lus=', 100, 'cor', 2 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Gape', this, this.gapeMePleaseFera );
 		EngineCore.addButton( 1, 'Tight', this, this.tightLikeAToigar );
 		if( !CoC.player.hasCock() ) {
@@ -571,7 +571,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 3 );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.gapeByFeraEpilogue );
 	};
 	Fera.prototype.gapeByFeraEpilogue = function() {
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		}
 
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.tightnessEpilogue );
 	};
 	Fera.prototype.tightnessEpilogue = function() {
@@ -673,7 +673,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, OnLoadVari
 		CoC.player.cocks[ 0 ].cockThickness = 2.5;
 		//Add five corruption.;
 		CoC.player.createPerk( PerkLib.FerasBoonSeeder, 0, 0, 0, 0 );
-		EngineCore.menu();
+		MainView.menu();
 		CoC.player.genderCheck();
 		EngineCore.addButton( 0, 'Next', this, this.afterFeraGivesYouACawk );
 	};

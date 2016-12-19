@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'GoblinBroodmother', function( SceneLib, Main
 		MainView.clearOutput();
 		MainView.outputText( 'The goblin broodmother is defeated!  You find a bottle of succubi milk on her.  That stuff is banned in Tel\'Adre - and for good reason, but it might come in handy.  You pocket the foul fluid for now.' );
 		MainView.outputText( '  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Do you?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest, SceneLib.urtaQuest.winFuckAGoblinBroodmotherAsUrta );
 		EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest, SceneLib.urtaQuest.nagaPleaseNagaStoleMyDick );
 	};

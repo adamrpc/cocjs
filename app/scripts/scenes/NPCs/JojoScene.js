@@ -1050,7 +1050,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			MainView.outputText( ' Do you want to watch them fuck?' );
 		}
 
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Demonstrate', this, this.BJRidesGETYOUONE );
 		}
@@ -1221,7 +1221,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		CoC.player.removeStatusAffect( StatusAffects.PureCampJojo );
 		MainView.clearOutput();
 		MainView.outputText( 'You ask Jojo if he\'d like to go on a hunt through the woods to clear out some of the corrupted creatures, and the mouse readily agrees.  He asks if you\'ve been getting a bit stir-crazy from having your camp in one place as the two of you walk into the woods...' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.jojoRape, false );
 	};
 	JojoScene.prototype.defeatedJojo = function( hpVictory ) {
@@ -1242,7 +1242,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		} else {
 			MainView.outputText( 'teach the uppity monk a lesson...\n\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.jojoRape, true );
 	};
 	JojoScene.prototype.jojoRape = function( postCombat ) {
@@ -1857,7 +1857,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		Combat.cleanupAfterCombat();
 	};
 	JojoScene.prototype.corruptJojoSexMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasVagina() ) {
 			EngineCore.addButton( 2, 'Gentle Vaginal', this, this.corruptJojoVaginalGentle );
 			EngineCore.addButton( 7, 'Vag. Smother', this, this.corruptJojoVaginalSmother );
@@ -2212,7 +2212,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		MainView.outputText( 'To your surprise you are greeted with the visage of a rather surprised mouse.\n\n' );
 		MainView.outputText( '“<i>Oh... erm... I’m sorry.  You spooked me,</i>” he says apologetically, rubbing the back of his neck in embarrassment.\n\n' );
 		MainView.outputText( 'Do you accept his apology?\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.acceptJojosApology );
 		EngineCore.addButton( 1, 'No', this, this.refuseJojosApology );
 	};
@@ -2246,7 +2246,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			MainView.outputText( 'barely ' );
 		}
 		MainView.outputText( 'feel any corruption within you, it’s always best to be prepared.  Would you care to join me in meditation?</i>”\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Meditate', this, this.meditateInForest ); // OH GOD NO SEND HELP
 		EngineCore.addButton( 1, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.addButton( 4, 'Rape', this, this.jojoRape );
@@ -2377,7 +2377,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		} else {
 			jojoDefense += 'Off';
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.jojoAppearance );
 		EngineCore.addButton( 1, 'Talk', this, this.talkMenu );
 		if( CoC.flags[ kFLAGS.UNLOCKED_JOJO_TRAINING ] === 1 ) {
@@ -2400,12 +2400,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		MainView.outputText( 'He\'s wearing pale blue monk robes that are form fitting yet loose enough to allow him to move freely if the need arises. He also wears prayer beads, a cloth sash that holds his robe close and baggy pants cover his legs all the way to his mouse-like footpaws; on the back of his pants a small hole is cut to allow his ropy pink tail freedom.\n\n' );
 		MainView.outputText( 'It\'s hard to estimate due to his clothing, but you can tell he is pretty lean and doesn\'t have much in the way of muscle; which makes sense since his martials arts rely more on speed than strength anyways.\n\n' );
 		MainView.outputText( 'His weapons of choice are his fists and a polished wooden staff he wields with practiced hands, right now it is tucked away in his bed roll.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( this, this.jojoCamp );
 	};
 	JojoScene.prototype.talkMenu = function() {
 		this.jojoSprite();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Village', this, this.jojoTalkVillage );
 		EngineCore.addButton( 1, 'Monks', this, this.jojoTalkJoiningTheMonks );
 		EngineCore.addButton( 2, 'MonksFall', this, this.jojoTalkFallOfTheMonks );
@@ -2443,7 +2443,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		} else {
 			MainView.outputText( 'Looks like Jojo’s childhood wasn’t so bad. A little sickly sweet and void of wet pussies and drooling dicks but not bad. You tell him you’re happy to have him near you and he smiles for ear to ear, ignorant of your thoughts.\n\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); // Dunno where exactly to kick back to, fuck it, back to camp yo!
 	};
 	//Joining the Monks convo;
@@ -2457,7 +2457,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		MainView.outputText( '“<i>Whenever she found me she would yell for a bit and then hold me close like she’d just watched me dodge a charging rhinoceros.  Whenever she asked why I did it I just told her the truth, it was too loud and crowded at home.  After a few weeks of this she suggested a compromise.  She said I could leave if I had one of my older brothers walk me to the temple and I stayed there where the clergy could see me and keep me safe and fed.  Honestly I think my dad came up with the idea, he was always good at compromising and keeping the peace.</i>”\n\n' );
 		MainView.outputText( '“<i>The temple became very important to me.  I read about the world, I spoke to the clergy and I sat and thought.  I was enraptured with learning but I didn’t want to be a priest, I don’t know why... I guess it just didn’t appeal to me.  When I first saw the monks visiting the temple, it was like dawn breaking.  After that I waited until I was old enough to join and made the short pilgrimage to the Monastery of the Celestial Lotus.</i>”\n\n' );
 		MainView.outputText( 'Jojo wears this quiet little smile as he finishes.  Then he chuckles and says, “<i>Thank you for the memories, [name].  I enjoy our talks.</i>”\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Fall of the Monks convo;
@@ -2472,7 +2472,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		MainView.outputText( '“<i>Never again....</i>”\n\n' );
 		MainView.outputText( 'You try to comfort Jojo, telling him he couldn’t have made a difference being but a single mouse, but he waves you off.  He tells you he is fine and thanks you for your concern.\n\n' );
 		MainView.outputText( 'You can tell the story has affected him, but you’re surprised to hear the resolve in his voice and see the defiant strength in his eyes. Excusing yourself, you rise and leave him to do as he will.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Forest Convo;
@@ -2506,7 +2506,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		MainView.outputText( '“<i>Then, I burned the monastery to the ground and set fire to all the fields...  Since that day, I have eked out a meager existence in the wilderness; I study the texts I can, train my body as best I can, and seek to fortify my soul against demonic blandishments.  Though I have technically progressed far along my path, with no master and only a pale echo of a fraction of my order’s texts at my disposal, I may never be a true master in my own right.</i>”\n\n' );
 		MainView.outputText( 'He gives you an appraising look before looking away, “<i>Until I met you, [name], my only purpose had been to find the demons who destroyed my order and make them pay for the lives they took.  That is why I was in the forest, I was in the middle of a harsh training regimen to increase my power and skill so that I may seek out those evil brutes who took everything I loved away from me... but vengeance is not the way of the Celestial Lotus.  The Celestial doesn’t train bullies or assassins.  Finding you and aiding in your quest to protect your village from these demonic creatures of perversion gave me new purpose and would make my departed brothers and sisters proud.  I can’t honestly say I’ve given up on having my vengeance but... I will aid you in your quest first if for nothing more than to honor our friendship and honor the memory of the order and its teachings.</i>\n\n' );
 		MainView.outputText( 'Looking renewed and at peace despite the emotional storm you know must be raging within his tiny frame Jojo returns to what he was doing after thanking you for giving him new purpose.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Yourself;
@@ -2547,7 +2547,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			MainView.outputText( 'Somehow, you don’t seem to have a defined history perk... <b>Please report a bug!</b>\n\n' );
 		}
 		MainView.outputText( 'Jojo smiles now that he has gotten to know you a little better. After a little bit more small talk, the two of you decide the conversation is over and part ways.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dungeon Convo: Factory;
@@ -2566,7 +2566,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			MainView.outputText( 'Jojo’s chest swells with pride as he looks at you with new eyes before saying, “<i>Wow [name], I don’t know what to say.  I know it uprooted your life and took you away from the ones you love but I sincerely believe that the day you came through that portal was a good day for all of Mareth.  I am proud of you and humbled by the fact that I can call you my friend.</i>”  He rises and gives you a hug of fierce devotion and friendly affection before pulling away and saying, “<i>We’ll have to watch the factory though... the demons can’t be allowed to reopen that evil place.</i>”\n\n' );
 		}
 		MainView.outputText( 'Once the two of you are done discussing the demonic factory Jojo excuses himself to think on what you’ve told him.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dungeon Convo: Sand Cave;
@@ -2640,7 +2640,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			}
 		}
 		MainView.outputText( 'Having concluded the conversation the two of you stand and Jojo gives you an appreciative pat on the shoulder, seeming more fond of you.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Training;
@@ -2656,13 +2656,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			if( CoC.player.cor >= 25 ) {
 				MainView.outputText( 'Jojo frowns, “<i>I am willing to teach you [name], when I can.  However I am no master, therefore I am unworthy of taking a disciple.  But as your friend, I will teach you what I know so that you may protect yourself.  I believe our time would be better spent meditating.  There is very little you can do with these techniques without first finding your center.</i>”\n\n' );
 				// Kick back to previous menu;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.doNext( this, this.jojoCamp );
 				return;
 			} else {
 				MainView.outputText( 'Jojo smiles, “<i>I am not a master, therefore I am unworthy of taking you on as a disciple... but as a friend I can teach you all I know.  Whenever you are ready, just ask.</i>.”\n\n' );
 				// Sounds like this should kick back to menu;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.doNext( this, this.jojoCamp );
 				return;
 			}
@@ -2672,14 +2672,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			if( CoC.player.fatigue >= 40 ) {
 				MainView.outputText( 'You ask the monk to continue your training; but he shakes his head.\n\n' );
 				MainView.outputText( '“<i>Not yet [name]. Your body must be fit and rested before our training sessions. Rest first, and come back to me later.</i>”\n\n' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.doNext( this, this.jojoCamp );
 				return;
 			}
 			if( CoC.player.cor >= 25 ) {
 				MainView.outputText( 'You ask the monk to continue your training; but he shakes his head.\n\n' );
 				MainView.outputText( '“<i>I fear that your time would be better spend meditating before we continue your training. Would you like to do so now?</i>”\n\n' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.doYesNo( this, this.meditateInForest, this, this.jojoCamp );
 				return;
 			}
@@ -2770,7 +2770,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			}
 			MainView.outputText( enlightenedBlurbs[ Utils.rand( enlightenedBlurbs.length ) ] + '\n\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	JojoScene.prototype.wormRemoval = function() {

@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 					MainView.outputText( '.' );
 					MainView.outputText( '\n\nYou can barely see it from your vantage point, but you can imagine it semi-transparent pre-cum dribbling from the minotaur\'s cumslit, oozing down onto your tongue.  Your entire body shivers at the thought, whether from disgust or desire you aren\'t sure.  You imagine your lips wrapping around that large equine cock, milking it for all of its delicious cum.  Your body burns hot like the noonday sun at the thought, hot with need, with envy at the cow-girl, but most of all with arousal.' );
 					MainView.outputText( '\n\nSnapping out of your imaginative reverie, you turn your attention back to the show. You wonder if you could make your way over there and join them, or if you should simply remain here and watch, as you have in the past.' );
-					EngineCore.menu();
+					MainView.menu();
 					//[Join] [Watch]
 					EngineCore.addButton( 0, 'Join', this, this.joinBeingAMinoCumSlut );
 					EngineCore.addButton( 1, 'Watch', this, this.watchAMinoCumSlut );
@@ -434,7 +434,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		MainView.outputText( '\n\nThe pair quickly settles into a rhythm, punctuated with numerous grunts, groans, and moans of sexual excess.  To you it\'s almost a violent assault sure to leave both of them bruised and sore, but the cow-girl\'s lolling tongue and expression of overwhelming desire tells you otherwise.  She\'s enjoying every thrust as well as the strokes, gropes, and seemingly painful squeezes the minotaur\'s powerful hands deliver to her jiggling ass and ponderous tits.  He\'s little better, his eyes glazed over with lust as he continues banging the fuck-hole he found and all but mauling its owner.' );
 		//[Next]
 		EngineCore.dynStats( 'lus', 10 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.watchMinoCumSlutII );
 	};
 	Mountain.prototype.watchMinoCumSlutII = function() {

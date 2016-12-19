@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( 'The woman from earlier bends low over you, smiling bemusedly.  Before your eyes, her face, body, and clothing all begin to shift form.  Clad in a set of loose, revealing robes, she brushes her ' + CoC.monster.hairColor + ' hair out of her face, reaching up to straighten out her large triangular fox ears.  Six lustrous, bushy tails sway from side to side behind her, drawing your gaze hypnotically, and a generous layer of ornate tattoos follow the curves of her body.\n\n' );
 		MainView.outputText( '"<i>My, my, you\'re kind of a pushover, aren\'t you?</i>"  she remarks, grinning precociously.  "<i>Well, hopefully you make for a better snack than you do a bodyguard.</i>"' );
 		// -> Go to standard kitsune loss scenes
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.loseToKitsunes );
 	};
 	//Win:
@@ -1054,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 				MainView.outputText( 'The kitsune falls to the ground, one hand buried in her robes as she plays with herself shamelessly, too turned on to continue fighting.' + ((CoC.monster.hairColor === 'red' && CoC.flags[ kFLAGS.redheadIsFuta ] === 0) ? '  The moment her rounded rump impacts the dirt, a swirling flame crackles to life between her legs, engulfing her exposed cock.  When it dies away, all that remains of her throbbing member is a pert cherry-colored bud between her dripping lips.' : '') + '\n\n' + ((CoC.player.lust >= 33) ? '<b>As you watch her lewd display, you realize your own lusts have not been sated yet. What will you do to her?</b>' : '') );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		var button = 0;
 		//Shared Scenes
 		//[Vaginal] - requires cock
@@ -1923,7 +1923,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		}
 		CoC.flags[ kFLAGS.KITSUNE_SHRINE_VISIT ]++;
 		//[Read Books] [Meditate] [Steal Statue] - [Leave]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Read Books', this, this.readKitsuneBooks );
 		if( CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			EngineCore.addButton( 1, 'Meditate', this, this.meditateLikeAKitsuneEhQuestionMark );
@@ -1989,7 +1989,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 	//[Steal Statue]
 	KitsuneScene.prototype.stealAStatue = function() {
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			MainView.outputText( 'Feeling the chance is just too great to pass up, you rub your hands together greedily and snatch the gold statue from the shrine.  As you stuff it into your pouch, you are overwhelmed with the sensation that what you are doing is very wrong.  You are starting to have second thoughts...' );
 			//[Take It] [Put it Back]

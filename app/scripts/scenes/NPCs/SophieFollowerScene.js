@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.clearOutput();
 		MainView.outputText( 'Taking the potent mixture out of your pouch, you consider giving it to the bimbo harpy fluttering about in front of you.  She\'d probably be pretty mad about the whole affair, but if you want to repair the damage you\'ve inflicted, this is probably your best bet.  Do you un-bimbo Sophie?' );
 		//[Yes] [No]☼;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.yesDebimboSophie );
 		EngineCore.addButton( 1, 'No', this, this.noDontDebimbo );
 	};
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.clearOutput();
 		MainView.outputText( 'You shrug and put the potion back in your pack.  Maybe later...  A mad Sophie isn\'t something you particularly want to deal with right now.' );
 		//(Return to Sophie menu.  You monster);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.sophieBimbo, SceneLib.sophieBimbo.approachBimboSophieInCamp );
 	};
 	//Yes (God dammit what the fuck did I just say)*;
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			CoC.flags[ kFLAGS.SOPHIES_DAUGHTERS_DEBIMBOED ] = 1;
 		}
 		//[Beat her] {if Int > 30: [Apologize] [Why I Did It]} [Let Her Go] [Bimbo again!(if PC has Bimbo Liqueur)];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Beat Her', this, this.beatSophieAroundYouMonster );
 		if( CoC.player.inte > 30 ) {
 			EngineCore.addButton( 1, 'Apologize', this, this.apologizeToDebimboSophie );
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.outputText( 'Sophie stumbles back, unable to withstand your furious assault.  You grab the harpy before she collapses, asking if she\'s ready to fucking listen now.  Defiantly, she looks away from you, though otherwise too weakened to resist you.' );
 		//[Apologize] [Why I Did It] [Let Her Go] [Bimbo again!(if PC has Bimbo Liqueur)];
 		//{No INT gate now!};
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Apologize', this, this.apologizeToDebimboSophie );
 		EngineCore.addButton( 2, 'WhyIDidIt', this, this.whyIDidItToDebimboSophie );
 		EngineCore.addButton( 3, 'Let Her Go', this, this.letDebimboSophieGo );
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.outputText( 'You fall backwards, right onto your [butt], unable to resist the harpy\'s attacks.  She looms over you, glowering, her face flushed red with intense loathing.  "<i>What the fuck is WRONG with you!?  How... WHY would you do something like THIS - to a poor old woman?  You... you turned me into a freak!  I-I\'m an abomination!</i>"' );
 		MainView.outputText( '\n\nSophie buries her face in her hands and starts to cry, tears soon streaming around her fingers, staining her platinum blonde feathers.' );
 		//[Apologize] [Why I Did It] [Let Her Go];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Apologize', this, this.apologizeToDebimboSophie );
 		EngineCore.addButton( 2, 'WhyIDidIt', this, this.whyIDidItToDebimboSophie );
 		EngineCore.addButton( 3, 'Let Her Go', this, this.letDebimboSophieGo );
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			//[Vaginal][Special];
 			//[Vaginal] → Leads to the "fertile" variation of vaginal smex!;
 			//[Special];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Appearance', this, this.sophieAppearance );
 			if( CoC.player.hasCock() ) {
 				if( CoC.player.cockThatFits( SceneLib.sophieBimbo.sophieCapacity() ) >= 0 ) {
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			MainView.outputText( '\n\n“<i>Need something from Momma Sophie?</i>” she coos.' );
 		}
 		//BimboBody Sophie Follower, Options*;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.sophieAppearance );
 		if( CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 1, 'Sex', this, this.sexWithFollowerSophie );
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 	//[Sex];
 	SophieFollowerScene.prototype.sexWithFollowerSophie = function() {
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		MainView.outputText( '"<i>Oh, really? I was kind of hoping you\'d want a taste of me soon.</i>"  Sophie somewhat perks up at the mention of having sex with you.  "<i>So, what\'d you like? The usual, or should Momma do something special for you this time around?</i>"  She licks her lips at the suggestion.' );
 		//[Usual] [Nurse] [YouMove] [IMove] [Titfuck] [GetDMilked] [Extra1] [....];
 		if( CoC.player.hasCock() ) {
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 				}
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 4, 'Back', this, this.followerSophieMainScreen );
 	};
 
@@ -489,7 +489,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			MainView.outputText( '</i>"' );
 			CoC.flags[ kFLAGS.SLEEP_WITH ] = '';
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 4, 'Back', this, this.followerSophieMainScreen );
 	};
 
@@ -592,7 +592,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		if( SceneLib.sophieBimbo.sophieIsInSeason() ) {
 			SceneLib.sophieBimbo.sophiePregChance();
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.sophieVagFollowerFollowup );
 	};
 	//[Next];
@@ -643,7 +643,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		}
 		MainView.outputText( '</i>" she coos, "<i>but that doesn\'t mean I\'ll wrap these beautiful lips around you for nothing.  How about you let me use that cute face of yours to grind my pussy on, and I\'ll return the favor?</i>"  She blows you a kiss that culminates in her running her tongue over her swollen lips in a slow, wet circle.' );
 		//[Force Her] [Sixtynine];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Force Her', this, this.forceSophieBlowjob );
 		EngineCore.addButton( 1, 'Sixtynine', this, this.sophieBlowsSixtyNine );
 	};
@@ -814,7 +814,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 	SophieFollowerScene.prototype.sophieSixtyNine = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Sophie cocks an eyebrow and asks, "<i>A little sapphic delight for the horny champion?</i>"  She snorts and rolls her eyes, "<i>No thanks.  I\'m not really that into girls.</i>"  It doesn\'t seem like she\'s up for it.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.sleepWithSophieToggle );
 	};
 	//Sophie Teases Small Dicks In The Morning*;
@@ -1060,7 +1060,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		EngineCore.dynStats( 'lus', 10 );
 		//Plus lust!;
 		//[Kiss Her][Get Out];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'KissSophie', this, this.kissSophieRecruitment );
 		EngineCore.addButton( 1, 'Get Out', this, this.getOutSophieRecruitment );
 	};
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.outputText( '\n\n"<i>You\'ve got a cute set up here, sweetheart.  I don\'t mind moving away from all those harpies, if there was the possibility that I could stay here with you.</i>"' );
 		EngineCore.dynStats( 'lus', 20 );
 		//[Sure][No] – Note: [No] leads to the [Get Out] scene.;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Sure', this, this.sophieRecruitmentFinale );
 		EngineCore.addButton( 1, 'No', this, this.getOutSophieRecruitment );
 	};
@@ -1202,7 +1202,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 			}
 			MainView.outputText( ' she coos into your ear, temping you even more with the taboo of her incestuous flesh.  With such a demanding offer of pleasure, your daughter so open and ready to receive your pleasure, how could you say no to such a lovely girl?' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.phaseTwoOfIncest, daughterCap );
 	};
 	SophieFollowerScene.prototype.phaseTwoOfIncest = function( daughter ) {

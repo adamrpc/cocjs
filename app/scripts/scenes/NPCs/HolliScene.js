@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			MainView.outputText( 'The demon tree is still here, and the face peeking from it still stares daggers at you even from a distance.  It looks like forgiveness won\'t be forthcoming.' );
 			//[Fight][Call Jojo(req Small Talisman)][Retreat];
 			//Call Jojo goes to above scene, others go to fight or camp directly;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Fight', this, this.fightHolli );
 			if( CoC.player.hasKeyItem( 'Jojo\'s Talisman' ) >= 0 ) {
 				EngineCore.addButton( 1, 'Call Jojo', this, this.callDatJojo );
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 				EngineCore.choices( 'Fuck Holli', this, fuck, 'Drink Sap', this, this.haveAMapleSyrupSnack, 'Ride Tentacles', this, ride, guardT, this, burnIt, 'Eat A Fruit', this, eat,
 					'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
 			} else {
-				EngineCore.menu();
+				MainView.menu();
 				if( CoC.player.hasCock() && CoC.player.lust >= 33 ) {
 					EngineCore.addButton( 0, 'Fuck Holli', this, this.holliGetsDickDommed );
 				}
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			this.treeMenu( false );
 		} else {
 			MainView.outputText( '\n\n“<i>I can help you with it,</i>” she says eventually. “<i>But nourishing such dullness will take effort. I can give your produce a boost, but only once, and it won’t last forever. Would you like that?</i>”' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Yes', this, this.doFarmFuckery );
 			EngineCore.addButton( 1, 'No', this, this.noPlzDontFuckWithFarm );
 		}
@@ -943,7 +943,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			}
 			//choosing not to beg unlocks Threaten?;
 			//[Beg][Threaten][Back];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Beg', this, this.begHolli4Watches );
 			if( CoC.flags[ kFLAGS.THREATENED_HOLLI ] === 0 ) {
 				EngineCore.addButton( 1, 'Threaten', this, this.threatenHolli );
@@ -1017,7 +1017,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 		MainView.outputText( '.</i>"' );
 		//[Guard] [Don't Guard] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 1 ) {
 			EngineCore.addButton( 1, 'Don\'t Guard', this, this.toggleBrokenHolliGuard );
 		} else {
@@ -1039,7 +1039,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			MainView.outputText( '\n\nA warning look shuts her right up.  Now if you could just get her to think before she opens her trap.' );
 			CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] = 0;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.treeMenu );
 	};
 	//Dom Her With a Dick;
@@ -1241,7 +1241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		MainView.outputText( '\n\n"<i>What do you want, meat?  Come to play?</i>"' );
 		//[Cut Her Down][Call Jojo(requires talisman)][Ignore Her];
 		//ignore returns to previous menu and is default spacebar option;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'CutHerDown', this, this.cutHerDown );
 		if( CoC.player.hasKeyItem( 'Jojo\'s Talisman' ) >= 0 ) {
 			EngineCore.addButton( 1, 'Call Jojo', this, this.callDatJojo );
@@ -1306,7 +1306,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			if( !SceneLib.vapula.vapulaSlave() ) {
 				MainView.outputText( '\n\nThe monk nods to you.  With the demon gone, you could probably invite him to remain in camp - after all, you are quite a good team.  Do you offer to let Jojo stay?' );
 				//[yes][no];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Yes', this, this.recruitJojoToCamp );
 				EngineCore.addButton( 1, 'No', this, this.dontRecruitJojoToCamp );
 				return;
@@ -1374,7 +1374,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			//--Next--;
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 5, 'sen', 20 );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.holliPlaysWithPenisesBadEnd );
 		}
 		//branch of vagina-having;
@@ -1431,7 +1431,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			//--Next--;
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 5, 'sen', 20 );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.girlsGetANiceManToBadEnd );
 		} else {
 			//branch of nothing-having;
@@ -1490,7 +1490,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			MainView.outputText( '\n\n"<i>Lovely,</i>" Holli admires.  "<i>You\'ll make for a fine ambiance.</i>"  The demon sticks one finger into your still-drooling asshole, stroking the inside of the ring and fanning the flame of your magic-driven lust.  "<i>I may even consent to use you for release occasionally... if I can\'t find someone more interesting to have a tryst with!</i>"  With a cruel laugh, she pulls out of you and retreats into her tree, leaving you staring at her bark, smouldering with desire and helpless to indulge it.' );
 			//--Next--;
 			EngineCore.dynStats( 'lus=', 10000 );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.holliAndGenderlessSittingInATree );
 		}
 	};

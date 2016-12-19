@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 			MainView.outputText( '\n\nYou turn Urta around and see in her eyes a desire nearly as big as in yours.  You practically throw yourself at her, pushing her against the wall, mauling her big breasts, assaulting her lips and rubbing your thighs against her big, erect horse-dong, not really sure yet how the hell you\'ll satisfy all your body\'s desires at once.  Urta growls with desire, ripping her dress open and the two of you quickly toss your [armor] all over the place.' );
 			MainView.outputText( '\n\nUrta looks like she\'s about to say something, but then she stops, confusion pushing aside horniness, if only for the moment.  "<i>I... What are you going to use?  Your cock?  Your pussy?</i>" she asks, panting with eagerness to begin.' );
 			//[Cock] [Pussy]);
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Cock', this, this.sateRutWithSoberUrta );
 			} else {
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 				MainView.outputText( ' and your pussy dripping and eager' );
 			}
 			MainView.outputText( '.' );
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Next', this, this.sateRutWithSoberUrta );
 			} else {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 			MainView.outputText( '\n\nYou firmly grab Urta\'s breast and her cock through her clothes, pushing yourself against her and kissing the fox-morph hungrily.  You ask her to take you here and now, saying you can\'t wait anymore.' );
 			MainView.outputText( '\n\n"<i>All right... I know what it\'s like to have troubles controlling yourself. If you really want me to...</i>"' );
 			MainView.outputText( '\n\nYou dispose of your [armor], your [vagina] already wet and eager for her.  You pull the vixen into an embrace under the wall of the alley, and she starts to align her huge, pre-cum dripping cock with your opening.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.soberUrtaSatingPCHeat );
 		}
 	};
@@ -155,7 +155,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 		MainView.outputText( '\n\n"<i>My, my. You do realize what you smell like, don\'t you?  Did you think I wouldn\'t notice?  Or are you here precisely because you wanted me to notice?</i>"' );
 		MainView.outputText( '\n\nSomehow, the hermaphrodite seems a bit more clingy and flirty than usual, and less subtle about her relationship with you.  As you take in a deeper breath, you realize why - she does reek of one of her favorite drinks... Do you take interest, or decide it may be better to visit when she\'s her usual and a bit more sober self?' );
 		//[Interested] [Not interested];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'NotInterested', this, this.notInterestedInUburDrunkUrtaRuts );
 		EngineCore.addButton( 0, 'Interested', this, this.interestedInUburDrunkurtaRuts );
 	};
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 
 		EngineCore.dynStats( 'lust+', 5 + CoC.player.lib / 20, 'resist', false );
 		//to Tel'Adre bar menu;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	//[=Interested=];
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 			MainView.outputText( '.  "<i>Fuuuck, but you smell so goood... Goddess, I don\'t know which part of you I want more!  Gimme some of that, sexy... please!</i>" she begs you desperately.' );
 			MainView.outputText( '\n\nDo you present her with your cock?  Your pussy?  Or do you just stand here and watch as she jacks herself off in the middle of the bar?' );
 			//[Cock] [Pussy] [Watch];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Cock', this, this.drunkUrtaIntroPartDuex, 1 );
 			EngineCore.addButton( 1, 'Vagina', this, this.drunkUrtaIntroPartDuex, 2 );
 			EngineCore.addButton( 2, 'Watch', this, this.watchDrunkRuturtaJerkoff );
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 			MainView.outputText( '\n\n"<i>I think you\'ll find that I\'m more than stud enough for your greedy little twat...</i>" she growls with lust, one hand stroking your [vagina], before she awkwardly hops up onto the table between your legs.' );
 		}
 
-		EngineCore.menu();
+		MainView.menu();
 		if( chosenSex === 1 ) {
 			if( CoC.player.cockThatFits( SceneLib.urta.urtaCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'Next', this, this.drunkUrtaRidesARutPCsCock );
@@ -317,7 +317,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 		MainView.outputText( '\n\nAs you slowly, languidly start to posture yourself for Urta\'s private delight, holding your clothes so they outline the hidden delights of your [chest], ' + Descriptors.multiCockDescriptLight() + ' and [vagina], bending over to let her stare longingly at your [butt], the fox-herm whimpers and moans.  By this point, her cock is standing practically straight up, and she releases it with one hand.  This now-freed hand slips between her legs to tend to her neglected slit, the fingers dancing artfully with audible squelches as they probe and fiddle.  Her other hand maneuvers her cock so that it lies squarely between her ample, soft breasts, clumseily trying to alternate between stroking her cock, fiddling with her black nipples, and mashing her tits together to give herself a tit fuck.  She awkwardly thrusts and humps into her own cleavage, pre-cum pouring down her front, bending down to lap at the flared head of her mare-dick.' );
 		MainView.outputText( '\n\nYou take a glance away from Urta and realize that the combination of your pheremones, her little show and your own efforts at teasing her have got the other customers very excited indeed.  Pairs and even trios are starting to make out all over, singletons are beginning to fiddle with themselves, and there\'s a couple of very interested-looking herms, all playing with their cocks, that are giving lustful looks your way and heading towards you with an inept attempt at stealth.  Things could get pretty wild if you keep teasing Urta; maybe you should knock it off?' );
 		//[Stop Teasing] [Keep Teasing];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'StopTeasing', this, this.stopTeasingDatHornyFox );
 		EngineCore.addButton( 0, 'KeepTeasing', this, this.keepTeasingDatHornyFawkes );
 		//PCs with corruption 50+ will automatically choose Keep Teasing;

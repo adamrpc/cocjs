@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 			MainView.outputText( '\n\nShe stands up to show off her “adorable” features. The cupcake hat didn’t make you see her as someone who was interested, or even knew, about sex but now that she’s giving you a display of her “sweets” you can see past the ridiculous thing now. She wears short-heeled sandals that lend a little swag to her step, her legs are long and elegant like a ballerina’s. She does a little twirl and you get a quick glance at her gum pink bubble butt. Your gaze wanders up across her toned stomach and stops at her breasts; they look like two pink melons hanging comfortably in a hammock.' );
 			MainView.outputText( '\n\n“<i>Do we have a deal?</i>” She waves a hand next to her breast to bring your attention back to her face.' );
 			//[Yes] [No];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Yes', this, this.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously );
 			EngineCore.addButton( 1, 'No', this, this.noContractForMeSloot );
 		} else {
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 		}
 	};
 	Frosty.prototype.frostyMainMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.gems >= 15 ) {
 			EngineCore.addButton( 0, 'x1', this, this.cupcakeBuy, 1 );
 		}
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 	Frosty.prototype.frostySpecialsMenu = function( free ) {
 		//1. Hand – 5. points;
 		//2. Mouth-15. Points;
-		EngineCore.menu();
+		MainView.menu();
 		if( !free && CoC.flags[ kFLAGS.FROSTY_POINTS ] < 5 ) {
 			MainView.outputText( '\n\nYou don\'t have enough points for any services.' );
 		} else if( !free && CoC.flags[ kFLAGS.FROSTY_POINTS ] < 15 ) {
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 			CoC.player.gems -= 200;
 		}
 		this.frostyPoints( arg );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.approachFrosty );
 	};
 	//[Yes];
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 		MainView.outputText( '\n\n“<i>I forgot to mention, customers who join the </i>beta<i> got one free sample of my services but the offer is only good right after you join... so right now.</i>”' );
 		MainView.outputText( '\n\nDo you accept?' );
 		//[Yes] [No];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.yesIWantYourFreeSampleYouFuckingDiseasedCupcakeSlut );
 		EngineCore.addButton( 1, 'No', this, this.noIDontWantAFreebieDiseaseYouSlut );
 	};
@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 	Frosty.prototype.noIDontWantAFreebieDiseaseYouSlut = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'You’re too busy right now, so you deny the free service. “<i>Okeydokey, see you around, [name]!</i>” Frosty does a twirl on one foot and runs back to her stand. Such a nice girl.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[No](for the contract);
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 		MainView.outputText( 'Something about signing a contract doesn’t seem right to you, especially one for cupcakes. You shake your head no; she looks a bit sad about being rejected but quickly perks back up.' );
 		MainView.outputText( '\n\n“<i>Well, you can still buy my tasty cupcakes. You just won’t get any perks for buying them, but eating them is a benefit in its own way. Join the BETA if you change your mind on the whole thing.</i>”' );
 		MainView.outputText( '\n\nYou nod at her suggestion and make your way back to the main street.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//[Choosing Buttons 1-4];
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Co
 		//[Yes [No];
 		//[Yes] ;
 		//[Go to the “Yes” section when offered the contract the first time.];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.yesFrostyLetsHaveSexForCupcakesWhoThoughtThisWasAGoodIdeaIMeanSeriously );
 		EngineCore.addButton( 1, 'No', this, this.noIDontWantToSignYourFuckingContractGoddamned );
 	};

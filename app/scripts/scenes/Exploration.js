@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 			this.explorePageII();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Explore', this, this.tryDiscover );
 		if( CoC.player.exploredDesert > 0 ) {
 			EngineCore.addButton( 1, 'Desert', SceneLib.desert, SceneLib.desert.exploreDesert );
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 	};
 	Exploration.prototype.explorePageII = function() {
 		CoC.flags[ kFLAGS.EXPLORATION_PAGE ] = 2;
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.DISCOVERED_HIGH_MOUNTAIN ] > 0 ) {
 			EngineCore.addButton( 0, 'High Mountain', SceneLib.highMountains, SceneLib.highMountains.exploreHighMountain );
 		}

@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '\n\nBetween Minerva\'s lightly toned legs rests all of her sexual organs; a normal vagina, and an unusually thick, sixteen-inch long anemone-like penis.  The glans of that blue and pink shaft is ringed by small aphrodisiac-filled tentacles, while the base is surrounded by long tentacles as thick as fingers.  Nestled against her soft thighs is a scrotum with apple-sized balls.  She has a tight asshole, placed between her shapely buttcheeks, where it belongs.' );
 		MainView.outputText( '\n\nMinerva has large demonic feet, each toe double-jointed and tipped with a large, black talon.  Similar to her feet, her tongue also has a demonic quality, being two foot long and fully prehensile.' );
 		MainView.outputText( '\n\nA white tube top and a pair of short shorts are all the siren wears for clothing.' );
-		EngineCore.menu();
+		MainView.menu();
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
 		EngineCore.addButton( 1, 'Talk', this, this.minervaTalkSelect );
 		if( CoC.player.lust >= 33 ) {
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '.  Trudging on, you make your way up and up the mountain, passing the occasional harpy nest as you climb and traverse along the mountain paths.  Just when it looks like you\'re going to hit the clouds, you catch sight of a trail that you had never really noticed before.' );
 		//Choice
 		//[Ignore Path] [Take Path]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Take Path', this, this.takeMinervasPath );
 		EngineCore.addButton( 2, 'Ignore Path', this, this.ignoreMinervasPath );
 	};
@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '\n\nLooking at her curiously, you admit that you had a different name in mind for what she is, you would perhaps have called her a \'sharpy,\' since she is part shark and part harpy, though her choice has a pleasant ring to it.  Hearing your name for her actually seems to amuse her.  "<i>Ah, an apt name for sure, but I like to call myself a siren.  It\'s something from my homeland, you see.  Where I\'m from, it was a name for these mythical half-fish, half-bird girls that would lure men into traps with their songs.  And since I\'m... well, this,</i>" she states while gesturing to herself, "<i>I thought I would use that name for what I am now.  And not because I like to sing, though I do... It\'s just... I\'m part girl, part bird, part fish and part... never mind... just call me a siren... I guess you can come inside if you want.</i>"  Minerva turns around and heads toward her tower.' );
 		CoC.flags[ kFLAGS.MET_MINERVA ] = 1;
 		//[Follow] [Leave]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Follow', this, this.followMinerva );
 		EngineCore.addButton( 1, 'Don\'tFollow', this, this.leaveMinervasFirstEncounter );
 	};
@@ -179,7 +179,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.spriteSelect( 95 );
 		MainView.outputText( 'Deciding that you want to know more about Minerva, you follow her into the tower.  "<i>So, now that you\'re inside, would you like to talk?  Or perhaps to partake in some of the peaches that grow on my trees?</i>" she asks, looking at you with interest.' );
 		//[Talk] [Drink] [Eat] [Leave]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 9, 'Leave', this, this.leaveMinervasFirstEncounter );
 		EngineCore.addButton( 1, 'Talk', this, this.minervaTalkSelect );
 		EngineCore.addButton( 3, 'Eat', this, this.eatSomethingYouCunt );
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			MainView.outputText( '  "<i>Mmm... my lover has come to see me!  Oh, how I have missed you, my sweet!  Won\'t you join me for a bath?  Or... is there anything else I can do for you?</i>"' );
 		}
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this, this.minervaTalkSelect );
 		if( CoC.player.lust >= 33 ) {
@@ -234,7 +234,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			MainView.outputText( '  "<i>Darling!  Coming to visit me all the way out here!  How sweet of you!</i>"' );
 		}
 		MainView.outputText( '  Minerva says as she strides toward you, her generous hips swaying back and forth, as if to entice you into her arms.' );
-		EngineCore.menu();
+		MainView.menu();
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
 		EngineCore.addButton( 0, 'Appearance', this, this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this, this.minervaTalkSelect );
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			MainView.outputText( '\n\nYou\'re about to turn around and head off when you\'re suddenly grabbed and lifted into the air.' );
 			MainView.outputText( '  Looking up, you see the grinning face of Minerva, clearly playing with you.  "<i>Well, hello there, [name]!  I was wondering when you would come and visit me.  I can be away from the oasis for a little while, so... want to go for a flight, or are you scared of heights?</i>"  she asks playfully.' );
 			//[Flight] [Land]
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Flight', this, this.goForASkyRideWithMinervaHeartBaring );
 			EngineCore.addButton( 1, 'Land', this, this.dontFlyWithWithMeYouCrazyBitch );
 		} else {
@@ -265,7 +265,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			MainView.outputText( '\n\nMuch to your surprise, Minerva actually manages to get you a few feet off the ground, and though she has to use both hands and feet to do it, the champ is actually lifting you off the ground.  "<i>Ooh... I don\'t think this is going to wooorrrk,</i>"  she manages to groan, the strain of keeping you in the air taking its toll.  Landing with a soft thud, Minerva wipes the sweat from her brow, her efforts visible on her reddened face as she pants and heaves for air.  "<i>Okay... I was going to take you flying, but I have another idea since </i>someone<i> is too heavy to be flown,</i>" she jeers playfully, and with her usual sharky grin.' );
 			MainView.outputText( '\n\nTaking your hand gently in hers, the siren leads you around the tower, giving you a peaceful walk around her home, showing you around and spending some quality time with you.  As you look around the tower, you notice that it seems to have been fixed up a little, and the place has been cleaned up since you started visiting Minerva.  Perhaps you have had some effect on her?  Looking at the siren in question, you can\'t help but notice the nervous look she has, as if she wants to say something but is holding it inside.  Eventually, your tour of the tower takes you to its centerpiece, the pure spring that dominates the tower interior.  Leading you to the shore, the siren sits with you by the water.' );
 			// Lead to Minerva opening her heart.
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.minervaOpensHerHeartAndDisplaysHerVentricals );
 		}
 	};
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		}
 		MainView.outputText( '.  You almost think that this is going to be the end of you, only for Minerva to roll you both around in the air and spread her wings, slowing down the rapid descent.  The pair of you rocket in through the crumbling entrance of the tower and crash into the steaming spring, the cleansing waters spraying out from the impact, splashing across the surrounding plants and slowly running back toward the spring.  As you and Minerva come up for air, the tall shark-harpy pulls you back into her arms and holds you close to her chest.  "<i>This was so much fun!  It means a lot to me, you know, that you actually want to help get this thing out of me and put an end to its vile presence,</i>"  the redheaded siren says warmly,  hugging you close as you sit together in the water.' );
 		//Lead to Opening her heart.
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.minervaOpensHerHeartAndDisplaysHerVentricals );
 	};
 	//Opening her heart
@@ -309,7 +309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '\n\nYou chuckle at her reaction before apologizing and asking the siren to continue.  Minerva sighs, reaching up and stroking your cheek before leaning in and planting a soft kiss on your lips.  "<i>What I\'m trying to say here is... you managed to win over the heart of a lonely siren. I\'ve fallen for you and your dashing charms... there is no other way to say it than... I love you.  I know it\'s a bother to come here to see me, but I will have you, if you will have me,</i>" Minerva admits, looking you straight in the eyes as she waits for your answer.' );
 		//Choice
 		//[Kiss] [Reject]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Kiss Her', this, this.yeahSureMinervaILikeYouAndShit );
 		EngineCore.addButton( 1, 'Reject', this, this.rejectMinervasLove );
 	};
@@ -320,7 +320,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( 'You already know your answer.  Smiling, you lean in and kiss the siren\'s glossy black lips, an act which prolongs the blush on her face, though it doesn\'t take long for Minerva to recover.  She pushes you off of her and tackles you into the pool.  Sitting on top of you, the redhead smirks down at you before grabbing onto your shoulder and forcing you into a welcome kiss, her long, demonic tongue quickly snaking into your mouth to deepen the passionate smooch.' );
 		MainView.outputText( '\n\nYou can\'t help but return her grasp when Minerva starts to kiss you again.  Your hands slowly move over her smooth, wet skin, and touch every part of her you can reach, feeling her curves, her firm, gently toned muscles, down her thin waspish waist that flows out into her generous hips, and her ample, squeezable ass.  As soon as you reach her butt, your hands squeeze her, eliciting a gasp from your new lover and making her break the kiss.  "<i>Why, you... not satisfied with a kiss, are you?</i>" your siren asks with a toothy grin.' );
 		CoC.flags[ kFLAGS.MINERVA_LOVE ] = 1;
-		EngineCore.menu();
+		MainView.menu();
 		//{Male: [NEXT] / Female/Herm: [NEXT]}
 		//Sex Menu
 		if( CoC.player.gender === 1 ) {
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '\n\nMinerva looks at you nervously, as if she wants to say something, but then she just smiles and shakes her head.  "<i>Well... now that you\'re safe and sound on the ground, is there anything I can do for you, hun?</i>"' );
 		//Randomly present flying option scene in future interactions.
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this, this.minervaTalkSelect );
 		if( CoC.player.lust >= 33 ) {
@@ -381,7 +381,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.spriteSelect( 95 );
 		MainView.outputText( 'You make your way back up the mountain, passing the usual harpy nests as you go.  Climbing through the clouds, you reach a height that has only become easier thanks to the repeated effort.  You make your way back up the mountain, passing the usual harpy nests as you go, looking for the oasis tower that you know has to be around here somewhere in the thick mountain mists. The promise of a respite from your climb, along with food and company, compels you to continue until you finally reach the oasis tower.  Without pausing to catch your breath you head for the tower, the desire to see your siren lover beating out the nagging fatigue you feel from the tough climb.  Your legs are pumping hard as you hoof it down the path, soon enough happening upon the shape of the ruined tower that encloses Minerva\'s oasis.' );
 		MainView.outputText( '\n\nNot wasting any time, you head right for the tower.  Upon entering the humble home, you take in the sights and assess the state of the oasis, looking for your favorite flying shark girl.  Before you can really get a good look, though, you\'ve been grabbed and pulled into what seems to be a dance, your hands taken by Minerva\'s as she spins you and hugs you tightly.  "<i>I was wondering when you would return to me, I\'ve missed you so much, [name]!  I\'m so glad you could come by,</i>" Minerva says before leaning in to plant a kiss on your neck.  "<i>So, hun, what shall we do?  Here to give me some company?  Or maybe you want to have some fun?</i>"  she asks playfully as she presses her hips against yours, giving away her desires.' );
-		EngineCore.menu();
+		MainView.menu();
 		//[Talk] [Sex] [Eat] [Fight] [Leave]
 		EngineCore.addButton( 0, 'Appearance', this, this.minervaAppearance );
 		EngineCore.addButton( 1, 'Talk', this, this.minervaTalkSelect );
@@ -625,7 +625,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.spriteSelect( 95 );
 		MainView.outputText( 'Telling Minerva that you want to sit down and talk with her brings a smile to her lips; she certainly didn\'t expect you to want to just chat, but is clearly happy to talk.  "<i>Really?  You want to talk with me?  All right, well, what do you want to know?</i>"  she asks, before looking off to the side, clearly distracted.  "<i>You know... if you don\'t mind, instead of talking, we could take a bath together.  Relax and just spend some time together,</i>" she says with a hopeful look on her face.' );
 		//[Yes] [No]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.bathTimeWithMinerva );
 		EngineCore.addButton( 1, 'No', this, this.noBathTime );
 	};
@@ -633,7 +633,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 	MinervaScene.prototype.noBathTime = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Looking down, she sighs, a brief moment passes before she returns her attention to you.  "<i>Well, that\'s all right, maybe next time.  So you wanted to talk; what would you like to know?</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.minervaTalkSelect, false );
 	};
 	//[Yes]
@@ -702,7 +702,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 				MainView.outputText( '</i>"' );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		var btnIdx = 0;
 		if( CoC.player.hasCock() && CoC.player.cockThatFits( this.minervaACapacity() ) >= 0 ) {
 			EngineCore.addButton( btnIdx++, 'FuckHerButt', this, this.fuckMinervasAsshole );
@@ -1031,7 +1031,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '\n\nNot wanting her to cum too soon, you pull your mouth back from her tight, cilia-filled snatch, drawing a disappointed moan from Minerva, clearly missing having your tongue inside her.  Licking your lips, you can still taste her delightful juices.  With your face so close to her genitals and her so close to orgasm, you have a few options to push her over.  Dig back into her creamy cunt, or give her needy, swollen balls some attention.' );
 		//[Balls] [No balls]
 		//-if balls clicked, use this paragraph
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Balls', this, this.lickMinervasBalls );
 		EngineCore.addButton( 1, 'No Balls', this, this.noBallsMinervaAndContinuation );
 	};

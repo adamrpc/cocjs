@@ -3110,7 +3110,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 	AmilyScene.prototype.giveAmilyAPresent = function() {
 		this.amilySprite();
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		var haveGift = false;
 		if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
 			MainView.outputText( 'You tell Amily that you have something you want to give her.\n\n' );
@@ -7034,7 +7034,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		MainView.outputText( ' as the latter lectures about pleasing her [master].  Amily, for her part, just seems to be getting wetter and wetter, but she somehow controls herself.  When her three children aren\'t casting anxious, lewd glances at themselves or their mother, they\'re nodding vigorously at her words.  Clearly, the trio is as excited with the prospect of serving you as their mom.' );
 		MainView.outputText( '\n\nNone of them are aware of you yet.  You could duck out before they find you and avoid any potential incest, or you could take the sluts for a ride.  What do you do?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			if( CoC.player.cockThatFits( 61 ) >= 0 ) {
 				EngineCore.addButton( 0, 'Fuck Cunts', this, this.fuckIncestCunts, false );
@@ -7489,7 +7489,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		MainView.outputText( '\n\n<b>Do you want her to just go off the herbs normally or try to brew up a fertility potion?  Such a potion might have unusual side-effects...</b>' );
 		CoC.flags[ kFLAGS.AMILY_ALLOWS_FERTILITY ] = 1;
 		//[Norma] [Try The Potion];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Normal', this, this.fuckTheMouseBitch );
 		EngineCore.addButton( 1, 'Try Potion', this, this.drinkThePotion );
 	};
@@ -7560,7 +7560,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			MainView.outputText( '\n\nThe girls share one last glare across your middle before both sets of eyes settle on your [cock biggest], two voices agreeing, "<i>We can share.</i>"' );
 		}
 		EngineCore.dynStats( 'lib', 1, 'sen', 1, 'lus=', 100, 'resisted', false );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.izmaAmilyDrugThreeWaySex );
 	};
 	//Start Ze Fucking!;
@@ -7692,7 +7692,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			MainView.outputText( '.  Spraying out in high-pressure streams, your spunk gushes out in a white river, soaking your legs, glazing Izma\'s groin and tail, and most importantly, leaving Amily\'s mound so thoroughly creampied that you think her muff may as well get pregnant too.  Even knowing that it\'s flowing out around you, you stay stubbornly hilted, compelled to release it all inside her, the surging sperm-flow that pumps out with each squirt massaging you into releasing even more.' );
 		}
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.izmaAmilyDrugThreeWaySex2 );
 	};
 	AmilyScene.prototype.izmaAmilyDrugThreeWaySex2 = function() {
@@ -7831,7 +7831,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		MainView.outputText( ' already refilling, and you know that before long, you\'ll give Izma enough to keep her fed for a week.  It\'s hard to think with lightning bolts of pleasure exploding in your cock and a mouth stuffed full of cummy cunt, so you don\'t.  You let the scent of the mixed sexual juices and the feel of Izma\'s mouth take over, enjoying simple reciprocation until your next cum, one you barely remember aside from the blackout inducing ecstasy.' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.izmaAmilyDrugThreeWaySex3 );
 	};
 	AmilyScene.prototype.izmaAmilyDrugThreeWaySex3 = function() {
@@ -7877,14 +7877,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			MainView.outputText( '\n\nYou try to answer, but before you get a half-dozen words out, Amily prances off behind some rocks, warning, "<i>No peeking!</i>"  The rustling of clothing can be heard as she changes, underscored by mischievous humming noises.  You do your best to wait patiently, but [eachCock] is warm and anxious.' );
 			MainView.outputText( '\n\nA sultry voice purrs, "<i>Ah, [name].  Come on in, it\'s time for your check-up.</i>"' );
 			CoC.flags[ kFLAGS.AMILY_CLOTHING ] = 'a naughty nurse\'s outfit';
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.amilyNurseCheckupV2, false );
 		}
 		//Repeat;
 		else {
 			MainView.outputText( '"<i>You want another check-up?</i>" Amily says.  "<i>Well, okay.  Let me get the outfit!</i>"  She turns, her tail smacking your [butt] as she runs behind some rocks to grab the skimpy white "dress", if it can be call that.  You wait with undisguised excitement, twiddling your thumbs to pass the time.' );
 			MainView.outputText( '\n\nEventually, Amily\'s fair voice purrs out, "<i>Time for your checkup, [name].  You must have quite the condition since you keep coming back.  Come on in...</i>"' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.amilyNurseCheckupV2, true );
 		}
 	};

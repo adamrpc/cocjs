@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, LivingStatue, Comba
 		MainView.clearOutput();
 		MainView.outputText( 'Cracks spiderweb out from the point of your last strike, spreading like wildfire across the surface of the stone giant. It groans in pain as its face slowly freezes, locked in a grimace of inhuman suffering before the whole of it comes apart. Chunks of marble fall, kicking up a cloud of white dust and dirt. When it clears, there\'s nothing left but two marble feet, amputated at the ankle, standing amidst a field of rubble.' );
 		MainView.outputText( '\n\nA gleaming, purple stone in the center catches your eye.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Take Stone', this, this.takeTheStone );
 	};
 	LivingStatueScenes.prototype.takeTheStone = function() {

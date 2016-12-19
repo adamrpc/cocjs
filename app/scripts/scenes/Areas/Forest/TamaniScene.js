@@ -1086,7 +1086,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 		//((Female PC has a third option when they encounter Tamani, labeled 'Like girls' if this is implemented; it gets them the following text.))
 		MainView.outputText( '"<i>You\'re into girls, huh?</i>" Tamani laughs, turning around and giving her fat butt a playful swat.  You watch as she does it a second time, laughing more at you than <i>with</i> you now, and then turns back around.  "<i>Tell you what then, slut! I\'ve had crap luck today finding a good stud, so I\'ll make you a deal.</i>"' );
 		MainView.outputText( '\n\nTamani advances closer, staring you straight in the eye with an impish smirk.  "<i>I\'ll let you get me off if you swear to stay away from </i>my<i> cocks. Deal?</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Accept', this, this.acceptTamaniFacesits );
 		EngineCore.addButton( 1, 'Refuse', this, this.declineZeFacesits );
 	};

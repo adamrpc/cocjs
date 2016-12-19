@@ -351,7 +351,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		if( this.short === 'alpha gnoll' ) {
 			MainView.clearOutput();
 			MainView.outputText( 'The gnoll alpha is defeated!  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Hell, you could even dose her up with that succubi milk you took from the goblin first - it might make her even hotter.  Do you?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest, CoC.urtaQuest.winRapeHyenaPrincess );
 			EngineCore.addButton( 1, 'Succ Milk', SceneLib.urtaQuest, CoC.urtaQuest.useSuccubiMilkOnGnollPrincesses );
 			EngineCore.addButton( 4, 'Leave', SceneLib.urtaQuest, CoC.urtaQuest.urtaNightSleep );

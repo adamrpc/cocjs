@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 	SuccubusGardenerScenes.prototype.fuckUpTheGardener = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'The succubus drops to her knees, grabbing a tentacle and thrusting it into wanton sex forcefully enough to make you wince. She doesn\'t seem to mind, in fact, her lips spread into a wordless \'o\' of pleasure as she begins rocking back and forth atop, lost to her own lusts. She\'s in no state to stop you from moving on. Hell, she\'s probably going to be busy with the tentacles for a long, long time. You suppose you could try and put her mouth to use, but there are a LOT of tentacles awfully close. It might be best to move on or end her quickly.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'End Her', this, this.endHer );
 		EngineCore.addButton( 1, 'Leave', this, this.leaveHer );
 		EngineCore.addButton( 2, 'Fuck Her', this, this.tentaFail );
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 			MainView.outputText( ' entrance giving around the girthy monstrosity with each passing second. Wider and wider, your flesh opens up. It feels so big that you wonder if you\'re going to rip in half, but there is no discomfort, only the pleasure of accepting it\'s tumescent, inhuman length. You groan as your own fluids make themselves known, soaking your gaped lips in girlish cum. There\'s no way that you should be able to take this, let alone enjoy it, but you are. Oh gods, how you are!' );
 			MainView.outputText( '\n\nYou can feel your belly moving, stretching around the thick intruder. You wish you could look down, to see it outlined in your body, but your head is held fast. It pushes deeper, and finally, you feel as if you\'re reaching your limit. Somehow, that huge tentacle must know, because it stops right there and reverses direction. It yanks out far faster than it thrusted in, and you\'re left ultimately and completely empty. The feeling of cool air inside you is alien... uncomfortable, even. You don\'t like it. In dawning horror, you realize just how empty you feel, and how badly you need that tentacle inside you.' );
 			MainView.outputText( '\n\nYou cum when it thrusts back in, loosening you further, moulding your twat into the perfectly shaped receptacle for its unending, monstrous needs. Gushing, your pussy gratefully clings to its massive, orange-colored master, getting more and more elastic with every second. Your eyes roll back around your third cunt-clenching climax. You miss the sky vanishing behind clouds of green, writhing stalks, but at least you\'ll never miss that feeling of <i>fullness</i> ever again.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.tentaFailII );
 		}
 		//Dicks;
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 				MainView.outputText( '\n\nCumming almost comes as a surprise to you, but there\'s only so much pleasure a body can receive before it helplessly and completely cumming, spraying thick wads of jism into the tentacle\'s hungry folds with instinctive convulsions. Every squirt leaves you a few inches longer and a good deal thicker. Only after emptying every ounce of cum from your [balls] does the feverish expansion finally halt.' );
 				MainView.outputText( '\n\nUnfortunately, the sensations don\'t. Even though the tentacle has stopped moving to digest its meal, you\'re still hyper-aware of the feeling of its slick folds against you. There\'s enough sensitivity in your enhanced package that unmoving pressure is giving your nervous system more feedback than your old dick\'s most vigorous fuck. The glowing, orange goo wasn\'t just making you bigger! It was stimulating nerve growth in your ' + Descriptors.multiCockDescriptLight() + ', making you so sensitive that you can\'t help but stay hard, even after cumming.' );
 				MainView.outputText( '\n\nA few seconds later, the tentacle starts its slow, up-and-down stroking. You moan, giving a nearby vine the opening it needs to force itself into your mouth. It\'s tough to notice or care compared to the cacophony of signals coming from your crotch. Even your vision seems wasted and useless, the tactile resolution of your dickskin many times greater than your eyes\' meager output.' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', this, this.tentaFailII );
 				return;
 			}
@@ -147,14 +147,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		MainView.clearOutput();
 		MainView.outputText( 'You circle behind her an put and end to her evil while she is busy with her pet, then turn to walk away. When you look back over your shoulder, her body is gone. Nothing remains but an empty pathway.' );
 		CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_KILLED;
-		EngineCore.menu();
+		MainView.menu();
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.leaveHer = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Figuring that the succubus\'s pets can keep her busy indefinitely, you turn away. A shriek of pleasure draws your attention back, and you turn in time to see dozens of coiling, leafy masses encircling her every limb, bodily carrying her into a wall of twisting, leaking cocks and pussies. Her orifices are stuffed with pumping lengths that froth with spit and girlcum, and her eyes, equal parts alarmed and aroused, widen before disappearing into the forest of green.' );
 		CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_LEFT;
-		EngineCore.menu();
+		MainView.menu();
 		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.surrenderToTheGardener = function( hpVictory ) {
@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		MainView.outputText( '\n\nSmiling sadly, the succubus pulls her fingers away. A web of your own clear lubricant hangs suspended between her fingers and your moistened box for a moment, then snaps. <i>"You\'re going to be a wonderful mother my for pets, I just know it."</i> She loops an arm under your shoulder and lifts you to your [feet]. <i>"Now, lets get you what you want, dear."</i>' );
 		MainView.outputText( '\n\nYou\'re led up to the very edge of the wall of vines. The writhe and twist against one another, in constant, aching motion, signalling their feverish want for you, but they hold back all the same. Their mistress has certainly trained them to act like gentlemen... for now at least.' );
 		MainView.outputText( '\n\nSuddenly, the supportive arm vanishes, and you\'re pushed forward, falling straight into the mesh of vines....' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.femGenderlessLossII );
 	};
 	SuccubusGardenerScenes.prototype.femGenderlessLossII = function() {
@@ -320,7 +320,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		MainView.outputText( '\n\nYou whine, the unwelcome lust obliterating any other considerations as she plays with you, not even bothering to use her hands or mouth. Both ideas have their own appeal. You\'re quite sure that any pet of hers is going to get to be allowed to breed quite frequently, but then again, being given to the tentacles to be bound and milked for the rest of your life would take your mind off your failure here. To be honest, here, under her heel, you have a hard time even remembering why you came here in the first place. You\'re just glad to feel her flawless skin rubbing you, dismissively or not.' );
 		MainView.outputText( '\n\nThe succubus stops, looking at you questioningly. It\'s obvious that she\'s waiting on a reply. What do you choose?' );
 		// [Pet][Feeder];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Pet', this, this.maleLossPet );
 		EngineCore.addButton( 1, 'Feeder', this, this.maleLossFeeder );
 	};
@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 			MainView.outputText( '\n\nBy the time you pass into a structure, you\'re prancing along quite spryly on your four legs. Several other demons and creatures are around now. Many point at you and speak, but the words are beyond you. The tones in their voices imply derision or jealousy of Mistress, but a smile from her stills your worries. She\'s pleased! Your tail, which had gone flat a moment ago, begins slapping back and forth again, dumbly smacking into the wall as you follow.' );
 		}
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.maleLossPetII );
 	};
 	SuccubusGardenerScenes.prototype.maleLossPetII = function() {
@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		MainView.outputText( ' You yip with glee as you cream for Mistress\' fingers, but eventually, your climax trails off into a dribbly white mess, some of which clings to the demoness\' nails like beads of ivory dew.' );
 		MainView.outputText( '\n\nThe tentacle gardener holds her hand to your mouth for you to clean. You don\'t hesitate for a moment, licking the salty treat off her with gusto before being led into your kennel for a nap.' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.maleLossPetIII );
 	};
 	SuccubusGardenerScenes.prototype.maleLossPetIII = function() {
@@ -556,7 +556,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		}
 		MainView.outputText( '. <i>"Oh, you\'ll have more soon enough pleasure... more sap... and more orgasms than you\'ll know what to do with. You\'re going to make fine fertilizer for my pets. Lethice will be pleased."</i> She laps at the alabaster treat and sighs. <i>"Pleased indeed. It is more rich than I thought."</i> She pauses as if considering something, then shakes her head. <i>"Perhaps I will use you later. For now, I think you are eager for my pets\' attentions. Why don\'t you get acquainted?"</i>' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.maleLossFeederII );
 	};
 	SuccubusGardenerScenes.prototype.maleLossFeederII = function() {

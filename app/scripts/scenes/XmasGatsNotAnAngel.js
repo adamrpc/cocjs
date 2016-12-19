@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS
 
 	XmasGatsNotAnAngel.prototype.christmasEncounterAngelJunk = function() {
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		//[Not Christmas];
 		//[Explore > High Mountains];
 		if( !SceneLib.xmasBitch.isHolidays() ) {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS
 			MainView.outputText( 'All throughout your perilous climb, you cannot help but ogle at the brilliant little crystal key.  You have a suspicion as to how this innocent little key will help the crying colossus on the peak, but you are not completely sure this is the artifact she required.  But you have a hunch that it is.' );
 			MainView.outputText( '\n\nYour trek halts to a standstill as you return to the side of the vast giantess.  Her sadness and longing appears to have overwhelmed her to a degree, putting her to sleep beside the still-inanimate soldier beside her.  You cast another glance at your brilliant relic, hooking a finger through it as you lift it before your face.  Transfixed by the swirling dance of red and green, you begin to weigh the options before you.  The spirit would surely request the key from you so that she may return her love to his former self, you believe.  However, perhaps you deserve a greater reward from this little deed.  You hold all the important cards in this deal after all.  You thoughtlessly swirl the windup key around on your finger, pondering your next move.' );
 			MainView.outputText( '\n\nYou could try to fuck around with the spirit or her soldier, but doing either would be a huge dick move...' );
-			EngineCore.menu();
+			MainView.menu();
 			//[Give the Key] [Fuck the Soldier] [Fuck the Angel] ;
 			EngineCore.addButton( 0, 'Give The Key', this, this.goodEndForChristmasMiracleICant );
 			EngineCore.addButton( 1, 'FuckSoldier', this, this.theWorstEndingEverDotJPG );
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS
 		}
 		MainView.outputText( ', painting the giantess while she pants and moans, legs almost buckling from her own joy along with the taste of your mess inside of her.  She struggles to remove the makeshift dildo from her ass, resting her cheek against the size of the mountain let your concoction drool out.  Slipping out, you take the opportunity to grind up against her ruby lips, before cumming on her face.  She lets out a weathered smile, before her giant eyes focus once more on the mechanical soldier.' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.fuckTheAngelBadEndPartII );
 	};
 	XmasGatsNotAnAngel.prototype.fuckTheAngelBadEndPartII = function() {
@@ -349,14 +349,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS
 		MainView.outputText( '\n\nShe meant to go on, but North interrupts her.  "<i>Wait,</i>" he demands.  The giantess\'s train of thought is brought to a halt as she waits for her creation to proceed.  "<i>You did this for me,</i>" he begins, pulling himself to his feet.  "<i>I don\'t have to know why, though I\'m sad you had to.  I love you.</i>"' );
 		MainView.outputText( '\n\nThose three words, mentioned so suddenly, pierce the woman\'s heart as surely as any arrow, and hot tears finally track down her cheeks - not the bitter tears she barely choked back earlier, however.  She weeps now with one of the most profound expressions of pure joy you\'ve ever experienced.' );
 		//{turn the page};
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.goodEndForChristmasMiracleICantII );
 	};
 	XmasGatsNotAnAngel.prototype.goodEndForChristmasMiracleICantII = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'North throws his arms out wide, armor hardly protesting to the sudden movement.  The action gives the giantess pause for a moment, but she swiftly understands the motivation and raises her hand to the beckoning knight.  She crooks her little finger toward North, and he throws himself around it, expressing his feelings in a tight and passionate hug.  The giantess gazes down at her little knight with a loving smile, and they hold the pose for a remarkably long time.' );
 		MainView.outputText( '\n\nThe seemingly divine titan worryingly crooks her eye over to you, and in an attempt to shoosh you away, she nods her head towards the mountain\'s exit, implying that they\'re going to spend some time to themselves. Of course, there\'s a chance you can probably stick around for some weird-ass action. Would you prefer to stay behind, or do you excuse them temporarily?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Stay', this, this.stayForPretendNTRGoodWinjobSex );
 		EngineCore.addButton( 4, 'Leave', this, this.goodEndLeaveBeforeSexings );
 	};
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS
 		MainView.outputText( 'You get the message, feeling that letting them do their own thing might be for the best.  With a hasty pardon, you promptly turn around and walk a good twenty yards down the mountainside, idly playing in the snow while the two reunited lovebirds do their thing.' );
 		MainView.outputText( '\n\nYou hear the sound of a gentle humming in the distance, and you figure that the two lovers might be quite done with their \'honeymoon\'.' );
 		//[Go to Conclusion];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.conclusionOfGiantessGoodEnd );
 	};
 	//If Stay;
@@ -404,7 +404,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS
 			CoC.player.orgasm();
 		}
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.conclusionOfGiantessGoodEnd );
 	};
 	//[Conclusion];

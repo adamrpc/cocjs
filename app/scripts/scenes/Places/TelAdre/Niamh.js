@@ -355,7 +355,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		MainView.outputText( 'maybe even a Succubus Milk?  You\'ll have to consider your options.  On the other hand, of course, something that corruptive would probably mutate her booze-filled boobs, most likely forcing her out of Tel\'Adre altogether... and may fall back on your own head, to boot.  What do you do?' );
 		//[Bimbo][Succubus][Maybe Later] (spacebar should select 'Maybe Later' as long as it's a repeatable;
 		MainView.outputText( '\n\n(Editors Note: Succubi Milk Option Currently in beta)\n\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasItem( ConsumableLib.BIMBOLQ ) ) {
 			EngineCore.addButton( 0, 'Bimbo', this, this.giveNiamphBimboLiquer );
 		}

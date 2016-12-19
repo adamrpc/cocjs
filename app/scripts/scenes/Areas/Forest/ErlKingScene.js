@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		}
 		MainView.outputText( ' air. Your eyes twitch and ears ring at the sound of hooves pounding through the forest.\n\n' );
 		MainView.outputText( 'The unholy choir of horns, hounds, and hooves shake the woods around you as the fog rises, shoulder-high.  Your heart pounds - you’re not sure <b>why</b> you’re frightened, only that you <b>are</b>.  Something is out there in the darkness, and it\'s coming for you!  Do you flee, or stand your ground?\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Wait', this, this.firstWildHuntChase, true );
 		EngineCore.addButton( 1, 'Run', this, this.firstWildHuntChase, false );
 	};
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 			MainView.outputText( 'You quickly glance from side to side, realizing that the trees here grow too close together for your to spread your [wings].\n\n' );
 		}
 		MainView.outputText( 'Do you make a run for it or stand your ground?\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Run', this, this.repeatWildHuntChase );
 		EngineCore.addButton( 1, 'Wait', this, this.repeatWildHuntWait );
 	};
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		if( CoC.player.inte < 80 ) {
 			CoC.player.inte++;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.repeatWildHuntChase = function() {
@@ -229,7 +229,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 				EngineCore.dynStats( 'spe+', 1 );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.repeatWildHuntCaught = function( pScore ) {
@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		MainView.outputText( 'Even with so many of these thoughts crowding your mind, there’s still a tiny spark of resentment burning.  You could rush him and turn the tables on this cocky asshole.\n\n' );
 		//Sex	 	What’s my prize?		Stop the Madness 		Surrender Forever		How Dare You!
 		EngineCore.fatigue( 10 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Sex', this, this.predatoryPrey );
 		EngineCore.addButton( 1, 'Prize?', this, this.whatsMyPrize );
 		EngineCore.addButton( 2, 'Stop', this, this.stopTheMadness );
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		MainView.outputText( 'Narrowing your eyes, you begin to tell him exactly how fed up you are with this never-ending hunt.\n\n' );
 		MainView.outputText( '“<i>As you wish,</i>” says the Erlking.  The fog rolls in once more, engulfing the Erlking and his steed.  It clears a moment later, leaving you alone in the forest.\n\n' );
 		MainView.outputText( 'You get the feeling you won’t be seeing him anymore.\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.surrenderToTheHounds = function() {
@@ -518,7 +518,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		}
 		CoC.player.orgasm();
 		CoC.player.slimeFeed();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.howDareYou = function() {
@@ -562,7 +562,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		CoC.player.createKeyItem( 'Golden Antlers', 0, 0, 0, 0 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lust=', 0 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.encounterPrincessGwynn = function() {
@@ -602,7 +602,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		MainView.outputText( ' or I could share some of my special potion with you,</i>” she counts the options off on her slim fingers.\n\n' );
 		MainView.outputText( 'You run through the options in your head, even briefly considering ‘getting some of her potion’ on your own terms.\n\n' );
 		//Suck My Dick  /  Fuck Her Ass  /  Eat My Pussy  /  Milk Her Dick  /  Gifts
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Suck Me', this, this.gwynnSucksDicks );
 			EngineCore.addButton( 1, 'Assfuck', this, this.gwynnGetsButtfuxed );
@@ -625,7 +625,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		//[Libido + 2]
 		EngineCore.dynStats( 'lib+', 2, 'lus=', 0 );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGetsButtfuxed = function() {
@@ -640,7 +640,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		//[Sensitivity -2]
 		EngineCore.dynStats( 'sen-', 2, 'lus=', 0 );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnNomsDaCunts = function() {
@@ -658,7 +658,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		//[Sensitivity -2, Libido +2]
 		EngineCore.dynStats( 'sen-', 2, 'lib+', 2, 'lus=', 0 );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGetsDickmilked = function() {
@@ -676,7 +676,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		MainView.outputText( 'Satisfied that she’ll be fine, you stand up, leaving the slutty doe to clean herself up.\n\n' );
 		//[Lust +20, Libido +2]
 		EngineCore.dynStats( 'lus+', 20, 'lib+', 2 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ErlKingScene.prototype.gwynnGibsGifts = function() {

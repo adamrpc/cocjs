@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 				MainView.outputText( '\n\n“<i>Hey babe! I’m just incub... inclu... clued... sitting on some eggs. The nice dog lady says I’m perfectly designed for that!</i>” She pats her vast bottom proudly.' );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.lust < 33 && output ) {
 			MainView.outputText( '\n\n<b>You aren\'t turned on enough right now to make use of Sophie\'s \'services\'.</b>', false );
 		} else if( CoC.player.lust >= 33 ) {
@@ -344,7 +344,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 				}
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Back', this, this.approachBimboSophieInCamp, false );
 	};
 	SophieBimbo.prototype.harvestEggs = function() {
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 	SophieBimbo.prototype.bimboSophieSexMenu = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'How will you have sex with your feather-brained slut?' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			//BUTT FUCKS;
 			if( CoC.player.cockThatFits( this.sophieCapacity() ) >= 0 && CoC.player.lust >= 33 ) {
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			MainView.outputText( 'moves on to her hair and nails, all the while gabbing on and on about you, and about all the daughters she plans to have.' );
 			MainView.outputText( '\n\nYour daughter is growing up so fast!  Already, her body is developing, breasts budding into supple bumps on her chest.  Her hips are starting to swell into the trademark birthing hips and round grabbable ass harpies are famous for.\n' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( this.bimboSophie() ) {
 			EngineCore.addButton( 4, 'Back', this, this.approachBimboSophieInCamp );
 		} else {
@@ -1331,7 +1331,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			CoC.player.cumMultiplier += 3;
 		}
 		SceneLib.sophieScene.luststickApplication( 8 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.postSophieImpreg );
 	};
 	SophieBimbo.prototype.postSophieImpreg = function() {
@@ -1375,7 +1375,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		SceneLib.sophieScene.luststickApplication( 8 );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.postSophieTooBigImpreg );
 	};
 	SophieBimbo.prototype.postSophieTooBigImpreg = function() {
@@ -1392,7 +1392,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		MainView.outputText( 'Sophie approaches you with a particularly somber expression on her normally vapid face, pressing her index fingers together nervously.  Her walk, normally exaggerated and sexual, is meek and diminished as she makes her way forward.  You cock your head to the side, looking at her curiously.' );
 		MainView.outputText( '\n\n"<i>Could I like, sleep with you at night?  I thought... maybe... since you got me pre- preg... preggers and stuff, you wouldn\'t mind me snuggling with you while we slept?</i>" she asks hopefully, blinking her long lashes innocently at you.  "<i>I promise, I won\'t bother you or wake you up in the night or anything...  I just want someone to like, hold when it\'s cold.</i>" She immediately adds, "<i>And I make a really good pillow, ever since you gave me that drink!</i>" Sophie playfully bounces her boobs for effect, blushing as she awaits your response.' );
 		MainView.outputText( '\n\nThe bimbo harpy seems genuine in her desire for companionship, though judging from the moisture that trickles from her cleft and down her feathery thighs, she\'ll probably be fucking you at some point, even if it isn\'t in the middle of the night.  Do you want to take the posh-bodied girl to bed with you at night?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.yesSophieSleepWith );
 		EngineCore.addButton( 1, 'Nah', this, this.noSophieSleepWith );
 	};
@@ -1649,7 +1649,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		MainView.outputText( '\n\nDo you let her rub your dick down with her tits how she wants, or push her down and go hog-wild on those giant, pregnancy-enhanced knockers?' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
 		//[Let Her] [Hog Wild];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Let Her', this, this.letSophieMilkYoDick );
 		EngineCore.addButton( 1, 'Hog Wild', this, this.goHogWildOnSophieBewbs );
 	};
@@ -2046,7 +2046,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		//FIRST TIME:;
 		else {
 			MainView.outputText( '\n\nIt seems obvious that the real question is whether you want to have an incestuous relationship with your freshly matured offspring.  If you answer yes, you\'re probably going to wind up with another bird-girl lusting after you (and maybe more, down the road).  You had better say no if you want to keep things platonic.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Yes - Incest', this, this.yesToSophieIncest );
 			EngineCore.addButton( 1, 'No', this, this.noToSophieIncest );
 		}
@@ -2112,7 +2112,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 10 );
 		//[Interrupt] [Watch];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Interrupt', this, this.interruptSophieIzma );
 		EngineCore.addButton( 1, 'Watch', this, this.watchIzmaSophie );
 	};

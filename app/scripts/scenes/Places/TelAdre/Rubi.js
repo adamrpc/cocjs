@@ -713,7 +713,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			MainView.outputText( '\n\nRubi stretches out on the couch and says,  "<i>So babe, now that you\'ve got me here, what do you want to do?</i>"' );
 		}
 		//[Fuck Rubi (if player has cock, OR at least a 4</i>" clit)] [Dildo Fuck (If player has Deluxe Dildo)] [Tease] [Release (Only if Normal or Incubus Rubi who has been teased)] [Titfuck (Bimbo Rubi only)] [Give Item];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Sex', this, this.rubiSexMenu );
 		EngineCore.addButton( 1, 'Closet', this, this.goInRubisClosetSoThatYouCanComeOutOfTheCloset );
 		EngineCore.addButton( 2, 'Talk', this, this.talkToRubiInHouse );
@@ -734,7 +734,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 	};
 	Rubi.prototype.rubiSexMenu = function() {
 		//[Fuck Rubi (if player has cock, OR at least a 4</i>" clit)] [Dildo Fuck (If player has Deluxe Dildo)] [Tease] [Release (Only if Normal or Incubus Rubi who has been teased)] [Titfuck (Bimbo Rubi only)] [Give Item];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.lust >= 33 ) {
 			if( CoC.player.hasCock() || (CoC.player.hasVagina() && CoC.player.clitLength >= 4) ) {
 				EngineCore.addButton( 0, 'Fuck', this, this.fuckRubi );
@@ -771,7 +771,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.clearOutput();
 		this.rubiSprite();
 		MainView.outputText( 'You just want to talk with Rubi for now.  What do you want to talk about?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Identity', this, this.rubiIdentity );
 	};
 	Rubi.prototype.rubiIdentity = function() {
@@ -800,7 +800,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		}
 		CoC.flags[ kFLAGS.TIMES_DISCUSSED_RUBIS_IDENTITY ]++;
 		//[He] [She];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'He', this, this.rubiIsAHe );
 		EngineCore.addButton( 1, 'She', this, this.rubiIsAShe );
 	};
@@ -810,7 +810,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		this.rubiSprite();
 		CoC.flags[ kFLAGS.RUBI_SHE ] = 0;
 		MainView.outputText( 'Rubi nods, and will refer to himself as a "he" from now on.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 9, 'Back', this, this.rubisFuckingHouseYouPervert );
 	};
 	//She;
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		this.rubiSprite();
 		CoC.flags[ kFLAGS.RUBI_SHE ] = 1;
 		MainView.outputText( 'Rubi nods, and will refer to herself as a "she" from now on.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 9, 'Back', this, this.rubisFuckingHouseYouPervert );
 	};
 	//Sex Scenes Ahoy!;
@@ -1548,7 +1548,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		CoC.flags[ kFLAGS.TIMES_RUBI_MASSAGED ]++;
 		//[Release] [Nope];
 		//{Not Pent Up: Go to release};
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Release', this, this.releaseRubiMassage );
 		EngineCore.addButton( 1, 'Bottle Up', this, this.bottleUpRubiMassage );
 	};
@@ -1605,7 +1605,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '\n\nYou struggle to keep your jaw from hitting the floor.  Rubi\'s closet must be the size of [rubi eir] bedroom!  Various pants, blouses, dresses, bottoms, and tops hang from racks on either side of the room, under which are small dressers or racks of shoes of all types.  Flats, heels, boots, ballet slippers.  Almost any shoe imaginable seems to be here, in any color possible.  The majority of the opposite wall is taken up by an enormous vanity table, with a large ornate mirror and more cosmetics covering its surface than you know what to do with.  Full length mirrors are scattered around the remaining empty spaces along the wall, while the middle is left completely open.' );
 		MainView.outputText( '\n\nRubi twirls around in the center of the room, clearly happy to be in here.  Before you can say anything, Rubi strips out of [rubi eir] current outfit, setting it aside in a neatly folded pile before standing proud with [rubi eir] hands on [rubi eir] hips.  "<i>So, you want me to wear something?</i>"' );
 		//(Go To Appearance);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.rubiAppearance );
 	};
 	//Appearance;
@@ -1721,7 +1721,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		}
 
 		//[Give Item] [Get Dressed] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Give Item', this, this.pickAnItemToFeedRubi );
 		EngineCore.addButton( 1, 'Get Dressed', this, this.playDressUp );
 		EngineCore.addButton( 4, 'Back', this, this.rubisFuckingHouseYouPervert );
@@ -1731,7 +1731,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.clearOutput();
 		this.rubiSprite();
 		MainView.outputText( 'You look over Rubi\'s vast collection of clothes.  What outfit would you like Rubi to put on?\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		var closet = [];
 		var buttonNames = [];
 		if( CoC.flags[ kFLAGS.RUBI_SUITCLOTHES ] === 1 ) {
@@ -1814,7 +1814,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.clearOutput();
 		this.rubiSprite();
 		MainView.outputText( 'You look over Rubi\'s vast collection of clothes.  What outfit would you like Rubi to put on?\n\n' );
-		EngineCore.menu();
+		MainView.menu();
 		var closet = [];
 		var buttonNames = [];
 		if( CoC.flags[ kFLAGS.RUBI_SUITCLOTHES ] === 1 ) {
@@ -1969,7 +1969,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '\n\n"<i>There we go!  How do I look?</i>"  You grin and tell [rubi em] that [rubi ey] looks great, and that you never could resist a [rubi man] in uniform.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to Ice Cream date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.iceCreamDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -1994,7 +1994,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to Ice Cream date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.iceCreamDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2026,7 +2026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '.  Once those are on, Rubi completes the look by retrieving a wooden sword from somewhere while you were too distracted by [rubi eir] ass.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to Ice Cream date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.iceCreamDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2059,7 +2059,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '\n\nAll in all, [rubi ey] looks ready for a night at some kind of fancy ball.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to fancy dinner date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.fancyDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2092,7 +2092,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to ice cream date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.iceCreamDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2130,7 +2130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( ' to complete the look.  All in all, [rubi ey] looks ready for a night in the dungeons.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to bar date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.barDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2157,7 +2157,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( ' and quickly combs back [rubi eir] hair.  All in all, [rubi ey] looks like a girl dressed in her boyfriend\'s clothes... which is to say, quite sexy.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to fancy date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.fancyDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2182,7 +2182,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to exhibitionist date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.exhibitionistDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2205,7 +2205,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to exhibitionist date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.exhibitionistDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2222,7 +2222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '\n\nRubi poses several times afterwards, giving you a good show of [rubi eir] barely-covered body.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to exhibitionist date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.exhibitionistDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2246,7 +2246,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( ', and the butt of the suit is clinging perfectly to [rubi eir] own, [rubi ey] poses for you.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to bar date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.barDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2263,7 +2263,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '\n\nEventually you\'ve fastened the whole thing up Rubi\'s torso and arms, including a thick collar around [rubi eir] neck.  You\'ve cinched up the whole thing in such a way that Rubi\'s movements are slightly restricted, though [rubi ey] is fully able to get out of it later.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to exhibitionist date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.exhibitionistDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2290,7 +2290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to bar date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.barDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2319,7 +2319,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( ', and poses for you in the skimpy outfit.' );
 		MainView.outputText( '\n\nNow that Rubi is dressed up, what do you want to do?' );
 		//[Date (go to cooking date)] [Back];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Date', this, this.dateIntro, this.cookingDate );
 		EngineCore.addButton( 4, 'Back', this, this.rubiAppearance );
 	};
@@ -2347,7 +2347,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 				}
 				MainView.outputText( '\n\nYou think you\'d love to take Rubi out for a quick dessert... but you\'re far too certain you wouldn\'t be able to afford it at the moment.' );
 				MainView.outputText( '\n\nSeriously, you\'re the Champion. You shouldn\'t be this broke.' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', this, this.rubiAppearance );
 				return;
 			}
@@ -2419,7 +2419,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		else {
 			MainView.outputText( '\n\nYou think you\'d love to take Rubi out for a fancy meal, but you\'re certain you wouldn\'t be able to afford it at the moment.' );
 			MainView.outputText( '\n\nSeriously, you\'re the Champion. You shouldn\'t be this broke.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.rubiAppearance );
 		}
 	};
@@ -2949,7 +2949,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nYou think to yourself.  You could keep teasing [rubi em] like this, without letting [rubi em] cum, as [rubi ey] obviously delights in the feelings.  Or you could be generous and let [rubi em] pop [rubi eir] load right now... Which will it be?' );
 		EngineCore.dynStats( 'lus=', 100, 'resisted', false );
-		EngineCore.menu();
+		MainView.menu();
 		//[Tease] [Pop];
 		EngineCore.addButton( 0, 'Tease Rubi', this, this.teaseButtjobs );
 		EngineCore.addButton( 1, 'Pop', this, this.popButtjobs );
@@ -3228,7 +3228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		else if( itype === ConsumableLib.GROPLUS ) {
 			MainView.outputText( '\n\nWhere would you like to inject the Gro+?' );
 			//[Breasts] [Penis (if present)] [Back];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Breast', this, this.rubiGrowPlusBreasts );
 			EngineCore.addButton( 1, 'Penis', this, this.rubiPenisGroPlus );
 			EngineCore.addButton( 4, 'Back', this, this.pickAnItemToFeedRubi );
@@ -3240,7 +3240,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			//Can't give it to him if breasts/penis already at minimum.;
 			MainView.outputText( '\n\nWhere would you like Rubi to use the reducto?' );
 			//[Breasts] [Penis (if present)] [Back];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Breasts', this, this.rubiBoobsReducto );
 			EngineCore.addButton( 1, 'Penis', this, this.rubiPenisReducto );
 			EngineCore.addButton( 4, 'Back', this, this.pickAnItemToFeedRubi );
@@ -3515,7 +3515,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			CoC.player.consumeItem( itype, 1 );
 		}
 		CoC.player.consumeItem( itype, 1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pickAnItemToFeedRubi );
 		//Go back to give item menu.;
 	};
@@ -3546,7 +3546,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			MainView.outputText( '\n\nSadly, apart from making [rubi eir] nipples particularly perky, they don\'t seem to have much effect on Rubi\'s already enormous rack.' );
 		}
 		CoC.player.consumeItem( ConsumableLib.GROPLUS );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pickAnItemToFeedRubi );
 		//Go back to give item menu.;
 	};
@@ -3585,7 +3585,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			}
 		}
 		CoC.player.consumeItem( ConsumableLib.GROPLUS );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pickAnItemToFeedRubi );
 		//Go back to give item menu.;
 	};
@@ -3599,7 +3599,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			CoC.flags[ kFLAGS.RUBI_BREAST_SIZE ]--;
 		}
 		CoC.player.consumeItem( ConsumableLib.REDUCTO );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pickAnItemToFeedRubi );
 		//Go back to give item menu.;
 	};
@@ -3614,7 +3614,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			MainView.outputText( '\n\nIt doesn\'t seem to have any effect.' );
 		}
 		CoC.player.consumeItem( ConsumableLib.REDUCTO );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.pickAnItemToFeedRubi );
 		//Go back to item giving menu!;
 	};
@@ -3625,7 +3625,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 		var button = 0;
 		var closet = [];
 		var gifts = [];
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.RUBI_SUITCLOTHES ] === 1 ) {
 			closet[ closet.length ] = 'Suitclothes';
 		} else {

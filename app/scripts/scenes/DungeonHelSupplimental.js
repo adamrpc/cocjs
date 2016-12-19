@@ -432,7 +432,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( ', you collapse, utterly at the harpies\' mercy.  The group looms over you, lusty, evil grins all around, but to your surprise, one of them shouts a harsh command, making the swarm of feathery bitches back off.  A particularly slight harpy with a shock of bright-orange hair waves the brood off, astonishingly commanding for the runt of the litter.  The other harpies hiss and growl at her, but still she speaks, "<i>Hold it!  We can\'t have the intruder yet.  Mother will want to talk to ' + CoC.player.mf( 'him', 'her' ) + ' first.</i>"' );
 		MainView.outputText( '\n\nThe brood grumbles, but you are hauled off your feet and dragged upstairs...' );
 		//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.harpyQueenBeatsUpPCBadEnd, true );
 	};
 	//Harpy Horde -- PC is Victorious;
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//If Male: [Anal];
 		//If Female [Get Licked];
 		//If Genderless: "<i>Unfortunately, there's not much she can do for you...</i>";
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( 'Unfortunately, there\'s not much she can do for you...' );
 		}
@@ -593,7 +593,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//[Torture Gear];
 	DungeonHelSupplimental.prototype.tortureGear = function() {
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		MainView.outputText( 'You walk up to the torture rack.  ' );
 		if( CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_WHIP ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_STRAPS ] === 0 || CoC.flags[ kFLAGS.HEL_DUNGEON_TAKEN_DAGGER ] === 0 ) {
 			MainView.outputText( 'The rack contains: ' );
@@ -709,7 +709,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( ' to continue the fight.  The platoon of heavy infantry breaks their formation, circling around you with shields still raised, keeping you from making any kind of last-ditch attack.  One prods you with the flat of her blade.  "<i>Is ' + CoC.player.mf( 'he', 'she' ) + ' down?</i>"' );
 		MainView.outputText( '\n\n"<i>Yeah,</i>" another says. "<i>This one\'s a goner. Let\'s bring ' + CoC.player.mf( 'him', 'her' ) + ' up to mom.</i>"' );
 		//(Go to "<i>Harpy Breeding Slut</i>" Bad End);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.harpyQueenBeatsUpPCBadEnd, true );
 	};
 	//Phoenix Platoon -- PC is Victorious;

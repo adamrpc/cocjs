@@ -996,7 +996,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 				MainView.outputText( '\n\n"<i>Well, alright. Maybe I haven\'t been entirely honest with you.</i>"  He shmoozes, lowering his voice again to its usual hoarse timbre and making calming hand gestures towards you.  He\'s ever the charmer.  "<i>With you, I feel like being... completely honest!</i>"  He flashes his flawless smile, takes you by the hand and manages to sweep in close to you.  "<i>However, not here on the streets.</i>"' );
 				MainView.outputText( '\n\nYou\'re still waiting for an answer when he grabs a hidden piece of rope inside the wall and holds you tightly around your waist.  For a moment you wonder what\'s going on, but it becomes clear when he pulls the rope.  With great speed the rope pulls the both of you upwards, and in the blink of an eye you find yourself gently put down on the roof of the orphanage by the swinging arm of a crane.' );
 				//~~~ Page ~~~;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', this, this.raphaelIntroPageTwo );
 				CoC.flags[ kFLAGS.TIMES_ORPHANAGED_WITH_RAPHAEL ]++;
 			} else if( CoC.time.hours >= 19 && CoC.time.hours <= 21 ) {
@@ -1024,7 +1024,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 				MainView.outputText( '\n\nYou sit down on the rickety bed. It is barely held up by a wooden frame that gives you splinters just looking at it, and a pile of cinderblocks to support the places where it\'s been broken already.  It\'s barely big enough for a single person to sleep in and lies cramped under a slanted roof and sheltered by tails of silky curtains, but what it lacks in size, it makes up for with coziness.  It\'s filled with down and very soft. The dusty green pillows, dark blue silk spreads and the worn brown furniture surrounding it gives it the appearance of a dive, but the arrangement gorges on the candlelight and feels warm and comfortable.  It smells faintly of a fox\'s male musk.  It\'s a bit intimidating, but soothing at the same time.  As the skies outside darken, you can imagine wanting to spend time here if you didn\'t have a portal to guard.' );
 				MainView.outputText( '\n\nIn fact, the only thing in the room that keeps you on alert is the young man taking his seat besides you.  He flashes his trademark mien, one that always manages to somehow confuse and make his intentions crystal clear at the same time.  "<i>So señorita, what brings you to my humble abode?  Do I dare guess what brings a lady of such indiscriminating taste to visit a scoundrel of sordid repute?</i>"  He leans in closer and brings his lips to yours, glancing at your eyes with his emerald irises.' );
 				//[Talk] [Sex];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Talk', this, this.talkWithRedFoxLooksOutHesASpy );
 				EngineCore.addButton( 1, 'Sex', this, this.raphaelOrphanageSexMenu );
 				EngineCore.addButton( 4, 'Leave', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
@@ -1033,7 +1033,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 				//When the orphanage is selected on any other time;
 				MainView.outputText( 'You walk into the alley to the side of the orphanage and look up expectantly, brushing by shady looking teens who enjoy patting you down, but leaving you and your possessions alone otherwise.  They seem to make a game out of it.  It\'s hard to see if any of the rooms are lit because it\'s still quite bright outside.  There probably aren\'t.  Still, you begin to search for the one rope out of many that will hoist you up there by pulling it.  You stay clear of the other ones, not quite sure what they\'d do, but half expect them to fire a crossbow bolt or drop an anvil on your head.  Anxious, you grab the right one and hold on tight when you pull it, but oddly enough, nothing happens.  You\'re sure it\'s the right one, but something is preventing the system from kicking into gear.  You shake your head and step back in silent admiration.  You\'re not sure what mechanical marvel is responsible for it, but the orphanage must be decked with all manner of clever contraptions that even manage to factor time into the system.' );
 				//[nothing happens];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Back', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 			}
 		}
@@ -1048,7 +1048,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		MainView.outputText( '\n\n"<i>What are they, these other functions?</i>"' );
 		MainView.outputText( '\n\n"<i>It\'s a public establishment.  It provides homes to treasure seekers, fashion designers, antiquarians and the huddled masses.  I believe the law refers to us as pickpockets, strippers, fences and beggars.</i>"  He shrugs.  "<i>Can\'t say I blame them.  Right now we\'re having an auction.  You\'d be surprised how many of these bored nobles are happy to get acquainted with valuables they\'d forgotten about ten years ago.  They think they\'ll match the ones they still have in their attics... somewhere.</i>"  He grins.  "<i>They\'ll never care to look and in truth, I think they know deep down.  The coming of demons and the ruination of any semblance of a proper economy, it does much to skew people\'s perception of wealth.  The poor no longer have places to earn any and the rich sit on hoards they can no longer properly spend.  I give them a place that allows them their little indulgences, one that makes them feel wealthy again.  I then spend the proceedings on those that need it. I\'m the middle man, the great equalizer.</i>"  Raphael drifts by and walks further across the roof.' );
 		MainView.outputText( '\n\nWhen you wonder what made him equalize your possessions, he winks apologetic.  "<i>I needed to cool my heels outside the city for a while.  I couldn\'t stay in the orphanage, nor Tel\'Adre with the Quicksilvers breathing down my neck.  It would put too many people at risk.</i>"  He takes you by the hands and fondles them with his thumbs.  "<i>The beasts and demons carry little wealth and I remain a thief.  You were the only thing out there allowing me to profess my craft and keep me sane.</i>"  He kneels before you, staring you in your eyes.  "<i>And then you saved me, my salvation.</i>"  He kisses your hand once.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.evenMoreRaphaelIntro );
 	};
 	//Raphael's Shit Expanded;
@@ -1063,7 +1063,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		MainView.outputText( '\n\n"<i>I was thinking of this very moment, when I gave you that dress.</i>"  His paws travel across your skin in the pattern of a sweeping rosebush.  "<i>You are the blossom my garden lacked.  The most gorgeous flower of them all.</i>"' );
 		MainView.outputText( '\n\nWith one firm swerve, he turns you around to face him again.  "<i>I have but one wonder mademoiselle...</i>"  The fox smiles, holds you by the waist, and presses his body closer onto yours.  "<i>What would such a fair beauty be doing in the seedy part of town, other than brightening the day of a lowly rogue?</i>"  The russet rogue looms in over you with a develish twinkle in his emerald eyes.  His sharp triangular face and pointy ears are turned towards you inquisitively.' );
 		//[Kiss] [Goodbye];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.kissRaphaelFirstTimeOrphanage );
 	};
 	Raphael.prototype.getTheFuckOutOfDodge = function() {
@@ -1087,7 +1087,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.followupToFirstTimeOrphanageRaphSex );
 	};
 	//After Sex1;
@@ -1153,13 +1153,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, WeaponL
 		MainView.outputText( '\n\nHe looks over to you and frowns, worried.  "<i>I wouldn\'t recommend attempting the same though.  My first succubus was a very young one, almost a decade ago.  In my puberty, I would proceed to try and seduce several more - even two incubi - to charm my way out of trouble whilst seeking demon treasure, but as time progressed, I got into serious trouble for it.  The smarter ones, higher up the ranks, outdid me and I can personally attest how demons have a corrupting influence to them.  Simply being around to stalk them was enough to make me careless.  I became addicted to the thrill.  Had I not broken a leg, forcing me to recover in the city and giving me time to reflect and recover, I\'m not sure if I would be around today.  I mean, you can only pick the lock on the tiny cage they\'re using to cart you up the mountain so many times, before they decide to simply fuse it.</i>"  He smiles.  "<i>By then, I had learned to appreciate finer things. I have little enduring interest in the corrupt.</i>"' );
 		MainView.outputText( '\n\n"<i>But what I mean to say, is this: I put value in things such as modesty, dignity, decorum and a sense of style.  I don\'t think that demons do, or at least not in a way that would preserve these virtues.</i>"  Raphael clears his throat and dips back into metaphors.  "<i>I\'m not about theft.  I\'m about getting into hard to reach places.  I don\'t care what\'s in the vault.  Whatever it is, it must be valuable to be there, behind all those intricate traps, delicate locks, ornate guards and cultural heritage.  To finesse my way through all of that?</i>"' );
 		MainView.outputText( '\n\nRaphael smirks and turns towards you, leans on one paw and gazes into your eyes.  "<i>I just can\'t get enough of tweaking knobs, hitting a lock\'s sweet spot, or getting my fingers in places where they don\'t belong, amidst all that splendor.</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		this.raphaelOrphanageSexMenu();
 		EngineCore.addButton( 4, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 
 	Raphael.prototype.raphaelOrphanageSexMenu = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Cunnilingus', this, this.cunnilingusWithRaphael );
 		EngineCore.addButton( 1, 'Ride Him', this, this.girlOnTopOfRedFoxesOhMy );
 		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );

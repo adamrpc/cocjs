@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 				MainView.outputText( '\n\nSuddenly a warning from that Traveler\'s Guide pops into your head.  Flickering lights in the swamps and bogs are just swamp gas, it said, unless they\'re something much worse.  Well meaning travelers who follow them are lucky to escape unharmed.\n\nPerhaps it would be best to leave this faerie fire alone.' );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] !== 0 || CoC.player.hasKeyItem( 'Traveler\'s Guide' ) >= 0 ) {
 			EngineCore.addButton( 4, 'Leave', this, this.phoukaFaerieFireLeave );
 		}
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		if( CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] === 0 ) {
 			CoC.flags[ kFLAGS.PHOUKA_ENCOUNTER_STATUS ] = 1;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( hasAlcohol ) {
 			EngineCore.addButton( 0, 'Offer Drink', this, this.phoukaStuckOfferWhiskey );
 		}
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		MainView.outputText( '\n\nThe phouka zips over to a nearby tree and collects a pair of leather drinking cups while you pry the cork out of the bottle.  As he returns his form shifts and grows, becoming a bunny-morph.  You guess in faerie form these phouka are lightweights - that or they just can’t physically take in enough booze for their liking.  He takes the bottle and pours some of the clear amber liquid into the cups, offering one to you.' );
 		this.phoukaForm = this.PHOUKA_FORM_BUNNY;
 		if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) ) {
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 1, 'Drink', this, this.phoukaDrinkAccept );
 		} else {
 			this.phoukaDrinkWhilePregnant( true );
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 					} else {
 						MainView.outputText( '  If it ain\'t then tough shite, cause that\'s what I want.”</i>' );
 					}
-					EngineCore.menu();
+					MainView.menu();
 					this.phoukaSexAddStandardMenuChoices();
 					EngineCore.addButton( 4, 'Fight', this, this.phoukaStartFight );
 					break;
@@ -198,7 +198,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 					this.phoukaForm = this.PHOUKA_FORM_BUNNY;
 					if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) ) {
 						MainView.outputText( '  He pours some of the clear amber liquid into the other cup and offers it to you.' );
-						EngineCore.menu();
+						MainView.menu();
 						EngineCore.addButton( 0, 'Refuse', this, this.phoukaDrinkRefuse );
 						EngineCore.addButton( 1, 'Drink', this, this.phoukaDrinkAccept );
 					} else {
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 			}
 			MainView.outputText( ' what\'s up for grabs.  <i>“Go on and have some already. I try not to drink alone.  Always end up fucked by an imp or a drider or something that way.”</i>' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Refuse', this, (playerOfferedTheBooze ? this.phoukaDrinkRefuseAfterOffer : this.phoukaDrinkRefuse) );
 		if( acceptable ) {
 			EngineCore.addButton( 1, 'Drink', this, this.phoukaDrinkAccept );
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		ConsumableLib.P_WHSKY.phoukaWhiskeyAddStatus( CoC.player );
 		if( CoC.player.tou < 30 ) {
 			MainView.outputText( '\n\nYou quickly end up drunk and begin a rambling story about your adventures.  The phooka is a good listener, though he asks for lots of detail whenever you bring up sex or potential sex of any kind.  You realize you\'re in real trouble, turned on and watching the phouka stroking his cock, which is still hard despite the alcohol he\'s been downing.  He notices your interest and says <i>“Now that you\'re relaxed, let\'s go for the main course.  I\'ll make sure you\'ll remember it even once you\'re sober.”</i>' );
-			EngineCore.menu();
+			MainView.menu();
 			this.phoukaSexAddStandardMenuChoices();
 		}
 		if( CoC.player.tou < 70 ) {
@@ -269,17 +269,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		MainView.clearOutput();
 		if( (CoC.player.pregnancyIncubation === 0) && (CoC.player.buttPregnancyIncubation === 0) && (CoC.player.pregnancyIncubation <= 100) ) { //Pregnancy is obvious to the phouka
 			MainView.outputText( 'The rabbit morph sits down heavily on the wet ground and sips his booze.  <i>“Don\'t want to fuck, don\'t want to drink.  What gives?  Live a little and let me have fun with your pregnant pussy.  I’ll get ya off, and it’s not like I can knock you up again.  Course, that\'d be fun too.”</i>' );
-			EngineCore.menu();
+			MainView.menu();
 			this.phoukaSexAddStandardMenuChoices();
 			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkRefusePregnantLeave );
 		} else { //Less obvious pregnancy or player not pregnant
 			MainView.outputText( '<i>“You damn prude.  That does it! I don\'t have to sit around listening to this.  I try to be friendly like some people say ya should instead of just raping ya.  What\'s it get me, huh?”</i>' );
 			if( (CoC.player.lust > 66) || ((CoC.player.cor > 50) && (CoC.player.lust > 33)) ) {
 				MainView.outputText( '\n\nYou begin to extract yourself from the bog.  As you do you feel the net of roots and vines rubbing against your body.  A little sex with this shapeshifter to tide you over might just hit the spot.' );
-				EngineCore.menu();
+				MainView.menu();
 				this.phoukaSexAddStandardMenuChoices();
 			} else {
-				EngineCore.menu();
+				MainView.menu();
 			}
 			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkRefuseLeave );
 		}
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		var playerIsInebriated = (playerNotDrinking === false) && (CoC.player.tou < 70);
 		if( playerIsInebriated ) {
 			MainView.outputText( '\n\nWhen the bottle runs out the bunny stands up, nearly falls down again and looks at you with his eyes crossing. <i>“Okay, this is good.  This is like the parties in the olden days.  You stay here, I\'ll go find sumore booze an\' maybe sum buddies o\' mine too.  Great booze, great party.  That\'s ther way!”</i> Then the bunny melts away, the swirling mess of black fur slowly contracting and reforming itself as a little black faerie again.  He waves and takes off on a dangerous looking spiraling course through the trees.\n\nAs the fuzziness from the whiskey begins to fade you realize [if (corruption <= 66)it probably isn\'t the best idea to stick around][if (corruption > 66)that you could get away if you want to].  If your new drinking buddy really does bring back some friends you\'ll probably experience the kind of \'party\' that will make your jaw click when you talk and leave all your holes sore for a week.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkLeave );
 		} else {
 			if( playerNotDrinking ) {
@@ -338,7 +338,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 					MainView.outputText( 'and you feel your sphincter twitch as your brain thinks about what you could do with this phouka now.' );
 				} //Genderless
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Leave', this, this.phoukaDrinkLeave );
 			if( CoC.player.lust >= 33 ) {
 				EngineCore.addButton( 1, 'Ride Faerie', this, this.phoukaSexFaerieNonCombat ); //Works for all
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		if( CoC.player.inte > 80 ) {
 			MainView.outputText( '\n\nYou\'re about to accept when you notice how a few of the phouka in the back are looking at you.  It\'s a look you recognize from merchants who used to stop in Ingnam to sell their wares.  The \'a sucker born every minute\' look.  You realize none of the phouka have so much as tasted any treacle and you start to wonder what this sugary substance really is.' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Taste', this, this.phoukaHalloweenTreacleEater );
 		if( CoC.player.inte > 80 ) {
 			EngineCore.addButton( 4, 'Leave', this, this.phoukaHalloweenLeave );
@@ -433,7 +433,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 				} else {
 					MainView.outputText( '.  It would be so easy to rape this perverted faerie, how can you resist?' );
 				}
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Leave', this, this.phoukaLeaveOnLustWin );
 				EngineCore.addButton( 1, 'Anal Ride', this, this.phoukaSexFaeriePostCombat ); //Works for all
 				if( CoC.player.hasCock() ) {

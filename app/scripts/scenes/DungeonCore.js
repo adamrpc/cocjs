@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			MainView.showMenuButton( MainView.MENU_LEVEL );
 			MainView.showLevelUp();
 		}
-		EngineCore.menu();
+		MainView.menu();
 		//Entry Room;
 		if( OnLoadVariables.dungeonLoc === DungeonCore.DUNGEON_FACTORY_FOYER ) {
 			MainView.outputText( '<b><u>The Factory Foyer</u></b>\nThe door swings shut behind you with an ominous \'creeeeeaaaaaaak\' followed by a loud \'SLAM\'.  Glancing around, you find yourself in some kind of stylish foyer, complete with works of art and a receptionist\'s desk.  Looking closer at the paintings on the wall quickly reveals their tainted and demonic nature: One appears at first to be a painting of a beautiful smiling woman, except you notice dripping tentacles coiling around the hem of her dress.  Behind the receptionist\'s desk, the second painting is even less discreet, openly depicting a number of imps gang-raping a vaguely familiar-looking woman.  Luckily, whatever demon is employed as the receptionist is away at the moment.  Behind the desk on the northern wall stands a secure-looking iron door.  On the eastern wall is a simple wooden door, though the color of the wood itself is far darker and redder than any of the hard woods from your homeland.  Behind you to the south is the rusty iron entry door.', true );
@@ -1763,7 +1763,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			MainView.outputText( '"<i>Please, if you\'ll let me go I could use my magics to give you nearly anything you want!  Just please don\'t tell the other demons what happened here, I\'d never live it down,</i>" she begs.\n\n' );
 		}
 		MainView.outputText( 'What do you do?  You could use her boon increase the size of your endowments or maybe regain some of your lost humanity!  Or you could play it safe and turn down her offer.  Although then you\'d have to decide to let her go or kill her.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'GrowBreasts', this, this.omnibusVictoryGrowBreasts );
 		EngineCore.addButton( 1, 'Grow Dick', this, this.omnibusVictoryGrowDick );
 		EngineCore.addButton( 2, 'Normal-Face', this, this.omnibusVictoryNormalFace );

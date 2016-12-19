@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		if( CoC.flags[ kFLAGS.KAIJU_MEETINGS ] === 0 ) {
 			MainView.outputText( 'Your explorations take you to a small island you haven\'t seen before.  It appears to be a large, smooth rock hill jutting out of the water.  Do you explore it?' );
 			//[Yes/No]
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Yes', this, this.meetDatKaijuYo );
 			EngineCore.addButton( 1, 'No', this, this.noMeetingKaijus );
 		} else {
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		MainView.outputText( '\n\n"<i>Oh my, a visitor?  Or just a sneaky voyeur?</i>" she asks, cupping her breasts and laughing.  "<i>What a little thing you are. Or maybe it\'s all this dreadful weight I\'ve gained.  I was of a much smaller, petite stature before the demons began pumping all those yummy liquids into the lake.  I\'m afraid I got a little gluttonous and gained a few pounds.  What do you think? Has little Venus gone overboard?</i>"' );
 		MainView.outputText( '\n\nWhatever weight she gained, it seemed to all go up.  Despite the green skin and turtle shell, she appears completely humanoid, save for her giant size and proportions.  She looks to be kneeling in the lake, making her exact height hard to estimate.  Though her breasts are a bit larger than proportional, the rest of her matches what would be fit and trim for a person for her rather extreme stature.  Beyond size it would seem the corrupt fluids poured into the lake have heightened her lust as well, judging by how she tugs and pulls on her shapely tits while staring ever intensely at you.  It appears she expects an answer.  What do you do?' );
 		//[Compliment/Flirt/Insult]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Compliment', this, this.complimentKaiju );
 		if( CoC.player.gender > 0 ) {
 			EngineCore.addButton( 1, 'Flirt', this, this.flirtWithKaiju );
@@ -67,11 +67,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 			if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 && (CoC.player.findPerk( PerkLib.BloodMage ) < 0 && CoC.player.fatigue + EngineCore.spellCost( 30 ) > 100) ) {
 				MainView.outputText( '\n\nSensing her desires, you try to quickly think of how to avoid pleasing the giant\'s large cock.  It occurs to you that you could use the spell whitefire to attack her.  Do you cast it?' );
 				//[Yes][No]
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Yes', this, this.yesBurnDatClit );
 				EngineCore.addButton( 1, 'No', this, this.corruptKaijuInsertion );
 			} else {
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Next', this, this.corruptKaijuInsertion );
 			}
 		} else {
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		MainView.outputText( 'You decide to compliment her figure, stating it is proportional and very pleasing.' );
 		MainView.outputText( '\n\n"<i>Aw, that\'s so sweet of you to say!</i>" she says as a smile forms on her face.  "<i>You\'re just so small and sweet I want to pick you up and give you a great big hug,</i>" she continues as she reaches down to pick you up.' );
 		//[Let her/Stop it]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Let Her', this, this.letKaijuHaveWayWithYou );
 		EngineCore.addButton( 1, 'Stop It', this, this.stopItPlease );
 	};
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		MainView.clearOutput();
 		MainView.spriteSelect( 103 );
 		MainView.outputText( 'As you row through the lake you encounter a familiar sight, a giant shell as big as an island.  As you row near it the terrapin giantess, Venus emerges from the corrupted waters.  One giant green hand plays with her titanic jugs as the other remains in the water playing with her unseen sex.  It takes several moments before she notices you.  "<i>Oh my, it\'s you again, my favorite voyeur!  Did you come back for a little peek, or do you want to have some real fun?</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		//[If PC has 15 incubus drafts (regular or pure) and Venus is not already a herm]
 		if( CoC.player.itemCount( ConsumableLib.INCUBID ) + CoC.player.itemCount( ConsumableLib.P_DRAFT ) >= 10 && !this.kaijuCock() ) {
 			MainView.outputText( '\n\nIt occurs to you that you have enough Incubi Drafts on you to even affect someone of the turtle girl’s great size.  Maybe you could give her a cock?' );
@@ -549,11 +549,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		if( this.kaijuCock() ) {
 			MainView.outputText( '\n\nThough she appears to be ending the show, you know you can encourage her to go even further.  Do you egg her on?' );
 			//[Yes][No]
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Yes', this, this.yesKaijuGimmePeepShowsMoar );
 			EngineCore.addButton( 1, 'No', this, this.noKaijuPeepShows );
 		} else {
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.noKaijuPeepShows );
 		}
 	};
@@ -588,7 +588,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		MainView.outputText( '\n\n"<i>Wow, you did that?  I\'m impressed,</i>" she says, appraising you with her eyes, the usual lust in them replaced by a different kind of curiosity, even if only for a moment before once more going back to the haze of desire.  "<i>Well, since you\'re the one responsible, maybe you would like to help me with something?</i>" she asks as she slowly begins to rise from the lake, her flowing locks of red hair clinging wetly to her head and the back of her neck, with a few red curls coming down to cling around her large bountiful tits, her perky pink nipples stiff and hard from the cold water.  She continues to rise, drops of moisture sliding down the smooth green skin of her torso as her body ascends from the lake until she\'s up only to her waist, then up further so that her well trimmed pubic hair is on display, the red carpet clearly matching the curtains.  Then finally her sex emerges from the lake, dripping with water and sexual fluids, and you can clearly see that where once she had only the normal, albeit giant sized, sex of the female gender she now also has a lewd, throbbing dick above her vaginal opening, placed exactly where her pink clitoris once rested.  "<i>What do you think?  Isn\'t it great?  I can\'t believe it just grew there.  It must have been all that excess corruption that was released.  And it\'s been making me so horny I can hardly walk straight!  Hey, want to help me give my brand new cock a test drive?</i>" she eagerly asks you, her new member starting to bounce a little as she shivers with desire.' );
 		MainView.outputText( '\n\nYou never expected your actions in the factory to have such a perverse effect.  Do you help get her off?' );
 		//[Yes][No][Mock]
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'No', this, this.dontGetFutaTurtlesOffToday );
 		EngineCore.addButton( 0, 'Yes', this, this.helpNewFutaKaijuGetOff );
 		EngineCore.addButton( 2, 'Mock', this, this.mockDatTurtleGirl );
@@ -747,13 +747,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		if( CoC.player.canFly() ) {
 			MainView.outputText( '\n\nIt is not too late to fly to safety if you so choose.  Do you make a go of it?' );
 			//[Yes][No]
-			EngineCore.menu();
+			MainView.menu();
 			//[If yes] Flapping your wings at max speed you beat a hasty retreat! [PC winds up back at camp]
 			//[If no] (Scene continues as normal)
 			EngineCore.addButton( 0, 'Yes', this, this.flyAwayFromBadEnd );
 			EngineCore.addButton( 1, 'No', this, this.badEndPartTwo );
 		} else {
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.badEndPartTwo );
 		}
 	};

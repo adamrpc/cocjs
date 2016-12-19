@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		MainView.outputText( '\n\nSeeing the pool, the milk girl gasps with glee, stumbling over to it before collapsing onto all fours, chest resting on her massive tits and ass up in the air, bare for all to see.  "<i>Bath Slut milk time?</i>" she asks, her bright brown eyes looking up at yours pleadingly.' );
 		MainView.outputText( '\n\nSpeaking of which, you don\'t really have anything to call this dusky beauty.  You suppose you could just keep calling her "Bath Slut," but that\'s hardly a fitting name for a free girl...' );
 		//[Name Field.  If left empty, defaults to 'Bath Slut'];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.nameZeMilkBath );
 		MainView.nameBox.text = '';
 	};
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		if( MainView.nameBox.value === '' || !isNaN( MainView.nameBox.value ) ) {
 			MainView.clearOutput();
 			MainView.outputText( '<b>You must give her a name.</b>', false );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.nameZeMilkBath );
 			MainView.nameBox.visible = true;
 			MainView.nameBox.value = 'Bath Slut';
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//Milk Bath (Giant or HHH boobs);
 		//Appearance;
 		//{Reducto} (GIANT or HHH boobs);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.milkWriteFuAppearance );
 		if( CoC.flags[ kFLAGS.MILK_SIZE ] > 0 ) {
 			EngineCore.addButton( 1, 'Milk Time!', this, this.nyanCatMilkTime );
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 				}
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.milkyMenu );
 	};
 	//Reducto;
@@ -312,7 +312,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		//If PC has Sophie, Hel, Isabella, Izma, Ember, or Amily:;
 		MainView.outputText( '  What do you do?' );
 		//{If can masturbate [Drink & Masturbate] [Milk Girl] [Communal Bath] [Relax]};
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Milk Girl', this, this.pullInZeMilkGirl );
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 			EngineCore.addButton( 0, 'DrinkNFap', this, this.drinkAndFapturbate );
@@ -468,7 +468,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			}
 		}
 		//[Fuck Her](PC must have gender; if cooch, also C+ cups) [Don't];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 4, 'Don\'t', this, this.dontFuckTheMilkWaifu );
 		if( CoC.player.hasCock() ) {
 			EngineCore.addButton( 0, 'Fuck Her', this, this.fuckTheMilkWaifu );
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			if( CoC.player.cockThatFits( 50 ) >= 0 && CoC.player.hasCock() ) {
 				MainView.outputText( '  Then again, maybe you could hike her panties down and give her a good fucking to send her over the edge.  In her state, she certainly won\'t mind!' );
 			}
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Normal', this, this.finishMilkNormall );
 			EngineCore.addButton( 1, 'Suckle', this, this.suckleDatMilk );
 			if( CoC.player.cockThatFits( 50 ) >= 0 && CoC.player.hasCock() ) {

@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		_.forEach(CoC.player.keyItems, function(item) {
 			MainView.outputText( item.keyName + '\n' );
 		});
-		EngineCore.menu();
+		MainView.menu();
 		for( x = 0; x < 5; x++ ) {
 			if( CoC.player.itemSlots[ x ].unlocked && CoC.player.itemSlots[ x ].quantity > 0 ) {
 				EngineCore.addButton( x, (CoC.player.itemSlots[ x ].itype.shortName + ' x' + CoC.player.itemSlots[ x ].quantity), this.useItemInInventory, x );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 	Inventory.prototype.stash = function() {
 		MainView.clearOutput();
 		MainView.spriteSelect( -1 );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
 			SceneLib.anemoneScene.anemoneBarrelDescription();
 			if( CoC.time.hours >= 6 ) {
@@ -313,7 +313,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 	};
 	Inventory.prototype.takeItemFull = function( itype, showUseNow, source ) {
 		MainView.outputText( 'There is no room for ' + itype.longName + ' in your inventory.  You may replace the contents of a pouch with ' + itype.longName + ' or abandon it.' );
-		EngineCore.menu();
+		MainView.menu();
 		for( var x = 0; x < 5; x++ ) {
 			if( CoC.player.itemSlots[ x ].unlocked ) {
 				EngineCore.addButton( x, (CoC.player.itemSlots[ x ].itype.shortName + ' x' + CoC.player.itemSlots[ x ].quantity), EngineCore.createCallBackFunction2( this, this.replaceItem, itype, x ) );
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		}
 		MainView.outputText( 'What ' + text + ' slot do you wish to take an item from?' );
 		var button = 0;
-		EngineCore.menu();
+		MainView.menu();
 		for( var x = startSlot; x < endSlot; x++, button++ ) {
 			if( storage[ x ].quantity > 0 ) {
 				EngineCore.addButton( button, (storage[ x ].itype.shortName + ' x' + storage[ x ].quantity), EngineCore.createCallBackFunction2( this, this.pickFrom, storage, x ) );
@@ -453,7 +453,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		MainView.clearOutput(); //Selects an item to place in a gear slot. Rewritten so that it no longer needs to use numbered events
 		EngineCore.hideUpDown();
 		MainView.outputText( 'What item slot do you wish to empty into your ' + text + '?' );
-		EngineCore.menu();
+		MainView.menu();
 		var foundItem = false;
 		for( var x = 0; x < 5; x++ ) {
 			if( CoC.player.itemSlots[ x ].unlocked && CoC.player.itemSlots[ x ].quantity > 0 && typeAcceptableFunction( CoC.player.itemSlots[ x ].itype ) ) {

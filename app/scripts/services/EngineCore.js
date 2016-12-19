@@ -64,12 +64,12 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 	};
-	EngineCore.displayPerks = function() {
+	EngineCore.displayPerks = function() { // TODO : Move this into a new PerkScene.
 		MainView.outputText( '', true );
 		_.forEach(CoC.player.perks, function(perk) {
 			MainView.outputText( '<b>' + perk.perkName + '</b> - ' + perk.perkDesc + '\n', false );
 		});
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.perkPoints > 0 ) {
 			MainView.outputText( '\n<b>You have ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point', false );
 			if( CoC.player.perkPoints > 1 ) {
@@ -84,9 +84,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		EngineCore.addButton( 0, 'Next', null, MainView.playerMenu );
 	};
-	EngineCore.doubleAttackOptions = function() {
+	EngineCore.doubleAttackOptions = function() { // TODO : Move this into a new PerkScene.
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 0 ) {
 			MainView.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
 			MainView.outputText( '\n\nYou can change it to double attack until sixty strength and then dynamicly switch to single attacks.' );
@@ -108,19 +108,19 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		EngineCore.addButton( 4, 'Back', null, EngineCore.displayPerks );
 	};
-	EngineCore.doubleAttackForce = function() {
+	EngineCore.doubleAttackForce = function() { // TODO : Move this into a new PerkScene.
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 0;
 		EngineCore.doubleAttackOptions();
 	};
-	EngineCore.doubleAttackDynamic = function() {
+	EngineCore.doubleAttackDynamic = function() { // TODO : Move this into a new PerkScene.
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 1;
 		EngineCore.doubleAttackOptions();
 	};
-	EngineCore.doubleAttackOff = function() {
+	EngineCore.doubleAttackOff = function() { // TODO : Move this into a new PerkScene.
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 2;
 		EngineCore.doubleAttackOptions();
 	};
-	EngineCore.levelUpGo = function() {
+	EngineCore.levelUpGo = function() { // TODO : Move this into a new LevelUpScene.
 		MainView.clearOutput();
 		MainView.hideAllMenuButtons();
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			CoC.player.perkPoints++;
 			MainView.outputText( '<b>You are now level ' + CoC.player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
 			CoC.player.XP -= (CoC.player.level - 1) * 100;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Strength', null, EngineCore.levelUpStatStrength );
 			EngineCore.addButton( 1, 'Toughness', null, EngineCore.levelUpStatToughness );
 			EngineCore.addButton( 2, 'Speed', null, EngineCore.levelUpStatSpeed );
@@ -142,13 +142,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
-	EngineCore.levelUpStatStrength = function() {
+	EngineCore.levelUpStatStrength = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'str', 5 ); //Gain +5 Str due to level
 		MainView.clearOutput();
 		MainView.outputText( 'Your muscles feel significantly stronger from your time adventuring.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
-	EngineCore.levelUpStatToughness = function() {
+	EngineCore.levelUpStatToughness = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
 		$log.debug( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
 		MainView.statsView.show();
@@ -156,19 +156,19 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.outputText( 'You feel tougher from all the fights you have endured.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
-	EngineCore.levelUpStatSpeed = function() {
+	EngineCore.levelUpStatSpeed = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'spe', 5 ); //Gain +5 speed due to level
 		MainView.clearOutput();
 		MainView.outputText( 'Your time in combat has driven you to move faster.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
-	EngineCore.levelUpStatIntelligence = function() {
+	EngineCore.levelUpStatIntelligence = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'int', 5 ); //Gain +5 Intelligence due to level
 		MainView.clearOutput();
 		MainView.outputText( 'Your time spent fighting the creatures of this realm has sharpened your wit.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
-	EngineCore.perkBuyMenu = function() {
+	EngineCore.perkBuyMenu = function() { // TODO : Move this into a new PerkScene.
 		MainView.clearOutput();
 		var perkList = EngineCore.buildPerkList();
 		if( perkList.length === 0 ) {
@@ -183,22 +183,22 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.outputText( 'Please select a perk from the drop-down list, then click \'Okay\'.  You can press \'Skip\' to save your perk point for later.\n\n' );
 		MainView.aCb.visible = true;
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
 	};
-	EngineCore.perkSelect = function( selected ) {
+	EngineCore.perkSelect = function( selected ) { // TODO : Move this into a new PerkScene.
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			EngineCore.applyPerk( selected );
 		}
 	};
-	EngineCore.perkSkip = function() {
+	EngineCore.perkSkip = function() { // TODO : Move this into a new PerkScene.
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			MainView.playerMenu();
 		}
 	};
-	EngineCore.changeHandler = function( selected ) {
+	EngineCore.changeHandler = function( selected ) { // TODO : Move this into a new PerkScene.
 		if( selected === null ) {
 			return;
 		}
@@ -206,11 +206,11 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.clearOutput();
 		MainView.outputText( 'You have selected the following perk:\n\n' );
 		MainView.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Okay', null, EngineCore.perkSelect, selected );
 		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
 	};
-	EngineCore.buildPerkList = function() {
+	EngineCore.buildPerkList = function() { // TODO : Move this into a new PerkScene.
 		var perkList = [];
 		function _add( p ) {
 			perkList.push( { label: p.perkName, perk: p } );
@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.aCb.dataProvider = perkList;
 		return perkList;
 	};
-	EngineCore.applyPerk = function( perk ) {
+	EngineCore.applyPerk = function( perk ) { // TODO : Move this into a new PerkScene.
 		MainView.clearOutput();
 		CoC.player.perkPoints--;
 		//Apply perk here.
@@ -726,7 +726,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.hideBottomButton( 9 );
 	};
 	EngineCore.choices = function() { //New typesafe version
-		EngineCore.menu();
+		MainView.menu();
 		var args = Array.from( arguments );
 		if(args.length % 3 !== 0) {
 			$log.error('Bad arguments number.');
@@ -1695,5 +1695,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 	};
+	MainView.setMenuButton( MainView.MENU_LEVEL, 'Level', null, EngineCore.levelUpGo );
 	return EngineCore;
 });

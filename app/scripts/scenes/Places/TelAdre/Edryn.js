@@ -862,7 +862,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			//TO SEX!;
 			//EngineCore.doNext( this, this.fuckPregEdryn);;
 			MainView.outputText( '\n\nHow do you want to handle this?  ' );
-			EngineCore.menu();
+			MainView.menu();
 			MainView.outputText( 'You could have some great, pregnant taur sex.' );
 			EngineCore.addButton( 0, 'Preg. Fuck', this, this.fuckPregEdryn );
 			if( CoC.player.biggestCockArea() >= 300 ) {
@@ -1162,7 +1162,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		//NEW;
 		MainView.outputText( '\n\nHow will you have her?  You could fuck her.  Or, you could eat her out until you\'re going crazy with sexual need and completely lose control.' );
 		//[Fuck] [Eat Her Out];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'Eat Her Out', this, this.eatEdrynPussyLikeABawss );
 		if( CoC.player.isTaur() ) {
 			EngineCore.addButton( 0, 'Fuck', this, this.fuckEdrynTaur );
@@ -1274,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.outputText( '\n\nYou slump down upon her fuzzy back as Edryn rolls sideways onto some nearby cushions, lewdly moaning as her eyes flutter closed, drifting into an exhausted slumber.  Dipping down into closure, your eyelids decide that you should join her.  Her pheromones are still heavy in the air, however, and even in slumber, you feel your [balls] refill and your [hips] begin to pump your cock through that slippery channel once more.' );
 		MainView.outputText( '\n\n\'<b>Squish-squish-squish-squish-</b>\' can be heard for several hours by anyone lucky enough to hold their ear to the door.' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.postEdrynEatOutRut );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.25, 'sen', -3 );

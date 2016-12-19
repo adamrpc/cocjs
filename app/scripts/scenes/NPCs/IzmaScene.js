@@ -1758,7 +1758,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			analCatch = this.followerIzmaTakesItInPooper;
 			assDom = this.radarIzmaAnalDominant;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Anal \'Catch\'', this, analCatch );
 		EngineCore.addButton( 1, 'DominateVagina', this, domVag );
 		EngineCore.addButton( 2, 'DomWithAss', this, assDom );
@@ -2982,7 +2982,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'You ask Izma if she wouldn\'t mind getting rid of her dick for you, her Alpha.  She recoils at the mention, a haughty look on her angular visage.  "<i>Tch, why would I want to get rid of my pride and joy?  My dick feels so good... I would never want to lose it,</i>" Izma answers with a hint of rebellion.' );
 			MainView.outputText( '\n\nShe isn\'t happy with the idea, but if you want, you could assert yourself as an Alpha to overcome it.' );
 			CoC.flags[ kFLAGS.ASKED_IZMA_ABOUT_WANG_REMOVAL ] = 1;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Okay', this, this.izmaFollowerMenu );
 			EngineCore.addButton( 1, 'Force Her', this, this.forceIzmaPenis );
 			return;
@@ -3518,7 +3518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			//{First time};
 			MainView.outputText( '\nFamiliar, lusty pants can be heard coming from the edge of the camp, and you begrudgingly head over to investigate.  The heavy breathing is accompanied by a few groans of pleasure, each higher pitched than the last, and as you round a rock, you\'re treated to the sight of Izma nude, holding a rope that\'s currently lashed around ' + CoC.flags[ kFLAGS.GOO_NAME ] + '.  The goo-girl has one hand stuffed into her slick quim, busily fisting herself for the shark-girl\'s pleasure.' );
 			//[Stop] [Watch];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Stop', this, this.stopIzmaLatexy );
 			EngineCore.addButton( 1, 'Watch', this, this.izmaDomsLatexyPartI );
 		}
@@ -3598,7 +3598,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	IzmaScene.prototype.izmaLatexySubmenu = function() {
 		MainView.clearOutput();
 		MainView.outputText( '"<i>Oh, I wouldn\'t worry about her, [name],</i>" Izma says while her tail flicks back and forth.' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.IZMA_X_LATEXY_DISABLED ] === 1 ) {
 			EngineCore.addButton( 0, 'KeepHerFed', this, this.izmaLatexyToggle );
 		} else {
@@ -3619,7 +3619,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'You tell Izma that you\'ve changed your mind, and she can keep ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' fluid topped off.  The shark-girl hugs you with a predatory grin splitting her face.  "<i>I can\'t wait.</i>"' );
 			CoC.flags[ kFLAGS.IZMA_X_LATEXY_DISABLED ] = 0;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 4, 'Back', this, this.izmaLatexySubmenu );
 	};
 	SceneLib.registerScene( 'izmaScene', new IzmaScene() );

@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		//Corruption 16-85 : ;
 		MainView.outputText( '\n\nWell, you do have more important things to do, and in the world of Mareth, where the corruption is dominant and there\'s definitely way more sex than romance, such a mission may be doomed to fail anyways, but it is something to consider.  All in all, it comes down to whether you think you have the time for this and whether it even seems worth it.' );
 		//[Help them][Leave];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Help Them', this, this.helpValentinesDay );
 		EngineCore.addButton( 1, 'Leave', this, this.leaveValentinesDayForever );
 	};
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 	Valentines.prototype.helpValentinesDay = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Deciding to try and improve the overall appreciation of romance and love in possibly the last pure city of Mareth, you smile to Scylla and tell her she can count on you.  Her happy expression makes you forget any doubts you might\'ve had before.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.helpValentinesDayII );
 	};
 	//[Leave] :;
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		//if(!SceneLib.urta.urtaLove()) MainView.outputText('\n\nThe bearer of it seems to just come here to look uncomfortably but, perhaps, longingly at the stall for a few moments, before practically leaping back into the Wet Bitch.');;
 		//else outputText('\n\nYou see a flash of said fur as the person with said characteristic moves away from the stall, clearly carrying a confection or two and some other pink, red, or heart-shaped things into the Wet Bitch.');;
 		//[next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.helpValentinesDayIII );
 	};
 	Valentines.prototype.helpValentinesDayIII = function() {
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( '\n\nThat being said, the sun is slowly setting and the people begin to leave for their homes.  You reckon you may be a bit tired soon, and have to return to camp at some point, but at the same time, you could allow yourself to wander around with one of the girls instead.' );
 		MainView.outputText( '\n\nHow do you want to spend the rest of your evening?' );
 		//[GoHome][Scylla][Abby][Pastie];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Scylla', this, this.goVisitScyllaVday );
 		EngineCore.addButton( 1, 'Abby', this, this.goVisitAbbyVday );
 		if( CoC.player.cockThatFits( 28 ) >= 0 || CoC.player.hasVagina() ) {
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.clearOutput();
 		MainView.outputText( 'You say your goodbyes to Abby and Pastie, before asking Scylla if she\'d mind you accompanying her when she packs the remaining few things and maybe afterwards.  The nun blushes, playing with a lock of her hair as she answers.  "<i>My dear [name], you are of course aware that the reason for me even trying to make this celebration more popular is so that people would spend it with ones they love.  As much as I\'d appreciate your company, are you sure you\'d want to be spending this day with a nun that is already so indebted to you?</i>"' );
 		MainView.outputText( '\n\nYou tell her you\'re more than willing to spend more time with her, and help her pack the things that did not get given away, won or sold in the celebration.  After that, she covers the stall and smiles at you. "<i>I\'ll be taking these things home tomorrow. How about we just go for a walk now?</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.goVisitScyllaVdayII );
 	};
 	//SCYLLA EVENT;
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( 'Scylla takes you for a longer walk throught the now barely illuminated streets of Tel\'Adre, clearly a bit giddy and in a good mood after today\'s events.  "<i>Thank you, [name].  Once again, I think I am in your debt.  These are certainly hard times for this world, and many people certainly try to cope by indulging themselves while throwing away the emotional and spiritual sides of things... it\'s understandable, but it\'s wrong.  People shouldn\'t forget how much comfort and happiness one can find in another person, especially through strong emotions and attachments like romantic or familial love,</i>" she says as you walk through the sunset-illuminated alleys, smiling at you gently, a small rosy blush at her cheeks.  "<i>The way myself, and I\'m sure a few lucky others, find in those like you,</i>" she says in a whisper that\'s still easily heard in the near-empty streets of Tel\'Adre.' );
 		MainView.outputText( '\n\nYou simply listen to her but also blush at the last line, thanking her for her appreciation of your person. She gives a small laugh at that.  "<i>Well, certainly, we\'ve had our troubles with my... new way of eating, and I\'m sure you didn\'t always feel like I really appreciated you or treated you with dignity... I\'m sorry about that, but I really feel like I depended on you a lot and I know you\'re a great person,</i>" she continues, her smile widening and blush slightly deepening with every sentence.  "<i>You\'re more special than the others who\'ve helped me, having always recognized my problems and solutions to them first.  You\'ve saved me from a certain fall to the demon\'s corruption...  And you taste really good, too,</i>" she says, licking her ruby lips before absent-mindedly noticing what she just said, flushing a deep red.  "<i>Well, in any case, thanks to your help, this wasn\'t as much of a strain as I thought.  I feel like I might\'ve really done some things to make this world a slightly better place, and I\'ve certainly seen you do so.  That warms my heart and makes the time spent here worth it,</i>" she explains, resting a hand on your shoulder before showing you a turn.  "<i>We could climb that tower there and watch the sunset,</i>" she says, before explaining, "<i>I\'m certain we\'re both known enough around the place that the guards won\'t protest much, after all, it\'s just watching a sunset.  What do you think, dear?</i>"  Her soft body bounces a bit under the habit as she stops, her flush receding to the pleasant, rosy color from before, but remaining clearly visible on her alabaster skin.' );
 		//[next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.goVisitScyllaVdayIII );
 	};
 	Valentines.prototype.goVisitScyllaVdayIII = function() {
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( '\n\nWhen you do, she hooks an arm around yours, obviously pressing your hand and forearm against her overwhelming breasts, the soft, slightly liquid-like, smooshy feeling quickly encompassing almost all of your hand.  You certainly don\'t complain as you bring your body closer to Scylla\'s warm one.  "<i>It\'s a very nice sunset, certainly.  Views like this one make the effort worth it, I think, even if the place would be better with a lot more green...</i>"  She sighs.  "<i>In any case, you\'re probably working hard to make Mareth a better place, and you\'re on the right track, I\'m sure.  Spending time with you and seeing you develop also makes a day a good one, you know.</i>"' );
 		MainView.outputText( '\n\nYou ponder on how you should respond... it seems Scylla got a bit touchy-feely with you on this holiday, and while it certainly feels nice, the very presence of her over-eroticized body is a temptation in and of itself to take advantage of this closeness...' );
 		//What will you do?;
-		EngineCore.menu();
+		MainView.menu();
 		//[Cuddle] [Make out] [Feed her];
 		EngineCore.addButton( 0, 'Cuddle', this, this.cuddleWithScyllaVDay );
 		EngineCore.addButton( 1, 'Make Out', this, this.makeOutWithScyllaVDay );
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( '\n\nNot being one to refuse a lady, you break the kiss with her right lipple even though it sucks aggressively on your tongue, almost as if trying to force it to stay, and instead plunge a finger into her right boob-lip, letting it suck on it happily and sloppily as you make out with Scylla\'s other boob.  The nun shivers and shudders, trying to control her pleasure, but only partially succeeding. "<i>..Oh... oh gods...</i>" she lets slip, pulling you more closely into her body.' );
 		MainView.outputText( '\n\nYou\'re eager to try to steal the first orgasm from the chaste nun without giving in to your own lust too quickly, but the way she\'s starting to squirm against your painful hardness makes it difficult for you to remain noble.  The sheer volume of the absurdly-endowed woman\'s cleavage starts to overwhelm you, leaving you gasping short and hot breaths.  As usual - for the tainted nun, anyway - your suckling and nursing has stimulated Scylla\'s body, her curves swelling to overcompensate for her burgeoning hunger.  Your presence, to say nothing of your own arousal, has left her a bit too eager to get you off as well...' );
 		//[next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.makeOutWithScyllaVDayII );
 	};
 
@@ -236,7 +236,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.clearOutput();
 		MainView.outputText( 'You wave to Scylla and Pastie as you try to catch up with Abylon, who\'s already picking up the pace and, by the looks of it, trying to remove her dress.  "<i>Well, sup.  I\'ll be going home and changing myself into my usual clothes, if you don\'t mind.  This entire celebration thingy just shows your people\'s issues,</i>" she says, though she doesn\'t seem entirely untouched by the mood of it...' );
 		MainView.outputText( '\n\nDeciding to risk it, you ask her if she\'d like some company. Abylon turns to you, completely stunned.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.goVisitAbby );
 	};
 	//ABYLON EVENT;
@@ -256,7 +256,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( '\n\nYou smile at Abylon coyly and tell her that there\'s certainly no shame in getting off with someone on the day that\'s supposed to celebrate love, but you\'d like to do it a little better than her "<i>guys</i>" before did, and get her off without dumping her in an alley afterwards.' );
 		MainView.outputText( '\n\nShe nods and picks up the pace, and you soon arrive at a rather small, but not bad-looking shack nearby the city\'s walls.  Abylon invites you in, and you ask her if it\'s her house.  "<i>Well... yeah?  I mean... I gotta live somewhere!  Suck-a-lot actually helped me with it, and... Uhh, you see, goblins can have other skills than just suckin\' dick and taking creampies.  I\'m a bit fit, I know a bit of alchemy, so put the two together, do some making, do some delivery, do a mix of both... I\'ve made a small living.</i>"' );
 		MainView.outputText( '\n\nNodding, you go in and make yourself at home, before Abylon tugs at your hand and seemingly continues to remove her dress, showing herself to you naked, in all of her small, couple of feet tall "<i>glory</i>". "<i>W-well, time for you to show what you\'re made of, champ,</i>" she says, bending around a small table, wiggling her posh bottom at you with a look of certain hunger and restlessness to her eyes.' );
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasCock() ) {
 			var x = CoC.player.cockThatFits( 46 );
 			//([If ([cocksmallest] < 46 cockArea) ;
@@ -334,7 +334,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		//Check inventory for Goblin Ale, Black Cat Beer, Bimbo Champagne; failing this, check if PC has female genitalia.;
 		//[BCBeer] [BimboCham][GoblinAle][vagina];
 		if( CoC.player.hasItem( ConsumableLib.BIMBOCH ) || CoC.player.hasItem( ConsumableLib.BC_BEER ) || CoC.player.hasItem( ConsumableLib.GOB_ALE ) || CoC.player.hasVagina() ) {
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.hasItem( ConsumableLib.BIMBOCH ) ) {
 				EngineCore.addButton( 0, 'BimboCham', this, this.pastieValentineIntro, ConsumableLib.BIMBOCH.id );
 			}
@@ -361,7 +361,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 			MainView.outputText( 'You tell Pastie that indeed, she could get her fix, as you have something you\'re sure every fairy likes to drink not far away... between your legs.  "<i>T-that\'s an... unusual drink proposition...  Umm, and I\'m more susceptible to girls than most fairies, so... Ohhh, who am I kidding, that sounds pretty good right now.</i>"' );
 			MainView.outputText( '\n\nFollowing you into a back alley, you prepare to get yourself naked and let the fairy get her fix.' );
 			//((Move straight to pussy scene)) );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.goForAPushayDivePasty );
 		}
 		//({Any other drink}. ;
@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 			var itype = ItemType.lookupItem( choice );
 			CoC.player.consumeItem( itype, 1 );
 			MainView.outputText( 'You present the drink to Pastie and she flashes you a grin as she flies up and away, leading you into an alley.  "<i>Well, lemme at it!  A drink sure as hell sounds good right now and none of this seems like it\'d be really bad.</i>"' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, Utils.curry( this.valentineDrinkPastie, itype ) );
 		}
 	};
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 			//[Fuck][RubDick][PussyDive];
 			//{Fuck is only present if a character has a cock under 8 cock area, Rub Dick option is present if a character has a member underneath 28 cock area. Pussy Dive is obviously present if a character has a pussy of any kind.};
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.cockThatFits( 8 ) >= 0 ) {
 			EngineCore.addButton( 0, 'Fuck', this, this.fuckPastieForVDay );
 		}

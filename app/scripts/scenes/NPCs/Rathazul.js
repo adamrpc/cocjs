@@ -282,7 +282,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		if( totalOffers > 0 ) {
 			MainView.outputText( 'Will you take him up on an offer or leave?', false );
 			//In camp has no time passage if left.;
-			EngineCore.menu();
+			MainView.menu();
 			if( showArmorMenu ) {
 				EngineCore.addButton( 0, 'Armor', this, this.rathazulArmorMenu );
 			}
@@ -310,7 +310,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		MainView.spriteSelect( 49 );
 		MainView.clearOutput();
 		MainView.outputText( 'Rathazul asks, "<i>What would you like me to purify?</i>"' );
-		EngineCore.menu();
+		MainView.menu();
 		//Item purification offer;
 		if( CoC.player.hasItem( ConsumableLib.INCUBID ) ) {
 			EngineCore.addButton( 0, 'Incubi Draft', this, this.rathazulPurifyIncubiDraft );
@@ -403,7 +403,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			CoC.flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ]++;
 		}
 		//Rath menu;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.campRathazul );
 	};
 	//Creation Of The Draft:*;
@@ -464,7 +464,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		CoC.player.gems -= 500;
 		MainView.statsView.show();
 		CoC.player.destroyItems( UseableLib.T_SSILK, 5 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Armor', this, this.chooseArmorOrRobes, 1 );
 		EngineCore.addButton( 1, 'Robes', this, this.chooseArmorOrRobes, 2 );
 	};
@@ -527,7 +527,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		MainView.outputText( '\n\n<b>(-50 Gems)</b>' );
 		CoC.player.gems -= 50;
 		MainView.statsView.show();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Auburn', this, this.buyDye, ConsumableLib.AUBURND );
 		EngineCore.addButton( 1, 'Black', this, this.buyDye, ConsumableLib.BLACK_D );
 		EngineCore.addButton( 2, 'Blond', this, this.buyDye, ConsumableLib.BLOND_D );

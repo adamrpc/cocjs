@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		} else if( CoC.flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
 			homes = true;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Shops', this, this.armorShops );
 		EngineCore.addButton( 1, 'Bakery', SceneLib.bakeryScene, SceneLib.bakeryScene.bakeryuuuuuu );
 		EngineCore.addButton( 2, 'Bar', this, this.enterBarTelAdre );
@@ -206,7 +206,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	TelAdre.prototype.armorShops = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Blacksmith', this, this.armorShop );
 		EngineCore.addButton( 1, 'Piercing', this, this.piercingStudio );
 		EngineCore.addButton( 2, 'Tailor', this, this.tailorShoppe );
@@ -226,7 +226,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 				MainView.outputText( '\n\nYou remember Raphael\'s offer about the Orphanage, but you might want to see about shaping yourself more to his tastes first.  He is a picky fox, after all, and you doubt he would take well to seeing you in your current state.' );
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.flags[ kFLAGS.ARIAN_PARK ] >= 4 && !SceneLib.arianScene.arianFollower() ) {
 			EngineCore.addButton( 0, 'Arian\'s', SceneLib.arianScene, SceneLib.arianScene.visitAriansHouse );
 		}
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 				MainView.outputText( '\n\n<b>You can\'t afford that!</b>' );
 				this.oswaldPawnMenu(); //eventParser(1065);
 			} else {
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Sell', this, this.oswaldPawnMenu );
 				EngineCore.addButton( 1, 'BuyCarrot', this, this.buyCarrotFromOswald );
 			}
@@ -981,13 +981,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		CoC.player.createKeyItem( 'Carrot', 0, 0, 0, 0 );
 		MainView.clearOutput();
 		MainView.outputText( 'Gems change hands in a flash, and you\'re now the proud owner of a bright orange carrot!\n\n(<b>Acquired Key Item: Carrot</b>)' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.oswaldPawn );
 	};
 	TelAdre.prototype.oswaldPawnMenu = function() { //Moved here from Inventory.as
 		MainView.spriteSelect( 47 );
 		MainView.outputText( '\n\n<b><u>Oswald\'s Estimates</u></b>' );
-		EngineCore.menu();
+		MainView.menu();
 		var totalItems = 0;
 		for( var slot = 0; slot < 5; slot++ ) {
 			if( CoC.player.itemSlots[ slot ].quantity > 0 && CoC.player.itemSlots[ slot ].itype.value >= 1 ) {
@@ -1078,7 +1078,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		SceneLib.scylla.scyllaBarSelectAction(); //Done before anything else so that other NPCs can check scylla.action to see what she's doing
 		//Thanks to this function and edryn.edrynHeliaThreesomePossible() the bar menu will always display the same possible options until the game time advances.;
 		//So it's safe to return to this menu, Helia or Urta can't suddenly disappear or appear just from leaving and re-entering the bar.;
-		EngineCore.menu();
+		MainView.menu();
 		//AMILY!;
 		if( CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 1 ) {
 			button = this.anotherButton( button, 'Ask4Amily', SceneLib.followerInteractions.askAboutAmily );
@@ -1577,7 +1577,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		MainView.outputText( CoC.player.modTone( 85, 5 + Utils.rand( 5 ) ), false );
 		MainView.outputText( '\n\nDo you want to hit the showers before you head back to camp?', false );
 		if( CoC.flags[ kFLAGS.BROOKE_MET ] === 1 ) {
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, '"Showers"', SceneLib.sexMachine, SceneLib.sexMachine.exploreShowers );
 			EngineCore.addButton( 1, 'Showers', SceneLib.brooke, SceneLib.brooke.repeatChooseShower );
 			EngineCore.addButton( 4, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -1674,7 +1674,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		MainView.outputText( CoC.player.modTone( 100, 2 + Utils.rand( 4 ) ), false );
 		MainView.outputText( '\n\nDo you want to hit the showers before you head back to camp?', false );
 		if( CoC.flags[ kFLAGS.BROOKE_MET ] === 1 ) {
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, '"Showers"', SceneLib.sexMachine, SceneLib.sexMachine.exploreShowers );
 			EngineCore.addButton( 1, 'Showers', SceneLib.brooke, SceneLib.brooke.repeatChooseShower );
 			EngineCore.addButton( 4, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );

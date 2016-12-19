@@ -1604,7 +1604,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	IsabellaFollowerScene.prototype.findIzzyMilking = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'As you wander around Whitney\'s farm, your exploration brings you back toward the barn.  Wiping the sweat from your brow after nearly an hour under the hot sun, you lean back against the hard wooden wall to take a breather - only to hear a faint, yet clearly ecstatic, mooing coming from inside.  You step over to the nearest window and, peering inside, are surprised to see a familiar towering cowgirl leaning over a railing, a pair of oversized milkers chugging away at her massive mounds.  Seeing her mooing softly as the milkers suckle the thick cream from her teats soon has you well aroused at the sight... and you think you could give her a sexy surprise while she\'s getting milked.' );
-		EngineCore.menu();
+		MainView.menu();
 		CoC.flags[ kFLAGS.FOUND_ISABELLA_AT_FARM_TODAY ] = 1;
 		//[Fuck her] [Leave];
 		EngineCore.addButton( 0, 'Fuck Her', this, this.fuckIsabellaInTheBarn );
@@ -1648,7 +1648,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		MainView.outputText( '  The quivering of her legs only spurs you on, causing you to wet a pair of fingers in her now-dripping cunt before sliding them up her cheeks, to her other, untouched hole.' );
 		MainView.outputText( '\n\nYour fingers dive in easily, but without warning.  Isabella throws her head back, crying out with surprise and ecstasy.  In an instant, your digits are buried in her up to the last knuckle, easily spreading her asshole apart so that your thumb can plunge in at the same time your whole tongue invades her slit, filling her completely and from two sides.  With your sudden, unexpected double penetration, Isabella\'s entire body clenches, barely holding back the floodgates.  It takes only a few quick, potent thrusts into her backside to send her screaming over, her operatic voice reverberating through the barn as she climaxes, clenching down hard upon your fingers and tongue.  With a smile, you make to help her through it, roughly finger-fucking her behind as your face is drenched in a liberal coating of femcum.' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.isabellaBarnFuckPartII );
 	};
 	IsabellaFollowerScene.prototype.isabellaBarnFuckPartII = function() {

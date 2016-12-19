@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 		//This is to clear the 'game over' block from stopping choices from working.  Loading games supercede's game over.
 		if( MainView.getButtonText( 0 ) === 'Game Over' ) {
 			MainView.setButtonText( 0, 'save/load' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 1, 'Load', this, this.loadScreen );
 			EngineCore.addButton( 2, '', null ); // TODO : Save to file
 			EngineCore.addButton( 3, 'Delete', this, this.deleteScreen );

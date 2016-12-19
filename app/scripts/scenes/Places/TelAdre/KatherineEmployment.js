@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Uti
 		}
 	};
 	KatherineEmployment.prototype.pregnantEdrynSexSelector = function() {
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Preg. Fuck', SceneLib.edryn, SceneLib.edryn.fuckPregEdryn );
 		EngineCore.addButton( 1, 'Eat,Rut,Fuck', SceneLib.edryn, SceneLib.edryn.eatEdrynPussyLikeABawss );
 	};

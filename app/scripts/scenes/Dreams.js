@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		MainView.outputText( '\n\nHer body is curvy and voluptuous although it\'s concealed beneath some kind of skin-tight suit.  As you approach, the woman turns, her human-like face momentarily startled by your presence.  "<i>Oh!  Captain!</i>" she starts, "<i>I wasn\'t expecting you down here, Captain.</i>"' );
 		MainView.outputText( '\n\nCaptain?  Oh yes, how could you forget?  You\'re the captain of this... metal cave.  And as a captain, you can give orders...' );
 		//[Next];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.displacerDreamII );
 	};
 	Dreams.prototype.displacerDreamII = function() {
@@ -416,7 +416,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		MainView.outputText( '\n\nAs you pass through the doorway, your vision suddenly goes white... and you wake up with a start.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', 2 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.displacerDreamIII );
 	};
 	Dreams.prototype.displacerDreamIII = function() {

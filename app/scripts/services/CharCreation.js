@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			MainView.clearOutput();
 		}
 		MainView.outputText( '\n\n<b>GAME OVER</b>' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Game Over', this, this.gameOverMenuOverride );
 		EngineCore.addButton( 3, 'NewGamePlus', this, this.newGamePlus );
 		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		MainView.setButtonText( 0, 'Newgame' );
 		MainView.clearOutput();
 		MainView.outputText( 'You grew up in the small village of Ingnam, a remote village with rich traditions, buried deep in the wilds.  Every year for as long as you can remember, your village has chosen a champion to send to the cursed Demon Realm.  Legend has it that in years Ingnam has failed to produce a champion, chaos has reigned over the countryside.  Children disappear, crops wilt, and disease spreads like wildfire.  This year, <b>you</b> have been selected to be the champion.\n\nWhat is your name?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'OK', this, this.chooseName );
 		MainView.nameBox.value = '';
 		//Reset autosave
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		MainView.nameBox.visible = false;
 		CoC.player.short = MainView.nameBox.value;
 		this.customPlayerProfile = this.customName( MainView.nameBox.value );
-		EngineCore.menu();
+		MainView.menu();
 		if( this.customPlayerProfile !== null ) {
 			MainView.outputText( 'This name, like you, is special.  Do you live up to your name or continue on, assuming it to be coincidence?' );
 			EngineCore.addButton( 0, 'SpecialName', this, this.useCustomProfile );
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			//After character creation the fact that customPlayerProfile is not null will activate a custom player setup
 			MainView.outputText( 'There is something different about you, but first, what is your basic gender?  An individual such as you may later overcome this, of course...' );
 			MainView.outputText( '\n\n\n\nAre you a man or a woman?' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Man', this, this.isAMan );
 			EngineCore.addButton( 1, 'Woman', this, this.isAWoman );
 		}
@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		MainView.clearOutput();
 		this.customPlayerProfile = null;
 		MainView.outputText( 'Your name carries little significance beyond it being your name.  What is your gender?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Man', this, this.isAMan );
 		EngineCore.addButton( 1, 'Woman', this, this.isAWoman );
 	};
@@ -453,7 +453,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.chooseComplexion = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'What is your complexion?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Light', this, this.setComplexion, 'light' );
 		EngineCore.addButton( 1, 'Olive', this, this.setComplexion, 'olive' );
 		EngineCore.addButton( 2, 'Dark', this, this.setComplexion, 'dark' );
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.skinTone = choice;
 		MainView.clearOutput();
 		MainView.outputText( 'You selected a ' + choice + ' complexion.\n\nWhat color is your hair?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Blonde', this, this.setHair, 'blonde' );
 		EngineCore.addButton( 1, 'Brown', this, this.setHair, 'brown' );
 		EngineCore.addButton( 2, 'Black', this, this.setHair, 'black' );
@@ -483,7 +483,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			MainView.clearOutput();
 		}
 		MainView.outputText( 'Every person is born with a gift.  What\'s yours?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Strength', this, this.confirmEndowmentStrength );
 		EngineCore.addButton( 1, 'Toughness', this, this.confirmEndowmentThoughness );
 		EngineCore.addButton( 2, 'Speed', this, this.confirmEndowmentSpeed );
@@ -503,84 +503,84 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.confirmEndowmentStrength = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Are you stronger than normal? (+5 Strength)\n\nStrength increases your combat damage, and your ability to hold on to an enemy or pull yourself away.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentStrength );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentThoughness = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Are you unusually tough? (+5 Toughness)\n\nToughness gives you more HP and increases the chances an attack against you will fail to wound you.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentToughness );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentSpeed = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Are you very quick?  (+5 Speed)\n\nSpeed makes it easier to escape combat and grapples.  It also boosts your chances of evading an enemy attack and successfully catching up to enemies who try to run.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentSpeed );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentSmarts = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Are you a quick learner?  (+5 Intellect)\n\nIntellect can help you avoid dangerous monsters or work with machinery.  It will also boost the power of any spells you may learn in your travels.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentSmarts );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentLibido = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Do you have an unusually high sex-drive?  (+5 Libido)\n\nLibido affects how quickly your lust builds over time.  You may find a high libido to be more trouble than it\'s worth...' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentLibido );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentTouch = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Is your skin unusually sensitive?  (+5 Sensitivity)\n\nSensitivity affects how easily touches and certain magics will raise your lust.  Very low sensitivity will make it difficult to orgasm.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentTouch );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentBigCock = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Do you have a big cock?  (+2" Cock Length)\n\nA bigger cock will make it easier to get off any sexual partners, but only if they can take your size.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentBigCock );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentMessyOrgasms = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Are your orgasms particularly messy?  (+50% Cum Multiplier)\n\nA higher cum multiplier will cause your orgasms to be messier.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentMessyOrgasms );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentBigBreasts = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Are your breasts bigger than average? (DD cups)\n\nLarger breasts will allow you to lactate greater amounts, tit-fuck larger cocks, and generally be a sexy bitch.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentBigBreasts );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentBigClit = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Do you have a big clit?  (1" Long)\n\nA large enough clit may eventually become as large as a cock.  It also makes you gain lust much faster during oral or manual stimulation.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentBigClit );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentFertile = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Is your family particularly fertile?  (+15% Fertility)\n\nA high fertility will cause you to become pregnant much more easily.  Pregnancy may result in children, larger bust, larger hips, a bigger ass, and other weirdness.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentFertile );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentWetVagina = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Does your pussy get particularly wet?  (+1 Vaginal Wetness)\n\nVaginal wetness will make it easier to take larger cocks, in turn helping you bring the well-endowed to orgasm quicker.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentWetVagina );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			MainView.outputText( '<b>New history perks are available during creation.  Since this character was created before they were available, you may choose one now!</b>\n\n' );
 		}
 		MainView.outputText( 'Before you became a champion, you had other plans for your life.  What were you doing before?' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Alchemy', this, this.confirmHistory, PerkLib.HistoryAlchemist );
 		EngineCore.addButton( 1, 'Fighting', this, this.confirmHistory, PerkLib.HistoryFighter );
 		EngineCore.addButton( 2, 'Healing', this, this.confirmHistory, PerkLib.HistoryHealer );
@@ -708,7 +708,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			default:
 				MainView.outputText( 'You managed to find work as a whore.  Because of your time spent trading seduction for profit, you\'re more effective at teasing (+15% tease damage).  Is this your history?' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setHistory, choice );
 		EngineCore.addButton( 1, 'No', this, this.chooseHistory );
 	};

@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, AppearanceD
 			getTied = this.kinkyWithDaOrc;
 			rubdub = this.rubdubWithDaOrcWithoutDucky;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'GetAnal', this, getAnal );
 		EngineCore.addButton( 1, 'GiveAnal', this, giveAnal );
 		EngineCore.addButton( 2, 'Frot', this, frot );

@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//[(corruption = high);
 		MainView.outputText( 'By the way she\'s huffing and puffing, you figure you\'ve got a minute or so to take advantage of her while she\'s vulnerable...  Do you?', false );
 		//(Display Options: [Rape her Ass(for wangs)] [Get Rimjob] and [Wait]);
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.lust < 33 ) {
 			if( CoC.player.lust < 33 ) {
 				MainView.outputText( '\n\nYou aren\'t turned on enough to fuck her right now.', false );
@@ -1674,7 +1674,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\n"<i>Well, shit, [name].  I don\'t wanna get hooked on minotaur cum, but... now what the fuck am I supposed to do? Those bulls are the best fucks around... present company excluded, of course,</i>" she adds with a little wink.' );
 		MainView.outputText( '\n\nYou suppose you could offer to satisfy her needs instead... Or just say to hell with it and keep screwing \'taurs to her hearts\' content.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Its Okay', this, this.helCanFuckMinosWhenever );
 		EngineCore.addButton( 1, 'Satisfy Her', this, this.satisfyHelSoSheStopsMinoFucking );
 	};

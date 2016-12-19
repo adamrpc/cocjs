@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 			sellMod = 2;
 		}
 		MainView.outputText( '\n\n<b><u>Benoit' + this.benoitMF( '', 'e' ) + '\'s Estimates</u></b>' );
-		EngineCore.menu();
+		MainView.menu();
 		var totalItems = 0;
 		for( var slot = 0; slot < 5; slot++ ) {
 			if( CoC.player.itemSlots[ slot ].quantity > 0 && Math.ceil( CoC.player.itemSlots[ slot ].itype.value / sellMod ) >= 1 ) {
@@ -484,7 +484,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 				MainView.outputText( 'You ask if she\'s had any thoughts on that front.  "<i>Not really,</i>" Benoite sighs.  "<i>I \'ave many male customers but zey all \'ave - \'ow you say? Rough round edges.  You now \'ow it is, [name], all men are pigs.</i>"  You both laugh at this.  "<i>I will find someone though, don\'t worry.  As I said before...</i>" she points two fingers at her blind eyes and then at the stall entrance.  There\'s a distinct gleam in those cloudy grey depths you think would scare the hell out of most things with a penis.  "<i>I \'ave a purpose now.</i>"' );
 			} else {
 				MainView.outputText( '\n\nYou ask if she\'s had any thoughts on that front. "<i>Well, I do \'ave zis one customer \'oo seems very kind.  And \'oo knows me a great deal better zan anyone else around \'ere,</i>" Benoite mumbles, twiddling her fingers.  "<i>But zis person \'as already done a great deal for me, so I don\'t know if... per\'aps zis is asking too much. I will find someone though, never fear.  As I said before...</i>” Benoite points two fingers at her blind eyes and then at the stall entrance.  There’s a distinct gleam in those cloudy grey depths you think would scare the hell out of most things with a penis. “<i>I ‘ave a purpose now.</i>' );
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.doYesNo( this, this.femoitFirstTimeYes, this, this.femoitFirstTimeNo );
 			}
 			return;
@@ -1185,7 +1185,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 			MainView.outputText( '\n\n"<i>C... could you come back tomorrow?</i>" says Benoit unevenly.  "<i>Zis is... I need some time to get my \'ead around zis.</i>"  You put the books back on the counter, scratch a terrified-looking Pierre behind the ear, and take your leave.' );
 			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT ] = CoC.time.days + 1;
 			CoC.flags[ kFLAGS.FEMOIT_NEXTDAY_EVENT_DONE ] = 1;
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};
@@ -1206,7 +1206,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		MainView.outputText( 'You let her down as kindly as you can.' );
 		MainView.outputText( '\n\n“<i>No, you are right,</i>” she says in a casual tone, although the color is still very high in her scales. “<i>It would be way too weird zat, wouldn’t it? I will find someone though, never fear.  As I said before...</i>” Benoite points two fingers at her blind eyes and then at the stall entrance.  There’s a distinct gleam in those cloudy grey depths you think would scare the hell out of most things with a penis. “<i>I ‘ave a purpose now.</i>”' );
 		MainView.outputText( '\n\nCatching a subtle tone of dissapointment in Benoite\'s voice, you bid her a quick farewell and head back to camp, deciding to give her some time to recover.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Benoit.prototype.femoitFirstTimeYes = function() {
@@ -1267,7 +1267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		MainView.outputText( '\n\n"<i>Phew!</i>" she says after she\'s managed to catch her breath.  "<i>That was... somesing.</i>" You\'re slightly worried you went a bit too far with her, but when she has recovered herself a bit she advances on you with a wide, blissed-out grin.  She feels around until she finds your hands.  You suppose the done thing at this point is to kiss her, but you\'re not entirely sure how to do that.  As you hesitate, she opens her mouth, unrolls her long tongue and licks your face.  The sensation is warm and sticky and you find yourself laughing at the strange tenderness of the gesture. ' );
 		MainView.outputText( '\n\n"<i>Sank you for zat, [name],</i>" she says huskily. "<i>Of course, I will need you to do zat again if it doesn\'t take.  And again, once ze first clutch is done.  Basically we will be doing zis a lot.  Purely for ze purpose of procreation, you understand.</i>"  Grinning, you lead her back inside the shop and after squeezing her hand, take your leave.' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	// Subsequent Sex;
@@ -1373,7 +1373,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 				CoC.player.orgasm();
 			}
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Benoite Gives Birth;
@@ -1444,7 +1444,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		}
 		MainView.outputText( ' away safely, though, and the blind reptilian clearly appreciates the help.  Leaving her to admire her new clutch you head back to camp.' );
 		this.clearBenoitPreggers();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	SceneLib.registerScene( 'benoit', new Benoit() );

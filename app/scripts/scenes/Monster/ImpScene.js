@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			Combat.cleanupAfterCombat();
 			return;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.lust > 33 ) {
 			var maleRape = null;
 			if( CoC.player.hasCock() ) {
@@ -1999,7 +1999,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		} else {
 			MainView.outputText( 'The muscular imp groans in pained arousal, his loincloth being pushed to the side by his thick, powerful dick.  Grabbing the useless clothing, he rips it from his body, discarding it.  The imp\'s eyes lock on his cock as he becomes completely ignorant of your presence.  His now insatiable lust has completely clouded his judgment.  Wrapping both of his hands around his pulsing member he begins to masturbate furiously, attempting to relieve the pressure you\'ve caused.' );
 			//Leave // Rape];
-			EngineCore.menu();
+			MainView.menu();
 			if( CoC.player.lust >= 33 ) {
 				EngineCore.addButton( 0, 'Sex', this, this.sexAnImpLord );
 			}
@@ -2030,7 +2030,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			MainView.outputText( '  You place one of your front hooves on his chest, knocking him onto his back.  He attempts to get back up, but you apply more pressure to his thick, manly chest, until he gasps.  The imp gets the idea quickly and stops masturbating, all of his focus now on you.' );
 		}
 
-		EngineCore.menu();
+		MainView.menu();
 		//Continues in, Male Anal, Female Vaginal, or Breastfeed;
 		EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
 		if( CoC.player.lust >= 33 ) {

@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		if( !SceneLib.urta.urtaDrunk() ) {
 			//Lover;
 			if( CoC.flags[ kFLAGS.URTA_PC_LOVE_COUNTER ] === 1 ) {
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Her Place', SceneLib.urta, SceneLib.urta.goBackToUrtasForLuvinz );
 				if( CoC.flags[ kFLAGS.URTA_CUM_NO_CUM_DAYS ] >= 5 ) {
 					EngineCore.addButton( 1, 'Suck Off', SceneLib.urta, SceneLib.urta.slurpFawkesCocksForFunAndInflation );
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			}
 			//FRIEND;
 			else {
-				EngineCore.menu();
+				MainView.menu();
 				if( CoC.flags[ kFLAGS.URTA_CUM_NO_CUM_DAYS ] >= 5 ) {
 					EngineCore.addButton( 0, 'Hidden BJ', SceneLib.urta, SceneLib.urta.slurpFawkesCocksForFunAndInflation );
 				} else {
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		else {
 			//LOVER;
 			if( SceneLib.urta.urtaLove() ) {
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Jerkoff', SceneLib.urta, SceneLib.urta.getAPublicFacialFromUrta );
 				EngineCore.addButton( 1, 'Anal Ride', SceneLib.urta, SceneLib.urta.takeUrtaInTheButtPublically );
 				if( CoC.player.canOviposit() ) {
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			}
 			//FRIEND;
 			else {
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Jerkoff', SceneLib.urta, SceneLib.urta.getAPublicFacialFromUrta );
 				EngineCore.addButton( 1, 'Anal Ride', SceneLib.urta, SceneLib.urta.takeUrtaInTheButtPublically );
 				if( CoC.player.canOviposit() ) {
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 	//In Urta Menu;
 	UrtaPregs.prototype.urtaPreggoApproached = function() {
 		MainView.clearOutput();
-		EngineCore.menu();
+		MainView.menu();
 		switch( SceneLib.urta.pregnancy.event ) {
 			case 1:
 				MainView.outputText( 'As you approach and take your usual seat, Urta chugs down a glass of something orange-colored and fizzy, which definitely doesn\'t smell like her usual taste in drinks.  She sees you looking at it and smiles, shrugging casually.  "<i>Well, I can\'t drink alcohol while pregnant, can I, [name]?</i>"  She then steals a kiss from you; she tastes sweet and a little tart - must be some sort of fruit-juice...' );
@@ -185,7 +185,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 				MainView.outputText( '\n\n"<i>Oh, [name]; thank goodness you\'re here, lover.  I - I <b>need</b> to fuck!  The baby\'s due any day now, but my hormones are driving me nuts.  Please, tell me you\'ll help me out, [name]?  I... I\'ve always tried to respect you and your wishes, even when I was drunk off my rocker, but I swear, in this condition, I\'m having a really hard time trying to stop myself from bending you over the table and spreading your gorgeous [butt] with my tool.  Right now I just want to fuck you until you\'re stuffed full of cum and rounder than I am.</i>"  Urta\'s desperate expression and the nervous tremors that ripple through her cock suggest she really means what she\'s saying.' );
 				MainView.outputText( '\n\nYou could take Urta back to her apartment and give her the release she\'s so desperately craving, or you could take advantage of her current state and tease her a bit.  This would, of course, encourage her to fill you up with her cock like she said she wanted to.  Or you could just leave her to get a hold of herself.' );
 				//[Sex] [Tease] [Leave];
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Sex', this, this.preggoUrtaSmexOrSomething );
 				EngineCore.addButton( 1, 'Tease', this, this.urtaRaepsJoo );
 				EngineCore.addButton( 4, 'Leave', this, this.leavePreggoUrta );
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( 'As you start getting ready to settle in for the night, you become aware of a commotion steadily approaching your position.  Readying yourself to fight, you approach the boundaries of your camp.  There, stamping his hoof irritably, is a centaur wearing a studded leather jerkin.  "<i>[name]!  Are you [name]?</i>"  He cries upon spotting you.' );
 		MainView.outputText( '\n\nYou reply that you are, and ask who he is and what he wants.  "<i>I\'m a messenger from Tel\'adre!  Captain Urta sent me to fetch you - she\'s in the hospital.</i>"  He replies urgently.  "<i>Please, you have to come with me - she\'s gone into labor; the baby is coming</i>!"' );
 		//[Go] [Refuse];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Go', this, this.goVisitUrtaBirfs );
 		EngineCore.addButton( 1, 'Refuse', this, this.IAintGotTimeForUrtaBirfs );
 	};
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			CoC.flags[ kFLAGS.URTA_FIRSTBORN_GENDER ] = CoC.flags[ kFLAGS.URTA_LATESTBORN_GENDER ];
 			CoC.flags[ kFLAGS.URTA_FIRSTBORN_COCKTYPE ] = CoC.flags[ kFLAGS.URTA_LATESTBORN_COCKTYPE ];
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Stay', this, this.stayAfterUrtaBirf );
 		EngineCore.addButton( 1, 'Go', this, this.goAfterUrtaBirf );
 	};
@@ -434,7 +434,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nAt this, the new mother gives you a wicked grin.  "<i>Now, I never said sex was out of the question... does that give you second thoughts?</i>"' );
 		MainView.outputText( '\n\nOf course not!' );
 		//Next;
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.wakeUpWithUrtaAfterStaying );
 	};
 	//(PC spends the day with Urta, so fast forward to PC waking up by Urta's side.);
@@ -524,7 +524,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou walk up to Urta and loop an arm around her, pulling her towards you possessively, chest swelling with pride at this small family you\'ve built in this world.  Urta lets out a quiet growl of contentment and blatantly snuggles up against you, happy to be in your arms even as she holds her child in her own arms.' );
 		MainView.outputText( '\n\nUrta\'s breasts look awfully swollen... you\'d guess she has way more milk than the baby will ever need.  Perhaps you could get a taste for yourself?' );
 		//[Drink] [Leave];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Drink', this, this.drinkSomeUrtaPostBirthTitMilk );
 		EngineCore.addButton( 4, 'Leave', this, this.noNeedForTitMilkTodayUrta );
 	};
@@ -593,7 +593,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			MainView.outputText( '\n\n"<i>Well, then I\'ll have to keep coming to see you,</i>" Urta laughs, rubbing your belly.  "<i>Now, it can\'t be easy carrying this big heavy belly around, so why don\'t you lie down and I\'ll give you a nice backrub, hmm?</i>"' );
 			//She shifts her arms to drape themselves flirtatiously around your neck, leaning in with a mischievous smile on her lips.  "<i>Or I could take your mind off your belly altogether...</i>"  She croons, then pecks you teasingly on the lips.");;
 			//[Sex][Massage];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Massage', this, this.getAnUrtaMassageWhenPreggo );
 			CoC.flags[ kFLAGS.EVENT_PARSER_ESCAPE ] = 1;
 			return true;
@@ -615,7 +615,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		//6:;
 		else if( CoC.player.pregnancyIncubation === 144 ) {
 			MainView.outputText( '\nYou sigh.  You hope this baby will be born soon, your back is starting to ache after carrying the little guy everywhere.  "<i>Hello, lover... oh, why the long face?</i>"  Urta asks.  You\'re not surprised that she\'s here, now.  You explain to her about how tired you\'ve been feeling lately, since you got this big.  Urta pats your shoulder, looking sympathetic.  "<i>Really, you should take a break, lover.  I\'m on an extended patrol right now, so you and I could stay here and rest together for the day - I\'ll handle the foraging and defending and stuff for you.</i>"  She offers.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Accept', this, this.acceptUrtaLevelSixPreggoHelps );
 			EngineCore.addButton( 1, 'Decline', this, this.declineUrtaLevelSixPreggoHelps );
 			CoC.flags[ kFLAGS.EVENT_PARSER_ESCAPE ] = 1;
@@ -847,7 +847,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou stroke her arm, and tell her to rest well.  You get up and close the door to Urta\'s room and head back to Tel\'Adre\'s main street, saying a farewell to Lianna along the way.' );
 		CoC.flags[ kFLAGS.URTA_PREGNANT_DELIVERY_SCENE ] = 1;
 		//(Return to TA menu.);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	//New Talk Topic: Her House;
@@ -868,7 +868,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nShe chuckles, "<i>No, no, don\'t worry about that.  I\'m the captain of the Watch, after all.  My paycheck is nothing to sneeze at.  Throw in my nest egg and the recent bonus to my pay, and... well, let\'s just say that money isn\'t on my list of immediate concerns.</i>"  She then gives you a mock-offended look, "<i>What?  Did you think I boozed my way from paycheck to paycheck before I met you?  My old place was a mess because, frankly, I didn\'t care enough to do anything more - it gave me privacy and a place to sleep, that was all I needed.  I didn\'t have someone in my life to make me believe my life really mattered back then... not like now.</i>"  She concludes, giving you a soft smile.  "<i>So, that answer your questions?</i>"' );
 		MainView.outputText( '\n\nYou think about it and nod, smiling at her and thanking her for the explanation.' );
 		MainView.outputText( '\n\n"<i>Now, since we\'ve been talking about my apartment...</i>"  Urta begins, rubbing one foot against yours, "<i>how about we duck back there and give the bed a run?  For old time\'s sake?</i>"  She smirks, even as her cock hits the table with an audible *THUNK*.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.yesUrtaHouseSex );
 		EngineCore.addButton( 1, 'No', this, this.noUrtaHouseSex );
 	};
@@ -948,7 +948,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '.  "<i>Really?  Good, because I could use a little release... let\'s get back to my place, shall we?</i>"  She starts to pull herself upright, prompting you to step in and lend her a hand.  She smiles and kisses you thankfully, letting you feel the swell of her belly and dick pressed against you as she does.  "<i>So...lead on, lover</i>," she croons.' );
 		MainView.outputText( '\n\nYou lead her through the familiar streets towards her apartment, eagerly waiting for her to open the door and step in.  Urta giggles as she fishes for her key.  "<i>I think we both left quite a trail...</i>"  She notes, even as the door swings open.  She then turns to you and hungrily kisses you, precum smearing itself wetly against your belly as she does.  Sloppily she lets you go, a hungry look in her eyes as she turns and saunters through the door, already pulling off her clothes as she goes.' );
 		MainView.outputText( '\n\nYou waste no time, stripping off and throwing your [armor] into a pile on the couch and going after her.  When you open the door you\'re greeted with the sight of Urta, lazily reclining on a pillow, legs spread to give you a clear view of her throbbing shaft, balls and dripping pussy.  "<i>So, sexy, what do you want to do with your horny pregnant vixen, hmm?</i>"  She croons.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Massage Her', this, this.massagePregnantUrtasBelly );
 		EngineCore.addButton( 1, 'Boob Worship', this, this.urtaBoobWorshipScene );
 		EngineCore.addButton( 2, 'Nurse', this, this.nurseFromMommaUrtasBooBees );
@@ -1000,7 +1000,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou are a bit confused about Urta\'s choice of words, is she asking you to massage her pussy?  Then again, she\'s looking at her shaft... or at least you think she is.  What do you do?' );
 		CoC.flags[ kFLAGS.TIMES_MASSAGED_URTA_BELLY ]++;
 		//[RubDick] [RubPussy];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Rub Dick', this, this.rubUrtaDick );
 		EngineCore.addButton( 1, 'Rub Pussy', this, this.rubUrtaPussy );
 	};
@@ -1143,7 +1143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou allow yourself to become lost in the task, and a short while later you feel something poking you.  Urta moans lewdly, but says nothing, instead leaving you to figure out that you are being poked by her erect and dripping mare-dick.  This presents an interesting opportunity, you think to yourself... should you give her shaft a few tugs or just ignore it?' );
 		CoC.flags[ kFLAGS.TIMES_NURSED_FROM_URTA ]++;
 		//[Stroke][Ignore];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Stroke', this, this.titWorshipAndStroke );
 		EngineCore.addButton( 1, 'Ignore', this, this.ignoreUrtaBonerWhenWorship );
 	};
@@ -1214,7 +1214,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\n"<i>I can\'t say that would have ever been something I\'d come up with...</i>"  Urta notes.  "<i>But it was actually kind of fun.</i>"  You smile at her happily.  Maybe next time you should come up with something a bit more hardcore for your roleplay.' );
 		MainView.outputText( '\n\nUrta looks intently at you as you say this.  "<i>Now, I know that look, and that look means you\'re up to something... should I be excited, scared or both of whatever you have cooking up in that brain of yours?</i>"  She asks sarcastically, though her eyes twinkle in a way that suggests she\'s not really that adverse to it.  Then she yawns loudly.  "<i>Wow, I feel really tired now... I guess you better head off; I\'m going to take a nap while I\'m here,</i>" she murmurs.' );
 		EngineCore.dynStats( 'lus', 20 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Go', this, this.goHomeHorsecock );
 		EngineCore.addButton( 1, 'Stay', this, this.stayForHorseDickings );
 	};
@@ -1249,7 +1249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		if( !CoC.player.hasCock() ) {
 			MainView.outputText( '\n\n"<i>No, I\'m fine, really,</i>" she replies with a shake of her head.' );
 			MainView.outputText( '\n\nPerhaps you should think about doing something else then?  Or maybe you should ask again when you have something else to offer her.  She seemed a bit saddened that you didn\'t have a dick.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.preggoUrtaSmexOrSomething );
 			return;
 		}
@@ -1298,7 +1298,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			}
 		}
 		MainView.outputText( '.  She suddenly pops free, licking her lips.  "<i>Come on, lover.  I thought you offered to help me with my craving?  And yet you won\'t give me any of that salty load of yours?  So hungry... gimme!</i>"  She pleads, looking up at you with hopeful eyes even as she continues to stroke your shaft.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Pop Load', this, this.getBlownByPregnantUrta );
 		EngineCore.addButton( 1, 'Hold Out', this, this.holdOnYouAintGettingYerCumYetYouNaughtyFox );
 	};
@@ -1341,7 +1341,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou\'re too tired to do much, except close your eyes and let the afterglow set in and slowly take you to dreamland.  The last thing you feel is one slimy fox-herm cuddling up to you, carefully positioning her overstuffed belly against you.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.weirdUrtaCravingsConclusion );
 	};
 	//[=Hold On=];
@@ -1432,7 +1432,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou suddenly find yourself growing extremely drowsy after your recent climax, so you roll to give Urta enough room to lay down beside you.  You smile and pat the open spot beside you in hopes that Urta will join you for a quick nap.  Urta wastes no time in settling herself comfortably beside you, closing her eyes and drifting quietly off to sleep.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -2 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.weirdUrtaCravingsConclusion );
 	};
 	//Both Options link here.;
@@ -1572,7 +1572,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou come to your senses and notice the amazing softness of the pillow you\'re laying on.  It feels so good you can\'t help but dig your head in and rub your cheek against it.  "<i>You like that, do you?</i>"  A familiar voice says, sounding rather amused.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 3 );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.partTwoOfUrtaBoning );
 	};
 	UrtaPregs.prototype.partTwoOfUrtaBoning = function() {
@@ -1599,7 +1599,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		}
 
 		MainView.outputText( '\n\n"<i>Oh dear...</i>"  she cuddles you back against her breast.  "<i>I\'m so sorry, lover...</i>"  she suddenly smirks at you wickedly.  "<i>Want me to kiss it better?</i>"  She asks in a stage whisper.  You raise your brow in curiosity at the offer, wondering how exactly she intends to kiss it better.  She doesn\'t answer - not verbally, anyway.  Instead, she purses her lips and sticks out her tongue with lewd, wet, slurping noises as she licks the air in front of you before putting it back in her mouth.  Realization dawns on you, as you figure out just how exactly she intends to make you feel better.  She\'s offering you a rimjob.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Accept', this, this.acceptUrtaRimJobbies );
 		EngineCore.addButton( 1, 'Decline', this, this.declineARimJob );
 	};
@@ -1867,7 +1867,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		}
 		MainView.outputText( ' you towards the backyard, while your lover chuckles at your predicament.' );
 		MainView.outputText( '\n\nAfter a bit of a wrestling, some games, and an incident with a scraped knee everyone has moved into the family room, leaving you surrounded by smiling faces.  "<i>Did you enjoy your play date [name]?</i>" says Urta, prompting while Lianna bandages your kid\'s knee.  A little worn out yourself, your only answer is a slight nod.  Having been here for the better part of an hour, it\'s about time you hit the old dusty trail.  "<i>Why don\'t you stay a little longer, lover?  We were just about to have lunch, why don\'t you join us?</i>"  Urta asks, an inviting smile on her face.' );
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.stayToPlay );
 		EngineCore.addButton( 1, 'No', this, this.noPlayTimeForKids );
 	};
@@ -1935,7 +1935,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		}
 		MainView.outputText( '.  "<i>Sure, but they need a bath, maybe you\'d like to help me bathe them?</i>"' );
 		//[Yes] [No];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.giveTheKidsABath );
 		EngineCore.addButton( 1, 'No', this, this.noBathTiemPlease );
 	};
@@ -1944,7 +1944,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.clearOutput();
 		MainView.outputText( '"<i>I see, in that case excuse me,</i>"  She says with a blank expression.  Looks like you don\'t have any business here for now, so you decide to leave.' );
 		//(Back to TA/Camp);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.telAdre, SceneLib.telAdre.telAdreMenu );
 	};
 	UrtaPregs.prototype.urtaKidsText = function( male, female, plural ) {
@@ -2323,7 +2323,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.outputText( '\n\nYou ask if she does this for Urta, as well.  "<i>Yes, when we bathe together.</i>"\n\nSo, Lianna and Urta do this as well...  It\'s not just something she\'s doing for you?  "<i>No.  Why would you ask that?</i>"  She looks at you in confusion as she scrubs her tail.' );
 		MainView.outputText( '\n\nJust curious, you reply.  You wonder whether or not you should take her up on her offer...' );
 		//[Yes] [No];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 1, 'No', this, this.noBathPleaseUrtaLian );
 		EngineCore.addButton( 0, 'Yes', this, this.getABackWashFromLianna );
 	};
@@ -2509,7 +2509,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			MainView.outputText( '\n\n"<i>So... what\'s your business today?</i>"' );
 		}
 		//[Appearance] [Talk] [Sex] [Get DSSpray] [Kids];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Appearance', this, this.liannasAppearance );
 		EngineCore.addButton( 1, 'Talk', this, this.talkToLiana );
 		EngineCore.addButton( 2, 'Sex', this, this.sexWithLianna );
@@ -2522,7 +2522,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 		MainView.clearOutput();
 		MainView.outputText( 'Lianna is a healthy looking young anthro, a skunk-morph covered in sleek, shiny black fur, with white adorning her swishing, fluffy-looking tail.  Her hair is pure black with streaks of white, tied out of the way into a short ponytail, and her green eyes glitter behind round, silver-rimmed glasses that perch atop her nose.  She wears a conservative short-sleeved blouse, and pants that, while slightly baggy, still manage to show off her nice legs.  They\'re certainly tight enough that you can tell she\'s all girl; no hidden surprises here.  She goes without shoes, exposing her paw-like feet.  She has a very nicely rounded, generous handful of an ass, and womanly hips; up top, she is no less stacked, with what are easily E-cup breasts making her even bustier than her employer is; despite all that, she tries to tone them down with her style of dress.' );
 		//(Display Options);
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 9, 'Back', this, this.visitTheHouse );
 	};
 	UrtaPregs.prototype.talkToLiana = function( output ) {
@@ -2530,7 +2530,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			MainView.clearOutput();
 			MainView.outputText( 'You tell her you\'d like to talk her.  She adjusts her glasses.  "<i>Oh?  What about?</i>"' );
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Her Job', this, this.talkToLianaAboutHerJob );
 		EngineCore.addButton( 1, 'HerResearch', this, this.talkToLianaAboutHerResearch );
 		if( CoC.flags[ kFLAGS.LIANNA_HAVESTED_MALES ] + CoC.flags[ kFLAGS.LIANNA_HAVESTED_LADIES ] > 0 ) {
@@ -2697,7 +2697,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			//20% chance of turning PC into a herm with a 7-inch by 1-inch dick, 2-inch full balls, virgin vagina (Wetness = 2) and C-cup breasts (if smaller).);
 			MainView.outputText( '\n\nYou look down at the floor as you point out that you\'re kind of lacking in the equipment to provide any sort of donation for Lianna.' );
 			MainView.outputText( '\n\n"<i>That\'s no problem; I have another experiment that\'ll fix that problem.</i>"  Lianna replies brightly.  "<i>This mixture of mine is guaranteed to turn you from neuter to gendered, without corruption... the only problem is that it\'s a little unstable.  By which I mean there\'s no way of predicting what gender you\'ll become,</i>" she hastens to add.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Accept', this, this.acceptARandomGenderFromASkunk );
 			EngineCore.addButton( 1, 'Decline', this, this.refuseGenderlessInjection );
 			return;
@@ -2708,7 +2708,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PregnancySto
 			MainView.outputText( '\n\n"<i>A herm, huh?  That\'s interesting.  I\'ll be sure to note that in my experiments.</i>"  She crosses her arms.  "<i>So which part will you be using to help me?</i>"' );
 		}
 		//(Display sex options);
-		EngineCore.menu();
+		MainView.menu();
 		if( CoC.player.hasVagina() ) {
 			if( CoC.player.pregnancyIncubation === 0 ) {
 				EngineCore.addButton( 0, 'HarvestGirly', this, this.getEggsHarvested );

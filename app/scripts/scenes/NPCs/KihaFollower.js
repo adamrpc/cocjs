@@ -768,7 +768,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 				}
 				MainView.outputText( 'When you approach your dragoness lover, a warm smile spreads across her dark features.  She gives you a playful punch on the shoulder and laughs, "<i>Hey, doofus. You need something -- maybe a little dragon loving?</i>" she adds with a wink.' );
 				leave = SceneLib.camp.campLoversMenu;
-				EngineCore.menu();
+				MainView.menu();
 				EngineCore.addButton( 0, 'Hang Out', this, this.hangOutWithKiha );
 				EngineCore.addButton( 1, 'Hug', this, this.hugFriendWarmKiha );
 				EngineCore.addButton( 3, 'Sex', this, this.kihaSexMenu );
@@ -2294,7 +2294,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 			MainView.outputText( 'You ask Kiha if she wouldn\'t mind setting a watch at night.\n\n"<i>So you want me to cut any demons in half that get too close?</i>" Kiha asks.\n\nYou nod.\n\n"<i>Yeah, I suppose I can, since you asked nicely.</i>"  She ruffles your [hair] fondly.' );
 			CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] = 1;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.warmLoverKihaIntro );
 	};
 	SceneLib.registerScene( 'kihaFollower', new KihaFollower() );

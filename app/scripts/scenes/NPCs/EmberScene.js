@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			getBlown = this.stickDickInKnifeDrawer;
 			pitchAnal = this.stickItInEmbersButt;
 		}
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Catch Anal', this, catchAnal_ );
 		EngineCore.addButton( 1, 'Pitch Anal', this, pitchAnal );
 		EngineCore.addButton( 2, 'Blow Ember', this, blowEmber );
@@ -4643,7 +4643,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -5 );
 		//[Yes] [No];
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.stayWithEmberAfterLustFuck );
 		EngineCore.addButton( 1, 'No', this, this.noStayingForCuddlesPostLustFuck );
 	};
@@ -4675,7 +4675,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nAs you embrace each other, you feel something stirring against your ' + CoC.player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>" he states, quite flustered at his reaction.  [OneCock] growing erect, brushing against his, serves as your answer.' );
 			MainView.outputText( '\n\nEmber trembles at the contact, electrical waves of pleasure coursing through his body as your members touch.  "<i>T-That felt good!</i>" he exclaims, humping slightly to rub your shafts together once more.  "<i>Yes...  [name], how about we rub one off together this time?  I like how naughty this feels; besides my ass is still pretty sore and I can\'t hold you if you take me from behind...</i>"' );
 			MainView.outputText( '\n\nYou can\'t see any reason not to, and tell him so.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.frottingWithEmber );
 		}
 		//else if Ember is female:;
@@ -4691,7 +4691,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( ' takes your hand and presses it against her wet quim.  Your fingers instinctively move, sliding themselves over and slightly into the damp netherlips.  "<i>Ooh... that feels nice... but know what would feel even better?</i>" she asks teasingly as she strokes your side.  Playfully, you ask her what that might be.' );
 			MainView.outputText( '\n\nEmber reaches down, gripping the base of your [cock biggest].  "<i>This.</i>"  You can\'t resist teasing Ember that she\'s quite a horny girl, now.  "<i>Only when I\'m with you.</i>"  She giggles.  "<i>Truth is I\'ve always been like that.  I guess deep down I always knew you were my true mate, I just... well... I guess I let pride get in the way.  Sorry for being such a handful for so long...</i>"  You place a kiss on the dragon\'s lips; Ember is evidently quite grateful for the excuse to shut up, because she eagerly kisses you back.' );
 			MainView.outputText( '\n\nShe breaks the kiss and lightly strokes your shaft, smiling at you.  Then she aligns the tip of your ' + Descriptors.cockDescript( x ) + ' with her pussy.' );
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Next', this, this.penetrateWithEmber );
 		} else {
 			{  //if Ember is herm you embrace each other, you feel something stirring against your ' + CoC.player.skinFurScales() + '.  Breaking up the hug to look downwards you spot Ember\'s draconic member, erect once more.  "<i>I... well... you can\'t expect me to keep it down when I\'m holding my naked mate now, can you?</i>"  She states, quite flustered at her reaction.  Your own [cock biggest] growing erect, brushing against hers, serves as your answer.");
@@ -4703,7 +4703,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( ' states, idly rubbing your cocks together.  One of your hands slips down between the two of you, sliding over the ridged surface of the herm dragon\'s cock before pressing itself against her well-used quim; sure enough, it\'s already drooling eagerly at the prospect of being filled again.' );
 			MainView.outputText( '\n\n"<i>Hmm... [name], my mate?  Feel like trying something different?  Or if you aren\'t, can you at least put that cock inside me once more?  I want you...</i>"  Ember licks her lips in anticipation.' );
 			//[Frotting] [Penetrate];
-			EngineCore.menu();
+			MainView.menu();
 			EngineCore.addButton( 0, 'Frotting', this, this.frottingWithFrottingEmberHerm );
 			EngineCore.addButton( 1, 'Penetrate', this, this.penetrateEmberHerm );
 		}
@@ -4768,7 +4768,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		MainView.outputText( ' before allowing yourself to also fall asleep.' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.emberJizzbangbangEnding );
 	};
 	//Penetrate:;
@@ -4859,7 +4859,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 
 		MainView.outputText( '\n\nThe two of you collapse into each other\'s arms.  You move to pull out, but Ember stops you by holding your hips in place.  "<i>Leave it inside... that\'s where it belongs.</i>"  She smiles at you, panting a bit.  Too tired and happy to argue, you simply nod your head, rest against her, and allow sleep to claim you. You\'re dimly aware of Ember doing the same thing before you fade.' );
 		CoC.player.orgasm();
-		EngineCore.menu();
+		MainView.menu();
 		EngineCore.addButton( 0, 'Next', this, this.emberJizzbangbangEnding );
 	};
 	//Frotting and Penetrate connect here.;
