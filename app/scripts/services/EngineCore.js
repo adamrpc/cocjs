@@ -814,8 +814,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		showPage( 0 );
 	};
-	// simpleChoices and doYesNo are convenience functions. They shouldn\'t re-implement code from choices()
-	EngineCore.simpleChoices = EngineCore.choices;
 	EngineCore.doYesNo = function( objYes, eventYes, objNo, eventNo ) {
 		EngineCore.choices('Yes', objYes, eventYes, 'No', objNo, eventNo);
 	};
