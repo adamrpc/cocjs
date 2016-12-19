@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, Monster, Utils, StatusAffects, EngineCore, AppearanceDefs, Combat, CockTypesEnum, WeightedDrop, ConsumableLib ) {
 	function Phouka() {
 		this.init(this, arguments);
 	}
@@ -237,6 +237,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 	Phouka.prototype.handleAwardText = function() {
 		//Talk about gems and XP when the player looks in the hollow of the tree instead of here
 	};
+	/* jshint unused:true */
 	Phouka.prototype.handleCombatLossText = function( inDungeon, gemsLost ) {
 		if( CoC.player.gems > 1 ) {
 			MainView.outputText( '  Once free you check your gem pouch and realize the ' + this.short + ' took ' + gemsLost + ' of your gems.' );

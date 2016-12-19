@@ -7,17 +7,17 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		if( amount === undefined ) {
 			amount = 0;
 		}
-		if( CoC.player.spe - amount < 1 ) {
-			amount = CoC.player.spe - 1;
+		if( player.spe - amount < 1 ) {
+			amount = player.spe - 1;
 			if( amount < 0 ) {
 				amount = 0;
 			}
 		}
-		CoC.player.spe -= amount;
-		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
-			CoC.player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
+		player.spe -= amount;
+		if( player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+			player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
 		} else {
-			CoC.player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
+			player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
 		}
 		MainView.statsView.showStatDown( 'spe' );
 	};

@@ -53,6 +53,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, 
 		SceneLib.harpyScene.harpyVictoryuuuuu();
 	};
 
+	/* jshint unused:true */
 	Harpy.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );

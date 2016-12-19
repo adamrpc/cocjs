@@ -1228,7 +1228,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Con
 			MainView.outputText( '  As Nieve continues to pound away, he places one hand on your sopping wet cunt and begins to finger you in time with his assault, making you lust-drunk with the stimulation as he finger bangs you.' );
 		}
 		MainView.outputText( '\n\nNieve continues to grunt as he prods and plunges into your ' );
-		//if (EngineCore.silly mode) ;
+		//if (silly mode) ;
 		if( EngineCore.silly() ) {
 			MainView.outputText( 'pooper' );
 		} else {

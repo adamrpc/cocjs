@@ -255,6 +255,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 			SceneLib.sophieScene.sophieLostCombat();
 		}
 	};
+	/* jshint unused:true */
 	Sophie.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
 			SceneLib.sophieFollowerScene.debimboSophieBeatsYouUp();

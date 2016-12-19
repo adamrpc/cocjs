@@ -635,7 +635,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			MainView.outputText( 'You throw the animals behind you and fold your arms.' );
 			MainView.outputText( '\n\nSheila shivers, then speaks.  "<i>Alright, mate.  If that\'s the way it has to be.</i>"  She raises her fists half-heartedly.' );
 		}
-		//(EngineCore.silly mode);
+		//(silly mode);
 		else {
 			MainView.outputText( 'Throwing the bundle to the side dramatically, you call the name of your stand!  Sheila\'s eyes widen as your body surges with renewed energy, and she jumps back as a ghostly other self materializes next to you.' );
 			MainView.outputText( '\n\n"<i>So... it has to be like this, then?  Alright!</i>"  Sheila thrusts a fist in the air, eyes glinting, and yells "<i>Come out!  \'Ready, World\'!</i>"  A form flows from her, taking the shape of a slim, dark woman with curly, almost liquid hair, in a loose vest and billowing, long-sleeved tunic.  Sheila jumps at you, and both the woman and her glamorous stand draw back to punch!' );
@@ -1558,7 +1558,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				MainView.outputText( '\n\n"<i>God, that\'d be nice.  But I can\'t take them out of the colony until they\'re ready to train a trade; those are the rules.  Only nurses can, when they need to teach a class basic stuff - up is up, rocks are rocks, that sort - and they get a soldier detail when they go.  I wouldn\'t want to anyway... nothing on you, but there are only two of us and ' + Utils.num2Text( CoC.flags[ kFLAGS.SHEILA_JOEYS ] ) + ' of them.  I wish I could bring you in, though.</i>"' );
 				MainView.outputText( '\n\n"<i>Well... why can\'t you?</i>" you ask.  "<i>I mean, I\'d think it\'s clear by now that I\'m not some monster.</i>"' );
 				MainView.outputText( '\n\nYour companion looks profoundly unhappy.  "<i>Don\'t ask me to explain a policy I hate.  I\'d like nothing more than to fall asleep at night in an actual bed with you instead of staying up alone, worrying if you\'ll be alright' );
-				//[(EngineCore.silly)];
+				//[(silly)];
 				if( EngineCore.silly() ) {
 					MainView.outputText( ' and clutching the life-sized [name] bodypillow I made' );
 					MainView.outputText( '.  But it\'s not going to happen right now.</i>"' );
@@ -2279,7 +2279,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}///(else if fucking nothing);
 		else {
 			MainView.outputText( 'You wish you had something to play with as you watch your lover writhe under you' );
-			//[(EngineCore.silly), even just a paperclip].];
+			//[(silly), even just a paperclip].];
 			if( EngineCore.silly() ) {
 				MainView.outputText( ', even just a paperclip' );
 			}
@@ -4664,7 +4664,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( CoC.player.isTaur() ) {
 			MainView.outputText( ', practically lifting herself off of the ground] as she impales her cunt on your [cockFit 56] to prevent you from pulling out.' );
 		}
-		//[(EngineCore.silly);
+		//[(silly);
 		if( EngineCore.silly() ) {
 			MainView.outputText( '  "<i>Make me feel like I\'m fifteen years old again and playin\' with the dog-morphs in the field!</i>"  Heavens to Betsy!' );
 		} else {

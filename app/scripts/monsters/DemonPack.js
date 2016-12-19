@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib, Combat, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib, Combat, EngineCore, Descriptors ) {
 	function DemonPack() {
 		this.init(this, arguments);
 	}

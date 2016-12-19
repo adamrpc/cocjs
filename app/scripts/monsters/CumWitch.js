@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'CumWitch', function( SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'CumWitch', function( SceneLib, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib ) {
 	function CumWitch() {
 		this.init(this, arguments);
 	}

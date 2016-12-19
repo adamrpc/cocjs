@@ -22,7 +22,7 @@
  * seaworld - Anything in the water
  * other	- doesn't fit anywhere else
  */
-angular.module('cocjs').factory('CockTypesEnum', function ($log, Enum) {
+angular.module('cocjs').factory('CockTypesEnum', function (Enum) {
 	function CockTypesEnum() {
 		this.init(this, arguments);
 	}

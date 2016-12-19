@@ -13,6 +13,7 @@ angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, MainView, CockTy
 	Zetaz.prototype.defeated = function() {
 		SceneLib.dungeon2Supplimental.defeatZetaz();
 	};
+	/* jshint unused:true */
 	Zetaz.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to care...' );

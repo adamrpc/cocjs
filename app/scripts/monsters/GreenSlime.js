@@ -29,6 +29,7 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 			Combat.cleanupAfterCombat();
 		}
 	};
+	/* jshint unused:true */
 	GreenSlime.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe slime doesn\'t even seem to notice.\n\n' );

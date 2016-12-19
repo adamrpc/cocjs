@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
+angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, ChainedDrop, ConsumableLib, Combat ) {
 	function Basilisk() {
 		this.init(this, arguments);
 	}
@@ -49,6 +49,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	Basilisk.prototype.defeated = function() {
 		SceneLib.basiliskScene.defeatBasilisk();
 	};
+	/* jshint unused:true */
 	Basilisk.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe basilisk smirks, but waits for you to finish...' );

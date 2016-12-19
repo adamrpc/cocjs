@@ -359,6 +359,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			SceneLib.gnollSpearThrowerScene.hyenaVictory();
 		}
 	};
+	/* jshint unused:true */
 	GnollSpearThrower.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.short === 'alpha gnoll' ) {
 			CoC.urtaQuest.loseToGnollPrincessAndGetGangBanged();

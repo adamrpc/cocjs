@@ -120,6 +120,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 			SceneLib.kelly.breakingKeltNumeroThree();
 		}
 	};
+	/* jshint unused:true */
 	Kelt.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nKelt recoils for a moment before assuming a look of superiority...' );

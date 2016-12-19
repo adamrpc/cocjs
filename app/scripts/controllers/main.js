@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function($log, $rootScope, $scope, CoC, EngineCore, MainView, SceneLib, Player, Monster, PlayerEvents) {
+angular.module('cocjs').controller('MainCtrl', function($scope, CoC, EngineCore, MainView, SceneLib, Player, Monster, PlayerEvents) {
 	CoC.player = new Player();
 	CoC.player2 = new Player();
 	CoC.monster = new Monster();

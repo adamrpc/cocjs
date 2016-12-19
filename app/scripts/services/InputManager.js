@@ -185,6 +185,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 	 * TODO this shit off
 	 */
 	InputManager.RegisterDefaults = function() {
+		/* jshint unused:true */
 		_.forOwn(controlMethods, function(value, key) {
 			defaultControlMethods[ key ] = angular.copy(controlMethods[ key ]);
 		});
@@ -199,6 +200,7 @@ angular.module( 'cocjs' ).factory( 'InputManager', function( $log, MainView ) {
 	 * Reset the bound keys to the defaults previously registered.
 	 */
 	InputManager.ResetToDefaults = function() {
+		/* jshint unused:true */
 		_.forOwn(controlMethods, function(value, key) {
 			controlMethods[ key ] = angular.copy(defaultControlMethods[ key ]);
 		});

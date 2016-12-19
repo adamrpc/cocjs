@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, Appearance, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Owca() {
 	}
 

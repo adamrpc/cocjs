@@ -108,6 +108,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 		SceneLib.satyrScene.defeatASatyr();
 	};
 
+	/* jshint unused:true */
 	Satyr.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe satyr laughs heartily at your eagerness...' );

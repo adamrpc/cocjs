@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, Saves, MainView, InputManager, CoC, EngineCore, Appearance, kFLAGS ) {
+angular.module( 'cocjs' ).run( function( SceneLib, Saves, MainView, InputManager, CoC, EngineCore, Appearance, kFLAGS ) {
 	InputManager.AddBindableControl(
 		'Show Stats',
 		'Show the stats pane when available',

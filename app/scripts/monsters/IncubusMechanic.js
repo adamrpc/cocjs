@@ -47,6 +47,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 			this.wonInDungeon3( hpVictory, pcCameWorms );
 		}
 	};
+	/* jshint unused:true */
 	IncubusMechanic.prototype.wonInDungeon1 = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );

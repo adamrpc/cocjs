@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GoblinBroodmother', function( SceneLib, MainView, Goblin, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'GoblinBroodmother', function( SceneLib, MainView, Goblin, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, EngineCore, Monster, Utils, StatusAffects ) {
 	function GoblinBroodmother() {
 		this.init(this, arguments);
 	}

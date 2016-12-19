@@ -18,6 +18,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, MainView, 
 	LustyDemons.prototype.defeated = function() {
 		SceneLib.owca.defeetVapulasHorde();
 	};
+	/* jshint unused:true */
 	LustyDemons.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe demons smile to one at another as they watch your display, then close in...' );

@@ -83,6 +83,7 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, MainV
 	TamanisDaughters.prototype.defeated = function( ) {
 		SceneLib.tamaniDaughtersScene.combatWinAgainstDaughters();
 	};
+	/* jshint unused:true */
 	TamanisDaughters.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foes seem visibly disgusted and leave, telling you to, "<i>quit being so fucking gross...</i>"' );

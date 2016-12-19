@@ -143,6 +143,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 		}
 	};
 
+	/* jshint unused:true */
 	Kiha.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.spiderfight ) >= 0 ) {
 			SceneLib.kihaFollower.loseKihaPreSpiderFight();

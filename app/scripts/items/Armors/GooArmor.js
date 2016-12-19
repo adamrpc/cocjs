@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, kFLAGS, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, kFLAGS, CoC ) {
 	function GooArmor() {
 		this.init(this, arguments);
 	}
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, kFLAGS, Engi
 		MainView.outputText( ', encasing your loins in case you need a little mid-battle release, she says.' );
 		MainView.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.' );
 		if( CoC.flags[ kFLAGS.MET_VALERIA ] === 0 ) {
-			MainView.outputText( '  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, EngineCore.silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
+			MainView.outputText( '  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
 			CoC.flags[ kFLAGS.MET_VALERIA ]++;
 		}
 		MainView.outputText( '\n\n"<i>Well alright then, [name]!</i>" Valeria says excitedly, "<i>Let\'s go!</i>"\n\n' );

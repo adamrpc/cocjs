@@ -1143,7 +1143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			MainView.outputText( '\n\nRelieved, you pull your shrinking tube from the wet mouth; a few straggling eggs fall from it, dropping into the water.  The anemone looks plainly queasy as she rubs her stomach.' );
 			MainView.outputText( '\n\n"<i>Hard...</i>" she moans, pressing down on her midriff and frowning.  "<i>Yucky...</i>"' );
 			MainView.outputText( '\n\nThat\'s too bad.' );
-			//[(EngineCore.silly mode and fert eggs);
+			//[(silly mode and fert eggs);
 			if( EngineCore.silly() && CoC.player.fertilizedEggs() > 1 ) {
 				MainView.outputText( '  You briefly amuse yourself imagining her carrying your eggs to term and having them hatch in her mouth, so that when she talks, she shoots bees.  Nicholas Cage would be proud.' );
 			}

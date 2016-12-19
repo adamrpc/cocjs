@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Appearance, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Utils, StatusAffects, kFLAGS, CoC, EngineCore ) {
 	function KatherineEmployment() {
 	}
 

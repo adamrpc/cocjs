@@ -81,6 +81,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 			}
 		}
 	};
+	/* jshint unused:true */
 	HellHound.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe hellhound snorts and leaves you to your fate.', false );

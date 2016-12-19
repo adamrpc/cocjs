@@ -351,7 +351,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		MainView.clearOutput();
 		this.sophieSprite();
 		MainView.outputText( 'You ask Sophie if it’s possible for her to produce eggs of a certain color whilst she’s here.' );
-		MainView.outputText( '\n\n“<i>Of course I can, EngineCore.silly,</i>” she giggles. “<i>Don’t you know about, like, the pretty lil colors that come out of the water over there?</i>” She points in the direction of the lake. “<i>The doggie takes me for like a walk down there all the time. The colors go whoomf, right into where it feels good!</i>” She demonstrates graphically. “<i>What color would you like, babe?</i>”' );
+		MainView.outputText( '\n\n“<i>Of course I can, silly,</i>” she giggles. “<i>Don’t you know about, like, the pretty lil colors that come out of the water over there?</i>” She points in the direction of the lake. “<i>The doggie takes me for like a walk down there all the time. The colors go whoomf, right into where it feels good!</i>” She demonstrates graphically. “<i>What color would you like, babe?</i>”' );
 		this.eggSelector();
 	};
 	SophieBimbo.prototype.changeEggs = function() {

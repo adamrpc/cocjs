@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, WeaponLib, Mutations, StatusAffects, PregnancyStore, Descriptors, Utils, CockTypesEnum, CoC_Settings, PerkLib, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, WeaponLib, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function SymGear() {
 	}
 

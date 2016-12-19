@@ -142,6 +142,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 	Isabella.prototype.defeated = function() {
 		CoC.isabellaScene.defeatIsabella();
 	};
+	/* jshint unused:true */
 	Isabella.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\n"<i>Ick,</i>" Isabella tuts as she turns to leave...' );

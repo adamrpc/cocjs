@@ -128,6 +128,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, MainView, Sce
 	FetishZealot.prototype.defeated = function() {
 		SceneLib.fetishZealotScene.zealotDefeated();
 	};
+	/* jshint unused:true */
 	FetishZealot.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe fetish cultist ignores the perverse display and continues on as if nothing had happened...', false );

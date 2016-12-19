@@ -37,6 +37,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 		}
 		Combat.cleanupAfterCombat();
 	};
+	/* jshint unused:true */
 	BeeGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe bee-girl goes white and backs away with a disgusted look on her face.\n\n' );

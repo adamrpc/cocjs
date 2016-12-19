@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, Descriptors, Utils, PregnancyStore, AppearanceDefs, StatusAffects, EngineCore, ConsumableLib, Mutations, SimpleConsumable ) {
+angular.module( 'cocjs' ).run( function( MainView, Descriptors, Utils, PregnancyStore, AppearanceDefs, StatusAffects, EngineCore, ConsumableLib, SimpleConsumable ) {
 	
 //MouseCo
 //tooltip:

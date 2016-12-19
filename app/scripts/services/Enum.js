@@ -19,6 +19,7 @@ angular.module('cocjs').factory('Enum', function () {
 		return this.getName();
 	};
 	Enum.ParseConstant = function(enumObj, i_constantName, i_caseSensitive) {
+		/* jshint unused:true */
 		return _.find(enumObj, function(value, key) {
 			return (i_caseSensitive && key === i_constantName) || key.toLowerCase() === i_constantName.toLowerCase();
 		});

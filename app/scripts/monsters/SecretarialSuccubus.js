@@ -23,6 +23,7 @@ angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( SceneLib, Ma
 			Combat.finishCombat();
 		}
 	};
+	/* jshint unused:true */
 	SecretarialSuccubus.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );

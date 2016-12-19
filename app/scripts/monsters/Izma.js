@@ -139,6 +139,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 	Izma.prototype.defeated = function() {
 		SceneLib.izmaScene.defeatIzma();
 	};
+	/* jshint unused:true */
 	Izma.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\n"<i>Gross!</i>" Izma cries as she backs away, leaving you to recover alone.' );

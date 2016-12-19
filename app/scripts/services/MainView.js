@@ -207,6 +207,7 @@ angular.module( 'cocjs' ).factory( 'MainView', function( OnLoadVariables, SceneL
 		});
 	};
 	MainView.clearBottomButtons = function() {
+		/* jshint unused:true */
 		return _.forEach(MainView.bottomButtons, function(button, index) {
 			MainView.setButton( index );
 		});

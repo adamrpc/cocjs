@@ -993,7 +993,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( 'You smile and note that\'s one odd way to get into a girl\'s good books.\n\n' );
 		MainView.outputText( '"<i>Anyway, Loppe had always admired him and his feline grace while dancing, and after the incident, she was thrilled to know that Hyou hadn\'t spoken a single word about Loppe\'s gender to her classmates. Or anyone else for that matter. In fact, they just became closer.  Hyou continued to tutor Loppe, and slowly she got better and better, until one day Hyou surprised her with a request. Do you know what he asked?</i>"  Uma asks, clapping her hands together lightly.\n\n' );
 		MainView.outputText( 'He asked her if they could make love?  You suggest.\n\n' );
-		MainView.outputText( '"<i>No, EngineCore.silly.  He asked her out.</i>"\n\n' );
+		MainView.outputText( '"<i>No, silly.  He asked her out.</i>"\n\n' );
 		MainView.outputText( 'Well, that\'s a surprise, you say; you didn\'t think people still took it that slow in Mareth.\n\n' );
 		MainView.outputText( '"<i>Not everyone is crazy about getting into each other\'s pants all the time dear</i>" Uma scolds you.  "<i>If we did that all the time we wouldn\'t have to do anything but sleep with each other all the time, you know?</i>"\n\n' ); // I dont even know.
 		MainView.outputText( 'You apologize; there\'s so many monsters out in the wilderness who do think precisely that way that it\'s hard to remember there are still normal people, sometimes.\n\n' );

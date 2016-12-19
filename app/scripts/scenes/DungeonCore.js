@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonCore() {
 	}
 

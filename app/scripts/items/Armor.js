@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Armor', function( Useable, CoC, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Armor', function( Useable, MainView, CoC, PerkLib ) {
 	function Armor() {
 		this.init(this, arguments);
 	}

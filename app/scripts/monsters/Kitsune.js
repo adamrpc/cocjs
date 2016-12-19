@@ -183,6 +183,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 	Kitsune.prototype.defeated = function() {
 		SceneLib.kitsuneScene.defeatTheKitsunes();
 	};
+	/* jshint unused:true */
 	Kitsune.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe kitsune recoils before running off, no longer interested in you...' );

@@ -249,6 +249,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 	//
 	// if attribute cannot be case to a number, the parser looks for "object" in twoWordTagsLookup.
 	Parser.twoWordNumericTagsLookup = {};
+	/* jshint unused:true */
 	Parser.twoWordNumericTagsLookup.cockfit = function(thisPtr, aspect) {
 		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cock when none present.)</b>";
@@ -260,6 +261,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			}
 		}
 	};
+	/* jshint unused:true */
 	Parser.twoWordNumericTagsLookup.cockfit2 = function(thisPtr, aspect) {
 		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cock when none present.)</b>";
@@ -271,6 +273,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			}
 		}
 	};
+	/* jshint unused:true */
 	Parser.twoWordNumericTagsLookup.cockheadfit = function(thisPtr, aspect) {
 		if (!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cockhead when none present.)</b>";
@@ -282,6 +285,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			}
 		}
 	};
+	/* jshint unused:true */
 	Parser.twoWordNumericTagsLookup.cockheadfit2 = function(thisPtr, aspect) {
 		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cockhead when none present.)</b>";
@@ -293,6 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			}
 		}
 	};
+	/* jshint unused:true */
 	Parser.twoWordNumericTagsLookup.cock = function(thisPtr, aspect) {
 		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cock when none present.)</b>";
@@ -304,6 +309,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			}
 		}
 	};
+	/* jshint unused:true */
 	Parser.twoWordNumericTagsLookup.cockhead = function(thisPtr, aspect) {
 		if(!CoC.player.hasCock()) {
 			return "<b>(Attempt to parse cockHead when none present.)</b>";

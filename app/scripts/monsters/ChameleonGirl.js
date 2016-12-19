@@ -78,6 +78,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 		SceneLib.chameleonGirlScene.defeatChameleonGirl();
 	};
 
+	/* jshint unused:true */
 	ChameleonGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe chameleon girl recoils.  "<i>Ew, gross!</i>" she screetches as she runs away, leaving you to recover from your defeat alone.' );

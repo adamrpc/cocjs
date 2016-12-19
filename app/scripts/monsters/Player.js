@@ -1860,6 +1860,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.increaseEachCock = function( lengthDelta ) {
 		var totalGrowth = 0;
 		var that = this;
+		/* jshint unused:true */
 		_.forEach(this.cocks, function(cock, index) {
 			$log.debug( 'increaseEachCock at: ' + index );
 			totalGrowth += that.increaseCock( index, lengthDelta );

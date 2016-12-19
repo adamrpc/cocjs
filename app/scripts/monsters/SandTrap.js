@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
+angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC, Monster, Utils, StatusAffects, AppearanceDefs, ConsumableLib, Combat, EngineCore, CockTypesEnum, ChainedDrop ) {
 	function SandTrap() {
 		this.init(this, arguments);
 	}
@@ -103,6 +103,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $lo
 	SandTrap.prototype.defeated = function() {
 		SceneLib.sandTrapScene.pcBeatsATrap();
 	};
+	/* jshint unused:true */
 	SandTrap.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );

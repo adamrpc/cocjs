@@ -87,6 +87,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	SpiderMorphMob.prototype.defeated = function() {
 		SceneLib.kihaFollower.beatSpiderMob();
 	};
+	/* jshint unused:true */
 	SpiderMorphMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe spiders smile to one at another as they watch your display, then close in...' );

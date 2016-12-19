@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager, PerkLib, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, PerkLib, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
 	function GoblinScene() {
 	}
 

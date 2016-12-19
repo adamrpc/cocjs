@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'WormMass', function( SceneLib, MainView, $log, CoC, Monster, Utils, AppearanceDefs ) {
+angular.module( 'cocjs' ).factory( 'WormMass', function( SceneLib, MainView, $log, Monster, Utils, AppearanceDefs ) {
 	function WormMass() {
 		this.init(this, arguments);
 	}

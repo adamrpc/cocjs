@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, MainView, CockTypesEnum, Appearance, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat ) {
+angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, MainView, CockTypesEnum, Appearance, EngineCore, CoC, Monster, AppearanceDefs, Utils, Combat ) {
 	function HermCentaur() {
 		this.init(this, arguments);
 	}

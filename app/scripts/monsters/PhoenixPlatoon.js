@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'PhoenixPlatoon', function( SceneLib, CoC, Appearance, Utils, AppearanceDefs, Monster ) {
+angular.module( 'cocjs' ).factory( 'PhoenixPlatoon', function( SceneLib, Appearance, Utils, AppearanceDefs, Monster ) {
 	function PhoenixPlatoon() {
 		this.init(this, arguments);
 	}

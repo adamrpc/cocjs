@@ -6766,10 +6766,6 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
 		}
-		//Silly mode alternative:;
-		/*if(EngineCore.silly()) {
-		 MainView.outputText('MUZZLESMUZZLES MUZZLE PAW FUR MURR HIR SHI YIFF YIFFITY YIFF PURR PURR MEW.', false);
-		 }*/
 		MainView.outputText( 'You take hold of your ' + Descriptors.cockDescript( x ) + ' and present it to the girls.  Giggling, they both crawl to the edge of the bed, giving their asses and chests exaggerated shakes and jiggles until their heads are level with your shaft.  Eagerly, Urta and Amily grab your ' + Descriptors.cockDescript( x ) + ' and begin to play with it, giving it little brushes and licks with their wonderful, animalistic tongues.  You run your hands through their hair, urging them on until your dick is well and truly soaked with their warm saliva, the perfect lubricant to get things started.\n\n', false );
 		MainView.outputText( 'You gently push Amily and Urta away from your ready shaft and tell the fox-girl to get on her back.  Urta licks her lips and, with a lusty grin, flops onto her back with her legs splayed around your waist.  Her massive horse-cock points upwards like a flagpole, wavering in the air and already dribbling streams of pre that would make any normal man jealous.  You easily lift her hefty sack out of the way, revealing the prize beneath wet, drooling cunt.\n\n', false );
 		MainView.outputText( 'You line up your ' + Descriptors.cockDescript( x ) + ' with the fox-girl\'s eager vag, but stop short of penetration, running your cockhead up and down along her outer lips, teasing the drunken herm with short little shifts of your hips.  This only gets her harder, and her pre-cum is soon flowing out of her horse-cock to pool on her belly and thighs.  As you tease Urta\'s womanhood, you give Amily a little nod.  The petite mouse morph wastes no time climbing up onto Urta\'s lap and, with a little help from you, gets herself in position atop the fox-morph\'s towering rod.\n\n', false );

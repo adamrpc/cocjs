@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'SandMother', function( SceneLib, CoC, Utils, AppearanceDefs, Monster, StatusAffects, PerkLib, Appearance ) {
+angular.module( 'cocjs' ).factory( 'SandMother', function( SceneLib, Utils, AppearanceDefs, Monster, StatusAffects, PerkLib, Appearance ) {
 	function SandMother() {
 		this.init(this, arguments);
 	}

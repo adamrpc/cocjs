@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
 	function Lake() {
 	}
 

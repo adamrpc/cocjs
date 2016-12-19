@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Farmers', function( SceneLib, CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat ) {
+angular.module( 'cocjs' ).factory( 'Farmers', function( SceneLib, CockTypesEnum, StatusAffects, Appearance, Monster, Utils, AppearanceDefs, Combat ) {
 	function Farmers() {
 		this.init(this, arguments);
 	}

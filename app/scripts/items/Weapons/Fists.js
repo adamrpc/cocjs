@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, Weapon ) {
 	function Fists() {
 		this.init(this, arguments);
 	}

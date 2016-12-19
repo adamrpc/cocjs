@@ -12,6 +12,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 			SceneLib.impScene.impVictory();
 		}
 	};
+	/* jshint unused:true */
 	Imp.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.KitsuneFight ) >= 0 ) {
 			SceneLib.kitsuneScene.loseKitsuneImpFight();

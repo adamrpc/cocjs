@@ -116,6 +116,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, Appea
 	Goblin.prototype.defeated = function() {
 		SceneLib.goblinScene.gobboRapeIntro();
 	};
+	/* jshint unused:true */
 	Goblin.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( 'You collapse in front of the goblin, too wounded to fight.  She giggles and takes out a tube of lipstick smearing it whorishly on your face.  You pass into unconsciousness immediately.  It must have been drugged.', false );

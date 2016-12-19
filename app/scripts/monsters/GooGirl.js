@@ -146,6 +146,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	GooGirl.prototype.defeated = function() {
 		SceneLib.gooGirlScene.beatUpGoo();
 	};
+	/* jshint unused:true */
 	GooGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );

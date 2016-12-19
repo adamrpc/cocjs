@@ -280,6 +280,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	Ceraph.prototype.defeated = function() {
 		SceneLib.ceraphScene.winRapeChoices();
 	};
+	/* jshint unused:true */
 	Ceraph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );

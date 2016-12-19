@@ -24,6 +24,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, MainView, $l
 	SharkGirl.prototype.defeated = function() {
 		SceneLib.sharkGirlScene.sharkWinChoices();
 	};
+	/* jshint unused:true */
 	SharkGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );

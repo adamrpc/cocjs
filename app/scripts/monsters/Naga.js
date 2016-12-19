@@ -74,6 +74,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 	Naga.prototype.defeated = function( ) {
 		SceneLib.nagaScene.nagaRapeChoice();
 	};
+	/* jshint unused:true */
 	Naga.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe naga\'s eyes go wide and she turns to leave, no longer interested in you.', false );

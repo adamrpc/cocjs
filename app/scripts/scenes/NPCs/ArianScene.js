@@ -1202,7 +1202,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		MainView.outputText( '\n\n"<i>I heard that sometimes people from other worlds wandered into Mareth through portals, but I have never seen one up close before.</i>"  Arian stares deeply at the portal.  "<i>It\'s beautiful... and menacing, too.</i>"  Shaking [Arian em]self out of [Arian eir] reverie, Arian takes an open spot close to your tent.' );
 		MainView.outputText( '\n\n[Arian Ey] sets [Arian eir] overfull bag down and asks, "<i>Is it okay if I stay here?</i>"' );
 		MainView.outputText( '\n\nYou tell the reptilian wizard that should be fine.  But surely even someone with [Arian eir] scaly hide can\'t just sleep out in the open on bare earth?' );
-		MainView.outputText( '\n\nArian laughs.  "<i>Of course not, EngineCore.silly.  I\'m going to set up my own tent here.</i>"' );
+		MainView.outputText( '\n\nArian laughs.  "<i>Of course not, silly.  I\'m going to set up my own tent here.</i>"' );
 		MainView.outputText( '\n\nTent? You repeat.  You tell [Arian em] that you never saw [Arian em] bring a tent here.' );
 		MainView.outputText( '\n\n"<i>Oh, I see... you might want to take a step back then,</i>" Arian warns you with a wry smile.' );
 		MainView.outputText( '\n\nYou wonder what the weird wizard has in mind, but do as [Arian ey] says; you\'re not stupid enough to ignore a warning like that.' );

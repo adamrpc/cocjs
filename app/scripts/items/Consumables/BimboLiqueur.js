@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CockTypesEnum, CoC, StatusAffects, AppearanceDefs, Descriptors, Utils, PregnancyStore, kFLAGS, Useable, PerkLib, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, AppearanceDefs, Utils, Useable, PerkLib, EngineCore ) {
 	function BimboLiqueur() {
 		this.init(this, arguments);
 	}

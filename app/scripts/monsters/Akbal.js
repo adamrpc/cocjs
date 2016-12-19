@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, PerkLib, CockTypesEnum, WeaponLib ) {
+angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, PerkLib, CockTypesEnum, WeaponLib ) {
 	function Akbal() {
 		this.init(this, arguments);
 	}

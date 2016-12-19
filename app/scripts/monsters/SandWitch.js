@@ -16,6 +16,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( MainView, SceneLib, $l
 			Combat.finishCombat();
 		}
 	};
+	/* jshint unused:true */
 	SandWitch.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe witch blanches and backs away, leaving you to your fate.' );

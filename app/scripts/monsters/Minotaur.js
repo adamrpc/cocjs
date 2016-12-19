@@ -15,6 +15,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, MainView, $lo
 			SceneLib.minotaurScene.minoVictoryRapeChoices();
 		}
 	};
+	/* jshint unused:true */
 	Minotaur.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );

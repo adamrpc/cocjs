@@ -8,6 +8,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainVi
 	OmnibusOverseer.prototype.defeated = function() {
 		SceneLib.dungeonCore.omnibusVictoryEvent();
 	};
+	/* jshint unused:true */
 	OmnibusOverseer.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );

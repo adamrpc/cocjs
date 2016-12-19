@@ -85,6 +85,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, MainView, Consuma
 	Vala.prototype.defeated = function() {
 		SceneLib.dungeon2Supplimental.fightValaVictory();
 	};
+	/* jshint unused:true */
 	Vala.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );

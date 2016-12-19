@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'FemaleSpiderMorph', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, WeightedDrop, ConsumableLib, UseableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'FemaleSpiderMorph', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, WeightedDrop, ConsumableLib, UseableLib, Appearance, MainView, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function FemaleSpiderMorph() {
 		this.init(this, arguments);
 	}
@@ -9,6 +9,7 @@ angular.module( 'cocjs' ).factory( 'FemaleSpiderMorph', function( SceneLib, Abst
 	FemaleSpiderMorph.prototype.defeated = function() {
 		SceneLib.femaleSpiderMorphScene.defeatASpiderBitch();
 	};
+	/* jshint unused:true */
 	FemaleSpiderMorph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe spider flashes a predatory grin while she waits it out...' );

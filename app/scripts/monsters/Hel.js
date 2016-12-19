@@ -161,6 +161,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 			SceneLib.helScene.beatUpHel();
 		}
 	};
+	/* jshint unused:true */
 	Hel.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nHelia waits it out in stoic silence...' );

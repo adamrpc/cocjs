@@ -160,6 +160,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 	CorruptedDrider.prototype.defeated = function() {
 		SceneLib.corruptedDriderScene.defeatDriderIntro();
 	};
+	/* jshint unused:true */
 	CorruptedDrider.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe drider licks her lips in anticipation...' );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'HarpyQueen', function( SceneLib, CoC, Appearance, Utils, AppearanceDefs, Monster ) {
+angular.module( 'cocjs' ).factory( 'HarpyQueen', function( SceneLib, Appearance, Utils, AppearanceDefs, Monster ) {
 	function HarpyQueen() {
 		this.init(this, arguments);
 	}

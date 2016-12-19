@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('cocjs').run( function (SceneLib, $log, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, ImageManager, InputManager) {
+angular.module('cocjs').run( function (SceneLib, CharCreation, CoC, EngineCore, MainView, CoC_Settings, kFLAGS, ImageManager, InputManager) {
 	function StartUp() {}
 	//MainMenu - kicks player out to the main menu
 	StartUp.prototype.mainMenu = function() {

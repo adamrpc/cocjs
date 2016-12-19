@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $rootScope, OnLoadVariables, CoC, MainView, CharCreation, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $rootScope, OnLoadVariables, CoC, MainView, kFLAGS, EngineCore, WeaponLib, ArmorLib, CockTypesEnum, StatusAffects, ConsumableLib, Combat, PerkLib, Utils, Descriptors ) {
 	var EventParser = {};
 
 	EventParser.getCurrentStackTrace = function() {

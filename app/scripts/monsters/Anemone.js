@@ -55,6 +55,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 	Anemone.prototype.defeated = function() {
 		SceneLib.anemoneScene.defeatAnemone();
 	};
+	/* jshint unused:true */
 	Anemone.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to mind at all...' );

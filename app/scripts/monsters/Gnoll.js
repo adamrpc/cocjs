@@ -363,6 +363,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 		}
 		SceneLib.gnollScene.defeatHyena();
 	};
+	/* jshint unused:true */
 	Gnoll.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );

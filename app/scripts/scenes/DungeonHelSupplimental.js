@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, WeaponLib, PregnancyStore, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, WeaponLib, PregnancyStore, MainView, Combat, ConsumableLib, Utils, PerkLib, StatusAffects, OnLoadVariables, kFLAGS, CoC, EngineCore ) {
 	function DungeonHelSupplimental() {
 	}
 
@@ -351,7 +351,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			MainView.outputText( 'groin' );
 		}
 		MainView.outputText( ', encasing your loins in case you need a little mid-battle release, she says.' );
-		MainView.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, EngineCore.silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
+		MainView.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
 		MainView.outputText( '\n\n"<i>Well, alright then, [name]!</i>" Valeria says excitedly, "<i>Let\'s go!</i>"' );
 		//("<i>You gained ValeriaArmor!</i>");
 		Combat.cleanupAfterCombat();

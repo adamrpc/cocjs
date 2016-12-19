@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, Descriptors, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, PerkLib, MainView, kFLAGS, CoC, EngineCore ) {
 	function Frosty() {
 	}
 

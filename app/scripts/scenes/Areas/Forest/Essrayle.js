@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, kFLAGS, Descriptors, ConsumableLib, CoC, Utils, EngineCore, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, kFLAGS, Descriptors, ConsumableLib, CoC, Utils, EngineCore, AppearanceDefs ) {
 	function Essrayle() {
 	}
 

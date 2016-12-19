@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, kFLAGS, Minotaur, MinotaurMob, Combat, Armor, PerkLib, CoC ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, kFLAGS, Armor, CoC ) {
 	function SeductiveArmor() {
 		this.init(this, arguments);
 	}

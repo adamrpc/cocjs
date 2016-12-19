@@ -145,6 +145,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, MainView, 
 	MinotaurMob.prototype.defeated = function() {
 		SceneLib.minotaurMobScene.victoryMinotaurGang();
 	};
+	/* jshint unused:true */
 	MinotaurMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe minutaurs share a laugh while you cum, but their throbbing erections don\'t subside in the slightest.' );

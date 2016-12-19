@@ -3145,6 +3145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		var x = _.indexOf( CoC.player.cocks, _.find( CoC.player.cocks, function( cock ) {
 			return cock.cockType === CockTypesEnum.TENTACLE;
 		} ) );
+		/* jshint unused:true */
 		var y = _.indexOf( CoC.player.cocks, _.find( _.shuffle( _.filter( CoC.player.cocks, function( cock, index ) {
 			return index !== x;
 		} ) ), function( cock ) {

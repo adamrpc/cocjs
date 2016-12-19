@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, OnLoadVariables, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function HelFollower() {
 	}
 
@@ -702,7 +702,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, OnLoadVariabl
 			if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 				MainView.outputText( '\n\n<i>"Poker, zilly girl!"</i> Isabella snaps.' );
 			} else {
-				MainView.outputText( '\n\n<i>"Poker, EngineCore.silly girl!"</i> Isabella snaps.' );
+				MainView.outputText( '\n\n<i>"Poker, silly girl!"</i> Isabella snaps.' );
 			}
 
 			MainView.outputText( '\n\n<i>"SILLY GIRL!?"</i>' );
@@ -728,7 +728,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, OnLoadVariabl
 				if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
 					MainView.outputText( '\n\n<i>"Nein, zilly girl,"</i> Isabella groans, crossing her arms, <i>"Ve vere beaten by ze luck of ze draw."</i>' );
 				} else {
-					MainView.outputText( '\n\n<i>"No, EngineCore.silly girl,"</i> Isabella groans, crossing her arms, <i>"We were beaten by the luck of the draw."</i>' );
+					MainView.outputText( '\n\n<i>"No, silly girl,"</i> Isabella groans, crossing her arms, <i>"We were beaten by the luck of the draw."</i>' );
 				}
 
 				MainView.outputText( '\n\n<i>"Literally,"</i> you add, flicking your last losing hand away.' );
