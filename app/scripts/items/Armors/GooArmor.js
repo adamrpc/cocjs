@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( ArmorLib, Armor, kFLAGS, EngineCore, CoC ) {
+angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, kFLAGS, EngineCore, CoC ) {
 	function GooArmor() {
 		this.init(this, arguments);
 	}
@@ -10,31 +10,31 @@ angular.module( 'cocjs' ).run( function( ArmorLib, Armor, kFLAGS, EngineCore, Co
 		that.classNames.push('GooArmor');
 	};
 	GooArmor.prototype.useText = function() { //Produces any text seen when equipping the armor normally
-		EngineCore.outputText( 'With an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );
-		EngineCore.outputText( '\n\nBefore she can get too excited, you remind the goo that she\'s supposed to be your armor right about now.  Clasping her hands over her mouth in embarrassment, she utters a muted apology and urges you to just "<i>put me on!</i>"  Awkwardly, you strip out of your gear and open up the platemail armor and clamber in.  It\'s wet and squishy, making you shudder and squirm as you squash your new friend flat against the metal armor.' );
-		EngineCore.outputText( '\n\nEventually, the two of you get situated. The goo-girl slips around your body inside the heavy armor, maneuvering so that your face is unobstructed and your joints, not protected by the armor, are soundly clad in squishy goo.  She even forms a gooey beaver on your new helm, allowing you to open and close her like a visor in battle.  Eventually, her goo settles around your ' );
+		MainView.outputText( 'With an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );
+		MainView.outputText( '\n\nBefore she can get too excited, you remind the goo that she\'s supposed to be your armor right about now.  Clasping her hands over her mouth in embarrassment, she utters a muted apology and urges you to just "<i>put me on!</i>"  Awkwardly, you strip out of your gear and open up the platemail armor and clamber in.  It\'s wet and squishy, making you shudder and squirm as you squash your new friend flat against the metal armor.' );
+		MainView.outputText( '\n\nEventually, the two of you get situated. The goo-girl slips around your body inside the heavy armor, maneuvering so that your face is unobstructed and your joints, not protected by the armor, are soundly clad in squishy goo.  She even forms a gooey beaver on your new helm, allowing you to open and close her like a visor in battle.  Eventually, her goo settles around your ' );
 		if( CoC.player.hasVagina() ) {
-			EngineCore.outputText( '[vagina]' );
+			MainView.outputText( '[vagina]' );
 		}
 		if( CoC.player.hasVagina() && CoC.player.hasCock() ) {
-			EngineCore.outputText( ' and ' );
+			MainView.outputText( ' and ' );
 		}
 		if( CoC.player.hasCock() ) {
-			EngineCore.outputText( CoC.player.multiCockDescriptLight() );
+			MainView.outputText( CoC.player.multiCockDescriptLight() );
 		}
 		if( CoC.player.gender === 0 ) {
-			EngineCore.outputText( 'groin' );
+			MainView.outputText( 'groin' );
 		}
-		EngineCore.outputText( ', encasing your loins in case you need a little mid-battle release, she says.' );
-		EngineCore.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.' );
+		MainView.outputText( ', encasing your loins in case you need a little mid-battle release, she says.' );
+		MainView.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.' );
 		if( CoC.flags[ kFLAGS.MET_VALERIA ] === 0 ) {
-			EngineCore.outputText( '  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, EngineCore.silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
+			MainView.outputText( '  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, EngineCore.silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
 			CoC.flags[ kFLAGS.MET_VALERIA ]++;
 		}
-		EngineCore.outputText( '\n\n"<i>Well alright then, [name]!</i>" Valeria says excitedly, "<i>Let\'s go!</i>"\n\n' );
+		MainView.outputText( '\n\n"<i>Well alright then, [name]!</i>" Valeria says excitedly, "<i>Let\'s go!</i>"\n\n' );
 	};
 	GooArmor.prototype.removeText = function() { //Produces any text seen when removing the armor normally
-		EngineCore.outputText( 'Valeria picks herself up and huffs, "<i>Maybe we can adventure some more later on?</i>" before undulating off towards your camp.\n\n(<b>Valeria now available in the followers tab!</b>)' );
+		MainView.outputText( 'Valeria picks herself up and huffs, "<i>Maybe we can adventure some more later on?</i>" before undulating off towards your camp.\n\n(<b>Valeria now available in the followers tab!</b>)' );
 	};
 	GooArmor.prototype._superPlayerEquip = GooArmor.prototype.playerEquip;
 	GooArmor.prototype.playerEquip = function() { //This item is being equipped by the player. Add any perks, etc.

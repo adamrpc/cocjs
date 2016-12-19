@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, EngineCore, Appearance, ChainedDrop, CockTypesEnum, Monster, Utils, WeightedDrop, AppearanceDefs, StatusAffects, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, MainView, $log, CoC, Appearance, ChainedDrop, CockTypesEnum, Monster, Utils, WeightedDrop, AppearanceDefs, StatusAffects, Combat, ConsumableLib ) {
 	function Minotaur() {
 		this.init(this, arguments);
 	}
@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, En
 	Minotaur.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
-			EngineCore.outputText( 'You defeat a minotaur!  ', true );
+			MainView.outputText( 'You defeat a minotaur!  ', true );
 			SceneLib.antsScene.phyllaBeatAMino();
 		} else {
 			SceneLib.minotaurScene.minoVictoryRapeChoices();
@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, $log, CoC, En
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaPCLostToMino();
 		} else if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe minotaur picks you up and forcibly tosses you from his cave, grunting in displeasure.', false );
+			MainView.outputText( '\n\nThe minotaur picks you up and forcibly tosses you from his cave, grunting in displeasure.', false );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.minotaurScene.getRapedByMinotaur();

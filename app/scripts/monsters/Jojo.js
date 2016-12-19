@@ -22,32 +22,32 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, C
 	Jojo.prototype.selfCorruption = function() {
 		switch( SceneLib.jojoScene.monk ) {
 			case 2:
-				EngineCore.outputText( 'Jojo looks lost in thought for a moment, and fails to attack.  ' );
+				MainView.outputText( 'Jojo looks lost in thought for a moment, and fails to attack.  ' );
 				this.lust += 4;
 				break;
 			case 3:
-				EngineCore.outputText( 'Jojo blushes as he fights you, distracted by a stray thought.  You think you see a bulge in the loose cloth of his pants.  ' );
+				MainView.outputText( 'Jojo blushes as he fights you, distracted by a stray thought.  You think you see a bulge in the loose cloth of his pants.  ' );
 				this.lust += 8;
 				break;
 			case 4:
-				EngineCore.outputText( 'Jojo stumbles, shakes his head, and pulls one of his hands away from the stiff tent in his pants.  ' );
+				MainView.outputText( 'Jojo stumbles, shakes his head, and pulls one of his hands away from the stiff tent in his pants.  ' );
 				this.lust += 10;
 				break;
 			default:
-				EngineCore.outputText( 'Jojo frantically jerks his ' + this.cockDescriptShort( 0 ) + ', stroking the ' + this.cockDescriptShort( 0 ) + ' as it leaks pre-cum at the sight of you.  ' );
+				MainView.outputText( 'Jojo frantically jerks his ' + this.cockDescriptShort( 0 ) + ', stroking the ' + this.cockDescriptShort( 0 ) + ' as it leaks pre-cum at the sight of you.  ' );
 				this.lust += 15;
 		}
 		if( this.lust >= 100 ) {
 			EngineCore.doNext( Combat, Combat.endLustVictory );
 			return;
 		} else if( this.lust >= 85 ) {
-			EngineCore.outputText( 'The mouse is panting and softly whining, each movement seeming to make his bulge more pronounced.  You don\'t think he can hold out much longer.  ' );
+			MainView.outputText( 'The mouse is panting and softly whining, each movement seeming to make his bulge more pronounced.  You don\'t think he can hold out much longer.  ' );
 		} else if( this.lust >= 70 ) {
-			EngineCore.outputText( 'The mouse is having trouble moving due to the rigid protrusion from his groin.  ' );
+			MainView.outputText( 'The mouse is having trouble moving due to the rigid protrusion from his groin.  ' );
 		} else if( this.lust >= 60 ) {
-			EngineCore.outputText( 'The mouse\'s eyes constantly dart over your most sexual parts, betraying his lust.  ' );
+			MainView.outputText( 'The mouse\'s eyes constantly dart over your most sexual parts, betraying his lust.  ' );
 		} else if( this.lust > 50 ) {
-			EngineCore.outputText( 'The mouse\'s skin remains flushed with the beginnings of arousal.  ' );
+			MainView.outputText( 'The mouse\'s skin remains flushed with the beginnings of arousal.  ' );
 		}
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};

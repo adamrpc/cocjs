@@ -15,20 +15,20 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 	IncubusMechanic.prototype.defeatedInDungeon1 = function( hpVictory ) {
 		MainView.clearOutput();
 		if( hpVictory ) {
-			EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.' );
+			MainView.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.' );
 		} else {
-			EngineCore.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, masturbating happily.' );
+			MainView.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, masturbating happily.' );
 		}
 		if( CoC.player.gender === 0 ) {
-			EngineCore.outputText( '  Now would be the perfect opportunity to test his demonic tool...\n\nHow do you want to handle him?' );
+			MainView.outputText( '  Now would be the perfect opportunity to test his demonic tool...\n\nHow do you want to handle him?' );
 			EngineCore.choices( 'Anally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {
 			EngineCore.dynStats( 'lus', 1 );
 			if( hpVictory ) {
-				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do, rape him, service him, or let him take you anally?' );
+				MainView.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do, rape him, service him, or let him take you anally?' );
 				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, '', null, null, 'Nothing', null, Combat.cleanupAfterCombat );
 			} else {
-				EngineCore.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
+				MainView.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
 				var titfuck = null;
 				if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
 					titfuck = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 	};
 	IncubusMechanic.prototype.wonInDungeon1 = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
+			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.incubusLossRape();
@@ -60,43 +60,43 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 	};
 	IncubusMechanic.prototype.cockTripAttack = function() {
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) { //Blind dodge change
-			EngineCore.outputText( this.getCapitalA() + this.short + ' suddenly grows it\'s dick to obscene lengths and tries to trip you with it.  Thankfully he\'s so blind he wasn\'t aiming anywhere near you!' );
+			MainView.outputText( this.getCapitalA() + this.short + ' suddenly grows it\'s dick to obscene lengths and tries to trip you with it.  Thankfully he\'s so blind he wasn\'t aiming anywhere near you!' );
 			Combat.combatRoundOver();
 			return;
 		}
-		EngineCore.outputText( 'The incubus lunges forward in a clumsy attack that you start to side-step, only to feel something grip behind your ' + Descriptors.buttDescript() + ' and pull your ' + CoC.player.legs() + ' out from under you.' );
+		MainView.outputText( 'The incubus lunges forward in a clumsy attack that you start to side-step, only to feel something grip behind your ' + Descriptors.buttDescript() + ' and pull your ' + CoC.player.legs() + ' out from under you.' );
 		if( (CoC.player.spe - 30) > Utils.rand( 60 ) ) {
-			EngineCore.outputText( '  You spin as you fall, twisting your ' + CoC.player.legs() + ' free and springing back to your ' + CoC.player.feet() + ' unharmed.' );
+			MainView.outputText( '  You spin as you fall, twisting your ' + CoC.player.legs() + ' free and springing back to your ' + CoC.player.feet() + ' unharmed.' );
 		} else {
 			{ //Fall down go boom
 			}
-			EngineCore.outputText( '  You land hard on your ass, momentarily stunned as the demonic cock-tentacle curls around your ' + CoC.player.legs() + ', smearing them with oozing demonic fluids.' );
+			MainView.outputText( '  You land hard on your ass, momentarily stunned as the demonic cock-tentacle curls around your ' + CoC.player.legs() + ', smearing them with oozing demonic fluids.' );
 			if( CoC.player.lust >= 80 || CoC.player.cor >= 80 ) {
-				EngineCore.outputText( '  Moaning with desire, you lick your lips as you slide your well-lubricated ' + CoC.player.legs() + ' free.  You gather a dollop of cum and lick it seductively, winking at the incubus and hoping to make him cave into his desire.' );
+				MainView.outputText( '  Moaning with desire, you lick your lips as you slide your well-lubricated ' + CoC.player.legs() + ' free.  You gather a dollop of cum and lick it seductively, winking at the incubus and hoping to make him cave into his desire.' );
 				EngineCore.dynStats( 'lus', 13, 'cor', 1 );
 			} else if( CoC.player.lust >= 50 || CoC.player.cor >= 50 ) {
-				EngineCore.outputText( '  Blushing at the scent and feel of cum on your ' + CoC.player.legs() + ', you twist and pull free.  You find yourself wondering what this demon\'s dick would taste like.' );
+				MainView.outputText( '  Blushing at the scent and feel of cum on your ' + CoC.player.legs() + ', you twist and pull free.  You find yourself wondering what this demon\'s dick would taste like.' );
 				EngineCore.dynStats( 'lus', 8 + CoC.player.cor / 20 );
 			} else {
-				EngineCore.outputText( '  Disgusted, you pull away from the purplish monstrosity, the act made easier by your well-slimed ' + CoC.player.legs() + '.' );
+				MainView.outputText( '  Disgusted, you pull away from the purplish monstrosity, the act made easier by your well-slimed ' + CoC.player.legs() + '.' );
 				EngineCore.dynStats( 'lus', 5 + CoC.player.cor / 20 );
 			}
 			CoC.player.takeDamage( 5 );
 		}
-		EngineCore.outputText( '\nThe incubus gives an overconfident smile as his cock retracts away from you, returning to its normal size.' );
+		MainView.outputText( '\nThe incubus gives an overconfident smile as his cock retracts away from you, returning to its normal size.' );
 		Combat.combatRoundOver();
 	};
 	IncubusMechanic.prototype.spoogeAttack = function() {
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) { //Blind dodge change
-			EngineCore.outputText( this.getCapitalA() + this.short + ' pumps and thrusts his hips lewdly before cumming with intense force in your direction!  Thankfully his aim was off due to the blindness currently affect him.' );
+			MainView.outputText( this.getCapitalA() + this.short + ' pumps and thrusts his hips lewdly before cumming with intense force in your direction!  Thankfully his aim was off due to the blindness currently affect him.' );
 			Combat.combatRoundOver();
 			return;
 		}
-		EngineCore.outputText( 'Your demonic foe places his hands behind his head and lewdly pumps and thrusts his hips at you.  Your eyes open wide as a globule of cum erupts from the demon-prick and flies right at you.  ' );
-		EngineCore.outputText( 'You do your best to dodge, but some still lands on your ' );
+		MainView.outputText( 'Your demonic foe places his hands behind his head and lewdly pumps and thrusts his hips at you.  Your eyes open wide as a globule of cum erupts from the demon-prick and flies right at you.  ' );
+		MainView.outputText( 'You do your best to dodge, but some still lands on your ' );
 		switch( Utils.rand( 3 ) ) {
 			case 0: //Face
-				EngineCore.outputText( 'face.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your mouth and nose!  You can feel it moving around inside you, doing its best to prepare you for its master.' );
+				MainView.outputText( 'face.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your mouth and nose!  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 				EngineCore.dynStats( 'lus', 3 );
 				if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 				break;
 			case 1: //Chest
 				if( CoC.player.hasFuckableNipples() ) {
-					EngineCore.outputText( Descriptors.allBreastsDescript() + '.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your open nipples.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
+					MainView.outputText( Descriptors.allBreastsDescript() + '.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your open nipples.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 					EngineCore.dynStats( 'lus', 3 );
 					if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
 						CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
@@ -116,12 +116,12 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 					}
 					CoC.player.slimeFeed();
 				} else {
-					EngineCore.outputText( Descriptors.allBreastsDescript() + '.  Thankfully it doesn\'t seem to have much effect.' );
+					MainView.outputText( Descriptors.allBreastsDescript() + '.  Thankfully it doesn\'t seem to have much effect.' );
 				}
 				break;
 			default: //Crotch
 				if( CoC.player.vaginas.length > 0 ) {
-					EngineCore.outputText( 'crotch.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way past your ' + CoC.player.armorName + ' and into your ' + Descriptors.vaginaDescript( 0 ) + '.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
+					MainView.outputText( 'crotch.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way past your ' + CoC.player.armorName + ' and into your ' + Descriptors.vaginaDescript( 0 ) + '.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 					EngineCore.dynStats( 'lus', 3 );
 					if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
 						CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 					}
 					CoC.player.slimeFeed();
 				} else {
-					EngineCore.outputText( 'crotch.  Thankfully, it doesn\'t seem to have much effect.' );
+					MainView.outputText( 'crotch.  Thankfully, it doesn\'t seem to have much effect.' );
 				}
 		}
 		Combat.combatRoundOver();

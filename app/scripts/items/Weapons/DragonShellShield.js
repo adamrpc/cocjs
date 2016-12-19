@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( WeaponLib, MainView, CoC, kFLAGS, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, MainView, CoC, kFLAGS, Weapon ) {
 	function DragonShellShield() {
 		this.init(this, arguments);
 	}
@@ -12,14 +12,14 @@ angular.module( 'cocjs' ).run( function( WeaponLib, MainView, CoC, kFLAGS, Weapo
 	DragonShellShield.prototype.useText = function() { //Produces any text seen when equipping the armor normally
 		if( CoC.flags[ kFLAGS.TIMES_EQUIPPED_EMBER_SHIELD ] === 0 ) {
 			MainView.clearOutput();
-			EngineCore.outputText( 'Turning the sturdy shield over in inspection, you satisfy yourself as to its craftsmanship and adjust the straps to fit your arm snugly.  You try a few practice swings, but find yourself overbalancing at each one due to the deceptive lightness of the material.  Eventually, though, you pick up the knack of putting enough weight behind it to speed it through the air while thrusting a leg forward to stabilize yourself, and try bashing a nearby rock with it.  You smile with glee as ' );
+			MainView.outputText( 'Turning the sturdy shield over in inspection, you satisfy yourself as to its craftsmanship and adjust the straps to fit your arm snugly.  You try a few practice swings, but find yourself overbalancing at each one due to the deceptive lightness of the material.  Eventually, though, you pick up the knack of putting enough weight behind it to speed it through the air while thrusting a leg forward to stabilize yourself, and try bashing a nearby rock with it.  You smile with glee as ' );
 			if( CoC.player.str < 80 ) {
-				EngineCore.outputText( 'bits and pieces from the surface of the' );
+				MainView.outputText( 'bits and pieces from the surface of the' );
 			} else {
-				EngineCore.outputText( 'huge shards of the shattered' );
+				MainView.outputText( 'huge shards of the shattered' );
 			}
-			EngineCore.outputText( ' rock are sent flying in all directions.' );
-			EngineCore.outputText( '\n\nAfter a few more practice bashes and shifts to acquaint yourself with its weight, you think you\'re ready to try facing an enemy with your new protection.  One last thing... taking off the shield and turning it straps-down, you spit onto the surface.  Satisfyingly, the liquid disappears into the shell as soon as it touches.' );
+			MainView.outputText( ' rock are sent flying in all directions.' );
+			MainView.outputText( '\n\nAfter a few more practice bashes and shifts to acquaint yourself with its weight, you think you\'re ready to try facing an enemy with your new protection.  One last thing... taking off the shield and turning it straps-down, you spit onto the surface.  Satisfyingly, the liquid disappears into the shell as soon as it touches.' );
 		}
 		CoC.flags[ kFLAGS.TIMES_EQUIPPED_EMBER_SHIELD ]++;
 	};

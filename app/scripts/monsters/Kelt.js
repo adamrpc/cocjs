@@ -1,16 +1,16 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS, CockTypesEnum, StatusAffects, Appearance, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
 	function Kelt() {
 		this.init(this, arguments);
 	}
 	angular.extend(Kelt.prototype, Monster.prototype);
 	//Trample - once every five turns;
 	Kelt.prototype.keltTramplesJoo = function() {
-		EngineCore.outputText( 'Before you know what\'s what, Kelt is galloping toward you, kicking up a cloud of dust in his wake.  He\'s trying to trample you!  ' );
+		MainView.outputText( 'Before you know what\'s what, Kelt is galloping toward you, kicking up a cloud of dust in his wake.  He\'s trying to trample you!  ' );
 		//Miss:;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( 'You roll out of the way at the last moment, avoiding his dangerous hooves.' );
+			MainView.outputText( 'You roll out of the way at the last moment, avoiding his dangerous hooves.' );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -22,22 +22,22 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 
 		//Block:;
 		if( damage <= 0 ) {
-			EngineCore.outputText( 'Incredibly, you brace yourself and dig in your [feet].  Kelt slams into you, but you grind his momentum to a half.  His mouth flaps uncomprehendingly for a moment before he backs up, flushing from being so close to you.' );
+			MainView.outputText( 'Incredibly, you brace yourself and dig in your [feet].  Kelt slams into you, but you grind his momentum to a half.  His mouth flaps uncomprehendingly for a moment before he backs up, flushing from being so close to you.' );
 			this.lust += 5;
 		}
 		//Hit:;
 		else {
-			EngineCore.outputText( 'You can\'t get out of the way in time, and you\'re knocked down!  Kelt tramples overtop of you!  (' + damage + ')' );
+			MainView.outputText( 'You can\'t get out of the way in time, and you\'re knocked down!  Kelt tramples overtop of you!  (' + damage + ')' );
 		}
 		Combat.combatRoundOver();
 	};
 	//Arrow Attack;
 	Kelt.prototype.keltShootBow = function() {
 		this.createStatusAffect( StatusAffects.BowCooldown, 3, 0, 0, 0 );
-		EngineCore.outputText( 'Kelt knocks and fires an arrow almost faster than you can track.  He\'s lost none of his talent with a bow, even after everything you\'ve put him through.  ' );
+		MainView.outputText( 'Kelt knocks and fires an arrow almost faster than you can track.  He\'s lost none of his talent with a bow, even after everything you\'ve put him through.  ' );
 		//Miss:;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( 'You manage to avoid the missile by the skin of your teeth!' );
+			MainView.outputText( 'You manage to avoid the missile by the skin of your teeth!' );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -47,13 +47,13 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 			damage = 0;
 		}
 		if( damage === 0 ) {
-			EngineCore.outputText( 'You deflect the hit, preventing it from damaging you.' );
+			MainView.outputText( 'You deflect the hit, preventing it from damaging you.' );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Hit:;
 		damage = CoC.player.takeDamage( damage );
-		EngineCore.outputText( 'The arrow bites into you before you can react. (' + damage + ')' );
+		MainView.outputText( 'The arrow bites into you before you can react. (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
 	//Aura Arouse;
@@ -61,19 +61,19 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 		var select = Utils.rand( 3 );
 		//(1);
 		if( select === 0 ) {
-			EngineCore.outputText( 'Kelt flashes his cockiest smile and gestures downward.  "<i>Did you forget why you\'re here, slut?  Taking me by surprise once doesn\'t make you any less of a whore.</i>"' );
+			MainView.outputText( 'Kelt flashes his cockiest smile and gestures downward.  "<i>Did you forget why you\'re here, slut?  Taking me by surprise once doesn\'t make you any less of a whore.</i>"' );
 		}
 		//(2);
 		else if( select === 2 ) {
-			EngineCore.outputText( 'Grinning, Kelt runs by, trailing a cloud of his musk and pheremones behind you.  You have to admit, they get you a little hot under the collar...' );
+			MainView.outputText( 'Grinning, Kelt runs by, trailing a cloud of his musk and pheremones behind you.  You have to admit, they get you a little hot under the collar...' );
 		}
 		//(3);
 		else {
-			EngineCore.outputText( 'Kelt snarls, "<i>Why don\'t you just masturbate like the slut that you are until I come over there and punish you?</i>"  ' );
+			MainView.outputText( 'Kelt snarls, "<i>Why don\'t you just masturbate like the slut that you are until I come over there and punish you?</i>"  ' );
 			if( CoC.player.lust >= 80 ) {
-				EngineCore.outputText( 'Your hand moves towards your groin seemingly of its own volition.' );
+				MainView.outputText( 'Your hand moves towards your groin seemingly of its own volition.' );
 			} else {
-				EngineCore.outputText( 'Your hands twitch towards your groin but you arrest them.  Still, the idea seems to buzz at the back of your brain, exciting you.' );
+				MainView.outputText( 'Your hands twitch towards your groin but you arrest them.  Still, the idea seems to buzz at the back of your brain, exciting you.' );
 			}
 		}
 		EngineCore.dynStats( 'lus', CoC.player.lib / 5 + Utils.rand( 10 ) );
@@ -83,9 +83,9 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 	//DayDream 'Attack';
 	Kelt.prototype.dayDreamKelly = function() {
 		if( Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( 'Kelt pauses mid-draw, looking you up and down.  He licks his lips for a few moments before shaking his head to rouse himself from his lusty stupor.  He must miss the taste of your sperm.' );
+			MainView.outputText( 'Kelt pauses mid-draw, looking you up and down.  He licks his lips for a few moments before shaking his head to rouse himself from his lusty stupor.  He must miss the taste of your sperm.' );
 		} else {
-			EngineCore.outputText( 'Flaring \'his\' nostrils, Kelt inhales deeply, his eyelids fluttering closed as he gives a rather lady-like moan.   His hands roam over his stiff nipples, tweaking them slightly before he recovers.' );
+			MainView.outputText( 'Flaring \'his\' nostrils, Kelt inhales deeply, his eyelids fluttering closed as he gives a rather lady-like moan.   His hands roam over his stiff nipples, tweaking them slightly before he recovers.' );
 		}
 		this.lust += 5;
 		Combat.combatRoundOver();
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, kFLAGS, CockTypes
 	};
 	Kelt.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nKelt recoils for a moment before assuming a look of superiority...' );
+			MainView.outputText( '\n\nKelt recoils for a moment before assuming a look of superiority...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.kelly.keltFucksShitUp();

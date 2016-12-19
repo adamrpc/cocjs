@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'FemaleSpiderMorph', function( SceneLib, Abst
 	};
 	FemaleSpiderMorph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe spider flashes a predatory grin while she waits it out...' );
+			MainView.outputText( '\n\nThe spider flashes a predatory grin while she waits it out...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.femaleSpiderMorphScene.loseToFemaleSpiderMorph();

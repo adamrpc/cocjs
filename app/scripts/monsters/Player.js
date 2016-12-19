@@ -876,11 +876,11 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		var devirgined = wasVirgin && !this.vaginas[ 0 ].virgin;
 		if( devirgined ) {
 			if( spacingsF ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
-			EngineCore.outputText( '<b>Your hymen is torn, robbing you of your virginity.</b>', false );
+			MainView.outputText( '<b>Your hymen is torn, robbing you of your virginity.</b>', false );
 			if( spacingsB ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
 		}
 		//STRETCH SUCCESSFUL - begin flavor text if outputting it!
@@ -889,33 +889,33 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			if( devirgined ) {
 				//If no spaces after virgin loss
 				if( !spacingsB ) {
-					EngineCore.outputText( '  ' );
+					MainView.outputText( '  ' );
 				}
 			}
 			//Non virgins as usual
 			else if( spacingsF ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
 			if( this.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LEVEL_CLOWN_CAR ) {
-				EngineCore.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is stretched painfully wide, large enough to accomodate most beasts and demons.</b>' );
+				MainView.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is stretched painfully wide, large enough to accomodate most beasts and demons.</b>' );
 			}
 			if( this.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
-				EngineCore.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is stretched so wide that it gapes continually.</b>' );
+				MainView.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is stretched so wide that it gapes continually.</b>' );
 			}
 			if( this.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
-				EngineCore.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' painfully stretches, the lips now wide enough to gape slightly.</b>' );
+				MainView.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' painfully stretches, the lips now wide enough to gape slightly.</b>' );
 			}
 			if( this.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
-				EngineCore.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is now very loose.</b>', false );
+				MainView.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is now very loose.</b>', false );
 			}
 			if( this.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
-				EngineCore.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is now a little loose.</b>', false );
+				MainView.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is now a little loose.</b>', false );
 			}
 			if( this.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
-				EngineCore.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is stretched out to a more normal size.</b>' );
+				MainView.outputText( '<b>Your ' + Appearance.vaginaDescript( this, 0 ) + ' is stretched out to a more normal size.</b>' );
 			}
 			if( spacingsB ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
 		}
 		return stretched;
@@ -931,30 +931,30 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//STRETCH SUCCESSFUL - begin flavor text if outputting it!
 		if( stretched && display ) {
 			if( spacingsF ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
 			this.buttChangeDisplay();
 			if( spacingsB ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
 		}
 		return stretched;
 	};
 	Player.prototype.buttChangeDisplay = function() {	//Allows the test for stretching and the text output to be separated
 		if( this.ass.analLooseness === 5 ) {
-			EngineCore.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' is stretched even wider, capable of taking even the largest of demons and beasts.</b>' );
+			MainView.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' is stretched even wider, capable of taking even the largest of demons and beasts.</b>' );
 		}
 		if( this.ass.analLooseness === 4 ) {
-			EngineCore.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' becomes so stretched that it gapes continually.</b>', false );
+			MainView.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' becomes so stretched that it gapes continually.</b>', false );
 		}
 		if( this.ass.analLooseness === 3 ) {
-			EngineCore.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' is now very loose.</b>' );
+			MainView.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' is now very loose.</b>' );
 		}
 		if( this.ass.analLooseness === 2 ) {
-			EngineCore.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' is now a little loose.</b>' );
+			MainView.outputText( '<b>Your ' + Appearance.assholeDescript( this ) + ' is now a little loose.</b>' );
 		}
 		if( this.ass.analLooseness === 1 ) {
-			EngineCore.outputText( '<b>You have lost your anal virginity.</b>', false );
+			MainView.outputText( '<b>You have lost your anal virginity.</b>', false );
 		}
 	};
 	Player.prototype.slimeFeed = function() {
@@ -1051,38 +1051,38 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				//Shrink again 50% chance
 				if( this.breastRows[ 0 ].breastRating >= 1 && Utils.rand( 2 ) === 0 && this.findPerk( PerkLib.BigTits ) < 0 ) {
 					this.breastRows[ 0 ].breastRating--;
-					EngineCore.outputText( '\n\nYou feel significantly lighter.  Looking down, you realize your breasts are much smaller!  With a quick measure, you determine they\'re now ' + this.breastCup( 0 ) + 's.', false );
+					MainView.outputText( '\n\nYou feel significantly lighter.  Looking down, you realize your breasts are much smaller!  With a quick measure, you determine they\'re now ' + this.breastCup( 0 ) + 's.', false );
 				} else {
-					EngineCore.outputText( '\n\nYou feel a weight lifted from you, and realize your breasts have shrunk!  With a quick measure, you determine they\'re now ' + this.breastCup( 0 ) + 's.', false );
+					MainView.outputText( '\n\nYou feel a weight lifted from you, and realize your breasts have shrunk!  With a quick measure, you determine they\'re now ' + this.breastCup( 0 ) + 's.', false );
 				}
 			}
 		} else if( this.breastRows.length > 1 ) {
 			//multiple
-			EngineCore.outputText( '\n', false );
+			MainView.outputText( '\n', false );
 			var modifiedRowCount = 0;
 			var that = this;
 			_.forEach(this.breastRows, function(breastRow, index) {
 				if( breastRow.breastRating > 0 ) {
 					breastRow.breastRating--;
 					modifiedRowCount++;
-					EngineCore.outputText( '\n', false );
+					MainView.outputText( '\n', false );
 					if( index < that.breastRows.length - 1 ) {
-						EngineCore.outputText( '...and y', false );
+						MainView.outputText( '...and y', false );
 					} else {
-						EngineCore.outputText( 'Y', false );
+						MainView.outputText( 'Y', false );
 					}
-					EngineCore.outputText( 'our ' + Descriptors.breastDescript( index ) + ' shrink, dropping to ' + that.breastCup( index ) + 's.', false );
+					MainView.outputText( 'our ' + Descriptors.breastDescript( index ) + ' shrink, dropping to ' + that.breastCup( index ) + 's.', false );
 				}
 				if( breastRow.breastRating < 0 ) {
 					breastRow.breastRating = 0;
 				}
 			});
 			if( modifiedRowCount === 2 ) {
-				EngineCore.outputText( '\nYou feel so much lighter after the change.', false );
+				MainView.outputText( '\nYou feel so much lighter after the change.', false );
 			} else if( modifiedRowCount === 3 ) {
-				EngineCore.outputText( '\nWithout the extra weight you feel particularly limber.', false );
+				MainView.outputText( '\nWithout the extra weight you feel particularly limber.', false );
 			} else if( modifiedRowCount >= 4 ) {
-				EngineCore.outputText( '\nIt feels as if the weight of the world has been lifted from your shoulders, or in this case, your chest.', false );
+				MainView.outputText( '\nIt feels as if the weight of the world has been lifted from your shoulders, or in this case, your chest.', false );
 			}
 		}
 	};
@@ -1186,81 +1186,81 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			if( growthType < 3 ) {
 				if( amount <= 2 ) {
 					if( this.breastRows.length > 1 ) {
-						EngineCore.outputText( 'Your rows of ' + Descriptors.breastDescript( 0 ) + ' jiggle with added weight, growing a bit larger.', false );
+						MainView.outputText( 'Your rows of ' + Descriptors.breastDescript( 0 ) + ' jiggle with added weight, growing a bit larger.', false );
 					}
 					if( this.breastRows.length === 1 ) {
-						EngineCore.outputText( 'Your ' + Descriptors.breastDescript( 0 ) + ' jiggle with added weight as they expand, growing a bit larger.', false );
+						MainView.outputText( 'Your ' + Descriptors.breastDescript( 0 ) + ' jiggle with added weight as they expand, growing a bit larger.', false );
 					}
 				} else if( amount <= 4 ) {
 					if( this.breastRows.length > 1 ) {
-						EngineCore.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your rows of ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
+						MainView.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your rows of ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
 					}
 					if( this.breastRows.length === 1 ) {
-						EngineCore.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
+						MainView.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
 					}
 				} else {
 					if( this.breastRows.length > 1 ) {
-						EngineCore.outputText( 'You drop to your knees from a massive change in your body\'s center of gravity.  Your ' + Descriptors.breastDescript( 0 ) + ' tingle strongly, growing disturbingly large.', false );
+						MainView.outputText( 'You drop to your knees from a massive change in your body\'s center of gravity.  Your ' + Descriptors.breastDescript( 0 ) + ' tingle strongly, growing disturbingly large.', false );
 					}
 					if( this.breastRows.length === 1 ) {
-						EngineCore.outputText( 'You drop to your knees from a massive change in your center of gravity.  The tingling in your ' + Descriptors.breastDescript( 0 ) + ' intensifies as they continue to grow at an obscene rate.', false );
+						MainView.outputText( 'You drop to your knees from a massive change in your center of gravity.  The tingling in your ' + Descriptors.breastDescript( 0 ) + ' intensifies as they continue to grow at an obscene rate.', false );
 					}
 				}
 				if( this.biggestTitSize() >= 8.5 && this.nippleLength < 2 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 2;
 				}
 				if( this.biggestTitSize() >= 7 && this.nippleLength < 1 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 1;
 				}
 				if( this.biggestTitSize() >= 5 && this.nippleLength < 0.75 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 0.75;
 				}
 				if( this.biggestTitSize() >= 3 && this.nippleLength < 0.5 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 0.5;
 				}
 			} else {
 				if( amount <= 2 ) {
 					if( this.breastRows.length > 1 ) {
-						EngineCore.outputText( 'Your top row of ' + Descriptors.breastDescript( 0 ) + ' jiggles with added weight as it expands, growing a bit larger.', false );
+						MainView.outputText( 'Your top row of ' + Descriptors.breastDescript( 0 ) + ' jiggles with added weight as it expands, growing a bit larger.', false );
 					}
 					if( this.breastRows.length === 1 ) {
-						EngineCore.outputText( 'Your row of ' + Descriptors.breastDescript( 0 ) + ' jiggles with added weight as it expands, growing a bit larger.', false );
+						MainView.outputText( 'Your row of ' + Descriptors.breastDescript( 0 ) + ' jiggles with added weight as it expands, growing a bit larger.', false );
 					}
 				}
 				if( amount > 2 && amount <= 4 ) {
 					if( this.breastRows.length > 1 ) {
-						EngineCore.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your top row of ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
+						MainView.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your top row of ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
 					}
 					if( this.breastRows.length === 1 ) {
-						EngineCore.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
+						MainView.outputText( 'You stagger as your chest gets much heavier.  Looking down, you watch with curiosity as your ' + Descriptors.breastDescript( 0 ) + ' expand significantly.', false );
 					}
 				}
 				if( amount > 4 ) {
 					if( this.breastRows.length > 1 ) {
-						EngineCore.outputText( 'You drop to your knees from a massive change in your body\'s center of gravity.  Your top row of ' + Descriptors.breastDescript( 0 ) + ' tingle strongly, growing disturbingly large.', false );
+						MainView.outputText( 'You drop to your knees from a massive change in your body\'s center of gravity.  Your top row of ' + Descriptors.breastDescript( 0 ) + ' tingle strongly, growing disturbingly large.', false );
 					}
 					if( this.breastRows.length === 1 ) {
-						EngineCore.outputText( 'You drop to your knees from a massive change in your center of gravity.  The tinglng in your ' + Descriptors.breastDescript( 0 ) + ' intensifies as they continue to grow at an obscene rate.', false );
+						MainView.outputText( 'You drop to your knees from a massive change in your center of gravity.  The tinglng in your ' + Descriptors.breastDescript( 0 ) + ' intensifies as they continue to grow at an obscene rate.', false );
 					}
 				}
 				if( this.biggestTitSize() >= 8.5 && this.nippleLength < 2 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 2;
 				}
 				if( this.biggestTitSize() >= 7 && this.nippleLength < 1 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 1;
 				}
 				if( this.biggestTitSize() >= 5 && this.nippleLength < 0.75 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 0.75;
 				}
 				if( this.biggestTitSize() >= 3 && this.nippleLength < 0.5 ) {
-					EngineCore.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
+					MainView.outputText( '  A tender ache starts at your ' + Descriptors.nippleDescript( 0 ) + 's as they grow to match your burgeoning breast-flesh.', false );
 					this.nippleLength = 0.5;
 				}
 			}
@@ -1638,39 +1638,39 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//DIsplay the degree of length change.
 		if( changes <= 1 && changes > 0 ) {
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' has grown slightly longer.', false );
+				MainView.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' has grown slightly longer.', false );
 			} else if( this.cocks.length > 1 ) {
 				if( ncocks === 1 ) {
-					EngineCore.outputText( 'One of your ' + Descriptors.multiCockDescriptLight() + ' grows slightly longer.', false );
+					MainView.outputText( 'One of your ' + Descriptors.multiCockDescriptLight() + ' grows slightly longer.', false );
 				} else if( ncocks === this.cocks.length ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' seem to fill up... growing a little bit larger.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' seem to fill up... growing a little bit larger.', false );
 				} else if( ncocks > 1 && ncocks < this.cocks.length ) {
-					EngineCore.outputText( 'Some of your ' + Descriptors.multiCockDescriptLight() + ' grow slightly longer.', false );
+					MainView.outputText( 'Some of your ' + Descriptors.multiCockDescriptLight() + ' grow slightly longer.', false );
 				}
 			}
 		} else if( changes > 1 && changes < 3 ) {
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( 'A very pleasurable feeling spreads from your groin as your ' + Descriptors.cockDescript( 0 ) + ' grows permanently longer - at least an inch - and leaks pre-cum from the pleasure of the change.', false );
+				MainView.outputText( 'A very pleasurable feeling spreads from your groin as your ' + Descriptors.cockDescript( 0 ) + ' grows permanently longer - at least an inch - and leaks pre-cum from the pleasure of the change.', false );
 			} else if( this.cocks.length > 1 ) {
 				if( ncocks === this.cocks.length ) {
-					EngineCore.outputText( 'A very pleasurable feeling spreads from your groin as your ' + Descriptors.multiCockDescriptLight() + ' grow permanently longer - at least an inch - and leak plenty of pre-cum from the pleasure of the change.', false );
+					MainView.outputText( 'A very pleasurable feeling spreads from your groin as your ' + Descriptors.multiCockDescriptLight() + ' grow permanently longer - at least an inch - and leak plenty of pre-cum from the pleasure of the change.', false );
 				} else if( ncocks === 1 ) {
-					EngineCore.outputText( 'A very pleasurable feeling spreads from your groin as one of your ' + Descriptors.multiCockDescriptLight() + ' grows permanently longer, by at least an inch, and leaks plenty of pre-cum from the pleasure of the change.', false );
+					MainView.outputText( 'A very pleasurable feeling spreads from your groin as one of your ' + Descriptors.multiCockDescriptLight() + ' grows permanently longer, by at least an inch, and leaks plenty of pre-cum from the pleasure of the change.', false );
 				} else if( ncocks > 1 && ncocks < this.cocks.length ) {
-					EngineCore.outputText( 'A very pleasurable feeling spreads from your groin as ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' grow permanently longer, by at least an inch, and leak plenty of pre-cum from the pleasure of the change.', false );
+					MainView.outputText( 'A very pleasurable feeling spreads from your groin as ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' grow permanently longer, by at least an inch, and leak plenty of pre-cum from the pleasure of the change.', false );
 				}
 			}
 		} else if( changes >= 3 ) {
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' feels incredibly tight as a few more inches of length seem to pour out from your crotch.', false );
+				MainView.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' feels incredibly tight as a few more inches of length seem to pour out from your crotch.', false );
 			}
 			if( this.cocks.length > 1 ) {
 				if( ncocks === this.cocks.length ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' feel incredibly tight as inch after inch of length pour out from your groin.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' feel incredibly tight as inch after inch of length pour out from your groin.', false );
 				} else if( ncocks === 1 ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' feel incredibly tight as one of their number begins to grow inch after inch of length.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' feel incredibly tight as one of their number begins to grow inch after inch of length.', false );
 				} else if( ncocks > 1 && ncocks < this.cocks.length ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' feel incredibly number as ' + Utils.num2Text( ncocks ) + ' of them begin to grow inch after inch of added length.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' feel incredibly number as ' + Utils.num2Text( ncocks ) + ' of them begin to grow inch after inch of added length.', false );
 				}
 			}
 		}
@@ -1678,100 +1678,100 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( changes > 0 ) {
 			if( this.cocks[ 0 ].cockLength >= 8 && this.cocks[ 0 ].cockLength - changes < 8 ) {
 				if( this.cocks.length === 1 ) {
-					EngineCore.outputText( '  <b>Most men would be overly proud to have a tool as long as yours.</b>', false );
+					MainView.outputText( '  <b>Most men would be overly proud to have a tool as long as yours.</b>', false );
 				} else if( this.cocks.length > 1 ) {
-					EngineCore.outputText( '  <b>Most men would be overly proud to have one cock as long as yours, let alone ' + Descriptors.multiCockDescript() + '.</b>', false );
+					MainView.outputText( '  <b>Most men would be overly proud to have one cock as long as yours, let alone ' + Descriptors.multiCockDescript() + '.</b>', false );
 				}
 			}
 			if( this.cocks[ 0 ].cockLength >= 12 && this.cocks[ 0 ].cockLength - changes < 12 ) {
 				if( this.cocks.length === 1 ) {
-					EngineCore.outputText( '  <b>Your ' + Descriptors.cockDescript( 0 ) + ' is so long it nearly swings to your knee at its full length.</b>', false );
+					MainView.outputText( '  <b>Your ' + Descriptors.cockDescript( 0 ) + ' is so long it nearly swings to your knee at its full length.</b>', false );
 				} else if( this.cocks.length > 1 ) {
-					EngineCore.outputText( '  <b>Your ' + Descriptors.multiCockDescriptLight() + ' are so long they nearly reach your knees when at full length.</b>', false );
+					MainView.outputText( '  <b>Your ' + Descriptors.multiCockDescriptLight() + ' are so long they nearly reach your knees when at full length.</b>', false );
 				}
 			}
 			if( this.cocks[ 0 ].cockLength >= 16 && this.cocks[ 0 ].cockLength - changes < 16 ) {
 				if( this.cocks.length === 1 ) {
-					EngineCore.outputText( '  <b>Your ' + Descriptors.cockDescript( 0 ) + ' would look more at home on a large horse than you.</b>', false );
+					MainView.outputText( '  <b>Your ' + Descriptors.cockDescript( 0 ) + ' would look more at home on a large horse than you.</b>', false );
 				} else if( this.cocks.length > 1 ) {
-					EngineCore.outputText( '  <b>Your ' + Descriptors.multiCockDescriptLight() + ' would look more at home on a large horse than on your body.</b>', false );
+					MainView.outputText( '  <b>Your ' + Descriptors.multiCockDescriptLight() + ' would look more at home on a large horse than on your body.</b>', false );
 				}
 				if( this.biggestTitSize() >= AppearanceDefs.BREAST_CUP_C ) {
 					if( this.cocks.length === 1 ) {
-						EngineCore.outputText( '  You could easily stuff your ' + Descriptors.cockDescript( 0 ) + ' between your breasts and give yourself the titty-fuck of a lifetime.', false );
+						MainView.outputText( '  You could easily stuff your ' + Descriptors.cockDescript( 0 ) + ' between your breasts and give yourself the titty-fuck of a lifetime.', false );
 					} else if( this.cocks.length > 1 ) {
-						EngineCore.outputText( '  They reach so far up your chest it would be easy to stuff a few cocks between your breasts and give yourself the titty-fuck of a lifetime.', false );
+						MainView.outputText( '  They reach so far up your chest it would be easy to stuff a few cocks between your breasts and give yourself the titty-fuck of a lifetime.', false );
 					}
 				} else {
 					if( this.cocks.length === 1 ) {
-						EngineCore.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' is so long it easily reaches your chest.  The possibility of autofellatio is now a foregone conclusion.', false );
+						MainView.outputText( '  Your ' + Descriptors.cockDescript( 0 ) + ' is so long it easily reaches your chest.  The possibility of autofellatio is now a foregone conclusion.', false );
 					} else if( this.cocks.length > 1 ) {
-						EngineCore.outputText( '  Your ' + Descriptors.multiCockDescriptLight() + ' are so long they easily reach your chest.  Autofellatio would be about as hard as looking down.', false );
+						MainView.outputText( '  Your ' + Descriptors.multiCockDescriptLight() + ' are so long they easily reach your chest.  Autofellatio would be about as hard as looking down.', false );
 					}
 				}
 			}
 			if( this.cocks[ 0 ].cockLength >= 20 && this.cocks[ 0 ].cockLength - changes < 20 ) {
 				if( this.cocks.length === 1 ) {
-					EngineCore.outputText( '  <b>As if the pulsing heat of your ' + Descriptors.cockDescript( 0 ) + ' wasn\'t enough, the tip of your ' + Descriptors.cockDescript( 0 ) + ' keeps poking its way into your view every time you get hard.</b>', false );
+					MainView.outputText( '  <b>As if the pulsing heat of your ' + Descriptors.cockDescript( 0 ) + ' wasn\'t enough, the tip of your ' + Descriptors.cockDescript( 0 ) + ' keeps poking its way into your view every time you get hard.</b>', false );
 				} else if( this.cocks.length > 1 ) {
-					EngineCore.outputText( '  <b>As if the pulsing heat of your ' + Descriptors.multiCockDescriptLight() + ' wasn\'t bad enough, every time you get hard, the tips of your ' + Descriptors.multiCockDescriptLight() + ' wave before you, obscuring the lower portions of your vision.</b>', false );
+					MainView.outputText( '  <b>As if the pulsing heat of your ' + Descriptors.multiCockDescriptLight() + ' wasn\'t bad enough, every time you get hard, the tips of your ' + Descriptors.multiCockDescriptLight() + ' wave before you, obscuring the lower portions of your vision.</b>', false );
 				}
 				if( this.cor > 40 && this.cor <= 60 ) {
 					if( this.cocks.length > 1 ) {
-						EngineCore.outputText( '  You wonder if there is a demon or beast out there that could take the full length of one of your ' + Descriptors.multiCockDescriptLight() + '?', false );
+						MainView.outputText( '  You wonder if there is a demon or beast out there that could take the full length of one of your ' + Descriptors.multiCockDescriptLight() + '?', false );
 					} else if( this.cocks.length === 1 ) {
-						EngineCore.outputText( '  You wonder if there is a demon or beast out there that could handle your full length.', false );
+						MainView.outputText( '  You wonder if there is a demon or beast out there that could handle your full length.', false );
 					}
 				}
 				if( this.cor > 60 && this.cor <= 80 ) {
 					if( this.cocks.length > 1 ) {
-						EngineCore.outputText( '  You daydream about being attacked by a massive tentacle beast, its tentacles engulfing your ' + Descriptors.multiCockDescriptLight() + ' to their hilts, milking you dry.\n\nYou smile at the pleasant thought.', false );
+						MainView.outputText( '  You daydream about being attacked by a massive tentacle beast, its tentacles engulfing your ' + Descriptors.multiCockDescriptLight() + ' to their hilts, milking you dry.\n\nYou smile at the pleasant thought.', false );
 					} else if( this.cocks.length === 1 ) {
-						EngineCore.outputText( '  You daydream about being attacked by a massive tentacle beast, its tentacles engulfing your ' + Descriptors.cockDescript( 0 ) + ' to the hilt, milking it of all your cum.\n\nYou smile at the pleasant thought.', false );
+						MainView.outputText( '  You daydream about being attacked by a massive tentacle beast, its tentacles engulfing your ' + Descriptors.cockDescript( 0 ) + ' to the hilt, milking it of all your cum.\n\nYou smile at the pleasant thought.', false );
 					}
 				}
 				if( this.cor > 80 ) {
 					if( this.cocks.length > 1 ) {
-						EngineCore.outputText( '  You find yourself fantasizing about impaling nubile young champions on your ' + Descriptors.multiCockDescriptLight() + ' in a year\'s time.', false );
+						MainView.outputText( '  You find yourself fantasizing about impaling nubile young champions on your ' + Descriptors.multiCockDescriptLight() + ' in a year\'s time.', false );
 					}
 				}
 			}
 		} else if( changes >= -1 ) {
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' has shrunk to a slightly shorter length.', false );
+				MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' has shrunk to a slightly shorter length.', false );
 			}
 			if( this.cocks.length > 1 ) {
 				if( ncocks === this.cocks.length ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' have shrunk to a slightly shorter length.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' have shrunk to a slightly shorter length.', false );
 				} else if( ncocks === 1 ) {
-					EngineCore.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' has shrunk to a slightly shorter length.', false );
+					MainView.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' has shrunk to a slightly shorter length.', false );
 				} else if( ncocks > 1 && ncocks < this.cocks.length ) {
-					EngineCore.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' have shrunk to a slightly shorter length.', false );
+					MainView.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' have shrunk to a slightly shorter length.', false );
 				}
 			}
 		} else if( changes > -3 ) {
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' shrinks smaller, flesh vanishing into your groin.', false );
+				MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' shrinks smaller, flesh vanishing into your groin.', false );
 			}
 			if( this.cocks.length > 1 ) {
 				if( ncocks === this.cocks.length ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' shrink smaller, the flesh vanishing into your groin.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' shrink smaller, the flesh vanishing into your groin.', false );
 				} else if( ncocks === 1 ) {
-					EngineCore.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' shrink smaller, the flesh vanishing into your groin.', false );
+					MainView.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' shrink smaller, the flesh vanishing into your groin.', false );
 				} else if( ncocks > 1 && ncocks < this.cocks.length ) {
-					EngineCore.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' shrink smaller, the flesh vanishing into your groin.', false );
+					MainView.outputText( 'You feel ' + Utils.num2Text( ncocks ) + ' of your ' + Descriptors.multiCockDescriptLight() + ' shrink smaller, the flesh vanishing into your groin.', false );
 				}
 			}
 		} else {
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( 'A large portion of your ' + Descriptors.multiCockDescriptLight() + '\'s length shrinks and vanishes.', false );
+				MainView.outputText( 'A large portion of your ' + Descriptors.multiCockDescriptLight() + '\'s length shrinks and vanishes.', false );
 			} else if( this.cocks.length > 1 ) {
 				if( ncocks === this.cocks.length ) {
-					EngineCore.outputText( 'A large portion of your ' + Descriptors.multiCockDescriptLight() + ' receeds towards your groin, receding rapidly in length.', false );
+					MainView.outputText( 'A large portion of your ' + Descriptors.multiCockDescriptLight() + ' receeds towards your groin, receding rapidly in length.', false );
 				} else if( ncocks === 1 ) {
-					EngineCore.outputText( 'A single member of your ' + Descriptors.multiCockDescriptLight() + ' vanishes into your groin, receding rapidly in length.', false );
+					MainView.outputText( 'A single member of your ' + Descriptors.multiCockDescriptLight() + ' vanishes into your groin, receding rapidly in length.', false );
 				} else if( ncocks > 1 && this.cocks.length > ncocks ) {
-					EngineCore.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' tingles as ' + Utils.num2Text( ncocks ) + ' of your members vanish into your groin, receding rapidly in length.', false );
+					MainView.outputText( 'Your ' + Descriptors.multiCockDescriptLight() + ' tingles as ' + Utils.num2Text( ncocks ) + ' of your members vanish into your groin, receding rapidly in length.', false );
 				}
 			}
 		}
@@ -1793,36 +1793,36 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//Texts
 		if( removed === 1 ) {
 			if( this.cocks.length === 0 ) {
-				EngineCore.outputText( '<b>Your manhood shrinks into your body, disappearing completely.</b>', false );
+				MainView.outputText( '<b>Your manhood shrinks into your body, disappearing completely.</b>', false );
 				if( this.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-					EngineCore.outputText( '  Like rats fleeing a sinking ship, a stream of worms squirts free from your withering member, slithering away.', false );
+					MainView.outputText( '  Like rats fleeing a sinking ship, a stream of worms squirts free from your withering member, slithering away.', false );
 				}
 			}
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( '<b>Your smallest penis disappears, shrinking into your body and leaving you with just one ' + Descriptors.cockDescript( 0 ) + '.</b>', false );
+				MainView.outputText( '<b>Your smallest penis disappears, shrinking into your body and leaving you with just one ' + Descriptors.cockDescript( 0 ) + '.</b>', false );
 			}
 			if( this.cocks.length > 1 ) {
-				EngineCore.outputText( '<b>Your smallest penis disappears forever, leaving you with just your ' + Descriptors.multiCockDescriptLight() + '.</b>', false );
+				MainView.outputText( '<b>Your smallest penis disappears forever, leaving you with just your ' + Descriptors.multiCockDescriptLight() + '.</b>', false );
 			}
 		} else if( removed > 1 ) {
 			if( this.cocks.length === 0 ) {
-				EngineCore.outputText( '<b>All your male endowments shrink smaller and smaller, disappearing one at a time.</b>', false );
+				MainView.outputText( '<b>All your male endowments shrink smaller and smaller, disappearing one at a time.</b>', false );
 				if( this.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
-					EngineCore.outputText( '  Like rats fleeing a sinking ship, a stream of worms squirts free from your withering member, slithering away.', false );
+					MainView.outputText( '  Like rats fleeing a sinking ship, a stream of worms squirts free from your withering member, slithering away.', false );
 				}
 			}
 			if( this.cocks.length === 1 ) {
-				EngineCore.outputText( '<b>You feel ' + Utils.num2Text( removed ) + ' this.cocks disappear into your groin, leaving you with just your ' + Descriptors.cockDescript( 0 ) + '.', false );
+				MainView.outputText( '<b>You feel ' + Utils.num2Text( removed ) + ' this.cocks disappear into your groin, leaving you with just your ' + Descriptors.cockDescript( 0 ) + '.', false );
 			}
 			if( this.cocks.length > 1 ) {
-				EngineCore.outputText( '<b>You feel ' + Utils.num2Text( removed ) + ' this.cocks disappear into your groin, leaving you with ' + Descriptors.multiCockDescriptLight() + '.', false );
+				MainView.outputText( '<b>You feel ' + Utils.num2Text( removed ) + ' this.cocks disappear into your groin, leaving you with ' + Descriptors.multiCockDescriptLight() + '.', false );
 			}
 		}
 		//remove infestation if cockless
 		if( this.cocks.length === 0 ) {
 			this.removeStatusAffect( StatusAffects.Infested );
 			if( this.balls > 0 ) {
-				EngineCore.outputText( '  <b>Your ' + Descriptors.sackDescript() + ' and ' + Descriptors.ballsDescriptLight() + ' shrink and disappear, vanishing into your groin.</b>', false );
+				MainView.outputText( '  <b>Your ' + Descriptors.sackDescript() + ' and ' + Descriptors.ballsDescriptLight() + ' shrink and disappear, vanishing into your groin.</b>', false );
 				this.balls = 0;
 				this.ballSize = 1;
 			}
@@ -1884,7 +1884,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//Already in heat, intensify further.
 		if( this.isInHeat() ) {
 			if( output ) {
-				EngineCore.outputText( '\n\nYour mind clouds as your ' + Descriptors.vaginaDescript( 0 ) + ' moistens.  Despite already being in heat, the desire to copulate constantly grows even larger.', false );
+				MainView.outputText( '\n\nYour mind clouds as your ' + Descriptors.vaginaDescript( 0 ) + ' moistens.  Despite already being in heat, the desire to copulate constantly grows even larger.', false );
 			}
 			var statusToChange = this.findStatusAffect( StatusAffects.Heat );
 			this.statusAffect( statusToChange ).value1 += 5 * intensity;
@@ -1895,7 +1895,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//Go into heat.  Heats v1 is bonus fertility, v2 is bonus libido, v3 is hours till it's gone
 		else {
 			if( output ) {
-				EngineCore.outputText( '\n\nYour mind clouds as your ' + Descriptors.vaginaDescript( 0 ) + ' moistens.  Your hands begin stroking your body from top to bottom, your sensitive skin burning with desire.  Fantasies about bending over and presenting your needy pussy to a male overwhelm you as <b>you realize you have gone into heat!</b>', false );
+				MainView.outputText( '\n\nYour mind clouds as your ' + Descriptors.vaginaDescript( 0 ) + ' moistens.  Your hands begin stroking your body from top to bottom, your sensitive skin burning with desire.  Fantasies about bending over and presenting your needy pussy to a male overwhelm you as <b>you realize you have gone into heat!</b>', false );
 			}
 			this.createStatusAffect( StatusAffects.Heat, 10 * intensity, 15 * intensity, 48 * intensity, 0 );
 			EngineCore.dynStats( 'lib', 15 * intensity, 'resisted', false, 'noBimbo', true );
@@ -1920,7 +1920,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//Has rut, intensify it!
 		if( this.isInRut() ) {
 			if( output ) {
-				EngineCore.outputText( '\n\nYour ' + Descriptors.cockDescript( 0 ) + ' throbs and dribbles as your desire to mate intensifies.  You know that <b>you\'ve sunken deeper into rut</b>, but all that really matters is unloading into a cum-hungry cunt.', false );
+				MainView.outputText( '\n\nYour ' + Descriptors.cockDescript( 0 ) + ' throbs and dribbles as your desire to mate intensifies.  You know that <b>you\'ve sunken deeper into rut</b>, but all that really matters is unloading into a cum-hungry cunt.', false );
 			}
 			this.addStatusValue( StatusAffects.Rut, 1, 100 * intensity );
 			this.addStatusValue( StatusAffects.Rut, 2, 5 * intensity );
@@ -1928,7 +1928,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			EngineCore.dynStats( 'lib', 5 * intensity, 'resisted', false, 'noBimbo', true );
 		} else {
 			if( output ) {
-				EngineCore.outputText( '\n\nYou stand up a bit straighter and look around, sniffing the air and searching for a mate.  Wait, what!?  It\'s hard to shake the thought from your head - you really could use a nice fertile hole to impregnate.  You slap your forehead and realize <b>you\'ve gone into rut</b>!', false );
+				MainView.outputText( '\n\nYou stand up a bit straighter and look around, sniffing the air and searching for a mate.  Wait, what!?  It\'s hard to shake the thought from your head - you really could use a nice fertile hole to impregnate.  You slap your forehead and realize <b>you\'ve gone into rut</b>!', false );
 			}
 			//v1 - bonus cum production
 			//v2 - bonus libido

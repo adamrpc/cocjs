@@ -12,11 +12,11 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 		//SPIDER HORDE ATTACK - Miss (guaranteed if turns 1-3 and PC lost to Kiha);
 		if( this.findStatusAffect( StatusAffects.MissFirstRound ) >= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			this.removeStatusAffect( StatusAffects.MissFirstRound );
-			EngineCore.outputText( 'A number of spiders rush at you, trying to claw and bite you.  You manage to beat them all back, though, with some literal covering fire from Kiha.', false );
+			MainView.outputText( 'A number of spiders rush at you, trying to claw and bite you.  You manage to beat them all back, though, with some literal covering fire from Kiha.', false );
 		}
 		//SPIDER HORDE ATTACK - Hit;
 		else {
-			EngineCore.outputText( 'A number of spiders rush at you, trying to claw and bite you.  You manage to knock most of them away, but a few nasty hits manage to punch through your [armorName].  ', false );
+			MainView.outputText( 'A number of spiders rush at you, trying to claw and bite you.  You manage to knock most of them away, but a few nasty hits manage to punch through your [armorName].  ', false );
 			//Determine damage - str modified by enemy toughness!;
 			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ) + 20;
 			if( damage > 0 ) {
@@ -25,26 +25,26 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 			if( damage <= 0 ) {
 				damage = 0;
 				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-					EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
+					MainView.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
 				} else {
-					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
+					MainView.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 				}
 			} else if( damage < 6 ) {
-				EngineCore.outputText( 'You are struck a glancing blow by ' + this.a + this.short + '! (' + damage + ')', false );
+				MainView.outputText( 'You are struck a glancing blow by ' + this.a + this.short + '! (' + damage + ')', false );
 			} else if( damage < 11 ) {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' wounds you! (' + damage + ')', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' wounds you! (' + damage + ')', false );
 			} else if( damage < 21 ) {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' staggers you with the force of ' + this.pronoun3 + ' ' + this.weaponVerb + '! (' + damage + ')', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' staggers you with the force of ' + this.pronoun3 + ' ' + this.weaponVerb + '! (' + damage + ')', false );
 			} else if( damage > 20 ) {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' <b>mutilate', false );
-				EngineCore.outputText( '</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' <b>mutilate', false );
+				MainView.outputText( '</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
 			}
 			if( damage > 0 ) {
 				if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 					if( !this.plural ) {
-						EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+						MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 					} else {
-						EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+						MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 					}
 					this.lust += 10 * this.lustVuln;
 				}
@@ -57,10 +57,10 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	SpiderMorphMob.prototype.spoidahHordeWebLaunchahs = function() {
 		//SPIDER HORDE WEB - Miss (guaranteed if turns 1-3 and PC lost to Kiha);
 		if( this.findStatusAffect( StatusAffects.MissFirstRound ) >= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( 'One of the driders launches a huge glob of webbing right at you!  Luckily, Kiha manages to burn it out of the air with a well-timed gout of flame!', false );
+			MainView.outputText( 'One of the driders launches a huge glob of webbing right at you!  Luckily, Kiha manages to burn it out of the air with a well-timed gout of flame!', false );
 			Combat.combatRoundOver();
 		} else {
-			EngineCore.outputText( 'Some of the spiders and driders launch huge globs of wet webbing right at you, hitting you in the torso!  You try to wiggle out, but it\'s no use; you\'re stuck like this for now.  Though comfortingly, the driders\' open stance and self-satisfaction allow Kiha to blast them in the side with a huge conflagration!', false );
+			MainView.outputText( 'Some of the spiders and driders launch huge globs of wet webbing right at you, hitting you in the torso!  You try to wiggle out, but it\'s no use; you\'re stuck like this for now.  Though comfortingly, the driders\' open stance and self-satisfaction allow Kiha to blast them in the side with a huge conflagration!', false );
 			//(PC cannot attack or use spells for one turn; can use Magical Special and Possess);
 			CoC.player.createStatusAffect( StatusAffects.UBERWEB, 0, 0, 0, 0 );
 			this.HP -= 250;
@@ -68,9 +68,9 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 		}
 	};
 	SpiderMorphMob.prototype.kihaSPOIDAHAI = function() {
-		EngineCore.outputText( '[pg]', false );
+		MainView.outputText( '[pg]', false );
 		EngineCore.spriteSelect( 72 );
-		EngineCore.outputText( 'While they\'re tangled up with you, however, Kiha takes the opportunity to get in a few shallow swings with her axe, to the accompaniment of crunching chitin.', false );
+		MainView.outputText( 'While they\'re tangled up with you, however, Kiha takes the opportunity to get in a few shallow swings with her axe, to the accompaniment of crunching chitin.', false );
 		//horde loses HP;
 		this.HP -= 50;
 		Combat.combatRoundOver();
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	};
 	SpiderMorphMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe spiders smile to one at another as they watch your display, then close in...' );
+			MainView.outputText( '\n\nThe spiders smile to one at another as they watch your display, then close in...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.kihaFollower.loseToSpiderMob();

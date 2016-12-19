@@ -1,73 +1,73 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTypesEnum, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, PerkLib ) {
 	function Satyr() {
 		this.init(this, arguments);
 	}
 	angular.extend(Satyr.prototype, Monster.prototype);
 	//Attacks (Z);
 	Satyr.prototype.satyrAttack = function() {
-		EngineCore.outputText( 'The satyr swings at you with one knuckled fist.  ' );
+		MainView.outputText( 'The satyr swings at you with one knuckled fist.  ' );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind punch!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind punch!\n', false );
 		}
 		//Evade: ;
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( 'He snarls as you duck his blow and it swishes harmlessly through the air.' );
+			MainView.outputText( 'He snarls as you duck his blow and it swishes harmlessly through the air.' );
 		} else {
 			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) );
 			if( damage > 0 ) {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'It feels like you just got hit with a wooden club! (' + damage + ')' );
+				MainView.outputText( 'It feels like you just got hit with a wooden club! (' + damage + ')' );
 			} else {
-				EngineCore.outputText( 'You successfully block it.' );
+				MainView.outputText( 'You successfully block it.' );
 			}
 		}
 		Combat.combatRoundOver();
 	};
 	Satyr.prototype.satyrBate = function() {
-		EngineCore.outputText( 'He glares at you, panting while his tongue hangs out and begins to masturbate.  You can nearly see his lewd thoughts reflected in his eyes, as beads of pre form on his massive cock and begin sliding down the erect shaft.' );
+		MainView.outputText( 'He glares at you, panting while his tongue hangs out and begins to masturbate.  You can nearly see his lewd thoughts reflected in his eyes, as beads of pre form on his massive cock and begin sliding down the erect shaft.' );
 		//(small Libido based Lust increase, and increase lust);
 		EngineCore.dynStats( 'lus', (CoC.player.lib / 5) + 4 );
 		this.lust += 5;
 		Combat.combatRoundOver();
 	};
 	Satyr.prototype.satyrCharge = function() {
-		EngineCore.outputText( 'Lowering his horns, the satyr digs his hooves on the ground and begins snorting; he\'s obviously up to something.  ' );
+		MainView.outputText( 'Lowering his horns, the satyr digs his hooves on the ground and begins snorting; he\'s obviously up to something.  ' );
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you due to blindness!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you due to blindness!\n', false );
 		} else if( Combat.combatMiss() ) {
-			EngineCore.outputText( 'He charges at you with a loud bleat, but you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
+			MainView.outputText( 'He charges at you with a loud bleat, but you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
 			this.HP -= 5;
 		} else if( Combat.combatEvade() ) {
-			EngineCore.outputText( 'He charges at you with a loud bleat, but using your evasive skills, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
+			MainView.outputText( 'He charges at you with a loud bleat, but using your evasive skills, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
 			this.HP -= 5;
 		} else if( Combat.combatFlexibility() ) {
-			EngineCore.outputText( 'He charges at you with a loud bleat, but using your flexibility, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
+			MainView.outputText( 'He charges at you with a loud bleat, but using your flexibility, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
 			this.HP -= 5;
 		} else if( Combat.combatMisdirect() ) {
-			EngineCore.outputText( 'He charges at you with a loud bleat, but using your misdirecting skills, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
+			MainView.outputText( 'He charges at you with a loud bleat, but using your misdirecting skills, you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
 			this.HP -= 5;
 		} else {
 			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) );
 			if( damage > 0 ) {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'He charges at you with a loud bleat, catching you off-guard and sending you flying into the ground.' );
+				MainView.outputText( 'He charges at you with a loud bleat, catching you off-guard and sending you flying into the ground.' );
 				if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
-					EngineCore.outputText( '  The pain of the impact is so big you feel completely dazed, almost seeing stars.' );
+					MainView.outputText( '  The pain of the impact is so big you feel completely dazed, almost seeing stars.' );
 					CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 				}
 				//stun PC + hp damage if hit, hp damage dependent on str if miss;
-				EngineCore.outputText( ' (' + damage + ')' );
+				MainView.outputText( ' (' + damage + ')' );
 			} else {
-				EngineCore.outputText( 'He charges at you, but you successfully deflect it at the last second.' );
+				MainView.outputText( 'He charges at you, but you successfully deflect it at the last second.' );
 			}
 		}
 		Combat.combatRoundOver();
 	};
 	Satyr.prototype.bottleChug = function() {
-		EngineCore.outputText( 'He whips a bottle of wine seemingly from nowhere and begins chugging it down, then lets out a bellowing belch towards you.  The smell is so horrible you cover your nose in disgust, yet you feel hot as you inhale some of the fetid scent.' );
+		MainView.outputText( 'He whips a bottle of wine seemingly from nowhere and begins chugging it down, then lets out a bellowing belch towards you.  The smell is so horrible you cover your nose in disgust, yet you feel hot as you inhale some of the fetid scent.' );
 		//(damage PC lust very slightly and raise the satyr's lust.);
 		EngineCore.dynStats( 'lus', (CoC.player.lib / 5) );
 		this.lust += 5;
@@ -75,13 +75,13 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 	};
 	//5:(Only executed at high lust) ;
 	Satyr.prototype.highLustChugRape = function() {
-		EngineCore.outputText( 'Panting with barely-contained lust, the Satyr charges at you and tries to ram you into the ground.  ' );
+		MainView.outputText( 'Panting with barely-contained lust, the Satyr charges at you and tries to ram you into the ground.  ' );
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you due to blindness!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you due to blindness!\n', false );
 		} else if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatMisdirect() || Combat.combatEvade() ) {
-			EngineCore.outputText( 'As he charges you, you grab him by the horns and spin around, sending him away.' );
+			MainView.outputText( 'As he charges you, you grab him by the horns and spin around, sending him away.' );
 		} else {
-			EngineCore.outputText( 'You fall with a <b>THUD</b> and the Satyr doesn\'t even bother to undress you before he begins rubbing his massive cock on your body until he comes, soiling your [armor] and ' + CoC.player.skinFurScales() + ' with slimy, hot cum.  As it rubs into your body, you shiver with unwanted arousal.' );
+			MainView.outputText( 'You fall with a <b>THUD</b> and the Satyr doesn\'t even bother to undress you before he begins rubbing his massive cock on your body until he comes, soiling your [armor] and ' + CoC.player.skinFurScales() + ' with slimy, hot cum.  As it rubs into your body, you shiver with unwanted arousal.' );
 			//large-ish sensitivity based lust increase if hit.)(This also relieves him of some of his lust, though not completely.);
 			this.lust -= 50;
 			EngineCore.dynStats( 'lus', (CoC.player.sens / 5 + 20) );
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, CockTypesEnum, C
 
 	Satyr.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe satyr laughs heartily at your eagerness...' );
+			MainView.outputText( '\n\nThe satyr laughs heartily at your eagerness...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.satyrScene.loseToSatyr();

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainView, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
 	function GoblinAssassin() {
 		this.init(this, arguments);
 	}
@@ -25,47 +25,47 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 		}
 		//Throw offensive potions at the player;
 		if( color !== 'blue' ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' uncorks a glass bottle full of ' + color + ' fluid and swings her arm, flinging a wave of fluid at you.', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' uncorks a glass bottle full of ' + color + ' fluid and swings her arm, flinging a wave of fluid at you.', false );
 		}
 		//Drink blue pots;
 		else {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' pulls out a blue vial and uncaps it, swiftly downing its contents.', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' pulls out a blue vial and uncaps it, swiftly downing its contents.', false );
 			if( this.HPRatio() < 1 ) {
-				EngineCore.outputText( '  She looks to have recovered from some of her wounds!\n', false );
+				MainView.outputText( '  She looks to have recovered from some of her wounds!\n', false );
 				this.addHP( this.eMaxHP() / 4 );
 			} else {
-				EngineCore.outputText( '  There doesn\'t seem to be any effect.\n', false );
+				MainView.outputText( '  There doesn\'t seem to be any effect.\n', false );
 			}
 		}
 		//Dodge chance!;
 		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
-			EngineCore.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
+			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		}
 		//Get hit!;
 		//Temporary heat;
 		if( color === 'red' ) {
-			EngineCore.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
+			MainView.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
 			if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 			}
 		}
 		//Green poison;
 		if( color === 'green' ) {
-			EngineCore.outputText( '\nThe greenish fluids splash over you, making you feel slimy and gross.  Nausea plagues you immediately - you have been poisoned!\n', false );
+			MainView.outputText( '\nThe greenish fluids splash over you, making you feel slimy and gross.  Nausea plagues you immediately - you have been poisoned!\n', false );
 			if( CoC.player.findStatusAffect( StatusAffects.Poison ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.Poison, 0, 0, 0, 0 );
 			}
 		}
 		//sticky flee prevention;
 		if( color === 'white' ) {
-			EngineCore.outputText( '\nYou try to avoid it, but it splatters the ground around you with very sticky white fluid, making it difficult to run.  You\'ll have a hard time escaping now!\n', false );
+			MainView.outputText( '\nYou try to avoid it, but it splatters the ground around you with very sticky white fluid, making it difficult to run.  You\'ll have a hard time escaping now!\n', false );
 			if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
 			}
 		}
 		//Increase fatigue;
 		if( color === 'black' ) {
-			EngineCore.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
+			MainView.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
 			EngineCore.fatigue( 10 + Utils.rand( 25 ) );
 		}
 		Combat.combatRoundOver();
@@ -73,45 +73,45 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 	};
 	//Lust Needle;
 	GoblinAssassin.prototype.lustNeedle = function() {
-		EngineCore.outputText( 'With a swift step, the assassin vanishes, her movements too quick for you to follow. You take a sharp breath as you feel her ample thighs clench your head in between them, her slick cunt in full view as you take in her scent.' );
+		MainView.outputText( 'With a swift step, the assassin vanishes, her movements too quick for you to follow. You take a sharp breath as you feel her ample thighs clench your head in between them, her slick cunt in full view as you take in her scent.' );
 		//Miss;
 		if( Combat.combatMiss() || Combat.combatEvade() ) {
 			//Miss: ;
-			EngineCore.outputText( '\nYou’ve already prepared, however, as you hold your breath and grab the goblin by her sides. Unhindered by her advance, you take the opportunity to move backwards, throwing the goblin off balance and leaving you only faintly smelling of her pussy.' );
+			MainView.outputText( '\nYou’ve already prepared, however, as you hold your breath and grab the goblin by her sides. Unhindered by her advance, you take the opportunity to move backwards, throwing the goblin off balance and leaving you only faintly smelling of her pussy.' );
 			EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 10 ) + 4 );
 		}
 		//Hit: ;
 		else {
-			EngineCore.outputText( '\nYou’re far too distracted to notice the needle injected into the back of your neck, but by the time she flips back into her original position you already feel the contents of the syringe beginning to take effect.' );
+			MainView.outputText( '\nYou’re far too distracted to notice the needle injected into the back of your neck, but by the time she flips back into her original position you already feel the contents of the syringe beginning to take effect.' );
 			EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 4 ) + 20 );
 		}
 		Combat.combatRoundOver();
 	};
 	//Dual Shot;
 	GoblinAssassin.prototype.dualShot = function() {
-		EngineCore.outputText( 'The assassin throws a syringe onto the ground, shattering it and allowing the dissipating smoke from its contents to distract you long enough for her to slip underneath you. With a quick flick of her wrists two needles are placed into her hands, though you’ve already caught wind of her movements.' );
+		MainView.outputText( 'The assassin throws a syringe onto the ground, shattering it and allowing the dissipating smoke from its contents to distract you long enough for her to slip underneath you. With a quick flick of her wrists two needles are placed into her hands, though you’ve already caught wind of her movements.' );
 		//Miss: ;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatMisdirect() || Combat.combatFlexibility() ) {
-			EngineCore.outputText( '\nYou jump backwards, far enough to avoid her quick thrust upwards as she attempts to lick the area in which your crotch once stood. Realising her situation, she quickly removes herself from the ground and faces you, more determined than before.' );
+			MainView.outputText( '\nYou jump backwards, far enough to avoid her quick thrust upwards as she attempts to lick the area in which your crotch once stood. Realising her situation, she quickly removes herself from the ground and faces you, more determined than before.' );
 		}
 		//Hit: ;
 		else {
-			EngineCore.outputText( '\nBefore you can do anything to stop her, she lifts her head and takes a swift lick of your crotch, taking a small moan from you and giving her enough time to stab into the back of your knees. She rolls out of the way just as you pluck the two needles out and throw them back to the ground. They didn’t seem to have anything in them, but the pain is enough to make you stagger.' );
+			MainView.outputText( '\nBefore you can do anything to stop her, she lifts her head and takes a swift lick of your crotch, taking a small moan from you and giving her enough time to stab into the back of your knees. She rolls out of the way just as you pluck the two needles out and throw them back to the ground. They didn’t seem to have anything in them, but the pain is enough to make you stagger.' );
 			//(Medium HP loss, small lust gain);
 			var damage = Math.ceil( (this.str + this.weaponAttack + 40) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 		Combat.combatRoundOver();
 	};
 	//Explosion;
 	GoblinAssassin.prototype.goblinExplosion = function() {
-		EngineCore.outputText( 'Without a second thought, the assassin pulls a thin needle from the belt wrapped around her chest and strikes it against the ground, causing a flame to erupt on the tip. She twirls forward, launching the needle in your direction which subsequently bursts apart and showers you with heat.' );
-		EngineCore.outputText( '\nYou shield yourself from the explosion, though the goblin has already lit a second needle which she throws behind you, launching your body forwards as it explodes behind your back. ' );
+		MainView.outputText( 'Without a second thought, the assassin pulls a thin needle from the belt wrapped around her chest and strikes it against the ground, causing a flame to erupt on the tip. She twirls forward, launching the needle in your direction which subsequently bursts apart and showers you with heat.' );
+		MainView.outputText( '\nYou shield yourself from the explosion, though the goblin has already lit a second needle which she throws behind you, launching your body forwards as it explodes behind your back. ' );
 		//(High HP loss, no lust gain);
 		var damage = 25 + Utils.rand( 75 );
 		damage = CoC.player.takeDamage( damage );
-		EngineCore.outputText( ' (' + damage + ')' );
+		MainView.outputText( ' (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
 	GoblinAssassin.prototype.defeated = function() {
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, Appeara
 	};
 	GoblinAssassin.prototype.won = function() {
 		if( CoC.player.gender === 0 ) {
-			EngineCore.outputText( 'You collapse in front of the goblin, too wounded to fight.  She growls and kicks you in the head, making your vision swim. As your sight fades, you hear her murmur, "<i>Fucking dicks can\'t even bother to grow a dick or cunt.</i>"', false );
+			MainView.outputText( 'You collapse in front of the goblin, too wounded to fight.  She growls and kicks you in the head, making your vision swim. As your sight fades, you hear her murmur, "<i>Fucking dicks can\'t even bother to grow a dick or cunt.</i>"', false );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.goblinAssassinScene.gobboAssassinBeatYaUp();

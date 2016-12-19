@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			SceneLib.chameleonGirlScene.encounterChameleon();
 		} else {
 			MainView.clearOutput();
-			EngineCore.outputText( 'You wander around through the humid muck, but you don\'t run into anything interesting.' );
+			MainView.outputText( 'You wander around through the humid muck, but you don\'t run into anything interesting.' );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};

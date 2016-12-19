@@ -1,47 +1,47 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, WeightedDrop, Combat, PerkLib, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView, $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, WeightedDrop, Combat, PerkLib, Descriptors ) {
 	function TentacleBeast() {
 		this.init(this, arguments);
 	}
 	angular.extend(TentacleBeast.prototype, Monster.prototype);
 	TentacleBeast.prototype.tentaclePhysicalAttack = function() {
-		EngineCore.outputText( 'The shambling horror throws its tentacles at you with a murderous force.\n', false );
+		MainView.outputText( 'The shambling horror throws its tentacles at you with a murderous force.\n', false );
 		var temp = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 		if( temp < 0 ) {
 			temp = 0;
 		}
 		//Miss
 		if( temp === 0 || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
-			EngineCore.outputText( 'However, you quickly evade the clumsy efforts of the abomination to strike you.', false );
+			MainView.outputText( 'However, you quickly evade the clumsy efforts of the abomination to strike you.', false );
 		}
 		//Hit
 		else {
 			temp = CoC.player.takeDamage( temp );
-			EngineCore.outputText( 'The tentacles crash upon your body mercilessly for ' + temp + ' damage.', false );
+			MainView.outputText( 'The tentacles crash upon your body mercilessly for ' + temp + ' damage.', false );
 		}
 		Combat.combatRoundOver();
 	};
 	TentacleBeast.prototype.tentacleEntwine = function() {
-		EngineCore.outputText( 'The beast lunges its tentacles at you from all directions in an attempt to immobilize you.\n', false );
+		MainView.outputText( 'The beast lunges its tentacles at you from all directions in an attempt to immobilize you.\n', false );
 		//Not Trapped yet
 		if( CoC.player.findStatusAffect( StatusAffects.TentacleBind ) < 0 ) {
 			//Success
 			if( Math.ceil( Math.random() * (((CoC.player.spe) / 2)) ) > 15 || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Math.ceil( Math.random() * (((CoC.player.spe) / 2)) ) > 15) ) {
-				EngineCore.outputText( 'In an impressive display of gymnastics, you dodge, duck, dip, dive, and roll away from the shower of grab-happy arms trying to hold you. Your instincts tell you that this was a GOOD thing.\n', false );
+				MainView.outputText( 'In an impressive display of gymnastics, you dodge, duck, dip, dive, and roll away from the shower of grab-happy arms trying to hold you. Your instincts tell you that this was a GOOD thing.\n', false );
 			}
 			//Fail
 			else {
-				EngineCore.outputText( 'While you attempt to avoid the onslaught of pseudopods, one catches you around your ' + CoC.player.foot() + ' and drags you to the ground. You attempt to reach for it to pull it off only to have all of the other tentacles grab you in various places and immobilize you in the air. You are trapped and helpless!!!\n\n', false );
+				MainView.outputText( 'While you attempt to avoid the onslaught of pseudopods, one catches you around your ' + CoC.player.foot() + ' and drags you to the ground. You attempt to reach for it to pull it off only to have all of the other tentacles grab you in various places and immobilize you in the air. You are trapped and helpless!!!\n\n', false );
 				//Male/Herm Version:
 				if( CoC.player.hasCock() ) {
-					EngineCore.outputText( 'The creature, having immobilized you, coils a long tendril about your penis. You shudder as the creature begins stroking your cock like a maid at a dairy farm in an attempt to provoke a response from you. Unable to resist, your ' + CoC.player.cockDescript( 0 ) + ' easily becomes erect, signaling to the creature that you are responsive to harsher stimulation.\n', false );
+					MainView.outputText( 'The creature, having immobilized you, coils a long tendril about your penis. You shudder as the creature begins stroking your cock like a maid at a dairy farm in an attempt to provoke a response from you. Unable to resist, your ' + CoC.player.cockDescript( 0 ) + ' easily becomes erect, signaling to the creature that you are responsive to harsher stimulation.\n', false );
 				}//Female Version:
 				else if( CoC.player.hasVagina() ) {
-					EngineCore.outputText( 'The creature quickly positions a long tentacle with a single sucker over your clitoris. You feel the power of the suction on you, and your body quickly heats up.  Your clit engorges, prompting the beast to latch the sucker onto your ' + CoC.player.clitDescript() + '.\n', false );
+					MainView.outputText( 'The creature quickly positions a long tentacle with a single sucker over your clitoris. You feel the power of the suction on you, and your body quickly heats up.  Your clit engorges, prompting the beast to latch the sucker onto your ' + CoC.player.clitDescript() + '.\n', false );
 				}//Genderless
 				else {
-					EngineCore.outputText( 'The creature quickly positions a long tentacle against your ' + Descriptors.assholeDescript() + '. It circles your pucker with slow, delicate strokes that bring unexpected warmth to your body.\n', false );
+					MainView.outputText( 'The creature quickly positions a long tentacle against your ' + Descriptors.assholeDescript() + '. It circles your pucker with slow, delicate strokes that bring unexpected warmth to your body.\n', false );
 				}
 				EngineCore.dynStats( 'lus', (8 + CoC.player.sens / 20) );
 				CoC.player.createStatusAffect( StatusAffects.TentacleBind, 0, 0, 0, 0 );
@@ -51,16 +51,16 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 	};
 	TentacleBeast.prototype.defeated = function( hpVictory ) {
 		if( hpVictory ) {
-			EngineCore.outputText( 'The creature lets out an ear-piercing screech as it collapses upon itself. Its green coloring quickly fades to brown as the life drains from it, leaving you victorious.', true );
+			MainView.outputText( 'The creature lets out an ear-piercing screech as it collapses upon itself. Its green coloring quickly fades to brown as the life drains from it, leaving you victorious.', true );
 		} else {
-			EngineCore.outputText( 'The tentacle beast\'s mass begins quivering and sighing, the tentacles wrapping around each other and feverishly caressing each other.  It seems the beast has given up on fighting.', false );
+			MainView.outputText( 'The tentacle beast\'s mass begins quivering and sighing, the tentacles wrapping around each other and feverishly caressing each other.  It seems the beast has given up on fighting.', false );
 		}
 		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaTentacleDefeat();
 		} else {
 			if( !hpVictory && CoC.player.gender > 0 ) {
-				EngineCore.outputText( '  Perhaps you could use it to sate yourself?', true );
+				MainView.outputText( '  Perhaps you could use it to sate yourself?', true );
 				EngineCore.doYesNo( SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.tentacleVictoryRape, null, Combat.cleanupAfterCombat );
 			} else {
 				Combat.cleanupAfterCombat();
@@ -69,19 +69,19 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, $log, Co
 	};
 	TentacleBeast.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {
-			EngineCore.outputText( 'Overcome by your wounds, you turn to make a last desperate attempt to run...\n\n' );
+			MainView.outputText( 'Overcome by your wounds, you turn to make a last desperate attempt to run...\n\n' );
 			if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 				this.removeStatusAffect( StatusAffects.PhyllaFight );
-				EngineCore.outputText( '...and make it into the nearby tunnel.  ' );
+				MainView.outputText( '...and make it into the nearby tunnel.  ' );
 				SceneLib.antsScene.phyllaTentaclePCLoss();
 			} else {
 				SceneLib.tentacleBeastScene.tentacleLossRape();
 			}
 		} else {
-			EngineCore.outputText( 'You give up on fighting, too aroused to resist any longer.  Shrugging, you walk into the writhing mass...\n\n' );
+			MainView.outputText( 'You give up on fighting, too aroused to resist any longer.  Shrugging, you walk into the writhing mass...\n\n' );
 			if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
 				this.removeStatusAffect( StatusAffects.PhyllaFight );
-				EngineCore.outputText( '...but an insistent voice rouses you from your stupor.  You manage to run into a nearby tunnel.  ' );
+				MainView.outputText( '...but an insistent voice rouses you from your stupor.  You manage to run into a nearby tunnel.  ' );
 				SceneLib.antsScene.phyllaTentaclePCLoss();
 			} else {
 				EngineCore.doNext( SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.tentacleLossRape );

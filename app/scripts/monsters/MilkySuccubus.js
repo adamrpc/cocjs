@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, AbstractSuccubus, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView, AbstractSuccubus, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
 	function MilkySuccubus() {
 		this.init(this, arguments);
 	}
@@ -22,26 +22,26 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, Abstract
 	};
 	MilkySuccubus.prototype.cowCubiMilkSprayAttack = function() {
 		//Lasts a couple turns like the goblin lust poison?;
-		EngineCore.outputText( '"<i>How about a taste?</i>"  The succubus asks, pressing her tits together.  Before you can reply, a veritable jet of milk sprays in your direction!\n' );
+		MainView.outputText( '"<i>How about a taste?</i>"  The succubus asks, pressing her tits together.  Before you can reply, a veritable jet of milk sprays in your direction!\n' );
 		//Miss:;
 		if( Utils.rand( 20 ) + 1 + CoC.player.spe / 20 > 17 ) {
-			EngineCore.outputText( 'With your trained reflexes, you manage to duck and roll, narrowly avoiding getting sprayed with milk.' );
-			EngineCore.outputText( '\n\n"<i>Such a waste.</i>"  The succubus pouts.  "<i>No worries, I\'ll just have Fido clean it up later... perhaps I\'ll even have you do it later, when you become mine.</i>"  The succubus giggles.' );
+			MainView.outputText( 'With your trained reflexes, you manage to duck and roll, narrowly avoiding getting sprayed with milk.' );
+			MainView.outputText( '\n\n"<i>Such a waste.</i>"  The succubus pouts.  "<i>No worries, I\'ll just have Fido clean it up later... perhaps I\'ll even have you do it later, when you become mine.</i>"  The succubus giggles.' );
 			EngineCore.dynStats( 'lus', 6 );
 		}
 		//Hit:;
 		else {
-			EngineCore.outputText( 'All you manage to do is cover your face; the rest of you, however, gets completely soaked in the demon\'s corrupted milk.  Looking down at yourself, you realize that you are panting, and the places where the milk splashed your fur begin to heat up.  Oh no! <b>You\'d better finish off this succubus before you succumb to your lusts!</b>' );
+			MainView.outputText( 'All you manage to do is cover your face; the rest of you, however, gets completely soaked in the demon\'s corrupted milk.  Looking down at yourself, you realize that you are panting, and the places where the milk splashed your fur begin to heat up.  Oh no! <b>You\'d better finish off this succubus before you succumb to your lusts!</b>' );
 			EngineCore.dynStats( 'lus', 15 );
 			this.createStatusAffect( StatusAffects.MilkyUrta, 3, 0, 0, 0 );
 		}
 		Combat.combatRoundOver();
 	};
 	MilkySuccubus.prototype.drinkMinoCum = function() {
-		EngineCore.outputText( 'Smiling wryly and licking her lips, the succubus-cow procures a bottle of her pet\'s cum with her probing tail.' );
+		MainView.outputText( 'Smiling wryly and licking her lips, the succubus-cow procures a bottle of her pet\'s cum with her probing tail.' );
 		//Success:;
 		if( this.findStatusAffect( StatusAffects.DrankMinoCum ) < 0 || this.findStatusAffect( StatusAffects.DrankMinoCum2 ) < 0 ) {
-			EngineCore.outputText( '\n\nSmiling triumphantly, she takes the bottle and opens it with a pop, drinking the contents with glee.  When done, she throws the bottle away and smacks her lips.  "<i>Nothing like a bottle of minotaur cum to get you back on your feet, right?</i>"  She grins, her pussy dripping with more juices.' );
+			MainView.outputText( '\n\nSmiling triumphantly, she takes the bottle and opens it with a pop, drinking the contents with glee.  When done, she throws the bottle away and smacks her lips.  "<i>Nothing like a bottle of minotaur cum to get you back on your feet, right?</i>"  She grins, her pussy dripping with more juices.' );
 			this.lust += 25;
 			this.HP += 400;
 			if( this.findStatusAffect( StatusAffects.DrankMinoCum ) < 0 ) {
@@ -52,19 +52,19 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, Abstract
 		}
 		//Failure:;
 		else {
-			EngineCore.outputText( '\n\nShe frowns and looks behind her, pouting slightly when she turns to look back at you.  "<i>Seems like I\'m all out of cum.</i>"  She grins evilly.  "<i>I\'ll just have to get more after I\'m done with you.</i>"' );
+			MainView.outputText( '\n\nShe frowns and looks behind her, pouting slightly when she turns to look back at you.  "<i>Seems like I\'m all out of cum.</i>"  She grins evilly.  "<i>I\'ll just have to get more after I\'m done with you.</i>"' );
 		}
 		Combat.combatRoundOver();
 	};
 	MilkySuccubus.prototype.succubusTease = function() {
 		if( Utils.rand( 4 ) === 0 ) {
-			EngineCore.outputText( 'Turning around, the succubus begins to bounce her rather round derriere in your direction, the cheeks lewdly clapping together with each change in direction, exposing her dark anal star and juicy snatch, literally gushing forth a stream of lubricants.  Her eyes glow with faint, purple light as she whispers, "<i>Don\'t you just want to... slide on in?</i>"' );
+			MainView.outputText( 'Turning around, the succubus begins to bounce her rather round derriere in your direction, the cheeks lewdly clapping together with each change in direction, exposing her dark anal star and juicy snatch, literally gushing forth a stream of lubricants.  Her eyes glow with faint, purple light as she whispers, "<i>Don\'t you just want to... slide on in?</i>"' );
 		} else if( Utils.rand( 3 ) === 0 ) {
-			EngineCore.outputText( 'The succubus squeezes her spotted, sweat-oiled breasts together, squirting out trickles of fresh, creamy, succubi milk.  Bending down, she laps at her own bounty, taking to meet your eyes, her own glowing violet.  You can feel her next words as much as hear them, reaching into your brain and stirring a familiar heat in your loins.  "<i>Giving in would mean pleasure unending, my dear vixen.</i>"' );
+			MainView.outputText( 'The succubus squeezes her spotted, sweat-oiled breasts together, squirting out trickles of fresh, creamy, succubi milk.  Bending down, she laps at her own bounty, taking to meet your eyes, her own glowing violet.  You can feel her next words as much as hear them, reaching into your brain and stirring a familiar heat in your loins.  "<i>Giving in would mean pleasure unending, my dear vixen.</i>"' );
 		} else if( Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( 'The succubus turns slightly and slowly bends over, sliding her hands down the sides of her milk laden jugs. "<i>Mmm, would you help a poor girl relax? These things need some attention,</i>" she says with a lust filled moan as her hands reach her multitude of nipples.' );
+			MainView.outputText( 'The succubus turns slightly and slowly bends over, sliding her hands down the sides of her milk laden jugs. "<i>Mmm, would you help a poor girl relax? These things need some attention,</i>" she says with a lust filled moan as her hands reach her multitude of nipples.' );
 		} else {
-			EngineCore.outputText( 'The succubus leans forwards holding her tits, while wrapping her fingers around her nipples.  "<i>My boobs are soo full.  Would you like to help me drain them?</i>" she says with a husky voice.' );
+			MainView.outputText( 'The succubus leans forwards holding her tits, while wrapping her fingers around her nipples.  "<i>My boobs are soo full.  Would you like to help me drain them?</i>" she says with a husky voice.' );
 		}
 		EngineCore.dynStats( 'lus', 20 );
 		Combat.combatRoundOver();
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, Abstract
 	};
 
 	MilkySuccubus.prototype.teased = function( lustDelta ) {
-		EngineCore.outputText( this.getCapitalA() + this.short + ' smiles, rubbing her hands across herself as she watches your display.  She does not seem greatly affected by your show - at least in the sense of increasing arousal.  She does seem oddly more... vital, as if she drew strength from the very display you put on.' );
+		MainView.outputText( this.getCapitalA() + this.short + ' smiles, rubbing her hands across herself as she watches your display.  She does not seem greatly affected by your show - at least in the sense of increasing arousal.  She does seem oddly more... vital, as if she drew strength from the very display you put on.' );
 		this.str += 5;
 		this.HP += 50;
 		this.applyTease( lustDelta );

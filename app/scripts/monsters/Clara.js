@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 	angular.extend(Clara.prototype, Monster.prototype);
 	Clara.prototype.notMurbleEnjoysTheLacticAcid = function() {
 		//Clara drinks her own milk to recover health and give a minor lust gain to the PC;
-		EngineCore.outputText( 'Clara suddenly starts roughly manhandling her tit, noisily stuffing it into her mouth and starting to suck and slobber. Frothy milk quickly stains her mouth and she releases her breast, letting it fall back down. She belches and takes a stance to defend herself again; you can see the injuries you’ve inflicted actually fading as the healing power of her milk fills her.' );
+		MainView.outputText( 'Clara suddenly starts roughly manhandling her tit, noisily stuffing it into her mouth and starting to suck and slobber. Frothy milk quickly stains her mouth and she releases her breast, letting it fall back down. She belches and takes a stance to defend herself again; you can see the injuries you’ve inflicted actually fading as the healing power of her milk fills her.' );
 		this.HP += 45;
 		this.lust += 5;
 		EngineCore.dynStats( 'lus', (5 + CoC.player.lib / 5) );
@@ -25,22 +25,22 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 			color = 'black';
 		}
 		//Throw offensive potions at the player;
-		EngineCore.outputText( 'Clara suddenly snatches something from a pouch at her belt. "<i>Try this, little cutie!</i>" She snarls, and throws a vial of potion at you.', false );
+		MainView.outputText( 'Clara suddenly snatches something from a pouch at her belt. "<i>Try this, little cutie!</i>" She snarls, and throws a vial of potion at you.', false );
 		//Dodge chance!;
 		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
-			EngineCore.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
+			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;
 			//Temporary heat;
 			if( color === 'red' ) {
-				EngineCore.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
+				MainView.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
 				if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 				}
 			}
 			//Increase fatigue;
 			if( color === 'black' ) {
-				EngineCore.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
+				MainView.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
 				EngineCore.fatigue( 10 + Utils.rand( 25 ) );
 			}
 		}
@@ -51,45 +51,45 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 	Clara.prototype.claraTeaseAttack = function() {
 		//[cocked PCs only] ;
 		if( Utils.rand( 3 ) === 0 ) {
-			EngineCore.outputText( 'Clara hesitates, then lifts up her dress and shows you her womanhood.  Then she slowly utters, "<i>You know, I’m still a virgin.  You’d be the first thing to ever enter inside this hole, something that Marble never could have offered you.</i>"  What would it be like, you wonder for a moment, before catching yourself and trying to focus back on the fight.' );
+			MainView.outputText( 'Clara hesitates, then lifts up her dress and shows you her womanhood.  Then she slowly utters, "<i>You know, I’m still a virgin.  You’d be the first thing to ever enter inside this hole, something that Marble never could have offered you.</i>"  What would it be like, you wonder for a moment, before catching yourself and trying to focus back on the fight.' );
 		} else if( Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( 'Clara seems to relax for a moment and bounces her breasts in her hands.  "<i>Come on, you know how good it is to drink cow-girl milk, just give up!</i>" she coos.  Despite yourself, you can’t help but remember what it was like, and find yourself becoming aroused.' );
+			MainView.outputText( 'Clara seems to relax for a moment and bounces her breasts in her hands.  "<i>Come on, you know how good it is to drink cow-girl milk, just give up!</i>" she coos.  Despite yourself, you can’t help but remember what it was like, and find yourself becoming aroused.' );
 		} else {
-			EngineCore.outputText( 'Instead of attacking, Clara runs her hands up and down her body, emphasizing all the curves it has.  "<i>You were made to be the milk slave of this, stop fighting it!</i>" she says almost exasperated.  Even so, you find your gaze lingering on those curves against your will.' );
+			MainView.outputText( 'Instead of attacking, Clara runs her hands up and down her body, emphasizing all the curves it has.  "<i>You were made to be the milk slave of this, stop fighting it!</i>" she says almost exasperated.  Even so, you find your gaze lingering on those curves against your will.' );
 		}
-		EngineCore.outputText( '\n' );
+		MainView.outputText( '\n' );
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 		Combat.combatRoundOver();
 	};
 	//Once Clara is at half health or lower, she'll cast blind.;
 	Clara.prototype.claraCastsBlind = function() {
-		EngineCore.outputText( 'Clara glares at you, clearly being worn down.  Then strange lights start dancing around her hand and she points it in your direction.' );
+		MainView.outputText( 'Clara glares at you, clearly being worn down.  Then strange lights start dancing around her hand and she points it in your direction.' );
 		//Successful: ;
 		if( CoC.player.inte / 5 + Utils.rand( 20 ) + 1 < 14 ) {
-			EngineCore.outputText( '\nA bright flash of light erupts in your face, blinding you!  You desperately blink and rub your eyes while Clara cackles with glee.' );
+			MainView.outputText( '\nA bright flash of light erupts in your face, blinding you!  You desperately blink and rub your eyes while Clara cackles with glee.' );
 			CoC.player.createStatusAffect( StatusAffects.Blind, 1, 0, 0, 0 );
 		} else {
-			EngineCore.outputText( '\nYou manage to close your eyes just in time to avoid being blinded by the bright flash of light that erupts in your face!  Clara curses when she see\'s you\'re unaffected by her magic.' );
+			MainView.outputText( '\nYou manage to close your eyes just in time to avoid being blinded by the bright flash of light that erupts in your face!  Clara curses when she see\'s you\'re unaffected by her magic.' );
 		}
 		Combat.combatRoundOver();
 	};
 	Clara.prototype.claraGropesBlindPCs = function() {
 		//Clara gropes the PC while they're blinded.  Damage is based on corruption + sensitivity.;
 		if( CoC.player.hasCock() && (!CoC.player.hasVagina() || Utils.rand( 2 ) === 0) ) {
-			EngineCore.outputText( 'Suddenly Clara wraps an arm around you, and sticks a hand into your ' + CoC.player.armorName + '!  She is able to give your ' + Descriptors.multiCockDescriptLight + ' a good fondle before you can push her away.  "<i>Admit it - I make you soo hard, don\'t I?</i>" she taunts you behind your dazzled vision.' );
+			MainView.outputText( 'Suddenly Clara wraps an arm around you, and sticks a hand into your ' + CoC.player.armorName + '!  She is able to give your ' + Descriptors.multiCockDescriptLight + ' a good fondle before you can push her away.  "<i>Admit it - I make you soo hard, don\'t I?</i>" she taunts you behind your dazzled vision.' );
 		}//Vagina: ;
 		else if( CoC.player.hasVagina() ) {
-			EngineCore.outputText( 'A sudden rush of Clara\'s hoofs clopping is the only warning you get before her attack comes, and you try to bring up your guard, only for her to deftly move past your defense and stick a hand into your ' + CoC.player.armorName + '!  She manages to worm her way to your [vagina] and pinches your [clit] before you can push her back out!  "<i>Hmm, yeah, you\'re soo wet for me.</i>" she taunts you behind your dazzled vision.' );
+			MainView.outputText( 'A sudden rush of Clara\'s hoofs clopping is the only warning you get before her attack comes, and you try to bring up your guard, only for her to deftly move past your defense and stick a hand into your ' + CoC.player.armorName + '!  She manages to worm her way to your [vagina] and pinches your [clit] before you can push her back out!  "<i>Hmm, yeah, you\'re soo wet for me.</i>" she taunts you behind your dazzled vision.' );
 		}//Bum: ;
 		else {
-			EngineCore.outputText( 'Thanks to Clara robbing you of your sight, you lose track of her.  She takes advantage of this, and grabs you from behind, and rubs her considerable curvy cans against your undefended back!  You manage to get her off you after a moment, but not before she gives your [ass] a smack.  "<i>Everyone will be soo much happier when yoou finally stop fighting me!</i>" she taunts you behind your dazzled vision.' );
+			MainView.outputText( 'Thanks to Clara robbing you of your sight, you lose track of her.  She takes advantage of this, and grabs you from behind, and rubs her considerable curvy cans against your undefended back!  You manage to get her off you after a moment, but not before she gives your [ass] a smack.  "<i>Everyone will be soo much happier when yoou finally stop fighting me!</i>" she taunts you behind your dazzled vision.' );
 		}
 		EngineCore.dynStats( 'lus', 7 + CoC.player.lib / 15 );
 		Combat.combatRoundOver();
 	};
 	//Every round if you're in Clara’s base; the PC’s lust is raised slightly.;
 	Clara.prototype.claraBonusBaseLustDamage = function() {
-		EngineCore.outputText( '\nThe early effects of your addiction are making it harder and harder to continue the fight.  You need to end it soon or you’ll give in to those urges.' );
+		MainView.outputText( '\nThe early effects of your addiction are making it harder and harder to continue the fight.  You need to end it soon or you’ll give in to those urges.' );
 		EngineCore.dynStats( 'lus', 2 + CoC.player.lib / 20 );
 		Combat.combatRoundOver();
 	};
@@ -126,11 +126,11 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 			MainView.clearOutput();
 			//PC wins via health;
 			if( this.HP <= 0 ) {
-				EngineCore.outputText( 'The pissed off cowgirl finally collapses to the ground.  She tries to stand up again, but finds that she can’t.  "<i>Noo!</i>" she cries out in frustration, "<i>You were the perfect slave!  We were meant to be toogether!</i>"\n\n' );
+				MainView.outputText( 'The pissed off cowgirl finally collapses to the ground.  She tries to stand up again, but finds that she can’t.  "<i>Noo!</i>" she cries out in frustration, "<i>You were the perfect slave!  We were meant to be toogether!</i>"\n\n' );
 			}
 			//PC wins via lust;
 			else {
-				EngineCore.outputText( 'The fury and anger finally give out to the overwhelming lust that you’ve help Clara feel.  She can’t fight anymore, and falls onto her backside.  She starts feeling herself up, and desperately asks you to fuck her.\n\n' );
+				MainView.outputText( 'The fury and anger finally give out to the overwhelming lust that you’ve help Clara feel.  She can’t fight anymore, and falls onto her backside.  She starts feeling herself up, and desperately asks you to fuck her.\n\n' );
 			}
 		}
 		SceneLib.marblePurification.defeatClaraCuntInAFight();

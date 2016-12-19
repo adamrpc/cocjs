@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, MainView ) {
 	function LargeHammer() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 		if( CoC.player.tallness >= 60 ) {
 			return true;
 		}
-		EngineCore.outputText( 'This hammer is too large for you to wield effectively.  ' );
+		MainView.outputText( 'This hammer is too large for you to wield effectively.  ' );
 		return false;
 	};
 	WeaponLib.registerWeapon( 'L_HAMMR', new LargeHammer() );

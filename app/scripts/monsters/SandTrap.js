@@ -12,21 +12,21 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $lo
 		if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
 			this.createStatusAffect( StatusAffects.Climbed, 0, 0, 0, 0 );
 		}
-		EngineCore.outputText( 'Instead of attacking, you turn away from the monster and doggedly attempt to climb back up the pit, digging all of your limbs into the soft powder as you climb against the sandslide.' );
+		MainView.outputText( 'Instead of attacking, you turn away from the monster and doggedly attempt to climb back up the pit, digging all of your limbs into the soft powder as you climb against the sandslide.' );
 		if( this.trapLevel() === 4 ) {
-			EngineCore.outputText( '\n\nYou eye the ground above you.  The edge of the pit is too sheer, the ground too unstable... although it looks like you can fight against the currents carrying you further down, it seems impossible to gain freedom with the sand under the monster\'s spell.' );
+			MainView.outputText( '\n\nYou eye the ground above you.  The edge of the pit is too sheer, the ground too unstable... although it looks like you can fight against the currents carrying you further down, it seems impossible to gain freedom with the sand under the monster\'s spell.' );
 		} else {
 			//Strength check success: [Player goes up one level, does not go down a level this turn]
 			if( CoC.player.str / 10 + Utils.rand( 20 ) > 10 ) {
-				EngineCore.outputText( '\n\nSweat beads your forehead - trying to clamber out of this pit is like running against the softest treadmill imaginable.  Nonetheless, through considerable effort you see you\'ve managed to pull further clear of the sandtrap\'s grasp.  "<i>Watching you squirm around like that gets me so hot,</i>" it calls up to you.  Turning around you see that the creature is rubbing its hands all over its lean body whilst watching you struggle.  "<i>Such an energetic little mating dance, just for me... mmm, prey who do that are always the best!</i>"' );
+				MainView.outputText( '\n\nSweat beads your forehead - trying to clamber out of this pit is like running against the softest treadmill imaginable.  Nonetheless, through considerable effort you see you\'ve managed to pull further clear of the sandtrap\'s grasp.  "<i>Watching you squirm around like that gets me so hot,</i>" it calls up to you.  Turning around you see that the creature is rubbing its hands all over its lean body whilst watching you struggle.  "<i>Such an energetic little mating dance, just for me... mmm, prey who do that are always the best!</i>"' );
 				this.trapLevel( 2 );
 			} else {
 				//Strength check fail:  [Player goes down as normal]
-				EngineCore.outputText( '\n\nSweat beads your forehead - trying to clamber out of this pit is like running against the softest treadmill imaginable.  You feel like you\'re going to burst and you eventually give up, noting wearily that you\'ve managed to get nowhere. "<i>Watching you squirm around like that gets me so hot,</i>" the sandtrap calls to you.  Turning around you see that the creature is rubbing its hands all over its lean body whilst watching you struggle.  "<i>Such an energetic little mating dance, just for me... mmm, prey who do that are always the best!</i>"' );
+				MainView.outputText( '\n\nSweat beads your forehead - trying to clamber out of this pit is like running against the softest treadmill imaginable.  You feel like you\'re going to burst and you eventually give up, noting wearily that you\'ve managed to get nowhere. "<i>Watching you squirm around like that gets me so hot,</i>" the sandtrap calls to you.  Turning around you see that the creature is rubbing its hands all over its lean body whilst watching you struggle.  "<i>Such an energetic little mating dance, just for me... mmm, prey who do that are always the best!</i>"' );
 				this.trapLevel( 1 );
 			}
 		}
-		EngineCore.outputText( '\n\n' );
+		MainView.outputText( '\n\n' );
 		this.doAI();
 	};
 	SandTrap.prototype.trapLevel = function( adjustment ) {
@@ -49,30 +49,30 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $lo
 	//sandtrap pheromone attack:
 	SandTrap.prototype.sandTrapPheremones = function() {
 		EngineCore.spriteSelect( 97 );
-		EngineCore.outputText( 'The sandtrap puckers its lips.  For one crazed moment you think it\'s going to blow you a kiss... but instead it spits clear fluid at you!   You desperately try to avoid it, even as your lower half is mired in sand.' );
+		MainView.outputText( 'The sandtrap puckers its lips.  For one crazed moment you think it\'s going to blow you a kiss... but instead it spits clear fluid at you!   You desperately try to avoid it, even as your lower half is mired in sand.' );
 		if( CoC.player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
-			EngineCore.outputText( '  Moving artfully with the flow rather than against it, you are able to avoid the trap\'s fluids, which splash harmlessly into the dune.' );
+			MainView.outputText( '  Moving artfully with the flow rather than against it, you are able to avoid the trap\'s fluids, which splash harmlessly into the dune.' );
 		} else {
 			var damage = (10 + CoC.player.lib / 10);
-			EngineCore.outputText( '  Despite ducking away from the jet of fluid as best you can, you cannot avoid some of the stuff splashing upon your arms and face.  The substance feels oddly warm and oily, and though you quickly try to wipe it off it sticks resolutely to your skin and the smell hits your nose.  Your heart begins to beat faster as warmth radiates out from it; you feel languid, light-headed and sensual, eager to be touched and led by the hand to a sandy bed...  Shaking your head, you try to stifle what the foreign pheromones are making you feel.' );
+			MainView.outputText( '  Despite ducking away from the jet of fluid as best you can, you cannot avoid some of the stuff splashing upon your arms and face.  The substance feels oddly warm and oily, and though you quickly try to wipe it off it sticks resolutely to your skin and the smell hits your nose.  Your heart begins to beat faster as warmth radiates out from it; you feel languid, light-headed and sensual, eager to be touched and led by the hand to a sandy bed...  Shaking your head, you try to stifle what the foreign pheromones are making you feel.' );
 			EngineCore.dynStats( 'lus', damage );
 			damage = Math.round( damage * EngineCore.lustPercent() / 10 ) / 10;
-			EngineCore.outputText( ' (' + damage + ' lust)' );
+			MainView.outputText( ' (' + damage + ' lust)' );
 		}
 	};
 	//sandtrap quicksand attack:
 	SandTrap.prototype.nestleQuikSandAttack = function() {
 		EngineCore.spriteSelect( 97 );
-		EngineCore.outputText( 'The sandtrap smiles at you winningly as it thrusts its hands into the sifting granules.  The sand beneath you suddenly seems to lose even more of its density; you\'re sinking up to your thighs!' );
+		MainView.outputText( 'The sandtrap smiles at you winningly as it thrusts its hands into the sifting granules.  The sand beneath you suddenly seems to lose even more of its density; you\'re sinking up to your thighs!' );
 		//Quicksand attack fail:
 		if( CoC.player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
-			EngineCore.outputText( '  Acting with alacrity, you manage to haul yourself free of the area affected by the sandtrap\'s spell, and set yourself anew.' );
+			MainView.outputText( '  Acting with alacrity, you manage to haul yourself free of the area affected by the sandtrap\'s spell, and set yourself anew.' );
 		}
 		//Quicksand attack success: (Speed and Strength loss, ability to fly free lost)
 		else {
-			EngineCore.outputText( '  You can\'t get free in time and in a panic you realize you are now practically wading in sand.  Attempting to climb free now is going to be very difficult.' );
+			MainView.outputText( '  You can\'t get free in time and in a panic you realize you are now practically wading in sand.  Attempting to climb free now is going to be very difficult.' );
 			if( CoC.player.canFly() ) {
-				EngineCore.outputText( '  You try to wrench yourself free by flapping your wings, but it is hopeless.  You are well and truly snared.' );
+				MainView.outputText( '  You try to wrench yourself free by flapping your wings, but it is hopeless.  You are well and truly snared.' );
 			}
 			this.trapLevel( -1 );
 			if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $lo
 			}
 			//PC sinks a level (end of any turn in which player didn't successfully "<i>Wait</i>"):
 			if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
-				EngineCore.outputText( '\n\nRivulets of sand run past you as you continue to sink deeper into both the pit and the sand itself.' );
+				MainView.outputText( '\n\nRivulets of sand run past you as you continue to sink deeper into both the pit and the sand itself.' );
 				this.trapLevel( -1 );
 			} else {
 				this.removeStatusAffect( StatusAffects.Climbed );
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, $lo
 	};
 	SandTrap.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );
+			MainView.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.sandTrapScene.sandtrapmentLoss( true );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, CockTypesEnum, ConsumableLib, CoC, Combat, EngineCore, Utils, WeightedDrop, AppearanceDefs, Monster ) {
+angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, MainView, CockTypesEnum, ConsumableLib, CoC, Combat, EngineCore, Utils, WeightedDrop, AppearanceDefs, Monster ) {
 	function Zetaz() {
 		this.init(this, arguments);
 	}
@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, CockTypesEnum, C
 	};
 	Zetaz.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to care...' );
+			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to care...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeon2Supplimental.loseToZetaz();

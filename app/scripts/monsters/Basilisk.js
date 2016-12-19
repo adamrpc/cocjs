@@ -9,10 +9,10 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	//(Check vs. Intelligence/Sensitivity, loss = recurrent speed loss each
 	//round, one time lust increase):
 	Basilisk.prototype.compulsion = function() {
-		EngineCore.outputText( 'The basilisk opens its mouth and, staring at you, utters words in its strange, dry, sibilant tongue.  The sounds bore into your mind, working and buzzing at the edges of your resolve, suggesting, compelling, then demanding you look into the basilisk\'s eyes.  ', false );
+		MainView.outputText( 'The basilisk opens its mouth and, staring at you, utters words in its strange, dry, sibilant tongue.  The sounds bore into your mind, working and buzzing at the edges of your resolve, suggesting, compelling, then demanding you look into the basilisk\'s eyes.  ', false );
 		//Success:
 		if( CoC.player.inte / 5 + Utils.rand( 20 ) < 24 ) {
-			EngineCore.outputText( 'You can\'t help yourself... you glimpse the reptile\'s grey, slit eyes. You look away quickly, but you can picture them in your mind\'s eye, staring in at your thoughts, making you feel sluggish and unable to coordinate. Something about the helplessness of it feels so good... you can\'t banish the feeling that really, you want to look in the basilisk\'s eyes forever, for it to have total control over you.', false );
+			MainView.outputText( 'You can\'t help yourself... you glimpse the reptile\'s grey, slit eyes. You look away quickly, but you can picture them in your mind\'s eye, staring in at your thoughts, making you feel sluggish and unable to coordinate. Something about the helplessness of it feels so good... you can\'t banish the feeling that really, you want to look in the basilisk\'s eyes forever, for it to have total control over you.', false );
 			EngineCore.dynStats( 'lus', 3 );
 			//apply status here
 			SceneLib.basiliskScene.basiliskSpeed( CoC.player, 20 );
@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 		}
 		//Failure:
 		else {
-			EngineCore.outputText( 'You concentrate, focus your mind and resist the basilisk\'s psychic compulsion.', false );
+			MainView.outputText( 'You concentrate, focus your mind and resist the basilisk\'s psychic compulsion.', false );
 		}
 		Combat.combatRoundOver();
 	};
@@ -29,9 +29,9 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	Basilisk.prototype.basiliskTailSwipe = function() {
 		var damage = Math.ceil( (this.str + 20) - Math.random() * (CoC.player.tou + CoC.player.armorDef) );
 		damage = CoC.player.takeDamage( damage );
-		EngineCore.outputText( 'The basilisk suddenly whips its tail at you, swiping your ' + CoC.player.feet() + ' from under you!  You quickly stagger upright, being sure to hold the creature\'s feet in your vision. (' + damage + ')', false );
+		MainView.outputText( 'The basilisk suddenly whips its tail at you, swiping your ' + CoC.player.feet() + ' from under you!  You quickly stagger upright, being sure to hold the creature\'s feet in your vision. (' + damage + ')', false );
 		if( damage === 0 ) {
-			EngineCore.outputText( '  The fall didn\'t harm you at all.', false );
+			MainView.outputText( '  The fall didn\'t harm you at all.', false );
 		}
 		Combat.combatRoundOver();
 	};
@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( $log, SceneLib, MainVie
 	};
 	Basilisk.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe basilisk smirks, but waits for you to finish...' );
+			MainView.outputText( '\n\nThe basilisk smirks, but waits for you to finish...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.basiliskScene.loseToBasilisk();

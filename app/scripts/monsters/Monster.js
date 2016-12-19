@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				this.outputAttack( damage );
 				this.postAttack( damage );
 				MainView.statsView.show();
-				EngineCore.outputText( '\n', false );
+				MainView.outputText( '\n', false );
 			}
 			if( this.statusAffectv1( StatusAffects.Attacks ) >= 0 ) {
 				this.addStatusValue( StatusAffects.Attacks, 1, -1 );
@@ -314,9 +314,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		if( damage > 0 ) {
 			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				}
 				this.lust += 5 * this.lustVuln;
 			}
@@ -326,34 +326,34 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		if( damage <= 0 ) {
 			//Due to toughness or amor...
 			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-				EngineCore.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
+				MainView.outputText( 'You absorb and deflect every ' + this.weaponVerb + ' with your ' + CoC.player.armorName + '.', false );
 			} else {
 				if( this.plural ) {
-					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throw at you.', false );
+					MainView.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throw at you.', false );
 				} else {
-					EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
+					MainView.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 				}
 			}
 		} else if( damage < 6 ) {
-			EngineCore.outputText( 'You are struck a glancing blow by ' + this.a + this.short + '! (' + damage + ')', false );
+			MainView.outputText( 'You are struck a glancing blow by ' + this.a + this.short + '! (' + damage + ')', false );
 		} else if( damage < 11 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' wound' );
+			MainView.outputText( this.getCapitalA() + this.short + ' wound' );
 			if( !this.plural ) {
-				EngineCore.outputText( 's' );
+				MainView.outputText( 's' );
 			}
-			EngineCore.outputText( ' you! (' + damage + ')', false );
+			MainView.outputText( ' you! (' + damage + ')', false );
 		} else if( damage < 21 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' stagger' );
+			MainView.outputText( this.getCapitalA() + this.short + ' stagger' );
 			if( !this.plural ) {
-				EngineCore.outputText( 's' );
+				MainView.outputText( 's' );
 			}
-			EngineCore.outputText( ' you with the force of ' + this.pronoun3 + ' ' + this.weaponVerb + '! (' + damage + ')', false );
+			MainView.outputText( ' you with the force of ' + this.pronoun3 + ' ' + this.weaponVerb + '! (' + damage + ')', false );
 		} else if( damage > 20 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' <b>mutilate', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' <b>mutilate', false );
 			if( !this.plural ) {
-				EngineCore.outputText( 's', false );
+				MainView.outputText( 's', false );
 			}
-			EngineCore.outputText( '</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
+			MainView.outputText( '</b> you with ' + this.pronoun3 + ' powerful ' + this.weaponVerb + '! (' + damage + ')', false );
 		}
 	};
 	/**
@@ -362,9 +362,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	Monster.prototype.handleBlind = function() {
 		if( Utils.rand( 3 ) < 2 ) {
 			if( this.weaponVerb === 'tongue-slap' ) {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a thrust from ' + this.pronoun3 + ' tongue!\n', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a thrust from ' + this.pronoun3 + ' tongue!\n', false );
 			} else {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			}
 			return false;
 		}
@@ -375,17 +375,17 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	 */
 	Monster.prototype.outputPlayerDodged = function( dodge ) {
 		if( dodge === 1 ) {
-			EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
+			MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
 		} else if( dodge === 2 ) {
-			EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!\n', false );
+			MainView.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!\n', false );
 		} else {
-			EngineCore.outputText( 'You deftly avoid ' + this.a + this.short );
+			MainView.outputText( 'You deftly avoid ' + this.a + this.short );
 			if( this.plural ) {
-				EngineCore.outputText( '\'' );
+				MainView.outputText( '\'' );
 			} else {
-				EngineCore.outputText( '\'s' );
+				MainView.outputText( '\'s' );
 			}
-			EngineCore.outputText( ' slow ' + this.weaponVerb + '.\n', false );
+			MainView.outputText( ' slow ' + this.weaponVerb + '.\n', false );
 		}
 	};
 	Monster.prototype.playerDodged = function() {
@@ -397,25 +397,25 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		}
 		//Determine if evaded
 		if( this.constructor.name !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'' );
+			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'' );
 			if( !this.plural ) {
-				EngineCore.outputText( 's' );
+				MainView.outputText( 's' );
 			}
-			EngineCore.outputText( ' attack.\n', false );
+			MainView.outputText( ' attack.\n', false );
 			return true;
 		}
 		//('Misdirection'
 		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
+			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			return true;
 		}
 		//Determine if cat'ed
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
+			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
-				EngineCore.outputText( '\' attacks.\n', false );
+				MainView.outputText( '\' attacks.\n', false );
 			} else {
-				EngineCore.outputText( '\'s attack.\n', false );
+				MainView.outputText( '\'s attack.\n', false );
 			}
 			return true;
 		}
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		//Exgartuan gets to do stuff!
 		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
 			if( CoC.exgartuan.exgartuanCombatUpdate() ) {
-				EngineCore.outputText( '\n\n', false );
+				MainView.outputText( '\n\n', false );
 			}
 		}
 		if( this.findStatusAffect( StatusAffects.Constricted ) >= 0 ) {
@@ -451,9 +451,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	 */
 	Monster.prototype.handleConstricted = function() {
 		//Enemy struggles -
-		EngineCore.outputText( 'Your prey pushes at your tail, twisting and writhing in an effort to escape from your tail\'s tight bonds.', false );
+		MainView.outputText( 'Your prey pushes at your tail, twisting and writhing in an effort to escape from your tail\'s tight bonds.', false );
 		if( this.statusAffectv1( StatusAffects.Constricted ) <= 0 ) {
-			EngineCore.outputText( '  ' + this.getCapitalA() + this.short + ' proves to be too much for your tail to handle, breaking free of your tightly bound coils.', false );
+			MainView.outputText( '  ' + this.getCapitalA() + this.short + ' proves to be too much for your tail to handle, breaking free of your tightly bound coils.', false );
 			this.removeStatusAffect( StatusAffects.Constricted );
 		}
 		this.addStatusValue( StatusAffects.Constricted, 1, -1 );
@@ -467,17 +467,17 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		if( this.statusAffectv1( StatusAffects.Fear ) === 0 ) {
 			if( this.plural ) {
 				this.removeStatusAffect( StatusAffects.Fear );
-				EngineCore.outputText( 'Your foes shake free of their fear and ready themselves for battle.', false );
+				MainView.outputText( 'Your foes shake free of their fear and ready themselves for battle.', false );
 			} else {
 				this.removeStatusAffect( StatusAffects.Fear );
-				EngineCore.outputText( 'Your foe shakes free of its fear and readies itself for battle.', false );
+				MainView.outputText( 'Your foe shakes free of its fear and readies itself for battle.', false );
 			}
 		} else {
 			this.addStatusValue( StatusAffects.Fear, 1, -1 );
 			if( this.plural ) {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' are too busy shivering with fear to fight.', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' are too busy shivering with fear to fight.', false );
 			} else {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' is too busy shivering with fear to fight.', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' is too busy shivering with fear to fight.', false );
 			}
 		}
 		Combat.combatRoundOver();
@@ -488,9 +488,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	 */
 	Monster.prototype.handleStun = function() {
 		if( this.plural ) {
-			EngineCore.outputText( 'Your foes are too dazed from your last hit to strike back!', false );
+			MainView.outputText( 'Your foes are too dazed from your last hit to strike back!', false );
 		} else {
-			EngineCore.outputText( 'Your foe is too dazed from your last hit to strike back!', false );
+			MainView.outputText( 'Your foe is too dazed from your last hit to strike back!', false );
 		}
 		if( this.statusAffectv1( StatusAffects.Stunned ) <= 0 ) {
 			this.removeStatusAffect( StatusAffects.Stunned );
@@ -525,9 +525,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	Monster.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {
 			CoC.player.HP = 1;
-			EngineCore.outputText( 'Your wounds are too great to bear, and you fall unconscious.', true );
+			MainView.outputText( 'Your wounds are too great to bear, and you fall unconscious.', true );
 		} else {
-			EngineCore.outputText( 'Your desire reaches uncontrollable levels, and you end up openly masturbating.\n\nThe lust and pleasure cause you to black out for hours on end.', true );
+			MainView.outputText( 'Your desire reaches uncontrollable levels, and you end up openly masturbating.\n\nThe lust and pleasure cause you to black out for hours on end.', true );
 			CoC.player.lust = 0;
 		}
 		CoC.setInCombat( false );
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		if( temp > CoC.player.gems ) {
 			temp = CoC.player.gems;
 		}
-		EngineCore.outputText( '\n\nYou\'ll probably wake up in eight hours or so, missing ' + temp + ' gems.', false );
+		MainView.outputText( '\n\nYou\'ll probably wake up in eight hours or so, missing ' + temp + ' gems.', false );
 		CoC.player.gems -= temp;
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 	};
@@ -569,7 +569,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		if( lustDelta > 0 ) {
 			//Imp mob uber interrupt!
 			if( this.findStatusAffect( StatusAffects.ImpUber ) >= 0 ) { // TODO move to proper class
-				EngineCore.outputText( '\nThe imps in the back stumble over their spell, their loincloths tenting obviously as your display interrupts their casting.  One of them spontaneously orgasms, having managed to have his spell backfire.  He falls over, weakly twitching as a growing puddle of whiteness surrounds his defeated form.', false );
+				MainView.outputText( '\nThe imps in the back stumble over their spell, their loincloths tenting obviously as your display interrupts their casting.  One of them spontaneously orgasms, having managed to have his spell backfire.  He falls over, weakly twitching as a growing puddle of whiteness surrounds his defeated form.', false );
 				//(-5% of max enemy HP)
 				this.HP -= this.bonusHP * 0.05;
 				this.lust -= 15;
@@ -582,56 +582,56 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	Monster.prototype.outputDefaultTeaseReaction = function( lustDelta ) {
 		if( this.plural ) {
 			if( lustDelta === 0 ) {
-				EngineCore.outputText( '\n\n' + this.getCapitalA() + this.short + ' seem unimpressed.', false );
+				MainView.outputText( '\n\n' + this.getCapitalA() + this.short + ' seem unimpressed.', false );
 			}
 			if( lustDelta > 0 && lustDelta < 4 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' look intrigued by what ' + this.pronoun1 + ' see.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' look intrigued by what ' + this.pronoun1 + ' see.', false );
 			}
 			if( lustDelta >= 4 && lustDelta < 10 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' definitely seem to be enjoying the show.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' definitely seem to be enjoying the show.', false );
 			}
 			if( lustDelta >= 10 && lustDelta < 15 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' openly stroke ' + this.pronoun2 + 'selves as ' + this.pronoun1 + ' watch you.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' openly stroke ' + this.pronoun2 + 'selves as ' + this.pronoun1 + ' watch you.', false );
 			}
 			if( lustDelta >= 15 && lustDelta < 20 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' flush hotly with desire, ' + this.pronoun3 + ' eyes filled with longing.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' flush hotly with desire, ' + this.pronoun3 + ' eyes filled with longing.', false );
 			}
 			if( lustDelta >= 20 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' lick ' + this.pronoun3 + ' lips in anticipation, ' + this.pronoun3 + ' hands idly stroking ' + this.pronoun3 + ' bodies.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' lick ' + this.pronoun3 + ' lips in anticipation, ' + this.pronoun3 + ' hands idly stroking ' + this.pronoun3 + ' bodies.', false );
 			}
 		} else {
 			if( lustDelta === 0 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' seems unimpressed.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' seems unimpressed.', false );
 			}
 			if( lustDelta > 0 && lustDelta < 4 ) {
 				if( this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' looks intrigued by what ' + this.pronoun1 + ' see.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' looks intrigued by what ' + this.pronoun1 + ' see.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' looks intrigued by what ' + this.pronoun1 + ' sees.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' looks intrigued by what ' + this.pronoun1 + ' sees.', false );
 				}
 			}
 			if( lustDelta >= 4 && lustDelta < 10 ) {
-				EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' definitely seems to be enjoying the show.', false );
+				MainView.outputText( '\n' + this.getCapitalA() + this.short + ' definitely seems to be enjoying the show.', false );
 			}
 			if( lustDelta >= 10 && lustDelta < 15 ) {
 				if( this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' openly strokes ' + this.pronoun2 + 'selves as ' + this.pronoun1 + ' watch you.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' openly strokes ' + this.pronoun2 + 'selves as ' + this.pronoun1 + ' watch you.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' openly strokes ' + this.pronoun2 + 'self as ' + this.pronoun1 + ' watches you.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' openly strokes ' + this.pronoun2 + 'self as ' + this.pronoun1 + ' watches you.', false );
 				}
 			}
 			if( lustDelta >= 15 && lustDelta < 20 ) {
 				if( this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' flush hotly with desire, ' + this.pronoun3 + ' eyes filling with longing.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' flush hotly with desire, ' + this.pronoun3 + ' eyes filling with longing.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' flushes hotly with desire, ' + this.pronoun3 + ' eyes filled with longing.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' flushes hotly with desire, ' + this.pronoun3 + ' eyes filled with longing.', false );
 				}
 			}
 			if( lustDelta >= 20 ) {
 				if( this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' licks ' + this.pronoun3 + ' lips in anticipation, ' + this.pronoun3 + ' hands idly stroking ' + this.pronoun3 + ' own bodies.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' licks ' + this.pronoun3 + ' lips in anticipation, ' + this.pronoun3 + ' hands idly stroking ' + this.pronoun3 + ' own bodies.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' licks ' + this.pronoun3 + ' lips in anticipation, ' + this.pronoun3 + ' hands idly stroking ' + this.pronoun3 + ' own body.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' licks ' + this.pronoun3 + ' lips in anticipation, ' + this.pronoun3 + ' hands idly stroking ' + this.pronoun3 + ' own body.', false );
 				}
 			}
 		}
@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	Monster.prototype.applyTease = function( lustDelta ) {
 		this.lust += lustDelta;
 		lustDelta = Math.round( lustDelta * 10 ) / 10;
-		EngineCore.outputText( ' (' + lustDelta + ')', false );
+		MainView.outputText( ' (' + lustDelta + ')', false );
 	};
 	Monster.prototype.dropLoot = function() {
 		return this.drop.roll();
@@ -658,56 +658,56 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		if( this.findStatusAffect( StatusAffects.CoonWhip ) >= 0 ) {
 			if( this.statusAffectv2( StatusAffects.CoonWhip ) <= 0 ) {
 				this.armorDef += this.statusAffectv1( StatusAffects.CoonWhip );
-				EngineCore.outputText( '<b>Tail whip wears off!</b>\n\n' );
+				MainView.outputText( '<b>Tail whip wears off!</b>\n\n' );
 				this.removeStatusAffect( StatusAffects.CoonWhip );
 			} else {
 				this.addStatusValue( StatusAffects.CoonWhip, 2, -1 );
-				EngineCore.outputText( '<b>Tail whip is currently reducing your foe' );
+				MainView.outputText( '<b>Tail whip is currently reducing your foe' );
 				if( this.plural ) {
-					EngineCore.outputText( 's\'' );
+					MainView.outputText( 's\'' );
 				} else {
-					EngineCore.outputText( '\'s' );
+					MainView.outputText( '\'s' );
 				}
-				EngineCore.outputText( ' armor by ' + this.statusAffectv1( StatusAffects.CoonWhip ) + '.</b>\n\n' );
+				MainView.outputText( ' armor by ' + this.statusAffectv1( StatusAffects.CoonWhip ) + '.</b>\n\n' );
 			}
 		}
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
 			this.addStatusValue( StatusAffects.Blind, 1, -1 );
 			if( this.statusAffectv1( StatusAffects.Blind ) <= 0 ) {
-				EngineCore.outputText( '<b>' + this.getCapitalA() + this.short + (this.plural ? ' are' : ' is') + ' no longer blind!</b>\n\n', false );
+				MainView.outputText( '<b>' + this.getCapitalA() + this.short + (this.plural ? ' are' : ' is') + ' no longer blind!</b>\n\n', false );
 				this.removeStatusAffect( StatusAffects.Blind );
 			} else {
-				EngineCore.outputText( '<b>' + this.getCapitalA() + this.short + (this.plural ? ' are' : ' is') + ' currently blind!</b>\n\n', false );
+				MainView.outputText( '<b>' + this.getCapitalA() + this.short + (this.plural ? ' are' : ' is') + ' currently blind!</b>\n\n', false );
 			}
 		}
 		if( this.findStatusAffect( StatusAffects.Earthshield ) >= 0 ) {
-			EngineCore.outputText( '<b>' + this.getCapitalA() + this.short + ' is protected by a shield of rocks!</b>\n\n' );
+			MainView.outputText( '<b>' + this.getCapitalA() + this.short + ' is protected by a shield of rocks!</b>\n\n' );
 		}
 		if( this.findStatusAffect( StatusAffects.Sandstorm ) >= 0 ) {
 			if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
-				EngineCore.outputText( '<b>You blink the sand from your eyes, but you\'re sure that more will get you if you don\'t end it soon!</b>\n\n' );
+				MainView.outputText( '<b>You blink the sand from your eyes, but you\'re sure that more will get you if you don\'t end it soon!</b>\n\n' );
 				CoC.player.removeStatusAffect( StatusAffects.Blind );
 			} else {
 				if( this.statusAffectv1( StatusAffects.Sandstorm ) === 0 || this.statusAffectv1( StatusAffects.Sandstorm ) % 4 === 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.Blind, 0, 0, 0, 0 );
-					EngineCore.outputText( '<b>The sand is in your eyes!  You\'re blinded this turn!</b>\n\n' );
+					MainView.outputText( '<b>The sand is in your eyes!  You\'re blinded this turn!</b>\n\n' );
 				} else {
-					EngineCore.outputText( '<b>The grainy mess cuts at any exposed flesh and gets into every crack and crevice of your armor.' );
-					EngineCore.outputText( ' (' + CoC.player.takeDamage( 1 + Utils.rand( 2 ) ) + ')' );
-					EngineCore.outputText( '</b>\n\n' );
+					MainView.outputText( '<b>The grainy mess cuts at any exposed flesh and gets into every crack and crevice of your armor.' );
+					MainView.outputText( ' (' + CoC.player.takeDamage( 1 + Utils.rand( 2 ) ) + ')' );
+					MainView.outputText( '</b>\n\n' );
 				}
 			}
 			this.addStatusValue( StatusAffects.Sandstorm, 1, 1 );
 		}
 		if( this.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
-			EngineCore.outputText( '<b>' + this.getCapitalA() + this.short + ' is still stunned!</b>\n\n', false );
+			MainView.outputText( '<b>' + this.getCapitalA() + this.short + ' is still stunned!</b>\n\n', false );
 		}
 		if( this.findStatusAffect( StatusAffects.Shell ) >= 0 ) {
 			if( this.statusAffectv1( StatusAffects.Shell ) >= 0 ) {
-				EngineCore.outputText( '<b>A wall of many hues shimmers around ' + this.a + this.short + '.</b>\n\n' );
+				MainView.outputText( '<b>A wall of many hues shimmers around ' + this.a + this.short + '.</b>\n\n' );
 				this.addStatusValue( StatusAffects.Shell, 1, -1 );
 			} else {
-				EngineCore.outputText( '<b>The magical barrier ' + this.a + this.short + ' erected fades away to nothing at last.</b>\n\n' );
+				MainView.outputText( '<b>The magical barrier ' + this.a + this.short + ' erected fades away to nothing at last.</b>\n\n' );
 				this.removeStatusAffect( StatusAffects.Shell );
 			}
 		}
@@ -716,7 +716,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			this.addStatusValue( StatusAffects.IzmaBleed, 1, -1 );
 			//Heal wounds
 			if( this.statusAffectv1( StatusAffects.IzmaBleed ) <= 0 ) {
-				EngineCore.outputText( 'The wounds you left on ' + this.a + this.short + ' stop bleeding so profusely.\n\n', false );
+				MainView.outputText( 'The wounds you left on ' + this.a + this.short + ' stop bleeding so profusely.\n\n', false );
 				this.removeStatusAffect( StatusAffects.IzmaBleed );
 			}
 			//Deal damage if still wounded.
@@ -724,9 +724,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				var store = this.eMaxHP() * (3 + Utils.rand( 4 )) / 100;
 				store = Combat.doDamage( store );
 				if( this.plural ) {
-					EngineCore.outputText( this.getCapitalA() + this.short + ' bleed profusely from the jagged wounds your weapon left behind. (' + store + ')\n\n', false );
+					MainView.outputText( this.getCapitalA() + this.short + ' bleed profusely from the jagged wounds your weapon left behind. (' + store + ')\n\n', false );
 				} else {
-					EngineCore.outputText( this.getCapitalA() + this.short + ' bleeds profusely from the jagged wounds your weapon left behind. (' + store + ')\n\n', false );
+					MainView.outputText( this.getCapitalA() + this.short + ' bleeds profusely from the jagged wounds your weapon left behind. (' + store + ')\n\n', false );
 				}
 			}
 		}
@@ -741,37 +741,37 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			switch( this.statusAffectv1( StatusAffects.LustStick ) ) {
 				case 1:
 					if( this.plural ) {
-						EngineCore.outputText( 'One of ' + this.a + this.short + ' pants and crosses ' + this.mf( 'his', 'her' ) + ' eyes for a moment.  ' + this.mf( 'His', 'Her' ) + ' dick flexes and bulges, twitching as ' + this.mf( 'he', 'she' ) + ' loses himself in a lipstick-fueled fantasy.  When ' + this.mf( 'he', 'she' ) + ' recovers, you lick your lips and watch ' + this.mf( 'his', 'her' ) + ' blush spread.\n\n', false );
+						MainView.outputText( 'One of ' + this.a + this.short + ' pants and crosses ' + this.mf( 'his', 'her' ) + ' eyes for a moment.  ' + this.mf( 'His', 'Her' ) + ' dick flexes and bulges, twitching as ' + this.mf( 'he', 'she' ) + ' loses himself in a lipstick-fueled fantasy.  When ' + this.mf( 'he', 'she' ) + ' recovers, you lick your lips and watch ' + this.mf( 'his', 'her' ) + ' blush spread.\n\n', false );
 					} else {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' pants and crosses ' + this.pronoun3 + ' eyes for a moment.  ' + this.mf( 'His', 'Her' ) + ' dick flexes and bulges, twitching as ' + this.pronoun1 + ' loses ' + this.mf( 'himself', 'herself' ) + ' in a lipstick-fueled fantasy.  When ' + this.pronoun1 + ' recovers, you lick your lips and watch ' + this.mf( 'his', 'her' ) + ' blush spread.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' pants and crosses ' + this.pronoun3 + ' eyes for a moment.  ' + this.mf( 'His', 'Her' ) + ' dick flexes and bulges, twitching as ' + this.pronoun1 + ' loses ' + this.mf( 'himself', 'herself' ) + ' in a lipstick-fueled fantasy.  When ' + this.pronoun1 + ' recovers, you lick your lips and watch ' + this.mf( 'his', 'her' ) + ' blush spread.\n\n', false );
 					}
 					break;
 				case 2:
 					if( this.plural ) {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' moan out loud, ' + this.pronoun3 + ' dicks leaking and dribbling while ' + this.pronoun1 + ' struggle not to touch ' + this.pronoun2 + '.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' moan out loud, ' + this.pronoun3 + ' dicks leaking and dribbling while ' + this.pronoun1 + ' struggle not to touch ' + this.pronoun2 + '.\n\n', false );
 					} else {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' moans out loud, ' + this.pronoun3 + ' dick leaking and dribbling while ' + this.pronoun1 + ' struggles not to touch it.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' moans out loud, ' + this.pronoun3 + ' dick leaking and dribbling while ' + this.pronoun1 + ' struggles not to touch it.\n\n', false );
 					}
 					break;
 				case 3:
 					if( this.plural ) {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' pump ' + this.pronoun3 + ' hips futilely, air-humping non-existent partners.  Clearly your lipstick is getting to ' + this.pronoun2 + '.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' pump ' + this.pronoun3 + ' hips futilely, air-humping non-existent partners.  Clearly your lipstick is getting to ' + this.pronoun2 + '.\n\n', false );
 					} else {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' pumps ' + this.pronoun3 + ' hips futilely, air-humping a non-existent partner.  Clearly your lipstick is getting to ' + this.pronoun2 + '.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' pumps ' + this.pronoun3 + ' hips futilely, air-humping a non-existent partner.  Clearly your lipstick is getting to ' + this.pronoun2 + '.\n\n', false );
 					}
 					break;
 				case 4:
 					if( this.plural ) {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' close ' + this.pronoun3 + ' eyes and grunt, ' + this.pronoun3 + ' cocks twitching, bouncing, and leaking pre-cum.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' close ' + this.pronoun3 + ' eyes and grunt, ' + this.pronoun3 + ' cocks twitching, bouncing, and leaking pre-cum.\n\n', false );
 					} else {
-						EngineCore.outputText( this.getCapitalA() + this.short + ' closes ' + this.pronoun2 + ' eyes and grunts, ' + this.pronoun3 + ' cock twitching, bouncing, and leaking pre-cum.\n\n', false );
+						MainView.outputText( this.getCapitalA() + this.short + ' closes ' + this.pronoun2 + ' eyes and grunts, ' + this.pronoun3 + ' cock twitching, bouncing, and leaking pre-cum.\n\n', false );
 					}
 					break;
 				default:
 					if( this.plural ) {
-						EngineCore.outputText( 'Drops of pre-cum roll steadily out of their dicks.  It\'s a marvel ' + this.pronoun1 + ' haven\'t given in to ' + this.pronoun3 + ' lusts yet.\n\n', false );
+						MainView.outputText( 'Drops of pre-cum roll steadily out of their dicks.  It\'s a marvel ' + this.pronoun1 + ' haven\'t given in to ' + this.pronoun3 + ' lusts yet.\n\n', false );
 					} else {
-						EngineCore.outputText( 'Drops of pre-cum roll steadily out of ' + this.a + this.short + '\'s dick.  It\'s a marvel ' + this.pronoun1 + ' hasn\'t given in to ' + this.pronoun3 + ' lust yet.\n\n', false );
+						MainView.outputText( 'Drops of pre-cum roll steadily out of ' + this.a + this.short + '\'s dick.  It\'s a marvel ' + this.pronoun1 + ' hasn\'t given in to ' + this.pronoun3 + ' lust yet.\n\n', false );
 					}
 			}
 			this.addStatusValue( StatusAffects.LustStick, 1, 1 );
@@ -781,80 +781,80 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		}
 		if( this.findStatusAffect( StatusAffects.PCTailTangle ) >= 0 ) {
 			//when Entwined
-			EngineCore.outputText( 'You are bound tightly in the kitsune\'s tails.  <b>The only thing you can do is try to struggle free!</b>\n\n' );
-			EngineCore.outputText( 'Stimulated by the coils of fur, you find yourself growing more and more aroused...\n\n' );
+			MainView.outputText( 'You are bound tightly in the kitsune\'s tails.  <b>The only thing you can do is try to struggle free!</b>\n\n' );
+			MainView.outputText( 'Stimulated by the coils of fur, you find yourself growing more and more aroused...\n\n' );
 			EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10 );
 		}
 		if( this.findStatusAffect( StatusAffects.QueenBind ) >= 0 ) {
-			EngineCore.outputText( 'You\'re utterly restrained by the Harpy Queen\'s magical ropes!\n\n' );
+			MainView.outputText( 'You\'re utterly restrained by the Harpy Queen\'s magical ropes!\n\n' );
 			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 2 ) {
 				EngineCore.dynStats( 'lus', 3 );
 			}
 		}
 		if( this.constructor.name === 'SecretarialSuccubus' || this.constructor.name === 'MilkySuccubus' ) {
 			if( CoC.player.lust < 45 ) {
-				EngineCore.outputText( 'There is something in the air around your opponent that makes you feel warm.\n\n', false );
+				MainView.outputText( 'There is something in the air around your opponent that makes you feel warm.\n\n', false );
 			}
 			if( CoC.player.lust >= 45 && CoC.player.lust < 70 ) {
-				EngineCore.outputText( 'You aren\'t sure why but you have difficulty keeping your eyes off your opponent\'s lewd form.\n\n', false );
+				MainView.outputText( 'You aren\'t sure why but you have difficulty keeping your eyes off your opponent\'s lewd form.\n\n', false );
 			}
 			if( CoC.player.lust >= 70 && CoC.player.lust < 90 ) {
-				EngineCore.outputText( 'You blush when you catch yourself staring at your foe\'s rack, watching it wobble with every step she takes.\n\n', false );
+				MainView.outputText( 'You blush when you catch yourself staring at your foe\'s rack, watching it wobble with every step she takes.\n\n', false );
 			}
 			if( CoC.player.lust >= 90 ) {
-				EngineCore.outputText( 'You have trouble keeping your greedy hands away from your groin.  It would be so easy to just lay down and masturbate to the sight of your curvy enemy.  The succubus looks at you with a sexy, knowing expression.\n\n', false );
+				MainView.outputText( 'You have trouble keeping your greedy hands away from your groin.  It would be so easy to just lay down and masturbate to the sight of your curvy enemy.  The succubus looks at you with a sexy, knowing expression.\n\n', false );
 			}
 			EngineCore.dynStats( 'lus', 1 + Utils.rand( 8 ) );
 		}
 		//[LUST GAINED PER ROUND] - Omnibus
 		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
 			if( CoC.player.lust < 33 ) {
-				EngineCore.outputText( 'Your groin tingles warmly.  The demon\'s aura is starting to get to you.\n\n', false );
+				MainView.outputText( 'Your groin tingles warmly.  The demon\'s aura is starting to get to you.\n\n', false );
 			}
 			if( CoC.player.lust >= 33 && CoC.player.lust < 66 ) {
-				EngineCore.outputText( 'You blush as the demon\'s aura seeps into you, arousing you more and more.\n\n', false );
+				MainView.outputText( 'You blush as the demon\'s aura seeps into you, arousing you more and more.\n\n', false );
 			}
 			if( CoC.player.lust >= 66 ) {
-				EngineCore.outputText( 'You flush bright red with desire as the lust in the air worms its way inside you.  ', false );
-				EngineCore.outputText( Utils.randomChoice( 'You have a hard time not dropping to your knees to service her right now.\n\n', 'The urge to bury your face in her breasts and suckle her pink nipples nearly overwhelms you.\n\n', 'You swoon and lick your lips, tasting the scent of the demon\'s pussy in the air.\n\n', 'She winks at you and licks her lips, and you can\'t help but imagine her tongue sliding all over your body.  You regain composure moments before throwing yourself at her.  That was close.\n\n'), false );
+				MainView.outputText( 'You flush bright red with desire as the lust in the air worms its way inside you.  ', false );
+				MainView.outputText( Utils.randomChoice( 'You have a hard time not dropping to your knees to service her right now.\n\n', 'The urge to bury your face in her breasts and suckle her pink nipples nearly overwhelms you.\n\n', 'You swoon and lick your lips, tasting the scent of the demon\'s pussy in the air.\n\n', 'She winks at you and licks her lips, and you can\'t help but imagine her tongue sliding all over your body.  You regain composure moments before throwing yourself at her.  That was close.\n\n'), false );
 			}
 			EngineCore.dynStats( 'lus', (3 + Math.ceil( CoC.player.lib / 20 + CoC.player.cor / 30 )) );
 		}
 	};
 	Monster.prototype.handleAwardItemText = function( itype ) { //New Function, override this function in child classes if you want a monster to output special item drop text
 		if( itype !== null ) {
-			EngineCore.outputText( '\nThere is ' + itype.longName + ' on your defeated opponent.  ' );
+			MainView.outputText( '\nThere is ' + itype.longName + ' on your defeated opponent.  ' );
 		}
 	};
 	Monster.prototype.handleAwardText = function() { //New Function, override this function in child classes if you want a monster to output special gem and XP text
 		//This function doesn’t add the gems or XP to the player, it just provides the output text
 		if( this.gems === 1 ) {
-			EngineCore.outputText( '\n\nYou snag a single gem and ' + this.XP + ' XP as you walk away from your victory.' );
+			MainView.outputText( '\n\nYou snag a single gem and ' + this.XP + ' XP as you walk away from your victory.' );
 		} else if( this.gems > 1 ) {
-			EngineCore.outputText( '\n\nYou grab ' + this.gems + ' gems and ' + this.XP + ' XP from your victory.' );
+			MainView.outputText( '\n\nYou grab ' + this.gems + ' gems and ' + this.XP + ' XP from your victory.' );
 		} else if( this.gems === 0 ) {
-			EngineCore.outputText( '\n\nYou gain ' + this.XP + ' XP from the battle.' );
+			MainView.outputText( '\n\nYou gain ' + this.XP + ' XP from the battle.' );
 		}
 	};
 	Monster.prototype.handleCombatLossText = function( inDungeon, gemsLost ) { //New Function, override this function in child classes if you want a monster to output special text after the player loses in combat
 		//This function doesn’t take the gems away from the player, it just provides the output text
 		if( !inDungeon ) {
-			EngineCore.outputText( '\n\nYou\'ll probably come to your senses in eight hours or so' );
+			MainView.outputText( '\n\nYou\'ll probably come to your senses in eight hours or so' );
 			if( CoC.player.gems > 1 ) {
-				EngineCore.outputText( ', missing ' + gemsLost + ' gems.' );
+				MainView.outputText( ', missing ' + gemsLost + ' gems.' );
 			} else if( CoC.player.gems === 1 ) {
-				EngineCore.outputText( ', missing your only gem.' );
+				MainView.outputText( ', missing your only gem.' );
 			} else {
-				EngineCore.outputText( '.' );
+				MainView.outputText( '.' );
 			}
 		} else {
-			EngineCore.outputText( '\n\nSomehow you came out of that alive' );
+			MainView.outputText( '\n\nSomehow you came out of that alive' );
 			if( CoC.player.gems > 1 ) {
-				EngineCore.outputText( ', but after checking your gem pouch, you realize you\'re missing ' + gemsLost + ' gems.' );
+				MainView.outputText( ', but after checking your gem pouch, you realize you\'re missing ' + gemsLost + ' gems.' );
 			} else if( CoC.player.gems === 1 ) {
-				EngineCore.outputText( ', but after checking your gem pouch, you realize you\'re missing your only gem.' );
+				MainView.outputText( ', but after checking your gem pouch, you realize you\'re missing your only gem.' );
 			} else {
-				EngineCore.outputText( '.' );
+				MainView.outputText( '.' );
 			}
 		}
 		return 8; //This allows different monsters to delay the player by different amounts of time after a combat loss. Normal loss causes an eight hour blackout

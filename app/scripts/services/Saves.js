@@ -42,11 +42,11 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 	};
 	Saves.prototype.loadScreen = function() {
 		var slots = [];
-		EngineCore.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', true );
+		MainView.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', true );
 		var that = this;
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
 			var test = localStorage.getItem( saveFileName );
-			EngineCore.outputText( that.loadSaveDisplay( test, index + 1 ), false );
+			MainView.outputText( that.loadSaveDisplay( test, index + 1 ), false );
 			if( test && test.data && test.data.flags[ 2066 ] === undefined ) {
 				slots.push( function() {
 					$log.info( 'Loading save with name', saveFileName, 'at index', index );
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 						EngineCore.doNext( null, MainView.playerMenu );
 						MainView.statsView.show();
 						MainView.statsView.show();
-						EngineCore.outputText( 'Slot ' + index + ' Loaded!', true );
+						MainView.outputText( 'Slot ' + index + ' Loaded!', true );
 					}
 				} );
 			} else {
@@ -75,15 +75,15 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 	Saves.prototype.saveScreen = function() {
 		MainView.nameBox.text = '';
 		MainView.nameBox.visible = true;
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		if( CoC.player.slotName !== 'VOID' ) {
-			EngineCore.outputText( '<b>Last saved or loaded from : ' + CoC.player.slotName + '</b>\r\r', false );
+			MainView.outputText( '<b>Last saved or loaded from : ' + CoC.player.slotName + '</b>\r\r', false );
 		}
-		EngineCore.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', false );
+		MainView.outputText( '<b><u>Slot,  Game Days Played</u></b>\r', false );
 		var saveFuncs = [];
 		var that = this;
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
-			EngineCore.outputText( that.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
+			MainView.outputText( that.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
 			$log.info( 'Creating save function with indice = ', index );
 			saveFuncs.push( function() {
 				$log.info( 'Saving game with name', saveFileName, 'at index', index );
@@ -91,9 +91,9 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			} );
 		} );
 		if( CoC.player.slotName === 'VOID' ) {
-			EngineCore.outputText( '\r\r', false );
+			MainView.outputText( '\r\r', false );
 		}
-		EngineCore.outputText( '<b>Leave the notes box blank if you don\'t wish to change notes.\r<u>NOTES:</u></b>', false );
+		MainView.outputText( '<b>Leave the notes box blank if you don\'t wish to change notes.\r<u>NOTES:</u></b>', false );
 		EngineCore.choices( 'Slot 1', null, saveFuncs[ 0 ],
 			'Slot 2', null, saveFuncs[ 1 ],
 			'Slot 3', null, saveFuncs[ 2 ],
@@ -109,17 +109,17 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		//Hide the name box in case of backing up from save
 		//screen so it doesnt overlap everything.
 		MainView.nameBox.visible = false;
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		// TODO : Change that text
-		EngineCore.outputText( '<b>Where are my saves located?</b>\n', false );
-		EngineCore.outputText( '<i>In Windows Vista/7 (IE/FireFox/Other) Player/#Shared Objects/{GIBBERISH}/</pre>\n\n', false );
-		EngineCore.outputText( 'In Windows Vista/7 (Chrome) Data/Default/Pepper Data/Shockwave Flash/WritableRoot/#SharedObjects/{GIBBERISH}/</pre>\n\n', false );
-		EngineCore.outputText( 'Inside that folder it will saved in a folder corresponding to where it was played from.  If you saved the CoC.swf to your HDD, then it will be in a folder called localhost.  If you played from my website, it will be in fenoxo.com.  The save files will be labelled CoC_1.sol, CoC_2.sol, CoC_3.sol, etc.</i>\n\n', false );
-		EngineCore.outputText( '<b>Why do my saves disappear all the time?</b>\n<i>There are numerous things that will wipe out flash local shared files.  If your browser or player is set to delete flash cookies or data, that will do it.  CCleaner will also remove them.  CoC or its updates will never remove your savegames - if they disappear something else is wiping them out.</i>\n\n', false );
-		EngineCore.outputText( '<b>When I play from my HDD I have one set of saves, and when I play off your site I have a different set of saves.  Why?</b>\n<i>Flash stores saved data relative to where it was accessed from.  Playing from your HDD will store things in a different location than fenoxo.com or FurAffinity.</i>\n', false );
-		EngineCore.outputText( '<i>If you want to be absolutely sure you don\'t lose a character, copy the .sol file for that slot out and back it up! <b>For more information, google flash shared objects.</b></i>\n\n', false );
-		EngineCore.outputText( '<b>Why does the Save File and Load File option not work?</b>\n' );
-		EngineCore.outputText( '<i>Save File and Load File are limited by the security settings imposed upon CoC by Flash. These options will only work if you have downloaded the game from the website, and are running it from your HDD. Additionally, they can only correctly save files to and load files from the directory where you have the game saved.</i>' );
+		MainView.outputText( '<b>Where are my saves located?</b>\n', false );
+		MainView.outputText( '<i>In Windows Vista/7 (IE/FireFox/Other) Player/#Shared Objects/{GIBBERISH}/</pre>\n\n', false );
+		MainView.outputText( 'In Windows Vista/7 (Chrome) Data/Default/Pepper Data/Shockwave Flash/WritableRoot/#SharedObjects/{GIBBERISH}/</pre>\n\n', false );
+		MainView.outputText( 'Inside that folder it will saved in a folder corresponding to where it was played from.  If you saved the CoC.swf to your HDD, then it will be in a folder called localhost.  If you played from my website, it will be in fenoxo.com.  The save files will be labelled CoC_1.sol, CoC_2.sol, CoC_3.sol, etc.</i>\n\n', false );
+		MainView.outputText( '<b>Why do my saves disappear all the time?</b>\n<i>There are numerous things that will wipe out flash local shared files.  If your browser or player is set to delete flash cookies or data, that will do it.  CCleaner will also remove them.  CoC or its updates will never remove your savegames - if they disappear something else is wiping them out.</i>\n\n', false );
+		MainView.outputText( '<b>When I play from my HDD I have one set of saves, and when I play off your site I have a different set of saves.  Why?</b>\n<i>Flash stores saved data relative to where it was accessed from.  Playing from your HDD will store things in a different location than fenoxo.com or FurAffinity.</i>\n', false );
+		MainView.outputText( '<i>If you want to be absolutely sure you don\'t lose a character, copy the .sol file for that slot out and back it up! <b>For more information, google flash shared objects.</b></i>\n\n', false );
+		MainView.outputText( '<b>Why does the Save File and Load File option not work?</b>\n' );
+		MainView.outputText( '<i>Save File and Load File are limited by the security settings imposed upon CoC by Flash. These options will only work if you have downloaded the game from the website, and are running it from your HDD. Additionally, they can only correctly save files to and load files from the directory where you have the game saved.</i>' );
 		//This is to clear the 'game over' block from stopping choices from working.  Loading games supercede's game over.
 		if( MainView.getButtonText( 0 ) === 'Game Over' ) {
 			MainView.setButtonText( 0, 'save/load' );
@@ -182,18 +182,18 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		this.saveLoad();
 	};
 	Saves.prototype.deleteScreen = function() {
-		EngineCore.outputText( 'Slot,  Race,  Sex,  Game Days Played\n', true );
+		MainView.outputText( 'Slot,  Race,  Sex,  Game Days Played\n', true );
 		var delFuncs = [];
 		var that = this;
 		_.forEach( this.saveFileNames, function( saveFileName, index ) {
-			EngineCore.outputText( that.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
+			MainView.outputText( that.loadSaveDisplay( localStorage.getItem( saveFileName ), index + 1 ), false );
 			$log.info( 'Creating delete function with indice = ', index );
 			delFuncs.push( function() {
 				CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] = saveFileName;
 				that.confirmDelete();
 			} );
 		} );
-		EngineCore.outputText( '\n<b>ONCE DELETED, YOUR SAVE IS GONE FOREVER.</b>', false );
+		MainView.outputText( '\n<b>ONCE DELETED, YOUR SAVE IS GONE FOREVER.</b>', false );
 		EngineCore.choices( 'Slot 1', null, delFuncs[ 0 ],
 			'Slot 2', null, delFuncs[ 1 ],
 			'Slot 3', null, delFuncs[ 2 ],
@@ -206,7 +206,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			'Back', this, this.returnToSaveMenu );
 	};
 	Saves.prototype.confirmDelete = function() {
-		EngineCore.outputText( 'You are about to delete the following save: <b>' + CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + '</b>\n\nAre you sure you want to delete it?', true );
+		MainView.outputText( 'You are about to delete the following save: <b>' + CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + '</b>\n\nAre you sure you want to delete it?', true );
 		EngineCore.choices( 'No', this, this.deleteScreen, 'Yes', this, this.purgeTheMutant, '', null, null, '', null, null, '', null, null );
 	};
 	Saves.prototype.purgeTheMutant = function() {
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		var blah = [ 'been virus bombed', 'been purged', 'been vaped', 'been nuked from orbit', 'taken an arrow to the knee', 'fallen on its sword', 'lost its reality matrix cohesion', 'been cleansed', 'suffered the following error) Porn Not Found' ];
 		$log.debug( blah.length + ' array slots' );
 		var select = Utils.rand( blah.length );
-		EngineCore.outputText( CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + ' has ' + blah[ select ] + '.', true );
+		MainView.outputText( CoC.flags[ kFLAGS.TEMP_STORAGE_SAVE_DELETION ] + ' has ' + blah[ select ] + '.', true );
 		EngineCore.doNext( this, this.deleteScreen );
 	};
 	Saves.prototype.saveGame = function( slot ) {
@@ -226,14 +226,14 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 		var saveFile = localStorage.getItem( slot );
 		if(!saveFile) {
 			$log.error('Save ' + slot + ' does not exists, unable to load.');
-			EngineCore.outputText( '<b>Aborting load. The requested save does not exists.</b>\n\n', true );
+			MainView.outputText( '<b>Aborting load. The requested save does not exists.</b>\n\n', true );
 			return;
 		}
 		// I want to be able to write some debug stuff to the GUI during the loading process
 		// Therefore, we clear the display *before* calling loadGameObject
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		this.loadGameObject( saveFile, slot );
-		EngineCore.outputText( 'Game Loaded' );
+		MainView.outputText( 'Game Loaded' );
 		MainView.statsView.show();
 		if( CoC.player.slotName === 'VOID' ) {
 			$log.info( 'Setting in-use save slot to: ' + slot );
@@ -416,16 +416,16 @@ angular.module( 'cocjs' ).factory( 'Saves', function( CharCreation, SceneLib, $r
 			/*
 			TODO : Save to file
 			*/
-			EngineCore.outputText( 'Attempted to save to file.', true );
+			MainView.outputText( 'Attempted to save to file.', true );
 		} else if( !processingError ) {
 			// Write the file
 			localStorage.setItem( slot, JSON.stringify(saveFile) );
-			EngineCore.outputText( 'Saved to slot' + slot + '!', true );
+			MainView.outputText( 'Saved to slot' + slot + '!', true );
 		} else {
-			EngineCore.outputText( 'There was a processing error during saving. Please report the following message:\n\n' );
-			EngineCore.outputText( dataError.message );
-			EngineCore.outputText( '\n\n' );
-			EngineCore.outputText( dataError.getStackTrace() );
+			MainView.outputText( 'There was a processing error during saving. Please report the following message:\n\n' );
+			MainView.outputText( dataError.message );
+			MainView.outputText( '\n\n' );
+			MainView.outputText( dataError.getStackTrace() );
 		}
 		EngineCore.doNext( null, MainView.playerMenu );
 	};

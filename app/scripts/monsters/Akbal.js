@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, PerkLib, CockTypesEnum, WeaponLib ) {
+angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, Combat, EngineCore, ConsumableLib, PerkLib, CockTypesEnum, WeaponLib ) {
 	function Akbal() {
 		this.init(this, arguments);
 	}
@@ -11,31 +11,31 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 		var damage = 0;
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' seems to have no problem guiding his attacks towards you, despite his blindness.\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' seems to have no problem guiding his attacks towards you, despite his blindness.\n', false );
 		}
 		//Determine if dodged!
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			if( CoC.player.spe - this.spe < 8 ) {
-				EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!', false );
+				MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!', false );
 			}
 			if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
-				EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!', false );
+				MainView.outputText( 'You dodge ' + this.a + this.short + '\'s ' + this.weaponVerb + ' with superior quickness!', false );
 			}
 			if( CoC.player.spe - this.spe >= 20 ) {
-				EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow ' + this.weaponVerb + '.', false );
+				MainView.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow ' + this.weaponVerb + '.', false );
 			}
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if evaded
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
+			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if flexibilitied
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your cat-like agility, you twist out of the way of ' + this.a + this.short + '\'s attack.', false );
+			MainView.outputText( 'Using your cat-like agility, you twist out of the way of ' + this.a + this.short + '\'s attack.', false );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -45,26 +45,26 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 			//(medium HP damage)
 			damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 			if( damage <= 0 ) {
-				EngineCore.outputText( 'Akbal lunges forwards but with your toughness', false );
+				MainView.outputText( 'Akbal lunges forwards but with your toughness', false );
 				if( CoC.player.armorDef > 0 ) {
-					EngineCore.outputText( ' and ' + CoC.player.armorName + ', he fails to deal any damage.', false );
+					MainView.outputText( ' and ' + CoC.player.armorName + ', he fails to deal any damage.', false );
 				} else {
-					EngineCore.outputText( ' he fails to deal any damage.', false );
+					MainView.outputText( ' he fails to deal any damage.', false );
 				}
 			} else {
-				EngineCore.outputText( 'Akbal rushes at you, his claws like lightning as they leave four red-hot lines of pain across your stomach.', false );
+				MainView.outputText( 'Akbal rushes at you, his claws like lightning as they leave four red-hot lines of pain across your stomach.', false );
 				CoC.player.takeDamage( damage );
 			}
 		} else { //*Normal Attack B
 			//(high HP damage)
 			damage = Math.ceil( (this.str + 25 + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
 			if( damage === 0 ) {
-				EngineCore.outputText( 'Akbal lunges forwards but between your toughness ', false );
+				MainView.outputText( 'Akbal lunges forwards but between your toughness ', false );
 				if( CoC.player.armorDef > 0 ) {
-					EngineCore.outputText( 'and ' + CoC.player.armorName + ', he fails to deal any damage.', false );
+					MainView.outputText( 'and ' + CoC.player.armorName + ', he fails to deal any damage.', false );
 				}
 			} else {
-				EngineCore.outputText( 'Akbal snarls as he flies towards you, snapping his ivory teeth on your arm. You scream out in pain as you throw him off.', false );
+				MainView.outputText( 'Akbal snarls as he flies towards you, snapping his ivory teeth on your arm. You scream out in pain as you throw him off.', false );
 				CoC.player.takeDamage( damage );
 			}
 		}
@@ -80,14 +80,14 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 	Akbal.prototype.akbalLustAttack = function() {
 		//*Lust Attack -
 		if( CoC.player.findStatusAffect( StatusAffects.Whispered ) < 0 ) {
-			EngineCore.outputText( 'You hear whispering in your head. this.Akbal begins speaking to you as he circles you, telling all the ways he\'ll dominate you once he beats the fight out of you.', false );
+			MainView.outputText( 'You hear whispering in your head. this.Akbal begins speaking to you as he circles you, telling all the ways he\'ll dominate you once he beats the fight out of you.', false );
 			//(Lust increase)
 			EngineCore.dynStats( 'lus', 7 + (100 - CoC.player.inte) / 10 );
 			CoC.player.createStatusAffect( StatusAffects.Whispered, 0, 0, 0, 0 );
 		}
 		//Continuous Lust Attack -
 		else {
-			EngineCore.outputText( 'The whispering in your head grows, many voices of undetermined sex telling you all the things the demon wishes to do to you. You can only blush.', false );
+			MainView.outputText( 'The whispering in your head grows, many voices of undetermined sex telling you all the things the demon wishes to do to you. You can only blush.', false );
 			//(Lust increase)
 			EngineCore.dynStats( 'lus', 12 + (100 - CoC.player.inte) / 10 );
 		}
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 		//*Special Attack A -
 		if( Utils.rand( 2 ) === 0 && CoC.player.spe > 20 ) {
 			var speedChange = CoC.player.spe / 5 * -1;
-			EngineCore.outputText( 'Akbal\'s eyes fill with light, and a strange sense of fear begins to paralyze your limbs.', false );
+			MainView.outputText( 'Akbal\'s eyes fill with light, and a strange sense of fear begins to paralyze your limbs.', false );
 			//(Speed decrease)
 			EngineCore.dynStats( 'spe', speedChange );
 			if( CoC.player.findStatusAffect( StatusAffects.AkbalSpeed ) >= 0 ) {
@@ -108,44 +108,44 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, SceneLib, CoC, Monst
 		}
 		//*Special Attack B -
 		else {
-			EngineCore.outputText( 'Akbal releases an ear-splitting roar, hurling a torrent of emerald green flames towards you.\n', false );
+			MainView.outputText( 'Akbal releases an ear-splitting roar, hurling a torrent of emerald green flames towards you.\n', false );
 			//(high HP damage)
 			//Determine if dodged!
 			if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 				if( CoC.player.spe - this.spe < 8 ) {
-					EngineCore.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s fire!', false );
+					MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s fire!', false );
 				}
 				if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
-					EngineCore.outputText( 'You dodge ' + this.a + this.short + '\'s fire with superior quickness!', false );
+					MainView.outputText( 'You dodge ' + this.a + this.short + '\'s fire with superior quickness!', false );
 				}
 				if( CoC.player.spe - this.spe >= 20 ) {
-					EngineCore.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow fire-breath.', false );
+					MainView.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow fire-breath.', false );
 				}
 				Combat.combatRoundOver();
 				return;
 			}
 			//Determine if evaded
 			if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 20 ) {
-				EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s fire-breath.', false );
+				MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s fire-breath.', false );
 				Combat.combatRoundOver();
 				return;
 			}
 			//Determine if flexibilitied
 			if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
-				EngineCore.outputText( 'Using your cat-like agility, you contort your body to avoid ' + this.a + this.short + '\'s fire-breath.', false );
+				MainView.outputText( 'Using your cat-like agility, you contort your body to avoid ' + this.a + this.short + '\'s fire-breath.', false );
 				Combat.combatRoundOver();
 				return;
 			}
-			EngineCore.outputText( 'You are burned badly by the flames! (' + CoC.player.takeDamage( 40 ) + ')', false );
+			MainView.outputText( 'You are burned badly by the flames! (' + CoC.player.takeDamage( 40 ) + ')', false );
 		}
 		Combat.combatRoundOver();
 	};
 	//*Support ability -
 	Akbal.prototype.akbalHeal = function() {
 		if( this.HPRatio() >= 1 ) {
-			EngineCore.outputText( 'Akbal licks himself, ignoring you for now.', false );
+			MainView.outputText( 'Akbal licks himself, ignoring you for now.', false );
 		} else {
-			EngineCore.outputText( 'Akbal licks one of his wounds, and you scowl as the injury quickly heals itself.', false );
+			MainView.outputText( 'Akbal licks one of his wounds, and you scowl as the injury quickly heals itself.', false );
 		}
 		this.addHP( 30 );
 		this.lust += 10;

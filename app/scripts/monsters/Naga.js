@@ -9,9 +9,9 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 	Naga.prototype.nagaPoisonBiteAttack = function() {
 		//(Deals damage over 4-5 turns, invariably reducing
 		//your speed. It wears off once combat is over.)
-		EngineCore.outputText( 'The naga strikes with the speed of a cobra, sinking her fangs into your flesh!  ', false );
+		MainView.outputText( 'The naga strikes with the speed of a cobra, sinking her fangs into your flesh!  ', false );
 		if( CoC.player.findStatusAffect( StatusAffects.NagaVenom ) < 0 ) {
-			EngineCore.outputText( 'The venom\'s effects are almost instantaneous; your vision begins to blur and it becomes increasingly harder to stand.', false );
+			MainView.outputText( 'The venom\'s effects are almost instantaneous; your vision begins to blur and it becomes increasingly harder to stand.', false );
 			if( CoC.player.spe > 4 ) {
 				//stats(0,0,-3,0,0,0,0,0);
 				CoC.player.spe -= 3;
@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 			}
 			CoC.player.takeDamage( 5 + Utils.rand( 5 ) );
 		} else {
-			EngineCore.outputText( 'The venom\'s effects intensify as your vision begins to blur and it becomes increasingly harder to stand.', false );
+			MainView.outputText( 'The venom\'s effects intensify as your vision begins to blur and it becomes increasingly harder to stand.', false );
 			if( CoC.player.spe > 3 ) {
 				//stats(0,0,-2,0,0,0,0,0);
 				CoC.player.spe -= 2;
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 	//2b)  Ability - Constrict - entangles player, raises lust
 	//every turn until you break free
 	Naga.prototype.nagaConstrict = function() {
-		EngineCore.outputText( 'The naga draws close and suddenly wraps herself around you, binding you in place! You can\'t help but feel strangely aroused by the sensation of her scales rubbing against your body. All you can do is struggle as she begins to squeeze tighter!', false );
+		MainView.outputText( 'The naga draws close and suddenly wraps herself around you, binding you in place! You can\'t help but feel strangely aroused by the sensation of her scales rubbing against your body. All you can do is struggle as she begins to squeeze tighter!', false );
 		CoC.player.createStatusAffect( StatusAffects.NagaBind, 0, 0, 0, 0 );
 		CoC.player.takeDamage( 2 + Utils.rand( 4 ) );
 		Combat.combatRoundOver();
@@ -51,23 +51,23 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 	//2c) Abiliy - Tail Whip - minus ??? HP
 	//(base it on toughness?)
 	Naga.prototype.nagaTailWhip = function() {
-		EngineCore.outputText( 'The naga tenses and twists herself forcefully.  ', false );
+		MainView.outputText( 'The naga tenses and twists herself forcefully.  ', false );
 		//[if evaded]
 		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 6 ) === 0) ) {
-			EngineCore.outputText( 'You see her tail whipping toward you and evade it at the last second. You quickly roll back onto your feet.', false );
+			MainView.outputText( 'You see her tail whipping toward you and evade it at the last second. You quickly roll back onto your feet.', false );
 		} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s tail-whip.', false );
+			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s tail-whip.', false );
 		} else if( CoC.player.spe > Utils.rand( 300 ) ) {
-			EngineCore.outputText( 'You see her tail whipping toward you and jump out of the way at the last second. You quickly roll back onto your feet.', false );
+			MainView.outputText( 'You see her tail whipping toward you and jump out of the way at the last second. You quickly roll back onto your feet.', false );
 		} else {
-			EngineCore.outputText( 'Before you can even think, you feel a sharp pain at your side as the naga\'s tail slams into you and shoves you into the sands. You pick yourself up, wincing at the pain in your side.', false );
+			MainView.outputText( 'Before you can even think, you feel a sharp pain at your side as the naga\'s tail slams into you and shoves you into the sands. You pick yourself up, wincing at the pain in your side.', false );
 			var damage = 10;
 			if( CoC.player.armorDef < 10 ) {
 				damage += 10 - CoC.player.armorDef;
 			}
 			damage += Utils.rand( 3 );
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')', false );
+			MainView.outputText( ' (' + damage + ')', false );
 		}
 		Combat.combatRoundOver();
 	};
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 	};
 	Naga.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe naga\'s eyes go wide and she turns to leave, no longer interested in you.', false );
+			MainView.outputText( '\n\nThe naga\'s eyes go wide and she turns to leave, no longer interested in you.', false );
 			CoC.player.orgasm();
 			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 		} else {

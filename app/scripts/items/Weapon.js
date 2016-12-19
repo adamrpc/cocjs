@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Weapon', function( Useable, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Weapon', function( Useable, MainView ) {
 	function Weapon() {
 		this.init(this, arguments);
 	}
@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).factory( 'Weapon', function( Useable, EngineCore ) {
 		that.perk = args.length > 8 ? args[ 8 ] : '';
 	};
 	Weapon.prototype.useText = function() {
-		EngineCore.outputText( 'You equip ' + this.longName + '.  ' );
+		MainView.outputText( 'You equip ' + this.longName + '.  ' );
 	};
 	Weapon.prototype.playerEquip = function() { //This item is being equipped by the player. Add any perks, etc. - This function should only handle mechanics, not text output
 		return this;

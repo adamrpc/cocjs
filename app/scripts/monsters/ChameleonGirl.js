@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat ) {
+angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView, CoC, Monster, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Combat ) {
 	function ChameleonGirl() {
 		this.init(this, arguments);
 	}
@@ -21,19 +21,19 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Mon
 	ChameleonGirl.prototype.chameleonClaws = function() {
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind claw-attack!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind claw-attack!\n', false );
 		}
 		//Evade:
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( 'The chameleon girl\'s claws slash towards you, but you lean away from them and they fly by in a harmless blur.' );
+			MainView.outputText( 'The chameleon girl\'s claws slash towards you, but you lean away from them and they fly by in a harmless blur.' );
 		}//Get hit
 		else {
 			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) );
 			if( damage > 0 ) {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You wince as they scratch your skin, leaving thin cuts in their wake. (' + damage + ')' );
+				MainView.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You wince as they scratch your skin, leaving thin cuts in their wake. (' + damage + ')' );
 			} else {
-				EngineCore.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You defend against the razor sharp attack.' );
+				MainView.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You defend against the razor sharp attack.' );
 			}
 		}
 		Combat.combatRoundOver();
@@ -42,22 +42,22 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Mon
 	ChameleonGirl.prototype.rollKickClawWhatTheFuckComboIsThisShit = function() {
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind roll-kick!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind roll-kick!\n', false );
 		}
 		//Evade:
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			var damage2 = 1 + Utils.rand( 10 );
 			damage2 = Combat.doDamage( damage2 );
-			EngineCore.outputText( 'The chameleon girl leaps in your direction, rolls, and kicks at you.  You sidestep her flying charge and give her a push from below to ensure she lands face-first in the bog. (' + damage2 + ')' );
+			MainView.outputText( 'The chameleon girl leaps in your direction, rolls, and kicks at you.  You sidestep her flying charge and give her a push from below to ensure she lands face-first in the bog. (' + damage2 + ')' );
 		}
 		//Get hit
 		else {
 			var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ) + 25;
 			if( damage > 0 ) {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'The chameleon leaps in your direction, rolls, and kicks you square in the shoulder as she ascends, sending you reeling.  You grunt in pain as a set of sharp claws rake across your chest. (' + damage + ')' );
+				MainView.outputText( 'The chameleon leaps in your direction, rolls, and kicks you square in the shoulder as she ascends, sending you reeling.  You grunt in pain as a set of sharp claws rake across your chest. (' + damage + ')' );
 			} else {
-				EngineCore.outputText( 'The chameleon rolls in your direction and kicks up at your chest, but you knock her aside without taking any damage..' );
+				MainView.outputText( 'The chameleon rolls in your direction and kicks up at your chest, but you knock her aside without taking any damage..' );
 			}
 		}
 		Combat.combatRoundOver();
@@ -80,20 +80,20 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, CoC, Mon
 
 	ChameleonGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe chameleon girl recoils.  "<i>Ew, gross!</i>" she screetches as she runs away, leaving you to recover from your defeat alone.' );
+			MainView.outputText( '\n\nThe chameleon girl recoils.  "<i>Ew, gross!</i>" she screetches as she runs away, leaving you to recover from your defeat alone.' );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.chameleonGirlScene.loseToChameleonGirl();
 		}
 	};
 	ChameleonGirl.prototype.outputPlayerDodged = function( ) {
-		EngineCore.outputText( 'The chameleon girl whips her head and sends her tongue flying at you, but you hop to the side and manage to avoid it.  The pink blur flies back into her mouth as quickly as it came at you, and she looks more than a bit angry that she didn\'t find her target.\n' );
+		MainView.outputText( 'The chameleon girl whips her head and sends her tongue flying at you, but you hop to the side and manage to avoid it.  The pink blur flies back into her mouth as quickly as it came at you, and she looks more than a bit angry that she didn\'t find her target.\n' );
 	};
 	ChameleonGirl.prototype.outputAttack = function( damage ) {
 		if( damage <= 0 ) {
-			EngineCore.outputText( 'The Chameleon Girl lashes out with her tongue, but you deflect the sticky projectile off your arm, successfully defending against it.  She doesn\'t look happy about it when she slurps the muscle back into her mouth.' );
+			MainView.outputText( 'The Chameleon Girl lashes out with her tongue, but you deflect the sticky projectile off your arm, successfully defending against it.  She doesn\'t look happy about it when she slurps the muscle back into her mouth.' );
 		} else {
-			EngineCore.outputText( 'The chameleon whips her head forward and sends her tongue flying at you.  It catches you in the gut, the incredible force behind it staggering you.  The pink blur flies back into her mouth as quickly as it came at you, and she laughs mockingly as you recover your footing. (' + damage + ')' );
+			MainView.outputText( 'The chameleon whips her head forward and sends her tongue flying at you.  It catches you in the gut, the incredible force behind it staggering you.  The pink blur flies back into her mouth as quickly as it came at you, and she laughs mockingly as you recover your footing. (' + damage + ')' );
 		}
 	};
 	/**

@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -49,24 +49,24 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou + CoC.player.armorDef) );
 		//Dodged;
 		if( dodged > 0 ) {
-			EngineCore.outputText( 'Amily dashes at you and swipes her knife, but you quickly sidestep the blow.', false );
+			MainView.outputText( 'Amily dashes at you and swipes her knife, but you quickly sidestep the blow.', false );
 			//Add tags for miss/evade/flexibility/etc.;
 			switch( dodged ) {
 				case 1:
-					EngineCore.outputText( ' [Dodge]', false );
+					MainView.outputText( ' [Dodge]', false );
 					break;
 				case 2:
-					EngineCore.outputText( ' [Evade]', false );
+					MainView.outputText( ' [Evade]', false );
 					break;
 				case 3:
-					EngineCore.outputText( ' [Misdirect]', false );
+					MainView.outputText( ' [Misdirect]', false );
 					break;
 				case 4:
-					EngineCore.outputText( ' [Flexibility]', false );
+					MainView.outputText( ' [Flexibility]', false );
 					break;
 				default:
 					CoC_Settings.error();
-					EngineCore.outputText( ' <b>[ERROR]</b>', false );
+					MainView.outputText( ' <b>[ERROR]</b>', false );
 					break;
 			}
 		}
@@ -75,28 +75,28 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 			damage = 0;
 			//Due to toughness or amor...;
 			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-				EngineCore.outputText( 'Your ' + CoC.player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
+				MainView.outputText( 'Your ' + CoC.player.armorName + ' absorb and deflect every ' + this.weaponVerb + ' from ' + this.a + this.short + '.', false );
 			} else {
-				EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
+				MainView.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 			}
 		}
 		//Got hit!;
 		else {
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( 'Amily dashes at you and swipes her knife, cutting you (' + damage + ').', false );
+			MainView.outputText( 'Amily dashes at you and swipes her knife, cutting you (' + damage + ').', false );
 		}
 		if( damage > 0 ) {
 			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				}
 				this.lust += 10 * this.lustVuln;
 			}
 		}
 		MainView.statsView.show();
-		EngineCore.outputText( '\n', false );
+		MainView.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
 	//(Special Attacks);
@@ -136,22 +136,22 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 			}
 			//Blocked?;
 			if( damage === 0 ) {
-				EngineCore.outputText( 'Amily dashes at you and slashes at you twice in the time it would take most to throw a single blow, but she can\'t cut deep enough to wound you!', false );
+				MainView.outputText( 'Amily dashes at you and slashes at you twice in the time it would take most to throw a single blow, but she can\'t cut deep enough to wound you!', false );
 			}
 			//NOT BLOCKED!;
 			else {
 				damage = CoC.player.takeDamage( damage );
 				if( dodged > 0 ) {
-					EngineCore.outputText( 'Amily dashes at you and quickly slashes you twice; you manage to avoid the first blow, but the second one hits home, cutting you', false );
+					MainView.outputText( 'Amily dashes at you and quickly slashes you twice; you manage to avoid the first blow, but the second one hits home, cutting you', false );
 				} else {
-					EngineCore.outputText( 'Amily dashes at you and slashes at you twice in the time it would take most to throw a single blow', false );
+					MainView.outputText( 'Amily dashes at you and slashes at you twice in the time it would take most to throw a single blow', false );
 				}
-				EngineCore.outputText( ' (' + damage + ')!', false );
+				MainView.outputText( ' (' + damage + ')!', false );
 			}
 		}
 		//Dodge all!;
 		else {
-			EngineCore.outputText( 'Amily dashes at you and quickly slashes you twice, but you quickly sidestep her first blow and jump back to avoid any follow-ups.', false );
+			MainView.outputText( 'Amily dashes at you and quickly slashes you twice, but you quickly sidestep her first blow and jump back to avoid any follow-ups.', false );
 		}
 
 		Combat.combatRoundOver();
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		var dodged = 0;
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack from her dartgun!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack from her dartgun!\n', false );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -183,30 +183,30 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		}
 		//Dodged;
 		if( dodged > 0 ) {
-			EngineCore.outputText( 'Amily dashes at you and swipes her knife rather slowly. You easily dodge the attack; but it was all a feint, her other hands tries to strike at you with a poisoned dart. Luckily you manage to avoid it.', false );
+			MainView.outputText( 'Amily dashes at you and swipes her knife rather slowly. You easily dodge the attack; but it was all a feint, her other hands tries to strike at you with a poisoned dart. Luckily you manage to avoid it.', false );
 			//Add tags for miss/evade/flexibility/etc.;
 			switch( dodged ) {
 				case 1:
-					EngineCore.outputText( ' [Dodge]', false );
+					MainView.outputText( ' [Dodge]', false );
 					break;
 				case 2:
-					EngineCore.outputText( ' [Evade]', false );
+					MainView.outputText( ' [Evade]', false );
 					break;
 				case 3:
-					EngineCore.outputText( ' [Misdirect]', false );
+					MainView.outputText( ' [Misdirect]', false );
 					break;
 				case 4:
-					EngineCore.outputText( ' [Flexibility]', false );
+					MainView.outputText( ' [Flexibility]', false );
 					break;
 				default:
 					CoC_Settings.error( '' );
-					EngineCore.outputText( ' <b>[ERROR]</b>', false );
+					MainView.outputText( ' <b>[ERROR]</b>', false );
 					break;
 			}
 		}
 		//Else hit!;
 		else {
-			EngineCore.outputText( 'Amily dashes at you and swipes her knife at you, surprisingly slowly.  You easily dodge the attack; but it was a feint - her other hand tries to strike at you with a poisoned dart. However, she only manages to scratch you, only causing your muscles to grow slightly numb.', false );
+			MainView.outputText( 'Amily dashes at you and swipes her knife at you, surprisingly slowly.  You easily dodge the attack; but it was a feint - her other hand tries to strike at you with a poisoned dart. However, she only manages to scratch you, only causing your muscles to grow slightly numb.', false );
 			//Set status;
 			if( CoC.player.findStatusAffect( StatusAffects.AmilyVenom ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.AmilyVenom, 0, 0, 0, 0 );
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 			}
 			//If PC is reduced to 0 Speed and Strength, normal defeat by HP plays.;
 			if( CoC.player.spe <= 2 && CoC.player.str <= 2 ) {
-				EngineCore.outputText( '  You\'ve become so weakened that you can\'t even make an attempt to defend yourself, and Amily rains blow after blow down upon your helpless form.', false );
+				MainView.outputText( '  You\'ve become so weakened that you can\'t even make an attempt to defend yourself, and Amily rains blow after blow down upon your helpless form.', false );
 				CoC.player.takeDamage( 8999 );
 			}
 		}
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 	};
 	//Concentrate: always avoids the next attack. Can be disrupted by tease/seduce.;
 	Amily.prototype.amilyConcentration = function() {
-		EngineCore.outputText( 'Amily takes a deep breath and attempts to concentrate on your movements.', false );
+		MainView.outputText( 'Amily takes a deep breath and attempts to concentrate on your movements.', false );
 		this.createStatusAffect( StatusAffects.Concentration, 0, 0, 0, 0 );
 		Combat.combatRoundOver();
 	};
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 	Amily.prototype._superTeased = Amily.prototype.teased;
 	Amily.prototype.teased = function( lustDelta ) {
 		if( this.findStatusAffect( StatusAffects.Concentration ) >= 0 ) {
-			EngineCore.outputText( 'Amily flushes hotly; her concentration only makes her pay more attention to your parts!', false );
+			MainView.outputText( 'Amily flushes hotly; her concentration only makes her pay more attention to your parts!', false );
 			lustDelta += 25 + lustDelta;
 			this.removeStatusAffect( StatusAffects.Concentration );
 			this.applyTease( lustDelta );

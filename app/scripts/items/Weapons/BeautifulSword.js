@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, MainView, CoC, Weapon ) {
 	function BeautifulSword() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 		if( CoC.player.cor < 35 ) {
 			return true;
 		}
-		EngineCore.outputText( 'You grab hold of the handle of the sword only to have it grow burning hot.  You\'re forced to let it go lest you burn yourself.  Something within the sword must be displeased.  ' );
+		MainView.outputText( 'You grab hold of the handle of the sword only to have it grow burning hot.  You\'re forced to let it go lest you burn yourself.  Something within the sword must be displeased.  ' );
 		return false;
 	};
 	var BeautifulSwordProxy = new Proxy( BeautifulSword, {

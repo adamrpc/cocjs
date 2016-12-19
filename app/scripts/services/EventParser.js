@@ -40,10 +40,10 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				CoC.time.hours = 0;
 				CoC.time.days++;
 			} else if( CoC.time.hours === 21 ) {
-				EngineCore.outputText( '\nThe sky darkens as a starless night falls.  The blood-red moon slowly rises up over the horizon.\n' );
+				MainView.outputText( '\nThe sky darkens as a starless night falls.  The blood-red moon slowly rises up over the horizon.\n' );
 				needNext = true;
 			} else if( CoC.time.hours === 6 ) {
-				EngineCore.outputText( '\nThe sky begins to grow brighter as the moon descends over distant mountains, casting a few last ominous shadows before they burn away in the light.\n' );
+				MainView.outputText( '\nThe sky begins to grow brighter as the moon descends over distant mountains, casting a few last ominous shadows before they burn away in the light.\n' );
 				needNext = true;
 			}
 			//BIG EVENTS GO IN HERE
@@ -79,19 +79,19 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 						EngineCore.doNext( MainView, MainView.playerMenu );
 						return true;
 					} else if( CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] > 0 && SceneLib.kihaFollower.followerKiha() ) {
-						EngineCore.outputText( '\n<b>You find charred imp carcasses all around the camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
+						MainView.outputText( '\n<b>You find charred imp carcasses all around the camp once you wake.  It looks like Kiha repelled a swarm of the little bastards.</b>\n' );
 						needNext = true;
 					} else if( CoC.flags[ kFLAGS.HEL_GUARDING ] > 0 && SceneLib.helFollower.followerHel() ) {
-						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she whupped some major imp asshole last night.  She wiggles her tail for emphasis.</b>\n' );
+						MainView.outputText( '\n<b>Helia informs you over a mug of beer that she whupped some major imp asshole last night.  She wiggles her tail for emphasis.</b>\n' );
 						needNext = true;
 					} else if( CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
-						EngineCore.outputText( '\n<b>Jojo informs you that he dispatched a crowd of imps as they tried to sneak into camp in the night.</b>\n' );
+						MainView.outputText( '\n<b>Jojo informs you that he dispatched a crowd of imps as they tried to sneak into camp in the night.</b>\n' );
 						needNext = true;
 					} else if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] > 0 ) {
-						EngineCore.outputText( '\n<b>During the night, you hear distant screeches of surprise, followed by orgasmic moans.  It seems some imps found their way into Holli\'s canopy...</b>\n' );
+						MainView.outputText( '\n<b>During the night, you hear distant screeches of surprise, followed by orgasmic moans.  It seems some imps found their way into Holli\'s canopy...</b>\n' );
 						needNext = true;
 					} else if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
-						EngineCore.outputText( '\n<b>Your sleep is momentarily disturbed by the sound of tiny clawed feet skittering away in all directions.  When you sit up, you can make out Kid A holding a struggling, concussed imp in a headlock and wearing a famished expression.  You catch her eye and she sheepishly retreats to a more urbane distance before beginning her noisy meal.</b>\n' );
+						MainView.outputText( '\n<b>Your sleep is momentarily disturbed by the sound of tiny clawed feet skittering away in all directions.  When you sit up, you can make out Kid A holding a struggling, concussed imp in a headlock and wearing a famished expression.  You catch her eye and she sheepishly retreats to a more urbane distance before beginning her noisy meal.</b>\n' );
 						needNext = true;
 					}
 				} else if( CoC.flags[ kFLAGS.EVER_INFESTED ] === 1 && Utils.rand( 100 ) <= 4 && CoC.player.hasCock() && CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) { //wormgasms
@@ -99,13 +99,13 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 						SceneLib.worms.nightTimeInfestation();
 						return true;
 					} else if( CoC.flags[ kFLAGS.HEL_GUARDING ] > 0 && SceneLib.helFollower.followerHel() ) {
-						EngineCore.outputText( '\n<b>Helia informs you over a mug of beer that she stomped a horde of gross worms into paste.  She shudders after at the memory.</b>\n' );
+						MainView.outputText( '\n<b>Helia informs you over a mug of beer that she stomped a horde of gross worms into paste.  She shudders after at the memory.</b>\n' );
 						needNext = true;
 					} else if( CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
-						EngineCore.outputText( '\n<b>Jojo informs you that he dispatched a horde of tiny, white worms as they tried to sneak into camp in the night.</b>\n' );
+						MainView.outputText( '\n<b>Jojo informs you that he dispatched a horde of tiny, white worms as they tried to sneak into camp in the night.</b>\n' );
 						needNext = true;
 					} else if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
-						EngineCore.outputText( '\n<b>Kid A seems fairly well fed in the morning, and you note a trail of slime leading off in the direction of the lake.</b>\n' ); // Yeah, blah blah travel weirdness. Quickfix so it seems logically correct.
+						MainView.outputText( '\n<b>Kid A seems fairly well fed in the morning, and you note a trail of slime leading off in the direction of the lake.</b>\n' ); // Yeah, blah blah travel weirdness. Quickfix so it seems logically correct.
 						needNext = true;
 					}
 				}
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 			else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00228 ] > 0 && (CoC.player.pregnancyIncubation > 0 || CoC.player.buttPregnancyIncubation > 0) ) {
 				if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00229 ] === 1 ) {
 					CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00229 ] = 0;
-					EngineCore.outputText( '\n\nYour body reacts to the influx of nutrition, accelerating your pregnancy. Your belly bulges outward slightly.', false );
+					MainView.outputText( '\n\nYour body reacts to the influx of nutrition, accelerating your pregnancy. Your belly bulges outward slightly.', false );
 					needNext = true;
 				}
 				if( CoC.flags[ kFLAGS.EVENT_PARSER_ESCAPE ] === 1 ) {
@@ -266,28 +266,28 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		}
 		//Drop axe if too short!
 		if( CoC.player.tallness < 78 && CoC.player.weapon === WeaponLib.L__AXE ) {
-			EngineCore.outputText( '<b>\nThis axe is too large for someone of your stature to use, though you can keep it in your inventory until you are big enough.</b>\n' );
+			MainView.outputText( '<b>\nThis axe is too large for someone of your stature to use, though you can keep it in your inventory until you are big enough.</b>\n' );
 			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		if( CoC.player.weapon === WeaponLib.L_HAMMR && CoC.player.tallness < 60 ) {
-			EngineCore.outputText( '<b>\nYou\'ve become too short to use this hammer anymore.  You can still keep it in your inventory, but you\'ll need to be taller to effectively wield it.</b>\n' );
+			MainView.outputText( '<b>\nYou\'ve become too short to use this hammer anymore.  You can still keep it in your inventory, but you\'ll need to be taller to effectively wield it.</b>\n' );
 			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		if( CoC.player.weapon === WeaponLib.CLAYMOR && CoC.player.str < 40 ) {
-			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer, and you\'re forced to stop using it.</b>\n' );
+			MainView.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer, and you\'re forced to stop using it.</b>\n' );
 			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		if( CoC.player.weapon === WeaponLib.WARHAMR && CoC.player.str < 80 ) {
-			EngineCore.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer!</b>\n' );
+			MainView.outputText( '\n<b>You aren\'t strong enough to handle the weight of your weapon any longer!</b>\n' );
 			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
 		//Drop beautiful sword if corrupted!
 		if( CoC.player.weaponPerk === 'holySword' && CoC.player.cor >= 35 ) {
-			EngineCore.outputText( '<b>\nThe <u>' + CoC.player.weaponName + '</u> grows hot in your hand, until you are forced to drop it.  Whatever power inhabits this blade appears to be unhappy with you.  Touching it gingerly, you realize it is no longer hot, but as soon as you go to grab the hilt, it nearly burns you.\n\nYou realize you won\'t be able to use it right now, but you could probably keep it in your inventory.</b>\n\n' );
+			MainView.outputText( '<b>\nThe <u>' + CoC.player.weaponName + '</u> grows hot in your hand, until you are forced to drop it.  Whatever power inhabits this blade appears to be unhappy with you.  Touching it gingerly, you realize it is no longer hot, but as soon as you go to grab the hilt, it nearly burns you.\n\nYou realize you won\'t be able to use it right now, but you could probably keep it in your inventory.</b>\n\n' );
 			SceneLib.inventory.takeItem( CoC.player.setWeapon( WeaponLib.FISTS ), MainView.playerMenu );
 			return true;
 		}
@@ -295,23 +295,23 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		if( CoC.player.armorName === 'lusty maiden\'s armor' ) {
 			//Removal due to no longer fitting Cock or Balls
 			if( CoC.player.hasCock() || CoC.player.balls > 0 ) {
-				EngineCore.outputText( '\nYou fidget uncomfortably in the g-string of your lewd bikini - there simply isn\'t enough room for your ' );
+				MainView.outputText( '\nYou fidget uncomfortably in the g-string of your lewd bikini - there simply isn\'t enough room for your ' );
 				if( CoC.player.hasCock() ) {
-					EngineCore.outputText( 'maleness' );
+					MainView.outputText( 'maleness' );
 				} else {
-					EngineCore.outputText( 'bulgy balls' );
+					MainView.outputText( 'bulgy balls' );
 				}
-				EngineCore.outputText( ' within the imprisoning leather, and it actually hurts to wear it.  <b>You\'ll have to find some other form of protection!</b>\n\n' );
+				MainView.outputText( ' within the imprisoning leather, and it actually hurts to wear it.  <b>You\'ll have to find some other form of protection!</b>\n\n' );
 				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), MainView.playerMenu );
 				return true;
 			}
 			if( !CoC.player.hasVagina() ) { //Lost pussy
-				EngineCore.outputText( '\nYou fidget uncomfortably as the crease in the gusset of your lewd bikini digs into your sensitive, featureless loins.  There\'s simply no way you can continue to wear this outfit in comfort - it was expressly designed to press in on the female mons, and without a vagina, <b>you simply can\'t wear this exotic armor.</b>\n\n' );
+				MainView.outputText( '\nYou fidget uncomfortably as the crease in the gusset of your lewd bikini digs into your sensitive, featureless loins.  There\'s simply no way you can continue to wear this outfit in comfort - it was expressly designed to press in on the female mons, and without a vagina, <b>you simply can\'t wear this exotic armor.</b>\n\n' );
 				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), MainView.playerMenu );
 				return true;
 			}
 			if( CoC.player.biggestTitSize() < 4 ) { //Tits gone or too small
-				EngineCore.outputText( '\nThe fine chain that makes up your lewd bikini-top is dangling slack against your flattened chest.  Every movement and step sends it jangling noisily, slapping up against your [nipples], uncomfortably cold after being separated from your ' + CoC.player.skinFurScales() + ' for so long.  <b>There\'s no two ways about it - you\'ll need to find something else to wear.</b>\n\n' );
+				MainView.outputText( '\nThe fine chain that makes up your lewd bikini-top is dangling slack against your flattened chest.  Every movement and step sends it jangling noisily, slapping up against your [nipples], uncomfortably cold after being separated from your ' + CoC.player.skinFurScales() + ' for so long.  <b>There\'s no two ways about it - you\'ll need to find something else to wear.</b>\n\n' );
 				SceneLib.inventory.takeItem( CoC.player.setArmor( ArmorLib.COMFORTABLE_UNDERCLOTHES ), MainView.playerMenu );
 				return true;
 			}
@@ -356,14 +356,14 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		var oldHairLength = CoC.player.hairLength;
 		CoC.player.hairLength += amount;
 		if( CoC.player.hairLength > 0 && oldHairLength === 0) {
-			EngineCore.outputText( '\n<b>You are no longer bald.  You now have ' + Descriptors.hairDescript() + ' coating your head.\n</b>', false );
+			MainView.outputText( '\n<b>You are no longer bald.  You now have ' + Descriptors.hairDescript() + ' coating your head.\n</b>', false );
 			return true;
 		} else {
 			var threshold = _.find([1, 3, 6, 10, 16, 26, 40], function(value) {
 				return CoC.player.hairLength >= value && oldHairLength < value;
 			});
 			if(threshold) {
-				EngineCore.outputText( '\n<b>Your hair\'s growth has reached a new threshhold, giving you ' + Descriptors.hairDescript() + '.\n</b>', false );
+				MainView.outputText( '\n<b>Your hair\'s growth has reached a new threshhold, giving you ' + Descriptors.hairDescript() + '.\n</b>', false );
 				return true;
 			}
 		}

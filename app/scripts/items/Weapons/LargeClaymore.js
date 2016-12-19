@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
+angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, MainView ) {
 	function LargeClaymore() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, EngineCore ) {
 		if( CoC.player.str >= 40 ) {
 			return true;
 		}
-		EngineCore.outputText( 'You aren\'t strong enough to handle such a heavy weapon!  ' );
+		MainView.outputText( 'You aren\'t strong enough to handle such a heavy weapon!  ' );
 		return false;
 	};
 	WeaponLib.registerWeapon( 'CLAYMOR', new LargeClaymore() );

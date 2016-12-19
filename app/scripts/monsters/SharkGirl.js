@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, $log, StatusAffects, Appearance, WeightedDrop, ConsumableLib, ArmorLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, MainView, $log, StatusAffects, Appearance, WeightedDrop, ConsumableLib, ArmorLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
 	function SharkGirl() {
 		this.init(this, arguments);
 	}
@@ -9,12 +9,12 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, $log, Status
 	SharkGirl.prototype.sharkTease = function() {
 		EngineCore.spriteSelect( 70 );
 		if( Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( 'You charge at the shark girl, prepared to strike again, but stop dead in your tracks when she bends over and wiggles her toned ass towards you. It distracts you long enough for her tail to swing out and smack you to the ground. She coos, "<i>Aw... You really do like me!</i>"', false );
+			MainView.outputText( 'You charge at the shark girl, prepared to strike again, but stop dead in your tracks when she bends over and wiggles her toned ass towards you. It distracts you long enough for her tail to swing out and smack you to the ground. She coos, "<i>Aw... You really do like me!</i>"', false );
 			//(Small health damage, medium lust build).;
 			CoC.player.takeDamage( 4 + Utils.rand( 4 ) );
 			EngineCore.dynStats( 'lus', (10 + (CoC.player.lib / 20)) );
 		} else {
-			EngineCore.outputText( 'You pull your ' + CoC.player.weaponName + ' back, getting a running start to land another attack. The Shark girl smirks and pulls up her bikini top, shaking her perky breasts in your direction. You stop abruptly, aroused by the sight just long enough for the shark girl to kick you across the face and knock you to the ground.  She teases, "<i>Aw, don\'t worry baby, you\'re gonna get the full package in a moment!</i>"', false );
+			MainView.outputText( 'You pull your ' + CoC.player.weaponName + ' back, getting a running start to land another attack. The Shark girl smirks and pulls up her bikini top, shaking her perky breasts in your direction. You stop abruptly, aroused by the sight just long enough for the shark girl to kick you across the face and knock you to the ground.  She teases, "<i>Aw, don\'t worry baby, you\'re gonna get the full package in a moment!</i>"', false );
 			//(Small health damage, medium lust build);
 			CoC.player.takeDamage( 4 + Utils.rand( 4 ) );
 			EngineCore.dynStats( 'lus', (5 + (CoC.player.lib / 10)) );
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, $log, Status
 	};
 	SharkGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
+			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.sharkGirlScene.sharkLossRape();

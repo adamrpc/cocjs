@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( CoC, StatusAffects, ConsumableLib, PerkLib, Utils, Useable, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, CoC, StatusAffects, ConsumableLib, PerkLib, Utils, Useable, EngineCore ) {
 	function LustStick() {
 		this.init(this, arguments);
 	}
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( CoC, StatusAffects, ConsumableLib, Perk
 	};
 	LustStick.prototype.canUse = function() {
 		if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 ) {
-			EngineCore.outputText( 'You look at the tube of lipstick, but get the idea it would be a pretty bad idea to smear a thick coating of cock-hardening aphrodisiacs over your own lips.  ' );
+			MainView.outputText( 'You look at the tube of lipstick, but get the idea it would be a pretty bad idea to smear a thick coating of cock-hardening aphrodisiacs over your own lips.  ' );
 			return false;
 		}
 		return true;
@@ -19,17 +19,17 @@ angular.module( 'cocjs' ).run( function( CoC, StatusAffects, ConsumableLib, Perk
 	LustStick.prototype.useItem = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.LustStickApplied ) >= 0 ) {
 			CoC.player.addStatusValue( StatusAffects.LustStickApplied, 1, Utils.rand( 12 ) + 12 );
-			EngineCore.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over the coat you already have on your lips.  <b>No doubt another layer will make it last even longer!</b>  ' );
-			EngineCore.outputText( 'You finish and pucker your lips, feeling fairly sexy with your new, thicker makeup on.\n\n' );
+			MainView.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over the coat you already have on your lips.  <b>No doubt another layer will make it last even longer!</b>  ' );
+			MainView.outputText( 'You finish and pucker your lips, feeling fairly sexy with your new, thicker makeup on.\n\n' );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.LustStickApplied, 24, 0, 0, 0 );
-			EngineCore.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over your lips.  ' );
+			MainView.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over your lips.  ' );
 			if( CoC.player.hasCock() ) {
-				EngineCore.outputText( 'It tingles a little, but the drugs have little to no effect on you now.' );
+				MainView.outputText( 'It tingles a little, but the drugs have little to no effect on you now.' );
 			} else {
-				EngineCore.outputText( 'Honestly, it amazes you that something as little as a kiss can make a man putty in your hands.' );
+				MainView.outputText( 'Honestly, it amazes you that something as little as a kiss can make a man putty in your hands.' );
 			}
-			EngineCore.outputText( '  You finish and pucker your lips, feeling fairly sexy with your new makeup on.\n\n' );
+			MainView.outputText( '  You finish and pucker your lips, feeling fairly sexy with your new makeup on.\n\n' );
 		}
 		EngineCore.dynStats( 'lus', 1 );
 		return (false);

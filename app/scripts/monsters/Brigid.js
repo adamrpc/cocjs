@@ -1,31 +1,31 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkLib, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
 	function Brigid() {
 		this.init(this, arguments);
 	}
 	angular.extend(Brigid.prototype, Monster.prototype);
 	//Attack One: Hot Poker, Right Up Your Ass!;
 	Brigid.prototype.brigidPoke = function() {
-		EngineCore.outputText( 'Brigid stalks forward with confidence, her shield absorbing your defensive blows until she\'s right on top of you. She bats your [weapon] aside and thrashes you with her hot poker, scalding your ' + CoC.player.skin() + ' and sending you reeling.' );
+		MainView.outputText( 'Brigid stalks forward with confidence, her shield absorbing your defensive blows until she\'s right on top of you. She bats your [weapon] aside and thrashes you with her hot poker, scalding your ' + CoC.player.skin() + ' and sending you reeling.' );
 		//(Effect: Heavy Damage);
 		var damage = Math.round( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage < 30 ) {
 			damage = 30;
 		}
 		damage = CoC.player.takeDamage( damage );
-		EngineCore.outputText( ' (' + damage + ')' );
+		MainView.outputText( ' (' + damage + ')' );
 		Combat.combatRoundOver();
 	};
 	//Attack Two: SHIELD BOP! OOM BOP!;
 	Brigid.prototype.brigidBop = function() {
-		EngineCore.outputText( 'The harpy feints at you with her poker; you dodge the blow, but you leave yourself vulnerable as she spins around and slams her heavy shield into you, knocking you off balance.' );
+		MainView.outputText( 'The harpy feints at you with her poker; you dodge the blow, but you leave yourself vulnerable as she spins around and slams her heavy shield into you, knocking you off balance.' );
 		//(Effect: Stagger/Stun);
 		var damage = 5;
 		damage = CoC.player.takeDamage( 5 );
-		EngineCore.outputText( ' (' + damage + ')' );
+		MainView.outputText( ' (' + damage + ')' );
 		if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 ) {
-			EngineCore.outputText( '  Of course, your resolute posture prevents her from accomplishing much.' );
+			MainView.outputText( '  Of course, your resolute posture prevents her from accomplishing much.' );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 		}
@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, PerkLib, Appear
 	};
 	//Attack Three: Harpy Ass Grind GO!;
 	Brigid.prototype.BrigidAssGrind = function() {
-		EngineCore.outputText( 'Brigid grins as she approaches you.  She handily deflects a few defensive blows and grabs you by the shoulders.  She forces you onto your knees and before you can blink, has turned around and smashed your face into her ass!  "<i>Mmm, you like that, don\'tcha?</i>" she growls, grinding her huge, soft ass across your face, giving you an up-close and personal feel of her egg-laying hips.' );
+		MainView.outputText( 'Brigid grins as she approaches you.  She handily deflects a few defensive blows and grabs you by the shoulders.  She forces you onto your knees and before you can blink, has turned around and smashed your face into her ass!  "<i>Mmm, you like that, don\'tcha?</i>" she growls, grinding her huge, soft ass across your face, giving you an up-close and personal feel of her egg-laying hips.' );
 		EngineCore.dynStats( 'lus', 30 );
 		Combat.combatRoundOver();
 	};

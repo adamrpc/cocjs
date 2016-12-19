@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 		if( this.findStatusAffect( StatusAffects.KitsuneFight ) >= 0 ) {
 			SceneLib.kitsuneScene.loseKitsuneImpFight();
 		} else if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe imp grins at your already corrupted state...', false );
+			MainView.outputText( '\n\nThe imp grins at your already corrupted state...', false );
 			CoC.player.lust = 100;
 			EngineCore.doNext( SceneLib.impScene, SceneLib.impScene.impRapesYou );
 		} else {
@@ -24,49 +24,49 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 		}
 	};
 	Imp.prototype.lustMagicAttack = function() {
-		EngineCore.outputText( 'You see ' + this.a + this.short + ' make sudden arcane gestures at you!\n\n' );
+		MainView.outputText( 'You see ' + this.a + this.short + ' make sudden arcane gestures at you!\n\n' );
 		EngineCore.dynStats( 'lus', CoC.player.lib / 10 + CoC.player.cor / 10 + 10 );
 		if( CoC.player.lust < 30 ) {
-			EngineCore.outputText( 'You feel strangely warm.  ' );
+			MainView.outputText( 'You feel strangely warm.  ' );
 		}
 		if( CoC.player.lust >= 30 && CoC.player.lust < 60 ) {
-			EngineCore.outputText( 'Blood rushes to your groin as a surge of arousal hits you, making your knees weak.  ' );
+			MainView.outputText( 'Blood rushes to your groin as a surge of arousal hits you, making your knees weak.  ' );
 		}
 		if( CoC.player.lust >= 60 ) {
-			EngineCore.outputText( 'Images of yourself fellating and fucking the imp assault your mind, unnaturally arousing you.  ' );
+			MainView.outputText( 'Images of yourself fellating and fucking the imp assault your mind, unnaturally arousing you.  ' );
 		}
 		if( CoC.player.cocks.length > 0 ) {
 			if( CoC.player.lust >= 60 ) {
-				EngineCore.outputText( 'You feel your ' + CoC.player.multiCockDescriptLight() + ' dribble pre-cum.' );
+				MainView.outputText( 'You feel your ' + CoC.player.multiCockDescriptLight() + ' dribble pre-cum.' );
 			} else if( CoC.player.lust >= 30 && CoC.player.cocks.length === 1 ) {
-				EngineCore.outputText( 'Your ' + CoC.player.cockDescript( 0 ) + ' hardens, distracting you further.' );
+				MainView.outputText( 'Your ' + CoC.player.cockDescript( 0 ) + ' hardens, distracting you further.' );
 			} else if( CoC.player.lust >= 30 && CoC.player.cocks.length > 1 ) {
-				EngineCore.outputText( 'Your ' + CoC.player.multiCockDescriptLight() + ' harden uncomfortably.' );
+				MainView.outputText( 'Your ' + CoC.player.multiCockDescriptLight() + ' harden uncomfortably.' );
 			}
 			if( CoC.player.hasVagina() ) {
-				EngineCore.outputText( '  ' );
+				MainView.outputText( '  ' );
 			}
 		}
 		if( CoC.player.lust >= 60 && CoC.player.hasVagina() ) {
 			switch( CoC.player.vaginas[ 0 ].vaginalWetness ) {
 				case AppearanceDefs.VAGINA_WETNESS_NORMAL:
-					EngineCore.outputText( 'Your ' + Descriptors.allVaginaDescript() + ' dampen' + (CoC.player.vaginas.length > 1 ? '' : 's') + ' perceptibly.' );
+					MainView.outputText( 'Your ' + Descriptors.allVaginaDescript() + ' dampen' + (CoC.player.vaginas.length > 1 ? '' : 's') + ' perceptibly.' );
 					break;
 				case AppearanceDefs.VAGINA_WETNESS_WET:
-					EngineCore.outputText( 'Your crotch becomes sticky with girl-lust.' );
+					MainView.outputText( 'Your crotch becomes sticky with girl-lust.' );
 					break;
 				case AppearanceDefs.VAGINA_WETNESS_SLICK:
-					EngineCore.outputText( 'Your ' + Descriptors.allVaginaDescript() + ' become' + (CoC.player.vaginas.length > 1 ? '' : 's') + ' sloppy and wet.' );
+					MainView.outputText( 'Your ' + Descriptors.allVaginaDescript() + ' become' + (CoC.player.vaginas.length > 1 ? '' : 's') + ' sloppy and wet.' );
 					break;
 				case AppearanceDefs.VAGINA_WETNESS_DROOLING:
-					EngineCore.outputText( 'Thick runners of girl-lube stream down the insides of your thighs.' );
+					MainView.outputText( 'Thick runners of girl-lube stream down the insides of your thighs.' );
 					break;
 				case AppearanceDefs.VAGINA_WETNESS_SLAVERING:
-					EngineCore.outputText( 'Your ' + Descriptors.allVaginaDescript() + ' instantly soak' + (CoC.player.vaginas.length > 1 ? '' : 's') + ' your groin.' );
+					MainView.outputText( 'Your ' + Descriptors.allVaginaDescript() + ' instantly soak' + (CoC.player.vaginas.length > 1 ? '' : 's') + ' your groin.' );
 					break;
 			}
 		}
-		EngineCore.outputText( '\n' );
+		MainView.outputText( '\n' );
 		if( CoC.player.lust > 99 ) {
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {

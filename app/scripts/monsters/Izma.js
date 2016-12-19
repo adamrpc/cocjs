@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
 	function Izma() {
 		this.init(this, arguments);
 	}
@@ -9,57 +9,57 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 	Izma.prototype.IzmaSpecials1 = function() {
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'Izma attempts to close the distance with you, but misses completely because of her blindness.\n', false );
+			MainView.outputText( 'Izma attempts to close the distance with you, but misses completely because of her blindness.\n', false );
 			return;
 		}
 		//Determine if dodged!;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
+			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//Determine if evaded;
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
+			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//('Misdirection';
 		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Izma attempts to get close, but you put Raphael\'s teachings to use and side-step the sharkgirl, confusing her with your movements.\n', false );
+			MainView.outputText( 'Izma attempts to get close, but you put Raphael\'s teachings to use and side-step the sharkgirl, confusing her with your movements.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
+			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
-		EngineCore.outputText( 'Izma rushes you with impressive speed, striking a few precise locations on your joints with her fingertips before leaping back.  It doesn\'t hurt, but you feel tired and sore. "<i>Pressure points...</i>" she laughs, seeing your confused expression.', false );
+		MainView.outputText( 'Izma rushes you with impressive speed, striking a few precise locations on your joints with her fingertips before leaping back.  It doesn\'t hurt, but you feel tired and sore. "<i>Pressure points...</i>" she laughs, seeing your confused expression.', false );
 		//(Fatigue damage);
 		EngineCore.fatigue( 20 + Utils.rand( 20 ) );
 	};
 	Izma.prototype.IzmaSpecials2 = function() {
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'Izma blindly tries to clinch you, but misses completely.\n', false );
+			MainView.outputText( 'Izma blindly tries to clinch you, but misses completely.\n', false );
 			return;
 		}
 		//Determine if dodged!;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'Izma tries to clinch you, but you use your speed to keep just out of reach.\n', false );
+			MainView.outputText( 'Izma tries to clinch you, but you use your speed to keep just out of reach.\n', false );
 			return;
 		}
 		//Determine if evaded;
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Izma tries to clinch you, but she didn\'t count on your skills in evasion.  You manage to sidestep her at the last second.\n', false );
+			MainView.outputText( 'Izma tries to clinch you, but she didn\'t count on your skills in evasion.  You manage to sidestep her at the last second.\n', false );
 			return;
 		}
 		//('Misdirection';
 		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Izma ducks and weaves forward to clinch you, but thanks to Raphael\'s teachings, you\'re easily able to misguide her and avoid the clumsy grab.\n', false );
+			MainView.outputText( 'Izma ducks and weaves forward to clinch you, but thanks to Raphael\'s teachings, you\'re easily able to misguide her and avoid the clumsy grab.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'Izma tries to lock you in a clinch, but your cat-like flexibility makes it easy to twist away from her grab.\n', false );
+			MainView.outputText( 'Izma tries to lock you in a clinch, but your cat-like flexibility makes it easy to twist away from her grab.\n', false );
 			return;
 		}
 		var damage = 0;
@@ -67,19 +67,19 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 		if( damage < 0 ) {
 			damage = 0;
 		}
-		EngineCore.outputText( 'Izma ducks and jinks, working to close quarters, and clinches you. Unable to get your weapon into play, you can only ', false );
+		MainView.outputText( 'Izma ducks and jinks, working to close quarters, and clinches you. Unable to get your weapon into play, you can only ', false );
 		if( CoC.player.armorDef >= 10 || damage === 0 ) {
 			//(armor-dependent Health damage, fullplate, chain, scale, and bee chitin armor are unaffected, has a chance to inflict 'Bleed' damage which removes 2-5% of health for the next three turns if successful);
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( 'writhe as she painfully drags the blades of her glove down your back', false );
+			MainView.outputText( 'writhe as she painfully drags the blades of her glove down your back', false );
 			CoC.player.createStatusAffect( StatusAffects.IzmaBleed, 3, 0, 0, 0 );
 		} else {
-			EngineCore.outputText( 'laugh as her blades scape uselessly at your armor-clad back', false );
+			MainView.outputText( 'laugh as her blades scape uselessly at your armor-clad back', false );
 		}
-		EngineCore.outputText( ' before breaking her embrace and leaping away. (' + damage + ')', false );
+		MainView.outputText( ' before breaking her embrace and leaping away. (' + damage + ')', false );
 	};
 	Izma.prototype.IzmaSpecials3 = function() {
-		EngineCore.outputText( 'Rather than move to attack you, Izma grins at you and grabs her breasts, massaging them as she caresses her long penis with one knee. Her tail thrashes and thumps the sand heavily behind her as she simulates an orgasm, moaning loudly into the air. The whole display leaves you more aroused than before.', false );
+		MainView.outputText( 'Rather than move to attack you, Izma grins at you and grabs her breasts, massaging them as she caresses her long penis with one knee. Her tail thrashes and thumps the sand heavily behind her as she simulates an orgasm, moaning loudly into the air. The whole display leaves you more aroused than before.', false );
 		//(lust gain);
 		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 5) );
 	};
@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 	};
 	Izma.prototype._superEAttack = Izma.prototype.eAttack;
 	Izma.prototype.eAttack = function() {
-		EngineCore.outputText( 'Izma slides up to you, throws a feint, and then launches a rain of jabs at you!\n', false );
+		MainView.outputText( 'Izma slides up to you, throws a feint, and then launches a rain of jabs at you!\n', false );
 		this._superEAttack();
 	};
 	Izma.prototype.performCombatAction = function() {
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, PerkLib, CoC, Mon
 	};
 	Izma.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\n"<i>Gross!</i>" Izma cries as she backs away, leaving you to recover alone.' );
+			MainView.outputText( '\n\n"<i>Gross!</i>" Izma cries as she backs away, leaving you to recover alone.' );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.izmaScene.IzmaWins();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, MainView, Appearance, GooGirl, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
 	function GooArmorMonster() {
 		this.init(this, arguments);
 	}
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, Appear
 	};
 	GooArmorMonster.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe armored goo sighs while you exhaust yourself...' );
+			MainView.outputText( '\n\nThe armored goo sighs while you exhaust yourself...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {

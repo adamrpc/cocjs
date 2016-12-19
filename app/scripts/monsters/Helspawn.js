@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainView, Appearance, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainView, Appearance, CoC, Monster, Utils, AppearanceDefs, StatusAffects, Combat ) {
 	function Helspawn() {
 		this.init(this, arguments);
 	}
@@ -40,9 +40,9 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 	Helspawn.prototype.helspawnTwinStrikes = function() {
 		//if Bowmander;
 		if( CoC.flags[ kFLAGS.HELSPAWN_WEAPON ] === 'bow' ) {
-			EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' leaps back out of your reach and nocks a pair of blunted arrows, drawing them back together and loosing them at once!\n' );
+			MainView.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' leaps back out of your reach and nocks a pair of blunted arrows, drawing them back together and loosing them at once!\n' );
 		} else {
-			EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lunges at you, scimitar cleaving through the air toward your throat!\n' );
+			MainView.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lunges at you, scimitar cleaving through the air toward your throat!\n' );
 		}
 		this.createStatusAffect( StatusAffects.Attacks, 0, 0, 0, 0 );
 		this.eAttack();
@@ -50,13 +50,13 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 	//Called Shot (Bowmander Only);
 	// Super-high chance of hitting. On hit, speed debuff;
 	Helspawn.prototype.calledShot = function() {
-		EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' draws back her bowstring, spending an extra second aiming before letting fly!' );
+		MainView.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' draws back her bowstring, spending an extra second aiming before letting fly!' );
 		var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		//standard dodge/miss text;
 		if( damage <= 0 || (Utils.rand( 2 ) === 0 && (Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect())) ) {
-			EngineCore.outputText( '\nYou avoid the hit!' );
+			MainView.outputText( '\nYou avoid the hit!' );
 		} else {
-			EngineCore.outputText( '\nOne of her arrows smacks right into your [leg], nearly bowling you over.  God DAMN that hurt! You\'re going to be limping for a while!' );
+			MainView.outputText( '\nOne of her arrows smacks right into your [leg], nearly bowling you over.  God DAMN that hurt! You\'re going to be limping for a while!' );
 			var affect = 20 + Utils.rand( 5 );
 			if( CoC.player.findStatusAffect( StatusAffects.CalledShot ) >= 0 ) {
 				while( affect > 0 && CoC.player.spe >= 2 ) {
@@ -75,13 +75,13 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 				}
 			}
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 	};
 	//Berzerkergang (Berzerkermander Only);
 	//Gives Helspawn the benefit of the Berzerk special ability;
 	Helspawn.prototype.helSpawnBerserk = function() {
-		EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lets out a savage warcry, throwing her head back in primal exaltation before charging back into the fray with utter bloodlust in her wild eyes!' );
+		MainView.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lets out a savage warcry, throwing her head back in primal exaltation before charging back into the fray with utter bloodlust in her wild eyes!' );
 		this.weaponAttack = this.weaponAttack + 30;
 		this.armorDef = 0;
 	};
@@ -90,56 +90,56 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 		MainView.clearOutput();
 		var damage = Math.ceil( this.str - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		// Stuns a bitch;
-		EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lashes out with her shield, trying to knock you back!' );
+		MainView.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' lashes out with her shield, trying to knock you back!' );
 		//standard dodge/miss text;
 		if( damage <= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( '\nYou evade the strike.' );
+			MainView.outputText( '\nYou evade the strike.' );
 		} else {
-			EngineCore.outputText( '\nHer shield catches you right in the face, sending you tumbling to the ground and leaving you open to attack!' );
+			MainView.outputText( '\nHer shield catches you right in the face, sending you tumbling to the ground and leaving you open to attack!' );
 			damage = CoC.player.takeDamage( damage );
 			if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
-				EngineCore.outputText( ' <b>The hit stuns you.</b>' );
+				MainView.outputText( ' <b>The hit stuns you.</b>' );
 			}
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 	};
 	//Tail Whip;
 	Helspawn.prototype.tailWhipShitYo = function() {
 		// Light physical, armor piercing (fire, bitch). Random chance to get this on top of any other attack;
 		var damage = Math.ceil( this.str - Utils.rand( CoC.player.tou ) );
-		EngineCore.outputText( '\n' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' whips at you with her tail, trying to sear you with her brilliant flames!' );
+		MainView.outputText( '\n' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' whips at you with her tail, trying to sear you with her brilliant flames!' );
 		//standard dodge/miss text;
 		if( damage <= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( '\nYou evade the strike.' );
+			MainView.outputText( '\nYou evade the strike.' );
 		} else {
-			EngineCore.outputText( '\n' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '\'s tail catches you as you try to dodge.  Your [armor] sizzles, and you leap back with a yelp as she gives you a light burning.' );
+			MainView.outputText( '\n' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '\'s tail catches you as you try to dodge.  Your [armor] sizzles, and you leap back with a yelp as she gives you a light burning.' );
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 	};
 	//Tease (Sluttymander Only);
 	Helspawn.prototype.sluttyMander = function() {
 		// Medium Lust damage;
-		EngineCore.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' jumps just out of reach before spinning around, planting her weapon in the ground as she turns her backside to you and gives her sizable ass a rhythmic shake, swaying her full hips hypnotically.' );
+		MainView.outputText( CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' jumps just out of reach before spinning around, planting her weapon in the ground as she turns her backside to you and gives her sizable ass a rhythmic shake, swaying her full hips hypnotically.' );
 		//if no effect:;
 		if( Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( '\nWhat the fuck is she trying to do?  You walk over and give her a sharp kick in the kiester, "<i>Keep your head in the game, kiddo.  Pick up your weapon!</i>"' );
+			MainView.outputText( '\nWhat the fuck is she trying to do?  You walk over and give her a sharp kick in the kiester, "<i>Keep your head in the game, kiddo.  Pick up your weapon!</i>"' );
 		} else {
-			EngineCore.outputText( '\nDat ass.  You lean back, enjoying the show as the slutty little salamander slips right past your guard, practically grinding up against you until you can feel a fire boiling in your loins!' );
+			MainView.outputText( '\nDat ass.  You lean back, enjoying the show as the slutty little salamander slips right past your guard, practically grinding up against you until you can feel a fire boiling in your loins!' );
 			var lustDelta = CoC.player.lustVuln * (10 + CoC.player.lib / 10);
 			CoC.player.lust += lustDelta;
 			MainView.statsView.showStatUp( 'lust' );
 			// lustDown.visible = false;;
 			// lustUp.visible = true;;
 			lustDelta = Math.round( lustDelta * 10 ) / 10;
-			EngineCore.outputText( ' (' + lustDelta + ')', false );
+			MainView.outputText( ' (' + lustDelta + ')', false );
 		}
 	};
 	//Focus (Chastemander Only);
 	//Self-healing & lust restoration;
 	Helspawn.prototype.helSpawnFocus = function() {
-		EngineCore.outputText( 'Seeing a momentary lull in the melee, ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' slips out of reach, stumbling back and clutching at the bruises forming all over her body.  "<i>Come on, ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ', you can do this. Focus, focus,</i>" she mutters, trying to catch her breath.  A moment later and she seems to have taken a second wind as she readies her weapon with a renewed vigor.' );
+		MainView.outputText( 'Seeing a momentary lull in the melee, ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' slips out of reach, stumbling back and clutching at the bruises forming all over her body.  "<i>Come on, ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ', you can do this. Focus, focus,</i>" she mutters, trying to catch her breath.  A moment later and she seems to have taken a second wind as she readies her weapon with a renewed vigor.' );
 		this.lust -= 30;
 		if( this.lust < 0 ) {
 			this.lust = 0;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLib, Appearance, WeightedDrop, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainView, PerkLib, Appearance, WeightedDrop, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, Descriptors, StatusAffects ) {
 	function OmnibusOverseer() {
 		this.init(this, arguments);
 	}
@@ -10,16 +10,16 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 	};
 	OmnibusOverseer.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foe doesn\'t seem to care...' );
+			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.omnibusLossRape();
 		}
 	};
 	OmnibusOverseer.prototype.lustAura = function() {
-		EngineCore.outputText( 'The demoness blinks her eyes closed and knits her eyebrows in concentration.  The red orbs open wide and she smiles, licking her lips.   The air around her grows warmer, and muskier, as if her presence has saturated it with lust.' );
+		MainView.outputText( 'The demoness blinks her eyes closed and knits her eyebrows in concentration.  The red orbs open wide and she smiles, licking her lips.   The air around her grows warmer, and muskier, as if her presence has saturated it with lust.' );
 		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
-			EngineCore.outputText( '  Your eyes cross with unexpected feelings as the taste of desire in the air worms its way into you.  The intense aura quickly subsides, but it\'s already done its job.' );
+			MainView.outputText( '  Your eyes cross with unexpected feelings as the taste of desire in the air worms its way into you.  The intense aura quickly subsides, but it\'s already done its job.' );
 			EngineCore.dynStats( 'lus', (8 + Math.ceil( CoC.player.lib / 20 + CoC.player.cor / 25 )) );
 		} else {
 			this.createStatusAffect( StatusAffects.LustAura, 0, 0, 0, 0 );
@@ -28,31 +28,31 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, PerkLi
 	};
 	OmnibusOverseer.prototype.milkAttack = function() {
 		if( Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( 'The demoness grips her sizable breasts and squeezes, spraying milk at you.\n' );
+			MainView.outputText( 'The demoness grips her sizable breasts and squeezes, spraying milk at you.\n' );
 		} else {
-			EngineCore.outputText( 'Your foe curls up to pinch her nipples, tugging hard and squirting milk towards you.\n' );
+			MainView.outputText( 'Your foe curls up to pinch her nipples, tugging hard and squirting milk towards you.\n' );
 		}
 		if( (CoC.player.spe > 50 && Utils.rand( 4 ) === 0) || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 3 ) === 0) || (CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 4 ) === 0 && CoC.player.armorName === 'red, high-society bodysuit') ) {
-			EngineCore.outputText( 'You sidestep the gushing fluids.' );
+			MainView.outputText( 'You sidestep the gushing fluids.' );
 		}
 		//You didn't dodge;
 		else {
 			if( Utils.rand( 2 ) === 0 ) {
-				EngineCore.outputText( 'The milk splatters across your face and chest, soaking you with demonic cream.  Some managed to get into your mouth, and you swallow without thinking.  It makes you tingle with warmth.  ' );
+				MainView.outputText( 'The milk splatters across your face and chest, soaking you with demonic cream.  Some managed to get into your mouth, and you swallow without thinking.  It makes you tingle with warmth.  ' );
 			} else {
-				EngineCore.outputText( 'The milk splashes into your ' + CoC.player.armorName + ', soaking you effectively.  ' );
+				MainView.outputText( 'The milk splashes into your ' + CoC.player.armorName + ', soaking you effectively.  ' );
 				if( CoC.player.cocks.length > 0 ) {
-					EngineCore.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' gets hard as the milk lubricates and stimulates it.  ' );
+					MainView.outputText( 'Your ' + Descriptors.cockDescript( 0 ) + ' gets hard as the milk lubricates and stimulates it.  ' );
 					EngineCore.dynStats( 'lus', 5 );
 				}
 				if( CoC.player.vaginas.length > 0 ) {
-					EngineCore.outputText( 'You rub your thighs together as the milk slides between your pussy lips, stimulating you far more than it should.  ' );
+					MainView.outputText( 'You rub your thighs together as the milk slides between your pussy lips, stimulating you far more than it should.  ' );
 					EngineCore.dynStats( 'lus', 5 );
 				}
 			}
 			EngineCore.dynStats( 'lus', 7 + CoC.player.sens / 20 );
 			if( CoC.player.biggestLactation() > 1 ) {
-				EngineCore.outputText( 'Milk dribbles from your ' + Descriptors.allBreastsDescript() + ' in sympathy.' );
+				MainView.outputText( 'Milk dribbles from your ' + Descriptors.allBreastsDescript() + ' in sympathy.' );
 			}
 		}
 		Combat.combatRoundOver();

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib, Combat, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib, Combat, EngineCore, Descriptors ) {
 	function DemonPack() {
 		this.init(this, arguments);
 	}
@@ -15,72 +15,72 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, SceneLib, CoC, M
 	};
 	DemonPack.prototype.defeated = function( hpVictory ) {
 		if( hpVictory ) {
-			EngineCore.outputText( 'You strike out and the last of the demons tumbles to the ground with a thud. You stand there for a second surrounded by dead or unconscious demons feeling like a god of battle. Then you realize that if a god of battle does exist he lives on a demonic plane like this, so to avoid insulting him you take your hands off your hips and your ' + CoC.player.legs() + ' off the head of the demon leader before you start to search the bodies.', true );
+			MainView.outputText( 'You strike out and the last of the demons tumbles to the ground with a thud. You stand there for a second surrounded by dead or unconscious demons feeling like a god of battle. Then you realize that if a god of battle does exist he lives on a demonic plane like this, so to avoid insulting him you take your hands off your hips and your ' + CoC.player.legs() + ' off the head of the demon leader before you start to search the bodies.', true );
 			EngineCore.dynStats( 'lus', 1 );
 		} else {
-			EngineCore.outputText( 'The demons stop attacking, and reach out to touch your body. Some are already masturbating like it\'s the only thing in the world and you know that right now, if you wanted to, you could make each and every one of them fuck you.' );
+			MainView.outputText( 'The demons stop attacking, and reach out to touch your body. Some are already masturbating like it\'s the only thing in the world and you know that right now, if you wanted to, you could make each and every one of them fuck you.' );
 		}
 		if( this.findStatusAffect( StatusAffects.phyllafight ) >= 0 ) {
 			EngineCore.doNext( SceneLib.antsScene, SceneLib.antsScene.consolePhylla );
 		} else if( hpVictory ) {
 			Combat.cleanupAfterCombat();
 		} else {
-			EngineCore.outputText( '  Do you rape them?', true );
+			MainView.outputText( '  Do you rape them?', true );
 			EngineCore.doYesNo( this, this.rapeDemons, null, Combat.cleanupAfterCombat );
 		}
 	};
 	DemonPack.prototype.rapeDemons = function() {
-		EngineCore.outputText('You open your arms and step into the throng of eager demons. They jump eagerly to touch you, becoming more and more lust-frenzied every second. You take the nearest demon and throw it to the ground and without a moment\'s thought the rest of the group leap to join you in a thoughtless madness of lust...', true);
+		MainView.outputText('You open your arms and step into the throng of eager demons. They jump eagerly to touch you, becoming more and more lust-frenzied every second. You take the nearest demon and throw it to the ground and without a moment\'s thought the rest of the group leap to join you in a thoughtless madness of lust...', true);
 		EngineCore.doNext( SceneLib.oasis, SceneLib.oasis.oasisSexing);
 	};
 	DemonPack.prototype.won = function(hpVictory, pcCameWorms) {
 		if( CoC.player.gender === 0 ) {
 			if( hpVictory ) {
-				EngineCore.outputText( 'You collapse before the demons, who laugh at your utter lack of male or female endowments, beating you until you pass out.', true );
+				MainView.outputText( 'You collapse before the demons, who laugh at your utter lack of male or female endowments, beating you until you pass out.', true );
 			} else {
-				EngineCore.outputText( 'You offer yourself to the demons, who promptly begin laughing at your lack of endowments.  They fall on you as one, beating you into unconsciousness.', true );
+				MainView.outputText( 'You offer yourself to the demons, who promptly begin laughing at your lack of endowments.  They fall on you as one, beating you into unconsciousness.', true );
 			}
 			Combat.cleanupAfterCombat();
 		} else if( hpVictory ) {
-			EngineCore.outputText( 'The demons finally beat you down and you collapse onto the sand of the oasis. Almost immediately you feel demonic hands pressing and probing your prone form. You hear the leader of the group say something in a strange tongue but you have a feeling you know what it means. The demons dive onto your inert body with intent and begin to press themselves against you...', true );
+			MainView.outputText( 'The demons finally beat you down and you collapse onto the sand of the oasis. Almost immediately you feel demonic hands pressing and probing your prone form. You hear the leader of the group say something in a strange tongue but you have a feeling you know what it means. The demons dive onto your inert body with intent and begin to press themselves against you...', true );
 			EngineCore.doNext( SceneLib.oasis, SceneLib.oasis.oasisSexing );
 		} else {
-			EngineCore.outputText( 'You struggle to keep your mind on the fight and fail to do so. ', true );
+			MainView.outputText( 'You struggle to keep your mind on the fight and fail to do so. ', true );
 			if( pcCameWorms ) {
-				EngineCore.outputText( '\n\nThe demons joke and smile, obviously unconcerned with your state.\n\n', false );
+				MainView.outputText( '\n\nThe demons joke and smile, obviously unconcerned with your state.\n\n', false );
 			}
 			if( CoC.player.cocks.length > 0 ) {
 				if( CoC.player.cockTotal() > 1 ) {
-					EngineCore.outputText( 'Each of y', false );
+					MainView.outputText( 'Each of y', false );
 				} else {
-					EngineCore.outputText( 'Y', false );
+					MainView.outputText( 'Y', false );
 				}
-				EngineCore.outputText( 'our ' + CoC.player.multiCockDescriptLight() + ' throbs ', false );
+				MainView.outputText( 'our ' + CoC.player.multiCockDescriptLight() + ' throbs ', false );
 				if( CoC.player.hasVagina() ) {
-					EngineCore.outputText( ' and your ', false );
+					MainView.outputText( ' and your ', false );
 				}
 			}
 			if( CoC.player.vaginas.length > 0 ) {
 				if( !CoC.player.hasCock() ) {
-					EngineCore.outputText( 'Your ', false );
+					MainView.outputText( 'Your ', false );
 				}
-				EngineCore.outputText( Descriptors.vaginaDescript( 0 ) + ' burns ', false );
+				MainView.outputText( Descriptors.vaginaDescript( 0 ) + ' burns ', false );
 			}
-			EngineCore.outputText( 'with arousal.  You make a grab for the nearest demon and catch a handful of jiggly breast. You try desperately to use your other arm to pull her closer to slake your thirst but you both go tumbling to the ground. The demonic leader laughs out loud and the rest of the tribe falls on you, grabbing for anything it can find.', false );
+			MainView.outputText( 'with arousal.  You make a grab for the nearest demon and catch a handful of jiggly breast. You try desperately to use your other arm to pull her closer to slake your thirst but you both go tumbling to the ground. The demonic leader laughs out loud and the rest of the tribe falls on you, grabbing for anything it can find.', false );
 			EngineCore.doNext( SceneLib.oasis, SceneLib.oasis.oasisSexing );
 		}
 	};
 
 	DemonPack.prototype.teased = function( lustDelta ) {
-		EngineCore.outputText( '\n', false );
+		MainView.outputText( '\n', false );
 		if( lustDelta === 0 ) {
-			EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' seems unimpressed.' );
+			MainView.outputText( '\n' + this.getCapitalA() + this.short + ' seems unimpressed.' );
 		} else if( lustDelta > 0 && lustDelta < 5 ) {
-			EngineCore.outputText( 'The demons lessen somewhat in the intensity of their attack, and some even eye up your assets as they strike at you.', false );
+			MainView.outputText( 'The demons lessen somewhat in the intensity of their attack, and some even eye up your assets as they strike at you.', false );
 		} else if( lustDelta >= 5 && lustDelta < 10 ) {
-			EngineCore.outputText( 'The demons are obviously steering clear from damaging anything you might use to fuck and they\'re starting to leave their hands on you just a little longer after each blow. Some are starting to cop quick feels with their other hands and you can smell the demonic lust of a dozen bodies on the air.', false );
+			MainView.outputText( 'The demons are obviously steering clear from damaging anything you might use to fuck and they\'re starting to leave their hands on you just a little longer after each blow. Some are starting to cop quick feels with their other hands and you can smell the demonic lust of a dozen bodies on the air.', false );
 		} else if( lustDelta >= 10 ) {
-			EngineCore.outputText( 'The demons are less and less willing to hit you and more and more willing to just stroke their hands sensuously over you. The smell of demonic lust is thick on the air and part of the group just stands there stroking themselves openly.', false );
+			MainView.outputText( 'The demons are less and less willing to hit you and more and more willing to just stroke their hands sensuously over you. The smell of demonic lust is thick on the air and part of the group just stands there stroking themselves openly.', false );
 		}
 		this.applyTease( lustDelta );
 	};

@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
 				this.removeStatusAffect( StatusAffects.Attacks );
@@ -25,12 +25,12 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		//Determine if dodged!;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'You see the gnoll\'s black lips pull back ever so slightly and the powerful muscles in her shapely thighs tense moments before she charges.  With a leap you throw yourself to the side, feeling the wind and fury pass through where you had just been standing.  You gracefully turn to face the hyena as she does the same, knowing that could have been very bad.', false );
+			MainView.outputText( 'You see the gnoll\'s black lips pull back ever so slightly and the powerful muscles in her shapely thighs tense moments before she charges.  With a leap you throw yourself to the side, feeling the wind and fury pass through where you had just been standing.  You gracefully turn to face the hyena as she does the same, knowing that could have been very bad.', false );
 			return;
 		}
 		//Determine if evaded;
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
+			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
 				this.removeStatusAffect( StatusAffects.Attacks );
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		//('Misdirection';
 		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
+			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
 				this.removeStatusAffect( StatusAffects.Attacks );
@@ -58,11 +58,11 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		//Determine if cat'ed;
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
+			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
-				EngineCore.outputText( '\' attacks.\n', false );
+				MainView.outputText( '\' attacks.\n', false );
 			} else {
-				EngineCore.outputText( '\'s attack.\n', false );
+				MainView.outputText( '\'s attack.\n', false );
 			}
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -84,38 +84,38 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			damage = 0;
 			//Due to toughness or amor...;
 			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-				EngineCore.outputText( 'The gnoll before you suddenly charges, almost too fast to see.  Twin fists slam into your ' + CoC.player.armorName + ' with enough force to stagger you, but the force is absorbed without doing any real damage.  As jaws powerful enough to crush bone flash at your neck, you are able to twist to the side, letting the furious hyena slip by you.', false );
+				MainView.outputText( 'The gnoll before you suddenly charges, almost too fast to see.  Twin fists slam into your ' + CoC.player.armorName + ' with enough force to stagger you, but the force is absorbed without doing any real damage.  As jaws powerful enough to crush bone flash at your neck, you are able to twist to the side, letting the furious hyena slip by you.', false );
 			} else {
-				EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
+				MainView.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 			}
 		} else {
 			if( damage < 10 ) {
-				EngineCore.outputText( 'The gnoll runs forward, fury in her dark eyes as twin fists glance off your chest.  The glancing blow sends her off balance and the flashing ivory jaws barely miss your throat.  You push back, stumbling away from the furious hyena. (' + damage + ')', false );
+				MainView.outputText( 'The gnoll runs forward, fury in her dark eyes as twin fists glance off your chest.  The glancing blow sends her off balance and the flashing ivory jaws barely miss your throat.  You push back, stumbling away from the furious hyena. (' + damage + ')', false );
 			} else {
-				EngineCore.outputText( 'The gnoll rushes forward, almost too fast to detect before twin fists slam into your torso.  Before you can recover, ivory jaws flash before your eyes and you feel the sharp teeth start to clamp onto the ' + CoC.player.skinDesc + ' of your neck.  Blinding pain causes you to fling yourself backwards, away from the teeth and drawing angry scrapes as you escape the jaws.  You roll away before picking yourself up, the hyena moving confidently towards you as you try to shake off the pain from the blow. (' + damage + ')', false );
+				MainView.outputText( 'The gnoll rushes forward, almost too fast to detect before twin fists slam into your torso.  Before you can recover, ivory jaws flash before your eyes and you feel the sharp teeth start to clamp onto the ' + CoC.player.skinDesc + ' of your neck.  Blinding pain causes you to fling yourself backwards, away from the teeth and drawing angry scrapes as you escape the jaws.  You roll away before picking yourself up, the hyena moving confidently towards you as you try to shake off the pain from the blow. (' + damage + ')', false );
 			}
 		}
 		if( damage > 0 ) {
 			if( this.short === 'fetish zealot' ) {
-				EngineCore.outputText( '\nYou notice that some kind of unnatural heat is flowing into your body from the wound', false );
+				MainView.outputText( '\nYou notice that some kind of unnatural heat is flowing into your body from the wound', false );
 				if( CoC.player.inte > 50 ) {
-					EngineCore.outputText( ', was there some kind of aphrodisiac on the knife?', false );
+					MainView.outputText( ', was there some kind of aphrodisiac on the knife?', false );
 				} else {
-					EngineCore.outputText( '.', false );
+					MainView.outputText( '.', false );
 				}
 				EngineCore.dynStats( 'lus', (CoC.player.lib / 20 + Utils.rand( 4 ) + 1) );
 			}
 			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				}
 				this.lust += 5 * this.lustVuln;
 			}
 		}
 		MainView.statsView.show();
-		EngineCore.outputText( '\n', false );
+		MainView.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
 	//<Writers note: I recommend that the javelin have a chance to greatly decrease speed for the remaining battle.  I am writing the flavor text for this event if you choose to include it>;
@@ -125,34 +125,34 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		//<Hyena Attack 2 – Javelin – Unsuccessful – Dodged>;
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'The gnoll pulls a javelin from behind her and throws it at you, but blind as she is, it goes wide.', false );
+			MainView.outputText( 'The gnoll pulls a javelin from behind her and throws it at you, but blind as she is, it goes wide.', false );
 		}
 		//Determine if dodged!;
 		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The spear flashes through the distance towards your vulnerable form.  Even as you see doom sailing towards you, a primal instinct to duck pulls you down, and you feel the wind from the massive missile as it passes close to your ear.', false );
+			MainView.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The spear flashes through the distance towards your vulnerable form.  Even as you see doom sailing towards you, a primal instinct to duck pulls you down, and you feel the wind from the massive missile as it passes close to your ear.', false );
 		}
 		//Determine if evaded;
 		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s thrown spear.\n', false );
+			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s thrown spear.\n', false );
 		}
 		//('Misdirection';
 		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' thrown spear.\n', false );
+			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' thrown spear.\n', false );
 		}
 		//Determine if cat'ed;
 		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '\'s thrown spear.', false );
+			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '\'s thrown spear.', false );
 		}
 		//<Hyena Attack 2 – Javelin – Unsuccessful – Absorbed>;
 		else if( CoC.player.armorDef > 10 && Utils.rand( 2 ) === 0 ) {
-			EngineCore.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The spear flashes through the air but hits at an angle, sliding off your ' + CoC.player.armorName + ' without doing any damage.  It disappears into the grass.', false );
+			MainView.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The spear flashes through the air but hits at an angle, sliding off your ' + CoC.player.armorName + ' without doing any damage.  It disappears into the grass.', false );
 		} else if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 && CoC.player.tou >= 75 ) {
-			EngineCore.outputText( 'You resolutely ignore the spear, brushing the blunted tip away when it hits you.\n' );
+			MainView.outputText( 'You resolutely ignore the spear, brushing the blunted tip away when it hits you.\n' );
 		}
 		//<Hyena Attack 2 – Javelin – Successful – Player Entangled>;
 		else if( Utils.rand( 3 ) >= 1 ) {
 			damage = CoC.player.takeDamage( 25 + Utils.rand( 20 ) );
-			EngineCore.outputText( 'The gnoll pulls a long, black javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  You attempt to dive to the side, but are too late.  The powerful shaft slams, hard, into your back.  Pain radiates from the powerful impact.  Instead of piercing you, however, the tip seems to explode into a sticky goo that instantly bonds with your ' + CoC.player.armorName + '.  The four foot, heavy shaft pulls down on you awkwardly, catching at things and throwing your balance off.  You try to tug the javelin off of you but find that it has glued itself to you.  It will take time and effort to remove; making it impossible to do while a dominant hyena stalks you. (' + damage + ')', false );
+			MainView.outputText( 'The gnoll pulls a long, black javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  You attempt to dive to the side, but are too late.  The powerful shaft slams, hard, into your back.  Pain radiates from the powerful impact.  Instead of piercing you, however, the tip seems to explode into a sticky goo that instantly bonds with your ' + CoC.player.armorName + '.  The four foot, heavy shaft pulls down on you awkwardly, catching at things and throwing your balance off.  You try to tug the javelin off of you but find that it has glued itself to you.  It will take time and effort to remove; making it impossible to do while a dominant hyena stalks you. (' + damage + ')', false );
 			if( CoC.player.findStatusAffect( StatusAffects.GnollSpear ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.GnollSpear, 0, 0, 0, 0 );
 			}
@@ -167,7 +167,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		//<Hyena Attack 2 – Javelin – Successful – Player Not Entangled>;
 		else {
 			damage = CoC.player.takeDamage( 25 + Utils.rand( 20 ) );
-			EngineCore.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The javelin flashes through the intervening distance, slamming into your chest.  The blunted tip doesn\'t skewer you, but pain radiates from the bruising impact. (' + damage + ')', false );
+			MainView.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The javelin flashes through the intervening distance, slamming into your chest.  The blunted tip doesn\'t skewer you, but pain radiates from the bruising impact. (' + damage + ')', false );
 		}
 		Combat.combatRoundOver();
 	};
@@ -176,23 +176,23 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		var damage = 0;
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'The gnoll tries to catch you with a brutal snap-kick, but blind as she is, she completely misses.', false );
+			MainView.outputText( 'The gnoll tries to catch you with a brutal snap-kick, but blind as she is, she completely misses.', false );
 		}
 		//Determine if dodged!;
 		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'The gnoll grins at you before striding forward and pivoting.  A spotted leg snaps up and out, flashing through the air towards your ' + Descriptors.chestDesc() + '.  You step back just in time, robbing the blow of force.  The paw lightly strikes your torso before the female hyena springs back, glaring at you.', false );
+			MainView.outputText( 'The gnoll grins at you before striding forward and pivoting.  A spotted leg snaps up and out, flashing through the air towards your ' + Descriptors.chestDesc() + '.  You step back just in time, robbing the blow of force.  The paw lightly strikes your torso before the female hyena springs back, glaring at you.', false );
 		}
 		//Determine if evaded;
 		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s snap-kick.\n', false );
+			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s snap-kick.\n', false );
 		}
 		//('Misdirection';
 		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' snap-kick.\n', false );
+			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' snap-kick.\n', false );
 		}
 		//Determine if cat'ed;
 		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '\'s snap-kick.', false );
+			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '\'s snap-kick.', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
 		else {
@@ -206,15 +206,15 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			}
 			//No damage;
 			if( damage <= 0 ) {
-				EngineCore.outputText( 'The gnoll tries to catch your ' + Descriptors.chestDesc() + ' with a snap-kick, but you manage to block the vicious blow.', false );
+				MainView.outputText( 'The gnoll tries to catch your ' + Descriptors.chestDesc() + ' with a snap-kick, but you manage to block the vicious blow.', false );
 			}
 			//<Hyena Attack 3 – Snap Kick – Successful>;
 			else {
-				EngineCore.outputText( 'A glint enters the dark eyes of the gnoll before she strides forward and pivots.  A long, spotted leg snaps up and out to slam against your ' + Descriptors.chestDesc(), false );
+				MainView.outputText( 'A glint enters the dark eyes of the gnoll before she strides forward and pivots.  A long, spotted leg snaps up and out to slam against your ' + Descriptors.chestDesc(), false );
 				if( CoC.player.biggestTitSize() >= 1 ) {
-					EngineCore.outputText( ', sending a wave of pain through the sensitive flesh', false );
+					MainView.outputText( ', sending a wave of pain through the sensitive flesh', false );
 				}
-				EngineCore.outputText( '.  A small, traitorous part of you can\'t help but notice a flash of long, dark flesh beneath her loincloth even as you stagger back from the impact. (' + damage + ')', false );
+				MainView.outputText( '.  A small, traitorous part of you can\'t help but notice a flash of long, dark flesh beneath her loincloth even as you stagger back from the impact. (' + damage + ')', false );
 				EngineCore.dynStats( 'lus', 2 );
 			}
 		}
@@ -225,17 +225,17 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		var chance = Utils.rand( 150 );
 		//<Hyena Attack 4 – Arousal Attack – Highly Successful>;
 		if( CoC.player.cor + CoC.player.lib > chance + 50 ) {
-			EngineCore.outputText( 'A wry grin spreads across the gnoll\'s face before she sprints towards you.  Too fast to follow, she flies forward, and you desperately brace for an impact that doesn\'t come.  Instead of striking you, two spotted paws clamp behind your neck and pull your head down, planting your face against her leather loincloth.  A powerful, musky smell burns in your nose and the feel of firm flesh behind the flimsy leather leaves a tingling sensation along your face.  She holds you there, pressed against her groin for several moments, desire growing deep within your body, before you find the strength and will to pull away.  The amazon grins, letting you stumble back as you try to fight off the feel of her body.\n\n', false );
+			MainView.outputText( 'A wry grin spreads across the gnoll\'s face before she sprints towards you.  Too fast to follow, she flies forward, and you desperately brace for an impact that doesn\'t come.  Instead of striking you, two spotted paws clamp behind your neck and pull your head down, planting your face against her leather loincloth.  A powerful, musky smell burns in your nose and the feel of firm flesh behind the flimsy leather leaves a tingling sensation along your face.  She holds you there, pressed against her groin for several moments, desire growing deep within your body, before you find the strength and will to pull away.  The amazon grins, letting you stumble back as you try to fight off the feel of her body.\n\n', false );
 			EngineCore.dynStats( 'lus', (25 + CoC.player.lib / 20 + CoC.player.sens / 5) );
 		}
 		//<Hyena Attack 4 – Arousal Attack – Mildly Successful>;
 		else if( 20 + CoC.player.cor + CoC.player.lib > chance ) {
-			EngineCore.outputText( 'A lazy grin spreads across the gnoll\'s face before she sprints towards you.  Too fast to follow, she flies forward, and you desperately brace for an impact that doesn\'t come.  Instead of striking you, two spotted paws clamp behind your neck and pull your head down, planting your face against her leather loincloth.  A powerful, musky smell burns in your nose and the feel of firm flesh behind the flimsy leather leaves a tingling sensation along your face.  Instinctively, you tear away from the hold, stumbling away from the sensations filling your mind, though some desire remains kindled within you.', false );
+			MainView.outputText( 'A lazy grin spreads across the gnoll\'s face before she sprints towards you.  Too fast to follow, she flies forward, and you desperately brace for an impact that doesn\'t come.  Instead of striking you, two spotted paws clamp behind your neck and pull your head down, planting your face against her leather loincloth.  A powerful, musky smell burns in your nose and the feel of firm flesh behind the flimsy leather leaves a tingling sensation along your face.  Instinctively, you tear away from the hold, stumbling away from the sensations filling your mind, though some desire remains kindled within you.', false );
 			EngineCore.dynStats( 'lus', (15 + CoC.player.lib / 20 + CoC.player.sens / 5) );
 		}
 		//<Hyena Attack 4 – Arousal Attack – Unsuccessful>;
 		else {
-			EngineCore.outputText( 'A knowing glint fills the dark eyes of the gnoll before she sprints forward.  Your muscles tense as she reaches you and starts to lock two spotted paws behind your neck.  She pulls you down towards her musky crotch, but just as you brush her loincloth, you twist away.  The hyena snarls in frustration, and you\'re left wondering if that was her idea of foreplay.', false );
+			MainView.outputText( 'A knowing glint fills the dark eyes of the gnoll before she sprints forward.  Your muscles tense as she reaches you and starts to lock two spotted paws behind your neck.  She pulls you down towards her musky crotch, but just as you brush her loincloth, you twist away.  The hyena snarls in frustration, and you\'re left wondering if that was her idea of foreplay.', false );
 		}
 		Combat.combatRoundOver();
 	};
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
 				this.removeStatusAffect( StatusAffects.Attacks );
@@ -258,11 +258,11 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		//Determine if dodged!;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'You see the gnoll\'s black lips pull back ever so slightly and the powerful muscles in her shapely thighs tense moments before she charges.  With a leap you throw yourself to the side, feeling the wind and fury pass through where you had just been standing.  You gracefully turn to face the hyena as she does the same, knowing that could have been very bad.', false );
+			MainView.outputText( 'You see the gnoll\'s black lips pull back ever so slightly and the powerful muscles in her shapely thighs tense moments before she charges.  With a leap you throw yourself to the side, feeling the wind and fury pass through where you had just been standing.  You gracefully turn to face the hyena as she does the same, knowing that could have been very bad.', false );
 		}
 		//Determine if evaded;
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
+			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
 				this.removeStatusAffect( StatusAffects.Attacks );
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		//('Misdirection';
 		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
+			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
 				this.removeStatusAffect( StatusAffects.Attacks );
@@ -288,11 +288,11 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		//Determine if cat'ed;
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
+			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
-				EngineCore.outputText( '\' attacks.\n', false );
+				MainView.outputText( '\' attacks.\n', false );
 			} else {
-				EngineCore.outputText( '\'s attack.\n', false );
+				MainView.outputText( '\'s attack.\n', false );
 			}
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -313,44 +313,44 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			damage = 0;
 			//Due to toughness or amor...;
 			if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-				EngineCore.outputText( 'The gnoll before you suddenly charges, almost too fast to see.  Twin fists slam into your ' + CoC.player.armorName + ' with enough force to stagger you, but the force is absorbed without doing any real damage.  As jaws powerful enough to crush bone flash at your neck, you are able to twist to the side, letting the furious hyena slip by you.', false );
+				MainView.outputText( 'The gnoll before you suddenly charges, almost too fast to see.  Twin fists slam into your ' + CoC.player.armorName + ' with enough force to stagger you, but the force is absorbed without doing any real damage.  As jaws powerful enough to crush bone flash at your neck, you are able to twist to the side, letting the furious hyena slip by you.', false );
 			} else {
-				EngineCore.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
+				MainView.outputText( 'You deflect and block every ' + this.weaponVerb + ' ' + this.a + this.short + ' throws at you.', false );
 			}
 		} else {
 			if( damage < 10 ) {
-				EngineCore.outputText( 'The gnoll runs forward, fury in her dark eyes as twin fists glance off your chest.  The glancing blow sends her off balance and the flashing ivory jaws barely miss your throat.  You push back, stumbling away from the furious hyena. (' + damage + ')', false );
+				MainView.outputText( 'The gnoll runs forward, fury in her dark eyes as twin fists glance off your chest.  The glancing blow sends her off balance and the flashing ivory jaws barely miss your throat.  You push back, stumbling away from the furious hyena. (' + damage + ')', false );
 			} else {
-				EngineCore.outputText( 'The gnoll rushes forward, almost too fast to detect before twin fists slam into your torso.  Before you can recover, ivory jaws flash before your eyes and you feel the sharp teeth start to clamp onto the ' + CoC.player.skinDesc + ' of your neck.  Blinding pain causes you to fling yourself backwards, away from the teeth and drawing angry scrapes as you escape the jaws.  You roll away before picking yourself up, the hyena moving confidently towards you as you try to shake off the pain from the blow. (' + damage + ')', false );
+				MainView.outputText( 'The gnoll rushes forward, almost too fast to detect before twin fists slam into your torso.  Before you can recover, ivory jaws flash before your eyes and you feel the sharp teeth start to clamp onto the ' + CoC.player.skinDesc + ' of your neck.  Blinding pain causes you to fling yourself backwards, away from the teeth and drawing angry scrapes as you escape the jaws.  You roll away before picking yourself up, the hyena moving confidently towards you as you try to shake off the pain from the blow. (' + damage + ')', false );
 			}
 		}
 		if( damage > 0 ) {
 			if( this.short === 'fetish zealot' ) {
-				EngineCore.outputText( '\nYou notice that some kind of unnatural heat is flowing into your body from the wound', false );
+				MainView.outputText( '\nYou notice that some kind of unnatural heat is flowing into your body from the wound', false );
 				if( CoC.player.inte > 50 ) {
-					EngineCore.outputText( ', was there some kind of aphrodisiac on the knife?', false );
+					MainView.outputText( ', was there some kind of aphrodisiac on the knife?', false );
 				} else {
-					EngineCore.outputText( '.', false );
+					MainView.outputText( '.', false );
 				}
 				EngineCore.dynStats( 'lus', (CoC.player.lib / 20 + Utils.rand( 4 ) + 1) );
 			}
 			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				}
 				this.lust += 5 * this.lustVuln;
 			}
 		}
 		MainView.statsView.show();
-		EngineCore.outputText( '\n', false );
+		MainView.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
 	GnollSpearThrower.prototype.defeated = function() {
 		if( this.short === 'alpha gnoll' ) {
 			MainView.clearOutput();
-			EngineCore.outputText( 'The gnoll alpha is defeated!  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Hell, you could even dose her up with that succubi milk you took from the goblin first - it might make her even hotter.  Do you?' );
+			MainView.outputText( 'The gnoll alpha is defeated!  You could use her for a quick, willing fuck to sate your lusts before continuing on.  Hell, you could even dose her up with that succubi milk you took from the goblin first - it might make her even hotter.  Do you?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Fuck', SceneLib.urtaQuest, CoC.urtaQuest.winRapeHyenaPrincess );
 			EngineCore.addButton( 1, 'Succ Milk', SceneLib.urtaQuest, CoC.urtaQuest.useSuccubiMilkOnGnollPrincesses );
@@ -363,7 +363,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		if( this.short === 'alpha gnoll' ) {
 			CoC.urtaQuest.loseToGnollPrincessAndGetGangBanged();
 		} else if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
+			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.gnollSpearThrowerScene.hyenaSpearLossAnal();

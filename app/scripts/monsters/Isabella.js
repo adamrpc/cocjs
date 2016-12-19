@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
 	function Isabella() {
 		this.init(this, arguments);
 	}
@@ -9,108 +9,108 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, PerkLib, CoC,
 	//Isabella Combat texttttttsss;
 	Isabella.prototype.isabellaAttack = function() {
 		//[Standard attack];
-		EngineCore.outputText( 'Isabella snorts and lowers a shield a moment before she begins to charge towards you. Her hooves tear huge divots out of the ground as she closes the distance with surprising speed!  ', false );
+		MainView.outputText( 'Isabella snorts and lowers a shield a moment before she begins to charge towards you. Her hooves tear huge divots out of the ground as she closes the distance with surprising speed!  ', false );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
+			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
 		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
+			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
 		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'You easily evade her incredibly linear attack.\n', false );
+			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
 		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
+			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
 		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding her attack.\n', false );
+			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding her attack.\n', false );
 		} else {
 			var damage;
 			damage = Math.round( (this.weaponAttack + this.str + 20) - Utils.rand( CoC.player.tou + CoC.player.armorDef ) );
 			if( damage < 0 ) {
-				EngineCore.outputText( 'You brace yourself and catch her shield in both hands, dragging through the dirt as you slow her charge to a stop.  She gapes down, completely awestruck by the show of power.', false );
+				MainView.outputText( 'You brace yourself and catch her shield in both hands, dragging through the dirt as you slow her charge to a stop.  She gapes down, completely awestruck by the show of power.', false );
 			} else {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'She\'s coming too fast to dodge, and you\'re forced to try to stop her.  It doesn\'t work.  Isabella\'s shield hits you hard enough to ring your ears and knock you onto your back with bruising force. (' + damage + ')\n', false );
+				MainView.outputText( 'She\'s coming too fast to dodge, and you\'re forced to try to stop her.  It doesn\'t work.  Isabella\'s shield hits you hard enough to ring your ears and knock you onto your back with bruising force. (' + damage + ')\n', false );
 			}
 		}
 		Combat.combatRoundOver();
 	};
 	Isabella.prototype.isabellaStun = function() {
 		//[Stunning Impact];
-		EngineCore.outputText( 'Isabella spins her shield back at you in a potent, steel-assisted backhand.  ', false );
+		MainView.outputText( 'Isabella spins her shield back at you in a potent, steel-assisted backhand.  ', false );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
+			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
 		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
+			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
 		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'You easily evade her incredibly linear attack.\n', false );
+			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
 		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
+			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
 		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
+			MainView.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
 		} else {
 			var damage = 0;
 			damage = Math.round( (this.weaponAttack + this.str) - Utils.rand( CoC.player.tou + CoC.player.armorDef ) );
 			if( damage < 0 ) {
-				EngineCore.outputText( 'You deflect her blow away, taking no damage.\n', false );
+				MainView.outputText( 'You deflect her blow away, taking no damage.\n', false );
 				damage = 0;
 			} else if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 && CoC.player.tou >= 75 ) {
-				EngineCore.outputText( 'You resolutely ignore the blow thanks to your immense toughness.\n' );
+				MainView.outputText( 'You resolutely ignore the blow thanks to your immense toughness.\n' );
 				damage = 0;
 			} else {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'You try to avoid it, but her steely attack connects, rocking you back.  You stagger about while trying to get your bearings, but it\'s all you can do to stay on your feet.  <b>Isabella has stunned you!</b> (' + damage + ')\n', false );
+				MainView.outputText( 'You try to avoid it, but her steely attack connects, rocking you back.  You stagger about while trying to get your bearings, but it\'s all you can do to stay on your feet.  <b>Isabella has stunned you!</b> (' + damage + ')\n', false );
 				CoC.player.createStatusAffect( StatusAffects.IsabellaStunned, 0, 0, 0, 0 );
 			}
 		}
 		Combat.combatRoundOver();
 	};
 	Isabella.prototype.isabellaThroatPunch = function() {
-		EngineCore.outputText( 'Isabella punches out from behind her shield in a punch aimed right at your throat!  ', false );
+		MainView.outputText( 'Isabella punches out from behind her shield in a punch aimed right at your throat!  ', false );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
+			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
 		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
+			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
 		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'You easily evade her incredibly linear attack.\n', false );
+			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
 		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
+			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
 		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
+			MainView.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
 		} else {
 			var damage;
 			damage = Math.round( this.str - Utils.rand( CoC.player.tou + CoC.player.armorDef ) );
 			if( damage <= 0 ) {
-				EngineCore.outputText( 'You manage to block her with your own fists.\n', false );
+				MainView.outputText( 'You manage to block her with your own fists.\n', false );
 			} else if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 && CoC.player.tou >= 75 ) {
-				EngineCore.outputText( 'You resolutely ignore the blow thanks to your immense toughness.\n' );
+				MainView.outputText( 'You resolutely ignore the blow thanks to your immense toughness.\n' );
 			} else {
 				damage = CoC.player.takeDamage( damage );
-				EngineCore.outputText( 'You try your best to stop the onrushing fist, but it hits you square in the throat, nearly collapsing your windpipe entirely.  Gasping and sputtering, you try to breathe, and while it\'s difficult, you manage enough to prevent suffocation. <b>It will be impossible to focus to cast a spell in this state!</b> (' + damage + ')\n', false );
+				MainView.outputText( 'You try your best to stop the onrushing fist, but it hits you square in the throat, nearly collapsing your windpipe entirely.  Gasping and sputtering, you try to breathe, and while it\'s difficult, you manage enough to prevent suffocation. <b>It will be impossible to focus to cast a spell in this state!</b> (' + damage + ')\n', false );
 				CoC.player.createStatusAffect( StatusAffects.ThroatPunch, 2, 0, 0, 0 );
 			}
 		}
@@ -118,7 +118,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, PerkLib, CoC,
 	};
 	//[Milk Self-Heal];
 	Isabella.prototype.drankMalkYaCunt = function() {
-		EngineCore.outputText( 'Isabella pulls one of her breasts out of her low-cut shirt and begins to suckle at one of the many-tipped nipples. Her cheeks fill and hollow a few times while you watch with spellbound intensity.  She finishes and tucks the weighty orb away, blushing furiously.  The quick drink seems to have reinvigorated her, and watching it has definitely aroused you.', false );
+		MainView.outputText( 'Isabella pulls one of her breasts out of her low-cut shirt and begins to suckle at one of the many-tipped nipples. Her cheeks fill and hollow a few times while you watch with spellbound intensity.  She finishes and tucks the weighty orb away, blushing furiously.  The quick drink seems to have reinvigorated her, and watching it has definitely aroused you.', false );
 		this.HP += 100;
 		this.lust += 5;
 		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 20) );
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, PerkLib, CoC,
 	};
 	Isabella.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\n"<i>Ick,</i>" Isabella tuts as she turns to leave...' );
+			MainView.outputText( '\n\n"<i>Ick,</i>" Isabella tuts as she turns to leave...' );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.isabellaScene.isabellaDefeats();

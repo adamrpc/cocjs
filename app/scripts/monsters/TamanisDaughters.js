@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, kFLAGS, WeightedDrop, ConsumableLib, Combat, Goblin ) {
+angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, kFLAGS, WeightedDrop, ConsumableLib, Combat, Goblin ) {
 	function TamanisDaughters() {
 		this.init(this, arguments);
 	}
@@ -8,24 +8,24 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 	TamanisDaughters.prototype.midRoundMadness = function() {
 		var selector = Utils.rand( 4 );
 		if( selector === 0 ) {
-			EngineCore.outputText( 'A slender hand reaches inside your ' + CoC.player.armorName + ' and gives your ', false );
+			MainView.outputText( 'A slender hand reaches inside your ' + CoC.player.armorName + ' and gives your ', false );
 			if( CoC.player.balls > 0 ) {
 				if( Utils.rand( 2 ) === 0 ) {
-					EngineCore.outputText( CoC.player.multiCockDescriptLight(), false );
+					MainView.outputText( CoC.player.multiCockDescriptLight(), false );
 				} else {
-					EngineCore.outputText( CoC.player.ballsDescriptLight(), false );
+					MainView.outputText( CoC.player.ballsDescriptLight(), false );
 				}
 			} else {
-				EngineCore.outputText( CoC.player.multiCockDescriptLight(), false );
+				MainView.outputText( CoC.player.multiCockDescriptLight(), false );
 			}
-			EngineCore.outputText( ' a gentle squeeze.  You twist away but your breathing gets a little heavier.\n\n', false );
+			MainView.outputText( ' a gentle squeeze.  You twist away but your breathing gets a little heavier.\n\n', false );
 		} else if( selector === 1 ) {
-			EngineCore.outputText( 'A girl latches onto your ' + CoC.player.legs() + ' and begins caressing your body lovingly, humming happily.  You quickly shake her loose but the attention makes you blush a little more.\n\n', false );
+			MainView.outputText( 'A girl latches onto your ' + CoC.player.legs() + ' and begins caressing your body lovingly, humming happily.  You quickly shake her loose but the attention makes you blush a little more.\n\n', false );
 		} else if( selector === 2 ) {
-			EngineCore.outputText( 'One of your daughters launches onto your back and presses her hard, pierced nipples against your neck.  She whispers in your ear, "<i>Twist my nipples dad!</i>"\n\n', false );
-			EngineCore.outputText( 'You reach back and throw her off, but her perverted taunts still leave you feeling a little hot under the collar.\n\n', false );
+			MainView.outputText( 'One of your daughters launches onto your back and presses her hard, pierced nipples against your neck.  She whispers in your ear, "<i>Twist my nipples dad!</i>"\n\n', false );
+			MainView.outputText( 'You reach back and throw her off, but her perverted taunts still leave you feeling a little hot under the collar.\n\n', false );
 		} else {
-			EngineCore.outputText( 'A daughter lays down in front of you and starts jilling herself on the spot.  It\'s impossible to not glance down and see her or hear her pleasured moans.  You step away to remove the distraction but it definitely causes some discomfort in your ' + CoC.player.armorName + '.\n\n', false );
+			MainView.outputText( 'A daughter lays down in front of you and starts jilling herself on the spot.  It\'s impossible to not glance down and see her or hear her pleasured moans.  You step away to remove the distraction but it definitely causes some discomfort in your ' + CoC.player.armorName + '.\n\n', false );
 		}
 		EngineCore.dynStats( 'lus', 1 + CoC.player.lib / 15 + Utils.rand( CoC.player.cor / 30 ) );
 	};
@@ -36,8 +36,8 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 			} //Tamani already there - chance of potion
 		} else if( Utils.rand( 6 ) === 0 ) {
 			SceneLib.tamainsDaughtersScene.tamaniPresent = true;
-			EngineCore.outputText( 'A high-pitched yet familiar voice calls out, "<i><b>So this is where you skanks ran off to---wait a second.  Are you trying to poach Tamani\'s man!?</b></i>"\n\n', false );
-			EngineCore.outputText( 'You can see Tamani lurking around the rear of the goblin pack, visibly berating her daughters.  On one hand it sounds like she might help you, but knowing goblins, she\'ll probably forget about her anger and help them subdue you for more cum...\n\n', false );
+			MainView.outputText( 'A high-pitched yet familiar voice calls out, "<i><b>So this is where you skanks ran off to---wait a second.  Are you trying to poach Tamani\'s man!?</b></i>"\n\n', false );
+			MainView.outputText( 'You can see Tamani lurking around the rear of the goblin pack, visibly berating her daughters.  On one hand it sounds like she might help you, but knowing goblins, she\'ll probably forget about her anger and help them subdue you for more cum...\n\n', false );
 			//(+5 mob strength)
 			this.str += 5;
 			//(+5 mob toughness)
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, CoC, 
 	};
 	TamanisDaughters.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foes seem visibly disgusted and leave, telling you to, "<i>quit being so fucking gross...</i>"' );
+			MainView.outputText( '\n\nYour foes seem visibly disgusted and leave, telling you to, "<i>quit being so fucking gross...</i>"' );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.tamaniDaughtersScene.loseToDaughters();

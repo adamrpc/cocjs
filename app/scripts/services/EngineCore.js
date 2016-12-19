@@ -24,12 +24,12 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			if( CoC.player.HP + changeNum > CoC.player.maxHP() ) {
 				if( CoC.player.HP >= CoC.player.maxHP() ) {
 					if( display ) {
-						EngineCore.outputText( 'You\'re as healthy as you can be.\n', false );
+						MainView.outputText( 'You\'re as healthy as you can be.\n', false );
 					}
 					return;
 				}
 				if( display ) {
-					EngineCore.outputText( 'Your HP maxes out at ' + CoC.player.maxHP() + '.\n', false );
+					MainView.outputText( 'Your HP maxes out at ' + CoC.player.maxHP() + '.\n', false );
 				}
 				if(CoC.player.HP < CoC.player.maxHP()) {
 					MainView.statsView.showStatUp( 'HP' );
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				CoC.player.HP = CoC.player.maxHP();
 			} else {
 				if( display ) {
-					EngineCore.outputText( 'You gain ' + changeNum + ' HP.\n', false );
+					MainView.outputText( 'You gain ' + changeNum + ' HP.\n', false );
 				}
 				CoC.player.HP += changeNum;
 				MainView.statsView.showStatUp( 'HP' );
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		} else { //Negative HP
 			if( CoC.player.HP + changeNum <= 0 ) {
 				if( display ) {
-					EngineCore.outputText( 'You take ' + (-changeNum) + ' damage, dropping your HP to 0.\n', false );
+					MainView.outputText( 'You take ' + (-changeNum) + ' damage, dropping your HP to 0.\n', false );
 				}
 				if(CoC.player.HP > 0) {
 					MainView.statsView.showStatDown( 'HP' );
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				CoC.player.HP = 0;
 			} else {
 				if( display ) {
-					EngineCore.outputText( 'You take ' + (-changeNum) + ' damage.\n', false );
+					MainView.outputText( 'You take ' + (-changeNum) + ' damage.\n', false );
 				}
 				CoC.player.HP += changeNum;
 				MainView.statsView.showStatDown( 'HP' );
@@ -72,21 +72,21 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.setOutputText( MainView.mainText );
 	};
 	EngineCore.displayPerks = function() {
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		_.forEach(CoC.player.perks, function(perk) {
-			EngineCore.outputText( '<b>' + perk.perkName + '</b> - ' + perk.perkDesc + '\n', false );
+			MainView.outputText( '<b>' + perk.perkName + '</b> - ' + perk.perkDesc + '\n', false );
 		});
 		EngineCore.menu();
 		if( CoC.player.perkPoints > 0 ) {
-			EngineCore.outputText( '\n<b>You have ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point', false );
+			MainView.outputText( '\n<b>You have ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point', false );
 			if( CoC.player.perkPoints > 1 ) {
-				EngineCore.outputText( 's', false );
+				MainView.outputText( 's', false );
 			}
-			EngineCore.outputText( ' to spend.</b>', false );
+			MainView.outputText( ' to spend.</b>', false );
 			EngineCore.addButton( 1, 'Perk Up', null, EngineCore.perkBuyMenu );
 		}
 		if( CoC.player.findPerk( PerkLib.DoubleAttack ) >= 0 ) {
-			EngineCore.outputText( '\n<b>You can adjust your double attack settings.</b>' );
+			MainView.outputText( '\n<b>You can adjust your double attack settings.</b>' );
 			EngineCore.addButton( 2, 'Dbl Options', null, EngineCore.doubleAttackOptions );
 		}
 		EngineCore.addButton( 0, 'Next', null, MainView.playerMenu );
@@ -95,21 +95,21 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.clearOutput();
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 0 ) {
-			EngineCore.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
-			EngineCore.outputText( '\n\nYou can change it to double attack until sixty strength and then dynamicly switch to single attacks.' );
-			EngineCore.outputText( '\nYou can change it to always single attack.' );
+			MainView.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
+			MainView.outputText( '\n\nYou can change it to double attack until sixty strength and then dynamicly switch to single attacks.' );
+			MainView.outputText( '\nYou can change it to always single attack.' );
 			EngineCore.addButton( 1, 'Dynamic', null, EngineCore.doubleAttackDynamic );
 			EngineCore.addButton( 2, 'Single', null, EngineCore.doubleAttackOff );
 		} else if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 1 ) {
-			EngineCore.outputText( 'You will currently double attack until your strength exceeds sixty, and then single attack.' );
-			EngineCore.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
-			EngineCore.outputText( '\nYou can change it to always single attack.' );
+			MainView.outputText( 'You will currently double attack until your strength exceeds sixty, and then single attack.' );
+			MainView.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
+			MainView.outputText( '\nYou can change it to always single attack.' );
 			EngineCore.addButton( 0, 'All Double', null, EngineCore.doubleAttackForce );
 			EngineCore.addButton( 2, 'Single', null, EngineCore.doubleAttackOff );
 		} else {
-			EngineCore.outputText( 'You will always single attack your foes in combat.' );
-			EngineCore.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
-			EngineCore.outputText( '\nYou can change it to double attack until sixty strength and then switch to single attacks.' );
+			MainView.outputText( 'You will always single attack your foes in combat.' );
+			MainView.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
+			MainView.outputText( '\nYou can change it to double attack until sixty strength and then switch to single attacks.' );
 			EngineCore.addButton( 0, 'All Double', null, EngineCore.doubleAttackForce );
 			EngineCore.addButton( 1, 'Dynamic', null, EngineCore.doubleAttackDynamic );
 		}
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( CoC.player.XP >= (CoC.player.level) * 100 ) {
 			CoC.player.level++;
 			CoC.player.perkPoints++;
-			EngineCore.outputText( '<b>You are now level ' + CoC.player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
+			MainView.outputText( '<b>You are now level ' + CoC.player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
 			CoC.player.XP -= (CoC.player.level - 1) * 100;
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Strength', null, EngineCore.levelUpStatStrength );
@@ -145,14 +145,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		} else if( CoC.player.perkPoints > 0 ) { //Spend perk points
 			EngineCore.perkBuyMenu();
 		} else {
-			EngineCore.outputText( '<b>ERROR.  LEVEL UP PUSHED WHEN PC CANNOT LEVEL OR GAIN PERKS.  PLEASE REPORT THE STEPS TO REPRODUCE THIS BUG TO FENOXO@GMAIL.COM OR THE FENOXO.COM BUG REPORT FORUM.</b>' );
+			MainView.outputText( '<b>ERROR.  LEVEL UP PUSHED WHEN PC CANNOT LEVEL OR GAIN PERKS.  PLEASE REPORT THE STEPS TO REPRODUCE THIS BUG TO FENOXO@GMAIL.COM OR THE FENOXO.COM BUG REPORT FORUM.</b>' );
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
 	EngineCore.levelUpStatStrength = function() {
 		EngineCore.dynStats( 'str', 5 ); //Gain +5 Str due to level
 		MainView.clearOutput();
-		EngineCore.outputText( 'Your muscles feel significantly stronger from your time adventuring.' );
+		MainView.outputText( 'Your muscles feel significantly stronger from your time adventuring.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatToughness = function() {
@@ -160,34 +160,34 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		$log.debug( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
 		MainView.statsView.show();
 		MainView.clearOutput();
-		EngineCore.outputText( 'You feel tougher from all the fights you have endured.' );
+		MainView.outputText( 'You feel tougher from all the fights you have endured.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatSpeed = function() {
 		EngineCore.dynStats( 'spe', 5 ); //Gain +5 speed due to level
 		MainView.clearOutput();
-		EngineCore.outputText( 'Your time in combat has driven you to move faster.' );
+		MainView.outputText( 'Your time in combat has driven you to move faster.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.levelUpStatIntelligence = function() {
 		EngineCore.dynStats( 'int', 5 ); //Gain +5 Intelligence due to level
 		MainView.clearOutput();
-		EngineCore.outputText( 'Your time spent fighting the creatures of this realm has sharpened your wit.' );
+		MainView.outputText( 'Your time spent fighting the creatures of this realm has sharpened your wit.' );
 		EngineCore.doNext( null, EngineCore.perkBuyMenu );
 	};
 	EngineCore.perkBuyMenu = function() {
 		MainView.clearOutput();
 		var perkList = EngineCore.buildPerkList();
 		if( perkList.length === 0 ) {
-			EngineCore.outputText( '<b>You do not qualify for any perks at present.  </b>In case you qualify for any in the future, you will keep your ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point' );
+			MainView.outputText( '<b>You do not qualify for any perks at present.  </b>In case you qualify for any in the future, you will keep your ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point' );
 			if( CoC.player.perkPoints > 1 ) {
-				EngineCore.outputText( 's' );
+				MainView.outputText( 's' );
 			}
-			EngineCore.outputText( '.' );
+			MainView.outputText( '.' );
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
-		EngineCore.outputText( 'Please select a perk from the drop-down list, then click \'Okay\'.  You can press \'Skip\' to save your perk point for later.\n\n' );
+		MainView.outputText( 'Please select a perk from the drop-down list, then click \'Okay\'.  You can press \'Skip\' to save your perk point for later.\n\n' );
 		MainView.aCb.visible = true;
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		EngineCore.menu();
@@ -211,8 +211,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		//Store perk name for later addition
 		MainView.clearOutput();
-		EngineCore.outputText( 'You have selected the following perk:\n\n' );
-		EngineCore.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
+		MainView.outputText( 'You have selected the following perk:\n\n' );
+		MainView.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Okay', null, EngineCore.perkSelect, selected );
 		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.clearOutput();
 		CoC.player.perkPoints--;
 		//Apply perk here.
-		EngineCore.outputText( '<b>' + perk.perkName + '</b> gained!' );
+		MainView.outputText( '<b>' + perk.perkName + '</b> gained!' );
 		CoC.player.createPerk( perk.ptype, perk.value1, perk.value2, perk.value3, perk.value4 );
 		if( perk.ptype === PerkLib.StrongBack2 ) {
 			CoC.player.itemSlot5.unlocked = true;
@@ -930,7 +930,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.changeFatigue = EngineCore.fatigue;
 	EngineCore.displayStats = function( ) {
 		EngineCore.spriteSelect( -1 );
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		// Begin Combat Stats
 		var combatStats = '';
 		if( CoC.player.hasKeyItem( 'Bow' ) >= 0 ) {
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		combatStats += '<b>Tease Skill (Out of 5):</b>  ' + CoC.player.teaseLevel + '\n';
 		if( combatStats !== '' ) {
-			EngineCore.outputText( '<b><u>Combat Stats</u></b>\n' + combatStats, false );
+			MainView.outputText( '<b><u>Combat Stats</u></b>\n' + combatStats, false );
 		}
 		// End Combat Stats
 		// Begin Children Stats
@@ -1032,7 +1032,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			childStats += '<b>Number of Adult Minotaur Offspring:</b> ' + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] + '\n';
 		}
 		if( childStats !== '' ) {
-			EngineCore.outputText( '\n<b><u>Children</u></b>\n' + childStats, false );
+			MainView.outputText( '\n<b><u>Children</u></b>\n' + childStats, false );
 		}
 		// End Children Stats
 		// Begin Body Stats
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 		if( bodyStats !== '' ) {
-			EngineCore.outputText( '\n<b><u>Body Stats</u></b>\n' + bodyStats, false );
+			MainView.outputText( '\n<b><u>Body Stats</u></b>\n' + bodyStats, false );
 		}
 		// End Body Stats
 		// Begin Misc Stats
@@ -1123,7 +1123,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			miscStats += '<b>Spells Cast:</b> ' + CoC.flags[ kFLAGS.SPELLS_CAST ] + '\n';
 		}
 		if( miscStats !== '' ) {
-			EngineCore.outputText( '\n<b><u>Miscellaneous Stats</u></b>\n' + miscStats );
+			MainView.outputText( '\n<b><u>Miscellaneous Stats</u></b>\n' + miscStats );
 		}
 		// End Misc Stats
 		// Begin Addition Stats
@@ -1148,7 +1148,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 		if( addictStats !== '' ) {
-			EngineCore.outputText( '\n<b><u>Addictions</u></b>\n' + addictStats, false );
+			MainView.outputText( '\n<b><u>Addictions</u></b>\n' + addictStats, false );
 		}
 		// End Addition Stats
 		// Begin Interpersonal Stats
@@ -1237,7 +1237,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 		if( interpersonStats !== '' ) {
-			EngineCore.outputText( '\n<b><u>Interpersonal Stats</u></b>\n' + interpersonStats, false );
+			MainView.outputText( '\n<b><u>Interpersonal Stats</u></b>\n' + interpersonStats, false );
 		}
 		// End Interpersonal Stats
 		// Begin Ongoing Stat Effects
@@ -1255,7 +1255,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			statEffects += 'Black Cat Beer - ' + CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) + ' hours remaining (Lust resistance 20% lower, physical resistance 25% higher.)\n';
 		}
 		if( statEffects !== '' ) {
-			EngineCore.outputText( '\n<b><u>Ongoing Status Effects</u></b>\n' + statEffects, false );
+			MainView.outputText( '\n<b><u>Ongoing Status Effects</u></b>\n' + statEffects, false );
 		}
 		// End Ongoing Stat Effects
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -1653,7 +1653,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//Virginity check
 		if( CoC.player.vaginas[ vIndex ].virgin ) {
 			if( display ) {
-				EngineCore.outputText( '\nYour ' + Descriptors.vaginaDescript( vIndex ) + ' loses its virginity!', false );
+				MainView.outputText( '\nYour ' + Descriptors.vaginaDescript( vIndex ) + ' loses its virginity!', false );
 			}
 			CoC.player.vaginas[ vIndex ].virgin = false;
 		}
@@ -1663,19 +1663,19 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				$log.debug( 'CUNT STRETCHED: By cock larger than it\'s total capacity.' );
 				if( display ) {
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
 					}
 				}
 				CoC.player.vaginas[ vIndex ].vaginalLooseness++;
@@ -1687,19 +1687,19 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				$log.debug( 'CUNT STRETCHED: By cock @ 75% of capacity.' );
 				if( display ) {
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
 					}
 					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
-						EngineCore.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
+						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
 					}
 				}
 				CoC.player.vaginas[ vIndex ].vaginalLooseness++;

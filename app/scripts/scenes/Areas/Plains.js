@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, EngineCore, OnLoadVariables, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Utils, EngineCore, OnLoadVariables, ConsumableLib ) {
 	function Plains() {
 	}
 
 	Plains.prototype.explorePlains = function() {
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		CoC.flags[ kFLAGS.TIMES_EXPLORED_PLAINS ]++;
 		//Dem Kangasluts!  Force Sheila relationship phase!
 		if( CoC.flags[ kFLAGS.SHEILA_DEMON ] === 0 && CoC.flags[ kFLAGS.SHEILA_XP ] === 3 && CoC.time.hours === 20 && CoC.flags[ kFLAGS.SHEILA_CLOCK ] >= 0 ) {
@@ -78,10 +78,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, CoC, kFLAGS, Utils, EngineCor
 	};
 	Plains.prototype.plainsLoot = function() {
 		if( Utils.rand( 2 ) === 0 ) { //OVI
-			EngineCore.outputText( 'While exploring the plains you nearly trip over a discarded, hexagonal bottle.  ' );
+			MainView.outputText( 'While exploring the plains you nearly trip over a discarded, hexagonal bottle.  ' );
 			SceneLib.inventory.takeItem( ConsumableLib.OVIELIX, SceneLib.camp.returnToCampUseOneHour );
 		} else { //FIND KANGAAA
-			EngineCore.outputText( 'While exploring the plains you come across a strange-looking plant.  As you peer at it, you realize it has some fruit you can get at.  ' );
+			MainView.outputText( 'While exploring the plains you come across a strange-looking plant.  As you peer at it, you realize it has some fruit you can get at.  ' );
 			SceneLib.inventory.takeItem( ConsumableLib.KANGAFT, SceneLib.camp.returnToCampUseOneHour );
 		}
 	};

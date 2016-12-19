@@ -10,9 +10,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 	Camp.prototype.returnToCamp = function( timeUsed ) {
 		MainView.clearOutput();
 		if( timeUsed === 1 ) {
-			EngineCore.outputText( 'An hour passes...\n' );
+			MainView.outputText( 'An hour passes...\n' );
 		} else {
-			EngineCore.outputText( Utils.num2Text( timeUsed ) + ' hours pass...\n' );
+			MainView.outputText( Utils.num2Text( timeUsed ) + ' hours pass...\n' );
 		}
 		if( !CoC.isInCombat() ) {
 			EngineCore.spriteSelect( -1 );
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		if( OnLoadVariables.timeQ > 0 ) {
 			if( !this.campQ ) {
-				EngineCore.outputText( 'More time passes...\n', true );
+				MainView.outputText( 'More time passes...\n', true );
 				EventParser.goNext( OnLoadVariables.timeQ, false );
 				return;
 			} else {
@@ -423,23 +423,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		var exploreEvent = SceneLib.exploration.doExplore;
 		var masturbate = (CoC.player.lust > 30 ? SceneLib.masturbation.masturbateMenu : null);
 		MainView.clearOutput();
-		EngineCore.outputText( ImageManager.showImage( 'camping' ), false );
+		MainView.outputText( ImageManager.showImage( 'camping' ), false );
 		//Isabella upgrades camp level!
 
 		if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
-			EngineCore.outputText( 'Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.', false );
+			MainView.outputText( 'Your campsite got a lot more comfortable once Isabella moved in.  Carpets cover up much of the barren ground, simple awnings tied to the rocks provide shade, and hand-made wooden furniture provides comfortable places to sit and sleep.', false );
 			if( CoC.time.days >= 20 ) {
-				EngineCore.outputText( '  You\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
+				MainView.outputText( '  You\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
 			}
 		}
 		//Live in-ness
 		else {
 			if( CoC.time.days < 10 ) {
-				EngineCore.outputText( 'Your campsite is fairly simple at the moment.  Your tent and bedroll are set in front of the rocks that lead to the portal.  You have a small fire pit as well.', false );
+				MainView.outputText( 'Your campsite is fairly simple at the moment.  Your tent and bedroll are set in front of the rocks that lead to the portal.  You have a small fire pit as well.', false );
 			} else if( CoC.time.days < 20 ) {
-				EngineCore.outputText( 'Your campsite is starting to get a very \'lived-in\' look.  The fire-pit is well defined with some rocks you\'ve arranged around it, and your bedroll and tent have been set up in the area most sheltered by rocks.', false );
+				MainView.outputText( 'Your campsite is starting to get a very \'lived-in\' look.  The fire-pit is well defined with some rocks you\'ve arranged around it, and your bedroll and tent have been set up in the area most sheltered by rocks.', false );
 			} else {
-				EngineCore.outputText( 'Your new home is as comfy as a camp site can be.  The fire-pit and tent are both set up perfectly, and in good repair, and you\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
+				MainView.outputText( 'Your new home is as comfy as a camp site can be.  The fire-pit and tent are both set up perfectly, and in good repair, and you\'ve even managed to carve some artwork into the rocks around the camp\'s perimeter.', false );
 			}
 		}
 		if( CoC.flags[ kFLAGS.CLARA_IMPRISONED ] > 0 ) {
@@ -447,64 +447,64 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		//Nursery
 		if( CoC.flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] === 100 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
-			EngineCore.outputText( '  Marble has built a fairly secure nursery amongst the rocks to house your ', false );
+			MainView.outputText( '  Marble has built a fairly secure nursery amongst the rocks to house your ', false );
 			if( CoC.flags[ kFLAGS.MARBLE_KIDS ] === 0 ) {
-				EngineCore.outputText( 'future children', false );
+				MainView.outputText( 'future children', false );
 			} else {
-				EngineCore.outputText( Utils.num2Text( CoC.flags[ kFLAGS.MARBLE_KIDS ] ) + ' child', false );
+				MainView.outputText( Utils.num2Text( CoC.flags[ kFLAGS.MARBLE_KIDS ] ) + ' child', false );
 				if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-					EngineCore.outputText( 'ren', false );
+					MainView.outputText( 'ren', false );
 				}
 			}
-			EngineCore.outputText( '.', false );
+			MainView.outputText( '.', false );
 		}
 		//HARPY ROOKERY
 		if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 0 ) {
 			//Rookery Descriptions (Short)
 			//Small (1 mature daughter)
 			if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] === 1 ) {
-				EngineCore.outputText( '  There\'s a smallish harpy nest that your daughter has built up with rocks piled high near the fringes of your camp.  It\'s kind of pathetic, but she seems proud of her accomplishment.' );
+				MainView.outputText( '  There\'s a smallish harpy nest that your daughter has built up with rocks piled high near the fringes of your camp.  It\'s kind of pathetic, but she seems proud of her accomplishment.' );
 			}
 			//Medium (2-3 mature daughters)
 			else if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 3 ) {
-				EngineCore.outputText( '  There\'s a growing pile of stones built up at the fringes of your camp.  It\'s big enough to be considered a small hill by this point, dotted with a couple small harpy nests just barely big enough for two.' );
+				MainView.outputText( '  There\'s a growing pile of stones built up at the fringes of your camp.  It\'s big enough to be considered a small hill by this point, dotted with a couple small harpy nests just barely big enough for two.' );
 			}
 			//Big (4 mature daughters)
 			else if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 4 ) {
-				EngineCore.outputText( '  The harpy rookery at the edge of camp has gotten pretty big.  It\'s taller than most of the standing stones that surround the portal, and there\'s more nests than harpies at this point.  Every now and then you see the four of them managing a boulder they dragged in from somewhere to add to it.' );
+				MainView.outputText( '  The harpy rookery at the edge of camp has gotten pretty big.  It\'s taller than most of the standing stones that surround the portal, and there\'s more nests than harpies at this point.  Every now and then you see the four of them managing a boulder they dragged in from somewhere to add to it.' );
 			}
 			//Large (5-10 mature daughters)
 			else if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 10 ) {
-				EngineCore.outputText( '  The rookery has gotten quite large.  It stands nearly two stories tall at this point, dotted with nests and hollowed out places in the center.  It\'s surrounded by the many feathers the assembled harpies leave behind.' );
+				MainView.outputText( '  The rookery has gotten quite large.  It stands nearly two stories tall at this point, dotted with nests and hollowed out places in the center.  It\'s surrounded by the many feathers the assembled harpies leave behind.' );
 			}
 			//Giant (11-20 mature daughters)
 			else if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 20 ) {
-				EngineCore.outputText( '  A towering harpy rookery has risen up at the fringes of your camp, filled with all of your harpy brood.  It\'s at least three stories tall at this point, and it has actually begun to resemble a secure structure.  These harpies are always rebuilding and adding onto it.' );
+				MainView.outputText( '  A towering harpy rookery has risen up at the fringes of your camp, filled with all of your harpy brood.  It\'s at least three stories tall at this point, and it has actually begun to resemble a secure structure.  These harpies are always rebuilding and adding onto it.' );
 			}
 			//Massive (31-50 mature daughters)
 			else if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] <= 50 ) {
-				EngineCore.outputText( '  A massive harpy rookery towers over the edges of your camp.  It\'s almost entirely built out of stones that are fit seamlessly into each other, with many ledges and overhangs for nests.  There\'s a constant hum of activity over there day or night.' );
+				MainView.outputText( '  A massive harpy rookery towers over the edges of your camp.  It\'s almost entirely built out of stones that are fit seamlessly into each other, with many ledges and overhangs for nests.  There\'s a constant hum of activity over there day or night.' );
 			}
 			//Immense (51+ Mature daughters)
 			else {
-				EngineCore.outputText( '  An immense harpy rookery dominates the edge of your camp, towering over the rest of it.  Innumerable harpies flit around it, always working on it, assisted from below by the few sisters unlucky enough to be flightless.' );
+				MainView.outputText( '  An immense harpy rookery dominates the edge of your camp, towering over the rest of it.  Innumerable harpies flit around it, always working on it, assisted from below by the few sisters unlucky enough to be flightless.' );
 			}
 		}
 		//Traps
 		if( CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) >= 0 ) {
-			EngineCore.outputText( '  A thorny tree has sprouted near the center of the camp, growing a protective canopy of spiky vines around the portal and your camp.', false );
+			MainView.outputText( '  A thorny tree has sprouted near the center of the camp, growing a protective canopy of spiky vines around the portal and your camp.', false );
 		} else {
-			EngineCore.outputText( '  You have a number of traps surrounding your makeshift home, but they are fairly simple and may not do much to deter a demon.', false );
+			MainView.outputText( '  You have a number of traps surrounding your makeshift home, but they are fairly simple and may not do much to deter a demon.', false );
 		}
-		EngineCore.outputText( '  The portal shimmers in the background as it always does, looking menacing and reminding you of why you came.\n\n', false );
+		MainView.outputText( '  The portal shimmers in the background as it always does, looking menacing and reminding you of why you came.\n\n', false );
 		//Ember's anti-minotaur crusade!
 		if( CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 1 ) {
 			//Modified this.Camp Description
-			EngineCore.outputText( 'Since Ember began ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' \'crusade\' against the minotaur population, skulls have begun to pile up on either side of the entrance to ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' den.  There\'re quite a lot of them.\n\n' );
+			MainView.outputText( 'Since Ember began ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' \'crusade\' against the minotaur population, skulls have begun to pile up on either side of the entrance to ' + SceneLib.emberScene.emberMF( 'his', 'her' ) + ' den.  There\'re quite a lot of them.\n\n' );
 		}
 		//Dat tree!
 		if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 ) {
-			EngineCore.outputText( 'On the outer edges, half-hidden behind a rock, is a large, very healthy tree.  It grew fairly fast, but seems to be fully developed now.  Holli, Marae\'s corrupt spawn, lives within.\n\n' );
+			MainView.outputText( 'On the outer edges, half-hidden behind a rock, is a large, very healthy tree.  It grew fairly fast, but seems to be fully developed now.  Holli, Marae\'s corrupt spawn, lives within.\n\n' );
 		}
 		if( CoC.flags[ kFLAGS.CLARA_IMPRISONED ] > 0 ) {
 			//claraCampAddition();
@@ -514,67 +514,67 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			SceneLib.sophieBimbo.sophieCampLines();
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
-			EngineCore.outputText( 'A second bedroll rests next to yours; a large two-handed hammer sometimes rests against it, depending on whether or not its owner needs it at the time.  ', false );
+			MainView.outputText( 'A second bedroll rests next to yours; a large two-handed hammer sometimes rests against it, depending on whether or not its owner needs it at the time.  ', false );
 			//Marble is out!
 			if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 4 ) {
-				EngineCore.outputText( 'Marble isn’t here right now; she’s still off to see her family.' );
+				MainView.outputText( 'Marble isn’t here right now; she’s still off to see her family.' );
 			}//requires at least 1 kid, time is just before sunset, this scene always happens at this time if the PC has at least one kid.
 			else if( CoC.flags[ kFLAGS.MARBLE_KIDS ] >= 1 && (CoC.time.hours === 19 || CoC.time.hours === 20) ) {
-				EngineCore.outputText( 'Marble herself is currently in the nursery, putting your ' );
+				MainView.outputText( 'Marble herself is currently in the nursery, putting your ' );
 				if( CoC.flags[ kFLAGS.MARBLE_KIDS ] === 1 ) {
-					EngineCore.outputText( 'child' );
+					MainView.outputText( 'child' );
 				} else {
-					EngineCore.outputText( 'children' );
+					MainView.outputText( 'children' );
 				}
-				EngineCore.outputText( ' to bed.' );
+				MainView.outputText( ' to bed.' );
 			}
 			//at 6-7 in the morning, scene always displays at this time
 			else if( CoC.time.hours === 6 || CoC.time.hours === 7 ) {
-				EngineCore.outputText( 'Marble is off in an open area to the side of your camp right now.  She is practicing with her large hammer, going through her daily training.' );
+				MainView.outputText( 'Marble is off in an open area to the side of your camp right now.  She is practicing with her large hammer, going through her daily training.' );
 			}//after nightfall, scene always displays at this time unless PC is wormed
 			else if( CoC.time.hours >= 21 && CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
-				EngineCore.outputText( 'Marble is hanging around her bedroll waiting for you to come to bed.  However, sometimes she lies down for a bit, and sometimes she paces next to it.' );
+				MainView.outputText( 'Marble is hanging around her bedroll waiting for you to come to bed.  However, sometimes she lies down for a bit, and sometimes she paces next to it.' );
 				if( CoC.flags[ kFLAGS.MARBLE_LUST ] > 30 ) {
-					EngineCore.outputText( '  She seems to be feeling antsy.' );
+					MainView.outputText( '  She seems to be feeling antsy.' );
 				}
 			} else if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 0 && CoC.time.hours < 19 && CoC.time.hours > 7 ) {
 				//requires at least 6 kids, and no other parental characters in camp
 				if( Utils.rand( 2 ) === 0 && CoC.flags[ kFLAGS.MARBLE_KIDS ] > 5 ) {
-					EngineCore.outputText( 'Marble is currently tending to your kids, but she looks a bit stressed out right now.  It looks like ' + Utils.num2Text( CoC.flags[ kFLAGS.MARBLE_KIDS ] ) + ' might just be too many for her to handle on her own...' );
+					MainView.outputText( 'Marble is currently tending to your kids, but she looks a bit stressed out right now.  It looks like ' + Utils.num2Text( CoC.flags[ kFLAGS.MARBLE_KIDS ] ) + ' might just be too many for her to handle on her own...' );
 				}//requires at least 4 kids
 				else if( Utils.rand( 3 ) === 0 && CoC.flags[ kFLAGS.MARBLE_KIDS ] > 3 ) {
-					EngineCore.outputText( 'Marble herself is in the camp right now, telling a story about her travels around the world to her kids as they gather around her.  The children are completely enthralled by her words.  You can\'t help but smile.' );
+					MainView.outputText( 'Marble herself is in the camp right now, telling a story about her travels around the world to her kids as they gather around her.  The children are completely enthralled by her words.  You can\'t help but smile.' );
 				}//Requires 2 boys
 				else if( Utils.rand( 3 ) === 0 && CoC.flags[ kFLAGS.MARBLE_BOYS ] > 1 ) {
-					EngineCore.outputText( 'Marble herself is currently refereeing a wrestling match between two of your sons.  It seems like it\'s a contest to see which one of them gets to go for a ride between her breasts in a game of <i>Bull Blasters</i>, while the loser has to sit on her shoulders.' );
+					MainView.outputText( 'Marble herself is currently refereeing a wrestling match between two of your sons.  It seems like it\'s a contest to see which one of them gets to go for a ride between her breasts in a game of <i>Bull Blasters</i>, while the loser has to sit on her shoulders.' );
 				}
 				//requires at least 2 kids
 				else if( Utils.rand( 3 ) === 0 && CoC.flags[ kFLAGS.MARBLE_KIDS ] - CoC.flags[ kFLAGS.MARBLE_BOYS ] > 1 ) {
-					EngineCore.outputText( 'Marble herself is involved in a play fight with two of your kids brandishing small sticks.  It seems that the <i>mommy monster</i> is terrorising the camp and needs to be stopped by the <i>Mighty Moo and her sidekick Bovine Lass</i>.' );
+					MainView.outputText( 'Marble herself is involved in a play fight with two of your kids brandishing small sticks.  It seems that the <i>mommy monster</i> is terrorising the camp and needs to be stopped by the <i>Mighty Moo and her sidekick Bovine Lass</i>.' );
 				} else if( Utils.rand( 3 ) === 0 && CoC.flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-					EngineCore.outputText( 'Marble herself is out right now; she\'s taken her kids to go visit Whitney.  You\'re sure though that she\'ll be back within the hour, so you could just wait if you needed her.' );
+					MainView.outputText( 'Marble herself is out right now; she\'s taken her kids to go visit Whitney.  You\'re sure though that she\'ll be back within the hour, so you could just wait if you needed her.' );
 				} else {
 					//requires at least 1 kid
 					if( Utils.rand( 2 ) === 0 ) {
-						EngineCore.outputText( 'Marble herself is nursing ' );
+						MainView.outputText( 'Marble herself is nursing ' );
 						if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 1 ) {
-							EngineCore.outputText( 'one of your cow-girl children' );
+							MainView.outputText( 'one of your cow-girl children' );
 						} else {
-							EngineCore.outputText( 'your cow-girl child' );
+							MainView.outputText( 'your cow-girl child' );
 						}
-						EngineCore.outputText( ' with a content look on her face.' );
+						MainView.outputText( ' with a content look on her face.' );
 					} else {
-						EngineCore.outputText( 'Marble herself is watching your kid' );
+						MainView.outputText( 'Marble herself is watching your kid' );
 						if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
-							EngineCore.outputText( 's' );
+							MainView.outputText( 's' );
 						}
-						EngineCore.outputText( ' playing around the camp right now.' );
+						MainView.outputText( ' playing around the camp right now.' );
 					}
 				}
 			}
 			//(Choose one of these at random to display each hour)
 			else {
-				EngineCore.outputText( Utils.randomChoice(
+				MainView.outputText( Utils.randomChoice(
 					'Marble herself has gone off to Whitney\'s farm to get milked right now.  You\'re sure she\'d be back in moments if you needed her.',
 					'Marble herself has gone off to Whitney\'s farm to do some chores right now.  You\'re sure she\'d be back in moments if you needed her.',
 					'Marble herself isn\'t at the camp right now; she is probably off getting supplies, though she\'ll be back soon enough.  You\'re sure she\'d be back in moments if you needed her.',
@@ -582,81 +582,81 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 					'Marble herself is wandering around the camp right now.'
 				), false );
 			}
-			EngineCore.outputText( '\n\n', false );
+			MainView.outputText( '\n\n', false );
 		}
 		//RATHAZUL
 		//if rathazul has joined the camp
 		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
 			if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] <= 1 ) {
-				EngineCore.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
+				MainView.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
 				if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] === 1 ) {
-					EngineCore.outputText( '  Some kind of spider-silk-based equipment is hanging from a nearby rack.  <b>He\'s finished with the task you gave him!</b>', false );
+					MainView.outputText( '  Some kind of spider-silk-based equipment is hanging from a nearby rack.  <b>He\'s finished with the task you gave him!</b>', false );
 				}
-				EngineCore.outputText( '\n\n', false );
+				MainView.outputText( '\n\n', false );
 			} else {
-				EngineCore.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work on the silken equipment you\'ve commissioned him to craft.\n\n', false );
+				MainView.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work on the silken equipment you\'ve commissioned him to craft.\n\n', false );
 			}
 		}
 		//MOUSEBITCH
 		if( SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
 			if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 ) {
-				EngineCore.outputText( 'Amily has relocated her grass bedding to the opposite side of the camp from the strange tree; every now and then, she gives it a suspicious glance, as if deciding whether to move even further.' );
+				MainView.outputText( 'Amily has relocated her grass bedding to the opposite side of the camp from the strange tree; every now and then, she gives it a suspicious glance, as if deciding whether to move even further.' );
 			} else {
-				EngineCore.outputText( 'A surprisingly tidy nest of soft grasses and sweet-smelling herbs has been built close to your bedroll. A much-patched blanket draped neatly over the top is further proof that Amily sleeps here. She changes the bedding every few days, to ensure it stays as nice as possible.\n\n', false );
+				MainView.outputText( 'A surprisingly tidy nest of soft grasses and sweet-smelling herbs has been built close to your bedroll. A much-patched blanket draped neatly over the top is further proof that Amily sleeps here. She changes the bedding every few days, to ensure it stays as nice as possible.\n\n', false );
 			}
 		}
 		//Corrupt mousebitch!
 		else if( SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 0 ) {
-			EngineCore.outputText( 'Sometimes you hear a faint moan from not too far away. No doubt the result of your slutty toy mouse playing with herself.\n\n', false );
+			MainView.outputText( 'Sometimes you hear a faint moan from not too far away. No doubt the result of your slutty toy mouse playing with herself.\n\n', false );
 		}
 		//Amily out freaking Urta?
 		else if( CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 1 || CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 2 ) {
-			EngineCore.outputText( 'Amily\'s bed of grass and herbs lies empty, the mouse-woman still absent from her sojourn to meet your other lover.\n\n', false );
+			MainView.outputText( 'Amily\'s bed of grass and herbs lies empty, the mouse-woman still absent from her sojourn to meet your other lover.\n\n', false );
 		}
 		//JOJO
 		//If Jojo is corrupted, add him to the masturbate menu.
 		if( SceneLib.jojoScene.campCorruptJojo() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 0 ) {
-			EngineCore.outputText( 'From time to time you can hear movement from around your camp, and you routinely find thick puddles of mouse semen.  You are sure Jojo is here if you ever need to sate yourself.\n\n', false );
+			MainView.outputText( 'From time to time you can hear movement from around your camp, and you routinely find thick puddles of mouse semen.  You are sure Jojo is here if you ever need to sate yourself.\n\n', false );
 		}
 		//Pure Jojo
 		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
-			EngineCore.outputText( 'There is a small bedroll for Jojo near your own, though the mouse is probably hanging around the camp\'s perimeter.\n\n', false );
+			MainView.outputText( 'There is a small bedroll for Jojo near your own, though the mouse is probably hanging around the camp\'s perimeter.\n\n', false );
 		}
 		//Izma
 		if( SceneLib.izmaScene.izmaFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 ) {
-			EngineCore.outputText( 'Neatly laid near the base of your own is a worn bedroll belonging to Izma, your tigershark lover.  It\'s a snug fit for her toned body, though it has some noticeable cuts and tears in the fabric.  Close to her bed is her old trunk, almost as if she wants to have it at arms length if anyone tries to rob her in her sleep.  ', false );
-			EngineCore.outputText( Utils.randomChoice(
+			MainView.outputText( 'Neatly laid near the base of your own is a worn bedroll belonging to Izma, your tigershark lover.  It\'s a snug fit for her toned body, though it has some noticeable cuts and tears in the fabric.  Close to her bed is her old trunk, almost as if she wants to have it at arms length if anyone tries to rob her in her sleep.  ', false );
+			MainView.outputText( Utils.randomChoice(
 				'Izma\'s lazily sitting on the trunk beside her bedroll, reading one of the many books from inside it.  She smiles happily when your eyes linger on her, and you know full well she\'s only half-interested in it.',
 				'You notice Izma isn\'t around right now.  She\'s probably gone off to the nearby stream to get some water.  Never mind, she comes around from behind a rock, still dripping wet.',
 				'Izma is lying on her back near her bedroll.  You wonder at first just why she isn\'t using her bed, but as you look closer you notice all the water pooled beneath her and the few droplets running down her arm, evidence that she\'s just returned from the stream.'
 			), false );
-			EngineCore.outputText( '\n\n', false );
+			MainView.outputText( '\n\n', false );
 		}
 		//►[Added Campsite Description]
 		if( SceneLib.antsScene.phyllaWaifu() ) {
-			EngineCore.outputText( 'You see Phylla\'s anthill in the distance.  Every now and then you see' );
+			MainView.outputText( 'You see Phylla\'s anthill in the distance.  Every now and then you see' );
 			//If PC has children w/ Phylla
 			if( CoC.flags[ kFLAGS.ANT_KIDS ] > 0 ) {
-				EngineCore.outputText( ' one of your many children exit the anthill to unload some dirt before continuing back down into the colony.  It makes you feel good knowing your offspring are so productive.' );
+				MainView.outputText( ' one of your many children exit the anthill to unload some dirt before continuing back down into the colony.  It makes you feel good knowing your offspring are so productive.' );
 			} else {
-				EngineCore.outputText( ' Phylla appear out of the anthill to unload some dirt.  She looks over to your campsite and gives you an excited wave before heading back into the colony.  It makes you feel good to know she\'s so close.' );
+				MainView.outputText( ' Phylla appear out of the anthill to unload some dirt.  She looks over to your campsite and gives you an excited wave before heading back into the colony.  It makes you feel good to know she\'s so close.' );
 			}
-			EngineCore.outputText( '\n\n' );
+			MainView.outputText( '\n\n' );
 		}
 		//Clear bee-status
 		if( CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom ) >= 0 ) {
 			EngineCore.dynStats( 'str', CoC.player.statusAffectv1( StatusAffects.ParalyzeVenom ), 'spe', CoC.player.statusAffectv2( StatusAffects.ParalyzeVenom ) );
 			CoC.player.removeStatusAffect( StatusAffects.ParalyzeVenom );
-			EngineCore.outputText( '<b>You feel quicker and stronger as the paralyzation venom in your veins wears off.</b>\n\n', false );
+			MainView.outputText( '<b>You feel quicker and stronger as the paralyzation venom in your veins wears off.</b>\n\n', false );
 		}
 		//The uber horny
 		if( CoC.player.lust >= 100 ) {
 			if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) >= 0 ) {
-				EngineCore.outputText( '<b>You are debilitatingly aroused, but your sexual organs are so numbed the only way to get off would be to find something tight to fuck or get fucked...</b>\n\n', false );
+				MainView.outputText( '<b>You are debilitatingly aroused, but your sexual organs are so numbed the only way to get off would be to find something tight to fuck or get fucked...</b>\n\n', false );
 			} else if( CoC.flags[ kFLAGS.UNABLE_TO_MASTURBATE_BECAUSE_CENTAUR ] > 0 && CoC.player.isTaur() ) {
-				EngineCore.outputText( '<b>You are delibitatingly aroused, but your sex organs are so difficult to reach that masturbation isn\'t at the forefront of your mind.</b>\n\n', false );
+				MainView.outputText( '<b>You are delibitatingly aroused, but your sex organs are so difficult to reach that masturbation isn\'t at the forefront of your mind.</b>\n\n', false );
 			} else {
-				EngineCore.outputText( '<b>You are debilitatingly aroused, and can think of doing nothing other than masturbating.</b>\n\n', false );
+				MainView.outputText( '<b>You are debilitatingly aroused, and can think of doing nothing other than masturbating.</b>\n\n', false );
 				exploreEvent = null;
 				placesEvent = null;
 				//This once disabled the ability to rest, sleep or wait, but ir hasn't done that for many many builds
@@ -683,7 +683,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//Set up rest stuff
 		//Night
 		if( CoC.time.hours < 6 || CoC.time.hours > 20 ) {
-			EngineCore.outputText( 'It is dark out, made worse by the lack of stars in the sky.  A blood-red moon hangs in the sky, seeming to watch you, but providing little light.  It\'s far too dark to leave camp.\n', false );
+			MainView.outputText( 'It is dark out, made worse by the lack of stars in the sky.  A blood-red moon hangs in the sky, seeming to watch you, but providing little light.  It\'s far too dark to leave camp.\n', false );
 			restName = 'Sleep';
 			restEvent = this.doSleep;
 			exploreEvent = null;
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		//Day Time!
 		else {
-			EngineCore.outputText( 'It\'s light outside, a good time to explore and forage for supplies with which to fortify your camp.\n', false );
+			MainView.outputText( 'It\'s light outside, a good time to explore and forage for supplies with which to fortify your camp.\n', false );
 			if( CoC.player.fatigue > 40 || CoC.player.HP / CoC.player.maxHP() <= 0.9 ) {
 				restName = 'Rest';
 				restEvent = this.rest;
@@ -804,7 +804,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.NIEVE_STAGE ] === 5 ) {
 			SceneLib.xmasMisc.nieveCampDescs();
-			EngineCore.outputText( '\n\n' );
+			MainView.outputText( '\n\n' );
 			nieve = SceneLib.xmasMisc.approachNieve;
 		}
 		if( SceneLib.helScene.followerHel() ) {
@@ -812,22 +812,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				//Hel @ this.Camp Menu
 				//(6-7)
 				if( CoC.time.hours <= 7 ) {
-					EngineCore.outputText( 'Hel is currently sitting at the edge of camp, surrounded by her scraps of armor, sword, and a few half-empty bottles of vodka.  By the way she\'s grunting and growling, it looks like she\'s getting ready to flip her shit and go running off into the plains in her berserker state.\n\n' );
+					MainView.outputText( 'Hel is currently sitting at the edge of camp, surrounded by her scraps of armor, sword, and a few half-empty bottles of vodka.  By the way she\'s grunting and growling, it looks like she\'s getting ready to flip her shit and go running off into the plains in her berserker state.\n\n' );
 				}//(8a-5p)
 				else if( CoC.time.hours <= 17 ) {
-					EngineCore.outputText( 'Hel\'s out of camp at the moment, adventuring on the plains.  You\'re sure she\'d be on hand in moments if you needed her, though.\n\n' );
+					MainView.outputText( 'Hel\'s out of camp at the moment, adventuring on the plains.  You\'re sure she\'d be on hand in moments if you needed her, though.\n\n' );
 				}//5-7)
 				else if( CoC.time.hours <= 19 ) {
-					EngineCore.outputText( 'Hel\'s out visiting her family in Tel\'Adre right now, though you\'re sure she\'s only moments away if you need her.\n\n' );
+					MainView.outputText( 'Hel\'s out visiting her family in Tel\'Adre right now, though you\'re sure she\'s only moments away if you need her.\n\n' );
 				}//(7+)
 				else {
-					EngineCore.outputText( 'Hel is fussing around her hammock, checking her gear and sharpening her collection of blades.  Each time you glance her way, though, the salamander puts a little extra sway in her hips and her tail wags happily.\n\n' );
+					MainView.outputText( 'Hel is fussing around her hammock, checking her gear and sharpening her collection of blades.  Each time you glance her way, though, the salamander puts a little extra sway in her hips and her tail wags happily.\n\n' );
 				}
 			} else if( CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 1 ) {
 				if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 1 ) {
-					EngineCore.outputText( 'Hel has returned to camp, though for now she looks a bit bored.  Perhaps she is waiting on something.\n\n' );
+					MainView.outputText( 'Hel has returned to camp, though for now she looks a bit bored.  Perhaps she is waiting on something.\n\n' );
 				} else {
-					EngineCore.outputText( '<b>You see the salamander Helia pacing around camp, anxiously awaiting your departure to the harpy roost. Seeing you looking her way, she perks up, obviously ready to get underway.</b>\n\n' );
+					MainView.outputText( '<b>You see the salamander Helia pacing around camp, anxiously awaiting your departure to the harpy roost. Seeing you looking her way, she perks up, obviously ready to get underway.</b>\n\n' );
 				}
 			}
 			hel = SceneLib.helFollower.heliaFollowerMenu;
@@ -836,11 +836,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( SceneLib.kihaFollower.followerKiha() ) {
 			//(6-7)
 			if( CoC.time.hours < 7 ) {
-				EngineCore.outputText( 'Kiha is sitting near the fire, her axe laying across her knees as she polishes it.[pg]' );
+				MainView.outputText( 'Kiha is sitting near the fire, her axe laying across her knees as she polishes it.[pg]' );
 			} else if( CoC.time.hours < 19 ) {
-				EngineCore.outputText( 'Kiha\'s out right now, likely patrolling for demons to exterminate.  You\'re sure a loud call could get her attention.\n\n' );
+				MainView.outputText( 'Kiha\'s out right now, likely patrolling for demons to exterminate.  You\'re sure a loud call could get her attention.\n\n' );
 			} else {
-				EngineCore.outputText( 'Kiha is utterly decimating a set of practice dummies she\'s set up out on the edge of camp.  All of them have crudely drawn horns. Most of them are on fire.\n\n' );
+				MainView.outputText( 'Kiha is utterly decimating a set of practice dummies she\'s set up out on the edge of camp.  All of them have crudely drawn horns. Most of them are on fire.\n\n' );
 			}
 			kihaButt = SceneLib.kihaScene.encounterKiha;
 		}
@@ -848,23 +848,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 			isabellaButt = SceneLib.isabellaFollowerScene.callForFollowerIsabella;
 			if( CoC.time.hours >= 21 || CoC.time.hours <= 5 ) {
-				EngineCore.outputText( 'Isabella is sound asleep in her bunk and quietly snoring.', false );
+				MainView.outputText( 'Isabella is sound asleep in her bunk and quietly snoring.', false );
 			} else if( CoC.time.hours === 6 ) {
-				EngineCore.outputText( 'Isabella is busy eating some kind of grain-based snack for breakfast.  The curly-haired cow-girl gives you a smile when she sees you look her way.', false );
+				MainView.outputText( 'Isabella is busy eating some kind of grain-based snack for breakfast.  The curly-haired cow-girl gives you a smile when she sees you look her way.', false );
 			} else if( CoC.time.hours === 7 ) {
-				EngineCore.outputText( 'Isabella, the red-headed cow-girl, is busy with a needle and thread, fixing up some of her clothes.', false );
+				MainView.outputText( 'Isabella, the red-headed cow-girl, is busy with a needle and thread, fixing up some of her clothes.', false );
 			} else if( CoC.time.hours === 8 ) {
-				EngineCore.outputText( 'Isabella is busy cleaning up the camp, but when she notices you looking her way, she stretches up and arches her back, pressing eight bullet-hard nipples into the sheer silk top she prefers to wear.', false );
+				MainView.outputText( 'Isabella is busy cleaning up the camp, but when she notices you looking her way, she stretches up and arches her back, pressing eight bullet-hard nipples into the sheer silk top she prefers to wear.', false );
 			} else if( CoC.time.hours === 9 ) {
-				EngineCore.outputText( 'Isabella is out near the fringes of your campsite.  She has her massive shield in one hand and appears to be keeping a sharp eye out for intruders or demons.  When she sees you looking her way, she gives you a wave.', false );
+				MainView.outputText( 'Isabella is out near the fringes of your campsite.  She has her massive shield in one hand and appears to be keeping a sharp eye out for intruders or demons.  When she sees you looking her way, she gives you a wave.', false );
 			} else if( CoC.time.hours === 10 ) {
-				EngineCore.outputText( 'The cow-girl warrioress, Isabella, is sitting down on a chair and counting out gems from a strange pouch.  She must have defeated someone or something recently.', false );
+				MainView.outputText( 'The cow-girl warrioress, Isabella, is sitting down on a chair and counting out gems from a strange pouch.  She must have defeated someone or something recently.', false );
 			} else if( CoC.time.hours === 11 ) {
-				EngineCore.outputText( 'Isabella is sipping from a bottle labelled \'Lactaid\' in a shaded corner.  When she sees you looking she blushes, though dark spots appear on her top and in her skirt\'s middle.', false );
+				MainView.outputText( 'Isabella is sipping from a bottle labelled \'Lactaid\' in a shaded corner.  When she sees you looking she blushes, though dark spots appear on her top and in her skirt\'s middle.', false );
 			} else if( CoC.time.hours === 12 ) {
-				EngineCore.outputText( 'Isabella is cooking a slab of meat over the fire.  From the smell that\'s wafting this way, you think it\'s beef.  Idly, you wonder if she realizes just how much like her chosen food animal she has become.', false );
+				MainView.outputText( 'Isabella is cooking a slab of meat over the fire.  From the smell that\'s wafting this way, you think it\'s beef.  Idly, you wonder if she realizes just how much like her chosen food animal she has become.', false );
 			} else if( CoC.time.hours === 13 ) {
-				EngineCore.outputText( 'Isabella ', false );
+				MainView.outputText( 'Isabella ', false );
 				var izzyCreeps = [];
 				//Build array of choices for izzy to talk to
 				if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
@@ -887,109 +887,109 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				//Select!
 				var choice = _.sample( izzyCreeps );
 				if( choice === 0 ) {
-					EngineCore.outputText( 'is sitting down with Rathazul, chatting amiably about the weather.', false );
+					MainView.outputText( 'is sitting down with Rathazul, chatting amiably about the weather.', false );
 				} else if( choice === 1 ) {
-					EngineCore.outputText( 'is sitting down with Jojo, smiling knowingly as the mouse struggles to keep his eyes on her face.', false );
+					MainView.outputText( 'is sitting down with Jojo, smiling knowingly as the mouse struggles to keep his eyes on her face.', false );
 				} else if( choice === 2 ) {
-					EngineCore.outputText( 'is talking with Amily, sharing stories of the fights she\'s been in and the enemies she\'s faced down.  Amily seems interested but unimpressed.', false );
+					MainView.outputText( 'is talking with Amily, sharing stories of the fights she\'s been in and the enemies she\'s faced down.  Amily seems interested but unimpressed.', false );
 				} else if( choice === 3 ) {
-					EngineCore.outputText( 'is sitting down chatting with Amily, but the corrupt mousette is just staring at Isabella\'s boobs and masturbating.  The cow-girl is pretending not to notice.', false );
+					MainView.outputText( 'is sitting down chatting with Amily, but the corrupt mousette is just staring at Isabella\'s boobs and masturbating.  The cow-girl is pretending not to notice.', false );
 				} else if( choice === 4 ) {
-					EngineCore.outputText( 'is sitting down with Izma and recounting some stories, somewhat nervously.  Izma keeps flashing her teeth in a predatory smile.', false );
+					MainView.outputText( 'is sitting down with Izma and recounting some stories, somewhat nervously.  Izma keeps flashing her teeth in a predatory smile.', false );
 				} else {
-					EngineCore.outputText( 'is sitting down and thumbing through a book.', false );
+					MainView.outputText( 'is sitting down and thumbing through a book.', false );
 				}
 			} else if( CoC.time.hours === 14 ) {
-				EngineCore.outputText( 'Isabella is working a grindstone and sharpening her tools.  She even hones the bottom edge of her shield into a razor-sharp cutting edge.  The cow-girl is sweating heavily, but it only makes the diaphanous silk of her top cling more alluringly to her weighty chest.', false );
+				MainView.outputText( 'Isabella is working a grindstone and sharpening her tools.  She even hones the bottom edge of her shield into a razor-sharp cutting edge.  The cow-girl is sweating heavily, but it only makes the diaphanous silk of her top cling more alluringly to her weighty chest.', false );
 			} else if( CoC.time.hours === 15 ) {
-				EngineCore.outputText( 'The warrior-woman, Isabella is busy constructing dummies of wood and straw, then destroying them with vicious blows from her shield.  Most of the time she finishes by decapitating them with the sharp, bottom edge of her weapon.  She flashes a smile your way when she sees you.', false );
+				MainView.outputText( 'The warrior-woman, Isabella is busy constructing dummies of wood and straw, then destroying them with vicious blows from her shield.  Most of the time she finishes by decapitating them with the sharp, bottom edge of her weapon.  She flashes a smile your way when she sees you.', false );
 			} else if( CoC.time.hours === 16 ) {
-				EngineCore.outputText( 'Isabella is sitting down with a knife, the blade flashing in the sun as wood shavings fall to the ground.  Her hands move with mechanical, practiced rhythm as she carves a few hunks of shapeless old wood into tools or art.', false );
+				MainView.outputText( 'Isabella is sitting down with a knife, the blade flashing in the sun as wood shavings fall to the ground.  Her hands move with mechanical, practiced rhythm as she carves a few hunks of shapeless old wood into tools or art.', false );
 			} else if( CoC.time.hours === 17 ) {
-				EngineCore.outputText( 'Isabella is sitting against one of the large rocks near the outskirts of your camp, staring across the wasteland while idly munching on what you assume to be a leg of lamb.  She seems lost in thought, though that doesn\'t stop her from throwing a wink and a goofy food-filled grin toward you.', false );
+				MainView.outputText( 'Isabella is sitting against one of the large rocks near the outskirts of your camp, staring across the wasteland while idly munching on what you assume to be a leg of lamb.  She seems lost in thought, though that doesn\'t stop her from throwing a wink and a goofy food-filled grin toward you.', false );
 			} else if( CoC.time.hours === 18 ) {
-				EngineCore.outputText( 'The dark-skinned cow-girl, Isabella, is sprawled out on a carpet and stretching.  She seems surprisingly flexible for someone with hooves and oddly-jointed lower legs.', false );
+				MainView.outputText( 'The dark-skinned cow-girl, Isabella, is sprawled out on a carpet and stretching.  She seems surprisingly flexible for someone with hooves and oddly-jointed lower legs.', false );
 			} else if( CoC.time.hours === 19 ) {
 				//[(Izzy Milked Yet flag = -1)
 				if( CoC.flags[ kFLAGS.ISABELLA_MILKED_YET ] === -1 ) {
-					EngineCore.outputText( 'Isabella has just returned from a late visit to Whitney\'s farm, bearing a few filled bottles and a small pouch of gems.', false );
+					MainView.outputText( 'Isabella has just returned from a late visit to Whitney\'s farm, bearing a few filled bottles and a small pouch of gems.', false );
 				} else {
-					EngineCore.outputText( 'Isabella was hidden behind a rock when you started looking for her, but as soon as you spot her in the darkness, she jumps, a guilty look flashing across her features.  She turns around and adjusts her top before looking back your way, her dusky skin even darker from a blush.  The cow-girl gives you a smile and walks back to her part of camp.  A patch of white decorates the ground where she was standing - is that milk?  Whatever it is, it\'s gone almost as fast as you see it, devoured by the parched, wasteland earth.', false );
+					MainView.outputText( 'Isabella was hidden behind a rock when you started looking for her, but as soon as you spot her in the darkness, she jumps, a guilty look flashing across her features.  She turns around and adjusts her top before looking back your way, her dusky skin even darker from a blush.  The cow-girl gives you a smile and walks back to her part of camp.  A patch of white decorates the ground where she was standing - is that milk?  Whatever it is, it\'s gone almost as fast as you see it, devoured by the parched, wasteland earth.', false );
 				}
 			} else if( CoC.time.hours === 20 ) {
-				EngineCore.outputText( 'Your favorite chocolate-colored cowgirl, Isabella, is moving about, gathering all of her scattered belongings and replacing them in her personal chest.  She yawns more than once, indicating her readiness to hit the hay, but her occasional glance your way lets you know she wouldn\'t mind some company before bed.', false );
+				MainView.outputText( 'Your favorite chocolate-colored cowgirl, Isabella, is moving about, gathering all of her scattered belongings and replacing them in her personal chest.  She yawns more than once, indicating her readiness to hit the hay, but her occasional glance your way lets you know she wouldn\'t mind some company before bed.', false );
 			} else {
-				EngineCore.outputText( 'Isabella looks incredibly bored right now.', false );
+				MainView.outputText( 'Isabella looks incredibly bored right now.', false );
 			}
-			EngineCore.outputText( '\n\n', false );
+			MainView.outputText( '\n\n', false );
 		}
 		//Izma
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] === 1 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 ) {
-			EngineCore.outputText( 'Neatly laid near the base of your own is a worn bedroll belonging to Izma, your tigershark lover. It\'s a snug fit for her toned body, though it has some noticeable cuts and tears in the fabric. Close to her bed is her old trunk, almost as if she wants to have it at arms length if anyone tries to rob her in her sleep.\n\n', false );
+			MainView.outputText( 'Neatly laid near the base of your own is a worn bedroll belonging to Izma, your tigershark lover. It\'s a snug fit for her toned body, though it has some noticeable cuts and tears in the fabric. Close to her bed is her old trunk, almost as if she wants to have it at arms length if anyone tries to rob her in her sleep.\n\n', false );
 			izmaEvent = SceneLib.izmaScene.izmaFollowerMenu;
 		}
 		//MARBLE
 		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
-			EngineCore.outputText( 'A second bedroll rests next to yours; a large two handed hammer sometimes rests against it, depending on whether or not its owner needs it at the time.  ', false );
+			MainView.outputText( 'A second bedroll rests next to yours; a large two handed hammer sometimes rests against it, depending on whether or not its owner needs it at the time.  ', false );
 			//Normal Murbles
 			if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 4 ) {
 				//(Choose one of these at random to display each hour)
 				var marbleChoice = Utils.rand( 5 );
 				if( marbleChoice === 0 ) {
-					EngineCore.outputText( 'Marble herself has gone off to Whitney\'s farm to get milked right now.', false );
+					MainView.outputText( 'Marble herself has gone off to Whitney\'s farm to get milked right now.', false );
 				}
 				if( marbleChoice === 1 ) {
-					EngineCore.outputText( 'Marble herself has gone off to Whitney\'s farm to do some chores right now.', false );
+					MainView.outputText( 'Marble herself has gone off to Whitney\'s farm to do some chores right now.', false );
 				}
 				if( marbleChoice === 2 ) {
-					EngineCore.outputText( 'Marble herself isn\'t at the camp right now; she is probably off getting supplies, though she\'ll be back soon enough.', false );
+					MainView.outputText( 'Marble herself isn\'t at the camp right now; she is probably off getting supplies, though she\'ll be back soon enough.', false );
 				}
 				if( marbleChoice === 3 ) {
-					EngineCore.outputText( 'Marble herself is resting on her bedroll right now.', false );
+					MainView.outputText( 'Marble herself is resting on her bedroll right now.', false );
 				}
 				if( marbleChoice === 4 ) {
-					EngineCore.outputText( 'Marble herself is wandering around the camp right now.', false );
+					MainView.outputText( 'Marble herself is wandering around the camp right now.', false );
 				}
 				if( marbleChoice < 3 ) {
-					EngineCore.outputText( '  You\'re sure she\'d be back in moments if you needed her.', false );
+					MainView.outputText( '  You\'re sure she\'d be back in moments if you needed her.', false );
 				}
 				marbleEvent = SceneLib.marbleScene.interactWithMarbleAtCamp;
 			}
 			//Out getting family
 			else {
-				EngineCore.outputText( 'Marble is out in the wilderness right now, searching for a relative.' );
+				MainView.outputText( 'Marble is out in the wilderness right now, searching for a relative.' );
 			}
-			EngineCore.outputText( '\n\n', false );
+			MainView.outputText( '\n\n', false );
 		}
 		//AMILY
 		if( SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.flags[ kFLAGS.AMILY_BLOCK_COUNTDOWN_BECAUSE_CORRUPTED_JOJO ] === 0 ) {
-			EngineCore.outputText( 'Amily is currently strolling around your camp, ', false );
+			MainView.outputText( 'Amily is currently strolling around your camp, ', false );
 			var amilyChoice = Utils.rand( 6 );
 			if( amilyChoice === 0 ) {
-				EngineCore.outputText( 'dripping water and stark naked from a bath in the stream', false );
+				MainView.outputText( 'dripping water and stark naked from a bath in the stream', false );
 				if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-					EngineCore.outputText( '.  Rathazul glances over and immediately gets a nosebleed', false );
+					MainView.outputText( '.  Rathazul glances over and immediately gets a nosebleed', false );
 				}
 			} else if( amilyChoice === 1 ) {
-				EngineCore.outputText( 'slouching in the shade of some particularly prominent rocks, whittling twigs to create darts for her blowpipe', false );
+				MainView.outputText( 'slouching in the shade of some particularly prominent rocks, whittling twigs to create darts for her blowpipe', false );
 			} else if( amilyChoice === 2 ) {
-				EngineCore.outputText( 'dipping freshly-made darts into a jar of something that looks poisonous', false );
+				MainView.outputText( 'dipping freshly-made darts into a jar of something that looks poisonous', false );
 			} else if( amilyChoice === 3 ) {
-				EngineCore.outputText( 'eating some of your supplies', false );
+				MainView.outputText( 'eating some of your supplies', false );
 			} else if( amilyChoice === 4 ) {
-				EngineCore.outputText( 'and she flops down on her nest to have a rest', false );
+				MainView.outputText( 'and she flops down on her nest to have a rest', false );
 			} else {
-				EngineCore.outputText( 'peeling the last strips of flesh off of an imp\'s skull and putting it on a particularly flat, sun-lit rock to bleach as a trophy', false );
+				MainView.outputText( 'peeling the last strips of flesh off of an imp\'s skull and putting it on a particularly flat, sun-lit rock to bleach as a trophy', false );
 			}
-			EngineCore.outputText( '.\n\n', false );
+			MainView.outputText( '.\n\n', false );
 			amilyEvent = SceneLib.amilyScene.amilyFollowerEncounter;
 		}
 		//Amily out freaking Urta?
 		else if( CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 1 || CoC.flags[ kFLAGS.AMILY_VISITING_URTA ] === 2 ) {
-			EngineCore.outputText( 'Amily\'s bed of grass and herbs lies empty, the mouse-woman still absent from her sojourn to meet your other lover.\n\n', false );
+			MainView.outputText( 'Amily\'s bed of grass and herbs lies empty, the mouse-woman still absent from her sojourn to meet your other lover.\n\n', false );
 		}
 		if( SceneLib.arianScene.arianFollower() ) {
-			EngineCore.outputText( 'Arian\'s tent is here, if you\'d like to go inside.\n\n' );
+			MainView.outputText( 'Arian\'s tent is here, if you\'d like to go inside.\n\n' );
 		}
 		EngineCore.menu();
 		if( amilyEvent !== null ) {
@@ -1030,7 +1030,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		var milk = null;
 		if( SceneLib.vapula.vapulaSlave() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 0 ) {
 			SceneLib.vapula.vapulaSlaveFlavorText();
-			EngineCore.outputText( '\n\n' );
+			MainView.outputText( '\n\n' );
 			vapula2 = SceneLib.vapula.callSlaveVapula;
 		}
 		//Bimbo Sophie
@@ -1039,7 +1039,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			sophieEvent = SceneLib.sophieBimbo.approachBimboSophieInCamp;
 		}
 		if( SceneLib.latexGirl.latexGooFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_LATEXY ] === 0 ) {
-			EngineCore.outputText( CoC.flags[ kFLAGS.GOO_NAME ] + ' lurks in a secluded section of rocks, only venturing out when called for or when she needs to gather water from the stream.\n\n' );
+			MainView.outputText( CoC.flags[ kFLAGS.GOO_NAME ] + ' lurks in a secluded section of rocks, only venturing out when called for or when she needs to gather water from the stream.\n\n' );
 			goo = SceneLib.latexGirl.approachLatexy;
 		}
 		if( SceneLib.ceraphFollowerScene.ceraphIsFollower() ) {
@@ -1048,16 +1048,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//JOJO
 		//If Jojo is corrupted, add him to the masturbate menu.
 		if( SceneLib.jojoScene.campCorruptJojo() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 0 ) {
-			EngineCore.outputText( 'From time to time you can hear movement from around your camp, and you routinely find thick puddles of mouse semen.  You are sure Jojo is here if you ever need to sate yourself.\n\n', false );
+			MainView.outputText( 'From time to time you can hear movement from around your camp, and you routinely find thick puddles of mouse semen.  You are sure Jojo is here if you ever need to sate yourself.\n\n', false );
 			jojoEvent = SceneLib.jojoScene.corruptCampJojo;
 		}
 		//Modified Camp/Follower List Description
 		if( SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 2 && CoC.flags[ kFLAGS.AMILY_BLOCK_COUNTDOWN_BECAUSE_CORRUPTED_JOJO ] === 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_AMILY ] === 0 ) {
-			EngineCore.outputText( 'Sometimes you hear a faint moan from not too far away. No doubt the result of your slutty toy mouse playing with herself.\n\n', false );
+			MainView.outputText( 'Sometimes you hear a faint moan from not too far away. No doubt the result of your slutty toy mouse playing with herself.\n\n', false );
 			amilyEvent = SceneLib.amilyScene.amilyFollowerEncounter;
 		}
 		if( SceneLib.milkWaifu.milkSlave() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_BATH_GIRL ] === 0 ) {
-			EngineCore.outputText( 'Your well-endowed, dark-skinned milk-girl is here.  She flicks hopeful eyes towards you whenever she thinks she has your attention.\n\n' );
+			MainView.outputText( 'Your well-endowed, dark-skinned milk-girl is here.  She flicks hopeful eyes towards you whenever she thinks she has your attention.\n\n' );
 			milk = SceneLib.milkWaifu.milkyMenu;
 		}
 		EngineCore.menu();
@@ -1103,7 +1103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		//Pure Jojo
 		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
-			EngineCore.outputText( 'There is a small bedroll for Jojo near your own, though the mouse is probably hanging around the camp\'s perimeter.\n\n', false );
+			MainView.outputText( 'There is a small bedroll for Jojo near your own, though the mouse is probably hanging around the camp\'s perimeter.\n\n', false );
 			jojoEvent = SceneLib.jojoScene.jojoCamp;
 		}
 		//RATHAZUL
@@ -1111,45 +1111,45 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
 			rathazulEvent = SceneLib.rathazul.returnToRathazulMenu;
 			if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] <= 1 ) {
-				EngineCore.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
+				MainView.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
 				if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] === 1 ) {
-					EngineCore.outputText( '  Some kind of spider-silk-based equipment is hanging from a nearby rack.  He\'s finished with the task you gave him!', false );
+					MainView.outputText( '  Some kind of spider-silk-based equipment is hanging from a nearby rack.  He\'s finished with the task you gave him!', false );
 				}
-				EngineCore.outputText( '\n\n', false );
+				MainView.outputText( '\n\n', false );
 			} else {
-				EngineCore.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work on the silken equipment you\'ve commissioned him to craft.\n\n', false );
+				MainView.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work on the silken equipment you\'ve commissioned him to craft.\n\n', false );
 			}
 		}
 		if( SceneLib.sophieFollowerScene.sophieFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			if( Utils.rand( 5 ) === 0 ) {
-				EngineCore.outputText( 'Sophie is sitting by herself, applying yet another layer of glittering lip gloss to her full lips.\n\n' );
+				MainView.outputText( 'Sophie is sitting by herself, applying yet another layer of glittering lip gloss to her full lips.\n\n' );
 			} else if( Utils.rand( 4 ) === 0 ) {
-				EngineCore.outputText( 'Sophie is sitting in her nest, idly brushing out her feathers.  Occasionally, she looks up from her work to give you a sultry wink and a come-hither gaze.\n\n' );
+				MainView.outputText( 'Sophie is sitting in her nest, idly brushing out her feathers.  Occasionally, she looks up from her work to give you a sultry wink and a come-hither gaze.\n\n' );
 			} else if( Utils.rand( 3 ) === 0 ) {
-				EngineCore.outputText( 'Sophie is fussing around in her nest, straightening bits of straw and grass, trying to make it more comfortable.  After a few minutes, she flops down in the middle and reclines, apparently satisfied for the moment.\n\n' );
+				MainView.outputText( 'Sophie is fussing around in her nest, straightening bits of straw and grass, trying to make it more comfortable.  After a few minutes, she flops down in the middle and reclines, apparently satisfied for the moment.\n\n' );
 			} else if( Utils.rand( 2 ) === 0 || CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] === 0 ) {
 				if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 ) {
-					EngineCore.outputText( 'Your platinum-blonde harpy, Sophie, is currently reading a book - a marked change from her bimbo-era behavior.  Occasionally, though, she glances up from the page and gives you a lusty look.  Some things never change....\n\n' );
+					MainView.outputText( 'Your platinum-blonde harpy, Sophie, is currently reading a book - a marked change from her bimbo-era behavior.  Occasionally, though, she glances up from the page and gives you a lusty look.  Some things never change....\n\n' );
 				} else {
-					EngineCore.outputText( 'Your pink harpy, Sophie, is currently reading a book.  She seems utterly absorbed in it, though you question how she obtained it.  Occasionally, though, she\'ll glance up from the pages to shoot you a lusty look.\n\n' );
+					MainView.outputText( 'Your pink harpy, Sophie, is currently reading a book.  She seems utterly absorbed in it, though you question how she obtained it.  Occasionally, though, she\'ll glance up from the pages to shoot you a lusty look.\n\n' );
 				}
 			} else {
-				EngineCore.outputText( 'Sophie is sitting in her nest, ' );
+				MainView.outputText( 'Sophie is sitting in her nest, ' );
 				if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] < 5 ) {
-					EngineCore.outputText( 'across from your daughter' );
+					MainView.outputText( 'across from your daughter' );
 					if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] > 1 ) {
-						EngineCore.outputText( 's' );
+						MainView.outputText( 's' );
 					}
 				} else {
-					EngineCore.outputText( 'surrounded by your daughters' );
+					MainView.outputText( 'surrounded by your daughters' );
 				}
-				EngineCore.outputText( ', apparently trying to teach ' );
+				MainView.outputText( ', apparently trying to teach ' );
 				if( CoC.flags[ kFLAGS.SOPHIE_ADULT_KID_COUNT ] === 1 ) {
-					EngineCore.outputText( 'her' );
+					MainView.outputText( 'her' );
 				} else {
-					EngineCore.outputText( 'them' );
+					MainView.outputText( 'them' );
 				}
-				EngineCore.outputText( ' about hunting and gathering techniques.  Considering their unusual upbringing, it can\'t be as easy for them...\n\n' );
+				MainView.outputText( ' about hunting and gathering techniques.  Considering their unusual upbringing, it can\'t be as easy for them...\n\n' );
 			}
 			EngineCore.addButton( 5, 'Sophie', SceneLib.sophieFollowerScene, SceneLib.sophieFollowerScene.followerSophieMainScreen );
 		}
@@ -1170,11 +1170,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 	Camp.prototype.rest = function() {
 		this.campQ = true;
 		if( OnLoadVariables.timeQ === 0 ) {
-			EngineCore.outputText( 'You lie down to rest for four hours.\n', true );
+			MainView.outputText( 'You lie down to rest for four hours.\n', true );
 			OnLoadVariables.timeQ = 4;
 			//Marble withdrawl
 			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
-				EngineCore.outputText( '\nYour this.rest is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
+				MainView.outputText( '\nYour this.rest is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 				EngineCore.HPChange( OnLoadVariables.timeQ * 5, true );
 				EngineCore.dynStats( 'tou', -0.1, 'int', -0.1 );
 				//fatigue
@@ -1194,22 +1194,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		} else {
 			if( OnLoadVariables.timeQ !== 1 ) {
-				EngineCore.outputText( 'You continue to rest for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' more hours.\n', true );
+				MainView.outputText( 'You continue to rest for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' more hours.\n', true );
 			} else {
-				EngineCore.outputText( 'You continue to rest for another hour.\n', true );
+				MainView.outputText( 'You continue to rest for another hour.\n', true );
 			}
 		}
 		EventParser.goNext( OnLoadVariables.timeQ, true );
 	};
 	Camp.prototype.doWait = function() {
 		this.campQ = true;
-		EngineCore.outputText( '', true );
+		MainView.outputText( '', true );
 		if( OnLoadVariables.timeQ === 0 ) {
-			EngineCore.outputText( 'You wait four hours...\n', false );
+			MainView.outputText( 'You wait four hours...\n', false );
 			OnLoadVariables.timeQ = 4;
 			//Marble withdrawl
 			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
-				EngineCore.outputText( '\nYour time spent waiting is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
+				MainView.outputText( '\nYour time spent waiting is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 				//fatigue
 				EngineCore.fatigue( -1 * OnLoadVariables.timeQ );
 				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
@@ -1226,9 +1226,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		} else {
 			if( OnLoadVariables.timeQ !== 1 ) {
-				EngineCore.outputText( 'You continue to wait for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' more hours.\n', false );
+				MainView.outputText( 'You continue to wait for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' more hours.\n', false );
 			} else {
-				EngineCore.outputText( 'You continue to wait for another hour.\n', false );
+				MainView.outputText( 'You continue to wait for another hour.\n', false );
 			}
 		}
 		EventParser.goNext( OnLoadVariables.timeQ, true );
@@ -1277,7 +1277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 			//Clear screen
 			if( clrScreen ) {
-				EngineCore.outputText( '', true );
+				MainView.outputText( '', true );
 			}
 			/******************************************************************/
 			/*       ONE TIME SPECIAL EVENTS                                  */
@@ -1321,57 +1321,57 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				//Night Time Snuggle Alerts!*
 				//(1)
 				if( Utils.rand( 4 ) === 0 ) {
-					EngineCore.outputText( 'You curl up next to Sophie, planning to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
+					MainView.outputText( 'You curl up next to Sophie, planning to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
 					if( OnLoadVariables.timeQ > 1 ) {
-						EngineCore.outputText( 's' );
+						MainView.outputText( 's' );
 					}
-					EngineCore.outputText( '.  She wraps her feathery arms around you and nestles her chin into your shoulder.  Her heavy breasts cushion flat against your back as she gives you a rather chaste peck on the cheek and drifts off towards dreamland...' );
+					MainView.outputText( '.  She wraps her feathery arms around you and nestles her chin into your shoulder.  Her heavy breasts cushion flat against your back as she gives you a rather chaste peck on the cheek and drifts off towards dreamland...' );
 				}
 				//(2)
 				else if( Utils.rand( 3 ) === 0 ) {
-					EngineCore.outputText( 'While you\'re getting ready for bed, you see that Sophie has already beaten you there.  She\'s sprawled out on her back with her arms outstretched, making little beckoning motions towards the valley of her cleavage.  You snuggle in against her, her pillowy breasts supporting your head and her familiar heartbeat drumming you to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
+					MainView.outputText( 'While you\'re getting ready for bed, you see that Sophie has already beaten you there.  She\'s sprawled out on her back with her arms outstretched, making little beckoning motions towards the valley of her cleavage.  You snuggle in against her, her pillowy breasts supporting your head and her familiar heartbeat drumming you to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
 					if( OnLoadVariables.timeQ > 1 ) {
-						EngineCore.outputText( 's' );
+						MainView.outputText( 's' );
 					}
-					EngineCore.outputText( '.' );
+					MainView.outputText( '.' );
 				}
 				//(3)
 				else if( Utils.rand( 2 ) === 0 ) {
-					EngineCore.outputText( 'As you lay down to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
+					MainView.outputText( 'As you lay down to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
 					if( OnLoadVariables.timeQ > 1 ) {
-						EngineCore.outputText( 's' );
+						MainView.outputText( 's' );
 					}
-					EngineCore.outputText( ', you find the harpy-girl, Sophie, snuggling herself under her blankets with you.  She slips in between your arms and guides your hands to her enormous breasts, her backside already snug against your loins.  She whispers, "<i>Something to think about for next morning...  Sweet dreams.</i>" as she settles in for the night.' );
+					MainView.outputText( ', you find the harpy-girl, Sophie, snuggling herself under her blankets with you.  She slips in between your arms and guides your hands to her enormous breasts, her backside already snug against your loins.  She whispers, "<i>Something to think about for next morning...  Sweet dreams.</i>" as she settles in for the night.' );
 				}
 				//(4)
 				else {
-					EngineCore.outputText( 'Sophie climbs under the sheets with you when you go to sleep, planning on resting for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
+					MainView.outputText( 'Sophie climbs under the sheets with you when you go to sleep, planning on resting for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hour' );
 					if( OnLoadVariables.timeQ > 1 ) {
-						EngineCore.outputText( 's' );
+						MainView.outputText( 's' );
 					}
-					EngineCore.outputText( '.  She sleeps next to you, just barely touching you.  You rub her shoulder affectionately before the two of you nod off.' );
+					MainView.outputText( '.  She sleeps next to you, just barely touching you.  You rub her shoulder affectionately before the two of you nod off.' );
 				}
-				EngineCore.outputText( '\n' );
+				MainView.outputText( '\n' );
 			} else {
 				if( CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Helia' && SceneLib.helScene.followerHel() ) {
-					EngineCore.outputText( 'You curl up next to Helia, planning to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' ' );
+					MainView.outputText( 'You curl up next to Helia, planning to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' ' );
 				}
 				//Normal sleep message
 				else {
-					EngineCore.outputText( 'You curl up, planning to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' ', false );
+					MainView.outputText( 'You curl up, planning to sleep for ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' ', false );
 				}
 				if( OnLoadVariables.timeQ === 1 ) {
-					EngineCore.outputText( 'hour.\n', false );
+					MainView.outputText( 'hour.\n', false );
 				} else {
-					EngineCore.outputText( 'hours.\n', false );
+					MainView.outputText( 'hours.\n', false );
 				}
 			}
 			this.sleepRecovery( true );
 		} else {
 			if( OnLoadVariables.timeQ !== 1 ) {
-				EngineCore.outputText( 'You lie down to resume sleeping for the remaining ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hours.\n', true );
+				MainView.outputText( 'You lie down to resume sleeping for the remaining ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hours.\n', true );
 			} else {
-				EngineCore.outputText( 'You lie down to resume sleeping for the remaining hour.\n', true );
+				MainView.outputText( 'You lie down to resume sleeping for the remaining hour.\n', true );
 			}
 		}
 		EventParser.goNext( OnLoadVariables.timeQ, true );
@@ -1422,9 +1422,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		MainView.clearOutput();
 		if( OnLoadVariables.timeQ !== 1 ) {
-			EngineCore.outputText( 'You lie down to resume sleeping for the remaining ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hours.\n', true );
+			MainView.outputText( 'You lie down to resume sleeping for the remaining ' + Utils.num2Text( OnLoadVariables.timeQ ) + ' hours.\n', true );
 		} else {
-			EngineCore.outputText( 'You lie down to resume sleeping for the remaining hour.\n', true );
+			MainView.outputText( 'You lie down to resume sleeping for the remaining hour.\n', true );
 		}
 		this.sleepRecovery( true );
 		EventParser.goNext( OnLoadVariables.timeQ, true );
@@ -1433,7 +1433,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//Marble withdrawl
 		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
 			if( display ) {
-				EngineCore.outputText( '\nYour sleep is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
+				MainView.outputText( '\nYour sleep is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 			}
 			EngineCore.HPChange( OnLoadVariables.timeQ * 10, true );
 			EngineCore.dynStats( 'tou', -0.1, 'int', -0.1 );
@@ -1446,7 +1446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		//Mino withdrawal
 		else if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 3 ) {
 			if( display ) {
-				EngineCore.outputText( '\nYou spend much of the night tossing and turning, aching for a taste of minotaur cum.\n', false );
+				MainView.outputText( '\nYou spend much of the night tossing and turning, aching for a taste of minotaur cum.\n', false );
 			}
 			EngineCore.HPChange( OnLoadVariables.timeQ * 15, true );
 			EngineCore.fatigue( -Math.ceil( CoC.player.fatigue / 2 ) );
@@ -1601,19 +1601,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			$log.debug( 'EXGARTUAN V1: ' + CoC.player.statusAffectv1( StatusAffects.Exgartuan ) + ' V2: ' + CoC.player.statusAffectv2( StatusAffects.Exgartuan ) );
 			//if too small dick, remove him
 			if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && (CoC.player.cockArea( 0 ) < 100 || CoC.player.cocks.length === 0) ) {
-				EngineCore.outputText( '', true );
-				EngineCore.outputText( '<b>You suddenly feel the urge to urinate, and stop over by some bushes.  It takes wayyyy longer than normal, and once you\'ve finished, you realize you\'re alone with yourself for the first time in a long time.', false );
+				MainView.outputText( '', true );
+				MainView.outputText( '<b>You suddenly feel the urge to urinate, and stop over by some bushes.  It takes wayyyy longer than normal, and once you\'ve finished, you realize you\'re alone with yourself for the first time in a long time.', false );
 				if( CoC.player.hasCock() ) {
-					EngineCore.outputText( '  Perhaps you got too small for Exgartuan to handle?</b>\n', false );
+					MainView.outputText( '  Perhaps you got too small for Exgartuan to handle?</b>\n', false );
 				} else {
-					EngineCore.outputText( '  It looks like the demon didn\'t want to stick around without your manhood.</b>\n', false );
+					MainView.outputText( '  It looks like the demon didn\'t want to stick around without your manhood.</b>\n', false );
 				}
 				CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 			}
 			//Tit removal
 			else if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 2 && CoC.player.biggestTitSize() < 12 ) {
-				EngineCore.outputText( '', true );
-				EngineCore.outputText( '<b>Black milk dribbles from your ' + Descriptors.nippleDescript( 0 ) + '.  It immediately dissipates into the air, leaving you feeling alone.  It looks like you became too small for Exgartuan!\n</b>', false );
+				MainView.outputText( '', true );
+				MainView.outputText( '<b>Black milk dribbles from your ' + Descriptors.nippleDescript( 0 ) + '.  It immediately dissipates into the air, leaving you feeling alone.  It looks like you became too small for Exgartuan!\n</b>', false );
 				CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 			}
 		}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( Armor, EngineCore, ArmorLib ) {
+angular.module( 'cocjs' ).run( function( MainView, Armor, ArmorLib ) {
 	function LeatherArmorSegments() {
 		this.init(this, arguments);
 	}
@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( Armor, EngineCore, ArmorLib ) {
 		that.classNames.push('LeatherArmorSegments');
 	};
 	LeatherArmorSegments.prototype.removeText = function() {
-		EngineCore.outputText( 'You have your old set of ' + ArmorLib.LEATHRA.longName + ' left over.  ' );
+		MainView.outputText( 'You have your old set of ' + ArmorLib.LEATHRA.longName + ' left over.  ' );
 	};
 	LeatherArmorSegments.prototype._superPlayerRemove = LeatherArmorSegments.prototype.playerRemove;
 	LeatherArmorSegments.prototype.playerRemove = function() {

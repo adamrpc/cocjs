@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
 	function Goblin() {
 		this.init(this, arguments);
 	}
@@ -32,32 +32,32 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 		//Throw offensive potions at the player;
 		if( color !== 'blue' ) {
 			if( this.short === 'Tamani\'s daughters' ) {
-				EngineCore.outputText( 'Tamani uncorks a glass bottle full of ' + color + ' fluid and swings her arm, flinging a wave of fluid at you.', false );
+				MainView.outputText( 'Tamani uncorks a glass bottle full of ' + color + ' fluid and swings her arm, flinging a wave of fluid at you.', false );
 			} else {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' uncorks a glass bottle full of ' + color + ' fluid and swings her arm, flinging a wave of fluid at you.', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' uncorks a glass bottle full of ' + color + ' fluid and swings her arm, flinging a wave of fluid at you.', false );
 			}
 		}
 		//Drink blue pots;
 		else {
 			if( this.short === 'Tamani\'s daughters' ) {
-				EngineCore.outputText( 'Tamani pulls out a blue vial and uncaps it, then douses the mob with the contents.', false );
+				MainView.outputText( 'Tamani pulls out a blue vial and uncaps it, then douses the mob with the contents.', false );
 				if( this.HPRatio() < 1 ) {
-					EngineCore.outputText( '  Though less effective than ingesting it, the potion looks to have helped the goblins recover from their wounds!\n', false );
+					MainView.outputText( '  Though less effective than ingesting it, the potion looks to have helped the goblins recover from their wounds!\n', false );
 					this.addHP( 80 );
 				} else {
-					EngineCore.outputText( '  There doesn\'t seem to be any effect.\n', false );
+					MainView.outputText( '  There doesn\'t seem to be any effect.\n', false );
 				}
-				EngineCore.outputText( '\n', false );
+				MainView.outputText( '\n', false );
 			} else {
-				EngineCore.outputText( this.getCapitalA() + this.short + ' pulls out a blue vial and uncaps it, swiftly downing its contents.', false );
+				MainView.outputText( this.getCapitalA() + this.short + ' pulls out a blue vial and uncaps it, swiftly downing its contents.', false );
 				if( this.HPRatio() < 1 ) {
-					EngineCore.outputText( '  She looks to have recovered from some of her wounds!\n', false );
+					MainView.outputText( '  She looks to have recovered from some of her wounds!\n', false );
 					this.addHP( this.eMaxHP() / 4 );
 					if( this.short === 'Tamani' ) {
 						this.addHP( this.eMaxHP() / 4 );
 					}
 				} else {
-					EngineCore.outputText( '  There doesn\'t seem to be any effect.\n', false );
+					MainView.outputText( '  There doesn\'t seem to be any effect.\n', false );
 				}
 				Combat.combatRoundOver();
 			}
@@ -65,52 +65,52 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 		}
 		//Dodge chance!;
 		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
-			EngineCore.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
+			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;
 			if( color === 'red' ) {
 				//Temporary heat;
-				EngineCore.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
+				MainView.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
 				if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 				}
 			} else if( color === 'green' ) {
 				//Green poison;
-				EngineCore.outputText( '\nThe greenish fluids splash over you, making you feel slimy and gross.  Nausea plagues you immediately - you have been poisoned!\n', false );
+				MainView.outputText( '\nThe greenish fluids splash over you, making you feel slimy and gross.  Nausea plagues you immediately - you have been poisoned!\n', false );
 				if( CoC.player.findStatusAffect( StatusAffects.Poison ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.Poison, 0, 0, 0, 0 );
 				}
 			} else if( color === 'white' ) {
 				//sticky flee prevention;
-				EngineCore.outputText( '\nYou try to avoid it, but it splatters the ground around you with very sticky white fluid, making it difficult to run.  You\'ll have a hard time escaping now!\n', false );
+				MainView.outputText( '\nYou try to avoid it, but it splatters the ground around you with very sticky white fluid, making it difficult to run.  You\'ll have a hard time escaping now!\n', false );
 				if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
 				}
 			} else if( color === 'black' ) {
 				//Increase fatigue;
-				EngineCore.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
+				MainView.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
 				EngineCore.fatigue( 10 + Utils.rand( 25 ) );
 			}
 		}
 		if( !this.plural ) {
 			Combat.combatRoundOver();
 		} else {
-			EngineCore.outputText( '\n', false );
+			MainView.outputText( '\n', false );
 		}
 	};
 	Goblin.prototype.goblinTeaseAttack = function() {
 		var det = Utils.rand( 3 );
 		if( det === 0 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' runs her hands along her leather-clad body and blows you a kiss. "<i>Why not walk on the wild side?</i>" she asks.', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' runs her hands along her leather-clad body and blows you a kiss. "<i>Why not walk on the wild side?</i>" she asks.', false );
 		}
 		if( det === 1 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' grabs her heel and lifts it to her head in an amazing display of flexibility.  She caresses her snatch and gives you a come hither look.', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' grabs her heel and lifts it to her head in an amazing display of flexibility.  She caresses her snatch and gives you a come hither look.', false );
 		}
 		if( det === 2 ) {
-			EngineCore.outputText( this.getCapitalA() + this.short + ' bends over, putting on a show and jiggling her heart-shaped ass at you.  She looks over her shoulder and sucks on her finger, batting her eyelashes.', false );
+			MainView.outputText( this.getCapitalA() + this.short + ' bends over, putting on a show and jiggling her heart-shaped ass at you.  She looks over her shoulder and sucks on her finger, batting her eyelashes.', false );
 		}
 		EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 10 ) + 8 );
-		EngineCore.outputText( '  The display distracts you long enough to prevent you from taking advantage of her awkward pose, leaving you more than a little flushed.\n\n', false );
+		MainView.outputText( '  The display distracts you long enough to prevent you from taking advantage of her awkward pose, leaving you more than a little flushed.\n\n', false );
 		Combat.combatRoundOver();
 	};
 	Goblin.prototype.defeated = function() {
@@ -118,10 +118,10 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, AppearanceDefs,
 	};
 	Goblin.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( CoC.player.gender === 0 ) {
-			EngineCore.outputText( 'You collapse in front of the goblin, too wounded to fight.  She giggles and takes out a tube of lipstick smearing it whorishly on your face.  You pass into unconsciousness immediately.  It must have been drugged.', false );
+			MainView.outputText( 'You collapse in front of the goblin, too wounded to fight.  She giggles and takes out a tube of lipstick smearing it whorishly on your face.  You pass into unconsciousness immediately.  It must have been drugged.', false );
 			Combat.cleanupAfterCombat();
 		} else if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe goblin\'s eyes go wide and she turns to leave, no longer interested in you.', false );
+			MainView.outputText( '\n\nThe goblin\'s eyes go wide and she turns to leave, no longer interested in you.', false );
 			CoC.player.orgasm();
 			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
 		} else {

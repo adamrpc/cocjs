@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'ImpHorde', function( SceneLib, CoC, $log, Combat, EngineCore, CockTypesEnum, ArmorLib, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'ImpHorde', function( SceneLib, MainView, CoC, $log, Combat, EngineCore, CockTypesEnum, ArmorLib, Utils, WeightedDrop, AppearanceDefs, Monster, StatusAffects ) {
 	function ImpHorde() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'ImpHorde', function( SceneLib, CoC, $log, Co
 	};
 	ImpHorde.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foes don\'t seem put off enough to leave...' );
+			MainView.outputText( '\n\nYour foes don\'t seem put off enough to leave...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.dungeon2Supplimental.loseToImpMob();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Armor', function( Useable, CoC, PerkLib ) {
 	function Armor() {
 		this.init(this, arguments);
 	}
@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, EngineCore, CoC, 
 	};
 	//For most clothes if the modArmorName is set then it's Exgartuan's doing. The comfortable clothes are the exception, they override this function.;
 	Armor.prototype.useText = function() {
-		EngineCore.outputText( 'You equip ' + this.longName + '.  ' );
+		MainView.outputText( 'You equip ' + this.longName + '.  ' );
 	};
 	Armor.prototype.playerEquip = function() { //This item is being equipped by the player. Add any perks, etc. - This function should only handle mechanics, not text output
 		return this;

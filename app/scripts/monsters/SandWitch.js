@@ -18,23 +18,23 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( MainView, SceneLib, $l
 	};
 	SandWitch.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe witch blanches and backs away, leaving you to your fate.' );
+			MainView.outputText( '\n\nThe witch blanches and backs away, leaving you to your fate.' );
 			Combat.cleanupAfterCombat();
 		} else {
 			SceneLib.sandWitchScene.sandwitchRape();
 		}
 	};
 	SandWitch.prototype.lustMagicAttack = function() {
-		EngineCore.outputText( 'The sand witch points at you, drawing a circle in the air and mouthing strange words.\n\n' );
+		MainView.outputText( 'The sand witch points at you, drawing a circle in the air and mouthing strange words.\n\n' );
 		if( CoC.player.findStatusAffect( StatusAffects.StoneLust ) >= 0 ) {
-			EngineCore.outputText( 'The orb inside you grows warm, almost hot, suffusing your body with heat and arousal.  ' );
+			MainView.outputText( 'The orb inside you grows warm, almost hot, suffusing your body with heat and arousal.  ' );
 			EngineCore.dynStats( 'lus', 8 + Math.ceil( CoC.player.sens ) / 10 );
 		} else {
-			EngineCore.outputText( 'You feel the sands shift by your ' + CoC.player.feet() + ', and look down to see something slip out of the sands and into your clothes!  It feels incredibly smooth and circular as it glides upward along your ' + CoC.player.leg() + ', its progress unaffected by your frantic effort to dislodge it.  ' );
+			MainView.outputText( 'You feel the sands shift by your ' + CoC.player.feet() + ', and look down to see something slip out of the sands and into your clothes!  It feels incredibly smooth and circular as it glides upward along your ' + CoC.player.leg() + ', its progress unaffected by your frantic effort to dislodge it.  ' );
 			if( CoC.player.vaginas.length > 0 ) {
-				EngineCore.outputText( 'It glides up your thighs to the entrance of your sex, and its intentions dawn on you!\n\nToo late! You reach to stop it, but it pushes against your lips and slips inside your ' + Descriptors.vaginaDescript( 0 ) + ' in an instant.  You groan in frustration as it begins pulsing and vibrating, sometimes even seeming to change size.' );
+				MainView.outputText( 'It glides up your thighs to the entrance of your sex, and its intentions dawn on you!\n\nToo late! You reach to stop it, but it pushes against your lips and slips inside your ' + Descriptors.vaginaDescript( 0 ) + ' in an instant.  You groan in frustration as it begins pulsing and vibrating, sometimes even seeming to change size.' );
 			} else {
-				EngineCore.outputText( 'It glides up your thighs, curving around your buttocks, and its intentions dawn on you.\n\nYou desperately grab for it, but are too late!  It pushes firmly against your rectum and slips inside instantaneously.  You groan in frustration as it begins pulsing and vibrating, sometimes even seeming to change size.' );
+				MainView.outputText( 'It glides up your thighs, curving around your buttocks, and its intentions dawn on you.\n\nYou desperately grab for it, but are too late!  It pushes firmly against your rectum and slips inside instantaneously.  You groan in frustration as it begins pulsing and vibrating, sometimes even seeming to change size.' );
 			}
 			CoC.player.createStatusAffect( StatusAffects.StoneLust, 0, 0, 0, 0 );
 			EngineCore.dynStats( 'lus', 4 + Math.ceil( CoC.player.sens ) / 10 );

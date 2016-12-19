@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		if( clear ) {
 			MainView.clearOutput();
 		}
-		EngineCore.outputText( '\n\n<b>GAME OVER</b>' );
+		MainView.outputText( '\n\n<b>GAME OVER</b>' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Game Over', this, this.gameOverMenuOverride );
 		EngineCore.addButton( 3, 'NewGamePlus', this, this.newGamePlus );
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		var sprite = CoC.flags[ kFLAGS.SHOW_SPRITES_FLAG ];
 		MainView.setButtonText( 0, 'Newgame' );
 		MainView.clearOutput();
-		EngineCore.outputText( 'You grew up in the small village of Ingnam, a remote village with rich traditions, buried deep in the wilds.  Every year for as long as you can remember, your village has chosen a champion to send to the cursed Demon Realm.  Legend has it that in years Ingnam has failed to produce a champion, chaos has reigned over the countryside.  Children disappear, crops wilt, and disease spreads like wildfire.  This year, <b>you</b> have been selected to be the champion.\n\nWhat is your name?' );
+		MainView.outputText( 'You grew up in the small village of Ingnam, a remote village with rich traditions, buried deep in the wilds.  Every year for as long as you can remember, your village has chosen a champion to send to the cursed Demon Realm.  Legend has it that in years Ingnam has failed to produce a champion, chaos has reigned over the countryside.  Children disappear, crops wilt, and disease spreads like wildfire.  This year, <b>you</b> have been selected to be the champion.\n\nWhat is your name?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'OK', this, this.chooseName );
 		MainView.nameBox.value = '';
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 				CoC.flags[ kFLAGS.NEW_GAME_PLUS_BONUS_STORED_ITEMS ] = CoC.player.gems;
 			}
 			this.newGameGo();
-			EngineCore.outputText( '\n\n\n<b>You must select a name.</b>' );
+			MainView.outputText( '\n\n\n<b>You must select a name.</b>' );
 			return;
 		}
 		MainView.clearOutput();
@@ -224,11 +224,11 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		this.customPlayerProfile = this.customName( MainView.nameBox.value );
 		EngineCore.menu();
 		if( this.customPlayerProfile !== null ) {
-			EngineCore.outputText( 'This name, like you, is special.  Do you live up to your name or continue on, assuming it to be coincidence?' );
+			MainView.outputText( 'This name, like you, is special.  Do you live up to your name or continue on, assuming it to be coincidence?' );
 			EngineCore.addButton( 0, 'SpecialName', this, this.useCustomProfile );
 			EngineCore.addButton( 1, 'Continue On', this, this.noCustomProfile );
 		} else { //Proceed with normal character creation
-			EngineCore.outputText( '\n\n\n\nAre you a man or a woman?' );
+			MainView.outputText( '\n\n\n\nAre you a man or a woman?' );
 			EngineCore.addButton( 0, 'Man', this, this.isAMan );
 			EngineCore.addButton( 1, 'Woman', this, this.isAWoman );
 		}
@@ -237,13 +237,13 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		MainView.clearOutput();
 		if( this.specialName( MainView.nameBox.value ) !== null ) {
 			MainView.clearOutput();
-			EngineCore.outputText( 'Your name defines everything about you, and as such, it is time to wake...\n\n' );
+			MainView.outputText( 'Your name defines everything about you, and as such, it is time to wake...\n\n' );
 			CoC.flags[ kFLAGS.HISTORY_PERK_SELECTED ] = 1;
 			this.completeCharacterCreation(); //Skip character creation, this.customPlayerProfile will be called in completeCharacterCreation
 		} else {
 			//After character creation the fact that customPlayerProfile is not null will activate a custom player setup
-			EngineCore.outputText( 'There is something different about you, but first, what is your basic gender?  An individual such as you may later overcome this, of course...' );
-			EngineCore.outputText( '\n\n\n\nAre you a man or a woman?' );
+			MainView.outputText( 'There is something different about you, but first, what is your basic gender?  An individual such as you may later overcome this, of course...' );
+			MainView.outputText( '\n\n\n\nAre you a man or a woman?' );
 			EngineCore.menu();
 			EngineCore.addButton( 0, 'Man', this, this.isAMan );
 			EngineCore.addButton( 1, 'Woman', this, this.isAWoman );
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.noCustomProfile = function() {
 		MainView.clearOutput();
 		this.customPlayerProfile = null;
-		EngineCore.outputText( 'Your name carries little significance beyond it being your name.  What is your gender?' );
+		MainView.outputText( 'Your name carries little significance beyond it being your name.  What is your gender?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Man', this, this.isAMan );
 		EngineCore.addButton( 1, 'Woman', this, this.isAWoman );
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.cocks[ 0 ].knotMultiplier = 1;
 		CoC.player.gender = AppearanceDefs.GENDER_MALE;
 		MainView.clearOutput();
-		EngineCore.outputText( 'You are a man.  Your upbringing has provided you an advantage in strength and toughness.\n\nWhat type of build do you have?' );
+		MainView.outputText( 'You are a man.  Your upbringing has provided you an advantage in strength and toughness.\n\nWhat type of build do you have?' );
 		EngineCore.choices( 'Lean', this, this.buildLeanMale, 'Average', this, this.buildAverageMale, 'Thick', this, this.buildThickMale, 'Girly', this, this.buildGirlyMale, '', null, null );
 	};
 	CharCreation.prototype.isAWoman = function() {
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.createVagina();
 		CoC.player.gender = AppearanceDefs.GENDER_FEMALE;
 		MainView.clearOutput();
-		EngineCore.outputText( 'You are a woman.  Your upbringing has provided you an advantage in speed and intellect.\n\nWhat type of build do you have?' );
+		MainView.outputText( 'You are a woman.  Your upbringing has provided you an advantage in speed and intellect.\n\nWhat type of build do you have?' );
 		EngineCore.choices( 'Slender', this, this.buildSlenderFemale, 'Average', this, this.buildAverageFemale, 'Curvy', this, this.buildCurvyFemale, 'Tomboyish', this, this.buildTomboyishFemale, '', null, null );
 	};
 	CharCreation.prototype.buildLeanMale = function() {
@@ -452,7 +452,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	CharCreation.prototype.chooseComplexion = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'What is your complexion?' );
+		MainView.outputText( 'What is your complexion?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Light', this, this.setComplexion, 'light' );
 		EngineCore.addButton( 1, 'Olive', this, this.setComplexion, 'olive' );
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.setComplexion = function( choice ) { //And choose hair
 		CoC.player.skinTone = choice;
 		MainView.clearOutput();
-		EngineCore.outputText( 'You selected a ' + choice + ' complexion.\n\nWhat color is your hair?' );
+		MainView.outputText( 'You selected a ' + choice + ' complexion.\n\nWhat color is your hair?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Blonde', this, this.setHair, 'blonde' );
 		EngineCore.addButton( 1, 'Brown', this, this.setHair, 'brown' );
@@ -475,14 +475,14 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.setHair = function( choice ) {
 		CoC.player.hairColor = choice;
 		MainView.clearOutput();
-		EngineCore.outputText( 'You have ' + Descriptors.hairDescript() + '.' );
+		MainView.outputText( 'You have ' + Descriptors.hairDescript() + '.' );
 		this.chooseEndowment( false );
 	};
 	CharCreation.prototype.chooseEndowment = function( clear ) {
 		if( clear ) {
 			MainView.clearOutput();
 		}
-		EngineCore.outputText( 'Every person is born with a gift.  What\'s yours?' );
+		MainView.outputText( 'Every person is born with a gift.  What\'s yours?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Strength', this, this.confirmEndowmentStrength );
 		EngineCore.addButton( 1, 'Toughness', this, this.confirmEndowmentThoughness );
@@ -502,84 +502,84 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	CharCreation.prototype.confirmEndowmentStrength = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Are you stronger than normal? (+5 Strength)\n\nStrength increases your combat damage, and your ability to hold on to an enemy or pull yourself away.' );
+		MainView.outputText( 'Are you stronger than normal? (+5 Strength)\n\nStrength increases your combat damage, and your ability to hold on to an enemy or pull yourself away.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentStrength );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentThoughness = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Are you unusually tough? (+5 Toughness)\n\nToughness gives you more HP and increases the chances an attack against you will fail to wound you.' );
+		MainView.outputText( 'Are you unusually tough? (+5 Toughness)\n\nToughness gives you more HP and increases the chances an attack against you will fail to wound you.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentToughness );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentSpeed = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Are you very quick?  (+5 Speed)\n\nSpeed makes it easier to escape combat and grapples.  It also boosts your chances of evading an enemy attack and successfully catching up to enemies who try to run.' );
+		MainView.outputText( 'Are you very quick?  (+5 Speed)\n\nSpeed makes it easier to escape combat and grapples.  It also boosts your chances of evading an enemy attack and successfully catching up to enemies who try to run.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentSpeed );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentSmarts = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Are you a quick learner?  (+5 Intellect)\n\nIntellect can help you avoid dangerous monsters or work with machinery.  It will also boost the power of any spells you may learn in your travels.' );
+		MainView.outputText( 'Are you a quick learner?  (+5 Intellect)\n\nIntellect can help you avoid dangerous monsters or work with machinery.  It will also boost the power of any spells you may learn in your travels.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentSmarts );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentLibido = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Do you have an unusually high sex-drive?  (+5 Libido)\n\nLibido affects how quickly your lust builds over time.  You may find a high libido to be more trouble than it\'s worth...' );
+		MainView.outputText( 'Do you have an unusually high sex-drive?  (+5 Libido)\n\nLibido affects how quickly your lust builds over time.  You may find a high libido to be more trouble than it\'s worth...' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentLibido );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentTouch = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Is your skin unusually sensitive?  (+5 Sensitivity)\n\nSensitivity affects how easily touches and certain magics will raise your lust.  Very low sensitivity will make it difficult to orgasm.' );
+		MainView.outputText( 'Is your skin unusually sensitive?  (+5 Sensitivity)\n\nSensitivity affects how easily touches and certain magics will raise your lust.  Very low sensitivity will make it difficult to orgasm.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentTouch );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentBigCock = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Do you have a big cock?  (+2" Cock Length)\n\nA bigger cock will make it easier to get off any sexual partners, but only if they can take your size.' );
+		MainView.outputText( 'Do you have a big cock?  (+2" Cock Length)\n\nA bigger cock will make it easier to get off any sexual partners, but only if they can take your size.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentBigCock );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentMessyOrgasms = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Are your orgasms particularly messy?  (+50% Cum Multiplier)\n\nA higher cum multiplier will cause your orgasms to be messier.' );
+		MainView.outputText( 'Are your orgasms particularly messy?  (+50% Cum Multiplier)\n\nA higher cum multiplier will cause your orgasms to be messier.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentMessyOrgasms );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentBigBreasts = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Are your breasts bigger than average? (DD cups)\n\nLarger breasts will allow you to lactate greater amounts, tit-fuck larger cocks, and generally be a sexy bitch.' );
+		MainView.outputText( 'Are your breasts bigger than average? (DD cups)\n\nLarger breasts will allow you to lactate greater amounts, tit-fuck larger cocks, and generally be a sexy bitch.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentBigBreasts );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentBigClit = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Do you have a big clit?  (1" Long)\n\nA large enough clit may eventually become as large as a cock.  It also makes you gain lust much faster during oral or manual stimulation.' );
+		MainView.outputText( 'Do you have a big clit?  (1" Long)\n\nA large enough clit may eventually become as large as a cock.  It also makes you gain lust much faster during oral or manual stimulation.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentBigClit );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentFertile = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Is your family particularly fertile?  (+15% Fertility)\n\nA high fertility will cause you to become pregnant much more easily.  Pregnancy may result in children, larger bust, larger hips, a bigger ass, and other weirdness.' );
+		MainView.outputText( 'Is your family particularly fertile?  (+15% Fertility)\n\nA high fertility will cause you to become pregnant much more easily.  Pregnancy may result in children, larger bust, larger hips, a bigger ass, and other weirdness.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentFertile );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
 	};
 	CharCreation.prototype.confirmEndowmentWetVagina = function() {
 		MainView.clearOutput();
-		EngineCore.outputText( 'Does your pussy get particularly wet?  (+1 Vaginal Wetness)\n\nVaginal wetness will make it easier to take larger cocks, in turn helping you bring the well-endowed to orgasm quicker.' );
+		MainView.outputText( 'Does your pussy get particularly wet?  (+1 Vaginal Wetness)\n\nVaginal wetness will make it easier to take larger cocks, in turn helping you bring the well-endowed to orgasm quicker.' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setEndowmentWetVagina );
 		EngineCore.addButton( 1, 'No', this, this.chooseEndowment, true );
@@ -664,9 +664,9 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.chooseHistory = function() {
 		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.HISTORY_PERK_SELECTED ] !== 0 ) { //This flag can only be non-zero if chooseHistory is called from camp.as
-			EngineCore.outputText( '<b>New history perks are available during creation.  Since this character was created before they were available, you may choose one now!</b>\n\n' );
+			MainView.outputText( '<b>New history perks are available during creation.  Since this character was created before they were available, you may choose one now!</b>\n\n' );
 		}
-		EngineCore.outputText( 'Before you became a champion, you had other plans for your life.  What were you doing before?' );
+		MainView.outputText( 'Before you became a champion, you had other plans for your life.  What were you doing before?' );
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Alchemy', this, this.confirmHistory, PerkLib.HistoryAlchemist );
 		EngineCore.addButton( 1, 'Fighting', this, this.confirmHistory, PerkLib.HistoryFighter );
@@ -682,31 +682,31 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		MainView.clearOutput();
 		switch( choice ) {
 			case PerkLib.HistoryAlchemist:
-				EngineCore.outputText( 'You spent some time as an alchemist\'s assistant, and alchemical items always seem to be more reactive in your hands.  Is this your history?' );
+				MainView.outputText( 'You spent some time as an alchemist\'s assistant, and alchemical items always seem to be more reactive in your hands.  Is this your history?' );
 				break;
 			case PerkLib.HistoryFighter:
-				EngineCore.outputText( 'You spent much of your time fighting other children, and you had plans to find work as a guard when you grew up.  You do 10% more damage with physical attacks.  Is this your history?' );
+				MainView.outputText( 'You spent much of your time fighting other children, and you had plans to find work as a guard when you grew up.  You do 10% more damage with physical attacks.  Is this your history?' );
 				break;
 			case PerkLib.HistoryHealer:
-				EngineCore.outputText( 'You often spent your free time with the village healer, learning how to tend to wounds.  Healing items and effects are 20% more effective.  Is this your history?' );
+				MainView.outputText( 'You often spent your free time with the village healer, learning how to tend to wounds.  Healing items and effects are 20% more effective.  Is this your history?' );
 				break;
 			case PerkLib.HistoryReligious:
-				EngineCore.outputText( 'You spent a lot of time at the village temple, and learned how to meditate.  The "masturbation" option is replaced with "meditate" when corruption is at or below 66.  Is this your history?' );
+				MainView.outputText( 'You spent a lot of time at the village temple, and learned how to meditate.  The "masturbation" option is replaced with "meditate" when corruption is at or below 66.  Is this your history?' );
 				break;
 			case PerkLib.HistoryScholar:
-				EngineCore.outputText( 'You spent much of your time in school, and even begged the richest man in town, Mr. Savin, to let you read some of his books.  You are much better at focusing, and spellcasting uses 20% less fatigue.  Is this your history?' );
+				MainView.outputText( 'You spent much of your time in school, and even begged the richest man in town, Mr. Savin, to let you read some of his books.  You are much better at focusing, and spellcasting uses 20% less fatigue.  Is this your history?' );
 				break;
 			case PerkLib.HistorySlacker:
-				EngineCore.outputText( 'You spent a lot of time slacking, avoiding work, and otherwise making a nuisance of yourself.  Your efforts at slacking have made you quite adept at resting, and your fatigue comes back 20% faster.  Is this your history?' );
+				MainView.outputText( 'You spent a lot of time slacking, avoiding work, and otherwise making a nuisance of yourself.  Your efforts at slacking have made you quite adept at resting, and your fatigue comes back 20% faster.  Is this your history?' );
 				break;
 			case PerkLib.HistorySlut:
-				EngineCore.outputText( 'You managed to spend most of your time having sex.  Quite simply, when it came to sex, you were the village bicycle - everyone got a ride.  Because of this, your body is a bit more resistant to penetrative stretching, and has a higher upper limit on what exactly can be inserted.  Is this your history?' );
+				MainView.outputText( 'You managed to spend most of your time having sex.  Quite simply, when it came to sex, you were the village bicycle - everyone got a ride.  Because of this, your body is a bit more resistant to penetrative stretching, and has a higher upper limit on what exactly can be inserted.  Is this your history?' );
 				break;
 			case PerkLib.HistorySmith:
-				EngineCore.outputText( 'You managed to get an apprenticeship with the local blacksmith.  Because of your time spent at the blacksmith\'s side, you\'ve learned how to fit armor for maximum protection.  Is this your history?' );
+				MainView.outputText( 'You managed to get an apprenticeship with the local blacksmith.  Because of your time spent at the blacksmith\'s side, you\'ve learned how to fit armor for maximum protection.  Is this your history?' );
 				break;
 			default:
-				EngineCore.outputText( 'You managed to find work as a whore.  Because of your time spent trading seduction for profit, you\'re more effective at teasing (+15% tease damage).  Is this your history?' );
+				MainView.outputText( 'You managed to find work as a whore.  Because of your time spent trading seduction for profit, you\'re more effective at teasing (+15% tease damage).  Is this your history?' );
 		}
 		EngineCore.menu();
 		EngineCore.addButton( 0, 'Yes', this, this.setHistory, choice );
@@ -741,16 +741,16 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		MainView.statsView.show();
 		CoC.time.hours = 11;
 		MainView.clearOutput();
-		EngineCore.outputText( 'You are prepared for what is to come.  Most of the last year has been spent honing your body and mind to prepare for the challenges ahead.  You are the Champion of Ingnam.  The one who will journey to the demon realm and guarantee the safety of your friends and family, even though you\'ll never see them again.  You wipe away a tear as you enter the courtyard and see Elder Nomur waiting for you.  You are ready.\n\n' );
-		EngineCore.outputText( 'The walk to the tainted cave is long and silent.  Elder Nomur does not speak.  There is nothing left to say.  The two of you journey in companionable silence.  Slowly the black rock of Mount Ilgast looms closer and closer, and the temperature of the air drops.   You shiver and glance at the Elder, noticing he doesn\'t betray any sign of the cold.  Despite his age of nearly 80, he maintains the vigor of a man half his age.  You\'re glad for his strength, as assisting him across this distance would be draining, and you must save your energy for the trials ahead.\n\n' );
-		EngineCore.outputText( 'The entrance of the cave gapes open, sharp stalactites hanging over the entrance, giving it the appearance of a monstrous mouth.  Elder Nomur stops and nods to you, gesturing for you to proceed alone.\n\n' );
-		EngineCore.outputText( 'The cave is unusually warm and damp, ' );
+		MainView.outputText( 'You are prepared for what is to come.  Most of the last year has been spent honing your body and mind to prepare for the challenges ahead.  You are the Champion of Ingnam.  The one who will journey to the demon realm and guarantee the safety of your friends and family, even though you\'ll never see them again.  You wipe away a tear as you enter the courtyard and see Elder Nomur waiting for you.  You are ready.\n\n' );
+		MainView.outputText( 'The walk to the tainted cave is long and silent.  Elder Nomur does not speak.  There is nothing left to say.  The two of you journey in companionable silence.  Slowly the black rock of Mount Ilgast looms closer and closer, and the temperature of the air drops.   You shiver and glance at the Elder, noticing he doesn\'t betray any sign of the cold.  Despite his age of nearly 80, he maintains the vigor of a man half his age.  You\'re glad for his strength, as assisting him across this distance would be draining, and you must save your energy for the trials ahead.\n\n' );
+		MainView.outputText( 'The entrance of the cave gapes open, sharp stalactites hanging over the entrance, giving it the appearance of a monstrous mouth.  Elder Nomur stops and nods to you, gesturing for you to proceed alone.\n\n' );
+		MainView.outputText( 'The cave is unusually warm and damp, ' );
 		if( CoC.player.gender === AppearanceDefs.GENDER_FEMALE ) {
-			EngineCore.outputText( 'and your body seems to feel the same way, flushing as you feel a warmth and dampness between your thighs. ' );
+			MainView.outputText( 'and your body seems to feel the same way, flushing as you feel a warmth and dampness between your thighs. ' );
 		} else {
-			EngineCore.outputText( 'and your body reacts with a sense of growing warmth focusing in your groin, your manhood hardening for no apparent reason. ' );
+			MainView.outputText( 'and your body reacts with a sense of growing warmth focusing in your groin, your manhood hardening for no apparent reason. ' );
 		}
-		EngineCore.outputText( 'You were warned of this and press forward, ignoring your body\'s growing needs.  A glowing purple-pink portal swirls and flares with demonic light along the back wall.  Cringing, you press forward, keenly aware that your body seems to be anticipating coming in contact with the tainted magical construct.  Closing your eyes, you gather your resolve and leap forwards.  Vertigo overwhelms you and you black out...' );
+		MainView.outputText( 'You were warned of this and press forward, ignoring your body\'s growing needs.  A glowing purple-pink portal swirls and flares with demonic light along the back wall.  Cringing, you press forward, keenly aware that your body seems to be anticipating coming in contact with the tainted magical construct.  Closing your eyes, you gather your resolve and leap forwards.  Vertigo overwhelms you and you black out...' );
 		MainView.statsView.show();
 		EngineCore.dynStats( 'lus', 15 );
 		EngineCore.doNext( this, this.arrivalPartTwo );
@@ -760,32 +760,32 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		EngineCore.hideUpDown();
 		EngineCore.dynStats( 'lus', 40, 'cor', 2 );
 		CoC.time.hours = 18;
-		EngineCore.outputText( 'You wake with a splitting headache and a body full of burning desire.  A shadow darkens your view momentarily and your training kicks in.  You roll to the side across the bare ground and leap to your feet.  A surprised looking imp stands a few feet away, holding an empty vial.  He\'s completely naked, an improbably sized pulsing red cock hanging between his spindly legs.  You flush with desire as a wave of lust washes over you, your mind reeling as you fight ' );
+		MainView.outputText( 'You wake with a splitting headache and a body full of burning desire.  A shadow darkens your view momentarily and your training kicks in.  You roll to the side across the bare ground and leap to your feet.  A surprised looking imp stands a few feet away, holding an empty vial.  He\'s completely naked, an improbably sized pulsing red cock hanging between his spindly legs.  You flush with desire as a wave of lust washes over you, your mind reeling as you fight ' );
 		if( CoC.player.gender === AppearanceDefs.GENDER_FEMALE ) {
-			EngineCore.outputText( 'the urge to chase down his rod and impale yourself on it.\n\n' );
+			MainView.outputText( 'the urge to chase down his rod and impale yourself on it.\n\n' );
 		} else {
-			EngineCore.outputText( 'the urge to ram your cock down his throat.  The strangeness of the thought surprises you.\n\n' );
+			MainView.outputText( 'the urge to ram your cock down his throat.  The strangeness of the thought surprises you.\n\n' );
 		}
-		EngineCore.outputText( 'The imp says, "<i>I\'m amazed you aren\'t already chasing down my cock, human.  The last Champion was an eager whore for me by the time she woke up.  This lust draft made sure of it.</i>"' );
+		MainView.outputText( 'The imp says, "<i>I\'m amazed you aren\'t already chasing down my cock, human.  The last Champion was an eager whore for me by the time she woke up.  This lust draft made sure of it.</i>"' );
 		EngineCore.doNext( this, this.arrivalPartThree );
 	};
 	CharCreation.prototype.arrivalPartThree = function() {
 		MainView.clearOutput();
 		EngineCore.hideUpDown();
 		EngineCore.dynStats( 'lus', -30 );
-		EngineCore.outputText( 'The imp shakes the empty vial to emphasize his point.  You reel in shock at this revelation - you\'ve just entered the demon realm and you\'ve already been drugged!  You tremble with the aching need in your groin, but resist, righteous anger lending you strength.\n\nIn desperation you leap towards the imp, watching with glee as his cocky smile changes to an expression of sheer terror.  The smaller creature is no match for your brute strength as you pummel him mercilessly.  You pick up the diminutive demon and punt him into the air, frowning grimly as he spreads his wings and begins speeding into the distance.\n\n' );
-		EngineCore.outputText( 'The imp says, "<i>FOOL!  You could have had pleasure unending... but should we ever cross paths again you will regret humiliating me!  Remember the name Zetaz, as you\'ll soon face the wrath of my master!</i>"\n\n' );
-		EngineCore.outputText( 'Your pleasure at defeating the demon ebbs as you consider how you\'ve already been defiled.  You swear to yourself you will find the demon responsible for doing this to you and the other Champions, and destroy him AND his pet imp.' );
+		MainView.outputText( 'The imp shakes the empty vial to emphasize his point.  You reel in shock at this revelation - you\'ve just entered the demon realm and you\'ve already been drugged!  You tremble with the aching need in your groin, but resist, righteous anger lending you strength.\n\nIn desperation you leap towards the imp, watching with glee as his cocky smile changes to an expression of sheer terror.  The smaller creature is no match for your brute strength as you pummel him mercilessly.  You pick up the diminutive demon and punt him into the air, frowning grimly as he spreads his wings and begins speeding into the distance.\n\n' );
+		MainView.outputText( 'The imp says, "<i>FOOL!  You could have had pleasure unending... but should we ever cross paths again you will regret humiliating me!  Remember the name Zetaz, as you\'ll soon face the wrath of my master!</i>"\n\n' );
+		MainView.outputText( 'Your pleasure at defeating the demon ebbs as you consider how you\'ve already been defiled.  You swear to yourself you will find the demon responsible for doing this to you and the other Champions, and destroy him AND his pet imp.' );
 		EngineCore.doNext( this, this.arrivalPartFour );
 	};
 	CharCreation.prototype.arrivalPartFour = function() {
 		MainView.clearOutput();
 		EngineCore.hideUpDown();
-		EngineCore.outputText( 'You look around, surveying the hellish landscape as you plot your next move.  The portal is a few yards away, nestled between a formation of rocks.  It does not seem to exude the arousing influence it had on the other side.  The ground and sky are both tinted different shades of red, though the earth beneath your feet feels as normal as any other lifeless patch of dirt.   You settle on the idea of making a camp here and fortifying this side of the portal.  No demons will ravage your beloved hometown on your watch.\n\nIt does not take long to set up your tent and a few simple traps.  You\'ll need to explore and gather more supplies to fortify it any further.  Perhaps you will even manage to track down the demons who have been abducting the other champions!' );
+		MainView.outputText( 'You look around, surveying the hellish landscape as you plot your next move.  The portal is a few yards away, nestled between a formation of rocks.  It does not seem to exude the arousing influence it had on the other side.  The ground and sky are both tinted different shades of red, though the earth beneath your feet feels as normal as any other lifeless patch of dirt.   You settle on the idea of making a camp here and fortifying this side of the portal.  No demons will ravage your beloved hometown on your watch.\n\nIt does not take long to set up your tent and a few simple traps.  You\'ll need to explore and gather more supplies to fortify it any further.  Perhaps you will even manage to track down the demons who have been abducting the other champions!' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	CharCreation.prototype.customAnnetta = function() {
-		EngineCore.outputText( 'You\'re a rather well-endowed hermaphrodite that sports a thick, dog-knotted cock, an unused pussy, and a nice, stretchy butt-hole.  You\'ve also got horns and demonic high-heels on your feet.  It makes you wonder why you would ever get chosen to be champion!' );
+		MainView.outputText( 'You\'re a rather well-endowed hermaphrodite that sports a thick, dog-knotted cock, an unused pussy, and a nice, stretchy butt-hole.  You\'ve also got horns and demonic high-heels on your feet.  It makes you wonder why you would ever get chosen to be champion!' );
 		//Specific Character	'Gender
 		//Penis inch long 3 inch wide penis, dog shaped, 6.5 inch knot
 		//Balls 5 inch wide
@@ -831,7 +831,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.gender = 3;
 	};
 	CharCreation.prototype.customAria = function() {
-		EngineCore.outputText( 'It\'s really no surprise that you were sent through the portal to deal with the demons - you look enough like one as-is.  Your numerous fetish-inducing piercings, magical fox-tails, and bimbo-licious personality were all the motivation the elders needed to keep you from corrupting the village youth.' );
+		MainView.outputText( 'It\'s really no surprise that you were sent through the portal to deal with the demons - you look enough like one as-is.  Your numerous fetish-inducing piercings, magical fox-tails, and bimbo-licious personality were all the motivation the elders needed to keep you from corrupting the village youth.' );
 		//2/26/2013 8	rdolave@gmail.com	Character Creation	'female DD breasts feminity 100 butt size 5 hip size 5 body thickness 10 clit I would like her nipples pierced with Ceraphs piercing
 		//(on a side note how much do you think it would cost to add bell nipple,labia and clit piercings as well as an option for belly button piercings would like to see belly button piecings with a few different options as well.  Also would love to have handcuff ear piercings.)'	Would like the bimbo brain and bimbo body perks as well as the nine tail PerkLib.  demonic high heels, pink skin, obscenely long pink hair  would like her to be a kitsune with the nine tails.  pink fur.  starting equipment would like to be the succubus whip and nurse's outfit.  Also would like the xmas perk and all three Vday perks	Aria
 		if( !CoC.player.hasVagina() ) {
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 			CoC.player.clitLength = 0.25;
 		}
 		CoC.player.gender = 3;
-		EngineCore.outputText( 'You\'re quite the foxy herm, and as different as you were compared to the rest of Ingnam, it\'s no suprise you were sent through first.' );
+		MainView.outputText( 'You\'re quite the foxy herm, and as different as you were compared to the rest of Ingnam, it\'s no suprise you were sent through first.' );
 	};
 	CharCreation.prototype.customCeveo = function() {
 		//Male. 2 cock. 5.5 average thickness and 12 in with excessive thickness both pierced with silver rings. Balls, large, about the size of a billiard ball, four of them. All humanish, more details on the character.
@@ -958,10 +958,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.cor = 30;
 		CoC.player.lib = 30;
 		CoC.player.sens = 10;
-		EngineCore.outputText( 'As a wandering mage you had found your way into no small amount of trouble in the search for knowledge.  A strange tome here, a ritual there, most people found your pale form unsettling. They would be further troubled if they could see your feet!  Lets not even begin on the blood magic.  Yes, your interest in examining every aspect of magic has run you down a strange path, so when you wandered into Ingram and began to hear of the exile of the Champion, and the superstitions that surrounded it you were intrigued, as every little rumor and ritual often had a grain of truth.  You snuck into the cave prior to the ritual, where the old man supposedly led every Champion, and there you found a strange portal that emanated a certain degree of spacial transparency -  more than the portal\'s own.  Within it must have been a whole new world!  Throwing caution to the wind, your curiosities engulfing you, you dove in with nary a thought for the consequences.' );
+		MainView.outputText( 'As a wandering mage you had found your way into no small amount of trouble in the search for knowledge.  A strange tome here, a ritual there, most people found your pale form unsettling. They would be further troubled if they could see your feet!  Lets not even begin on the blood magic.  Yes, your interest in examining every aspect of magic has run you down a strange path, so when you wandered into Ingram and began to hear of the exile of the Champion, and the superstitions that surrounded it you were intrigued, as every little rumor and ritual often had a grain of truth.  You snuck into the cave prior to the ritual, where the old man supposedly led every Champion, and there you found a strange portal that emanated a certain degree of spacial transparency -  more than the portal\'s own.  Within it must have been a whole new world!  Throwing caution to the wind, your curiosities engulfing you, you dove in with nary a thought for the consequences.' );
 	};
 	CharCreation.prototype.customCharaun = function() {
-		EngineCore.outputText( 'As a gifted fox with a juicy, thick knot, a wet cunt, and magical powers, you have no problems with being chosen as champion.' );
+		MainView.outputText( 'As a gifted fox with a juicy, thick knot, a wet cunt, and magical powers, you have no problems with being chosen as champion.' );
 		//Herm, Fox Cock x 1.4'w, knot multiplier 3.6), No Balls, Cum Multiplier,500, Vaginal Wetness, Clit length, Virgin, Fertility	9-tailed 'enlightened' kitsune( a pure-blooded kitsune with the 'Enlightened Nine-tails' perk and magic specials)
 		if( !CoC.player.hasCock() ) {
 			CoC.player.createCock();
@@ -1012,7 +1012,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.setWeapon( WeaponLib.S_BLADE );
 	};
 	CharCreation.prototype.customCharlie = function() {
-		EngineCore.outputText( 'You\'re strong, smart, fast, and tough.  It also helps that you\'ve got four dongs well beyond what others have lurking in their trousers.  With your wings, bow, weapon, and tough armor, you\'re a natural for protecting the town.' );
+		MainView.outputText( 'You\'re strong, smart, fast, and tough.  It also helps that you\'ve got four dongs well beyond what others have lurking in their trousers.  With your wings, bow, weapon, and tough armor, you\'re a natural for protecting the town.' );
 		CoC.player.gender = 1;
 		CoC.player.tou += 2;
 		CoC.player.str += 3;
@@ -1090,7 +1090,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.cumMultiplier = 50;
 	};
 	CharCreation.prototype.customCody = function() {
-		EngineCore.outputText( 'Your orange and black tiger stripes make you cut a more imposing visage than normal, and with your great strength, armor, and claymore, you\'re a natural pick for champion.' );
+		MainView.outputText( 'Your orange and black tiger stripes make you cut a more imposing visage than normal, and with your great strength, armor, and claymore, you\'re a natural pick for champion.' );
 		//well to start off the name would be Cody
 		//-Cat with (black and orange tiger fur if possible) if not just Orange fur
 		CoC.player.hairColor = 'black and orange';
@@ -1143,16 +1143,16 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.itemSlot4.unlocked = true;
 		CoC.player.itemSlot4.setItemAndQty( ArmorLib.BIMBOSK, 1 );
 		CoC.player.itemSlot5.unlocked = true;
-		EngineCore.outputText( 'You\'ve got large breasts prone to lactation.  You aren\'t sure WHY you got chosen as a champion, but with your considerable strength, you\'re sure you\'ll do a good job protecting Ingnam.' );
+		MainView.outputText( 'You\'ve got large breasts prone to lactation.  You aren\'t sure WHY you got chosen as a champion, but with your considerable strength, you\'re sure you\'ll do a good job protecting Ingnam.' );
 	};
 	CharCreation.prototype.customGundam = function() {
-		EngineCore.outputText( 'You\'re fabulously rich, thanks to a rather well-placed bet on who would be the champion.  Hopefully you can buy yourself out of any trouble you might get in.' );
+		MainView.outputText( 'You\'re fabulously rich, thanks to a rather well-placed bet on who would be the champion.  Hopefully you can buy yourself out of any trouble you might get in.' );
 		CoC.player.gems = 1500 + Utils.rand( 1000 );
 		//for my custom character profile i want the name to be gundam all i want is to start out with around 1000-2500 gems like as a gift from the elder or something to help me out.
 	};
 	CharCreation.prototype.customHikari = function() {
 		//Character Creation	If possible I would like a herm with a cat cock that is 10 inches by 4 inches. Anything else is up to you.	I would like a herm catmorph with two large d breasts and shoulder length hair. Also if possible I would like to start with some gel armor. Everything else is fair game.	Hikari
-		EngineCore.outputText( 'As a herm with a super-thick cat-cock, D-cup breasts, and out-of-this-world armor, you\'re a natural pick for champion.' );
+		MainView.outputText( 'As a herm with a super-thick cat-cock, D-cup breasts, and out-of-this-world armor, you\'re a natural pick for champion.' );
 		if( !CoC.player.hasCock() ) {
 			CoC.player.createCock();
 		}
@@ -1168,7 +1168,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.gender = 3;
 	};
 	CharCreation.prototype.customIsaac = function() {
-		EngineCore.outputText( 'Born of a disgraced priestess, Isaac was raised alone until she was taken by illness.  He worked a number of odd jobs until he was eventually chosen as champion.' );
+		MainView.outputText( 'Born of a disgraced priestess, Isaac was raised alone until she was taken by illness.  He worked a number of odd jobs until he was eventually chosen as champion.' );
 		//- gift
 		CoC.player.spe += 5;
 		CoC.player.tone += 10;
@@ -1239,7 +1239,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.setArmor( ArmorLib.M_ROBES );
 	};
 	CharCreation.prototype.customKatti = function() {
-		EngineCore.outputText( 'You have big breasts with big, fuckable nipples on them, and no matter what, your vagina always seems to be there to keep you company.' );
+		MainView.outputText( 'You have big breasts with big, fuckable nipples on them, and no matter what, your vagina always seems to be there to keep you company.' );
 		//Gender
 		if( !CoC.player.hasVagina() ) {
 			CoC.player.createVagina();
@@ -1311,7 +1311,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	CharCreation.prototype.customLucina = function() {
 		//428347355782040	Character Creation	Female,wetness=wet, Looseness=normal,not a virgin, Fertility high i guess i dont really care can be up to you.	for her face normal human, ears i want Elvin, no tails, just normal skin, body thickness i want to be slender, body tone kinda athletic but not too much, hair i want really long i think like a 30 on the codex number i think and her hair color light blonde, i want her to have normal D size breast with you can choose how you want them really though i dont think i really care, nipple size i dont care, her skin color a fair light light color but not too pale, for her starting equipment i want im not sure what i want her to wear but basically i want a Elvin archer with a bow. so maybe you can do something about the clothing. i just want a Elvin character in the game since theres goblins plus another archer besides kelt a female one add to that.	Lucina
-		EngineCore.outputText( 'You\'re a blond, fair-skinned lass with a well-made bow and the skills to use it.  You have D-cup breasts and a very moist cunt that\'s seen a little action.  You\'re fit and trim, but not too thin, nor too well-muscled.  All in all, you\'re a good fit for championing your village\'s cause.' );
+		MainView.outputText( 'You\'re a blond, fair-skinned lass with a well-made bow and the skills to use it.  You have D-cup breasts and a very moist cunt that\'s seen a little action.  You\'re fit and trim, but not too thin, nor too well-muscled.  All in all, you\'re a good fit for championing your village\'s cause.' );
 		if( !CoC.player.hasVagina() ) {
 			CoC.player.createVagina();
 		}
@@ -1401,7 +1401,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.customMara = function() {
 		//#226096893686530
 		//For the custom PC Profile can you make a Bimbo Bunny girl (no bunny feet) (named Mara) dont really care about clothes i can get what i want pretty quickly and I change from time to time.
-		EngineCore.outputText( 'You\'re a bunny-girl with bimbo-tier curves, jiggly and soft, a curvy, wet girl with a bit of a flirty past.' );
+		MainView.outputText( 'You\'re a bunny-girl with bimbo-tier curves, jiggly and soft, a curvy, wet girl with a bit of a flirty past.' );
 		CoC.player.gender = 2;
 		CoC.player.spe += 3;
 		CoC.player.inte += 2;
@@ -1433,7 +1433,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	CharCreation.prototype.customMihari = function() {
 		//[Values will be listed as if taken from Minerva]
 		//I'm kinda going under the assumption you are letting us go hog wild if not, take what's allowed and do what you wish out of what's below
-		EngineCore.outputText( 'The portal is not something you fear, not with your imposing armor and inscribed spellblade.  You\'re much faster and stronger than every champion that came before you, but will it be enough?' );
+		MainView.outputText( 'The portal is not something you fear, not with your imposing armor and inscribed spellblade.  You\'re much faster and stronger than every champion that came before you, but will it be enough?' );
 		//Core Stats = 40;
 		CoC.player.tou = 20;
 		CoC.player.spe = 100;
@@ -1486,7 +1486,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	CharCreation.prototype.customMirvanna = function() {
 		//Any equine or dragonny attributes accompanying it a big plus! As I'm a dragon-unicorn furry (Qilin~). Bonus points if you add a horn type for unicorn horn.
-		EngineCore.outputText( 'You\'re an equine dragon-herm with a rather well-proportioned body.  Ingnam is certainly going to miss having you whoring yourself out around town.  You don\'t think they\'ll miss cleaning up all the messy sex, though.' );
+		MainView.outputText( 'You\'re an equine dragon-herm with a rather well-proportioned body.  Ingnam is certainly going to miss having you whoring yourself out around town.  You don\'t think they\'ll miss cleaning up all the messy sex, though.' );
 		CoC.player.gender = 3;
 		CoC.player.spe += 3;
 		CoC.player.inte += 2;
@@ -1601,10 +1601,10 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.spe = 25;
 		CoC.player.tou = 15;
 		MainView.clearOutput();
-		EngineCore.outputText( 'Your exotic appearance caused you some trouble growing up, but you buried your nose in books until it came time to go through the portal.' );
+		MainView.outputText( 'Your exotic appearance caused you some trouble growing up, but you buried your nose in books until it came time to go through the portal.' );
 	};
 	CharCreation.prototype.customNavorn = function() {
-		EngineCore.outputText( 'There\'s been something special about you since day one, whether it\'s your numerous sexual endowments or your supernatural abilities.  You\'re a natural pick for champion.' );
+		MainView.outputText( 'There\'s been something special about you since day one, whether it\'s your numerous sexual endowments or your supernatural abilities.  You\'re a natural pick for champion.' );
 		//Character Creation	'Herm same number and types of cocks from email sent earlier.
 		//Special abilities breath, fox fire?
 		CoC.player.createPerk( PerkLib.Dragonfire, 0, 0, 0, 0 );
@@ -1791,7 +1791,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.str = 40;
 		//full chain
 		CoC.player.setArmor( ArmorLib.FULLCHN );
-		EngineCore.outputText( 'As a German-Shepherd morph, the rest of the village never really knew what to do with you... until they sent you through the portal to face whatever\'s on the other side...' );
+		MainView.outputText( 'As a German-Shepherd morph, the rest of the village never really knew what to do with you... until they sent you through the portal to face whatever\'s on the other side...' );
 	};
 	CharCreation.prototype.customPrismere = function() {
 		//Specific Character	Female, virgin, high fertility, tight with standard wetness and clit.
@@ -1799,7 +1799,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.clitLength = 0.25;
 		CoC.player.fertility = 4;
 		CoC.player.spe += 20;
-		EngineCore.outputText( 'You\'re more of a scout than a fighter, but you still feel confident you can handle your responsibilities as champion.  After all, what\'s to worry about when you can outrun everything you encounter?  You have olive skin, deep red hair, and a demonic tail and wings to blend in with the locals.' );
+		MainView.outputText( 'You\'re more of a scout than a fighter, but you still feel confident you can handle your responsibilities as champion.  After all, what\'s to worry about when you can outrun everything you encounter?  You have olive skin, deep red hair, and a demonic tail and wings to blend in with the locals.' );
 		//Perk is speed, she was a scout, and it'd be neat (if possible) to give her something akin to the Runner perk. She might not start out very strong or tough, but at least she's fast.
 		CoC.player.createPerk( PerkLib.Fast, 0.25, 0, 0, 0 );
 		CoC.player.createPerk( PerkLib.Runner, 0, 0, 0, 0 );
@@ -1825,7 +1825,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	CharCreation.prototype.customRannRayla = function() {
 		//Specific Character	Virgin female.	Max femininity. Thin with a little muscle. Size C breasts. Long red hair. Light colored skin. 5'5' tall. 	Rann Rayla
-		EngineCore.outputText( 'You\'re a young, fiery redhead who\'s utterly feminine.  You\'ve got C-cup breasts and long red hair.  Being a champion can\'t be that bad, right?' );
+		MainView.outputText( 'You\'re a young, fiery redhead who\'s utterly feminine.  You\'ve got C-cup breasts and long red hair.  Being a champion can\'t be that bad, right?' );
 		CoC.player.createVagina();
 		CoC.player.clitLength = 0.25;
 		CoC.player.createBreastRow();
@@ -1843,7 +1843,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 	};
 	CharCreation.prototype.customRope = function() {
 		//529315025394020	Character Creation	Neuter (no genitals) '50-50 masculine-feminine ratio. Shark teeth.'	Rope
-		EngineCore.outputText( 'Despite outward appearances, you\'re actually something of a neuter, with shark-like teeth, an androgynous face, and a complete lack of genitalia.' );
+		MainView.outputText( 'Despite outward appearances, you\'re actually something of a neuter, with shark-like teeth, an androgynous face, and a complete lack of genitalia.' );
 		if( CoC.player.hasCock() ) {
 			CoC.player.removeCock( 0, 1 );
 		}
@@ -1855,7 +1855,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.faceType = AppearanceDefs.FACE_SHARK_TEETH;
 	};
 	CharCreation.prototype.customSera = function() {
-		EngineCore.outputText( 'You\'re something of a shemale - three rows of C-cup breasts matched with three, plump, juicy cocks.  Some decent sized balls, bat wings, and cat-like ears round out the package.' );
+		MainView.outputText( 'You\'re something of a shemale - three rows of C-cup breasts matched with three, plump, juicy cocks.  Some decent sized balls, bat wings, and cat-like ears round out the package.' );
 		CoC.player.gender = 1;
 		CoC.player.tou += 2;
 		CoC.player.str += 3;
@@ -1947,7 +1947,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.tou = 25;
 		CoC.player.inte = 25;
 		CoC.player.spe = 25;
-		EngineCore.outputText( 'You are a literal angel from beyond, and you take the place of a vilage\'s champion for your own reasons...' );
+		MainView.outputText( 'You are a literal angel from beyond, and you take the place of a vilage\'s champion for your own reasons...' );
 	};
 	CharCreation.prototype.customSora = function() {
 		//Character Creation	Female,virgin	A kitsune with a snake-like tongue	Sora
@@ -1964,7 +1964,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		} else {
 			CoC.player.addStatusValue( StatusAffects.BonusVCapacity, 1, 5 + Utils.rand( 10 ) );
 		}
-		EngineCore.outputText( 'As a Kitsune, you always got weird looks, but none could doubt your affinity for magic...' );
+		MainView.outputText( 'As a Kitsune, you always got weird looks, but none could doubt your affinity for magic...' );
 	};
 	CharCreation.prototype.customTestChar = function() {
 		CoC.player.XP = 500000;
@@ -2062,7 +2062,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] = 1;
 		CoC.player.gems += 30000;
-		EngineCore.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
+		MainView.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
 		CoC.player.itemSlot4.unlocked = true;
 		CoC.player.itemSlot5.unlocked = true;
 		CoC.player.itemSlot1.setItemAndQty( ConsumableLib.P_LBOVA, 5 );
@@ -2102,7 +2102,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.flags[ kFLAGS.BAZAAR_ENTERED ] = 1;
 	};
 	CharCreation.prototype.customTyriana = function() {
-		EngineCore.outputText( 'Your many, posh tits, incredible fertility, and well-used cunt made you more popular than the village bicycle.  With your cat-like ears, paws, and tail, you certainly had a feline appeal.  It\'s time to see how you fare in the next chapter of your life.' );
+		MainView.outputText( 'Your many, posh tits, incredible fertility, and well-used cunt made you more popular than the village bicycle.  With your cat-like ears, paws, and tail, you certainly had a feline appeal.  It\'s time to see how you fare in the next chapter of your life.' );
 		//'Gender
 		CoC.player.gender = 2;
 		//Vagina loose, 3 inch clitoris, dripping constantly, fertile like a bunny on steroids and non-virgin
@@ -2255,7 +2255,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.inte += 2;
 		CoC.player.spe += 2;
 		CoC.player.gems += 300;
-		EngineCore.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
+		MainView.outputText( 'You\'re something of a powerhouse, and you wager that between your odd mutations, power strong enough to threaten the village order, and talents, you\'re the natural choice to send through the portal.' );
 	};
 	var charCreationManager = new CharCreation();
 	MainView.registerCharCreation( charCreationManager );

@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 	angular.extend(Anemone.prototype, Monster.prototype);
 	Anemone.prototype._superEAttack = Anemone.prototype.eAttack;
 	Anemone.prototype.eAttack = function() {
-		EngineCore.outputText( 'Giggling playfully, the anemone launches several tentacles at you.  Most are aimed for your crotch, but a few attempt to caress your chest and face.\n', false );
+		MainView.outputText( 'Giggling playfully, the anemone launches several tentacles at you.  Most are aimed for your crotch, but a few attempt to caress your chest and face.\n', false );
 		this._superEAttack();
 	};
 	Anemone.prototype.eOneAttack = function() {
@@ -57,14 +57,14 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 	};
 	Anemone.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nYour foe doesn\'t seem to mind at all...' );
+			MainView.outputText( '\n\nYour foe doesn\'t seem to mind at all...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.anemoneScene.loseToAnemone();
 		}
 	};
 	Anemone.prototype.outputAttack = function() {
-		EngineCore.outputText( 'You jink and dodge valiantly but the tentacles are too numerous and coming from too many directions.  A few get past your guard and caress your skin, leaving a tingling, warm sensation that arouses you further.', false );
+		MainView.outputText( 'You jink and dodge valiantly but the tentacles are too numerous and coming from too many directions.  A few get past your guard and caress your skin, leaving a tingling, warm sensation that arouses you further.', false );
 	};
 	Anemone.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

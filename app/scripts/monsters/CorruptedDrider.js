@@ -1,84 +1,84 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UseableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainView, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UseableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
 	function CorruptedDrider() {
 		this.init(this, arguments);
 	}
 	angular.extend(CorruptedDrider.prototype, AbstractSpiderMorph.prototype);
 	CorruptedDrider.prototype.driderKiss = function() {
 		var temp;
-		EngineCore.outputText( 'The corrupted drider closes in on your web-bound form, cooing happily at you while you struggle with the sticky fibers.\n\n', false );
+		MainView.outputText( 'The corrupted drider closes in on your web-bound form, cooing happily at you while you struggle with the sticky fibers.\n\n', false );
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
-			EngineCore.outputText( 'She\'s too blind to get anywhere near you.\n', false );
+			MainView.outputText( 'She\'s too blind to get anywhere near you.\n', false );
 		}
 		//Dodge;
 		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			EngineCore.outputText( 'Somehow, you manage to drag yourself out of the way.  She sighs and licks her lips.  "<i>', false );
+			MainView.outputText( 'Somehow, you manage to drag yourself out of the way.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
-				EngineCore.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
+				MainView.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
 			} else if( temp === 1 ) {
-				EngineCore.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
+				MainView.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
 			} else if( temp === 2 ) {
-				EngineCore.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
+				MainView.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
 			} else {
-				EngineCore.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
+				MainView.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
 			}
 		}
 		//Determine if evaded;
 		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'Somehow, you manage to evade her lusty attack.  She sighs and licks her lips.  "<i>', false );
+			MainView.outputText( 'Somehow, you manage to evade her lusty attack.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
-				EngineCore.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
+				MainView.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
 			} else if( temp === 1 ) {
-				EngineCore.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
+				MainView.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
 			} else if( temp === 2 ) {
-				EngineCore.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
+				MainView.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
 			} else {
-				EngineCore.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
+				MainView.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
 			}
 		}
 		//('Misdirection';
 		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			EngineCore.outputText( 'You manage to misdirect her lusty attack, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
+			MainView.outputText( 'You manage to misdirect her lusty attack, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
-				EngineCore.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
+				MainView.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
 			} else if( temp === 1 ) {
-				EngineCore.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
+				MainView.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
 			} else if( temp === 2 ) {
-				EngineCore.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
+				MainView.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
 			} else {
-				EngineCore.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
+				MainView.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
 			}
 		}
 		//Determine if cat'ed;
 		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			EngineCore.outputText( 'You manage to twist your cat-like body out of the way at the last second, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
+			MainView.outputText( 'You manage to twist your cat-like body out of the way at the last second, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
-				EngineCore.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
+				MainView.outputText( 'I just wanted to give my delicious morsel a kiss...</i>"\n', false );
 			} else if( temp === 1 ) {
-				EngineCore.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
+				MainView.outputText( 'Why won\'t you let me kiss you?</i>"\n', false );
 			} else if( temp === 2 ) {
-				EngineCore.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
+				MainView.outputText( 'Mmm, do you have to squirm so much, prey?</i>"\n', false );
 			} else {
-				EngineCore.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
+				MainView.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
 			}
 		} else if( CoC.player.findStatusAffect( StatusAffects.DriderKiss ) < 0 ) {
 			//(HIT? + 10 lust);
 			EngineCore.dynStats( 'lus', 10 );
-			EngineCore.outputText( 'Before you can move, she\'s right on top of you, leaning ', false );
+			MainView.outputText( 'Before you can move, she\'s right on top of you, leaning ', false );
 			if( CoC.player.tallness < 72 ) {
-				EngineCore.outputText( 'down', false );
+				MainView.outputText( 'down', false );
 			} else {
-				EngineCore.outputText( 'over', false );
+				MainView.outputText( 'over', false );
 			}
-			EngineCore.outputText( ' to plant a sloppy, wet kiss upon your lips.  Her glossy lip-venom oozes everywhere, dribbling down your collective chins and sliding into your mouth.  You shudder, trying to resist, but your tongue betrays you.  It slides between her moist, puffy entrance, lapping at her venom and making love to her tongue.', false );
+			MainView.outputText( ' to plant a sloppy, wet kiss upon your lips.  Her glossy lip-venom oozes everywhere, dribbling down your collective chins and sliding into your mouth.  You shudder, trying to resist, but your tongue betrays you.  It slides between her moist, puffy entrance, lapping at her venom and making love to her tongue.', false );
 			if( CoC.player.lust <= 99 ) {
-				EngineCore.outputText( '  Somehow, you work up the willpower to back away, but your body slowly begins to burn hotter and harder, afflicted with a slowly-building lust.', false );
+				MainView.outputText( '  Somehow, you work up the willpower to back away, but your body slowly begins to burn hotter and harder, afflicted with a slowly-building lust.', false );
 			}
 			CoC.player.createStatusAffect( StatusAffects.DriderKiss, 0, 0, 0, 0 );
 		}
@@ -88,35 +88,35 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, Abstra
 			if( CoC.player.statusAffectv1( StatusAffects.DriderKiss ) === 1 ) {
 				//(HIT? + 15 lust);
 				EngineCore.dynStats( 'lus', 15 );
-				EngineCore.outputText( 'Again, the drider ties your mouth up in her syrupy lip-lock, seeming to bind your mouth as effectively as her webs bind your body.  Her sweet venom bubbles and froths at the corners of the oral embrace, dripping over her many-breasted bosom and your ' + CoC.player.chestDesc() + '.', false );
+				MainView.outputText( 'Again, the drider ties your mouth up in her syrupy lip-lock, seeming to bind your mouth as effectively as her webs bind your body.  Her sweet venom bubbles and froths at the corners of the oral embrace, dripping over her many-breasted bosom and your ' + CoC.player.chestDesc() + '.', false );
 				if( CoC.player.hasCock() ) {
-					EngineCore.outputText( '  ' + Descriptors.SMultiCockDesc() + ' spews a rope of pre-cum into your ' + CoC.player.armorName + ', desperate to get out and fuck.', false );
+					MainView.outputText( '  ' + Descriptors.SMultiCockDesc() + ' spews a rope of pre-cum into your ' + CoC.player.armorName + ', desperate to get out and fuck.', false );
 				}
 				if( CoC.player.hasVagina() ) {
-					EngineCore.outputText( '  Fem-cum dribbles down your ' + CoC.player.legs() + ' while your ' + CoC.player.clitDescript() + ' gets so hard you think it\'ll explode.', false );
+					MainView.outputText( '  Fem-cum dribbles down your ' + CoC.player.legs() + ' while your ' + CoC.player.clitDescript() + ' gets so hard you think it\'ll explode.', false );
 				}
-				EngineCore.outputText( '  This time, the drider is the one to break the kiss.  She asks, "<i>Are you ready, my horny little morsel?</i>"\n', false );
+				MainView.outputText( '  This time, the drider is the one to break the kiss.  She asks, "<i>Are you ready, my horny little morsel?</i>"\n', false );
 				if( CoC.player.lust <= 99 ) {
-					EngineCore.outputText( 'You shake your head \'no\' and stand your ground!\n', false );
+					MainView.outputText( 'You shake your head \'no\' and stand your ground!\n', false );
 				}
 			}
 			//(Get hit 3rd+ time);
 			else {
-				EngineCore.outputText( 'This time you barely move.  Your body is too entranced by the idea of another venom-laced kiss to resist.  Glorious purple goo washes into your mouth as her lips meet yours, sealing tight but letting your tongue enter her mouth to swirl around and feel the venom drip from her fangs.  It\'s heavenly!  Your ' + CoC.player.skin() + ' grows hot and tingly, and you ache to be touched so badly.  Your ' + Descriptors.nippleDescript( 0 ) + 's feel hard enough to cut glass, and a growing part of you admits that you\'d love to feel the drider\'s chitinous fingers pulling on them.', false );
+				MainView.outputText( 'This time you barely move.  Your body is too entranced by the idea of another venom-laced kiss to resist.  Glorious purple goo washes into your mouth as her lips meet yours, sealing tight but letting your tongue enter her mouth to swirl around and feel the venom drip from her fangs.  It\'s heavenly!  Your ' + CoC.player.skin() + ' grows hot and tingly, and you ache to be touched so badly.  Your ' + Descriptors.nippleDescript( 0 ) + 's feel hard enough to cut glass, and a growing part of you admits that you\'d love to feel the drider\'s chitinous fingers pulling on them.', false );
 				//(HIT? + 20 lust);
 				EngineCore.dynStats( 'lus', 20 );
 				if( CoC.player.hasCock() || CoC.player.hasVagina() ) {
-					EngineCore.outputText( '  The moisture in your crotch only gets worse.  At this point, a ', false );
+					MainView.outputText( '  The moisture in your crotch only gets worse.  At this point, a ', false );
 					if( CoC.player.wetness() < 3 && CoC.player.cumQ() < 200 ) {
-						EngineCore.outputText( 'small', false );
+						MainView.outputText( 'small', false );
 					} else if( CoC.player.wetness() < 5 && CoC.player.cumQ() < 500 ) {
-						EngineCore.outputText( 'large', false );
+						MainView.outputText( 'large', false );
 					} else {
-						EngineCore.outputText( 'massive', false );
+						MainView.outputText( 'massive', false );
 					}
-					EngineCore.outputText( ' wet stain that reeks of your sheer sexual ache has formed in your ' + CoC.player.armorName + '.', false );
+					MainView.outputText( ' wet stain that reeks of your sheer sexual ache has formed in your ' + CoC.player.armorName + '.', false );
 					if( CoC.player.lust <= 99 ) {
-						EngineCore.outputText( '  Amazingly, you resist her and pull back, panting for breath.', false );
+						MainView.outputText( '  Amazingly, you resist her and pull back, panting for breath.', false );
 					}
 				}
 			}
@@ -127,13 +127,13 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, Abstra
 		//-Masturbate - (Lowers lust by 50, raises PC lust);
 		this.lust -= 30;
 		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 20) );
-		EngineCore.outputText( 'The spider-woman skitters back and gives you a lusty, hungry expression.  She shudders and moans, "<i>Mmm, just watch what you\'re missing out on...</i>"\n\n', false );
-		EngineCore.outputText( 'As soon as she finishes, her large clit puffs up, balloon-like.  A second later, it slides forward, revealing nine inches of glossy, girl-spunk-soaked shaft.  Nodules ring the corrupted penis\' surface, while the tiny cum-slit perched atop the tip dribbles heavy flows of pre-cum.  She pumps at the fleshy organ while her other hand paws at her jiggling breasts, tugging on the hard ', false );
+		MainView.outputText( 'The spider-woman skitters back and gives you a lusty, hungry expression.  She shudders and moans, "<i>Mmm, just watch what you\'re missing out on...</i>"\n\n', false );
+		MainView.outputText( 'As soon as she finishes, her large clit puffs up, balloon-like.  A second later, it slides forward, revealing nine inches of glossy, girl-spunk-soaked shaft.  Nodules ring the corrupted penis\' surface, while the tiny cum-slit perched atop the tip dribbles heavy flows of pre-cum.  She pumps at the fleshy organ while her other hand paws at her jiggling breasts, tugging on the hard ', false );
 		if( this.nipplesPierced > 0 ) {
-			EngineCore.outputText( 'pierced ', false );
+			MainView.outputText( 'pierced ', false );
 		}
-		EngineCore.outputText( 'nipple-flesh.  Arching her back in a lurid pose, she cries out in high-pitched bliss, her cock pulsing in her hand and erupting out a stream of seed that lands in front of her.\n\n', false );
-		EngineCore.outputText( 'The display utterly distracts you until it finishes, and as you adopt your combat pose once more, you find your own needs harder to ignore, while hers seem to be sated, for now.\n', false );
+		MainView.outputText( 'nipple-flesh.  Arching her back in a lurid pose, she cries out in high-pitched bliss, her cock pulsing in her hand and erupting out a stream of seed that lands in front of her.\n\n', false );
+		MainView.outputText( 'The display utterly distracts you until it finishes, and as you adopt your combat pose once more, you find your own needs harder to ignore, while hers seem to be sated, for now.\n', false );
 		Combat.combatRoundOver();
 	};
 	CorruptedDrider.prototype.performCombatAction = function() {
@@ -162,7 +162,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, Abstra
 	};
 	CorruptedDrider.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe drider licks her lips in anticipation...' );
+			MainView.outputText( '\n\nThe drider licks her lips in anticipation...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.corruptedDriderScene.loseToDrider();

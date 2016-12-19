@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, kFLAGS, WeaponLib, PerkLib, EngineCore, CoC, Monster, StatusAffects, Utils, Combat ) {
+angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, MainView, kFLAGS, WeaponLib, PerkLib, CoC, Monster, StatusAffects, Utils, Combat ) {
 	function LivingStatue() {
 		this.init(this, arguments);
 	}
@@ -36,11 +36,11 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, kFLAGS, W
 		that.checkMonster();
 	};
 	LivingStatue.prototype.handleStun = function() {
-		EngineCore.outputText( 'The stone giant\'s unforgiving flesh seems incapable of being stunned.' );
+		MainView.outputText( 'The stone giant\'s unforgiving flesh seems incapable of being stunned.' );
 		return true;
 	};
 	LivingStatue.prototype.handleFear = function() {
-		EngineCore.outputText( 'The stone giant cares little for your attempted intimidation.' );
+		MainView.outputText( 'The stone giant cares little for your attempted intimidation.' );
 		return true;
 	};
 	LivingStatue.prototype.handleBlind = function() {
@@ -48,68 +48,68 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, kFLAGS, W
 	};
 	LivingStatue.prototype.concussiveBlow = function() {
 		//Maybe replace this with passive stun? TERRIBLE IDEA;
-		EngineCore.outputText( 'The giant raises his hammer for an obvious downward strike. His marble muscles flex as he swings it downward. You\'re able to hop out of the way of the clearly telegraphed attack, but nothing could prepare you for the shockwave it emits as it craters the ground.' );
+		MainView.outputText( 'The giant raises his hammer for an obvious downward strike. His marble muscles flex as he swings it downward. You\'re able to hop out of the way of the clearly telegraphed attack, but nothing could prepare you for the shockwave it emits as it craters the ground.' );
 		//Light magic-type damage!;
 		var damage = (100 * ((this.inte / CoC.player.inte) / 4));
 		damage = CoC.player.takeDamage( damage );
 		//Stun success;
 		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
-			EngineCore.outputText( ' <b>The vibrations leave you rattled and stunned. It\'ll take you a moment to recover!</b>' );
+			MainView.outputText( ' <b>The vibrations leave you rattled and stunned. It\'ll take you a moment to recover!</b>' );
 			CoC.player.createStatusAffect( StatusAffects.Stunned, 2, 0, 0, 0 );
 		} else 			//Fail;
 		{
-			EngineCore.outputText( ' You shake off the vibrations immediately. It\'ll take more than that to stop you!' );
+			MainView.outputText( ' You shake off the vibrations immediately. It\'ll take more than that to stop you!' );
 		}
-		EngineCore.outputText( ' (' + damage + ')' );
+		MainView.outputText( ' (' + damage + ')' );
 	};
 	LivingStatue.prototype.dirtKick = function() {
-		EngineCore.outputText( 'The animated sculpture brings its right foot around, dragging it through the gardens at a high enough speed to tear a half score of bushes out by the root. A cloud of shrubbery and dirt washes over you!' );
+		MainView.outputText( 'The animated sculpture brings its right foot around, dragging it through the gardens at a high enough speed to tear a half score of bushes out by the root. A cloud of shrubbery and dirt washes over you!' );
 		//blind;
 		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Blind ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.Blind, 2, 0, 0, 0 );
-			EngineCore.outputText( ' <b>You are blinded!</b>' );
+			MainView.outputText( ' <b>You are blinded!</b>' );
 		} else {
 			//Not blind;
-			EngineCore.outputText( ' You close your eyes until it passes and resume the fight!' );
+			MainView.outputText( ' You close your eyes until it passes and resume the fight!' );
 		}
 	};
 	LivingStatue.prototype.backhand = function() {
 		//Knocks you away and forces you to spend a turn running back to do melee attacks.;
-		EngineCore.outputText( 'The marble golem\'s visage twists into a grimace of irritation, and it swings its hand at you in a vicious backhand.' );
+		MainView.outputText( 'The marble golem\'s visage twists into a grimace of irritation, and it swings its hand at you in a vicious backhand.' );
 		var damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		//Dodge;
 		if( damage <= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( ' You slide underneath the surprise swing!' );
+			MainView.outputText( ' You slide underneath the surprise swing!' );
 		} else {
 			//Get hit;
-			EngineCore.outputText( ' It chits you square in the chest. The momentum sends you flying through the air. You land with a crunch against a wall. <b>You\'ll have to run back to the giant to engage it in melee once more.</b>' );
+			MainView.outputText( ' It chits you square in the chest. The momentum sends you flying through the air. You land with a crunch against a wall. <b>You\'ll have to run back to the giant to engage it in melee once more.</b>' );
 			CoC.player.createStatusAffect( StatusAffects.KnockedBack, 0, 0, 0, 0 );
 			this.createStatusAffect( StatusAffects.KnockedBack, 0, 0, 0, 0 ); // Applying to mob as a 'used ability' marker
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 	};
 	LivingStatue.prototype.overhandSmash = function() {
 		//High damage, lowish accuracy.;
-		EngineCore.outputText( 'Raising its hammer high overhead, the giant swiftly brings its hammer down in a punishing strike!' );
+		MainView.outputText( 'Raising its hammer high overhead, the giant swiftly brings its hammer down in a punishing strike!' );
 		var damage = 175 + Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		if( damage <= 0 || Utils.rand( 100 ) < 25 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( ' You\'re able to sidestep it just in time.' );
+			MainView.outputText( ' You\'re able to sidestep it just in time.' );
 		} else {
 			//Hit;
-			EngineCore.outputText( ' The concussive strike impacts you with bonecrushing force.' );
+			MainView.outputText( ' The concussive strike impacts you with bonecrushing force.' );
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 	};
 	LivingStatue.prototype.disarm = function() {
-		EngineCore.outputText( 'The animated statue spins its hammer around, striking at your [weapon] with its haft.' );
+		MainView.outputText( 'The animated statue spins its hammer around, striking at your [weapon] with its haft.' );
 		//Avoid;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( ' You manage to hold onto your equipment, for now.' );
+			MainView.outputText( ' You manage to hold onto your equipment, for now.' );
 		}//Oh noes!;
 		else {
-			EngineCore.outputText( ' Your equipment flies off into the bushes! You\'ll have to fight another way. (' + CoC.player.takeDamage( this.str + this.weaponAttack ) + ')' );
+			MainView.outputText( ' Your equipment flies off into the bushes! You\'ll have to fight another way. (' + CoC.player.takeDamage( this.str + this.weaponAttack ) + ')' );
 			CoC.player.createStatusAffect( StatusAffects.Disarmed, 0, 0, 0, 0 );
 			this.createStatusAffect( StatusAffects.Disarmed, 0, 0, 0, 0 );
 			CoC.flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ] = CoC.player.weapon.id;
@@ -120,16 +120,16 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, kFLAGS, W
 	};
 	LivingStatue.prototype.cycloneStrike = function() {
 		//Difficult to avoid, moderate damage.;
-		EngineCore.outputText( 'Twisting back, the giant abruptly launches into a circular spin. Its hammer stays low enough to the ground that its circular path is tearing a swath of destruction through the once pristine garden, and it\'s coming in your direction!' );
+		MainView.outputText( 'Twisting back, the giant abruptly launches into a circular spin. Its hammer stays low enough to the ground that its circular path is tearing a swath of destruction through the once pristine garden, and it\'s coming in your direction!' );
 		var damage = (175 + Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef )) / (Utils.rand( 3 ) + 2);
 		//Avoid;
 		if( damage <= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
-			EngineCore.outputText( ' By the grace of the gods, you somehow avoid the spinning hammer.' );
+			MainView.outputText( ' By the grace of the gods, you somehow avoid the spinning hammer.' );
 		} else {
 			//Hit;
-			EngineCore.outputText( ' You\'re squarely struck by the spinning hammer.' );
+			MainView.outputText( ' You\'re squarely struck by the spinning hammer.' );
 			damage = CoC.player.takeDamage( damage );
-			EngineCore.outputText( ' (' + damage + ')' );
+			MainView.outputText( ' (' + damage + ')' );
 		}
 	};
 	LivingStatue.prototype.performCombatAction = function() {

@@ -17,43 +17,43 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		//return to combat menu when finished
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-			EngineCore.outputText( 'Her body quivering from your flames, the goo-girl ', false );
+			MainView.outputText( 'Her body quivering from your flames, the goo-girl ', false );
 		} else {
-			EngineCore.outputText( 'The slime holds its hands up and they morph into a replica of your ' + CoC.player.weaponName + '.  Happily, she swings at you', false );
+			MainView.outputText( 'The slime holds its hands up and they morph into a replica of your ' + CoC.player.weaponName + '.  Happily, she swings at you', false );
 		}
 		//Determine if dodged!
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-				EngineCore.outputText( 'tries to slap you, but you dodge her attack.', false );
+				MainView.outputText( 'tries to slap you, but you dodge her attack.', false );
 			} else {
-				EngineCore.outputText( ', missing as you dodge aside.', false );
+				MainView.outputText( ', missing as you dodge aside.', false );
 			}
 			return;
 		}
 		//Determine if evaded
 		if( this.short !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-				EngineCore.outputText( 'tries to slap you, but you evade her attack.', false );
+				MainView.outputText( 'tries to slap you, but you evade her attack.', false );
 			} else {
-				EngineCore.outputText( ', but you evade the clumsy attack.', false );
+				MainView.outputText( ', but you evade the clumsy attack.', false );
 			}
 			return;
 		}
 		//('Misdirection'
 		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-				EngineCore.outputText( 'tries to slap you.  You misdirect her, avoiding the hit.', false );
+				MainView.outputText( 'tries to slap you.  You misdirect her, avoiding the hit.', false );
 			} else {
-				EngineCore.outputText( ', missing as you misdirect her attentions.', false );
+				MainView.outputText( ', missing as you misdirect her attentions.', false );
 			}
 			return;
 		}
 		//Determine if cat'ed
 		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-				EngineCore.outputText( 'tries to slap you, but misses due to your cat-like evasion.', false );
+				MainView.outputText( 'tries to slap you, but misses due to your cat-like evasion.', false );
 			} else {
-				EngineCore.outputText( ', missing due to your cat-like evasion.', false );
+				MainView.outputText( ', missing due to your cat-like evasion.', false );
 			}
 			return;
 		}
@@ -70,54 +70,54 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			damage = 0;
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
 				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-					EngineCore.outputText( 'tries to slap you, but the acid-bearing slap spatters weakly off your ' + CoC.player.armorName + '.', false );
+					MainView.outputText( 'tries to slap you, but the acid-bearing slap spatters weakly off your ' + CoC.player.armorName + '.', false );
 				} else {
-					EngineCore.outputText( 'tries to slap you with an acid-loaded hand, but it splatters off you ineffectually.', false );
+					MainView.outputText( 'tries to slap you with an acid-loaded hand, but it splatters off you ineffectually.', false );
 				}
 			} else {
 				//Due to toughness or amor...
 				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
-					EngineCore.outputText( ', her attack slapping fruitlessly against your ' + CoC.player.armorName + '.', false );
+					MainView.outputText( ', her attack slapping fruitlessly against your ' + CoC.player.armorName + '.', false );
 				} else {
-					EngineCore.outputText( ', her attack splattering ineffectually against you.', false );
+					MainView.outputText( ', her attack splattering ineffectually against you.', false );
 				}
 			}
 		}
 		//everyone else
 		else {
 			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
-				EngineCore.outputText( 'delivers a painful slap across your cheek.  You gasp when the light stinging becomes a searing burn that seems to get worse as time goes on!', false );
+				MainView.outputText( 'delivers a painful slap across your cheek.  You gasp when the light stinging becomes a searing burn that seems to get worse as time goes on!', false );
 				if( CoC.player.findStatusAffect( StatusAffects.AcidSlap ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.AcidSlap, 0, 0, 0, 0 );
 				}
 			} else {
-				EngineCore.outputText( ', painfully smacking her gooey limbs against your head.  You shake your ' + CoC.player.hairDescript() + ', clearing your head of the dazing slap.', false );
+				MainView.outputText( ', painfully smacking her gooey limbs against your head.  You shake your ' + CoC.player.hairDescript() + ', clearing your head of the dazing slap.', false );
 			}
-			EngineCore.outputText( ' (' + damage + ')', false );
+			MainView.outputText( ' (' + damage + ')', false );
 		}
 		if( damage > 0 ) {
 			if( this.lustVuln > 0 && CoC.player.armorName === 'barely-decent bondage straps' ) {
 				if( !this.plural ) {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brushes against your exposed skin and jerks back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				} else {
-					EngineCore.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
+					MainView.outputText( '\n' + this.getCapitalA() + this.short + ' brush against your exposed skin and jerk back in surprise, coloring slightly from seeing so much of you revealed.', false );
 				}
 				this.lust += 5 * this.lustVuln;
 			}
 		}
 		MainView.statsView.show();
-		EngineCore.outputText( '\n', false );
+		MainView.outputText( '\n', false );
 		Combat.combatRoundOver();
 	};
 	//Play –
 	GooGirl.prototype.gooPlay = function() {
-		EngineCore.outputText( 'The goo-girl lunges, wrapping her slimy arms around your waist in a happy hug, hot muck quivering excitedly against you. She looks up, empty eyes confused by your lack of enthusiasm and forms her mouth into a petulant pout before letting go.  You shiver in the cold air, regretting the loss of her embrace.', false );
+		MainView.outputText( 'The goo-girl lunges, wrapping her slimy arms around your waist in a happy hug, hot muck quivering excitedly against you. She looks up, empty eyes confused by your lack of enthusiasm and forms her mouth into a petulant pout before letting go.  You shiver in the cold air, regretting the loss of her embrace.', false );
 		EngineCore.dynStats( 'lus', 3 + Utils.rand( 3 ) + CoC.player.sens / 10 );
 		Combat.combatRoundOver();
 	};
 	//Throw –
 	GooGirl.prototype.gooThrow = function() {
-		EngineCore.outputText( 'The girl reaches into her torso, pulls a large clump of goo out, and chucks it at you like a child throwing mud. The slime splatters on your chest and creeps under your ' + CoC.player.armorName + ', tickling your skin like fingers dancing across your body.', false );
+		MainView.outputText( 'The girl reaches into her torso, pulls a large clump of goo out, and chucks it at you like a child throwing mud. The slime splatters on your chest and creeps under your ' + CoC.player.armorName + ', tickling your skin like fingers dancing across your body.', false );
 		var damage = 1;
 		CoC.player.takeDamage( damage );
 		EngineCore.dynStats( 'lus', 5 + Utils.rand( 3 ) + CoC.player.sens / 10 );
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	};
 	//Engulf –
 	GooGirl.prototype.gooEngulph = function() {
-		EngineCore.outputText( 'The goo-girl gleefully throws her entire body at you and, before you can get out of the way, she has engulfed you in her oozing form! Tendrils of ' + this.skinTone + ' slime slide up your nostrils and through your lips, filling your lungs with the girl\'s muck. You begin suffocating!', false );
+		MainView.outputText( 'The goo-girl gleefully throws her entire body at you and, before you can get out of the way, she has engulfed you in her oozing form! Tendrils of ' + this.skinTone + ' slime slide up your nostrils and through your lips, filling your lungs with the girl\'s muck. You begin suffocating!', false );
 		if( CoC.player.findStatusAffect( StatusAffects.GooBind ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.GooBind, 0, 0, 0, 0 );
 		}
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	};
 	GooGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
-			EngineCore.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );
+			MainView.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
 			SceneLib.gooGirlScene.getBeatByGooGirl();
@@ -157,14 +157,14 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	GooGirl.prototype.teased = function( lustDelta ) {
 		if( this.lust <= 99 ) {
 			if( lustDelta <= 0 ) {
-				EngineCore.outputText( '\nThe goo-girl looks confused by your actions, as if she\'s trying to understand what you\'re doing.', false );
+				MainView.outputText( '\nThe goo-girl looks confused by your actions, as if she\'s trying to understand what you\'re doing.', false );
 			} else if( lustDelta < 13 ) {
-				EngineCore.outputText( '\nThe curious goo has begun stroking herself openly, trying to understand the meaning of your actions by imitating you.', false );
+				MainView.outputText( '\nThe curious goo has begun stroking herself openly, trying to understand the meaning of your actions by imitating you.', false );
 			} else {
-				EngineCore.outputText( '\nThe girl begins to understand your intent. She opens and closes her mouth, as if panting, while she works slimy fingers between her thighs and across her jiggling nipples.', false );
+				MainView.outputText( '\nThe girl begins to understand your intent. She opens and closes her mouth, as if panting, while she works slimy fingers between her thighs and across her jiggling nipples.', false );
 			}
 		} else {
-			EngineCore.outputText( '\nIt appears the goo-girl has gotten lost in her mimicry, squeezing her breasts and jilling her shiny ' + this.skinTone + ' clit, her desire to investigate you forgotten.', false );
+			MainView.outputText( '\nIt appears the goo-girl has gotten lost in her mimicry, squeezing her breasts and jilling her shiny ' + this.skinTone + ' clit, her desire to investigate you forgotten.', false );
 		}
 		this.applyTease( lustDelta );
 	};

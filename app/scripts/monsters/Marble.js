@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat ) {
 	function Marble() {
 		this.init(this, arguments);
 	}
@@ -10,19 +10,19 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 		var damage = 0;
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
-			EngineCore.outputText( 'Marble unwisely tries to make a massive swing while blinded, which you are easily able to avoid.', false );
+			MainView.outputText( 'Marble unwisely tries to make a massive swing while blinded, which you are easily able to avoid.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if dodged!;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 60 ) {
-			EngineCore.outputText( 'You manage to roll out of the way of a massive overhand swing.', false );
+			MainView.outputText( 'You manage to roll out of the way of a massive overhand swing.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if evaded;
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 60 ) {
-			EngineCore.outputText( 'You easily sidestep as Marble tries to deliver a huge overhand blow.', false );
+			MainView.outputText( 'You easily sidestep as Marble tries to deliver a huge overhand blow.', false );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -31,12 +31,12 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 		if( damage <= 0 ) {
 			damage = 0;
 			//Due to toughness or amor...;
-			EngineCore.outputText( 'You somehow manage to deflect and block Marble\'s massive overhead swing.', false );
+			MainView.outputText( 'You somehow manage to deflect and block Marble\'s massive overhead swing.', false );
 		}
 		if( damage > 0 ) {
 			damage = CoC.player.takeDamage( damage );
 		}
-		EngineCore.outputText( 'You are struck by a two-handed overhead swing from the enraged cow-girl.  (' + damage + ' damage).', false );
+		MainView.outputText( 'You are struck by a two-handed overhead swing from the enraged cow-girl.  (' + damage + ' damage).', false );
 		MainView.statsView.show();
 		Combat.combatRoundOver();
 	};
@@ -45,11 +45,11 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 		var damage = 0;
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
-			EngineCore.outputText( 'Marble makes a wide sweeping attack with her hammer, which is difficult to avoid even from a blinded opponent.\n', false );
+			MainView.outputText( 'Marble makes a wide sweeping attack with her hammer, which is difficult to avoid even from a blinded opponent.\n', false );
 		}
 		//Determine if evaded;
 		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			EngineCore.outputText( 'You barely manage to avoid a wide sweeping attack from marble by rolling under it.', false );
+			MainView.outputText( 'You barely manage to avoid a wide sweeping attack from marble by rolling under it.', false );
 			Combat.combatRoundOver();
 			return;
 		}
@@ -59,9 +59,9 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 		if( damage <= 0 ) {
 			damage = 0;
 			//Due to toughness or amor...;
-			EngineCore.outputText( 'You easily deflect and block the damage from Marble\'s wide swing.', false );
+			MainView.outputText( 'You easily deflect and block the damage from Marble\'s wide swing.', false );
 		}
-		EngineCore.outputText( 'Marble easily hits you with a wide, difficult to avoid swing.  (' + damage + ' damage).', false );
+		MainView.outputText( 'Marble easily hits you with a wide, difficult to avoid swing.  (' + damage + ' damage).', false );
 		if( damage > 0 ) {
 			CoC.player.takeDamage( damage );
 		}

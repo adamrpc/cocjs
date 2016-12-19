@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'WormMass', function( SceneLib, $log, CoC, EngineCore, Monster, Utils, AppearanceDefs ) {
+angular.module( 'cocjs' ).factory( 'WormMass', function( SceneLib, MainView, $log, CoC, Monster, Utils, AppearanceDefs ) {
 	function WormMass() {
 		this.init(this, arguments);
 	}
@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).factory( 'WormMass', function( SceneLib, $log, CoC, En
 	};
 
 	WormMass.prototype.won = function( hpVictory ) {
-		EngineCore.outputText( 'Overcome by your ' + (hpVictory ? 'wounds' : 'lust') + ', you sink to your knees as the colony of worms swarms all over your body...\n\n', true );
+		MainView.outputText( 'Overcome by your ' + (hpVictory ? 'wounds' : 'lust') + ', you sink to your knees as the colony of worms swarms all over your body...\n\n', true );
 		SceneLib.worms.infest1();
 	};
 	WormMass.prototype.eMaxHP = function() {
