@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 	};
 	//End of Interface Implementation;
 	Marae.prototype.encounterMarae = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		MainView.outputText( ImageManager.showImage( 'marae-first-encounter' ) );
 		MainView.outputText( 'Like a hidden emerald jewel, a small island appears in the distance.  You wager that you\'re somewhere near the center of this lake.  How coincidental.   You row closer, eager to get out of the boat and stretch your ' + CoC.player.legs() + '.  The rowboat grounds itself in the moist earth of the island, coming to a dead stop.   You climb out, noting that this island is little more than a raised mound of earth and grass, with a small tree perched atop its apex.  ', false );
 		//Dungeon operational;
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Marae.prototype.maraeBadEnd = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'marae-bad-end' ) );
 		if( CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) < 0 ) {
@@ -209,7 +209,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		EngineCore.gameOver();
 	};
 	Marae.prototype.maraeStealLethicite = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		//(SUCCESS);
 		if( (CoC.player.spe > 35 && (Utils.rand( CoC.player.spe / 3 + 30 ) > 20)) || (CoC.player.spe > 35 && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 3 ) < 2) ) {
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		}
 	};
 	Marae.prototype.level2MaraeEncounter = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		CoC.flags[ kFLAGS.CORRUPT_MARAE_FOLLOWUP_ENCOUNTER_STATE ] = 1;
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'marae-second-encounter' ) );
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		}
 	};
 	Marae.prototype.MaraeIIStageII = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'marae-second-encounter-pt-two' ) );
 		CoC.flags[ kFLAGS.CORRUPT_MARAE_FOLLOWUP_ENCOUNTER_STATE ] = 2;
@@ -526,7 +526,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		EngineCore.doNext( this, this.MaraePt2RoundIIIPrizes );
 	};
 	Marae.prototype.MaraePt2RoundIIIPrizes = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		//[EPILOGUE];
 		//[Dudes];
@@ -618,7 +618,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	Marae.prototype.MaraeIIFlyAway = function() {
-		EngineCore.spriteSelect( 40 );
+		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You launch into the air and beat your wings, taking to the skies.  The tentacle-tree lashes at you, but comes up short.  You\'ve escaped!  Something large whooshes by, and you glance up to see your boat sailing past you.  She must have hurled it at you!  It lands with a splash near the mooring, somehow surviving the impact.  You dive down and drag it back to the dock before you return to camp.  That was close!', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );

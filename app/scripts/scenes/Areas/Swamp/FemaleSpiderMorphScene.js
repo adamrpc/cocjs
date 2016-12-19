@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//End of Interface Implementation;
 	FemaleSpiderMorphScene.prototype.fSpiderMorphGreeting = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		//Egg sack sometimes;
 		if( this.pregnancy.event === 2 ) {
 			{ //If she's past event 2 then she has laid the eggs
@@ -54,13 +54,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//Selecting fight starts combat and eventParsers to 1 to display the combat menu and enemy description.;
 	FemaleSpiderMorphScene.prototype.fightFSpiderMorph = function() {
 		Combat.startCombat( new FemaleSpiderMorph() );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		MainView.playerMenu();
 	};
 	//Run;
 	FemaleSpiderMorphScene.prototype.runFromFSpiderMorph = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		//Selecting has a 50% chance of displaying the following:;
 		if( Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'You turn around and flee before she can get any closer.  After running for a few moments, you realize the spider-woman isn\'t trying to pursue you at all.  The last image you see of her is her looking down at the ground with an expression of incredible melancholy.', false );
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//*Try to Talk;
 	FemaleSpiderMorphScene.prototype.talkToFSpiderMorph = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		if( Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'You hold up your hands non-threateningly and ask the spider-girl why she\'s trying to sneak up on you.  Her eyes go wide and she claps her chitinous hands over her mouth in shock before she cries, "<i>Omigosh, I\'m so sorry!</i>"  You smirk at the decidedly girlish response while she recovers and continues to speak, "<i>I didn\'t mean to scare you!  I\'ve been living out here by myself for so long... ever since the demons destroyed our village.  C-could we just... umm... talk for a little while?</i>"\n\n', false );
 			MainView.outputText( 'The spider-girl twiddles her fingers nervously for a moment until you give her a nod.  You did mean to talk to her, and it seems that it\'s worked out a little better than you intended.  She takes a few tiny steps forward before sitting down cross-legged on some ferns.  Feeling no threat from the strange monster-girl, you sit down across from her and let her ply you with questions about your adventures, and once she\'s finished, you do the same.\n\n', false );
@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//*OPTION 1 Yes - Let Her Fuck You;
 	FemaleSpiderMorphScene.prototype.voluntaryFemaleSpiderMorphRapesYou = function() {
 		Combat.startCombat( new FemaleSpiderMorph() );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		CoC.setInCombat(false);
 		this.loseToFemaleSpiderMorph();
 	};
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//*Summary: Webs PC down, suckles nipple and injects aphrodisiac into each breast, then sixty-nine's, ending with webbing bukkake?;
 	FemaleSpiderMorphScene.prototype.defeatFemale = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		//(Noncombat Intro);
 		if( !CoC.isInCombat() ) {
 			MainView.outputText( 'You agree to have sex with the poor, pent-up arachnid maid, and ', false );
@@ -270,7 +270,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	FemaleSpiderMorphScene.prototype.spiderMorphFemaleRidesACawk = function() {
 		//*SUMMARY:  PC is tied down and has a web-condom sprayed around their dick, then a webbing cock-ring.  The PC is then ridden hard, bit numerous times, and never able to cum until pain lances through his (balls/cock) from the lack of release.  Finally, she bites PC's neck and the PC cums, inflating web-condom of various size.;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = 0;
@@ -407,7 +407,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//Summary: web-spooling around dick, then webjob.  ;
 	FemaleSpiderMorphScene.prototype.femaleSpiderMorphTooBigWebRape = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = 0;
@@ -501,7 +501,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//*Victory Intro;
 	FemaleSpiderMorphScene.prototype.defeatASpiderBitch = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		MainView.outputText( 'The spider-girl drops to her knees and wobbles unsteadily', false );
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( ', thrusting two of her carapace-covered finger-tips deep into her sloppy box as she gives into her lust.  She actually has the temerity to demand, "<i>Fuck me, fuck me now!</i>"', false );
@@ -537,7 +537,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//*Summary: Make her bite herself in the tit and inject aphrodisiac venom, then scissor (or brief clit-fuck);
 	FemaleSpiderMorphScene.prototype.fSpiderMorphRape = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		MainView.outputText( 'You laugh at her and push her down with your ' + CoC.player.legs() + ', enjoying the view of the pale maiden\'s unblemished skin and dark, fetishy-looking exoskeleton when she bounces in swamp loam.  Her legs scissor closed nervously, a weak effort to conceal her sex from you', false );
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( ', even as her fingers continue to work her slick lips relentlessly', false );
@@ -611,7 +611,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 			x = 0;
 		}
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		MainView.outputText( 'You push the spider-girl onto her back, getting a good long look at your conquest before you take off your ' + CoC.player.armorName + '.  At the sight of your ' + Descriptors.multiCockDescriptLight() + ', she ', false );
 		if( CoC.monster.lust <= 99 ) {
 			MainView.outputText( 'relaxes a bit.  The smell of an aroused female wafts up from her, reminding you that is probably what she wanted from the get-go.', false );
@@ -700,7 +700,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		}
 		var y = CoC.player.cockThatFits2( CoC.monster.analCapacity() );
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		MainView.outputText( 'You peel off your ' + CoC.player.armorName + ' while you gaze disdainfully down at your prize.  ', false );
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( 'She\'s moaning plaintively and happily fingering herself, practically offering her juicy box to you.', false );
@@ -785,7 +785,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	//*Egg Sack Find;
 	FemaleSpiderMorphScene.prototype.findASpiderMorphEggSack = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 73 );
+		MainView.spriteSelect( 73 );
 		MainView.outputText( 'You stumble upon a huge, webbed sack hanging from a tree.  Examining it closer, you see that bound up inside it are nearly a dozen webs, each containing a wriggling form.  They start moving faster and faster, perhaps reacting to the nearby movement, before the shells finally shatter and unleash their cargo.  Inside each is a tiny, six inch tall humanoid figure, each resembling a child in miniature.  Remarkably, their features remind you of your own, and before the significance of that fact settles in, they drop to the ground and scurry away on their tiny, carapace-covered legs.\n\n', false );
 		MainView.outputText( 'You\'re left scratching your head when you realize they were your own children, birthed by the spider-morph you fucked not so long ago.\n\n', false );
 		this.pregnancy.knockUpForce(); //Clear Spidermorph pregnancy

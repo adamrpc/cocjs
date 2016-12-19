@@ -639,7 +639,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	FarmCorruption.prototype.rootScene = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 		if( CoC.flags[ kFLAGS.WHITNEY_DISABLED_FOR_DAY ] === 2 ) {
 			CoC.flags[ kFLAGS.WHITNEY_DISABLED_FOR_DAY ] = 3;
 			MainView.outputText( '“<i>[name]? [name]!</i>” You turn and watch Whitney shyly step out from the shadow of the barn. She has retained her slim frame and modest clothes, however her fur is all gone and has been replaced by skin of the same sandy color. Human feet peek out from underneath her skirt, and... well. You take a few moments to drink in her human face, still quintessentially Whitney in her long, delicate features, thin but easy smile and rosy color accentuating her high cheekbones; pretty but not beautiful. The only dog features she has kept are her floppy ears and short, perky tail. Scratch that; as you smile approvingly she smiles widely in return, laughing almost in relief, revealing quite pointed teeth and a thinner-than-normal tongue. Still, it’s a pretty decent effort all round.' );

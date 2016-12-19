@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 	};
 	Salon.prototype.salonPurchaseMenu = function() {
 		CoC.flags[ kFLAGS.SALON_PAID ] = 1;
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		var cutShort2 = null;
 		var cutMedium2 = null;
 		var cutLong2 = null;
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairDresserGreeting = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( 'You step inside the cave, and are greeted by a sight you did not expect.  The cave\'s floor is covered with smooth wood panelling and the walls are nearly entirely covered with hanging mirrors.  The few stalactites have hooks drilled into them, from which hang hundreds of scissors, shears, razors, combs, and other hairstyling impliments.  It reminds you of the hair-cutter\'s shop in your hometown.', true );
 		MainView.outputText( '\n\nThere are a few chairs along the wall and goblins with latex dresses and gloves looking bored.  At the sight of you they perk up and clamor around you excitedly, until one with a gravity-defying chest pushes them apart and greets you.', false );
 		MainView.outputText( '   "<i>I apologize for my daughters,</i>" she says as she presses herself against you.  "<i>They\'re a bunch of brainless hussies for the most part.  My name is Lynnette, and welcome to my salon!  You want your hair cut or lengthened?  We\'ve got you covered, and we don\'t ask for much - just a shot of cum.', false );
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 	};
 	Salon.prototype.hairDresserRepeatGreeting = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		//Chance for mino craziness here;
 		if( Utils.rand( 5 ) === 0 && (CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0) ) {
 			this.minotaurCumBukkakeInSalon();
@@ -337,7 +337,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doNext( this, this.hairDressingMainMenu );
 	};
 	Salon.prototype.goblinHairDresserFacefuck = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( 'Lynnette licks her lips and practically tears her way into your ' + CoC.player.armorName + ', having your crotch exposed in seconds.  Your ' + Descriptors.cockDescript( 0 ) + ' flops out immediately, slapping her on the nose as it grows hard.  She wraps both hands around you and begins pumping with practiced ease, flicking her tongue over your crown and wrapping her lips ', true );
 		if( CoC.player.cocks[ 0 ].cockThickness >= 4 ) {
 			MainView.outputText( 'around as much of you as she can', false );
@@ -355,7 +355,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		this.hairDressingMainMenu();
 	};
 	Salon.prototype.hairDressingMainMenu = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( 'Lynnette offers and explains their options, "<i>So what\'ll it be hun?  We could cut it down or give you a lengthening treatment. Or you can get a hair-dye to use on your own.  Just remember to come back in a few days for a touchup.</i>"', false );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00142 ] > 0 ) {
 			MainView.outputText( '\n\nOf course you could always spend some gems and buy some minotaur cum instead...', false );
@@ -363,7 +363,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		this.salonPurchaseMenu();
 	};
 	Salon.prototype.cutShort = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		//-trying to get a goblin to cut tentacle hair:;
 		if( CoC.player.hairType === 4 ) {
 			MainView.outputText( 'Lynnette stares at you when you ask for a cut.  "<i>Nothing doing, hon; that stuff looks alive and I don\'t want blood all over my nice floor.  Thanks for contributing to the white file, though; maybe we can do something else?</i>"\n\n', false );
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.cutMedium = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		//-trying to get a goblin to cut tentacle hair:;
 		if( CoC.player.hairType === 4 ) {
 			MainView.outputText( 'Lynnette stares at you when you ask for a cut.  "<i>Nothing doing, hon; that stuff looks alive and I don\'t want blood all over my nice floor.  Thanks for contributing to the white file, though; maybe we can do something else?</i>"\n\n', false );
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.cutLong = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		//-trying to get a goblin to cut tentacle hair:;
 		if( CoC.player.hairType === 4 ) {
 			MainView.outputText( 'Lynnette stares at you when you ask for a cut.  "<i>Nothing doing, hon; that stuff looks alive and I don\'t want blood all over my nice floor.  Thanks for the contributing to the white file, though; maybe we can do something else?</i>"\n\n', false );
@@ -402,7 +402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairGrow = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		//-asking for a lengthening treatment with tentacle hair:;
 		if( CoC.player.hairType === 4 ) {
 			MainView.outputText( 'Lynnette looks dubiously at you when you ask for a lengthening treatment.  "<i>No offense hon, but that stuff is basically like an arm or an organ, not hair.  I\'m not a goblin chirurgeon, and I wouldn\'t try to lengthen it even if one of my disobedient daughters were here to donate some parts.  Sorry to make you shoot and scoot, but I can\'t help you.  Maybe we could do something else?</i>"\n\n', false );
@@ -421,7 +421,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		SceneLib.inventory.takeItem( itype, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.dyeMenu = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Lynnette pulls open a cabinet in the corner, displaying a wide array of exotic hair-dyes.  Which kind do you want?', false );
 		EngineCore.menu();
@@ -532,7 +532,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doNext( this, this.minotaurSalonFollowUp );
 	};
 	Salon.prototype.minotaurSalonFollowUp = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00142 ] === 0 ) {
 			//Unlock mino cum purchase;
@@ -549,7 +549,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		this.salonPurchaseMenu();
 	};
 	Salon.prototype.mudFacial = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You sit back in a comfortable chair and pull on a lever to recline it.  The goblins buzz around you, gathering up \'special mud\'.  You close your eyes, letting them plaster your ' + CoC.player.face() + ' with the stuff in hopes that it will improve your complexion as much as you\'ve been promised.  A pair of cucumber slices are laid out on your eyes, obscuring your view.\n\n', false );
 		MainView.outputText( 'With that finished, the crowd of busty, green-skinned women disperses to leave you in peace.  Time drags on, but eventually the mud hardens and cracks.  As if on cue, tiny hands emerge with wet rags to scrub your face clean.  Once they\'ve finished, you feel like a whole new you! (+10 femininity)', false );
@@ -557,7 +557,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.sandFacial = function() {
-		EngineCore.spriteSelect( 38 );
+		MainView.spriteSelect( 38 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You sit back in a comfortable chair and pull on a lever to recline it.  The goblins buzz around you, gathering up \'special sand\'.  You close your eyes, letting them splatter your ' + CoC.player.face() + ' with the rough, textured goop.  It doesn\'t feel very good, but that won\'t matter if it makes you as handsome as it\'s supposed to.\n\n', false );
 		MainView.outputText( 'After a while the goblin girls come back and clean the stuff from your face. (+10 masculinity)', false );

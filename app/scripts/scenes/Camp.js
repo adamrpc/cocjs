@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			MainView.outputText( Utils.num2Text( timeUsed ) + ' hours pass...\n' );
 		}
 		if( !CoC.isInCombat() ) {
-			EngineCore.spriteSelect( -1 );
+			MainView.spriteSelect( -1 );
 		}
 		MainView.hideAllMenuButtons();
 		OnLoadVariables.timeQ = timeUsed;

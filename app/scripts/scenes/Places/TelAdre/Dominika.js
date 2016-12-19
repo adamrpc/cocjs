@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 		return (CoC.flags[ kFLAGS.DOMINIKA_TIMES_HYPNO_BJ ] + CoC.flags[ kFLAGS.DOMINIKA_TIMES_MULTICOCK_SLOBBERED ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00156 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00151 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00152 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00153 ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00174 ]);
 	};
 	Dominika.prototype.fellatrixBarApproach = function() {
-		EngineCore.spriteSelect( 10 );
+		MainView.spriteSelect( 10 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'dominika-first-meeting-at-bar' ) );
 		//Get the emporerors new groove (sword);
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//["<i>No thanks</i>"];
 	Dominika.prototype.turnDownDominikasKnowledge = function() {
-		EngineCore.spriteSelect( 10 );
+		MainView.spriteSelect( 10 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>Fair enough,</i>" Dominika nods. "<i>Let me know if you change your mind.</i>" The two of you make small talk for a while longer, before you decide to get back to work and excuse yourself.\n\n', false );
 		EventParser.cheatTime( 1 );
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//["<i>Sure</i>"];
 	Dominika.prototype.acceptDominikasKnowledge = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		//Set that PC has received oral offer (its coming further down for sure);
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ]++;
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//[All scenes lead to:];
 	Dominika.prototype.fellatrixSexWarmup = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		//Cooldown ongoing!;
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00155 ] > 0 ) {
@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//If "<i>No.</i>"];
 	Dominika.prototype.declineFellatrixOral = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		//No BJs yet.;
 		if( !this.fellatrixSucked() ) {
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//[If "<i>No.</i>" twice];
 	Dominika.prototype.declineFellatrixOralHARDCORE = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>Really?</i>" she asks again. "<i>But, I mean... fucking look at these!</i>" She purses her dark lips, running her tongue over them to emphasize how they glisten in the light. "<i>Don\'t tell me you don\'t think these would feel fucking rad on you.</i>"\n\nIt\'s VERY tempting.  Maybe one little round of fellatio?', false );
 		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 10) );
@@ -258,7 +258,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//[If "<i>No.</i>" three times];
 	Dominika.prototype.declineFellatrixOralSUPERHARDCORE = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Dominika stares at you incredulously, then turns away. "<i>Fine. Just go then. You know where the door is.</i>" She walks away into another room, closing the door behind her.\n\n', false );
 		MainView.outputText( 'You let yourself out.', false );
@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 
 	Dominika.prototype.acceptFellatrixOral = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'dominika-oral-sex' ) );
 		var x = CoC.player.cockThatFits( 36 );
@@ -492,7 +492,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 
 	//[Agree with her];
 	Dominika.prototype.agreeWithDominika = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		//(Corruption increases);
 		EngineCore.dynStats( 'cor', 2 );
@@ -525,7 +525,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//[Non-committal];
 	Dominika.prototype.ehhhhDominika = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You make a small grunt, not even sitting up. Dominika\'s eyebrows lower after a time, and a bored but amused expression comes to her features. "<i>I suppose I shouldn\'t bother asking you anything after we\'re done, mm?</i>" She seems content to amuse herself with this telling of events, and you don\'t question it. "<i>Well, you should get going soon,</i>" she says, turning back to her mirror and adjusting her hair. "<i>You don\'t want to walk through the desert too late at night. Do visit again.</i>"\n\n', false );
 		MainView.outputText( 'On the streets of Tel\'Adre, you think on what she said. It was not exactly what you had expected to come from that inky pout. You had shown up for a blowjob, not... whatever that was. Was that how Dominika felt? Was she hiding this from people? What did she mean by the Covenant keeping her chained? You have trouble deciding if these are questions worth answering, or if you should simply wash your hands of the entire business.\n\n', false );
@@ -535,7 +535,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//[Disagree with her];
 	Dominika.prototype.disagreeDominika = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		//(Corruption decrease);
 		EngineCore.dynStats( 'cor', -2 );
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 
 	//[Dream after above scene];
 	Dominika.prototype.fellatrixDream = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00157 ] += 3;
 		MainView.outputText( 'Breathing heavily, you cut through foliage so dark it seems as though you\'re splitting the night itself. Only the blinking of stars above betrays that you have not stepped directly into the sky. You feel cold, nude, and alone. There is no one for you this far into the woods, no parent to lift you up and carry you to safety, no lover to hold you within her embrace when you are scared. There is only you and the darkness, your enemy and your only companion.\n\n', false );
 		MainView.outputText( 'Dominika inhales, and parts the bushes between you. Though blindfolded, she extends her hand to you, bidding you across the new path. Your eyes wander to the space between her legs, dripping the night and hiding her crotch in treacherous wisps. "<i>Cum to me</i>," she says with lips blacker than the sky. Part of your body rebels, says you have needed no one so far, but the flesh insists. You take a staggering, heavy step towards her.\n\n', false );
@@ -577,7 +577,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 	};
 	//[Yes];
 	Dominika.prototype.dominidramaYes = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You have a few guesses as to why the Covenant might be looking for Dominika, and you want to help them. You look back up the road to explain where she\'s living but as you look at the streets you have an odd feeling in the back of your head. Try as hard as you might, every time you try to picture the path you took to her home all that appears in your mind is her smirking lips. They are gorgeous, but this is not the time you want to be thinking about them.\n\n', false );
 		MainView.outputText( 'Voicing these problems, the plant woman gives a sympathetic nod. "<i>Yes, that\'s... in line with what we\'ve seen.</i>" She raises a hand to her chin in thought, glancing you over. "<i>If you should remember or learn anything that may help, I would ask that you come to the tower. You will not be refused if you say that Asa Mali sent you.</i>" She pauses for a moment, then says, "<i>That would be me, by the way.</i>"\n\n', false );
@@ -706,7 +706,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 		EngineCore.doNext( this, this.dominikaBlowjobs2 );
 	};
 	Dominika.prototype.dominikaBlowjobs2 = function() {
-		EngineCore.spriteSelect( 58 );
+		MainView.spriteSelect( 58 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Groaning, you roll over, sitting up in your bedroll.  The rays of the sun hitting your face feel particularly unwelcome.  You\'re not sure what you drank last night, but given your hangover you must have done so.\n\n', false );
 		MainView.outputText( 'After a lot of water, you feel a little better.  Something nags at the back of your mind, an itch you can\'t quite scratch but persistently remains.  You feel as though you\'ve forgotten something important, and perhaps even essential, but cannot think of any clues as to what.  ', false );

@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			//OOZE!
 			else {
 				CoC.flags[ kFLAGS.TIMES_MET_OOZE ]++;
-				EngineCore.spriteSelect( 25 );
+				MainView.spriteSelect( 25 );
 				//High int starts on even footing.
 				if( CoC.player.inte >= 25 ) {
 					MainView.outputText( 'A soft shuffling sound catches your attention and you turn around, spotting an amorphous green mass sliding towards you!  Realizing it\'s been spotted, the ooze\'s mass surges upwards into a humanoid form with thick arms and wide shoulders.  The beast surges forward to attack!', true );

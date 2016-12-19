@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 	}
 
 	Farm.prototype.whitneySprite = function() {
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 	};
 	Farm.prototype.farmExploreEncounter = function() {
 		MainView.outputText( 'Whitney marches up to you as soon as you approach the farm, a stoic expression plastered across her face.' );
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		}
 		//Farm not yet discovered;
 		if( CoC.player.statusAffectv1( StatusAffects.MetWhitney ) < 2 ) {
-			EngineCore.spriteSelect( 62 );
+			MainView.spriteSelect( 62 );
 			if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) < 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.MetWhitney, 0, 0, 0, 0 );
 				MainView.outputText( 'You find a quaint farmhouse on the far shores of the lake.  Around the homestead are a range of gardens, filled with delicious fruits and vegetables.  Your belly rumbles, aching with hunger, as you approach the dwelling.  A figure in a pepper patch rises up to greet you, waving you over.\n\nYou do your best to conceal your surprise as you realize the farmer is a woman... with fur and canine-like features!  She giggles happily and beckons you over, "<i>Welcome stranger, it sure is pleasant to see a new face \'round here.  My name\'s Whitney, and it\'s mighty fine I don\'t have to pitchfork you like most guests!</i>"  She fills you in about the lake and her farm, telling you how the demons can\'t seem to stay close for long, and monsters always seem weaker the few times they have approached her farm.  Whitney flushes and rapidly changes subject, "<i>I\'ve got to get back to work, but you help yourself to the peppers, hun!</i>"\n\n', true );
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		}
 		//Repeat Offender;
 		else {
-			EngineCore.spriteSelect( 62 );
+			MainView.spriteSelect( 62 );
 
 			if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 && CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
 				MainView.clearOutput();
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 	};
 	//[YES];
 	Farm.prototype.whitneyMilkerHookup = function( breast ) {
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 		MainView.outputText( 'Whitney takes the gear back to her farm after promising to have it working within the hour.  She did leave you with a cryptic warning to "<i>leave the milkings to the beasts, lest you become one</i>.</i>"\n\nYou shrug and head back to check up on camp.', true );
 		if( breast === undefined || breast ) {
 			CoC.player.createKeyItem( 'Breast Milker - Installed At Whitney\'s Farm', 0, 0, 0, 0 );
@@ -107,14 +107,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 	};
 	//[NO];
 	Farm.prototype.whitneyMilkerRefusal = function() {
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 		MainView.clearOutput();
 		MainView.outputText( 'Whitney shrugs and the two of you resume your conversation.  But like all good things, it has to come to an end.  The two of you go your separate ways.' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//TALK;
 	Farm.prototype.talkWhitney = function() {
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 		//[FIND WHITNEY TXT];
 		MainView.outputText( '', true );
 		//Centaur Hookups!;
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		}
 		//25% chance of stable mucking;
 		if( Utils.rand( 4 ) === 0 ) {
-			EngineCore.spriteSelect( 62 );
+			MainView.spriteSelect( 62 );
 			MainView.outputText( 'You find Whitney getting a scythe out of her tool shed. "<i>Do you know how to muck out a stable?</i>" she asks when you offer to help. You admit that you did a lot of that while growing up in your village. After passing you a rake, shovel, and pitchfork, she leads you to the milking barn.', true );
 			MainView.outputText( '  The first thing that hits you is the smell, a mingling of sweat, milk, droppings, and rotting hay. There are also probably some cows in Whitney\'s herd ready for breeding.\n\n', false );
 			MainView.outputText( 'Opening the door to one of the empty stalls, Whitney says, "<i>I don\'t get to them as often as I should. Anything you can do would help.</i>"\n\n', false );
@@ -401,7 +401,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 		MainView.outputText( 'You ask Whitney if she could use help with anything and she points towards the pepper fields, "<i>Ya mind gathering up some peppers for an hour or two?  I\'m gonna need a few for supper tonight.  I\'ll even let you keep the best one!</i>"\n\n', false );
 		MainView.outputText( 'You nod and borrow a basket, and set off towards the fields.  The next two hours are a blur of sweat and hard work as you prowl between the rows of plants, picking as many ripe red peppers as you can find.  When you finish, you drop the basket by Whitney\'s door, but not before taking your pepper.\n', false );
 		//(75% chance normal pepper, 25% chance "<i>rare</i>" pepper);
@@ -501,7 +501,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		explore = Utils.rand( 3 );
 		//[JOG];
 		if( explore === 0 ) {
-			EngineCore.spriteSelect( 62 );
+			MainView.spriteSelect( 62 );
 			MainView.outputText( 'You run around the farm, keeping an eye for any monsters or oddities around Whitney\'s property.  Eventually the she-dog joins you, and the two of you have a good time pushing your speed to its limits.  ', true );
 			//Less than 30 speed (+2 speed);
 			if( CoC.player.spe < 30 ) {
@@ -1394,7 +1394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 	};
 	//Introduction: Finding the Toys @ The Farm;
 	Farm.prototype.centaurToysHoooooo = function() {
-		EngineCore.spriteSelect( 62 );
+		MainView.spriteSelect( 62 );
 		MainView.outputText( '', true );
 		//[Places] - [Farm] - [Talk] If PC = Centaur;
 		MainView.outputText( 'You find the dog-morph Whitney standing in the entrance to her barn, scratching her head with consternation.  You approach her and ask what\'s up.\n\n', false );

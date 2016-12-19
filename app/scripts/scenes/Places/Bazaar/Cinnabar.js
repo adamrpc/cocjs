@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 	//Approach ;
 	Cinnabar.prototype.cinnabarGreeting = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		//1st Time:;
 		if( CoC.flags[ kFLAGS.CINNABAR_NUMBER_ENCOUNTERS ] === 0 ) {
 			CoC.flags[ kFLAGS.CINNABAR_NUMBER_ENCOUNTERS ]++;
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 		CoC.flags[ kFLAGS.CINNABAR_NUMBER_TIMES_FUCKED ]++;
 		CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] = 0;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		//(Too poor);
 		if( CoC.player.gems < 50 ) {
 			MainView.outputText( '"<i>Ooooh... I\'m sorry, but you don\'t have the gems to hire a companion, babe.   You should get some practice spreading your thighs and earn a REAL living,</i>" Cinnabar teases.', false );
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 		CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] = 0;
 		MainView.outputText( '', true );
 		var x = CoC.player.biggestCockIndex();
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		MainView.outputText( 'As soon as you give your assent, Cinnabar\'s hands are flying through your ' + CoC.player.armorName + ' to clutch and grab at your ' + Descriptors.cockDescript( x ) + ', squeezing the hefty member with her soft pads.  She coos happily, grinning wide enough to expose her teeth while your dick fills up in her palm, gradually spreading her fingers wide.  The turgid, burgeoning mass rubs against your ' + CoC.player.armorName + ' near-painfully before she stops, and Cinnabar licks her lips appreciatively, knowing you\'re not even the whole way hard.\n\n', false );
 		MainView.outputText( 'Though your ' + CoC.player.legs() + ' have grown wobbly and your gear tight, you stand up, straight as a fencepost, and pull the slut\'s arms away from your kit.  Cinnabar grunts with displeasure, but you grab her dress and spin her into your arms, letting your bulge dig into her back while your hands cup the heavy swells of her breasts.  Her nipples are hard and ready, easily as large as the tips of your fingers, which you waste no time in securing around the swollen buds. The skank\'s displeased grunt morphs into a loud squeak, then trails off into a low, eager moan.\n\n', false );
 		MainView.outputText( '"<i>Please, bend me over and fuck me; stuff that fat cock in my juicy cunt.  Stuff me, rut me, bang me here in front of everyone!', false );
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 		CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] = 1;
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		MainView.outputText( 'You\'re almost there, so close to your orgasm, but this needy skank\'s pussy has barely tasted the largeness of your member.  She\'s wearing out your endurance with her tightness, and if you\'re going to split her wide, you\'ll need to pick up the pace.  You grab her thighs, ignoring her tail as it thrashes about, and heave, yanking her dick-dilated cunt along your length with enough force to lift her knees from the mattress.   Cinnabar actually screams from the brutal penetration, her legs spasming nervelessly while her hips are split wide, your fleshy spear absolutely and completely distorting her frail form.', false );
 		if( CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] > 0 ) {
 			MainView.outputText( '  You\'re doing it again – turning her into a cum-sleeve without a care for her pleasure, but you don\'t fucking care.  You\'re too horny and she\'s too sexy not to abuse.', false );
@@ -374,7 +374,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 		CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] = 0;
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		MainView.outputText( 'You\'re almost there, so close to your orgasm, but you\'ve got so much more cock to bury inside this flexible, stretched-out pussy, and you\'re determined to bury every last inch of your improbably-large prick inside her before you blast your load.  At this rate, you\'ll be pushing in all day, so you decide to speed things up.  You grab her by the haunches, feeling your fingers sink into her silky fur, and you pull her back, flexing your biceps as you yank her down with all your might.  She slides down fast, taking a foot of cock in seconds, fast enough to make her belly bulge out in a distinctly dick-like manner.\n\n', false );
 		MainView.outputText( 'The rest of you sinks in, plowing through her surprisingly spongy cervix to violate the very core of her womb.  It pushes out far enough that she looks like a ruddy cock-sleeve, with two bouncing tits hanging off your ' + CoC.player.cockHead( x ) + '.  Incredibly, Cinnabar doesn\'t seem to mind that her body is being stretched in impossible ways, distended completely beyond the limits of reason.  Instead, she starts murmering, "<i>Oooh yeah, feel how fucking tight my womb is.  Can\'t you feel my cervix clamping down, squeezing tight like a cock-ring you couldn\'t get the whole way down?  0..hahahaha I\'m broken aren\'t I?  Look at me, I\'m your furry condom.  My pussy\'s completely broken... I\'m so gaped I\'ll never walk right again, and I can - I can jerk you off through my belly and womb!</i>"\n\n', false );
 		MainView.outputText( 'True to her words, she starts squeezing you through her fur, massaging your ' + Descriptors.cockDescript( x ) + ' by dragging her stretchy puss along your length with her fingertips.  It\'s too much, her body is fucking perfect for your ' + Descriptors.cockDescript( x ) + ', and you feel warmth building inside you.  Her tail twists around your ', false );
@@ -434,7 +434,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 		CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] = 0;
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		MainView.outputText( 'You\'re almost there, and though you can feel the burgeoning warmth growing underneath your ' + Descriptors.cockDescript( x ) + ', you\'re determined to push the whole way inside her before you blow.  Cinnabar crams her muzzle through a particularly large mirror and locks onto your lips, ramming her tongue deeper into your throat, pushing harder with each inch of tightly-packed cock you shove inside her.  At last you bottom out, your ' + CoC.player.cockHead( x ) + ' bumps the tight ring of her cervix while her tail pulls tight about your ', false );
 		if( CoC.player.balls > 0 ) {
 			MainView.outputText( Descriptors.ballsDescriptLight(), false );
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, k
 		CoC.flags[ kFLAGS.CINNABAR_NUMBER_TIMES_FUCKED ]++;
 		CoC.flags[ kFLAGS.CINNABAR_FUCKED_CORRUPT_PREVIOUSLY ] = 0;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 91 );
+		MainView.spriteSelect( 91 );
 		//x pussy, y butt, z face;
 		var x = CoC.player.biggestCockIndex();
 		var y = CoC.player.biggestCockIndex2();

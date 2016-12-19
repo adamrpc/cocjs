@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 	 */
 	//Female Gnoll.  First Page.;
 	GnollSpearThrowerScene.prototype.gnoll2Encounter = function() {
-		EngineCore.spriteSelect( 54 );
+		MainView.spriteSelect( 54 );
 		MainView.outputText( '', true );
 		//<First Encounter>;
 		if( CoC.flags[ kFLAGS.HAVE_ENCOUNTERED_GNOLL_PLAINS ] === 0 ) {
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 
 	//<Hyena Victorious – Anal> ;
 	GnollSpearThrowerScene.prototype.hyenaSpearLossAnal = function() {
-		EngineCore.spriteSelect( 54 );
+		MainView.spriteSelect( 54 );
 		//Oh shit get anal raped.;
 		if( CoC.player.hasItem( ConsumableLib.S_DREAM ) ) {
 			SceneLib.gnollScene.yoDawgIHeardULiekGNollBallzzzdahdakjldh();
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 		Combat.cleanupAfterCombat();
 	};
 	GnollSpearThrowerScene.prototype.hyenaVictory = function() {
-		EngineCore.spriteSelect( 54 );
+		MainView.spriteSelect( 54 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The gnoll draws one final javelin, the sharp point distinct as it points at you.  The javelin drops, sticking deep into the dry ground, as the amazon is too' );
 		if( CoC.monster.HP <= 0 ) {
@@ -191,7 +191,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 	};
 	//<Hyena Defeat - Fellatio>;
 	GnollSpearThrowerScene.prototype.hyenaVictoryRapeFellatio = function() {
-		EngineCore.spriteSelect( 54 );
+		MainView.spriteSelect( 54 );
 		var x = CoC.player.cockThatFits( 40 );
 		if( x < 0 ) {
 			x = 0;
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 	};
 	//<Hyena Defeat – Cunnilingus>;
 	GnollSpearThrowerScene.prototype.victoryRapeHyenaCunnilingus = function() {
-		EngineCore.spriteSelect( 54 );
+		MainView.spriteSelect( 54 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Dark brown eyes watch your approach, already slightly glazed in lust.  Slowly, the tawny head bows before you, acknowledging you as dominant.  It amazes you that this powerful, feral woman who fought so hard would now be so meek, but part of you knows that this submission will not last forever.\n\n', false );
 		MainView.outputText( 'It slowly dawns on you just how much power you have over this submissive warrior.  With a simple command, she stands with her head still bowed.  Unable to help yourself, you bring your right hand up to fondle one of the hyena\'s heavy breasts.  The large orbs are covered in soft fur with a black nipple poking through the cream colored pelt.  Impulsively, you lean forward, giving the already hard teat a lick.  The hyena moans softly into the savanna air as your tongue slides along her perky tit.\n\n', false );

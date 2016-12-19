@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//nipplesPierced > 0 indicates pierced!;
 	//*Encounter Intro (done);
 	CorruptedDriderScene.prototype.driderEncounter = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		//Load monster stats so we can display things like eye/hide color!;
 		var drider = new CorruptedDrider();
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 
 	//*Victory Intro: (done);
 	CorruptedDriderScene.prototype.defeatDriderIntro = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'All eight of the drider\'s black and ' + CoC.monster.hairColor + ' striped legs collapse under her weight while she struggles ', false );
 		if( CoC.monster.HP < 1 ) {
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 	//Lose to drider;
 	CorruptedDriderScene.prototype.loseToDrider = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		//Build array of choices;
 		var select = [];
 		if( CoC.player.hasCock() ) {
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//*Victory Rape: PC Penis goes in Vagina (done);
 	CorruptedDriderScene.prototype.winDriderPCDickInSpiderCunt = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		//*Summary: Fuck her cunt with a wang that fits it, lose control of the ;
 		//situation when she kisses you with potent, envenomed lips.  Get ;
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//Part 2 of the above;
 	CorruptedDriderScene.prototype.winDriderPCDickInSpiderCunt2 = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		MainView.outputText( '<b>Sometime Later...</b>\n', false );
 		MainView.outputText( 'Pistoning your hips violently, you continue to ravage the unconscious spider, fucking her in a brutal, beast-like manner that centers entirely upon your own pleasure.  You cum, dumping a fresh batch of jizz into her already-stuffed twat, grinning when a few more rivulets of ooze roll over her inflamed pussy-lips to drip into the growing puddle.  Still hard, ' + Descriptors.sMultiCockDesc() + ' continues to twitch, hungry for more, and you don\'t deny it.  You grab the arachnid bitch and stuff your dick into her mouth, shivering while her venom seeps into your dick, keeping you hard and ready to blow.  Whatever special, immobilizing venom she had earlier, it seems exhausted, and the only response your body has to the onslaught of toxin is to erupt, spouting a huge load of semen into her mouth.\n\n', false );
@@ -308,7 +308,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 
 	//*Victory Rape: Ride Spider-Cawk in Vagoo (done);
 	CorruptedDriderScene.prototype.winVSDriderTakeItsCockInCunt = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Your eyes lower towards the drider-woman\'s thick, demonic shaft lying exposed to your wicked intention.  Easing yourself over to the defeated arachnid, you slowly reach out and squeeze her pained member, a quiet, unwanted moan escaping from between her soft lips.  Gently caressing her length, you make sure to trace your fingers around every bump and curve of the corrupted tool that throbs heatedly in your palm, using your thumb to apply pressure underneath her growing cock.  The drider lies fully erect in no time at all, and you respond by hastily jerking her pride before relinquishing your grip and moving away from your new toy.  Any reluctance she may have held before has vanished with your gratuitous touch, the exhausted spider-lady now humping aimlessly at the air in an attempt to relieve herself - using her trembling hands to fondle her breasts while whining pathetically at her lack of sexual gratification.  An idea sparks in your head - you figure it\'d be more satisfying to watch the spidertaur squirm than to give her relief straight away.\n\n', false );
 		MainView.outputText( 'Avoiding the desperate drider\'s spindly legs, you walk around to grab onto her limp torso, pulling it over until she lands on her back with her lewd figure in full display.  The girl pauses hesitantly, cupping one of her heaving tits in her hand while placing a finger to her lips with the other as she waits for you to make your move - in her current state, it\'s unlikely she can retaliate even if she wanted to.  The drider\'s corrupted cock twitches with excitement, a thick rod standing tall amidst the collapsed heap of its owner.  A bead of pre-cum oozes from the tip as evidence of your quick work, reminding you it would be rude to leave the job unfinished.  Swaying your ' + Descriptors.hipDescript() + ' enticingly, you move slowly down towards her lower torso, reaching over and propping yourself on top of the spider-woman with your ' + Descriptors.assDescript() + ' pressing against her slick devil-dick.  You look into her eager eyes, the aroused pet almost screaming for relief with her pained stare and the equally responsive cock grinding along your ' + Descriptors.vaginaDescript( 0 ) + '.  Reaching behind you, you grab the base of her member and pull, eliciting a yelp and an involuntary thrust from your victim that almost forces her tip inside.  It misses, however, and instead slips out in front of you, the nubs of her cock pushing along your lips and accidentally brushing along your ' + Descriptors.clitDescript() + '.  You stifle a moan - she\'ll pay for that.\n\n', false );
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 	//*Victory Rape: Ride Ovi Vaginal (done);
 	CorruptedDriderScene.prototype.victoryVSDriderRideOviVaginal = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		//*Summary:  Roll the drider over and squat on an ovipositor - reuse anal intro? (fuck you bitch, i'm taking your shitty kids to the lake and turning them pink)	;
 		CoC.player.slimeFeed();
@@ -419,7 +419,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 
 	//*Victory Rape: Ride Ovi Anal sex-insenitive (done);
 	CorruptedDriderScene.prototype.victoryVSDriderRideOviAnal = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		//*Summary: Force the drider onto her back and then fish out her ovipositor, jerk it off, then climb on top for some egg-based buttlovin';
 		MainView.outputText( '', true );
 		MainView.outputText( 'Eyeing the small lump of the spider\'s retracted ovipositor, you resolve to have a little fun with it, even if it means giving the spider exactly what she wants in a way that she doesn\'t.  You tear off your ' + CoC.player.armorName + ' while the drider watches with ', false );
@@ -544,7 +544,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//*Victory Spinneret Penetration - written by Sham (done);
 	//(please view the spinneret as a spider-horsecock because for all intents and purposes that is really what it is) - shambadibs (1.5-inch width max because i'm racist against buur-bous american penis) (also probably a corruption minimum this is a pretty dick move) (I GET IT);
 	CorruptedDriderScene.prototype.victoryVSDriderStickDickInSpinneret = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		var x = CoC.player.smallestCockIndex();
 		MainView.outputText( 'Quickly shedding your ' + CoC.player.armorName + ', you eye up the incapacitated drider, wondering how best to take advantage of your successes.  A remarkably nasty thought strikes you, and your lips nearly curl into a devious grin then and there.  You stride toward your trophy, taking pleasure in the simmering hatred in her eyes as she glares up at you.  A sudden bout of mocking laughter stops your progress; the drider seems to have noticed ', false );
@@ -606,7 +606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 	//*Loss Ride Ovi Anal unsexed - gats (done);
 	CorruptedDriderScene.prototype.loseVSDriderGetAnalledOvi = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You fall to the ground, defeated by the agile arachnid-woman as she slowly advances towards you, her engorged clit growing larger and larger as it throbs in your direction.  You\'ve managed to find yourself crumpled face down in the dirt, your ' + Descriptors.buttDescript() + ' in full display of the aroused drider while she grins lustfully at your broken figure.  Grunting, you begin to pull yourself off the ground, only to hear your attacker \'tsk\' before feeling the warm stickiness of her web launch upon your limbs, gluing your hands to your ankles and leaving you completely vulnerable.  You struggle against the bindings, but to no avail.  Lifting your head, you turn to see the drider stroking her now fully-enlarged demon cock, replacing the hardened clit that once adorned her moist pussy.\n\n', false );
 		MainView.outputText( '"<i>You just had to make it harder for yourself, didn\'t you?</i>"\n\n', false );
@@ -667,7 +667,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 	//*Loss Vaginal Impregnation and forced BJ - Symphonie (done);
 	CorruptedDriderScene.prototype.loseVSDriderAndVaginallyImpreggleOvi = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		//FAST FACTS: Drider uses webbing to spread eagle you then oviposits your womb while making you suck some dick.;
 		//SYMNOTE: I think I've done a proper naga pass on this but it was really late so don't trust me 100% on that. I honestly can't imagine the way this scene is set up ever working for centaur, the posing would have to be completely different, but if someone else wants to try to centaurify it you are welcome to. I think there could probably stand to be a few offhand references to your cock and tits if you have them in the later parts, I'm not good at sewing those in. (done);
@@ -770,7 +770,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//*Loss Ride & Impregnate Butt (done);
 	CorruptedDriderScene.prototype.loseVSDriderAndGetFuckedANDAnalImpreggegity = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		//Poor males.  All the buttsexes. (yo this is an actual paragraph of the game text right);
 		MainView.outputText( '', true );
 		if( CoC.player.lust > 99 ) {
@@ -823,7 +823,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//*Asspreg egg 'birth': (done);
 	//Summary: what goes up must come down;
 	CorruptedDriderScene.prototype.birthSpiderEggsFromAnusITSBLEEDINGYAYYYYY = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '\nYour gut rumbles dangerously.  As if by instinct, you drop down and bend over, supporting half your weight on your hands while you lower your ' + Descriptors.buttDescript() + ' to just above ground level.  You grunt suddenly, your pregnant asshole dilating wide as a heavy weight seems to settle atop it, just inside you.  Clenching and tingling, your pucker slowly opens, releasing a torrent of green goop, along with a spherical white egg.  It drops into the messy puddle, cushioned from the fall by the heavy slime still leaking from your slightly agape anus.\n\n', false );
 		MainView.outputText( 'The feeling of giving birth in such a way is oddly soothing, almost pleasant.  Your muscles move on their own, slowly and repeatedly clenching, relaxing, and forcing the eggs downward.  The next orb slips through your ring more easily than the first, shooting tingles of pleasure out from your pucker and making you gasp in surprise.  Hot on its heels, another egg follows, catching at your anal ring for a moment before your next contraction squeezes it out into the growing pile of goop.  It feels even better, good enough to make you cross your eyes and exhale contentedly.', false );
 		//(buttstretch);
@@ -853,7 +853,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 
 	CorruptedDriderScene.prototype.driderPregVagBirth = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '\nYou shudder violently, your stomach growling fiercely at you.  It feels as if something is moving around in your womb, and you bend over on all fours, raising your ass into the air as if it is the most natural thing in the world.  A slimy green fluid starts leaking out of your cunt, making a small puddle on the ground.  The sensation is extremely pleasurable as you feel it running down your thighs.  Groaning, you start to push out a small, smooth green ball, and the action makes your pussy so much wetter.  Groaning, you push out another, and another, each ball rubbing against your inner walls before dropping into the slimy pool of goo.  After the sixth, you orgasm, spraying your cum all over the ground underneath you, each egg squeezing out and prolonging the intense feeling.', false );
 		CoC.player.cuntChange( 40, true, true, false );
 		MainView.outputText( '\n\n', false );
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	//Win Drider Male Anal (OH BABY);
 	CorruptedDriderScene.prototype.buttFuckADriderOhBaby = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'As soon as the drider-girl goes down, you leap into action.  Before she has a chance to recover, you run over and leap onto her back, balancing shakily as the drider stumbles back up onto her many legs, trying to shake you off.  You grab onto the drider\'s hair for support, pulling tight each time you\'re nearly displaced.  Yelping in agony, she soon learns her lesson and settles down, submitting to your dominance.\n\n', false );
 		MainView.outputText( 'Now that she\'s calmed down, you give her a hard shove, putting her on her drider-belly so you\'re not nearly thrown off her every other moment.  With that done, you put your hands on her human back, pushing her forward and exposing her human-like bubble-butt, seated just above where woman meets spider. Greedily, you pull her cheeks apart, revealing the tiny star of her puckered asshole.  You pull your ' + Descriptors.cockDescript( x ) + ' out of your ' + CoC.player.armorName + ', already hardening from the thought of you pounding her tight little backdoor.\n\n', false );
@@ -935,7 +935,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 
 	CorruptedDriderScene.prototype.driderVagSmartFuck = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.clearOutput();
 		//Drider Non-reverse Rape;
 		//Requires a cock that fits and either a spider/drider abdomen or a bundle of tough spider silk;
@@ -971,14 +971,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 	};
 	//[No] ;
 	CorruptedDriderScene.prototype.dontSilkRapeDrider = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		MainView.clearOutput();
 		MainView.outputText( 'Deciding against wasting the valuable material for little more than a quick fuck, you ponder your other options for using the defeated girl.' );
 		//(Return to 'win' menu);
 		EngineCore.doNext( this, this.defeatDriderIntro );
 	};
 	CorruptedDriderScene.prototype.driderTiedUpPartTwo = function( useItem ) {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -1017,7 +1017,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		EngineCore.doNext( this, this.driderTiedUpPartThree );
 	};
 	CorruptedDriderScene.prototype.driderTiedUpPartThree = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -1049,7 +1049,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		EngineCore.doNext( this, this.driderTiedUpPartFour );
 	};
 	CorruptedDriderScene.prototype.driderTiedUpPartFour = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();

@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 		Combat.combatRoundOver();
 	};
 	ChameleonGirl.prototype.performCombatAction = function() {
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		var select = Utils.rand( 3 );
 		if( select === 0 ) {
 			this.rollKickClawWhatTheFuckComboIsThisShit();

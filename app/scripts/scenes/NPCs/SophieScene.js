@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	SophieScene.prototype.PCIgnoresSophieAndHarpyIsFought = function() {
 		MainView.outputText( 'A harpy wings out of the sky and attacks!', true );
 		Combat.startCombat( new Harpy() );
-		EngineCore.spriteSelect( 26 );
+		MainView.spriteSelect( 26 );
 	};
 
 	//[Looking for Demons];

@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	//Greeting;
 	MaleSpiderMorphScene.prototype.greetMaleSpiderMorph = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.outputText( 'A spider-morph drops out of a tree in front of you, hanging by a single thread of sparkling webbing.  His purple eyes gaze deeply into your own while he looks you up and down.  ', false );
 		//DANGER MODE: ;
 		if( Utils.rand( 2 ) === 0 ) {
@@ -24,13 +24,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	};
 	MaleSpiderMorphScene.prototype.fightSpiderBoy = function() {
 		Combat.startCombat( new MaleSpiderMorph() );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.playerMenu();
 	};
 	//Talk;
 	MaleSpiderMorphScene.prototype.talkToSpiderBoy = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.outputText( 'The male spider-morph grins even wider, displaying the partially retracted tips of his two fangs.  You smile back nervously while he rotates about and drops lightly onto his feet, gleefully approaching you in spite of his nudity.  Sensing your discomfort, he stops a few yards away and pulls some food from a pouch on his hip, offering you some dried meats and fruits.  You take one of the more harmless looking ones and sit down with him.  He starts talking first, telling of how his people were a young race of transformed off-worlders.  The demons put a quick end to that, and recruited a large amount of the more aggressive driders and arachnes from his tribe.  He quickly explains that arachne are like him, but with chitinous exoskeletons covering their whole body, except for the face.  Driders on the other hand, have the body of a human from the hips up but a giant spider body below.\n\n', false );
 		MainView.outputText( 'You talk of your own people, and the good times you had in Ingnam growing up, but you keep coming back to the sadness of losing so many young adults to becoming champions.  Eventually you go over your own selection, training, and eventual journey.  The spider-morph listens with rapt attention the whole way through.\n\n', false );
 		MainView.outputText( '"<i>Wow,</i>" comments the arachnid male, "<i>that\'s quite the story.  Thank you so much for talking to me today.  Here, take this.  If you ever want to have your own venom or webbing, eat as much of it as you can.  Who knows, maybe it\'ll help you take down the demons somehow?</i>"\n\n', false );
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	//*Victory Pretext:rr;
 	MaleSpiderMorphScene.prototype.defeatSpiderBoy = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		var mount = null;
 		var buttfuck = null;
 		var frot = null;
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 			choices.push(1);
 		}
 		if( CoC.player.gender === 0 ) {
-			EngineCore.spriteSelect( 74 );
+			MainView.spriteSelect( 74 );
 			MainView.outputText( 'The raven-haired spider-guy tears off your ' + CoC.player.armorName + ', and disgusted by what he finds, he kicks you in the head, knocking you out.', true );
 			CoC.player.HP = 1;
 			Combat.cleanupAfterCombat();
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	MaleSpiderMorphScene.prototype.victoryButtFuck = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		//*Summary:  Reaming some anus.;
 		MainView.outputText( 'You approach and turn the spider-boy around, pushing the spider\'s bulbous abdomen aside to give yourself a better view of the his tight, heart-shaped ass.  ', false );
 		if( CoC.monster.lust > 99 ) {
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	//*Victory Frotting? (too biggo);
 	MaleSpiderMorphScene.prototype.victoryFrotTheSpoidah = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.outputText( 'You push the ', false );
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( 'masturbating', false );
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	MaleSpiderMorphScene.prototype.victoryCowgirlRidingOnSpiderBoi = function() {
 		//*Summary: Throw him on his back and mount up on that throbbing, ebon piece of uncut spidercock as he looks to you meekly, panting, needing something to tend to his foreskinned dick so badly...;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.outputText( 'You hastily remove your ' + CoC.player.armorName + ' to bare yourself in preparation for the coming pleasure.  Throughout it all, the spider-boy doesn\'t react.  He\'s too busy ', false );
 		if( CoC.monster.HP < 1 ) {
 			MainView.outputText( 'trying to stay upright', false );
@@ -280,7 +280,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	//*Summary: Male only scene for maximum prostate pounding - possible random choice between two positions, plain doggy style or the 'lucky' one, where he will curl you over yourself and fuck you so you can watch his foreskinned spiderboy cock slam your asshole -while- you drip all over your face.;
 	MaleSpiderMorphScene.prototype.spiderBoyLossMaleButtfuck = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.outputText( 'You collapse', false );
 		if( CoC.player.HP < 1 ) {
 			MainView.outputText( ' in a semi-conscious heap, unable to stand, barely able to flop onto your back and look up ', false );
@@ -384,7 +384,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	//*Summary: Vagoozles only!;
 	MaleSpiderMorphScene.prototype.loseToSpiderBoyVagFucked = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		MainView.outputText( 'As your ', false );
 		if( CoC.player.HP < 1 ) {
 			MainView.outputText( 'wounds overwhelm', false );
@@ -473,7 +473,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 	};
 	MaleSpiderMorphScene.prototype.spiderPregVagBirth = function() {
 		MainView.outputText( '\n', false );
-		EngineCore.spriteSelect( 74 );
+		MainView.spriteSelect( 74 );
 		if( CoC.player.vaginas.length === 0 ) {
 			MainView.outputText( 'You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  You look down and behold a vagina.  ', false );
 			CoC.player.createVagina();

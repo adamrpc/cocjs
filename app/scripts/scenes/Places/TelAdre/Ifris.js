@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, AppearanceDe
 	};
 	//2-Approach and Greeting-;
 	Ifris.prototype.approachIfris = function() {
-		EngineCore.spriteSelect( 28 );
+		MainView.spriteSelect( 28 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.MET_IFRIS ] === 0 ) {
 			CoC.flags[ kFLAGS.MET_IFRIS ] = 1;
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, AppearanceDe
 	};
 	//3a-PC responds they want to work out-;
 	Ifris.prototype.workOutForIfris = function() {
-		EngineCore.spriteSelect( 28 );
+		MainView.spriteSelect( 28 );
 		MainView.outputText( '', true );
 		if( CoC.player.fatigue > 70 ) {
 			MainView.outputText( 'There\'s no way you could work out as tired as you are.  Maybe you could come back to flirt with the demonic-looking girl during your next workout.', false );
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, AppearanceDe
 	};
 	//3b-PC asks if she'd like to join them-;
 	Ifris.prototype.askIfrisToJoinYou = function() {
-		EngineCore.spriteSelect( 28 );
+		MainView.spriteSelect( 28 );
 		MainView.outputText( '', true );
 		if( CoC.player.fatigue > 70 ) {
 			MainView.outputText( 'There\'s no way you could work out as tired as you are.  Maybe you could come back to flirt with the demonic-looking girl during your next workout.', false );
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, AppearanceDe
 	};
 	//4a-PC does a modest work out-;
 	Ifris.prototype.liftWhileIfrisWatches = function() {
-		EngineCore.spriteSelect( 28 );
+		MainView.spriteSelect( 28 );
 		CoC.flags[ kFLAGS.IFRIS_SHOWED_OFF ]++;
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, AppearanceDe
 	};
 	//4b-PC decides to show off, possible strength requirement?-;
 	Ifris.prototype.showOffForIfris = function() {
-		EngineCore.spriteSelect( 28 );
+		MainView.spriteSelect( 28 );
 		CoC.flags[ kFLAGS.IFRIS_SHOWED_OFF ]++;
 		EngineCore.fatigue( 30 );
 		MainView.outputText( '', true );

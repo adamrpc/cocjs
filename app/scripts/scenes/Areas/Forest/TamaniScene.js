@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[Encounter Tamani – female]
 	TamaniScene.prototype.tamaniFemaleEncounter = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'A goblin leaps out from behind a rock outcropping.  She keeps her arms folded across her ' + this.tamaniChest() + ' and glares at you.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little \'do.  The greenish-gray skin of her breasts bulges out around her arms, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn\'t any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.\n\n', false );
 		MainView.outputText( 'She says, "<i>There\'s only so much cock around, and I got dibs on ALL of it, O.K. skank?</i>"\n\n', false );
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//(Umm OK?)
 	TamaniScene.prototype.tamaniFemaleYes = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>That\'s what I thought,</i>" says the goblin as she fishes around in her pouches, "<i>but I\'m not cruel, I\'ll give you my best dildo so you can keep your hot little box stuffed all the time.</i>"\n\n', false );
 		MainView.outputText( 'She pulls out a long pink dick and tosses it to you.  You catch it and it flops around, nearly slapping you in the cheek.  ', false );
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[No]
 	TamaniScene.prototype.tamaniFemaleNo = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The goblin harrumphs, "<i>We\'ll see about that slut.  I\'ll be knocked up from every monster and stud this side of the mountain.  Hell, just grow one dick, and see how fast Tamani\'s legs get wrapped around you!</i>"\n\n', false );
 		MainView.outputText( 'She flounces off, clearly planning on fucking everything capable of producing sperm on her way home.  ', false );
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	//[Encounter Tamani – HAZ COCK]
 	//[First Time]
 	TamaniScene.prototype.tamaniMaleFirstEncounter = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		CoC.flags[ kFLAGS.TAMANI_MET ] = 1; //Indicates you've met her as a male at least once
 		MainView.outputText( '', true );
 		MainView.outputText( 'A goblin leaps out from behind a rock outcropping.  For something so small, she has a lot of curves.  She advances towards you, rolling her hips in a suggestive way, immediately diverting your blood-flow to your crotch.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little \'do.  The greenish-gray skin of her breasts jiggles pleasantly with every step, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn\'t any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.\n\n', false );
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[Fuck Her – Consentual First Time]
 	TamaniScene.prototype.tamaniFirstTimeConsentual = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		this.tamaniKnockUp();
 		MainView.outputText( '', true );
 		MainView.outputText( 'You almost can\'t believe your good fortune.  Finally you meet a creature willing to talk instead of just launching into violent rape.   Her direct advances were so crude and overtly sexual that you felt yourself stiffening before she could even finish her offer.   Your decision was made by the tent in your ' + CoC.player.armorName + '.  You\'ll give Tamani exactly what you both want.\n\n', false );
@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[Refuse – First Time Meeting]
 	TamaniScene.prototype.tamaniFirstTimeRefusal = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Tamani\'s eyes widen in surprise, "<i>Don\'t let the size fool you, big ' + CoC.player.boyGirl() + '. I can take more than you think,</i>" she says while her hands begins playing with her box, "<i>Are you sure you don\'t want to just let off a little steam?</i>"\n\n', false );
 		//[Fuck Her (Goes to fuck her - consensual first time)]
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[No Means No]
 	TamaniScene.prototype.tamaniSecondRefusal = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The goblin pouts, anger clouding her cute little features.  She turns and storms off, clearly pissed at you, "<i>Think about it.  Next time that dick better ache for me, or I\'ll MAKE you want it.</i>"\n\n', false );
 		MainView.outputText( '...What?', false );
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[REPEAT MALE ENCOUNTER]
 	TamaniScene.prototype.tamaniMaleRepeatEncounter = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		//(IF FUCKED - check to see if she's pregnant or has given birth)
 		if( this.pregnancy.isPregnant || CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	//[Let Her (Or Combat Rape)]
 	//[let her]
 	TamaniScene.prototype.tamaniSexLetHer = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		this.tamaniKnockUp();
 		MainView.outputText( '', true );
 		//[lost combat]
@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[NORMAL COMBAT – LOSS TEXT]
 	TamaniScene.prototype.tamaniSexLost = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		this.tamaniKnockUp();
 		MainView.outputText( '', true );
 		MainView.outputText( 'Tamani gives you a knowing smile as you ', false );
@@ -581,7 +581,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	//[NORMAL COMBAT – VICTORY RAEEP]
 	//Shove her face in the mud and fuck her
 	TamaniScene.prototype.tamaniSexWon = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		this.tamaniKnockUp();
 		var x = CoC.player.cockThatFits( 90 );
 		if( x === -1 ) {
@@ -690,7 +690,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[REPEAT MALE PREGNANT ENCOUNTER]
 	TamaniScene.prototype.tamaniPregnantEncounter = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Tamani strolls out from behind a boulder, and wow is she ever pregnant.  It doesn\'t diminish the look of lust in her eyes when she meets your gaze, but her hands do keep rubbing the outside of her belly, only pausing to squeeze drops of milk from her nipples.  Her leather straps seem to fit her even better than before, accentuating her expanding curves and looking fantastic on her pregnant form.\n\n', false );
 		MainView.outputText( 'She parts her legs and rubs her lower lips while she begs you, "<i>Please fuck me!   I\'m so horny from the pregnancy and I can\'t wait to give you daughters so you can knock me up all over again!</i>"', false );
@@ -699,14 +699,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[Refuse]
 	TamaniScene.prototype.tamaniPregnantRefusal = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'She bursts into tears and waddles away crying.  You aren\'t sure if you should feel bad or not.', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[FUCK HER PREGGERS – Consentual]
 	TamaniScene.prototype.tamaniPregnantFuck = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Tamani\'s eyes light up and she pounces you, somehow managing to jump up and latch onto your chest despite the weight of her burgeoning pregnancy.  The two of you overbalance as her weight carries you to the ground, flat on your back.   Your ' + Descriptors.buttDescript() + ' hurts a little from the impact but it\'s the last thing on your mind.  More important are the milk-dribbling twin mounds pressing tightly against your ', false );
 		if( CoC.player.biggestTitSize() >= 2 ) {
@@ -757,7 +757,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	};
 	//[Birth Encounter]
 	TamaniScene.prototype.tamaniPoopsOutBabies = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You hear orgiastic screams in the distance as you explore.  You turn to investigate, and as you go, they become even louder and higher pitched.  You crest a rise and find Tamani ', false );
 		if( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] > 0 ) {
@@ -846,7 +846,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	//TAMANI HYPNO SHIT
 	//[GIVE IN TO TAMANI'S HYPNO SHENANIGANS]
 	TamaniScene.prototype.getRapedByTamaniYouHypnoSlut = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		MainView.outputText( '', true );
 		//Find a dick that fits
 		var primary = CoC.player.cockThatFits( 65 );
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 		}
 	};
 	TamaniScene.prototype.tamaniAnalShits = function() {
-		EngineCore.spriteSelect( 56 );
+		MainView.spriteSelect( 56 );
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You grab hold of the insensate goblin by her pink-dyed hair and shove her into the mud, irritated with her constant demands and rape attempts.  The horny slut doesn\'t even have the grace to be ashamed of her defeat.  She just lies in the mud, wiggling her exposed ass back and forth in the air, trying to tempt you with it.\n\n', false );

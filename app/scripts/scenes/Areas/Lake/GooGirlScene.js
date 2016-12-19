@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 	//[Lake]
 	GooGirlScene.prototype.encounterGooGirl = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 69 );
+		MainView.spriteSelect( 69 );
 		MainView.outputText( 'As you walk around the lake, you notice a pale red light pulsing in the ', false );
 		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
 			MainView.outputText( 'sapphire ', false );

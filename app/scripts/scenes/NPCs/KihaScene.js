@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	KihaScene.prototype.encounterKiha = function() {
 		var temp;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		if( SceneLib.kihaFollower.followerKiha() && CoC.flags[ kFLAGS.KIHA_NEEDS_TO_REACT_TO_HORSECOCKING ] === 1 ) {
 			SceneLib.kihaFollower.kihaReactsToHorseDicking();
 			return;
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//[Buy Passage] ;
 	KihaScene.prototype.offerToBuyPassageFromKiha = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You jingle your gem pouch and ask if you could pay her to allow you passage.  Kiha shoulders her axe and scratches at one of her horns, mulling the idea over.  She stops and abruptly shakes her head.  "<i>Not today.  Now scram, before I change my mind!</i>"\n\n', false );
 		//(Unlocks toll option next encounter);
 		CoC.flags[ kFLAGS.KIHA_TOLL ] = 1;
@@ -112,14 +112,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//[Leave] ;
 	KihaScene.prototype.leaveWhenMeetingAgressiveKiha = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You nod and step back, retreating back towards camp.  You\'ve no desire to fight such a fiery opponent.', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Fight];
 	KihaScene.prototype.meetKihaAndFight = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You step closer and proclaim that you go where you please.  Kiha snorts and says, "<i>Cute.  Sadly, misplaced confidence will only make this hurt that much more.</i>"', false );
 		//(START COMBAT);
 		Combat.startCombat( new Kiha() );
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//[Ask Why];
 	KihaScene.prototype.askWhy = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You ask why she\'s trying to drive you off.  Confusion breaks out across Kiha\'s brow for a moment before her visage hardens back into a confident sneer.  "<i>I don\'t need to explain myself to you.  I was strong enough to break out of Lethice\'s base, and I\'ve been strong enough to murder every lackey she\'s sent after me.</i>"\n\n', false );
 		MainView.outputText( 'Thinking you may have found a way to win into the powerful warrior\'s good graces, you start to explain that your whole purpose here is to defeat the demon queen.  She cuts you off by exhaling a whirling tornado of fire into the air.  The scorching inferno seems to suck the very breath from your lungs, robbing you of your words.  While the after-image still hangs in your vision, she declares, "<i>I don\'t give two licks about why you\'re here.  I\'m gonna beat your ass just for wasting my time!</i>"', false );
 		//(START COMBAT!);
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//[Pay];
 	KihaScene.prototype.payKihaTribute = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You sigh and pay her 200 gems.  She doesn\'t even mention that it was originally your idea, but still, you\'re getting what you want - the ability to explore her territory unhindered.  Of course, you have no idea how long this 200 gems will last.\n\n', false );
 		//(gems -= 200;);
 		CoC.player.gems -= 200;
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		if( clearScreen === undefined || clearScreen ) {
 			MainView.outputText( '', true );
 		}
-		//EngineCore.spriteSelect(72);;
+		//MainView.spriteSelect(72);;
 		CoC.flags[ kFLAGS.KIHA_TOLL_DURATION ]--;
 		var event = Utils.rand( 10 );
 		var itype;
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//[This was my idea!];
 	KihaScene.prototype.tellKihaTributeWasYourIdea = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You ask why she changed her mind about your idea.  Kiha\'s face screws up for a moment, her chocolate-hued visage distorting into an irritated grimace.  This may have been a mistake.  She screams, "<i>As if someone like you would have an idea worthy of being adopted by me!  I forgot about your insignificant offer as soon as I was away from you.  This tribute was devised solely with my own sizable wit and cunning!</i>"\n\n', false );
 		MainView.outputText( 'The dragon-girl yanks her axe from her back and twists her hands, making the edge glow orange in the murky swamp air.  "<i>You should\'ve kept your mouth shut, worm.  The offer is off the table now!  The only thing I\'ll trade you is pain!</i>"', false );
 		Combat.startCombat( new Kiha() );
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	KihaScene.prototype.kihaVictoryIntroduction = function() {
 		CoC.flags[ kFLAGS.PC_WIN_LAST_KIHA_FIGHT ] = 1;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'Kiha sways back and forth for a moment, then drops her axe with numb hands.  As soon as she does, the hot glow of the weapon\'s cutting edge fades to silver, and the weapon lands with a heavy \'thunk\' ', false );
 		if( EngineCore.silly() ) {
 			MainView.outputText( '(like Urta\'s cock!) ', false );
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//*Generic PC Loss Intro ;
 	KihaScene.prototype.kihaLossIntro = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		//(Lust);
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( 'You give up on fighting, too horny to keep fighting.  Kiha strikes the ground with her axe and snorts out a puff of smoke.  "<i>What a shameless slut!  You\'re lusting after me even in the heat of battle, like a common imp!  You aren\'t worthy to lick between my foot-claws!</i>"\n\n', false );
@@ -306,7 +306,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	KihaScene.prototype.kihaMilkTitHumiliation = function() {
 		//(Does not use the defeat intro - clear screen);
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( 'You slide to the ground, too turned on to fight and openly touching yourself.', false );
 		} else {
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	};
 	//Genderless - Lukadoc (Zed);
 	KihaScene.prototype.kihaGenderlessBeating = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( '"<i>What a pussy!</i>" she yells at you, noticing your lack of any gender upon denuding you.  "<i>What\'s the problem, runt? Too scared that evil imps and goblins will abuse you?</i>"  She hits the ground with her tail in frustration and grabs her axe. "<i>What a waste of time. You\'re useless both in battle and out of it.</i>"  She begins kicking you, eventually hitting you hard enough to knock you unconscious.', false );
 		CoC.player.takeDamage( 1000 );
 		Combat.cleanupAfterCombat();
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//*Male - Adj;
 	KihaScene.prototype.kihaRapesMen = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = 0;
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//*Herm - Adj;
 	KihaScene.prototype.kihaRapesHerms = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'The dragoness rolls her eyes and closes the distance between the two of you with a slow, deliberate pace.  She easily bats away your weakened defenses until she is standing inches from you, her tail whipping back and forth as a cold smile curls on her dusky lips.  "<i>Strip,</i>" she commands, her voice a quiet whisper.  When you fail to comply, a crimson thunderbolt cracks across your sight and your face explodes with pain.  Blinking, you stagger back a few steps, Kiha\'s backhand still raised.  Annoyance playing over her face, she holds you in a smoldering glare as she hisses, "<i>I don\'t repeat myself,</i>" from between clenched teeth.  Rather than antagonize the dragon girl further, you comply, shedding your ' + CoC.player.armorName + ' to bare your exposed body to her.  A flash of delight flickers across her mouth but is quickly quelled by her mask of disdain.  "<i>Weak, puny, and utterly incapable.  Tch, I suppose it can\'t be helped,</i>" she mutters, loudly enough for you to hear.  Advancing on you once again, she places a clawed hand on your ' + Descriptors.chestDesc() + ', almost tenderly.  Then, in a swift motion, she punches the heel of her palm against your sternum, abruptly knocking you to the ground.  Bending over your prone body, she lowers herself to straddle your ' + Descriptors.hipDescript() + ', her muscular, scaled legs squeezing your lower body in a clenching grip.\n\n', false );
 		MainView.outputText( 'You open your mouth and she leans in, her sloping mounds pressing hotly against your ' + Descriptors.chestDesc() + ' stopping just short of kissing you.  She curls her lips into a smile that twists into a sneer.  "<i>Don\'t say a fucking word.  I don\'t need you conscious for this.</i>"  Then, reaching behind her, Kiha grabs hold of her long, thick tail and pulls it between the two of you.  The tip of her plated appendage wriggles eagerly as she draws it to her charcoal grin, pressing a soft-lipped pucker to the narrow end and gently sucking it into her mouth.  Working it in and out of her face inches at a time, her cheeks go concave from the force of her suction, her chest rising and falling a little faster with each passing moment.  When, finally, she pulls the tail from her maw, the red and black scales shine with the polished gloss of her thick saliva.  The flush appendage turns a half-circle to face you and the dragon forcefully slides it between your lips.  The taste of her warm fluid sends little electric jolts through your muscles, spasming your jaw open, and locking it there for a moment.  You begin drooling and she carefully rolls the dexterous spur around your tongue, gathering your fluids and mixing them with her own.\n\n', false );
 		MainView.outputText( 'The heat of her closeness and probing tail begin to excite you, ' + Descriptors.multiCockDescriptLight() + ' slowly stiffening against your abdomen.  Noticing your arousal, the dragoness pulls her tail from your mouth and curls it back behind her again.  "<i>You\'d love to stuff my tight box with every inch you\'ve got, wouldn\'t you?</i>" she taunts, pressing her hands to the ground behind her. Leaning back, she derisively stares down the bridge of her nose and curls her upper lip to display her jagged fangs.  ', false );
@@ -433,7 +433,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//Mutual Masturbation - A Tsundere Masturbation Christmas Carol, by Gats Dickings;
 	KihaScene.prototype.tsundereMasturbationChristmasCarol = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You walk towards the draconic woman, removing your ' + CoC.player.armorName + ' as you observe her firm, ', false );
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( 'wanton', false );
@@ -501,7 +501,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//*Victory Tail-dildo, for girls - Fencrafted for maximum pomf (Zed);
 	KihaScene.prototype.kihaVictoryPomfTail = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You approach the ', false );
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( 'lusty ', false );
@@ -563,7 +563,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	};
 	//*Victory Dicking - Fencrafted;
 	KihaScene.prototype.victoryDickKiha = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		var y = CoC.player.cockThatFits2( CoC.monster.vaginalCapacity() );
 		MainView.outputText( '', true );
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	};
 	KihaScene.prototype.kihaRapesLittleGirlsISawItOnTheNews = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( '"<i>Well, well... what a cute vagina you have here!</i>" she exclaims mockingly, pushing her palm against your moist sex.  With a wicked smile, the dragon girl forcibly shoves a pair of fingers inside you, their long, hard tips parting your sensitive flesh mercilessly.  You yelp in both pain and pleasure at her forced entrance, squirming uncomfortably on her hand.  "<i>Haha!  You\'re enjoying this?  Don\'t fret slut, we\'re just getting started.</i>"  Pulling back ever so slightly, Kiha slides another finger in, stretching your pussy with the thickness of her digits, furiously working them in and out of your snatch, relishing the gasping blush that spreads across your face.\n\n', false );
 		MainView.outputText( 'You moan, weakly begging her to stop, or at least to slow down and be gentler.  The pleasure of her relentless stimulus sets your cunny drooling, while the pain of the dragon\'s brutal indifference forces saliva to bubble in your mouth as you hold your tongue, trying not to give her the satisfacton of watching you scream. She stretches your netherlips and brutally thrusts into your depths, watching your face intently, relishing your weakness. When, at last, you cry out in orgasmic throes, she purses her lips in satisfaction, the faintest trace of an affectionate flush creeping across her dusky cheeks.\n\n', false );
 		MainView.outputText( 'Despite the pleasure of your crumbling restraint, the pleading shudders of your cumming body makes her even more aggressive than before.  "<i>Yes!  Beg for mercy!  You don\'t deserve a minute of my time! How could someone like me ever be interested in a pig like you?</i>"  To punctuate the game she\'s playing with your honeypot, Kiha pinches your ' + Descriptors.clitDescript() + ' between her fingers, the narrow nails of her claws squeezing your sensitive nub so tightly your jaw drops in a soundless scream of bliss.\n\n', false );
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	//Conversation Only - Emotional Rape! (40- Corruption! PUREBABIES ONLY) (Zed);
 	KihaScene.prototype.rapeKihaWithWORDS = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		if( CoC.flags[ kFLAGS.KIHA_TALK_STAGE ] === 0 ) {
 			MainView.outputText( 'Kneeling down, you meet the defeated dragoness\' gaze and ask her why she\'s so violent and territorial.  Kiha looks up at you in confusion and asks, "<i>Wait... you defeated me, and you want to... talk?</i>"\n\n', false );
 			MainView.outputText( 'You nod your head and ask her again why she\'s so dead-set on defeating anyone that comes near her.  Kiha scratches at her elbow nervously and answers, "<i>I don\'t know.  I just DO.  I-I\'m so powerful - I have to defeat everyone.  It\'s the only way I can become the strongest.  I can\'t rely on weaklings or expect mercies like this.  The demons gave me none and I intend to return the favor.  You shouldn\'t even be talking to me.  You should rape me or kill me, anything to weaken me and cement yourself as the top predator.</i>"\n\n', false );
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 	KihaScene.prototype.analRapuzulaKiha = function() {
 		//Requires at least one penis with area <= 20;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		//Kiha PC victory anal scene - by Space.;
 		//Requires at least one penis with area <= 20;
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );

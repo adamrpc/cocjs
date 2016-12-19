@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, MainView, $l
 	angular.extend(SharkGirl.prototype, Monster.prototype);
 	//Lust-based attacks:;
 	SharkGirl.prototype.sharkTease = function() {
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		if( Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'You charge at the shark girl, prepared to strike again, but stop dead in your tracks when she bends over and wiggles her toned ass towards you. It distracts you long enough for her tail to swing out and smack you to the ground. She coos, "<i>Aw... You really do like me!</i>"', false );
 			//(Small health damage, medium lust build).;

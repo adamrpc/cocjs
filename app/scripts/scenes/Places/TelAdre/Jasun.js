@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Engine
 	//AT CHANGING ROOM (SELECTING TO SEE THE SHARK OR LOOK AROUND IF FIRST TIME);
 	Jasun.prototype.meetJasun = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 33 );
+		MainView.spriteSelect( 33 );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00179 ] === 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00179 ]++;
 			MainView.outputText( 'As your eyes survey the room, you see a very thick figure step out from one of the changing stalls.  He is at least six feet tall from your guesstimate and has a massive barreled chest, the kind that could no doubt bench press anything the creature\'s own weight.  His shoulder span must be at least ', false );
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Engine
 	};
 	Jasun.prototype.meetJasun2 = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 33 );
+		MainView.spriteSelect( 33 );
 		MainView.outputText( 'You and he walk together for what can\'t be a very long time. He winds around the back side of the gym, avoiding the weightlifting room and going past the track altogether. You didn\'t even know that there were areas of the gym beyond what you had previously seen. He easily pushes aside a very thick door with one arm ', false );
 		if( CoC.player.str < 50 ) {
 			MainView.outputText( 'that you\'re pretty sure you couldn\'t have moved on your own at all ', false );
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Engine
 	//IF YOU TURN AWAY;
 	Jasun.prototype.turnAwayFromAdj = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 33 );
+		MainView.spriteSelect( 33 );
 		MainView.outputText( '"<i>I understand,</i>" he says dejectedly. He steps up and walks back toward the door. He perks up at the last minute, not letting his being rejected hurt his pride in the least, and says, "<i>If you ever would like to swim, you know where to find me. Farewell.</i>" He stands at the door and waits for you to leave before leaping into the water alone, as he has done no doubt many times in the past.\n\n', false );
 		//(Back to gym entrance);
 		MainView.outputText( 'You book it out of there.  What a waste.', false );
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Engine
 	//IF YOU ACCEPT;
 	Jasun.prototype.acceptJasunsAdvances = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 33 );
+		MainView.spriteSelect( 33 );
 		MainView.outputText( 'He smiles wider as you put your hand into his. He leaps into the pool with a finesse unrivaled and lets go of you just as you\'re over the edge and dive in yourself. You giggle and throw about your hair in the water, gleeful at being able to swim somewhere without fear of being attacked by assorted demons, slimes, or what-have-you. You swim swiftly through the water and manage to catch up to him as he rounds the second corner of his first lap. He\'s completely shocked at your adroitness in the water, and smiles a wicked and toothed grin as he speeds up, no longer content to hold back. You struggle to keep up, but find that he is simply designed for this kind of thing. Seeing that you are trying so hard, he lets up again, content with the challenge you\'ve provided as you round out your first lap. He isn\'t even panting when he holds up and turns toward you. You\'re so focused on your swimming that you ram right into his chest, bonking your head and causing you to scowl a little and contort in the water to come up. As you come up, rubbing your head, you find that you are intimately close to Jasun and immediately blush.\n\n', false );
 		MainView.outputText( 'From this distance, you see countless pockmarked scars on his torso, no doubt from his life before this one. You can\'t help yourself as you reach out to touch each one, caressing the spot gently to let him know that you understand the pain that this land can inflict on an individual. You look up into his piercing, red eyes inquisitively, and he understands instantly. He gently grasps the hand of yours that is petting his chest and speaks, "<i>The women of my people use us males for their whims. They are merciless and cruel in their methods.</i>" You know what he isn\'t telling you is that they\'re used for breeding purposes and instinctively turn your back to him, silently apologetic that you\'ve been so distracted by his masculinity up to now. He pulls at your shoulders and tugs you back around to face him, clearly unperturbed by your presence. "<i>You\'re different. You\'re not like them. You understand.</i>" He uses one of his clawed fingers and somehow manages a gentle touch to the bottom of your chin, bringing your eyes to meet with his. You can tell that he is being sincere, and find yourself drawn into his visage. The two of you pull together, and his hand moves up to pull your head closer, and you kiss longingly, like the two of you have never kissed before. The kiss lasts for minutes, and at the end of it, you both pull away, flushed by the other\'s presence and closeness. Just then, while staring into his eyes, you feel a poke at your stomach and instinctively look down, shocked to find beneath the water\'s surface that Jasun\'s penis has grown to nearly two feet long and has erupted from his skimpy attire. It is a work of art, you think to yourself, noting how it is long and slender and just barely tipped at the end. It is as smoothly-flowing as his body is in water. He makes no attempt to conceal his desire to have you, and you find that you have no desire to resist him either.\n\n', false );
 		//(This is here because it'd be really cool if this wins to expand it and have anal and/or blowjob scenes);
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Engine
 	};
 	Jasun.prototype.jasunSecks = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 33 );
+		MainView.spriteSelect( 33 );
 		//Increment 'times had sex';
 		CoC.player.slimeFeed();
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00180 ] === 0 ) {

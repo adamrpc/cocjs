@@ -3,7 +3,7 @@
 angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, PregnancyStore, kFLAGS, Combat ) {
 	function Oasis() { }
 	Oasis.prototype.oasisEncounter = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		//Find oasis, sit there.
 		MainView.outputText( 'You wander in the desert for what seems like hours, sweating profusely in the sweltering heat. Eventually you come across a small watering hole surrounded by scrappy trees and shrubs. It would be foolish not to take this opportunity to drink, freshen up and paddle your ' + CoC.player.legs() + ' in the cooling water, so you settle into what little shade you can find for a quick break.\n\n', true );
 		//Demons approach!
@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.choices( 'Talk', this, this.oasisTalk, 'Fight', this, this.chooseToFight, '', null, null, '', null, null, 'Leave', this, this.oasisRunAway );
 	};
 	Oasis.prototype.chooseToFight = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		//Run away successfully if fast enough.  80 speed = autosuccess.
 		if( CoC.player.spe > 15 && CoC.player.spe / 2 > Utils.rand( 40 ) ) {
 			MainView.outputText( 'You bolt out from under your bush and scramble away over the sand. Before long the swishing sounds of pursuit fade away and looking back you see the few demons with the gusto to follow you tramping back to the oasis.', true );
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 	};
 	Oasis.prototype.oasisTalk = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		//Nice weather...
 		MainView.outputText( 'You rise cautiously from the shade of your scraggly little bush and look over the demons arrayed before you. Briefly you wonder how exactly conversations start in a desert oasis, before settling on \'nice weather we\'re having.\' The reaction is mixed. Some laugh, some stare in utter confusion. The ludicrously endowed leader in the snakeskin cloak throws his head back and produces a deep, thundering laugh. When he regains his composure he brings his head back around to level a deadly smile full of sharp teeth in your direction. \'Yes,\' he says \'...nice.\'\n\n', true );
 		//Offer...
@@ -36,7 +36,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.choices( 'Stay', this, this.oasisTalkAccept, '', null, null, '', null, null, '', null, null, 'Leave', this, this.oasisTalkDecline );
 	};
 	Oasis.prototype.oasisTalkDecline = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		MainView.outputText( 'You consider the invitation, but do your best to politely decline. The little giggle this produces in a small implike creature in the back of the group send chills down your spine and you turn to go, but as you do so you catch the eye of the leader. His grin has widened, as if he knows something that you do not. With a deliberate slowness he starts to chuckle, and your worst fears are confirmed when you hear the words \'Silly creature. The offer to feast is never denied. Take it alive and kicking.\'\n\n', true );
 		//MORTAL KOMBAAAAAT
 		MainView.outputText( 'The demons begin to circle menacingly, and you can do nothing but prepare to defend yourself.', false );
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Oasis.prototype.oasisTalkAccept = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		//You slut!
 		MainView.outputText( 'The leader smiles in genuine delight and excited chatter rises up from the group of demons. \'This is excellent. It has been so long since we last had one of your kind join us.\' Behind him the demons begin to slide free of their tattered rags, hardening, dampening and licking their lips. As the leader steps forward to caress the curves and angles of your body you begin to suspect that the hunger this feast is to satisfy is not for food, but all that is forgotten as the demons swarm silently around you and you stumble back onto the hot sand, ', true );
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.doNext( this, this.oasisSexing );
 	};
 	Oasis.prototype.oasisSexing = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		CoC.player.slimeFeed();
 		//New screen
 		MainView.outputText( '', true );
@@ -200,7 +200,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//Desert Tribe Bad End
 	Oasis.prototype.oasisBadEnd = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		//You get this ending if you are a fully corrupt female/herm/centaur with low intelligence and had over 5-10 'Feast' encounters with the Desert Tribe, once the leader starts laying a claim on you because of your large clit
 		MainView.outputText( 'You fuck for hours, \'feasting\' with the demons. Pain, pleasure and exhaustion intermingle; no matter how hard you try to cling to consciousness, you are in no state to concentrate enough to succeed. You dangle over the edge for what seems like eternity before an orgasm stronger than any other hits you like a solid wall. You black out...\n\n', true );
 		//[If female/herm]
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.doNext( this, this.oasisBadEndEpilogue );
 	};
 	Oasis.prototype.oasisBadEndEpilogue = function() {
-		EngineCore.spriteSelect( 46 );
+		MainView.spriteSelect( 46 );
 		MainView.outputText( 'After one year', true );
 		if( CoC.player.gender <= 1 ) {
 			MainView.outputText( ' and a few doses of fermented succubi milk', false );

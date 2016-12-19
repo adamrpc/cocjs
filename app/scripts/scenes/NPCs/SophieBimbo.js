@@ -35,9 +35,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 	 */
 	SophieBimbo.prototype.sophieSprite = function() {
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] === 0 ) {
-			EngineCore.spriteSelect( 83 );
+			MainView.spriteSelect( 83 );
 		} else {
-			EngineCore.spriteSelect( 53 );
+			MainView.spriteSelect( 53 );
 		}
 	};
 	SophieBimbo.prototype.bimboSophie = function() {

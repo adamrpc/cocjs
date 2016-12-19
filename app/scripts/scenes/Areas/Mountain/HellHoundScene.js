@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	HellHoundScene.prototype.hellhoundEncounter = function() {
 		MainView.outputText( 'You hear a fiery howl as a demonic, two-headed beast-man leaps out in front of you!', true );
 		Combat.startCombat( new HellHound() );
-		EngineCore.spriteSelect( 27 );
+		MainView.spriteSelect( 27 );
 	};
 
 	HellHoundScene.prototype.hellhoundRapesPlayer = function() {

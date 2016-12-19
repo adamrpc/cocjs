@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Pre
 	};
 	Lilium.prototype.approachLilium = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 93 );
+		MainView.spriteSelect( 93 );
 		var pay = null;
 		//#########FIRST TIME INTRODUCTION#########;
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00267 ] === 0 ) {
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Pre
 
 	Lilium.prototype.payForLilium = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 93 );
+		MainView.spriteSelect( 93 );
 		//#########GENDERLESS SCENE######### REQUIRES unsexed (hah);
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( 'You follow Lilium to a secluded spot. With a grin on her face she squats before you and helps you remove your ' + CoC.player.armorName + '.  The grin is quickly replaced by a look of surprise and confusion as she looks at your flat, featureless crotch.\n\n', false );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Pre
 	//- Leave:;
 	Lilium.prototype.leaveLilium = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 93 );
+		MainView.spriteSelect( 93 );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00267 ] === 0 ) {
 			MainView.outputText( '"<i>I\'m deathly allergic to fun, unfortunately,</i>" you reply before moving on to examine more of the bazaar.', false );
 		} else {
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Pre
 	//#########BUTTFUCK + TONGUEJOB SCENE######### REQUIRES PENIS AND LONG DEMONIC TONGUE;
 	Lilium.prototype.buttFuckTongueJeorb = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 93 );
+		MainView.spriteSelect( 93 );
 		var x = CoC.player.cockThatFits( 40 );
 		if( x < 0 ) {
 			x = 0;
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Pre
 	//#########DICK RIDE SCENE######### REQUIRES VAGINA;
 	Lilium.prototype.liliumDickRidah = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 93 );
+		MainView.spriteSelect( 93 );
 		MainView.outputText( 'Lilium takes you to a secluded spot away from the Bazaar.  She removes her corset and skirt and slips the lacy cock sock off her cock and you eagerly remove your own ' + CoC.player.armorName + '.\n\n', false );
 		MainView.outputText( 'You gently push Lilium down onto her back and straddle her waist.  As she looks up at you with a demure expression you move your hands to her pert breasts and begin a slow circular massage of her chest.  With each pass you ever so slightly lighten your grip and move your fingers closer to her nipples until finally you are lightly trailing your index fingers around their rosy tips.  You can see Lilium\'s eyes close as she enjoys your touch on her body.  Gently you slip just the very tip of one finger into each of her fuckable nips and the woman beneath you arches her back, seeking to force your fingers into her heaving breasts further.  With a grin you tear your fingers away from her breasts and Lilium\'s eyes snap open and a look of disappointment crosses her face.  Quickly you lean down and plant a kiss on her dark, pouting lips, letting your tongue slip between them just the slightest bit to taste her.\n\n', false );
 		MainView.outputText( 'Slowly you begin moving down Lilium\'s body.  You leave a trail of kisses down her neck before running your tongue along her collar bone.  Further down you go, letting your lips gently slide down the center of the demon herm\'s chest until you reach her navel.  ', false );
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, AppearanceDefs, Pre
 		}
 
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 93 );
+		MainView.spriteSelect( 93 );
 		MainView.outputText( 'Lilium takes you to a secluded spot in the Bazaar for you to be able to enjoy each other\'s company. She kneels down before you and you strip out of your ' + CoC.player.armorName + ', baring your naked body before her.\n\n', false );
 		MainView.outputText( 'Lilium begins to gently rub her palms against the side of your flacid cock.  As it begins to harden in her hands she leans in close, letting it grow stiff against her soft cheek.  You feel her wet tongue against the base of your ' + Descriptors.cockDescript( x ) + ' before it begins sliding along the underside of your cock as Lilium licks the length of your maleness right to the tip.  ', false );
 		//(If cock is pierced);

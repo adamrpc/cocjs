@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 	 As Fenoxo has made his game code open source, this license DOES NOT transfer to a third party developer. The events created by Dxasmodeus may not be used in whole or in part without permission and license from Dxasmodeus. Dxasmodeus reserves the sole and exclusive right to grant third party licenses of copyrighted scenarios.
 	 For further information and license requests, Dxasmodeus may be contacted through private message at the Futanari Palace. http://www.futanaripalace.com/forum.php. */
 	Worms.prototype.wormEncounter = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
 		if( CoC.player.findStatusAffect( StatusAffects.MetWorms ) < 0 ) { //First encounter
 			MainView.outputText( 'As you are exploring, a rather pungent, peaty smell assails your nostrils. You hear a strange rustling and an off-kilter squishing noise in the distance. As you explore the area you come upon a most grotesque sight. Before you is a cohesive mass of writhing, wriggling worms! While normally solitary creatures, these appear to have coalesced into a monstrous living colony!\n\n' );
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		}
 	};
 	Worms.prototype.wormToggle = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
 		MainView.outputText( 'While wandering, you come across a crudely illustrated sign.  It depicts an imp in obvious discomfort, covered in white little worms.  It looks as if one of them is even crawling into the imp\'s penis!\n\nHow do you feel about that?' );
 		EngineCore.choices( 'Aroused', this, this.wormsOn, 'Grossed Out', this, this.wormsOff, 'Who Cares?', this, this.wormsPartiallyOn, '', null, null, '', null, null );
@@ -65,13 +65,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Worms.prototype.wormsConfront = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
 		MainView.outputText( 'You turn to confront the worms and combat begins!' );
 		Combat.startCombat( new WormMass() );
 	};
 	Worms.prototype.wormsDoNothing = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
 		MainView.outputText( 'You do nothing, allowing the worms to enter combat range!' );
 		Combat.startCombat( new WormMass() );
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		}
 	};
 	Worms.prototype.infest1 = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		MainView.outputText( 'Trapped within the mass of worms, you are utterly helpless. The constant moving all over your body provides naught but unwanted stimulation. Your cock, not knowing any better, springs to attention, creating a peak in the mass. The worms immediately recognize what has happened to you. One particularly fat worm finds itself perched on top of your dick\'s throbbing glans. You feel it prodding about your urethral opening and come to a horrible realization that your precious penis is completely vulnerable to thousands of creatures capable of invading your body!!! Before you can react or curse your fate, the fat worm quickly forces open your urethra and begins to push its way inside your dick!\n\n', false );
 		MainView.outputText( 'Crying out in shock, you feel the fat worm push its way, inch by inch, into your urethra. Your nerves light up like a Christmas tree as each individual cell tells you of the creature\'s presence and movement deeper into your body. The fat beast easily finds its way into your prostate and settles within the organ. As it settles, it begins flailing inside your sex. The sensations shift from shock to grotesque pleasure as your body only senses the stimulation conductive to orgasmic response. Your groin cramps and bloats quickly by the torrent of semen building within you and the invader\'s presence. Obviously sensitive to your fluids, you feel the worm thrash around some more, causing your body to respond by making more semen. The flopping creature quickly erodes any orgasmic discipline you are capable of and with a great shrill cry, you force lances of cum into the air, launching goo and worms alike in a sick display of forced pleasure. After you empty your body of spunk, the remaining worms become hyperaggressive.\n\n', false );
 		MainView.outputText( 'Excited by the feel of your fluids on them, many smaller worms push their way into your penis. Your cock distends as the worms fight to get inside you and to the source of the milk that has so excited them. Your prostate quickly fills up with the squirming creatures. The discomfort in your bloated bludgeon and the ceaseless stimulation of your organs causes your body to produce more cum. However, you find yourself unable to climax as the invaders rest inside your body submerged in your salty lust. The rest of the colony disperses, having accomplished its true goal of infesting your body.\n\n', false );
@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 	};
 	//spontaneous orgasm - chance to avoid being raped by monsters who would care.;
 	Worms.prototype.infestOrgasm = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		MainView.outputText( 'The ceaseless squirming of your uninvited guests send your body into paroxysms. Collapsing to your knees, you immediately begin pushing gouts of dick milk out of your body. You feel tremendous pressure in your pelvis and in your cock as you realize that you are pushing worms out with each torrent of cum! Stream upon stream of cum breaks free from the prison of your body, carrying some of the worms inside you with it. Once the orgasm passes, you collapse to the ground, totally spent. Before you pass out, you feel the unfortunate presence of the fat worm still in your body.', true );
 		CoC.player.orgasm();
 		//Check infestation and update it;
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 	};
 	Worms.prototype.wormAttack = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		//Dodged!;
 		if( CoC.player.spe - CoC.monster.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - CoC.monster.spe) / 4) + 80) ) > 80 ) {
 			MainView.outputText( 'The worm colony flails at you with its simulated arms, but its lack of coordination allows you to easily dodge its attack.\n', false );
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		return;
 	};
 	Worms.prototype.wormsEntice = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		//FAIL;
 		if( Utils.rand( 2 ) === 0 ) {
 			if( CoC.player.lust < 50 ) {
@@ -197,7 +197,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		Combat.combatRoundOver();
 	};
 	Worms.prototype.playerInfest = function() {
-		EngineCore.spriteSelect( 76 );
+		MainView.spriteSelect( 76 );
 		//Keep logic sane if this attack brings victory;
 		//Gone	menuLoc = 0;;
 		if( CoC.player.fatigue + EngineCore.physicalCost( 40 ) > 100 ) {

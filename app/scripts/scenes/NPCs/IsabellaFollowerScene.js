@@ -49,11 +49,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		return CoC.flags[ kFLAGS.ISABELLA_AFFECTION ];
 	};
 	IsabellaFollowerScene.prototype.isabellaSprite = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 	};
 	//Isabella Moves In Intro;
 	IsabellaFollowerScene.prototype.isabellaMoovesInGreeting = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.ISABELLA_TIMES_OFFERED_FOLLOWER ] === 0 ) {
 			MainView.outputText( 'Isabella gives you a warm smile when you wander into her camp and spikes the sharp edge of her shield into the ground, leaving it standing next to her.  Her big brown eyes are filled with warmth and affection for a friend as she greets you, saying, "<i>Velcome back, ' + CoC.player.short + '.  Did you miss little old me?</i>"\n\n', false );
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//Decline Izzy Initial Moving Offer (-10 affection) ;
 	IsabellaFollowerScene.prototype.turnDownIsabellaFollower = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		this.isabellaAffection( -10 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You push back from Isabella\'s smothering embrace with a little bit of frustration.  As soon as she realizes what\'s going on, the heavy-breasted woman\'s cheeks color in embarrassment and she retreats to her shield, her hands kneading the hard metal edge nervously.  You inform her that it would be best she remain here for now, at least until you\'ve succeeded in your mission and brought peace to this strange place.\n\n', false );
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//Move Ze Bitch In! ;
 	IsabellaFollowerScene.prototype.moveTheBitchIn = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'As soon as you nod, Isabella smiles and tears her shield out of the ground, setting off a small avalanche of dirt and pebbles across her rugs.  The industrious cow-girl starts packing up her things immediately.  "<i>It vas time to move out of zis little camp any how,</i>" she declares as she folds her chair into a chest.  You get an eyeful of her generous backside, the plump rump swaying and jiggling back and forth with every movement Isabella\'s efforts generate.  It\'s almost hypnotizing, even half-hidden as it is under her olive-toned skirt.  A breeze blows the hem partway up, and though it doesn\'t go far, you watch with an intrigued, vacant stare.\n\n', false );
 		MainView.outputText( 'Isabella catches you staring and gives you a sultry, seductive look as she ask, "<i>Mmm, do you see something you like, ' + CoC.player.short + '?  Do you like to watch mein butt while I work?  If zat is ze case zen ve vill never get anything done once I move in!</i>"  You hesitantly look up at her face, and she laughs with a voice that tinkles like ringing bells.  "<i>You can vatch me like zat if you want, but I vould rather you help me move all zis,</i>" the cow-girl mentions.  You smile ruefully and help your ', false );
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//Follower Summoned Text: ;
 	IsabellaFollowerScene.prototype.callForFollowerIsabella = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 			MainView.outputText( 'You get Isabella\'s attention and call the busty cow-girl your way.  She seems a bit consterned as she breaks away from her previous task, but as she closes in towards you, she\'s all smiles.  You\'re given plenty of time to appreciate the curvaceous beauty\'s body while she ambles over.\n\n', false );
@@ -220,7 +220,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		EngineCore.doNext( SceneLib.farmCorruption, SceneLib.farmCorruption.rootScene );
 	};
 	IsabellaFollowerScene.prototype.campIzzySexMenu = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		var tentacle = null;
 		if( this.izzyTentacleRapeBool() && CoC.player.lust >= 33 ) {
 			tentacle = this.tentacleBoneFollowerIzzy;
@@ -265,7 +265,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 
 	//Accent Coaching;
 	IsabellaFollowerScene.prototype.isabellasAccentCoaching = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		//Cooldown rejection;
 		if( CoC.flags[ kFLAGS.ISABELLA_ACCENT_TRAINING_COOLDOWN ] > 1 ) {
@@ -357,7 +357,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//Morning Wakeup Call ;
 	IsabellaFollowerScene.prototype.isabellaMorningWakeupCall = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		CoC.flags[ kFLAGS.ISABELLA_MORNING_FELLATIO_COUNT ]++;
 		var x = CoC.player.shortestCockIndex();
 		MainView.outputText( '\n', false );
@@ -447,7 +447,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//No BJ's Plz ;
 	IsabellaFollowerScene.prototype.toggleIsabellasMorningWoodChopping = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.ISABELLA_BLOWJOBS_DISABLED ] === 0 ) {
 			MainView.outputText( 'You let Isabella know that you\'d rather manage your morning wood yourself, and if possible, save up your cum rather than having her drain it every morning.  She looks a little disappointed but agrees to leave you be in the morning.  Before you go, she offers, "<i>', false );
@@ -486,7 +486,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//Repeatable Campsex: Hot Dogginz' ;
 	IsabellaFollowerScene.prototype.repeatGermanBratwurstInCamp = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		var x = CoC.player.smallestCockIndex();
 		MainView.outputText( 'You ask Isabella if she would mind helping you blow off some pressure before you go back out.  She glances down at ' + Descriptors.sMultiCockDesc() + ' and ', false );
@@ -670,7 +670,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	IsabellaFollowerScene.prototype.izzyTentacleRapeBool = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		return _.filter( CoC.player.cocks, function( cock ) {
 				return cock.cockType === CockTypesEnum.TENTACLE && cock.cockLength >= 24;
 			} ).length >= 3;
@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//needs 3 cocks: 2 to tie her and lift her up and at least ;
 	//one for penetration;
 	IsabellaFollowerScene.prototype.tentacleBoneFollowerIzzy = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		//Tentacle dick index holders;
 		var tentacles = _.map( _.filter( _.map( CoC.player.cocks, function( cock, index ) {
 			return { id: index, value: cock };
@@ -824,7 +824,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//triggers when Izzy Milked Yet flag >= 10 and PC has Bmilker at farm; unless negative, flag gets reset to 0 if PC nurses from her in any nursing scene written later;
 	//PC wasn't thinking about the pressure; titties get swole;
 	IsabellaFollowerScene.prototype.milktasticLacticLactation = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( this.isabellaAccent() ) {
 			MainView.outputText( '"<i>Ohh, mein milkers...</i>"\n\n', false );
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//[Yes];
 	IsabellaFollowerScene.prototype.izzyMilkingMeinMilkersMya = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( CoC.player.cor < 50 ) {
 			MainView.outputText( 'Concerned', false );
@@ -890,7 +890,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		EngineCore.doNext( this, this.izzyMilkingMeinMilkersMya2 );
 	};
 	IsabellaFollowerScene.prototype.izzyMilkingMeinMilkersMya2 = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'In no time at all, Isabella has taken her place in your stall and you\'ve helped her fasten the harnesses on and attach the milker cups.  The machinery whirrs and lifts her heavy form in the air ', false );
 		//([PC fatness and muscle density check right hurr];
@@ -940,7 +940,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//[I'll Allow It];
 	IsabellaFollowerScene.prototype.AllowIzzyMilkerUse = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'With a smile, you tell Isabella she\'s free to come here whenever she\'s feeling pent-up, as long as there\'s enough left for you to have some fun together when you want to.  Isabella hugs you again, tits and nipples pressing into your ', false );
 		if( CoC.player.tallness < 72 ) {
@@ -958,7 +958,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	};
 	//[Mine Mine MINE!];
 	IsabellaFollowerScene.prototype.noMilkingMilky = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You grin at Isabella and pull her over to you.  Wrapping one arm around her waist, you tell her that this was only a stopgap; you\'ll be the one to take care of all her needs from now on.  To emphasize your point, you ', false );
 		if( CoC.player.cor > 50 ) {
@@ -979,7 +979,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//follower menu button ;
 	//(only appears if Izzy Milked Yet flag < 0);
 	IsabellaFollowerScene.prototype.getMilk = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You tell Isabella that you want a bottle of her milk.  ', false );
 		//Izzy overmilked;
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//v1 = 1, normal sparring.;
 	//v2 = 2, 'light' sparring.;
 	IsabellaFollowerScene.prototype.isabellaSparMenu = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.ISABELLA_SPARRING_INTRO ] === 0 ) {
 			MainView.outputText( 'Isabella smiles when you suggest sparring and vigorously nods, exclaiming, "<i>', false );
@@ -1062,7 +1062,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		if( type === undefined ) {
 			type = 1;
 		}
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.ISABELLA_SPARRING_INTRO ] === 1 ) {
 			MainView.outputText( 'You and Isabella hike to the border of the plains with some old furniture and worn out blankets, arranging a faux camp for you to fight around.  Once it is finished, you take a quick breather before getting started.\n\n', false );
@@ -1082,13 +1082,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		if( type === 2 ) {
 			CoC.monster.XP = Math.round( CoC.monster.XP / 2 );
 		}
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 	};
 	//Isabella Burps;
 	//first time (Z);
 	IsabellaFollowerScene.prototype.isabellaBurps = function() {
 		CoC.player.consumeItem( ConsumableLib.PROBOVA );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		//First time;
 		if( CoC.flags[ kFLAGS.ISABELLA_PROBOVA_BURP_COUNT ] === 0 ) {
@@ -1140,7 +1140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//run;
 	IsabellaFollowerScene.prototype.runAwayFromIzzyBurps = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		//First time;
 		if( CoC.flags[ kFLAGS.ISABELLA_PROBOVA_BURP_COUNT ] === 0 ) {
 			MainView.outputText( 'Allowing common sense to dictate your judgment, you step back from the dark-skinned woman, backing up until she stops waving at you.  She grimaces in an evident cross of pain and... pleasure?  Her cheeks are puffing up and chest, puffing out.  Despite yourself, you can\'t help but admire the way her \'udders\' sit on her out-thrust torso, jiggling constantly from the tremors running through her body.  Finally, when she can\'t seem to hold herself back any longer, her mouth flies open as wide as you\'ve ever seen it, a gigantic burp thundering out.  A visible misty cloud issues from her gaping gob, gaining volume and hovering ominously around her as subsequent belches ripple forth.  In an attempt to free all of the offending gas from her poor body, Isabella roughly squishes her midsection, wincing at each emission as she forces them out.\n\n', false );
@@ -1175,7 +1175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//help (ya dumbo);
 	IsabellaFollowerScene.prototype.getIzzyBurped = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		CoC.flags[ kFLAGS.ISABELLA_PROBOVA_BURP_COUNT ]++;
 		//First time;
 		if( CoC.flags[ kFLAGS.ISABELLA_PROBOVA_BURP_COUNT ] === 1 ) {
@@ -1340,7 +1340,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//no;
 	IsabellaFollowerScene.prototype.declineIzzysCowBurpApology = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		if( CoC.flags[ kFLAGS.ISABELLA_PROBOVA_BURP_COUNT ] === 1 ) {
 			MainView.outputText( 'As strange as the situation is, you\'re too weirded out to reassure Isabella, at least for now, and you relay that to her.  Though crestfallen, she takes the news well, apologizing - sincerely and soberly - once more before moving back to her designated camping spot.  ', false );
 			if( CoC.player.findStatusAffect( StatusAffects.BurpChanged ) >= 0 ) {
@@ -1357,7 +1357,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//yes;
 	IsabellaFollowerScene.prototype.acceptCowpology = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		//Clear burps!;
 		if( CoC.player.findStatusAffect( StatusAffects.BurpChanged ) >= 0 ) {
 			CoC.player.removeStatusAffect( StatusAffects.BurpChanged );
@@ -1435,7 +1435,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//Get Licked in Return (seems incompatible with centaurs/driders due to lap-sitting);
 	IsabellaFollowerScene.prototype.receiveAllTheCowTOngues = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( 'Isabella pulls you up into her lap when you agree.  You recline against her, the two of you sinking into the plush cushions of her big chair; ' );
 		if( CoC.player.tallness <= 78 ) {
 			MainView.outputText( 'you are nearly absorbed by the great big mounds of Isabella\'s titflesh, sliding between her massive, milky mammaries.' );
@@ -1498,7 +1498,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 	//Ey bitch u wan sum fuk? (Or, how Isabella learned to love the dick regardless of size and shape) (Z);
 	IsabellaFollowerScene.prototype.fuckIsabella = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		//AREA FOR SCENE ACCESS: (164);;
 		var x = CoC.player.shortestCockIndex();
 		if( CoC.player.cocks[ x ].cockLength >= 9 ) {

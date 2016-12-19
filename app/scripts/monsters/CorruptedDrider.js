@@ -137,7 +137,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 		Combat.combatRoundOver();
 	};
 	CorruptedDrider.prototype.performCombatAction = function() {
-		EngineCore.spriteSelect( 77 );
+		MainView.spriteSelect( 77 );
 		if( this.lust > 70 && Utils.rand( 4 ) === 0 ) {
 			this.driderMasturbate();
 		}//1/4 chance of silence if pc knows spells;

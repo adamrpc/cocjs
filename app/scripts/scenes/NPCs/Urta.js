@@ -88,9 +88,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 	//End of Interface Implementation;
 	Urta.prototype.urtaSprite = function() {
 		if( this.urtaDrunk() ) {
-			EngineCore.spriteSelect( 84 );
+			MainView.spriteSelect( 84 );
 		} else {
-			EngineCore.spriteSelect( 1 );
+			MainView.spriteSelect( 1 );
 		}
 	};
 	Urta.prototype.urtaCapacity = function() {

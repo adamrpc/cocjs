@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 	//Wait:
 	SandTrap.prototype.sandTrapWait = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 97 );
+		MainView.spriteSelect( 97 );
 		if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
 			this.createStatusAffect( StatusAffects.Climbed, 0, 0, 0, 0 );
 		}
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 
 	//sandtrap pheromone attack:
 	SandTrap.prototype.sandTrapPheremones = function() {
-		EngineCore.spriteSelect( 97 );
+		MainView.spriteSelect( 97 );
 		MainView.outputText( 'The sandtrap puckers its lips.  For one crazed moment you think it\'s going to blow you a kiss... but instead it spits clear fluid at you!   You desperately try to avoid it, even as your lower half is mired in sand.' );
 		if( CoC.player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {
 			MainView.outputText( '  Moving artfully with the flow rather than against it, you are able to avoid the trap\'s fluids, which splash harmlessly into the dune.' );
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 	};
 	//sandtrap quicksand attack:
 	SandTrap.prototype.nestleQuikSandAttack = function() {
-		EngineCore.spriteSelect( 97 );
+		MainView.spriteSelect( 97 );
 		MainView.outputText( 'The sandtrap smiles at you winningly as it thrusts its hands into the sifting granules.  The sand beneath you suddenly seems to lose even more of its density; you\'re sinking up to your thighs!' );
 		//Quicksand attack fail:
 		if( CoC.player.spe / 10 + Utils.rand( 20 ) > 10 || Combat.combatEvade() || Combat.combatFlexibility() ) {

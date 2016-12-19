@@ -707,7 +707,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	ImpScene.prototype.impGangabangaEXPLOSIONS = function() {
 		CoC.player.slimeFeed();
-		EngineCore.spriteSelect( 18 );
+		MainView.spriteSelect( 18 );
 		//Set imp monster values;
 		//Clear arrays in preparation;
 		CoC.monster = new ImpGang();

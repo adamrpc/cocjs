@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	//v1 - players last fuck was as naga - 1 = true, 0 = false
 	//v2 - player has ever fucked as a naga.  1 = true, 0 = false
 	NagaScene.prototype.nagaEncounter = function() {
-		EngineCore.spriteSelect( 45 );
+		MainView.spriteSelect( 45 );
 		//Create status if needed
 		if( CoC.player.findStatusAffect( StatusAffects.Naga ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.Naga, 0, 0, 0, 0 );

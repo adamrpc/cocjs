@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	}
 
 	Wanderer.prototype.wandererRouter = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		//First meeting...
 		if( CoC.player.findStatusAffect( StatusAffects.MeetWanderer ) < 0 ) {
 			this.wandererFirstMeeting();
@@ -38,25 +38,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	};
 	//Leave
 	Wanderer.prototype.wandererLeave = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		MainView.outputText( 'Marcus looks disappointed and sighs, hefting his wheelbarrow and waddling away.  Lucia bounces after him, looking like the cat that got the cream.  You wonder what all that was about.   What a strange land.', true );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Repeated encounter if he left
 	Wanderer.prototype.wandererRepeatMeeting = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		MainView.outputText( 'Marcus waves to you as he crests a nearby dune, yelling a greeting.  "<i>Hey traveler!  Do you have a moment to help a man with a question of theological and moral imperatives?</i>"\n\nHis succubus accomplice, Lucia, snorts in disdain.', true );
 		EngineCore.choices( 'Yes', this, this.wandererHelpHim, '', null, null, '', null, null, '', null, null, 'Leave', this, this.wandererLeave );
 	};
 	//Volunteer to help
 	Wanderer.prototype.wandererHelpHim = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		MainView.outputText( '"<i>Oh good!</i>" he exclaims as he begins elaborating.  "<i>My dear succubus here is growing tired of our arrangement, and she wants me to give up the last of my humanity and become a demon like her.  I\'m not really sure I want to lose my soul, but at the same time, I know enough about their kind to know I\'d REALLY enjoy being an incubus, if you know what I mean.  Before I make the plunge, I\'d like a second opinion – what do you think?</i>"\n\nHe glances over his shoulder with almost a small measure of fear.', true );
 		EngineCore.choices( 'Go Demon', this, this.wandererGoDemon, 'Stay Human', this, this.wandererStayHuman, '', null, null, '', null, null, '', null, null );
 	};
 	//Ask marcus to stay human
 	Wanderer.prototype.wandererStayHuman = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		MainView.outputText( '"<i>You little mortal fuckwit!</i>" screams Lucia before turning to her human lover, "<i>Don\'t listen to the foolish mortal, love; think of the fun we could have together!</i>"\n\n', true );
 		MainView.outputText( 'Marcus shakes his head sadly, "<i>', false );
 		if( CoC.player.gender <= 1 ) {
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	};
 	//Ask marcus to go demon
 	Wanderer.prototype.wandererGoDemon = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		MainView.outputText( 'Lucia breaks into a mischievious smile as you suggest taking her up on her offer.  She sashays over to you, flesh jiggling enticingly the whole way.  She leans close, sliding a slender finger down the center of your chest.  "<i>Thank you for this.  Should we meet again, I promise rewards fit to make a whore faint.</i>"\n\n', true );
 		MainView.outputText( 'Marcus raises an eyebrow at the exchange, but smiles as his demonic lover returns to his side.  Lucia winks again, and huge wings explode from her back.  She grabs Marcus, who bleats in surprise, and lifts off, flying away with her prize to her lair.', false );
 		EngineCore.dynStats( 'lus', 5, 'cor', 1 );
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	};
 	//Demonic epilogue v1
 	Wanderer.prototype.wandererDemonEpilogue = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		if( CoC.player.findStatusAffect( StatusAffects.WandererDemon ) >= 0 ) {
 			//First time...
 			if( CoC.player.statusAffectv1( StatusAffects.WandererDemon ) === 0 ) {
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	};
 	//Human Epilogue 1
 	Wanderer.prototype.wandererEpilogueHuman = function() {
-		EngineCore.spriteSelect( 42 );
+		MainView.spriteSelect( 42 );
 		if( CoC.player.findStatusAffect( StatusAffects.WandererHuman ) >= 0 ) {
 			//Human Epilogue 1
 			if( CoC.player.statusAffectv1( StatusAffects.WandererHuman ) === 0 ) {

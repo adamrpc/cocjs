@@ -157,12 +157,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 			if( Utils.rand( 10 ) < impGob ) {
 				if( CoC.player.level >= 8 && Utils.rand( 2 ) === 0 ) {
 					SceneLib.impScene.impLordEncounter();
-					EngineCore.spriteSelect( 29 );
+					MainView.spriteSelect( 29 );
 					return;
 				}
 				MainView.outputText( 'An imp wings out of the sky and attacks!', true );
 				Combat.startCombat( new Imp() );
-				EngineCore.spriteSelect( 29 );
+				MainView.spriteSelect( 29 );
 				return;
 			}
 			//50% of the time, goblin assassin!
@@ -174,13 +174,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 				MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fucked, ' + CoC.player.mf( 'stud', 'slut' ), true );
 				MainView.outputText( '.</i>"', false );
 				Combat.startCombat( new Goblin() );
-				EngineCore.spriteSelect( 24 );
+				MainView.spriteSelect( 24 );
 				return;
 			}
 			MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fuc-oh shit, you don\'t even have anything to play with!  This is for wasting my time!', true );
 			MainView.outputText( '</i>"', false );
 			Combat.startCombat( new Goblin() );
-			EngineCore.spriteSelect( 24 );
+			MainView.spriteSelect( 24 );
 			return;
 		}
 		CoC.player.explored++;

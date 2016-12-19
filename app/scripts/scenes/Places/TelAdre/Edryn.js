@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//End of Interface Implementation;
 	Edryn.prototype.edrynBarTalk = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		if( CoC.player.findStatusAffect( StatusAffects.Edryn ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.Edryn, 0, 0, 0, 0 );
 		}
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		}
 	};
 	Edryn.prototype.edrynOffer = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		var cost = 0;
 		switch( CoC.player.statusAffectv1( StatusAffects.Edryn ) ) {
 			case 0:
@@ -392,7 +392,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		}
 	};
 	Edryn.prototype.edrynSexSelecter = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		var cost = 0;
 		switch( CoC.player.statusAffectv1( StatusAffects.Edryn ) ) {
 			case 0:
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		CoC.player.addStatusValue( StatusAffects.Edryn, 1, 1 );
 	};
 	Edryn.prototype.fuckEdrynTaur = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'edryn-fuck-as-taur' ) );
 		var x = CoC.player.cockThatFits( 300 );
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Edryn.prototype.fuckEdrynNonTaur = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'edryn-fuck-as-non-taur' ) );
 		var x = CoC.player.cockThatFits( 300 );
@@ -700,7 +700,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//Pregdryn:;
 	Edryn.prototype.findOutEdrynIsPregnant = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Edryn is lying down at her table, pensively circling a finger around a glass of water and poking listlessly at her plate of greens.  Her eyes keep glancing down or to the side every time you meet her gaze.  You\'ve never seen the shameless centaur bothered like this, and you grab her by the shoulders to ask, "<i>What\'s wrong?</i>"\n\n', false );
 		MainView.outputText( 'She finally looks up at you, her large brown eyes wet with moisture, and explains, "<i>I-I\'m pregnant.  I saw the covenant about it and had them check with their magic.  You\'re the father.</i>"\n\n', false );
@@ -712,7 +712,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//Shocked;
 	Edryn.prototype.shockedByEdrynsPregnancy = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You stammer for an answer, unsure of what to say in light of this startling revelation.  Edryn looks on the verge of tears and all you can do is struggle for words.  She grips the table, her knuckles turning white while her eyes flick from side to side in a panic.', false );
 		MainView.outputText( '\n\n<b>What do you do?</b>', false );
@@ -721,7 +721,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//Accept it;
 	Edryn.prototype.shockedByPregdrynThenAccept = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Leaning forward, you grab hold of Edryn\'s hands and cradle them in your grip.  She looks back up at your eyes and reads your expression, breaking into a smile as she reads the feelings on your face.\n\n', false );
 		MainView.outputText( '"<i>Thank you!  You had me really going for a moment there, you know that?  Wow, that is a weight off my chest,</i>" exhales Edryn.  She climbs up onto her hooves and whispers, "<i>I\'ve got to use the little ponies\' room, I\'ll be right back lover,</i>" before she departs.\n\n', false );
@@ -730,7 +730,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//Reject it;
 	Edryn.prototype.beAnAssholeToPregdryn = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You look the panicked centauress dead in the eye and explain that what she does with her body is her business, and you want nothing to do with it.  She stares dumbfounded for a split-second before her face colors red with rage.  Edryn screams, "<i>GET THE FUCK AWAY FROM ME THEN!</i>"\n\n', false );
 		MainView.outputText( 'Everyone in the bar turns to watch the commotion, and with an angry, hormonal centaur and this many eyes on you, it would be best to depart.\n\n', false );
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//Pleased;
 	Edryn.prototype.pleasedbyPregdryn = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You crack into a smile and congratulate the lusty centaur.  She giggles with relief at your words and wipes a bead of sweat from her brow as you finish.  Edryn exclaims, "<i>I\'m so glad you\'re happy about this!  I don\'t expect you to drop your quest and move in with me or anything like that, but it\'ll be wonderful to hear the clipper-clopper of little hooves in this town.</i>"\n\n', false );
 		MainView.outputText( 'Edryn pulls back from the table and stretches, her muscles visibly loosening as the tension oozes out of her imposing frame.  She whispers, "<i>Be right back lover, I\'ve got to make a stop at the little ponies\' room,</i>" before she departs.\n\n', false );
@@ -750,7 +750,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//Aroused;
 	Edryn.prototype.arousedByPregdryn = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You break into a grin bordering on lecherousness and congratulate the lusty centaur.  Her eyes widen for a moment, shocked from your expression, then narrow into a sultry expression.  Edryn teases, "<i>I think someone has a bit of a pregnancy fetish, hrmm?  Is it the thought of my tits getting swollen with milk or the idea of me being jiggly and randy all the time that does it for you?</i>"  She shivers, the outlines of her prominent nipples straining against her already-tightly-stretched tunic.  Edryn\'s eyes drop down and a rueful smile works its way across her face as she admits, "<i>Great, now I\'m turned on too!  Let me go use the little ponies\' room. Then, MAYBE, we can help take care of each other.</i>"\n\n', false );
 		//[To Pregger Offer];
@@ -759,7 +759,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 
 	//Pregger Offer;
 	Edryn.prototype.pregdrynOffer = function( cs ) {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		if( cs === undefined || cs ) {
 			cs = true;
 			MainView.outputText( '', true );
@@ -899,7 +899,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	//Fucking;
 	Edryn.prototype.fuckPregEdryn = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( ImageManager.showImage( 'edryn-preggo-fuck' ) );
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
@@ -987,7 +987,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//EAT THE BITCH'S CUNT OUT;
 	Edryn.prototype.jizzFromEatingPregdrynOut = function() {
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {
@@ -1105,7 +1105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	//Intro:;
 	Edryn.prototype.edrynFucktroduction = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 14 );
+		MainView.spriteSelect( 14 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 300 );
 		if( x < 0 ) {

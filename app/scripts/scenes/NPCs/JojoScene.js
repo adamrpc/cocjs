@@ -46,9 +46,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 
 	JojoScene.prototype.jojoSprite = function() {
 		if( this.tentacleJojo() ) {
-			EngineCore.spriteSelect( 81 );
+			MainView.spriteSelect( 81 );
 		} else {
-			EngineCore.spriteSelect( 34 );
+			MainView.spriteSelect( 34 );
 		}
 	};
 	JojoScene.prototype.assholeOrDP = function() {

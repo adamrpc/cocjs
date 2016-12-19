@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Function to choose which Kelt Encounter to load.;
 	KeltScene.prototype.keltEncounter = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		//Clear screen, set next button, and count how many times hes been encountered;
 		MainView.outputText( '', true );
 		CoC.player.addStatusValue( StatusAffects.Kelt, 3, 1 );
@@ -127,7 +127,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Naked Requirement, Never;
 	KeltScene.prototype.keltRefuseNakedness = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'You adamantly refuse, determined to not give this arrogant centaur the satisfaction.  Kelt sneers at you derisively, and gives you several pieces of advice as to what could fit up your rear end.  As his insults grow more colorful, you turn and leave; his mocking laughter follows behind you.  You resolve to not bother with him anymore.\r\r(Somehow you know you\'ll never encounter him again.)', true );
 		//(Kelt never encountered again);
 		CoC.player.createStatusAffect( StatusAffects.KeltOff, 0, 0, 0, 0 );
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	//Naked Requirement, Eagerly;
 	KeltScene.prototype.keltEagerlyGetNaked = function() {
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You have no problem stripping down naked in front of Kelt, even enjoying the process a little bit.  Judging by his leer, Kelt is enjoying it too.  He seems aroused by his power over you more than anything else... and you find yourself admitting that you\'re a little aroused by it as well.\r\r', false );
 		MainView.outputText( 'You remove your top first, slowly revealing your ' + Descriptors.allBreastsDescript() + '.  Kelt is pacing around you, eyes locked on your chest hungrily.  As you let your top fall to the ground, he laughs mockingly, though, ', false );
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	//Naked Requirement, Reluctantly;
 	KeltScene.prototype.keltReluctantlyGetNaked = function() {
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You are uncomfortable with the idea of being naked in front of this crude, cruel taskmaster.  But he is good at what he does, and if this is the only way to convince him to teach you, then you\'ll just have to get it over with.  You agree to his terms reluctantly, and begin to strip off your clothes.\r\r', false );
 		MainView.outputText( 'You remove your top first, slowly revealing your ' + Descriptors.allBreastsDescript() + '.  Kelt is pacing around you, eyes locked on your chest hungrily.  As you let your top fall to the ground, he laughs mockingly, ', false );
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Blowjob Requirement;
 	KeltScene.prototype.keltRequiresBlowjobs = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		CoC.player.createStatusAffect( StatusAffects.KeltBJ, 0, 0, 0, 0 );
 		MainView.outputText( 'Crossing the field of Whitney\'s farm, your heart begins to beat a little bit faster as you spy Kelt the centaur off in the distance.  You can\'t help but admire his powerful flanks and his proud stature as he runs freely.  Perhaps a little pleased with yourself, you also take a good look at his dangling equipment, sheathed yet sizable.  The sight is entrancing.\r\r', false );
 		MainView.outputText( 'A grin crosses your face, despite yourself.  Kelt can be insufferable sometimes.  Most times.  Okay, at all times.  But there is something about him that makes you feel... right, somehow.  Sure he insults you... but he is so strong, so powerful.  So masculine, for lack of a better word.  Infuriating, arrogant, and utterly in control.  Somehow, the combination makes you feel weak at the knees.\r\r', false );
@@ -327,7 +327,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Blowjob Requirement, Never;
 	KeltScene.prototype.keltBlowjobRequirementNever = function( newl ) {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		if( newl ) {
 			MainView.outputText( '', true );
 		}
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Blowjob Requirement, Shamefully;
 	KeltScene.prototype.keltBlowjobRequirementShamefully = function( newl ) {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		if( newl ) {
 			MainView.outputText( '', true );
 		}
@@ -374,7 +374,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Blowjob Requirement, Eagerly;
 	KeltScene.prototype.keltBlowjobRequirementEagerly = function( newl ) {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		// This is never called with arguments, so newl will always be true. Can this be simplified?;
 		if( newl ) {
 			MainView.outputText( '', true );
@@ -405,7 +405,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Normal Encounter;
 	KeltScene.prototype.keltMainEncounter = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'Once more, you encounter Kelt the centaur at Whitney\'s farm.  He smirks at you, and asks if the fool has come once more to learn from the master.\r\r', false );
 		//(Submissive 0-30: ;
 		if( CoC.player.statusAffectv2( StatusAffects.Kelt ) <= 30 ) {
@@ -798,7 +798,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//(Resist);
 	KeltScene.prototype.keltResistGivingBJ = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Summoning what remains of your fragmented willpower, you resist the need, apologizing to Kelt and turning to walk away.  It hurts to do so, aching within your chest with an almost physical need to go back; to apologize and kneel before him worshipfully.\r\r', false );
 		MainView.outputText( 'To your surprise, however, Kelt does not seem particularly bothered.  In fact, he laughs as you leave.\r\r', false );
@@ -810,7 +810,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//(Submit);
 	KeltScene.prototype.keltSubmitGivingBJ = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		CoC.player.slimeFeed();
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>There we go.  Who\'s a good little whore?  Who\'s a hungry little slut?  Okay, bitch... time to fill that belly of yours.  Open wide.</i>"\r\r', false );
@@ -823,13 +823,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Continue training post BJ;
 	KeltScene.prototype.continueAfterBJ = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'After a brief rest, you manage to get back to practicing archery.  ', true );
 		this.keltMainEncounter3();
 	};
 	//(Reluctant Blowjob);
 	KeltScene.prototype.keltReluctantGivingBJ = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		CoC.player.slimeFeed();
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'kelt-farm-reluctantbj' ) );
@@ -847,7 +847,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	//Bad Ends;
 	//(Centaur);
 	KeltScene.prototype.keltCentaurBadEnd = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You trot towards the farm, pleased with the way your powerful centaur form moves.  You have only one thought in your mind... showing up Kelt for all those insults he tossed out.  After all that, it should be quite satisfying to hear him admire your new equine form, so like his.  A rogue thought pushes through your head that maybe he will do more than just admire it, and a shiver of pleasure runs through you, despite yourself.\r\r', false );
 		MainView.outputText( 'Once you spot him on the horizon, you rush forward, galloping at full speed, heart pounding.  The need to be closer to him, to smell him once more, is suddenly overpowering... all consuming.  You slow to a trot as you get closer, and look to savor the expression on his face when he sees you. He seems surprised for just a moment, then darkly amused.  Slowly, he approaches you.\r\r', false );
@@ -897,7 +897,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//(Human) bad end;
 	KeltScene.prototype.keltSubmissiveBadEnd = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You race towards the farm, only one thought on your mind.  Kelt... your master, your love, your hunger.  Your head is filled with thoughts of his cock, and you fancifully dream of how he will use it on you today.  Once, you had a mission of some kind... an important duty.  The stray thought vanishes almost instantly, though.  Of course you have a duty!  To be fucked by Kelt, whenever he wants to!\r\r', false );
 		MainView.outputText( 'Almost as soon as you arrive, your clothes are falling off of you, ripped off with an urgency that betrays your lust.  Kelt eyes the display with cruel amusement, then steps forward and takes your chin by the hand, inspecting you imperiously.  The scent of him fills your nose, the need for his cock fills your thoughts.  Impishly, you suggest that you are in need of another \'archery\' lesson.\r\r', false );
@@ -912,7 +912,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Bad End 2;
 	KeltScene.prototype.keltBadEndEpilogue = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The next year, after a few suggested mutations from your master...\r\rThe heroine hesitatingly moved forward, crossing the field with the sort of practiced caution that had so far kept her safe in this strange land.  The farm should be somewhere nearby, if she had figured things correctly.  Of course, who could tell with this ever-shifting landscape?\r\r', false );
 		MainView.outputText( 'A sudden sound caught her attention.  A lewd, squishing noise, the sound of horses crying out.  A monster?  Whatever it was, it was coming from behind the barn.  Readying her sword, the heroine moved forward cautiously, ready to confront danger.\r\r', false );
@@ -930,7 +930,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	//Requires 40+ int & 70+ corruption to resist his 'aura'.;
 	KeltScene.prototype.keltResistance = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'You close your eyes, ', true );
 		if( CoC.player.faceType === AppearanceDefs.FACE_HORSE || CoC.player.faceType === AppearanceDefs.FACE_DOG ) {
 			MainView.outputText( 'a low growl building in the back of your throat', false );
@@ -942,14 +942,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 		EngineCore.doYesNo( this, this.fuckKeltsShitUp, this, this.keltResistancePussyOut );
 	};
 	KeltScene.prototype.keltResistancePussyOut = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'You suppress your anger for now.  Yes; Kelt\'s an asshole, but he\'s taught you a lot, and would it hurt to humor the cute stud?  You shake your head, uncomfortable with the out-of-place thought.  You leave in a hurry, unable to face your master.', true );
 		//(+2 submission);
 		CoC.player.addStatusValue( StatusAffects.Kelt, 2, 2 );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	KeltScene.prototype.fuckKeltsShitUp = function() {
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( '', true );
 		//If naga folks;
 		if( CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS && CoC.player.tongueType === AppearanceDefs.TONUGE_SNAKE && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA ) {

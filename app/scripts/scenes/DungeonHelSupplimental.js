@@ -152,14 +152,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//[Armor] -> [Take]:;
 	DungeonHelSupplimental.prototype.takeGooArmor4Realz = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 79 );
+		MainView.spriteSelect( 79 );
 		MainView.outputText( 'You reach out to grab the armor, but as soon as your finger brushes the shiny surface, a human-like face appears in the helm!  You recoil as a daintily feminine and bright blue face takes shape out of nowhere, staring at you with eyes afire with rage.  More of the gooey substance that makes up the girl\'s face fills out the armor, yanking it off the racks on feet made of goop.' );
 		MainView.outputText( '\n\nQuietly, the armored goo-girl growls, "<i>You dare to disturb my rest, mortal? Prepare yourself for my vengeance!</i>"' );
 		MainView.outputText( '\n\nWhat the fuck!? Oh well, looks like she wants a fight!' );
 		Combat.startCombat( new GooArmorMonster() );
 	};
 	DungeonHelSupplimental.prototype.gooArmorAI = function() {
-		EngineCore.spriteSelect( 79 );
+		MainView.spriteSelect( 79 );
 		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.GooArmorSilence ) < 0 ) {
 			this.gooSilenceAttack();
 		} else if( Utils.rand( 3 ) > 0 ) {
@@ -230,7 +230,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Goo Armor -- PC Defeated (PC has Gender);
 	DungeonHelSupplimental.prototype.gooArmorBeatsUpPC = function() {
-		EngineCore.spriteSelect( 79 );
+		MainView.spriteSelect( 79 );
 		MainView.outputText( '\n\nYou collapse, unable to resist the goo-armor\'s onslaught.  Laughing, she slithers out from underneath her armor, completely encasing you before you can do anything more than scream.  Laughing maniacally, the goo looms over you, hands on her hips.  "<i>Tsk, tsk, tsk.  Not so eager to steal my armor now, are you?  Well... what am I to do with you, hmm?</i>"  You struggle, but wrapped snugly in her goo, you can do little more than wiggle your hips and chest, accidentally moving yourself seductively.' );
 		MainView.outputText( '\n\nAs you realize your mistake, a little smile spreads on her face.  "<i>Ah, I know... I haven\'t had my precious fluids in so very long...</i>"' );
 		//(PC has Vagina);
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//Goo Armor -- PC is Victorious (Intro);
 	DungeonHelSupplimental.prototype.beatUpGooArmor = function() {
-		EngineCore.spriteSelect( 79 );
+		MainView.spriteSelect( 79 );
 		MainView.clearOutput();
 		MainView.outputText( 'Succumbing to your ' );
 		if( CoC.monster.lust > 99 ) {
@@ -322,7 +322,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//[Refuse Her];
 	DungeonHelSupplimental.prototype.refuseGooArmorOffer = function() {
-		EngineCore.spriteSelect( 79 );
+		MainView.spriteSelect( 79 );
 		MainView.clearOutput();
 		MainView.outputText( 'You tell her to fuck off -- you don\'t need armor that might try to kill or rape you at night.' );
 		MainView.outputText( '\n\nShe huffs indignantly and scrambles to her feet.  "<i>Well fine, and fuck you anyway.  I hope you get raped by harpies, ' + CoC.player.mf( 'sir', 'madam' ) + '.</i>"  After a moment, she hesitantly adds, "<i>But if you change your mind later... Well, we\'ll see if you live through this place without me!</i>"  Before you can stop her, she ducks out the front door and off to... Wherever goo-armor-girl-things would go, you guess.  Still, to your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
@@ -332,7 +332,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	//[Take Her];
 	DungeonHelSupplimental.prototype.takeGooArmorAndWearIt = function() {
-		EngineCore.spriteSelect( 79 );
+		MainView.spriteSelect( 79 );
 		MainView.clearOutput();
 		MainView.outputText( 'You mull the proposition over for a few moments and then agree. Why the hell not.' );
 		MainView.outputText( '\n\nWith an ecstatic smile, the goo-armor jumps to her feet and throws her arms around your shoulders.  "<i>Oh, this is going to be so much fun!  Thank you thank you thank you!  I promise I\'ll keep you nice and snug and safe, don\'t you worry.  Oooh, a real adventure again!  WHEEE!</i>"' );

@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 			location = 0;
 		}
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		if( Utils.rand( 2 ) === 0 || CoC.player.pregnancyIncubation > 0 || CoC.player.buttPregnancyIncubation > 0 || CoC.player.gender === 0 ) {
 			MainView.outputText( 'As you cross the ' );
 			if( location === 0 ) {
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 			loc = 0;
 		}
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'You decide to search for the source of the music.' );
 		MainView.outputText( '\n\nSitting in a small circle of ' );
 		if( loc === 0 ) {
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//[=Keep Drinking=];
 	SatyrScene.prototype.keepDrinking = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'You grin at the satyr\'s encouragement and continue drinking, setting on a slower pace so you won\'t spill any more; shortly you pass him the empty skin and ask for more.' );
 		MainView.outputText( '\n\nThe satyr, who has been happily matching you drink for drink, gladly takes the empty skin and passes you a new source of liquor; a glass bottle, this time.  "<i>This stuff is over thirty years old; trust me, there\'s nothing better.</i>"  In fact, he seems to decide he needs to prove his rhetoric, uncorking the bottle and taking a copious swig before passing it to you.' );
 		MainView.outputText( '\n\nYou\'re only too happy to relieve him of his bottle and see just how good the \'stuff\' is. You take a swig and taste the satyr\'s saliva along with the delicious wine contained in the bottle; it truly is delicious! You don\'t bother offering him the bottle back\' you down the whole thing.  Before you even realize, your world is reduced to little more than drinking booze and eating the delicious food offered.' );
@@ -119,7 +119,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//[=Leave=];
 	SatyrScene.prototype.leavePartySatyr = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'You thank the satyr for his generosity, but you don\'t think you can handle this kind of booze, so you get up and start on your way back to your camp.' );
 		MainView.outputText( '\n\nThere is a sudden loud, indignant bleat from behind you, and you hear something suddenly charging clumsily forward.  Though you only realize this when something slams into your back, knocking you to the ground.  When you roll around, you find the satyr standing over you, face contorted in fury.  "<i>Nobody leaves me until I\'m done with them!</i>" he roars, and attacks you again!\n\n' );
 		var satyr = new Satyr();
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//[=Trick Him=];
 	SatyrScene.prototype.trickZeSatyr = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'You come up with a plan and pretend to start drinking again; once you notice the satyr is distracted, you quickly spill most of your drink on the floor and return an empty skin to him.' );
 		MainView.outputText( '\n\nHe blinks in surprise.  "<i>Finished already?  My, someone knows how to enjoy their liquor!</i>" he laughs.  Your companion promptly grabs another skin and passes it to you.  "<i>Drink up, drink up!  I can\'t remember the last time I had a good drinking match!</i>"  The caprine humanoid chortles with glee, already opening a very potent-smelling bottle of beer.' );
 		MainView.outputText( '\n\nOnce again you pretend to drink, only to spill most of your drink on the floor; although this time you take care not to empty the skin too fast.' );
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//[=Skip Foreplay=];
 	SatyrScene.prototype.skipForeplay = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'You smirk and crawl towards the satyr, discarding the skin of alcohol and knocking over several dishes and bottle in your way.  Once you\'re close enough, you roughly grab at his massive shaft and begin stroking it.  "<i>We both know where this is headed...</i>" you whisper, "<i>so why not skip the foreplay?</i>"' );
 		MainView.outputText( '\n\nThe satyr looks surprised, then grins.  "<i>Very well, if you insist...</i>" he purrs, reaching out to grab and push you to the ground, tearing roughly at your [armor] until you are naked.' );
 		//Play appropriate willing sex scene//;
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//If PC has a vagina, Satyrs will use that. If not, use ass instead.;
 	SatyrScene.prototype.loseToSatyr = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		//[Lust loss;
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( 'You pant as you begin masturbating furiously, too horny to care about anything the grinning satyr before you has in mind.' );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//Victory Rapes;
 	SatyrScene.prototype.defeatASatyr = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		//Lust Victory;
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( 'The satyr collapses to its caprine knees, bleating in dismay as it paws frantically at its huge cock, oblivious to everything in its need to get off.  Already, pre-cum is fountaining from the goat-man\'s shaft, his jerking motions smearing the pungent sexual fluid across the crown.' );
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//Female (Z);
 	SatyrScene.prototype.femaleTakesAdvantageOfSatyr = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'You eye his massive shaft speculatively, then decide against it.  Why should he receive the true pleasures of your cunt when he attacked you so rudely?  No, if there will be anyone taking pleasure from this, it will be you alone.  With that in mind, you cast aside your [armor] in the most imperious manner you can muster, until you are standing stark naked.' );
 		MainView.outputText( '\n\nThe satyr bleats as his eyes widen in expectation, setting his gaze squarely on your [vagina]; he starts panting as his massive cock grows even harder, hoping for the release that he was denied.' );
 		MainView.outputText( '\n\nYou saunter forward and topple him over onto his back.  He lets out a noise like a goat that\'s been struck, even as you move to pin him to the ground, swivelling your hips until you are practically sitting on his face with your [vagina] over his mouth.  You grind your crotch into his face and demand he lick you, taking hold of the copious hair around his privates and pulling to suggest what refusal may mean.' );
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//Male (Z);
 	SatyrScene.prototype.malesTakeAdvantageOfSatyrs = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -341,7 +341,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//always impregnates PC;
 	SatyrScene.prototype.willinglyBoneSatyr = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( 'The satyr eyes you up and down hungrily; his hands move to grope your [chest], gently tweaking your [nipples], then he moves down towards your ' );
 		if( CoC.player.hasCock() ) {
 			MainView.outputText( 'hardening maleness, giving it a few strokes to bring it to full mast, then he moves on to your ' );
@@ -444,7 +444,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 	//Birthing (Z);
 	//Baby is always male.;
 	SatyrScene.prototype.satyrBirth = function( vag ) {
-		EngineCore.spriteSelect( 98 );
+		MainView.spriteSelect( 98 );
 		MainView.outputText( '\nSudden sharp, intense pangs rip through your gut, seeming to emanate from your ' );
 		if( vag && !CoC.player.hasVagina() ) {
 			MainView.outputText( 'newly grown vagina' );

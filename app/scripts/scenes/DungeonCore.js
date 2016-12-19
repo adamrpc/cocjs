@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		}
 		//Break Room;
 		if( OnLoadVariables.dungeonLoc === DungeonCore.DUNGEON_FACTORY_BREAK_ROOM ) {
-			EngineCore.spriteSelect( 96 );
+			MainView.spriteSelect( 96 );
 			MainView.outputText( 'Stepping through the dark red doorway, you wander into an expansive break room. Tables surrounded by crude wooden chairs fill most of the floor space. Along the far eastern wall sits a small counter, complete with a strange ebony sculpture of a busty woman with \'Mrs. Coffee\' printed on the side. Below the sculpture is a pot of steaming hot coffee, giving off an invigoratingly rich smell.', true );
 			//Hooks for succubi encounter;
 			//(if succubus gone/defeated);
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				EngineCore.addButton( 4, 'Coffee', this, this.drinkCoffee );
 				EngineCore.addButton( 5, 'West', this, this.dungeonEnterRoom, DungeonCore.DUNGEON_FACTORY_FOYER );
 			} else {
-				EngineCore.spriteSelect( 55 );
+				MainView.spriteSelect( 55 );
 				MainView.outputText( '\n\nStanding next to the coffeemaker is a blue-skinned woman holding a mug of coffee.  As she takes a sip, oblivious to your presence, you see the mug has \'#1 Dad\' written on it.  Dressed in a tiny vest, short skirt, and sheer stockings, she looks every bit an air-headed secretarial ditz.  Her two horns are little more than nubs, mostly covered by her flowing blond hair, and if it wasn\'t for her blue skin and the tip of a spaded tail peeking out from under her skirt, you\'d never know what she was.\n\n', false );
 				// demon bad end available;
 				if( CoC.player.demonScore() >= 4 && CoC.player.cor > 75 ) {
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 			//Incubus is ALLLLIVE;
 			else {
-				EngineCore.spriteSelect( 30 );
+				MainView.spriteSelect( 30 );
 				if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
 					MainView.outputText( '\n\nThe incubus mechanic is here, thumbing through a hentai comic and laughing to himself at the absurdity of it.  That doesn\'t stop him from stroking his half-hard member the whole time...', false );
 					EngineCore.addButton( 1, 'Fight', this, this.startIncubusFight );
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		if( OnLoadVariables.dungeonLoc === DungeonCore.DUNGEON_FACTORY_FOREMANS_OFFICE ) {
 			MainView.outputText( '<b><u>Foreman\'s Office</u></b>\nThis office provides an excellent view of the \'factory floor\' through a glass wall along the north side.  Towards the south side of the room is a simple desk with an even simpler chair behind it.  The desk\'s surface is clear of any paperwork, and only has a small inkwell and quill on top of it.  There are a few statues of women and men posted at the corners of the room.  All are nude and appear to be trapped in mid-orgasm.  You wonder if they\'re statues or perhaps some kind of perverted petrified art.  The north has a glass door leading back to the factory.  There are two other doors, both made of very solid looking metal.  One is on the east wall and another is on the south, behind the desk.  The one behind the desk is marked \'Premium Storage\' (though it appears to be locked).', true );
 			if( CoC.player.findStatusAffect( StatusAffects.FactoryOmnibusDefeated ) < 0 ) {
-				EngineCore.spriteSelect( 16 );
+				MainView.spriteSelect( 16 );
 				MainView.outputText( '\n\nA nearly nude demonic woman is standing behind the desk, appraising you.  She is gorgeous in the classical sense, with a curvy hourglass figure that radiates pure sexuality untamed by any desire for proper appearance.  Shiny black lip-gloss encapsulates her bubbly lips, while dark eyeshadow highlights her bright red eyes.  The closest thing she has to clothing is a narrow band of fabric that wraps around her significant chest, doing little to hide the pointed nubs of her erect nipples.  Her crotch is totally uncovered, revealing the hairless lips of her glistening womanhood.\n\n', false );
 				MainView.outputText( 'She paces around the edge of the desk, licking her lips and speaking, "<i>So you\'ve made it all the way here have you, \'champion\'?  Too bad you\'ve wasted your time.  Have you figured it out yet?  Have you discovered why you were sent here with no weapons or blessed items?  Have you found out why there are more humans here than anywhere else in this realm?  I\'ll tell you why.  You weren\'t a champion.  You were a sacrificial cow, meant to be added to our herd.  You just got lucky enough to get free.</i>"\n\n', false );
 				MainView.outputText( 'A part of you wants to deny her, to scream that she is wrong.  But it makes too much sense to be a lie... and the evidence is right behind you, on the factory floor.  All those women must be the previous champions, kept alive and cumming for years in order to feed these insatiable demons.  The demoness watches your reaction with something approaching sexual bliss, as if the monstrous betrayal of it all is turning her on.\n\n', false );
@@ -306,7 +306,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			MainView.outputText( 'You step into a dank room, outfitted somewhere between a prison cell and a torture chamber. The ceiling of the sulfur-lined room is hung with an inventive variety of shackles, chains, and devices whose intent are not clear to you. Against the north wall, there appears to be an alchemy lab, laden with a dizzying collection of vials, flasks, and beakers. Against the south, there is a long, sinister-looking wooden rack bearing a sequence of progressively larger and thicker devices, carved to resemble monstrous cocks.  ', false );
 			//Vala here?;
 			if( CoC.flags[ kFLAGS.FREED_VALA ] === 0 ) {
-				EngineCore.spriteSelect( 85 );
+				MainView.spriteSelect( 85 );
 				//Not yet defeated zetaz;
 				if( CoC.flags[ kFLAGS.DEFEATED_ZETAZ ] === 0 ) {
 					//Intro:;
@@ -930,25 +930,25 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.gameOver();
 	};
 	DungeonCore.prototype.succubusTalkOne = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( '"<i>I suppose I really should thank you for coming down all by your lonesome.  The boss is gonna be sooo happy we found you.  Just think, in an hour or two we can get you strapped in and working with the others,</i>"  says the secretarial succubus as she saunters over, still sipping her coffee, "<i>You\'re so cute!  I tell you what, if you agree to come with me, I\'ll, like, make sure the experience is pleasurable.</i>"\n\n' );
 		MainView.outputText( 'She runs a stocking covered foot up your leg and thigh, almost to your groin.  Giggling, the succubus pulls it away and asks, "<i>So are you ready and willing?</i>"' );
 		EngineCore.choices( 'For what?', this, this.succubusTalkTwo, 'Yes', this, this.succubusBadEnd, 'No', this, this.succubusRefuseOffer, '', null, null, '', null, null );
 	};
 	DungeonCore.prototype.succubusTalkTwo = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'The succubus looks at you with a bemused expression, "<i>You haven\'t figured it out yet?  Really?  What do you think we make at this factory, bubble-gum?</i>" she asks with a cruel smile, "<i>We take human and once-human champions like you, pump you full of aphrodisiacs, body-altering drugs, and corrupting agents, and then milk you of your tainted fluids continually for the rest of your life!  And don\'t even start to ask why, I\'ll tell you – there are still pockets of purity out there that repel cute demons like me.  So the best way to deal with those is just to release a river of drug-filled sex-juice at them.  By the time the area dries off, the locals welcome us with open arms... and spread legs.</i>"' );
 		EngineCore.choices( 'Sick!', this, this.succubusRefuseOffer, 'Sounds Fun', this, this.succubusBadEnd, '', null, null, '', null, null, '', null, null );
 	};
 	DungeonCore.prototype.succubusCombatStart = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		CoC.player.createStatusAffect( StatusAffects.FactorySuccubusDefeated, 0, 0, 0, 0 );
 		Combat.startCombat( new SecretarialSuccubus(), true ); //Won't matter if you lose
 	};
 	DungeonCore.prototype.succubusRefuseOffer = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'She frowns, "<i>I was secretly hoping you would say that... I\'m going to make you beg me to hook you into the machines.  Just wait.</i>"' );
 		EngineCore.doNext( this, this.succubusCombatStart );
@@ -961,7 +961,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		CoC.monster.armorDef -= 10;
 	};
 	DungeonCore.prototype.succubusBadEnd = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'The blue skinned seductress steps forward and wraps her arms around you, pulling your head down and crushing it into her heavenly breasts as she speaks, "<i>My my, aren\'t you the kinky little play-toy.  Let\'s get you hooked up.</i>"\n\n' );
 		MainView.outputText( 'She catches you off-guard, lifting your feet off the ground.  You realize she has somehow grown taller.  You stretch to see what\'s going on, but have no leverage to pry your face from the smooth globes of flesh that smother you.   Vaguely, the click-clack of heels reaches you through the walls of flesh.  You\'re being moved deeper into the facility.   A creaky door opens, allowing you to hear the loud humming of machinery, mixed with what sounds like desperate sexual moans.\n\n' );
@@ -969,7 +969,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( this, this.succubusBadEndPartTwo );
 	};
 	DungeonCore.prototype.succubusBadEndPartTwo = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'In no time flat your blood begins to burn hot with the fires of unnatural lust.  ' ); //Arousal
 		if( CoC.player.biggestLactation() < 1 ) { //Tits – regular
@@ -1046,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( this, this.succubusBadEndPartThree );
 	};
 	DungeonCore.prototype.succubusBadEndPartThree = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'The beautiful seductress that bound you giggles and says, "<i>Oh it only gets better baby,</i>" as she pushes another button.  You see a number of needles lower from the equipment above.  Two pause at chest height.  Faded parchment labels on the tubes mark them as "Gro+".  You spot the same markings on at least some of the hoses gathering around your groin.  A few are marked with different labels, but you cannot make out the demonic script.  As one, the hoses rear back, then plunge forward, burying themselves into your supple flesh and injecting their drugged payload into your body.  It hurts at first, but the drugs fog your mind, blocking the pain with pulsing waves of desire.   You begin cumming as your body erupts with artificial pleasure.\n\n' );
 		//Nipples;
@@ -1086,7 +1086,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.gameOver();
 	};
 	DungeonCore.prototype.succubusLossRape = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		if( CoC.player.cocks.length > 0 ) {
 			if( CoC.player.lust > 99 ) {
@@ -1175,7 +1175,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		}
 	};
 	DungeonCore.prototype.succubusVictoryRape = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		CoC.player.slimeFeed();
 		//MALE;
@@ -1280,7 +1280,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		}
 	};
 	DungeonCore.prototype.dungeonSuccubusForceScissor = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'You shiver with anticipation as you hook your leg under her thick thighs, lining up your ' + Descriptors.vaginaDescript( 0 ) + ' as you press forwards.  The anticipation builds as your matched honeypots grow ever closer.  Making contact, your folds part as her purplish-red clit slips betwixt your nether-lips, vibrating slightly in tune with the succubus\' heartbeats.  You gasp, feeling your own ' + Descriptors.clitDescript() + ' erecting and rubbing against her smooth mound.\n\n', false );
 		if( CoC.player.clitLength >= 3 ) {
@@ -1293,7 +1293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.dungeonSuccubusForceFeed = function() {
-		EngineCore.spriteSelect( 55 );
+		MainView.spriteSelect( 55 );
 		MainView.clearOutput();
 		MainView.outputText( 'You chuckle as you decide to release some of the pent up pressure in your ' + Descriptors.allBreastsDescript() + '.  Laying down over your conquest, you grasp her wrists and pin them to the floor as you shove your tits in her face', false );
 		if( CoC.player.biggestTitSize() > 6 ) {
@@ -1371,7 +1371,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.drinkCoffee = function() {
-		EngineCore.spriteSelect( 96 );
+		MainView.spriteSelect( 96 );
 		MainView.clearOutput();
 		MainView.outputText( 'You take a sip of the rich creamy coffee and suddenly feel refreshed. As you replace the coffeepot, the busty coffee-maker comes to life, grabbing her thick dusky nipples and squeezing out a trickle of scaldingly hot liquid. You can see her eyes roll up into her head from what you assume to be pleasure as she automatically refills the missing coffee, mouth open with ecstasy.  Her movements gradually slow as she quivers almost imperceptibly. A contented smile graces her features as immobility overtakes her, freezing her back in place.  You wonder if \'Mrs. Coffee\' was created, or is a victim of this place\'s dark master.' );
 		EngineCore.dynStats( 'lus', 1 );
@@ -1410,7 +1410,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	DungeonCore.prototype.talkToIncubus = function() {
-		EngineCore.spriteSelect( 30 );
+		MainView.spriteSelect( 30 );
 		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'Hentai Comic' ) >= 0 ) {
 			MainView.outputText( 'The incubus speaks to you with a calm, deep voice, "<i>And so the insect, heedless of its path, stumbled directly into the spider\'s web.  Tiny insect... wait, what is that book you\'re carrying?  Is that hentai?  It IS!  Let me offer you a deal – I\'m not really hungry or interested in fighting. So if you hand over the comic, I\'ll happily ignore your presence here. Though, I guess you could also just submit. Then I could put you to work and still get the comic.</i>"' );
@@ -1421,12 +1421,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		}
 	};
 	DungeonCore.prototype.startIncubusFight = function() {
-		EngineCore.spriteSelect( 30 );
+		MainView.spriteSelect( 30 );
 		CoC.player.createStatusAffect( StatusAffects.FactoryIncubusDefeated, 0, 0, 0, 0 ); //Won't matter if you lose
 		Combat.startCombat( new IncubusMechanic(), true );
 	};
 	DungeonCore.prototype.submitToIncubus = function() {
-		EngineCore.spriteSelect( 30 );
+		MainView.spriteSelect( 30 );
 		MainView.outputText( '"<i>It is good to see the insect accept its fate as the spider closes in,</i>" intones the strange demonic mechanic as he takes you by the arm and leads you deeper into the facility.  ' );
 		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
 			MainView.outputText( '\n\nYou enter the main milking chamber, and the incubus gives a start when he realizes what has happened.  With a grunt of rage he throws you through the doorways back into his chamber.  The demon stalks after you, taking up a fighting stance.' );
@@ -1438,7 +1438,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( this, this.factoryFinisher );
 	};
 	DungeonCore.prototype.tradeComic = function() {
-		EngineCore.spriteSelect( 30 );
+		MainView.spriteSelect( 30 );
 		MainView.clearOutput();
 		MainView.outputText( 'You hand over the Hentai Comic tentatively to the male sex demon.  As soon as he has it in his grubby mitts he sits down and starts thumbing through the pages, toying with his half-hard member the entire time.  He must really like porn.' );
 		CoC.player.removeKeyItem( 'Hentai Comic' );
@@ -1741,14 +1741,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		return;
 	};
 	DungeonCore.prototype.omnibusStartCombat = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		MainView.outputText( 'You strike a combat pose and prepare your ' + CoC.player.weaponName + '.  She smiles and saunters around the desk, letting something bulbous and fleshy drop free from between her nether-lips.  You watch in shock as it hardens into a dick, growing right from where her clit should be.\n\nShe taunts, "<i>Like what you see cow?  I\'ll be sure to visit you in the pens.</i>\'"' );
 		CoC.player.createStatusAffect( StatusAffects.FactoryOmnibusDefeated, 0, 0, 0, 0 ); //This won't matter if you lose to her
 		Combat.startCombat( new OmnibusOverseer(), true );
 	};
 	DungeonCore.prototype.omnibusAcceptOffer = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		MainView.outputText( 'She smiles, sauntering closer.  Your eyes widen in shock as her vulva are spread apart by something inside her.   A slick and growing cock emerges, sprouting from where her clit should be located.  She\'s a hermaphrodite.  You don\'t have time to contemplate the implications, as the demoness used your temporary distraction to sink a needle into your neck.  You sigh and black out almost instantaneously, letting her catch you with her strong arms and soft bosom.' );
 		EngineCore.doNext( this, this.factoryFinisher );
@@ -1774,7 +1774,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.addButton( 9, 'No (Kill Her)', this, this.omnibusVictoryKillHer );
 	};
 	DungeonCore.prototype.omnibusVictoryGrowBreasts = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		//Grow if none;
 		if( CoC.player.breastRows.length === 0 ) {
@@ -1819,7 +1819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		this.omnibusVictoryPostBoon();
 	};
 	DungeonCore.prototype.omnibusVictoryGrowDick = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		//No dick?  Grow one!;
 		if( CoC.player.cocks.length === 0 ) {
@@ -1893,7 +1893,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		this.omnibusVictoryPostBoon();
 	};
 	DungeonCore.prototype.omnibusVictoryNormalFace = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		var changed = false;
 		if( CoC.player.horns > 0 || CoC.player.antennae > AppearanceDefs.ANTENNAE_NONE ) {
@@ -1928,7 +1928,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		this.omnibusVictoryPostBoon();
 	};
 	DungeonCore.prototype.omnibusVictoryNormalChest = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		var changed = false;
 		if( CoC.player.breastRows.length > 1 ) {
@@ -1968,7 +1968,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		this.omnibusVictoryPostBoon();
 	};
 	DungeonCore.prototype.omnibusVictoryNormalGroin = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		//Temp used to track changes;
 		var changed = false;
 		MainView.clearOutput();
@@ -2028,7 +2028,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		this.omnibusVictoryPostBoon();
 	};
 	DungeonCore.prototype.omnibusVictoryNormalLegs = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HUMAN ) {
 			MainView.outputText( 'You feel as if you should slap yourself for stupidy.  Your legs are already normal!  You flush hotly as the corrupt magics wash over you, changing nothing.' );
@@ -2052,20 +2052,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusVictoryLetGo = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		MainView.outputText( 'You refuse to fall for her ploy, and decide not to take her up on her offer.  However, being that she is so thoroughly defeated, you allow her to escape, promising her far worse should she ever oppose you in the future.\n\n"<i>Thank you, merciful hero!</i>" she says and she sprints out the door.  Wings unfurl from her back and she takes flight, disappearing out a skylight above the main factory floor.' );
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusVictoryKillHer = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		MainView.outputText( 'You step forwards and grab her by the head.  With an abrupt twist you snap her neck, ending at least one small part of the demonic threat.' );
 		CoC.flags[ kFLAGS.D1_OMNIBUS_KILLED ] = 1;
 		Combat.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusLossRape = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		if( CoC.player.HP < 1 ) {
 			MainView.outputText( 'You stagger into the desk, clutching tightly just to stay upright.  ', false );
@@ -2085,7 +2085,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		EngineCore.doNext( this, this.omnibusLossRape2 );
 	};
 	DungeonCore.prototype.omnibusLossRape2 = function() {
-		EngineCore.spriteSelect( 16 );
+		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		//(Multi dicks);
 		if( CoC.player.cocks.length > 1 ) {

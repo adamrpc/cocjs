@@ -64,13 +64,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			if( CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] === 0 ) {
 				{ //Hell/Izzy threesome intro
 				}
-				EngineCore.spriteSelect( 31 );
+				MainView.spriteSelect( 31 );
 				this.followrIzzyxSallyThreesomePretext();
 				return true;
 			} else if( CoC.flags[ kFLAGS.HEL_ISABELLA_THREESOME_ENABLED ] === 1 ) {
 				{ //Propah threesomes here!
 				}
-				EngineCore.spriteSelect( 31 );
+				MainView.spriteSelect( 31 );
 				this.isabellaXHelThreeSomeCampStart();
 				return true;
 			}
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//REQUIRES FOUGHT GNOLL!;
 	//Introduction – First Encounter;
 	HelScene.prototype.encounterAJerkInThePlains = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		CoC.flags[ kFLAGS.HEL_TIMES_ENCOUNTERED ]++;
 		//Mino threesome proc;
 		if( CoC.flags[ kFLAGS.HEL_AFFECTION ] > 0 && CoC.flags[ kFLAGS.HEL_AFFECTION ] % 5 === 0 && CoC.flags[ kFLAGS.PC_PROMISED_HEL_MONOGAMY_FUCKS ] === 0 ) {
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//FUCKBUDDY GREETING (edited);
 	HelScene.prototype.greetHelAsFuckbuddies = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You make your way out onto the wide open plains.  Soon, you\'re enjoying a walk into hot, dry expanse, slowly meandering through the tall grasses.  But it isn\'t long before you hear footfalls quickly approaching.  You prepare for violence, but are pleasantly surprised to see Hel break through the tall grasses, her wide hips swaying seductively as she approaches.\n\n', false );
 		MainView.outputText( '"<i>Hey there, ' + CoC.player.short + ',</i>" she says, quickly wrapping you in a tight hug.  You return it, and spend the next few minutes chatting amicably with your salamander lover.  After a while, though, Hel steps back from your embrace and, giving her ample endowments a little shake, asks, "<i>So, lover mine, care to blow off some steam?</i>"', false );
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//PARTING FUCKBUDDIES (edited);
 	HelScene.prototype.postHelFuckBuddyFollowup = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		if( this.followerHel() ) {
 			SceneLib.camp.returnToCampUseOneHour();
 			return;
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 	//FIRST COMBAT – PLAYER LOSES;
 	HelScene.prototype.loseToSalamander = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		//(If HP loss) ;
 		if( CoC.player.HP < 1 ) {
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 
 	HelScene.prototype.beatUpHel = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		//Various intros;
 		if( CoC.monster.HP < 1 ) {
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		}
 	};
 	HelScene.prototype.helDefeatedCorrupt = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		//[(corruption = high);
 		MainView.outputText( 'By the way she\'s huffing and puffing, you figure you\'ve got a minute or so to take advantage of her while she\'s vulnerable...  Do you?', false );
 		//(Display Options: [Rape her Ass(for wangs)] [Get Rimjob] and [Wait]);
@@ -270,7 +270,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//COMBAT – PLAYER WINS w/ LESS THAN 85 CORRUPTION;
 	HelScene.prototype.helDefeatedNormal = function( clear ) {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		if( clear ) {
 			MainView.outputText( '', true );
 		}
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		this.helFuckMenu();
 	};
 	HelScene.prototype.helFuckMenu = function( isAmbush ) {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		//Leave appropriate way;
 		var leave = this.declineHelSexings;
 		if( isAmbush ) {
@@ -381,7 +381,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[b]Player Win – Victory Un-Fuck – No Thanks (Any Gender);
 	HelScene.prototype.declineHelSexings = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You thank her for the offer, but politely decline.\n\n', false );
 		if( CoC.isInCombat() ) {
@@ -397,7 +397,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Victory Fuck – Fuck her Vag;
 	HelScene.prototype.beatUpHelAndStealHerWalletFromHerVagina = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( SceneLib.helFollower.heliaCapacity() );
 		MainView.outputText( 'You tell her that, sure, you could blow off some steam.  Still grinning, she tosses off her skimpy scale bikini and flops down on her back, already starting to finger her cunt.  You follow suit, stripping off your ' + CoC.player.armorName + ' and straddling her hips.  She reaches forward and grasps your ' + Descriptors.cockDescript( x ) + ' in her scaly, clawed hands, causing you to miss a heartbeat before, smiling, she starts to pump it.  Her other hand continues to finger her cunt, preparing it for your ' + Descriptors.cockDescript( x ) + '\'s penetration.  Content to let her lead for the moment, you grasp her wide hips just above where the crimson scales turn to soft flesh, tensing up as she begins to guide you into her slit.\n\n', false );
@@ -425,7 +425,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 	//Player Win – Victory Fuck – Fuck her Ass;
 	HelScene.prototype.fuckHelsAss = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( SceneLib.helFollower.heliaAnalCapacity() );
 		MainView.outputText( 'You tell her that, yes, you want to blow off some steam, and motion for her to get on hands and knees.\n\n', false );
@@ -452,7 +452,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Victory Fuck – Get Blown (Male) (edited);
 	HelScene.prototype.helBlowsYou = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( '', true );
 		MainView.outputText( 'You agree to her proposition, and tell her to get on her knees as you draw out your ' + Descriptors.cockDescript( x ) + ' and slip out of your ' + CoC.player.armorName + '.  She grins and drops to her knees, quickly discarding her scaled bikini as you stroke yourself to hardness.  You close the distance between you and the salamander is quick to take your cock into her mouth, lustily sucking it in as she starts to fondle her breasts enticingly.\n\n', false );
@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – DP(Multicock Only) (edited);
 	HelScene.prototype.dpHel = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		var x = CoC.player.cockThatFits( SceneLib.helFollower.heliaCapacity() );
 		var y = CoC.player.cockThatFits2( SceneLib.helFollower.heliaCapacity() );
 		MainView.outputText( '', true );
@@ -517,7 +517,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Get Licked (Vagita) (edited);
 	HelScene.prototype.getLickedByHel = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You agree to her proposition, and instruct her to get on her knees as you slip out of your ' + CoC.player.armorName + ', revealing your ' + Descriptors.vaginaDescript( 0 ) + '.  She grins and kneels before you, quickly discarding her scaled bikini as you grasp her shoulders, pressing your womanhood to her lips.  Her long, forked tongue darts forward, teasing your lips.\n\n', false );
 		MainView.outputText( 'The salamander grips your ' + Descriptors.buttDescript() + ' with her smooth, scaly hands as she slips her wonderfully long tongue into your ' + Descriptors.vaginaDescript( 0 ) + ', flicking and tickling every inch of your sensitive cunt as she forces in inch after inch, until all eight are pushed inside you, driving you wild with lust as she lustily tonguefucks you.  Gripped by building pleasure, you push her onto her back and smash your cunt against her mouth, bucking your hips as she continues her skilled assault, making you shudder and writhe with pleasure.\n\n', false );
@@ -545,7 +545,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Tail Wank (dix of any size) (edited);
 	HelScene.prototype.helTailWanksYourDickBecauseSheLovesYouDesuDesuHoraHora = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( 'You think for a moment, then saunter up to the hot salamander.  She gasps initially, then grins wolfishly as you tell her to put the large, prehensile tail to good use.  You shift your grip to her shoulders and push her down to her knees; she\'s quick to start pulling you out of your ' + CoC.player.armorName + '.  After a moment of fiddling, your ' + Descriptors.cockDescript( x ) + ' pops free, already hardening; she wraps her clawed, scaly hands around it and gives a few experimental pumps, but you\'re quick to remind her that you have a different position in mind.\n\n', false );
@@ -569,7 +569,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Tail Pegging (Anal) (edited);
 	HelScene.prototype.helTailPegging = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You agree to her proposition and, after a moment of thought, strip out of your ' + CoC.player.armorName + ' and ask her if she could fuck you with that long, prehensile tail.  "<i>Oh, now that\'s an idea I can get behind!</i>"  She laughs at her own wit.  "<i>Well, go on then.  Get on your hands and knees, and spread those ass cheeks.</i>"\n\n', false );
 		MainView.outputText( 'You do as she asks, getting on all fours and giving her a good views of your vulnerable ' + Descriptors.buttDescript() + '.  Looking over your shoulder, you can see her smile wolfishly as she brings her tail to bear, now doused of its previous flames, and gives its tip a little suckle, moistening it up as she straddles your hips to fuck you doggy style.  Her tail slips down from her mouth and winds between her legs like a cock as she lines herself up with your ' + Descriptors.assholeDescript() + '.\n\n', false );
@@ -607,7 +607,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Coil her Up (Wang Naga) (edited);
 	HelScene.prototype.nagaCoilsUpHel = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 85 );
 		var y = CoC.player.cockThatFits2( 85 );
@@ -654,7 +654,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 	//Player Win – Coil her Up 69 (anal naga) (edited);
 	HelScene.prototype.nagaCoilsUpAnalNaga = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You slither closer to the salamander and tell her that, yeah, you could stand to work off some steam.  She grins at that and closes the distance between you, reaching out to caress your serpentine half.  "<i>Mmm.  Sexy tail, lover,</i>" she says, reaching around and giving your ' + Descriptors.buttDescript() + ' a squeeze in her smooth, scaled hands.  "<i>It\'d be a real shame for such beautiful coils to go unused, you know...</i>" she adds, giving you a little wink.\n\n', false );
 		MainView.outputText( 'You get an idea in a hurry, and quickly discard your ' + CoC.player.armorName + ' as she does the same.  She drops to her hands and knees before you, and like a child, snatches at your tail.  Once in hand, she eagerly puts her mouth to it, sucking your tail\'s tip like a cock.  You shudder at the odd sensation, but when she raises her tail up toward you, you reciprocate the gesture, taking her extinguished tip into your mouth and slathering it with spittle.\n\n', false );
@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Mount Her (Wangbearing Centaurs of height >= 60</i>") (edited);
 	HelScene.prototype.mountHel = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		var x = CoC.player.cockThatFits( 85 );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Hanging 69 (Vaginataurs of height >= 60</i>") (edited);
 	HelScene.prototype.helVaginaTaur69 = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You trot up to the salamander and, just as you\'re about to tell the salamander a few of your fantasies you two could enact, she spills one of her own!  "<i>Oh, Marae,</i>" she purrs, reaching out to stroke your blank flank, "<i>I\'ve always wanted my very own warhorse.  Tell you what – let me ride you, and I\'ll give you something oh so special...</i>"\n\n', false );
 		MainView.outputText( 'Well, that was unexpected, but... you\'ve heard much weirder things since you came to this world, and damned if you don\'t find many people around who can appreciate your stately equine half.  You give her a nod, and before you know it, the salamander\'s swung herself up onto your back and wrapped her arms tight around your human waist, pressing her large, soft breasts into your back.  "<i>Giddyup,</i>" she whispers huskily into your ear, and her scaled, clawed feet give your flanks a little poke.\n\n', false );
@@ -777,7 +777,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Possession (Ghost Morphs w/ Possession Power) (ehrdaterd);
 	HelScene.prototype.helPossessionShitPoopCock = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Taking advantage of the salamander\'s open state, you will yourself into incorporeality and glide toward her.  "<i>Hey!  Wait!  What the fuck are you doing?</i>" she yells as you approach her in your spectral form.\n\n', false );
 		MainView.outputText( 'With a sneer, you answer, "<i>I\'M GOING GHOST!</i>" and lunge into her.\n\n', false );
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 	//Player Win – Corrupt Rape – Rape her Ass (wangers and mash) (edited);
 	HelScene.prototype.rapingHelsAssMeansYourCorruptCauseAnalIsEvil = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		var x = CoC.player.cockThatFits( 85 );
 		var y = CoC.player.cockThatFits2( 85 );
 		MainView.outputText( '', true );
@@ -859,7 +859,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Player Win – Corrupt Rape – Get Rimjob (edited);
 	HelScene.prototype.receiveCorruptRimjobsFromHel = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The sight of the salamander berserker on her knees stirs the fire in your loins, and in moments you\'ve stripped out of your ' + CoC.player.armorName + ' and advanced upon her.  She looks up at you, gritting her teeth as if preparing to strike – you preempt her with a hard kick in the chest, knocking her on her back, then kneel down and straddle her, pinning her arms down underneath your knees as you bring your ' + Descriptors.assholeDescript() + ' to hover over her face.\n\n', false );
 		MainView.outputText( 'She gets the idea in a hurry, and you feel her forked, serpentine tongue dart out and begin exploring your thighs, ass cheeks, and crotch.', false );
@@ -892,7 +892,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//===========================================================================;
 	//triggers only after you've incremented the Helgate flag five times with 'consensual' sex (win or lose), but not Corrupt Rape options.;
 	HelScene.prototype.helMinotaurThreesome = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		//Reset the additional talk options;
 		CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_BERSERKING ] = 0;
 		CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_ATTACKING_YOU ] = 0;
@@ -919,7 +919,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Leave];
 	HelScene.prototype.leaveMinotaurHelThreesome = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shake your head with a deprecating smile, and turn to leave her to her pleasures.', false );
 		//(reset Helgate flag to 0);
@@ -928,7 +928,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//THREESOME – FUCK HER ASS (wang of area =< 85) (edited);
 	HelScene.prototype.fuckHerAss = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 85 );
 		if( x < 0 ) {
@@ -954,7 +954,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 	//THREESOME – MINO LICK (Unisex) (edited);
 	HelScene.prototype.helMinoThreeSomeLickItsDick = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Well, you\'re certainly not going to pass an opportunity like this up.  You shed your ' + CoC.player.armorName + ' in a hurry and step up to the poor minotaur.  You only just hold in a laugh at the glazed, half-conscious look on his face.  Looking him over, you can see a veritable pool of bull-spunk beneath his ass or sticking to the salamander\'s thighs as she continues to bounce on his shaft, indicating that he\'s been raped a half-dozen times already.  You almost feel bad for the poor thing, but then again, you half suspect your friend would be in the same shape he\'s in now had he won.  So, with your ' + CoC.player.armorName + ' off, you kneel down over his bull-like muzzle and force his snout into your ' + CoC.player.assholeOrPussy() + '.\n\n', false );
 		MainView.outputText( 'You have to give him a nasty slap on the cheek before he actually does anything, though.  But when he does, it feels heavenly.  His tongue is large, flat, and VERY wet, licking at your thighs and ass so that you shudder at the strange, not altogether unpleasant, feeling.  Finally, though, he comes to his prize.  You shiver with anticipation as he gives your waiting hole an experimental lick, testing the waters.  An encouraging squeeze between your ' + Descriptors.hipDescript() + ' is enough to set him working.  His massive tongue finally penetrates you, slipping into your waiting, sensitive hole, making you gasp in delight as he slathers your inner walls with his tongue.\n\n', false );
@@ -984,7 +984,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//AFTER THREESOME SCENE (edited);
 	HelScene.prototype.postMinoThreesomeDecisionTime = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'When she breaks the kiss, she leans back on her elbows and smiles at you, surprisingly prettily.  For once, you don\'t feel cripplingly exhausted after meeting her – no fight to tire you out before sex – so perhaps this would be a good time to interview your red-headed warrioress.\n\n', false );
 		//Player's Options (All Genders): Each option disappears after it is selected once);
@@ -995,7 +995,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//[I'm Bugging Out];
 	HelScene.prototype.bugOutAfterHelMinoThreesome = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( 'On second thought, you\'d rather keep it simple for now, even if it means battling back her future advances with force of arms instead of words.  You kiss her once more and give her breasts a squeeze for the road, then wordlessly get up and take your leave.\n\n', false );
 		//(reset Helgate to 0);
 		CoC.flags[ kFLAGS.HEL_AFFECTION ] = 0;
@@ -1003,7 +1003,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Berserker Mode];
 	HelScene.prototype.berserkMode = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You take the opportunity to ask about her rather violent, enraged fighting style.\n\n', false );
 		MainView.outputText( 'She laughs, a strikingly girlish sound from her.  "<i>Come on, haven\'t you ever been so pissed-the-fuck-off that you just want to kill everything?  It\'s like that.  Every morning when I leave camp, I spend an hour or so thinking about everything I hate – the demons, the gnolls' );
@@ -1018,7 +1018,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Her];
 	HelScene.prototype.askHelAboutHer = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You think for a moment, and then ask her about herself.\n\n', false );
 		MainView.outputText( '"<i>Who, me?</i>" she asks, seemingly surprised.  "<i>What... is the wild, anonymous sex not good enough for you?  Besides, you haven\'t exactly introduced yourself yet, either.</i>"\n\n', false );
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Attacking You];
 	HelScene.prototype.askHelAboutAttackingYou = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		CoC.flags[ kFLAGS.HEL_FUCKBUDDY ] = 0;
 		MainView.outputText( 'Now that you\'ve got the feisty salamander calm for once, you ask her why she\'s always attacking you.\n\n', false );
@@ -1047,7 +1047,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Say Nothing];
 	HelScene.prototype.helChatMenu = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		if( CoC.flags[ kFLAGS.HEL_TALKED_ABOUT_HER ] === 0 ) {
 			EngineCore.choices( 'About Her', this, this.askHelAboutHer, '', null, null, '', null, null, '', null, null, 'Leave', this, this.bugOutAfterHelMinoThreesome );
 		} else {
@@ -1064,7 +1064,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Stop];
 	HelScene.prototype.telHelSTOPATTACKINGMEYOUBITCH = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Even knowing she doesn\'t want to really hurt you, you ask the salamander to stop attacking you anyway.\n\n', false );
 		MainView.outputText( 'She sighs, but pushes her face into your neck and takes a deep, strong breath.  When she\'s satisfied, she leans back and says, "<i>I\'ve got your scent, now.  If I smell you ahead of time... I\'ll try not flip my shit on you.  But if you want me clear-headed, you damn well better be ready to try a different kind of sparring when we meet.  All right?</i>"\n\n', false );
@@ -1077,7 +1077,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 
 	//[Seconds?];
 	HelScene.prototype.askMommaHelForSecondsAfterDinner = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You reach down and grab the salamander\'s ample, muscular ass and, grinning, ask her if she\'s ready for more.\n\n', false );
 		MainView.outputText( '"<i>Always, lover mine,</i>" she laughs, giving you a little wink.', false );
@@ -1090,7 +1090,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Leave];
 	HelScene.prototype.leaveHelAfterMinoThreeSomeChat = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Sadly, you know you have things to tend to, and so you give your salamander lover a quick peck goodbye as you get to your feet and clean off your ' + CoC.player.armorName + '.  As you\'re getting ready to head back to camp, however, you feel her powerful arms wrap around your waist, locking you in place as her long, reptilian tongue snakes out to tease your ear.\n\n', false );
 		MainView.outputText( '"<i>I\'ll see you soon, lover mine,</i>" she whispers, planting a kiss on your neck.\n\n', false );
@@ -1108,7 +1108,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//-Isabella is NOT a follower;
 	//-Play when exploring the Plains.;
 	HelScene.prototype.salamanderXIsabellaPlainsIntro = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You make your way onto the vast expanse of Mareth\'s plainsland and soon find yourself submerged in the tall grass, wading through it like a sea of weeds.  After a few minutes of wandering, you hear what sounds like a surprised, throaty moo in the distance, followed shortly by the crack of steel on steel.  Knowing Isabella makes camp not far from here, you ready your ' + CoC.player.weaponName + ' and make best haste toward the cow-girl\'s camp.\n\n', false );
 		MainView.outputText( 'You burst into Isabella\'s camp, ' + CoC.player.weaponName + ' raised high.  To your horror, the red-headed cow-girl is standing with her massive tower shield braced, eyeing down Hel the salamander.  The salamander stands with sword in hand, poised to strike!\n\n', false );
@@ -1122,7 +1122,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Diplomacy (edited);
 	HelScene.prototype.salamanderXIsabellaDiplomacy = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		//(PC passes a moderate Strength check);
 		if( CoC.player.str > 60 ) {
@@ -1140,7 +1140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.doNext( this, this.salamanderXIsabellaDiplomacy2 );
 	};
 	HelScene.prototype.salamanderXIsabellaDiplomacy2 = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Now that you have the two redheads\' attention, you insist on knowing what, exactly, is going on here.\n\n', false );
 		MainView.outputText( 'Glaring at Isabella, Hel says, "<i>This... cow... stole my bandanna a few months ago and won\'t give it back.</i>"\n\n', false );
@@ -1175,7 +1175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Watch (edited);
 	HelScene.prototype.watchIsabellaAndHelFight = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Deciding this isn\'t really any of your business, you bunker down to watch the two redheads beat the shit out of each other.\n\n', false );
 		MainView.outputText( 'As the only \'armed\' one, Hel takes the initiative, lunging forward with a rapid flurry of blows that Isabella only just manages to turn aside with her shield.  During the last of these attacks, however, the salamander leaves herself open to a bash that sends her flying across the clearing.  The cow-girl charges over before Hel can react and grabs her by the leg, trying to lift her up.  Before she can, however, Hel kicks up, crashing her foot into the underside of Isabella\'s massive cleavage.\n\n', false );
@@ -1190,7 +1190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Leave (edited);
 	HelScene.prototype.skipTownOnIsabellaAndHelsFight = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Well, you\'re sure as hell not going to get involved in this – better to let them duke it out between themselves rather than risk your relationship with either girl.  You head on back to camp, not terribly surprised to hear sharp moos, grunts, and cries for some time in the distance.\n\n', false );
 		//(Return PC to camp, advance time 1 hour. Intro scene will not play again.);
@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//Isabella x salamander Threesome – Camp Version Intro (edited);
 	//(Play at ~02:00 AM, after Isabella arrives at camp. PC must have reached "<i>Fuck Buddy</i>" status with Hel);
 	HelScene.prototype.followrIzzyxSallyThreesomePretext = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '\n<b>Something odd happens during the night...</b>\n', false );
 		MainView.outputText( 'You\'ve only been asleep for a few hours when you hear a sudden and alarming THWACK just outside camp.  You jump to your feet and try to gather your equipment while trying to make sure everything and everyone in camp is present and accounted for.  It only takes you a moment to notice that Isabella is nowhere to be found!\n\n', false );
 		MainView.outputText( 'You make your way out of the camp, hearing another and another thwack, getting louder as you approach.\n\n', false );
@@ -1258,7 +1258,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Isabella x Hel Threesome Scene – Beginning in the Plains (edited);
 	HelScene.prototype.isabellaXHelThreeSomePlainsStart = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'While wandering the grasslands, the relative silence of the plains is suddenly broken by a high, throaty moo in the distance.  Momentarily afraid that Isabella and Hel are going to try and rip each other\'s throat out again, you start running toward the source of the ever-loudening \'moooOOOOOO\'.\n\n', false );
 		MainView.outputText( 'You burst out of the grass and into Isabella\'s camp, and are shocked to see Hel sitting on the cow-girl\'s lap, her hands on Isabella\'s hefty breasts and one of the her quad-nipples locked in her mouth.  Seeing you approach, Isabella lifts a hand from Hel\'s hip and gives you a somewhat-abashed wave.\n\n', false );
@@ -1270,7 +1270,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//Isabella x Hel Threesome Scene – Beginning at Camp (edited);
 	//(Has a 10% chance to play when the player chooses [Sleep] while Isabella is at camp);
 	HelScene.prototype.isabellaXHelThreeSomeCampStart = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '\n<b>Something odd happens during the night...</b>\n', false );
 		MainView.outputText( 'As you settle in to sleep for the night, you notice that Isabella\'s wandered off out of the camp.  Mildly concerned for the busty cow-girl\'s safety, you set out for the camp perimeter.  It doesn\'t take you long to find her, thanks to a soft, throaty mooing coming from the brush near camp.\n\n', false );
 		MainView.outputText( 'You push the scrub aside, revealing the cow-girl sitting on the ground, running a hand through the hair of Hel the salamander, who\'s currently sitting on the cow-girl\'s lap, her hands on Isabella\'s hefty breasts and one of the quad-nipples locked in her mouth.  Seeing you approach, Isabella lifts her hand from Hel\'s head and gives you a somewhat-abashed wave.\n\n', false );
@@ -1287,7 +1287,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Leave];
 	HelScene.prototype.leaveIsabellaSallyBehind = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You decline the cow-girl\'s offer, but tell the redheads to have fun without you.  Though a bit disappointed, they both wave as you make your way back to camp.', false );
 		if( CoC.time.hours < 6 ) {
@@ -1298,7 +1298,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//[Drink];
 	HelScene.prototype.nomOnIzzyTitWithSallyMancer = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Well, that\'s an offer you can\'t refuse.  The girls\' faces both brighten visibly as you say that you could use a drink.  Hel scoots to the side, allowing you to nestle yourself into Isabella\'s lap beside her.  You\'re already salivating slightly by the time Isabella hands her teat off to you', false );
 		if( CoC.player.hasCock() ) {
@@ -1349,7 +1349,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//LEAVE before sexing or Unsexed PC;
 	HelScene.prototype.noThreesomeSexWithSallyAndIssyLastMinute = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'With a heavy heart, you tell the girls you\'ll have to pass.  Though they both look disappointed, Hel is quick to whisper huskily, "<i>Don\'t you worry, you big ol\' cow.  I\'ll take gooood care of you...</i>"\n\n', false );
 		MainView.outputText( 'With a chuckle, you head on back to camp with a full belly', false );
@@ -1365,7 +1365,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//DICK (edited);
 	HelScene.prototype.stuffIzzyAndSalamanderWithDicks = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		//Hels pussy;
 		var x = -1;
@@ -1487,7 +1487,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		EngineCore.doNext( this, this.izzySallyThreeSomeFollowup );
 	};
 	HelScene.prototype.izzySallyThreeSomeFollowup = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Now a sweat-and-cum soaked mess, the girls collapse onto their backs around you.  Sighing contentedly, Isabella rolls over and nuzzles her head on your chest; a moment later sees Hel doing the same, wrapping her warm tail around your ' + Descriptors.cockDescript( 0 ) + ' lovingly.\n\n', false );
 		MainView.outputText( '"<i>That was amazing.  Seriously,</i>" the salamander says, still panting from the experience.  "<i>I mean, holy shit you two.  We... we really need to do this more often.</i>"\n\n', false );
@@ -1507,7 +1507,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//VAGINA (edited);
 	HelScene.prototype.izzySallyThreeSomeVagoozlaz = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You quickly strip out of your ' + CoC.player.armorName + ', already wet at the sight of the two busty redheads embracing and fondling each other as they await you.  When you\'re finally rid of interfering fabrics, you drop to your knees and insert yourself between the girls.  With a few carefully considered directions, you get the three of you into something of a triangle shape, with your head nestled between Hel\'s thighs and Isabella\'s tongue caressing your ' + Descriptors.vaginaDescript() + '.\n\n', false );
 		MainView.outputText( 'You shudder as the cow-girl\'s inhumanly wide tongue drags across your sopping box, giving you an experimental lick.  Across from you, you can see Hel slipping a pair of fingers into Isabella\'s pussy, eliciting a gasping moo from her.  As Isabella gives you another long, slow lick, you decide to get to work on the salamander\'s snatch.  You spread her thighs and push her tail back, revealing the gaping slit of her carnal canal.\n\n', false );
@@ -1555,7 +1555,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Fox Girls -- First Time Intro;
 	HelScene.prototype.heliaPlusFoxyFluffs = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.HEL_FOXY_FOURSOME_WARNED ] === 0 ) {
 			CoC.flags[ kFLAGS.HEL_FOXY_FOURSOME_WARNED ] = 1;
@@ -1576,7 +1576,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Fox Girls -- Leave (Only Available First Time);
 	HelScene.prototype.runAwayFromFoxGirls = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You graciously excuse yourself, saying that you forgot something back at camp.  All three girls say "<i>Awwww</i>" in unison, but don\'t make any special effort to keep you from going.  As you head out, you look over your shoulder in time to see Hel give you a little wink as the fox-herms clamber into her lap.  At least someone\'s getting laid today.\n\n', false );
 		EngineCore.doNext( SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
@@ -1584,7 +1584,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	//Foursome Scene Intro (First & Repeat);
 	HelScene.prototype.heliasFoxyFourSomeFluffs = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( 'You slip a hand into Mai\'s loose-fitting tunic, giving her soft D-cups a little squeeze as Hel grabs a room key from the bartender.  You gather up the sexy fox-herms, taking each arm-in-arm, and follow Hel upstairs to the private rooms, getting a unique view of the salamander\'s barely-clad ass giving a little jiggle with each step.\n\n', false );
 		MainView.outputText( 'The four of you slide into your room for the evening, a small affair with a large, plush bed.  The fox-twins waste no time in undressing, revealing their large D-cups, 8-inch red cocks, and glistening loose cunts.  Hel tosses her scale bikini aside, letting her hefty E-cups bounce free, and puts an arm around the twins\' lithe, tan shoulders so all three nude bodies are on display together for you.\n\n', false );
 		//[If Herm];
@@ -1600,7 +1600,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Foursome Scene -- As Male;
 	HelScene.prototype.foxyFluffsFoursomeAsMale = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 85 );
 		if( x < 0 ) {
@@ -1620,7 +1620,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Foursome Scene -- As Female;
 	HelScene.prototype.foxyFluffGirlsFuckSex = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You strip out of your ' + CoC.player.armorName + ' and playfully push the fox-girls onto the bed and with Hel\'s help, spread their legs to reveal their rigid cocks.  Nestling yourself between Mai\'s thighs, you take her cock into your mouth up until the knot parts your lips.  She tastes of musk and sweat and salty pre, sending an electric chill up your spine as the first tasty drops of seed touch your tongue.\n\n', false );
 		MainView.outputText( 'You and Hel both fellate the hermaphroditic twins, amused to see the girls holding hands and rolling their heads back at your oral ministrations.  You spend perhaps a minute suckling and licking their doggy cocks, getting them nice and ready for the coming attractions.\n\n', false );
@@ -1643,7 +1643,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 	};
 	//Foursome Scene -- Outro;
 	HelScene.prototype.foxyFluffOutro = function() {
-		EngineCore.spriteSelect( 68 );
+		MainView.spriteSelect( 68 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Now a cum- and sweat-soaked mess, you, Hel, and the twins collapse onto the bed, all panting from the exertion of the foursome.  With their thick knots now deflating back to normal sizes, the girls look rather cute as they wipe their own spunk off their smooth breasts and thighs.  Hel moans contentedly as she fingers a bit of foxcream out of her loose cunt.\n\n', false );
 		MainView.outputText( 'With a smile, you open your arms, and the fox-twins snuggle up to rest their heads on your ' + Descriptors.chestDesc() + '.  Hel, smiling, crawls on top of you, giving you a long and loving kiss.  "<i>That was wonderful, lovers,</i>" the salamander whispers, putting her arms around the twins.  They giggle, half-drunk and half-asleep.  Surrounded by three warm, sexy bodies, you soon drift off to sleep.\n\n', false );

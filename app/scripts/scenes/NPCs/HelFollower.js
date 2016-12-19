@@ -424,7 +424,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		}
 		if( display ) {
 			MainView.clearOutput();
-			EngineCore.spriteSelect( 68 );
+			MainView.spriteSelect( 68 );
 		}
 		if( CoC.flags[ kFLAGS.HEL_FOLLOWER_LEVEL ] === 2 ) {
 			if( CoC.flags[ kFLAGS.HELIA_ANAL_TRAINING_OFFERED ] === 0 && display && CoC.player.biggestCockArea() > this.heliaAnalCapacity() ) {

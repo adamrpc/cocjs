@@ -109,7 +109,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, Consumable
 	};
 	//[Wait/Next];
 	Maddie.prototype.waitForSlutCake = function() {
-		EngineCore.spriteSelect( 39 );
+		MainView.spriteSelect( 39 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You walk back into the bakery proper, feeling more than a little ', false );
 		if( CoC.player.cor < 33 ) {
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, Consumable
 	};
 	//[RUN DAFUQ AWAY];
 	Maddie.prototype.runAwayFromMaddiiiieee = function() {
-		EngineCore.spriteSelect( 39 );
+		MainView.spriteSelect( 39 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You turn tail to run, evacuating the room before that culinary catastrophe can have her way with you.  A high-pitched whine chases you away as the cupcake-girl cries, "<i>Nooooo... come back!  I\'m making so much filling for you!</i>"  Her words lend you even greater speed, and you vacate the city in record time.\n\n', false );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = -1;
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, Consumable
 	};
 	//[Followup to run away];
 	Maddie.prototype.runAwayMaddieFollowup = function() {
-		EngineCore.spriteSelect( 39 );
+		MainView.spriteSelect( 39 );
 		MainView.outputText( '', true );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] = -2;
 		MainView.outputText( 'You return to a strange sight indeed.  Urta and Edryn are leading a procession of over thirty city guards, arranged in a loose circle around the cupcake-girl.  Her comparatively tiny, tin-foil fez is gone, along with most of her blue-iced \'armor\'.  She looks weak, pathetic, and beaten as she\'s prodded with spears and escorted from the city, never to return again.  Vanilla-scented tears stain the pavement behind her, leaving a trail the whole way back to the bakery.\n\n', false );
@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, Consumable
 	};
 	//[TRY TO TALK];
 	Maddie.prototype.talkToMaddie = function() {
-		EngineCore.spriteSelect( 39 );
+		MainView.spriteSelect( 39 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You try to speak as calmly as you can in the face of a giant, jiggling sex-pastry, but she ignores your demands to \'wait\', \'listen\', or \'stop\'.  Sponge-cake-soft fists envelop your arms, lifting you from the ground to pin you against some flour sacks.   The cherries covering the cupcake-girl\'s whipped-cream bra drop off, pushed away by two candy-pink nipples the size of water bottles.  As one, they discharge thick splorts of thick, gooey icing to splatter over the length of your exposed arms.  It hardens nigh-instantaneously in the comparatively cool air, and you\'re helpless to do anything but squirm as she applies the same treatment to your ' + CoC.player.legs() + ', immobilizing you completely.\n\n', false );
 		MainView.outputText( 'The cock-crazed confection looks down at you and nods, a satisfied smile spreading over glistening, pale blue lips.  She breathlessly exclaims, "<i>My creat- cr... Dad ', false );

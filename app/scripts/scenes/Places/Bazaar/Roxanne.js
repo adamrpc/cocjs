@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	//[Drinking Table Approach, Not Met Yet]	;
 	Roxanne.prototype.Roxanne1stApproach = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( 'You hesitantly approach the drinking lizard-folk, taking note of their unusual garments and appearance.  They all wear black jackets with silver trim, tight-fitting leather pants, and tall, black boots.  Oddly, the most feminine of them appears to be the leader.  Her jacket is filled out with large, well-rounded DD-cup breasts, and her boots forgo the traditional shape for a sluttier, higher heel.  Her scales are a dark purple, glittering darkly in the light, and while her head has a lizard-like shape, a pair of dragon-like horns bulge from the back of her skull in place of hair.  The other lizans all appear to be males, but they act as if they\'re quite intimidated by the feminine leader.\n\n', false );
 		MainView.outputText( 'Suddenly, the alpha-lizan glances up and meets your eye, her expression turning into a leering sneer as she asks, "<i>See something you like ' + CoC.player.mf( 'buddy', 'girly' ) + '?  Come on over, tell us your story!</i>"\n\n', false );
 		MainView.outputText( 'Do you approach?', false );
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//[Approach] – Flag as Met;
 	Roxanne.prototype.RoxanneChooseApproachOrRepeat = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00221 ] === 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00221 ]++;
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 		this.roxanneDrinkingContest();
 	};
 	Roxanne.prototype.roxanneDrinkingContest = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Roxanne ', false );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00225 ] >= 200 ) {
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//[GET A JOB OF BLOWNESS];
 	Roxanne.prototype.roxanneGivesABlowjob = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( 'You open the lower portion of your ' + CoC.player.armorName + ' and, pulling it back, hang out your ' + Descriptors.multiCockDescriptLight() + '; ', false );
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//[Receive Oral – Vaginalingus];
 	Roxanne.prototype.roxanneCunnilingus = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shimmy out of your ' + CoC.player.armorName + ' and lean back, exposing your ' + Descriptors.vaginaDescript() + ' to the drunken lizan\'s maw.  She wobbles back and forth for a moment, clutching at your ' + CoC.player.legs() + ' to steady herself before she leans in, brushing her scaled nose against your vulva.  You shudder from the sudden contact with her scales, but she doesn\'t rush it, instead huffing and sniffing at the moist entrance.  Her alcohol-lidded eyes gaze up at you, the bleary orbs slightly confused as her jaw slowly opens to release her tongue.\n\n', false );
 		MainView.outputText( 'The pink length of Poisontail\'s tongue oozes out like a sentient creature, waggling slightly as if sniffing the air before it presses on the ', false );
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//[Receive Oral – SkyrRimjoooooooob];
 	Roxanne.prototype.roxanneRimjob = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shimmy out of your ' + CoC.player.armorName + ' and smirk, turning around to lean onto the table', false );
 		if( CoC.player.biggestTitSize() >= 2 ) {
@@ -487,7 +487,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//[OH SHIT YOU SO DRUNK AND GETTING REAMED BY LIZARD CAWK];
 	Roxanne.prototype.roxanneReamsYouNormal = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'A foot interposes itself between you and the table, and a shove sends you flopping onto the booze-soaked planks face-down, the last few inches of descent slowed by Roxanne\'s firm hands.  A scaled digit digs under your ' + CoC.player.armorName + ', pulling and tugging.  As each piece is forcibly removed, you\'re left more and more naked, totally exposed to the heat of the fire and the smooth scales of the lizan\'s body.  The room lurches when you to try to move and stop her, and you flop back down, ignoring the drunken spin of your surroundings.  Laughing heartily, the pirate leans over you to pin your hands to the table.  While her position has the intended effect of restraining you, it also gives you the enviable ability to feel Roxanne\'s iron-hard nipples pressing into your back.\n\n', false );
 		MainView.outputText( 'You giggle underneath the lizan, your face mopping up the frothy brew that spilled during the previous bout of binge drinking.  Lapping it up, you forget about your predicament as you adjust to the warm, scaled body overtop you.  Roxanne leaves you to your distractions while she wiggles out of her pants, her tail swaying to counterbalance the now-freed bulk of her member.  The sodden shaft rises to bump your butt, dripping with pre-cum as it wiggles between your cheeks.  It prods your ' + Descriptors.assholeDescript() + ', rousing you from your drunken stupor and earning a look back, but the pirate begins to tongue the edge of your ear, making you giggle and relax into sexy, alcohol-lubricated acquiescence.\n\n', false );
@@ -587,7 +587,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//[Roxanne HAS A FUCKING TORPEDO DICK BUTTFUCK];
 	Roxanne.prototype.roxanneFucksYourAssOHGODITSHUGE = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Gosh, Roxanne is so strong... she\'s such a good friend to help you into her wagon, even while she has to drag the weight of her huge prick.  The lizan spins you in her arms and kisses you full on the face, her massive tongue battering through your lips to explore the recesses of your still-slack mouth.  A moment later, your sluggish reflexes catch up to the kiss, and you lick and suck at her tongue, clinging to the ', false );
 		if( CoC.player.tallness >= 80 ) {
@@ -718,7 +718,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 	};
 	//PC has a big butt and loses to normal Roxanne;
 	Roxanne.prototype.bigBootyRoxanneContestLoss = function() {
-		EngineCore.spriteSelect( 78 );
+		MainView.spriteSelect( 78 );
 		MainView.clearOutput();
 		MainView.outputText( 'Gods, your head is swimming!  The room is pitching from side to side, and you ' + CoC.player.mf( 'chuckle', 'giggle' ) + ' as you idly wonder if this is what it would be like aboard Roxanne\'s ship.  Still, the well-endowed shemale doesn\'t seem to mind your tipsy bumbling in the slightest.  She hooks her hands under your [butt] and squeezes the spacious ass-flesh appreciatively, then growls, "<i>Such a nice, round ass; perfect for stuffing with cock!  You\'re wasted as a champion.  You\'d make a better cabin-' + CoC.player.mf( 'boy', 'girl' ) + ',</i>" into your ear as she drags you towards her wagon.' );
 		MainView.outputText( '\n\nWooden planks rattle as you\'re pushed against the door, your cushiony cheeks smushing out to the sides to stretch your [armor].  The busty victor nuzzles your neck, leaving lewd, drunken licks all the way up to your chin.  Her moist sighs wash over you as she begins to pant faster and faster, her quickening arousal all but stealing the breath from both of your mouths.  Squishing up against your thigh, the lizard\'s semi-flaccid member is slowly filling, growing harder and harder as it floods with burgeoning passion.  At some point it escaped the pirate\'s imprisoning leather pants, and you drunkenly look down at it.' );

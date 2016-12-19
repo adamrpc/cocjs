@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 
 	//faerie Encounter
 	Faerie.prototype.encounterFaerie = function() {
-		EngineCore.spriteSelect( 17 );
+		MainView.spriteSelect( 17 );
 		MainView.outputText( 'A faerie slightly taller and thicker than your middle finger flits about the air. Her flat chest and girlish bob of hair make her look quite cute, but the solid black stockings and leather straps covering her chest show her slutty nature. Her wings are a light red, the color of aroused genitals.\n\n', true );
 		if( CoC.player.cockTotal() > 0 && (!CoC.player.hasVagina() || Utils.rand( 2 ) === 0) ) {
 			MainView.outputText( 'She seems to notice you getting hard at the sight of her and looks down. "<i>Ew, man parts!</i>" the faerie exclaims, flying away like a frightened bird.', false );
@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 		}
 	};
 	Faerie.prototype.faerieRAEP = function() {
-		EngineCore.spriteSelect( 17 );
+		MainView.spriteSelect( 17 );
 		//Count secksins
 		if( CoC.player.findStatusAffect( StatusAffects.FaerieFemFuck ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.FaerieFemFuck, 1, 0, 0, 0 );
@@ -164,12 +164,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Faerie.prototype.faerieShooAway = function() {
-		EngineCore.spriteSelect( 17 );
+		MainView.spriteSelect( 17 );
 		MainView.outputText( 'You shake your hands, shooing away the tiny faerie.  She\'s clearly been touched by the magics of this land and you want nothing to do with her. With a pouting look, she turns and buzzes away.', true );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Faerie.prototype.faerieDoNothing = function() {
-		EngineCore.spriteSelect( 17 );
+		MainView.spriteSelect( 17 );
 		MainView.outputText( '', true );
 		if( CoC.player.nippleLength >= 1 ) {
 			MainView.outputText( 'She looks you over, stopping at your upper torso and letting out a cry of glee. She lands on your chest, her exposed pussy coming to rest on your nipple. With one hand she grabs hold of you above her head and uses her other hand to guide the rapidly hardening nub between her legs. She sighs in delight as her tight confines squeeze your nipple hard, the feeling somewhere between pinching fingers and suckling lips. You gasp in delight yourself, and you notice she can exercise amazing control with her groin muscles as a rippling feeling courses through your nipple.\n\n', false );
@@ -225,14 +225,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 	};
 	//[No] *(let her go)
 	Faerie.prototype.letFaerieGo = function() {
-		EngineCore.spriteSelect( 17 );
+		MainView.spriteSelect( 17 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You apologize and release her, letting her fly away on gossamer wings.  She thanks you, buzzing up to your lips and planting a chaste kiss on your mouth.  She zips away into the woods without a glance back...', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[YES] *make her pleasure you
 	Faerie.prototype.faerieCaptureHJ = function() {
-		EngineCore.spriteSelect( 17 );
+		MainView.spriteSelect( 17 );
 		if( CoC.player.findStatusAffect( StatusAffects.FaerieFucked ) >= 0 ) {
 			CoC.player.addStatusValue( StatusAffects.FaerieFucked, 1, 2 );
 		} else {

@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 	//First encounter;
 	Kelly.prototype.breakingKeltOptions = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		if( (!CoC.player.hasCock() && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 || CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
 			SceneLib.keltScene.keltEncounter();
 			return;
@@ -74,7 +74,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 	//Resist;
 	Kelly.prototype.resistKeltsBSBreakHimIntro = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
 			MainView.outputText( 'You are more and more annoyed by Kelt\'s rudeness and dick-waving.  The centaur may be imposing at first and his archery skills are impressive, but you\'re sure that behind his false display of virility, there\'s nothing an experienced champion like you can\'t deal with.  With your superior strength and speed, you could probably take him by surprise and teach him a good lesson.  Of course, you won\'t ever be able to learn archery from him after that.' );
 			//[if (PC doesn't have items);
@@ -118,12 +118,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			MainView.outputText( '\n\nYou don\'t have time to consider it any further - Kelt draws his bow, ready to fight!' );
 			//[Start Combat];
 			Combat.startCombat( new Kelt() );
-			EngineCore.spriteSelect( 35 );
+			MainView.spriteSelect( 35 );
 		} else if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 3 ) {
-			EngineCore.spriteSelect( -1 );
+			MainView.spriteSelect( -1 );
 			this.finalKeltBreaking();
 		} else {
-			EngineCore.spriteSelect( -1 );
+			MainView.spriteSelect( -1 );
 			this.approachKelly();
 		}
 	};
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 	//Yes: Carry on the mindbreak;
 	Kelly.prototype.neverBreakKeltIntoKelly = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] = 1;
 		MainView.outputText( 'You decide that trying to break Kelt is something you\'d never want to do.  Besides, he\'s teaching you a useful skill, and there\'s just something charming about that bastard...' );
 		EngineCore.menu();
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 
 	Kelly.prototype.breakKeltGo = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'You approach the uppity centaur with glinting eyes, determined to take him down.  Kelt mistakes your anger for desire and sneers.' );
 		MainView.outputText( '\n\n"<i>What do you want, you little ' + CoC.player.mf( 'sissy', 'bitch' ) + '?  I\'m done with you.  I\'m already doing you a favor by teaching you a skill sluts like you will never use nor master.</i>"' );
 		MainView.outputText( '\n\nWith a cold, calm voice, you inform him that you don\'t want to learn archery from him anymore.' );
@@ -264,7 +264,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 	/*10 succubi milk (or 1 pink egg - large or small - and 5 succubi milk) */
 	Kelly.prototype.secondKeltBreaking = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 		MainView.outputText( 'You stroll up to Kelt, not afraid to tame the beastman a second time.  As soon as he spots you, he snorts and tramples the floor furiously.  At the same time, he turns his head back as if he was ready to gallop at any moment.  Torn between his fear of you and his desire for revenge, he doesn\'t dare charge you, but he doesn\'t move away either.  You profit from his indecision to walk straight up to him until you are face to face.  But his masculine visage doesn\'t appeal to you, for your main focus is the tool hanging between his hind legs.' );
 		MainView.outputText( '\n\nYou point at it and laugh.' );
 		MainView.outputText( '\n\n"<i>Awww, look at that!  The little slut is trying to be a big bad boy again... ain\'t that sweet?  Do you know it would look great on a girl?  I imagine you tried to be cute because there\'s no way that little finger would be a substitute for a proper dong.</i>"' );
@@ -273,7 +273,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		MainView.outputText( '\n\n"<i>You sneaky little prick, I\'m going to make you pay for this.</i>"' );
 		MainView.outputText( '\n\nIt\'s a fight!' );
 		Combat.startCombat( new Kelt() );
-		EngineCore.spriteSelect( 35 );
+		MainView.spriteSelect( 35 );
 	};
 
 	//Defeat Him In Fight #1;

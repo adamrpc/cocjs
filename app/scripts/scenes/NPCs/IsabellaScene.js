@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	};
 	IsabellaScene.prototype.timeChangeLarge = function() {
 		if( this.checkedIsabella++ === 0 && CoC.time.hours === 6 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 && CoC.flags[ kFLAGS.ISABELLA_BLOWJOBS_DISABLED ] === 0 && CoC.player.hasCock() && (CoC.time.days % 2 === 0 || CoC.player.findPerk( PerkLib.MarblesMilk ) < 0) && CoC.player.shortestCockLength() <= 9 ) {
-			EngineCore.spriteSelect( 31 );
+			MainView.spriteSelect( 31 );
 			SceneLib.isabellaFollowerScene.isabellaMorningWakeupCall();
 			return true;
 		}
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	};
 	//End of Interface Implementation;
 	IsabellaScene.prototype.isabellaGreeting = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		var suck = null;
 		//Not approached yet - the prequel!;
@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				SceneLib.isabellaFollowerScene.isabellaAffection( -4 );
 			}
-			EngineCore.spriteSelect( 31 );
+			MainView.spriteSelect( 31 );
 			return;
 		}
 		//[Camp Meeting First Time];
@@ -209,7 +209,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	};
 	//Leave]	;
 	IsabellaScene.prototype.leaveAngryIzzy = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shrug and make it quite clear you\'re leaving.  Crazy cow.  She shouts, "<i>And stay avay, demon!  Izabella has no need of your foul tricks!</i>"', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		}
 		Combat.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//Fuck-fight;
@@ -235,13 +235,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		MainView.outputText( 'You smirk at Isabella, and ready your ' + CoC.player.weaponName + ', telling her you intend to have you way with her.  She turns beet red and grabs her shield, announcing, "<i>You von\'t find me such easy prey, and I vill punish you for being so naughty!</b>"', false );
 		Combat.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Talk] ;
 	IsabellaScene.prototype.tryToTalkDownAngryCow = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		//(int below 25);
 		if( CoC.player.inte < 25 ) {
 			MainView.outputText( 'You open your mouth and tell her you won\'t be leaving until she understands that you aren\'t her enemy.  She snorts and taunts, "<i>You zink Izabella vould fall for zuch trickery? HAH!</i>"\n\n', false );
@@ -291,7 +291,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 
 	IsabellaScene.prototype.nomOnMommaIzzysTits = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		var x = CoC.player.cockThatFits( 20 );
 		//[Voluntary Nursing – PC is a big one or taur];
 		if( CoC.player.tallness > 78 || CoC.player.isTaur() ) {
@@ -472,7 +472,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	};
 	//[GET ORAL'ED AS A SMALL MALE];
 	IsabellaScene.prototype.izzyGivesSmallWangsFreeOral = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		var x = CoC.player.smallestCockIndex();
 		MainView.outputText( '', true );
 		MainView.outputText( 'You ', false );
@@ -659,7 +659,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	};
 	//[Give Isy Oral];
 	IsabellaScene.prototype.volunteerToSlurpCowCunt = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You indicate to Isabella that you\'re actually more interested in tasting HER, not her milk.  The dusky cow-girl looks at you dumbly, not comprehending what you mean.  Before you can explain, her cheeks bloom with crimson - she finally figured out what you meant.  The red-head quietly asks, ' );
 		if( SceneLib.isabellaFollowerScene.isabellaAccent() ) {
@@ -2003,7 +2003,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 	};
 	//[Discuss Isabella];
 	IsabellaScene.prototype.talkWithIsabella = function() {
-		EngineCore.spriteSelect( 31 );
+		MainView.spriteSelect( 31 );
 		MainView.outputText( '', true );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00262 ]++;
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00262 ] === 1 ) {

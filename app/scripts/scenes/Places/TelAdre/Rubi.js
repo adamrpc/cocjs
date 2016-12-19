@@ -6,9 +6,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 
 	Rubi.prototype.rubiSprite = function() {
 		if( CoC.flags[ kFLAGS.RUBI_HORNTYPE ] > 0 ) {
-			EngineCore.spriteSelect( 102 );
+			MainView.spriteSelect( 102 );
 		} else {
-			EngineCore.spriteSelect( 101 );
+			MainView.spriteSelect( 101 );
 		}
 	};
 	Rubi.prototype.initializeRubi = function() {

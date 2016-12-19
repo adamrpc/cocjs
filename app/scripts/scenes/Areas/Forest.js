@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 					MainView.outputText( 'An imp leaps out of the bushes and attacks!', true );
 					Combat.startCombat( new Imp() );
 				}
-				EngineCore.spriteSelect( 29 );
+				MainView.spriteSelect( 29 );
 				return;
 			}
 			//Encounter Gobbalin!
@@ -219,13 +219,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fucked, ' + CoC.player.mf( 'stud', 'slut' ), true );
 					MainView.outputText( '.</i>"', false );
 					Combat.startCombat( new Goblin() );
-					EngineCore.spriteSelect( 24 );
+					MainView.spriteSelect( 24 );
 					return;
 				} else {
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fuc-oh shit, you don\'t even have anything to play with!  This is for wasting my time!', true );
 					MainView.outputText( '</i>"', false );
 					Combat.startCombat( new Goblin() );
-					EngineCore.spriteSelect( 24 );
+					MainView.spriteSelect( 24 );
 					return;
 				}
 			}
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 	//Will be standalone
 	Forest.prototype.trappedSatyr = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 99 );
+		MainView.spriteSelect( 99 );
 		MainView.outputText( 'As you wander through the woods, you find yourself straying into yet another corrupt glade.  However, this time the perverse grove isn\'t unoccupied; loud bleatings and brayings of pleasure split the air, and as you push past a bush covered in dripping, glans-shaped berries, you spot the source.\n\n', false );
 		MainView.outputText( 'A humanoid figure with a set of goat-like horns and legs - a satyr - is currently buried balls-deep in one of the vagina-flowers that scatter the grove, whooping in delight as he hungrily pounds into its ravenously sucking depths.  He stops on occasion to turn and take a slobbering suckle from a nearby breast-like growth; evidently, he doesn\'t care that he\'s stuck there until the flower\'s done with him.\n\n', false );
 		//(Player lacks a penis)
@@ -533,7 +533,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 	//[=No=]
 	Forest.prototype.ignoreSatyr = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 99 );
+		MainView.spriteSelect( 99 );
 		MainView.outputText( 'You shake your head, ', false );
 		if( CoC.player.cor < 50 ) {
 			MainView.outputText( 'disgusted by the strange thoughts this place seems to put into your mind', false );
@@ -547,7 +547,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 	//Player returns to camp
 	Forest.prototype.rapeSatyr = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 99 );
+		MainView.spriteSelect( 99 );
 		var x = CoC.player.biggestCockIndex();
 		//(Low Corruption)
 		if( CoC.player.cor < 33 ) {
@@ -609,7 +609,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 	//[=Leave=]
 	Forest.prototype.dontRepeatFuckSatyr = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 99 );
+		MainView.spriteSelect( 99 );
 		MainView.outputText( 'You\'ve had your fun, and you don\'t really want to fool around in the forest all day, so you grab your ' + CoC.player.armorName + ' and leave the rutting satyr behind.\n\n', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};

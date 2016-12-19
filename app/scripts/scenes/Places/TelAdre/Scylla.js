@@ -19,9 +19,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	//Scylla- cum addicted demon-tainted nun;
 	Scylla.prototype.scyllaSprite = function() {
 		if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] > 3 ) {
-			EngineCore.spriteSelect( 82 );
+			MainView.spriteSelect( 82 );
 		} else {
-			EngineCore.spriteSelect( 51 );
+			MainView.spriteSelect( 51 );
 		}
 	};
 	Scylla.prototype.scyllaBarSelectAction = function() {
@@ -1027,7 +1027,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 
 	//Scylla #6 - Cat Scratch Fever;
 	Scylla.prototype.Scylla6 = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] < 6 ) {
 			CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] = 6;
 		}
@@ -1046,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//(super high Intelligence or speed);
 	Scylla.prototype.Scylla6DUCK = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You turn in time to spot the ambush and drop low, a pipe swinging just past your head and cracking a brick next to you. Sweeping low, you knock your attacker\'s legs out from under him and rise into a defensive stance. A dozen cat-morphs have crept up behind you, silently seizing Scylla. The felines hiss, startled by your acute awareness and suddenly doubting their plan of attack.  You decide to end this before it gets too bloody, so you slowly curl your fingers into a fist, audibly cracking each knuckle on your hand one after the other. You rise to your feet and flick your ear with your thumb, chuckling. "<i>You really broadcast that one,</i>" you start, speaking slowly and loudly enough for your voice to bounce around the cramped alley. "<i>But I\'m sure you\'ve got better. I mean, you know what I\'m capable of. I\'ve had demons helpless at my feet. Minotaurs three times your size cower when they remember my face. Surely you didn\'t just attack us at random? Nobody\'s luck is that bad. No, you\'re definitely trained professionals and not a miserable pack of errant transients, too drugged out to appreciate the scope of the mistake they\'ve just made. So you\'ll be ready for the worst I\'ve got. And oh, it is going to be DREADFUL.</i>"\n\n', false );
 		MainView.outputText( 'The cats need no further encouragement, and scatter in terror. You chuckle and brush the dirt from your clothes before helping Scylla back to her feet. The nun looks at you, worried, but places a gentle hand on your shoulder and gives you a stare with her big, blue eyes. "<i>Thank you, truly, but please take a softer touch with people. Everyone has their own challenges and whenever we can, we should pity and forgive, not threaten and terrify. Um. If that\'s okay with you?</i>" She looks embarrassed to be scolding you and hurries away, leaving you to your devices.', false );
@@ -1054,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//(Normal Characters);
 	Scylla.prototype.Scylla6SLOW = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Too late, you realize the pickpockets were a distraction, and before you can whip around, a heavy weight cracks against the side of your skull, turning your world into a pin point of pain in an ocean of black unconsciousness. You muscles become jelly and you don\'t remember falling to your knees or slumping against the brick wall of the alley', false );
 		if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] < 1 ) {
@@ -1094,7 +1094,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Kick Ass];
 	Scylla.prototype.lactateAndKickAss = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Cracking your neck, you decide to end this right now. Flexing your nearly unholy strength, you easily break the leather collar binding your hands and rise to your feet, dumping the cats pining you down to their asses. The felines hiss and leap backward, fearful of your might. You rub the bridge of your nose with the back of your hand, sniffing. "<i>I enjoy a good joke,</i>" you start, speaking slowly and loud enough for your voice to bounce around the cramped alley. "<i>But you have to be kidding me. Cats? I\'ve beaten demon overlords into bloody pulps. I\'ve nearly torn the head off an imp with my bare hands. I\'ve stomached a lot of crap since I came through the portal, but nothing I\'ve drank or eaten, no matter how foul, has been as hard to swallow as this pathetic little ambush. I\'m going to count to three and then I\'m going to fuck the closest thing I lay my hands on. And if a hole isn\'t convenient, I\'ll make my own. Understand? One.</i>"\n\n', false );
 		MainView.outputText( 'The cats need no further encouragement, and scatter in terror. You chuckle and brush the dirt from your clothes before helping Scylla down from her perch. The nun looks relieved but you can see worry in her big, blue eyes as she places a gentle hand on your shoulder. "<i>Thank you, truly, but please take a softer touch with people. Life gives everyone challenges and whenever we can, we should pity and forgive, not threaten and harm. Um. If that\'s okay with you?</i>" She looks embarrassed to be scolding you and hurries away, leaving you alone in the alley.\n\n', false );
@@ -1102,7 +1102,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Yell];
 	Scylla.prototype.Scylla6YellForHelp = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You fill your lungs and scream for help as loudly as you can. The cats lying on you hiss and rake your exposed flesh with their needle-like claws. One tries to jam a leather ball in your mouth to gag you, but the damage is done. The clattering rush of the city guard surrounds the alley from both directions and the cats find themselves trapped. A few try to bolt between the guards, but a well-placed centaur kick knocks one into an unconscious slump and the others quail from the guards, huddling into a scared group.\n\n', false );
 		MainView.outputText( 'One of the guards, a canine woman with shaggy golden brown and crisp white fur, stoops down to pull the leather ball gag from your mouth, leaving the taste of catnip on your tongue. She unties you and instructs several of her men to get Scylla down. When the two of you are free and dressed again, the dog-lady gestures at the cats with a growl.\n\n', false );
@@ -1130,7 +1130,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Wait];
 	Scylla.prototype.Scylla6MilkyWait = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You don\'t want to risk aggravating junkies while you\'re unable to defend yourself, especially while all your sensitive bits are in claw\'s reach of the kitties. You shiver as they begin to lick at your breasts, four felines crowding around your chest, whiskers tickling your nipples as coarse, wet tongues moisten your mounds. Their combined purring sends electric vibrations through your body, drowning out the anger and pain of the attack. Fuzzy faces and hot tongues slather your tits up to the nipples, coaxing small, white drops to the surface. They draw a weak moan from you as each cat takes a turn lapping at your leaking nubs, their rough tongues textured like slick sandpaper, softly scratching your vulnerable teats just enough to leave you panting for more.\n\n', false );
 		MainView.outputText( 'The others seem to have made up their minds about Scylla\'s unusual bosom and they creep up to her hanging mammaries like hunters stalking their prey. The nun fidgets nervously, but holds her tongue as the cat-morphs begin the same treatment for her hulking chest. Her nipple mouths begin leaking almost immediately, however, and it\'s all the felines can do to lick the pale creamy foam from her alabaster flesh before it drips to the ground to wet her coiling hair. The women drinking from Scylla thrash their tails around their legs and the men shift to accommodate their swelling erections. Under her drooling tits, the horns on Scylla\'s head grow little by little, demonic corruption turning her milk into an aphrodisiac.\n\n', false );
@@ -1148,7 +1148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Next];
 	Scylla.prototype.Scylla6MilkyWaitII = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		//[Low milk output];
 		if( CoC.player.lactationQ() < 500 ) {
@@ -1175,7 +1175,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		EngineCore.doNext( this, this.Scylla6MilkyWaitIII );
 	};
 	Scylla.prototype.Scylla6MilkyWaitIII = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'When the last feline has drunk their fill of you and the nun and their bloated masturbation burns off the arousal of their theft, they clumsily untie the constricting collars from your arms and help take Scylla down from her perch. They avoid meeting your eyes, perhaps ashamed or maybe just still too horny, but they press a few meager gems into your hand, trying to pay for the milk they stole. Scylla refuses what they offer her, instead giving them the money she had on her. She manages to gently scold them for not asking first while keeping her blushing gaze hidden behind a veil of her shimmering curls. You help the nun gather up the torn scraps of the top half of her robe and ineffectually drape them around her milk-inflated chest. She tries to put her habit back on but her horns have grown into twisting loops atop her head and are slow to recede while the lusty felines are still around. Before anything else can jump you, you excuse yourself and slink away, rubbing your achingly sore nipples under your ' + CoC.player.armorName + ' as you do so.', false );
 		//[Gain gems. End encounter.];
@@ -1213,7 +1213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Submit] (Only available to players with vaginas);
 	Scylla.prototype.Scylla6NoMilkSubmit = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You step around the corner, ready to save the nun, but the heat in your gut overpowers your heroism and you let your tongue hang out of your mouth as your eyelids grow heavy. You stumble and fall to your knees, head hanging low as you rub your body with both hands. The cats smelt your lust, and twelve furred, clawed bodies ring yours, dark rings around their almond-shaped eyes. You weakly try to shoo them away, but hands surround you and they hold firm against your struggles. You tire almost immediately and the cats pull you to the ground. The others push the largest among them forward, a black-furred feline of five feet with a small chest and lean build. Without meeting your gaze, she unhooks the leather collar from her neck and binds your hands behind your back tight enough to make your fingertips tingle, the small bell on it jingling. Then, she ducks back into the crowd, shifting her ragged clothes uncomfortably.\n\n', false );
 		MainView.outputText( 'You manage a vain protest as they pull off your ' + CoC.player.armorName + ', their furry bodies brushing yours, the soldering fervor in their gazes rising goose bumps to your skin.', false );
@@ -1231,7 +1231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Next];
 	Scylla.prototype.Scylla6NoMilkSubmitII = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The black cat who bound your hands sees your lusty want all too well. While the others descend on the nun blindly, she helps you to your feet and pushes you between Scylla\'s massive, pillowy breasts. With swift but inexperienced motions, she ducks between your legs, grabs your pulsing cock, and guides it to the nun\'s blushing face. The cat inadvertently teases the captive girl by bopping your cockhead against the nun\'s cheeks and lips before aiming it against her moist pucker. Your legs clench when you feel Scylla\'s hot breath on your sensitive tip, the crowd of drinking felines on her chest blocking your view of her debased flush as she lavishes distressed kisses on your prick.\n\n', false );
 		MainView.outputText( 'You feel a presence behind you and a thick, meaty slap across your ass. The black cat seems to have your hunger, rather than the milk-lust of the other felines. Pressing tightly against you, you can feel her pounding heart through the girl\'s small, B-cup tits, large nipples stiff through her shirt. She\'s too close to catch more than a glance out the side of your periphery, but the pressure on your back is hint enough that the cat girl behind you is a hermaphrodite. Her dick slides up and down your butt crack, dollops of pre-cum oozing from it as she rubs against you. Where you\'d expect to feel the barbs of a cat dick, however, you feel only smooth, almost rubbery skin. There is a strange fullness at the herm\'s root, and with a start, you realize it\'s a dog\'s knot. You try to turn, but find yourself held in place by the nun\'s gentle sucking, her kiss a honey-sweet leash stronger than any chain. You can\'t even step to one side; her slowly expanding chest swells around your hips, demonic taint warping her body to meet the thirst of the other cats. You can\'t see how large the herm behind you is, but a shiver runs up your spine as she grabs your shoulders and leans forward to purr next to your ear. You don\'t know how she got a dog-cock, but it\'s fairly likely she hasn\'t been able to use it much, surrounded by fellow cat-morphs. You brace yourself for her pent-up desperation.\n\n', false );
@@ -1244,7 +1244,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		EngineCore.doNext( this, this.Scylla6NoMilkSubmitIII );
 	};
 	Scylla.prototype.Scylla6NoMilkSubmitIII = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		if( CoC.player.balls > 0 ) {
 			MainView.outputText( 'Your spot in the middle of the nun-and-cat sandwich is too much, however, and your balls slap against Scylla\'s face with each thrust the cat-morph makes. She must be able to feel the cum churning in your groin because her throat milks your shaft, her tongue and lips coaxing your swollen pecker as her stomach sucks on your head like a fertile womb, hungry for your seed to the point of hysteria. You finally cum and your body clenches down, muscles tight as your strength deserts you. Your body is putty as the blobs of cum are forced past the suckling lips tightly wrapped against your groin and up the nun\'s gulping throat, fighting past the intense pressure of her neck. When they get up into her chest, you can feel the bulbs of spunk rushing toward your cockhead with urgent desire and Scylla\'s stomach rumbles in anticipation. Just as the first dollop bursts free, the herm behind you slaps your ass and gives you one last thrust before cumming herself. Her balloon of flesh flares lewdly and hot jizz pours into your body, painting your womb white with the kitty\'s dog-seed. The sensation is invigorating and you feel renewed strength as you buck against Scylla\'s face, fucking her stomach with your cock, even as it squirts its first load into her suspended body. You flex your vaginal walls as best you can, ass clenching, milking the black cat for every drop as she collapses against your back, breast slick with sweat and weakly panting as the orgasm takes its toll, her soft balls straining to make the most of what feels like a long-delayed fucking.\n\n', false );
@@ -1300,7 +1300,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	};
 	//[Rape];
 	Scylla.prototype.Scylla6NoMilkRAPETHEWORLD = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You decide to have a little fun with this situation, so you remain hidden around the corner while the cats mill around Scylla. It\'s not long before their thirst overwhelms their caution and the felines sink to their knees, nuzzling Scylla\'s bare chest, small tongues lacquering her mountainous breasts in saliva. Her skin shimmers in the alley\'s waning light and the nun moans, struggling weakly against her bonds, her milk-laden tits jiggling tantalizingly. You strip off your ' + CoC.player.armorName + ' and lightly grasp your cock, stroking slowly as you wait for the opportune moment.\n\n', false );
 		MainView.outputText( 'The suckable lips of Scylla\'s breasts join her moaning and as they do, pale fluid begins to leak from them. The nun\'s milk rivets the cats\' attention, thin and clear at first, but swiftly thickening into a rich cream that drools from her mouths. The cat-morphs mew and purr as they lap at the dribbling meal, tails curling around their paws to stroke themselves as they indulge. One girl, however, sits apart from the others, drinking nothing and struggling to pull her ragged clothes over her groin. She turns away from her fellow felines and sighs unhappily. Shifting her baggy shirt aside, she accidentally flashes her firm, palm-able breasts and reveals the reason for her distress, bulging under her tight pants and poking over their waist.\n\n', false );
@@ -1311,7 +1311,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		EngineCore.doNext( this, this.Scylla6NoMilkRapeII );
 	};
 	Scylla.prototype.Scylla6NoMilkRapeII = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The cat-morph freezes in your arms, back arched as natural panic wages war against the heat pumping out of her drooling snatch. She nods her head slowly and you grin. "<i>Good kittie,</i>" you murmur, sliding another teasing inch into her cunny. "<i>Let\'s give our friends a feast,</i>" you whisper, directing her to turn about, toward the nursing nun. The two of you slowly pace past milk-addled felines, your captive\'s scarlet bulb bobbing with each deliberate step. Carefully moving between the distracted cats, you guide the dusky herm between Scylla\'s expanded breasts. She notices the erection you\'ve marched up to her with a husky coo of pleasure.\n\n', false );
 		MainView.outputText( '"<i>Oh, you poor dear,</i>" she soothes, her soft voice rich with smutty need. The nun\'s plump lips pucker to kiss the girl\'s sloped tip and her labia-soft skin begins to suck at the point of the straining dog cock. The herm\'s love tunnel tightens and her gushing slit threatens to push your cock out with its clenching. You reward her almost canine obedience by thrusting back in, slippery walls like greased velvet. She lets out a high-pitched "<i>eep!</i>" and bucks forward, penetrating the nun\'s lips and stuffing her bulbous prick into Scylla\'s hungry maw up to the knot. She shivers at the spine-melting warmth and tries to pull out, only to slam her hips into yours, sucking more of your fuckstick into her slick cunt. The black cat whines, trapped between a rod and a soft place.\n\n', false );
@@ -1326,7 +1326,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		EngineCore.doNext( this, this.Scylla6NoMilkRapeIII );
 	};
 	Scylla.prototype.Scylla6NoMilkRapeIII = function() {
-		EngineCore.spriteSelect( 59 );
+		MainView.spriteSelect( 59 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You give one more savage pump and, at last, the kitty-knot pushes past the nun\'s pussy-tight, bimbo-bloated kisser with a moist \'plop.\' The onyx herm howls like a wolf as her sensitive bulb is swallowed by the captive woman, the grapefruit-sized knob stuffing her cheeks. The cat\'s body spasms as she howls, and you can see the nun\'s mouth is distended wide enough to see the knot\'s bulge under her jaw. Despite the frightening width of her knot, compared to the nun\'s normal fare, the larger-than-average herm seems positively small, so you decide to give them both a little extra cream.\n\n', false );
 		MainView.outputText( 'Right on the verge of cumming, you pull out of the cat\'s slippery cunt and move a few inches higher. Your dick is so soaked by the wet pussycat that your tip slides right past her sphincter before she understands what your intent is. She shakes her head nervously as you brace yourself, but you just nod and grin before thrusting in. With one motion, you push past her silky, vice-like ass and fill her colon with your throbbing meat. She\'s too tight for you to hold back any longer and your hips shake with the force of your orgasm. Spunk sprays into the herm\'s rear, your quivering flesh stimulating her prostate more forcefully than anything she\'s experienced.\n\n', false );

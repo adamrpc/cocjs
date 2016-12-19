@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//Ceraph's fluids boost PC libido and sensitivity massively either way.;
 	CeraphScene.prototype.maleFuckCeraphsPussy = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( '', true );
 		//UBER-Fullbodypenetration;
 		if( CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.player.biggestCockArea() > 500 && (CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 || SceneLib.jojoScene.monk >= 5) ) {
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	CeraphScene.prototype.rideCeraphsCockLikeaBAWSSexclamation11eleven = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
 		CoC.player.slimeFeed();
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( '', true );
 		//lust;
 		if( CoC.monster.lust > 99 ) {
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[OH SHIT SON YOU LOST GET EARS PIERCED];
 	CeraphScene.prototype.loseToCeraphAndGetPiercingsInEarsOrSomethingSomehow = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph advances on your ', false );
 		if( CoC.player.HP < 1 ) {
 			MainView.outputText( 'prone ', false );
@@ -295,7 +295,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[OH SHIT SON MOAR SHIT GETTING PIERCEDEDEDED] – NIPPLEZ GO;
 	CeraphScene.prototype.loseToCeraphAnGetPierced2 = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph giggles as she closes in on you once again.  Unable to fight back, you lie there as she once again massages your temples, using her magic to paralyze your body.  She\'s all too happy to build up the suspense as she pulls out a pair of shining black studs, "<i>Oh, did you want to know what these are going to teach you?  Well, how about I slide them into your ', false );
 		if( CoC.player.hasFuckableNipples() ) {
 			MainView.outputText( 'slut', false );
@@ -323,7 +323,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[OH SHIT!  WHY DOES FEN KEEP WIRTING THAT 3RD TIME – CROTCH GO];
 	CeraphScene.prototype.getPiercedByCeraphLoss3 = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'The demoness pulls out a diamond-studded piercing and closes in on you, her cock hard, her pussy moist, and her hips swaying seductively as she advances.  Ceraph gives you a serious look and warns you, "<i>You know how close you are to being my pet, don\'t you?  You just need this piercing and a little time to get used to it.  Then if you\'re good, I\'ll strip you naked, tie you down, and let you lick me out.  We can even let the imps watch!</i>"\n\n', false );
 		MainView.outputText( 'The idea turns you on immensely, and you pant and gasp as ', false );
 		if( CoC.player.totalCocks() > 0 ) {
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[FINAL ENCOUNTER LEVEL];
 	CeraphScene.prototype.finalEncounterLevelCeraphPiercingButtholeNipples = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph wiggles out from between the bushes, holding a bondage harness and openly eyeing your body.  She suggestively says, "<i>Well, aren\'t you just a cute little slave-to-be.  Are you ready to put yourself in your slave harness and join my harem?  I\'ve got a few more piercings I think would look great on you.  Maybe I could give you an oral fixation and a foot fetish.  Wouldn\'t that be nice?  Or maybe I can just keep you tied up and parade you around Mareth.  You know I\'ll make sure you love every minute baby, just come put this on.</i>"\n\n', false );
 		MainView.outputText( 'It shames you to admit it, but you desperately want to be naked and restrained, paraded around to tease and amuse Ceraph\'s enemies.  You know the desires were forced on you by her cursed piercings, but it doesn\'t make it any easier to deny the feelings they\'ve brought out in you.  The sexy demon-dom would be happy to feed you foreign desires and stoke them into a burning blaze that would burn away your doubts and worries.  Do you give in and become her bondage slave?\n\n', false );
 		EngineCore.choices( 'Yes', this, this.agreeToBecomeCeraphsFuckpetBondageToyBitchSlut, 'No', this, this.finalCeraphEncounterChoiceNo, 'Fight', this, this.finalCeraphEncounterStartFight, '', null, null, '', null, null );
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[no];
 	CeraphScene.prototype.finalCeraphEncounterChoiceNo = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You tell Ceraph no, emphatically, over and over.  She gives you a smirk and says, "<i>Whatever.  It\'s only a matter of time.  You\'ll join me soon, pet.</i>"\n\n', false );
 		MainView.outputText( 'With that declaration she departs, leaving you confused and horny.', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -398,7 +398,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[fight];
 	CeraphScene.prototype.finalCeraphEncounterStartFight = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You tell Ceraph no, and let her know ', false );
 		if( CoC.player.cor <= 50 ) {
 			MainView.outputText( 'you\'ll stop her devilish scheme', false );
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Agree to become Ceraph's Fuckpet Bondage Toy bitch slut];
 	CeraphScene.prototype.agreeToBecomeCeraphsFuckpetBondageToyBitchSlut = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'At this point, you know she\'s right.  The desires Ceraph has awakened inside you will never go away.  In spite of the hassle they\'ve caused, you\'ve come to love being so uncontrollably aroused by such humiliating treatment.', false );
 		if( CoC.player.hasVagina() ) {
 			MainView.outputText( '  Your ' + Descriptors.vaginaDescript( 0 ) + ' tingles as you wonder how many piercings and fetishes she could fit into your labia.', false );
@@ -447,7 +447,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//(EPILOGUE);
 	CeraphScene.prototype.agreeToBeABitchPt2 = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Months pass in pure bliss.  Since adoption into Mistress Ceraph\'s harem, pet gained over a dozen piercings and nearly twice as many fetishes.  Pet learned to love spanking, and developed the ability to cum just from having ' + CoC.player.mf( 'his', 'her' ) + ' nipples pinched or being paddled.  Ceraph enjoyed that for a while, but she did eventually tire, and pet was given a fetish for orgasm denial', false );
 		if( CoC.player.cockTotal() > 0 ) {
 			MainView.outputText( ' along with a magical cock-ring', false );
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Initial Meeting Text];
 	CeraphScene.prototype.ceraphFirstTime = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 88 );
+		MainView.spriteSelect( 88 );
 		MainView.outputText( 'A cute goblin steps out of the bushes, holding a pair of green earrings up to the light.  She politely asks, "<i>Hey cutey!  I\'ve got some spare earrings I made the other day.  I was wondering if you want them?  As you can see, my ears are already full, and my daughters are a bunch of ungrateful cunts.</i>"\n\n', false );
 		MainView.outputText( 'The goblin\'s ears are covered in a dazzling array of piercings of all varieties.  She isn\'t dressed nearly as slutty as most of the goblins you\'ve seen.\n\n', false );
 		MainView.outputText( 'Do you let her put the earrings in your ears?', false );
@@ -469,7 +469,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[No];
 	CeraphScene.prototype.ceraphFirstTimeDecline = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You decline, informing the petite girl you have no interest in her earrings.  She shrugs and laughs, her form distorting as it grows taller, twisting as her skin lightens, her breasts bulge, and a pair of cute horns breaks out of the skin of her forehead.  She pockets the earrings and stretches, revealing a glistening demon-snatch capped with a modest cock growing from where her clit should be.\n\n', false );
 		MainView.outputText( 'The demon introduces herself, "<i>Well if you want to do this the hard way, that\'s fine by me.  The ones that fight the hardest break down into the most submissive slaves.  Just remember that this is the beginning of your life as Ceraph the Omnibus\' slave-' + CoC.player.mf( 'boy', 'girl' ) + '.</i>"\n\n', false );
 		MainView.outputText( 'Ceraph adopts a suggestive pose and tweaks her nipple, clearly more intent on turning you on than physically harming you.', false );
@@ -479,7 +479,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Yes];
 	CeraphScene.prototype.ceraphFirstTimeVolunteer = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'The goblin motions for you to bend over, and you do.  She holds the earrings up on your ears, getting them aligned just right.  ', false );
 		if( CoC.player.earsPierced > 0 ) {
 			MainView.outputText( 'Miraculously, your old earrings just fall out.  ', false );
@@ -498,7 +498,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[PC 'BEAT OFF' Ceraph the first time...];
 	CeraphScene.prototype.ceraphFirstTimeRepeat = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph saunters out of the bushes and gives you a disapproving look, "<i>I tried this the easy way.  Now we\'re doing it the hard way.</i>"\n\n', false );
 		MainView.outputText( 'She uncurls a whip that lights aflame and says, "<i>Time for your spanking!</i>"\n\n', false );
 		Combat.startCombat( new Ceraph() );
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[PC @ 2 piercings, Ceraph offers 3rd];
 	CeraphScene.prototype.level3CeraphOffer = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph once again appears to you, licking her lips and repeatedly swatting a riding crop against her thigh.  She asks, "<i>Have you come to love the exposure, the helplessness, of being nude and restrained?  Does your body ache for me to turn you into a bound love-pet yet?  We could keep going down this road my pet-to-be, just one more piercing and then you\'ll be ready.</i>"\n\n', false );
 		MainView.outputText( 'Do you let her pierce you?', false );
 		//[Yes] [No];
@@ -523,7 +523,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[No];
 	CeraphScene.prototype.level3CeraphOfferNo = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You let Ceraph know that you refuse to let her violate your body and mind in such a way.  She shrugs nonchalantly and tugs on the crop, stretching it into a whip that bursts into flames.\n\n', false );
 		MainView.outputText( '"<i>Mortals always want to do things the hard way,</i>" she sighs.\n\n', false );
 		MainView.outputText( '<b>You\'ve got a fight on your hands!</b>', false );
@@ -532,7 +532,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[YES OH YES];
 	CeraphScene.prototype.yesOHGODYESPIERCELEVEL3 = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You nod, biting your lip anxiously and undoing your armor to give her better access to your body.  The demoness pulls out a diamond-studded piercing and closes in on you, her cock hard, her pussy moist, and her hips swaying seductively as she advances.  Ceraph gives you a serious look and warns you, "<i>You know how close you are to being my pet, don\'t you?  You just need this piercing and a little time to get used to it.  Then if you\'re good I\'ll strip you naked, tie you down, and let you lick me out.  We can even let the imps watch!</i>"\n\n', false );
 		MainView.outputText( 'The idea turns you on immensely, and you pant and gasp as ', false );
 		if( CoC.player.totalCocks() > 0 ) {
@@ -591,13 +591,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		//If havent met her;
 		if( CoC.flags[ kFLAGS.PC_MET_CERAPH ] === 0 ) {
-			EngineCore.spriteSelect( 7 );
+			MainView.spriteSelect( 7 );
 			this.ceraphFirstTime();
 			return;
 		}
 		//If still not fetished by her;
 		if( CoC.flags[ kFLAGS.PC_FETISH ] === 0 ) {
-			EngineCore.spriteSelect( 7 );
+			MainView.spriteSelect( 7 );
 			this.ceraphFirstTimeRepeat();
 			return;
 		}
@@ -608,13 +608,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		}
 		//fetished level 2;
 		if( CoC.flags[ kFLAGS.PC_FETISH ] === 2 ) {
-			EngineCore.spriteSelect( 7 );
+			MainView.spriteSelect( 7 );
 			this.level3CeraphOffer();
 			return;
 		}
 		//fetished level 3;
 		if( CoC.flags[ kFLAGS.PC_FETISH ] === 3 ) {
-			EngineCore.spriteSelect( 7 );
+			MainView.spriteSelect( 7 );
 			this.finalEncounterLevelCeraphPiercingButtholeNipples();
 		}
 	};
@@ -637,7 +637,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			return;
 		}
 		//Normal stuff here;
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( '', true );
 		if( CoC.monster.HP < 1 ) {
 			MainView.outputText( 'Ceraph collapses in a beaten, bloody heap.', false );
@@ -677,7 +677,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	CeraphScene.prototype.loseFUCKME = function() {
 		//Reset rape count if lost;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] = 0;
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		if( CoC.flags[ kFLAGS.PC_FETISH ] === 0 ) {
 			this.loseToCeraphAndGetPiercingsInEarsOrSomethingSomehow();
 		} else if( CoC.flags[ kFLAGS.PC_FETISH ] === 1 ) {
@@ -690,7 +690,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	};
 	CeraphScene.prototype.ceraphRapesYouBADDAWGYODIGGITY = function() {
 		CoC.player.slimeFeed();
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( '', true );
 		if( (!CoC.isInCombat()) && CoC.flags[ kFLAGS.PC_FETISH ] < 3 ) {
 			MainView.outputText( 'The demoness touches your forehead, and suddenly your mind is awash with fetishes!  Judging by the playful look she has, it\'s temporary, and you play along.  ', false );
@@ -738,7 +738,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	CeraphScene.prototype.hugeCorruptionForceFuckCeraph = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ] += 2;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( 'You laugh at Ceraph\'s ', false );
 		if( CoC.monster.HP < 1 ) {
@@ -837,7 +837,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	};
 	CeraphScene.prototype.ceraphsNiceOffer = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
 			MainView.outputText( 'Ceraph touches your forehead, and it feels like her claws are raking through your brain, plowing through the surface of your thoughts.  She pulls away, leaving you feeling a little dazed.  You blink and mentally go over your fetishes - ', false );
 			if( CoC.flags[ kFLAGS.PC_FETISH ] === 1 ) {
@@ -864,7 +864,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	 */
 	CeraphScene.prototype.friendlyNeighborhoodSpiderManCeraph = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'While exploring, a sudden compulsion to strip naked runs through your body, ', false );
 		if( CoC.player.cor > 66 ) {
 			MainView.outputText( 'and without a second thought you disrobe, tossing your ' + CoC.player.armorName + ' to the side.  It thumps heavily in the dry mountain dust.', false );
@@ -905,13 +905,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Fight] → Cue normal Ceraph fight;
 	CeraphScene.prototype.startAFightWithCeraph = function() {
 		Combat.startCombat( new Ceraph() );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.playerMenu();
 	};
 	//[Run] → ;
 	CeraphScene.prototype.runFromCeraphsNiceDeal = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You ', false );
 		if( CoC.player.cor > 66 ) {
 			MainView.outputText( 'grab your equipment and ', false );
@@ -924,7 +924,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Trade] ;
 	CeraphScene.prototype.tradeCeraphSomething = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		var liqueur = null;
 		var endowment = null;
 		var armor = null;
@@ -973,7 +973,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Take Armor];
 	CeraphScene.prototype.getCeraphsArmor = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph smiles knowingly at your response.  "<i>You\'ll find this to be quite sexy.  Just be careful putting it on.  If you don\'t fit it right it\'ll pinch,</i>" the demoness instructs while tossing you a set of armor.\n\n', false );
 		//(Get trapped armor and go home);
 		SceneLib.inventory.takeItem( ArmorLib.SEDUCTA, SceneLib.camp.returnToCampUseOneHour );
@@ -981,7 +981,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Trade Bimbo Liquer];
 	CeraphScene.prototype.tradeCeraphBimboLiqueur = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph grins as wide as the Cheshire Cat, groaning with happiness as she pulls her dripping tail from her snatch.  The pungent scent of her lusty, tainted puss hangs in the air while her tail extends towards you, looping around the liquer\'s top and pulling it from your pouch.  Ceraph plucks the bottle from her lust-drenched tail with great care and undoes the top.  She gives the liquer a tiny sniff, but it rocks her back on her heels all the same.  The demon starts giggling as she corks it, smiling with a slightly dopy look.  "<i>Wheeeeeewww... heheheheee.. that stuff has got some kick!</i>"\n\n', false );
 		MainView.outputText( 'You mention the deal and she glares back at you in irritation.  Her beautiful features curl with anger, a hand coming out of nowhere to slap you squarely on the side of the temple.  "<i>Don\'t interrupt me, pet.</i>"  Ears ringing, you stagger back, clutching at your head in surprise.  By the time you glare back at her, she\'s walking away.  You briefly consider giving her payback, but you realize your head feels clearer, more normal.  The artificial fetishes are gone!  While you catalogue lewd acts in your head and marvel at how little they affect you, Ceraph makes good on her escape.', false );
 		CoC.player.consumeItem( ConsumableLib.BIMBOLQ );
@@ -993,7 +993,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[Trade Genitals];
 	CeraphScene.prototype.tradeCeraphCrotchityBits = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		//(EXGARTUAN PISSED) ;
 		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
 			MainView.outputText( 'A disembodied voice roars out, "<i>FUCK NO!  You are NOT giving me to that crazy bitch!</i>"  Exgartuan doesn\'t seem to want to run the risk of being taken by Ceraph, and he completely assumes control of your ' + CoC.player.legs() + ' to make you flee with all due haste.  He taunts, "<i>Rip off your own little dick, why doncha!  You\'d look better with just a pussy anyhow ya dried out old sow!</i>"\n\n', false );
@@ -1112,14 +1112,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//[No];
 	CeraphScene.prototype.bailBeforeCeraphYoinksYourNads = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		MainView.outputText( 'You let her know that you\'ve changed your mind and take off before Ceraph can try to take your beloved body parts.  You hear her laugh and tease as you run, yelling, "<i>What, can\'t handle the thought of an Omnibus touching your fun bits?  Poor baby!</i>"\n\n', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//[Yes];
 	CeraphScene.prototype.giveUpYourBallsOrWhateverForLessFetishes = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		var x = 0;
 		MainView.outputText( 'You hold still, dreading this moment but knowing all-too well that you\'d have to give something up to get her touch out of your mind.  ', false );
 		//(Cock);
@@ -1238,7 +1238,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	//*Clit pump;
 	//*Orgy floor Drain;
 	CeraphScene.prototype.ceraphBodyPartDreams = function() {
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		//Create array for choosing bits!;
 		var choice = 0;
 		var subChoice = 0;
@@ -1416,7 +1416,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	};
 	CeraphScene.prototype.buttRapeCeraph = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00291 ]++;
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		if( x < 0 ) {
 			x = 0;

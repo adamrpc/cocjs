@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	}
 
 	MinotaurScene.prototype.minoVictoryRapeChoices = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		//Determine if PC can rape with a dick!
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		var dickRape = null;
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	//Tentacle scenes require multi dicks at minimum
 	//(dicks > 1 && tentacledicks > 0)
 	MinotaurScene.prototype.rapeMinotaurTentacles = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		//multicock but single tentalce rape scene
 		if( CoC.player.cocks.length > 1 && CoC.player.tentacleCocks() === 1 ) {
 			this.rapeMinotaurTentacle();
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.rapeMinotaurTentacle = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		this.minoRapeIntro();
 		var x = 0;
 		var counter = 0;
@@ -308,7 +308,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.AddictNagaOnMinotaur = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		//[if(CoC.monster.lust >= 99)
 		if( CoC.monster.lust > 99 ) {
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoUrethralPen = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		this.minoRapeIntro();
 		var counter = 0;
 		var x = 0;
@@ -383,7 +383,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoRapeIntro = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		//Monster got ass whupped
 		if( CoC.monster.HP <= 0 ) {
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	};
 	//Man buttrapes a minotaur butt.
 	MinotaurScene.prototype.bumRapeaMinotaur = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		this.minoRapeIntro();
 		MainView.outputText( '\n\nYou droop your ', false );
@@ -466,7 +466,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.girlRapeAMinotaur = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		this.minoRapeIntro();
 		CoC.player.slimeFeed();
 		this.minoCumAddiction( 5 );
@@ -519,7 +519,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minotaurGetsRapedByHerms = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		this.minoRapeIntro();
 		this.minoCumAddiction( 5 );
 		CoC.player.slimeFeed();
@@ -541,7 +541,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		Combat.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoPheromones = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( 'The minotaur smiles at you and lifts his loincloth, flicking it at you.  Thick ropes of pre-cum fly through the air, ', false );
 		//sometimes get hit with the pre for stronger effect!
 		if( Utils.rand( 3 ) === 0 ) {
@@ -574,7 +574,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 	};
 	MinotaurScene.prototype.getRapedByMinotaur = function( autoRape ) {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		CoC.player.slimeFeed();
 		MainView.clearOutput();
 		//BY BUTTS MCGEE
@@ -719,7 +719,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	};
 
 	MinotaurScene.prototype.getOralRapedByMinotaur = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The huge bull-man grabs you around the waist with one hand and flips you over. You hang upside down in his grip, your ' + CoC.player.legs() + ' splayed in the air.  The minotaur rubs your face across his sweat-slick balls, smearing his musk into your skin. Each of the minotaur\'s testicles is bigger than a man\'s head, and the skin of his sack is pulled taut over his cum-filled balls.\n\n', false );
 		MainView.outputText( 'The minotaur traps your ' + CoC.player.legs() + ' in one hand and slams your back against the cold cave wall. You gasp, spraying drops of musky sweat from your lips. Dragging you against the rough stone, the minotaur lifts you higher and bends your ' + CoC.player.legs() + ' back over a rock ledge. You are pinned against the cave wall, ' + CoC.player.legs() + ' held in one of the minotaur\'s hands while his other roughly gropes your stretched-out body.', false );
@@ -765,7 +765,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 	};
 	MinotaurScene.prototype.minoGetsTitFucked = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		CoC.player.slimeFeed();
 		if( CoC.player.isNaga() ) {
 			this.AddictNagaOnMinotaur();
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	};
 	//(Direct Injection) – GIGITY!
 	MinotaurScene.prototype.takeMinoCumDirectly = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Relishing your victory, you breathe deeply, shivering and stretching.  ', false );
 		if( CoC.monster.HP < 1 ) {
@@ -960,7 +960,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		return output;
 	};
 	MinotaurScene.prototype.minoAddictionFuck = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'While exploring the mountains, a familiar musky scent works its way into your nostrils.   Sniffing hungrily, you begin shaking, nearly convulsing with need.   You don\'t think, you act, sprinting heedlessly around the rock obstructions that litter the jagged mountain-side, chasing down your need.  Rounding a sharp bend, you sigh happily as the smell noticably increases in strength.  A few feet away is a minotaur, covered in shaggy fur and snacking on fruit.  Ecstatic, you scrabble forwards, sending tiny rocks everywhere.   The minotaur looks up, at first with a frown, then with a gradually widening grin as he recognizes the look in your eyes.\n\n', false );
 		MainView.outputText( 'He tosses aside the fruit, forgotten as his veiny shaft forces aside his loincloth, proud and dripping.   You NEED him, and you drop to your knees and masturbate, knowing that soon he\'ll be filling you full of what you need.   The blatant sexual show does the trick, and you shudder as the drooling horse-cock gets closer and closer to you.   At the last moment the minotaur picks you up, and tosses you backwards, into a cave.  Your hope sinks, but then he starts to advance upon you again, and you know the time for waiting is over...', false );
@@ -972,7 +972,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 
 	//[Optional Bad-End For Uber-Addicted]
 	MinotaurScene.prototype.minoAddictionBadEndEncounter = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'While exploring the mountains you catch a strong whiff of your favorite scent.  Tipping your head to the side, you take in a few deep lungfuls and sigh.   Judging by the strength of the smell, there must be MANY minotaurs gathered together.   Immediate visions of being surrounded by the muscly monsters fill your mind.   In your fantasy your holes are plugged and you\'re soaked in their wondrous stuff.  You desperately want it to be a reality, and all you need to do is follow your nose...\n\n', false );
 		//(Withdrawal)
@@ -990,7 +990,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 	};
 	MinotaurScene.prototype.minoAddictionBadEnd2 = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You grin and stumble up the mountain, inhaling deep breaths from moment to moment to make sure you\'re on the right track.  The scent gets stronger and stronger, making you ', false );
 		if( CoC.player.hasVagina() ) {
@@ -1018,7 +1018,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	};
 	//[PAGE 2]
 	MinotaurScene.prototype.minoCumAddictBadEnd3 = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		EngineCore.hideUpDown();
 		MainView.outputText( '', true );
 		MainView.outputText( 'Days and weeks pass in a half-remembered haze.  You\'re violated countless time, and after the first day they don\'t even bother to keep you on a leash.  Why would they need to restrain such an eager slave?  You\'re tossed to the side whenever you\'re not needed as a cum-dump, but as soon as you start to come out of your daze, you crawl back, gaping, dripping, and ready for another dose.  For their part, your new masters seem happy to take care of your needs.  The only time you aren\'t drugged is when the minotaurs are sleeping, but the minitaurs seem all too happy to let you suckle the pre from their tiny horse-cocks in the huddled slave-pile.\n\n', false );
@@ -1027,7 +1027,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		EngineCore.dynStats( 'int', -1, 'lib', 5, 'sen', 30, 'lus=', 100, 'cor', 20 );
 	};
 	MinotaurScene.prototype.minotaurDrinksMilkNewsAtEleven = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You kneel next to the exhausted minotaur, lifting his head up to your ' + Descriptors.breastDescript( 0 ) + '. He turns his muzzle away from them, still trying to defy you. You force his head back toward your chest and push your ' + Descriptors.nippleDescript( 0 ) + ' against his mouth, but he keeps his lips tightly shut. You pound your fist on his stomach, forcing a gasp of air out of his mouth as you cram your nipple inside. The minotaur is trying to shake his head to free up his mouth but you\'re holding his fur too firmly for him to wriggle free. His struggling only causes sips of milk to trickle down into his mouth. You squeeze your breast and send streams of milk down his throat. He soon stops fighting and just starts nursing. He\'s sucking hard, pulling the milk out of you, and stopping every few minutes to take a deep breath. He soon empties that teat and you put the other one up to his mouth. He obediently begins to nurse on that one, but he\'s a bit winded from the other, so his suckling is gentle and soothing. It takes him a bit longer for him to empty this nipple, but having such a strong minotaur reduced to a weak, suckling calf pleases you greatly for some reason.\n\n', false );
 		MainView.outputText( 'You pop your ' + Descriptors.nippleDescript( 0 ) + ' from the dazed minotaur\'s mouth and leave him there to enjoy the afteraffects of his meal.', false );
@@ -1041,7 +1041,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 
 	//should be restricted to PCs with 36' cocks or less (arm length-ish) since you're holding the minotaur's horns; centaur addition matches to same length because you're welcome
 	MinotaurScene.prototype.minotaurBlowjob = function() {
-		EngineCore.spriteSelect( 44 );
+		MainView.spriteSelect( 44 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 80 );
 		MainView.outputText( 'You step towards the minotaur, ', false );

@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		MainView.outputText( '.  Peeking fearfully over your shoulder, you see the black-furred form of a hell-hound emerging from behind a rock.  Its eyes narrow as its gaze locks onto your ' + CoC.player.assholeOrPussy() + ', a pair of black, shiny dog-cocks emerge underneath him, dangling freely.  His balls look bloated and distended, the skin around them crawling and wriggling.  A few worms drip from its over-sized peckers, crawling on the ground under the infested beast.\n\n', false );
 		MainView.outputText( 'Somehow you know this thing isn\'t going to let you just walk away.', false );
 		Combat.startCombat( new InfestedHellhound() );
-		EngineCore.spriteSelect( 27 );
+		MainView.spriteSelect( 27 );
 	};
 
 	InfestedHellhoundScene.prototype.infestedHellhoundLossRape = function() {

@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		if( CoC.isInCombat() ) {
 			this.callNext = this.inventoryCombatHandler; //Player will return to combat after item use
 		} else {
-			EngineCore.spriteSelect( -1 );
+			MainView.spriteSelect( -1 );
 			this.callNext = this.inventoryMenu; //In camp or in a dungeon player will return to inventory menu after item use
 		}
 		MainView.hideAllMenuButtons();
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 	};
 	Inventory.prototype.stash = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( -1 );
+		MainView.spriteSelect( -1 );
 		EngineCore.menu();
 		if( CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
 			SceneLib.anemoneScene.anemoneBarrelDescription();

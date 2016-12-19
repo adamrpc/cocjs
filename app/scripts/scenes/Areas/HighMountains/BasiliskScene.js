@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	//*followup creatures taking advantage have their usual effects
 	//Intros and Fight Texts.
 	BasiliskScene.prototype.basiliskGreeting = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '', true );
 		//First encounter:
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ] === 0 ) {
@@ -54,12 +54,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			Combat.startCombat( new Basilisk() );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 	};
 
 	//wins
 	BasiliskScene.prototype.defeatBasilisk = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '', true );
 		var evil = null;
 		var eggs = null;
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	//Player Victory sex:
 	// '<i>Tongue'<i>
 	BasiliskScene.prototype.tongueBasiliskSmex = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You tap your jaw as you stare down at the defeated reptile, smiling at its oddly formal gesture of surrender.  You\'d very much like to take some satisfaction from the basilisk, extract a bit of pleasurable payment for what it tried to do to you the more you get to look at it properly, the more difficult doing that seems. The tall, thin creature is all angles, tough scales and pointed edges. You don\'t like the thought of putting your genitals anywhere near its sickle claws or curved fangs.\n\n', false );
 		MainView.outputText( 'It is as you are taking in this latter article that the basilisk swallows nervously, and you get a glimpse inside its mouth at a long, sticky, pale purple tongue, another gift of its reptilian ancestors. It\'s the only part you\'ve seen of it so far which looks... soft.  Pliable.  Your smile widens and you step forward, slowly loosening your ' + CoC.player.armorName + '.\n\n', false );
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//basilisk Defeat: Anal
 	BasiliskScene.prototype.defeatBasiliskAndAnal = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '', true );
 		//Requires: Corruption 70 or more, cock (for now)
 		//Prelude:
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//Player Defeated:
 	BasiliskScene.prototype.loseToBasilisk = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '', true );
 		//Speed 0 loss:
 		if( CoC.player.spe <= 1 ) {
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	//basilisk vag rape
 	//Requires: Player has vag and is in heat, currently has egg pregnancy, or has oviposition perk
 	BasiliskScene.prototype.basiliskHasVagEggStuff = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		CoC.player.slimeFeed();
 		MainView.outputText( 'The basilisk is breathing heavily as it tears your ' + CoC.player.armorName + ' from your body, its warm exhalations rolling over your naked flesh.  It seems to be having difficulty controlling itself; from your frozen gaze you can see it constantly shifting its dreadful slit eyes back to your frame as it searches through your pockets with claws that tremble.  Eventually it throws down your attire and stares back into your eyes.  There is something else in there now; a pulsing lust, hints of red at the edges of that great, grey sea, a rapacious tide gathering.  You wish you could look away but there is more chance of you moving mountains.', false );
 		//(Heat:
@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		Combat.cleanupAfterCombat();
 	};
 	BasiliskScene.prototype.basiliskBirth = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '\n' );
 		if( CoC.player.vaginas.length === 0 ) {
 			MainView.outputText( 'You feel a terrible pressure in your groin... then an incredible pain accompanied by the rending of flesh.  <b>You look down and behold a new vagina</b>.\n\n', false );
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	//basilisk Bad End
 	//Requires: Lose to basilisk when Speed is less than 5 (changed from 15 to prevent level 1 gameover -Z)
 	BasiliskScene.prototype.basiliskBadEnd = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Moving has become intensely difficult.  You cannot explain why something that came naturally to you ten minutes ago is now like wading neck deep through quicksand, but that is what moving your limbs now feels like.  With a huge, straining amount of effort, you desperately raise your arms and crane your neck away from the basilisk as it now approaches you, but with a pathetic amount of ease the creature slides through your guard, grabs you by the chin and looks directly into your eyes.  Your reactions are so slow your mind\'s screaming order for your eyelids to close takes several seconds for your nerves to compute, by which time it is far too late.\n\n', false );
 		MainView.outputText( 'You stare deep into the creature\'s eyes.  There really is an infinity in there, a grey fractal abyss which spirals upwards and downwards forever.  You want nothing more than to spend the rest of your life following it... you fall into that endless abyss for what seems like years, decades, uncharted aeons.  You lose all sense of yourself, your situation, your purpose; you do not feel the tips of your fingers slowly turning cold and grey, rivulets of the texture advancing slowly up your hand, any more than you notice the turn of a planet a thousand light years away.  There is only the wet grey, and you, an infinitesimally tiny speck lost in a universe, a universe that knows, sees, and controls.  When the basilisk\'s pupils dilate, and you feel its hypnotic compulsion press upon your mind, you can no sooner resist it than a tadpole can an endless, grey waterfall.  When it demands that you be horny, you cannot disobey it any more than you can disobey gravity.  You are submerged in a sea of sex.', false );
@@ -402,7 +402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//Defeated, Taken Advantage of: nobody
 	BasiliskScene.prototype.basiliskAdvantageNobody = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.  Coupled with the unscratchable itches and the aching in your limbs the experience is one of sensational hell.\n\n', false );
 		MainView.outputText( 'Eventually, and with gushing, overwhelming joy, you find you can with effort move one of your little fingers again.  Concentrating hard, you move backwards from there until you can move your hand, your other fingers, your arm, and then, with a creaking finality, you break entirely free of the paralyzing spell.  You spend the next few minutes scratching and touching yourself all over with cries of deepest relief, before putting your garments back on and staggering slowly towards camp.  You suppose you should count yourself lucky that nothing found you whilst you were in your incredibly vulnerable state, but you struggle to think of yourself as lucky as you reflect soberly on the last couple of hours.', false );
 	};
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//Defeated, Taken Advantage of: harpy
 	BasiliskScene.prototype.basiliskAdvantageHarpy = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.  Coupled with the unscratchable itches and the aching in your limbs the experience is one of sensational hell.\n\n', false );
 		MainView.outputText( 'You hear a shrill cry from above you, half eagle scream and half mocking, female laughter.  With a fluttering flap of feathers, a harpy lands at your side before proceeding to stalk around you, taking in your helpless, frozen form with stiff, jerky movements.  You reflect bitterly that if the big bottomed bird woman had turned up fifteen minutes ago she would probably have scared the basilisk off.  As it is, you are going to have to take whatever she can throw at you... with a stiff upper lip, as it were.\n\n', false );
 		//Male/Herm:
@@ -457,7 +457,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		}
 		//Female:
 		else if( CoC.player.hasVagina() ) {
-			EngineCore.spriteSelect( 75 );
+			MainView.spriteSelect( 75 );
 			MainView.outputText( 'The harpy comes to a halt behind you and begins to eagerly run her cold but soft hands over your bottom half, stroking your thighs and squeezing your ' + Descriptors.buttDescript() + ' as if appraising a piece of meat.  Whilst caressing your neck she runs her hands between your legs and grabs around your moistened delta impatiently, searching for something that isn\'t there.  She lets loose a squawk of pure frustration and wheels around you to glare in your eyes angrily.  The sex-crazed harridan is clearly deeply pissed off with you for lacking a cock she can abuse.  She shifts her eyes to your mouth, but quickly arrives at the same conclusion you\'ve already come to to move your mouth, you can\'t even be forced to give oral pleasure.  You feel a bizarre sense of triumph over the creature; you stare into space smugly as the harpy paces in front of you, glaring, thwarted but unwilling to give up her prize.  Perhaps eventually she will leave you alone...?\n\n', false );
 			MainView.outputText( 'The harpy suddenly closes in, threads her arms around your neck and scalp and kisses you roughly.  She pushes her golden lips against yours and squeezes her rough bird tongue into your mouth.  You feel your lips tingle and you raggedly moan against the savage frenching, her hot breath pushing down your throat as she circles your still tongue with her own, before exploring further down towards your tonsils.  By the time she has finished with you your whole body feels like it is glowing red from the effect of her lipstick, and your ' + Descriptors.vaginaDescript( 0 ) + ' is leaking moisture down your thigh.  Maddeningly, the harpy ignores your needy sex and continues to stalk around you, a vengeful smirk changing to a thoughtful frown on her ferociously beautiful face.  You wish you could thrust your vagina towards her, make her heed the plight of your lust-racked body; hell, you are even beginning to wish you could give her head so she would at least consider rewarding you...\n\n', false );
 			MainView.outputText( 'You feel something build at the back of your mind.  Involuntary sensations prickle your skin and inner walls as, once again, the intermittent mental backwash that the basilisk\'s hypnosis has forced upon your mind hits you.  Memory after memory of sexually-charged encounters, daydreams or fantasies crowd your consciousness.  It is made worse, much worse by the pheromones the harpy has pushed into your mouth; your body rides the chemical glow at the same time as imaginings of soft skin, tight muscle and musk overload your senses.  Your ' + Descriptors.vaginaDescript( 0 ) + ' flexes and drools fluid as your ' + Descriptors.clitDescript() + ' bulges with need, almost screaming for attention that it isn\'t going to get.  The denial the petrification has forced upon you is unbearable.\n\n', false );
@@ -479,7 +479,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//Defeated, Taken Advantage of: goblin
 	BasiliskScene.prototype.basiliskAdvantageGoblin = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.\n\n', false );
 		//Male/Herm:
 		if( CoC.player.hasCock() ) {
@@ -551,7 +551,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 	};
 	//Defeated, Taken Advantage of: minotaur
 	BasiliskScene.prototype.basiliskAdvantageMinotaur = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.outputText( 'Time stretches by at an agonizingly slow pace as you stand there, a bizarre, motionless flesh statue.  You have no way of measuring how much time is passing; the sun is not in your direct line of vision.   You try to move any and every part of yourself in turn, but it is hopeless.  Your body is a cage, and you begin to hate the basilisk less because it paralyzed you and more because it left your mind entirely aware of it.  Every so often another unbidden backwash of erotic memories overwhelms your senses, keeping you helplessly aroused and reminded of who did this to you.\n\n', false );
 		MainView.outputText( 'You hear a deep, rumbling, snuffling sound from behind you, and the earth shakes as something big approaches you from behind.  <i>Please not a minotaur,</i> you think.  <i>Anything but a minotaur.  Please not a minotaur...</i>  Hands roughly grab your sides and a brutally powerful musk fills your nostrils as you groan in despair.\n\n', false );
 		MainView.outputText( 'The huge bull-man is not one to look a gift fuck in the mouth.  Without bothering to take you in, bar a long wet sniff of your ' + Descriptors.hairDescript() + ', he sticks his cock between your ass cheeks.  He grunts as he forces his head past your sphincter, squirting pre-cum into your passage as he does so.  Your body is incapable of clenching instinctively against the invasion, but there is no escaping how huge the dong feels as he impatiently forces your ass open.', false );
@@ -588,7 +588,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		CoC.player.slimeFeed();
 	};
 	BasiliskScene.prototype.driderPCEggLaysBasilisk = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.clearOutput();
 		MainView.outputText( 'Leaning back on your carapace-clad abdomen, you try and look over your defeated opponent.  Even slumped over in ' );
 		if( CoC.monster.HP < 1 ) {
@@ -664,7 +664,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		Combat.cleanupAfterCombat();
 	};
 	BasiliskScene.prototype.layBeeEggsInABasilisk = function() {
-		EngineCore.spriteSelect( 75 );
+		MainView.spriteSelect( 75 );
 		MainView.clearOutput();
 		MainView.outputText( 'Completely destroyed, the basilisk lays face down on the ground, struggling pathetically to get up.  You giggle at the attempt as you ' );
 		if( CoC.player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_SMALL || CoC.player.wingType === AppearanceDefs.WING_TYPE_BEE_LIKE_LARGE ) {

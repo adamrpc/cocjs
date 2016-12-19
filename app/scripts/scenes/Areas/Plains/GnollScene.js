@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 
 	//Gnoll Entrance;
 	GnollScene.prototype.gnollEncounter = function() {
-		EngineCore.spriteSelect( 11 );
+		MainView.spriteSelect( 11 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The sound of distant laughter comes across the plains, then seems to die off suddenly.  A moment later, a gnoll comes bounding from the nearest scrap of cover and barrels into you.  The monstrous thing giggles as it bounces back and forth before you, looking for an opening to exploit.', false );
 		Combat.startCombat( new Gnoll() );

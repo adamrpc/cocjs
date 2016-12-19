@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	//[IN COMBAT SPECIALS];
 	//[SPECIAL 1] – Ubercharge!;
 	Ceraph.prototype.ceraphSpecial1 = function() {
-		EngineCore.spriteSelect( 7 );
+		MainView.spriteSelect( 7 );
 		if( this.findStatusAffect( StatusAffects.Uber ) < 0 ) {
 			if( Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( 'Ceraph winks and says, "<i>Have you ever cum without being touched? You will.</i>"\n\n', false );

@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 			SceneLib.maddie.runAwayMaddieFollowup();
 			return;
 		}
-		EngineCore.spriteSelect( -1 );
+		MainView.spriteSelect( -1 );
 		MainView.outputText( 'Tel\'Adre is a massive city, though most of its inhabitants tend to hang around the front few city blocks.  It seems the fall of Mareth did not leave the city of Tel\'Adre totally unscathed.  A massive tower rises up in the center of the city, shimmering oddly.  From what you overhear in the streets, the covenant\'s magic-users slave away in that tower, working to keep the city veiled from outside dangers.  There does not seem to be a way to get into the unused portions of the city, but you\'ll keep your eyes open.\n\n', true );
 		MainView.outputText( 'A sign depicting a hermaphroditic centaur covered in piercings hangs in front of one of the sandstone buildings, and bright pink lettering declares it to be the \'Piercing Studio\'.  You glance over and see the wooden facade of Urta\'s favorite bar, \'The Wet Bitch\'.  How strange that those would be what she talks about during a tour.  In any event you can also spot some kind of wolf-man banging away on an anvil in a blacksmith\'s stand, and a foppishly-dressed dog-man with large floppy ears seems to be running some kind of pawnshop in his stand.  Steam boils from the top of a dome-shaped structure near the far end of the street, and simple lettering painted on the dome proclaims it to be a bakery.  Perhaps those shops will be interesting as well.', false );
 		if( CoC.flags[ kFLAGS.RAPHEAL_COUNTDOWN_TIMER ] === -2 && !SceneLib.raphael.RaphaelLikes() ) {
@@ -240,7 +240,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.addButton( 9, 'Back', this, this.telAdreMenu );
 	};
 	TelAdre.prototype.piercingStudio = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		var about = null;
 		if( CoC.player.findStatusAffect( StatusAffects.Yara ) < 0 ) {
 			about = this.aboutYara;
@@ -265,7 +265,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		}
 	};
 	TelAdre.prototype.aboutYara = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		CoC.player.createStatusAffect( StatusAffects.Yara, 0, 0, 0, 0 );
 		MainView.outputText( 'You introduce yourself and ask Yara about her past, noting that ', true );
 		if( CoC.player.humanScore() <= 2 ) {
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.pierceMenu = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		EngineCore.hideUpDown();
 		var clit = null;
 		if( CoC.player.hasVagina() ) {
@@ -331,7 +331,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		}
 	};
 	TelAdre.prototype.dickPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		if( CoC.player.totalCocks() > 0 ) {
 			MainView.outputText( '"<i>Ok, this is gonna hurt a LOT, but I\'ve heard good things about it.  What kind of piercing do you want done?</i>" Yara asks.', true );
 		} else {
@@ -343,7 +343,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		this.piercingLoc = 1;
 	};
 	TelAdre.prototype.clitPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		if( CoC.player.hasVagina() ) {
 			MainView.outputText( '"<i>Ohhh, that\'s going to be suckably cute!</i>" exclaims Yara, blushing more than a little. "<i>What kind of piercing would you like?</i>', true );
 		} else {
@@ -355,43 +355,43 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.choices( 'Stud', this, this.chooseStud, 'Ring', this, this.chooseRing, '', null, null, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.earPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 2;
 		MainView.outputText( '"<i>Okay, just let me get my supplies and we can get started.  What kind of jewelry do you want in them?</i>" asks Yara.', true );
 		EngineCore.choices( 'Stud', this, this.chooseStud, 'Ring', this, this.chooseRing, 'Hoop', this, this.chooseHoop, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.eyebrowPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 3;
 		MainView.outputText( '"<i>Ah, that\'s a good look!  What do you want there?</i>" asks Yara.', true );
 		EngineCore.choices( 'Stud', this, this.chooseStud, 'Ring', this, this.chooseRing, '', null, null, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.lipPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 4;
 		MainView.outputText( '"<i>Oh my, that\'ll be HAWT!  What kind of jewelry do you want there?</i>" asks Yara.', true );
 		EngineCore.choices( 'Stud', this, this.chooseStud, 'Ring', this, this.chooseRing, '', null, null, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.nipplePierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 5;
 		MainView.outputText( '"<i>Yeah, sure I can do those!  What kind of jewelry do you want there?  I\'m partial to nipple-chains myself,</i>" admits Yara, blushing bright red.', true );
 		EngineCore.choices( 'Studs', this, this.chooseStud, 'Rings', this, this.chooseRing, 'Chain', this, this.chooseChain, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.nosePierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 6;
 		MainView.outputText( 'Yara wrinkles her nose in distaste, "<i>Really?  Well ok, what do you want there?</i>"', true );
 		EngineCore.choices( 'Stud', this, this.chooseStud, 'Ring', this, this.chooseRing, '', null, null, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.tonguePierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 7;
 		MainView.outputText( 'Yara happily purrs, "<i>Oh my, I bet that\'ll be fun!  I\'m afraid I can only put a stud there though, ok?</i>"', true );
 		EngineCore.choices( 'Ok', this, this.chooseStud, '', null, null, '', null, null, 'Back', this, this.pierceMenu, 'Nevermind', this, this.piercingStudio );
 	};
 	TelAdre.prototype.vulvaPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		this.piercingLoc = 8;
 		if( CoC.player.hasVagina() ) {
 			MainView.outputText( 'Yara explains, "<i>This is gonna hurt a lot, but I think you\'ll love how it feels after.  I know I do!  Now what kind of jewelry do you want down-town?</i>"', true );
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		this.chooseMaterials();
 	};
 	TelAdre.prototype.chooseMaterials = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gathers up her materials and says, "<i>Ok, now what type of material do you want it made from?  Don\'t worry about price, none of these are that rare, so the piercing will only be 100 gems.  Though I do have some rarer materials; you\'ll need 1,000 gems to spend if you want to check them out.</i>"', true );
 		if( CoC.player.gems < 100 ) {
 			MainView.outputText( '\n\nYou realize you don\'t have enough gems to get a piercing.', false );
@@ -485,7 +485,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		this.areYouSure();
 	};
 	TelAdre.prototype.areYouSure = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara says, "<i>Ok, last chance to back out, are you sure you want to go ahead with this?  Remember, once I put it in, it\'s permanent.</i>"', true );
 		EngineCore.doYesNo( this, this.normalPierceAssemble, this, this.piercingStudio );
 	};
@@ -494,7 +494,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	//11. Furrite (Attracts Furries);
 	//12. Crimstone - + min lust;
 	TelAdre.prototype.chooseAdvancedMaterials = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara goes back into the back and comes out with a gilded tray full of exotic materials.  She hands you a brochure and asks, "<i>Ok, now what am I going to be working with?</i>"', true );
 		MainView.outputText( '\n\nThere\'s a number of materials listed here:', false );
 		MainView.outputText( '\n1. Lethite - Fake lethicite.  While beautiful, it\'s known to attract demons.', false );
@@ -505,7 +505,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.choices( 'Lethite', this, this.chooseLethite, 'Fertite', this, this.chooseFertite, 'Furrite', this, this.chooseFurrite, 'Crimstone', this, this.chooseCrimstone, 'Back', this, this.chooseMaterials );
 	};
 	TelAdre.prototype.normalPierceAssemble = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara makes you comfortable and has you look away while she uses her piercing tools.  It hurts, but she\'s skilled and before you know it, your piercing is done!', true );
 		//1. Amethyst (+1 int, +1 lib);
 		//2. Diamond (+2 int, -1 cor);
@@ -782,7 +782,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	};
 
 	TelAdre.prototype.piercingRemove = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		EngineCore.hideUpDown();
 		var clit = null;
 		if( CoC.player.hasVagina() ) {
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.choices( 'Clit', this, clit, 'Dick', this, dick, 'Ears', this, ears, 'Eyebrow', this, eyebrow, 'Lip', this, lip, 'Nipples', this, nipples, 'Nose', this, nose, 'Tongue', this, tongue, 'Labia', this, vulva, 'Back', this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeClitPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.vaginas[ 0 ].clitPierced = 0;
 		CoC.player.vaginas[ 0 ].clitPShort = '';
@@ -856,7 +856,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeCockPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.cocks[ 0 ].pierced = 0;
 		CoC.player.cocks[ 0 ].pShortDesc = '';
@@ -867,7 +867,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeEarsPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.earsPierced = 0;
 		CoC.player.earsPShort = '';
@@ -878,7 +878,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeEyebrowPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.eyebrowPierced = 0;
 		CoC.player.eyebrowPShort = '';
@@ -889,7 +889,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeLipPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.lipPierced = 0;
 		CoC.player.lipPShort = '';
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeNipplesPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.nipplesPierced = 0;
 		CoC.player.nipplesPShort = '';
@@ -911,7 +911,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeNosePierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.nosePierced = 0;
 		CoC.player.nosePShort = '';
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeTonguePierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.tonguePierced = 0;
 		CoC.player.tonguePShort = '';
@@ -933,7 +933,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.removeVulvaPierce = function() {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( 'Yara gives you something to drink and you swiftly black out.  You awake about an hour later, sore and weak, though thankfully not bleeding.', true );
 		CoC.player.vaginas[ 0 ].labiaPierced = 0;
 		CoC.player.vaginas[ 0 ].labiaPShort = '';
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.piercingStudio );
 	};
 	TelAdre.prototype.oswaldPawn = function() {
-		EngineCore.spriteSelect( 47 );
+		MainView.spriteSelect( 47 );
 		MainView.outputText( '', true );
 		if( CoC.player.findStatusAffect( StatusAffects.Oswald ) < 0 ) {
 			MainView.outputText( 'Upon closer inspection, you realize the pawnbroker appears to be some kind of golden retriever.  He doesn\'t look entirely comfortable and he slouches, but he manages to smile the entire time.  His appearance is otherwise immaculate, including his classy suit-jacket and tie, though he doesn\'t appear to be wearing any pants.  Surprisingly, his man-bits are retracted.  ', false );
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.addButton( 0, 'Next', this, this.oswaldPawn );
 	};
 	TelAdre.prototype.oswaldPawnMenu = function() { //Moved here from Inventory.as
-		EngineCore.spriteSelect( 47 );
+		MainView.spriteSelect( 47 );
 		MainView.outputText( '\n\n<b><u>Oswald\'s Estimates</u></b>' );
 		EngineCore.menu();
 		var totalItems = 0;
@@ -1013,7 +1013,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.addButton( 9, 'Back', this, this.telAdreMenu );
 	};
 	TelAdre.prototype.oswaldPawnSell = function( slot ) { //Moved here from Inventory.as
-		EngineCore.spriteSelect( 47 );
+		MainView.spriteSelect( 47 );
 		var itemValue = Math.ceil( CoC.player.itemSlots[ slot ].itype.value / 2 );
 		MainView.clearOutput();
 		if( itemValue === 0 ) {
@@ -1027,7 +1027,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doNext( this, this.oswaldPawn );
 	};
 	TelAdre.prototype.oswaldPawnSellAll = function() {
-		EngineCore.spriteSelect( 47 );
+		MainView.spriteSelect( 47 );
 		var itemValue = 0;
 		MainView.clearOutput();
 		for( var slot = 0; slot < 5; slot++ ) {
@@ -1062,7 +1062,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	TelAdre.prototype.barTelAdre = function() {
 		// Dominka & Edryn both persist their sprites if you back out of doing anything with them -- I;
 		// I guess this is good a place as any to catch-all the sprite, because I don't think theres ever a case you get a sprite from just entering the bar?;
-		EngineCore.spriteSelect( -1 );
+		MainView.spriteSelect( -1 );
 		EngineCore.hideUpDown();
 		var button = 0;
 		MainView.clearOutput();
@@ -1243,7 +1243,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	};
 	TelAdre.prototype.tailorShoppe = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 61 );
+		MainView.spriteSelect( 61 );
 		MainView.outputText( 'The inside of the tailor\'s shop is far cleaner than anything else you\'ve seen in the city.  The walls are painted muted gray, and the floor is carpeted with a sprawling, royal blue rug.  After glancing around, you realize WHY the walls and floor are so muted – the quiet backdrop makes the merchandise look even more amazing.  There are racks and racks of clothing, but much of it is plain comfortable clothing, and not worth spending much time investigating.  A high-pitched voice pipes up, "<i>Can I help you?</i>"\n\n', false );
 		if( CoC.player.findStatusAffect( StatusAffects.Victoria ) < 0 ) {
 			MainView.outputText( 'You turn around, ', false );
@@ -1277,7 +1277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 
 	TelAdre.prototype.buyClothes = function( itype ) {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 61 );
+		MainView.spriteSelect( 61 );
 		MainView.outputText( 'Victoria nods and pulls a measuring tape off her shoulder.  She moves around you with practiced ease, taking measurements from every conceivable angle.  Thanks to her small stature, it\'s quite easy for her to take your inseam measurement, though Vicky manages to ', false );
 		if( CoC.player.biggestCockArea() > 30 || CoC.player.totalCocks() > 1 ) {
 			MainView.outputText( 'fondle your bulging package', false );
@@ -1303,14 +1303,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		}
 	};
 	TelAdre.prototype.debitClothes = function( itype ) {
-		EngineCore.spriteSelect( 61 );
+		MainView.spriteSelect( 61 );
 		CoC.player.gems -= itype.value;
 		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.tailorShoppe );
 	};
 	TelAdre.prototype.armorShop = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 64 );
+		MainView.spriteSelect( 64 );
 		MainView.outputText( 'The interior of the armory is blisteringly hot, filled with intense heat from the massive forge dominating the far side of the shop.  The bellows are blowing hard as a tall german-shepherd woman works the forge.  Incredibly, she\'s wearing nothing aside from a ragged leather apron.  It bulges from the front, barely containing her obscene proportions as it protects them from the heat of her forge.  She pulls a piece of metal from the forge and strikes it a few times with a hammer bigger than your head, then tosses it in a bucket filled with water, steam boiling out of it from the hot metal.  At last, the sweating forgemistress notices you and turns around, her breasts jiggling wildly.\n\n', true );
 		//MainView.outputText('"<i>Vat can Yvonne make for you?  Ze platemail?  Or someting a bit lighter?</i>" she asks you.', false);;
 		MainView.outputText( '"<i>What can I make for you?  Platemail?  Or something that breathes a little easier?</i>" Yvonne asks, fanning herself.' );
@@ -1333,7 +1333,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	};
 	TelAdre.prototype.weaponShop = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 80 );
+		MainView.spriteSelect( 80 );
 		MainView.outputText( 'The high pitched ring of a steel hammer slamming into hot metal assaults your ears as you walk up to the stand.  Sparks are flying with every blow the stand\'s owner strikes on his current work.  The metal is glowing red hot, and the hammer falls with the relentless, practiced precision of an experienced blacksmith\'s guiding hand.  Thick gray and white fur ruffles as the blacksmith stands up, revealing the details of his form to you.  He\'s one of the dog-people that inhabits this city, though his fur and ears remind you of a dog one of your friends had growing up called a husky.  The blacksmith is anything but husky.  He\'s fairly short, but lean and whip-cord tough.  His right arm is far more thickly muscled than his left thanks to his trade, and he walks with a self-assured gait that can only come with age and experience.\n\n', false );
 		MainView.outputText( 'His piercing blue eyes meet yours as he notices you, and he barks, "<i>Buy something or fuck off.</i>"\n\nWhat do you buy?', false );
 		EngineCore.choices( ConsumableLib.W_STICK.shortName, null, EngineCore.createCallBackFunction( this, this.weaponBuy, ConsumableLib.W_STICK ),
@@ -1348,7 +1348,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	};
 	TelAdre.prototype.weaponBuy = function( itype ) {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 80 );
+		MainView.spriteSelect( 80 );
 		MainView.outputText( 'The gruff metal-working husky gives you a slight nod and slams the weapon down on the edge of his stand.  He grunts, "<i>That\'ll be ' + itype.value + ' gems.</i>"', false );
 		if( CoC.player.gems < itype.value ) {
 			MainView.outputText( '\n\nYou count out your gems and realize it\'s beyond your price range.', false );
@@ -1362,13 +1362,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doYesNo( this, Utils.curry( this, this.debitWeapon, itype ), this, this.weaponShop );
 	};
 	TelAdre.prototype.debitWeapon = function( itype ) {
-		EngineCore.spriteSelect( 80 );
+		MainView.spriteSelect( 80 );
 		CoC.player.gems -= itype.value;
 		MainView.statsView.show();
 		SceneLib.inventory.takeItem( itype, this.weaponShop );
 	};
 	TelAdre.prototype.armorBuy = function( itype ) {
-		EngineCore.spriteSelect( 64 );
+		MainView.spriteSelect( 64 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Yvonne gives you a serious look, then nods.  She pulls the armor off a rack and makes a few adjustments, banging away with her massive hammer to ensure a perfect fit.  The entire time, she\'s oblivious to the movements of her massive breasts, accidentally exposing her impressive nipples multiple times.\n\n', false );
 		MainView.outputText( 'She finishes and turns to you, smiling broadly, "<i>Now, that will be ' + itype.value + ' gems, unless you want to change your mind?</i>"', false );
@@ -1384,7 +1384,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		EngineCore.doYesNo( this, Utils.curry( this, this.debitArmor, itype ), this, this.armorShop );
 	};
 	TelAdre.prototype.debitArmor = function( itype ) {
-		EngineCore.spriteSelect( 64 );
+		MainView.spriteSelect( 64 );
 		MainView.outputText( '', true );
 		CoC.player.gems -= itype.value;
 		MainView.statsView.show();
@@ -1683,7 +1683,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		}
 	};
 	TelAdre.prototype.yaraSex = function( girl ) {
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Yara makes you comfortable and has you look away while she uses her piercing tools.  It hurts, but she\'s skilled. Before you know it, your piercing is done!  You move to rise, retaining a bit of modesty', false );
 		if( CoC.flags[ kFLAGS.PC_FETISH ] > 0 ) {
@@ -1702,7 +1702,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		if( girl === undefined ) {
 			girl = true;
 		}
-		EngineCore.spriteSelect( 63 );
+		MainView.spriteSelect( 63 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 36 );
 		if( CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
@@ -1790,7 +1790,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 
 	//[Flirt];
 	TelAdre.prototype.yvonneFlirt = function() {
-		EngineCore.spriteSelect( 64 );
+		MainView.spriteSelect( 64 );
 		MainView.clearOutput();
 		MainView.outputText( 'You step closer, glancing from her bulging, barely contained tits to her pouting lips and expressive, violet eyes.  A shock of sweat-matted auburn hair obscures part of her face, but the tall, buxom blacksmith nervously brushes it aside as she watches.  Once you\'re close enough to touch, you quietly and sincerely proclaim, "<i>You\'re the most beautiful piece of craftsmanship in this entire store.</i>"' );
 		MainView.outputText( '\n\nYvonne steps back, and you swear you can see a blush blooming through her fur, a fiery glow of embarrassment that spreads to the upper curve of her immense mammaries.  She folds her arms over her apron, unintentionally smushing those gigantic tits closer together and deepening her cleavage into a canyon. An immense sigh causes the plush plateau to sway pendulously as Yvonne answers, "<i>' );
@@ -1823,14 +1823,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	};
 	//[Nevermind];
 	TelAdre.prototype.backOutOfYvonneFuck = function() {
-		EngineCore.spriteSelect( 64 );
+		MainView.spriteSelect( 64 );
 		MainView.clearOutput();
 		MainView.outputText( 'You politely decline, not wanting to interrupt her work.  Yvonne sighs and begins to pump the bellows, muttering, "<i>Then you\'d better be buying something!</i>"' );
 		EngineCore.doNext( this, this.armorShop );
 	};
 	//[Fuck];
 	TelAdre.prototype.fuckYvonneInZeBlacksmith = function() {
-		EngineCore.spriteSelect( 64 );
+		MainView.spriteSelect( 64 );
 		MainView.clearOutput();
 		//X = cock that fits!;
 		var x = CoC.player.cockThatFits( 75 );

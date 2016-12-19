@@ -746,7 +746,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//Vala, the Broken 'Fairy';
 	//[Use];
 	Dungeon2Supplimental.prototype.useVala = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		EngineCore.dynStats( 'lus', 20 );
 		//(Male);
@@ -772,7 +772,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.useValaPtII );
 	};
 	Dungeon2Supplimental.prototype.useValaPtII = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		EngineCore.hideUpDown();
 		EngineCore.fatigue( 5, 0 );
@@ -806,7 +806,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Free];
 	Dungeon2Supplimental.prototype.freeValazLooseCoochie = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You search the room for a way to free the fairy from her shackles and find an ugly, iron key that looks like a promising candidate. Opening the rusted metal with a teeth-clenching screech, the girl slumps to the ground in an ungainly heap. The fall seems to have roused her, at least, because she blinks, slowly, several times before lifting her head to stare blankly at you. You try to explain that she\'s free, but it\'s clear that thoughts are travelling through a pretty thick haze of abuse, so you take a moment to let her gather herself. When she\'s managed to assemble what wits are left to her, she slowly curls her mouth into a hopeful smile. "<i>How can Bitch please Master?</i>" she asks in an innocent voice tainted by husky desire.\n\n', false );
 		MainView.outputText( 'You bend down to comfort the girl and offer her a shoulder to lean on as you help her to her feet. As you expected, the weight of her milky tits nearly surpasses the rest of her body. She clings to you happily, stroking and rubbing her bare skin against your body. She is adamantly ignoring your efforts to dissuade her amorous advances, merely cooing "<i>master</i>" and "<i>pleasure</i>" over and over again. If you had the right materials, you might be able to mix something to heal the damage her captors have done to the fairy\'s mind.\n\n', false );
@@ -823,7 +823,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Heal];
 	Dungeon2Supplimental.prototype.healVala = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		if( CoC.player.hasItem( ConsumableLib.PURHONY, 1 ) ) {
 			CoC.player.consumeItem( ConsumableLib.PURHONY, 1 );
@@ -852,7 +852,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		}
 	};
 	Dungeon2Supplimental.prototype.healValaPartTwoTheHealingHealsOfRevenge = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'She tries to stand and falls back on her ass, the unbalancing weight of her corrupted breasts still surprising. She seems surprised at first, but her laughter is rich and eases your heart even just to hear it. "<i>Oh my, I have changed a bit, haven\'t I? Still, any deformity is worth restoring my mind. Please, let me introduce myself.</i>" She flaps her thin, fey wings rapidly and their lift is enough to allow her to stand. "<i>I am Vala, and I used to be a fairy, like my sisters. I was captured by the demons of this place and used to amuse them between sexual releases. The lord of this place, in his dark designs, thought it would be better to use me for sexual release instead. They fed me such terrible drugs, to make me grow to a more pleasing size. They bound me in this room with these,</i>" she cups her absurdly large tits, "<i>weights. When my wings grew strong enough to carry my inflated body, they switched to chains instead. They used me terribly and, in time, I forgot who I was. Pleasure was all that mattered. But you have saved me, and now it is all but a bad dream.</i>" She flutters up to kiss your forehead. "<i>I must taste the sweet open air and return to my sisters, but please try to find me once you are done here. I wish to repay your kindness.</i>"\n\n', false );
 		MainView.outputText( 'Leaving the way you came, Vala makes her exodus from the abyssal cavern. Despite her savagely warped body, you do not doubt that her renewed vigor for life will let her achieve some measure of happiness again. You feel like you\'ve managed to do a truly selfless thing in this den of iniquity. Defeating monsters is satisfying, but it is the lives you save that really make you feel like a hero. You sigh contentedly and press on. You\'ve got demons to dethrone.', false );
@@ -862,7 +862,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Sex];
 	Dungeon2Supplimental.prototype.ValaGetsSexed = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//(Herm/Male);
 		if( CoC.player.totalCocks() > 0 ) {
@@ -880,7 +880,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.valaGetsSexedPtDuece );
 	};
 	Dungeon2Supplimental.prototype.valaGetsSexedPtDuece = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		EngineCore.hideUpDown();
 		CoC.player.orgasm();
@@ -945,7 +945,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Reject];
 	Dungeon2Supplimental.prototype.rejectFuckingVala = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ] === 0 ) {
 			MainView.outputText( 'The fairy\'s weak insistence has begun to get obnoxious. What kind of prisoner dry humps her rescuer? Actually, if the heavy flow of lubricating girl cum dripping out of her pussy is any indication, it\'s the wettest humping you\'ve had with your ' + CoC.player.armorName + ' still on. You seize the girl\'s shoulders and hold her up, pushing her away from your goo-stained lower body. You assure the girl that you won\'t be having sex with her here. It\'s far too dangerous, you tell her, to leave yourself vulnerable right now. You\'ll take her to safety when the demons are defeated. You try to impress on her the importance of speed and stealth, but you might as well be talking to a big-breasted brick wall. When she makes a grab at your crotch, you\'ve had enough and throw her back.\n\n', false );
@@ -964,7 +964,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 
 	Dungeon2Supplimental.prototype.loseToVala = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		if( CoC.player.gender === 3 ) {
 			this.loseToValaAsHerm();
 		}
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//Fight Loss-;
 	//(Herm);
 	Dungeon2Supplimental.prototype.loseToValaAsHerm = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You collapse, no longer able to stand, and gasp weakly. The fairy took entirely too much delight in the fight, and her wet pussy is practically squirting with every heartbeat as she hovers over you, rubbing herself in anticipation. "<i>The masters\' will be happy. They will reward their Bitch with cum.</i>" Her mouth drools as much as her slavering snatch. "<i>Oh so much cum, and all for their good little pet.</i>"\n\n', false );
 		MainView.outputText( 'With a strength that seems out of place for the girl\'s rail-thin arms, she drags you to the center of the room and lifts your arms into the air. Licking up and down your ' + CoC.player.skinDesc + ', she grabs a pair of dangling manacles from the ceiling and claps them around your wrists with a metallic snap that seems horribly final to you. Responding to the sudden weight, the device the manacles are attached to begins to haul upward, pulling your chain into the air and lifting you by your arms into a slouched heap, dangling helplessly. The girl licks down your ribs, over your abdomen, and slathers your ' + Descriptors.hipDescript() + ' in her saliva. More clapping irons puncture your weakened awareness and you jerk your body to find that she\'s bound your ' + CoC.player.legs() + ' to the floor. You shiver, hanging in the rusty fetters, fearing what must surely be coming.\n\n', false );
@@ -995,7 +995,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.loseToValaAsHermPartII );
 	};
 	Dungeon2Supplimental.prototype.loseToValaAsHermPartII = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'It proves to be so much worse than you thought. Even though the nozzle is at its lowest setting, you can feel hot spunk flowing into your cunt and colon, the hose jerking as globs of the jizz begin to ooze into your recesses. The fairy laughs with a voice that is all the more wicked from the pure, clean, crystal tones it carries. "<i>The masters\' love is so sweet inside us. More future masters for us to birth and so many orgasms.</i>" She begins to tweak her clit and turns up the crank a notch, the trickle of slimy goo becoming a regular pumping. If not for the coldness of the metal inside you, the heat of the cum would be unbearable. You have the horrible realization that imps must be filling the hidden reservoir even as their fairy slave guides it into you. You scream in disgust and wriggle your ' + Descriptors.buttDescript() + ', trying to get the cursed toy out of you.\n\n', false );
 		MainView.outputText( 'The fairy is too aroused by your bondage and she can\'t help herself from joining in. She pulls the cum pump from your sopping holes and flutters against your chest. Slamming herself on your ' + Descriptors.cockDescript( 0 ) + ', she twists the hooking tubes so that one plugs back into your spunk-drooling ' + Descriptors.vaginaDescript( 0 ) + ' and the other into her ass. The girl screams right along with you, her mindless joy drowning out your dismay as she bucks against your ' + Descriptors.hipDescript() + ' in time to the cum flooding the two of you. "<i>We\'re good sluts,</i>" she gurgles. "<i>Maybe- ah- Bitch will keep you secret from t-t-the masters for a while longer. Prepare you- ooo- for them. You will be so o-O-OBEDIENT. You\'ll learn to love Vala,</i>" she whispers, a gleam of intellect shining through her broken mind for an instant. She grips the iron shafts and jams them deeper into your bodies, her bloated labia squeezing your ' + Descriptors.cockDescript( 0 ) + ' all the tighter. The hooked glans at the tip of the pump drive her wild and she begins hard-fucking the two of you with it, parting your cervix even as you slam into hers.\n\n', false );
@@ -1006,7 +1006,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Fight Loss-;
 	Dungeon2Supplimental.prototype.loseToValaAsMale = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( 'You collapse, no longer able to stand, and gasp weakly. The fairy took entirely too much delight in the fight, and her wet pussy is practically squirting with every heartbeat as she hovers over you, rubbing herself in anticipation. "<i>Bitch will show you the masters\' pleasures. They will reward it with cum.</i>" Her mouth drools as much as her slavering snatch. "<i>Oh so much cum, and all for their good little slut.</i>"\n\n', false );
 		MainView.outputText( 'You are powerless to stop the fairy as she drags you to the south wall and up to the wooden rail secured a couple of feet off the ground. "<i>When she was still growing, Bitch was too small and tight for the masters,</i>" your captor tells you. "<i>They blessed her with this ladder to make us big enough. You will feel their generosity.</i>" Gripping you under the arms, the fairy\'s lust-fuelled strength lifts you off the ground and flies you directly over the bristling peg ladder.\n\n', false );
 		//[Next];
@@ -1021,7 +1021,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		}
 	};
 	Dungeon2Supplimental.prototype.loseToValaAsMaleIITight = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>It will never please them like that,</i>" she scolds. "<i>You must be made more to their liking or they will never grant you endless joy.</i>" She grinds her button-stiff clit against your abdomen as she lowers you toward the smallest peg on the rail, an uncarved, lacquered wooden nub an inch wide and three inches long, barely larger than a finger. You try to attack the fairy before she can plug you in, but she simply drops you the rest of the way, and what should\'ve been a relatively painless insertion becomes agonizing as you hit the peg and three inches of hardened wood fill your ' + Descriptors.assholeDescript() + '. You gasp and try to get off the device, but the fairy has already grabbed you again and pulls you back into the air. You clench your muscles as you look at the far end of the ladder in horrified fascination at a wooden carving that would shame a minotaur. The fairy moves up a couple of notches.', false );
 		//[Player gets looser ass, and move to next level];
@@ -1030,7 +1030,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.loseToValaMaleIILoose );
 	};
 	Dungeon2Supplimental.prototype.loseToValaMaleIILoose = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//(loose ass);
 		MainView.outputText( '"<i>Sluts are trained well,</i>" she sighs, happily. "<i>This one knows only the pleasures of the masters, now.</i>" The peg under you would be above average on a normal human- easily 7 inches long and two inches wide. Your ' + Descriptors.assholeDescript() + ' clenches and you writhe in the fairy\'s arms, but she lets gravity do her dirty work, lowering you onto the human-sized wooden cock, the varnished surface pulling apart your ' + Descriptors.buttDescript() + ' and sliding into your nethers with an uncomfortable tight sensation. Despite the humiliation of the rape, the pressure on your prostate begins pumping blood into your ' + Descriptors.cockDescript( 0 ) + ', turning your body into a traitor. You don\'t dare try to pull off, for fear of the damage it might do to your anus, and you are forced to sit in shame on the wooden erection. The girl flutters down and laps at your stiffening cock, trying as hard as she can not to mount you then and there. Her hungry tongue takes some of the building pain from you. Finally, she decides you\'ve had enough and lifts you into the air, but to your dismay, she takes you another few notches down the line.', false );
@@ -1041,7 +1041,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//(Very loose ass);
 	Dungeon2Supplimental.prototype.loseToValaMaleIIVeryLoose = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The fairy suspends you over a bulbous cock, at least a foot long and three inches wide, carved to resemble an imp\'s barbed, demonic shaft. "<i>The masters are very kind,</i>" the girl promises, "<i>They know a slut\'s limits and gladly help it exceed them. They will rebuild you to their liking.</i>" The memory of her own training has overwhelmed her dulled expression and she can\'t help but mount you in the air, swinging her legs around your waist and guiding her slavering pussy to your ' + Descriptors.cockDescript( 0 ) + '. Just as your head slides into her cunt, however, she loses her grip and you fall from her arms, landing atop the imp dick, drawing an agonized scream of pain. The twelve inches of wood worn down to a polished gleam vanish up your ' + Descriptors.assholeDescript() + ' and distort your intestines. You are so full that you feel like you\'ve been speared through the gut, but your prostate does not care about your misery. Full penetration drives your cock wild and it surges to life, pulsing with every heartbeat. You can feel an orgasm building, but all you care about is the crushing pressure in your nethers. Just before you can cum, the fairy lifts you off the terrible prong and you actually sigh in relief, despite being denied release. Your cock twitches in the open air and it feels like a weight has been lifted from your chest. She giggles and flies you all the way to the last prong.\n\n', false );
 		//[Player's ass widens and go to last];
@@ -1051,7 +1051,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//(Gaping asshole);
 	Dungeon2Supplimental.prototype.loseToValaMaleIIGape = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The fairy takes you to the final peg along the rail. It is a nightmarish mix of horse, dog, and minotaur cock. It has a flared head, to make the initial penetration all the more painful, a bulging knot on the end to utterly destroy your spincter, and the whole thing stands a foot and a half tall, nearly five inches wide at the tip. You beg the fairy. You plead. There is no way you can go onto that, you say, it will kill you. All dignity flees as you pitifully sob up to her. You\'ll do whatever the imps want- whatever the Masters want, you correct yourself. You\'ll be their toy and cum dump, you\'ll drink every last bit of your masters\' love until you can\'t taste anything else. You will surrender yourself to them, body and soul. Whatever it takes, you implore, just not that peg! The fairy doesn\'t respond, her pupil-less eyes unchanging and unmoved by your agony, just swirling with pink lust and trained obedience. She lowers you just enough for you to feel the hard, flared tip of the monstrous thing press against your ' + Descriptors.assholeDescript() + ' and your resolve fails you. You promise the fairy everything. She lifts you up off the terrible final peg and you laugh in relief.\n\n', false );
 		MainView.outputText( 'Turning you around in her arms, the fairy lets you see the full depths of mindless depravity in her empty gaze. She strokes your ' + Descriptors.cockDescript( 0 ) + ', bringing it just shy of climax before mounting you, her sopping cunny softer and warmer than anything you can remember. "<i>Silly toy,</i>" she whispers to you. "<i>It has nothing to give. The masters possess everything already.</i>" She gives you a peck on the cheek and stops flapping her dragon-fly wings, letting the two of you plummet toward the monstrosity. Your world explodes into pain and your cock erupts with a mind-breaking orgasm inside the girl before your vision fails and the merciful oblivion of unconsciousness rushes over you.', false );
@@ -1062,7 +1062,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//Fight Loss-;
 	//(Female);
 	Dungeon2Supplimental.prototype.loseToValaFemale = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You collapse, no longer able to stand, and gasp weakly. The fairy took entirely too much delight in the fight, and her wet pussy is practically squirting with every heartbeat as she hovers over you, rubbing herself in anticipation. "<i>It will show you the masters\' pleasures. They will reward it with cum.</i>" Her mouth drools as much as her slavering snatch. "<i>Oh so much cum, and all for their good little Bitch.</i>"\n\n', false );
 		MainView.outputText( 'The fairy paces around you, a look of false sympathy running across her face like a mask. "<i>Does it hurt? Come, Bitch will make you feel better.</i>" She loops one of your arms around her slim shoulders and lifts you with an ease that makes you shudder. With surprising strength, she flies you to a corner of the room and carefully sets you down atop a dingy, cum-stained pillow. Despite the disgusting conditions, it is more comfort than you expected at the mad girl\'s hands and you allow yourself a sigh as you gather your thoughts, trying to think of a way out of this predicament. You are startled when a loud clank breaks your reprieve and you try to rise, only to be jerked back down to your ' + Descriptors.buttDescript() + '. You claw at your neck and find that the fairy has slapped a steel collar around you, with barely two feet of chain keeping it off the ground.\n\n', false );
@@ -1072,7 +1072,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.loseToValueFemalePtII );
 	};
 	Dungeon2Supplimental.prototype.loseToValueFemalePtII = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shiver uncontrollably and hug yourself like a wounded animal. Your ' + Descriptors.nippleDescript( 0 ) + ' and ' + Descriptors.clitDescript() + ' burn under the pale goop, rock hard and pulsing with demands for stimulation. The fairy bitch happily places a new bucket next to you, this one fuller than the first. "<i>It wants a meal?</i>" she inquires doubtfully, perhaps hoping to keep it for herself. You reluctantly reach for the bucket, nearly lunging when it looks like the fairy is about to pull the lever again. You look into the bucket and shiver as the stench of the spooge assails your nostrils, even more potent than the jizz bath rolling down your bare skin in cream bulbs. You reluctantly take a glob between your fingers and thumb and with a timid motion, you raise your fistful of the odious syrup and spread it over your lips like a soapy lather. Rubbing the vile goo so close to your nose makes you nearly convulse at the reek and you hug at your slime-soaked body, trying to curl up, away from the reeking bucket. Your lower torso becomes a sloppy mess of pale, nearly clear fluid rolling off of your curves in blobby clumps.', false );
 		MainView.outputText( 'You catch yourself rubbing the spooge against your ' + CoC.player.skinDesc + ' and into your ' + Descriptors.allBreastsDescript() + ' and you shake your head, trying to clear your mind. Remember how horrible it smells, you stress to yourself. It\'s disgusting and you\'re only doing it to please the insane fairy. Still, you shiver when you reach your nipples and find your thumbs applying too much pressure to your yielding softness, rubbing the spunk across your ' + CoC.player.skinDesc + ' in tight circles. Your next handful is larger and the next is larger still, until you drag the bucket closer to catch more of its dripping load with your flesh. You rub the warm jizz into your flesh, reveling in the heat it bleeds into your dripping body, the smell curling around your nostrils and filtering into your brain. You slop globs of oily cum across your face and head, rubbing it into your nostrils with your pinkies.\n\n', false );
@@ -1083,7 +1083,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//BAD END 1-;
 	//(Fairy);
 	Dungeon2Supplimental.prototype.badEndValaNumber1 = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'When you regain your senses, you\'re no longer in the cavernous dungeon you passed out in. You blink, trying to adjust to the bright light around you, but it doesn\'t help. Every sense is aflame and it\'s impossible for you to move without exciting some nerve ending, sending a thrill of pleasure radiating along your sensitive regions. You try to think, to reason out where you are, but holding a thought in your head for longer than a minute is extremely difficult, as if your mind was muffled by thick wool. You try to remember what happened, but that too is just out of your reach. All this mental exercise is giving you a headache, so you give up, and just drink in the sensations around your body. A shimmering, spritely face comes into view and a thought blazes a clear, white-hot path through your groggy brain. Recognition clears all your doubts and worries away. Your Mistress. This is your Mistress.\n\n', false );
 		MainView.outputText( 'The fairy girl smiles broadly, stroking your face affectionately, her almond-shaped pink eyes full of sweet desire. "<i>How is my Pet this morning?</i>" she inquires, voice like silver chimes ringing in your head. "<i>Aw, are you still waking up with headaches, Pet? Ooo, let your Mistress clear that poor head of yours.</i>" She uncorks a small vial of pink fluid and places it against your lips, but you hardly need the encouragement. You wrap your mouth around the lust draft and drink greedily, sucking down the wine-sweet draught, fiery passion driving the pain from your mind in a second and you reach out to embrace your dear Mistress. She giggles and shoos you back down with a touch. "<i>No no, Pet. It\'s meal time first, remember? Every day I steal more potions from those nasty demons, and we see what they do, don\'t you recall?</i>"\n\n', false );
@@ -1093,7 +1093,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//BAD END 2-;
 	Dungeon2Supplimental.prototype.badEndValaNumber2 = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		//(Imp);
 		MainView.outputText( '', true );
 		MainView.outputText( 'You come to with a splitting headache and the taste of something foul in your mouth. You struggle, but find that your limbs have been chained up and your ' + CoC.player.legs() + ' bound by a thick, rubber coating, squeezing your lower body painfully. You\'ve been fitted with several rubber pieces of the same sort, in fact- the most notable is the black corset that makes breathing difficult and binds your waist to a hyper-feminine fantasy. You\'ve also been fitted with large, rubber fairy wings attached by straps around your shoulders that pull your chest forward, painfully. An O-ring gag has been latched around your face, connected to a long, clear tube that\'s been fed a foot or two down your throat. You try to shake it loose, but it\'s far too deep for you to have a hope of removing it without help.\n\n', false );
@@ -1103,7 +1103,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.badEndValaNumber2Pt2 );
 	};
 	Dungeon2Supplimental.prototype.badEndValaNumber2Pt2 = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>When we captured Vala, I entertained the thought of breaking her on my dick like a crystalline condom, but I\'m rather glad I chose to raise her to be my pet instead.</i>" The imp\'s voice is familiar and your mind lurches to the memory of that first violation you suffered when you stepped through the portal to this world. Zetaz. He said never to forget the name Zetaz. You eyes roll in panic, but he holds your chin, his leering face filling your vision. "<i>As a reward to obedient little Vala, I\'ve decided to remake you in her image. We\'ll crush all that fatty flesh from your waist, keep your torso bound until you\'re too weak to walk, and pump you so full of drugs and cum that even seeing your name will be painful,</i>" he taps the bronze plaque he\'s prepared for you, a mirror to the fairy\'s. "<i>Why, in a few months, we\'ll be hard pressed to tell the two of you apart.</i>" A fresh wave of fairy-lubricated imp-seed pumps into your abdomen and the rubber girdle strains, but holds, washing the spunk back up, into your throat, until it feels like you might drown in the frothing cream.\n\n', false );
 		MainView.outputText( 'There\'s no time to contemplate your fate, however, as the imp\'s black poison seems to take hold and you feel a burning all along your body. ', false );
@@ -1121,7 +1121,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Fight Win-;
 	Dungeon2Supplimental.prototype.fightValaVictory = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The fairy girl collapses, well-drilled obedience robbing her limbs of their fight. She squirms to a crouching bow, fully accepting you as her new ' + CoC.player.mf( 'Master', 'Mistress' ) + '. The warped fae\'s empty eyes look up at you, her face a mask of rapture as she anxiously awaits her punishment, wagging her butt in the air as lubrication gushes down her thighs. It seems being defeated has excited the broken creature to a breeding frenzy. Her endurance must be incredible to be this frisky after your battle.', false );
 		CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA ]++;
@@ -1136,7 +1136,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Fuck];
 	Dungeon2Supplimental.prototype.valaFightVictoryFuck = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//(Female) ;
 		if( CoC.player.gender === 2 ) {
@@ -1175,7 +1175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Fuck];
 	Dungeon2Supplimental.prototype.valaFightVictoryFuckPtII = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//fem2;
 		if( CoC.player.gender === 2 ) {
@@ -1217,7 +1217,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//Unpurified Fairy-;
 	//(Returning to fairy room for the first time);
 	Dungeon2Supplimental.prototype.leftValaAlone = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//first post meeting;
 		if( CoC.flags[ kFLAGS.INVESTIGATED_VALA_AFTER_ZETAZ_DEFEATED ] === 0 || CoC.flags[ kFLAGS.TIME_SINCE_VALA_ATTEMPTED_RAPE_PC ] === 0 ) {
@@ -1249,7 +1249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Heal];
 	Dungeon2Supplimental.prototype.tryToHealVala = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//(Without Pure Honey);
 		if( !(CoC.player.hasItem( ConsumableLib.PURHONY, 1 ) || CoC.player.hasItem( ConsumableLib.P_PEARL, 1 )) ) {
@@ -1276,7 +1276,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		}
 	};
 	Dungeon2Supplimental.prototype.tryToHealValaWHoney2 = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'She tries to stand and falls back on her ass, the unbalancing weight of her corrupted breasts still surprising. She seems surprised at first, but her laughter is rich and eases your heart even just to hear it. "<i>Oh my, I have changed a bit, haven\'t I? Still, any deformation is worth restoring my mind. Please, let me introduce myself.</i>" She flaps her thin, fey wings rapidly and their lift is enough to allow her to stand. "<i>I am Vala, and I used to be a fairy, like my sisters. I was captured by the demons of this place and used to amuse them between sexual releases. The leader of them, however, thought it would be better to use me for sexual release instead. They fed me such terrible drugs, to make me grow and to bind me with these,</i>" she cups her absurdly large tits, "<i>weights. They used me terribly and, in time, I forgot who I was. Pleasure was all that mattered. But you have saved me, and now it is all but a bad dream.</i>" She flutters up to kiss your forehead.\n\n', false );
 		MainView.outputText( 'Leaving the way you came, Vala makes her exodus from the abyssal cavern. Despite her savagely warped body, you do not doubt that her renewed vigor for life will let her achieve some measure of happiness again. You feel like you\'ve managed to do a truly selfless thing in this den of iniquity. Defeating monsters is satisfying, but it\'s the lives you save that really make you feel like a hero. You sigh contentedly and wonder where she\'ll end up, now that she\'s been given her life back.\n\n', false );
@@ -1287,7 +1287,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Use];
 	Dungeon2Supplimental.prototype.useValaOHYEAHSNAPINTOASLIMJIM = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//(Male);
 		if( CoC.player.gender === 1 ) {
@@ -1309,7 +1309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.useValaOHYEAHKOOLAIDPTII );
 	};
 	Dungeon2Supplimental.prototype.useValaOHYEAHKOOLAIDPTII = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		EngineCore.hideUpDown();
 		//m2;
@@ -1337,7 +1337,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Wake];
 	Dungeon2Supplimental.prototype.wakeValaUpBeforeYouGoGo = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		//(Male);
 		if( CoC.player.gender === 1 ) {
@@ -1364,7 +1364,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.wakeMeUpBeforeValaGoGosPtII );
 	};
 	Dungeon2Supplimental.prototype.wakeMeUpBeforeValaGoGosPtII = function() {
-		EngineCore.spriteSelect( 85 );
+		MainView.spriteSelect( 85 );
 		MainView.outputText( '', true );
 		EngineCore.hideUpDown();
 		//m2;
@@ -1426,7 +1426,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Vala];
 	Dungeon2Supplimental.prototype.chooseValaInBar = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		var cumBath = null;
 		if( CoC.player.hasCock() ) {
 			cumBath = this.valaCumBath;
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.addButton( 4, 'Leave', SceneLib.telAdre, SceneLib.telAdre.barTelAdre );
 	};
 	Dungeon2Supplimental.prototype.cleansedFirstRemeet = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'When Vala finishes delivering drinks and making sure everybody is set, she lets the bartender know that she\'ll be taking a break and leaves her apron behind the bar. She leads you to a store room in back and closes the door behind you. Offering you the only chair in the room, a low, wide stool, she seems content to flutter in the air while the two of you talk, her obscene strength making constant flight trivial.  ', false );
 		//(NAGA/CENTAUR;
@@ -1490,7 +1490,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[You] ;
 	Dungeon2Supplimental.prototype.cleansedValaFuckHerBrainsOut = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		//[Male/Herm Growth scene];
 		if( CoC.player.totalCocks() > 0 ) {
@@ -1555,7 +1555,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Part 2;
 	Dungeon2Supplimental.prototype.cleansedValaFuckHerBrainsOutPtII = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		//dicks + growth;
 		if( CoC.player.totalCocks() > 0 ) {
@@ -1619,7 +1619,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 
 	//[You];
 	Dungeon2Supplimental.prototype.cleansedValaRepeatBrainFucking = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'She flashes a beautiful smile and tells the bartender that she\'ll be taking her break early. Grabbing you by the hand, she rushes to the stockroom and sheds her dress without any trace of her former shame about her tattooed back. When you\'re too slow taking off your ' + CoC.player.armorName + ', she helps, deft hands made all the quicker by eagerness. When the two of you are naked, she pushes you onto the well-worn stool and sits in your lap, staring into your eyes with a small smile.', false );
 		//[Next] (go to Growth scene);
@@ -1627,7 +1627,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Fairies];
 	Dungeon2Supplimental.prototype.faerieOrgyFuck = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Vala giggles and nods to the bartender to indicate she\'ll be taking her break. Taking you by the hand, she flutters upstairs to one of the far rooms of the tavern. When she opens the door, you\'re startled to find the room is virtually filled with fairies. Unlike Vala, they\'re the type you\'re more used to seeing- three to four inches tall, the girls are clothed in shiny black leather straps and wear tiny sable stockings tipped with crystalline heels. There\'s quite a variety of them and dozens of eyes settle on you as Vala pulls you into the room, closing the door behind you. "<i>These are my sisters, from the deep forest,</i>" she introduces. "<i>In my state, a monster or other predator of the woods would surely catch me or, worse, use me to lure my sisters to danger. But with a few complimentary bottles of whiskey, the captain of Tel\'Adre\'s city guard was willing to give them passage to visit me in the city once a week, as long as they stay out of mischief.</i>" The fairies lift off and buzz around you, teeny voices introducing themselves, asking your name, marveling at your huge muscles, or otherwise fawning over you. It\'s a bit much, truth be told.\n\n', false );
 		MainView.outputText( 'You thank Vala for introducing you, but you\'ve really got to be going, you claim. Demons to defeat, maidens to rescue, all that. The large fairy chuckles and gives you a squeeze. "<i>You\'re so cute when you\'re flustered. Don\'t worry, we\'re not going to all jump you at once- you\'d probably end up like I did! No, I asked my sisters here to help me with a little forest magic. Don\'t you want to see how fairies masturbate?</i>" You\'re a little taken aback by the question, but you nod all the same. "<i>All right girls, the petals please.</i>" The cloud of fairies in front of you disperses, each winged vixen scattering to different corners of the room to retrieve hidden flower petals. Each blossom, you note, matches the hair color of the fairy holding it, creating a dizzying array of  hues as they form circles around the two of you. Vala guides you to the bed and gently removes your ' + CoC.player.armorName + ' before instructing you to lie down.\n\n', false );
@@ -1645,7 +1645,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Male];
 	Dungeon2Supplimental.prototype.faerieOrgyFuckMaleContinue = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The fairy girl lands at the edge of the bed, settling on her knees and resting her weighty chest on the mattress. Leaning in, she spreads your ' + CoC.player.legs() + ' with warm, delicate hands, fingertips stroking the insides of your thighs. You shiver and squeeze the bedspread between your fingers, a little nervous about this \'forest magic.\' One of the fairies flutters down to Vala and hands her a pale white lily petal with a tittering giggle. The larger fairy takes the soft white bloom and, whispering a silken word to it, licks the cream-colored surface. Slithering further between your legs, she reaches your ' + Descriptors.cockDescript( 0 ) + ' and brushes the petal against your throbbing glans with a teasing caress. Then, much to your surprise, she places it on the tip of her forefinger and places it on the base of your cock. You gasp, the petal\'s soft surface rubbing sensitive skin with a warmth you were unprepared for. After the briefest delay, you lose your breath as the tremor of a small, barely contained orgasm rumbles through your gut. Without hesitation, the fairy barmaid takes a rose petal and repeats the process, another almost-orgasm seizing you and leaving you panting. "<i>Normally we only need the one petal, but since you and I are so much larger than the average fairy, I had my sisters bring lots. All for you,</i>" she whispers, coyly.\n\n', false );
 		//[If the Player has unlocked Scylla's Addiction Counseling event];
@@ -1671,7 +1671,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Female];
 	Dungeon2Supplimental.prototype.faerieOrgyFuckFemaleContinue = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The fairy girl lands at the edge of the bed, settling on her knees and resting her weighty chest on the mattress. Leaning in, she spreads your ' + CoC.player.legs() + ' with warm, delicate hands, fingertips stroking the insides of your thighs. You shiver and hug your arms under your breasts, a little nervous about this \'forest magic.\' One of the fairies flutters down to Vala and hands her a pale white lily petal with a tittering giggle. The larger fairy takes the soft white bloom and, whispering a silken word to it, licks the cream-colored surface. Slithering further between your legs, she reaches your ' + Descriptors.vaginaDescript( 0 ) + ' and brushes the petal against your ' + Descriptors.clitDescript() + ' with a teasing caress. Then, much to your surprise, she places it on the tip of her forefinger and slides it into your pussy. You gasp, the petal\'s soft surface rubbing your inner walls with a warmth you were unprepared for. Vala presses lightly on a spot inside your vagina and you lose your breath as the tremor of a small orgasm rumbles through your gut. Without explanation, the fairy barmaid takes a rose petal and repeats the process, another orgasm seizing you and leaving you panting. "<i>Normally we only need the one petal, but since you and I are so much larger than the average fairy, I had my sisters bring lots. All for you,</i>" she whispers, coyly.\n\n', false );
 		//[If the Player has unlocked Scylla's Addiction Counseling event] ;
@@ -2292,7 +2292,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 
 	Dungeon2Supplimental.prototype.theSeanShopOffer = function() {
-		EngineCore.spriteSelect( 52 );
+		MainView.spriteSelect( 52 );
 		MainView.clearOutput();
 		MainView.outputText( 'You try to sneak closer to get a closer look at him, but the demon immediately stops what he\'s doing and stares straight at you.  He laughs, "<i>Well now I know what happened to all the demons inside.  I really would\'ve expected a bunch of renegades like them to put up a better fight.</i>"\n\n' );
 		MainView.outputText( 'Caught, you stand up and ready your ' + CoC.player.weaponName + ', taking up a defensive stance to ready yourself for whatever new attacks this demon has.  Strangely, he just starts laughing again, and he has to stop to wipe tears from the corners of his eyes before he talks, "<i>Oh that\'s rich!  I\'m not here to fight you, Champion.  I doubt I\'d stand much of a chance anyways.  I heard there were some renegades around this area, so I thought I\'d show up to offer my services.  You see, I\'m a procurer of strange and rare alchemical solutions.  Of course you beat down everyone before I got here, but I thought I\'d stick around and see if some scouts were still around before I high-tailed it out of here.</i>"\n\n' );
@@ -2301,7 +2301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.choices( 'Deal', this, this.incubusDeal, 'No Deal', this, this.incubusNoDeal, '', null, null, '', null, null, '', null, null );
 	};
 	Dungeon2Supplimental.prototype.incubusDeal = function() {
-		EngineCore.spriteSelect( 52 );
+		MainView.spriteSelect( 52 );
 		MainView.clearOutput();
 		MainView.outputText( '"<i>Excellent!  Give me a few moments to gather my things and I\'ll be open for business!</i>" exclaims the strange demon.  If his story is true it\'s no wonder he doesn\'t get along with the rest of his kind.' );
 		//[Next – to room];
@@ -2309,14 +2309,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Dungeon2Supplimental.prototype.incubusNoDeal = function() {
-		EngineCore.spriteSelect( 52 );
+		MainView.spriteSelect( 52 );
 		MainView.clearOutput();
 		CoC.flags[ kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT ] = -1;
 		MainView.outputText( 'Sean nods, grabs a pack, and takes off running before you have a chance to kill him.' );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Dungeon2Supplimental.prototype.incubusShop = function() {
-		EngineCore.spriteSelect( 52 );
+		MainView.spriteSelect( 52 );
 		if( CoC.flags[ kFLAGS.NIAMH_SEAN_BREW_BIMBO_LIQUEUR_COUNTER ] === 1 ) {
 			SceneLib.niamh.getBimboozeFromSean();
 			return;
@@ -2338,7 +2338,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.addButton( 9, 'Leave', null, MainView.playerMenu );
 	};
 	Dungeon2Supplimental.prototype.incubusBuy = function( itype ) {
-		EngineCore.spriteSelect( 52 );
+		MainView.spriteSelect( 52 );
 		MainView.clearOutput();
 		MainView.outputText( 'The incubus lifts ' + itype.longName + ' from his shelves and says, "<i>That will be ' + (itype.value * 3) + ' gems.  Are you sure you want to buy it?</i>"' );
 		if( CoC.player.gems < (itype.value * 3) ) {
@@ -2349,7 +2349,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doYesNo( this, Utils.curry( this, this.incubusTransact, itype ), this, this.incubusShop );
 	};
 	Dungeon2Supplimental.prototype.incubusTransact = function( itype ) {
-		EngineCore.spriteSelect( 52 );
+		MainView.spriteSelect( 52 );
 		MainView.clearOutput();
 		CoC.player.gems -= itype.value * 3;
 		MainView.statsView.show();
@@ -2357,7 +2357,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//[Cum Bath];
 	Dungeon2Supplimental.prototype.valaCumBath = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.clearOutput();
 		//FIRST TIME INTRO;
 		if( CoC.flags[ kFLAGS.VALA_CUMBATH_TIMES ] === 0 ) {
@@ -2397,7 +2397,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( this, this.valaCumBath2 );
 	};
 	Dungeon2Supplimental.prototype.valaCumBath2 = function() {
-		EngineCore.spriteSelect( 60 );
+		MainView.spriteSelect( 60 );
 		MainView.clearOutput();
 		MainView.outputText( 'Vala tries to compose herself before you, but the girl is too antsy to go slowly, impatient hands wrapping around your [ass] and pulling you toward her lithe body, her wings aflutter with restless gaiety.  The buoyant pixie leans in to lap at the pout of your cockhead with the tip of her pink tongue while her thumbs work fervently between the junction of her legs, stroking her glistening clit like she were polishing a precious jewel.  Her fingers curl into the slavering depths of her pussy, stroking her fey folds with trembling pleasure.  Leaving one hand to continue jilling herself, Vala takes the other and uses her honey-drenched palm to polish the quivering flesh of your swelling shaft.  She encircles the crest of your fairy-slick cock with her eager pucker, sucking the steady dribble of your pre-cum as she pumps vigorously.  Before long, the twitching bliss rushing to your loins tell you that her voracious efforts have coaxed the thickening semen bubbling inside you to the edge of your restraint.  Gently, you push her off of your member, your urethra dilating as your orgasm gushes forth.' );
 		MainView.outputText( '[pg]Your cum spurts out in long, drooping ropes of alabaster that splash against Vala\'s face, provoking a startled jolt from the over-grown fairy.  She smiles, blinking the spunk from her eyes just as another stream lances out, pallid jizz catching her on the lips as she opens her mouth to speak.  She gasps in surprise, a curtain of ivory splashing down her chin.  The shuddering pleasure coursing through your body reaches a steady rhythm as you stroke yourself off in the throes of one, long orgasm.  Forcing yourself to breath steadily despite your racing heart, you pump your [cock] with remarkable restraint, holding back your impassioned urges to fill the fairy\'s womb with your virile seed.' );

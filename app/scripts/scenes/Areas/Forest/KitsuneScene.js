@@ -6,11 +6,11 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 
 	KitsuneScene.prototype.kitsuneSprite = function() {
 		if( CoC.monster.hairColor === 'blonde' ) {
-			EngineCore.spriteSelect( 105 );
+			MainView.spriteSelect( 105 );
 		} else if( CoC.monster.hairColor === 'black' ) {
-			EngineCore.spriteSelect( 104 );
+			MainView.spriteSelect( 104 );
 		} else {
-			EngineCore.spriteSelect( 106 );
+			MainView.spriteSelect( 106 );
 		}
 	};
 	//[Enter the Trickster] (Coded)

@@ -69,14 +69,14 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	};
 	SpiderMorphMob.prototype.kihaSPOIDAHAI = function() {
 		MainView.outputText( '[pg]', false );
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'While they\'re tangled up with you, however, Kiha takes the opportunity to get in a few shallow swings with her axe, to the accompaniment of crunching chitin.', false );
 		//horde loses HP;
 		this.HP -= 50;
 		Combat.combatRoundOver();
 	};
 	SpiderMorphMob.prototype.performCombatAction = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		if( Utils.rand( 2 ) === 0 || CoC.player.findStatusAffect( StatusAffects.UBERWEB ) >= 0 ) {
 			this.spiderStandardAttack();
 		} else {

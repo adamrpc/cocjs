@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		}
 		//Every 15 explorations chance at mino bad-end!
 		if( CoC.player.exploredMountain % 16 === 0 && CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
-			EngineCore.spriteSelect( 44 );
+			MainView.spriteSelect( 44 );
 			SceneLib.minotaurScene.minoAddictionBadEndEncounter();
 			return;
 		}
@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 					MainView.outputText( 'An imp leaps out from behind a rock and attacks!', true );
 					Combat.startCombat( new Imp() );
 				}
-				EngineCore.spriteSelect( 29 );
+				MainView.spriteSelect( 29 );
 				return;
 			}
 			//Encounter Gobbalin!
@@ -139,20 +139,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fucked, ' + CoC.player.mf( 'stud', 'slut' ), true );
 					MainView.outputText( '.</i>"', false );
 					Combat.startCombat( new Goblin() );
-					EngineCore.spriteSelect( 24 );
+					MainView.spriteSelect( 24 );
 					return;
 				} else {
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fuc-oh shit, you don\'t even have anything to play with!  This is for wasting my time!', true );
 					MainView.outputText( '</i>"', false );
 					Combat.startCombat( new Goblin() );
-					EngineCore.spriteSelect( 24 );
+					MainView.spriteSelect( 24 );
 					return;
 				}
 			}
 		}
 		//Minotauuuuur
 		if( chooser === 1 ) {
-			EngineCore.spriteSelect( 44 );
+			MainView.spriteSelect( 44 );
 			if( CoC.player.findStatusAffect( StatusAffects.TF2 ) < 0 && CoC.player.level <= 1 && CoC.player.str <= 40 ) {
 				if( EngineCore.silly() ) {
 					//(Ideally, this should occur the first time the player would normally get an auto-rape encounter with the minotaur. The idea is to give a breather encounter to serve as a warning of how dangerous the mountain is)
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 				return;
 			}
 			SceneLib.minotaurScene.getRapedByMinotaur( true );
-			EngineCore.spriteSelect( 44 );
+			MainView.spriteSelect( 44 );
 		}
 		//Worms
 		if( chooser === 2 ) {
@@ -258,7 +258,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		}
 		//Hellhound
 		if( chooser === 3 ) {
-			EngineCore.spriteSelect( 27 );
+			MainView.spriteSelect( 27 );
 			if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && Utils.rand( 2 ) === 0 ) {
 				//If lowered encounter rate, 25% chance, otherwise 50%.
 				if( CoC.player.findStatusAffect( StatusAffects.WormsHalf ) >= 0 && Utils.rand( 2 ) === 0 ) {

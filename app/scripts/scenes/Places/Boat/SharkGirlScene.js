@@ -37,13 +37,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 		if( CoC.player.findStatusAffect( StatusAffects.SharkGirl ) < 0 ) {
 			CoC.player.createStatusAffect( StatusAffects.SharkGirl, 0, 0, 0, 0 );
 		} else if( CoC.player.statusAffectv1( StatusAffects.SharkGirl ) >= 7 && CoC.player.totalCocks() > 0 ) {
-			EngineCore.spriteSelect( 70 );
+			MainView.spriteSelect( 70 );
 			this.sharkBadEnd();
 			return;
 		}
 		//exploreLoc = 0 for lake, 1 for boat;
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		//Rowboat;
 		if( exploreLoc === 1 ) {
 			MainView.outputText( 'While rowing the boat across the lake you spy a shark fin heading your way.  Worried it might damage the small boat, you hastily row back to shore, jumping out of the boat.  The shark shows no signs of slowing, and the fin disappears just before coming ashore.  ', false );
@@ -56,12 +56,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 		MainView.outputText( 'It\'s a woman – a peculiarly corrupted woman, with shiny grey skin, silver hair, and a fin positioned between her shoulder blades. She\'s wearing some rather revealing black swimwear. The girl looks up at you and grins widely, showing rows of knife-like teeth. "<i>Wanna play? Heads up though, I play \'rough\'!</i>"\n\n', false );
 		MainView.outputText( 'You\'re fighting a shark girl!', false );
 		Combat.startCombat( new SharkGirl() );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 	};
 
 	//Victory Sex. Herms should get a choice between the two scenes:;
 	SharkGirlScene.prototype.sharkWinChoices = function() {
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		//HP Win;
 		if( CoC.monster.HP < 1 ) {
 			MainView.outputText( 'The shark-girl falls, clearly defeated.', true );
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 	SharkGirlScene.prototype.sharkgirlDickFuck = function() {
 		CoC.player.addStatusValue( StatusAffects.SharkGirl, 1, 1 );
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		//Naga get a different version of this scene.;
 		if( CoC.player.isNaga() ) {
 			var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 	};
 	SharkGirlScene.prototype.sharkgirlSixtyNine = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		//Nagas don't actually get to 69!;
 		if( CoC.player.isNaga() ) {
 			MainView.outputText( 'The shark-girl reels and trips, falling onto her back.  You slide quickly towards her as she sits up, bringing a look of sheer terror to her face.  Clearly she is not accustomed to being \'prey\' in any sense of the word.  You decide to change that.  Grabbing her by the shoulders, you push her back down a bit.  Clearly weakened by the fight, she goes limp in your hands, still scared and shaking ever so slightly with fear, but unable to resist.  You take a moment to admire the smooth curves of her body and meditate on how fine a catch you have before you.\n\n', false );
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 	//Scene triggers automatically after the seventh Shark girl;
 	SharkGirlScene.prototype.sharkBadEnd = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		MainView.outputText( 'Several weeks pass by and you once again find yourself at the lake, your loins aching for another shark girl to swim by. Just thinking of their incredible sexual organs and the sense of domination you get from them makes you feel aroused. Sadly though, there\'s no sign of one, so you instead decide to take a nap.\n\n', false );
 		MainView.outputText( 'You\'re awoken a short time later by something warm wriggling around inside your mouth. Your eyes pop open, worried that you might\'ve swallowed a bug or something. However, when your vision swims back into focus, you become quite aware that it is actually someone\'s tongue probing around your mouth. It seems to be a young shark girl in her early teens, judging by her modest measurements and short stature. She pulls her head back and grins at you before exclaiming, "<i>Hi, daddy!</i>" You raise an eyebrow at that. Then you turn and you see several more teenage shark girls, each pinning your arms and legs down.\n\n', false );
 		MainView.outputText( 'They are surprisingly strong given their stature, and even a Minotaur would have trouble prying them all off. Combined with a strong wave of arousal flooding your body, you find it rather hard to focus on anything. They must\'ve funnelled a few Lust Drafts down your throat while you were sleeping.\n\n', false );
@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 	//[Next];
 	SharkGirlScene.prototype.sharkBadEnd2 = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		MainView.outputText( 'Several months and mutations later...\n\n', false );
 		MainView.outputText( 'You plunge your cock into yet another shark girl, the third one in the past hour, and finger two others at the same time. You\'ve been fucking without stop for weeks now. Ever since you were morphed into a shark man, sex is almost the only thing you can think about. At one point you recalled that you had a name, and you vaguely remember having to do something important... Not as important as this, though. Not as important as breeding your harem.\n\n', false );
 		MainView.outputText( '"<i>My, he\'s... certainly a virile creature, isn\'t he?</i>" a tiger shark asks, taking a seat on a nearby rock. Another shark girl chuckles in response, "<i>Oh I know. Our numbers have practically doubled because of him.</i>" She gestures to several heavily pregnant shark girls lazing on the sands, caressing their bumps happily.\n\n', false );
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 	//Loss Rape scenes:;
 	SharkGirlScene.prototype.sharkLossRape = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 70 );
+		MainView.spriteSelect( 70 );
 		//Genderless:;
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( 'You slump down in defeat, too ', false );

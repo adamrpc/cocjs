@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 	};
 	//[WIN RAEPZ];
 	GoblinAssassinScene.prototype.gobboAssassinRapeIntro = function() {
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The assassin falls to her feet, desperately trying to regain her composure but ultimately caving in to the exhaustion of defeat. The leather belt that was once wrapped around her pillowy breasts now hangs unfastened around her waist, the syringes once adorning it now littered around her. A shattered needle by her side emits a sweet-smelling vapor that soon reaches her nose, causing the girl to blush furiously as lust begins to overcome her senses.' );
 		EngineCore.dynStats( 'lus', 20 );
@@ -294,7 +294,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		Combat.cleanupAfterCombat();
 	};
 	GoblinAssassinScene.prototype.gobboButtSecks = function() {
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
 		if( x < 0 ) {
 			x = 0;
@@ -324,7 +324,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 	};
 	//[FEMSAUCE];
 	GoblinAssassinScene.prototype.gobboGetsRapedFem = function() {
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		MainView.outputText( '', true );
 		if( CoC.player.isTaur() ) {
 			MainView.outputText( ImageManager.showImage( 'goblin-win-female-taur-rapedfem' ) );
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 	GoblinAssassinScene.prototype.rapeAGoblinCorruptTooBig = function() {
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		MainView.outputText( ImageManager.showImage( 'goblin-win-male-corruptedfuck' ) );
 		MainView.outputText( 'You begin to remove your ' + CoC.player.armorName + ', looking down on your helpless would-be-attacker and soon-to-be victim while licking your lips hungrily. Your ' + Descriptors.multiCockDescriptLight(), false );
 		if( CoC.player.cockTotal() === 1 ) {
@@ -544,7 +544,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'goblin-win-male-corruptedbj' ) );
 		var x = CoC.player.biggestCockIndex();
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		MainView.outputText( 'You whip out your stiffening maleness, revealing its ', false );
 		if( CoC.player.cockArea( x ) < 80 ) {
 			MainView.outputText( 'nearly ', false );
@@ -596,7 +596,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 	};
 	//[DUDEGASM];
 	GoblinAssassinScene.prototype.gobboGetsRapedMaleFits = function() {
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.biggestCockIndex();
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 
 	//Spider goblin condom;
 	GoblinAssassinScene.prototype.goblinCondomed = function() {
-		EngineCore.spriteSelect( 24 );
+		MainView.spriteSelect( 24 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'goblin-win-male-goblincondomed' ) );

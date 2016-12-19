@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 		//end of placeholder text;
 	};
 	Lumi.prototype.lumiLabChoices = function() {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		MainView.outputText( '', true );
 		//First time meeting;
 		if( CoC.flags[ kFLAGS.LUMI_MET ] === 0 ) {
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 		EngineCore.choices( 'Shop', this, this.lumiShop, 'Enhance', this, enhance, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Lumi.prototype.lumiShop = function() {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		//Set item handling to lumi shop;
 		MainView.clearOutput();
 		MainView.outputText( 'You ask Lumi if you can see her potions.  She smiles at you and pulls out several bottles from her desk and shows them to you.\n\n"<i>Gawantied qwality, made by Lumi herself,</i>" she says proudly.\n\n', false );
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 	};
 	//Lust Draft;
 	Lumi.prototype.lumiLustDraftPitch = function() {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		MainView.clearOutput();
 		MainView.outputText( 'You point at the bottle filled with bubble-gum pink fluid.\n\n"<i>De lust dwaft? Always a favowite, with it you nevar have to worwy about not bein weady for sexy time; one of my fiwst creations. 15 gems each.</i>"\n\n', false );
 		MainView.outputText( 'Will you buy the lust draft?', false );
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 	};
 	//Goblin Ale;
 	Lumi.prototype.lumiPitchGobboAle = function() {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		MainView.clearOutput();
 		MainView.outputText( 'You point at the flagon. "<i>Oh? Oh thats Lumi\'s... actually no, dat tispsy stuff for 20 gems. You\'ll like if you want to be like Lumi. Do you like it?</i>"\n\n', false );
 		MainView.outputText( 'Will you buy the goblin ale?', false );
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 	};
 	//Ovi Elixir;
 	Lumi.prototype.lumiPitchOviElixer = function() {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		MainView.clearOutput();
 		MainView.outputText( 'You point at the curious hexagonal bottle. "<i>De Oviposar Elixir? Made baithsed on da giant bee\'s special stuff dey give deir queen. It will help make de burfing go faster, an if you dwink it while you awen pweggy, iw will give you some eggs to burf later. More dwinks, eqwals more and biggar eggs. Lumi charges 45 gems for each dose.</i>"\n\n', false );
 		MainView.outputText( 'Will you buy the Ovi Elixir?', false );
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 	};
 
 	Lumi.prototype.lumiPurchase = function( itype ) {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		MainView.clearOutput();
 		//After choosing, and PC has enough gems;
 		var cost = 0;
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 		}
 	};
 	Lumi.prototype.lumiEnhance = function( justCheck ) {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		var fox = null;
 		if( CoC.player.hasItem( ConsumableLib.FOXBERY ) ) {
 			fox = this.lumiEnhanceFox;
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Utils, ItemTy
 		this.lumiEnhanceGo( ConsumableLib.FOXJEWL );
 	};
 	Lumi.prototype.lumiEnhanceGo = function( itype ) {
-		EngineCore.spriteSelect( 37 );
+		MainView.spriteSelect( 37 );
 		$log.debug( 'LUMI ENHANCE' );
 		var nextItem = ItemType.NOTHING;
 		if( itype === ConsumableLib.LABOVA_ ) {

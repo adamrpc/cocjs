@@ -112,9 +112,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 	};
 	AmilyScene.prototype.amilySprite = function() {
 		if( CoC.flags[ kFLAGS.AMILY_NOT_FURRY ] === 0 ) {
-			EngineCore.spriteSelect( 3 );
+			MainView.spriteSelect( 3 );
 		} else {
-			EngineCore.spriteSelect( 65 );
+			MainView.spriteSelect( 65 );
 		}
 	};
 	//Encounters;

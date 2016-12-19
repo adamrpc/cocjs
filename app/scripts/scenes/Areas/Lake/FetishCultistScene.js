@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	FetishCultistScene.prototype.fetishCultistEncounter = function() {
 		MainView.outputText( 'You see a largely human-looking young woman in the distance in a strange, whorish outfit, seemingly lost in prayers that sound like nonsense to you.  Finally noticing your presence, she confronts you with a lewd smile on her face.\n\nShe has clearly lost her grasp on sanity, and filled the void with pure perversion.', true );
 		Combat.startCombat( new FetishCultist() );
-		EngineCore.spriteSelect( 19 );
+		MainView.spriteSelect( 19 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	FetishCultistScene.prototype.cultistRapesYou = function() {

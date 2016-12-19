@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	TentacleBeastScene.prototype.encounter = function() {
 		$log.debug( 'Tentacle event here' );
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		//Tentacle Encounter - beware legalese!
 		//Gender hilarity chance.
 		if( CoC.player.gender === 0 && Utils.rand( 3 ) === 0 && !CoC.player.isNaga() && !CoC.player.isTaur() && !CoC.player.isGoo() ) {
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	};
 	TentacleBeastScene.prototype.tentacleVictoryRape = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		//Male/Herm
 		if( CoC.player.gender === 1 || CoC.player.gender === 3 ) {
 			MainView.outputText( 'Seizing the opportunity, you rush the monster while it is stopped. You grab the fattest hollow tentacle you can find and summarily shit-kick the beast onto the ground. Holding the creature down with one foot, you take the hollow tentacle and poise it in front of your raging erection.\n\n', false );
@@ -162,7 +162,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	//[CONDITIONS: Futa/Herm, Corruption > 50, Lust Defeat Only, Obtained 3 previous Lust Defeats to Tentacle Monster.]
 	TentacleBeastScene.prototype.futaTentacleBadEnd = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		MainView.outputText( 'Having repeatedly been ravaged by the tentacle beast in your travels, you surrender yourself to yet another savage session of forced pleasure. However, the beast lunges forward with its great maw open. Utterly surprised, you do not have time to react before the creature\'s tentacles seize you and swallow you whole!!!\n\n', false );
 		MainView.outputText( 'The last rays of light fade as the creature closes its beak, trapping you inside. You begin flailing and fighting in sheer panic at the prospect of being eaten alive. As you struggle, countless tentacles wrap around your arms and legs, essentially binding you inside the creature. A thick tentacle forces its way down your mouth and you feel the familiar sensation of salty lust being emptied into your mouth. Your ' + Descriptors.cockDescript( 0 ) + ' instantly becomes erect, triggering a tentacle to encapsulate your member completely. As this occurs, another limb buries itself deep within your ass.\n\n', false );
 		MainView.outputText( 'The beast then begins to milk your dick as fiercely as it ever has been in your entire life. You feel as if your prick will be ripped from your crotch as you immediately climax, dumping load after load of your semen into the horror. Your ejaculations only make the beast milk you harder, prompting an almost constant orgasmic cycle. After awhile, the shock and pain subside as you become utterly drunk off the sensation of the constant stream of cock milk you are producing.\n\n', false );
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	};
 	TentacleBeastScene.prototype.futaTentacleEpilogue = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		//[Met Giacomo at least once]
 		if( CoC.giacomo > 0 ) {
 			MainView.outputText( '"<i>Well, well, well. You aren\'t a total loss, I see.</i>", says a sharp, masculine voice.\n\n', false );
@@ -198,7 +198,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	};
 	TentacleBeastScene.prototype.tentacleLossRape = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		//Genderless madness
 		if( CoC.player.gender === 0 ) {
 			//Taur madness
@@ -626,7 +626,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 1, 'int', -0.5, 'lib', 2, 'sen', 1, 'cor', 0.5 );
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		if( CoC.player.gender === 1 ) {
 			MainView.outputText( 'You next feel the wretched sensation of another tentacle pushing its way past your anus and into your rectum. You cry more out of frustration and anger than pain as the foreign body settles a few inches inside your body. With a furious, coordinated rhythm, the monstrosity begins swelling the tentacle in your ass and ' );
 			if( CoC.player.cockTotal() === 1 ) {
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	};
 	TentacleBeastScene.prototype.tentacleRapeContinuationForFemales = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		if( CoC.player.vaginas.length === 1 ) { //single coochie
 			MainView.outputText( 'Satisfied, the creature drops you smartly, withdraws its limbs from you, and lumbers away.  Covered completely in cum, you see that your clitoris has swollen up to ' );
 			//Big clit girls get huge clits
@@ -757,7 +757,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	//Centaur v. Tentacle Monster: (display if pc is unsexed centaur)
 	TentacleBeastScene.prototype.centaurGenderlessRetardation = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00247 ] === 0 || CoC.player.balls === 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00247 ] = 1;
 			MainView.outputText( 'Tentacles wrap around your legs before you can make a move to stop them, binding you tightly and coiling upwards.  One slides slowly along your underside, making you shiver in ', false );
@@ -810,7 +810,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	//Naga v. Tentacle Monster:
 	TentacleBeastScene.prototype.genderlessHilarityForNagaKenDolls = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		MainView.outputText( 'Out of nowhere tentacles bind your arms and tail, holding you firm in a matter of seconds.  You struggle to free yourself but can do nothing against the strength of the beast holding you in your current state.  More of the appendages start teasing around your body, as if looking for something.  A handful test the entrance to your ' + Descriptors.assholeDescript() + ' but evidently that\'s not what they\'re after.\n\n', false );
 		MainView.outputText( 'An oddly human voice comes from the undergrowth, catching you off-guard.  "<i>Look, I\'m really sorry about this, but I\'m really not all that familiar with, uh, whatever it is you are.  Where do you keep the naughty bits?</i>"\n\n', false );
 		MainView.outputText( 'A little stunned by the question, you tell the voice that you don\'t have any "<i>naughty bits</i>".\n\n', false );
@@ -827,7 +827,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 	//Goo v. Tentacle Monster:
 	TentacleBeastScene.prototype.tentacularGenderGooTimes = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 100 );
+		MainView.spriteSelect( 100 );
 		MainView.outputText( 'All of a sudden, tentacles come whipping out of the undergrowth to grab you.  Though, they\'re moving a little too fast, and manage to compress your body walls so far together that you\'re almost squeezed in half.\n\n', false );
 		MainView.outputText( '"<i>SHIT. SHIT. SHIT. SHIT.</i>"  An oddly human voice is profaning loudly.  "<i>Are you dead?</i>"\n\n', false );
 		MainView.outputText( 'You respond that you are not, you\'re just mostly liquid and insubstantial.\n\n', false );

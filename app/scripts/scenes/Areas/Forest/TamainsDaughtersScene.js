@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 
 	//ENCOUNTER:
 	TamainsDaughtersScene.prototype.encounterTamanisDaughters = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		CoC.flags[ kFLAGS.TIMES_ENCOUNTED_TAMANIS_DAUGHTERS ]++;
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.TIMES_ENCOUNTED_TAMANIS_DAUGHTERS ] > 0 && Utils.rand( 10 ) === 0 ) {
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[Play Dumb]
 	TamainsDaughtersScene.prototype.playDumbToTamanisDaughters = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shrug and ask, "<i>What exactly is it you want again?  I\'m not sure you have the right ' + CoC.player.mf( 'guy', 'person' ) + '.</i>"\n\n', false );
 		//approx 33% chance at 0 int, going up the smarter you are.
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.outputText( '', true );
 		MainView.outputText( 'You whirl around threateningly, intent on putting Tamani\'s wayward brood back in their place.\n\n', false );
 		Combat.startCombat( new TamanisDaughters() );
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		if( this.tamaniPresent ) {
 			//(+5 mob strength)
 			CoC.monster.str += 5;
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	//(Combat is 1 attack per 10 girls + 1x Tamani attack)
 	//[Fuck them]
 	TamainsDaughtersScene.prototype.fuckYoDaughtersHomie = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		CoC.flags[ kFLAGS.TIMES_FUCKED_TAMANIS_DAUGHTERS ]++;
 		var cocks = CoC.player.totalCocks();
 		var daughters = Math.ceil( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 2 );
@@ -391,7 +391,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[Let them]
 	TamainsDaughtersScene.prototype.legTamanisDaughtersRAEPYou = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		CoC.flags[ kFLAGS.TIMES_FUCKED_TAMANIS_DAUGHTERS ]++;
 		var cocks = CoC.player.totalCocks();
 		var daughters = Math.ceil( CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] / 2 );
@@ -854,7 +854,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[Lose Combat, Get Your Dick DRAINED]
 	TamainsDaughtersScene.prototype.tamaniDaughtersCombatLossDrain = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		CoC.flags[ kFLAGS.TIMES_FUCKED_TAMANIS_DAUGHTERS ]++;
 		MainView.outputText( '', true );
 		//Vars
@@ -1024,7 +1024,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		EngineCore.dynStats( 'str', -0.5, 'int', -0.5, 'lib', 1, 'cor', 1 );
 	};
 	TamainsDaughtersScene.prototype.tamaniDaughtersBadEndChoice = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		MainView.outputText( 'The next morning your unfocused eyes blink open, and you find yourself in the same situation as before.  Thankfully your orgasm has been allowed to end, though you still feel dopey and unfocused from whatever is flowing into you.  You manage to twist your head around to get a better look at the situation and discover a pair of IV\'s lodged in your arms.  Twisting your body, you realize you can still feel the drug-enema tube lodged in your ' + Descriptors.assholeDescript() + '.  Oddly, it\'s hard to feel worried or concerned about the situation.\n\n', false );
 		MainView.outputText( 'A goblin leans over your face and hugs her jiggling breasts against you as she gushes, "<i>Thank you so much daddy!   You probably can\'t see with all the straps holding you down, but you got me and my sisters totally pregnant.  There\'s even enough of your spunk left over to knock us up a few more times!  We decided that even though we don\'t need you to cum right now, we\'d let you keep coming forever.  Do you want that?</i>"\n\n', false );
 		if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
@@ -1035,7 +1035,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[Yes]
 	TamainsDaughtersScene.prototype.tamaniDaughtersYesBadEndMePlease = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>Wonderful!</i>" cries the excited pregnant slut.   She gives you a quick peck on the cheek as she prances back over to the machine.  You brace yourself in anticipation, eager to lose yourself to an eternal orgasm.  A switch clicks, and a dial whirs as it\'s turned up to the maximum.  The fluids pumping into your backside and directly into your veins suddenly jump in pressure, stinging painfully for a moment before the pleasure returns.  Your eyes slowly roll back, your jaw goes slack, and your ' + Descriptors.multiCockDescriptLight() + ' spew', false );
 		if( CoC.player.totalCocks() === 1 ) {
@@ -1050,7 +1050,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[NO]
 	TamainsDaughtersScene.prototype.tamaniDaughtersDeclineBadEnd = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>Seriously!?</i>" exclaims the pregnant slut, "<i>What kind of person wouldn\'t want to cum all the time?  Fuck, just the idea of it is making me drip!</i>"\n\n', false );
 		MainView.outputText( 'She sighs, "<i>Whatever, Dad.  Next time we need you I\'m sure you\'ll remember how much fun this was and come running home.</i>"\n\n', false );
@@ -1060,7 +1060,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[Rather Fill Individually]
 	TamainsDaughtersScene.prototype.tamanisDaughtersFillIndividuallyBADEND = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>Really?</i>" asks the pregnant goblin before she exclaims, "<i>You do love us!  Oh Dad, once mom comes home will you fuck all of us?  I want to feel you make love to my drippy, pregnant pussy while she watches!</i>"\n\n', false );
 		MainView.outputText( 'You agree to do just that, ', false );
@@ -1087,7 +1087,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	};
 	//[Lose to Daughters With Tamani There]
 	TamainsDaughtersScene.prototype.loseToDaughtersWithTamaniThere = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		MainView.outputText( '', true );
 		CoC.flags[ kFLAGS.TIMES_FUCKED_TAMANIS_DAUGHTERS ]++;
 		//Find a dick that fits
@@ -1267,7 +1267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		}
 	};
 	TamainsDaughtersScene.prototype.combatWinAgainstDaughters = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		if( CoC.monster.HP < 1 ) {
 			MainView.outputText( 'You smile in satisfaction as ' + CoC.monster.a + CoC.monster.short + ' collapses, unable to continue fighting.', true );
 			if( CoC.player.lust >= 33 && CoC.player.cockTotal() > 0 ) {
@@ -1290,7 +1290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		}
 	};
 	TamainsDaughtersScene.prototype.loseToDaughters = function() {
-		EngineCore.spriteSelect( 57 );
+		MainView.spriteSelect( 57 );
 		if( CoC.player.lust > 99 ) {
 			//worms r gross mmmmkay?
 			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {

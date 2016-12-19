@@ -57,10 +57,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		return CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] === 1;
 	};
 	IzmaScene.prototype.izmaSprite = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 	};
 	IzmaScene.prototype.meetIzmaAtLake = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		//(PC scared Izma off with worms) (Izmacounter = 0);
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] === 1 ) {
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Trade];
 	IzmaScene.prototype.tradeWithFuckingSharkBitches = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Izma opens up her wooden trunk, and lays out some old books for you to look at.  An interesting and varied selection, if a small one; they\'ve evidently been used before with their turned up corners and worn-looking pages.  Still good, of course.\n\n', false );
 		//[C.Manual] [E.Guide] [Porn][Back];
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[C.Manual];
 	IzmaScene.prototype.readSharkCuntManual = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//Use only 10w30 jism.;
 		MainView.outputText( '', true );
 		MainView.outputText( 'You point to a pile of books which has a note on top declaring them to be combat manuals, feeling any combat tips you can get will be invaluable in this land.  "<i>Those?</i>" the shark asks.  "<i>They\'re okay, I guess.  Mostly for beginners, but there are a few worthwhile tricks in each one.  20 gems to borrow one.</i>"', false );
@@ -180,7 +180,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		}
 	};
 	IzmaScene.prototype.readSharkCuntManual2 = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Handing Izma the gems she asked for, you pick up one of the many issues of \'Combat Manual\'. Izma takes a moment to count and store the gems you\'ve given her, while you move over to a nearby rock to have a quick read of the volume.\n\n', false );
 		CoC.player.gems -= 20;
@@ -213,7 +213,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[E.Guide];
 	IzmaScene.prototype.sharkEdgingGuideLOL = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//durhur;
 		MainView.outputText( '', true );
 		MainView.outputText( 'You pick up a book titled \'Etiquette Guide\' from its pile; the subtitle reads \'A handbook to society for the modern Lady or Gentleman\'.  A little cheesy, but you suppose learning how to keep your mind on chastity and decorum might come in handy someday.  "<i>Not a bad read.  Though, it\'s more or less useless for a shark girl like me,</i>" Izma says of it, before holding her hand out to you.  "<i>Hard to find more, so... 25 gems if you wanna borrow it.</i>"', false );
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		}
 	};
 	IzmaScene.prototype.readSharkEdgingGuideLOL = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		CoC.player.gems -= 25;
 		MainView.statsView.show();
 		MainView.outputText( '', true );
@@ -248,7 +248,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Porn];
 	IzmaScene.prototype.sharkgirlPronz = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Izma seems exceedingly embarassed as you turn this book up from under a pile of the others.  It seems to be a series of erotic images made in this land itself, detailing various creatures of all different genders caught up in sexual situations.  You raise a questioning eyebrow to her.  "<i>Ah, that... it\'s good material, I-I suppose,</i>" she stammers, trying to cover her embarrassment at having mislaid it among the others.  "<i>Uh... 20 gems if you want to look?</i>"', false );
 		if( CoC.player.gems < 20 ) {
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		}
 	};
 	IzmaScene.prototype.readSharkgirlPornzYouFuckingPervertAsshole = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		CoC.player.gems -= 20;
 		MainView.statsView.show();
 		MainView.outputText( '', true );
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Talk];
 	IzmaScene.prototype.talkToASharkCoochie = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		//(first chat);
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00232 ] === 0 ) {
@@ -327,7 +327,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Leave];
 	IzmaScene.prototype.leaveSumSharkPussyOnTheBeach = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Having no business with Izma for the time being, you head off back to your camp.', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -360,7 +360,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'Izma laughs slightly and shakes her head.  "<i>If you insist.  At least TRY this time, will ya?</i>"', false );
 		}
 		Combat.startCombat( new Izma() );
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 	};
 
 	//[Victory dialogue];
@@ -988,7 +988,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[no-fight Sex: use penus];
 	IzmaScene.prototype.nonFightIzmaSmexPAINUS = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Hearing that her offer is being accepted, Izma smiles brightly and sheds what little clothing she has on.  The top half of her black bikini goes first; her DD-cup breasts jiggle about from the motions, and she sighs happily now that she\'s free of the restricting garments.  She then gets to work undoing the well-crafted grass skirt, and props it on her oak chest as gently as possible so as not to damage it.  Her monstrous cock swings heavily between her knees, slowly hardening at the prospect of sweet release.  She\'s a rather magnificent specimen all things considered, and you find yourself ogling every curve on her well-toned body.\n\n', false );
 		MainView.outputText( 'You respond in kind, shedding your garments as her lips purse and her eyes roam up and down your form.  ', false );
@@ -1075,7 +1075,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[no-fight sex: get your ass in the car];
 	IzmaScene.prototype.nonFightIzmaSmexASS = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Once you strip down and reveal your nude form to Izma, she purses her lips in thought.  "<i>Well, this is a problem....</i>"  You raise an eyebrow as she stalks around you.  "<i>How, uh... how are we gonna do this?  I mean... I\'m NOT putting my mouth there, you can get those thoughts out of your head!</i>" she says indignantly; you frown slightly, feeling dejected because of your odd condition.\n\n', false );
 		MainView.outputText( 'Izma sighs and places a hand on your shoulder.  "<i>I\'m sorry... I came off as harsh there.  Look, it\'s... this isn\'t gonna work out unless one of us is on top.  Just... I dunno... go gulp some incubus drafts or succubi milk and come back.  Or challenge me.</i>"  You nod and redress, deciding to take your leave.\n\n', false );
@@ -1088,7 +1088,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[no-fight sex: use vagino];
 	IzmaScene.prototype.nonFightIzmaSmexCUNTPUSSYSNATCHQUIM = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Izma grins in response, and her hands move behind her back, undoing the strings on her black bikini top.  She flings the garment to the rocks, exposing her large, juicy breasts.  As if deciding to tease you, she turns around and grabs the hem of her skirt, pulling it down slowly and letting you get a good view of her firm ass.  She slowly faces you again, her massive 15-inch cock and balls swinging around with her.  You don\'t even realize that you\'ve been unconsciously touching yourself throughout the whole thing, earning an uncharacteristic giggle from Izma.\n\n', false );
 		MainView.outputText( '"<i>Your turn now.  Fair\'s fair,</i>" she says, watching you with seductively-lidded eyes.\n\n', false );
@@ -1114,7 +1114,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//Decline Izma moving in;
 	IzmaScene.prototype.IzmaStayAtTheLakeBitch = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//[Izma stays at the lake];
 		MainView.outputText( '', true );
 		MainView.outputText( 'You smile warmly and tightly grip both her hands.  You tell her that she\'s certainly a worthy opponent and mate, but right now just isn\'t the right time for her to move in with you.  She frowns and looks disappointed, but she seems to be holding back a lot of her emotions.  "<i>Okay, I\'ll stay here for now then... but I\'ll always be willing to join you.  Whenever you need me,</i>" she replies.\n\n', false );
@@ -1125,7 +1125,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//Accept;
 	IzmaScene.prototype.acceptIzmaAsYourBitch = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		//[If Pure Amily is in the camp first];
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00236 ] === 0 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 ) {
@@ -1191,7 +1191,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Amily arrives: Izma is at camp first];
 	IzmaScene.prototype.newAmilyMeetsIzma = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You and Amily seem to talk non-stop on the way back, both excited at the prospect of living together.  Then she realizes you\'re not alone, once she sees Izma seated on her trunk, and looks puzzled. "<i>' + CoC.player.short + '... there\'s a shark-girl in your camp!</i>" she hisses, looking ready to fight or flee if the situation warrants.\n\n', false );
 		MainView.outputText( 'Upon seeing you, Izma gives a toothy grin and approaches, not remotely bothered by Amily\'s presence.  Though she does tilt her head to the side and adjusts her spectacles to get a better look at Amily.  "<i>Welcome home, dear,</i>" she greets. Turning to Amily, she introduces herself.  "<i>I\'m Izma, ' + CoC.player.short + '\'s beta.  Who\'re you?  Oh!  You\'re one of those mouse people, right?</i>" she asks.\n\n', false );
@@ -1210,7 +1210,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Marble: Izma is at camp first];
 	IzmaScene.prototype.newMarbleMeetsIzma = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You and Marble are deep in conversation all the way to your camp, mainly inconsequential things to pass the time.  Marble enjoys the talk all the same, but she comes to a halt once she sees Izma sitting around your camp.  "<i>Ah... who\'s that, sweetie?</i>" she asks.\n\n', false );
 		MainView.outputText( 'Izma smiles warmly and extends her hand out.  "<i>Hey dear, hello stranger.  I\'m Izma, ' + CoC.player.short + '\'s beta.  Pleased to meet you,</i>" she says happily.  Seems she has no problems with you having another lover, though you\'re not sure Marble will share those feelings.  "<i>Beta?</i>" the cow-girl asks, curious despite the look of disdain still on her face.\n\n', false );
@@ -1251,7 +1251,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 
 	//[=Sex=];
 	IzmaScene.prototype.izmaLakeTurnedDownCampSex = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You give Izma a smirk and tell her that, if she\'s in the mood, you could use a little \'relief\'.\n\n', false );
 		MainView.outputText( 'The tigershark grins right back at you, carefully undoing her skirt and letting her impressive, rapidly-growing erection free.  "<i>Sounds great to me, lover.  So, what are you in the mood for?  A little equal time?  Exerting your place as alpha?</i>"  She gives you a very wicked grin.  "<i>Or... do you want to let your beta have her wicked way with you, hmm?</i>"  She growls lustfully at the thought.', false );
@@ -1260,7 +1260,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Equals];
 	IzmaScene.prototype.izmaLakeSexAsEquals = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You tell Izma that you would like to have sex as equals; you and she.  She smiles and asks you what part you\'d like to use.\n\n', false );
 		//((If player is Genderless) ;
@@ -1276,7 +1276,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[=Dominate=];
 	IzmaScene.prototype.izmaLakeDominate = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Izma blushes fiercely and a lewd smile comes over her face at the suggestion.  "<i>O-okay,</i>" she says, stripping off her bikini top and gently removing her grass skirt, allowing her breasts and monster cock to pop free.  She sits down and smiles at you.  "<i>After you...</i>"\n\n', false );
 		var x = CoC.player.cockThatFits( 65 );
@@ -1339,7 +1339,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.izmaLakeDominateContinueVanilla = function( vanilla ) {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		var cockIndex = CoC.player.cockThatFits( 65 );
 		if( cockIndex < 0 ) {
 			cockIndex = 0;
@@ -1395,7 +1395,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[No];
 	IzmaScene.prototype.noWankingForIzmaRadarSaysSo = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//var cockIndex:Number = CoC.player.cockThatFits(65);;
 		//if(x < 0) cockIndex = 0;;
 		MainView.outputText( 'Opting not to jerk her member off, you continue your gyrations against the tigershark\'s twat, brutally slamming the head of your cock against the feelers in her pussy and battering them around like tree branches in a wind storm.  Izma, sensing that you will not be giving her member the attention it "deserves", reaches down with one hand and takes hold of her cock, jerking it impetuously as she struggles to pleasure herself in between thrusts of your cock.  Raising an eyebrow, you contemplate whether she should be allowed to just start masturbating without permission...' );
@@ -1405,7 +1405,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[Let her masturbate];
 	IzmaScene.prototype.letIzmaWankLikeABitch = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//var cockIndex:Number = CoC.player.cockThatFits(65);;
 		//if(cockIndex < 0) cockIndex = 0;;
 		MainView.outputText( 'Grinning at her sudden need for penile release, you dart in for an intimate kiss and further inflame her passion, soliciting a series of sated moans as she reciprocates while increasing the speed of her stroking.\n\n' );
@@ -1415,7 +1415,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[Remove her hands] ;
 	IzmaScene.prototype.noWankingForIzma = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//var cockIndex:Number = CoC.player.cockThatFits(65);;
 		//if(cockIndex < 0) cockIndex = 0;;
 		MainView.outputText( 'Grunting in disapproval, you slap her hand away from her cock, drawing a surprised gasp in between moans of pleasure from your partner; she stares up at you pleadingly to let her finish herself off.  Calmly, you tell Izma that she didn\'t ask for permission and has lost that "privilege", as you take hold of her hands and grasp them firmly on the ground, trapping her in a lover\'s embrace.  Izma groans pathetically out of frustration and a need for forgiveness, but you know that she needs to be "punished" for masturbating without asking.  With renewed vigor as the feeling of utter dominance and control floods your body, you savagely fuck Izma\'s moist cunt, slapping against her so ferociously that you might as well be spanking her with your [if (balls > 0) [balls]|thighs]; the force of your efforts resonates in her moans as they rise and taper off in volume with every thrust against her.  Confidently, you whisper in Izma\'s ear that if she\'s lucky, she\'ll release her sticky load without even being touched, the thought of which causes her cock to bob like a raven hopping on the ground after prey.  "<i>Good girl!  Do that for your Alpha</i>".\n\n' );
@@ -1437,7 +1437,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[=Submit=] (more copypasta – bring the vino! -Z);
 	IzmaScene.prototype.submitToLakeIzma = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		//(starter -all sexes);
 		MainView.outputText( 'You give Izma a smile and begin to slowly, sensuously remove your ' + CoC.player.armorName + ', littering the sand around you.  As the tigershark watches, you strike a few poses, and then sink onto your hands and knees with your rear facing towards her.  You twist around to look at her over your shoulder, ', false );
@@ -1586,7 +1586,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	// tion camp;
 	//[Follower options];
 	IzmaScene.prototype.izmaFollowerMenu = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_IZMA ] === 0 ) {
 			//Izma pops 'em out!;
@@ -1688,7 +1688,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//Get a tiger shark tooth;
 	IzmaScene.prototype.gatASharkTooth = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.clearOutput();
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00246 ] > 1 ) {
 			MainView.outputText( 'Izma smiles apologetically and says, "<i>I\'m sorry, but I won\'t be able to get my hands on one of those until tomorrow.</i>"' );
@@ -1701,7 +1701,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Appearance];
 	IzmaScene.prototype.izmaPearance = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'Izma is a 6-foot 2-inch tall tigershark, with a very toned athletic build; her muscles are covered by coarse red sharkskin, marked with black stripes across her body.  She is currently wearing a bikini top with a grass skirt' );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00235 ] === 0 ) {
@@ -1723,7 +1723,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		EngineCore.doNext( this, this.izmaFollowerMenu );
 	};
 	IzmaScene.prototype.izmaSexMenu = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//[Get Anal] [Her Vag] [69] [Izma Mounts PC];
 		var mount = null;
 		var vagoo = null;
@@ -1774,7 +1774,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Izma mounts the PC];
 	IzmaScene.prototype.followerIzmaMountsPC = function( lastHalf ) {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		var x = CoC.player.cockThatFits( 65 );
 		if( x < 0 ) {
@@ -1869,7 +1869,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 
 	IzmaScene.prototype.RadarIzmaLeaveHerWangUnWingWanged = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.clearOutput();
 		MainView.outputText( 'As much as you think Izma would enjoy a handjob, you are not too keen on stimulating her member right now.  Izma notices your momentary stare at her rather large cock and grins mischievously at you.  "<i>Come on, bitch! Pleasure your "Alpha"; you know you want to!</i>" she chimes.  You stare back at her, and kindly inform her that her Alpha isn\'t keen on doing that; your reasons are your own, but you simply don\'t want to do that.  Her confident smirk almost immediately evaporates.  "<i>Oh... sorry. I was caught up in the moment. If it\'s okay with you, I\'ll just jerk my cock while I dominate my Alpha,</i>" she purrs.  Smiling back at her, you nod and give her a slap on the ass, giving her the message to giddy up.  With complete abandon, your tigershark lover giggles and bounces against your lap, manhandling your cock with those pussy feelers.  Moaning in appreciation, you dart your hands up to her rump and grasp it in your hands.  Driven by pleasure and sexual instinct, Izma fiercely strokes her member, moaning blissfully as her closed eyelids twitch from the dual pleasures of ravaging her cunt with your cock and jerking her prick in her hand.  She tries hard to contain the force of her sexual euphoria, but her expression ultimately betrays her escalating passion as she grits her teeth and physically opens her mouth to let out a hardy moan; dead silence is the only thing that escapes from her wide open mouth for a few briefs moments, before she releases a prolonged, erratic series of wails.' );
 		MainView.outputText( '\n\nIzma bites her lip in response, clearly wanting to enjoy her time on top just a little bit longer.  But the grunts and moans of ecstasy make it clear that the tigershark can\'t hold back much longer.  Her vaginal walls clamp down hard against your cock.  She squeals loudly as thick ropes of jizz launch from her cock, her hands cupping her cockhead to keep the cum from streaming onto your face or body.' );
@@ -1905,7 +1905,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 
 	//[Get Anal];
 	IzmaScene.prototype.followerIzmaTakesItInPooper = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		CoC.player.slimeFeed();
 		MainView.outputText( '', true );
 		MainView.outputText( 'When you tell Izma you want her to screw you this time, she exclaims, "<i>Ooh! It\'s my turn to be alpha!</i>"  Her look of deviant joy fades into a blush of fondness for a moment, and she holds you and whispers into your ear, "<i>It\'s really nice that you let me take charge, too.  Thanks for thinking of it.</i>"\n\n', false );
@@ -2069,7 +2069,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Vag fuck];
 	IzmaScene.prototype.followerIzmaTakesItInVagoo = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		if( CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 ) {
 			CoC.player.slimeFeed();
 		}
@@ -2160,7 +2160,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[Deny her];
 	IzmaScene.prototype.radarIzmaXpackDenyHer = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( 'Resolving that she needs to understand that your desires will be sated before her own, you quickly seize her by the wrists and forcefully push them past her head, pinning them hard against the ground.  Izma whines pathetically as her efforts to stimulate her cock are utterly denied by her Alpha; her cock twitches hungrily against your stomach as you lay against her prone body. With pleading eyes and without uttering a single word, she begs you to let her tend to her member; her non-verbal cries for sexual mercy are quashed as you plant a forceful kiss on her lips, still pinning her arms against the ground as you thrust in her moist cunt. With a mix of pleasure and frustration, she releases a series of moans into your mouth and resigns herself to you as you passionately dominate her.' );
 		//(leads to Where's it going?);
 		this.wheresItGoing( true );
@@ -2169,14 +2169,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[Let her];
 	IzmaScene.prototype.radarIzmaXPackLetHer = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( 'You reach up to caress and fondle her breasts, gently tugging and rubbing her stiff nipples and giving them the occasional soft pinch.  The pretty tigershark responds well to your movements, moaning and gasping from pleasure.  She bites her lip, thankfully with her human teeth, and gains speed as she jerks her meat pole.\n\n', false );
 		MainView.outputText( 'Seeing that she is speeding up, you accelerate your own thrusts, trying to match her pace.  The tendrils inside her vagina writhe and flex, an experience unlike anything you\'ve had before - you don\'t think any creature other than a succubus could give you this sort of pleasure!', false );
 		//(leads to Where's it going?);
 		this.wheresItGoing();
 	};
 	IzmaScene.prototype.wheresItGoing = function( denied ) {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '\n\nIzma continues to moan and groan loudly, and starts to mash her own hips against yours, trying to work in as many inches of your ' + Appearance.cockNoun( CoC.player.cocks[ 0 ].cockType ) + ' as she can.  As she ' );
 		if( !denied ) {
 			MainView.outputText( 'jerks off ' );
@@ -2190,7 +2190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[facial] Scene follows vanilla scripting from Jokester;
 	IzmaScene.prototype.facialWhereItGoesRadarIzmaXpack = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.clearOutput();
 		MainView.outputText( 'This sends a shudder through Izma\'s whole body.  She cries loudly as she orgasms' );
 		MainView.outputText( ', a hot jet of spunk going straight into your mouth, and several subsequent shots hitting you in the lips and face.  ' );
@@ -2215,7 +2215,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Your chest];
 	IzmaScene.prototype.RadarIzmaCumInYourChest = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.clearOutput();
 		MainView.outputText( 'Taking a firm hold of her, you angle her lengthy member towards your chest and close your eyes in anticipation for her orgasmic release.  She doesn\'t disappoint as the smell of sweet, salty sperm rushes into your nostrils, signaling your body to receive her hot cum. Before you can truly relish inhaling your lover\'s scent, her load slaps forcefully ' );
 		if( CoC.player.biggestTitSize() >= 1 ) {
@@ -2252,7 +2252,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.IzmaSelfFacialWheeRadar = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.clearOutput();
 		MainView.outputText( 'Opting to direct her impending orgasm away from you entirely, you slap Izma\'s hands away, grabbing her dick and angling it towards her face.  With one last savage thrust, you bore your dick deep into her love canal and unleash a vicious flood of semen into her womb, which causes the tigershark to scream out in her own orgasm.  Fierce ropes of her cum soar out into the open air and speedily land on her blissed out face; some of it lands in her mouth between passionate groans and cries of euphoria.' );
 		MainView.outputText( '\n\nYour own seed ' );
@@ -2273,7 +2273,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[69];
 	IzmaScene.prototype.followerIzmaTakesIt69 = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		CoC.player.slimeFeed();
 		MainView.outputText( '', true );
 		MainView.outputText( 'Izma smiles and nods, swinging her hips from side to side as she makes her way over to you, as if to tease you further. She positions her head at your groin, rubbing her own crotch against your head.  "<i>Alright, let\'s do this,</i>" Izma says happily, and wastes no time ', false );
@@ -2344,7 +2344,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Talk];
 	IzmaScene.prototype.talkWivIzma = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		//(option 1);
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00239 ] === 0 ) {
@@ -2445,14 +2445,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Leave];
 	IzmaScene.prototype.chooseNotToFlirtWithIzma = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You thank Izma for the interesting conversation, even if it did end up meandering a bit, and then walk away, leaving her to her private thoughts.\n\n', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Flirt];
 	IzmaScene.prototype.chooseToFlirtWithIzma = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You smile at Izma and tell her you appreciate the offer and that you think she\'ll be beautiful whether she becomes a mommy or a daddy.  In fact, the mental image of her heavily pregnant, ' );
 		if( CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 ) {
@@ -2483,7 +2483,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//(The four 'Mount' and 'Ride' sex scenes mentioned as appearing once Izma goes off her meds have not been included, and therefore this content cannot be implemented as written. As it stands, I suggest excluding those menus entirely, rerouting players back to the normal sex menu, and adding pregnancy checks to the existing sex scenes where applicable (follower vag sex and Izma mounts, and pre-follower victory vag sex with no herb). Unless they were omitted by accident, or you ask someone to write them, make a placeholder, or copypasta new scenes together from her old scenes -- again. -Z);
 	IzmaScene.prototype.childToggle = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		//This scene is only available for one time; once it has been played through, the 'Children' button is replaced by the No Kids/Make Kids button, as appropriate/ (This scene could be cut to save a flag, if necessary. Though, you have thousands, don't you? -Z);
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00248 ] === 0 ) {
@@ -2517,7 +2517,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[=No=];
 	IzmaScene.prototype.firstTimeDeclineIzmasKdiddlezlijfhdjkfhslkfbsjkhfbs = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You tell Izma, with a shake of your head, that you aren\'t ready to be a parent yet.  The tigershark looks a little disappointed, but she gives a soft sigh and nods in understanding.  "<i>You\'re the boss.  So, what did you want to do?</i>" she asks.\n\n', false );
 		//Default Izma interaction options are displayed/;
@@ -2532,7 +2532,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//about veracity. She can take care of everything with her ;
 	//OCDNS powers. -Z);
 	IzmaScene.prototype.IzmaPoopsBabies = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You hear the sounds of splashing and cursing coming from the part of the stream where Izma, by neccessity, keeps her private mini-camp, and immediately you set off running. When you come tearing to a halt there, you find Izma, wading in the stream well up to her waist, and cursing as she holds her gravid belly, her tail angrily flailing through the water behind her. She still manages to smile when she sees it\'s you who\'s come to see her. No words are neccessary; you plunge into the water and head to her side.\n\n', false );
 		MainView.outputText( '"<i>Here we go, huh?</i>"  She tries to laugh.  That\'s Izma for you; always trying to be brave.\n\n', false );
@@ -2589,7 +2589,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'After making a quiet wish for your child, you slip into a doze.\n', false );
 			//(Take some fucking melancholy. TAKE IT. -Z);
 		} else {
-			EngineCore.spriteSelect( 32 );
+			MainView.spriteSelect( 32 );
 			//Player Gives Birth (Izma in camp): (For the reason given above, this scene currently has a very high chance of being useless, so I wouldn't waste time on it yet. Also, it's a bit of a turd. Orgasm despite the pain of childbirth exists but the clumsy handling here wouldn't convince you even if you'd already seen it live. Oh, the pain is so intense I can't walk... but wait, she's touching my junk over and over in a vague manner so it becomes pretty great. Thank you, Shark Herm Jesus! I advise cutting the 'sexual' content and keeping a normal childbirth unless you want it rewritten from the foundations. But you've got time to decide. -Z);
 			MainView.outputText( 'You wake up suddenly to strong pains and pressures in your gut.  As your eyes shoot wide open, you look down to see your belly absurdly full and distended.  ', false );
 			if( CoC.player.vaginas.length === 0 ) {
@@ -2654,7 +2654,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//Children Interaction Sequences: (increment childcounters only for births after Izma joins);
 	//Children;
 	IzmaScene.prototype.izmaKidsPlaytime = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		var choices = [];
 		//Build an array of the possible scenes;
@@ -2782,7 +2782,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	IzmaScene.prototype.inCampRideIzmasDickDongTheWitchIsDead = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You direct a flushed look at Izma and rub your ', false );
 		if( CoC.player.wetness() > 3 ) {
@@ -2875,7 +2875,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[Using Izma's books in camp];
 	///[Books] appears as a tab when interacting with Izma.;
 	IzmaScene.prototype.IzmaCampBooks = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.IZMA_TIME_TILL_NEW_BOOK_AVAILABLE ] > 0 ) {
 			this.tooSoonExecutus();
@@ -2890,7 +2890,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[C.Manual];
 	IzmaScene.prototype.campCuntManual = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You ask Izma if she\'d like to read one of the many issues of the \'Combat Manual\' with you.  She gives a snigger and grabs a random issue. "<i>Of course.  But I honestly never thought someone as good as you would need any more tips in combat,</i>" she teases, getting comfy on a rock.  You sit beside her to read, and retort that, if anything, you\'re using the chance to give her combat tips.  Izma shoots you a half-hearted dirty look in response, but you think she knows you\'re teasing her.\n\n', false );
 		CoC.flags[ kFLAGS.IZMA_TIME_TILL_NEW_BOOK_AVAILABLE ] = 11;
@@ -2915,7 +2915,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[E.Guide];
 	IzmaScene.prototype.entropyGuideByStephenHawking = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You point to Izma\'s many copies of the \'Etiquette Guide\' series and ask her if she\'d like to read one of those. Izma shrugs in response and picks up one issue.  "<i>Yeah, I suppose.  You certainly need to learn how to be mannerly,</i>" she teases, opening up on the table of contents.  You lightly consider whether that makes her a hypocrite before giving it up and starting to read with her.  That way lies madness.\n\n', false );
 		CoC.flags[ kFLAGS.IZMA_TIME_TILL_NEW_BOOK_AVAILABLE ] = 11;
@@ -2928,7 +2928,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//[Porn];
 	IzmaScene.prototype.stephenHawkingPorn = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'A wicked smirk crosses your face and you point to the small bundle of porn that Izma has in her trunk. Izma looks nervous and pulls out one stack of the illustrations. "<i>Ah-hah... really?</i>" she asks, her face a rictus of embarrassment.  You nod in response and sit down on a rock, gesturing for Izma to join you.  She has some color on her face, though whether it be more or less than usual you can\'t decide, not knowing enough about her biology yet, and she sits down and starts to examine the porn with you, bumping your legs with hers as she adjusts her posture ' );
 		if( CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 ) {
@@ -2948,7 +2948,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	};
 	//(Trying to use another book inside the span of 6 hours);
 	IzmaScene.prototype.tooSoonExecutus = function() {
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You tell Izma that you want to read a book with her again, and she gives you a petulant look.  "<i>Really?   I mean, I love books, but even I get tired of them.  I was about to go do something else after cleaning up a bit.  We-ell... I don\'t feel like reading any more right now, but... if you were to pay me our usual arrangement I could let you borrow one for a while.  You know I trust you, but books do wear out even with the best of care, and there are a few new ones I\'d like to get.</i>"  Do you pay Izma to lend you a book?', false );
 		//(re-direct to pre-follower book scenes);
@@ -3084,7 +3084,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	//[Fuck her pussy-Dominant];
 	IzmaScene.prototype.fuckIzmasPussyDominate = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 32 );
+		MainView.spriteSelect( 32 );
 		var x = CoC.player.cockThatFits( 65 );
 		if( x < 0 ) {
 			x = 0;

@@ -6,14 +6,14 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 	}
 	angular.extend(Kiha.prototype, Monster.prototype);
 	Kiha.prototype.kihaTimeWaster = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'She supports the axe on a shoulder, cracking her neck and arching her back to stretch herself, giving you an unintended show.  ', false );
 		EngineCore.dynStats( 'lus', 5 );
 		Combat.combatRoundOver();
 	};
 	//This could be silly mode worthy! Should Expand? oh ok;
 	Kiha.prototype.sillyModeKihaAttack = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'Before you can stop to think, the dragon-woman steps back - throwing her axe into the air before she starts sprinting towards you. In seconds she\'s reached a hair\'s distance between her lithe form and your own, her fist recoiling and time seemingly stopping to allow you to note the powerful energy seeping from her arms.  ', false );
 		//Miss:;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 		Combat.combatRoundOver();
 	};
 	Kiha.prototype.kihaFirePunch = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'The draconic girl throws her trusty weapon into the sodden ground, using the distraction to build up balls of flame around her fists.  She runs towards you, launching herself in your direction with a flurry of punches.\n', false );
 		//Dodged;
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 
 	//Fire breath;
 	Kiha.prototype.kihaFireBreath = function() {
-		EngineCore.spriteSelect( 72 );
+		MainView.spriteSelect( 72 );
 		MainView.outputText( 'Kiha throws her arms back and roars, exhaling a swirling tornado of fire directly at you!\n', false );
 		//Miss:;
 		//Determine if evaded;

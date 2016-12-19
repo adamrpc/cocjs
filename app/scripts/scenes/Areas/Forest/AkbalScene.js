@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	//2. AKBAL'S MY BITCH
 	//[First Encounter]
 	AkbalScene.prototype.supahAkabalEdition = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		//Make sure that the buttchange is set correctly
 		//when submitting.  Gotta stretch em all!
 		CoC.monster.createCock();
@@ -578,7 +578,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Talk]
 	AkbalScene.prototype.superAkbalioTalk = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'After a few moments of silence you ask, "<i>What do you mean, \'submit\'?</i>" Akbal grins, revealing a row of wicked ivory teeth as he opens his mouth. You suddenly feel the demon\'s powerful body pinning you down, a wide tongue licking your neck and claws tickling your back in a way that is both horrifying and sensual. Yet after a moment of taking it in, you realize that he is still there in front of you, unmoved and grinning. You can guess what the image means wants you to become his mate for a day to make up for invading his territory.  What do you do?\n\n', false );
 		//Submit / Fight
@@ -586,7 +586,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Encounter if previously submitted]
 	AkbalScene.prototype.repeatAkbalPostSubmission = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'As you walk through the forest, you hear a purring coming from behind you.  Turning around reveals that Akbal has come to find you.  He uses his head to push you in the direction of his territory, obviously wanting to dominate you again.\n\n', false );
 		MainView.outputText( 'What do you do?', false );
@@ -595,7 +595,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Deny]
 	AkbalScene.prototype.akbalDeny = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shake your head and rub the lust-filled jaguar behind the ear as you tell him you\'re busy.  The demon\'s eyes roll, and he licks your ' + CoC.player.leg() + ' before his eyes find an imp in the trees above the two of you.\n\n', false );
 		MainView.outputText( 'Knowing he\'s found a new toy, Akbal allows you to leave unmolested.', false );
@@ -603,7 +603,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Encounter if previously fought and won/raped him]
 	AkbalScene.prototype.ackbalRepeatAfterWin = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'As you walk through the forest, you hear a snarl and look up just in time to dodge a surprise attack by the jaguar demon, Akbal.  Your ', false );
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
@@ -616,7 +616,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Encounter if previously fought and lost]
 	AkbalScene.prototype.ackbalRepeatAfterLoss = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'A chorus of laughter sounds inside your mind as the jaguar demon, Akbal, drops to the ground in front of you.  His masculine voice says, "<i>Well, if it isn\'t the defiant welp who, in all their great idiocy, has wandered into my territory again.  Will you submit, or do I have to teach you another harsh lesson?</i>"\n\n', false );
 		//Submit / Fight / Run
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Fight]
 	AkbalScene.prototype.startuAkabalFightomon = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You ready your ' + CoC.player.weaponName + ' and prepare to battle the demon jaguar.', false );
 		//[battle ensues]
@@ -633,7 +633,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	//[Submit]
 	AkbalScene.prototype.akbalSubmit = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		CoC.player.slimeFeed();
 		CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ]++;
 		CoC.flags[ kFLAGS.AKBAL_SUBMISSION_STATE ] = 2;
@@ -818,7 +818,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	//Set flag after submitting, then clear it and run
 	//this before going to camp?
 	AkbalScene.prototype.akbalSubmissionFollowup = function() {
-		EngineCore.spriteSelect( 2 );
+		MainView.spriteSelect( 2 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] < 4 ) {
 			MainView.outputText( 'You awake in your camp feeling dangerous, powerful and fiercely satisfied.', false );

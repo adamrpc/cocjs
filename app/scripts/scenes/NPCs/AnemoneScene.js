@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	};
 
 	AnemoneScene.prototype.mortalAnemoneeeeee = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( '', true );
 		if( CoC.flags[ kFLAGS.TIMES_MET_ANEMONE ] === 0 || CoC.player.hasItem( ConsumableLib.MINOCUM ) ) {
 			CoC.flags[ kFLAGS.TIMES_MET_ANEMONE ]++;
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	};
 	//anal: -requires butthole;
 	AnemoneScene.prototype.victoryButtholeRape = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'anemone-getanal' ), false );
 		MainView.outputText( 'You look over the anemone in front of you.  Your attention focuses on her blue shaft; those smaller tentacles should have plenty of pleasing venom in them as well.  Stripping off your ' + CoC.player.armorName + ', you approach her and push her backwards.  Her gills slide off her breasts and float at her sides. revealing a pair of cute nipples.  You take the opportunity to stroke the shaft of her penis and rub her vagina a bit, soaking up some venom and making your hands tingle.\n\n', false );
@@ -214,7 +214,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	};
 
 	AnemoneScene.prototype.rapeAnemoneWithDick = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'anemone-male-fuck' ), false );
 		if( CoC.player.cockThatFits( 36 ) >= 0 ) {
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 
 	//using pussy:;
 	AnemoneScene.prototype.rapeAnemoneWithPussy = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'anemone-female-fuck' ), false );
 		MainView.outputText( 'As you review your handiwork, the stirrings in your feminine side focus your attention on the anemone\'s penis.  Those smaller tentacles on it should have plenty of pleasing venom in them as well.  You make up your mind to put them to use for you.\n\n', false );
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	};
 	//loss rapes:;
 	AnemoneScene.prototype.loseToAnemone = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		var x = CoC.player.cockThatFits( 36 );
 		MainView.outputText( '', true );
 		//loss via hp (only possible if PC engages her while already being at zero or kills himself with Akbal powers):;
@@ -729,7 +729,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//Minotaur Cum combat circumvention:;
 	//(if PC has 1 or more Mino Cum, replaces last paragraph of initial encounter);
 	AnemoneScene.prototype.minoCumForAnemonieeeeez = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( 'The initial surprise subsides to wooly-headedness and a feeling of mild arousal as the stingers in her tentacles find exposed flesh.  In panic of drowning you pull free of the ropy mass and backpaddle away from the girl until your ' + CoC.player.feet() + ' reassuringly touch the shallows of the lakebed.  As you shake your head to clear the haze, you notice a few of your items have fallen out of your pouches and are floating in the water.  The anemone has picked one in particular up and is examining it; a bottle of minotaur cum.  Her eyes light up in recognition as the fluid sloshes back and forth and she looks beseechingly at you, cradling it next to her cheek.  "<i>Gimme?</i>" she asks, trying to look as sweet as possible.\n\n', false );
 		//[(PC not addicted);
 		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 0 ) {
@@ -754,7 +754,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	};
 	//'Don't Give':;
 	AnemoneScene.prototype.dontGiveMino = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You look sternly at the blue girl and hold out your hand.  As she realizes you don\'t intend to let her have the bottle, her face changes to a half-pout, half-frown.  When you don\'t react, she throws the bottle at your feet and shouts, "<i>Mean!</i>"  You bend down to pick it, and the other items, up, and when you straighten back up, she looks quite angry and her tentacles are waving all over the place.  Uh-oh.  You raise your weapon as the anemone giggles sadistically and attacks!\n\n', false );
 		//(proceed to combat);
@@ -766,7 +766,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	};
 	//'Give':;
 	AnemoneScene.prototype.giveMino = function() {
-		EngineCore.spriteSelect( 4 );
+		MainView.spriteSelect( 4 );
 		MainView.outputText( '', true );
 		CoC.player.consumeItem( ConsumableLib.MINOCUM );
 		MainView.outputText( 'You nod at the girl and she smiles and responds with a very quiet "<i>Yay.</i>"  As you pick up the rest of your stuff, she takes the top off of the bottle and chugs it like a champ, without even stopping to breathe.  Her eyes widen a bit as the drug hits her system, then narrow into a heavy-lidded stare.  Dropping the bottle with a splash, she falls to her knees with another.  She looks at you and licks her lips as she begins playing with her nipples. Obviously, she\'s feelin\' good.  ', false );
@@ -1235,7 +1235,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 
 	AnemoneScene.prototype.anemoneKidBirthPtII = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'You awake and look skyward to the sun for a hint at the time.  What greets you is more of an eclipse; a shape impedes your view.  As your eyes adjust to the light, it resolves into an upside-down blue-eyed, blue-skinned face wreathed with snubby, shoulder-length tentacles of purple and green hue.  The silence continues as you stare into it, until you move to push yourself off the hard ground.  At the first sign of activity, the head disappears into the water barrel with a sloshing sound.  You push yourself to your ' + CoC.player.feet() + ' and look back toward it; the eyes, now right side-up, peek over the rim bashfully atop a set of blue fingers.' );
 		MainView.outputText( '\n\n"<i>Um... hi,</i>" you venture.' );
 		MainView.outputText( '\n\nThe eyes raise up and a smile appears beneath.  "<i>Um... hi!</i>"' );
@@ -1256,7 +1256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//[yes, i am allergic to fun. sweep the leg, johnny! get 'em a body bag!];
 	AnemoneScene.prototype.getRidOfAnemone = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'Enough of this.  Summoning your backbone, you grasp the anemone\'s upper arm and pull her to her feet; she\'s light as a decorative feather and twice as blue once she grasps your intention and her camouflage reflex takes over.  Putting one arm under her, you carry her legs out from underneath and lift her bodily out of the barrel, then set her down on the hard ground.  She turns a teary pout on you, but you look away.  Picking up the nearly-empty container and setting it atop your shoulder, you begin the walk to the stream.  The girl stumbles along behind you, unsteady on her feet.' );
 		MainView.outputText( '\n\nUpon reaching your destination, you dump the contents of the anemone\'s erstwhile apartment into the babbling brook, then point down-current toward the lake and set your jaw.  Glancing at your stony demeanor, the blue girl steps into the water, moistens her gills, and then begins the long trek to her ancestral home.' );
 		//(set Kidswag to -1);
@@ -1266,7 +1266,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//[no, bonsai anemone is awesome and fuck the haters];
 	AnemoneScene.prototype.keepAnemoneKid = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'You frown as you stare into the opaque eyes.  You can\'t think of any way to get her out of the barrel, short of manhandling her into the wilderness where she\'ll flourish or expire depending on fate, and you haven\'t the heart for such endeavors.  Ah... she looks so happy sitting there with her head resting on her hands, too.  Well, worse things could happen - but probably not stranger.' );
 		MainView.outputText( '\n\n"<i>So... what do I call you, then?</i>" you ask; she looks at you quizzically.  You continue to muse, wondering aloud what you would even name a kid anemone.' );
 		MainView.outputText( '\n\n"<i>Kid... ?</i>" starts the girl, attempting to duplicate your speech.  You try to clarify, but, seeming not to hear, she continues to sound out the words and get the shape of them.' );
@@ -1307,7 +1307,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		var weaponT = 'Give Weapon';
 		var weaponB = this.giveAnemoneWeapon;
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'You walk over to the barrel.  ' );
 		//[(display if hourssinceKiditem >= 16);
 		if( CoC.flags[ kFLAGS.KID_ITEM_FIND_HOURS ] >= 16 ) {
@@ -1379,7 +1379,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//[Item](only appears if hourssinceKiditem flag >= 16);
 	AnemoneScene.prototype.getAnemoneItem = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		var choice;
 		var itype;
 		MainView.outputText( 'You reach down and pick up her present.  Today, she\'s left you ' );
@@ -1472,7 +1472,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//[Give Weapon];
 	AnemoneScene.prototype.giveAnemoneWeapon = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'What do you want to give her?' );
 		function giveableToAnemone( item ) {
 			return item === ConsumableLib.W__BOOK || item === ConsumableLib.B__BOOK || item === ConsumableLib.W_STICK || item instanceof Weapon;
@@ -1495,7 +1495,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	AnemoneScene.prototype.placeInAnemone = function( slot ) {
 		MainView.clearOutput();
 		MainView.outputText( 'You leave the item by her barrel.' );
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		//(set Kidweapon to item name, remove from inventory);
 		CoC.flags[ kFLAGS.ANEMONE_WEAPON_ID ] = CoC.player.itemSlots[ slot ].itype.id;
 		CoC.player.itemSlots[ slot ].removeOneItem();
@@ -1504,7 +1504,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//[Take Weapon];
 	AnemoneScene.prototype.takeOutOfAnemone = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'You take the item back.  ' );
 		var itype = ItemType.lookupItem( CoC.flags[ kFLAGS.ANEMONE_WEAPON_ID ] );
 		if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
@@ -1518,7 +1518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	//[N.Watch];
 	AnemoneScene.prototype.anemoneWatchToggle = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		//toggles Kid A's night watch; unusuable unless she's armed;
 		//if Kid A is unarmed when PC tries to turn on, output:;
 		if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
@@ -1947,14 +1947,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 	AnemoneScene.prototype.evictANemone = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Really evict the anemone?' );
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		//[Yes][No];
 		EngineCore.doYesNo( this, this.reallyEvictDaAnemone, this, this.approachAnemoneBarrel );
 	};
 	//Yes];
 	AnemoneScene.prototype.reallyEvictDaAnemone = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 71 );
+		MainView.spriteSelect( 71 );
 		MainView.outputText( 'Time to reclaim your barrel.  Gesturing to get her attention, you grab the anemone by her upper arm and lift her to her feet.  She looks at you in confusion, but you set your face and drag her along with you as you make your way to the lake.' );
 		MainView.outputText( '\n\nReaching the shore, you push Kid A into the water and point out toward the center of the lake as she falls to her knees in the surf.  She looks absolutely miserable... until a green and purple swirl bobs to the surface next to her.  The new arrival greets your former tenant with cheer, squeezing her waist from behind and eliciting a gasp of surprise.' );
 		MainView.outputText( '\n\nKid A turns her head to face the stranger.  "<i>Um... hi?</i>" she offers, hesitantly.' );

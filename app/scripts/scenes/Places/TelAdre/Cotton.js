@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		return false;
 	};
 	Cotton.prototype.cottonGreeting = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'cotton-greeting' ) );
 		if( CoC.flags[ kFLAGS.LIFETIME_GYM_MEMBER ] === 0 ) {
@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 
 	Cotton.prototype.centaurNagaBodyBookStuff = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		//Havent been told about the book yet?;
 		if( CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] === 0 ) {
 			MainView.outputText( '"<i>I\'d love to teach you, but I\'m afraid I don\'t know any good routines for your... body type. Sorry, pet...</i>" she trails off, as if considering something, and then turns back to you, saying, "<i>Actually, I think I might know where you could find a book of exercises that would work for you. A traveling salesman came by once, and I saw it in his wares, a book of advanced yoga techniques, aimed at the more exotically shaped denizens of Mareth. I didn\'t pick it up, of course, because I didn\'t need it. But if you could find the salesman and bring the book back to me, I\'d most definitely be able to coach you.</i>"', false );
@@ -222,14 +222,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 
 	//(If No);
 	Cotton.prototype.turnDownYogaWifCottonFirstTime = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>That\'s all right, to each their own.  I\'ll be here if you ever change your mind.</i>"  With that, Cotton returns to her mat and continues stretching in various poses.\n\n', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(If Yes. Improves muscle tone up to 50, speed and feminine features.);
 	Cotton.prototype.acceptYoga = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'cotton-yoga' ) );
 		var fuckHer = null;
@@ -338,7 +338,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		EngineCore.dynStats( 'spe', 1, 'lus', (5 + CoC.player.lib / 20 + CoC.player.sens / 20) );
 	};
 	Cotton.prototype.cottonChat = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		var chats = [];
 		//Urta chance;
 		if( CoC.flags[ kFLAGS.TIMES_FUCKED_URTA ] > 0 ) {
@@ -423,14 +423,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(If Leave);
 	Cotton.prototype.leaveAfterYoga = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( '"<i>Suit yourself. You can run around all stinky, meanwhile I\'m going to go wash. Feel free to drop by later for some more yoga if you\'d like.</i>"  With that, Cotton heads off to the showers and you leave the gym.\n\n', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//(If Shower);
 	Cotton.prototype.cottonShowerFunTimes = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		var option1 = null;
 		var option2 = null;
 		MainView.outputText( '', true );
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Fuck Her);
 	Cotton.prototype.cottonFirstTimeFuckHer = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'cotton-first-fuck' ) );
@@ -470,7 +470,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Get fucked, as Male);
 	Cotton.prototype.cottonFucksYou = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'cotton-fucks-you' ) );
@@ -529,7 +529,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Service her, any gender);
 	Cotton.prototype.serviceFirstTimeCotton = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		CoC.player.slimeFeed();
 		MainView.outputText( '', true );
@@ -546,7 +546,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(If Refuse);
 	Cotton.prototype.refuseFirstTimeCotton = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'She looks at you a little sad, "<i>You certain pet? Well, all right. But you don\'t know what you\'re missing.</i>" The two of you continue your shower with no funny business, then redress and leave the gym. Cotton stops you before you go too far and says, "<i>Hey, if you want to stop by the gym later for some more yoga, I\'d be happy to help.</i>" Then she heads off down the street, and you head back to camp.', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	//(Shower Sex, Fuck Her);
 	Cotton.prototype.fuckCottonInShowerRepeat = function() {
 		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'cotton-shower-fuck-repeat' ) );
 		var x = CoC.player.cockThatFits( 60 );
@@ -900,7 +900,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Shower Sex, Get Fucked as Male or Herm);
 	Cotton.prototype.cottonFucksYouInShowerRepeat = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		CoC.player.slimeFeed();
 		CoC.flags[ kFLAGS.COTTON_MET_FUCKED ] = 2;
 		MainView.outputText( '', true );
@@ -1101,7 +1101,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Tantric Sex);
 	Cotton.prototype.cottonTantricSex = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'cotton-tantric-sex' ) );
 		CoC.player.slimeFeed();
@@ -1207,7 +1207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	};
 	//(Leave);
 	Cotton.prototype.leaveCotton = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You thank Cotton for her time, shower and head back to camp.', false );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -1218,7 +1218,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 	//drink from a lactating character. Character must still be;
 	//lactating.);
 	Cotton.prototype.nomSomeTitMilkCereal = function() {
-		EngineCore.spriteSelect( 12 );
+		MainView.spriteSelect( 12 );
 		MainView.outputText( ImageManager.showImage( 'cotton-visits-you-at-camp-drinks-all-your-milk-the-asshole' ) );
 		//(Add to Sleep screen under the sunrise line.);
 		MainView.outputText( '\nAs you awaken you hear a rustling from the bushes around your camp.\n\n', false );

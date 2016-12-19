@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 	};
 	XmasBitch.prototype.xmasBitchEncounter = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 9 );
+		MainView.spriteSelect( 9 );
 		MainView.outputText( 'Your sleep is disturbed by something repeatedly smacking into your side.  Groggily at first, you grumble and throw back your blanket.  Then you remember where you are, and snap to full wakefulness.  You launch onto your feet, bring up your fists, and stare bewildered at the sight in front of you.\n\n', false );
 		MainView.outputText( 'Standing there, innocent as can be, ' );
 		if( CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] === 0 ) {
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 	};
 	//[Decline];
 	XmasBitch.prototype.declineXmasPresent = function() {
-		EngineCore.spriteSelect( 9 );
+		MainView.spriteSelect( 9 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shake your head \'no\', and inform the elf that you\'ll have nothing to do with her \'gifts\' or \'surprises\'.  She looks on the verge of tears as she whines, "<i>I\'m going to get reamed for this!</i>"\n\n', false );
 		MainView.outputText( 'Before you can react, she sprints off into the darkness.', false );
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 	};
 	//[Open Present];
 	XmasBitch.prototype.openXmasPresent = function() {
-		EngineCore.spriteSelect( 9 );
+		MainView.spriteSelect( 9 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You easily rip through the ribbons holding the box together and pull off the top.   You gasp in ', false );
 		if( CoC.player.cor >= 90 || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 	};
 	//[Unwrap the elf];
 	XmasBitch.prototype.unwrapElfyPresent = function() {
-		EngineCore.spriteSelect( 9 );
+		MainView.spriteSelect( 9 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The elf tosses the present to the side and saunters up to you, her hips swaying sensually.  She ', false );
 		if( CoC.player.tallness > 60 ) {

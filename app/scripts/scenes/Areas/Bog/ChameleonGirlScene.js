@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	ChameleonGirlScene.prototype.encounterChameleon = function() {
 		MainView.clearOutput();
 		Combat.startCombat( new ChameleonGirl() );
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		if( CoC.flags[ kFLAGS.TIMES_MET_CHAMELEON ] === 0 ) {
 			MainView.outputText( 'You work your way through the dense foliage of the bog, pushing aside branches and slogging through the thick mud in search of something new.  Feeling exhausted, you slow down and look for a place to rest; finding a small clearing with shallow water no more than a couple inches deep and firmer ground, you sit back against a tree to catch your breath.  You\'re so soaked by now that you hardly notice the murky water beneath you and the slick mud on the trunk seeping into your ' + CoC.player.armorName + '.  You lean your head back and close your eyes, enjoying a few moments of peace.' );
 			MainView.outputText( '\n\nYour brief respite is disturbed by the sensation of warm breath against your face.  You snap your head up to see a humanoid face hanging upside down in front of you, watching you intently.  Startled, you scramble to your feet, pressing your back against the tree.  Before you have a chance to get a better look at whatever was observing you, it drops from the branch and flips itself over in a whirl, landing on its feet in a crouched position.  Your observer is some sort of lizard-like humanoid, though it appears to have smooth ' + CoC.monster.skinTone + ' skin rather than any sort of scales.  Long, ' + CoC.monster.skinAdj + ' stripes run along its body from ankle to shoulder.   It straightens itself up, allowing you to see that it\'s definitely female has a slender body with slightly pronounced hips, their bones easily visible beneath her skin, and her breasts look to be about B-cups.  Her arms and legs are a bit longer than they would be on a human body, and her tail is quite long by a lizard\'s standards.  Her hands, too, are disproportionately large and look as though they\'re made to better grip and climb trees.  The skin on her front side is a light tan, and looks softer than the rest.   A set of long, brown horns protrudes forward from her forehead.  She\'s hardly clothed, wearing only a thick silken cloth tied around her back to hide her chest and a thong tied at her hip cut from the same material.  Her long, thin tongue hangs out of her slightly parted mouth.  She licks her lips grotesquely and slurps it back into her mouth as she eyes you up and down.' );
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//LOSS SCENES (Intro) (Z edited)
 	ChameleonGirlScene.prototype.loseToChameleonGirl = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		//-Lose by lust
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( 'Losing control to your own growing arousal, you fall to your knees and desperately start working to get at your needy body beneath your ' + CoC.player.armorName + '.' );
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//Herm Loss (Z edited)
 	ChameleonGirlScene.prototype.loseToChameleonWithCockAnBallsAnCunt = function() {
 		var x = CoC.player.biggestCockIndex();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( '\n\n"<i>Hah! You didn\'t think you could beat me in </i>my<i> bog, did you?</i>" the haughty chameleon laughs. She stalks towards you, swaying her wide hips in an exaggerated imitation of a dominatrix, shedding her spare clothing as she approaches.  She stops and stands before you, trying her best to look intimidating.  Wondering what exactly she has planned for you, you await your fate.  From the worried look in her eyes, you can tell she has no idea what she\'s doing.' );
 		MainView.outputText( '\n\n"<i>Um, strip for me!</i>" she commands, as forcefully as she can manage.  Still, it almost sounds like a question.  Too weak to do anything but play along, you comply, shedding your ' + CoC.player.armorName + '.' );
 		MainView.outputText( '\n\nAs you set the last bit of your ' + CoC.player.armorName + ' aside in the water, you\'re suddenly struck in your chest and pushed to the ground.  The chameleon girl\'s wide foot keeps you pinned down, and she looks at you almost apologetically.  She shakes the worry from her face, and tries to appear stern once again.  "<i>I\'ll... I\'ll show you who\'s the boss around here!</i>"  Her tail darts towards you and uncoils at its end.  The tip starts probing around your ' + Descriptors.vaginaDescript( 0 ) + ', brushing across your ' + Descriptors.clitDescript() + ' as it feels around for your entrance.' );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//-Male Loss (Z edited)
 	ChameleonGirlScene.prototype.dudesLoseToChamChams = function() {
 		var x = Utils.rand( CoC.player.totalCocks() );
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( '\n\nRecognizing that you\'re no danger, her skin shifts back into its natural ' + CoC.monster.skinTone + ' coloration as she walks towards you.  She swings her hips seductively as she splashes slowly through the water and licks her lips with a loud smack of her tongue, then reaches out and forcefully pulls your ' + CoC.player.armorName + ' above your waist before you can even try to resist her advances, and pushes you back against a tree.  With a few quick pulls of fabric she\'s stripped her own clothes, and she tosses her thong over a low-hanging branch.  The other band of silk she uses to quickly bind your wrists.  Were you in any shape to fight back you could pull free, but you\'re too ' );
 		if( CoC.player.lust > 99 ) {
 			MainView.outputText( 'overwhelmed by lust' );
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	};
 	//-Female Loss (Z edited)
 	ChameleonGirlScene.prototype.loseToChamChamWithPCCunt = function() {
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( '\n\n"<i>Hah! You didn\'t think you could beat me in </i>my<i> bog, did you?</i>"  She stalks toward you, swaying her wide hips in an exaggerated imitation of a dominatrix, shedding her clothes as she approaches.   Positioning her glistening sex right in front of your face, she looks down and makes the cruellest smile she can manage.  Too busy stifling laughter at the awkward display, you make no move to pleasure her.  Looking bewildered that you aren\'t following along, the chameleon girl opens and closes her mouth, trying to find words.  She finally stammers out, "<i>W-well?  Get... to it?</i>"  You resist the urge to ask her for a detailed explanation of what she wants and resolve yourself to play along.  You\'d be too exhausted to resist if she really tried to force you, and this may lessen the severity of the experience.' );
 		MainView.outputText( '\n\nYou grab her by the hips and pull her in towards your face.  She gasps in surprise, but her shock quickly turns to pleasure as you begin to toy with her tiny clit, circling it and brushing lightly over it with your tongue.  As the pleasure overwhelms her, she sighs, and you think you catch something shifting from the corner of your eye.  Angling your head a bit, you can see her skin tone grow brighter as your teasing arouses her.  You\'d laugh if your mouth wasn\'t already engaged.' );
 		MainView.outputText( '\n\nTurning your attention back to the pussy in front of you, you lick at it with a newfound determination, wanting to see how brightly you can make her glow.  She moans and her knees buckle as you slip your tongue in and out of her, licking passionately up her cunt.  Her stripes shift crazily, the rainbow stripes on her legs wavering with your every movement.  You pull her closer against you and keep at it, enjoying the show.' );
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//VICTORY SCENES INTRO(Z edited)
 	ChameleonGirlScene.prototype.defeatChameleonGirl = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		//-Win by lust
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( 'Unable to control her arousal, the chameleon girl collapses to her knees and begins masturbating underneath her thong, having lost all capacity to fight you; she moans and throws her head back as her hand splashes in and out of the water she\'s kneeling in.  Her skin returns to its usual ' + CoC.monster.skinTone + ' and then keeps going, shifting closer and closer to pink as her moans increase in both volume and volubility.' );
@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//-Herm Victory (Z edited)
 	ChameleonGirlScene.prototype.fuckDatChameleonAsACoolGuyGirlHerm = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		if( x < 0 ) {
 			x = CoC.player.smallestCockIndex();
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//(Savin's note only makes a lot of sense for biggus dickus characters; consider an alternative for traps/weany dick characters. We don't all have even footlongs) (yuh)
 	ChameleonGirlScene.prototype.manFucksChameleonWithBiggishWang = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( 'You approach the fallen girl, and she looks up at you, a pleading expression in her eyes.  You might feel worse for her if she hadn\'t tried to assault you in a bog.  Reaching down behind her, you find the knot of the cloth covering her breasts, and with a quick pull you yank it off and toss it aside, then drop your [armorName], revealing your erect prick.  Her eyes widen when she sees it and her mouth parts slightly, letting a bit of her tongue slip out to lick her lips.  Quietly disdainful of the slutty girl\'s open arousal, you decide that if she wants to taste it so badly, she may.  But when you put your hand on the back of her head to push her onto your stiff cock, she manages to work up the strength to grab your arm with a free hand and resist its impulse.  Looking her over, you can see that her sudden burst of energy is due to ' );
 		if( CoC.monster.lust > 99 ) {
@@ -246,7 +246,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//-Female (for herms without dicks) (Z edited)
 	ChameleonGirlScene.prototype.femaleHasWinSexWithChamCham = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( 'You shed your ' + CoC.player.armorName + ' and approach the fallen chameleon girl' );
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( ', her moans of pleasure growing more desperate as you approach' );
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//Item Use Scenes Intro (Victory) (Z edited)
 	ChameleonGirlScene.prototype.useAnItemOnTheChamcham = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( 'Looking at the poor girl kneeling pathetically before you, you almost feel sorry for her.  But, she did try to rape you and claim that you were on \'her\' territory.  You rummage through your bags, trying to find a fun way to punish her.  Fun for you, at least.' );
 		//player must have either a purified or unpurified Succubi Milk (also requires cock,) Incubus Draft, or Lust & Sens Draft (both) in inventory
 		//also incubi draft and succubi milk should probably have something of a corruption requirement
@@ -298,7 +298,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//Prerequisite: at least one dick
 	ChameleonGirlScene.prototype.giveTheChameleonASuccubiMilk = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( 'You find a bottle of Succubi Milk tucked away in a pouch.  A wicked smile comes to your face as you imagine filling her so full of the stuff that her tits grow to the point where she can\'t even move, but you ultimately decide that just one dose will suffice for now.' );
 		MainView.outputText( '\n\nContainer in hand, you stride towards the collapsed girl.  She sees the glass full of liquid in your hand and tries to scramble away, but you\'re too fast for her, taking her by the shoulder to hold her forcefully in place.  With her mouth tightly closed, she shakes her head and tries to voice her disapproval through sealed lips.  You release her shoulder and dart your hand to her nipple, pinching it almost violently.  Her eyes water and she gasps, opening her mouth just long enough for you to put the neck of the bottle between her lips and tip the bottom of the glass up; the liquid spills into her mouth, and massaging her throat causes her to reflexively swallow the whole container\'s worth of fluid.' );
 		MainView.outputText( '\n\nFor a moment, nothing happens, and she sits there paralyzed, waiting for the drug to take effect.  Her tits begin to plump up, slowly but surely growing as the milk has its way with her body; a smile parts your lips at the sight.  Her eyes widen as her once-meager tits fill out to DD-cups, pushing against and eventually tearing the thin silk covering from within.  They finally stop growing, and the chameleon girl sits there trembling, unsure what to think about her new disproportionate bust.  Completely pleased with her new appearance and harboring no such reservations, you start to shed your ' + CoC.player.armorName + '.' );
@@ -325,7 +325,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	//-Lust and Sens Draft (you you you you you need to find more ways to start sentences without using pronouns, she?) (Z edited)
 	ChameleonGirlScene.prototype.doseDatChameleonWithLustAndSensitivityDrafts = function() {
 		MainView.clearOutput();
-		EngineCore.spriteSelect( 89 );
+		MainView.spriteSelect( 89 );
 		MainView.outputText( 'You dig through your bags and come across a particularly tortuous combination of fluids.  With a Lust Draft in one hand and a Sensitivity Draft in the other, you return to the chameleon girl, swirling them and smiling at her menacingly.  She starts to protest, but you cut her off by shoving the opening of the Lust Draft vial into her open mouth.' );
 		MainView.outputText( '\n\nHer eyes widen in shock as the sticky fluid pours over her tongue.  She clearly hasn\'t had a taste of the stuff before, and her eyelids half-close as it starts to take effect.  She sways and barely manages to catch herself before falling.  "<i>What... what is this stuff?  Why do I...</i>"  Her thoughts run away from her, and she groans, arousal overpowering her.  Too turned on to fight further, she doesn\'t resist as you easily remove the cloth covering her breasts and use it to bind her wrists, pulling her hands away from her groin in the process.  You lift her chin up and pry her mouth open with your thumb, to tip the bottle of Sensitivity Draft inside.  She swallows the stuff almost greedily, apparently expecting more of the first drink, then smacks her lips and licks them, trying to collect the residue.' );
 		MainView.outputText( '\n\nToo turned on to just sit there, she falls forward, catching herself on you, then looks up, pleading with her eyes.  You laugh mirthlessly at her grovelling form, and tell her to beg if she wants you.  "<i>Please!</i>" she squeals, her eyes watering, "<i>I need this!</i>"  She tugs insistently at your ' + CoC.player.armorName + ', begging for you to fill her and crying out that she can\'t stand to feel so empty.  You grin, and wonder if the sensitivity draft has started to take effect.  Two fingers run lightly up her forearm produce shivers at the obviously amplified sensation, and a tweak of her nipple elicits a shrill shriek.  "<i>Why does it feel so good?!</i>"  She puts her face into your lap and begs, "<i>I don\'t even know what\'s going on, please, just fuck me, pleasepleaseplease...</i>" trailing off as she grinds her pussy into you.' );

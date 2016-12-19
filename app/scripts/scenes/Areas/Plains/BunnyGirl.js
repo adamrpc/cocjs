@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 	//Egg preg changes – Bunny Ears, Bunny Tail, Bunny Legs?, Hot pink nose & whiskers?;
 	BunnyGirl.prototype.bunnbunbunMeet = function() {
 		MainView.outputText( '', true );
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		if( CoC.flags[ kFLAGS.MET_BUNBUN ] === 0 ) {
 			MainView.outputText( 'A ', false );
 			if( CoC.player.tallness > 64 ) {
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 	};
 	//[Talk];
 	BunnyGirl.prototype.talkToBunnyBunBun = function() {
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		CoC.flags[ kFLAGS.MET_BUNBUN ]++;
 		MainView.outputText( '', true );
 		MainView.outputText( 'You slowly introduce yourself, and let the bunny-girl know that you mean her no harm. She doesn\'t move until you finish, but as you conclude she visibly relaxes and nods.  It doesn\'t stop her tail from twitching, and if anything, her nose joins it in twitching, but she asks, "<i>How is it you can see me?  I\'ve got a lot of eggs to hide and normally no one sees me.</i>"\n\n', false );
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 	};
 	//[Rape Her];
 	BunnyGirl.prototype.rapeBunBun = function() {
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		MainView.outputText( '', true );
 		if( CoC.player.spe < 60 ) {
 			MainView.outputText( 'You lunge forward off your ' + CoC.player.feet() + ', trying to tackle and pin the poor girl, but at the first sign of movement from you, she bounds off in the other direction!  She\'s hopping so fast there\'s no way you could possibly catch her, and in a matter of seconds you\'re left totally alone.  Well, perhaps not TOTALLY alone – there\'s one small egg nestled in the grass.  It fell from the bunny\'s basket in her haste to flee!', false );
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 	};
 	//[Take Dick in Vag Fukked];
 	BunnyGirl.prototype.bunbunFucksYourVag = function() {
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'A anticipatory grin widens across your ' + CoC.player.face() + ' as you speedily disrobe, discarding your ' + CoC.player.armorName, false );
 		if( CoC.player.weaponName !== 'fists' ) {
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 	};
 	//[Take Dick In A] ;
 	BunnyGirl.prototype.bunbunFucksPCInAss = function() {
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You get a very naughty idea and silently discard your ' + CoC.player.armorName + ', tossing it aside as you turn around and present your ' + Descriptors.assDescript() + ' to the bunny-girl.  With a lewd shake, you tease her and give her a good view of your ' + Descriptors.assholeDescript() + ' while it lowers closer and closer to the turgid bunny-cock, just inches away.  Drops of clear pre-cum roll down her shaft as it twitches eagerly, and the girl watches you through a gleam of sexual excitement while her shaft gets closer and closer to your rear entrance.  You let your ' + CoC.player.legs() + ' relax a little until it\'s pressing tightly against your sphincter, feeling it slather pre-cum in preparation for the coming penetration.\n\n', false );
 		MainView.outputText( 'Looking over your shoulder at the bunny\'s beet-red face, you let a little of your weight down and start to spread around the bunny-herm\'s cock.  It slides inside you easily, aided by her copious drops of pre-cum, but ', false );
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 	};
 	//FUCK DAT BUNNYBUNBUNBUN.;
 	BunnyGirl.prototype.bunbunGetsFucked = function() {
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		MainView.outputText( '', true );
 		//Requires wang that fits;
 		var x = CoC.player.cockThatFits( 40 );
@@ -487,7 +487,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Co
 		SceneLib.inventory.takeItem( ConsumableLib.NPNKEGG, SceneLib.camp.returnToCampUseOneHour );
 	};
 	BunnyGirl.prototype.bunbun69 = function() {
-		EngineCore.spriteSelect( 13 );
+		MainView.spriteSelect( 13 );
 		MainView.outputText( '', true );
 		//Centaur;
 		if( CoC.player.isTaur() ) {

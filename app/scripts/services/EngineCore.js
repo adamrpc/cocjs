@@ -920,7 +920,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.changeFatigue = EngineCore.fatigue;
 	EngineCore.displayStats = function( ) {
-		EngineCore.spriteSelect( -1 );
+		MainView.spriteSelect( -1 );
 		MainView.outputText( '', true );
 		// Begin Combat Stats
 		var combatStats = '';
@@ -1696,9 +1696,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				CoC.player.vaginas[ vIndex ].vaginalLooseness++;
 			}
 		}
-	};
-	EngineCore.spriteSelect = function( choice ) {
-		MainView.spriteSelect( choice );
 	};
 	return EngineCore;
 });
