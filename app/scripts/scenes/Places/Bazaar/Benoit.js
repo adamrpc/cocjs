@@ -1171,7 +1171,6 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		if( !CoC.player.hasItem( ConsumableLib.P_S_MLK, 2 ) || !CoC.player.hasItem( ConsumableLib.L_PNKEG ) || !CoC.player.hasItem( ConsumableLib.OVIELIX ) || !CoC.player.hasItem( ConsumableLib.REPTLUM ) ) {
 			MainView.outputText( 'You don\'t have the necessary ingredients to attempt this yet.' );
 			MainView.outputText( '\n\n<b>(Requires 2x Purified Succubus Milk, 1x Large Pink Egg, 1x Ovi Elixir, 1x Reptilium.)</b>' );
-			EngineCore.flushOutputTextToGUI();
 		} else {
 			CoC.player.destroyItems( ConsumableLib.P_S_MLK, 2 );
 			CoC.player.destroyItems( ConsumableLib.L_PNKEG, 1 );

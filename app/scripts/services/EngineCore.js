@@ -64,13 +64,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 	};
-	EngineCore.outputText = function( output, purgeText, parseAsMarkdown ) {
-		MainView.outputText( output, purgeText, parseAsMarkdown );
-	};
-	EngineCore.flushOutputTextToGUI = function() {
-		MainView.fontSize = CoC.flags[ kFLAGS.CUSTOM_FONT_SIZE ];
-		MainView.setOutputText( MainView.mainText );
-	};
 	EngineCore.displayPerks = function() {
 		MainView.outputText( '', true );
 		_.forEach(CoC.player.perks, function(perk) {
@@ -707,7 +700,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		var callback = EngineCore.createCallBackFunction( obj, func1, arg1 );
 		var toolTipText = EngineCore.getButtonToolTipText( text );
 		MainView.showBottomButton( pos, text, callback, toolTipText );
-		EngineCore.flushOutputTextToGUI();
 	};
 	EngineCore.removeButton = function( arg ) {
 		var buttonToRemove = 0;
@@ -732,7 +724,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.hideBottomButton( 7 );
 		MainView.hideBottomButton( 8 );
 		MainView.hideBottomButton( 9 );
-		EngineCore.flushOutputTextToGUI();
 	};
 	EngineCore.choices = function() { //New typesafe version
 		EngineCore.menu();
