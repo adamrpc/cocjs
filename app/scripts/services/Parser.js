@@ -763,7 +763,8 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 			EngineCore.menu();
 			this.buttonNum = 0; // Clear the button number, so we start adding buttons from button 0
 			ret = $showdown.makeHtml( this.recParser( this.parserState[ sceneName ], 0 ) );
-			EngineCore.rawOutputText( ret, true );			// and then stick it on the display
+			MainView.clearOutput();
+			MainView.setOutputText( ret );
 			$log.debug( 'Scene contents after markdown: "' + ret + '"' );
 		} else if( this.getObjectFromString( CoC, sceneName ) !== null ) {
 			$log.debug( 'Have function "' + sceneName + '" in this!. Calling.' );

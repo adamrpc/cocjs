@@ -8,21 +8,22 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		return tempError.getStackTrace();
 	};
 	EventParser.errorPrint = function( details ) {
-		EngineCore.rawOutputText( '<b>Congratulations, you\'ve found a bug!</b>', true );
-		EngineCore.rawOutputText( '\nError event!' );
-		EngineCore.rawOutputText( '\n\nPlease report that you had an issue with code: "' + details + '" ' );
-		EngineCore.rawOutputText( '\nGame version: "' + CoC.ver + '" (<b>THIS IS IMPORTANT! Please be sure you include it!</b>) ' );
+		MainView.clearOutput();
+		MainView.setOutputText( '<b>Congratulations, you\'ve found a bug!</b>' );
+		MainView.appendOutputText( '\nError event!' );
+		MainView.appendOutputText( '\n\nPlease report that you had an issue with code: "' + details + '" ' );
+		MainView.appendOutputText( '\nGame version: "' + CoC.ver + '" (<b>THIS IS IMPORTANT! Please be sure you include it!</b>) ' );
 		var sTrace = EventParser.getCurrentStackTrace();
 		if( sTrace ) {	// Fuck, stack-traces only work in the debug player.
-			EngineCore.rawOutputText( 'and stack-trace <pre>' + sTrace + '</pre>\n' );
+			MainView.appendOutputText( 'and stack-trace <pre>' + sTrace + '</pre>\n' );
 		}
-		EngineCore.rawOutputText( 'to fake-name on the forums or better yet, file a bug report on github: ' );
-		EngineCore.rawOutputText( '\nhttps://github.com/adamrpc/cocjs' );
-		EngineCore.rawOutputText( '\nPlease try to include the details of what you were doing when you encountered this bug ' );
+		MainView.appendOutputText( 'to fake-name on the forums or better yet, file a bug report on github: ' );
+		MainView.appendOutputText( '\nhttps://github.com/adamrpc/cocjs' );
+		MainView.appendOutputText( '\nPlease try to include the details of what you were doing when you encountered this bug ' );
 		if( sTrace ) {
-			EngineCore.rawOutputText( ' (including the above stack trace copy&pasted into the details),' );
+			MainView.appendOutputText( ' (including the above stack trace copy&pasted into the details),' );
 		}
-		EngineCore.rawOutputText( ' to make tracking the issue down easier. Thanks!' );
+		MainView.appendOutputText( ' to make tracking the issue down easier. Thanks!' );
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Argument is time passed.  Pass to event parser if nothing happens.

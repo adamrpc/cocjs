@@ -64,15 +64,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 	};
-	EngineCore.rawOutputText = function( output, purgeText ) {
-		//OUTPUT!
-		if( purgeText ) {
-			MainView.clearOutput();
-			MainView.setOutputText( output );
-		} else {
-			MainView.appendOutputText( output );
-		}
-	};
 	EngineCore.outputText = function( output, purgeText, parseAsMarkdown ) {
 		MainView.outputText( output, purgeText, parseAsMarkdown );
 	};
