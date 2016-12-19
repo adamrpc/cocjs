@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Saves, MainView, InputManager
 		'Show the stats pane when available',
 		function() {
 			if (MainView.menuButtonIsVisible(MainView.MENU_STATS) && CoC.player.str > 0) {
-				CoC.displayStats();
+				EngineCore.displayStats();
 			}
 		}
 	);

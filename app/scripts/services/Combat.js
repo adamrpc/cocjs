@@ -4548,13 +4548,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
 			MainView.outputText("You reach for the enemy's mind, but cannot find anything.  You frantically search around, but there is no consciousness as you know it in the room.\n\n", true);
-			EngineCore.changeFatigue(1);
+			EngineCore.fatigue(1);
 			Combat.enemyAI();
 			return;
 		}
 		if (CoC.monster.hasClassName( 'LivingStatue' )) {
 			MainView.outputText("There is nothing inside the golem to whisper to.");
-			EngineCore.changeFatigue(1);
+			EngineCore.fatigue(1);
 			Combat.enemyAI();
 			return;
 		}
@@ -4574,14 +4574,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Enemy too strong or multiplesI think you 
 		if(CoC.player.inte < CoC.monster.inte || CoC.monster.plural) {
 			MainView.outputText("You reach for your enemy's mind, but can't break through.\n", false);
-			EngineCore.changeFatigue(10);
+			EngineCore.fatigue(10);
 			Combat.enemyAI();
 			return;
 		}
 		//[Failure] 
 		if( Utils.rand(10) === 0) {
 			MainView.outputText("As you reach for your enemy's mind, you are distracted and the chorus of voices screams out all at once within your mind. You're forced to hastily silence the voices to protect yourself.", false);
-			EngineCore.changeFatigue(10);
+			EngineCore.fatigue(10);
 			Combat.enemyAI();
 			return;
 		}
@@ -4689,7 +4689,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
-		EngineCore.changeFatigue(20);
+		EngineCore.fatigue(20);
 		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
@@ -4716,7 +4716,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			} else {
 				MainView.outputText("You reach for the terrestrial fire, but as you ready to release a torrent of flame, the fire inside erupts prematurely, causing you to cry out as the sudden heated force explodes in your own throat.\n\n", false);
 			}
-			EngineCore.changeFatigue(10);
+			EngineCore.fatigue(10);
 			Combat.takeDamage(10 + Utils.rand(20));
 			Combat.enemyAI();
 			return;
@@ -5474,7 +5474,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
 			MainView.outputText("You reach for the enemy's mind, but cannot find anything.  You frantically search around, but there is no consciousness as you know it in the room.\n\n", true);
-			EngineCore.changeFatigue(1);
+			EngineCore.fatigue(1);
 			Combat.enemyAI();
 			return;
 		}
@@ -5510,7 +5510,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.monster.short === "pod" || CoC.monster.inte === 0) {
 			MainView.outputText("In the tight confines of this pod, there's no use making such an attack!\n\n", true);
-			EngineCore.changeFatigue(1);
+			EngineCore.fatigue(1);
 			Combat.enemyAI();
 			return;
 		}

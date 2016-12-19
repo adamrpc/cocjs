@@ -2960,7 +2960,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//Heals the player 70-100 health
 		EngineCore.HPChange(70 + Utils.rand(31), true);
 		//Restores a portion of fatigue (once implemented)
-		EngineCore.changeFatigue(-25);
+		EngineCore.fatigue(-25);
 		//If the player is addicted, this item negates the withdrawal effects for a few hours (suggest 6), there will need to be a check here to make sure the withdrawal effect doesn't reactivate while the player is under the effect of 'Marble's Milk'.
 		if (player.findStatusAffect(StatusAffects.BottledMilk) >= 0) {
 			player.addStatusValue(StatusAffects.BottledMilk, 1, (6 + Utils.rand(6)));

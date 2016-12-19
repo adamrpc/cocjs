@@ -76,49 +76,49 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				MainView.outputText( 's', false );
 			}
 			MainView.outputText( ' to spend.</b>', false );
-			EngineCore.addButton( 1, 'Perk Up', null, EngineCore.perkBuyMenu );
+			EngineCore.addButton( 1, 'Perk Up', null, perkBuyMenu );
 		}
 		if( CoC.player.findPerk( PerkLib.DoubleAttack ) >= 0 ) {
 			MainView.outputText( '\n<b>You can adjust your double attack settings.</b>' );
-			EngineCore.addButton( 2, 'Dbl Options', null, EngineCore.doubleAttackOptions );
+			EngineCore.addButton( 2, 'Dbl Options', null, doubleAttackOptions );
 		}
 		EngineCore.addButton( 0, 'Next', null, MainView.playerMenu );
 	};
-	EngineCore.doubleAttackOptions = function() { // TODO : Move this into a new PerkScene.
+	var doubleAttackOptions = function() { // TODO : Move this into a new PerkScene.
 		MainView.clearOutput();
 		MainView.menu();
 		if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 0 ) {
 			MainView.outputText( 'You will currently always double attack in combat.  If your strength exceeds sixty, your double-attacks will be done at sixty strength in order to double-attack.' );
 			MainView.outputText( '\n\nYou can change it to double attack until sixty strength and then dynamicly switch to single attacks.' );
 			MainView.outputText( '\nYou can change it to always single attack.' );
-			EngineCore.addButton( 1, 'Dynamic', null, EngineCore.doubleAttackDynamic );
-			EngineCore.addButton( 2, 'Single', null, EngineCore.doubleAttackOff );
+			EngineCore.addButton( 1, 'Dynamic', null, doubleAttackDynamic );
+			EngineCore.addButton( 2, 'Single', null, doubleAttackOff );
 		} else if( CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] === 1 ) {
 			MainView.outputText( 'You will currently double attack until your strength exceeds sixty, and then single attack.' );
 			MainView.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
 			MainView.outputText( '\nYou can change it to always single attack.' );
-			EngineCore.addButton( 0, 'All Double', null, EngineCore.doubleAttackForce );
-			EngineCore.addButton( 2, 'Single', null, EngineCore.doubleAttackOff );
+			EngineCore.addButton( 0, 'All Double', null, doubleAttackForce );
+			EngineCore.addButton( 2, 'Single', null, doubleAttackOff );
 		} else {
 			MainView.outputText( 'You will always single attack your foes in combat.' );
 			MainView.outputText( '\n\nYou can choose to force double attacks at reduced strength (when over sixty, it makes attacks at a strength of sixty.' );
 			MainView.outputText( '\nYou can change it to double attack until sixty strength and then switch to single attacks.' );
-			EngineCore.addButton( 0, 'All Double', null, EngineCore.doubleAttackForce );
-			EngineCore.addButton( 1, 'Dynamic', null, EngineCore.doubleAttackDynamic );
+			EngineCore.addButton( 0, 'All Double', null, doubleAttackForce );
+			EngineCore.addButton( 1, 'Dynamic', null, doubleAttackDynamic );
 		}
 		EngineCore.addButton( 4, 'Back', null, EngineCore.displayPerks );
 	};
-	EngineCore.doubleAttackForce = function() { // TODO : Move this into a new PerkScene.
+	var doubleAttackForce = function() { // TODO : Move this into a new PerkScene.
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 0;
-		EngineCore.doubleAttackOptions();
+		doubleAttackOptions();
 	};
-	EngineCore.doubleAttackDynamic = function() { // TODO : Move this into a new PerkScene.
+	var doubleAttackDynamic = function() { // TODO : Move this into a new PerkScene.
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 1;
-		EngineCore.doubleAttackOptions();
+		doubleAttackOptions();
 	};
-	EngineCore.doubleAttackOff = function() { // TODO : Move this into a new PerkScene.
+	var doubleAttackOff = function() { // TODO : Move this into a new PerkScene.
 		CoC.flags[ kFLAGS.DOUBLE_ATTACK_STYLE ] = 2;
-		EngineCore.doubleAttackOptions();
+		doubleAttackOptions();
 	};
 	EngineCore.levelUpGo = function() { // TODO : Move this into a new LevelUpScene.
 		MainView.clearOutput();
@@ -131,46 +131,46 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			MainView.outputText( '<b>You are now level ' + CoC.player.level + '!</b>\n\nYou may now apply +5 to one attribute.  Which will you choose?' );
 			CoC.player.XP -= (CoC.player.level - 1) * 100;
 			MainView.menu();
-			EngineCore.addButton( 0, 'Strength', null, EngineCore.levelUpStatStrength );
-			EngineCore.addButton( 1, 'Toughness', null, EngineCore.levelUpStatToughness );
-			EngineCore.addButton( 2, 'Speed', null, EngineCore.levelUpStatSpeed );
-			EngineCore.addButton( 3, 'Intelligence', null, EngineCore.levelUpStatIntelligence );
+			EngineCore.addButton( 0, 'Strength', null, levelUpStatStrength );
+			EngineCore.addButton( 1, 'Toughness', null, levelUpStatToughness );
+			EngineCore.addButton( 2, 'Speed', null, levelUpStatSpeed );
+			EngineCore.addButton( 3, 'Intelligence', null, levelUpStatIntelligence );
 		} else if( CoC.player.perkPoints > 0 ) { //Spend perk points
-			EngineCore.perkBuyMenu();
+			perkBuyMenu();
 		} else {
 			MainView.outputText( '<b>ERROR.  LEVEL UP PUSHED WHEN PC CANNOT LEVEL OR GAIN PERKS.  PLEASE REPORT THE STEPS TO REPRODUCE THIS BUG TO FENOXO@GMAIL.COM OR THE FENOXO.COM BUG REPORT FORUM.</b>' );
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
-	EngineCore.levelUpStatStrength = function() { // TODO : Move this into a new LevelUpScene.
+	var levelUpStatStrength = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'str', 5 ); //Gain +5 Str due to level
 		MainView.clearOutput();
 		MainView.outputText( 'Your muscles feel significantly stronger from your time adventuring.' );
-		EngineCore.doNext( null, EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, perkBuyMenu );
 	};
-	EngineCore.levelUpStatToughness = function() { // TODO : Move this into a new LevelUpScene.
+	var levelUpStatToughness = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'tou', 5 ); //Gain +5 Toughness due to level
 		$log.debug( 'HP: ' + CoC.player.HP + ' MAX HP: ' + CoC.player.maxHP() );
 		MainView.statsView.show();
 		MainView.clearOutput();
 		MainView.outputText( 'You feel tougher from all the fights you have endured.' );
-		EngineCore.doNext( null, EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, perkBuyMenu );
 	};
-	EngineCore.levelUpStatSpeed = function() { // TODO : Move this into a new LevelUpScene.
+	var levelUpStatSpeed = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'spe', 5 ); //Gain +5 speed due to level
 		MainView.clearOutput();
 		MainView.outputText( 'Your time in combat has driven you to move faster.' );
-		EngineCore.doNext( null, EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, perkBuyMenu );
 	};
-	EngineCore.levelUpStatIntelligence = function() { // TODO : Move this into a new LevelUpScene.
+	var levelUpStatIntelligence = function() { // TODO : Move this into a new LevelUpScene.
 		EngineCore.dynStats( 'int', 5 ); //Gain +5 Intelligence due to level
 		MainView.clearOutput();
 		MainView.outputText( 'Your time spent fighting the creatures of this realm has sharpened your wit.' );
-		EngineCore.doNext( null, EngineCore.perkBuyMenu );
+		EngineCore.doNext( null, perkBuyMenu );
 	};
-	EngineCore.perkBuyMenu = function() { // TODO : Move this into a new PerkScene.
+	var perkBuyMenu = function() { // TODO : Move this into a new PerkScene.
 		MainView.clearOutput();
-		var perkList = EngineCore.buildPerkList();
+		var perkList = buildPerkList();
 		if( perkList.length === 0 ) {
 			MainView.outputText( '<b>You do not qualify for any perks at present.  </b>In case you qualify for any in the future, you will keep your ' + Utils.num2Text( CoC.player.perkPoints ) + ' perk point' );
 			if( CoC.player.perkPoints > 1 ) {
@@ -184,15 +184,15 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.aCb.visible = true;
 		MainView.hideMenuButton( MainView.MENU_NEW_MAIN );
 		MainView.menu();
-		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
+		EngineCore.addButton( 1, 'Skip', null, perkSkip );
 	};
-	EngineCore.perkSelect = function( selected ) { // TODO : Move this into a new PerkScene.
+	var perkSelect = function( selected ) { // TODO : Move this into a new PerkScene.
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
-			EngineCore.applyPerk( selected );
+			applyPerk( selected );
 		}
 	};
-	EngineCore.perkSkip = function() { // TODO : Move this into a new PerkScene.
+	var perkSkip = function() { // TODO : Move this into a new PerkScene.
 		if( MainView.aCb.visible ) {
 			MainView.aCb.visible = false;
 			MainView.playerMenu();
@@ -207,10 +207,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.outputText( 'You have selected the following perk:\n\n' );
 		MainView.outputText( '<b>' + selected.perkName + ':</b> ' + selected.perkLongDesc + '\n\nIf you would like to select this perk, click <b>Okay</b>.  Otherwise, select a new perk, or press <b>Skip</b> to make a decision later.' );
 		MainView.menu();
-		EngineCore.addButton( 0, 'Okay', null, EngineCore.perkSelect, selected );
-		EngineCore.addButton( 1, 'Skip', null, EngineCore.perkSkip );
+		EngineCore.addButton( 0, 'Okay', null, perkSelect, selected );
+		EngineCore.addButton( 1, 'Skip', null, perkSkip );
 	};
-	EngineCore.buildPerkList = function() { // TODO : Move this into a new PerkScene.
+	var buildPerkList = function() { // TODO : Move this into a new PerkScene.
 		var perkList = [];
 		function _add( p ) {
 			perkList.push( { label: p.perkName, perk: p } );
@@ -388,7 +388,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.aCb.dataProvider = perkList;
 		return perkList;
 	};
-	EngineCore.applyPerk = function( perk ) { // TODO : Move this into a new PerkScene.
+	var applyPerk = function( perk ) { // TODO : Move this into a new PerkScene.
 		MainView.clearOutput();
 		CoC.player.perkPoints--;
 		//Apply perk here.
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		return (MainView.getButtonText( buttonIndex ) || 'NULL');
 	};
 	// Returns a string or undefined.
-	EngineCore.getButtonToolTipText = function( buttonText ) {
+	var getButtonToolTipText = function( buttonText ) {
 		var toolTipText = '';
 		if( buttonText === null ) {
 			buttonText = '';
@@ -698,32 +698,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			return;
 		}
 		var callback = EngineCore.createCallBackFunction( obj, func1, arg1 );
-		var toolTipText = EngineCore.getButtonToolTipText( text );
+		var toolTipText = getButtonToolTipText( text );
 		MainView.showBottomButton( pos, text, callback, toolTipText );
-	};
-	EngineCore.removeButton = function( arg ) {
-		var buttonToRemove = 0;
-		if( _.isString(arg) ) {
-			buttonToRemove = MainView.indexOfButtonWithLabel( arg );
-		}else if( _.isNumber(arg) ) {
-			if( arg < 0 || arg > 9 ) {
-				return;
-			}
-			buttonToRemove = Math.round( arg );
-		}
-		MainView.hideBottomButton( buttonToRemove );
-	};
-	EngineCore.menu = function() { //The newer, simpler menu - blanks all buttons so addButton can be used
-		MainView.hideBottomButton( 0 );
-		MainView.hideBottomButton( 1 );
-		MainView.hideBottomButton( 2 );
-		MainView.hideBottomButton( 3 );
-		MainView.hideBottomButton( 4 );
-		MainView.hideBottomButton( 5 );
-		MainView.hideBottomButton( 6 );
-		MainView.hideBottomButton( 7 );
-		MainView.hideBottomButton( 8 );
-		MainView.hideBottomButton( 9 );
 	};
 	EngineCore.choices = function() { //New typesafe version
 		MainView.menu();
@@ -734,85 +710,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		_.forEach(_.range(0, args.length - 1, 3), function(choice, index) {
 			EngineCore.addButton( index, args[choice], args[choice + 1], args[choice + 2] );
 		});
-	};
-	/****
-	 This function is made for multipage menus of unpredictable length,
-	 say a collection of items or places or people that can change
-	 depending on certain events, past choices, the time of day, or whatever.
-	 This is not the best for general menu use.  Use choices() for that.
-	 This is a bit confusing, so here\'s usage instructions.
-	 Pay attention to all the braces.
-	 This is made to be used with an array that you create before calling it,
-	 so that you can push as many items on to that array as you like
-	 before passing that array off to this function.
-	 So you can do something like this:
-	 var itemsInStorage :Array = new Array();
-	 // The extra square braces are important.
-	 itemsInStorage.push( [ 'Doohicky', useDoohickyFunc ] );
-	 itemsInStorage.push( [ 'Whatsit', useWhatsitFunc ] );
-	 itemsInStorage.push( [ 'BagOfDicks', eatBagOfDicks ] );
-	 0...
-	 // see notes about cancelFunc
-	 EngineCore.multipageChoices( cancelFunc, itemsInStorage );
-	 cancelfunc is a function (A button event function, specifically)
-	 that exits the menu.  Provide this if you want a Back button to appear
-	 in the bottom right.
-	 If you do not need a cancel function, perhaps because some or all
-	 of the choices will exit the menu, then you can
-	 pass null or 0 for the cancelFunction.
-	 // This menu shows no Back button.
-	 EngineCore.multipageChoices( null, itemsInStorage );
-	 You can call it directly if you want, but that\'s ridiculous.
-	 EngineCore.multipageChoices( justGoToCamp, [
-	 [ 'Do this', doThisEvent ],
-	 [ 'Do that', doThatEvent ],
-	 [ 'Do something', doSomethingEvent ],
-	 [ 'Fap', goFapEvent ],
-	 [ 'Rape Jojo', jojoRape ],
-	 // 0... more items here...
-	 [ 'What', goWhat ],
-	 [ 'Margle', gurgleFluidsInMouthEvent ] // no comma on last item.
-	 ]);
-	 ****/
-	EngineCore.multipageChoices = function( cancelFunction, menuItems ) {
-		var itemsPerPage = 8;
-		var currentPageIndex;
-		var pageCount;
-		function getPageOfItems( pageIndex ) {
-			var startItemIndex = pageIndex * itemsPerPage;
-			return menuItems.slice( startItemIndex, startItemIndex + itemsPerPage );
-		}
-		function showNextPage() {
-			showPage(( currentPageIndex + 1 ) % pageCount);
-		}
-		function showPage( pageIndex ) {
-			var currentPageItems; // holds the current page of items.
-			if( pageIndex < 0 ) {
-				pageIndex = 0;
-			}
-			if( pageIndex >= pageCount ) {
-				pageIndex = pageCount - 1;
-			}
-			currentPageIndex = pageIndex;
-			currentPageItems = getPageOfItems( pageIndex );
-			// I did it this way so as to use only one actual menu setting function.
-			// I figured it was safer until the menu functions stabilize.
-			// insert page functions.
-			// First pad out the items so it\'s always in a predictable state.
-			while( currentPageItems.length < 8 ) {
-				currentPageItems.push( [ '', 0 ] );
-			}
-			// Insert next button.
-			currentPageItems.splice( 4, 0, [ 'See page ' + ( ((currentPageIndex + 1) % pageCount) + 1 ) + '/' + pageCount, pageCount > 1 ? showNextPage : 0 ]);
-			// Cancel/Back button always appears in bottom right, like in the inventory.
-			currentPageItems.push( [ 'Back', cancelFunction || 0 ] );
-			EngineCore.choices.apply( null, _.flatten( currentPageItems ) );
-		}
-		pageCount = Math.ceil( menuItems.length / itemsPerPage );
-		if( !_.isFunction(cancelFunction) ) {
-			cancelFunction = 0;
-		}
-		showPage( 0 );
 	};
 	EngineCore.doYesNo = function( objYes, eventYes, objNo, eventNo ) {
 		EngineCore.choices('Yes', objYes, eventYes, 'No', objNo, eventNo);
@@ -916,7 +813,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		MainView.statsView.show();
 	};
-	EngineCore.changeFatigue = EngineCore.fatigue;
 	EngineCore.displayStats = function( ) {
 		MainView.spriteSelect( -1 );
 		MainView.outputText( '', true );
@@ -1332,8 +1228,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		lust = Math.round( lust );
 		return lust;
 	};
-	// returns OLD OP VAL
-	EngineCore.applyOperator = function( old, op, val ) {
+	var applyOperator = function( old, op, val ) {
 		switch( op ) {
 			case '=':
 				return val;
@@ -1406,14 +1301,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		});
 		// Got this far, we have values to statsify
-		var newStr = EngineCore.applyOperator( CoC.player.str, argOps[ 0 ], argVals[ 0 ] );
-		var newTou = EngineCore.applyOperator( CoC.player.tou, argOps[ 1 ], argVals[ 1 ] );
-		var newSpe = EngineCore.applyOperator( CoC.player.spe, argOps[ 2 ], argVals[ 2 ] );
-		var newInte = EngineCore.applyOperator( CoC.player.inte, argOps[ 3 ], argVals[ 3 ] );
-		var newLib = EngineCore.applyOperator( CoC.player.lib, argOps[ 4 ], argVals[ 4 ] );
-		var newSens = EngineCore.applyOperator( CoC.player.sens, argOps[ 5 ], argVals[ 5 ] );
-		var newLust = EngineCore.applyOperator( CoC.player.lust, argOps[ 6 ], argVals[ 6 ] );
-		var newCor = EngineCore.applyOperator( CoC.player.cor, argOps[ 7 ], argVals[ 7 ] );
+		var newStr = applyOperator( CoC.player.str, argOps[ 0 ], argVals[ 0 ] );
+		var newTou = applyOperator( CoC.player.tou, argOps[ 1 ], argVals[ 1 ] );
+		var newSpe = applyOperator( CoC.player.spe, argOps[ 2 ], argVals[ 2 ] );
+		var newInte = applyOperator( CoC.player.inte, argOps[ 3 ], argVals[ 3 ] );
+		var newLib = applyOperator( CoC.player.lib, argOps[ 4 ], argVals[ 4 ] );
+		var newSens = applyOperator( CoC.player.sens, argOps[ 5 ], argVals[ 5 ] );
+		var newLust = applyOperator( CoC.player.lust, argOps[ 6 ], argVals[ 6 ] );
+		var newCor = applyOperator( CoC.player.cor, argOps[ 7 ], argVals[ 7 ] );
 		// Because lots of checks and mods are made in the stats(), calculate deltas and pass them. However, this means that the \'=\' operator could be resisted
 		// In future (as I believe) EngineCore.stats() should be replaced with dynStats(), and checks and mods should be made here
 		EngineCore.stats( newStr - CoC.player.str,
@@ -1631,70 +1526,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.statsView.showUpDown();
 		MainView.statsView.show();
 	};
-	EngineCore.range = function( min, max, round ) {
-		var num = (min + Math.random() * (max - min));
-		if( round ) {
-			return Math.round( num );
-		}
-		return num;
-	};
-	EngineCore.cuntChangeOld = function( cIndex, vIndex, display ) {
-		//Virginity check
-		if( CoC.player.vaginas[ vIndex ].virgin ) {
-			if( display ) {
-				MainView.outputText( '\nYour ' + Descriptors.vaginaDescript( vIndex ) + ' loses its virginity!', false );
-			}
-			CoC.player.vaginas[ vIndex ].virgin = false;
-		}
-		//If cock is bigger than unmodified vagina can hold - 100% stretch!
-		if( CoC.player.vaginas[ vIndex ].capacity() <= CoC.monster.cocks[ cIndex ].cArea() ) {
-			if( CoC.player.vaginas[ vIndex ] < 5 ) {
-				$log.debug( 'CUNT STRETCHED: By cock larger than it\'s total capacity.' );
-				if( display ) {
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
-					}
-				}
-				CoC.player.vaginas[ vIndex ].vaginalLooseness++;
-			}
-		}
-		//If cock is within 75% of max, streeeeetch 33% of the time
-		if( CoC.player.vaginas[ vIndex ].capacity() * 0.75 <= CoC.monster.cocks[ cIndex ].cArea() ) {
-			if( CoC.player.vaginas[ vIndex ] < 5 ) {
-				$log.debug( 'CUNT STRETCHED: By cock @ 75% of capacity.' );
-				if( display ) {
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING_WIDE ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is stretched even further, capable of taking even the largest of demons and beasts.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_GAPING ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' painfully stretches, gaping wide-open.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now very loose.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_NORMAL ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' is now loose.</b>  ', false );
-					}
-					if( CoC.player.vaginas[ vIndex ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_TIGHT ) {
-						MainView.outputText( '<b>Your ' + Descriptors.vaginaDescript( 0 ) + ' loses its virgin-like tightness.</b>  ', false );
-					}
-				}
-				CoC.player.vaginas[ vIndex ].vaginalLooseness++;
-			}
-		}
-	};
 	MainView.setMenuButton( MainView.MENU_LEVEL, 'Level', null, EngineCore.levelUpGo );
+	MainView.setMenuButton( MainView.MENU_STATS, 'Stats', null, EngineCore.displayStats );
+	MainView.setMenuButton( MainView.MENU_PERKS, 'Perks', null, EngineCore.displayPerks );
 	return EngineCore;
 });
