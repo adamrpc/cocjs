@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings, Descriptors, AppearanceDefs ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, Perk, PerkLib, ItemType, Utils, StatusAffects, CoC_Settings ) {
 	var EngineCore = {};
 	EngineCore.silly = function() {
 		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ];
@@ -405,21 +405,6 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			MainView.statsView.show();
 		}
 		EngineCore.doNext( MainView, MainView.playerMenu );
-	};
-	EngineCore.buttonText = function( buttonName ) {
-		var buttonIndex = 0;
-		if( _.isString(buttonName) ) {
-			var matches = [];
-			if( /^buttons\[[0-9]\]/.test( buttonName ) ) {
-				matches = /^buttons\[([0-9])\]/.exec( buttonName );
-				buttonIndex = parseInt( matches[ 1 ], 10 );
-			} else if( /^b[0-9]Text$/.test( buttonName ) ) {
-				matches = /^b([0-9])Text$/.exec( buttonName );
-				buttonIndex = parseInt( matches[ 1 ], 10 );
-				buttonIndex = buttonIndex === 0 ? 9 : buttonIndex - 1;
-			}
-		}
-		return (MainView.getButtonText( buttonIndex ) || 'NULL');
 	};
 	// Returns a string or undefined.
 	var getButtonToolTipText = function( buttonText ) {
