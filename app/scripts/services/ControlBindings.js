@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Saves, MainView, InputManager
 		'Show the perks page',
 		function() {
 			if (MainView.menuButtonIsVisible(MainView.MENU_PERKS)) {
-				EngineCore.displayPerks(undefined);
+				SceneLib.perkScene.displayPerks();
 			}
 		}
 	);

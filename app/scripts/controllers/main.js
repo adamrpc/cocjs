@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the cocjs
  */
-angular.module('cocjs').controller('MainCtrl', function($scope, CoC, EngineCore, MainView, SceneLib, Player, Monster, PlayerEvents) {
+angular.module('cocjs').controller('MainCtrl', function($scope, CoC, MainView, SceneLib, Player, Monster, PlayerEvents) {
 	CoC.player = new Player();
 	CoC.player2 = new Player();
 	CoC.monster = new Monster();
@@ -18,6 +18,6 @@ angular.module('cocjs').controller('MainCtrl', function($scope, CoC, EngineCore,
 			MainView.nameBox.KeyHandler();
 		}
 	};
-	$scope.$watch('main.MainView.aCb.value', EngineCore.changeHandler);
+	$scope.$watch('main.MainView.aCb.value', SceneLib.perkScene.changeHandler);
 	SceneLib.startUp.mainMenu();
 });
