@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			}
 			if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 				if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
-					EngineCore.addButton( 3, 'Marble', this, this.meetMarble );
+					EngineCore.addButtonWithTooltip( 3, 'Marble', 'Go to Marble the cowgirl for talk and companionship.', this, this.meetMarble );
 				}
 			}
 			if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {

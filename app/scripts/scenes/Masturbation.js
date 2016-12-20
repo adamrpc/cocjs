@@ -15,12 +15,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		//FAP BUTTON GOAADFADHAKDADK
 		if( (CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) >= 0 && CoC.player.cor < 10) ) {
 			if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
-				EngineCore.addButton( button++, 'Masturbate', this, this.masturbateGo );
+				EngineCore.addButtonWithTooltip( button++, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', this, this.masturbateGo );
 			} else {
-				EngineCore.addButton( button++, 'Meditate', this, this.meditate );
+				EngineCore.addButtonWithTooltip( button++, 'Meditate', 'Selecting this option will make you attempt to meditate in order to reduce lust and corruption.', this, this.meditate );
 			}
 		} else {
-			EngineCore.addButton( button++, 'Masturbate', this, this.masturbateGo );
+			EngineCore.addButtonWithTooltip( button++, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', this, this.masturbateGo );
 		}
 		//catofellato
 		if( CoC.player.hasCock() && (CoC.player.findPerk( PerkLib.Flexibility ) >= 0 || CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0) ) {
@@ -72,49 +72,49 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		}
 		if( CoC.player.hasKeyItem( 'All-Natural Onahole' ) >= 0 && canReachCock ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'AN Onahole', this, this.allNaturalOnaholeUse );
+				EngineCore.addButtonWithTooltip( button, 'AN Onahole', 'An all-natural onahole, this device looks more like a bulbous creature than a sex-toy.  Nevertheless, the slick orifice it presents looks very inviting.', this, this.allNaturalOnaholeUse );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'Deluxe Onahole' ) >= 0 && canReachCock ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'D Onahole', this, this.deluxeOnaholeUse );
+				EngineCore.addButtonWithTooltip( button, 'D Onahole', 'This is a deluxe onahole, made of exceptional materials and with the finest craftsmanship in order to bring its user to the height of pleasure.', this, this.deluxeOnaholeUse );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'Plain Onahole' ) >= 0 && canReachCock ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'Onahole', this, this.onaholeUse );
+				EngineCore.addButtonWithTooltip( button, 'Onahole', 'This is what is called an \'onahole\'.  This device is a simple textured sleeve designed to fit around the male anatomy in a pleasurable way.', this, this.onaholeUse );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'Self-Stimulation Belt' ) >= 0 && CoC.player.vaginas.length > 0 && !CoC.player.isTaur() ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'Stim-Belt', this, this.stimBeltUse );
+				EngineCore.addButtonWithTooltip( button, 'Stim-Belt', 'This is a self-stimulation belt.  Commonly referred to as stim-belts, these are clockwork devices designed to pleasure the female anatomy.', this, this.stimBeltUse );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'All-Natural Self-Stimulation Belt' ) >= 0 && CoC.player.vaginas.length > 0 && !CoC.player.isTaur() ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'AN Stim-Belt', this, this.allNaturalStimBeltUse );
+				EngineCore.addButtonWithTooltip( button, 'AN Stim-Belt', 'This is an all-natural self-stimulation belt.  The methods used to create such a pleasure device are unknown.  It seems to be organic in nature.', this, this.allNaturalStimBeltUse );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'Dual Belt' ) >= 0 && CoC.player.gender === 3 && !CoC.player.isTaur() ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'Dual Belt', this, this.dualBeltMasturbation );
+				EngineCore.addButtonWithTooltip( button, 'Dual Belt', 'This is a strange masturbation device, meant to work every available avenue of stimulation.', this, this.dualBeltMasturbation );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'Fake Mare' ) >= 0 && CoC.player.hasCock() && CoC.player.isTaur() ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'Fake Mare', this, this.centaurDudesGetHorseAids );
+				EngineCore.addButtonWithTooltip( button, 'Fake Mare', 'This fake mare is made of metal and wood, but the anatomically correct vagina looks as soft and wet as any female centaur\'s.', this, this.centaurDudesGetHorseAids );
 			}
 			button++;
 		}
 		if( CoC.player.hasKeyItem( 'Centaur Pole' ) >= 0 && CoC.player.hasVagina() && CoC.player.isTaur() ) {
 			if( menus ) {
-				EngineCore.addButton( button, 'C. Pole', this, this.centaurGirlsGetHorseAids );
+				EngineCore.addButtonWithTooltip( button, 'C. Pole', 'This \'centaur pole\' as it\'s called appears to be a sex-toy designed for females of the equine persuasion.  Oddly, it\'s been sculpted to look like a giant imp, with an even bigger horse-cock.', this, this.centaurGirlsGetHorseAids );
 			}
 			button++;
 		}

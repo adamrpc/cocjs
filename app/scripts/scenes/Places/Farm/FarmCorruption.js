@@ -734,7 +734,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 			}
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
-			EngineCore.addButton( 1, 'Marble', SceneLib.farm, SceneLib.farm.meetMarble );
+			EngineCore.addButtonWithTooltip( 1, 'Marble', 'Go to Marble the cowgirl for talk and companionship.', SceneLib.farm, SceneLib.farm.meetMarble );
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
 			if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_JOJO ] === 1 ) {
-			EngineCore.addButton( 1, 'Jojo', SceneLib.jojoScene, SceneLib.jojoScene.corruptCampJojo );
+			EngineCore.addButtonWithTooltip( 1, 'Jojo', 'Call your corrupted pet into camp in order to relieve your desires in a variety of sexual positions?  He\'s ever so willing after your last encounter with him.', SceneLib.jojoScene, SceneLib.jojoScene.corruptCampJojo );
 		}
 
 		if( CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 1 && SceneLib.sophieBimbo.bimboSophie() ) {

@@ -952,12 +952,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			return;
 		}
 		MainView.menu();
-		EngineCore.addButton( 0, 'Combo', this, this.urtaComboAttack );
-		EngineCore.addButton( 1, 'Vault', this, this.urtaVaultAttack );
-		EngineCore.addButton( 2, 'Sidewinder', this, this.urtaSidewinder );
-		EngineCore.addButton( 3, 'Dirt Kick', this, this.urtaDirtKick );
-		EngineCore.addButton( 4, 'Metabolize', this, this.urtaMetabolize );
-		EngineCore.addButton( 5, 'SecondWind', this, this.urtaSecondWind );
+		EngineCore.addButtonWithTooltip( 0, 'Combo', 'Make a three-hit combo.  Each attack has an extra 33% chance to miss, unless the target is blind. (25 Fatigue)', this, this.urtaComboAttack );
+		EngineCore.addButtonWithTooltip( 1, 'Vault', 'Make a vaulting attack for an extra 25% damage.  Automatically crits stunned foes.  (20 Fatigue)', this, this.urtaVaultAttack );
+		EngineCore.addButtonWithTooltip( 2, 'Sidewinder', 'An attack that hits for reduced damage but has a high chance of stunning. (10 Fatigue)', this, this.urtaSidewinder );
+		EngineCore.addButtonWithTooltip( 3, 'Dirt Kick', 'Attempt to blind your foe with a spray of kicked dirt. (5 Fatigue)', this, this.urtaDirtKick );
+		EngineCore.addButtonWithTooltip( 4, 'Metabolize', 'Convert 10% of your maximum HP into fatigue.', this, this.urtaMetabolize );
+		EngineCore.addButtonWithTooltip( 5, 'SecondWind', 'Regain 50% of your HP, 50 fatigue, and reduce lust by 50 once per fight.', this, this.urtaSecondWind );
 		EngineCore.addButton( 9, 'Back', null, Combat.combatMenu, false );
 	};
 	UrtaQuest.prototype.urtaMetabolize = function() {

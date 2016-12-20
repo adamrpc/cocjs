@@ -132,16 +132,16 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (CoC.player.findStatusAffect(StatusAffects.KnockedBack) >= 0) {
 			MainView.outputText("\n<b>You'll need to close some distance before you can use any physical attacks!</b>");
 			EngineCore.addButton(0, "Approach", null, Combat.approachAfterKnockback);
-			EngineCore.addButton(1, "Tease", null, Combat.teaseAttack);
-			EngineCore.addButton(2, "Spells", null, Combat.magic);
-			EngineCore.addButton(3, "Items", SceneLib.inventory, SceneLib.inventory.inventoryMenu);
-			EngineCore.addButton(4, "Run", null, Combat.runAway);
+			EngineCore.addButtonWithTooltip(1, "Tease", 'Attempt to make an enemy more aroused by striking a seductive pose and exposing parts of your body.', null, Combat.teaseAttack);
+			EngineCore.addButtonWithTooltip(2, "Spells", 'Opens your spells menu, where you can cast any spells you have learned.  Beware, casting spells increases your fatigue, and if you become exhausted you will be easier to defeat.', null, Combat.magic);
+			EngineCore.addButtonWithTooltip(3, "Items", SceneLib.inventory, SceneLib.inventory.inventoryMenu);
+			EngineCore.addButton(4, "Run", 'Choosing to run will let you try to escape from your enemy. However, it will be hard to escape enemies that are faster than you and if you fail, your enemy will get a free attack.', null, Combat.runAway);
 			if (CoC.player.hasKeyItem("Bow") >= 0) {
 				EngineCore.addButton(5, "Bow", null, Combat.fireBow);
 			}
-			EngineCore.addButton(6, "M. Specials", null, Combat.magicalSpecials);
-			EngineCore.addButton(7, "Wait", null, Combat.wait);
-			EngineCore.addButton(8, "Fantasize", null, Combat.fantasize);
+			EngineCore.addButtonWithTooltip(6, "M. Specials", 'Mental and supernatural special attack menu.', null, Combat.magicalSpecials);
+			EngineCore.addButtonWithTooltip(7, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
+			EngineCore.addButtonWithTooltip(8, "Fantasize", 'Fantasize about your opponent in a sexual way.  It\'s probably a pretty bad idea to do this unless you want to end up getting raped.', null, Combat.fantasize);
 		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0 || CoC.player.findStatusAffect(StatusAffects.Stunned) >= 0) {
 			MainView.outputText("\n<b>You're too stunned to attack!</b>  All you can do is wait and try to recover!");
 			EngineCore.addButton(0, "Recover", null, Combat.wait);
@@ -153,41 +153,41 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButton(0, "Recover", null, Combat.wait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0 || CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
 			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
-			EngineCore.addButton(5, "Wait", null, Combat.wait);
+			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
 		} else if (CoC.monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
 			EngineCore.addButton(0, "Squeeze", SceneLib.nagaScene, SceneLib.nagaScene.naggaSqueeze);
-			EngineCore.addButton(1, "Tease", SceneLib.nagaScene, SceneLib.nagaScene.naggaTease);
+			EngineCore.addButtonWithTooltip(1, "Tease", 'Attempt to make an enemy more aroused by striking a seductive pose and exposing parts of your body.', SceneLib.nagaScene, SceneLib.nagaScene.naggaTease);
 			EngineCore.addButton(4, "Release", SceneLib.nagaScene, SceneLib.nagaScene.nagaLeggoMyEggo);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Bound) >= 0) {
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.ceraphBindingStruggle);
-			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.ceraphBoundWait);
+			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.ceraphBoundWait);
 		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
 			MainView.outputText("\n<b>You're bound up in the minotaur lord's chains!  All you can do is try to struggle free!</b>");
 			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
-			EngineCore.addButton(5, "Wait", null, Combat.wait);
+			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
 			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
-			EngineCore.addButton(6, "M. Specials", null, Combat.magicalSpecials);
+			EngineCore.addButtonWithTooltip(6, "M. Specials", 'Mental and supernatural special attack menu.', null, Combat.magicalSpecials);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Chokeslam) >= 0) {
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.chokeSlamStruggle);
-			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.chokeSlamWait);
+			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.chokeSlamWait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Titsmother) >= 0) {
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.titSmotherStruggle);
-			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.titSmotherWait);
+			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.titSmotherWait);
 		} else if (CoC.player.findStatusAffect(StatusAffects.Tentagrappled) >= 0) {
 			MainView.outputText("\n<b>The demonesses tentacles are constricting your limbs!</b>");
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.grappleStruggle);
-			EngineCore.addButton(5, "Wait", CoC.monster, CoC.monster.grappleWait);
+			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.grappleWait);
 		} else { //REGULAR MENU
-			EngineCore.addButton(0, "Attack", null, attacks);
-			EngineCore.addButton(1, "Tease", null, Combat.teaseAttack);
-			EngineCore.addButton(2, "Spells", null, magic);
+			EngineCore.addButtonWithTooltip(0, "Attack", 'Attempt to attack the enemy with your ' + CoC.player.weaponName + '.  Damage done is determined by your strength and weapon.', null, attacks);
+			EngineCore.addButtonWithTooltip(1, "Tease", 'Attempt to make an enemy more aroused by striking a seductive pose and exposing parts of your body.', null, Combat.teaseAttack);
+			EngineCore.addButtonWithTooltip(2, "Spells", 'Opens your spells menu, where you can cast any spells you have learned.  Beware, casting spells increases your fatigue, and if you become exhausted you will be easier to defeat.', null, magic);
 			EngineCore.addButton(3, "Items", SceneLib.inventory, SceneLib.inventory.inventoryMenu);
-			EngineCore.addButton(4, "Run", null, Combat.runAway);
-			EngineCore.addButton(5, "P. Specials", null, pSpecials);
-			EngineCore.addButton(6, "M. Specials", null, Combat.magicalSpecials);
-			EngineCore.addButton(7, (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), null, Combat.wait);
-			EngineCore.addButton(8, "Fantasize", null, Combat.fantasize);
+			EngineCore.addButtonWithTooltip(4, "Run", 'Choosing to run will let you try to escape from your enemy. However, it will be hard to escape enemies that are faster than you and if you fail, your enemy will get a free attack.', null, Combat.runAway);
+			EngineCore.addButtonWithTooltip(5, "P. Specials", 'Physical special attack menu.', null, pSpecials);
+			EngineCore.addButtonWithTooltip(6, "M. Specials", 'Mental and supernatural special attack menu.', null, Combat.magicalSpecials);
+			EngineCore.addButtonWithTooltip(7, (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ?'':'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
+			EngineCore.addButtonWithTooltip(8, "Fantasize", 'Fantasize about your opponent in a sexual way.  It\'s probably a pretty bad idea to do this unless you want to end up getting raped.', null, Combat.fantasize);
 		}
 	};
 	Combat.teaseAttack = function() {
@@ -3675,20 +3675,20 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		} else {
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsCharge) >= 0) {
 				if (CoC.player.findStatusAffect(StatusAffects.ChargeWeapon) < 0) {
-					EngineCore.addButton(0, "Charge W.", null, Combat.spellChargeWeapon);
+					EngineCore.addButtonWithTooltip(0, "Charge W.", 'The Charge Weapon spell will surround your weapon in electrical energy, causing it to do even more damage.  The effect lasts for the entire combat.  (Fatigue Cost: ' + EngineCore.spellCost( 15 ) + ')', null, Combat.spellChargeWeapon);
 				} else {
 					MainView.outputText("<b>Charge weapon is already active and cannot be cast again.</b>\n\n");
 				}
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsBlind) >= 0) {
 				if (CoC.monster.findStatusAffect(StatusAffects.Blind) < 0) {
-					EngineCore.addButton(1, "Blind", null, Combat.spellBlind);
+					EngineCore.addButtonWithTooltip(1, "Blind", 'Blind is a fairly self-explanatory spell.  It will create a bright flash just in front of the victim\'s eyes, blinding them for a time.  However if they blink it will be wasted.  (Fatigue Cost: ' + EngineCore.spellCost( 20 ) + ')', null, Combat.spellBlind);
 				} else {
 					MainView.outputText("<b>" + CoC.monster.getCapitalA() + CoC.monster.short + " is already affected by blind.</b>\n\n");
 				}
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsWhitefire) >= 0) {
-				EngineCore.addButton(2, "Whitefire", null, Combat.spellWhitefire);
+				EngineCore.addButtonWithTooltip(2, "Whitefire", 'Whitefire is a potent fire based attack that will burn your foe with flickering white flames, ignoring their physical toughness and most armors.  (Fatigue Cost: ' + EngineCore.spellCost( 30 ) + ')', null, Combat.spellWhitefire);
 			}
 		}
 		//BLACK MAGICSKS
@@ -3696,14 +3696,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText("You aren't turned on enough to use any black magics.\n\n");
 		} else {
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
-				EngineCore.addButton(5, "Arouse", null, Combat.spellArouse);
+				EngineCore.addButtonWithTooltip(5, "Arouse", 'The arouse spell draws on your own inner lust in order to enflame the enemy\'s passions.  (Fatigue Cost: ' + EngineCore.spellCost( 15 ) + ')', null, Combat.spellArouse);
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsHeal) >= 0) {
-				EngineCore.addButton(6, "Heal", null, Combat.spellHeal);
+				EngineCore.addButtonWithTooltip(6, "Heal", 'Heal will attempt to use black magic to close your wounds and restore your body, however like all black magic used on yourself, it has a chance of backfiring and greatly arousing you.  (Fatigue Cost: ' + EngineCore.spellCost( 20 ) + ')', null, Combat.spellHeal);
 			}
 			if (CoC.player.findStatusAffect(StatusAffects.KnowsMight) >= 0) {
 				if (CoC.player.findStatusAffect(StatusAffects.Might) < 0) {
-					EngineCore.addButton(7, "Might", null, Combat.spellMight);
+					EngineCore.addButtonWithTooltip(7, "Might", 'The Might spell draws upon your lust and uses it to fuel a temporary increase in muscle size and power.  It does carry the risk of backfiring and raising lust, like all black magic used on oneself.  (Fatigue Cost: ' + EngineCore.spellCost( 25 ) + ')', null, Combat.spellMight);
 				} else {
 					MainView.outputText("<b>You are already under the effects of Might and cannot cast it again.</b>\n\n");
 				}
@@ -5261,7 +5261,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		MainView.menu();
 		//Berserk
 		if(CoC.player.findPerk(PerkLib.Berzerker) >= 0) {
-			EngineCore.addButton(0,"Berzerk", null, Combat.berzerk);
+			EngineCore.addButtonWithTooltip(0, "Berzerk", 'Throw yourself into a rage!  Greatly increases the strength of your weapon and increases lust resistance, but your armor defense is reduced to zero!', null, Combat.berzerk);
 		}
 		if(CoC.player.findPerk(PerkLib.Dragonfire) >= 0) {
 			EngineCore.addButton(1,"DragonFire", null, Combat.dragonBreath);
@@ -5274,7 +5274,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//Possess ability.
 		if(CoC.player.findPerk(PerkLib.Incorporeality) >= 0) {
-			EngineCore.addButton(4,"Possess", null, Combat.possess);
+			EngineCore.addButtonWithTooltip(4,"Possess", 'Attempt to temporarily possess a foe and force them to raise their own lusts.', null, Combat.possess);
 		}
 		if(CoC.player.findPerk(PerkLib.Whispered) >= 0) {
 			EngineCore.addButton(5,"Whisper", null, Combat.superWhisperAttack);
@@ -5309,7 +5309,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		MainView.menu();
 		if (CoC.player.hairType === 4) {
-			EngineCore.addButton(0, "AnemoneSting", null, Combat.anemoneSting);
+			EngineCore.addButtonWithTooltip(0, "AnemoneSting", 'Attempt to strike an opponent with the stinging tentacles growing from your scalp.  Reduces enemy speed and increases enemy lust.', null, Combat.anemoneSting);
 		}
 		//Bitez
 		if (CoC.player.faceType === AppearanceDefs.FACE_SHARK_TEETH) {
@@ -5327,37 +5327,37 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//Constrict
 		if (CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_NAGA) {
-			EngineCore.addButton(3, "Constrict", SceneLib.nagaScene, SceneLib.nagaScene.nagaPlayerConstrict);
+			EngineCore.addButtonWithTooltip(3, "Constrict", 'Attempt to bind an enemy in your long snake-tail.', SceneLib.nagaScene, SceneLib.nagaScene.nagaPlayerConstrict);
 		}
 		//Kick attackuuuu
 		else if (CoC.player.isTaur() || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HOOFED || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_BUNNY || CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_KANGAROO) {
-			EngineCore.addButton(3, "Kick", null, Combat.kick);
+			EngineCore.addButtonWithTooltip(3, "Kick", 'Attempt to kick an enemy using your powerful lower body.', null, Combat.kick);
 		}
 		//Gore if mino horns
 		if (CoC.player.hornType === AppearanceDefs.HORNS_COW_MINOTAUR && CoC.player.horns >= 6) {
-			EngineCore.addButton(4, "Gore", null, Combat.goreAttack);
+			EngineCore.addButtonWithTooltip(4, "Gore", 'Lower your head and charge your opponent, attempting to gore them on your horns.  This attack is stronger and easier to land with large horns.', null, Combat.goreAttack);
 		}
 		//Infest if infested
 		if (CoC.player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.player.statusAffectv1(StatusAffects.Infested) === 5 && CoC.player.hasCock()) {
-			EngineCore.addButton(5, "Infest", null, Combat.playerInfest);
+			EngineCore.addButtonWithTooltip(5, "Infest", 'The infest attack allows you to cum at will, launching a stream of semen and worms at your opponent in order to infest them.  Unless your foe is very aroused they are likely to simply avoid it.  Only works on males or herms.', null, Combat.playerInfest);
 		}
 		//Kiss supercedes bite.
 		if (CoC.player.findStatusAffect(StatusAffects.LustStickApplied) >= 0) {
-			EngineCore.addButton(6, "Kiss", null, Combat.kissAttack);
+			EngineCore.addButtonWithTooltip(6, "Kiss", 'Attempt to kiss your foe on the lips with drugged lipstick.  It has no effect on those without a penis.', null, Combat.kissAttack);
 		}
 		switch (CoC.player.tailType) {
 			case AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN:
-				EngineCore.addButton(7, "Sting", null, Combat.playerStinger);
+				EngineCore.addButtonWithTooltip(7, "Sting", 'Attempt to use your venomous bee stinger on an enemy.  Be aware it takes quite a while for your venom to build up, so depending on your abdomen\'s refractory period, you may have to wait quite a while between stings.  Venom: ' + Math.floor( CoC.player.tailVenom ) + '/100', null, Combat.playerStinger);
 				break;
 			case AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN:
-				EngineCore.addButton(7, "Web", null, Combat.PCWebAttack);
+				EngineCore.addButtonWithTooltip(7, "Web", 'Attempt to use your abdomen to spray sticky webs at an enemy and greatly slow them down.  Be aware it takes a while for your webbing to build up.  Web Amount: ' + Math.floor( CoC.player.tailVenom ) + '/100', null, Combat.PCWebAttack);
 				break;
 			case AppearanceDefs.TAIL_TYPE_SHARK:
 			case AppearanceDefs.TAIL_TYPE_LIZARD:
 			case AppearanceDefs.TAIL_TYPE_KANGAROO:
 			case AppearanceDefs.TAIL_TYPE_DRACONIC:
 			case AppearanceDefs.TAIL_TYPE_RACCOON:
-				EngineCore.addButton(7, "Tail Whip", null, Combat.tailWhipAttack);
+				EngineCore.addButtonWithTooltip(7, 'Tail Whip', 'Whip your foe with your tail to enrage them and lower their defense!', null, Combat.tailWhipAttack);
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
 	};

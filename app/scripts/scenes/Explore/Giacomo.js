@@ -97,8 +97,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		MainView.spriteSelect( 23 );
 		MainView.clearOutput();
 		MainView.outputText( 'Which book are you interested in perusing?' );
-		EngineCore.choices( 'Dangerous Plants', this, this.pitchDangerousPlantsBook, 'Traveler\'s Guide', this, this.pitchTravellersGuide, 'Hentai Comic', this, this.pitchHentaiComic,
-			'Yoga Guide', this, (CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] > 0 ? this.pitchYogaGuide : null), 'Back', this, this.giacomoEncounter );
+		EngineCore.choicesWithTooltip(
+			'Dangerous Plants', 'This is a book titled \'Dangerous Plants\'.  As explained by the title, this tome is filled with information on all manner of dangerous plants from this realm.', this, this.pitchDangerousPlantsBook,
+			'Traveler\'s Guide', 'This traveler\'s guide is more of a pamphlet than an actual book, but it still contains some useful information on avoiding local pitfalls.', this, this.pitchTravellersGuide,
+			'Hentai Comic', 'This oddly drawn comic book is filled with images of fornication, sex, and overly large eyeballs.', this, this.pitchHentaiComic,
+			'Yoga Guide', 'This leather-bound book is titled \'Yoga for Non-Humanoids.\' It contains numerous illustrations of centaurs, nagas and various other oddly-shaped beings in a variety of poses.', this, (CoC.flags[ kFLAGS.COTTON_UNUSUAL_YOGA_BOOK_TRACKER ] > 0 ? this.pitchYogaGuide : null),
+			'Back', '', this, this.giacomoEncounter
+		);
 		MainView.statsView.show();
 	};
 	Giacomo.prototype.eroticaMenu = function() {

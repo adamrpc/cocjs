@@ -698,8 +698,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		//Menu
-		EngineCore.choices( 'Explore', SceneLib.exploration, exploreEvent, 'Places', this, placesEvent, 'Inventory', SceneLib.inventory, SceneLib.inventory.inventoryMenu, 'Stash', SceneLib.inventory, storage, 'Followers', this, followers,
-			'Lovers', this, lovers, 'Slaves', this, slaves, '', null, null, baitText, SceneLib.masturbation, masturbate, restName, this, restEvent );
+		EngineCore.choicesWithTooltip(
+			'Explore', '', SceneLib.exploration, exploreEvent,
+			'Places', '', this, placesEvent,
+			'Inventory', 'The inventory allows you to use an item.  Be careful as this leaves you open to a counterattack when in combat.', SceneLib.inventory, SceneLib.inventory.inventoryMenu,
+			'Stash', '', SceneLib.inventory, storage,
+			'Followers', 'Check up on any followers or companions who are joining you in or around your camp.  You\'ll probably just end up sleeping with them.', this, followers,
+			'Lovers', '', this, lovers,
+			'Slaves', '', this, slaves,
+			'', '', null, null,
+			baitText, '', SceneLib.masturbation, masturbate,
+			restName, '', this, restEvent
+		);
 		//Lovers
 		//Followers
 		//Slaves
@@ -1009,7 +1019,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		EngineCore.addButton( 5, 'Kiha', SceneLib.kihaScene, kihaButt );
 		if( marbleEvent !== null ) {
-			EngineCore.addButton( 6, 'Marble', SceneLib.marbleScene, marbleEvent );
+			EngineCore.addButtonWithTooltip( 6, 'Marble', 'Go to Marble the cowgirl for talk and companionship.', SceneLib.marbleScene, marbleEvent );
 		}
 		if( nieve !== null ) {
 			EngineCore.addButton( 7, 'Nieve', SceneLib.xmasMisc, nieve );
@@ -1068,7 +1078,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			EngineCore.addButton( 1, 'Ceraph', SceneLib.ceraphFollowerScene, ceraph );
 		}
 		if( jojoEvent !== null ) {
-			EngineCore.addButton( 2, 'Jojo', SceneLib.jojoScene, jojoEvent );
+			EngineCore.addButtonWithTooltip( 2, 'Jojo', 'Call your corrupted pet into camp in order to relieve your desires in a variety of sexual positions?  He\'s ever so willing after your last encounter with him.', SceneLib.jojoScene, jojoEvent );
 		}
 		if( sophieEvent !== null ) {
 			EngineCore.addButton( 3, 'Sophie', SceneLib.sophieBimbo, sophieEvent );
@@ -1160,8 +1170,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( SceneLib.helSpawnScene.helspawnFollower() ) {
 			EngineCore.addButton( 1, CoC.flags[ kFLAGS.HELSPAWN_NAME ], SceneLib.helSpawnScene, SceneLib.helSpawnScene.helspawnsMainMenu );
 		}
-		EngineCore.addButton( 2, 'Jojo', SceneLib.jojoScene, jojoEvent );
-		EngineCore.addButton( 3, 'Rathazul', SceneLib.rathazul, rathazulEvent );
+		EngineCore.addButtonWithTooltip( 2, 'Jojo', 'Go find Jojo around the edges of your camp and meditate with him or talk about watch duty.', SceneLib.jojoScene, jojoEvent );
+		EngineCore.addButtonWithTooltip( 3, 'Rathazul', 'Visit with Rathazul to see what alchemical supplies and services he has available at the moment.', SceneLib.rathazul, rathazulEvent );
 		EngineCore.addButton( 4, 'Shouldra', SceneLib.shouldraFollower, shouldra );
 		//ABOVE: EngineCore.ddButton(4,"Sophie",followerSophieMainScreen);
 		EngineCore.addButton( 6, 'Valeria', SceneLib.valeria, valeria2 );

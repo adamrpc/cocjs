@@ -2247,7 +2247,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		MainView.outputText( 'feel any corruption within you, it’s always best to be prepared.  Would you care to join me in meditation?</i>”\n\n' );
 		MainView.menu();
-		EngineCore.addButton( 0, 'Meditate', this, this.meditateInForest ); // OH GOD NO SEND HELP
+		EngineCore.addButtonWithTooltip( 0, 'Meditate', 'Selecting this option will make you attempt to meditate in order to reduce lust and corruption.', this, this.meditateInForest ); // OH GOD NO SEND HELP
 		EngineCore.addButton( 1, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		EngineCore.addButton( 4, 'Rape', this, this.jojoRape );
 	};
@@ -2383,7 +2383,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.flags[ kFLAGS.UNLOCKED_JOJO_TRAINING ] === 1 ) {
 			EngineCore.addButton( 2, 'Train', this, this.apparantlyJojoDOESlift );
 		}
-		EngineCore.addButton( 3, 'Meditate', this, this.jojoFollowerMeditate );
+		EngineCore.addButtonWithTooltip( 3, 'Meditate', 'Selecting this option will make you attempt to meditate in order to reduce lust and corruption.', this, this.jojoFollowerMeditate );
 		EngineCore.addButton( 4, jojoDefense, this, this.jojoDefenseToggle );
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
 			EngineCore.addButton( 5, 'Purge', this, this.wormRemoval );

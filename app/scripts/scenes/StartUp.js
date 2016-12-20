@@ -31,16 +31,16 @@ angular.module('cocjs').run( function (SceneLib, CharCreation, CoC, EngineCore, 
 		// that if you check if any images were found immediately when this screen is shown, you get 0
 		// since the images haven\'t loaded yet.
 		// Therefore, the imageCreditScreen will just have to say 'No image pack' if you don\'t have any images
-		EngineCore.choices( '', null, null,
-			'Image Credits', this, this.imageCreditsScreen,
-			'Credits', this, this.creditsScreen,
-			'', null, null,
-			'Instructions', this, this.howToPlay,
-			'', null, null,
-			'', null, null,
-			'', null, null,
-			'Settings', this, this.settingsScreen,
-			'Resume', null, resume );
+		EngineCore.choicesWithTooltip( '', '', null, null,
+			'Image Credits', 'See a list of all the cool people who have contributed to content for this game!', this, this.imageCreditsScreen,
+			'Credits', 'See a list of all the cool people who have contributed to content for this game!', this, this.creditsScreen,
+			'', '', null, null,
+			'Instructions', 'How to play.  Starting tips.  And hotkeys for easy left-handed play...', this, this.howToPlay,
+			'', '', null, null,
+			'', '', null, null,
+			'', '', null, null,
+			'Settings', 'Configure game settings and enable cheats.', this, this.settingsScreen,
+			'Resume', '', null, resume );
 	};
 	StartUp.prototype.startupScreenBody = function() {
 		MainView.outputText('<br>(Formerly Unnamed Text Game)<br><br>' + 

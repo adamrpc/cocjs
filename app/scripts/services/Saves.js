@@ -152,29 +152,16 @@ angular.module( 'cocjs' ).factory( 'Saves', function( SceneLib, $rootScope, $log
 				'', null, null,
 				'', null, null );
 		} else {
-			if( CoC.player.autoSave ) {
-				EngineCore.choices( 'Save', this, this.saveScreen,
-					'Load', this, this.loadScreen,
-					'AutoSav: ON', this, this.autosaveToggle,
-					'Delete', this, this.deleteScreen,
-					'', null, null,
-					'', null, null, // TODO : Save to file
-					'', null, null, // TODO : Save to file
-					'', null, null,
-					'', null, null,
-					'Back', null, MainView.playerMenu );
-			} else {
-				EngineCore.choices( 'Save', this, this.saveScreen,
-					'Load', this, this.loadScreen,
-					'AutoSav: OFF', this, this.autosaveToggle,
-					'Delete', this, this.deleteScreen,
-					'', null, null,
-					'', null, null, // TODO : Save to file
-					'', null, null, // TODO : Save to file
-					'', null, null,
-					'', null, null,
-					'Back', null, MainView.playerMenu );
-			}
+			EngineCore.choicesWithTooltip( 'Save', '', this, this.saveScreen,
+				'Load', '', this, this.loadScreen,
+				'AutoSav: ' + (CoC.player.autoSave?'ON':'OFF'), 'When autosave is on the game will automatically save your character each night at midnight to the last slot it was saved in.' + (CoC.player.autoSave?' Autosave is currently enabled.  Your game will be saved at midnight.':' Autosave is currently off.  Your game will NOT be saved.'), this, this.autosaveToggle,
+				'Delete', '', this, this.deleteScreen,
+				'', '', null, null,
+				'', '', null, null, // TODO : Save to file
+				'', '', null, null, // TODO : Save to file
+				'', '', null, null,
+				'', '', null, null,
+				'Back', '', null, MainView.playerMenu );
 		}
 	};
 	Saves.prototype.autosaveToggle = function() {

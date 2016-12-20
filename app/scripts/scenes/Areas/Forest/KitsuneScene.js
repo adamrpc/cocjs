@@ -1926,7 +1926,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.menu();
 		EngineCore.addButton( 0, 'Read Books', this, this.readKitsuneBooks );
 		if( CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
-			EngineCore.addButton( 1, 'Meditate', this, this.meditateLikeAKitsuneEhQuestionMark );
+			EngineCore.addButtonWithTooltip( 1, 'Meditate', 'Selecting this option will make you attempt to meditate in order to reduce lust and corruption.', this, this.meditateLikeAKitsuneEhQuestionMark );
 		}
 		if( CoC.player.hasItem( UseableLib.GLDSTAT ) || CoC.flags[ kFLAGS.TOOK_KITSUNE_STATUE ] === 0 ) {
 			EngineCore.addButton( 2, 'Statue', this, this.stealAStatue );

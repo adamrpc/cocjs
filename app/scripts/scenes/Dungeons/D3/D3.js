@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			EngineCore.addButton( 5, 'Exit', this, this.exitD3 );
 		}
 		EngineCore.addButton( 8, 'Items', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
-		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation, SceneLib.masturbation.masturbateGo );
+		EngineCore.addButtonWithTooltip( 9, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', SceneLib.masturbation, SceneLib.masturbation.masturbateGo );
 	};
 	D3.prototype.move = function( roomName ) {
 		$log.debug( 'Entering room', roomName );

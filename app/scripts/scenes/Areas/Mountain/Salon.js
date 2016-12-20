@@ -154,8 +154,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.addButton( 3, 'Lengthen', this, lengthening );
 		EngineCore.addButton( 4, 'Buy Products', this, this.dyeMenu );
 		EngineCore.addButton( 5, 'Buy MinoCum', this, minoCum );
-		EngineCore.addButton( 7, 'Mud Facial', this, mudFacial2 );
-		EngineCore.addButton( 8, 'Sand Facial', this, sandFacial2 );
+		EngineCore.addButtonWithTooltip( 7, 'Mud Facial', 'This facial is supposed to enhance the softness of your face and enhance its femininity greatly.', this, mudFacial2 );
+		EngineCore.addButtonWithTooltip( 8, 'Sand Facial', 'The goblins promise this facial will give you a rough, handsome look thanks to their special, timeless sands.', this, sandFacial2 );
 		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.hairDresserGreeting = function() {

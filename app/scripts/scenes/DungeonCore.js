@@ -732,7 +732,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			EngineCore.addButton( 6, 'South', this, this.dungeonEnterRoom, SceneLib.dungeonSandWitch.DUNGEON_WITCH_SACRIFICIAL_ALTAR );
 		}
 		EngineCore.addButton( 8, 'Items', SceneLib.inventory, SceneLib.inventory.inventoryMenu );
-		EngineCore.addButton( 9, 'Masturbate', SceneLib.masturbation, SceneLib.masturbation.masturbateMenu );
+		EngineCore.addButtonWithTooltip( 9, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', SceneLib.masturbation, SceneLib.masturbation.masturbateMenu );
 	};
 	DungeonCore.prototype.enterFactory = function() {
 		MainView.clearOutput();
