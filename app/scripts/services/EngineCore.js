@@ -88,6 +88,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.createCallBackFunction = function( object, func, arg ) {
 		if( !_.isFunction( func ) ) {
 			CoC_Settings.error( 'createCallBackFunction(' + func + ',' + arg + ')' );
+			return null;
 		}
 		if( arg === -9000 || arg === null ) {
 			return function() {

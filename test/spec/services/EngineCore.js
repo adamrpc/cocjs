@@ -6,11 +6,13 @@ describe('Factory: EngineCore', function() {
 	var coc;
 	var perkLib;
 	var mainView;
-	beforeEach(inject(function(EngineCore, CoC, kFLAGS, PerkLib, MainView) {
+	var coC_Settings;
+	beforeEach(inject(function(EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings) {
 		engineCore = EngineCore;
 		coc = CoC;
 		perkLib = PerkLib;
 		mainView = MainView;
+		coC_Settings = CoC_Settings;
 	}));
 	it('Should define EngineCore', function() {
 		expect(engineCore).toBeDefined();
@@ -154,7 +156,45 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.statsView.show.calls.count()).toBe(0);
 		expect(coc.player.HP).toBe( 0 );
 	});
-	it('Should define displayPerks', function() {
-		expect(engineCore.displayPerks).toBeDefined();
+	it('Should define createCallBackFunction', function() {
+		expect(engineCore.createCallBackFunction).toBeDefined();
+	});
+	it('should return null and trigger error if no parameter', function() {
+		spyOn(coC_Settings, 'error');
+		expect(engineCore.createCallBackFunction()).toBe(null);
+		expect(coC_Settings.error.calls.count()).toBe(1);
+	});
+	it('should return null and trigger error if non function parameter', function() {
+		spyOn(coC_Settings, 'error');
+		expect(engineCore.createCallBackFunction( null, "test" )).toBe(null);
+		expect(coC_Settings.error.calls.count()).toBe(1);
+	});
+	it('should return function if function parameter without arg', function() {
+		spyOn(coC_Settings, 'error');
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj = new TestObj();
+		var result = engineCore.createCallBackFunction( obj, function() {
+			this.test = 1;
+		} );
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(obj.test).toBe( 0 );
+		result();
+		expect(obj.test).toBe( 1 );
+	});
+	it('should return function if function parameter with arg', function() {
+		spyOn(coC_Settings, 'error');
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj = new TestObj();
+		var result = engineCore.createCallBackFunction( obj, function( value ) {
+			this.test = value;
+		}, 3 );
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(obj.test).toBe( 0 );
+		result();
+		expect(obj.test).toBe( 3 );
 	});
 });
