@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Saves, MainView, InputManager
 		'Show the level up page when available',
 		function() {
 			if (MainView.menuButtonIsVisible(MainView.MENU_LEVEL) && CoC.player.str > 0) {
-				EngineCore.levelUpGo();
+				SceneLib.levelUpScene.levelUpGo();
 			}
 		}
 	);
