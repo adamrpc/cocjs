@@ -592,4 +592,30 @@ describe('Factory: EngineCore', function() {
 		expect(text).toEqual( ['Next'] );
 		expect(toolTipText).toEqual( ['Next'] );
 	});
+	it('Should define hideUpDown', function() {
+		expect(engineCore.hideUpDown).toBeDefined();
+	});
+	it('should call mainview and reinitialize oldstats', function() {
+		spyOn(mainView.statsView, 'hideUpDown');
+		coc.oldStats = {
+			oldStr: 1,
+			oldTou: 3,
+			oldSpe: 5,
+			oldInte: 7,
+			oldLib: 11,
+			oldSens: 13,
+			oldLust: 17,
+			oldCor: 19
+		};
+		engineCore.hideUpDown();
+		expect(mainView.statsView.hideUpDown.calls.count()).toBe( 1 );
+		expect(coc.oldStats.oldStr).toBe( 0 );
+		expect(coc.oldStats.oldTou).toBe( 0 );
+		expect(coc.oldStats.oldSpe).toBe( 0 );
+		expect(coc.oldStats.oldInte).toBe( 0 );
+		expect(coc.oldStats.oldLib).toBe( 0 );
+		expect(coc.oldStats.oldSens).toBe( 0 );
+		expect(coc.oldStats.oldLust).toBe( 0 );
+		expect(coc.oldStats.oldCor).toBe( 0 );
+	});
 });
