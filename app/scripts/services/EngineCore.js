@@ -147,6 +147,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			$log.debug( 'Do next setup cancelled by game over' );
 			return;
 		}
+		if(!_.isFunction( event ) ) {
+			$log.error('EngineCore.doNext called with bad arguments', event);
+			return;
+		}
 		EngineCore.choices('Next', obj, event);
 	};
 	//Hide the up/down indicators

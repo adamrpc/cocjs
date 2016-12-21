@@ -540,4 +540,56 @@ describe('Factory: EngineCore', function() {
 		expect(text).toEqual( ['Yes', 'No'] );
 		expect(toolTipText).toEqual( ['Yes', 'No'] );
 	});
+	it('Should define doNext', function() {
+		expect(engineCore.doNext).toBeDefined();
+	});
+	it('should trigger error if called with wrong argument number', function() {
+		spyOn(log, 'error');
+		spyOn(engineCore, 'addButton');
+		spyOn(mainView, 'menu');
+		engineCore.doNext( function() {} ); // Test for a call if migration didn't work
+		expect(log.error.calls.count()).toBe( 1 );
+		expect(mainView.menu.calls.count()).toBe( 0 );
+		expect(engineCore.addButton.calls.count()).toBe( 0 );
+	});
+	it('should do nothing if game is over', function() {
+		spyOn(log, 'debug');
+		spyOn(log, 'error');
+		spyOn(engineCore, 'addButton');
+		spyOn(mainView, 'menu');
+		spyOn(mainView, 'getButtonText').and.callFake(function() { return 'Game Over'; });
+		engineCore.doNext( null, function() {} ); // Test for a call if migration didn't work
+		expect(log.debug.calls.count()).toBe( 1 );
+		expect(log.error.calls.count()).toBe( 0 );
+		expect(mainView.menu.calls.count()).toBe( 0 );
+		expect(engineCore.addButton.calls.count()).toBe( 0 );
+	});
+	it('should create button with function', function() {
+		spyOn(log, 'error');
+		var pos = [];
+		var text = [];
+		var toolTipText = [];
+		spyOn(mainView, 'showBottomButton').and.callFake(function( _pos, _text, callback, _toolTipText ) {
+			pos.push(_pos);
+			text.push(_text);
+			toolTipText.push(_toolTipText);
+			callback();
+		});
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj1 = new TestObj();
+		expect(obj1.test).toBe( 0 );
+		engineCore.doNext(
+			obj1, function() {
+				this.test = 1;
+			}
+		);
+		expect(log.error.calls.count()).toBe( 0 );
+		expect(mainView.showBottomButton.calls.count()).toBe( 1 );
+		expect(obj1.test).toBe( 1 );
+		expect(pos).toEqual( [0] );
+		expect(text).toEqual( ['Next'] );
+		expect(toolTipText).toEqual( ['Next'] );
+	});
 });
