@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			}
 			var bikiniTits = null;
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
+				bikiniTits = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
 			EngineCore.choices( 'Fuck Her', this, dicking, 'Ride Her', this, cunting, 'FuckHerAss', this, buttsmexing, 'B.Titfuck', null, bikiniTits, 'Leave', SceneLib.ceraphFollowerScene, leave );
 		} else {

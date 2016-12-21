@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 				MainView.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
 				var titfuck = null;
 				if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-					titfuck = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
+					titfuck = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
 				}
 				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', null, titfuck, 'Nothing', null, Combat.cleanupAfterCombat );
 			}

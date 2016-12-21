@@ -135,9 +135,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 		//Yes/No;
 		if( CoC.flags[ kFLAGS.TIMES_IN_DEMON_PIT ] === 0 ) {
-			EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, true, true ), this, this.declineRebeccsPlea );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.acceptRebeccsPlea, true, true ), this, this.declineRebeccsPlea );
 		} else {
-			EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, false, true ), this, this.declineRebeccsPlea );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.acceptRebeccsPlea, false, true ), this, this.declineRebeccsPlea );
 		}
 	};
 	//Refuse plea (Z);
@@ -671,7 +671,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			MainView.outputText( '\n\nThis time you fully understand the consequences of another sacrifice.  Do you comply?' );
 			//Yes: Leads to Accept Plea scene. Attitude is raised by 5.;
 			//No: Leads to Refuse Plea scene. Attitude is lowered by 10.;
-			EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, false, true ), this, this.declineRebeccsPlea );
+			EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.acceptRebeccsPlea, false, true ), this, this.declineRebeccsPlea );
 			return;
 		}
 		//[if attitude > 80];
@@ -959,7 +959,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		MainView.outputText( '\n\nIt seems that these villagers have grown weary of your repeated refusals; they are likely to react angrily if you deny them another sacrifice.' );
 		MainView.outputText( '\n\nDo you submit?' );
 		//Yes/No. Yes leads to Accept Plea, Attitude raised by 10. No to Villagers Fight;
-		EngineCore.doYesNo( null, EngineCore.createCallBackFunction2( this, this.acceptRebeccsPlea, false, true ), this, this.fightZeVillagers );
+		EngineCore.doYesNo( null, EngineCore.createCallBackFunction( this, this.acceptRebeccsPlea, false, true ), this, this.fightZeVillagers );
 	};
 	//Villagers Fight (Z, but pretty barebones);
 	Owca.prototype.fightZeVillagers = function() {

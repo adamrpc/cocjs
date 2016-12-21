@@ -316,15 +316,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		MainView.menu();
 		for( var x = 0; x < 5; x++ ) {
 			if( CoC.player.itemSlots[ x ].unlocked ) {
-				EngineCore.addButton( x, (CoC.player.itemSlots[ x ].itype.shortName + ' x' + CoC.player.itemSlots[ x ].quantity), EngineCore.createCallBackFunction2( this, this.replaceItem, itype, x ) );
+				EngineCore.addButton( x, (CoC.player.itemSlots[ x ].itype.shortName + ' x' + CoC.player.itemSlots[ x ].quantity), EngineCore.createCallBackFunction( this, this.replaceItem, itype, x ) );
 			}
 		}
 		if( source !== null ) {
 			this.currentItemSlot = source;
-			EngineCore.addButton( 7, 'Put Back', null, EngineCore.createCallBackFunction2( this, this.returnItemToInventory, itype, false ) );
+			EngineCore.addButton( 7, 'Put Back', null, EngineCore.createCallBackFunction( this, this.returnItemToInventory, itype, false ) );
 		}
 		if( showUseNow && itype instanceof Useable ) {
-			EngineCore.addButton( 8, 'Use Now', null, EngineCore.createCallBackFunction2( this, this.useItemNow, itype, source ) );
+			EngineCore.addButton( 8, 'Use Now', null, EngineCore.createCallBackFunction( this, this.useItemNow, itype, source ) );
 		}
 		EngineCore.addButton( 9, 'Abandon', this, this.callOnAbandon ); //Does not doNext - immediately executes the callOnAbandon function
 	};
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		MainView.menu();
 		for( var x = startSlot; x < endSlot; x++, button++ ) {
 			if( storage[ x ].quantity > 0 ) {
-				EngineCore.addButton( button, (storage[ x ].itype.shortName + ' x' + storage[ x ].quantity), EngineCore.createCallBackFunction2( this, this.pickFrom, storage, x ) );
+				EngineCore.addButton( button, (storage[ x ].itype.shortName + ' x' + storage[ x ].quantity), EngineCore.createCallBackFunction( this, this.pickFrom, storage, x ) );
 			}
 		}
 		EngineCore.addButton( 9, 'Back', this, this.stash );

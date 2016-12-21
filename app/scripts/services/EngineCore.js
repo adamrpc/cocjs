@@ -82,28 +82,13 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( itype !== undefined ) {
 			return itype.description;
 		}
-		return toolTipText;
+		return buttonText;
 	};
 	// returns a function that takes no arguments, and executes function `func` with argument `arg`
-	EngineCore.createCallBackFunction = function( object, func, arg ) {
-		if( !_.isFunction( func ) ) {
-			CoC_Settings.error( 'createCallBackFunction(' + func + ',' + arg + ')' );
-			return null;
-		}
-		if( arg === -9000 || arg === null ) {
-			return function() {
-				return func.call( object );
-			};
-		} else {
-			return function() {
-				return func.call( object, arg );
-			};
-		}
-	};
-	EngineCore.createCallBackFunction2 = function( object, func ) {
+	EngineCore.createCallBackFunction = function( object, func ) {
 		var args = _.drop(_.drop(Array.from( arguments )));
 		if( !_.isFunction( func ) ) {
-			CoC_Settings.error( 'createCallBackFunction2(' + func + ', ' + args + ')' );
+			CoC_Settings.error( 'createCallBackFunction(' + func + ', ' + args + ')' );
 			return null;
 		}
 		return function() {
@@ -114,13 +99,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore.addButtonWithTooltip(pos, text, getButtonToolTipText(text), obj, func1, arg1);
 	};
 	EngineCore.addButtonWithTooltip = function( pos, text, toolTipText, obj, func1, arg1 ) {
-		if(text === undefined) {
+		if( !text ) {
 			text = '';
 		}
-		if(arg1 === undefined) {
+		if( !arg1 ) {
 			arg1 = -9000;
 		}
-		if( func1 === null ) {
+		if( !_.isFunction( func1 ) ) {
+			CoC_Settings.error( 'no function passed to EngineCore.addButtonWithTooltip' );
 			return;
 		}
 		var callback = EngineCore.createCallBackFunction( obj, func1, arg1 );

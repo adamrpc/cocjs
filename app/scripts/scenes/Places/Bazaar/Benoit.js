@@ -308,12 +308,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		for( var slot = 0; slot < 5; slot++ ) {
 			if( CoC.player.itemSlots[ slot ].quantity > 0 && Math.ceil( CoC.player.itemSlots[ slot ].itype.value / sellMod ) >= 1 ) {
 				MainView.outputText( '\n' + Math.ceil( CoC.player.itemSlots[ slot ].itype.value / sellMod ) + ' gems for ' + CoC.player.itemSlots[ slot ].itype.longName + '.' );
-				EngineCore.addButton( slot, (CoC.player.itemSlots[ slot ].itype.shortName + ' x' + CoC.player.itemSlots[ slot ].quantity), EngineCore.createCallBackFunction2( this, this.benoitSellTransact, slot, sellMod ) );
+				EngineCore.addButton( slot, (CoC.player.itemSlots[ slot ].itype.shortName + ' x' + CoC.player.itemSlots[ slot ].quantity), EngineCore.createCallBackFunction( this, this.benoitSellTransact, slot, sellMod ) );
 				totalItems += CoC.player.itemSlots[ slot ].quantity;
 			}
 		}
 		if( totalItems > 1 ) {
-			EngineCore.addButton( 7, 'Sell All', null, EngineCore.createCallBackFunction2( this, this.benoitSellAllTransact, totalItems, sellMod ) );
+			EngineCore.addButton( 7, 'Sell All', null, EngineCore.createCallBackFunction( this, this.benoitSellAllTransact, totalItems, sellMod ) );
 		}
 		EngineCore.addButton( 9, 'Back', this, this.benoitIntro );
 	};

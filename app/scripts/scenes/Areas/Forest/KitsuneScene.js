@@ -101,7 +101,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		else {
 			MainView.outputText( 'Her touch sends involuntary tingles down your spine, and you are drawn ever deeper into her eyes.  She trails a finger along your chin, slipping away from you and beckoning for you to follow her.  Your ' + CoC.player.legs() + ' move with a mind of their own, dragging you along after her as she leads you down a winding path into the darkness.' );
 			// -> Go to 'She leads you deeper and deeper into...'
-			EngineCore.doNext( EngineCore.createCallBackFunction2( this, this.mansion, true, true ) );
+			EngineCore.doNext( EngineCore.createCallBackFunction( this, this.mansion, true, true ) );
 		}
 	};
 
@@ -205,7 +205,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( '"<i>Oh, you\'re no fun,</i>" she says, smirking a bit as you pull away.  "<i>Won\'t you come and play?  I promise that you won\'t be disappointed... my sisters and I will see to that.</i>"\n\n' );
 		MainView.outputText( 'Self-preservation battles with curiosity ' + ((CoC.player.lust > 50) ? 'and lust ' : '' ) + 'as you consider her offer, ' + ((CoC.player.lib < 50) ? 'weighing your chances against the possible dangers.' : 'eying the voluptuous curves that fill out her robes.') );
 		//[Follow { this.mansion(willing = true) }] [Leave]
-		EngineCore.choices( 'Follow', null, EngineCore.createCallBackFunction2( this, this.mansion, true, false ), '', null, null, '', null, null, '', null, null, 'Leave', null, EngineCore.createCallBackFunction( this, this.leaveKitsune, true ) );
+		EngineCore.choices( 'Follow', null, EngineCore.createCallBackFunction( this, this.mansion, true, false ), '', null, null, '', null, null, '', null, null, 'Leave', null, EngineCore.createCallBackFunction( this, this.leaveKitsune, true ) );
 	};
 	//[Leave] (C)
 	KitsuneScene.prototype.leaveKitsune = function( talked ) {
@@ -278,7 +278,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( 'The three ladies close in around you, running their hands over your body and giggling lightly.  You find yourself practically floating among their many tails, drunk on the promise of pleasure as they lead you through the foyer.  They sit you down in front of a long table with a spectacularly opulent spread, and before long you are having your fill of delicacies the likes of which you never dared to dream about.\n\n' );
 		MainView.outputText( 'Your cup never remains empty for long, as one of the sisters is always quick to arrive with a fresh decanter.  The strong alcohol burns your throat as it goes down, and it does not take much before your head is swimming.  You have grown so tipsy by now that you don\'t even register as the girls usher you out of the dining room, only noticing your change of scenery as you feel yourself being pulled down into a warm pool of water.\n\n' );
 		//next
-		EngineCore.doNext( EngineCore.createCallBackFunction2( this, this.nonTentaclePCMansion, willing ) );
+		EngineCore.doNext( EngineCore.createCallBackFunction( this, this.nonTentaclePCMansion, willing ) );
 	};
 	//NON-TENTACLE PC SCENES:
 	KitsuneScene.prototype.nonTentaclePCMansion = function( willing ) {

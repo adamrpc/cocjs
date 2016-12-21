@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( 'Pound Cake - 4 gems.\n', false );
 		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ECLAIR_UNLOCKED ] > 0 ) {
 			MainView.outputText( '\'Special\' Eclair - 10 gems.\n', false );
-			minoCum = EngineCore.createCallBackFunction2( this, this.nomnomnom, 'eclair', 10 );
+			minoCum = EngineCore.createCallBackFunction( this, this.nomnomnom, 'eclair', 10 );
 		}
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00242 ] >= 4 ) {
 			MainView.outputText( 'Giant Chocolate Cupcake - 500 gems.\n', false );
@@ -84,11 +84,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( 'Mouse Co - 10 gems.\n' );
 		MainView.outputText( '\nWhat will you order?', false );
 		MainView.menu();
-		EngineCore.addButton( 0, 'Brownies', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'brownies', 5 ) );
-		EngineCore.addButton( 1, 'Cookies', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cookies', 4 ) );
-		EngineCore.addButton( 2, 'Cupcakes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cupcakes', 3 ) );
-		EngineCore.addButton( 3, 'Doughnuts', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'doughnuts', 5 ) );
-		EngineCore.addButton( 4, 'Pound Cake', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'pound cake', 4 ) );
+		EngineCore.addButton( 0, 'Brownies', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'brownies', 5 ) );
+		EngineCore.addButton( 1, 'Cookies', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'cookies', 4 ) );
+		EngineCore.addButton( 2, 'Cupcakes', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'cupcakes', 3 ) );
+		EngineCore.addButton( 3, 'Doughnuts', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'doughnuts', 5 ) );
+		EngineCore.addButton( 4, 'Pound Cake', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'pound cake', 4 ) );
 		EngineCore.addButton( 5, 'SpecialEclair', null, minoCum );
 		EngineCore.addButton( 6, 'GiantCupcake', this, gcupcake );
 		EngineCore.addButton( 8, 'Ingredients', this, this.ingredientsMenu );
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( '\n\nHe continues.  "<i>Won\'t tell you full recipe.  Made with mouse cocoa, fresh egg, and sugar made from bee honey - heated and strained.  No transformations.  Pinch of salt, mix up, put in pan, bake.  Easy to make lots; popular.  Want one?  Three gems.</i>"' );
 		//[Yes][No];
 		MainView.menu();
-		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'brownies', 3 ) );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'brownies', 3 ) );
 		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Cookie];
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( 'The baker nods at you.  "<i>Cookies good.  Cookies easy, only need butter, sugar, flour, egg, and fig.  Mix batter and put in little circles, mash up figs, put figs in centers of circles, put other circle on top.  Cook cookie.  Also able to just put whatever into batter and make chocolate cookie or anything else, but fig most popular and cheapest.</i>"  He smiles proudly and gestures toward the four-gem cookie display.  Do you buy one?' );
 		//[Yes][No];
 		MainView.menu();
-		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cookies', 4 ) );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'cookies', 4 ) );
 		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Cupcake];
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( '\n\n"<i>Too popular, too cheap.  Always making cupcakes, no time to experiment on recipes.  Want to raise price but cupcakes are best seller and customers get mad.</i>"  A bell rings.  Sighing again, he walks over to the oven and opens it, then pulls out a tray of un-iced cupcakes.  "<i>See?  Making now.  You buying one?  Four... no, still three gems I guess.</i>"' );
 		//[Yes][No];
 		MainView.menu();
-		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'cupcakes', 3 ) );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'cupcakes', 3 ) );
 		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Doughnut];
@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( '\n\n"<i>Fry in hot oil until brown and delicious, lift out with spatula.  Penetrate jam doughnuts with pastry bag and squirt jam like cum into breeding cow... sorry.</i>"  He frowns.  "<i>Take longer to make than other things, even cupcakes.  Can\'t make batches as big because so many kinds.  So doughnuts cost more - five gems.  Still, lots of fun to pound and fry and stuff.  Sell lots when watch shifts change; watchmen come in and clean out doughnut trays.  Want to buy one before next rush starts?</i>"' );
 		//[Yes][No];
 		MainView.menu();
-		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'doughnuts', 5 ) );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'doughnuts', 5 ) );
 		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Pound Cake];
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, Pe
 		MainView.outputText( 'The minotaur snorts again, "<i>\'Baker\'s Special\' pound cake is easy... mix butter and shortening, then sugar and eggs.  Put in little salt and whatever dry stuff needed, like fruits or chocolate.  Add milk too.  Put in narrow pan, bake long time.  Can\'t make batter in bulk though, got to have lots of varieties since not one is more popular than others.  So costs four gems; not as cheap as batch items.  Want a piece?</i>"' );
 		//[Yes][No];
 		MainView.menu();
-		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction2( this, this.nomnomnom, 'pound cake', 4 ) );
+		EngineCore.addButton( 0, 'Yes', null, EngineCore.createCallBackFunction( this, this.nomnomnom, 'pound cake', 4 ) );
 		EngineCore.addButton( 1, 'No', this, this.talkToBaker );
 	};
 	//[Bakery - Talk - Baker - Fox Berry];

@@ -238,7 +238,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( '\n\nDo you want to take advantage of his vulnerable state to sate your lusts?', false );
 			var bikiniTits = null;
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-				bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
+				bikiniTits = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
 			EngineCore.choices( 'Yes', this, this.zealotWinRape, '', null, null, '', null, null, 'B.Titfuck', null, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
 		} else {

@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		var useSandTarpsHand = null;
 		var bikiniTits = null;
 		if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-			bikiniTits = EngineCore.createCallBackFunction2( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
+			bikiniTits = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 		}
 		//Requirements: Player is naga with tail and fangs, has met desert naga as naga at least once
 		if( CoC.player.isNaga() && CoC.player.findStatusAffect( StatusAffects.Naga ) >= 0 && CoC.player.gender > 0 && CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS ) {
