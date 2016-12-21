@@ -197,4 +197,63 @@ describe('Factory: EngineCore', function() {
 		result();
 		expect(obj.test).toBe( 3 );
 	});
+	it('Should define createCallBackFunction2', function() {
+		expect(engineCore.createCallBackFunction2).toBeDefined();
+	});
+	it('should return null and trigger error if no parameter', function() {
+		spyOn(coC_Settings, 'error');
+		expect(engineCore.createCallBackFunction2()).toBe(null);
+		expect(coC_Settings.error.calls.count()).toBe(1);
+	});
+	it('should return null and trigger error if non function parameter', function() {
+		spyOn(coC_Settings, 'error');
+		expect(engineCore.createCallBackFunction2( null, "test" )).toBe(null);
+		expect(coC_Settings.error.calls.count()).toBe(1);
+	});
+	it('should return function if function parameter without arg', function() {
+		spyOn(coC_Settings, 'error');
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj = new TestObj();
+		var result = engineCore.createCallBackFunction2( obj, function() {
+			this.test = 1;
+		} );
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(obj.test).toBe( 0 );
+		result();
+		expect(obj.test).toBe( 1 );
+	});
+	it('should return function if function parameter with 1 arg', function() {
+		spyOn(coC_Settings, 'error');
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj = new TestObj();
+		var result = engineCore.createCallBackFunction2( obj, function( value ) {
+			this.test = value;
+		}, 3 );
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(obj.test).toBe( 0 );
+		result();
+		expect(obj.test).toBe( 3 );
+	});
+	it('should return function if function parameter with multiple args', function() {
+		spyOn(coC_Settings, 'error');
+		function TestObj() {
+			this.test1 = 0;
+			this.test2 = 0;
+		}
+		var obj = new TestObj();
+		var result = engineCore.createCallBackFunction2( obj, function( value1, value2 ) {
+			this.test1 = value1;
+			this.test2 = value2;
+		}, 3, 7 );
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(obj.test1).toBe( 0 );
+		expect(obj.test2).toBe( 0 );
+		result();
+		expect(obj.test1).toBe( 3 );
+		expect(obj.test2).toBe( 7 );
+	});
 });

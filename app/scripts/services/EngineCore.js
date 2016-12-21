@@ -104,6 +104,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		var args = _.drop(_.drop(Array.from( arguments )));
 		if( !_.isFunction( func ) ) {
 			CoC_Settings.error( 'createCallBackFunction2(' + func + ', ' + args + ')' );
+			return null;
 		}
 		return function() {
 			return func.apply( object, args );
