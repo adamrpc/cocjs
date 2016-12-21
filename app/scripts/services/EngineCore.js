@@ -135,6 +135,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		});
 	};
 	EngineCore.doYesNo = function( objYes, eventYes, objNo, eventNo ) {
+		if(!_.isFunction( eventYes ) || !_.isFunction( eventNo ) ) {
+			$log.error('EngineCore.doYesNo called with bad arguments', eventYes, eventNo);
+			return;
+		}
 		EngineCore.choices('Yes', objYes, eventYes, 'No', objNo, eventNo);
 	};
 	EngineCore.doNext = function( obj, event ) {

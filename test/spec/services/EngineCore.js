@@ -390,7 +390,7 @@ describe('Factory: EngineCore', function() {
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
 	it('should create buttons with functions', function() {
-		spyOn(coC_Settings, 'error');
+		spyOn(log, 'error');
 		var pos = [];
 		var text = [];
 		var toolTipText = [];
@@ -425,7 +425,7 @@ describe('Factory: EngineCore', function() {
 				this.test = 11;
 			}
 		);
-		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(log.error.calls.count()).toBe( 0 );
 		expect(mainView.showBottomButton.calls.count()).toBe( 4 );
 		expect(obj1.test).toBe( 1 );
 		expect(obj2.test).toBe( 3 );
@@ -448,7 +448,7 @@ describe('Factory: EngineCore', function() {
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
 	it('should create buttons with functions', function() {
-		spyOn(coC_Settings, 'error');
+		spyOn(log, 'error');
 		var pos = [];
 		var text = [];
 		var toolTipText = [];
@@ -483,7 +483,7 @@ describe('Factory: EngineCore', function() {
 				this.test = 11;
 			}
 		);
-		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(log.error.calls.count()).toBe( 0 );
 		expect(mainView.showBottomButton.calls.count()).toBe( 4 );
 		expect(obj1.test).toBe( 1 );
 		expect(obj2.test).toBe( 3 );
@@ -492,5 +492,52 @@ describe('Factory: EngineCore', function() {
 		expect(pos).toEqual( [0, 1, 2, 3] );
 		expect(text).toEqual( ['test1', 'test2', 'test3', 'C.Cloth x2'] );
 		expect(toolTipText).toEqual( ['aaa', 'bbb', 'ccc', 'ddd'] );
+	});
+	
+	it('Should define doYesNo', function() {
+		expect(engineCore.doYesNo).toBeDefined();
+	});
+	it('should return trigger error if called with wrong argument number', function() {
+		spyOn(log, 'error');
+		spyOn(engineCore, 'addButton');
+		spyOn(mainView, 'menu');
+		engineCore.doYesNo( function() {}, function() {} ); // Test for a call if migration didn't work
+		expect(log.error.calls.count()).toBe( 1 );
+		expect(mainView.menu.calls.count()).toBe( 0 );
+		expect(engineCore.addButton.calls.count()).toBe( 0 );
+	});
+	it('should create buttons with functions', function() {
+		spyOn(log, 'error');
+		var pos = [];
+		var text = [];
+		var toolTipText = [];
+		spyOn(mainView, 'showBottomButton').and.callFake(function( _pos, _text, callback, _toolTipText ) {
+			pos.push(_pos);
+			text.push(_text);
+			toolTipText.push(_toolTipText);
+			callback();
+		});
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj1 = new TestObj();
+		var obj2 = new TestObj();
+		expect(obj1.test).toBe( 0 );
+		expect(obj2.test).toBe( 0 );
+		engineCore.doYesNo(
+			obj1, function() {
+				this.test = 1;
+			},
+			obj2, function() {
+				this.test = 3;
+			}
+		);
+		expect(log.error.calls.count()).toBe( 0 );
+		expect(mainView.showBottomButton.calls.count()).toBe( 2 );
+		expect(obj1.test).toBe( 1 );
+		expect(obj2.test).toBe( 3 );
+		expect(pos).toEqual( [0, 1] );
+		expect(text).toEqual( ['Yes', 'No'] );
+		expect(toolTipText).toEqual( ['Yes', 'No'] );
 	});
 });
