@@ -7,7 +7,9 @@ describe('Factory: EngineCore', function() {
 	var perkLib;
 	var mainView;
 	var coC_Settings;
-	beforeEach(inject(function(EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings) {
+	var log;
+	beforeEach(inject(function( $log, EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings) {
+		log = $log;
 		engineCore = EngineCore;
 		coc = CoC;
 		perkLib = PerkLib;
@@ -374,5 +376,121 @@ describe('Factory: EngineCore', function() {
 		expect(pos).toBe( 7 );
 		expect(text).toBe( 'C.Cloth x2' );
 		expect(toolTipText).toBe( 'aaa' );
+	});
+	it('Should define choices', function() {
+		expect(engineCore.choices).toBeDefined();
+	});
+	it('should return trigger error if called with wrong argument number', function() {
+		spyOn(log, 'error');
+		spyOn(engineCore, 'addButton');
+		spyOn(mainView, 'menu');
+		engineCore.choices( '', function() {}, '', function() {}, '', function() {}, '', function() {} ); // Test for a call if migration didn't work
+		expect(log.error.calls.count()).toBe( 1 );
+		expect(mainView.menu.calls.count()).toBe( 0 );
+		expect(engineCore.addButton.calls.count()).toBe( 0 );
+	});
+	it('should create buttons with functions', function() {
+		spyOn(coC_Settings, 'error');
+		var pos = [];
+		var text = [];
+		var toolTipText = [];
+		spyOn(mainView, 'showBottomButton').and.callFake(function( _pos, _text, callback, _toolTipText ) {
+			pos.push(_pos);
+			text.push(_text);
+			toolTipText.push(_toolTipText);
+			callback();
+		});
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj1 = new TestObj();
+		var obj2 = new TestObj();
+		var obj3 = new TestObj();
+		var obj4 = new TestObj();
+		expect(obj1.test).toBe( 0 );
+		expect(obj2.test).toBe( 0 );
+		expect(obj3.test).toBe( 0 );
+		expect(obj4.test).toBe( 0 );
+		engineCore.choices(
+			'test1', obj1, function() {
+				this.test = 1;
+			},
+			'test2', obj2, function() {
+				this.test = 3;
+			},
+			'test3', obj3, function() {
+				this.test = 7;
+			},
+			'C.Cloth x2', obj4, function() {
+				this.test = 11;
+			}
+		);
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(mainView.showBottomButton.calls.count()).toBe( 4 );
+		expect(obj1.test).toBe( 1 );
+		expect(obj2.test).toBe( 3 );
+		expect(obj3.test).toBe( 7 );
+		expect(obj4.test).toBe( 11 );
+		expect(pos).toEqual( [0, 1, 2, 3] );
+		expect(text).toEqual( ['test1', 'test2', 'test3', 'C.Cloth x2'] );
+		expect(toolTipText).toEqual( ['test1', 'test2', 'test3', 'These loose fitting and comfortable clothes allow you to move freely while protecting you from the elements.  (DEF) (Cost: 0)'] );
+	});
+	it('Should define choicesWithTooltip', function() {
+		expect(engineCore.choicesWithTooltip).toBeDefined();
+	});
+	it('should return trigger error if called with wrong argument number', function() {
+		spyOn(log, 'error');
+		spyOn(engineCore, 'addButton');
+		spyOn(mainView, 'menu');
+		engineCore.choicesWithTooltip( '', '', function() {}, '', '', function() {}, '', '', function() {} ); // Test for a call if migration didn't work
+		expect(log.error.calls.count()).toBe( 1 );
+		expect(mainView.menu.calls.count()).toBe( 0 );
+		expect(engineCore.addButton.calls.count()).toBe( 0 );
+	});
+	it('should create buttons with functions', function() {
+		spyOn(coC_Settings, 'error');
+		var pos = [];
+		var text = [];
+		var toolTipText = [];
+		spyOn(mainView, 'showBottomButton').and.callFake(function( _pos, _text, callback, _toolTipText ) {
+			pos.push(_pos);
+			text.push(_text);
+			toolTipText.push(_toolTipText);
+			callback();
+		});
+		function TestObj() {
+			this.test = 0;
+		}
+		var obj1 = new TestObj();
+		var obj2 = new TestObj();
+		var obj3 = new TestObj();
+		var obj4 = new TestObj();
+		expect(obj1.test).toBe( 0 );
+		expect(obj2.test).toBe( 0 );
+		expect(obj3.test).toBe( 0 );
+		expect(obj4.test).toBe( 0 );
+		engineCore.choicesWithTooltip(
+			'test1', 'aaa', obj1, function() {
+				this.test = 1;
+			},
+			'test2', 'bbb', obj2, function() {
+				this.test = 3;
+			},
+			'test3', 'ccc', obj3, function() {
+				this.test = 7;
+			},
+			'C.Cloth x2', 'ddd', obj4, function() {
+				this.test = 11;
+			}
+		);
+		expect(coC_Settings.error.calls.count()).toBe( 0 );
+		expect(mainView.showBottomButton.calls.count()).toBe( 4 );
+		expect(obj1.test).toBe( 1 );
+		expect(obj2.test).toBe( 3 );
+		expect(obj3.test).toBe( 7 );
+		expect(obj4.test).toBe( 11 );
+		expect(pos).toEqual( [0, 1, 2, 3] );
+		expect(text).toEqual( ['test1', 'test2', 'test3', 'C.Cloth x2'] );
+		expect(toolTipText).toEqual( ['aaa', 'bbb', 'ccc', 'ddd'] );
 	});
 });

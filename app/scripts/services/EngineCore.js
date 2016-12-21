@@ -113,21 +113,23 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.showBottomButton( pos, text, callback, toolTipText );
 	};
 	EngineCore.choices = function() { //New typesafe version
-		MainView.menu();
 		var args = Array.from( arguments );
 		if(args.length % 3 !== 0) {
 			$log.error('Bad arguments number.');
+			return;
 		}
+		MainView.menu();
 		_.forEach(_.range(0, args.length - 1, 3), function(choice, index) {
 			EngineCore.addButton( index, args[choice], args[choice + 1], args[choice + 2] );
 		});
 	};
 	EngineCore.choicesWithTooltip = function() { //New typesafe version
-		MainView.menu();
 		var args = Array.from( arguments );
 		if(args.length % 4 !== 0) {
 			$log.error('Bad arguments number.');
+			return;
 		}
+		MainView.menu();
 		_.forEach(_.range(0, args.length - 1, 4), function(choice, index) {
 			EngineCore.addButtonWithTooltip( index, args[choice], args[choice + 1], args[choice + 2], args[choice + 3] );
 		});
