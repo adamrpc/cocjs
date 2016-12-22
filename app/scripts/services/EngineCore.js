@@ -157,14 +157,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.hideUpDown = function() {
 		MainView.statsView.hideUpDown();
 		//Clear storage values so up/down arrows can be properly displayed
-		CoC.oldStats.oldStr = 0;
-		CoC.oldStats.oldTou = 0;
-		CoC.oldStats.oldSpe = 0;
-		CoC.oldStats.oldInte = 0;
-		CoC.oldStats.oldLib = 0;
-		CoC.oldStats.oldSens = 0;
-		CoC.oldStats.oldLust = 0;
-		CoC.oldStats.oldCor = 0;
+		_.forOwn(CoC.oldStats, function(value, key) {
+			CoC.oldStats[key] = CoC.player[key];
+		});
 	};
 	EngineCore.physicalCost = function( mod ) {
 		var costPercent = 100;
@@ -765,16 +760,9 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//These are reset when up/down arrows are hidden with
 		//hideUpDown();
 		//Just check str because they are either all 0 or real values
-		if( CoC.oldStats.oldStr === 0 ) {
-			CoC.oldStats.oldStr = CoC.player.str;
-			CoC.oldStats.oldTou = CoC.player.tou;
-			CoC.oldStats.oldSpe = CoC.player.spe;
-			CoC.oldStats.oldInte = CoC.player.inte;
-			CoC.oldStats.oldLib = CoC.player.lib;
-			CoC.oldStats.oldSens = CoC.player.sens;
-			CoC.oldStats.oldLust = CoC.player.lust;
-			CoC.oldStats.oldCor = CoC.player.cor;
-		}
+		_.forOwn(CoC.oldStats, function(value, key) {
+			CoC.oldStats[key] = CoC.player[key];
+		});
 		//MOD CHANGES FOR PERKS
 		//Bimbos learn slower
 		if( !noBimbo ) {

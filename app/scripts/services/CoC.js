@@ -77,15 +77,15 @@ angular.module('cocjs').factory('CoC', function ( ) {
 
 		//Used for stat tracking to keep up/down arrows correct.
 		that.oldStats = {};
-		that.oldStats.oldStr  = 0;
-		that.oldStats.oldTou  = 0;
-		that.oldStats.oldSpe  = 0;
-		that.oldStats.oldInte = 0;
-		that.oldStats.oldSens = 0;
-		that.oldStats.oldLib  = 0;
-		that.oldStats.oldCor  = 0;
-		that.oldStats.oldHP   = 0;
-		that.oldStats.oldLust = 0;
+		that.oldStats.str  = 0;
+		that.oldStats.tou  = 0;
+		that.oldStats.spe  = 0;
+		that.oldStats.inte = 0;
+		that.oldStats.sens = 0;
+		that.oldStats.lib  = 0;
+		that.oldStats.cor  = 0;
+		that.oldStats.HP   = 0;
+		that.oldStats.lust = 0;
 		// ******************************************************************************************
 	};
     // TODO : WTF is it doing here ?

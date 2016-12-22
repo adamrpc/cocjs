@@ -8,13 +8,15 @@ describe('Factory: EngineCore', function() {
 	var mainView;
 	var coC_Settings;
 	var log;
-	beforeEach(inject(function( $log, EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings) {
+	var PlayerConstructor;
+	beforeEach(inject(function( $log, EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings, Player) {
 		log = $log;
 		engineCore = EngineCore;
 		coc = CoC;
 		perkLib = PerkLib;
 		mainView = MainView;
 		coC_Settings = CoC_Settings;
+		PlayerConstructor = Player;
 	}));
 	it('Should define EngineCore', function() {
 		expect(engineCore).toBeDefined();
@@ -597,25 +599,19 @@ describe('Factory: EngineCore', function() {
 	});
 	it('should call mainview and reinitialize oldstats', function() {
 		spyOn(mainView.statsView, 'hideUpDown');
-		coc.oldStats = {
-			oldStr: 1,
-			oldTou: 3,
-			oldSpe: 5,
-			oldInte: 7,
-			oldLib: 11,
-			oldSens: 13,
-			oldLust: 17,
-			oldCor: 19
-		};
+		coc.player = new PlayerConstructor();
+		var i = 1;
+		expect(_.keys(coc.oldStats).length ).toBeGreaterThan( 0 );
+		_.forOwn(coc.oldStats, function(value, key) {
+			coc.oldStats[key] = i++;
+		});
+		_.forOwn(coc.oldStats, function( value ) {
+			expect( value ).not.toBe( 0 );
+		});
 		engineCore.hideUpDown();
 		expect(mainView.statsView.hideUpDown.calls.count()).toBe( 1 );
-		expect(coc.oldStats.oldStr).toBe( 0 );
-		expect(coc.oldStats.oldTou).toBe( 0 );
-		expect(coc.oldStats.oldSpe).toBe( 0 );
-		expect(coc.oldStats.oldInte).toBe( 0 );
-		expect(coc.oldStats.oldLib).toBe( 0 );
-		expect(coc.oldStats.oldSens).toBe( 0 );
-		expect(coc.oldStats.oldLust).toBe( 0 );
-		expect(coc.oldStats.oldCor).toBe( 0 );
+		_.forOwn(coc.oldStats, function( value ) {
+			expect( value ).toBe( 0 );
+		});
 	});
 });

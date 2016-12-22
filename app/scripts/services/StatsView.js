@@ -56,16 +56,12 @@ angular.module( 'cocjs' ).factory( 'StatsView', function($log, CoC) {
 		this.mainView.hideLevelUp();
 	};
 	StatsView.prototype.showUpDown = function() {
-		function _oldStatNameFor( statName ) {
-			return 'old' + statName.charAt( 0 ).toUpperCase() + statName.substr( 1 );
-		}
 		var that = this;
-		_.forEach( [ 'str', 'tou', 'spe', 'inte', 'lib', 'sens', 'cor', 'lust' ], function( statName ) {
-			var oldStatName = _oldStatNameFor( statName );
-			if( CoC.player[ statName ] > CoC.oldStats[ oldStatName ] ) {
+		_.forOwn( CoC.oldStats, function( value, statName ) {
+			if( CoC.player[ statName ] > CoC.oldStats[ statName ] ) {
 				that.showStatUp( statName );
 			}
-			if( CoC.player[ statName ] < CoC.oldStats[ oldStatName ] ) {
+			if( CoC.player[ statName ] < CoC.oldStats[ statName ] ) {
 				that.showStatDown( statName );
 			}
 		} );
