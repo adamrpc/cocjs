@@ -125,7 +125,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
 			CoC.flags[ kFLAGS.MARBLE_GROSSED_OUT_BECAUSE_WORM_INFESTATION ] = 0;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) >= 0 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) >= 0 && !CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			//Decrement time remaining by 1		;
 			CoC.player.addStatusValue( StatusAffects.MarblesMilk, 1, -1 );
 			//Remove the status and stat boosts when time runs out on the milk;
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			}
 		}
 		//Go into withdrawl if your addicted and don't have a reason not to be withdrawn.;
-		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 && CoC.player.statusAffectv2( StatusAffects.Marble ) > 25 ) {
+		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && !CoC.player.findPerk( PerkLib.MarbleResistant ) && !CoC.player.findPerk( PerkLib.MarblesMilk ) && CoC.player.statusAffectv2( StatusAffects.Marble ) > 25 ) {
 			//If player does not have marble's milk or bottled milk, go into withdrawl;
 			if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) < 0 && CoC.player.findStatusAffect( StatusAffects.BottledMilk ) < 0 ) {
 				//If player is not yet in withdrawl;
@@ -221,7 +221,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			return true;
 		}
 		//End addiction (occurs after the player wakes up when their addiction is under 25 && is not permanently addicted);
-		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && CoC.player.statusAffectv2( StatusAffects.Marble ) < 25 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 && CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 && CoC.time.hours === 6 ) {
+		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && CoC.player.statusAffectv2( StatusAffects.Marble ) < 25 && !CoC.player.findPerk( PerkLib.MarblesMilk ) && !CoC.player.findPerk( PerkLib.MarbleResistant ) && CoC.time.hours === 6 ) {
 			MainView.spriteSelect( 41 );
 			MainView.outputText( '\nYou wake up feeling strangely at ease, having slept better than you have in a long while.  After a minute, you realize that you don\'t feel a need to drink Marble\'s milk anymore!  You are free of your addiction.  You hurry off to the farm to give her the news.\n\n', false );
 			MainView.outputText( 'You find Marble in her room.  When you come in she looks up at you and starts.  "<i>What happened?</i>" she asks, "<i>Something about you is completely different from before...</i>"  You explain to her that you\'ve gotten over your addiction and no longer crave her milk.\n', false );
@@ -313,7 +313,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			return true;
 		}
 		//Become permanently addicted (occurs when the player goes to sleep with addiction 100, before it is reduced by the standard 1):;
-		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && CoC.player.statusAffectv2( StatusAffects.Marble ) >= 100 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 && CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 && CoC.time.hours === 6 ) {
+		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && CoC.player.statusAffectv2( StatusAffects.Marble ) >= 100 && !CoC.player.findPerk( PerkLib.MarblesMilk ) && !CoC.player.findPerk( PerkLib.MarbleResistant ) && CoC.time.hours === 6 ) {
 			MainView.spriteSelect( 41 );
 			MainView.outputText( '\nYou wake up feeling like something has changed.  With slightly chilling clarity, you realize that you have finally become completely and utterly dependent on Marble\'s milk; you must drink her milk every day, or you will die.  There is nothing that can be done to change that at this point.  You hurry over to the farm; you have to drink Marble\'s milk, NOW.\n\n', false );
 			MainView.outputText( 'You find Marble in her room.  When you come in she looks up at you and smiles deeply.  "<i>What happened?</i>" she asks, "<i>Something about you feels so wonderful and right.</i>"  You explain to her that you\'ve finally become entirely dependent on her milk.\n', false );
@@ -421,7 +421,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			return true;
 		}
-		if( this.checkedMarbleMilk++ === 0 && CoC.time.hours === 6 && CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( this.checkedMarbleMilk++ === 0 && CoC.time.hours === 6 && CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			//Marble is at camp;
 			if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
 				this.postAddictionCampMornings( false );
@@ -602,7 +602,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( 'You\'ve gathered a bit of a crowd around you now, thanks to the noise of this cow clunking around with her huge hooves and hammer.  It might not be a terribly good idea to rape Marble...  you\'d have to drag her up to her room just to avoid interruption and Whitney would likely find out and be upset.  What do you do?' );
 		//Options, rape in room, milk (Spy's submission - not included yet) and, don't rape.;
 		var feed = null;
-		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 || CoC.player.lactationQ() > 200 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) || CoC.player.lactationQ() > 200 ) {
 			feed = this.forceFeedMarble;
 		}
 		EngineCore.choices( 'Feed Her', this, feed, 'RapeInRoom', this, this.rapeMarbleInHerRoom, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.clearOutput();
 		MainView.spriteSelect( 41 );
 		//[If player has Feeder perk];
-		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) ) {
 			MainView.outputText( 'You bet this cow-girl loves to get milked and nursed on just like you, but how often does she get to taste the creamy sweetness of milk?  Having her suck on your own leaky tits would be doing her a favor, right?  You approach the defeated cow-girl; her eyes are still locked onto you, wondering what you\'re going to do next.  Well, not that you can do much with this crowd watching you...\n\n' );
 		}
 		MainView.outputText( 'You never really noticed how many people live on this farm until now.  They\'re all probably expecting you to rape her - and not all of them are reconciled to the idea, judging by the looks you\'re getting.  What the hell, you might as well continue your business with these on-lookers around anyway... you\'re like 99% sure you won\'t be in trouble for feeding a cow.' );
@@ -1532,7 +1532,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		MainView.outputText( '\n\nThe whole time, you are ', false );
 		//[CoC.player is no longer addicted];
-		if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 			MainView.outputText( 'uncomfortably ', false );
 		}
 		MainView.outputText( 'aware of the smell of Marble\'s milk.', false );
@@ -1628,10 +1628,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				MainView.outputText( '\n\nShe goes on about how she was exploring the mountains and easily dispatching those of demonic taint that wanted to have their way with her.  After wandering around for a few weeks, something a bit more interesting happened.  "<i>That was when I met the first man I tried to strike up a relationship with.  He was a big strong minotaur that smelled absolutely incredible... but he was a dick.</i>"  She shakes her head.  "<i>He tasted my milk once, and I tasted his cum in turn.  Then the next day, he wanted to force that massive cock of his into my womanhood, even though it obviously wasn\'t going to fit a young girl like me.  I told him no, and he didn\'t like that, and down came my hammer.  I felt bad about it at first...</i>"  She shakes her head again.  "<i>But then when he woke up he decided he wanted to try and force me again!  After that I had his meat on a plate and I was done with him.</i>"  Her smile at this declaration is more than a little intimidating.  She tells you the only thing that she really remembers vividly from her time with the minotaur was just how wonderful her first nursing was.' );
 				MainView.outputText( '\n\n"<i>I left the mountains behind not long after that.  At the time, I thought that I needed to find someone smaller that wasn\'t going to give me much trouble.  A few years later I chanced upon a nice-looking husky-dog boy named Ansgar.  We actually got along really well, and he loved nursing me so much.  Though, about a week into it, he just walked up to me and said that he couldn\'t nurse from me anymore.  I was furious at him, and I just blew up in his face over his refusal.  At the end of it all, his hands started shaking and he ran off.</i>"  She stops at this and says sadly, "<i>I never saw him again.</i>"' );
 				//[if PC is in the addiction quest or Marble is in camp] ;
-				if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 2 || CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+				if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 2 || CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 					MainView.outputText( '\n\n"<i>I guess it\'s pretty obvious now why he said he had to stop; he realized he was addicted. I just wish he\'d told me at the time so that I knew...</i>" She sighs.' );
 				}//[If PC said they want the addiction and (the quest is still on or the PC is addicted)];
-				else if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 || CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+				else if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 || CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 					MainView.outputText( '\n\n"<i>I guess it\'s pretty obvious now why he said he had to stop; he realized he was addicted.  It\'s too bad he didn\'t know how wonderful it is, isn\'t it?</i>" She winks at you.' );
 				}
 				MainView.outputText( '\n\nHer expression changes and she concludes, "<i>But that\'s enough talking about the past and old regrets for now.</i>"' );
@@ -1641,7 +1641,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			case 5:
 				//Next love, Marble's problem;
 				MainView.outputText( 'This time it\'s you who spends a fair bit talking about your own love life back home - or lack thereof, as it seemed to you sometimes.  After you finish, you notice that Marble is looking off to the side.  She turns back to you and thanks you for sharing.  You ask her if she doesn\'t mind continuing where you left off last time.  "<i>' );
-				if( CoC.player.findPerk( PerkLib.HistorySlut ) >= 0 || CoC.player.findPerk( PerkLib.HistoryWhore ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.HistorySlut ) || CoC.player.findPerk( PerkLib.HistoryWhore ) ) {
 					MainView.outputText( 'Well, you certainly gave an arousing description.  I think I can share something in return.' );
 				} else if( CoC.player.cor < 33 ) {
 					MainView.outputText( 'Sweetie, after you told me such a nice story, of course I will.' );
@@ -1707,7 +1707,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( '', true );
 		MainView.outputText( 'Smiling, Whitney suggests that you go help Marble out with her chores.  You readily agree and go out to meet with her.  Afterwards, Marble offers you a bottle of her milk.  ', false );
 		//[if player is no longer addicted];
-		if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 			MainView.outputText( 'She assures you that you can\'t get addicted to it again if you don\'t drink her milk directly from her breasts.', false );
 		}
 		//(randomly raise either str or spd);
@@ -1739,7 +1739,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		if( !CoC.player.hasItem( ConsumableLib.M__MILK, 5 ) ) {
 			MainView.outputText( '\n\nAs you are about to leave, Marble hands you a bottle of her milk.  ', false );
 			//[if the player is no longer addicted];
-			if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 				MainView.outputText( 'She assures you that you\'ll be fine as long as you don\'t drink directly from her breasts.', false );
 			}
 			//(CoC.player gains a bottle of Marble's milk);
@@ -2077,7 +2077,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			CoC.player.createStatusAffect( StatusAffects.Marble, 0, 0, 0, 40 );
 		}
 		//Values only change if not brought to conclusion;
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 && CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.MarblesMilk ) && !CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 			CoC.player.addStatusValue( StatusAffects.Marble, 1, affection );
 			CoC.player.addStatusValue( StatusAffects.Marble, 2, addiction );
 		}
@@ -2372,7 +2372,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.spriteSelect( 41 );
 		MainView.clearOutput();
 		MainView.outputText( 'You approach Marble and tell her that you need a bit of space and some time away from her.  She freezes at your words, and asks you to repeat yourself.  You do so and she nods, her face almost impassive.  "<i>I guess I\'ll go back to the farm.  ' );
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'I\'ll see you there when you need my milk, alright?' );
 		} else {
 			MainView.outputText( 'I\'ll see you later then.' );
@@ -2421,7 +2421,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//The player has cleared the factory and shut it down;
 		else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 3 ) {
 			MainView.outputText( 'You tell Marble about what you found inside the factory.  She is horrified at what was being done to the other champions and assures you that no one should ever <i>belong</i> in a place like that. You continue and tell of the overseer and her fate. Marble reacts with surprise, ', false );
-			if( CoC.player.findPerk( PerkLib.OmnibusGift ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.OmnibusGift ) ) {
 				MainView.outputText( 'and hopes that you\'ve learned your lesson about accepting <i>gifts</i> from demons.  ', false );
 			} else {
 				MainView.outputText( 'but concludes that what you did was probably for the best.  At least you didn\'t fall for her trick.  ', false );
@@ -2437,18 +2437,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//The player has met the corrupted Marae after blowing the storage tanks;
 		else if( CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 4 ) {
 			MainView.outputText( 'Your story about what had happened to Marae seems to have shaken up Marble a little.  Though, you notice that she seems to be getting more and more aroused as you relate your story.  ', false );
-			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) ) {
 				MainView.outputText( 'You continue and tell her how your attempt to get Marae\'s Lithicite turned out.  Marble can\'t believe you tried that, but when she hears what happened next, her eyes go wide and she actually starts masturbating in front of you.  At the end of your tale, however, Marble looks more concerned than aroused.  She hopes you won\'t have too much trouble with pregnancies. That seemed to have killed the mood for her, too.', false );
 			}//[[EDITOR'S NOTE: The original said 'I can\'t believe that tried that.' I was unsure about the context, if it originally meant 'you tried that' or 'it tried that', so I went with the former. If I'm wrong here, my bad.]];
-			else if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) >= 0 ) {
+			else if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) ) {
 				MainView.outputText( 'You continue and tell her how your attempt to get Marae\'s Lithicite turned out.  Marble can\'t believe you tried that, but when she hears what happened next, her eyes go wide and she actually starts masturbating in front of you.  At the end of your tale, Marble looks at you a bit nervously and asks, "<i>So sweetie, does that mean you\'re going to breed with me?</i>" <i>Hmm, </i> you think, <i>might not be a bad idea.</i>', false );
 			}
 			//increase the player's lust by 35 if they are under 50, so they can breed right away;
 			if( CoC.player.lust < 50 ) {
 				EngineCore.dynStats( 'lus', 35 );
 			}
-			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) < 0 &&
-				CoC.player.findPerk( PerkLib.MaraesGiftStud ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.MaraesGiftFertility ) &&
+				!CoC.player.findPerk( PerkLib.MaraesGiftStud ) ) {
 				MainView.outputText( 'You finish your tale by recounting how you ran away.  She isn\'t really sure how to respond to your decision, but Marble does thank you for not leaving her behind and joining Marae.', false );
 			}
 			CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] = 4;
@@ -2553,7 +2553,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( 'Marble is a loyal friend and lover who has decided to help you with your quest.  She can be interacted with while she is at camp.  ', true );
 		MainView.outputText( 'She can share some of her thoughts and give advice on your current situation, or supply you with bottles of her milk and other useful items that she has found while scavenging.  You can also get Marble to consume some of the items you find.\n\n', false );
 		//explain morning drinking sessions if the player is an addict;
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'She will nurse you every morning automatically to satisfy your addiction.  ', false );
 			//otherwise tell the player that drinking bottles of her milk is safe;
 		} else {
@@ -2598,7 +2598,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			if( CoC.player.hasItem( ConsumableLib.LACTAID, 1 ) ) {
 				return true;
 			}
-		} else if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		} else if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			return true;
 		}
 		return false;
@@ -2638,7 +2638,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			if( CoC.player.hasItem( ConsumableLib.LACTAID, 1 ) ) {
 				EngineCore.addButton( 0, 'Lactaid', SceneLib.marblePurification, SceneLib.marblePurification.lactaidForPureMurble );
 			}
-		} else if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		} else if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			EngineCore.addButton( 0, 'Lactaid', this, this.giveMarbleLactaid );
 		}
 		EngineCore.addButton( 9, 'Back', this, this.interactWithMarbleAtCamp );
@@ -2682,7 +2682,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//Non nagas && nontaurs;
 		if( !CoC.player.isNaga() ) {
 			//Feeding;
-			if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 && CoC.player.gender > 0 && Utils.rand( 2 ) === 0 ) {
+			if( CoC.player.findPerk( PerkLib.MarblesMilk ) && CoC.player.gender > 0 && Utils.rand( 2 ) === 0 ) {
 				//Marble nursing + release scene (not yet formatted) (Z);
 				//Requirements :;
 				//- PC is not a centaur;
@@ -2864,7 +2864,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				//[if cock];
 				if( CoC.player.hasCock() ) {
 					MainView.outputText( '\n\nYour [cock] palpitates, tip twitching on its own against Marble\'s throat as it liberates your milky essence.  Marble eagerly gulps, drinking with avidity that reminds you of how you ' );
-					if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+					if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 						MainView.outputText( 'usually' );
 					} else {
 						MainView.outputText( 'used to' );
@@ -3110,7 +3110,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		var raped = false; //records whether or not the player was successful in raping Marble
 		MainView.outputText( '', true );
 		MainView.outputText( 'You decide that rather than helping her, you are going to roughly manhandle her breasts and rape her.  You suddenly grab at her breasts and squeeze them roughly, at which point she screams and ', false );
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) ) {
 			MainView.outputText( 'tries to slap you.  You easily duck under her hand and start twisting her nipples.  She squeals and begins to go limp under your painful ministrations.  You move her around and force her to kneel, pushing her face down into her bed.  Keeping one of your hands on her nipple, you pull down her skirt and expose her beautiful womanhood and asshole.\n\n', false );
 			raped = true;
 		} else if( CoC.player.str >= 80 ) {
@@ -3385,7 +3385,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				}
 				MainView.outputText( '.  The little girl\'s face is a really pretty one; you\'re sure that she\'ll grow up to be like her mom.  You hand Marble the child and she puts the crying child to her chest. The little girl stops crying at once and starts eagerly gobbling down Marble\'s milk.\n\n', false );
 				//If (PC is addicted to Marble);
-				if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 					MainView.outputText( '"<i>Don\'t worry sweetie,</i>" Marble tells you, "<i>somehow I know that she won\'t get addicted."</i>  ', false );
 				} else {
 					MainView.outputText( '"<i>Oh my,"</i> Marble says to you, "<i>It\'s just as wonderful as when you suckled me when my milk was addictive; I\'d forgotten the feeling."</i>  ', false );
@@ -3872,17 +3872,17 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			preggerOdds = 20;
 		}
 		//Fertility+ perk bumps odds to 25.;
-		if( CoC.player.findPerk( PerkLib.FertilityPlus ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.FertilityPlus ) ) {
 			preggerOdds += 5;
 		}
 		//If has 'stud perk' almost always get her pregnant;
-		if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) ) {
 			preggerOdds += 25;
 		}
 		preggerOdds *= preggerMult;
 		//GET HER PREGNANT;
 		$log.debug( 'MARBLE PREGGO ODDS: ' + preggerOdds );
-		if( Utils.rand( 100 ) < preggerOdds && (CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 || CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5) ) {
+		if( Utils.rand( 100 ) < preggerOdds && (CoC.player.findPerk( PerkLib.MarblesMilk ) || CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] >= 5) ) {
 			//SHUT UP SHES ALREADY PREGNANT;
 			if( !this.pregnancy.isPregnant ) {
 				$log.info( 'Marble got PREGNANT!' );
@@ -4299,7 +4299,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( 'You wonder aloud if maybe she\'d be interested in a little intercourse action. You\'d be perfectly prepared to provide for her.' );
 		MainView.outputText( '[pg]"<i>Hmm, well, your offer is tempting, but I\'m going to have to see what\'s available before I make a final decision.</i>"' );
 		MainView.outputText( '[pg]With a flourish, you remove your [armor] and do a little sweep over your ' + Descriptors.cockDescript( x ) + ', asking her if everything is to her needs.' );
-		if( (CoC.player.findPerk( PerkLib.BulgeArmor ) >= 0 || CoC.player.modArmorName === 'backless female teacher\'s clothes' || CoC.player.modArmorName === 'bridle bit and saddle set' || CoC.player.modArmorName === 'headdress, necklaces, and many body-chains' || CoC.player.modArmorName === 'bondage patient clothes' || CoC.player.modArmorName === 'crotch-revealing clothes' || CoC.player.modArmorName === 'cute servant\'s clothes' || CoC.player.modArmorName === 'maid\'s clothes' || CoC.player.modArmorName === 'servant\'s clothes') && CoC.player.hasCock() ) {
+		if( (CoC.player.findPerk( PerkLib.BulgeArmor ) || CoC.player.modArmorName === 'backless female teacher\'s clothes' || CoC.player.modArmorName === 'bridle bit and saddle set' || CoC.player.modArmorName === 'headdress, necklaces, and many body-chains' || CoC.player.modArmorName === 'bondage patient clothes' || CoC.player.modArmorName === 'crotch-revealing clothes' || CoC.player.modArmorName === 'cute servant\'s clothes' || CoC.player.modArmorName === 'maid\'s clothes' || CoC.player.modArmorName === 'servant\'s clothes') && CoC.player.hasCock() ) {
 			MainView.outputText( '[pg]"<i>I appreciate the little show, but I could already see you just fine.  Come closer so I can get a better idea.</i>"' );
 		} else {
 			MainView.outputText( '[pg]"<i>Hmm, yes, I think that will work.  Come closer so I can make a more thorough inspection.</i>"' );
@@ -4321,7 +4321,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( '[pg]Then both hands come down and push down on your stomach, and she begins a rapid forward and backward rocking motion on your member, keeping every bit of your length deep inside her, putting it into a spinning trip around her passage while she starts giving low happy moans of pleasure.  You look up at your lover and get a good view of the expression of bliss upon her face, but also get a chance to see the milk draining from her chest.' );
 		MainView.outputText( '[pg]With each push and pull on your member, there is a rapid spurt of milk that the machine is only just able to keep up with.  After a moment, you realize that it isn\'t actually able to keep up, her milk is coming out too fast for the milker!  You try to warn your bovine lover, but it\'s too late.  With a pop, the suction cups fly off of Marble\'s breasts, spraying milk everywhere, and there is a bang from the machine as it shuts down.' );
 		MainView.outputText( '[pg]"<i>Oh no!  Damn it, now what?</i>" Marble stops moving and looks around worried.' );
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( '[pg]You quickly sit up and take it upon yourself to continue the efforts of the milking machine, bringing with your actions a surprised gasp, followed by a contented sigh, and Marble resuming the movements of her hips.  The ambrosia from her breasts increases in quantity once more, and it actually feels like it\'s being pumped into your mouth.  You\'re happy to rise to the challenge of drinking it all while Marble continues to ride your body.' );
 			MainView.outputText( '[pg]Where the machine failed to handle Marble\'s increased production, you succeed in draining everything.  Heck, the feel of yourself bouncing around Marble\'s passage while she pushes against you and bounces back and forth only edges you on further than normal.  With one hand on her shoulder for leverage, you use the other to massage her bosom and coax even more milk out of her, greedily devouring as much of your favorite drug as possible.' );
 			MainView.outputText( '[pg]Almost an hour later, the flow from both of Marble\'s breasts has slowed to a trickle, and both of you have cum at least three times in a haze of both sexual and chemical pleasure.  Marble gives a contented sigh and informs you that she thinks she\'ll be taking a nap now, wondering whether or not she should make a habit of breaking the milker, given what happens afterwards.' );

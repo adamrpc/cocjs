@@ -2131,7 +2131,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			MainView.outputText( '\n\n"<i>T-Thank you... You\'re so good to me,</i>" she whispers in between kisses.' );
 			MainView.outputText( '\n\nUp the hallway, you can hear the patter of soft feet; one of your many children must be coming to fetch the egg.  Acting quickly, you grab your [armor] and position it so that it obstructs the view of your naked bodies.' );
 			//(If PC wasn't wearing revealing clothing:)
-			if( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 				MainView.outputText( '\n\nThe "<i>child</i>" that walks in notices both of you breathing heavily, and quickly takes note of your need for privacy.  Phylla scoops up the egg and embarrassingly extends it to him.  He does his best to avert his eyes and quickly scampers over to fetch the egg and leaves.' );
 			}//(If PC was wearing revealing clothing:)
 			else {

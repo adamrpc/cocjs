@@ -1160,7 +1160,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'Marble grits her teeth and shake her head. "<i>I don\'t like it, sweetie.  I don\'t like it and I certainly don\'t support it.  Just keep her under control and away from me, and then we\'ll see,</i>" the cow-girl says, before clopping off in a huff.\n\n', false );
 			MainView.outputText( 'Izma looks to you curiously once you return to her.  "<i>So what\'s your story with her?</i>" she asks.  You give a sigh and tell Izma how you met Marble at Whitney\'s farm and how a relationship formed between you over time.  Then you go on about how, sadly, you became addicted to her milk without even realizing its corrupt nature.  ', false );
 			//(If the player is fatally addicted) ;
-			if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 				MainView.outputText( 'You couldn\'t break your addiction, and now you\'ll die without a steady supply of her milk.', false );
 			}//(If the player broke their addiction) ;
 			else {
@@ -1169,7 +1169,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( '\n\n', false );
 			MainView.outputText( 'Izma grits her teeth and sucks air through them as you finish your story.  "<i>That... damn cow...</i>" she growls, making you gulp at her barely contained rage.  "<i>She took you, my perfect alpha, and ', false );
 			//(Fatally addicted);
-			if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 				MainView.outputText( 'turned you into some weak drug-addict', false );
 			}//(Broke addiction);
 			else {
@@ -1220,7 +1220,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		MainView.outputText( 'Marble grits her teeth and shakes her head.  "<i>I don\'t like it, sweetie.  I don\'t like it and I certainly don\'t support it.  Just keep her under control and away from me, and then we\'ll see,</i>" the cow-girl says, before clopping off in a huff.\n\n', false );
 		MainView.outputText( 'Izma looks to you curiously once you return to her.  "<i>So what\'s your story with her?</i>" she asks.  You give a sigh and tell Izma how you met Marble at Whitney\'s farm and how a relationship formed between you over time.  Then you go on about how, sadly, you became addicted to her milk without even realizing its corrupt nature.  ', false );
 		//(If the player is fatally addicted) ;
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'You couldn\'t break your addiction, and now you\'ll die without a steady supply of her milk.', false );
 		}//If the player broke their addiction) ;
 		else {
@@ -1229,7 +1229,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		MainView.outputText( '\n\n', false );
 		MainView.outputText( 'Izma grits her teeth and sucks air through them as you finish your story.  "<i>That... damn cow...</i>" she growls, making you gulp at her barely contained rage.  "<i>She took you, my perfect alpha, and ', false );
 		//(Fatally addicted);
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'turned you into some weak drug-addict', false );
 		}//(Broke addiction);
 		else {

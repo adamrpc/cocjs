@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		return false;
 	};
 	IsabellaScene.prototype.timeChangeLarge = function() {
-		if( this.checkedIsabella++ === 0 && CoC.time.hours === 6 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 && CoC.flags[ kFLAGS.ISABELLA_BLOWJOBS_DISABLED ] === 0 && CoC.player.hasCock() && (CoC.time.days % 2 === 0 || CoC.player.findPerk( PerkLib.MarblesMilk ) < 0) && CoC.player.shortestCockLength() <= 9 ) {
+		if( this.checkedIsabella++ === 0 && CoC.time.hours === 6 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 && CoC.flags[ kFLAGS.ISABELLA_BLOWJOBS_DISABLED ] === 0 && CoC.player.hasCock() && (CoC.time.days % 2 === 0 || !CoC.player.findPerk( PerkLib.MarblesMilk )) && CoC.player.shortestCockLength() <= 9 ) {
 			MainView.spriteSelect( 31 );
 			SceneLib.isabellaFollowerScene.isabellaMorningWakeupCall();
 			return true;
@@ -756,11 +756,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				MainView.outputText( 'You start trying to hump and grind, but the angry cow will have none of it.  ', false );
 			}
 			MainView.outputText( 'SMACK!  A powerful impact slams into your ' + Descriptors.assDescript() + ', making you gasp out in pain', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( ' and pleasure', false );
 			}
 			MainView.outputText( '.  The next blow follows shortly after, equally hard but placed upon your other, yet-unbruised butt-cheek.', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( '  You gasp and ', false );
 				if( CoC.player.hasCock() ) {
 					MainView.outputText( 'squirt pre-cum ', false );
@@ -777,18 +777,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			} else {
 				MainView.outputText( 'Isabella grunts, "<i>Look at you, acting like one of the demons!  Now I will have to beat the corruption out of you!</i>"  You groan ', false );
 			}
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( 'excitedly, wondering just how many more smacks you\'ll get to take', false );
 			} else {
 				MainView.outputText( 'piteously', false );
 			}
 			MainView.outputText( ' while Isabella cocks her elbow for another spank.  SLAP!  It hits hard enough to send ripples through every soft part of your body.  A bird takes flight somewhere in the distance', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( ' while you swoon and moan, wiggling your rump', false );
 			}
 			MainView.outputText( '.  The cow-girl picks up the pace, scolding you in between each heavy-handed hit to your bottom.\n\n', false );
 			MainView.outputText( '"<i>Bad <SMACK> ' + CoC.player.mf( 'boy', 'girl' ) + '! <CRACK> Learn <SLAP> your <SWAT> lesson!</i>"  Her sentence is punctuated with one bone-jarring blow that ', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( 'draws a scream from your lips, pushing you past the bounds of consciousness.  Isabella hefts your limp form like a wet noodle and grasses sway behind you as you\'re carried off.', false );
 			} else {
 				MainView.outputText( 'pushes you past your limit.', false );
@@ -830,7 +830,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			//(+4 sensitivity, -100 lust if masochist, -40 fatigue);
 			EngineCore.fatigue( -40 );
 			EngineCore.dynStats( 'sen', 4 );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				CoC.player.orgasm();
 			}
 		}
@@ -846,11 +846,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				MainView.outputText( 'You start trying to masturbate yourself, but the angry cow will have none of it.  ', false );
 			}
 			MainView.outputText( 'SMACK!  A powerful impact slams into your ' + Descriptors.assDescript() + ', making you gasp out in pain', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( ' and pleasure', false );
 			}
 			MainView.outputText( '.  The next blow follows shortly after, equally hard but placed upon your other, yet-unbruised butt-cheek.', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( '  You gasp and ', false );
 				if( CoC.player.hasCock() ) {
 					MainView.outputText( 'squirt pre-cum', false );
@@ -867,18 +867,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			} else {
 				MainView.outputText( 'Isabella grunts, "<i>Look at you, acting like one of thee demons!  Now I will have to beat the corruption out of you!</i>"  You groan ', false );
 			}
-			if( CoC.player.findPerk( PerkLib.Masochist ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( 'piteously', false );
 			} else {
 				MainView.outputText( 'excitedly, wondering just how many more smacks you\'ll get to take', false );
 			}
 			MainView.outputText( ' while Isabella cocks her elbow for another spank.  SLAP!  It hits hard enough to send ripples through every soft part of your body and grind your chin into the dirt.  A bird takes flight somewhere in the distance', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( ' while you swoon and moan, wiggling your rump', false );
 			}
 			MainView.outputText( '.  The cow-girl picks up the pace, scolding you in between each heavy-handed hit to your bottom.\n\n', false );
 			MainView.outputText( '"<i>Bad <SMACK> ' + CoC.player.mf( 'boy', 'girl' ) + '! <CRACK> Learn <SLAP> your <SWAT> lesson!</i>"  Her sentence is punctuated with one bone-jarring blow that', false );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( ' draws a scream from your lips, pushing you past the bounds of consciousness.  Isabella hefts your limp form heavily, dragging you through the dirt as your eyes close.', false );
 			} else {
 				MainView.outputText( ' pushes you past your limit.', false );
@@ -919,7 +919,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			//(+4 sensitivity, -100 lust if masochist, -40 fatigue);
 			EngineCore.fatigue( -40 );
 			EngineCore.dynStats( 'sen', 4 );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				CoC.player.orgasm();
 			}
 		}

@@ -929,7 +929,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 				buttons++;
 			}
 		}
-		if( CoC.player.lust >= 33 && CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 && SceneLib.izmaScene.izmaFollower() && CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 && buttons < 9 ) {
+		if( CoC.player.lust >= 33 && CoC.player.findPerk( PerkLib.Incorporeality ) && SceneLib.izmaScene.izmaFollower() && CoC.flags[ kFLAGS.IZMA_NO_COCK ] === 0 && buttons < 9 ) {
 			EngineCore.addButton( buttons, 'Possess', this, this.heliaCampPossession );
 			buttons++;
 		}

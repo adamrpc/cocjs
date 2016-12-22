@@ -236,7 +236,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		MainView.outputText( '', true );
 		MainView.outputText( 'You awaken in the morning, sore and exhausted, but more satisfied than you\'ve ever felt before.  Your body feels INCREDIBLY sensitive from head to toe, but particularly on your well-used ' + Descriptors.cockDescript( 0 ) + '.  In spite of the traumatic lovemaking, you feel remarkably clear-headed.\n\n', false );
 		MainView.outputText( 'Did you enjoy being able to cum so much' );
-		if( CoC.player.findPerk( PerkLib.ElvenBounty ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.ElvenBounty ) ) {
 			MainView.outputText( ' <b>again</b>' );
 		}
 		MainView.outputText( '?', false );
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		MainView.outputText( '', true );
 		MainView.outputText( 'You awaken in the morning, sore and exhausted, but more satisfied than you\'ve ever felt before.  Your body feels INCREDIBLY sensitive from head to toe, but particularly in your well-used ' + Descriptors.vaginaDescript( 0 ) + '.  In spite of the traumatic lovemaking, you feel remarkably clear-headed.  The dildo appears to have completely dissolved inside you, leaving behind a pinkish fluid that drips from your lips.\n\n', false );
 		MainView.outputText( 'Do you think it might have done anything to you' );
-		if( CoC.player.findPerk( PerkLib.ElvenBounty ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.ElvenBounty ) ) {
 			MainView.outputText( ' <b>again</b>' );
 		}
 		MainView.outputText( '?', false );
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] = OnLoadVariables.date.fullYear;
 	};
 	XmasBitch.prototype.xmasPerkM = function() {
-		if( CoC.player.findPerk( PerkLib.ElvenBounty ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.ElvenBounty ) ) {
 			if( XMAS_BITCH_STATUS === 1001 ) {
 				CoC.player.createPerk( PerkLib.ElvenBounty, 250, 0, 0, 0 );
 			} else {

@@ -49,15 +49,15 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 			MainView.outputText( 'You manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evasion, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using your skills at misdirection, you manage to make Kiha think you\'re going to dodge one way before stepping in the other direction.  You turn back, finding she has her axe in hand and looks rather steamed.', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'Using your cat-like reflexes, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//HIT!;
@@ -75,15 +75,15 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 		MainView.outputText( 'Kiha throws her arms back and roars, exhaling a swirling tornado of fire directly at you!\n', false );
 		//Miss:;
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your talent for evasion, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using your talent for misdirection, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'Using your cat-like flexibility, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		} else {
 			var damage = Math.round( 90 + Utils.rand( 10 ) );

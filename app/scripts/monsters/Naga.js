@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 		//[if evaded]
 		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 6 ) === 0) ) {
 			MainView.outputText( 'You see her tail whipping toward you and evade it at the last second. You quickly roll back onto your feet.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s tail-whip.', false );
 		} else if( CoC.player.spe > Utils.rand( 300 ) ) {
 			MainView.outputText( 'You see her tail whipping toward you and jump out of the way at the last second. You quickly roll back onto your feet.', false );

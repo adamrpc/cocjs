@@ -162,9 +162,9 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'With Raphael\'s teachings and the easy movement afforded by your bodysuit, you easily anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -215,9 +215,9 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'With Raphael\'s teachings and the easy movement afforded by your bodysuit, you easily anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 		} else {
 			//Determine damage - str modified by enemy toughness!;

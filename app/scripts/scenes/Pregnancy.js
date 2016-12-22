@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 				CoC.player.createStatusAffect( StatusAffects.Birthed, 1, 0, 0, 0 );
 			} else {
 				CoC.player.addStatusValue( StatusAffects.Birthed, 1, 1 );
-				if( CoC.player.findPerk( PerkLib.BroodMother ) < 0 && CoC.player.statusAffectv1( StatusAffects.Birthed ) >= 10 ) {
+				if( !CoC.player.findPerk( PerkLib.BroodMother ) && CoC.player.statusAffectv1( StatusAffects.Birthed ) >= 10 ) {
 					MainView.outputText( '\n<b>You have gained the Brood Mother perk</b> (Pregnancies progress twice as fast as a normal woman\'s).\n', false );
 					CoC.player.createPerk( PerkLib.BroodMother, 0, 0, 0, 0 );
 				}

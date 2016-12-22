@@ -758,7 +758,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00326 ] >= 10 ) {
 			MainView.outputText( 'There\'re so many minotaurs left for you to milk that it makes your head spin.  Then again, it might just be the minotaur spooge addling your poor brain.  You dully remember your pledge to punish them all, and before your \'boys\' can take the initiative, you grab the next two studs with your hands and begin jerking them off, slowly egging them closer to you.  The over-sized dicks eagerly advance in response, sliding right between mommy\'s mammaries where they belong.  Like their bigger bothers, these two obediently hold still once properly positioned and allow you to milk their cocks with your ' + Appearance.biggestBreastSizeDescript() + '.\n\n', false );
 			MainView.outputText( '"<i>Good boys.  Now give Mommy more cum... she\'s ', false );
-			if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 				MainView.outputText( 'like, ', false );
 			}
 			MainView.outputText( 'getting sooo wasted on it,</i>" you command.  Bouncing your breasts up and down, you keep the soaked flesh in constant motion around the swollen, slowly flaring shafts.  A sudden gout of wetness splashes your cheek, and as you turn to investigate, a leaking prick is pressed through your confusion-pursed lips.  Salty-sweet pre-cum tingles on your tongue, and you begin to lap at it eagerly, running your tongue over the hot, flaring tongue.  It tastes absolutely divine.  You focus on it completely, trying to block out the voice of its owner.\n\n', false );
@@ -800,7 +800,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 				MainView.outputText( ', pulling them hard towards your cum-slicked tits.  You waste no time burying their twin members in the cum-slicked crevasse that is their mommy\'s mammaries, right where they belong.', false );
 			}
 			MainView.outputText( '  "<i>Good boys.  Now give Mommy more cum... she\'s ', false );
-			if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 				MainView.outputText( 'like, ', false );
 			}
 			MainView.outputText( 'getting sooo wasted on it,</i>" you command.\n\n', false );

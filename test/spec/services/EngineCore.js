@@ -48,7 +48,7 @@ describe('Factory: EngineCore', function() {
 		expect(engineCore.HPChange).toBeDefined();
 	});
 	it('Should change HP', function() {
-		var historyHealer = -1;
+		var historyHealer = null;
 		var maxHp = 100;
 		coc.player = {
 			findPerk: function( perk ) {
@@ -111,7 +111,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.statsView.showStatDown.calls.count()).toBe(0);
 		expect(mainView.statsView.show.calls.count()).toBe(0);
 		expect(coc.player.HP).toBe( 0 );
-		historyHealer = 1;
+		historyHealer = {test:1};
 		engineCore.HPChange( 0 );
 		expect(mainView.statsView.showStatUp.calls.count()).toBe(0);
 		expect(mainView.statsView.showStatDown.calls.count()).toBe(0);
@@ -625,5 +625,32 @@ describe('Factory: EngineCore', function() {
 		coc.player = new PlayerConstructor();
 		coc.player.createPerk( perkLib.IronMan );
 		expect(engineCore.physicalCost(5)).toBe( 2.5 );
+	});
+	it('Should define spellCost', function() {
+		expect(engineCore.spellCost).toBeDefined();
+	});
+	it('Should return the parameter if no modifier', function() {
+		coc.player = new PlayerConstructor();
+		expect(engineCore.spellCost(5)).toBe( 5 );
+	});
+	it('Should apply modifiers on parameter', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.createPerk( perkLib.SpellcastingAffinity, 50 );
+		expect(engineCore.spellCost(5)).toBe( 2.5 );
+		coc.player.createPerk( perkLib.WizardsEndurance, 50 );
+		expect(engineCore.spellCost(5)).toBe( 2 );
+		coc.player.removePerk( perkLib.SpellcastingAffinity );
+		expect(engineCore.spellCost(5)).toBe( 2.5 );
+		coc.player.createPerk( perkLib.SpellcastingAffinity, 50 );
+		coc.player.createPerk( perkLib.BloodMage, 50 );
+		expect(engineCore.spellCost(10)).toBe( 5 );
+		expect(engineCore.spellCost(5)).toBe( 5 );
+		coc.player.createPerk( perkLib.HistoryScholar );
+		expect(engineCore.spellCost(10)).toBe( 5 );
+		expect(engineCore.spellCost(5)).toBe( 5 );
+		coc.player.removePerk( perkLib.BloodMage );
+		coc.player.removePerk( perkLib.SpellcastingAffinity );
+		expect(engineCore.spellCost(5)).toBe( 2 );
+		expect(engineCore.spellCost(2)).toBe( 2 );
 	});
 });

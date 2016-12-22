@@ -2861,7 +2861,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			MainView.outputText( '.  ' );
 			//[(minotaur addiction score =/= 0%);
-			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 				MainView.outputText( 'Perhaps I\'ll turn you over to a minotaur; you\'re bound to get better at using your tongue when you\'re addicted to their amazing seed.  Would you like that?  The first thing you\'d see in the morning would be a huge flared cock, right in front of you, dripping with heavenly precum and waiting for your mouth... or your cunt.  You could be just another minotaur-fucking slut of the plains.  ' );
 			}
 			MainView.outputText( 'Or I could take you home and give you personal training myself, whenever I feel like it, and invite travelers to do the same' );
@@ -3380,7 +3380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		MainView.menu();
 		//[Help(requires >80 speed, centaur >= 5', naga, or big wings and archery)][Walk With Her][Let Her Go];
-		if( (CoC.player.spe > 80 && CoC.player.findPerk( PerkLib.Runner ) >= 0) || (CoC.player.isTaur()) || CoC.player.isNaga() || (CoC.player.canFly && CoC.player.hasKeyItem( 'Bow' ) >= 0) ) {
+		if( (CoC.player.spe > 80 && CoC.player.findPerk( PerkLib.Runner )) || (CoC.player.isTaur()) || CoC.player.isNaga() || (CoC.player.canFly && CoC.player.hasKeyItem( 'Bow' ) >= 0) ) {
 			EngineCore.addButton( 0, 'Help', this, this.normalSheilaPregNotifREPEATEDEDHelpABitchOut );
 		}
 		EngineCore.addButton( 1, 'WalkWithHer', this, this.normalSheilaPregNotifREPEATEDEDWalkWithHer );
@@ -3462,7 +3462,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.fatigue( 20 );
 		}
 		//(else spd >= 80 and Runner perk);
-		else if( CoC.player.spe >= 80 && CoC.player.findPerk( PerkLib.Runner ) >= 0 ) {
+		else if( CoC.player.spe >= 80 && CoC.player.findPerk( PerkLib.Runner ) ) {
 			MainView.outputText( '\n\n"<i>Just do what you normally do, and I\'ll help.</i>"' );
 			MainView.outputText( '\n\nSheila looks at you blankly, but takes your hand and begins walking.  Or rather, more like meandering.  Her head turns listlessly as she drags you onward.' );
 			MainView.outputText( '\n\n"<i>So what are we looking for?</i>" you ask.' );
@@ -4547,7 +4547,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			CoC.player.slimeFeed();
 		}
 		CoC.player.clitLength++;
-		if( CoC.player.findPerk( PerkLib.BigClit ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BigClit ) ) {
 			CoC.player.clitLength += 0.5;
 		}
 		if( CoC.player.cor < 50 ) {

@@ -391,15 +391,12 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 	};
 	//has perk?
 	Creature.prototype.findPerk = function(ptype) {
-		if (this.perks.length <= 0) {
-			return -2;
-		}
-		return _.findIndex(this.perks, function(obj) { return obj.ptype === ptype; });
+		return _.find(this.perks, function(obj) { return obj.ptype === ptype; });
 	};
 	//Duplicate perk
 	//Deprecated?
 	Creature.prototype.perkDuplicated = function(ptype) {
-		return this.findPerk(ptype) >= 0;
+		return this.findPerk(ptype) !== null;
 	};	
 	//remove all perks
 	Creature.prototype.removePerks = function() {
@@ -416,12 +413,11 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 			$log.warn('AddKeyValue called with the invalid key value ' + valueIdx + '.');
 			return;
 		}
-		var index = this.findPerk(ptype);
-		if (index < 0) {
+		var item = this.findPerk(ptype);
+		if (!item) {
 			$log.error('Looking for perk \'' + ptype + '\' to change value ' + valueIdx + ', and player does not have the perk.');
 			return;
 		}
-		var item = this.perk(index);
 		if (valueIdx === 1) {
 			item.value1 += bonus;
 		}
@@ -446,12 +442,11 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 			$log.warn('AddKeyValue called with the invalid key value ' + valueIdx + '.');
 			return;
 		}
-		var index = this.findPerk(ptype);
-		if (index < 0) {
+		var item = this.findPerk(ptype);
+		if (!item) {
 			$log.error('Looking for perk \'' + ptype + '\' to change value ' + valueIdx + ', and player does not have the perk.');
 			return;
 		}
-		var item = this.perk(index);
 		if (valueIdx === 1) {
 			item.value1 = newNum;
 		}
@@ -466,36 +461,36 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		}
 	};
 	Creature.prototype.perkv1 = function(ptype) {
-		var index = this.findPerk(ptype);
-		if (index < 0) {
+		var perk = this.findPerk(ptype);
+		if (!perk) {
 			$log.warn('Looking for perk \'' + ptype + '\', but player does not have it.');
 			return 0;
 		}
-		return this.perk(index).value1;
+		return perk.value1;
 	};
 	Creature.prototype.perkv2 = function(ptype) {
-		var index = this.findPerk(ptype);
-		if (index < 0) {
+		var perk = this.findPerk(ptype);
+		if (!perk) {
 			$log.warn('Looking for perk \'' + ptype + '\', but player does not have it.');
 			return 0;
 		}
-		return this.perk(index).value2;
+		return perk.value2;
 	};
 	Creature.prototype.perkv3 = function(ptype) {
-		var index = this.findPerk(ptype);
-		if (index < 0) {
+		var perk = this.findPerk(ptype);
+		if (!perk) {
 			$log.warn('Looking for perk \'' + ptype + '\', but player does not have it.');
 			return 0;
 		}
-		return this.perk(index).value3;
+		return perk.value3;
 	};
 	Creature.prototype.perkv4 = function(ptype) {
-		var index = this.findPerk(ptype);
-		if (index < 0) {
+		var perk = this.findPerk(ptype);
+		if (!perk) {
 			$log.warn('Looking for perk \'' + ptype + '\', but player does not have it.');
 			return 0;
 		}
-		return this.perk(index).value4;
+		return perk.value4;
 	};
 	//Create a status
 	Creature.prototype.createStatusAffect = function(stype, value1, value2, value3, value4) {
@@ -779,22 +774,22 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		} else if (this.lowerBody === 3) { //Naga = +20 capacity
 			bonus = 20;
 		}
-		if (this.findPerk(PerkLib.WetPussy) >= 0) { //Wet pussy provides 20 point boost
+		if (this.findPerk(PerkLib.WetPussy)) { //Wet pussy provides 20 point boost
 			bonus += 20;
 		}
-		if (this.findPerk(PerkLib.HistorySlut) >= 0) {
+		if (this.findPerk(PerkLib.HistorySlut)) {
 			bonus += 20;
 		}
-		if (this.findPerk(PerkLib.OneTrackMind) >= 0) {
+		if (this.findPerk(PerkLib.OneTrackMind)) {
 			bonus += 10;
 		}
-		if (this.findPerk(PerkLib.Cornucopia) >= 0) {
+		if (this.findPerk(PerkLib.Cornucopia)) {
 			bonus += 30;
 		}
-		if(this.findPerk(PerkLib.FerasBoonWideOpen) >= 0) {
+		if(this.findPerk(PerkLib.FerasBoonWideOpen)) {
 			bonus += 25;
 		}
-		if(this.findPerk(PerkLib.FerasBoonMilkingTwat) >= 0) {
+		if(this.findPerk(PerkLib.FerasBoonMilkingTwat)) {
 			bonus += 40;
 		}
 		return (bonus + this.statusAffectv1(StatusAffects.BonusVCapacity) + 8 * this.vaginas[0].vaginalLooseness * this.vaginas[0].vaginalLooseness) * (1 + this.vaginas[0].vaginalWetness / 10);
@@ -805,13 +800,13 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if (this.lowerBody === 4) {
 			bonus = 30;
 		}
-		if (this.findPerk(PerkLib.HistorySlut) >= 0) {
+		if (this.findPerk(PerkLib.HistorySlut)) {
 			bonus += 20;
 		}
-		if (this.findPerk(PerkLib.Cornucopia) >= 0) {
+		if (this.findPerk(PerkLib.Cornucopia)) {
 			bonus += 30;
 		}
-		if (this.findPerk(PerkLib.OneTrackMind) >= 0) {
+		if (this.findPerk(PerkLib.OneTrackMind)) {
 			bonus += 10;
 		}
 		if (this.ass.analWetness > 0) {
@@ -861,7 +856,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if (this.findStatusAffect(StatusAffects.LactationReduc3) >= 0) {
 			this.removeStatusAffect(StatusAffects.LactationReduc3);
 		}
-		if (this.findPerk(PerkLib.Feeder) >= 0) {
+		if (this.findPerk(PerkLib.Feeder)) {
 			//You've now been milked, reset the timer for that
 			this.addStatusValue(StatusAffects.Feeder,1,1);
 			this.changeStatusValue(StatusAffects.Feeder, 2, 0);
@@ -939,32 +934,32 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if (this.cumQ() >= 1600) {
 			percent += 0.02;
 		}
-		if (this.findPerk(PerkLib.BroBody) >= 0) {
+		if (this.findPerk(PerkLib.BroBody)) {
 			percent += 0.05;
 		}
-		if (this.findPerk(PerkLib.MaraesGiftStud) >= 0) {
+		if (this.findPerk(PerkLib.MaraesGiftStud)) {
 			percent += 0.15;
 		}
-		if (this.findPerk(PerkLib.FerasBoonAlpha) >= 0) {
+		if (this.findPerk(PerkLib.FerasBoonAlpha)) {
 			percent += 0.10;
 		}
 		if (this.perkv1(PerkLib.ElvenBounty) > 0) {
 			percent += 0.05;
 		}
-		if (this.findPerk(PerkLib.FertilityPlus) >= 0) {
+		if (this.findPerk(PerkLib.FertilityPlus)) {
 			percent += 0.03;
 		}
-		if (this.findPerk(PerkLib.PiercedFertite) >= 0) {
+		if (this.findPerk(PerkLib.PiercedFertite)) {
 			percent += 0.03;
 		}
-		if (this.findPerk(PerkLib.OneTrackMind) >= 0) {
+		if (this.findPerk(PerkLib.OneTrackMind)) {
 			percent += 0.03;
 		}
-		if (this.findPerk(PerkLib.MagicalVirility) >= 0) {
+		if (this.findPerk(PerkLib.MagicalVirility)) {
 			percent += 0.05;
 		}
 		//Messy Orgasms?
-		if (this.findPerk(PerkLib.MessyOrgasms) >= 0) {
+		if (this.findPerk(PerkLib.MessyOrgasms)) {
 			percent += 0.03;
 		}
 		if (this.percent > 1) {
@@ -984,7 +979,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		//trace('CUM ESTIMATE: ' + int(1.25*2*cumMultiplier*2*(lust + 50)/10 * (hoursSinceCum+10)/24)/10 + '(no balls), ' + int(ballSize*balls*cumMultiplier*2*(lust + 50)/10 * (hoursSinceCum+10)/24)/10 + '(withballs)');
 		var lustCoefficient = (this.lust + 50) / 10;
 		//Pilgrim's bounty maxxes lust coefficient
-		if (this.findPerk(PerkLib.PilgrimsBounty) >= 0) {
+		if (this.findPerk(PerkLib.PilgrimsBounty)) {
 			lustCoefficient = 150 / 10;
 		}
 		if (this.balls === 0) {
@@ -992,33 +987,33 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		} else {
 			quantity = Math.floor(this.ballSize * this.balls * this.cumMultiplier * 2 * lustCoefficient * (this.hoursSinceCum + 10) / 24) / 10;
 		}
-		if (this.findPerk(PerkLib.BroBody) >= 0) {
+		if (this.findPerk(PerkLib.BroBody)) {
 			quantity *= 1.3;
 		}
-		if (this.findPerk(PerkLib.FertilityPlus) >= 0) {
+		if (this.findPerk(PerkLib.FertilityPlus)) {
 			quantity *= 1.5;
 		}
-		if (this.findPerk(PerkLib.MessyOrgasms) >= 0) {
+		if (this.findPerk(PerkLib.MessyOrgasms)) {
 			quantity *= 1.5;
 		}
-		if (this.findPerk(PerkLib.OneTrackMind) >= 0) {
+		if (this.findPerk(PerkLib.OneTrackMind)) {
 			quantity *= 1.1;
 		}
-		if (this.findPerk(PerkLib.MaraesGiftStud) >= 0) {
+		if (this.findPerk(PerkLib.MaraesGiftStud)) {
 			quantity += 350;
 		}
-		if (this.findPerk(PerkLib.FerasBoonAlpha) >= 0) {
+		if (this.findPerk(PerkLib.FerasBoonAlpha)) {
 			quantity += 200;
 		}
-		if (this.findPerk(PerkLib.MagicalVirility) >= 0) {
+		if (this.findPerk(PerkLib.MagicalVirility)) {
 			quantity += 200;
 		}
-		if (this.findPerk(PerkLib.FerasBoonSeeder) >= 0) {
+		if (this.findPerk(PerkLib.FerasBoonSeeder)) {
 			quantity += 1000;
 		}
 		//if(hasPerk('Elven Bounty') >= 0) quantity += 250;;
 		quantity += this.perkv1(PerkLib.ElvenBounty);
-		if (this.findPerk(PerkLib.BroBody) >= 0) {
+		if (this.findPerk(PerkLib.BroBody)) {
 			quantity += 200;
 		}
 		quantity += this.statusAffectv1(StatusAffects.Rut);
@@ -1324,7 +1319,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 			return false;
 		}
 		var stretched = false;
-		if(this.findPerk(PerkLib.FerasBoonMilkingTwat) < 0 || this.vaginas[0].vaginalLooseness <= AppearanceDefs.VAGINA_LOOSENESS_NORMAL) {
+		if(!this.findPerk(PerkLib.FerasBoonMilkingTwat) || this.vaginas[0].vaginalLooseness <= AppearanceDefs.VAGINA_LOOSENESS_NORMAL) {
 			if(cArea >= this.vaginalCapacity()) { //cArea > capacity = autostreeeeetch.
 				if(this.vaginas[0].vaginalLooseness < AppearanceDefs.VAGINA_LOOSENESS_LEVEL_CLOWN_CAR) {
 					this.vaginas[0].vaginalLooseness++;
@@ -1364,10 +1359,10 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 	Creature.prototype.bonusFertility = function() {
 		var result = 0;
 		result += this.isInHeat() ? this.statusAffectv1(StatusAffects.Heat) : 0;
-		result += this.findPerk(PerkLib.FertilityPlus) >= 0 ? 15 : 0;
-		result += this.findPerk(PerkLib.MaraesGiftFertility) >= 0 ? 50 : 0;
-		result += this.findPerk(PerkLib.FerasBoonBreedingBitch) >= 0 ? 30 : 0;
-		result += this.findPerk(PerkLib.MagicalFertility) >= 0 ? 10 : 0;
+		result += this.findPerk(PerkLib.FertilityPlus) ? 15 : 0;
+		result += this.findPerk(PerkLib.MaraesGiftFertility) ? 50 : 0;
+		result += this.findPerk(PerkLib.FerasBoonBreedingBitch) ? 30 : 0;
+		result += this.findPerk(PerkLib.MagicalFertility) ? 10 : 0;
 		result += this.perkv2(PerkLib.ElvenBounty);
 		result += this.perkv1(PerkLib.PiercedFertite);
 		return result;
@@ -1497,18 +1492,18 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		return this.foot(true);
 	};
 	Creature.prototype.canOvipositSpider = function() {
-		return this.eggs() >= 10 && this.findPerk(PerkLib.SpiderOvipositor) >= 0 && this.isDrider() && this.tailType === 5;
+		return this.eggs() >= 10 && this.findPerk(PerkLib.SpiderOvipositor) && this.isDrider() && this.tailType === 5;
 	};
 	Creature.prototype.canOvipositBee = function() {
-		return this.eggs() >= 10 && this.findPerk(PerkLib.BeeOvipositor) >= 0 && this.tailType === 6;
+		return this.eggs() >= 10 && this.findPerk(PerkLib.BeeOvipositor) && this.tailType === 6;
 	};
 	Creature.prototype.canOviposit = function() {
 		return this.canOvipositSpider() || this.canOvipositBee();
 	};
 	Creature.prototype.eggs = function() {
-		if (this.findPerk(PerkLib.SpiderOvipositor) < 0 && this.findPerk(PerkLib.BeeOvipositor) < 0) {
+		if (!this.findPerk(PerkLib.SpiderOvipositor) && !this.findPerk(PerkLib.BeeOvipositor)) {
 			return -1;
-		} else if (this.findPerk(PerkLib.SpiderOvipositor) >= 0) {
+		} else if (this.findPerk(PerkLib.SpiderOvipositor)) {
 			return this.perkv1(PerkLib.SpiderOvipositor);
 		}
 		return this.perkv1(PerkLib.BeeOvipositor);
@@ -1520,7 +1515,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if(arg === undefined) {
 			arg = 0;
 		}
-		var perk = this.findPerk(PerkLib.SpiderOvipositor) >= 0 ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
+		var perk = this.findPerk(PerkLib.SpiderOvipositor) ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
 		this.addPerkValue(perk, 1, arg);
 		if (this.eggs() > 50) {
 			this.setPerkValue(perk, 1, 50);
@@ -1542,7 +1537,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if(arg === undefined) {
 			arg = 0;
 		}
-		var perk = this.findPerk(PerkLib.SpiderOvipositor) >= 0 ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
+		var perk = this.findPerk(PerkLib.SpiderOvipositor) ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
 		this.setPerkValue(perk, 1, Math.min(arg, 50));
 		return this.perkv1(perk);
 	};
@@ -1550,14 +1545,14 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if (this.eggs() < 0) {
 			return -1;
 		}
-		var perk = this.findPerk(PerkLib.SpiderOvipositor) >= 0 ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
+		var perk = this.findPerk(PerkLib.SpiderOvipositor) ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
 		return this.perkv2(perk);
 	};
 	Creature.prototype.fertilizeEggs = function() {
 		if (this.eggs() < 0) {
 			return -1;
 		}
-		var perk = this.findPerk(PerkLib.SpiderOvipositor) >= 0 ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
+		var perk = this.findPerk(PerkLib.SpiderOvipositor) ? PerkLib.SpiderOvipositor : PerkLib.BeeOvipositor;
 		this.setPerkValue(perk, 2, this.eggs());
 		return this.fertilizedEggs();
 	};

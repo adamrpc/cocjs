@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, JeanClaude, Appeara
 		EngineCore.addButton( 0, 'Next', this, this.basiliskBadEnds );
 	};
 	JeanClaudeScenes.prototype.basiliskBadEnds = function() {
-		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) ) {
 			this.bwombBadEnd();
 		} else {
 			this.regularBadEnd();

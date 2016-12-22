@@ -28,10 +28,10 @@ angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, PerkLib, Eng
 	};
 	InquisitorsCorset.prototype._superPlayerEquip = InquisitorsCorset.prototype.playerEquip;
 	InquisitorsCorset.prototype.playerEquip = function() {
-		while( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.BloodMage ) ) {
 			CoC.player.removePerk( PerkLib.BloodMage );
 		}
-		while( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 			CoC.player.removePerk( PerkLib.SluttySeduction );
 		}
 		CoC.player.createPerk( PerkLib.BloodMage, 0, 0, 0, 0 );
@@ -40,10 +40,10 @@ angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, PerkLib, Eng
 	};
 	InquisitorsCorset.prototype._superPlayerRemove = InquisitorsCorset.prototype.playerRemove;
 	InquisitorsCorset.prototype.playerRemove = function() {
-		while( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.BloodMage ) ) {
 			CoC.player.removePerk( PerkLib.BloodMage );
 		}
-		while( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 			CoC.player.removePerk( PerkLib.SluttySeduction );
 		}
 		return this._superPlayerRemove();

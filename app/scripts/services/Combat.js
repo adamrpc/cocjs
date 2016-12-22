@@ -213,11 +213,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.packAttack = function() {
 		if (CoC.player.spe - CoC.monster.spe > 0 && Math.floor(Math.random() * (((CoC.player.spe - CoC.monster.spe) / 4) + 80)) > 80) { //Determine if dodged!
 			MainView.outputText("You duck, weave, and dodge.  Despite their best efforts, the throng of demons only hit the air and each other.");
-		} else if (CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(100) < 10) { //Determine if evaded
+		} else if (CoC.player.findPerk(PerkLib.Evade) && Utils.rand(100) < 10) { //Determine if evaded
 			MainView.outputText("Using your skills at evading attacks, you anticipate and sidestep " + CoC.monster.a + CoC.monster.short + "' attacks.");
-		} else if (CoC.player.findPerk(PerkLib.Misdirection) >= 0 && Utils.rand(100) < 15 && CoC.player.armorName === "red, high-society bodysuit") { //("Misdirection"
+		} else if (CoC.player.findPerk(PerkLib.Misdirection) && Utils.rand(100) < 15 && CoC.player.armorName === "red, high-society bodysuit") { //("Misdirection"
 			MainView.outputText("Using Raphael's teachings, you anticipate and sidestep " + CoC.monster.a + CoC.monster.short + "' attacks.");
-		} else if (CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(100) < 6) { //Determine if cat'ed
+		} else if (CoC.player.findPerk(PerkLib.Flexibility) && Utils.rand(100) < 6) { //Determine if cat'ed
 			MainView.outputText("With your incredible flexibility, you squeeze out of the way of " + CoC.monster.a + CoC.monster.short + "' attacks.");
 		} else {
 			var temp = Math.round((CoC.monster.str + CoC.monster.weaponAttack) - Utils.rand(CoC.player.tou) - CoC.player.armorDef); //Determine damage - str modified by enemy toughness!
@@ -541,7 +541,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		} else {
 			MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " looks down at the arrow that now protrudes from " + CoC.monster.pronoun3 + " body");
 		}
-		if (CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
+		if (CoC.player.findPerk(PerkLib.HistoryFighter)) {
 			damage *= 1.1;
 		}
 		damage = Combat.doDamage(damage);
@@ -662,7 +662,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		
 		//Deal damage and update based on perks
 		if(damage > 0) {
-			if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
+			if(CoC.player.findPerk(PerkLib.HistoryFighter)) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage(damage);
@@ -693,7 +693,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.fatigueRecovery = function() {
 		EngineCore.fatigue(-1);
-		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails) >= 0 || CoC.player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
+		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails) || CoC.player.findPerk(PerkLib.CorruptedNinetails)) {
 			EngineCore.fatigue(-(1 + Utils.rand(3)));
 		}
 	};
@@ -723,7 +723,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText("It's all or nothing!  With a bellowing cry you charge down the treacherous slope and smite the sandtrap as hard as you can!  ");
 			CoC.monster.trapLevel(-4);
 		}
-		if(CoC.player.findPerk(PerkLib.DoubleAttack) >= 0 && CoC.player.spe >= 50 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
+		if(CoC.player.findPerk(PerkLib.DoubleAttack) && CoC.player.spe >= 50 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
 			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
 				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 			} else {
@@ -827,7 +827,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//BASIC DAMAGE STUFF
 		//Double Attack Hybrid Reductions
-		if(CoC.player.findPerk(PerkLib.DoubleAttack) >= 0 && CoC.player.spe >= 50 && CoC.player.str > 61 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) {
+		if(CoC.player.findPerk(PerkLib.DoubleAttack) && CoC.player.spe >= 50 && CoC.player.str > 61 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) {
 			damage = 60.5;
 		} else {
 			damage = CoC.player.str;
@@ -840,7 +840,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//Determine if critical hit!
 		var crit = false;
-		if( Utils.rand(100) <= 4 || (CoC.player.findPerk(PerkLib.Tactician) >= 0 && CoC.player.inte >= 50 && (CoC.player.inte - 50)/5 > Utils.rand(100))) {
+		if( Utils.rand(100) <= 4 || (CoC.player.findPerk(PerkLib.Tactician) && CoC.player.inte >= 50 && (CoC.player.inte - 50)/5 > Utils.rand(100))) {
 			crit = true;
 			damage *= 1.75;
 		}
@@ -850,7 +850,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(CoC.player.weaponName !== "jeweled rapier" && CoC.player.weaponName !== "deadly spear") {
 			reduction += CoC.monster.armorDef;
 			//Remove half armor for lunging strikes
-			if(CoC.player.findPerk(PerkLib.LungingAttacks) >= 0) {
+			if(CoC.player.findPerk(PerkLib.LungingAttacks)) {
 				reduction -= CoC.monster.armorDef/2;
 			}
 		}
@@ -866,14 +866,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		damage -= reduction;
 		//Damage post processing!
 		//Thunderous Strikes
-		if(CoC.player.findPerk(PerkLib.ThunderousStrikes) >= 0 && CoC.player.str >= 80) {
+		if(CoC.player.findPerk(PerkLib.ThunderousStrikes) && CoC.player.str >= 80) {
 			damage *= 1.2;
 		}
 			
-		if (CoC.player.findPerk(PerkLib.ChiReflowMagic) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowMagic)) {
 			damage *= SceneLib.umasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI;
 		}
-		if (CoC.player.findPerk(PerkLib.ChiReflowAttack) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowAttack)) {
 			damage *= SceneLib.umasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI;
 		}
 		
@@ -912,7 +912,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		// Have to put it before doDamage, because doDamage applies the change, as well as status effects and shit.
 		if (CoC.monster.mirrorAttack) {
 			if (CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
-				if (damage > 0 && CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
+				if (damage > 0 && CoC.player.findPerk(PerkLib.HistoryFighter)) {
 					damage *= 1.1;
 				}
 				if (damage > 0) {
@@ -925,7 +925,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		
 		if(damage > 0) {
-			if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
+			if(CoC.player.findPerk(PerkLib.HistoryFighter)) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage(damage);
@@ -939,7 +939,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText(" <b>*CRIT*</b>");
 			}
 		}
-		if(CoC.player.findPerk(PerkLib.BrutalBlows) >= 0 && CoC.player.str > 75) {
+		if(CoC.player.findPerk(PerkLib.BrutalBlows) && CoC.player.str > 75) {
 			if(CoC.monster.armorDef > 0) {
 				MainView.outputText("\nYour hits are so brutal that you damage " + CoC.monster.a + CoC.monster.short + "'s defenses!");
 			}
@@ -989,7 +989,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//Weapon Procs!
 			if(CoC.player.weaponName === "huge warhammer" || CoC.player.weaponName === "spiked gauntlet" || CoC.player.weaponName === "hooked gauntlets") {
 				//10% chance
-				if( Utils.rand(10) === 0 && CoC.monster.findPerk(PerkLib.Resolute) < 0) {
+				if( Utils.rand(10) === 0 && !CoC.monster.findPerk(PerkLib.Resolute)) {
 					MainView.outputText("\n" + CoC.monster.getCapitalA() + CoC.monster.short + " reels from the brutal blow, stunned.", false);
 					CoC.monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
 				}
@@ -1116,7 +1116,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				damage = CoC.player.level * 10 + 100;
 			}
 			if(damage > 0) {
-				if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
+				if(CoC.player.findPerk(PerkLib.HistoryFighter)) {
 					damage *= 1.1;
 				}
 				damage = Combat.doDamage(damage);
@@ -1224,20 +1224,20 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return CoC.player.spe - CoC.monster.spe > 0 && Utils.rand(((CoC.player.spe - CoC.monster.spe) / 4) + 80) > 80;
 	};
 	Combat.combatEvade = function() {
-		return CoC.monster.short !== "Kiha" && CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(100) < 10;
+		return CoC.monster.short !== "Kiha" && CoC.player.findPerk(PerkLib.Evade) && Utils.rand(100) < 10;
 	};
 	Combat.combatFlexibility = function() {
-		return CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(100) < 6;
+		return CoC.player.findPerk(PerkLib.Flexibility) && Utils.rand(100) < 6;
 	};
 	Combat.combatMisdirect = function() {
-		return CoC.player.findPerk(PerkLib.Misdirection) >= 0 && Utils.rand(100) < 10 && CoC.player.armorName === "red, high-society bodysuit";
+		return CoC.player.findPerk(PerkLib.Misdirection) && Utils.rand(100) < 10 && CoC.player.armorName === "red, high-society bodysuit";
 	};
 	//DEAL DAMAGE
 	Combat.doDamage = function(damage, apply) {
 		if(apply === undefined) {
 			apply = true;
 		}
-		if(CoC.player.findPerk(PerkLib.Sadist) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Sadist)) {
 			damage *= 1.2;
 			EngineCore.dynStats("lus", 3);
 		}
@@ -1335,7 +1335,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(monster.hasClassName( 'Harpy' ) || monster.hasClassName( 'Sophie' )) {
 			if( Utils.rand(10) === 0) {
 				itype = ArmorLib.W_ROBES;
-			} else if( Utils.rand(3) === 0 && CoC.player.findPerk(PerkLib.LuststickAdapted) >= 0) {
+			} else if( Utils.rand(3) === 0 && CoC.player.findPerk(PerkLib.LuststickAdapted)) {
 				itype = ConsumableLib.LUSTSTK;
 			} else {
 				itype = ConsumableLib.GLDSEED;
@@ -1508,7 +1508,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			var slap = 3 + (CoC.player.maxHP() * 0.02);
 			MainView.outputText("<b>Your muscles twitch in agony as the acid keeps burning you. (" + slap + ")</b>\n\n", false);
 		}
-		if(CoC.player.findPerk(PerkLib.ArousingAura) >= 0 && CoC.monster.lustVuln > 0 && CoC.player.cor >= 70) {
+		if(CoC.player.findPerk(PerkLib.ArousingAura) && CoC.monster.lustVuln > 0 && CoC.player.cor >= 70) {
 			if(CoC.monster.lust < 50) {
 				MainView.outputText("Your aura seeps into " + CoC.monster.a + CoC.monster.short + " but does not have any visible effects just yet.\n\n", false);
 			} else if(CoC.monster.lust < 60) {
@@ -1587,7 +1587,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Harpy lip gloss
 		if(CoC.player.hasCock() && CoC.player.findStatusAffect(StatusAffects.Luststick) >= 0 && (CoC.monster.short === "harpy" || CoC.monster.short === "Sophie")) {
 			//Chance to cleanse!
-			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the harpy lip-gloss from your system with your knowledge of medicine!\n\n", false);
 				CoC.player.removeStatusAffect(StatusAffects.Luststick);
 			} else if( Utils.rand(5) === 0) {
@@ -1645,7 +1645,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		if(CoC.player.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
 			//Chance to cleanse!
-			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the naga venom from your system with your knowledge of medicine!\n\n", false);
 				CoC.player.spe += CoC.player.statusAffectv1(StatusAffects.NagaVenom);
 				MainView.statsView.showStatUp( 'spe' );
@@ -1660,7 +1660,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.takeDamage(2);
 		} else if(CoC.player.findStatusAffect(StatusAffects.TemporaryHeat) >= 0) {
 			//Chance to cleanse!
-			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the heat and rut drug from your system with your knowledge of medicine!\n\n", false);
 				CoC.player.removeStatusAffect(StatusAffects.TemporaryHeat);
 			} else {
@@ -1679,7 +1679,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Poison
 		if(CoC.player.findStatusAffect(StatusAffects.Poison) >= 0) {
 			//Chance to cleanse!
-			if(CoC.player.findPerk(PerkLib.Medicine) >= 0 && Utils.rand(100) <= 14) {
+			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the poison from your system with your knowledge of medicine!\n\n", false);
 				CoC.player.removeStatusAffect(StatusAffects.Poison);
 			} else {
@@ -1705,13 +1705,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		var healingPercent = 0;
 		//Regeneration
-		if(CoC.player.findPerk(PerkLib.Regeneration) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Regeneration)) {
 			healingPercent += combat ? 1 : 2;
 		}
-		if(CoC.player.findPerk(PerkLib.Regeneration2) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Regeneration2)) {
 			healingPercent += combat ? 2 : 4;
 		}
-		if(CoC.player.findPerk(PerkLib.LustyRegeneration) >= 0) {
+		if(CoC.player.findPerk(PerkLib.LustyRegeneration)) {
 			healingPercent += combat ? 1 : 2;
 		}
 		if(CoC.player.armorName === "skimpy nurse's outfit") {
@@ -1739,7 +1739,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			CoC.monster.pronoun3 = SceneLib.emberScene.emberMF("his","her");
 		}
 		//Reduce enemy def if player has precision!
-		if(CoC.player.findPerk(PerkLib.Precision) >= 0 && CoC.player.inte >= 25) {
+		if(CoC.player.findPerk(PerkLib.Precision) && CoC.player.inte >= 25) {
 			if(CoC.monster.armorDef <= 10) {
 				CoC.monster.armorDef = 0;
 			} else {
@@ -2029,45 +2029,45 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//5% chance for each tease level.
 		chance += CoC.player.teaseLevel * 5;
 		//10% for seduction perk
-		if(CoC.player.findPerk(PerkLib.Seduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Seduction)) {
 			chance += 10;
 		}
 		//10% for sexy armor types
-		if(CoC.player.findPerk(PerkLib.SluttySeduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SluttySeduction)) {
 			chance += 10;
 		}
 		//10% for bimbo shits
-		if(CoC.player.findPerk(PerkLib.BimboBody) >= 0) {
+		if(CoC.player.findPerk(PerkLib.BimboBody)) {
 			chance += 10;
 			bimbo = true;
 		}
-		if(CoC.player.findPerk(PerkLib.BroBody) >= 0) {
+		if(CoC.player.findPerk(PerkLib.BroBody)) {
 			chance += 10;
 			bro = true;
 		}
-		if(CoC.player.findPerk(PerkLib.FutaForm) >= 0) {
+		if(CoC.player.findPerk(PerkLib.FutaForm)) {
 			chance += 10;
 			futa = true;
 		}
 		//2 & 2 for seductive valentines!
-		if(CoC.player.findPerk(PerkLib.SensualLover) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SensualLover)) {
 			chance += 2;
 		}
-		if (CoC.player.findPerk(PerkLib.ChiReflowLust) >= 0) {
+		if (CoC.player.findPerk(PerkLib.ChiReflowLust)) {
 			chance += SceneLib.umasShop.NEEDLEWORK_LUST_TEASE_MULTI;
 		}
 		//==============================
 		//Determine basic damage.
 		//==============================
 		var damage = 6 + Utils.rand(3);
-		if(CoC.player.findPerk(PerkLib.SensualLover) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SensualLover)) {
 			damage += 2;
 		}
-		if(CoC.player.findPerk(PerkLib.Seduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Seduction)) {
 			damage += 5;
 		}
 		//+ slutty armor bonus
-		if(CoC.player.findPerk(PerkLib.SluttySeduction) >= 0) {
+		if(CoC.player.findPerk(PerkLib.SluttySeduction)) {
 			damage += CoC.player.perkv1(PerkLib.SluttySeduction);
 		}
 		//10% for bimbo shits
@@ -2387,7 +2387,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//==EXTRAS========
 		//12 Cat flexibility.
-		if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && CoC.player.isBiped() && CoC.player.hasVagina()) {
+		if(CoC.player.findPerk(PerkLib.Flexibility) && CoC.player.isBiped() && CoC.player.hasVagina()) {
 			choices.push(12);
 			choices.push(12);
 			if(CoC.player.wetness() >= 3) {
@@ -2426,7 +2426,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//14 Brood Mother
-		if(CoC.monster.hasCock() && CoC.player.hasVagina() && CoC.player.findPerk(PerkLib.BroodMother) >= 0 && (CoC.player.pregnancyIncubation <= 0 || CoC.player.pregnancyIncubation > 216)) {
+		if(CoC.monster.hasCock() && CoC.player.hasVagina() && CoC.player.findPerk(PerkLib.BroodMother) && (CoC.player.pregnancyIncubation <= 0 || CoC.player.pregnancyIncubation > 216)) {
 			choices.push(14);
 			choices.push(14);
 			choices.push(14);
@@ -2539,7 +2539,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(26);
 		}
 		//27 FEEDER
-		if(CoC.player.findPerk(PerkLib.Feeder) >= 0 && CoC.player.biggestTitSize() >= 4) {
+		if(CoC.player.findPerk(PerkLib.Feeder) && CoC.player.biggestTitSize() >= 4) {
 			choices.push(27);
 			choices.push(27);
 			choices.push(27);
@@ -2758,7 +2758,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 							MainView.outputText(CoC.player.multiCockDescriptLight(), false);
 						}
 						MainView.outputText(" and ", false);
-						if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
+						if(CoC.player.findPerk(PerkLib.BulgeArmor)) {
 							damage += 5;
 						}
 						penis = true;
@@ -2772,7 +2772,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			case 3:
 				if(CoC.player.isTaur() && CoC.player.horseCocks() > 0) {
 					MainView.outputText("You let out a bestial whinny and stomp your hooves at your enemy.  They prepare for an attack, but instead you kick your front hooves off the ground, revealing the hefty horsecock hanging beneath your belly.  You let it flop around, quickly getting rigid and to its full erect length.  You buck your hips as if you were fucking a mare in heat, letting your opponent know just what's in store for them if they surrender to pleasure...", false);
-					if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
+					if(CoC.player.findPerk(PerkLib.BulgeArmor)) {
 						damage += 5;
 					}
 				} else {
@@ -2787,7 +2787,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 						MainView.outputText(" and ", false);
 					}
 					//Bulgy bonus!
-					if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
+					if(CoC.player.findPerk(PerkLib.BulgeArmor)) {
 						damage += 5;
 						chance++;
 					}
@@ -2836,13 +2836,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 			//6 pussy flash
 			case 6:
-				if (CoC.player.findPerk(PerkLib.BimboBrains) >= 0 || CoC.player.findPerk(PerkLib.FutaFaculties) >= 0) {
+				if (CoC.player.findPerk(PerkLib.BimboBrains) || CoC.player.findPerk(PerkLib.FutaFaculties)) {
 					MainView.outputText("You coyly open your " + CoC.player.armorName + " and giggle, \"<i>Is this, like, what you wanted to see?</i>\"  ", false);
 				} else {
 					MainView.outputText("You coyly open your " + CoC.player.armorName + " and purr, \"<i>Does the thought of a hot, ", false);
 					if(futa) {
 						MainView.outputText("futanari ", false);
-					} else if(CoC.player.findPerk(PerkLib.BimboBody) >= 0) {
+					} else if(CoC.player.findPerk(PerkLib.BimboBody)) {
 						MainView.outputText("bimbo ", false);
 					} else {
 						MainView.outputText("sexy ");
@@ -2864,7 +2864,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				}
 				//BONUSES!
 				if(CoC.player.hasCock()) {
-					if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
+					if(CoC.player.findPerk(PerkLib.BulgeArmor)) {
 						damage += 5;
 					}
 					penis = true;
@@ -2883,7 +2883,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//8 Pec Dance
 			case 8:
 				MainView.outputText("You place your hands on your hips and flex repeatedly, skillfully making your pecs alternatively bounce in a muscular dance.  ", false);
-				if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BroBrains)) {
 					MainView.outputText("Damn, " + CoC.monster.a + CoC.monster.short + " has got to love this!", false);
 				} else {
 					MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " will probably enjoy the show, but you feel a bit silly doing this.", false);
@@ -2895,7 +2895,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//9 Heroic Pose
 			case 9:
 				MainView.outputText("You lift your arms and flex your incredibly muscular arms while flashing your most disarming smile.  ", false);
-				if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BroBrains)) {
 					MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " can't resist such a heroic pose!", false);
 				} else {
 					MainView.outputText("At least the physical changes to your body are proving useful!", false);
@@ -2907,7 +2907,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//10 Bulgy groin thrust
 			case 10:
 				MainView.outputText("You lean back and pump your hips at " + CoC.monster.a + CoC.monster.short + " in an incredibly vulgar display.  The bulging, barely-contained outline of your " + CoC.player.cockDescript(0) + " presses hard into your gear.  ", false);
-				if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BroBrains)) {
 					MainView.outputText("No way could " + CoC.monster.pronoun1 + " resist your huge cock!", false);
 				} else {
 					MainView.outputText("This is so crude, but at the same time, you know it'll likely be effective.", false);
@@ -2915,7 +2915,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText("  You go on like that, humping the air for your foe", false);
 				MainView.outputText("'s", false);
 				MainView.outputText(" benefit, trying to entice them with your man-meat.", false);
-				if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BulgeArmor)) {
 					damage += 5;
 				}
 				penis = true;
@@ -2926,13 +2926,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					MainView.outputText("You strike a herculean pose and flex, whispering, \"<i>Do you even lift?</i>\" to " + CoC.monster.a + CoC.monster.short + ".", false);
 				} else {
 					MainView.outputText("You open your " + CoC.player.armorName + " just enough to let your " + CoC.player.cockDescript(0) + " and " + Descriptors.ballsDescriptLight() + " dangle free.  A shiny rope of pre-cum dangles from your cock, showing that your reproductive system is every bit as fit as the rest of you.  ", false);
-					if(CoC.player.findPerk(PerkLib.BroBrains) >= 0) {
+					if(CoC.player.findPerk(PerkLib.BroBrains)) {
 						MainView.outputText("Bitches love a cum-leaking cock.", false);
 					} else {
 						MainView.outputText("You've got to admit, you look pretty good down there.", false);
 					}
 				}
-				if(CoC.player.findPerk(PerkLib.BulgeArmor) >= 0) {
+				if(CoC.player.findPerk(PerkLib.BulgeArmor)) {
 					damage += 5;
 				}
 				penis = true;
@@ -3555,11 +3555,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//NERF TEASE DAMAGE
 			damage *= 0.7;
 			bonusDamage *= 0.7;
-			if(CoC.player.findPerk(PerkLib.HistoryWhore) >= 0) {
+			if(CoC.player.findPerk(PerkLib.HistoryWhore)) {
 				damage *= 1.15;
 				bonusDamage *= 1.15;
 			}
-			if (CoC.player.findPerk(PerkLib.ChiReflowLust) >= 0) {
+			if (CoC.player.findPerk(PerkLib.ChiReflowLust)) {
 				damage *= SceneLib.umasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI;
 			}
 			if(CoC.monster.plural) {
@@ -3667,7 +3667,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		MainView.outputText("What spell will you use?\n\n");
 		//WHITE SHITZ
 		var whiteLustCap = 75;
-		if (CoC.player.findPerk(PerkLib.Enlightened) >= 0 && CoC.player.cor < 10) {
+		if (CoC.player.findPerk(PerkLib.Enlightened) && CoC.player.cor < 10) {
 			whiteLustCap += 10;
 		}
 		if (CoC.player.lust >= whiteLustCap) {
@@ -3710,13 +3710,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		// JOJO ABILITIES -- kind makes sense to stuff it in here along side the white magic shit (also because it can't fit into M. Specials :|
-		if (CoC.player.findPerk(PerkLib.CleansingPalm) >= 0 && CoC.player.cor < 10) {
+		if (CoC.player.findPerk(PerkLib.CleansingPalm) && CoC.player.cor < 10) {
 			EngineCore.addButton(3, "C.Palm", null, Combat.spellCleansingPalm);
 		}
 		EngineCore.addButton(9, "Back", null, Combat.combatMenu, false);
 	};
 	Combat.spellArouse = function() {
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -3817,7 +3817,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return;
 	};
 	Combat.spellHeal = function() {
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -3868,7 +3868,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//maximum of 15, allows it to exceed the maximum.  Chance of backfiring 
 	//and increasing lust by 15.
 	Combat.spellMight = function() {
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -3932,7 +3932,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	//(15) Charge Weapon – boosts your weapon attack value by 10 * SpellMod till the end of combat.
 	Combat.spellChargeWeapon = function() {
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(15) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -3949,7 +3949,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//(20) Blind – reduces your opponent's accuracy, giving an additional 50% miss chance to physical attacks.
 	Combat.spellBlind = function() {
 		MainView.outputText("", true);
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -4021,7 +4021,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//(30) Whitefire – burns the enemy for 10 + int/3 + Utils.rand(int/2) * spellMod.
 	Combat.spellWhitefire = function() {
 		MainView.outputText("", true);
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -4051,7 +4051,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Using fire attacks on the goo]
 		if(CoC.monster.short === "goo-girl") {
 			MainView.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer.", false);
-			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+			if(!CoC.monster.findPerk(PerkLib.Acid)) {
 				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 		}
@@ -4068,7 +4068,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.spellCleansingPalm = function() {
 		MainView.clearOutput();
-		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
+		if (!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(30) > 100) {
 			MainView.outputText("You are too tired to cast this spell.", true);
 			EngineCore.doNext( Combat, Combat.magicMenu);
 			return;
@@ -4130,7 +4130,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.spellPerkUnlock = function() {
-		if(CoC.flags[kFLAGS.SPELLS_CAST] >= 5 && CoC.player.findPerk(PerkLib.SpellcastingAffinity) < 0) {
+		if(CoC.flags[kFLAGS.SPELLS_CAST] >= 5 && !CoC.player.findPerk(PerkLib.SpellcastingAffinity)) {
 			MainView.outputText("<b>You've become more comfortable with your spells, unlocking the Spellcasting Affinity perk and reducing fatigue cost of spells by 20%!</b>\n\n");
 			CoC.player.createPerk(PerkLib.SpellcastingAffinity,20,0,0,0);
 		}
@@ -4148,7 +4148,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//lust damage to completely corrupt foes, and a mix for those in between.  Its power is based on the PC's corruption and level.  Appearance is slightly changed to mention that the PC's eyes and mouth occasionally show flicks of fire from within them, text could possibly vary based on corruption.
 	Combat.hellFire = function() {
 		MainView.outputText("", true);
-		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
+		if (!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			MainView.outputText("You are too tired to breathe fire.\n", true);
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
@@ -4189,9 +4189,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		} else if(CoC.monster.short === "Vala") {
 			MainView.outputText("  Vala beats her wings with surprising strength, blowing the fireball back at you!  ", false);
-			if(CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
+			if(CoC.player.findPerk(PerkLib.Evade) && Utils.rand(2) === 0) {
 				MainView.outputText("You dive out of the way and evade it!", false);
-			} else if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
+			} else if(CoC.player.findPerk(PerkLib.Flexibility) && Utils.rand(4) === 0) {
 				MainView.outputText("You use your flexibility to barely fold your body out of the way!", false);
 			} else {
 				damage = Math.floor(damage / 6);
@@ -4324,7 +4324,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Apply AND DONE!
 		damage -= reduction;
 		//Damage post processing!
-		if(CoC.player.findPerk(PerkLib.HistoryFighter) >= 0) {
+		if(CoC.player.findPerk(PerkLib.HistoryFighter)) {
 			damage *= 1.1;
 		}
 		//(None yet!)
@@ -4536,7 +4536,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Whisper 
 	Combat.superWhisperAttack = function() {
 		MainView.outputText("", true);
-		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(10) > 100) {
+		if (!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(10) > 100) {
 			MainView.outputText("You are too tired to focus this ability.", true);
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
@@ -4564,7 +4564,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.monster.findPerk(PerkLib.Focused) >= 0) {
+		if(CoC.monster.findPerk(PerkLib.Focused)) {
 			if(!CoC.monster.plural) {
 				MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is too focused for your whispers to influence!\n\n");
 			}
@@ -4595,7 +4595,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Effect of attack: Damages and stuns the enemy for the turn you used this attack on, plus 2 more turns. High chance of success.
 	Combat.dragonBreath = function() {
 		MainView.clearOutput();
-		if (CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
+		if (!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			MainView.outputText("You are too tired to breathe fire.", true);
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
@@ -4641,9 +4641,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText("  Despite the heavy impact caused by your roar, " + CoC.monster.a + CoC.monster.short + " manages to take it at an angle and remain on " + CoC.monster.pronoun3 + " feet and focuses on you, ready to keep fighting.");
 		} else if(CoC.monster.short === "Vala") { //Special enemy avoidances
 			MainView.outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ", false);
-			if(CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
+			if(CoC.player.findPerk(PerkLib.Evade) && Utils.rand(2) === 0) {
 				MainView.outputText("You dive out of the way and evade it!", false);
-			} else if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
+			} else if(CoC.player.findPerk(PerkLib.Flexibility) && Utils.rand(4) === 0) {
 				MainView.outputText("You use your flexibility to barely fold your body out of the way!", false);
 			} else {
 				damage = Combat.takeDamage(damage);
@@ -4652,7 +4652,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText("\n\n", false);
 		} else if(CoC.monster.short === "goo-girl") { //Goos burn
 			MainView.outputText(" Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer. ", false);
-			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+			if(!CoC.monster.findPerk(PerkLib.Acid)) {
 				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 			damage = Math.round(damage * 1.5);
@@ -4660,7 +4660,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			CoC.monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
 			MainView.outputText("(" + damage + ")\n\n", false);
 		} else {
-			if(CoC.monster.findPerk(PerkLib.Resolute) < 0) {
+			if(!CoC.monster.findPerk(PerkLib.Resolute)) {
 				MainView.outputText("  " + CoC.monster.getCapitalA() + CoC.monster.short + " reels as your wave of force slams into " + CoC.monster.pronoun2 + " like a ton of rock!  The impact sends " + CoC.monster.pronoun2 + " crashing to the ground, too dazed to strike back.");
 				CoC.monster.createStatusAffect(StatusAffects.Stunned,1,0,0,0);
 			} else {
@@ -4747,9 +4747,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		} else if(CoC.monster.short === "Vala") {
 			MainView.outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ", false);		
-			if(CoC.player.findPerk(PerkLib.Evade) >= 0 && Utils.rand(2) === 0) {
+			if(CoC.player.findPerk(PerkLib.Evade) && Utils.rand(2) === 0) {
 				MainView.outputText("You dive out of the way and evade it!", false);
-			} else if(CoC.player.findPerk(PerkLib.Flexibility) >= 0 && Utils.rand(4) === 0) {
+			} else if(CoC.player.findPerk(PerkLib.Flexibility) && Utils.rand(4) === 0) {
 				MainView.outputText("You use your flexibility to barely fold your body out of the way!", false);
 			} else {
 				MainView.outputText("Your own fire smacks into your face! (" + damage + ")", false);
@@ -4760,7 +4760,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//Using fire attacks on the goo]
 			if(CoC.monster.short === "goo-girl") {
 				MainView.outputText(" Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer. ", false);
-				if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+				if(!CoC.monster.findPerk(PerkLib.Acid)) {
 					CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 				}
 				damage = Math.round(damage * 1.5);
@@ -4906,7 +4906,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.possess = function() {
 		MainView.outputText("", true);
-		if(CoC.monster.short === "plain girl" || CoC.monster.findPerk(PerkLib.Incorporeality) >= 0) {
+		if(CoC.monster.short === "plain girl" || CoC.monster.findPerk(PerkLib.Incorporeality)) {
 			MainView.outputText("With a smile and a wink, your form becomes completely intangible, and you waste no time in throwing yourself toward the opponent's frame.  Sadly, it was doomed to fail, as you bounce right off your foe's ghostly form.", false);
 		} else if ( CoC.monster.hasClassName( 'LivingStatue' ) ) {
 			MainView.outputText("There is nothing to possess inside the golem.");
@@ -5025,7 +5025,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if(CoC.player.canFly()) {
 			escapeMod -= 20;
 		}
-		if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner) >= 0) {
+		if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner)) {
 			escapeMod -= 25;
 		} else { //Big tits doesn't matter as much if ya can fly!
 			if(CoC.player.biggestTitSize() >= 35) {
@@ -5079,8 +5079,8 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Ember is SPUCIAL
 		if(CoC.monster.short === "Ember") {
 			//GET AWAY
-			if(CoC.player.spe > Utils.rand(CoC.monster.spe + escapeMod) || (CoC.player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50)) {
-				if(CoC.player.findPerk(PerkLib.Runner) >= 0) {
+			if(CoC.player.spe > Utils.rand(CoC.monster.spe + escapeMod) || (CoC.player.findPerk(PerkLib.Runner) && Utils.rand(100) < 50)) {
+				if(CoC.player.findPerk(PerkLib.Runner)) {
 					MainView.outputText("Using your skill at running, y");
 				} else {
 					MainView.outputText("Y");
@@ -5101,7 +5101,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//Fliers flee!
 			if(CoC.player.canFly()) {
 				MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " can't catch you.", false);
-			} else if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner) >= 0) { //sekrit benefit: if you have coon ears, coon tail, and Runner perk, change normal Runner escape to flight-type escape
+			} else if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner)) { //sekrit benefit: if you have coon ears, coon tail, and Runner perk, change normal Runner escape to flight-type escape
 				MainView.outputText("Using your running skill, you build up a head of steam and jump, then spread your arms and flail your tail wildly; your opponent dogs you as best " + CoC.monster.pronoun1 + " can, but stops and stares dumbly as your spastic tail slowly propels you several meters into the air!  You leave " + CoC.monster.pronoun2 + " behind with your clumsy, jerky, short-range flight.");
 			} else { //Non-fliers flee
 				MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " rapidly disappears into the shifting landscape behind you.", false);
@@ -5113,7 +5113,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			Combat.clearStatuses(false);
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			return;
-		} else if(CoC.player.findPerk(PerkLib.Runner) >= 0 && Utils.rand(100) < 50) { //Runner perk chance
+		} else if(CoC.player.findPerk(PerkLib.Runner) && Utils.rand(100) < 50) { //Runner perk chance
 			CoC.setInCombat(false);
 			MainView.outputText("Thanks to your talent for running, you manage to escape.", false);
 			if(CoC.monster.short === "Izma") {
@@ -5134,7 +5134,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				} else {
 					MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " manages to grab your " + CoC.player.legs() + " and drag you back to the ground before you can fly away!", false);
 				}
-			} else if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner) >= 0) { //fail
+			} else if(CoC.player.tailType === AppearanceDefs.TAIL_TYPE_RACCOON && CoC.player.earType === AppearanceDefs.EARS_RACCOON && CoC.player.findPerk(PerkLib.Runner)) { //fail
 				MainView.outputText("Using your running skill, you build up a head of steam and jump, but before you can clear the ground more than a foot, your opponent latches onto you and drags you back down with a thud!");
 			} else { //Nonflyer messages
 				//Huge balls messages
@@ -5260,30 +5260,30 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		MainView.menu();
 		//Berserk
-		if(CoC.player.findPerk(PerkLib.Berzerker) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Berzerker)) {
 			EngineCore.addButtonWithTooltip(0, "Berzerk", 'Throw yourself into a rage!  Greatly increases the strength of your weapon and increases lust resistance, but your armor defense is reduced to zero!', null, Combat.berzerk);
 		}
-		if(CoC.player.findPerk(PerkLib.Dragonfire) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Dragonfire)) {
 			EngineCore.addButton(1,"DragonFire", null, Combat.dragonBreath);
 		}
-		if(CoC.player.findPerk(PerkLib.FireLord) >= 0) {
+		if(CoC.player.findPerk(PerkLib.FireLord)) {
 			EngineCore.addButton(2,"Fire Breath", null, Combat.fireballuuuuu);
 		}
-		if(CoC.player.findPerk(PerkLib.Hellfire) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Hellfire)) {
 			EngineCore.addButton(3,"Hellfire", null, Combat.hellFire);
 		}
 		//Possess ability.
-		if(CoC.player.findPerk(PerkLib.Incorporeality) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Incorporeality)) {
 			EngineCore.addButtonWithTooltip(4,"Possess", 'Attempt to temporarily possess a foe and force them to raise their own lusts.', null, Combat.possess);
 		}
-		if(CoC.player.findPerk(PerkLib.Whispered) >= 0) {
+		if(CoC.player.findPerk(PerkLib.Whispered)) {
 			EngineCore.addButton(5,"Whisper", null, Combat.superWhisperAttack);
 		}
-		if(CoC.player.findPerk(PerkLib.CorruptedNinetails) >= 0) {
+		if(CoC.player.findPerk(PerkLib.CorruptedNinetails)) {
 			EngineCore.addButton(6,"C.FoxFire", null, Combat.corruptedFoxFire);
 			EngineCore.addButton(7,"Terror", null, Combat.kitsuneTerror);
 		}
-		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails) >= 0) {
+		if(CoC.player.findPerk(PerkLib.EnlightenedNinetails)) {
 			EngineCore.addButton(6,"FoxFire", null, Combat.foxFire);
 			EngineCore.addButton(7,"Illusion", null, Combat.kitsuneIllusion);
 		}
@@ -5375,7 +5375,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Corrupted Fox Fire
 	Combat.corruptedFoxFire = function() {
 		MainView.clearOutput();
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
 			MainView.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5397,7 +5397,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Using fire attacks on the goo]
 		if(CoC.monster.short === "goo-girl") {
 			MainView.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer.", false);
-			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+			if(!CoC.monster.findPerk(PerkLib.Acid)) {
 				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 		}
@@ -5413,7 +5413,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	//Fox Fire
 	Combat.foxFire = function() {
 		MainView.clearOutput();
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(35) > 100) {
 			MainView.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5440,7 +5440,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Using fire attacks on the goo]
 		if(CoC.monster.short === "goo-girl") {
 			MainView.outputText("  Your flames lick the girl's body and she opens her mouth in pained protest as you evaporate much of her moisture. When the fire passes, she seems a bit smaller and her slimy " + CoC.monster.skinTone + " skin has lost some of its shimmer.", false);
-			if(CoC.monster.findPerk(PerkLib.Acid) < 0) {
+			if(!CoC.monster.findPerk(PerkLib.Acid)) {
 				CoC.monster.createPerk(PerkLib.Acid,0,0,0,0);
 			}
 		}
@@ -5457,7 +5457,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.kitsuneTerror = function() {
 		MainView.clearOutput();
 		//Fatigue Cost: 25
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(20) > 100) {
 			MainView.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5498,7 +5498,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.kitsuneIllusion = function() {
 		MainView.clearOutput();
 		//Fatigue Cost: 25
-		if(CoC.player.findPerk(PerkLib.BloodMage) < 0 && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
+		if(!CoC.player.findPerk(PerkLib.BloodMage) && CoC.player.fatigue + EngineCore.spellCost(25) > 100) {
 			MainView.outputText("You are too tired to use this ability.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;

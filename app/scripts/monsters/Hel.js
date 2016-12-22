@@ -18,15 +18,15 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 			MainView.outputText( 'You nimbly dodge the salamander\'s massive sword thrust!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -77,17 +77,17 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 5 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 5 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s tail-swipe.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 5 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 5 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' tail-swipe.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 3 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 3 ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of a tail-swipe!', false );
 			return;
 		}
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 	};
 	Hel.prototype.helCleavage = function() {
 		//FAIL;
-		if( (CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6) || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10) || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
+		if( (CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6) || (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10) || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
 			MainView.outputText( 'To your surprise, the salamander suddenly pulls up her top, letting her hefty breasts hang free in the air; her small, bright pink nipples quickly harden from either arousal or temperature.  Before you can take your eyes off her impressive rack, she jumps at you.  One of her scaled arms reaches around your waist, and the other toward your head, but you roll away from her grip and push her bodily away.  She staggers a moment, but then quickly yanks the jangling bikini top back down with a glare.\n', false );
 		}
 		//Attack 3 – Lust – Cleavage (Failure);

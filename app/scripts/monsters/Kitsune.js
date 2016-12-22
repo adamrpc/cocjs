@@ -68,10 +68,10 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 		} else {
 			resist = 30;
 		}
-		if( CoC.player.findPerk( PerkLib.Whispered ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Whispered ) ) {
 			resist += 20;
 		}
-		if( CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 && CoC.player.cor < 20 ) {
+		if( CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor < 20 ) {
 			resist += 20 - CoC.player.cor;
 		}
 		if( Utils.rand( 100 ) < resist ) {
@@ -91,10 +91,10 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 		} else {
 			resist = 30;
 		}
-		if( CoC.player.findPerk( PerkLib.Whispered ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Whispered ) ) {
 			resist += 20;
 		}
-		if( CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 && CoC.player.cor < 20 ) {
+		if( CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor < 20 ) {
 			resist += 20 - CoC.player.cor;
 		}
 		var select = Utils.rand( 7 );

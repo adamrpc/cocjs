@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, MainView, PerkLib,
 				}
 			}
 			//OR (CoC.player is bimbo/bimbro/whatever) ;
-			else if( (CoC.player.lib > 75 || CoC.player.cor > 75 || CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 || CoC.player.findPerk( PerkLib.BroBrains ) >= 0) && Utils.rand( 2 ) === 0 ) {
+			else if( (CoC.player.lib > 75 || CoC.player.cor > 75 || CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) || CoC.player.findPerk( PerkLib.BroBrains )) && Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( '\n\nYou pick up a book from a table randomly and open it up.  Incredibly disappointed, you soon realize that there are no pictures of people fucking at all.  Reading sucks.  You eventually toss the book aside and resolve to go do something more fun.' );
 			}//OR (history) ;
 			else {

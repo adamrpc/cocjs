@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 		//Every tenth exploration finds a pumpkin if eligible!
 		if( CoC.player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 10 === 0 && SceneLib.fera.isHalloween() ) {
 			//If Fera isn't free yet...
-			if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) < 0 && CoC.player.findPerk( PerkLib.FerasBoonAlpha ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) && !CoC.player.findPerk( PerkLib.FerasBoonAlpha ) ) {
 				if( OnLoadVariables.date.fullYear > CoC.flags[ kFLAGS.PUMPKIN_FUCK_YEAR_DONE ] ) {
 					SceneLib.fera.pumpkinFuckEncounter();
 					return;
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 			return;
 		}
 		//Raise Jojo chances for furrite
-		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 5 ) === 0 && (CoC.player.cor > 25 || SceneLib.jojoScene.monk > 0) ) {
+		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) && Utils.rand( 5 ) === 0 && (CoC.player.cor > 25 || SceneLib.jojoScene.monk > 0) ) {
 			chooser = 1;
 		}
 		//If Jojo lives in camp, never encounter him
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 			if( CoC.player.cumQ() >= 200 ) {
 				impGob--;
 			}
-			if( CoC.player.findPerk( PerkLib.PiercedLethite ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.PiercedLethite ) ) {
 				if( impGob <= 3 ) {
 					impGob += 2;
 				} else if( impGob < 7 ) {

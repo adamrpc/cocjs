@@ -3426,11 +3426,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		MainView.outputText( '\n\nAs best as she could remember, her life had begun only a decade ago, aging quickly to become ready for service in her Sand Mother\'s coven at the age of five.  She\'d been eager to give her milk and use her two wombs to breed as many new sisters as possible.' );
 		//if player had the broodmother perk;
-		if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BroodMother ) ) {
 			MainView.outputText( '  She\'d immediately shown a unique propensity for rapid pregnancies, birthing new sisters at twice the rate of any other Sand Witch.  Her surprisingly fertile wombs helped give an extra edge to the Sand Mother\'s plans.' );
 		}
 		//if player had broodmother and gigantic breasts;
-		if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 && CoC.player.biggestTitSize() >= 22 ) {
+		if( CoC.player.findPerk( PerkLib.BroodMother ) && CoC.player.biggestTitSize() >= 22 ) {
 			MainView.outputText( '  As a result, the champion who could no longer remember her true past became little more than a giant pregnant belly surrounded by ' + Utils.num2Text( CoC.player.bRows() ) + ' breasts so massive that the other sand witches often used her tits as comfortable cushions to sit upon, their thighs tightly gripping each giant nipple against their aching cunts for pleasure.' );
 		}
 		MainView.outputText( '\n\nTwo years later, at the call of the Great Mother, the sand witches went to war.  ' );
@@ -3835,7 +3835,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	DungeonSandWitch.prototype.moreCumWitchesPlease = function() {
 		MainView.clearOutput();
 		//Bimbo version:;
-		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 			MainView.outputText( 'Wouldn\'t it be better if there were like, lots of cum witches, with yummy cocks that you could suck?' );
 			MainView.outputText( '\n\n"<i>No, it wouldn\'t,</i>" the Sand Mother retorts, ending the conversation.' );
 			EngineCore.doNext( MainView, MainView.playerMenu );

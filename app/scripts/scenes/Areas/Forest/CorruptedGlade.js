@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			} else if( CoC.player.ballSize < 6 ) {
 				booster += 2;
 			}
-			if( CoC.player.findPerk( PerkLib.MessyOrgasms ) >= 0 && CoC.player.cumMultiplier < 3 ) {
+			if( CoC.player.findPerk( PerkLib.MessyOrgasms ) && CoC.player.cumMultiplier < 3 ) {
 				booster += 1;
 			}
 			CoC.player.cumMultiplier += booster;

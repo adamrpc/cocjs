@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 		//Description:;
 		MainView.outputText( 'Ember bares ' + this.emberMF( 'his', 'her' ) + ' teeth and releases a deafening roar; a concussive blast of force heads straight for you!' );
 		MainView.outputText( '  Try as you might, you can\'t seem to protect yourself; and the blast hits you like a stone, throwing you to the ground.' );
-		if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Resolute ) ) {
 			MainView.outputText( '  Your head swims - it\'ll take a moment before you can regain your balance.' );
 			//Miss: You quickly manage to jump out of the way and watch in awe as the blast gouges into the ground you were standing on mere moments ago.;
 			CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );

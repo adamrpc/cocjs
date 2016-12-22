@@ -34,11 +34,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 		 -10 for Goo Half
 		 -10 for Centaur Half
 		 */
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) ) {
 			baseVal += 20;
 			$log.debug( '+20 for Evade' );
 		}
-		if( CoC.player.findPerk( PerkLib.Runner ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Runner ) ) {
 			baseVal += 20;
 			$log.debug( '+20 for Runner' );
 		}
@@ -46,28 +46,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 			baseVal += 20;
 			$log.debug( '+20 for Drider' );
 		}
-		if( CoC.player.findPerk( PerkLib.CorruptedNinetails ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.CorruptedNinetails ) ) {
 			baseVal += 30;
 			$log.debug( '+30 For Ninetails' );
 		}
-		if( CoC.player.findPerk( PerkLib.EnlightenedNinetails ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.EnlightenedNinetails ) ) {
 			baseVal += 30;
 			$log.debug( '+30 for Ninetails' );
 		}
 		// Akbal Blessings
-		if( CoC.player.findPerk( PerkLib.FireLord ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.FireLord ) ) {
 			baseVal += 10;
 			$log.debug( '+10 for Firelord' );
 		}
-		if( CoC.player.findPerk( PerkLib.Whispered ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Whispered ) ) {
 			baseVal += 10;
 			$log.debug( '+10 for Whispered' );
 		}
-		if( CoC.player.findPerk( PerkLib.Fast ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Fast ) ) {
 			baseVal += 10;
 			$log.debug( '+10 for Fast' );
 		}
-		if( CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Incorporeality ) ) {
 			baseVal += 10;
 			$log.debug( '+10 for Incorporeal' );
 		}

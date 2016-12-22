@@ -1757,7 +1757,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		MainView.outputText( '\n\nAs her essence burrows inside you, your [vagina] clenches of its own volition.  Your eyes roll back from the ecstasy your netherlips jolt into your spine, and you pull tighter on your toy\'s legs, dragging her oily quim tighter against your goo-gilt slit.  The two latex pussies gush and gleam with each other\'s hot lubricants.  They quiver feverishly, clits rigid and erect, happily sharing in feminine bliss.  There\'s two voices screaming, crying out to the heavens in mismatched harmony.  The higher one dies down to a low moan of contentment, and once your cunt slackens in the aftermath of your orgasm, you realize the second is your own.' );
 		MainView.outputText( '\n\nYou mash your [vagina] against ' + CoC.flags[ kFLAGS.GOO_NAME ] + '\'s a few more times to savor the aftershocks of climax.  She grunts each time, her mouth widening into simple \'o\'s.  The sensuously skinned lady fails can\'t even scream any more.  The best she can do is moan, low and lewd as you finish using her.  As you slowly begin to separate, a tangle of sable webs hangs in the air, glittering with a coating of femcum.  Some of them are already semi-solid and snap at your withdrawal.  The others just come apart, wetly slapping against each twat as they separate.' );
 		MainView.outputText( '\n\nRising, you examine your [vagina].  In addition to being so heavy and wet, it\'s coated with a solid sheet of latex.  You\'ve no doubt it would hurt to remove' );
-		if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 			MainView.outputText( ', so you do, gleefully stripping the material from your skin.  Juices gush from your [vagina] as you torture your mons with masochistic pleasure, peeling the adhesive substance away to reveal pain-reddened skin.  ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' looks up at you in awe, and with a shudder, you pat her on the head.  "<i>Good pet.</i>"' );
 		}//{ALT:;
 		else {
@@ -2148,7 +2148,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, BreastStore, PerkLi
 		}
 		MainView.outputText( '.  Suddenly, your teat pops free of her mouth, a streak of milk still spraying until ' + CoC.flags[ kFLAGS.GOO_NAME ] + ' is liberally coated with your white orgasmic offering, laughing girlishly as she licks her fingers and brings her own breast to her mouth, trying to tongue off the milk splattered on her.' );
 		MainView.outputText( '\n\n"<i>Delicious!</i>" she says with a smile, plating a long kiss on your lips.  You return her grin and pull her close, nesting her face into your now-lighter bosom for a few short, restful minutes.' );
-		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) ) {
 			//You've now been milked, reset the timer for that;
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );

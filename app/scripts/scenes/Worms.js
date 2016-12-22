@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			return;
 		}
 		//Evade;
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + CoC.monster.a + CoC.monster.short + '\' attacks.\n', false );
 			Combat.combatRoundOver();
 			return;

@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, PerkL
 	GoblinScene.prototype.goblinRapesPlayer = function() {
 		MainView.spriteSelect( 24 );
 		MainView.outputText( '', true );
-		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 			//[Female Bimbo Loss Against Goblin];
 			if( CoC.player.hasVagina() ) {
 				MainView.outputText( ImageManager.showImage( 'goblin-loss-female-bimbodildo' ) );

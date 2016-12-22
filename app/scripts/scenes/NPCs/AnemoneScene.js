@@ -265,7 +265,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			MainView.outputText( '\n\n', false );
 			MainView.outputText( 'The anemone\'s eyes roll back in her head as she reaches her climax first, hips shaking and penis squirting a glob of semen that drools down the side.  ', false );
 			//[(Flexibility cat perk);
-			if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Flexibility ) ) {
 				MainView.outputText( 'You lean down and take the anemone\'s cock in your own mouth as she continues orgasming, swallowing the cool, slippery jism -- it tastes not salty and fishy as you\'d hoped but somewhat faintly like algae.  The anemone, recovering her wits a bit, looks at you blankly, as though she can\'t fathom why anyone would want to drink <i>her</i> ejaculate instead of the other way around.  Your eyes twinkle mirthfully in response as you suck and swallow the last of her jizz.  ', false );
 			}
 			MainView.outputText( 'Your own orgasm takes a bit longer, but the convulsing walls of her pussy do their best to help you arrive and the feelers along her labia writhe against your ' + Descriptors.multiCockDescriptLight() + ' in the same tempo, injecting the last of their venom.  With a deep, final thrust, ' + Descriptors.sMultiCockDesc() + ' erupts in her pussy.  ', false );

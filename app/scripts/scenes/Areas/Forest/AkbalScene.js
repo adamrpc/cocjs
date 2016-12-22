@@ -311,7 +311,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			MainView.outputText( 'You grin as you flip him over onto his back, staring down at his breeding tool between his legs, firmly erect as it rests on his rather full set of balls. Quite clearly, this "<i>God</i>" hasn\'t had much action for quite some time, hence his aggressive nature towards you. You finger yourself slightly as you examine his feline shaft, coated with layers of barbs that look as though they would be quite painful. Leaning down, you run your fingers over them, smirking as they bend slightly. They may not be enough to harm you, but sex would definitely be unpleasant... unless you happened to have a source of suitable lube nearby.\n\n', false );
 			MainView.outputText( 'Remembering the cats back home', false );
 			//({If player has the flexibility Perk}
-			if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Flexibility ) ) {
 				MainView.outputText( ' and your own experience with such matters', false );
 			}
 			MainView.outputText( ', you figure you have a pretty good idea where a reliable source of lube could be. You grin as you grab the demon cat by the scruff of his neck, ', false );
@@ -826,7 +826,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//[After 8th submission, if whispered and corruption is greater than 80%]
 		//(fighting Akbal disables this scene, but you retain the ability if you rape him after)
 		else if( CoC.flags[ kFLAGS.PLAYER_RESISTED_AKBAL ] === 0 && CoC.flags[ kFLAGS.AKBAL_SUBMISSION_COUNTER ] >= 8 && CoC.player.cor > 80 ) {
-			if( CoC.player.cor < 80 || CoC.player.findPerk( PerkLib.FireLord ) >= 0 ) {
+			if( CoC.player.cor < 80 || CoC.player.findPerk( PerkLib.FireLord ) ) {
 				MainView.outputText( 'You awake in your camp feeling dangerous, powerful and fiercely satisfied.', false );
 			} else {
 				MainView.outputText( 'You open your eyes and almost yell in surprise when you see Akbal\'s emerald eyes looking into yours.  You are still in the forest and his lithe jaguar body is still over you; you quickly realize he hasn\'t moved you, as you\'re still resting in a puddle of mixed sex juices.\n\n', false );
@@ -840,9 +840,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			}
 		}
 		//[After 4th submission if corruption is greater than 40%]
-		else if( CoC.player.findPerk( PerkLib.Whispered ) < 0 && CoC.player.cor >= 40 ) {
+		else if( !CoC.player.findPerk( PerkLib.Whispered ) && CoC.player.cor >= 40 ) {
 			MainView.outputText( 'You awake in your camp with Akbal standing over you, the chorus of voices in your head reaching the apex of an agonizingly beautiful song, and then falling silent.  When you rise, Akbal licks your face before turning away and sprinting into the forest.\n\n', false );
-			if( CoC.player.findPerk( PerkLib.Whispered ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Whispered ) ) {
 				MainView.outputText( '(You are now Whispered.)', false );
 				CoC.player.createPerk( PerkLib.Whispered, 0, 0, 0, 0 );
 				//['Whispered' appears as perk]

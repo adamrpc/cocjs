@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		if( CoC.player.minotaurAddicted() ) {
 			choices.push( 6 );
 			choices.push( 6 );
-			if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 				choices.push( 6 );
 			}
 		}
@@ -108,11 +108,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Utils, PerkLib, Sta
 		//Well adjusted cuts gain in half!;
 		var dreamLust = dreamtemp;
 		// Lusty increases by 1/3rd;
-		if( CoC.player.findPerk( PerkLib.Lusty ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Lusty ) ) {
 			dreamLust += (dreamtemp / 3);
 		}
 		// Well Adjusted cuts by half;
-		if( CoC.player.findPerk( PerkLib.WellAdjusted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.WellAdjusted ) ) {
 			dreamLust = (dreamLust / 2);
 		}
 		if( dreamLust > 0 ) {

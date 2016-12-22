@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.outputText( '', true );
 		//BIMBO!  LIKE, TOTALLY AWESOME AND CUM!
 		//[Naga-on-Female Bimbo Loss Scene]
-		if( (CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0) && CoC.player.hasVagina() ) {
+		if( (CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties )) && CoC.player.hasVagina() ) {
 			MainView.outputText( 'You fall to your knees, like usual, your sexy form shaking with desire.\n\n', false );
 			MainView.outputText( 'The naga slowly approaches you with a smile of delight, devouring you with her eyes like the easy little thing you are. When she is close enough, she slides her tail under you and brings you closer to her. As she hisses in your ear, a chill goes down your spine don\'t understand a word she is saying. That seems to happen a lot with your tiny brain, but at least you can tell by the tones that she won\'t be going easy on you. Your nipples harden at the thought, and your ' + Descriptors.vaginaDescript( 0 ) + ' agrees. Now astride the base of her tail and facing towards her, your eyes are directed to her crotch where a scaly covering rests where you would guess -- if you had the brains -- that a vagina should be. The naga brings a hand down and gently starts caressing this nether region. You know exactly what she is doing, and you, like, totally feel the need for sex with her burn inside you. You quickly strip yourself of your ' + CoC.player.armorName + ' and throw yourself brainlessly onto her awaiting pussy. Without any complaints whatsoever, you pull her lips apart and start licking, looking up at her wide-eyed and \'O\'-lipped between licks.\n\n', false );
 			MainView.outputText( 'Slowly you move your tongue around her folds, hearing her soft moans of arousal. Bringing your perky lips to the bottom of her slit, you gently kiss at it, carefully working your way up to the top. You pause a moment once at the top to plant a porn-star-like kiss on her clit and feel her twitch slightly before you make your way back down to her glistening cunt and lick at the moisture, savoring its taste as if it were your only food.\n\n', false );
@@ -905,42 +905,42 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			//5% chance for each tease level.
 			chance += CoC.player.teaseLevel * 5;
 			//10% for seduction perk
-			if( CoC.player.findPerk( PerkLib.Seduction ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Seduction ) ) {
 				chance += 10;
 			}
 			//10% for sexy armor types
-			if( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 				chance += 10;
 			}
 			//10% for bimbo shits
-			if( CoC.player.findPerk( PerkLib.BimboBody ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BimboBody ) ) {
 				chance += 10;
 				bimbo = true;
 			}
-			if( CoC.player.findPerk( PerkLib.BroBody ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BroBody ) ) {
 				chance += 10;
 				bro = true;
 			}
-			if( CoC.player.findPerk( PerkLib.FutaForm ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FutaForm ) ) {
 				chance += 10;
 				futa = true;
 			}
 			//2 & 2 for seductive valentines!
-			if( CoC.player.findPerk( PerkLib.SensualLover ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SensualLover ) ) {
 				chance += 2;
 			}
 			//==============================
 			//Determine basic damage.
 			//==============================
 			damage = 6 + Utils.rand( 3 );
-			if( CoC.player.findPerk( PerkLib.SensualLover ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SensualLover ) ) {
 				damage += 2;
 			}
-			if( CoC.player.findPerk( PerkLib.Seduction ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Seduction ) ) {
 				damage += 5;
 			}
 			//+ slutty armor bonus
-			if( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 				damage += CoC.player.perkv1( PerkLib.SluttySeduction );
 			}
 			//10% for bimbo shits
@@ -974,7 +974,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			if( Utils.rand( 100 ) <= chance ) {
 				//NERF TEASE DAMAGE
 				damage *= 0.9;
-				if( CoC.player.findPerk( PerkLib.HistoryWhore ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.HistoryWhore ) ) {
 					damage *= 1.15;
 				}
 				CoC.monster.teased( damage );

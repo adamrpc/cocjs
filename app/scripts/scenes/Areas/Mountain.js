@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 			return;
 		}
 		//Boosts mino and hellhound rates!
-		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) && Utils.rand( 3 ) === 0 ) {
 			if( Utils.rand( 2 ) === 0 ) {
 				chooser = 1;
 			} else {
@@ -82,11 +82,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 			chooser = 1;
 		}
 		//10% MORE chance for minos if uber-addicted
-		if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 && Utils.rand( 10 ) === 0 ) {
+		if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) && Utils.rand( 10 ) === 0 ) {
 			chooser = 1;
 		}
 		//Every 15 explorations chance at mino bad-end!
-		if( CoC.player.exploredMountain % 16 === 0 && CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+		if( CoC.player.exploredMountain % 16 === 0 && CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 			MainView.spriteSelect( 44 );
 			SceneLib.minotaurScene.minoAddictionBadEndEncounter();
 			return;
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 			//Determines likelyhood of imp/goblins
 			//Below - goblin, Equal and up - imp
 			var impGob = 5;
-			if( CoC.player.findPerk( PerkLib.PiercedLethite ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.PiercedLethite ) ) {
 				if( impGob <= 3 ) {
 					impGob += 2;
 				} else if( impGob < 7 ) {

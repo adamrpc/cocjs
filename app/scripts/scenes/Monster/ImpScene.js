@@ -1728,7 +1728,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 	};
 	ImpScene.prototype.impRapesYou = function() {
 		MainView.outputText( '', true );
-		if( (CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0) && !CoC.player.isTaur() && CoC.player.hasVagina() ) {
+		if( (CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties )) && !CoC.player.isTaur() && CoC.player.hasVagina() ) {
 			MainView.outputText( ImageManager.showImage( 'imp-loss-female-fuck' ), false );
 			MainView.outputText( 'You sink to the ground, assuming a position that feels all too natural to you now, leaning forward to let your ' + CoC.player.allBreastsDescript() + ' hang down slightly. The imp looks you up and down, wickedly eyeing your ready, slightly open lips. He drops his loin-cloth to reveal a hardening cock. Your eyes bulge as it grows larger... and larger... and larger! The imp\'s cock finally bulges to a full twelve inches... and it\'s moving closer. You struggle to think... but you just can\'t! You want that in your mouth, like, so bad!\n\n', false );
 			MainView.outputText( 'Your ' + Descriptors.vaginaDescript( 0 ) + ' drips in anticipation, and you find yourself involuntarily moving your knees farther apart to prepare yourself to be filled. He smiles and presses his cock against your ' + Descriptors.vaginaDescript( 0 ) + ', pushing you back to get a better angle. You try to make words, but your brain can only think of so much at once! Right now, it\'s thinking of cock, which, naturally, makes you open your mouth and let out a slutty moan.\n\n', false );
@@ -2043,7 +2043,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			if( CoC.player.hasVagina() ) {
 				EngineCore.addButton( 2, 'Ride Cock', this, this.femaleVagRape );
 			}
-			if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Feeder ) ) {
 				EngineCore.addButton( 3, 'Breastfeed', this, this.feederBreastfeedRape );
 			}
 		}

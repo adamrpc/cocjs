@@ -213,7 +213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( '\n\nYou finally lift yourself off Scylla after your orgasm, and she looks at you with warmth.  "<i>That surprised me...</i>" she claims.  "<i>Not in a way that I\'d mind, though...</i>" she says, her smile widening as she blows you a kiss.  "<i>This is certainly one way to celebrate love, and I must say I\'m glad you gave me your proof of celebration...</i>" she says with a blush, but quickly adds.  "<i>Neither of us should give into desire so easily, though. Today, however, is special, so we should be easy on ourselves and let it slide...</i>"' );
 		MainView.outputText( '\n\nAn hour or so later and quite a bit after sunset, you return to your camp, satisfied and pleased with how you celebrated this holiday...' );
 		// Only add the perk if the player doesn't already have it.;
-		if( CoC.player.findPerk( PerkLib.SensualLover ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.SensualLover ) ) {
 			MainView.outputText( '\n\n(<b>You have gained the Sensual Lover perk!</b>)' );
 			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		MainView.outputText( '\n\nTaking your time, you slowly feed inch after inch into your quivering companion, her body remarkably accommodating for one who normally avoids sex.  Her mother\'s legacy, you suppose.  When you finally bottom out inside of her, Abby picks her legs up and hooks her feet around your waist.  With her flat, unremarkable chest laying atop the small table, she begins to rock back and forth, dragging every fold of her pussy across your ' + Descriptors.cockDescript( x ) + '.  You match her motions, thrusting slowly at first, before gradually speeding up. Her tight interior suckles at the rod spearing her while the table beneath her rocks back and forth at the rising tempo.  Shifting one palm from her hip to the distended swell of her belly, you use your other hand to gather up a few feet of her hair and coil it around your arm, pulling her head back just enough to let you see the gathering ecstasy flushing her olive cheeks.' );
 		MainView.outputText( '\n\nUnable to hold back any further, you pick up your pace, from tender strokes to urgent thrusts, pounding into the goblin paladin with deep, hard motions.  The force of your efforts sends the table toppling to its side, Abylon suspended in the air by her legs tightly wrapped around your back, your hand on her muscled abdomen, and her burnished crimson braid wrapped around your arm.  Clinging to your ' + Descriptors.cockDescript( x ) + ' with single-minded bliss, the goblin girl doesn\'t even seem to notice the ruckus your love-making is causing.  Impassioned loins united by mutual delight, the cavalier rides her champion until the cold tickle of your climax rushes down your spine and through your core.  With a cry of joy, Abylon tightens the grip of her athletic legs on your [hips] and hugs you close as the first spurt of your cum lances into her belly.  Succumbing to her racial needs, the gallant orgasms from the touch of your seed, her tongue hanging from the side of her mouth as her eyes roll up in her head.  You fill her with your hot loads until the spunk gushes out of her quivering pussy and she weakly mutters a word of thanks to Scylla that you suspect she hadn\'t meant to say aloud.' );
 		MainView.outputText( '\n\nSated, you disentangle yourself from the clinging girl and lay her into her bed, with a kiss on her sweat-slick forehead.  She absently strokes between her legs, feeling the oozing jizz dribbling out of her stuffed snatch.  Maybe, for her, this is the meaning of the holiday: not just a casual fuck, but taking the time to really savor the body of someone who\'s important to you.  Even if it isn\'t love, in the strictest sense, being close to the people who impact your life is reason enough to find joy in your days.  You wish the little paladin a good night and, blowing out her candles, you take your leave.' );
-		if( CoC.player.findPerk( PerkLib.SensualLover ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.SensualLover ) ) {
 			MainView.outputText( '\n\n(<b>You\'ve received the Sensual Lover Perk!</b>)' );
 			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}
@@ -525,7 +525,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, ItemTy
 		}
 		MainView.outputText( '\n\nPastie giggles as she flies onto the nearby wall, heavily, completely soaked in your secretions.  As you look to her, she answers.  "<i>I\'m fine!  It\'s all okay.  Justtt.... too much to drink.  Feels gooood, though, hehe!  We should try that again.</i>"  You nod and smile at her, gently wiping her with a finger and letting her taste your pussy juice off it before going back to camp.' );
 		MainView.outputText( '\n\nTrue, this might not have been the most romantic sex act, but it was certainly enjoyable for the two of you.' );
-		if( CoC.player.findPerk( PerkLib.SensualLover ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.SensualLover ) ) {
 			MainView.outputText( '\n\n(<b>You have gained the Sensual Lover perk!</b>)' );
 			CoC.player.createPerk( PerkLib.SensualLover, 0, 0, 0, 0 );
 		}

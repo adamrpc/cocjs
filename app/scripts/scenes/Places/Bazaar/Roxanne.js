@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 		MainView.outputText( ' as she bumps and grinds against your deepest places, spurting drops of pent-up need from her swollen shaft.\n\n', false );
 		MainView.outputText( '"<i>Unf... you\'re so fucking tight, ' + CoC.player.short + '!  Gods, I hate Ceraph\'s curse and this wretched world... but your ass... your gorgeous, cock-slurping asshole... it\'s divine,</i>" praises Roxanne, smacking your ass-pillows in between her slow, rump-filling pumps.  She continues ranting with her thrusts, picking up the pace while she says, "<i>So hot... my beautiful, drunken anal slut.  Look at you... you\'re soaked in your spilt beer, panting while I ream your rump.  Did you even want to win?  I bet you secretly wanted this, didn\'t you?  Go on, nod and tell me how much you want this.</i>"\n\n', false );
 		MainView.outputText( 'You shake your head no, and are rewarded for your disobedience with a violent, butt-jiggling tail-whip.  Gasping from the pain, your ' + Descriptors.assholeDescript() + ' contracts involuntarily, milking Roxanne\'s member for a few more drops of pre.  The aggressive lizard really gets into it, her massive, DD-cup tits pinning you to the table while she smacks your cheeks with her flexible lizan tail.   Pounding and slapping you, she abuses you for every dick-milking squeeze you\'ll give her, ', false );
-		if( CoC.player.findPerk( PerkLib.Masochist ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Masochist ) ) {
 			MainView.outputText( 'until you\'re voluntarily working your abdominal muscles to avoid the pain.', false );
 		} else {
 			MainView.outputText( 'until you\'re moaning with delight from every butt-reddening strike.', false );

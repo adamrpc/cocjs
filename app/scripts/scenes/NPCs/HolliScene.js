@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			if( output ) {
 				MainView.outputText( 'The familiar plant has blossomed into a nicely sized tree, though you doubt it has finished growing just yet.  It sports an outstretched canopy with nice, green leaves.  Unfortunately, you can still trace the corrupted veins on their undersides from below.  The vaginal flower is still there and is in full bloom, now several feet across and practically dripping with moisture.  Just up the trunk, there\'s a pair of small, roughly b-cup breasts bulging out of the bark.  They\'re exquisitely smooth and soft, and they ooze sweet-smelling sap that your tongue would love to taste.  In the canopy above, tentacle vines idly writhe about, though they show no sizes of aggression.' );
 			}
-			if( CoC.player.findPerk( PerkLib.Dragonfire ) >= 0 || CoC.player.findPerk( PerkLib.FireLord ) >= 0 || CoC.player.findPerk( PerkLib.Hellfire ) >= 0 || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Dragonfire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
 				if( output ) {
 					MainView.outputText( '\n\nIt could be burned down with your supernatural fire, but it would definitely tire you.' );
 				}
@@ -208,13 +208,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			if( odds > 40 ) {
 				odds = 40;
 			}
-			if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) ) {
 				odds += 10;
 			}
-			if( CoC.player.findPerk( PerkLib.FerasBoonAlpha ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FerasBoonAlpha ) ) {
 				odds += 10;
 			}
-			if( CoC.player.findPerk( PerkLib.ElvenBounty ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.ElvenBounty ) ) {
 				odds += 2;
 			}
 		}
@@ -223,13 +223,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			if( odds > 40 ) {
 				odds = 40;
 			}
-			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) ) {
 				odds += 10;
 			}
-			if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) ) {
 				odds += 10;
 			}
-			if( CoC.player.findPerk( PerkLib.ElvenBounty ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.ElvenBounty ) ) {
 				odds += 2;
 			}
 		}
@@ -444,7 +444,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		MainView.outputText( '\n\nThe first thing you notice is that the vaginal tentacle flower remains, affixed at waist height to the side of the tree.  It looks bigger, the petals huge and glossy, undoubtedly far more capable of swallowing dick than ever before.  The tree isn\'t that thick, just yet.  Glancing further up the smooth, knotless trunk, you see the most surprising thing of all - a pair of almond-colored nipples, perched upon small, tit-like bulges in the wood.  The bark on these globular protrusion is smoother and fairer than the surrounding surface.  On one of them, a trickle of sap has formed into a heavy bead, and it smells sweet, like maple syrup.' );
 		MainView.outputText( '\n\nA dollop of something moist landing in your hair startles you from your visual inspection.  Gingerly, you touch your fingers to the wet spot and come away with a thick, viscous fluid that smells faintly musky... and salty...  It\'s cum!  You recoil, looking up in time to see a half dozen tentacles curling between the branches rubbing against each other in what can only be described as an orgy of frotting cock-lust.  Well now, your little pet plant is growing up.  There\'s no easy way to get rid of it now' );
 		var burnIt = null;
-		if( CoC.player.findPerk( PerkLib.Dragonfire ) >= 0 || CoC.player.findPerk( PerkLib.FireLord ) >= 0 || CoC.player.findPerk( PerkLib.Hellfire ) >= 0 || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Dragonfire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
 			MainView.outputText( ', though you suppose you could burn it down with magical fire if you set your mind to it' );
 			burnIt = this.torchP3Tree;
 		}
@@ -585,7 +585,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
 			MainView.outputText( 'Closing your eyes to focus, you gather your energies, and unleash your white, supernatural flames upon the thing.' );
 		}//(bromancefire);
-		else if( CoC.player.findPerk( PerkLib.FireLord ) >= 0 ) {
+		else if( CoC.player.findPerk( PerkLib.FireLord ) ) {
 			MainView.outputText( 'Sucking in your breath, you inflate your chest and stir the embers of the jaguar demon\'s gift.  Dredging up an enormous pine-green fireball, you exhale and launch it at the tree.' );
 		} else {
 			MainView.outputText( 'Sucking in your breath, you inflate your chest and stir the embers of your fiery gift.  Dredging up an enormous fireball, you exhale and launch it at the tree.' );

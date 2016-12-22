@@ -28,13 +28,13 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, 
 			return;
 		}
 		//Determine if evaded
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Determine if flexibilitied
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your cat-like agility, you twist out of the way of ' + this.a + this.short + '\'s attack.', false );
 			Combat.combatRoundOver();
 			return;
@@ -125,13 +125,13 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, 
 				return;
 			}
 			//Determine if evaded
-			if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 20 ) {
+			if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 20 ) {
 				MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s fire-breath.', false );
 				Combat.combatRoundOver();
 				return;
 			}
 			//Determine if flexibilitied
-			if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 10 ) {
+			if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 10 ) {
 				MainView.outputText( 'Using your cat-like agility, you contort your body to avoid ' + this.a + this.short + '\'s fire-breath.', false );
 				Combat.combatRoundOver();
 				return;

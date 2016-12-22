@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, MainView, CoC, Pe
 		return this;
 	};
 	Armor.prototype.playerRemove = function() { //This item is being removed by the player. Remove any perks, etc. - This function should only handle mechanics, not text output
-		while( CoC.player.findPerk( PerkLib.BulgeArmor ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.BulgeArmor ) ) {
 			CoC.player.removePerk( PerkLib.BulgeArmor );
 		} //TODO remove this Exgartuan hack
 		if( CoC.player.modArmorName.length > 0 ) {

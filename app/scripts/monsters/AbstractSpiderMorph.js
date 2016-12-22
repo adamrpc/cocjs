@@ -32,15 +32,15 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( 'You dodge away, avoiding the sticky strands!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You evade, avoiding the sticky strands!', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the sticky strands!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		}
 		//Got hit;
@@ -107,15 +107,15 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( 'You dodge away, avoiding ' + this.mf( 'his', 'her' ) + ' bite!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You evade, avoiding the bite!', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the spider bite!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		} else {
 			if( Utils.rand( 5 ) === 0 ) {
@@ -146,15 +146,15 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( 'You pull your weapon back and the webbing goes wide, missing entirely.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You pull your weapon back evasively and the webbing goes wide, missing entirely!', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the webbing!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		} else if( CoC.player.weaponName === 'spiked gauntlet' || CoC.player.weaponName === 'hooked gauntlets' ) {
 			MainView.outputText( 'The webbing hits your ', false );
@@ -185,15 +185,15 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( 'You lean back and let them pass harmlessly overhead, avoiding the attack.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You pull your weapon back evasively and the webbing goes wide, missing entirely.', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the webbing!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		} else {
 			MainView.outputText( 'They hit you before you can move, covering most of your nose and mouth and making it hard to breathe.  You\'ll be unable to use your magic while you\'re constantly struggling just to draw air!\n', false );

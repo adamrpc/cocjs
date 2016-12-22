@@ -4087,7 +4087,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			MainView.outputText( 'drider body over the bulk of her back, ' );
 		}
 		MainView.outputText( 'and release your ovipositor from its usual hiding slit, already dripping with ' );
-		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) ) {
 			MainView.outputText( 'green slime' );
 		} else {
 			MainView.outputText( 'honey' );
@@ -4116,7 +4116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		}
 
 		MainView.outputText( '\n\nFinally, blissfully, you reach the cervix; with one last mighty thrust, eliciting a shriek of arousal-tinged pain and an explosive gout of cum from your vulpine brood-host, you penetrate her all the way into the womb.  You both hover there, gasping as you recover from your mutual exertions, when the wonderful tingling of your eggs moving emanates from your insectile fuckspear.  You moan and groan as contractions push the first of your eggs down, pumping a steady stream of ' );
-		if( CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BeeOvipositor ) ) {
 			MainView.outputText( 'honey' );
 		} else {
 			MainView.outputText( 'spider-goo' );
@@ -4179,7 +4179,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		CoC.flags[ kFLAGS.URTA_EGGS ] = CoC.player.eggs();
 		CoC.flags[ kFLAGS.URTA_FERTILE_EGGS ] = CoC.player.fertilizedEggs();
 		CoC.flags[ kFLAGS.URTA_TIMES_EGG_PREGGED ]++;
-		if( CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BeeOvipositor ) ) {
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_BEE_EGGS, 72 );
 		} else {
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_DRIDER_EGGS, 72 );
@@ -4223,7 +4223,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			}
 		}
 		//[Giant Bee:;
-		else if( CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
+		else if( CoC.player.findPerk( PerkLib.BeeOvipositor ) ) {
 			MainView.outputText( '\n\nWell, you\'re pretty sure the eggs will just hatch into bee swarms; doesn\'t Tel\'Adre have farms of some kind that could use them, you ask?  Urta looks thoughtful for a few moments, then nods.  "<i>Yeah, and the farmers often complain that the crops don\'t produce so well because the drought means there\'s almost no insects to pollinate them any more.  They\'d be happy to take in some swarms, even if they will grow up and move away after three years,</i>" she mumbles, more to herself than to you.' );
 		}//[Drider:;
 		else {
@@ -4233,7 +4233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		MainView.outputText( '\n\nIt seems like Urta has cooled down, and you ask if things are okay now.  Your vulpine lover and current surrogate looks at you with blank eyes for a few moments, again stroking the drum-taut fur of her midriff, then huffs in exasperation, resting her chin in the palm of one hand as she leans against the table.  "<i>All right... it was kind of fun...  Just don\'t do this to me very often!  I have a job besides being a ready breeding womb for you!</i>"' );
 		this.urtaLove( -10 );
 		MainView.outputText( '\n\nYou kiss the embarrassed fox on the nose and tell her to take care before heading out.  She grabs you by the neck and kisses you back hard, whispering, "<i>Don\'t try to make me do this sober, sneaky ' );
-		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) ) {
 			MainView.outputText( 'spider' );
 		} else {
 			MainView.outputText( 'little bee' );
@@ -4355,7 +4355,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 		CoC.flags[ kFLAGS.URTA_EGGS ] = CoC.player.eggs();
 		CoC.flags[ kFLAGS.URTA_FERTILE_EGGS ] = CoC.player.fertilizedEggs();
 		CoC.flags[ kFLAGS.URTA_TIMES_EGG_PREGGED ]++;
-		if( CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BeeOvipositor ) ) {
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_BEE_EGGS, 72 );
 		} else {
 			this.pregnancy.knockUpForce( PregnancyStore.PREGNANCY_DRIDER_EGGS, 72 );

@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		}
 		var button = 0;
 		//FAP BUTTON GOAADFADHAKDADK
-		if( (CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) >= 0 && CoC.player.cor < 10) ) {
+		if( (CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10) ) {
 			if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 				EngineCore.addButtonWithTooltip( button++, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', this, this.masturbateGo );
 			} else {
@@ -23,10 +23,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 			EngineCore.addButtonWithTooltip( button++, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', this, this.masturbateGo );
 		}
 		//catofellato
-		if( CoC.player.hasCock() && (CoC.player.findPerk( PerkLib.Flexibility ) >= 0 || CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0) ) {
+		if( CoC.player.hasCock() && (CoC.player.findPerk( PerkLib.Flexibility ) || CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0) ) {
 			EngineCore.addButton( button++, 'Lick Cock', this, this.catAutoLick );
 		}
-		if( CoC.player.hasVagina() && (CoC.player.findPerk( PerkLib.Flexibility ) >= 0 || CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0) ) {
+		if( CoC.player.hasVagina() && (CoC.player.findPerk( PerkLib.Flexibility ) || CoC.flags[ kFLAGS.TIMES_AUTOFELLATIO_DUE_TO_CAT_FLEXABILITY ] > 0) ) {
 			EngineCore.addButton( button++, 'Lick \'Gina', this, this.lickYerGirlParts );
 		}
 		if( CoC.player.tentacleCocks() > 0 && CoC.player.hasVagina() ) {
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		if( this.fappingItems( false ) ) {
 			EngineCore.addButton( 8, 'Items', this, this.fappingItems );
 		} else if( button === 1 ) { //If you can only masturbate or meditate the normal way then do that automatically
-			if( (CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) >= 0 && CoC.player.cor < 10) ) {
+			if( (CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10) ) {
 				if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 					this.masturbateGo();
 				} else {
@@ -2216,7 +2216,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	};
 	Masturbation.prototype.lickYerGirlParts = function() { //Female cat masturbation
 		MainView.clearOutput();
-		if( CoC.player.findPerk( PerkLib.Flexibility ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Flexibility ) ) {
 			MainView.outputText( 'You undress from your ' + CoC.player.armorName + ' and take a seat down on the ground. You spread your legs and look down at your sex. It\'s aching for something more than just your fingers, and you have a craving to taste the lustful juices leaking out. A very perverted idea of cats flashes through your brain, putting a naughty smile on your face. You lay on your side and spread your legs, giving you a perfect view of your ' + CoC.player.vaginaDescript() + ' You lean your head down towards the pleasure-hole, only to be stopped half-way there. You stick your tongue out, trying to add a few more inches, but this doesn\'t do anything except increase your appetite and your lust as a drop of warm saliva falls onto your ' + CoC.player.vaginaDescript() + '. You stretch and wriggle your tongue out in a fruitless effort to taste your dripping wet cunt, craving the feeling of your tongue caressing your lips and penetrating into your depths... but it is not to be. You sit back up, frustrated and even more aroused than you were before.' );
 			EngineCore.dynStats( 'lus', 15 );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -2245,7 +2245,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	Masturbation.prototype.catAutoLick = function() { //Male cat masturbation
 		MainView.clearOutput();
 		//NOT FEXIBLE
-		if( CoC.player.findPerk( PerkLib.Flexibility ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Flexibility ) ) {
 			//Fails [Herm has a 50/50 chance of getting either.]
 			//[Male]
 			MainView.outputText( 'You undress from your ' + CoC.player.armorName + ' and take a seat down on the ground, your ' + CoC.player.cockDescript() + ' pointing straight at your face. You stroke the erect member a few times, but then remember the cats back at the village. You stare at your ' + CoC.player.cockDescript() + '; the more you look at the cock, the more your mouth craves to suck on it. You open your mouth as wide as you can and lean towards your cock, only to be stopped halfway to the tip. You stick your tongue out and try to lick the head. You pretend you\'re rolling your tongue around the head, but this only makes your cock harder in eagerness. You throw your head forward in an attempt to flick your tongue against it, but the ' + CoC.player.cockDescript() + ' is pulled back as you go forward. You slump your back onto the ground and let out a frustrated groan. The only thing you\'ve managed to do is make yourself more aroused than when you started.' );
@@ -2322,7 +2322,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		MainView.clearOutput();
 		MainView.outputText( 'You find a flat, comfortable rock to sit down on and meditate.  As always, meditation brings a sense of peace and calm to you, but it eats up two hours of the day.' );
 		EngineCore.dynStats( 'lus', -50, 'cor', -0.3 - 0.3 * CoC.player.countCockSocks( 'alabaster' ) );
-		if( CoC.player.findPerk( PerkLib.Enlightened ) >= 0 && CoC.player.cor < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10 ) {
 			EngineCore.HPChange( 50, true );
 		}
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );

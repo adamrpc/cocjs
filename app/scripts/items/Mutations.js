@@ -66,7 +66,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 	Mutations.incubiDraft = function(tainted,player) {
 		player.slimeFeed();
 		var changesLevel = Utils.rand(100);
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changesLevel += 10;
 		}
 		MainView.outputText("The draft is slick and sticky, ", true);
@@ -408,12 +408,12 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			EngineCore.dynStats("lib", 1, "lus", Utils.rand(5) + player.cor / 20 + CoC.flags[kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER] / 5);
 		}
 		//(Healing – if hurt and uber-addicted (hasperk))
-		if (player.HP < player.maxHP() && player.findPerk(PerkLib.MinotaurCumAddict) >= 0) {
+		if (player.HP < player.maxHP() && player.findPerk(PerkLib.MinotaurCumAddict)) {
 			MainView.outputText("\n\nThe fire of your arousal consumes your body, leaving vitality in its wake.  You feel much better!", false);
 			EngineCore.HPChange(Math.floor(player.maxHP() / 4), false);
 		}
 		//Uber-addicted status!
-		if (player.findPerk(PerkLib.MinotaurCumAddict) >= 0 && CoC.flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] <= 0) {
+		if (player.findPerk(PerkLib.MinotaurCumAddict) && CoC.flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] <= 0) {
 			CoC.flags[kFLAGS.MINOTAUR_CUM_REALLY_ADDICTED_STATE] = 3 + Utils.rand(2);
 			MainView.outputText("\n\n<b>Your body feels so amazing and sensitive.  Experimentally you pinch yourself and discover that even pain is turning you on!</b>", false);
 		}
@@ -433,7 +433,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		if (changeLimit === 1) {
@@ -848,7 +848,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			player.gills = false;
 			changes++;
 		}
-		if (changes < changeLimit && Utils.rand(4) === 0 && ((player.ass.analWetness > 0 && player.findPerk(PerkLib.MaraesGiftButtslut) < 0) || player.ass.analWetness > 1)) {
+		if (changes < changeLimit && Utils.rand(4) === 0 && ((player.ass.analWetness > 0 && !player.findPerk(PerkLib.MaraesGiftButtslut)) || player.ass.analWetness > 1)) {
 			MainView.outputText("\n\nYou feel a tightening up in your colon and your [asshole] sucks into itself.  You feel sharp pain at first but that thankfully fades.  Your ass seems to have dried and tightened up.");
 			player.ass.analWetness--;
 			if (player.ass.analLooseness > 1) {
@@ -890,7 +890,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Used for random chances
@@ -1364,7 +1364,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 	Mutations.succubiMilk = function(tainted, player) {
 		player.slimeFeed();
 		var changesLevel = Math.random() * 100;
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changesLevel += 10;
 		}
 		if (changesLevel >= 90 && !tainted) {
@@ -1558,13 +1558,13 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			if (player.skinTone === "blue" || player.skinTone === "purple" || player.skinTone === "indigo" || player.skinTone === "shiny black") {
 				if (player.vaginas.length > 0) {
 					MainView.outputText("\n\nYour heart begins beating harder and harder as heat floods to your groin.  You feel your clit peeking out from under its hood, growing larger and longer as it takes in more and more blood.", false);
-					if (player.clitLength > 3 && player.findPerk(PerkLib.BigClit) < 0) {
+					if (player.clitLength > 3 && !player.findPerk(PerkLib.BigClit)) {
 						MainView.outputText("  After some time it shrinks, returning to its normal aroused size.  You guess it can't get any bigger.", false);
 					}
-					if (player.clitLength > 5 && player.findPerk(PerkLib.BigClit) >= 0) {
+					if (player.clitLength > 5 && player.findPerk(PerkLib.BigClit)) {
 						MainView.outputText("  Eventually it shrinks back down to its normal (but still HUGE) size.  You guess it can't get any bigger.", false);
 					}
-					if (((player.findPerk(PerkLib.BigClit) >= 0) && player.clitLength < 6) || player.clitLength < 3) {
+					if (((player.findPerk(PerkLib.BigClit)) && player.clitLength < 6) || player.clitLength < 3) {
 						player.clitLength += ( Utils.rand(4) + 2) / 10;
 					}
 					EngineCore.dynStats("sen", 3, "lus", 8);
@@ -1628,7 +1628,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Initial outputs & crit level
@@ -1660,7 +1660,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if (type <= 0 && crit > 1 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && Utils.rand(2) === 0 && player.findStatusAffect(StatusAffects.DogWarning) >= 0) {
 			if (Utils.rand(2) === 0) {
 				MainView.outputText("\n\nAs you swallow the pepper, you note that the spicy hotness on your tongue seems to be spreading. Your entire body seems to tingle and burn, making you feel far warmer than normal, feverish even. Unable to stand it any longer you tear away your clothes, hoping to cool down a little. Sadly, this does nothing to aid you with your problem. On the bright side, the sudden feeling of vertigo you've developed is more than enough to take your mind off your temperature issues. You fall forward onto your hands and knees, well not really hands and knees to be honest. More like paws and knees. That can't be good, you think for a moment, before the sensation of your bones shifting into a quadrupedal configuration robs you of your concentration. After that, it is only a short time before your form is remade completely into that of a large dog, or perhaps a wolf. The distinction would mean little to you now, even if you were capable of comprehending it. ", false);
-				if (player.findPerk(PerkLib.MarblesMilk) >= 0) {
+				if (player.findPerk(PerkLib.MarblesMilk)) {
 					MainView.outputText("All you know is that there is a scent on the wind, it is time to hunt, and at the end of the day you need to come home for your milk.", false);
 				} else {
 					MainView.outputText("All you know is that there is a scent on the wind, and it is time to hunt.", false);
@@ -1931,7 +1931,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			//Cum Multiplier Xform
 			if (player.cumMultiplier < 2 && Utils.rand(2) === 0 && changes < changeLimit) {
 				//Lots of cum raises cum multiplier cap to 2 instead of 1.5
-				if ((player.findPerk(PerkLib.MessyOrgasms) >= 0 ? 2 : 1.5) < player.cumMultiplier + 0.05 * crit) {
+				if ((player.findPerk(PerkLib.MessyOrgasms) ? 2 : 1.5) < player.cumMultiplier + 0.05 * crit) {
 					changes--;
 				} else {
 					player.cumMultiplier += 0.05 * crit;
@@ -2336,7 +2336,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Generic drinking text
@@ -2393,7 +2393,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if (changes < changeLimit && Utils.rand(2) === 0 && player.cocks.length > 0) {
 			if (player.cumMultiplier < 6 && Utils.rand(2) === 0 && changes < changeLimit) {
 				//Lots of cum raises cum multiplier cap to 6 instead of 3
-				if ((player.findPerk(PerkLib.MessyOrgasms) >= 0 ? 6 : 3) < player.cumMultiplier + 0.4 * crit) {
+				if ((player.findPerk(PerkLib.MessyOrgasms) ? 6 : 3) < player.cumMultiplier + 0.4 * crit) {
 					changes--;
 				} else {
 					player.cumMultiplier += 0.4 * crit;
@@ -2436,7 +2436,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Generic drinking text
@@ -2502,7 +2502,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if (changes < changeLimit && Utils.rand(2) === 0 && player.cocks.length > 0) {
 			if (player.cumMultiplier < 6 && Utils.rand(2) === 0 && changes < changeLimit) {
 				//Lots of cum raises cum multiplier cap to 6 instead of 3
-				if ((player.findPerk(PerkLib.MessyOrgasms) >= 0 ? 6 : 3) < player.cumMultiplier + 0.4 * crit) {
+				if ((player.findPerk(PerkLib.MessyOrgasms) ? 6 : 3) < player.cumMultiplier + 0.4 * crit) {
 					changes--;
 				} else {
 					player.cumMultiplier += 0.4 * crit;
@@ -2889,7 +2889,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 	Mutations.purePearl = function(player) {
 		MainView.outputText("You cram the pearl in your mouth and swallow it like a giant pill with some difficulty.  Surprisingly there is no discomfort, only a cool calming sensation that springs up from your core.", true);
 		EngineCore.dynStats("lib", -5, "lus", -25, "cor", -10);
-		if (player.findPerk(PerkLib.PurityBlessing) < 0) {
+		if (!player.findPerk(PerkLib.PurityBlessing)) {
 			player.createPerk(PerkLib.PurityBlessing, 0, 0, 0, 0);
 		}
 	};
@@ -2937,11 +2937,11 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			MainView.outputText("You gulp down the bottle's contents; Marble makes some really good tasting milk.\n\n", false);
 		} else if (player.statusAffectv3(StatusAffects.Marble) > 0) {
 			//[player is completely addicted]
-			if (player.findPerk(PerkLib.MarblesMilk) >= 0) {
+			if (player.findPerk(PerkLib.MarblesMilk)) {
 				MainView.outputText("You gulp down the bottle's contents; it's no substitute for the real thing, but it's a nice pick me up.\n\n", false);
 			} else {
 				//[player is no longer addicted]
-				if (player.findPerk(PerkLib.MarbleResistant) >= 0) {
+				if (player.findPerk(PerkLib.MarbleResistant)) {
 					MainView.outputText("You gulp down the bottle's contents; you're careful not to get too attached to the taste.\n\n", false);
 				} else { //[player is addicted]
 					MainView.outputText("You gulp down the bottle's contents; you really needed that.\n\n", false);
@@ -3001,7 +3001,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		if (enhanced) {
@@ -3537,7 +3537,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(5) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		MainView.outputText("You drink the ale, finding it to have a remarkably smooth yet potent taste.  You lick your lips and sneeze, feeling slightly tipsy.", true);
@@ -3740,7 +3740,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			player.vaginaType(0);
 			changes++;
 		}
-		if (changes < changeLimit && Utils.rand(4) === 0 && ((player.ass.analWetness > 0 && player.findPerk(PerkLib.MaraesGiftButtslut) < 0) || player.ass.analWetness > 1)) {
+		if (changes < changeLimit && Utils.rand(4) === 0 && ((player.ass.analWetness > 0 && !player.findPerk(PerkLib.MaraesGiftButtslut)) || player.ass.analWetness > 1)) {
 			MainView.outputText("\n\nYou feel a tightening up in your colon and your [asshole] sucks into itself.  You feel sharp pain at first but that thankfully fades.  Your ass seems to have dried and tightened up.");
 			player.ass.analWetness--;
 			if (player.ass.analLooseness > 1) {
@@ -3916,7 +3916,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		if (type === 0) {
@@ -4117,7 +4117,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//b) Description while used
@@ -4329,7 +4329,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Text go!
@@ -4646,7 +4646,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(4) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//clear screen
@@ -4837,7 +4837,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 				MainView.outputText("but sexual fluid ", false);
 			}
 			MainView.outputText("escapes it.  <b>You are no longer lactating.</b>  That makes sense, only mammals lactate!  Smiling, you muse at how much time this will save you when cleaning your gear.", false);
-			if (player.findPerk(PerkLib.Feeder) >= 0 || player.findStatusAffect(StatusAffects.Feeder) >= 0) {
+			if (player.findPerk(PerkLib.Feeder) || player.findStatusAffect(StatusAffects.Feeder) >= 0) {
 				MainView.outputText("\n\n(<b>Feeder perk lost!</b>)", false);
 				player.removePerk(PerkLib.Feeder);
 				player.removeStatusAffect(StatusAffects.Feeder);
@@ -4863,7 +4863,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			});
 		}
 		//-VAGs
-		if (player.hasVagina() && player.findPerk(PerkLib.Oviposition) < 0 && changes < changeLimit && Utils.rand(5) === 0 && player.lizardScore() > 3) {
+		if (player.hasVagina() && !player.findPerk(PerkLib.Oviposition) && changes < changeLimit && Utils.rand(5) === 0 && player.lizardScore() > 3) {
 			MainView.outputText("\n\nDeep inside yourself there is a change.  It makes you feel a little woozy, but passes quickly.  Beyond that, you aren't sure exactly what just happened, but you are sure it originated from your womb.\n", false);
 			MainView.outputText("(<b>Perk Gained: Oviposition</b>)", false);
 			player.createPerk(PerkLib.Oviposition, 0, 0, 0, 0);
@@ -5025,7 +5025,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//If this is a pregnancy change, only 1 change per proc.
@@ -5235,7 +5235,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			MainView.outputText("\n\nYou feel strange.  Fertile... somehow.  You don't know how else to think of it, but you know your body is just aching to be pregnant and give birth.", false);
 		}
 		//-VAGs
-		if (player.hasVagina() && player.findPerk(PerkLib.BunnyEggs) < 0 && changes < changeLimit && Utils.rand(4) === 0 && player.bunnyScore() > 3) {
+		if (player.hasVagina() && !player.findPerk(PerkLib.BunnyEggs) && changes < changeLimit && Utils.rand(4) === 0 && player.bunnyScore() > 3) {
 			MainView.outputText("\n\nDeep inside yourself there is a change.  It makes you feel a little woozy, but passes quickly.  Beyond that, you aren't sure exactly what just happened, but you are sure it originated from your womb.\n\n", false);
 			MainView.outputText("(<b>Perk Gained: Bunny Eggs</b>)", false);
 			player.createPerk(PerkLib.BunnyEggs, 0, 0, 0, 0);
@@ -5477,7 +5477,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Generic eating text:
@@ -5790,12 +5790,12 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		}
 		//SPECIAL:
 		//Harpy Womb – All eggs are automatically upgraded to large, requires legs + tail to be harpy.
-		if (player.findPerk(PerkLib.HarpyWomb) < 0 && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && player.tailType === AppearanceDefs.TAIL_TYPE_HARPY && Utils.rand(4) === 0 && changes < changeLimit) {
+		if (!player.findPerk(PerkLib.HarpyWomb) && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && player.tailType === AppearanceDefs.TAIL_TYPE_HARPY && Utils.rand(4) === 0 && changes < changeLimit) {
 			player.createPerk(PerkLib.HarpyWomb, 0, 0, 0, 0);
 			MainView.outputText("\n\nThere's a rumbling in your womb, signifying that some strange change has taken place in your most feminine area. No doubt something in it has changed to be more like a harpy. (<b>You've gained the Harpy Womb perk! All the eggs you lay will always be large so long as you have harpy legs and a harpy tail.</b>)", false);
 			changes++;
 		}
-		if (changes < changeLimit && Utils.rand(4) === 0 && ((player.ass.analWetness > 0 && player.findPerk(PerkLib.MaraesGiftButtslut) < 0) || player.ass.analWetness > 1)) {
+		if (changes < changeLimit && Utils.rand(4) === 0 && ((player.ass.analWetness > 0 && !player.findPerk(PerkLib.MaraesGiftButtslut)) || player.ass.analWetness > 1)) {
 			MainView.outputText("\n\nYou feel a tightening up in your colon and your [asshole] sucks into itself.  You feel sharp pain at first but that thankfully fades.  Your ass seems to have dried and tightened up.");
 			player.ass.analWetness--;
 			if (player.ass.analLooseness > 1) {
@@ -5856,7 +5856,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//****************
@@ -6062,7 +6062,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		}
 		//UBEROOOO
 		//kangaroo perk: - any liquid or food intake will accelerate a pregnancy, but it will not progress otherwise
-		if (player.findPerk(PerkLib.Diapause) < 0 && player.kangaScore() > 4 && Utils.rand(4) === 0 && changes < changeLimit && player.hasVagina()) {
+		if (!player.findPerk(PerkLib.Diapause) && player.kangaScore() > 4 && Utils.rand(4) === 0 && changes < changeLimit && player.hasVagina()) {
 			//Perk name and description:
 			player.createPerk(PerkLib.Diapause, 0, 0, 0, 0);
 			MainView.outputText("\n\nYour womb rumbles as something inside it changes.\n<b>(You have gained the Diapause perk.  Pregnancies will not progress when fluid intake is scarce, and will progress much faster when it isn't.)", false);
@@ -6099,7 +6099,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(2) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Consuming Text
@@ -6330,7 +6330,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			changes++;
 		}
 		//Drider butt
-		if (type === 1 && player.findPerk(PerkLib.SpiderOvipositor) < 0 && player.isDrider() && player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN && changes < changeLimit && Utils.rand(3) === 0 && (player.hasVagina || Utils.rand(2) === 0)) {
+		if (type === 1 && !player.findPerk(PerkLib.SpiderOvipositor) && player.isDrider() && player.tailType === AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN && changes < changeLimit && Utils.rand(3) === 0 && (player.hasVagina || Utils.rand(2) === 0)) {
 			MainView.outputText("\n\nAn odd swelling sensation floods your spider half.  Curling your abdomen underneath you for a better look, you gasp in recognition at your new 'equipment'!  Your semi-violent run-ins with the swamp's population have left you <i>intimately</i> familiar with the new appendage.  <b>It's a drider ovipositor!</b>  A few light prods confirm that it's just as sensitive as any of your other sexual organs.  You idly wonder what laying eggs with this thing will feel like...");
 			MainView.outputText("\n\n(<b>Perk Gained:  Spider Ovipositor - Allows you to lay eggs in your foes!</b>)");
 			//V1 - Egg Count
@@ -6384,7 +6384,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 	Mutations.broBrew = function(player) {
 		MainView.outputText("", true);
 		//no drink for bimbos!
-		if (player.findPerk(PerkLib.BimboBody) >= 0) {
+		if (player.findPerk(PerkLib.BimboBody)) {
 			MainView.outputText("The stuff hits you like a giant cube, nearly staggering you as it begins to settle.", false);
 			if (player.tallness < 77) {
 				player.tallness = 77;
@@ -6423,7 +6423,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 				EngineCore.dynStats("lib", 0.1);
 			}
 			MainView.outputText("\n\n", false);
-			if (player.findPerk(PerkLib.BimboBrains) >= 0) {
+			if (player.findPerk(PerkLib.BimboBrains)) {
 				MainView.outputText("<b>(Lost Perks - Bimbo Brains, Bimbo Body)\n", false);
 			} else {
 				MainView.outputText("<b>(Lost Perk - Bimbo Body)\n", false);
@@ -6437,7 +6437,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			return;
 		}
 		//HP restore for bros!
-		if (player.findPerk(PerkLib.BroBody) >= 0 || player.findPerk(PerkLib.FutaForm) >= 0) {
+		if (player.findPerk(PerkLib.BroBody) || player.findPerk(PerkLib.FutaForm)) {
 			MainView.outputText("You crack open the can and guzzle it in a hurry.  Goddamn, this shit is the best.  As you crush the can against your forehead, you wonder if you can find a six-pack of it somewhere?\n\n", false);
 			EngineCore.fatigue(-33);
 			EngineCore.HPChange(100, true);
@@ -6535,7 +6535,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		player.createPerk(PerkLib.BroBody, 0, 0, 0, 0);
 		MainView.outputText("<b>(Bro Body - Perk Gained!)\n", false);
 		MainView.outputText("(Bro Brains - Perk Gained!)</b>\n", false);//int to 20.  max int 50)
-		if (player.findPerk(PerkLib.Feeder) >= 0) {
+		if (player.findPerk(PerkLib.Feeder)) {
 			MainView.outputText("<b>(Perk Lost - Feeder!)</b>\n", false);
 			player.removePerk(PerkLib.Feeder);
 		}
@@ -6560,7 +6560,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 		//Effect script 1:  (higher intelligence)
@@ -6629,7 +6629,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			changes++;
 		}
 		//Legs
-		if (changes < changeLimit && player.findPerk(PerkLib.Incorporeality) < 0 && (player.skinTone === "white" || player.skinTone === "sable") && player.hairType === 2) {
+		if (changes < changeLimit && !player.findPerk(PerkLib.Incorporeality) && (player.skinTone === "white" || player.skinTone === "sable") && player.hairType === 2) {
 			//(ghost-legs!  Absolutely no problem with regular encounters, though! [if you somehow got this with a centaur it'd probably do nothing cuz you're not supposed to be a centaur with ectoplasm ya dingus])
 			MainView.outputText("\n\nAn otherworldly sensation begins in your belly, working its way to your " + Descriptors.hipDescript() + ". Before you can react, your " + player.legs() + " begin to tingle, and you fall on your rump as a large shudder runs through them. As you watch, your lower body shimmers, becoming ethereal, wisps rising from the newly ghost-like " + player.legs() + ". You manage to rise, surprised to find your new, ghostly form to be as sturdy as its former corporeal version. Suddenly, like a dam breaking, fleeting visions and images flow into your head, never lasting long enough for you to concentrate on one. You don't even realize it, but your arms fly up to your head, grasping your temples as you groan in pain. As fast as the mental bombardment came, it disappears, leaving you with a surprising sense of spiritual superiority.  <b>You have ghost legs!</b>\n\n", false);
 			MainView.outputText("<b>(Gained Perk:  Incorporeality</b>)", false);
@@ -6667,7 +6667,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist)) {
 			changeLimit++;
 		}
 
@@ -6782,7 +6782,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			MainView.outputText("\n\nNumbness clouds your mind, making you feel slow witted and dull.  Maybe these candies weren't such a exceptio... fantas... good idea.", false);
 			EngineCore.dynStats("int", -(1 + Utils.rand(5)));
 		}
-		if (player.findPerk(PerkLib.ThickSkin) < 0 && player.sens < 30 && Utils.rand(4) === 0) {
+		if (!player.findPerk(PerkLib.ThickSkin) && player.sens < 30 && Utils.rand(4) === 0) {
 			MainView.outputText("Slowly, ", false);
 			if (player.skinType === AppearanceDefs.SKIN_TYPE_PLAIN) {
 				MainView.outputText("your skin", false);
@@ -7013,7 +7013,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if (player.cumQ() < 5000 < 2 && Utils.rand(3) === 0 && changes < changeLimit && player.hasCock()) {
 			var cumMultiplier = 2 + Utils.rand(4);
 			//Lots of cum raises cum multiplier cap to 2 instead of 1.5
-			if (player.findPerk(PerkLib.MessyOrgasms) >= 0) {
+			if (player.findPerk(PerkLib.MessyOrgasms)) {
 				cumMultiplier += Utils.rand(10);
 			}
 			player.cumMultiplier += cumMultiplier;
@@ -7244,7 +7244,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//Effect:
 		//Boosts the special effect of Dragonbreath by 20% for 1 use. ie: if Tainted's breath weapon has a 80% chance to stun on hit, +20% equals 100% chance to stun.
 		MainView.outputText("You crack the shell easily and swallow the large yolk and the copious amounts of albumen - the yolk is blue, while the rest is crimson-tinted.  It tastes like... well, it tastes mostly of spiced mint, you think.");
-		if (player.findPerk(PerkLib.Dragonfire) >= 0) {
+		if (player.findPerk(PerkLib.Dragonfire)) {
 			if (player.findStatusAffect(StatusAffects.DragonBreathCooldown) >= 0) {
 				player.removeStatusAffect(StatusAffects.DragonBreathCooldown);
 			} else if (player.findStatusAffect(StatusAffects.DragonBreathBoost) < 0) {
@@ -7272,7 +7272,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if (mystic) {
 			changeLimit += 2;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist) ) {
 			changeLimit++;
 		}
 		if (mystic) {
@@ -7433,7 +7433,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			}
 			player.tailVenom++;
 			changes++;
-		} else if (mystic && Utils.rand(4) === 0 && changes < changeLimit && player.tailType === AppearanceDefs.TAIL_TYPE_FOX && player.tailVenom === 8 && player.level >= 9 && player.earType === AppearanceDefs.EARS_FOX && player.inte >= 90 && player.findPerk(PerkLib.CorruptedNinetails) < 0 && player.findPerk(PerkLib.EnlightenedNinetails) < 0) { //[Grow 9th tail and gain Corrupted Nine-tails perk]
+		} else if (mystic && Utils.rand(4) === 0 && changes < changeLimit && player.tailType === AppearanceDefs.TAIL_TYPE_FOX && player.tailVenom === 8 && player.level >= 9 && player.earType === AppearanceDefs.EARS_FOX && player.inte >= 90 && !player.findPerk(PerkLib.CorruptedNinetails) && !player.findPerk(PerkLib.EnlightenedNinetails) ) { //[Grow 9th tail and gain Corrupted Nine-tails perk]
 			MainView.outputText("Your bushy tails begin to glow with an eerie, ghostly light, and with a crackle of electrical energy, split into nine tails.  <b>You are now a nine-tails!  But something is wrong...  The cosmic power radiating from your body feels...  tainted somehow.  The corruption pouring off your body feels...  good.</b>");
 			MainView.outputText("\n\nYou have the inexplicable urge to set fire to the world, just to watch it burn.  With your newfound power, it's a goal that is well within reach.");
 			MainView.outputText("\n\n(Perk Gained: Corrupted Nine-tails - Grants two magical special attacks.)");
@@ -7595,7 +7595,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if ( Utils.rand(3) === 0) {
 			changeLimit++;
 		}
-		if (player.findPerk(PerkLib.HistoryAlchemist) >= 0) {
+		if (player.findPerk(PerkLib.HistoryAlchemist) ) {
 			changeLimit++;
 		}
 		MainView.outputText("You pour some of the oil onto your hands and ");
@@ -7805,7 +7805,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			if ( Utils.rand(4) === 0 && changes < changeLimit) {
 				if (player.femininity < 70 && player.femininity >= 60) {
 					MainView.outputText("\n\nYou laugh as you feel your features once again soften, before stopping abruptly.  Your laugh sounded more like a girly giggle than anything else.  Feeling slightly more sober, you touch the soft flesh of your face prospectively.  The trap oil has changed you profoundly, making your innate maleness... difficult to discern, to say the least.  You suspect you could make yourself look even more like a girl now if you wanted to.");
-					if (player.findPerk(PerkLib.Androgyny) < 0) {
+					if (!player.findPerk(PerkLib.Androgyny) ) {
 						player.createPerk(PerkLib.Androgyny, 0, 0, 0, 0);
 						MainView.outputText("\n\n(<b>Perk Gained: Androgyny</b>)");
 					}
@@ -7834,7 +7834,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 					player.femininity = 30;
 					//Masculinity Increase Final (max masculinity allowed increased by +10):
 					MainView.outputText("\n\nYou laugh as you feel your features once again soften, before stopping abruptly.  Your laugh sounded more like a boyish crow than anything else.  Feeling slightly more sober, you touch the defined lines of your face prospectively.  The trap oil has changed you profoundly, making your innate femaleness... difficult to discern, to say the least.  You suspect you could make yourself look even more like a boy now if you wanted to.");
-					if (player.findPerk(PerkLib.Androgyny) < 0) {
+					if (!player.findPerk(PerkLib.Androgyny) ) {
 						player.createPerk(PerkLib.Androgyny, 0, 0, 0, 0);
 						MainView.outputText("\n\n(<b>Perk Gained: Androgyny</b>)");
 					}

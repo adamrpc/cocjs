@@ -705,7 +705,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		if( CoC.player.vaginas.length === 1 ) { //single coochie
 			MainView.outputText( 'Satisfied, the creature drops you smartly, withdraws its limbs from you, and lumbers away.  Covered completely in cum, you see that your clitoris has swollen up to ' );
 			//Big clit girls get huge clits
-			if( (CoC.player.findPerk( PerkLib.BigClit ) >= 0 && CoC.player.clitLength > 2) || CoC.player.clitLength > 3 ) {
+			if( (CoC.player.findPerk( PerkLib.BigClit ) && CoC.player.clitLength > 2) || CoC.player.clitLength > 3 ) {
 				MainView.outputText( 'almost ' + Utils.num2Text( Math.floor( CoC.player.clitLength * 1.75 ) ) + ' inches in length. ' );
 			}//normal girls get big clits
 			else {
@@ -722,7 +722,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			MainView.outputText( 'too intoxicated with lust to continue the pleasure. ' );
 		}
 		//If has big-clit grow to max of 6'
-		if( CoC.player.clitLength < 7 && CoC.player.clitLength >= 3.5 && CoC.player.findPerk( PerkLib.BigClit ) >= 0 ) {
+		if( CoC.player.clitLength < 7 && CoC.player.clitLength >= 3.5 && CoC.player.findPerk( PerkLib.BigClit ) ) {
 			CoC.player.clitLength += 0.1 + CoC.player.cor / 100;
 			MainView.outputText( 'Your massive clitty eventually diminishes, retaining a fair portion of its former glory.  It is now ' + Math.ceil( CoC.player.clitLength * 10 ) / 10 + ' inches long when aroused, ' );
 			if( CoC.player.clitLength < 5 ) {

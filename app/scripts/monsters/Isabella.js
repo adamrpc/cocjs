@@ -19,15 +19,15 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding her attack.\n', false );
 		} else {
 			var damage;
@@ -53,15 +53,15 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
 		} else {
 			var damage = 0;
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			if( damage < 0 ) {
 				MainView.outputText( 'You deflect her blow away, taking no damage.\n', false );
 				damage = 0;
-			} else if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 && CoC.player.tou >= 75 ) {
+			} else if( CoC.player.findPerk( PerkLib.Resolute ) && CoC.player.tou >= 75 ) {
 				MainView.outputText( 'You resolutely ignore the blow thanks to your immense toughness.\n' );
 				damage = 0;
 			} else {
@@ -91,22 +91,22 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
 		} else {
 			var damage;
 			damage = Math.round( this.str - Utils.rand( CoC.player.tou + CoC.player.armorDef ) );
 			if( damage <= 0 ) {
 				MainView.outputText( 'You manage to block her with your own fists.\n', false );
-			} else if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 && CoC.player.tou >= 75 ) {
+			} else if( CoC.player.findPerk( PerkLib.Resolute ) && CoC.player.tou >= 75 ) {
 				MainView.outputText( 'You resolutely ignore the blow thanks to your immense toughness.\n' );
 			} else {
 				damage = CoC.player.takeDamage( damage );

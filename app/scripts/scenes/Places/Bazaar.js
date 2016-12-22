@@ -155,7 +155,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PerkLib, Arm
 			//No scenes for Sara yet!;
 			MainView.outputText( '"<i>I told you I\'m not working until you give me a raise!  Do the damned massages yourself!</i>"\n\nJoey blushes and apologies.  "<i>I guess I\'m the only one available for now.</i>"\n\n', false );
 			MainView.outputText( 'The price list indicate it\'s 10 gems for a massage, though the gleefully illustrated \'oil\' reminds you just what they plan to use on you.\n\n', false );
-			if( CoC.player.findPerk( PerkLib.Androgyny ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Androgyny ) ) {
 				MainView.outputText( 'There also appears to be an option for a special \'Androgyny Treatment\' that costs 500 gems.  Joey catches you looking at it and mutters, "<i>That treatment isn\'t fun like our massages.  It would unlock the full potential of your visage, allowing it to be as masculine or feminine as possible.</i>"\n\n', false );
 				androgyny = this.joeyAndrogyny;
 			}
@@ -777,14 +777,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PerkLib, Arm
 
 		if( CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'cobalt' ) {
 			CoC.player.gems -= 250;
-			// if(CoC.player.findPerk(PerkLib.PhallicRestraint) < 0) CoC.player.createPerk(PerkLib.PhallicRestraint,0,0,0,0);;
+			// if(!CoC.player.findPerk(PerkLib.PhallicRestraint)) CoC.player.createPerk(PerkLib.PhallicRestraint,0,0,0,0);;
 		}
 		if( CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'scarlet' ) {
-			//if(CoC.player.findPerk(PerkLib.PhallicPotential) < 0) CoC.player.createPerk(PerkLib.PhallicPotential,0,0,0,0);;
+			//if(!CoC.player.findPerk(PerkLib.PhallicPotential)) CoC.player.createPerk(PerkLib.PhallicPotential,0,0,0,0);;
 			CoC.player.gems -= 250;
 		}
 		if( CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'viridian' ) {
-			if( CoC.player.findPerk( PerkLib.LustyRegeneration ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.LustyRegeneration ) ) {
 				CoC.player.createPerk( PerkLib.LustyRegeneration, 0, 0, 0, 0 );
 				CoC.player.gems -= 1000;
 			} else {
@@ -793,7 +793,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PerkLib, Arm
 		}
 		if( CoC.flags[ kFLAGS.SOCK_HOLDING ] === 'cockring' ) {
 			CoC.player.gems -= 100;
-			if( CoC.player.findPerk( PerkLib.PentUp ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.PentUp ) ) {
 				CoC.player.createPerk( PerkLib.PentUp, 10, 0, 0, 0 );
 			} else {
 				CoC.player.addPerkValue( PerkLib.PentUp, 1, 5 );

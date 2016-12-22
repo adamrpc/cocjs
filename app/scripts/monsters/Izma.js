@@ -18,17 +18,17 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Izma attempts to get close, but you put Raphael\'s teachings to use and side-step the sharkgirl, confusing her with your movements.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
@@ -48,17 +48,17 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Izma tries to clinch you, but she didn\'t count on your skills in evasion.  You manage to sidestep her at the last second.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Izma ducks and weaves forward to clinch you, but thanks to Raphael\'s teachings, you\'re easily able to misguide her and avoid the clumsy grab.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'Izma tries to lock you in a clinch, but your cat-like flexibility makes it easy to twist away from her grab.\n', false );
 			return;
 		}

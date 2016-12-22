@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.clearOutput();
 		MainView.outputText( 'Running your hand through the turkey-girl\'s hair, you whisper what a good little cockgobbler she is. However, you soon find that the poor thing\'s passed out, your rut finally over with.  You give her a gentle push over her back, giving you a nice soft tit-pillow to lay your head down upon as you pick up the lunch you\'d been preparing to eat before the eager slut arrived.' );
 		MainView.outputText( '\n\n"<i>That\'ll do, turkey,</i>" you say, patting her jiggling tit. "<i>That\'ll do.</i>"' );
-		if( CoC.player.findPerk( PerkLib.PilgrimsBounty ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.PilgrimsBounty ) ) {
 			CoC.player.createPerk( PerkLib.PilgrimsBounty, 0, 0, 0, 0 );
 			MainView.outputText( '\n\n(<b>Perk Gained: Pilgrim\'s Bounty - Lower lust values no longer reduce the size of your orgasm.</b>)' );
 		}
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, kF
 		MainView.outputText( '\nYour eyes crack open, mind still foggy as sleep still clings to the corners of your eyes.  Memories of the insatiable turkeygirl flood back as you start to sit up, dreading the inevitable clean-up after so much spilled fluid.  However, you quickly realize that you\'re already redressed! In fact, it seems like someone not only dressed you, but both your body and your [armor] are completely spotless, not even a trace of the girl remaining on your person.  Looking around you notice that your campfire still burns brightly, as if someone stoked it recently.  Even your stomach has returned to its previous state, leaving no sign of the massive amount of gorgeous gravy you guzzled not an hour ago.' );
 		MainView.outputText( '\n\nLurching to your feet, you stretch your arms, feeling completely refreshed after the short nap.  If it wasn\'t for the sweet taste of pumpkin still lingering on your lips, you\'d be prepared to call what had just happened one of the weirdest dreams you\'ve had since arriving in Mareth.' );
 		MainView.outputText( '\n\nThen again, you have to admit that it would also class as one of the most fun...' );
-		if( CoC.player.findPerk( PerkLib.Cornucopia ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Cornucopia ) ) {
 			MainView.outputText( '\n\n(<b>Gained Perk: Cornucopia - increases vaginal and anal capacities by 30.</b>)' );
 			CoC.player.createPerk( PerkLib.Cornucopia, 0, 0, 0, 0 );
 		}

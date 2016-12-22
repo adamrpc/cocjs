@@ -396,7 +396,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			return true;
 		}
 		//Determine if evaded
-		if( this.constructor.name !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		if( this.constructor.name !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'' );
 			if( !this.plural ) {
 				MainView.outputText( 's' );
@@ -405,12 +405,12 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			return true;
 		}
 		//('Misdirection'
-		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			return true;
 		}
 		//Determine if cat'ed
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				MainView.outputText( '\' attacks.\n', false );

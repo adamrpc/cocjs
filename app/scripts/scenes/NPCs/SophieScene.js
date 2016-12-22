@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 						}
 						needNext = true;
 					}
-					if( CoC.time.hours === 10 && (CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 || Utils.rand( 3 ) === 0) && SceneLib.sophieBimbo.bimboSophie() && !SceneLib.sophieBimbo.sophieIsInSeason() && CoC.flags[ kFLAGS.SOPHIE_CAMP_EGG_COUNTDOWN ] === 0 ) {
+					if( CoC.time.hours === 10 && (!CoC.player.findPerk( PerkLib.LuststickAdapted ) || Utils.rand( 3 ) === 0) && SceneLib.sophieBimbo.bimboSophie() && !SceneLib.sophieBimbo.sophieIsInSeason() && CoC.flags[ kFLAGS.SOPHIE_CAMP_EGG_COUNTDOWN ] === 0 ) {
 						SceneLib.sophieBimbo.bimboSophieLustStickSurprise();
 						needNext = true;
 					}
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			hours = 4;
 		}
 		//Immune to luststick?;
-		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) ) {
 			return;
 		}
 		//Increment luststick resistance;

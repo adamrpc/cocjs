@@ -24,10 +24,10 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 		if( CoC.player.ballSize > 400 ) {
 			CoC.player.ballSize = 400;
 		}
-		if( CoC.player.findPerk( PerkLib.StrongBack ) >= 0 && !CoC.player.itemSlot4.unlocked ) {
+		if( CoC.player.findPerk( PerkLib.StrongBack ) && !CoC.player.itemSlot4.unlocked ) {
 			CoC.player.itemSlot4.unlocked = true;
 		}
-		if( CoC.player.findPerk( PerkLib.StrongBack2 ) >= 0 && !CoC.player.itemSlot5.unlocked ) {
+		if( CoC.player.findPerk( PerkLib.StrongBack2 ) && !CoC.player.itemSlot5.unlocked ) {
 			CoC.player.itemSlot5.unlocked = true;
 		}
 		if( CoC.flags[ kFLAGS.SOCK_COUNTER ] > 0 ) {
@@ -41,21 +41,21 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 		}
 		CoC.player.hoursSinceCum++;
 		//Super cumbuilding activate!
-		if( CoC.player.findPerk( PerkLib.MaraesGiftProfractory ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MaraesGiftProfractory ) ) {
 			CoC.player.hoursSinceCum += 2;
 		}
-		if( CoC.player.findPerk( PerkLib.FerasBoonAlpha ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.FerasBoonAlpha ) ) {
 			CoC.player.hoursSinceCum += 2;
 		}
 		//Normal
-		if( CoC.player.findPerk( PerkLib.WellAdjusted ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.WellAdjusted ) ) {
 			EngineCore.dynStats( 'lus', CoC.player.lib * 0.04, 'resisted', false ); //Raise lust
-			if( CoC.player.findPerk( PerkLib.Lusty ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Lusty ) ) {
 				EngineCore.dynStats( 'lus', CoC.player.lib * 0.02, 'resisted', false );
 			} //Double lust rise if lusty.
 		} else { //Well adjusted perk
 			EngineCore.dynStats( 'lus', CoC.player.lib * 0.02 ); //Raise lust
-			if( CoC.player.findPerk( PerkLib.Lusty ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Lusty ) ) {
 				EngineCore.dynStats( 'lus', CoC.player.lib * 0.01, 'resisted', false );
 			} //Double lust rise if lusty.
 		}
@@ -69,12 +69,12 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 		}
 		if( CoC.player.tailType === AppearanceDefs.TAIL_TYPE_CAT && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CAT && CoC.player.earType === AppearanceDefs.EARS_CAT ) { //Check for gain of cat agility - requires legs, tail, and ears
-			if( CoC.player.findPerk( PerkLib.Flexibility ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Flexibility ) ) {
 				MainView.outputText( '\nWhile stretching, you notice that you\'re much more flexible than you were before.  Perhaps this will make it a bit easier to dodge attacks in battle?\n\n(<b>Gained Perk)\n' );
 				CoC.player.createPerk( PerkLib.Flexibility, 0, 0, 0, 0 );
 				needNext = true;
 			}
-		} else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 ) { //Remove flexibility perk if not meeting requirements
+		} else if( CoC.player.findPerk( PerkLib.Flexibility ) ) { //Remove flexibility perk if not meeting requirements
 			MainView.outputText( '\nYou notice that you aren\'t as flexible as you were when you had a more feline body.  It\'ll probably be harder to avoid your enemies\' attacks now.\n\n(<b>Lost Perk)\n' );
 			CoC.player.removePerk( PerkLib.Flexibility );
 			needNext = true;
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.flags[ kFLAGS.FOX_BAD_END_WARNING ] = 0;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.EnlightenedNinetails ) >= 0 || CoC.player.findPerk( PerkLib.CorruptedNinetails ) >= 0 ) { //Check ninetails perks!
+		if( CoC.player.findPerk( PerkLib.EnlightenedNinetails ) || CoC.player.findPerk( PerkLib.CorruptedNinetails ) ) { //Check ninetails perks!
 			if( CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_FOX || CoC.player.tailVenom < 9 ) {
 				MainView.outputText( '\n<b>Without your tails, the magic power they once granted withers and dies, vanishing completely.</b>\n' );
 				CoC.player.removePerk( PerkLib.EnlightenedNinetails );
@@ -92,7 +92,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_HARPY && CoC.player.findPerk( PerkLib.HarpyWomb ) >= 0 ) { //Make eggs big if harpied!
+		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_HARPY && CoC.player.findPerk( PerkLib.HarpyWomb ) ) { //Make eggs big if harpied!
 			if( CoC.player.findStatusAffect( StatusAffects.Eggs ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Eggs ) === 0 ) {
 				CoC.player.changeStatusValue( StatusAffects.Eggs, 2, 1 );
 				MainView.outputText( '\n<b>A familiar, motherly rumble lets you know that your harpy-like womb is growing your eggs nice and large.</b>\n' );
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			EngineCore.dynStats( 'lust', 10 ); //Always gain 10 lust each hour
 			needNext = true;
 		}
-		if( !CoC.player.hasVagina() && CoC.player.findPerk( PerkLib.Diapause ) >= 0 ) { //Lose diapause
+		if( !CoC.player.hasVagina() && CoC.player.findPerk( PerkLib.Diapause ) ) { //Lose diapause
 			MainView.outputText( '\n<b>With the loss of your womb, you lose your kangaroo-like diapause ability.</b>\n' );
 			CoC.player.removePerk( PerkLib.Diapause );
 			needNext = true;
@@ -134,14 +134,14 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.WetPussy ) >= 0 && CoC.player.hasVagina() ) {
+		if( CoC.player.findPerk( PerkLib.WetPussy ) && CoC.player.hasVagina() ) {
 			if( CoC.player.vaginas[ 0 ].vaginalWetness < AppearanceDefs.VAGINA_WETNESS_WET ) {
 				MainView.outputText( '\n<b>Your ' + CoC.player.vaginaDescript( 0 ) + ' returns to its normal, wet state.</b>\n' );
 				CoC.player.vaginas[ 0 ].vaginalWetness = AppearanceDefs.VAGINA_WETNESS_WET;
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.MaraesGiftButtslut ) >= 0 && CoC.player.ass.analWetness < 2 ) { //Prevent Buttsluts from getting dry backdoors
+		if( CoC.player.findPerk( PerkLib.MaraesGiftButtslut ) && CoC.player.ass.analWetness < 2 ) { //Prevent Buttsluts from getting dry backdoors
 			MainView.outputText( '\n<b>Your ' + Descriptors.assholeDescript() + ' quickly re-moistens.  It looks like Marae\'s \'gift\' can\'t be removed.</b>\n' );
 			CoC.player.ass.analWetness = 2;
 			needNext = true;
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			CoC.player.removeStatusAffect( StatusAffects.Uniball );
 			needNext = true;
 		}
-		if( CoC.player.findPerk( PerkLib.Androgyny ) < 0 ) { //Fix femininity ratings if out of whack!
+		if( !CoC.player.findPerk( PerkLib.Androgyny ) ) { //Fix femininity ratings if out of whack!
 			var textHolder = CoC.player.fixFemininity();
 			if( textHolder !== '' ) {
 				MainView.outputText( textHolder, false );
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] >= 50 && CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 ) { //Luststick resistance unlock
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] >= 50 && !CoC.player.findPerk( PerkLib.LuststickAdapted ) ) { //Luststick resistance unlock
 			SceneLib.sophieBimbo.unlockResistance();
 			if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
 				CoC.player.removeStatusAffect( StatusAffects.Luststick );
@@ -213,12 +213,12 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 || CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) { //Spider and Bee ovipositor updates
-			if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 && (!CoC.player.isDrider() || CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN) ) { //Remove dat shit!
+		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) || CoC.player.findPerk( PerkLib.BeeOvipositor ) ) { //Spider and Bee ovipositor updates
+			if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) && (!CoC.player.isDrider() || CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN) ) { //Remove dat shit!
 				MainView.outputText( '\nYour ovipositor (and eggs) vanish since your body has become less spider-like.</b>\n' );
 				CoC.player.removePerk( PerkLib.SpiderOvipositor );
 				needNext = true;
-			} else if( CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 && CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN ) { //Remove dat shit!
+			} else if( CoC.player.findPerk( PerkLib.BeeOvipositor ) && CoC.player.tailType !== AppearanceDefs.TAIL_TYPE_BEE_ABDOMEN ) { //Remove dat shit!
 				MainView.outputText( '\nYour ovipositor (and eggs) vanish since your body has become less bee-like.</b>\n' );
 				CoC.player.removePerk( PerkLib.BeeOvipositor );
 				needNext = true;
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 					CoC.player.addEggs( 1 );
 				}
 				if( prevEggs < 10 && CoC.player.eggs() >= 10 ) { //Stage 1 egg message
-					if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 ) {
+					if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) ) {
 						MainView.outputText( '\nYou feel a certain fullness building in your spider-half\'s abdomen.' );
 					} else {
 						MainView.outputText( '\nYou feel a certain fullness building in your insectile abdomen.  You have some eggs ready... and you feel a strange urge to have them fertilized.' );
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 					MainView.outputText( '  <b>You have enough eggs to lay!</b>\n' );
 					needNext = true;
 				} else if( prevEggs < 20 && CoC.player.eggs() >= 20 ) { //Stage 2 egg message
-					if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 ) {
+					if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) ) {
 						MainView.outputText( '\nYour spider body feels like it\'s stretched taut, and a heavy warmth has spread throughout it.  The sensation of eggs piling up inside you is enough to drive you to distraction.  It would be a good idea to find somewhere to deposit them - but, oh, how great it would feel to get them fertilized by a nice hard cock first!' );
 						if( !CoC.player.hasVagina() ) {
 							MainView.outputText( '  Wait, that\'s not right...' );
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 					MainView.outputText( '\n\n<b>Minimum Lust raised!</b>\n' );
 					needNext = true;
 				} else if( prevEggs < 40 && CoC.player.eggs() >= 40 ) { //Stage 3 egg message
-					if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 ) {
+					if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) ) {
 						MainView.outputText( '\nYour lower half has become so heavy that it\'s difficult to move now, the weight of your eggs bearing down on your lust-addled frame.  Your ovipositor pokes from its hiding place, dripping its slick lubrication in anticipation of filling something, anything with its burden.  You\'re going to have to find someone to help relieve you of your load, and soon...\n\n<b>Minimum Lust raised!</b>\n' );
 					} else {
 						MainView.outputText( '\nYour bee half has become so heavy that it\'s difficult to move now, the weight of your eggs bearing down on your lust-addled frame.  Your ovipositor pokes from its hiding place, dripping its sweet, slick lubrication in anticipation of filling something, anything with its burden.  You\'re going to have to find someone to help relieve you of your load, and soon...\n' );
@@ -264,12 +264,12 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.findPerk( PerkLib.BunnyEggs ) >= 0 ) { //Oviposition perk for lizard and bunny folks
-			if( (CoC.player.nagaScore() + CoC.player.lizardScore() < 3) && CoC.player.findPerk( PerkLib.Oviposition ) >= 0 && CoC.player.findPerk( PerkLib.BasiliskWomb ) < 0 ) { //--Lose Oviposition perk if lizard score gets below 3.
+		if( CoC.player.findPerk( PerkLib.Oviposition ) || CoC.player.findPerk( PerkLib.BunnyEggs ) ) { //Oviposition perk for lizard and bunny folks
+			if( (CoC.player.nagaScore() + CoC.player.lizardScore() < 3) && CoC.player.findPerk( PerkLib.Oviposition ) && !CoC.player.findPerk( PerkLib.BasiliskWomb ) ) { //--Lose Oviposition perk if lizard score gets below 3.
 				MainView.outputText( '\nAnother change in your uterus ripples through your reproductive systems.  Somehow you know you\'ve lost a little bit of reptilian reproductive ability.\n(<b>Perk Lost)\n' );
 				CoC.player.removePerk( PerkLib.Oviposition );
 				needNext = true;
-			} else if( CoC.player.bunnyScore() < 3 && CoC.player.findPerk( PerkLib.BunnyEggs ) >= 0 ) { //--Lose Oviposition perk if bunny score gets below 3.
+			} else if( CoC.player.bunnyScore() < 3 && CoC.player.findPerk( PerkLib.BunnyEggs ) ) { //--Lose Oviposition perk if bunny score gets below 3.
 				MainView.outputText( '\nAnother change in your uterus ripples through your reproductive systems.  Somehow you know you\'ve lost your ability to spontaneously lay eggs.\n(<b>Perk Lost Eggs</b>)\n' );
 				CoC.player.removePerk( PerkLib.BunnyEggs );
 				needNext = true;
@@ -351,7 +351,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 		else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00330 ] > 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00330 ]--;
 		}
-		if( CoC.player.findPerk( PerkLib.FutaForm ) >= 0 ) { //Futa checks
+		if( CoC.player.findPerk( PerkLib.FutaForm ) ) { //Futa checks
 			if( !CoC.player.hasCock() ) { //(Dick regrowth)
 				CoC.player.createCock();
 				CoC.player.cocks[ 0 ].cockLength = 10;
@@ -382,7 +382,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 			if( CoC.player.breastRows[ 0 ].breastRating < 5 ) { //Tits!
 				CoC.player.breastRows[ 0 ].breastRating = 5;
-				if( CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 					MainView.outputText( '\n<b>Your tits get nice and full again.  You\'ll have lots of fun now that your breasts are back to being big, swollen knockers!</b>\n' );
 				} else {
 					MainView.outputText( '\n<b>Your ' + Descriptors.breastDescript( 0 ) + ' have regained their former bimbo-like size.  It looks like you\'ll be stuck with large, sensitive breasts forever, but at least it\'ll help you tease your enemies into submission!</b>\n' );
@@ -392,7 +392,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 			if( !CoC.player.hasVagina() ) { //Vagoo
 				CoC.player.createVagina();
-				if( CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 					MainView.outputText( '\n<b>Your crotch is like, all itchy an\' stuff.  Damn!  There\'s a wet little slit opening up, and it\'s all tingly!  It feels so good, why would you have ever gotten rid of it?</b>\n' );
 				} else {
 					MainView.outputText( '\n<b>Your crotch tingles for a second, and when you reach down to feel, your ' + CoC.player.legs() + ' fold underneath you, limp.  You\'ve got a vagina - the damned thing won\'t go away and it feels twice as sensitive this time.  Fucking bimbo liquer.</b>\n' );
@@ -401,10 +401,10 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.BimboBody ) >= 0 || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) { //Bimbo checks
+		if( CoC.player.findPerk( PerkLib.BimboBody ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) { //Bimbo checks
 			if( CoC.player.breastRows[ 0 ].breastRating < 5 ) { //Tits!
 				CoC.player.breastRows[ 0 ].breastRating = 5;
-				if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
 					MainView.outputText( '\n<b>Your boobies like, get all big an\' wobbly again!  You\'ll have lots of fun now that your tits are back to being big, yummy knockers!</b>\n' );
 				} else {
 					MainView.outputText( '\n<b>Your ' + Descriptors.breastDescript( 0 ) + ' have regained their former bimbo-like size.  It looks like you\'ll be stuck with large, sensitive breasts forever, but at least it\'ll help you tease your enemies into submission!</b>\n' );
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 			if( !CoC.player.hasVagina() ) { //Vagoo
 				CoC.player.createVagina();
-				if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
 					MainView.outputText( '\n<b>Your crotch is like, all itchy an\' stuff.  Omigawsh!  There\'s a wet little slit opening up, and it\'s all tingly!  It feels so good, maybe like, someone could put something inside there!</b>\n' );
 				} else {
 					MainView.outputText( '\n<b>Your crotch tingles for a second, and when you reach down to feel, your ' + CoC.player.legs() + ' fold underneath you, limp.  You\'ve got a vagina - the damned thing won\'t go away and it feels twice as sensitive this time.  Fucking bimbo liquer.</b>\n' );
@@ -422,7 +422,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 			if( CoC.player.hipRating < 12 ) {
-				if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 					MainView.outputText( '\nWhoah!  As you move, your [hips] sway farther and farther to each side, expanding with every step, soft new flesh filling in as your hips spread into something more appropriate on a tittering bimbo.  You giggle when you realize you can\'t walk any other way.  At least it makes you look, like, super sexy!\n' );
 				} else {
 					MainView.outputText( '\nOh, no!  As you move, your [hips] sway farther and farther to each side, expanding with every step, soft new flesh filling in as your hips spread into something more appropriate for a bimbo.  Once you realize that you can\'t walk any other way, you sigh heavily, your only consolation the fact that your widened hips can be used to tease more effectively.\n' );
@@ -432,7 +432,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 			if( CoC.player.buttRating < 12 ) {
-				if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 					MainView.outputText( '\nGradually warming, you find that your [butt] is practically sizzling with erotic energy.  You smile to yourself, imagining how much you wish you had a nice, plump, bimbo-butt again, your hands finding their way to the flesh on their own.  Like, how did they get down there?  You bite your lip when you realize how good your tush feels in your hands, particularly when it starts to get bigger.  Are butts supposed to do that?  Happy pink thoughts wash that concern away - it feels good, and you want a big, sexy butt!  The growth stops eventually, and you pout disconsolately when the lusty warmth\'s last lingering touches dissipate.  Still, you smile when you move and feel your new booty jiggling along behind you.  This will be fun!\n' );
 				} else {
 					MainView.outputText( '\nGradually warming, you find that your [butt] is practically sizzling with erotic energy.  Oh, no!  You thought that having a big, bloated bimbo-butt was a thing of the past, but with how it\'s tingling under your groping fingertips, you have no doubt that you\'re about to see the second coming of your sexy ass.  Wait, how did your fingers get down there?  You pull your hands away somewhat guiltily as you feel your buttcheeks expanding.  Each time you bounce and shake your new derriere, you moan softly in enjoyment.  Damnit!  You force yourself to stop just as your ass does, but when you set off again, you can feel it bouncing behind you with every step.  At least it\'ll help you tease your foes a little more effectively...\n' );
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.BroBody ) >= 0 ) { //Bro checks
+		if( CoC.player.findPerk( PerkLib.BroBody ) ) { //Bro checks
 			CoC.player.removeStatusAffect( StatusAffects.Feeder );
 			CoC.player.removePerk( PerkLib.Feeder );
 			if( !CoC.player.hasCock() ) { //(Dick regrowth)
@@ -460,7 +460,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 			if( CoC.player.cocks[ 0 ].cockLength < 10 ) { //(Dick rebiggening)
 				MainView.outputText( '\n<b>As time passes, your cock engorges, flooding with blood and growing until it\'s at 10 inches long.  ' );
-				if( CoC.player.findPerk( PerkLib.BroBrains ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BroBrains ) ) {
 					MainView.outputText( 'Goddamn, that thing is almost as tough as you!  ' );
 				}
 				MainView.outputText( 'You really have no control over your dick.</b>\n' );
@@ -583,7 +583,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 		if( CoC.player.findStatusAffect( StatusAffects.CuntStretched ) >= 0 ) { //Cunt stretching stuff
 			CoC.player.addStatusValue( StatusAffects.CuntStretched, 1, 1 );
 			if( CoC.player.vaginas.length > 0 ) {
-				if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) < 0 ) {
+				if( !CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) ) {
 					if( CoC.player.vaginas[ 0 ].vaginalLooseness === AppearanceDefs.VAGINA_LOOSENESS_LOOSE && CoC.player.statusAffectv1( StatusAffects.CuntStretched ) >= 200 ) {
 						MainView.outputText( '\nYour ' + Descriptors.vaginaDescript( 0 ) + ' recovers from your ordeals, tightening up a bit.\n' );
 						CoC.player.vaginas[ 0 ].vaginalLooseness--;
@@ -638,7 +638,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.SlimeCore ) >= 0 ) { //Lose slime core perk
+		if( CoC.player.findPerk( PerkLib.SlimeCore ) ) { //Lose slime core perk
 			if( CoC.player.vaginalCapacity() < 9000 || CoC.player.skinAdj !== 'slimy' || CoC.player.skinDesc !== 'skin' || CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
 				MainView.outputText( '\nYour form ripples, as if uncertain at the changes your body is undergoing.  The goo of your flesh cools, its sensitive, responsive membrane thickening into ' + CoC.player.skin() + ' while bones and muscles knit themselves into a cohesive torso, chest and hips gaining definition.  Translucent ooze clouds and the gushing puddle at your feet melts together, splitting into solid trunks as you regain your legs.  Before long, you can no longer see through your own body and, with an unsteady shiver, you pat yourself down, readjusting to solidity.  A lurching heat in your chest suddenly reminds you of the slime core that used to float inside you.  Gingerly touching your ' + Descriptors.chestDesc() + ', you can feel a small, second heartbeat under your ribs that gradually seems to be sinking, past your belly. A lurching wave of warmth sparks through you, knocking you off your fresh legs and onto your ' + Descriptors.buttDescript() + '.  A delicious pressure pulses in your abdomen and you loosen your ' + CoC.player.armorName + ' as sweat beads down your neck.  You clench your eyes, tongue lolling in your mouth, and the pressure builds and builds until, in ecstatic release, your body arches in an orgasmic release.\n\n' );
 				MainView.outputText( '\nPanting, you open your eyes and see that, for once, the source of your climax wasn\'t your loins.  Feeling a warm, wetness on your abs, you investigate and find the small, heart-shaped nucleus that used to be inside your body has somehow managed to pass through your belly button. Exposed to the open air, the crimson organ slowly crystallizes, shrinking and hardening into a tiny ruby.  Rubbing the stone with your thumb, you\'re surprised to find that you can still feel a pulse within its glittering facets.  You stow the ruby heart, in case you need it again.\n' );
@@ -648,7 +648,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 		}
 		if( CoC.player.hasKeyItem( 'Ruby Heart' ) >= 0 ) { //Regain slime core
-			if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 && CoC.player.findPerk( PerkLib.SlimeCore ) < 0 && CoC.player.isGoo() && CoC.player.gooScore() >= 4 && CoC.player.vaginalCapacity() >= 9000 && CoC.player.skinAdj === 'slimy' && CoC.player.skinDesc === 'skin' && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
+			if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 && !CoC.player.findPerk( PerkLib.SlimeCore ) && CoC.player.isGoo() && CoC.player.gooScore() >= 4 && CoC.player.vaginalCapacity() >= 9000 && CoC.player.skinAdj === 'slimy' && CoC.player.skinDesc === 'skin' && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
 				MainView.outputText( '\nAs you adjust to your new, goo-like body, you remember the ruby heart you expelled so long ago.  As you reach to pick it up, it quivers and pulses with a warm, cheerful light.  Your fingers close on it and the nucleus slides through your palm, into your body!\n\n' );
 				MainView.outputText( 'There is a momentary pressure in your chest and a few memories that are not your own flicker before your eyes.  The dizzying sight passes and the slime core settles within your body, imprinted with your personality and experiences.  There is a comforting calmness from your new nucleus and you feel as though, with your new memories, you will be better able to manage your body\'s fluid requirements.\n' );
 				//(Reduces Fluid Addiction to a 24 hour intake requirement).
@@ -665,7 +665,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.player.removeStatusAffect( StatusAffects.SlimeCravingFeed );
 				needNext = true;
 			} else { //Slime core reduces fluid need rate
-				if( CoC.player.findPerk( PerkLib.SlimeCore ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.SlimeCore ) ) {
 					CoC.player.addStatusValue( StatusAffects.SlimeCraving, 1, 0.5 );
 				} else {
 					CoC.player.addStatusValue( StatusAffects.SlimeCraving, 1, 1 );
@@ -868,7 +868,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				SceneLib.dreams.dayTenDreams();
 				return true;
 			}
-			if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 && (CoC.player.eggs() >= 20 && Utils.rand( 6 ) === 0) ) { //Bee dreams proc
+			if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.BeeOvipositor ) && (CoC.player.eggs() >= 20 && Utils.rand( 6 ) === 0) ) { //Bee dreams proc
 				//happens at first sleep after hitting stage 3 unfertilized
 				//To Wong Foo, Thanks for Everything, Julie Newmar
 				MainView.outputText( '\nYou sit atop your favorite flower, enjoying the smell of verdure and the sounds of the forest.  The sun is shining brightly and it feels wonderful on your chitin.  Your wings twitch happily in the soft breeze, and it feels good to be alive and doing the colony\'s work... the only sour note is your heavy, bloated abdomen, so full of unfertilized eggs that it droops, so full it strains your back and pinches your nerves.  Still, it\'s too nice a day to let that depress you, and you take up your customary song, humming tunelessly but mellifluously as you wait for passers-by.' );
@@ -888,7 +888,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				//Hey whoever, maybe you write them? -Z
 				return true;
 			}
-			if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 && (CoC.player.eggs() >= 20 && Utils.rand( 6 ) === 0) ) { //Drider dreams proc
+			if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.SpiderOvipositor ) && (CoC.player.eggs() >= 20 && Utils.rand( 6 ) === 0) ) { //Drider dreams proc
 				MainView.outputText( '\nIn a moonlit forest, you hang upside down from a thick tree branch suspended by only a string of webbing.  You watch with rising lust as a hapless traveler strolls along below, utterly unaware of the trap you\'ve set.  Your breath catches as ' + CoC.player.mf( 'he', 'she' ) + ' finally encounters your web, flailing against the sticky strands in a futile attempt to free ' + CoC.player.mf( 'him', 'her' ) + 'self.  Once the traveller\'s struggles slow in fatigue, you descend easily to the forest floor, wrapping ' + CoC.player.mf( 'him', 'her' ) + ' in an elegant silk cocoon before pulling ' + CoC.player.mf( 'him', 'her' ) + ' up into the canopy.  Positioning your catch against the tree\'s trunk, you sink your fangs through the web and into flesh, feeling ' + CoC.player.mf( 'his', 'her' ) + ' body heat with every drop of venom.  Cutting ' + CoC.player.mf( 'his', 'her' ) + ' crotch free of your webbing, you open ' + CoC.player.mf( 'his', 'her' ) + ' [armor] and release the ' );
 				if( CoC.player.hasVagina() ) {
 					MainView.outputText( Descriptors.vaginaDescript( 0 ) + ' and ' );

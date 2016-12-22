@@ -27,12 +27,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 	};
 	Benoit.prototype.benoitKnocksUpPCCheck = function() {
 		//Convert old basi's to real basi's!;
-		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_BASILISK && CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
+		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_BASILISK && CoC.player.findPerk( PerkLib.BasiliskWomb ) ) {
 			CoC.player.knockUpForce( PregnancyStore.PREGNANCY_BENOIT, CoC.player.pregnancyIncubation );
 		}
 		//Knock up chances:;
-		if( (CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.findPerk( PerkLib.HarpyWomb ) >= 0 || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0) && (CoC.player.pregnancyIncubation === 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
-			if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 && CoC.flags[ kFLAGS.BENOIT_TESTED_BASILISK_WOMB ] === 1 ) {
+		if( (CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.findPerk( PerkLib.HarpyWomb ) || CoC.player.findPerk( PerkLib.Oviposition ) || CoC.player.findPerk( PerkLib.BasiliskWomb )) && (CoC.player.pregnancyIncubation === 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
+			if( CoC.player.findPerk( PerkLib.BasiliskWomb ) && CoC.flags[ kFLAGS.BENOIT_TESTED_BASILISK_WOMB ] === 1 ) {
 				if( CoC.player.pregnancyType !== PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.pregnancyIncubation === 0 ) {
 					CoC.player.knockUp( PregnancyStore.PREGNANCY_BENOIT, PregnancyStore.INCUBATION_BASILISK );
 				}
@@ -125,9 +125,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 
 		// Calc the number of eggs;
 		var cumQ = CoC.player.cumQ();
-		var bounty = (CoC.player.findPerk( PerkLib.ElvenBounty ) >= 0) ? true : false;
-		var stud = (CoC.player.findPerk( PerkLib.MaraesGiftStud ) >= 0) ? true : false;
-		var alpha = (CoC.player.findPerk( PerkLib.FerasBoonAlpha ) >= 0) ? true : false;
+		var bounty = CoC.player.findPerk( PerkLib.ElvenBounty ) ? true : false;
+		var stud = CoC.player.findPerk( PerkLib.MaraesGiftStud ) ? true : false;
+		var alpha = CoC.player.findPerk( PerkLib.FerasBoonAlpha ) ? true : false;
 		var eggMod = 0;
 		if( bounty ) {
 			eggMod += 1;
@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 			MainView.outputText( '\n\n"<i>Allo?</i>" says a raspy voice from further in the gloom.  "<i>\'Oo is zair?</i>"  You can make out a counter constructed from crates, and a tall, thin shape behind it - a lizan, by the looks of his build and smooth scales.  Something about his shape makes you feel uneasy, though... you shift further in to take a closer look at the stall owner.  He\'s seated in the only area of his shop not taken up by junk, right next to a heap of rugs and robes, and has a fez perched on top of his blunt head.  It\'s when he turns his grey slit eyes to you that you realize what is putting you on edge - it\'s a basilisk!  Panic grips you as you try to wrench your eyes away... which you do, easily.  Curious despite yourself, you look back tentatively.  The creature\'s eyes seem oddly milky, and they seem to be staring beyond you.  Realisation takes hold when you see the white stick balanced carefully on the counter\'s side.' );
 			MainView.outputText( '\n\n"<i>Yes, go ahead, stare,</i>" says the basilisk in a long-suffering tone, making you jump. "<i>It is a funny joke, yes?  Believe me, I wake up laughing about it every morning.  At least here zey stare.  In ze mountains, zey are so embarrassed zey can\'t even look at me.  Or at least I assume zey can\'t.</i>"  He straightens his back and sets his jaw.  "<i>\'Owever, my slack-jawed friend, zis is not a freak show.  Zis is Benoit\'s Spectacular Salvage Shop!  So if you are not \'ere to buy or sell salvage... kindly piss off.</i>"' );
 			MainView.outputText( '\n\nYou wonder how a blind anything can make it in such a rough and ready place as the Bazaar, but then Benoit curls his claws protectively into what appears to be a pile of robes sitting next to him, which opens dark brown eyes and sets its muzzle on the counter, looking at you plaintively.  The Alsatian buried within the cloth looks to you like a big softy, but you\'re willing to concede the point as made.' );
-		} else if( CoC.flags[ kFLAGS.BENOIT_SUGGEST_UNLOCKED ] === 0 && CoC.player.hasVagina() && (CoC.player.inHeat || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.findPerk( PerkLib.HarpyWomb ) >= 0 || CoC.player.findPerk( PerkLib.Oviposition ) >= 0) && (CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.pregnancyIncubation === 0) && CoC.flags[ kFLAGS.BENOIT_STATUS ] === 0 ) {
+		} else if( CoC.flags[ kFLAGS.BENOIT_SUGGEST_UNLOCKED ] === 0 && CoC.player.hasVagina() && (CoC.player.inHeat || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.findPerk( PerkLib.HarpyWomb ) || CoC.player.findPerk( PerkLib.Oviposition )) && (CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.pregnancyIncubation === 0) && CoC.flags[ kFLAGS.BENOIT_STATUS ] === 0 ) {
 			if( CoC.flags[ kFLAGS.BENOIT_SUGGEST_UNLOCKED ] === 0 ) {
 				this.benoitAndFemPCTalkAboutEggings();
 			}
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 			suggestText = 'Sex';
 		}
 		CoC.flags[ kFLAGS.TIMES_IN_BENOITS ]++;
-		if( CoC.flags[ kFLAGS.BENOIT_WOMB_TALK_UNLOCKED ] === 1 && CoC.player.findPerk( PerkLib.BasiliskWomb ) < 0 && CoC.flags[ kFLAGS.BENOIT_TESTED_BASILISK_WOMB ] === 0 && CoC.flags[ kFLAGS.BENOIT_STATUS ] === 0 ) {
+		if( CoC.flags[ kFLAGS.BENOIT_WOMB_TALK_UNLOCKED ] === 1 && !CoC.player.findPerk( PerkLib.BasiliskWomb ) && CoC.flags[ kFLAGS.BENOIT_TESTED_BASILISK_WOMB ] === 0 && CoC.flags[ kFLAGS.BENOIT_STATUS ] === 0 ) {
 			womb = this.tryToConvertToBassyWomb;
 		}
 		var fem;
@@ -790,7 +790,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		MainView.outputText( '\n\nEventually, the two of you part, dripping your mixed fluids as you step back.  "<i>Phew!</i>" Benoit says after he\'s managed to catch his breath.  "<i>That was... somesing.  Mademoiselle, you are... amazing.</i>"  You find yourself laughing at his slightly shell-shocked expression, and the light, happy sound seems to bring him around a bit.  He brushes your shoulder as he walks past you, feeling around the stock room until he finds a chest of drawers.  He opens a compartment and withdraws a small woollen bag, stuffed with pungent green leaves.' );
 		MainView.outputText( '\n\n"<i>Ze shark ladies are always coming up from ze lake to sell me zis,</i>" he says. "<i>It is a very effective, \'ow you say, \'counter septic\'?' );
 		CoC.player.orgasm();
-		if( (CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.findPerk( PerkLib.HarpyWomb ) >= 0 || CoC.player.findPerk( PerkLib.Oviposition ) >= 0) && (CoC.player.pregnancyIncubation === 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
+		if( (CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS || CoC.player.findPerk( PerkLib.HarpyWomb ) || CoC.player.findPerk( PerkLib.Oviposition )) && (CoC.player.pregnancyIncubation === 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
 			MainView.outputText( '  I would not inflict my children upon you.  Ere, take as much as you like.</i>"' );
 			EngineCore.choices( 'Take It', this, this.takeBenoitsContraceptives, '', null, null, '', null, null, '', null, null, 'Leave', this, this.dontTakeEggtraceptives );
 		} else {
@@ -1002,7 +1002,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 			MainView.outputText( '\n\n"<i>You \'ave been in ze sun too long [name],</i>" says the basilisk harshly, clutching his hand. "<i>Go \'ave a lie down and zen resink drinking whatever it is you \'ave just concocted.  I never asked for you to try zis.</i>" You feel a moment of doubt... but no, you\'ve poured good ingredients into this and you sure as hell aren\'t going to wimp out now.  You give Benoit\'s uninjured hand a reassuring squeeze and say with as much confidence as you can muster that you know what you\'re doing.  With that, you cup the bowl, and with only a moment\'s hesitation, drink deeply.' );
 			MainView.outputText( '\n\nThe mixture has a lingering bite of mint overlaying the all-consuming burn of alcohol; you are reminded vaguely of the sticky liqueurs that populated the recesses of cupboards back home.  You smack your lips and plonk the bowl back down with deliberate loudness after you have finished; Benoit clutches the counter tensely as you wait.  You haven\'t died straight away, so that\'s a positive... an immense gurgle comes from your belly and you double over as your insides shift and the contents of your gut churn.  The sensation is not painful exactly but you feel like you\'ve lost all control of your insides; you clutch your sides and try to breathe levelly as your stomach turns upside down and makes a sound like trapped gas.  Eventually you feel something like a bubble form just below your gut; slowly your insides settle as the bubble grows larger and larger, until the sensation slowly fades.  Cautiously you walk back and forth a few times, before poking your tummy.' );
 			//[No oviposition:;
-			if( CoC.player.findPerk( PerkLib.Oviposition ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Oviposition ) ) {
 				MainView.outputText( '  You feel slightly bloated, but otherwise fine; you sense that you can lay eggs of your own volition now.' );
 			} else {
 				MainView.outputText( 'You feel slightly bloated, but otherwise fine; you sense that were you to get impregnated by basilisk seed, the eggs you produce would be pure basilisk.' );
@@ -1081,7 +1081,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 		//(Oviposition perk added);
 		CoC.player.createPerk( PerkLib.BasiliskWomb, 0, 0, 0, 0 );
 		MainView.outputText( '\n\n(<b>Perk Unlocked: Basilisk Womb - You can now give birth to female basilisks.</b>)' );
-		if( CoC.player.findPerk( PerkLib.Oviposition ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Oviposition ) ) {
 			CoC.player.createPerk( PerkLib.Oviposition, 0, 0, 0, 0 );
 			MainView.outputText( '\n(<b>Perk Unlocked: Oviposition - You will now regularly lay unfertilized eggs.</b>)' );
 		}

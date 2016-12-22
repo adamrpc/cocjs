@@ -60,7 +60,7 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 		if( CoC.player.str >= 25 ) {
 			_add( new Perk( PerkLib.StrongBack ) );
 		}
-		if( CoC.player.findPerk( PerkLib.StrongBack ) >= 0 && CoC.player.str >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.StrongBack ) && CoC.player.str >= 50 ) {
 			_add( new Perk( PerkLib.StrongBack2 ) );
 		}
 		//Tier 1 Strength Perks
@@ -84,19 +84,19 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 			}
 		}
 		//slot 2 - toughness perk 1
-		if( CoC.player.findPerk( PerkLib.Tank ) < 0 && CoC.player.tou >= 25 ) {
+		if( !CoC.player.findPerk( PerkLib.Tank ) && CoC.player.tou >= 25 ) {
 			_add( new Perk( PerkLib.Tank ) );
 		}
 		//slot 2 - regeneration perk
-		if( CoC.player.findPerk( PerkLib.Tank ) >= 0 && CoC.player.tou >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.Tank ) && CoC.player.tou >= 50 ) {
 			_add( new Perk( PerkLib.Regeneration ) );
 		}
 		//Tier 1 Toughness Perks
 		if( CoC.player.level >= 6 ) {
-			if( CoC.player.findPerk( PerkLib.Tank ) >= 0 && CoC.player.tou >= 60 ) {
+			if( CoC.player.findPerk( PerkLib.Tank ) && CoC.player.tou >= 60 ) {
 				_add( new Perk( PerkLib.Tank2 ) );
 			}
-			if( CoC.player.findPerk( PerkLib.Regeneration ) >= 0 && CoC.player.tou >= 70 ) {
+			if( CoC.player.findPerk( PerkLib.Regeneration ) && CoC.player.tou >= 70 ) {
 				_add( new Perk( PerkLib.Regeneration2 ) );
 			}
 			if( CoC.player.tou >= 75 ) {
@@ -121,17 +121,17 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 			_add( new Perk( PerkLib.Runner ) );
 		}
 		//slot 3 - Double Attack perk
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && CoC.player.findPerk( PerkLib.Runner ) >= 0 && CoC.player.spe >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && CoC.player.findPerk( PerkLib.Runner ) && CoC.player.spe >= 50 ) {
 			_add( new Perk( PerkLib.DoubleAttack ) );
 		}
 		//Tier 1 Speed Perks
 		if( CoC.player.level >= 6 ) {
 			//Speedy Recovery - Regain Fatigue 50% faster speed.
-			if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && CoC.player.spe >= 60 ) {
+			if( CoC.player.findPerk( PerkLib.Evade ) && CoC.player.spe >= 60 ) {
 				_add( new Perk( PerkLib.SpeedyRecovery ) );
 			}
 			//Agility - A small portion of your speed is applied to your defense rating when wearing light armors.
-			if( CoC.player.spe > 75 && CoC.player.findPerk( PerkLib.Runner ) >= 0 && (CoC.player.armorPerk === 'Light' || CoC.player.armorPerk === 'Medium') ) {
+			if( CoC.player.spe > 75 && CoC.player.findPerk( PerkLib.Runner ) && (CoC.player.armorPerk === 'Light' || CoC.player.armorPerk === 'Medium') ) {
 				_add( new Perk( PerkLib.Agility ) );
 			}
 			if( CoC.player.spe >= 60 ) {
@@ -152,7 +152,7 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 		if( CoC.player.inte >= 50 ) {
 			_add( new Perk( PerkLib.Spellpower ) );
 		}
-		if( CoC.player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.player.inte >= 50 ) {
+		if( CoC.player.findPerk( PerkLib.Spellpower ) && CoC.player.inte >= 50 ) {
 			_add( new Perk( PerkLib.Mage ) );
 		}
 		//Tier 1 Intelligence Perks
@@ -160,7 +160,7 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 			if( CoC.player.inte >= 50 ) {
 				_add( new Perk( PerkLib.Tactician ) );
 			}
-			if( CoC.player.spellCount() > 0 && CoC.player.findPerk( PerkLib.Spellpower ) >= 0 && CoC.player.findPerk( PerkLib.Mage ) >= 0 && CoC.player.inte >= 60 ) {
+			if( CoC.player.spellCount() > 0 && CoC.player.findPerk( PerkLib.Spellpower ) && CoC.player.findPerk( PerkLib.Mage ) && CoC.player.inte >= 60 ) {
 				_add( new Perk( PerkLib.Channeling ) );
 			}
 			if( CoC.player.inte >= 60 ) {
@@ -169,7 +169,7 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 		}
 		//Tier 2 Intelligence perks
 		if( CoC.player.level >= 12 ) {
-			if( CoC.player.findPerk( PerkLib.Mage ) >= 0 && CoC.player.inte >= 75 ) {
+			if( CoC.player.findPerk( PerkLib.Mage ) && CoC.player.inte >= 75 ) {
 				_add( new Perk( PerkLib.Archmage ) );
 			}
 		}
@@ -200,21 +200,21 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 			_add( new Perk( PerkLib.CorruptedLibido, 20, 0, 0, 0 ) );
 		}
 		//Slot 7 - Seduction (Must have seduced Jojo
-		if( CoC.player.findPerk( PerkLib.Seduction ) < 0 && CoC.player.cor >= 50 && SceneLib.jojoScene.monk >= 5 ) {
+		if( !CoC.player.findPerk( PerkLib.Seduction ) && CoC.player.cor >= 50 && SceneLib.jojoScene.monk >= 5 ) {
 			_add( new Perk( PerkLib.Seduction ) );
-		} else if( CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 75 ) { //Slot 7 - Nymphomania
+		} else if( CoC.player.findPerk( PerkLib.CorruptedLibido ) && CoC.player.cor >= 75 ) { //Slot 7 - Nymphomania
 			_add( new Perk( PerkLib.Nymphomania ) );
 		}
 		//Slot 7 - UNFINISHED :3
-		if( CoC.player.minLust() >= 20 && CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 50 ) {
+		if( CoC.player.minLust() >= 20 && CoC.player.findPerk( PerkLib.CorruptedLibido ) && CoC.player.cor >= 50 ) {
 			_add( new Perk( PerkLib.Acclimation ) );
 		}
 		//Tier 1 Corruption Perks - acclimation over-rides
 		if( CoC.player.level >= 6 ) {
-			if( CoC.player.cor >= 60 && CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
+			if( CoC.player.cor >= 60 && CoC.player.findPerk( PerkLib.CorruptedLibido ) ) {
 				_add( new Perk( PerkLib.Sadist ) );
 			}
-			if( CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 && CoC.player.cor >= 70 ) {
+			if( CoC.player.findPerk( PerkLib.CorruptedLibido ) && CoC.player.cor >= 70 ) {
 				_add( new Perk( PerkLib.ArousingAura ) );
 			}
 		}
@@ -224,7 +224,7 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 		}
 		// FILTER PERKS
 		perkList = _.filter(perkList, function( perk ) {
-			return CoC.player.findPerk( perk.perk.ptype ) < 0;
+			return !CoC.player.findPerk( perk.perk.ptype );
 		});
 		MainView.aCb.dataProvider = perkList;
 		return perkList;
@@ -292,7 +292,7 @@ angular.module('cocjs').run( function (SceneLib, PerkLib, Perk, Utils, CoC, Engi
 			MainView.outputText( ' to spend.</b>', false );
 			EngineCore.addButton( 1, 'Perk Up', this, this.perkBuyMenu );
 		}
-		if( CoC.player.findPerk( PerkLib.DoubleAttack ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.DoubleAttack ) ) {
 			MainView.outputText( '\n<b>You can adjust your double attack settings.</b>' );
 			EngineCore.addButton( 2, 'Dbl Options', null, doubleAttackOptions );
 		}

@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 			if( temp > 7 ) {
 				temp = 7;
 			}
-			if( CoC.player.findPerk( PerkLib.PiercedLethite ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.PiercedLethite ) ) {
 				temp += 4;
 			}
 			if( CoC.player.inHeat ) {
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				}
 			}
 			//No diapause?  Normal!
-			if( CoC.player.findPerk( PerkLib.Diapause ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Diapause ) ) {
 				if( CoC.player.pregnancyAdvance() ) {
 					needNext = true;
 				} //Make sure pregnancy texts aren't hidden
@@ -120,13 +120,13 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					return true;
 				}
 				//DOUBLE PREGGERS SPEED
-				if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
 				}
 				//DOUBLE PREGGERS SPEED
-				if( CoC.player.findPerk( PerkLib.MagicalFertility ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.MagicalFertility ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
@@ -135,12 +135,12 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					CoC.flags[ kFLAGS.EVENT_PARSER_ESCAPE ] = 0;
 					return true;
 				}
-				if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
 				}
-				if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) >= 0 || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					return true;
 				}
 				//DOUBLE PREGGERS SPEED
-				if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BroodMother ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
@@ -194,13 +194,13 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					return true;
 				}
 				//DOUBLE PREGGERS SPEED
-				if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
 				}
 				//DOUBLE PREGGERS SPEED
-				if( CoC.player.findPerk( PerkLib.MagicalFertility ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.MagicalFertility ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
@@ -209,12 +209,12 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					CoC.flags[ kFLAGS.EVENT_PARSER_ESCAPE ] = 0;
 					return true;
 				}
-				if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
 				}
-				if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) >= 0 || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					return true;
 				}
 				//DOUBLE PREGGERS SPEED
-				if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BroodMother ) ) {
 					if( CoC.player.pregnancyAdvance() ) {
 						needNext = true;
 					} //Make sure pregnancy texts aren't hidden

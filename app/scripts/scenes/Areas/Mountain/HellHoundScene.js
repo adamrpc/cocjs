@@ -294,7 +294,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			CoC.player.cuntChange( CoC.monster.cockArea( 0 ), true, false, true );
 			CoC.player.buttChange( CoC.monster.cockArea( 1 ), true, false, true );
 			// --- CORRUPTION < 40 (and not masocistic - I lost track if there is such a perk) ---
-			if( CoC.player.cor < 40 && CoC.player.findPerk( PerkLib.Masochist ) < 0 ) {
+			if( CoC.player.cor < 40 && !CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( 'As you bottom out on his sheath, you lean forward to engulf more of his hot cocks inside you. The hellhound enjoys the treatment you are giving him. As a result, the flames along his eyes and snout flicker back to life. Just as your hardening clit presses against the top of his ballsack, the hellhound\'s natural flames lick across your sex. The magical fire fills you with arousal, but also applies intense pain to your most sensitive spot. You practically jump off the corrupt creature, pulling the dicks from your holes in great speed. Nearly blacking out from the sensations, you cover your burnt button, not daring to touch it. You curse the creature, loudly swearing at the hellhound. In your fury, you barely notice that he looks disappointed and maybe even somewhat sorry.', false );
 				CoC.player.takeDamage( 20 );
 				EngineCore.dynStats( 'lus', -99 );

@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 			if( damage > 0 ) {
 				damage = CoC.player.takeDamage( damage );
 				MainView.outputText( 'He charges at you with a loud bleat, catching you off-guard and sending you flying into the ground.' );
-				if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
+				if( !CoC.player.findPerk( PerkLib.Resolute ) ) {
 					MainView.outputText( '  The pain of the impact is so big you feel completely dazed, almost seeing stars.' );
 					CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 				}

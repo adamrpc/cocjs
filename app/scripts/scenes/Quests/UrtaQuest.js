@@ -1036,7 +1036,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage += CoC.player.weaponAttack;
 		//Determine if critical hit!;
 		var crit = false;
-		if( Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) >= 0 && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
+		if( Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
 			crit = true;
 			damage *= 2;
 		}
@@ -1046,7 +1046,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.weaponName !== 'jeweled rapier' && CoC.player.weaponName !== 'deadly spear' ) {
 			reduction += CoC.monster.armorDef;
 			//Remove half armor for lunging strikes;
-			if( CoC.player.findPerk( PerkLib.LungingAttacks ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.LungingAttacks ) ) {
 				reduction -= CoC.monster.armorDef / 2;
 			}
 		}
@@ -1065,13 +1065,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage -= reduction;
 		//Damage post processing!;
 		//Thunderous Strikes;
-		if( CoC.player.findPerk( PerkLib.ThunderousStrikes ) >= 0 && CoC.player.str >= 80 ) {
+		if( CoC.player.findPerk( PerkLib.ThunderousStrikes ) && CoC.player.str >= 80 ) {
 			damage *= 1.2;
 		}
 		//One final round;
 		damage = Math.round( damage );
 		if( damage > 0 ) {
-			if( CoC.player.findPerk( PerkLib.HistoryFighter ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistoryFighter ) ) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage( damage );
@@ -1085,7 +1085,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				MainView.outputText( ' <b>*CRIT*</b>' );
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.BrutalBlows ) >= 0 && CoC.player.str > 75 ) {
+		if( CoC.player.findPerk( PerkLib.BrutalBlows ) && CoC.player.str > 75 ) {
 			if( CoC.monster.armorDef > 0 ) {
 				MainView.outputText( '\nYour hits are so brutal that you damage ' + CoC.monster.a + CoC.monster.short + '\'s defenses!' );
 			}
@@ -1183,7 +1183,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage *= 0.7;
 		//Determine if critical hit!;
 		var crit = false;
-		if( Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) >= 0 && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
+		if( Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
 			crit = true;
 			damage *= 1.75;
 		}
@@ -1193,7 +1193,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.weaponName !== 'jeweled rapier' && CoC.player.weaponName !== 'deadly spear' ) {
 			reduction += CoC.monster.armorDef;
 			//Remove half armor for lunging strikes;
-			if( CoC.player.findPerk( PerkLib.LungingAttacks ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.LungingAttacks ) ) {
 				reduction -= CoC.monster.armorDef / 2;
 			}
 		}
@@ -1212,13 +1212,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage -= reduction;
 		//Damage post processing!;
 		//Thunderous Strikes;
-		if( CoC.player.findPerk( PerkLib.ThunderousStrikes ) >= 0 && CoC.player.str >= 80 ) {
+		if( CoC.player.findPerk( PerkLib.ThunderousStrikes ) && CoC.player.str >= 80 ) {
 			damage *= 1.2;
 		}
 		//One final round;
 		damage = Math.round( damage );
 		if( damage > 0 ) {
-			if( CoC.player.findPerk( PerkLib.HistoryFighter ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistoryFighter ) ) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage( damage );
@@ -1232,7 +1232,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				MainView.outputText( ' <b>*CRIT*</b>' );
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.BrutalBlows ) >= 0 && CoC.player.str > 75 ) {
+		if( CoC.player.findPerk( PerkLib.BrutalBlows ) && CoC.player.str > 75 ) {
 			if( CoC.monster.armorDef > 0 ) {
 				MainView.outputText( '\nYour hits are so brutal that you damage ' + CoC.monster.a + CoC.monster.short + '\'s defenses!' );
 			}
@@ -1242,12 +1242,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				CoC.monster.armorDef = 0;
 			}
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) < 0 && CoC.monster.findPerk( PerkLib.Resolute ) < 0 && damage > 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) < 0 && !CoC.monster.findPerk( PerkLib.Resolute ) && damage > 0 ) {
 			if( CoC.monster.tou / 10 + Utils.rand( 20 ) + 1 < 20 ) {
 				MainView.outputText( '\n<b>' + CoC.monster.getCapitalA() + CoC.monster.short + ' is stunned!</b>' );
 				CoC.monster.createStatusAffect( StatusAffects.Stunned, 1, 0, 0, 0 );
 			}
-		} else if( CoC.monster.findPerk( PerkLib.Resolute ) >= 0 ) {
+		} else if( CoC.monster.findPerk( PerkLib.Resolute ) ) {
 			MainView.outputText( '\nWhile it should have some chance of stunning, your foe seems far too resolute to be affected by such an ailment.' );
 		}
 		MainView.outputText( '\n', false );
@@ -1327,7 +1327,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage *= 1.25;
 		//Determine if critical hit!;
 		var crit = false;
-		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) >= 0 || Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) >= 0 && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) >= 0 || Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
 			crit = true;
 			damage *= 2;
 		}
@@ -1337,7 +1337,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.weaponName !== 'jeweled rapier' && CoC.player.weaponName !== 'deadly spear' ) {
 			reduction += CoC.monster.armorDef;
 			//Remove half armor for lunging strikes;
-			if( CoC.player.findPerk( PerkLib.LungingAttacks ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.LungingAttacks ) ) {
 				reduction -= CoC.monster.armorDef / 2;
 			}
 		}
@@ -1356,13 +1356,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage -= reduction;
 		//Damage post processing!;
 		//Thunderous Strikes;
-		if( CoC.player.findPerk( PerkLib.ThunderousStrikes ) >= 0 && CoC.player.str >= 80 ) {
+		if( CoC.player.findPerk( PerkLib.ThunderousStrikes ) && CoC.player.str >= 80 ) {
 			damage *= 1.2;
 		}
 		//One final round;
 		damage = Math.round( damage );
 		if( damage > 0 ) {
-			if( CoC.player.findPerk( PerkLib.HistoryFighter ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistoryFighter ) ) {
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage( damage );
@@ -1376,7 +1376,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				MainView.outputText( ' <b>*CRIT*</b>' );
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.BrutalBlows ) >= 0 && CoC.player.str > 75 ) {
+		if( CoC.player.findPerk( PerkLib.BrutalBlows ) && CoC.player.str > 75 ) {
 			if( CoC.monster.armorDef > 0 ) {
 				MainView.outputText( '\nYour hits are so brutal that you damage ' + CoC.monster.a + CoC.monster.short + '\'s defenses!' );
 			}

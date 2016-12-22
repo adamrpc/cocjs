@@ -1288,7 +1288,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		MainView.outputText( '  Her tail goes wild at the impact, whipping around in a frenzy and actually managing to slap your cheek!  That bitch!' );
 		MainView.outputText( '\n\nThis time, your hand cocks and releases in a split-second, coming down with even more force than before.  Vapula screams, "<i>Ow! Stop it, by Lethice, please!</i>"  This time, her thrashing, spaded tail stays obediently low, harmlessly cutting through the air so as not to irritate you.' );
 		MainView.outputText( '\n\n"<i>That\'s better,</i>" you growl as you admire her gradually reddening bottom.  It\'s certainly unusual to watch a purple behind turn red, quite the opposite of how it would look on a normal person.  Still, two red handprints quickly become apparent on the closest cheek, one laid over top of the other.  "<i>Now hold still and take your punishment,</i>" you order, "<i>I expect a demon like you ought to be enough of a pain-loving masochist to get off before I finish.  Isn\'t that right?</i>"  You smack her other, untouched cheek for a bit of audible punctuation and smile at the high pitched peep of pain that she makes.' );
-		if( CoC.player.findPerk( PerkLib.Sadist ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Sadist ) ) {
 			MainView.outputText( '  Dishing out all this suffering is getting you a little hot under the collar, and you squirm a bit in place in anticipation of the pain to come.' );
 		}
 		MainView.outputText( '\n\nVapula scrunches her eyes shut and shakes her purple hair around, barely making a sound outside of her instinctive peep at the hit.  You lift your palm again and bring it down in another spank, not quite as hard as the last but in the same place.  She bites her lip but stays blissfully silent.  Well, at least she\'s not calling every imp in a five mile radius to come bother you.  You paddle her again, finding some untouched lavender flesh to abuse while you watch the new handprints appear on her shapely behind.  Tears well up at the corners of the succubus\'s eyes, and she makes a start at talking.' );
@@ -1309,7 +1309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 		//{+20ish lust};
 		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 7) );
 		//{Sadist: + 20 lust};
-		if( CoC.player.findPerk( PerkLib.Sadist ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Sadist ) ) {
 			EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 7) );
 		}
 		CoC.flags[ kFLAGS.VAPULA_EARNED_A_SPANK ] = 0;

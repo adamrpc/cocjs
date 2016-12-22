@@ -202,7 +202,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			return;
 		}
 		//choose between loss rapes
-		if( CoC.player.hasVagina() && (CoC.player.inHeat || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
+		if( CoC.player.hasVagina() && (CoC.player.inHeat || CoC.player.findPerk( PerkLib.Oviposition ) || CoC.player.findPerk( PerkLib.BasiliskWomb ) || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS) ) {
 			this.basiliskHasVagEggStuff();
 		} else {
 			this.defaultBasiliskRape();
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			MainView.outputText( '  The basilisk licks your bulging belly hungrily, pushing against and testing for the eggs you are carrying.  Your sensitive cargo shifts around under its hungry attention; you\'d squirm, but that is, of course, impossible.', false );
 		}
 		//(heat or perk:
-		if( CoC.player.inHeat || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
+		if( CoC.player.inHeat || CoC.player.findPerk( PerkLib.Oviposition ) || CoC.player.findPerk( PerkLib.BasiliskWomb ) ) {
 			MainView.outputText( '  The basilisk licks your belly hungrily, its sticky tongue crawling like a warm tentacle across your sensitive underside.  You\'d squirm, but that is impossible.  The creature is making you feel everything it is forcing upon you.', false );
 		}
 		MainView.outputText( '\n\n', false );
@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			CoC.player.createVagina();
 			CoC.player.genderCheck();
 		}
-		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) ) {
 			MainView.outputText( '\nA sudden pressure in your belly wakes you, making you moan softly in pain as you feel your womb rippling and squeezing, the walls contracting around the ripe eggs inside you.  You drag yourself from your bedding, divesting yourself of your lower clothes and staggering out into the middle of the camp. Squatting upright, you inhale deeply and start to concentrate.' );
 			MainView.outputText( '\n\nA thick, green slime begins to flow from your stretched netherlips, splatting wetly onto the ground below you and quickly soaking into the dry earth. You settle easily into the rhythm of oushing with your contractions and breathing deeply when they ebb.  The eggs inside you move quickly, lubricated by the strange slime that cushioned them in your womb, sized and shaped just right the pressure of their passage stretches you in the most delightful way, your [clit] growing erect' );
 			if( CoC.player.hasCock() ) {
@@ -522,7 +522,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			MainView.outputText( 'Eventually the minotaur\'s balls swell against your ' + Descriptors.buttDescript() + ' and with a long, satisfied moo, he reaches his peak, holding you down so his cum jets forth deep inside you.  The sensual high it has already instilled in you amplifies by tenfold as the warm, oozing fluid finds its mark and you moan as you spontaneously orgasm, your anus helplessly milking the creature for all it can get.\n\n', false );
 			MainView.outputText( 'The minotaur holds onto you until he has finished spurting his last into you, before abruptly setting you back down on your frozen feet, pulling his slimy, receding member out of your abused anus and with a satisfied snort, takes his leave.  You feel his cum drooling out of you and down your ' + Descriptors.hipDescript() + ', but in your hazy, druggy state the feeling is almost sensual.', false );
 			//(Addict:
-			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 				MainView.outputText( '  You\'re incredibly frustrated that you can\'t clench yourself and hold the magical substance deep inside you, so you can savor the wonderful, soft elation it blossoms inside of you for as long as you can.', false );
 			}
 			MainView.outputText( '\n\n', false );
@@ -577,7 +577,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		MainView.outputText( '\n\n', false );
 		MainView.outputText( 'The minotaur holds onto you until he has finished spurting his last into you, before abruptly setting you back down on your frozen feet, pulling his slimy, receding member out of your abused anus and with a satisfied snort, takes his leave.  You feel his cum drooling out of you and down your ' + Descriptors.hipDescript() + ', but in your hazy, druggy state the feeling is almost sensual.', false );
 		//(Addict:
-		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 			MainView.outputText( '  You\'re incredibly frustrated that you can\'t clench yourself and hold the magical substance deep inside you, so you can savor the wonderful, soft elation it blossoms inside of you for as long as you can.', false );
 		}
 		MainView.outputText( '\n\n', false );
@@ -617,7 +617,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		//if(CoC.player.gender !== 3) MainView.outputText('s');
 		MainView.outputText( ' just over his mouth.' );
 		//[(if PC has eggs in vag or Oviposition)
-		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) >= 0 || CoC.player.findPerk( PerkLib.Oviposition ) >= 0 || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
+		if( CoC.player.findPerk( PerkLib.BasiliskWomb ) || CoC.player.findPerk( PerkLib.Oviposition ) || CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 			MainView.outputText( '  You watch with idle amusement as the scent of your excitement perks up the basilisk\'s reptilian member, rising until it reaches its impressive full length.  <i>Maybe some other time</i>, you think to yourself, as you set about the business of unloading your overfull abdomen.' );
 		}
 		MainView.outputText( 'You can feel the eggs sliding into position, weighing down your extended ovipositor as you slide it up the bound basilisk\'s thigh, prodding at his taut backdoor.  The sensation of the heavy organ forcing open his tight hole sends a shiver through his body, and it isn\'t long before the lube-drooling appendage forces its way in; you sink down further, practically resting your body atop him as you release a happy sigh.' );

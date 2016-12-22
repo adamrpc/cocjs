@@ -12,11 +12,11 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 			Combat.combatRoundOver();
 			return;
 		}
-		if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && CoC.player.spe >= 35 && Utils.rand( 3 ) !== 0 ) {
+		if( CoC.player.findPerk( PerkLib.Evade ) && CoC.player.spe >= 35 && Utils.rand( 3 ) !== 0 ) {
 			MainView.outputText( 'Both the hellhound\'s heads breathe in deeply before blasting a wave of dark fire at you.  You easily avoid the wave, diving to the side and making the most of your talents at evasion.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 20 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 20 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s fire.\n', false );
-		} else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && CoC.player.spe > 30 && Utils.rand( 10 ) !== 0 ) {
+		} else if( CoC.player.findPerk( PerkLib.Flexibility ) && CoC.player.spe > 30 && Utils.rand( 10 ) !== 0 ) {
 			MainView.outputText( 'Both the hellhound\'s heads breathe in deeply before blasting a wave of dark fire at you.  You twist and drop with incredible flexibility, watching the fire blow harmlessly overhead.', false );
 		} else {
 			//Determine the damage to be taken

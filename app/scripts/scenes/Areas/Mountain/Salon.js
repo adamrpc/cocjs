@@ -134,7 +134,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 			mudFacial2 = this.mudFacial;
 		} else if( CoC.player.femininity < 70 && CoC.player.gender === 1 ) {
 			mudFacial2 = this.mudFacial;
-		} else if( CoC.player.femininity < 100 && CoC.player.findPerk( PerkLib.Androgyny ) >= 0 ) {
+		} else if( CoC.player.femininity < 100 && CoC.player.findPerk( PerkLib.Androgyny ) ) {
 			mudFacial2 = this.mudFacial;
 		}
 		if( CoC.player.femininity > 0 && CoC.player.gender === 1 ) {
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 			sandFacial2 = this.sandFacial;
 		} else if( CoC.player.femininity > 20 && (CoC.player.gender === 0 || CoC.player.gender === 3) ) {
 			sandFacial2 = this.sandFacial;
-		} else if( CoC.player.femininity > 0 && CoC.player.findPerk( PerkLib.Androgyny ) >= 0 ) {
+		} else if( CoC.player.femininity > 0 && CoC.player.findPerk( PerkLib.Androgyny ) ) {
 			sandFacial2 = this.sandFacial;
 		}
 
@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		MainView.clearOutput();
 		MainView.spriteSelect( 38 );
 		//Chance for mino craziness here;
-		if( Utils.rand( 5 ) === 0 && (CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0) ) {
+		if( Utils.rand( 5 ) === 0 && (CoC.player.findPerk( PerkLib.MinotaurCumAddict ) || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 0) ) {
 			this.minotaurCumBukkakeInSalon();
 			return;
 		}

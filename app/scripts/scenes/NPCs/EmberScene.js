@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		if( this.followerEmber() && CoC.player.findStatusAffect( StatusAffects.EmberNapping ) < 0 ) {
 			//Mino cum freakout - PC partly addicted!;
-			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 1 && CoC.player.findPerk( PerkLib.MinotaurCumAddict ) < 0 && CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 0 ) {
+			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 1 && !CoC.player.findPerk( PerkLib.MinotaurCumAddict ) && CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 0 ) {
 				this.minotaurJizzFreakout();
 				needNext = true;
 			}
@@ -1819,7 +1819,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		}
 		//Get Dragon Breath (Tainted version);
 		//Can only be obtained if you are considered a dragon-morph, once you do get it though, it won't just go away even if you aren't a dragon-morph anymore.;
-		if( CoC.player.dragonScore() >= 4 && changes < changeLimit && CoC.player.findPerk( PerkLib.Dragonfire ) < 0 ) {
+		if( CoC.player.dragonScore() >= 4 && changes < changeLimit && !CoC.player.findPerk( PerkLib.Dragonfire ) ) {
 			MainView.outputText( '\n\nYou feel something awakening within you... then a sudden sensation of choking grabs hold of your throat, sending you to your knees as you clutch and gasp for breath.  It feels like there\'s something trapped inside your windpipe, clawing and crawling its way up.  You retch and splutter and then, with a feeling of almost painful relief, you expel a bellowing roar from deep inside of yourself... with enough force that clods of dirt and shattered gravel are sent flying all around.  You look at the small crater you have literally blasted into the landscape with a mixture of awe and surprise.' );
 			MainView.outputText( '\n\nIt seems Ember\'s dragon blood has awaked some kind of power within you... your throat and chest feel very sore, however; you doubt you can force out more than one such blast before resting.\n\n(<b>Gained Perk)' );
 			CoC.player.createPerk( PerkLib.Dragonfire, 0, 0, 0, 0 );
@@ -3485,7 +3485,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		MainView.outputText( '\n\nEmber groans as ' + this.emberMF( 'he', 'she' ) + ' grows hard once more, sensitive and throbbing as ' + this.emberMF( 'his', 'her' ) + ' shaft slowly fills you with its increasing girth.  You begin to buck your hips back and forth; you wonder how many orgasms you can coax from your helpless draconic lover...  "<i>C-cumming!!</i>" Ember roars as ' + this.emberMF( 'he', 'she' ) + ' shoots a few more jets inside you.' );
 		MainView.outputText( '\n\n"<i>I-I can\'t keep doing this... you\'re going to dry me out...</i>" Ember says, panting in exhaustion, although from ' + this.emberMF( 'his', 'her' ) + ' expression you\'d have a hard time believing ' + this.emberMF( 'he', 'she' ) + ' isn\'t enjoying it.  You give ' + this.emberMF( 'him', 'her' ) + ' an exaggerated pout and tell ' + this.emberMF( 'him', 'her' ) + ' you\'re not quite done yet.  Surely, just one or two more...?' );
 		//[(has History: Slut or Whore);
-		if( CoC.player.findPerk( PerkLib.HistoryWhore ) >= 0 || CoC.player.findPerk( PerkLib.HistorySlut ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.HistoryWhore ) || CoC.player.findPerk( PerkLib.HistorySlut ) ) {
 			MainView.outputText( '  Using the skills you\'ve honed, you make the muscles in your vagina ripple and wrinkle, teasing the cock caught inside you in a way few women can.' );
 		}
 		MainView.outputText( '  Mmm... you can feel your own second orgasm coming in hot.  Maybe after another 4 or 5, you\'ll let the dragon go...' );
@@ -4130,7 +4130,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nEmber complies, digging deeper into your searing hot canal.  One of ' + this.emberMF( 'his', 'her' ) + ' clawed hands gently reaches out to touch the slithering bulge within your belly, massaging you as best as ' + this.emberMF( 'he', 'she' ) + ' can.  Slowly but steadily, the baby dragon within you starts making its way down your birth canal, stretching you out as it seeks freedom.' );
 			CoC.player.cuntChange( 80, true, true, false );
 			MainView.outputText( '\n\nYou strain with all your might, drawing on wells of inner strength you weren\'t even sure you had, hovering ' );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( 'deliciously ' );
 			}
 			MainView.outputText( 'on the boundary between pleasure and pain.  You aren\'t sure how much more you can take.' );
@@ -4240,7 +4240,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nYou moan in equal parts pleasure and pain, telling ' + this.emberMF( 'him', 'her' ) + ' that ' + this.emberMF( 'his', 'her' ) + ' treatment feels good and is soothing. "<i>Please, keep going,</i>" you plead.  You ask if ' + this.emberMF( 'he', 'she' ) + ' can try to massage your stomach as well, to help relax the tension in your muscles.' );
 			MainView.outputText( '\n\nEmber complies, digging deeper into your searing hot canal; one of ' + this.emberMF( 'his', 'her' ) + ' clawed hands, gently reach out to the protruding bulge within your belly, massaging you as best as ' + this.emberMF( 'he', 'she' ) + ' can.  Slowly but steadily, the draconic egg within you starts making its way down your birth canal, stretching you out as it seeks freedom.' );
 			MainView.outputText( '\n\nYou strain with all your might, drawing on wells of inner strength you weren\'t even sure you had, hovering ' );
-			if( CoC.player.findPerk( PerkLib.Masochist ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Masochist ) ) {
 				MainView.outputText( 'deliciously ' );
 			}
 			MainView.outputText( 'on the boundary between pleasure and pain.  You aren\'t sure how much more you can take.' );

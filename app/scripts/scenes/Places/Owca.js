@@ -282,7 +282,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.player.buttChange( 60, true, true, false );
 		MainView.outputText( '  The double penetration is brutal, unexpected and painful.  Your insides are protesting vigorously against this rough treatment, even though you feel a tingle of pleasure gently tickling your colon at every thrust.  ' );
 		//[(no Buttslut);
-		if( CoC.player.findPerk( PerkLib.Buttslut ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Buttslut ) ) {
 			MainView.outputText( 'No!  You aren\'t supposed to enjoy it...  ' );
 		}
 		MainView.outputText( 'You try to cry out but as soon as your mouth opens it is filled with another dick, then a second one.  A third tries to push its way between the first two, stretching your cheeks and making you drool.  Seeing that the monstrous dong won\'t fit in your already double-stuffed mouth, its owner groans in frustration and proceeds to slap your cheek with it.  He is soon joined by other demons who find the idea very entertaining.' );
@@ -977,7 +977,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		MainView.outputText( 'The last of the villagers drops his improvised weapon.  They are all lying defenseless before you.  At last, you notice Rebecc, the only one still conscious, curled up as she weeps uncontrollably.  She is clearly oblivious of her surroundings, undoubtedly shocked by the violent fight.  Even if she calls herself your friend, you don\'t think you\'d be able to reason with her after pummeling her kin.  What do you do?' );
 		//Rape Rebbecc/Torch Village (needs Akbal's fire or Whitefire)/Leave;
 		var torch = null;
-		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 || CoC.player.findPerk( PerkLib.FireLord ) >= 0 || CoC.player.findPerk( PerkLib.Hellfire ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) ) {
 			torch = this.torchOwcaMotherFuckers;
 		}
 		var rape = null;

@@ -694,11 +694,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		MainView.outputText( 'What addiction would you like to discuss?', false );
 		//Set choices;
 		var milk = null;
-		if( (CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 || CoC.player.statusAffectv3( StatusAffects.Marble ) > 0) && CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 ) {
+		if( (CoC.player.findPerk( PerkLib.MarblesMilk ) || CoC.player.statusAffectv3( StatusAffects.Marble ) > 0) && !CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 			milk = this.scyllaPtVMilk;
 		}
 		var cum = null;
-		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 50 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 50 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 			cum = this.scyllaPtVCum;
 		}
 		var sex = null;

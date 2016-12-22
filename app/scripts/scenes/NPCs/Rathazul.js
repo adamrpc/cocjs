@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			lethiciteDefense = this.growLethiciteDefense;
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
-			if( CoC.flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 && (SceneLib.sophieBimbo.bimboSophie() || CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0) ) {
+			if( CoC.flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 && (SceneLib.sophieBimbo.bimboSophie() || CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties )) ) {
 				this.rathazulDebimboOffer();
 				return true;
 			} else if( CoC.flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] > 0 ) {

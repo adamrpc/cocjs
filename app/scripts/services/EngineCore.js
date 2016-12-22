@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		if( changeNum > 0 ) {
 			//Increase by 20%!
-			if( CoC.player.findPerk( PerkLib.HistoryHealer ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistoryHealer ) ) {
 				changeNum *= 1.2;
 			}
 			if( CoC.player.HP + changeNum > CoC.player.maxHP() ) {
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	};
 	EngineCore.physicalCost = function( mod ) {
 		var costPercent = 100;
-		if( CoC.player.findPerk( PerkLib.IronMan ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.IronMan ) ) {
 			costPercent -= 50;
 		}
 		mod *= costPercent / 100;
@@ -172,26 +172,25 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 	EngineCore.spellCost = function( mod ) {
 		//Addiditive mods
 		var costPercent = 100;
-		if( CoC.player.findPerk( PerkLib.SpellcastingAffinity ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.SpellcastingAffinity ) ) {
 			costPercent -= CoC.player.perkv1( PerkLib.SpellcastingAffinity );
 		}
-		if( CoC.player.findPerk( PerkLib.WizardsEndurance ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.WizardsEndurance ) ) {
 			costPercent -= CoC.player.perkv1( PerkLib.WizardsEndurance );
 		}
 		//Limiting it and multiplicative mods
-		if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 && costPercent < 50 ) {
+		if( CoC.player.findPerk( PerkLib.BloodMage ) && costPercent < 50 ) {
 			costPercent = 50;
 		}
 		mod *= costPercent / 100;
-		if( CoC.player.findPerk( PerkLib.HistoryScholar ) >= 0 && mod > 2) {
+		if( CoC.player.findPerk( PerkLib.HistoryScholar ) && mod > 2) {
 			mod *= 0.8;
 		}
-		if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 && mod < 5 ) {
+		if( CoC.player.findPerk( PerkLib.BloodMage ) && mod < 5 ) {
 			mod = 5;
 		} else if( mod < 2 ) {
 			mod = 2;
 		}
-		mod = Math.round( mod * 100 ) / 100;
 		return mod;
 	};
 	//Modify fatigue
@@ -203,7 +202,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( type === 1 ) {
 			mod = EngineCore.spellCost( mod );
 			//Blood mages use HP for spells
-			if( CoC.player.findPerk( PerkLib.BloodMage ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BloodMage ) ) {
 				CoC.player.takeDamage( mod );
 				MainView.statsView.show();
 				return;
@@ -217,10 +216,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//Fatigue restoration buffs!
 		if( mod < 0 ) {
 			var multi = 1;
-			if( CoC.player.findPerk( PerkLib.HistorySlacker ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.HistorySlacker ) ) {
 				multi += 0.2;
 			}
-			if( CoC.player.findPerk( PerkLib.ControlledBreath ) >= 0 && CoC.player.cor < 30 ) {
+			if( CoC.player.findPerk( PerkLib.ControlledBreath ) && CoC.player.cor < 30 ) {
 				multi += 0.1;
 			}
 			mod *= multi;
@@ -367,22 +366,22 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		bodyStats += '<b>Pregnancy Speed Multiplier:</b> ';
 		var preg = 1;
-		if( CoC.player.findPerk( PerkLib.Diapause ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Diapause ) ) {
 			bodyStats += '? (Variable due to Diapause)\n';
 		} else {
-			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) ) {
 				preg++;
 			}
-			if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BroodMother ) ) {
 				preg++;
 			}
-			if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FerasBoonBreedingBitch ) ) {
 				preg++;
 			}
-			if( CoC.player.findPerk( PerkLib.MagicalFertility ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MagicalFertility ) ) {
 				preg++;
 			}
-			if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) >= 0 || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) || CoC.player.findPerk( PerkLib.FerasBoonMilkingTwat ) ) {
 				preg++;
 			}
 			bodyStats += preg + '\n';
@@ -401,14 +400,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( CoC.player.vaginas.length > 0 ) {
 			bodyStats += '<b>Vaginal Capacity:</b> ' + Math.round( CoC.player.vaginalCapacity() ) + '\n' + '<b>Vaginal Looseness:</b> ' + Math.round( CoC.player.looseness() ) + '\n';
 		}
-		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) >= 0 || CoC.player.findPerk( PerkLib.BeeOvipositor ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) || CoC.player.findPerk( PerkLib.BeeOvipositor ) ) {
 			bodyStats += '<b>Ovipositor Total Egg Count: ' + CoC.player.eggs() + '\nOvipositor Fertilized Egg Count: ' + CoC.player.fertilizedEggs() + '</b>\n';
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
 			if( CoC.player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 ) {
 				bodyStats += '<b>Slime Craving:</b> Active! You are currently losing strength and speed.  You should find fluids.\n';
 			} else {
-				if( CoC.player.findPerk( PerkLib.SlimeCore ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.SlimeCore ) ) {
 					bodyStats += '<b>Slime Stored:</b> ' + ((17 - CoC.player.statusAffectv1( StatusAffects.SlimeCraving )) * 2) + ' hours until you start losing strength.\n';
 				} else {
 					bodyStats += '<b>Slime Stored:</b> ' + (17 - CoC.player.statusAffectv1( StatusAffects.SlimeCraving )) + ' hours until you start losing strength.\n';
@@ -442,17 +441,17 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//Marble Milk Addition
 		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 ) {
 			addictStats += '<b>Marble Milk:</b> ';
-			if( CoC.player.findPerk( PerkLib.MarbleResistant ) < 0 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.MarbleResistant ) && !CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 				addictStats += Math.round( CoC.player.statusAffectv2( StatusAffects.Marble ) ) + '%\n';
-			} else if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+			} else if( CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 				addictStats += '0%\n';
 			} else {
 				addictStats += '100%\n';
 			}
 		}
 		// Mino Cum Addiction
-		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00340 ] > 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
-			if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) < 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00340 ] > 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] > 0 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
+			if( !CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 				addictStats += '<b>Minotaur Cum:</b> ' + Math.round( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] * 10 ) / 10 + '%\n';
 			} else {
 				addictStats += '<b>Minotaur Cum:</b> 100+%\n';
@@ -585,22 +584,22 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//TOTAL IS LIMITED TO 75%!
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//Corrupted Libido reduces lust gain by 10%!
-		if( CoC.player.findPerk( PerkLib.CorruptedLibido ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.CorruptedLibido ) ) {
 			lust -= 10;
 		}
 		//Acclimation reduces by 15%
-		if( CoC.player.findPerk( PerkLib.Acclimation ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Acclimation ) ) {
 			lust -= 15;
 		}
 		//Purity blessing reduces lust gain
-		if( CoC.player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
 			lust -= 5;
 		}
 		//Resistance = 10%
-		if( CoC.player.findPerk( PerkLib.Resistance ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Resistance ) ) {
 			lust -= 10;
 		}
-		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) ) {
 			lust -= SceneLib.umasShop.NEEDLEWORK_LUST_LUST_RESIST;
 		}
 		if( lust < 25 ) {
@@ -620,27 +619,27 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//DRAWBACKS TO JUSTIFY IT.
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//Bimbo body slows lust gains!
-		if( (CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || CoC.player.findPerk( PerkLib.BimboBody ) >= 0) && lust > 0 ) {
+		if( (CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || CoC.player.findPerk( PerkLib.BimboBody )) && lust > 0 ) {
 			lust *= 0.75;
 		}
-		if( CoC.player.findPerk( PerkLib.BroBody ) >= 0 && lust > 0 ) {
+		if( CoC.player.findPerk( PerkLib.BroBody ) && lust > 0 ) {
 			lust *= 0.75;
 		}
-		if( CoC.player.findPerk( PerkLib.FutaForm ) >= 0 && lust > 0 ) {
+		if( CoC.player.findPerk( PerkLib.FutaForm ) && lust > 0 ) {
 			lust *= 0.75;
 		}
 		//Omnibus\' Gift reduces lust gain by 15%
-		if( CoC.player.findPerk( PerkLib.OmnibusGift ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.OmnibusGift ) ) {
 			lust *= 0.85;
 		}
 		//Luststick reduces lust gain by 10% to match increased min lust
-		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) ) {
 			lust *= 0.9;
 		}
 		if( CoC.player.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
 			lust *= 0.6;
 		}
-		if( CoC.player.findPerk( PerkLib.PureAndLoving ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.PureAndLoving ) ) {
 			lust *= 0.95;
 		}
 		// Lust mods from Uma\'s content -- Given the short duration and the gem cost, I think them being multiplicative is justified.
@@ -766,7 +765,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//MOD CHANGES FOR PERKS
 		//Bimbos learn slower
 		if( !noBimbo ) {
-			if( CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 || CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.BroBrains ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FutaFaculties ) || CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.BroBrains ) ) {
 				if( intel > 0 ) {
 					intel /= 2;
 				}
@@ -774,7 +773,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 					intel *= 2;
 				}
 			}
-			if( CoC.player.findPerk( PerkLib.FutaForm ) >= 0 || CoC.player.findPerk( PerkLib.BimboBody ) >= 0 || CoC.player.findPerk( PerkLib.BroBody ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.FutaForm ) || CoC.player.findPerk( PerkLib.BimboBody ) || CoC.player.findPerk( PerkLib.BroBody ) ) {
 				if( libi > 0 ) {
 					libi *= 2;
 				}
@@ -784,26 +783,26 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			}
 		}
 		// Uma\'s Perkshit
-		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 && spee < 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) && spee < 0 ) {
 			spee *= SceneLib.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
 		}
-		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) >= 0 && libi > 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) && libi > 0 ) {
 			libi *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
-		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) >= 0 && sens > 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) && sens > 0 ) {
 			sens *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
 		//lust resistance
 		if( lust2 > 0 && resisted ) {
 			lust2 *= EngineCore.lustPercent() / 100;
 		}
-		if( libi > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
+		if( libi > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
 			libi *= 0.75;
 		}
-		if( corr > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) >= 0 ) {
+		if( corr > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
 			corr *= 0.5;
 		}
-		if( corr > 0 && CoC.player.findPerk( PerkLib.PureAndLoving ) >= 0 ) {
+		if( corr > 0 && CoC.player.findPerk( PerkLib.PureAndLoving ) ) {
 			corr *= 0.75;
 		}
 		//Change original stats
@@ -834,31 +833,31 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		CoC.player.lust += lust2;
 		CoC.player.cor += corr;
 		//Bonus gain for perks!
-		if( CoC.player.findPerk( PerkLib.Strong ) >= 0 && stre >= 0 ) {
-			CoC.player.str += stre * CoC.player.perk( CoC.player.findPerk( PerkLib.Strong ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Strong ) && stre >= 0 ) {
+			CoC.player.str += stre * CoC.player.findPerk( PerkLib.Strong ).value1;
 		}
-		if( CoC.player.findPerk( PerkLib.Tough ) >= 0 && toug >= 0 ) {
-			CoC.player.tou += toug * CoC.player.perk( CoC.player.findPerk( PerkLib.Tough ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Tough ) && toug >= 0 ) {
+			CoC.player.tou += toug * CoC.player.findPerk( PerkLib.Tough ).value1;
 		}
-		if( CoC.player.findPerk( PerkLib.Fast ) >= 0 && spee >= 0 ) {
-			CoC.player.spe += spee * CoC.player.perk( CoC.player.findPerk( PerkLib.Fast ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Fast ) && spee >= 0 ) {
+			CoC.player.spe += spee * CoC.player.findPerk( PerkLib.Fast ).value1;
 		}
-		if( CoC.player.findPerk( PerkLib.Smart ) >= 0 && intel >= 0 ) {
-			CoC.player.inte += intel * CoC.player.perk( CoC.player.findPerk( PerkLib.Smart ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Smart ) && intel >= 0 ) {
+			CoC.player.inte += intel * CoC.player.findPerk( PerkLib.Smart ).value1;
 		}
-		if( CoC.player.findPerk( PerkLib.Lusty ) >= 0 && libi >= 0 ) {
-			CoC.player.lib += libi * CoC.player.perk( CoC.player.findPerk( PerkLib.Lusty ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Lusty ) && libi >= 0 ) {
+			CoC.player.lib += libi * CoC.player.findPerk( PerkLib.Lusty ).value1;
 		}
-		if( CoC.player.findPerk( PerkLib.Sensitive ) >= 0 && sens >= 0 ) {
-			CoC.player.sens += sens * CoC.player.perk( CoC.player.findPerk( PerkLib.Sensitive ) ).value1;
+		if( CoC.player.findPerk( PerkLib.Sensitive ) && sens >= 0 ) {
+			CoC.player.sens += sens * CoC.player.findPerk( PerkLib.Sensitive ).value1;
 		}
 		// Uma\'s Str Cap from Perks
-		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) ) {
 			if( CoC.player.str > SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
 				CoC.player.str = SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.ChiReflowDefense ) ) {
 			if( CoC.player.spe > SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
 				CoC.player.spe = SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
 			}

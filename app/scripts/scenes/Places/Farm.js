@@ -339,7 +339,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 					}
 					return;
 				} else {
-					if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+					if( CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 						//(work with Marble when helping);
 						SceneLib.marbleScene.postAddictionFarmHelpings();
 						return;
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 				SceneLib.marbleScene.encounterMarbleExploring2();
 			}
 		} else {
-			if( CoC.player.findPerk( PerkLib.MarbleResistant ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.MarbleResistant ) ) {
 				SceneLib.marbleScene.postAddictionFarmExplorings();
 				return;
 			}

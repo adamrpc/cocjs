@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 		//[Kiss of Death Text];
 		MainView.outputText( 'The succubus dances forwards, cocking her elbow back for a vicious strike.', false );
 		//avoid!;
-		if( CoC.player.spe > this.spe && Utils.rand( 4 ) === 0 || (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 4 ) === 0) || (CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 4 ) === 0 && CoC.player.armorName === 'red, high-society bodysuit') ) {
+		if( CoC.player.spe > this.spe && Utils.rand( 4 ) === 0 || (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 4 ) === 0) || (CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 4 ) === 0 && CoC.player.armorName === 'red, high-society bodysuit') ) {
 			MainView.outputText( '  You start to sidestep and realize it\'s a feint.   Ducking low, you slide under her real attack... a kiss?!  ', false );
 			if( CoC.player.lust >= 70 ) {
 				MainView.outputText( '  Maybe you shouldn\'t have bothered to move, it might have been fun.', false );

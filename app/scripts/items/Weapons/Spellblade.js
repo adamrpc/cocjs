@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, PerkLib ) {
 	};
 	Spellblade.prototype._superPlayerEquip = Spellblade.prototype.playerEquip;
 	Spellblade.prototype.playerEquip = function() {
-		while( CoC.player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.WizardsFocus ) ) {
 			CoC.player.removePerk( PerkLib.WizardsFocus );
 		}
 		CoC.player.createPerk( PerkLib.WizardsFocus, 0.5, 0, 0, 0 );
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( WeaponLib, CoC, Weapon, PerkLib ) {
 	};
 	Spellblade.prototype._superPlayerRemove = Spellblade.prototype.playerRemove;
 	Spellblade.prototype.playerRemove = function() {
-		while( CoC.player.findPerk( PerkLib.WizardsFocus ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.WizardsFocus ) ) {
 			CoC.player.removePerk( PerkLib.WizardsFocus );
 		}
 		return this._superPlayerRemove();

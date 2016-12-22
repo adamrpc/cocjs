@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		}
 		var chooser = Utils.rand( 4 );
 		//Boosts mino and hellhound rates!
-		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) >= 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.findPerk( PerkLib.PiercedFurrite ) && Utils.rand( 3 ) === 0 ) {
 			chooser = 1;
 		}
 		//Helia monogamy fucks

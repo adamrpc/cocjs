@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 		//Throw offensive potions at the player;
 		MainView.outputText( 'Clara suddenly snatches something from a pouch at her belt. "<i>Try this, little cutie!</i>" She snarls, and throws a vial of potion at you.', false );
 		//Dodge chance!;
-		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
+		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;

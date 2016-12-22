@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( MainView, ArmorLib, SceneLib, Appearanc
 	};
 	LustyMaidensArmor.prototype._superPlayerEquip = LustyMaidensArmor.prototype.playerEquip;
 	LustyMaidensArmor.prototype.playerEquip = function() {
-		while( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 			CoC.player.removePerk( PerkLib.SluttySeduction );
 		}
 		if( CoC.player.hasVirginVagina() ) {
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( MainView, ArmorLib, SceneLib, Appearanc
 	};
 	LustyMaidensArmor.prototype._superPlayerRemove = LustyMaidensArmor.prototype.playerRemove;
 	LustyMaidensArmor.prototype.playerRemove = function() {
-		while( CoC.player.findPerk( PerkLib.SluttySeduction ) >= 0 ) {
+		while( CoC.player.findPerk( PerkLib.SluttySeduction ) ) {
 			CoC.player.removePerk( PerkLib.SluttySeduction );
 		}
 		return this._superPlayerRemove();

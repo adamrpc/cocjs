@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		MainView.outputText( ', and casually begin to undress. Looking over your shoulders, you see hope in his soulless eyes. You tease, "<i>I wouldn\'t want to stain my clothes when I finish you off, would I?</i>" His dick wilts a little at that, and he looks about to faint. Giggling, you toss aside your [armor] and grab hold of his mostly-hard cock, feeling the corrupted, textured nodules that encircle his shaft flaring up at your gentle squeeze. He firms up nicely in your grip, filling back to a pulsating, rigid hardness in seconds.' );
 		MainView.outputText( '\n\n"<i>Hey, you can transform your dick, right?</i>" you call over your shoulder.' );
 		MainView.outputText( '\n\nThe demons voice comes back as a dry, irritated rumble. "<i>That and more, mortal. Would it please you to shape my cock for your pleasure?</i>"' );
-		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 			MainView.outputText( '\n\nGiggling, you answer, "<i>Like totally! Let\'s give you a cock makeover!</i>"' );
 		} else {
 			MainView.outputText( '\n\nNodding and languidly stroking his fantastically useful phallus, you answer, "<i>Maybe. I still haven\'t decided what to do with you.</i>"' );

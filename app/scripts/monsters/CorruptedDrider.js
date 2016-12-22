@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Somehow, you manage to evade her lusty attack.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			}
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'You manage to misdirect her lusty attack, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			}
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'You manage to twist your cat-like body out of the way at the last second, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {

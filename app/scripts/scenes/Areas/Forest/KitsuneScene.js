@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			EngineCore.doNext( EngineCore.createCallBackFunction( this, this.followTheWillOWisp, true ) );
 		}//PC did NOT see through glamour
 		//With Religious BG:
-		else if( CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 ) {
+		else if( CoC.player.findPerk( PerkLib.HistoryReligious ) ) {
 			MainView.outputText( 'The instant she touches you, she recoils with a yelp, a brilliant flash temporarily blinding you both.\n\n' );
 			MainView.outputText( '"<i>Ow, ow, ow!</i>"\n\n' );
 			MainView.outputText( 'When the spots clear from your eyes, the kitsune\'s glamour has been dispelled, revealing her for what she truly is.  A pair of large triangular fox ears poke up from her ' );
@@ -935,7 +935,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		CoC.player.boostLactation( 1.5 );
-		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) ) {
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
@@ -1147,7 +1147,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			}
 		}
 		//[Feeder]
-		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) ) {
 			button = this.kitsuneButton( button, 'Breastfeed', this, this.feederTheKitsunes );
 		}
 		EngineCore.addButton( 9, 'Leave', this, this.leaveKitsune );
@@ -1959,7 +1959,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 	//[Meditate]
 	KitsuneScene.prototype.meditateLikeAKitsuneEhQuestionMark = function() {
 		MainView.clearOutput();
-		if( CoC.player.hasItem( ConsumableLib.FOXJEWL ) && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_FOX && CoC.player.tailVenom < 9 && CoC.player.tailVenom + 1 <= CoC.player.level && CoC.player.tailVenom + 1 <= CoC.player.inte / 10 && CoC.player.earType === AppearanceDefs.EARS_FOX && CoC.player.findPerk( PerkLib.CorruptedNinetails ) < 0 && CoC.player.findPerk( PerkLib.EnlightenedNinetails ) < 0 ) {
+		if( CoC.player.hasItem( ConsumableLib.FOXJEWL ) && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_FOX && CoC.player.tailVenom < 9 && CoC.player.tailVenom + 1 <= CoC.player.level && CoC.player.tailVenom + 1 <= CoC.player.inte / 10 && CoC.player.earType === AppearanceDefs.EARS_FOX && !CoC.player.findPerk( PerkLib.CorruptedNinetails ) && !CoC.player.findPerk( PerkLib.EnlightenedNinetails ) ) {
 			//20% chance if PC has fox ears, 1 or more fox tails, carries a Fox Jewel, and meets level & INT requirements for the next tail:
 			MainView.outputText( 'You sit down carefully on a small mat in front of the shrine and clear your mind.  Closing your eyes, you meditate on the things you\'ve learned in your journey thus far, and resolve to continue fighting against the forces of corruption that permeate the land.\n\n' );
 			MainView.outputText( 'Nearing the end of your meditation, you are inexplicably compelled to reach into your bag and pull out the small teardrop-shaped jewel you were carrying.  As you stare past the translucent surface of the bead and into the dancing fire within, the jewel begins to dissolve in your hand, the pale flames within spilling out and spreading over your body.\n\n' );

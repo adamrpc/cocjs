@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	SandWitchScene.prototype.sandWitchBadEndPartThree = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Something breaks within your soul, accompanied by a strangled sob. Tears of humiliation trickle down your face as you part your quivering lips. "<i>Please milk me, Mistress. Your slave needs to be milked.</i>"\n\n' );
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'No sooner have you spoken before a torrent of milk spurts from each of your nipples, but the effect isn\'t as pleasurable as it used to be; in fact you\'re starting to feel very weak.  The Sand Witch looks at you in confusion as the stream of milk from your massive breasts quickly slows and your breasts start to shrivel up.\n\n' );
 			MainView.outputText( 'Trying to figure out why you feel so incredibly weak, you think back on what might have caused this.  When was the last time you had some of Marble\'s milk?  Feeling your body start to wither away, the realization hits you.  You chuckle softly at your captor as the world starts to go dark; looks like you\'ll be the one to have the last laugh...\n\n' );
 			MainView.outputText( 'The last thing you hear is the Sand Witch screaming "<i>What the hell is going on?  I ALWAYS get what I want!</i>"' );
@@ -1163,7 +1163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			MainView.outputText( 'Worse still, your [vagina] is pressed up against the rough stone.  It\'s less than pleasant.  ' );
 		}
 		MainView.outputText( 'You bristle at your helplessness' );
-		if( CoC.player.findPerk( PerkLib.FireLord ) >= 0 || CoC.player.findPerk( PerkLib.Hellfire ) >= 0 || CoC.player.findPerk( PerkLib.Dragonfire ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findPerk( PerkLib.Dragonfire ) ) {
 			MainView.outputText( ', breathing out a gout of flame in rage, but you can\'t even direct the blast properly like this.  All it does is melt some of the sand below into glass' );
 		} else {
 			MainView.outputText( ', but there\'s nothing you can do' );

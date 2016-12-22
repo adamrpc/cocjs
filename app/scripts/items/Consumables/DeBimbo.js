@@ -10,17 +10,17 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, Useable, 
 		that.classNames.push('DeBimbo');
 	};
 	DeBimbo.prototype.canUse = function() {
-		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 			return true;
 		}
 		MainView.outputText( 'You can\'t use this right now, and it\'s too expensive to waste!\n\n' );
 		return false;
 	};
 	DeBimbo.prototype.useItem = function() {
-		if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BimboBrains ) ) {
 			MainView.outputText( '\n\n(<b>Perk Removed:  Bimbo Brains - Your intelligence and speech patterns are no longer limited to that of a bimbo.</b>)' );
 			CoC.player.removePerk( PerkLib.BimboBrains );
-		} else if( CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+		} else if( CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 			MainView.outputText( '\n\n(<b>Perk Removed:  Futa Faculties - Your intelligence and speech patterns are no longer limited to that of a futanari bimbo.</b>)' );
 			CoC.player.removePerk( PerkLib.FutaFaculties );
 		}
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, Useable, 
 						return target.prototype[name];
 					}
 					if( name === 'description' ) {
-						if( CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0 ) {
+						if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties ) ) {
 							return 'This should totally like, fix your brain and stuff.  You don\'t really think anything is wrong with your head - it feels all pink and giggly all the time.';
 						} else {
 							return 'This draft is concocted from five scholar\'s teas and who knows what else.  Supposedly it will correct the stupifying effects of Bimbo Liqueur.';

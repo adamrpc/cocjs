@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 		//Enable feeder scene if appropriate
 		var temp2 = null;
-		if( CoC.player.findPerk( PerkLib.Feeder ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Feeder ) ) {
 			temp2 = this.minotaurDrinksMilkNewsAtEleven;
 		}
 		//Oviposit overlaps feeder
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		var tempText = '';
 		var temp = null;
 		//Enable mino milking even if not in need
-		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1 || CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 			if( CoC.player.biggestTitSize() >= 5 && !CoC.player.isNaga() ) {
 				temp = this.minoGetsTitFucked;
 				tempText = 'Titfuck Him';
@@ -558,7 +558,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 		MainView.outputText( 'The animalistic scent of it seems to get inside you, the musky aroma burning a path of liquid heat to your groin.', false );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.lib / 20 );
-		if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 2 ) {
+		if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 2 ) {
 			if( Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( '\n<b>You shiver with need, wanting nothing more than to bury your face under that loincloth and slurp out every drop of goopey goodness.</b>', false );
 			} else {
@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			}
 			//UBER ADDICTION MESSAGE
 			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 100 ) {
-				if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 				} else {
 					CoC.player.createPerk( PerkLib.MinotaurCumAddict, 0, 0, 0, 0 );
 					MainView.outputText( '<b>You are now a Minotaur Cum Addict</b> (Bottled Minotaur Cum now heals 25% of your HP, but causes HP damage to boost lust for a few hours.)\n', false );
@@ -938,7 +938,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			}
 		}
 		//Decrement addiction value as needed
-		if( CoC.flags[ kFLAGS.TIME_SINCE_LAST_CONSUMED_MINOTAUR_CUM ] >= 48 && CoC.player.findPerk( PerkLib.MinotaurCumAddict ) < 0 ) {
+		if( CoC.flags[ kFLAGS.TIME_SINCE_LAST_CONSUMED_MINOTAUR_CUM ] >= 48 && !CoC.player.findPerk( PerkLib.MinotaurCumAddict ) ) {
 			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] >= 0.15 ) {
 				CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_TRACKER ] -= 0.15;
 			}
@@ -1058,7 +1058,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		MainView.outputText( 'You grimace at the awkward feeling of the beast\'s snout against you, but soon regain confidence in your choice as the monster begins to take your prick into his mouth.  His eyes grow wide as his lips wrap around you, with ', false );
 		if( CoC.monster.lust > 99 ) {
 			MainView.outputText( 'his own burning lusts', false );
-		} else if( CoC.player.findPerk( PerkLib.ArousingAura ) >= 0 ) {
+		} else if( CoC.player.findPerk( PerkLib.ArousingAura ) ) {
 			MainView.outputText( 'the power of your corruption', false );
 		} else {
 			MainView.outputText( 'the salty taste of your pre-cum', false );

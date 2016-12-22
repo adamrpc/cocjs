@@ -797,7 +797,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 		CoC.flags[ kFLAGS.TAMANI_PREGNANCY_COUNT ] = 2;
 		var cum = CoC.player.cumQ();
 		//Breeder perk is awesome
-		if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MaraesGiftStud ) ) {
 			CoC.flags[ kFLAGS.TAMANI_PREGNANCY_COUNT ] += 3;
 		}
 		if( cum >= 50 && Utils.rand( 2 ) === 0 ) {

@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			MainView.outputText( 'Sheila bounces up to you and crouches low, curling up her body like a watchspring.  The girl uncoils just as quickly, launching herself at your face with a fist raised in front of her.  She lands a staggering crack on your jaw which knocks your head back and blurs your vision!' );
 			//deals minor concussion which adds 5-10 pts fatigue, may stun pc and prevent attack, misses while blinded or misfires on pcs under 3'6");
 			EngineCore.fatigue( 5 + Utils.rand( 5 ) );
-			if( Utils.rand( 2 ) === 0 && CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
+			if( Utils.rand( 2 ) === 0 && !CoC.player.findPerk( PerkLib.Resolute ) ) {
 				CoC.player.createStatusAffect( StatusAffects.Stunned, 1, 0, 0, 0 );
 				MainView.outputText( '  <b>You are stunned!</b>' );
 			}
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		else {
 			MainView.outputText( 'Sheila squats down, then bounds explosively toward you feet-first!  She snaps one leg out softly just as she reaches your chest, then twists her body to the side, bringing her other leg over and landing a kick to the rear of your skull!  Your vision blurs and you wobble on your feet as she pushes off your chest.' );
 			//Stun triggered:;
-			if( CoC.player.findPerk( PerkLib.Resolute ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.Resolute ) ) {
 				CoC.player.createStatusAffect( StatusAffects.Stunned, 2, 0, 0, 0 );
 				MainView.outputText( '  <b>You are stunned!</b>' );
 			}

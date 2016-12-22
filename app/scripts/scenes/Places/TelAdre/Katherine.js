@@ -3998,7 +3998,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		}
 		MainView.outputText( 'sits down on her bed and spreads her legs' );
 		MainView.outputText( '.\n\nStill smiling, she begins to gently stroke her sheath' + (this.hasBalls() ? ', balls' : '') + ' and pussy, coaxing out her ' + this.cockType( 'dog', 'cat' ) + ' cock' + this.cockMultiple( '', 's' ) + '.  Making sure she\'s positioned so that she\'s not going to tumble off in mid-fuck, she takes hold of her thighs and bends over... and over... until she has practically pressed her nose into her own crotch.' );
-		if( CoC.player.findPerk( PerkLib.Flexibility ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.Flexibility ) ) {
 			MainView.outputText( '  The sight is enough to make your spine wince in sympathy.' );
 		}//(CoC.player has Feline Flexibility:;
 		else {
@@ -5214,13 +5214,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PerkLib, ArmorLib, 
 		}
 		MainView.outputText( ' gently take her by the cheeks, insistently bringing her head close so that her lips are bumping right against your ' + Descriptors.nippleDescript( 0 ) + 's.  She takes the obvious hint and eagerly swallows it, eyes closing as she leans in and starts to suckle.  Purring with contentment, she sends the most delicious vibrations into your breasts, her rough, bristly tongue stroking and caressing to help coax your body into giving up its sweet, rich milk.\n\n' );
 		MainView.outputText( 'You\'re not sure how long you sit there with her in your arms, just listening to her purr as she quietly sucks and slurps, drinking everything you have to give.  She ' );
-		if( CoC.player.findPerk( PerkLib.Feeder ) < 0 && CoC.player.lactationQ() < 1000 ) {
+		if( !CoC.player.findPerk( PerkLib.Feeder ) && CoC.player.lactationQ() < 1000 ) {
 			MainView.outputText( 'empties' );
 		} else {
 			MainView.outputText( 'does her best to empty' );
 		}
 		MainView.outputText( ' your first breast, and then moves to the next one.  Finally, she\'s drunk ' );
-		if( CoC.player.findPerk( PerkLib.Feeder ) < 0 && CoC.player.lactationQ() < 1000 ) {
+		if( !CoC.player.findPerk( PerkLib.Feeder ) && CoC.player.lactationQ() < 1000 ) {
 			MainView.outputText( 'you dry' );
 		} else {
 			MainView.outputText( 'so much of your seemingly inexhaustible supply of milk that she\'s physically incapable of drinking any more' );

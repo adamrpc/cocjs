@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	//ATTACK THREE: LUSTY HARPIES!;
 	DungeonHelSupplimental.prototype.harpyHordeLustAttack = function() {
 		MainView.outputText( 'The harpies back off for a moment, giving you room to breathe - only to begin a mini strip-tease, pulling off bits of clothing to reveal their massive asses and hips or bearing their small, perky tits.  They caress themselves and each other, moaning lewdly.  Distracted by the burlesque, you don\'t notice a lipstick-wearing harpy approaching you until it\'s too late!  She plants a kiss right on your lips, ' );
-		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) ) {
 			MainView.outputText( 'doing relatively little thanks to your adaptation' );
 		} else {
 			MainView.outputText( 'sending shivers of lust up your spine' );
@@ -866,7 +866,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( '\n\n"<i>Oh. Well,</i>" she says, smirking slightly.  "<i>If you want a bit of phoenix seed... I guess I wouldn\'t mind a chance at being a daddy.</i>"' );
 		MainView.outputText( '\n\n' );
 		//[If Broodmother, not pregnant: ;
-		if( CoC.player.findPerk( PerkLib.BroodMother ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BroodMother ) ) {
 			MainView.outputText( 'You assure her she will be soon' );
 		} else {
 			MainView.outputText( 'You grin at her' );

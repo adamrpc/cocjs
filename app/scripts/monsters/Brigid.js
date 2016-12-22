@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkL
 		var damage = 5;
 		damage = CoC.player.takeDamage( 5 );
 		MainView.outputText( ' (' + damage + ')' );
-		if( CoC.player.findPerk( PerkLib.Resolute ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Resolute ) ) {
 			MainView.outputText( '  Of course, your resolute posture prevents her from accomplishing much.' );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );

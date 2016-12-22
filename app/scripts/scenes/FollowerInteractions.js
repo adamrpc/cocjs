@@ -320,7 +320,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		//Stay silent (A1)
 		MainView.outputText( 'You can\'t think of anything to say to her at this point, and can do nothing but stare.  Marble then turns to Amily and yells, "<i>I\'m ' + CoC.player.mf( 'his', 'her' ) + ' lover too.  ' + CoC.player.mf( 'He', 'She' ) + ' didn\'t tell you about me, did ' + CoC.player.mf( 'he', 'she' ) + '?</i>"  Amily looks at Marble for a few moments before looking back at you with tears in her eyes.  She says, "<i>I know what kind of world this is, but I\'d think you\'d at least tell me about someone like her.  Did our kids together mean nothing to you?</i>"  At this point, Marble\'s hammer flies to the ready in her hands.  She practically screams, "<i>YOU HAD KIDS TOGETHER?!?!</i>" her hammer flying to the ready in her hands.\n\n', false );
 		//If PC was addicted (A2), if PC had kids with Marble and is not addicted (A3), otherwise (A4)
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			//Silent -> PC is addicted (A2)
 			MainView.outputText( 'Marble moves protectively in front of you and turns to Amily.  "<i>This ' + CoC.player.race() + ' is mine!  ' + CoC.player.mf( 'He', 'She' ) + ' needs me to survive, and I will do anything to protect ' + CoC.player.mf( 'him', 'her' ) + ',</i>"  Marble declares.  Then, in a dangerously gentle voice, says, "<i>Leave now, or I will kill you.</i>"  Amily tries to look at you through her tear-filled eyes, but Marble softly whispers,  "<i>' + CoC.player.short + ', put your arms around me.</i>"  Though soft, her words had nothing in them to suggest a request rather than a command.  You hesitate for a  moment, but, remembering that an angry Marble is a Marble that could revoke milk privileges, you decide that making her mad is something you just can\'t afford.  You take a deep breath and wrap your arms around Marble.  Amily gives one last anguished look at you before she turns to pack her things.  As she scurries away from the site of her former bed, you doubt that you\'ll see her again.\n\n' );
 			//end event, Amily leave the camp for good
@@ -348,7 +348,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		MainView.outputText( 'You look at both of them in the eyes in turn before replying, "<i>Come on girls, there is plenty of me to go around!</i>"  ', false );
 		//Can go to B2 if the PC is addicted to Marble, otherwise B3
 		//Pimp -> PC is addicted (B2)
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'Marble blinks before saying "<i>' + CoC.player.short + ', try again, I know you\'re better than that.</i>"  You blink in response and wonder yourself what possessed you to say that.\n\n', false );
 			//Player chooses stay silent (A1) or explain (C1)
 			EngineCore.choices( 'StaySilent', this, this.marbleIsPissyAndYourTooDumbToTalk, 'Explain', this, this.LucyYouGotSomeSplainingToDo, '', null, null, '', null, null, '', null, null );
@@ -407,7 +407,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Engine
 		}
 		var blameMarble = this.BlameMarblezSweetVagoozle;
 		MainView.outputText( 'After a while it becomes apparent to both yourself and the others that you have no idea what you\'re talking about.  Marble then says to you, "<i>Well, do you have anything else to say?</i>" At this point it probably isn\'t possible to say something to make both of them happy, will you stay silent or turn on one of them to try and keep the other?\n\n', false );
-		if( CoC.player.findPerk( PerkLib.MarblesMilk ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			MainView.outputText( 'Since you need Marble\'s milk to live, there\'s no way you can blame her.  It would be tantamount to suicide.', false );
 			blameMarble = null;
 		}

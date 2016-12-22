@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, Appea
 			return;
 		}
 		//Dodge chance!;
-		if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
+		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;

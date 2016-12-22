@@ -15,12 +15,12 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Des
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 			MainView.outputText( 'The girl wades in for a swing, but you deftly misdirect her and avoid the attack. She recovers quickly, spinning back at you.', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 			MainView.outputText( 'The girl wades in for a swing, but you deftly twist your flexible body out of the way. She recovers quickly, spinning back at you.', false );
 			return;
 		}

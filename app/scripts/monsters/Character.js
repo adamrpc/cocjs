@@ -132,7 +132,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 			changed = true;
 		}
 		//Fix if it went out of bounds!
-		if (this.findPerk(PerkLib.Androgyny) < 0) {
+		if (!this.findPerk(PerkLib.Androgyny)) {
 			this.fixFemininity();
 		}
 		//Abort if nothing changed!
@@ -429,7 +429,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 		}
 		//Chance for eggs fertilization - ovi elixir and imps excluded!
 		if (_.indexOf([PregnancyStore.PREGNANCY_IMP, PregnancyStore.PREGNANCY_OVIELIXIR_EGGS, PregnancyStore.PREGNANCY_ANEMONE], type) < 0) {
-			if (this.findPerk(PerkLib.SpiderOvipositor) >= 0 || this.findPerk(PerkLib.BeeOvipositor) >= 0) {
+			if (this.findPerk(PerkLib.SpiderOvipositor) || this.findPerk(PerkLib.BeeOvipositor)) {
 				if (this.totalFertility() + bonus > Math.floor(Math.random() * beat)) {
 					this.fertilizeEggs();
 				}
@@ -638,13 +638,13 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 	Character.prototype.maxHP = function() {
 		var max = 0;
 		max += Math.round(this.tou * 2 + 50);
-		if (this.findPerk(PerkLib.Tank) >= 0) {
+		if (this.findPerk(PerkLib.Tank)) {
 			max += 50;
 		}
-		if (this.findPerk(PerkLib.Tank2) >= 0) {
+		if (this.findPerk(PerkLib.Tank2)) {
 			max += Math.round(this.tou);
 		}
-		if (this.findPerk(PerkLib.ChiReflowDefense) >= 0) {
+		if (this.findPerk(PerkLib.ChiReflowDefense)) {
 			max += SceneLib.umasShop.NEEDLEWORK_DEFENSE_EXTRA_HP;
 		}
 		if (this.level <= 20) {

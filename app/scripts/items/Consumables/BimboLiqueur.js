@@ -10,14 +10,14 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, Appearanc
 		that.classNames.push('BimboLiqueur');
 	};
 	BimboLiqueur.prototype.canUse = function() {
-		if( CoC.player.findPerk( PerkLib.FutaForm ) < 0 ) {
+		if( !CoC.player.findPerk( PerkLib.FutaForm ) ) {
 			return true;
 		}
 		MainView.outputText( 'Ugh.  This stuff is so, like... last year.  Maybe you can find someone else to feed it to?\n\n' );
 		return false;
 	};
 	BimboLiqueur.prototype.useItem = function() {
-		if( CoC.player.findPerk( PerkLib.BroBody ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.BroBody ) ) {
 			MainView.outputText( 'You wince as the stuff hits your stomach, already feeling the insidious effects beginning to take hold.  A lengthy belch escapes your lips as your stomach gurgles, and you giggle abashedly to yourself.' );
 			if( CoC.player.tallness < 77 ) {
 				MainView.outputText( ' 0...Did the ground just get farther away?  You glance down and realize, you\'re growing!  Like a sped-up flower sprout, you keep on getting taller until finally stopping around... six and a half feet, you assume.  Huh.  You didn\'t expect that to happen!' );
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, Appearanc
 
 			MainView.outputText( 'Your surging, absurdly potent libido surges through your body, reminding you that you need to fuck.  Not just bitches, but guys too.  Hard cocks, wet pussies, hell, you don\'t care.  They can have both or a dozen of either.  You just want to get laid and bone something, hopefully at the same time!' );
 			MainView.outputText( '\n\n<b>(Perks Lost: Bro Body' );
-			if( CoC.player.findPerk( PerkLib.BroBrains ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.BroBrains ) ) {
 				MainView.outputText( ', Bro Brains' );
 			}
 			MainView.outputText( ')\n' );
@@ -180,11 +180,11 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, CoC, Appearanc
 				}
 				MainView.outputText( '\n\n' );
 			}
-			if( CoC.player.findPerk( PerkLib.BimboBody ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.BimboBody ) ) {
 				MainView.outputText( '<b>(Bimbo Body - Perk Gained!)\n' );
 				CoC.player.createPerk( PerkLib.BimboBody, 0, 0, 0, 0 );
 			}
-			if( CoC.player.findPerk( PerkLib.BimboBrains ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.BimboBrains ) ) {
 				MainView.outputText( '(Bimbo Brains - Perk Gained!)\n' );//int to 20.  max int 50)
 				CoC.player.createPerk( PerkLib.BimboBrains, 0, 0, 0, 0 );
 				if( CoC.player.inte > 21 ) {

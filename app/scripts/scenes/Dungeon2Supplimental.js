@@ -82,13 +82,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				}
 			}
 			//Determine if evaded;
-			else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
+			else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 				MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + CoC.monster.a + CoC.monster.short + '\'s attack.\n', false );
-			} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+			} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 				MainView.outputText( 'With the easy movement afforded by your bodysuit and Raphael\'s teachings, you easily avoid ' + CoC.monster.a + CoC.monster.short + '\'s attack.\n', false );
 			}
 			//Determine if cat'ed;
-			else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
+			else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
 				MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + CoC.monster.a + CoC.monster.short + '', false );
 				if( CoC.monster.plural ) {
 					MainView.outputText( '\' attacks.\n', false );
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				}
 			}
 			//Determine if evaded;
-			else if( CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 30 ) {
+			else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 30 ) {
 				damage = Utils.rand( 4 );
 				MainView.outputText( '(Evade) ', false );
 				if( damage === 0 ) {
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				} else if( damage === 3 ) {
 					MainView.outputText( 'You easily evade a blast of white fluid.\n', false );
 				}
-			} else if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+			} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
 				MainView.outputText( '(Misdirection) ', false );
 				if( damage === 0 ) {
 					MainView.outputText( 'A wad of cum spatters into the floor as you narrowly sidestep it.\n', false );
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				}
 			}
 			//Determine if cat'ed;
-			else if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 15 ) {
+			else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 15 ) {
 				damage = Utils.rand( 4 );
 				MainView.outputText( '(Agility) ', false );
 				if( damage === 0 ) {
@@ -1773,10 +1773,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			if( attackChoice === 0 ) {
 				//Chucks faux-heat draft ala goblins. - ;
 				MainView.outputText( 'Zetaz grabs a bottle from a drawer and hurls it in your direction!  ', false );
-				if( (CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 4 ) === 0) ||
-					(CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 6 ) === 0) ||
+				if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 4 ) === 0) ||
+					(CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 6 ) === 0) ||
 					(CoC.player.spe > 65 && Utils.rand( 10 ) === 0) ||
-					(CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 20 && CoC.player.armorName === 'red, high-society bodysuit') ) {
+					(CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 20 && CoC.player.armorName === 'red, high-society bodysuit') ) {
 					MainView.outputText( 'You sidestep it a moment before it shatters on the wall, soaking the tapestries with red fluid!', false );
 				} else {
 					MainView.outputText( 'You try to avoid it, but the fragile glass shatters against you, coating you in sticky red liquid.  It seeps into your ' + CoC.player.skinDesc + ' and leaves a pleasant, residual tingle in its wake.  Oh no...', false );

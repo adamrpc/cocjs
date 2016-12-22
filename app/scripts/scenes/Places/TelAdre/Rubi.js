@@ -666,7 +666,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, CockTypesEnum
 			CoC.flags[ kFLAGS.RUBIS_HOUSE_FIRST_TIME ]++;
 		}
 		//Bimbo Shopping!;
-		else if( this.rubiBimbo() && (CoC.player.findPerk( PerkLib.BimboBrains ) >= 0 || CoC.player.findPerk( PerkLib.FutaFaculties ) >= 0) && Utils.rand( 7 ) === 0 ) {
+		else if( this.rubiBimbo() && (CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties )) && Utils.rand( 7 ) === 0 ) {
 			CoC.flags[ kFLAGS.RUBI_BIMBO_MINIDRESS ] = 1;
 			MainView.outputText( 'Rather than order anything, you stop Rubi as she\'s going by your table and pull her close.  "<i>How about we get out of here?</i>"  you whisper into her ear.' );
 			MainView.outputText( '\n\nRubi\'s mouth pulls into a Cheshire-like grin and she nods.  "<i>Like, for sure!  Just let me get Dia to cover my tables, kay?</i>"  She promptly heads off into the back room, returning minutes later with the young canine waitress behind her.  Rubi points out a few tables, says some things to her replacement, and then returns to your side.' );

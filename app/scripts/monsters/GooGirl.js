@@ -16,14 +16,14 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		var damage = 0;
 		//return to combat menu when finished
 		EngineCore.doNext( MainView, MainView.playerMenu );
-		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+		if( this.findPerk( PerkLib.Acid ) ) {
 			MainView.outputText( 'Her body quivering from your flames, the goo-girl ', false );
 		} else {
 			MainView.outputText( 'The slime holds its hands up and they morph into a replica of your ' + CoC.player.weaponName + '.  Happily, she swings at you', false );
 		}
 		//Determine if dodged!
 		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
-			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you, but you dodge her attack.', false );
 			} else {
 				MainView.outputText( ', missing as you dodge aside.', false );
@@ -31,8 +31,8 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//Determine if evaded
-		if( this.short !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) >= 0 && Utils.rand( 100 ) < 10 ) {
-			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+		if( this.short !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you, but you evade her attack.', false );
 			} else {
 				MainView.outputText( ', but you evade the clumsy attack.', false );
@@ -40,8 +40,8 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//('Misdirection'
-		if( CoC.player.findPerk( PerkLib.Misdirection ) >= 0 && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
-			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you.  You misdirect her, avoiding the hit.', false );
 			} else {
 				MainView.outputText( ', missing as you misdirect her attentions.', false );
@@ -49,8 +49,8 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//Determine if cat'ed
-		if( CoC.player.findPerk( PerkLib.Flexibility ) >= 0 && Utils.rand( 100 ) < 6 ) {
-			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you, but misses due to your cat-like evasion.', false );
 			} else {
 				MainView.outputText( ', missing due to your cat-like evasion.', false );
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!
-		if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+		if( this.findPerk( PerkLib.Acid ) ) {
 			damage = Math.ceil( (this.str + 10 + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		} else {
 			damage = Math.ceil( (this.str + this.weaponAttack) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		}
 		if( damage <= 0 ) {
 			damage = 0;
-			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+			if( this.findPerk( PerkLib.Acid ) ) {
 				if( Utils.rand( CoC.player.armorDef + CoC.player.tou ) < CoC.player.armorDef ) {
 					MainView.outputText( 'tries to slap you, but the acid-bearing slap spatters weakly off your ' + CoC.player.armorName + '.', false );
 				} else {
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		}
 		//everyone else
 		else {
-			if( this.findPerk( PerkLib.Acid ) >= 0 ) {
+			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'delivers a painful slap across your cheek.  You gasp when the light stinging becomes a searing burn that seems to get worse as time goes on!', false );
 				if( CoC.player.findStatusAffect( StatusAffects.AcidSlap ) < 0 ) {
 					CoC.player.createStatusAffect( StatusAffects.AcidSlap, 0, 0, 0, 0 );
@@ -133,7 +133,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	};
 	GooGirl.prototype.performCombatAction = function() {
 		//1/3 chance of base attack + bonus if in acid mode
-		if( (this.findPerk( PerkLib.Acid ) >= 0 && Utils.rand( 3 ) === 0) || Utils.rand( 3 ) === 0 ) {
+		if( (this.findPerk( PerkLib.Acid ) && Utils.rand( 3 ) === 0) || Utils.rand( 3 ) === 0 ) {
 			this.gooGalAttack();
 		} else if( Utils.rand( 5 ) === 0 ) {
 			this.gooEngulph();

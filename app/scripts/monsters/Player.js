@@ -38,22 +38,22 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	};
 	Player.prototype.spellMod = function() {
 		var mod = 1;
-		if(this.findPerk(PerkLib.Archmage) >= 0 && this.inte >= 75) {
+		if(this.findPerk(PerkLib.Archmage) && this.inte >= 75) {
 			mod += 0.5;
 		}
-		if(this.findPerk(PerkLib.Channeling) >= 0 && this.inte >= 60) {
+		if(this.findPerk(PerkLib.Channeling) && this.inte >= 60) {
 			mod += 0.5;
 		}
-		if(this.findPerk(PerkLib.Mage) >= 0 && this.inte >= 50) {
+		if(this.findPerk(PerkLib.Mage) && this.inte >= 50) {
 			mod += 0.5;
 		}
-		if(this.findPerk(PerkLib.Spellpower) >= 0 && this.inte >= 50) {
+		if(this.findPerk(PerkLib.Spellpower) && this.inte >= 50) {
 			mod += 0.5;
 		}
-		if(this.findPerk(PerkLib.WizardsFocus) >= 0) {
+		if(this.findPerk(PerkLib.WizardsFocus)) {
 			mod += this.perkv1(PerkLib.WizardsFocus);
 		}
-		if (this.findPerk(PerkLib.ChiReflowMagic) >= 0) {
+		if (this.findPerk(PerkLib.ChiReflowMagic)) {
 			mod += SceneLib.umasShop.NEEDLEWORK_MAGIC_SPELL_MULTI;
 		}
 		return mod;
@@ -65,12 +65,12 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.getArmorDef = function() {
 		var result = this.armor.def;
 		//Blacksmith history!
-		if( result > 0 && this.findPerk( PerkLib.HistorySmith ) >= 0 ) {
+		if( result > 0 && this.findPerk( PerkLib.HistorySmith ) ) {
 			result = Math.round( result * 1.1 );
 			result += 1;
 		}
 		//Skin armor perk
-		if( this.findPerk( PerkLib.ThickSkin ) >= 0 ) {
+		if( this.findPerk( PerkLib.ThickSkin ) ) {
 			result += 2;
 			if( this.skinType > AppearanceDefs.SKIN_TYPE_PLAIN ) {
 				result += 1;
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			result += 1;
 		}
 		//Agility boosts armor ratings!
-		if( this.findPerk( PerkLib.Agility ) >= 0 ) {
+		if( this.findPerk( PerkLib.Agility ) ) {
 			if( this.armorPerk === 'Light' ) {
 				result += Math.round( this.spe / 8 );
 			} else if( this.armorPerk === 'Medium' ) {
@@ -111,10 +111,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	};
 	Player.prototype.getWeaponAttack = function() {
 		var attack = this.weapon.attack;
-		if( this.findPerk( PerkLib.WeaponMastery ) >= 0 && this.weaponPerk === 'Large' && this.str > 60 ) {
+		if( this.findPerk( PerkLib.WeaponMastery ) && this.weaponPerk === 'Large' && this.str > 60 ) {
 			attack *= 2;
 		}
-		if( this.findPerk( PerkLib.LightningStrikes ) >= 0 && this.spe >= 60 && this.weaponPerk !== 'Large' ) {
+		if( this.findPerk( PerkLib.LightningStrikes ) && this.spe >= 60 && this.weaponPerk !== 'Large' ) {
 			attack += Math.round( (this.spe - 50) / 3 );
 		}
 		if( this.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			damage = Math.round( damage * 0.75 );
 		}
 		//Take damage you masochist!
-		if( this.findPerk( PerkLib.Masochist ) >= 0 && this.lib >= 60 ) {
+		if( this.findPerk( PerkLib.Masochist ) && this.lib >= 60 ) {
 			damage = Math.round( damage * 0.7 );
 			EngineCore.dynStats( 'lus', 2 );
 			//Dont let it round too far down!
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				damage = 1;
 			}
 		}
-		if( this.findPerk( PerkLib.ImmovableObject ) >= 0 && this.tou >= 75 ) {
+		if( this.findPerk( PerkLib.ImmovableObject ) && this.tou >= 75 ) {
 			damage = Math.round( damage * 0.8 );
 			if( damage < 1 ) {
 				damage = 1;
@@ -193,10 +193,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		}
 		// Uma's Accupuncture Bonuses
 		var modArmorDef = 0;
-		if( this.findPerk( PerkLib.ChiReflowDefense ) >= 0 ) {
+		if( this.findPerk( PerkLib.ChiReflowDefense ) ) {
 			modArmorDef = ((this.armorDef * SceneLib.umasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI) - this.armorDef);
 		}
-		if( this.findPerk( PerkLib.ChiReflowAttack ) >= 0 ) {
+		if( this.findPerk( PerkLib.ChiReflowAttack ) ) {
 			modArmorDef = ((this.armorDef * SceneLib.umasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI) - this.armorDef);
 		}
 		damage -= modArmorDef;
@@ -966,7 +966,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				this.createStatusAffect( StatusAffects.SlimeCravingFeed, 0, 0, 0, 0 );
 			}
 		}
-		if( this.findPerk( PerkLib.Diapause ) >= 0 ) {
+		if( this.findPerk( PerkLib.Diapause ) ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00228 ] += 3 + Utils.rand( 3 );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00229 ] = 1;
 		}
@@ -1049,7 +1049,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 					this.breastRows[ 0 ].breastRating = 0;
 				}
 				//Shrink again 50% chance
-				if( this.breastRows[ 0 ].breastRating >= 1 && Utils.rand( 2 ) === 0 && this.findPerk( PerkLib.BigTits ) < 0 ) {
+				if( this.breastRows[ 0 ].breastRating >= 1 && Utils.rand( 2 ) === 0 && !this.findPerk( PerkLib.BigTits ) ) {
 					this.breastRows[ 0 ].breastRating--;
 					MainView.outputText( '\n\nYou feel significantly lighter.  Looking down, you realize your breasts are much smaller!  With a quick measure, you determine they\'re now ' + this.breastCup( 0 ) + 's.', false );
 				} else {
@@ -1094,7 +1094,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//GrowthType 2 = Top Row working downward
 		//GrowthType 3 = Only top row
 		//Chance for 'big tits' perked characters to grow larger!
-		if( this.findPerk( PerkLib.BigTits ) >= 0 && Utils.rand( 3 ) === 0 && amount < 1 ) {
+		if( this.findPerk( PerkLib.BigTits ) && Utils.rand( 3 ) === 0 && amount < 1 ) {
 			amount = 1;
 		}
 		if( growthType === 1 ) {
@@ -1107,7 +1107,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				if( !CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
 					//Diminishing returns!
 					if( smallestBreastRow.breastRating > 3 ) {
-						if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+						if( !this.findPerk( PerkLib.BigTits ) ) {
 							breastRatingChanges /= 1.5;
 						} else {
 							breastRatingChanges /= 1.3;
@@ -1115,21 +1115,21 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 					}
 					// WHy are there three options here. They all have the same result.
 					if( smallestBreastRow.breastRating > 7 ) {
-						if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+						if( !this.findPerk( PerkLib.BigTits ) ) {
 							breastRatingChanges /= 2;
 						} else {
 							breastRatingChanges /= 1.5;
 						}
 					}
 					if( smallestBreastRow.breastRating > 9 ) {
-						if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+						if( !this.findPerk( PerkLib.BigTits ) ) {
 							breastRatingChanges /= 2;
 						} else {
 							breastRatingChanges /= 1.5;
 						}
 					}
 					if( smallestBreastRow.breastRating > 12 ) {
-						if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+						if( !this.findPerk( PerkLib.BigTits ) ) {
 							breastRatingChanges /= 2;
 						} else {
 							breastRatingChanges /= 1.5;
@@ -1145,21 +1145,21 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( !CoC.flags[ kFLAGS.HYPER_HAPPY ] ) {
 			//Diminishing returns!
 			if( this.breastRows[ 0 ].breastRating > 3 ) {
-				if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+				if( !this.findPerk( PerkLib.BigTits ) ) {
 					amount /= 1.5;
 				} else {
 					amount /= 1.3;
 				}
 			}
 			if( this.breastRows[ 0 ].breastRating > 7 ) {
-				if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+				if( !this.findPerk( PerkLib.BigTits ) ) {
 					amount /= 2;
 				} else {
 					amount /= 1.5;
 				}
 			}
 			if( this.breastRows[ 0 ].breastRating > 12 ) {
-				if( this.findPerk( PerkLib.BigTits ) < 0 ) {
+				if( !this.findPerk( PerkLib.BigTits ) ) {
 					amount /= 2;
 				} else {
 					amount /= 1.5;
@@ -1270,7 +1270,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.minLust = function() {
 		var min = 0;
 		//Bimbo body boosts minimum lust by 40
-		if( this.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || this.findPerk( PerkLib.BimboBody ) >= 0 || this.findPerk( PerkLib.BroBody ) >= 0 || this.findPerk( PerkLib.FutaForm ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || this.findPerk( PerkLib.BimboBody ) || this.findPerk( PerkLib.BroBody ) || this.findPerk( PerkLib.FutaForm ) ) {
 			if( min > 40 ) {
 				min += 10;
 			} else if( min >= 20 ) {
@@ -1280,7 +1280,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		//Omnibus' Gift
-		if( this.findPerk( PerkLib.OmnibusGift ) >= 0 ) {
+		if( this.findPerk( PerkLib.OmnibusGift ) ) {
 			if( min > 40 ) {
 				min += 10;
 			} else if( min >= 20 ) {
@@ -1290,7 +1290,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		//Nymph perk raises to 30
-		if( this.findPerk( PerkLib.Nymphomania ) >= 0 ) {
+		if( this.findPerk( PerkLib.Nymphomania ) ) {
 			if( min >= 40 ) {
 				min += 10;
 			} else if( min >= 20 ) {
@@ -1310,14 +1310,14 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		//Hot blooded perk raises min lust!
-		if( this.findPerk( PerkLib.HotBlooded ) >= 0 ) {
+		if( this.findPerk( PerkLib.HotBlooded ) ) {
 			if( min > 0 ) {
-				min += this.perk( this.findPerk( PerkLib.HotBlooded ) ).value1 / 2;
+				min += this.findPerk( PerkLib.HotBlooded ).value1 / 2;
 			} else {
-				min += this.perk( this.findPerk( PerkLib.HotBlooded ) ).value1;
+				min += this.findPerk( PerkLib.HotBlooded ).value1;
 			}
 		}
-		if( this.findPerk( PerkLib.LuststickAdapted ) > 0 ) {
+		if( this.findPerk( PerkLib.LuststickAdapted ) ) {
 			if( min < 50 ) {
 				min += 10;
 			} else {
@@ -1352,7 +1352,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		return min;
 	};
 	Player.prototype.minotaurAddicted = function() {
-		return this.findPerk( PerkLib.MinotaurCumAddict ) >= 0 || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1;
+		return this.findPerk( PerkLib.MinotaurCumAddict ) || CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] >= 1;
 	};
 	Player.prototype.minotaurNeed = function() {
 		return CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 1;
@@ -1835,13 +1835,13 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			return delta;
 		} else if( delta > 0 ) {
 			$log.debug( 'and increasing' );
-			if( this.findPerk( PerkLib.MessyOrgasms ) >= 0 ) {
+			if( this.findPerk( PerkLib.MessyOrgasms ) ) {
 				$log.debug( 'and MessyOrgasms found' );
 				delta *= 1.5;
 			}
 		} else if( delta < 0 ) {
 			$log.debug( 'and decreasing' );
-			if( this.findPerk( PerkLib.MessyOrgasms ) >= 0 ) {
+			if( this.findPerk( PerkLib.MessyOrgasms ) ) {
 				$log.debug( 'and MessyOrgasms found' );
 				delta *= 0.5;
 			}
@@ -1852,7 +1852,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	};
 	Player.prototype.increaseCock = function( cockNum, lengthDelta ) {
 		var bigCock = false;
-		if( this.findPerk( PerkLib.BigCock ) >= 0 ) {
+		if( this.findPerk( PerkLib.BigCock ) ) {
 			bigCock = true;
 		}
 		return this.cocks[ cockNum ].growCock( lengthDelta, bigCock );

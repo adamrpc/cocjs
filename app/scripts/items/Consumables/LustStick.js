@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( MainView, CoC, StatusAffects, Consumabl
 		that.classNames.push('LustStick');
 	};
 	LustStick.prototype.canUse = function() {
-		if( CoC.player.hasCock() && CoC.player.findPerk( PerkLib.LuststickAdapted ) < 0 ) {
+		if( CoC.player.hasCock() && !CoC.player.findPerk( PerkLib.LuststickAdapted ) ) {
 			MainView.outputText( 'You look at the tube of lipstick, but get the idea it would be a pretty bad idea to smear a thick coating of cock-hardening aphrodisiacs over your own lips.  ' );
 			return false;
 		}

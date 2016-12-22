@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			//Cor < 50
 			//No corrupt, Amily, or Vapula
 			//Purifying Murble
-			if( CoC.player.cor < 50 && !SceneLib.jojoScene.campCorruptJojo() && !SceneLib.amilyScene.amilyCorrupt() && !SceneLib.vapula.vapulaSlave() && CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 0 && CoC.flags[ kFLAGS.MARBLE_COUNTUP_TO_PURIFYING ] >= 200 && CoC.player.findPerk( PerkLib.MarblesMilk ) < 0 ) {
+			if( CoC.player.cor < 50 && !SceneLib.jojoScene.campCorruptJojo() && !SceneLib.amilyScene.amilyCorrupt() && !SceneLib.vapula.vapulaSlave() && CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 0 && CoC.flags[ kFLAGS.MARBLE_COUNTUP_TO_PURIFYING ] >= 200 && !CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 				MainView.hideAllMenuButtons();
 				SceneLib.marblePurification.BLUHBLUH();
 				return;
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		var baitText = 'Masturbate';
-		if( ((CoC.player.findPerk( PerkLib.HistoryReligious ) >= 0 && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) >= 0 && CoC.player.cor < 10)) && !(CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0) ) {
+		if( ((CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10)) && !(CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0) ) {
 			baitText = 'Meditate';
 		}
 		//Initialize companions/followers
@@ -1189,7 +1189,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				EngineCore.dynStats( 'tou', -0.1, 'int', -0.1 );
 				//fatigue
 				EngineCore.fatigue( -2 * OnLoadVariables.timeQ );
-				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) ) {
 					EngineCore.fatigue( -1 * OnLoadVariables.timeQ );
 				}
 			}
@@ -1198,7 +1198,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				EngineCore.HPChange( OnLoadVariables.timeQ * 10, true );
 				//fatigue
 				EngineCore.fatigue( -4 * OnLoadVariables.timeQ );
-				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) ) {
 					EngineCore.fatigue( -2 * OnLoadVariables.timeQ );
 				}
 			}
@@ -1222,7 +1222,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				MainView.outputText( '\nYour time spent waiting is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 				//fatigue
 				EngineCore.fatigue( -1 * OnLoadVariables.timeQ );
-				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) ) {
 					EngineCore.fatigue( -0.5 * OnLoadVariables.timeQ );
 				}
 			}
@@ -1230,7 +1230,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			else {
 				//fatigue
 				EngineCore.fatigue( -2 * OnLoadVariables.timeQ );
-				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) ) {
 					EngineCore.fatigue( -1 * OnLoadVariables.timeQ );
 				}
 			}
@@ -1449,7 +1449,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			EngineCore.dynStats( 'tou', -0.1, 'int', -0.1 );
 			//fatigue
 			EngineCore.fatigue( -Math.ceil( CoC.player.fatigue / 2 ) );
-			if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) ) {
 				EngineCore.fatigue( -Math.ceil( CoC.player.fatigue / 4 ) );
 			}
 		}
@@ -1460,7 +1460,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 			EngineCore.HPChange( OnLoadVariables.timeQ * 15, true );
 			EngineCore.fatigue( -Math.ceil( CoC.player.fatigue / 2 ) );
-			if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.SpeedyRecovery ) ) {
 				EngineCore.fatigue( -Math.ceil( CoC.player.fatigue / 4 ) );
 			}
 		}

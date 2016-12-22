@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, PerkLib, Utils
 		if( Utils.rand( 4 ) === 0 ) {
 			changeLimit++;
 		}
-		if( player.findPerk( PerkLib.HistoryAlchemist ) >= 0 ) {
+		if( player.findPerk( PerkLib.HistoryAlchemist ) ) {
 			changeLimit++;
 		}
 		MainView.outputText( 'You chew on the thin red roots.  They have a rubbery texture and the taste is something like lemons and oranges mixed together.  The roots dry out your mouth as you chew them but at the same time they cause a cooling and numbing sensation that’s rather pleasant.' );

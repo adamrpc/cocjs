@@ -355,7 +355,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			}
 		}
 		//Possess crams in free spot or overlaps another.;
-		if( CoC.player.findPerk( PerkLib.Incorporeality ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Incorporeality ) ) {
 			//Taurs or nagas with both scenes, replace 1!;
 			if( bodyButt !== null && bodyButt2 !== null ) {
 				if( Utils.rand( 2 ) === 0 ) {

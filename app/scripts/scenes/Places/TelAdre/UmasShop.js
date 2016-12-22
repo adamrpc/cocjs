@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 	 */
 	UmasShop.prototype.getNeedleworkPerk = function() {
 		return _.find( [ PerkLib.ChiReflowAttack, PerkLib.ChiReflowDefense, PerkLib.ChiReflowLust, PerkLib.ChiReflowMagic, PerkLib.ChiReflowSpeed ], function( perk ) {
-			return CoC.player.findPerk( perk ) >= 0;
+			return CoC.player.findPerk( perk );
 		} );
 	};
 	/**

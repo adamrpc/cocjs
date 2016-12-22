@@ -721,7 +721,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		}
 		if( changed ) {
 			//(Add perk "Bulge Armor" - bonus to male crotch reveal tease!) - check armor equip function – all names are hashed out in old armor names already;
-			if( CoC.player.findPerk( PerkLib.BulgeArmor ) < 0 ) {
+			if( !CoC.player.findPerk( PerkLib.BulgeArmor ) ) {
 				CoC.player.createPerk( PerkLib.BulgeArmor, 0, 0, 0, 0 );
 			}
 		}
@@ -816,7 +816,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 	Exgartuan.prototype.exgartuanSleepSurprise = function() {
 		MainView.spriteSelect( 15 );
 		//Low corruption;
-		if( CoC.player.cor <= 20 && CoC.player.findPerk( PerkLib.BulgeArmor ) >= 0 ) {
+		if( CoC.player.cor <= 20 && CoC.player.findPerk( PerkLib.BulgeArmor ) ) {
 			MainView.outputText( 'A light breeze skims across your face, slowly fading away what little sleep you had managed to enjoy.  As your eyes slowly open and adjust, you begin to faintly make out the red moon sitting high in the sky through the fabric of your tent.  What little light there is comes from the faint remnants of your campfire, down to just embers by this point.  You slowly roll your head to look towards the warmth only to find the entrance to your tent still wide open.  A slight grimace forms as you begin to stretch awake, only to interrupt yourself upon the realization that you are still wearing your ' + CoC.player.armorName + '.  A quick yet groggy glance also reveals that you\'ve also managed to fall asleep on top of your bedroll rather than nestled cozily inside it.\n\n', false );
 			MainView.outputText( 'You glide your hands up past your forehead and through your ' + Descriptors.hairDescript() + ' as you sit up, indulging in a relaxing, deep breath.  Seeing as how you don\'t appear to have transmogrified or been roughed up in any discernible fashion, your best guess is that you fell asleep while unraveling your bedroll.  Too tired to further debate this with yourself, you begin to strip naked while thoughts of returning to blissful slumber ease any lingering worries.', false );
 			//[if armorname IS NOT EQUAL TO "<i>;

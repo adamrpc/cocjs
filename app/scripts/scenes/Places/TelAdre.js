@@ -572,14 +572,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 				break;
 			case 9:
 				shortP += 'lethite ';
-				if( CoC.player.findPerk( PerkLib.PiercedLethite ) < 0 ) {
+				if( !CoC.player.findPerk( PerkLib.PiercedLethite ) ) {
 					CoC.player.createPerk( PerkLib.PiercedLethite, 0, 0, 0, 0 );
 				}
 				longP += 'Lethite ';
 				break;
 			case 10:
 				shortP += 'fertite ';
-				if( CoC.player.findPerk( PerkLib.PiercedFertite ) < 0 ) {
+				if( !CoC.player.findPerk( PerkLib.PiercedFertite ) ) {
 					CoC.player.createPerk( PerkLib.PiercedFertite, 5, 0, 0, 0 );
 				} else {
 					CoC.player.addPerkValue( PerkLib.PiercedFertite, 1, 5 );
@@ -588,14 +588,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 				break;
 			case 11:
 				shortP += 'furrite ';
-				if( CoC.player.findPerk( PerkLib.PiercedFurrite ) < 0 ) {
+				if( !CoC.player.findPerk( PerkLib.PiercedFurrite ) ) {
 					CoC.player.createPerk( PerkLib.PiercedFurrite, 0, 0, 0, 0 );
 				}
 				longP += 'Furrite ';
 				break;
 			case 12:
 				shortP += 'crimstone ';
-				if( CoC.player.findPerk( PerkLib.PiercedCrimstone ) < 0 ) {
+				if( !CoC.player.findPerk( PerkLib.PiercedCrimstone ) ) {
 					CoC.player.createPerk( PerkLib.PiercedCrimstone, 5, 0, 0, 0 );
 				} else {
 					CoC.player.addPerkValue( PerkLib.PiercedCrimstone, 1, 5 );
