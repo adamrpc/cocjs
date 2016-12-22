@@ -614,4 +614,16 @@ describe('Factory: EngineCore', function() {
 			expect( value ).toBe( 0 );
 		});
 	});
+	it('Should define physicalCost', function() {
+		expect(engineCore.physicalCost).toBeDefined();
+	});
+	it('Should return the parameter if no modifier', function() {
+		coc.player = new PlayerConstructor();
+		expect(engineCore.physicalCost(5)).toBe( 5 );
+	});
+	it('Should apply modifiers on parameter', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.createPerk( perkLib.IronMan );
+		expect(engineCore.physicalCost(5)).toBe( 2.5 );
+	});
 });
