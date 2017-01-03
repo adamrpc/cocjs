@@ -10,9 +10,9 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView,
 			this.minotaurDrankMalk();
 		} else if( Utils.rand( 4 ) === 0 && CoC.player.weaponName !== 'fists' ) {
 			this.minotaurDisarm();
-		} else if( this.findStatusAffect( StatusAffects.Timer ) < 0 ) {
+		} else if( !this.findStatusAffect( StatusAffects.Timer ) ) {
 			this.minotaurLordEntangle();
-		} else if( this.findStatusAffect( StatusAffects.MinotaurEntangled ) >= 0 ) {
+		} else if( this.findStatusAffect( StatusAffects.MinotaurEntangled ) ) {
 			this.minotaurCumPress();
 		} else {
 			if( Utils.rand( 2 ) === 0 ) {
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView,
 			MainView.outputText( '"<i>Catch!</i>"  The succubus throws a bottle containing a milky-white substance to the minotaur.  He grabs it and uncorks the bottle, quickly chugging its contents with obvious enjoyment.  After he is done he looks even more energetic and ready to fight, and his cock looks even harder!' );
 			this.addHP( 300 );
 			this.lust += 10;
-			if( this.findStatusAffect( StatusAffects.MinoMilk ) < 0 ) {
+			if( !this.findStatusAffect( StatusAffects.MinoMilk ) ) {
 				this.createStatusAffect( StatusAffects.MinoMilk, 1, 0, 0, 0 );
 			} else {
 				this.addStatusValue( StatusAffects.MinoMilk, 1, 1 );

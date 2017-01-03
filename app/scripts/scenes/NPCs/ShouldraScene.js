@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( '  "<i>D-Damn,</i>" she sighs, her voice wavering from her lust build-up, "<i>Gotta get used to all of this ' + CoC.player.skinFurScales() + '...</i>"  You adjust the best you can to the realization that you are sharing your body with a spirit, then turn your attentions to her. You telepathically ask her if she has anything in particular in mind for relieving her of her arousal. She pulses back a \'hmm\' at you, indicating she will allow you to decide her fate.\n\n', false );
 		//CHOICES HURRAH;
 		var lake = null;
-		if( CoC.player.gender > 0 && ((CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] > 0) || CoC.flags[ kFLAGS.TIMES_MET_OOZE ] > 0) ) {
+		if( CoC.player.gender > 0 && ((CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] > 0) || CoC.flags[ kFLAGS.TIMES_MET_OOZE ] > 0) ) {
 			MainView.outputText( 'You could take her to the lake to find someone to play with...\n\n', false );
 			lake = this.nowOnVickiLake;
 		}
@@ -247,7 +247,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		//SHARK-GIRL - REQUIRES BOAT AND MET SHARKGIRL;
 		//SLIME - REQUIRES MET SLIME;
 		var shark = null;
-		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] > 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] > 0 ) {
 			shark = this.sharkbustersVictory;
 		}
 		var ooze = null;
@@ -441,7 +441,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( '\n\n', false );
 		MainView.outputText( 'Your distended belly shivers as the goo jostles around, puffing up like a goblin after a minotaur bukakke. Some small thought, buried under layers of agonizing pleasure, calls to you repeatedly. The green slime likes it when you massage it; massage it, and you\'ll get out of here. As solid of reasoning as you\'ll get in a situation like this, you reach up and wrap your fingers around the thick oral tentacle. Treating it as you would a huge phallus, you caress, squeeze and stroke as much of the mostly solid ooze as you can reach. The stimulated green slime rewards you with a huge bulge of itself, beginning at the base and working its way toward you. The nearly-overwhelmed ghost girl screams out a warning, and you almost panic as you consider the thing. You can\'t see them, of course, but the appendages filling your lower crevices begin forming similar bulges, and they begin their way towards you as well. You can only wait in horror as the mouth-tentacle\'s lump squeezes under your now-still fingers, forcing them apart with its thickness. It\'s a macabre race to see what can stretch you first, and no matter the outcome, you have a feeling you won\'t enjoy the prize. Your cunt-tendril wins out, and your wail falls on deaf ears as your vagina dilates to compensate.\n\n', false );
 		MainView.outputText( 'Content in taking second place, your anus also stretches as the bulb flows into it. Moments later, before you are even allowed to recover from the first two, your jaw is forced farther open to make room for the bulbous deposit. You hum unhappily as your throat widens, not unlike a croaking frog. Your already-huge belly burgeons with the new additions until it\'s at least twice as large as ', false );
-		if( CoC.player.findStatusAffect( StatusAffects.MeetWanderer ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MeetWanderer ) ) {
 			MainView.outputText( 'both of Markus\'s testicles, combined!', false );
 		} else {
 			MainView.outputText( 'a wheelbarrow!', false );
@@ -621,7 +621,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.spriteSelect( 67 );
 		var x = CoC.player.biggestCockIndex();
 		MainView.outputText( '', true );
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			this.dewormYourGhost();
 			return;
 		}
@@ -968,7 +968,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( ' an absent stroke, then closes her eyes and begins chanting in a strange language, her voice sounding akin to a gentle breeze flowing through a copse of trees. Your eyes widen as a light blue fire outlines her body, and her form becomes... less than corporeal. She opens her eyes, her previously brown irises now glowing with a pallid yellow light. She whispers the final word of her incantation, and for a moment, nothing happens... until, to your surprise, she begins to sink into your torso! "<i>Boo!</i>" she cries with a cute little cackle.  You begin to rise, but stiffen as her otherworldly influence begins seeping through you. Falling back again, you struggle to fight against the unwanted intruder, but to no avail; at this point, she has sunken down to her shoulders, and she offers you an excited wink as her head descends. Your fingers twitch for about a minute more as the ghost girl struggles against you for control of your muscles. Eventually, however, she finds a means of control; your already heightened libido. Your mind clouds, and the only moments of clarity are filled with enough perverse stimulation to make the hardiest paladin blush.\n\n', false );
 		MainView.outputText( 'As you finally come out of the ghostly-influenced imagery, you find yourself unwillingly sitting up, the ghost girl beginning to explore your body freely. With a frustrated sigh, you concede control of your body to the ghost girl- for the time being, at least. With her at the wheel, your body reacts by shifting the color of your eyes to the same yellow tone of her ghostly form.\n\n', false );
 		if( CoC.player.gender === 1 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 				this.loseToShouldraWithWorms();
 			} else if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
 				this.ghostGartuanLossSceneOrSomeShit();

@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 	Exgartuan.prototype.timeChange = function() {
 		var needNext = false;
 		this.checkedExgartuan = 0; //Make sure we test just once in timeChangeLarge
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) { //Update Exgartuan stuff
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) { //Update Exgartuan stuff
 			$log.debug( 'EXGARTUAN V1: ' + CoC.player.statusAffectv1( StatusAffects.Exgartuan ) + ' V2: ' + CoC.player.statusAffectv2( StatusAffects.Exgartuan ) );
 			if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && (!CoC.player.hasCock() || CoC.player.cockArea( 0 ) < 100) ) { //If too small dick, remove him
 				MainView.outputText( '\n<b>You suddenly feel the urge to urinate, and stop over by some bushes.  It takes wayyyy longer than normal, and once you\'ve finished, you realize you\'re alone with yourself for the first time in a long time.  Perhaps you got too small for Exgartuan to handle?</b>\n' );
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 					{ //If not sleeping, stuff happens!
 					}
 					if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) { //Dude stuff
-						if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+						if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 							MainView.outputText( '\n<b>' );
 							this.exgartuanWormCure();
 							MainView.outputText( '</b>\n' );
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		return needNext;
 	};
 	Exgartuan.prototype.timeChangeLarge = function() {
-		if( this.checkedExgartuan++ === 0 && CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && CoC.time.hours === 4 ) {
+		if( this.checkedExgartuan++ === 0 && CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && CoC.time.hours === 4 ) {
 			//Exgartuan must be present, must be awake and it must be night time;
 			if( CoC.player.hasCock() && CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && Utils.rand( 3 ) === 0 && CoC.player.hoursSinceCum >= 24 ) { //Exgartuan night time surprise!
 				MainView.outputText( '\n' );
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			CoC.player.XP += 200;
 			changed = true;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) < 0 && !changed && Utils.rand( 2 ) === 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && !changed && Utils.rand( 2 ) === 0 ) {
 			var choices = 0;
 			if( CoC.player.cockTotal() > 0 ) {
 				if( CoC.player.cockArea( 0 ) >= 100 ) {
@@ -743,7 +743,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 		//(Lactating Already);
 		if( CoC.player.biggestLactation() > 1 ) {
 			//(Increase);
-			if( Utils.rand( 2 ) === 0 || CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+			if( Utils.rand( 2 ) === 0 || CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 				MainView.outputText( 'Your nipples grow warm and sensitive, then start dripping milk into your ' + CoC.player.armorName + '.  Exgartuan appears to be having some fun with you again...', false );
 				CoC.player.boostLactation( CoC.player.breastRows.length );
 			}
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 			}
 			MainView.outputText( '  Liquid-hot pressure slides over the underside of your ' + Descriptors.cockDescript( 0 ) + ', licking wetly at the pulsating, need-filled demon-prick.  Your rogue tongue\'s attentions have the desired effect, and the cries of your pleasure are muffled by your own thick flesh and its rapidly distending urethra.\n\n', false );
 			MainView.outputText( 'If someone were watching', false );
-			if( SceneLib.jojoScene.monk >= 5 && CoC.player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( SceneLib.jojoScene.monk >= 5 && !CoC.player.findStatusAffect( StatusAffects.NoJojo ) && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				MainView.outputText( ', and judging by Jojo\'s high pitched whines, he certainly is,', false );
 			}
 			MainView.outputText( ' they\'d see dick-flesh bulging with a heavy load as it\'s pumped into your lips.  The fully-inflated cum-tube distends your mouth, stretching your jaw painfully, and dumps its creamy cargo into its willing receptacle.  Your belly burbles as it adjusts to the ', false );
@@ -982,7 +982,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ArmorLib, $log, Coc
 				}
 			}
 			MainView.outputText( '\n\n', false );
-			if( SceneLib.jojoScene.monk >= 5 && CoC.player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( SceneLib.jojoScene.monk >= 5 && !CoC.player.findStatusAffect( StatusAffects.NoJojo ) && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				MainView.outputText( 'The splatter of mouse-cum erupting in the wood reaches your ears, bringing a wistful smile to your face.  That slutty mouse is such a peeping tom!  ', false );
 			}
 			MainView.outputText( 'Your eyes slowly roll back down while Exgartuan deflates, leaving a trail of pleased, white submission ', false );

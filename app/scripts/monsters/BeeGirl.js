@@ -16,9 +16,9 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			CoC.player.lust = 98;
 			EngineCore.dynStats( 'lus', 1 );
 			var dildoRape = CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.beeGirlScene.beeGirlsGetsDildoed : null;
-			var milkAndHoney = CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ? SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny : null;
+			var milkAndHoney = CoC.player.findStatusAffect( StatusAffects.Feeder ) ? SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny : null;
 			EngineCore.choices( 'Rape', SceneLib.beeGirlScene, SceneLib.beeGirlScene.rapeTheBeeGirl, 'Dildo Rape', SceneLib.beeGirlScene, dildoRape, '', null, null, 'B. Feed', SceneLib.beeGirlScene, milkAndHoney, 'Leave', this, this.leaveAfterDefeating );
-		} else if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) { //Genderless can still breastfeed
+		} else if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) { //Genderless can still breastfeed
 			if( hpVictory ) {
 				MainView.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  The sweet scent oozing from between her legs is too much to bear, arousing you painfully.\n\nWhat do you do?' );
 			} else {
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 	};
 	BeeGirl.prototype.beeStingAttack = function() {
 		//Blind dodge change
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind sting!!' );
 			Combat.combatRoundOver();
 			return;
@@ -102,17 +102,17 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			} else {
 				MainView.outputText( ' You shake your head and clear the thoughts from your head, focusing on the task at hand.' );
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.lustvenom ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.lustvenom ) ) {
 				CoC.player.createStatusAffect( StatusAffects.lustvenom, 0, 0, 0, 0 );
 			}
 		}
 		//Paralise the other 50%!
 		else {
 			MainView.outputText( 'Searing pain lances through you as ' + this.a + this.short + ' manages to sting you!  You stagger back a step and nearly trip, finding it hard to move yourself.' );
-			var paralyzeIndex = CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom );
-			if( paralyzeIndex >= 0 ) {
-				CoC.player.statusAffect( paralyzeIndex ).value1 += 2.9; //v1 - strenght penalty, v2 speed penalty
-				CoC.player.statusAffect( paralyzeIndex ).value2 += 2.9;
+			var statusAffect = CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom );
+			if( statusAffect ) {
+				statusAffect.value1 += 2.9; //v1 - strenght penalty, v2 speed penalty
+				statusAffect.value2 += 2.9;
 				EngineCore.dynStats( 'str', -3, 'spe', -3 );
 				MainView.outputText( '  It\'s getting much harder to move, you\'re not sure how many more stings like that you can take!' );
 			} else {

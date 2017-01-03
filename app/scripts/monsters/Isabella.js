@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 		//[Standard attack];
 		MainView.outputText( 'Isabella snorts and lowers a shield a moment before she begins to charge towards you. Her hooves tear huge divots out of the ground as she closes the distance with surprising speed!  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 		//[Stunning Impact];
 		MainView.outputText( 'Isabella spins her shield back at you in a potent, steel-assisted backhand.  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 	Isabella.prototype.isabellaThroatPunch = function() {
 		MainView.outputText( 'Isabella punches out from behind her shield in a punch aimed right at your throat!  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
@@ -129,11 +129,11 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 		if( this.HPRatio() < 0.7 && Utils.rand( 3 ) === 0 ) {
 			this.drankMalkYaCunt();
 		}//if PC has spells and isn't silenced, 1/3 chance of silence.;
-		else if( CoC.player.hasSpells() && CoC.player.findStatusAffect( StatusAffects.ThroatPunch ) < 0 && Utils.rand( 3 ) === 0 ) {
+		else if( CoC.player.hasSpells() && !CoC.player.findStatusAffect( StatusAffects.ThroatPunch ) && Utils.rand( 3 ) === 0 ) {
 			this.isabellaThroatPunch();
 		}
 		//if PC isn't stunned, 1/4 chance of stun;
-		else if( CoC.player.findStatusAffect( StatusAffects.IsabellaStunned ) < 0 && Utils.rand( 4 ) === 0 ) {
+		else if( !CoC.player.findStatusAffect( StatusAffects.IsabellaStunned ) && Utils.rand( 4 ) === 0 ) {
 			this.isabellaStun();
 		} else {
 			this.isabellaAttack();

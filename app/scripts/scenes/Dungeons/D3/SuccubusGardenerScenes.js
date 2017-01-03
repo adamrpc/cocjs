@@ -189,7 +189,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		}
 
 		MainView.outputText( '\n\n<i>"Fallen already? Has the once mighty champion finally lost herself to the corruption of this land? Who would have thought that the one to' );
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( ' destroy' );
 		} else {
 			MainView.outputText( ' shut down' );

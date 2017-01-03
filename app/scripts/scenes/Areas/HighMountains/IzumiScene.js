@@ -311,21 +311,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 	};
 	// Update the duration of the pipe smoke effect
 	IzumiScene.prototype.updateSmokeDuration = function( hours ) {
-		var affectIndex = CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
-		if( affectIndex >= 0 ) {
-			CoC.player.statusAffect( affectIndex ).value1 -= hours;
-			if( CoC.player.statusAffect( affectIndex ).value1 <= 0 ) {
+		var affect = CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
+		if( affect ) {
+			affect.value1 -= hours;
+			if( affect.value1 <= 0 ) {
 				this.smokeEffectWearsOff();
 			}
 		}
 	};
 	// Method to contain removal mechanics + scene text to spit out
 	IzumiScene.prototype.smokeEffectWearsOff = function() {
-		var affectIndex = CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
-		if( affectIndex >= 0 ) {
-			CoC.player.spe += Math.abs( CoC.player.statusAffect( affectIndex ).value2 );
-			CoC.player.sens -= CoC.player.statusAffect( affectIndex ).value3;
-			CoC.player.lib -= CoC.player.statusAffect( affectIndex ).value4;
+		var affect = CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke );
+		if( affect ) {
+			CoC.player.spe += Math.abs( affect.value2 );
+			CoC.player.sens -= affect.value3;
+			CoC.player.lib -= affect.value4;
 			if( CoC.player.sens > 100 ) {
 				CoC.player.sens = 100;
 			}
@@ -908,7 +908,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			if( CoC.player.lactationQ() > 0 ) {
 				MainView.outputText( 'You let out a moan of pleasure as a sudden jet of milk spurts from your heavy breasts, splattering across the rocky ground.  Izumi doesn’t let up though, instead working your nipple even harder, almost feverishly pinching and squeezing away, forcing more and more of the warm liquid to be coaxed free of your bust.\n\n' );
 			}
-			if( (CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) > 0) && (CoC.player.lactationQ() > 750) ) {
+			if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) && (CoC.player.lactationQ() > 750) ) {
 				MainView.outputText( 'You instinctively relax and lean back into the cushioned softness of Izumi’s breasts as the familiar sensation of being milked washes over you.  Your breasts respond readily to the repeated stimulation, great jets of milk answering the insistent urging of Izumi’s fingers.  Her other hand detaches itself from your groin temporarily to begin cupping and squeezing at your bust as well, much to your enjoyment.  You lay there in her arms, gazing down at your [chest] as you are being milked, and you can’t help but think to yourself' );
 				if( CoC.player.cor < 40 ) {
 					MainView.outputText( ' ‘How did this happen?‘  How did you get into this bizarre state, this weird situation?  It seems so strange, and yet, you can’t seem to summon up the energy to object or resist at all.  Perhaps, you wonder briefly, it has something to do with that damned smoke.  Izumi <i>was</i> smoking something, after all, and if it’s strong enough to affect a person as huge as her....\n\n' );

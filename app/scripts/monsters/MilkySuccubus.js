@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView
 	}
 	angular.extend(MilkySuccubus.prototype, AbstractSuccubus.prototype);
 	MilkySuccubus.prototype.performCombatAction = function() {
-		if( this.findStatusAffect( StatusAffects.MilkyUrta ) < 0 && Utils.rand( 3 ) === 0 ) {
+		if( !this.findStatusAffect( StatusAffects.MilkyUrta ) && Utils.rand( 3 ) === 0 ) {
 			this.cowCubiMilkSprayAttack();
 		} else if( this.HP < 400 ) {
 			this.drinkMinoCum();
@@ -40,11 +40,11 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView
 	MilkySuccubus.prototype.drinkMinoCum = function() {
 		MainView.outputText( 'Smiling wryly and licking her lips, the succubus-cow procures a bottle of her pet\'s cum with her probing tail.' );
 		//Success:;
-		if( this.findStatusAffect( StatusAffects.DrankMinoCum ) < 0 || this.findStatusAffect( StatusAffects.DrankMinoCum2 ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.DrankMinoCum ) || !this.findStatusAffect( StatusAffects.DrankMinoCum2 ) ) {
 			MainView.outputText( '\n\nSmiling triumphantly, she takes the bottle and opens it with a pop, drinking the contents with glee.  When done, she throws the bottle away and smacks her lips.  "<i>Nothing like a bottle of minotaur cum to get you back on your feet, right?</i>"  She grins, her pussy dripping with more juices.' );
 			this.lust += 25;
 			this.HP += 400;
-			if( this.findStatusAffect( StatusAffects.DrankMinoCum ) < 0 ) {
+			if( !this.findStatusAffect( StatusAffects.DrankMinoCum ) ) {
 				this.createStatusAffect( StatusAffects.DrankMinoCum, 0, 0, 0, 0 );
 			} else {
 				this.createStatusAffect( StatusAffects.DrankMinoCum2, 0, 0, 0, 0 );

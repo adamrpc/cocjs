@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, MainVi
 		SceneLib.dungeonHelSupplimental.gooArmorAI();
 	};
 	GooArmorMonster.prototype.defeated = function() {
-		if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Spar ) ) {
 			SceneLib.valeria.pcWinsValeriaSpar();
 		} else {
 			SceneLib.dungeonHelSupplimental.beatUpGooArmor();
@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'GooArmorMonster', function( SceneLib, MainVi
 			MainView.outputText( '\n\nThe armored goo sighs while you exhaust yourself...' );
 			EngineCore.doNext( Combat, Combat.endLustLoss );
 		} else {
-			if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
+			if( this.findStatusAffect( StatusAffects.Spar ) ) {
 				SceneLib.valeria.pcWinsValeriaSparDefeat();
 			} else {
 				SceneLib.dungeonHelSupplimental.gooArmorBeatsUpPC();

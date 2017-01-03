@@ -478,7 +478,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, PregnancyStore, App
 				} else {
 					MainView.outputText( 'think about the baby inside your belly and wish there was some way she could have fathered it.' );
 				}
-			} else if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) >= 0 ) {
+			} else if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) ) {
 				MainView.outputText( 'think about your empty womb.  Wouldn’t it feel good if Urta’s cum could impregnate you as nature intended?' );
 			} else if( CoC.flags[ kFLAGS.URTA_FERTILE ] > 0 ) {
 				MainView.outputText( 'start to fantasize.  The masses of cum Urta produces stand a good chance of seeding you.' );

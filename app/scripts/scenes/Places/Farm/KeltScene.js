@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 		MainView.outputText( '', true );
 		CoC.player.addStatusValue( StatusAffects.Kelt, 3, 1 );
 		//If First Encounter;
-		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Kelt ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Kelt, 0, 0, 1, 0 );
 			this.keltFirstTime();
 		}
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 			}
 			//Centaur bad end;
 			if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR && CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 100 && CoC.player.gender > 1 ) {
-				if( CoC.player.inte > Utils.rand( 40 ) && CoC.player.statusAffectv2( StatusAffects.Kelt ) < 130 && CoC.player.findStatusAffect( StatusAffects.KeltBadEndWarning ) < 0 ) {
+				if( CoC.player.inte > Utils.rand( 40 ) && CoC.player.statusAffectv2( StatusAffects.Kelt ) < 130 && !CoC.player.findStatusAffect( StatusAffects.KeltBadEndWarning ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KeltBadEndWarning, 0, 0, 0, 0 );
 					MainView.outputText( 'You approach the farm, ready for another archery lesson.  Kelt is oblivious to your presence, busy practicing with his own bow for the moment.  The wind shifts and blows his musk your way.  Unconsciously, you breathe deeply, sending heat racing between your rear legs.  Alarm bells go off in your mind as you realize what his presence is doing to you, and you run away to your camp before he can notice you.  It\'s clear to you that you can\'t resist him much longer; the next time you meet him, you\'ll probably volunteer to become his brood-mare.  Perhaps you should avoid Kelt and the farm until you feel his influence less keenly.', true );
 					EngineCore.dynStats( 'lus', CoC.player.lib / 5 + 10 );
@@ -77,12 +77,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 				return;
 			}
 			//Naked event if its time for it;
-			if( CoC.player.statusAffectv3( StatusAffects.Kelt ) === 4 && CoC.player.findStatusAffect( StatusAffects.NakedOn ) < 0 ) {
+			if( CoC.player.statusAffectv3( StatusAffects.Kelt ) === 4 && !CoC.player.findStatusAffect( StatusAffects.NakedOn ) ) {
 				this.keltRequiresNakedness();
 				return;
 			}
 			//60+ Submissiveness—First Time Blowjob Requirement;
-			if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 && CoC.player.findStatusAffect( StatusAffects.KeltBJ ) < 0 ) {
+			if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 && !CoC.player.findStatusAffect( StatusAffects.KeltBJ ) ) {
 				this.keltRequiresBlowjobs();
 				return;
 			}
@@ -433,7 +433,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	KeltScene.prototype.keltMainEncounterAfterNakedReq = function() {
 		//After naked requirement;
 		//(Naked On);
-		if( CoC.player.findStatusAffect( StatusAffects.NakedOn ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.NakedOn ) ) {
 			MainView.outputText( 'He nods, smirking slightly, and gestures at your clothes impatiently.  With some pleasure, you strip down before him, discarding your clothes with a little flair.  Kelt is grinning by the end, openly admiring your body, and you feel a little more aroused for obeying his dominant command.\r\r', false );
 			//(+5 Submissive);
 			CoC.player.addStatusValue( StatusAffects.Kelt, 2, 3 );
@@ -505,7 +505,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 			MainView.outputText( 'Together, the two of you head off to the practice field.\r\r', false );
 		}
 		//IF BLOWJOB HAS HAPPENED ALREADY, chances to repeat;
-		if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 60 && Utils.rand( 4 ) === 0 && CoC.player.findStatusAffect( StatusAffects.KeltBJ ) >= 0 ) {
+		if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 60 && Utils.rand( 4 ) === 0 && CoC.player.findStatusAffect( StatusAffects.KeltBJ ) ) {
 			this.keltMainEncounterPostBlowjob();
 			return;
 		}
@@ -514,7 +514,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	KeltScene.prototype.keltMainEncounter3 = function() {
 		var temporary = 0;
 		//(Clothed);
-		if( CoC.player.findStatusAffect( StatusAffects.NakedOn ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.NakedOn ) ) {
 			MainView.outputText( 'Kelt is arrogant, crude, and all too often cruel as he mocks your attempts at archery again and again.  Despite all this, however, he obviously does know what he\'s doing.  You try to ignore his insults and lewd comments as best as you can and focus on the archery.  In the end, you feel you\'ve learned a lot, though Kelt remains snide.\r\r', false );
 			var temp = Utils.rand( 4 );
 			//(25% Chance: ;
@@ -691,7 +691,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 	};
 	KeltScene.prototype.keltMainEncounterPostBlowjob = function() {
 		//(Blowjob Requirement On);
-		if( CoC.player.findStatusAffect( StatusAffects.BlowjobOn ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BlowjobOn ) ) {
 			//(Submissiveness 75+, Lust 60+);
 			if( CoC.player.lust >= 75 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 90 && Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( ImageManager.showImage( 'kelt-farm-smallbarn' ) );

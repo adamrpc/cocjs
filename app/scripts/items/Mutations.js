@@ -12,13 +12,13 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		} else { //All else
 			MainView.outputText("The liquid tastes rather bland and goes down easily. ", true);
 			//Special repeat texts
-			if (player.findStatusAffect(StatusAffects.RepeatSuccubi) >= 0) {
+			if (player.findStatusAffect(StatusAffects.RepeatSuccubi)) {
 				MainView.outputText("You look forwards to tonight's encounter.", false);
 			} else { //First timer huh?
 				MainView.outputText("You do not notice any real effects.  Did the merchant con you?", false);
 			}
 		}
-		if (player.findStatusAffect(StatusAffects.SuccubiNight) >= 0) {
+		if (player.findStatusAffect(StatusAffects.SuccubiNight)) {
 			if (player.statusAffectv1(StatusAffects.SuccubiNight) < 3) {
 				player.addStatusValue(StatusAffects.SuccubiNight,1,1);
 			}
@@ -717,7 +717,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			player.goIntoRut(true);
 		}
 		//Anti-masturbation status
-		if ( Utils.rand(4) === 0 && changes < changeLimit && player.findStatusAffect(StatusAffects.Dysfunction) < 0) {
+		if ( Utils.rand(4) === 0 && changes < changeLimit && !player.findStatusAffect(StatusAffects.Dysfunction)) {
 			if (player.cocks.length > 0) {
 				MainView.outputText("\n\nYour " + Descriptors.cockDescript(0) + " tingles abruptly, then stops.  Worried, you reach down to check it, only to discover that it feels... numb.  It will be very hard to masturbate like this.", false);
 			} else if (player.hasVagina()) {
@@ -901,7 +901,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		if (player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_HORSE && player.tailType === AppearanceDefs.TAIL_TYPE_HORSE && (player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_HOOFED)) {
 			//WARNINGS
 			//Repeat warnings
-			if (player.findStatusAffect(StatusAffects.HorseWarning) >= 0 && Utils.rand(3) === 0) {
+			if (player.findStatusAffect(StatusAffects.HorseWarning) && Utils.rand(3) === 0) {
 				if (player.statusAffectv1(StatusAffects.HorseWarning) === 0) {
 					MainView.outputText("<b>\n\nYou feel a creeping chill down your back as your entire body shivers, as if rejecting something foreign.  Maybe you ought to cut back on the horse potions.</b>", false);
 				}
@@ -911,12 +911,12 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 				player.addStatusValue(StatusAffects.HorseWarning,1,1);
 			}
 			//First warning
-			if (player.findStatusAffect(StatusAffects.HorseWarning) < 0) {
+			if (!player.findStatusAffect(StatusAffects.HorseWarning)) {
 				MainView.outputText("<b>\n\nWhile you drink the tasty potion, you realize how horse-like you already are, and wonder what else the potion could possibly change...</b>", false);
 				player.createStatusAffect(StatusAffects.HorseWarning, 0, 0, 0, 0);
 			}
 			//Bad End
-			if ( Utils.rand(4) === 0 && player.findStatusAffect(StatusAffects.HorseWarning) >= 0) {
+			if ( Utils.rand(4) === 0 && player.findStatusAffect(StatusAffects.HorseWarning)) {
 				//Must have been warned first...
 				if (player.statusAffectv1(StatusAffects.HorseWarning) > 0) {
 					//If player has dicks check for horsedicks
@@ -1657,7 +1657,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			MainView.outputText("You eat the pepper, even the two orb-like growths that have grown out from the base.  It's delicious!", false);
 		}
 		//OVERDOSE Bad End!
-		if (type <= 0 && crit > 1 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && Utils.rand(2) === 0 && player.findStatusAffect(StatusAffects.DogWarning) >= 0) {
+		if (type <= 0 && crit > 1 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && Utils.rand(2) === 0 && player.findStatusAffect(StatusAffects.DogWarning)) {
 			if (Utils.rand(2) === 0) {
 				MainView.outputText("\n\nAs you swallow the pepper, you note that the spicy hotness on your tongue seems to be spreading. Your entire body seems to tingle and burn, making you feel far warmer than normal, feverish even. Unable to stand it any longer you tear away your clothes, hoping to cool down a little. Sadly, this does nothing to aid you with your problem. On the bright side, the sudden feeling of vertigo you've developed is more than enough to take your mind off your temperature issues. You fall forward onto your hands and knees, well not really hands and knees to be honest. More like paws and knees. That can't be good, you think for a moment, before the sensation of your bones shifting into a quadrupedal configuration robs you of your concentration. After that, it is only a short time before your form is remade completely into that of a large dog, or perhaps a wolf. The distinction would mean little to you now, even if you were capable of comprehending it. ", false);
 				if (player.findPerk(PerkLib.MarblesMilk)) {
@@ -1670,9 +1670,9 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			}
 			EngineCore.gameOver();
 			return;
-		} else if (type <= 0 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && player.findStatusAffect(StatusAffects.DogWarning) >= 0 && Utils.rand(3) === 0) { //WARNING, overdose VERY close!
+		} else if (type <= 0 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && player.findStatusAffect(StatusAffects.DogWarning) && Utils.rand(3) === 0) { //WARNING, overdose VERY close!
 			MainView.outputText("<b>\n\nEating the pepper, you realize how dog-like you've become, and you wonder what else the peppers could change...</b>", false);
-		} else if (type <= 0 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && player.findStatusAffect(StatusAffects.DogWarning) < 0) { //WARNING, overdose is close!
+		} else if (type <= 0 && player.skinType === AppearanceDefs.SKIN_TYPE_FUR && player.faceType === AppearanceDefs.FACE_DOG && player.tailType === AppearanceDefs.TAIL_TYPE_DOG && player.earType === AppearanceDefs.EARS_DOG && player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_DOG && !player.findStatusAffect(StatusAffects.DogWarning)) { //WARNING, overdose is close!
 			player.createStatusAffect(StatusAffects.DogWarning, 0, 0, 0, 0);
 			MainView.outputText("<b>\n\nEating the pepper, you realize how dog-like you've become, and you wonder what else the peppers could change...</b>", false);
 		} else if (type === 3) {
@@ -2952,7 +2952,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		SceneLib.marbleScene.marbleStatusChange(0, 5);
 		//Does not apply the 'Marble's Milk' effect
 		//Purge withdrawl
-		if (player.findStatusAffect(StatusAffects.MarbleWithdrawl) >= 0) {
+		if (player.findStatusAffect(StatusAffects.MarbleWithdrawl)) {
 			player.removeStatusAffect(StatusAffects.MarbleWithdrawl);
 			EngineCore.dynStats("tou", 5, "int", 5);
 			MainView.outputText("You no longer feel the symptoms of withdrawal.\n\n", false);
@@ -2962,7 +2962,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//Restores a portion of fatigue (once implemented)
 		EngineCore.fatigue(-25);
 		//If the player is addicted, this item negates the withdrawal effects for a few hours (suggest 6), there will need to be a check here to make sure the withdrawal effect doesn't reactivate while the player is under the effect of 'Marble's Milk'.
-		if (player.findStatusAffect(StatusAffects.BottledMilk) >= 0) {
+		if (player.findStatusAffect(StatusAffects.BottledMilk)) {
 			player.addStatusValue(StatusAffects.BottledMilk, 1, (6 + Utils.rand(6)));
 		} else {
 			player.createStatusAffect(StatusAffects.BottledMilk, 12, 0, 0, 0);
@@ -3214,7 +3214,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 					}
 					changes++;
 				}
-				if ((player.breastRows[0].lactationMultiplier > 2 && player.findStatusAffect(StatusAffects.Feeder) >= 0) || player.breastRows[0].lactationMultiplier > 5) {
+				if ((player.breastRows[0].lactationMultiplier > 2 && player.findStatusAffect(StatusAffects.Feeder)) || player.breastRows[0].lactationMultiplier > 5) {
 					if ( Utils.rand(2) === 0) {
 						MainView.outputText("\n\nYour breasts suddenly feel less full, it seems you aren't lactating at quite the level you were.", false);
 					} else {
@@ -3231,7 +3231,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//apply an effect where the player really wants
 		//to give their milk to other creatures
 		//(capable of getting them addicted):
-		if (player.findStatusAffect(StatusAffects.Feeder) < 0 && player.biggestLactation() >= 3 && Utils.rand(2) === 0 && player.biggestTitSize() >= 5 && player.cor >= 35) {
+		if (!player.findStatusAffect(StatusAffects.Feeder) && player.biggestLactation() >= 3 && Utils.rand(2) === 0 && player.biggestTitSize() >= 5 && player.cor >= 35) {
 			MainView.outputText("\n\nYou start to feel a strange desire to give your milk to other creatures.  For some reason, you know it will be very satisfying.\n\n<b>(You have gained the 'Feeder' perk!)</b>", false);
 			player.createStatusAffect(StatusAffects.Feeder, 0, 0, 0, 0);
 			player.createPerk(PerkLib.Feeder, 0, 0, 0, 0);
@@ -3245,7 +3245,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 				MainView.outputText("\n\nYou feel a relaxing sensation in your groin.  On further inspection you discover your " + Descriptors.vaginaDescript(0) + " has somehow relaxed, permanently loosening.", false);
 				player.vaginas[0].vaginalLooseness++;
 				//Cunt Stretched used to determine how long since last enlargement
-				if (player.findStatusAffect(StatusAffects.CuntStretched) < 0) {
+				if (!player.findStatusAffect(StatusAffects.CuntStretched)) {
 					player.createStatusAffect(StatusAffects.CuntStretched, 0, 0, 0, 0);
 				} else { //Reset the timer on it to 0 when restretched.
 					player.changeStatusValue(StatusAffects.CuntStretched, 1, 0);
@@ -3392,7 +3392,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			}
 		}
 		//Nipples Turn Back:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) >= 0 && changes < changeLimit && Utils.rand(3) === 0) {
+		if (player.findStatusAffect(StatusAffects.BlackNipples) && changes < changeLimit && Utils.rand(3) === 0) {
 			MainView.outputText("\n\nSomething invisible brushes against your " + Descriptors.nippleDescript(0) + ", making you twitch.  Undoing your clothes, you take a look at your chest and find that your nipples have turned back to their natural flesh colour.");
 			changes++;
 			player.removeStatusAffect(StatusAffects.BlackNipples);
@@ -3429,19 +3429,19 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			EngineCore.dynStats("int", 0.6);
 		}
 		//Smart enough for arouse and doesnt have it
-		if (player.inte >= 25 && player.findStatusAffect(StatusAffects.KnowsArouse) < 0) {
+		if (player.inte >= 25 && !player.findStatusAffect(StatusAffects.KnowsArouse)) {
 			MainView.outputText("\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Arouse.</b>", false);
 			player.createStatusAffect(StatusAffects.KnowsArouse, 0, 0, 0, 0);
 			return;
 		}
 		//Smart enough for arouse and doesnt have it
-		if (player.inte >= 30 && player.findStatusAffect(StatusAffects.KnowsHeal) < 0) {
+		if (player.inte >= 30 && !player.findStatusAffect(StatusAffects.KnowsHeal)) {
 			MainView.outputText("\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Heal.</b>", false);
 			player.createStatusAffect(StatusAffects.KnowsHeal, 0, 0, 0, 0);
 			return;
 		}
 		//Smart enough for arouse and doesnt have it
-		if (player.inte >= 40 && player.findStatusAffect(StatusAffects.KnowsMight) < 0) {
+		if (player.inte >= 40 && !player.findStatusAffect(StatusAffects.KnowsMight)) {
 			MainView.outputText("\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Might.</b>", false);
 			player.createStatusAffect(StatusAffects.KnowsMight, 0, 0, 0, 0);
 		}
@@ -3462,19 +3462,19 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			EngineCore.dynStats("int", 0.6);
 		}
 		//Smart enough for arouse and doesnt have it
-		if (player.inte >= 25 && player.findStatusAffect(StatusAffects.KnowsCharge) < 0) {
+		if (player.inte >= 25 && !player.findStatusAffect(StatusAffects.KnowsCharge)) {
 			MainView.outputText("\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Charge Weapon.</b>", false);
 			player.createStatusAffect(StatusAffects.KnowsCharge, 0, 0, 0, 0);
 			return;
 		}
 		//Smart enough for arouse and doesnt have it
-		if (player.inte >= 30 && player.findStatusAffect(StatusAffects.KnowsBlind) < 0) {
+		if (player.inte >= 30 && !player.findStatusAffect(StatusAffects.KnowsBlind)) {
 			MainView.outputText("\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Blind.</b>", false);
 			player.createStatusAffect(StatusAffects.KnowsBlind, 0, 0, 0, 0);
 			return;
 		}
 		//Smart enough for arouse and doesnt have it
-		if (player.inte >= 40 && player.findStatusAffect(StatusAffects.KnowsWhitefire) < 0) {
+		if (player.inte >= 40 && !player.findStatusAffect(StatusAffects.KnowsWhitefire)) {
 			MainView.outputText("\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Whitefire.</b>", false);
 			player.createStatusAffect(StatusAffects.KnowsWhitefire, 0, 0, 0, 0);
 		}
@@ -3604,7 +3604,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		}
 		//Boost vaginal capacity without gaping
 		if (changes < changeLimit && Utils.rand(3) === 0 && player.hasVagina() && player.statusAffectv1(StatusAffects.BonusVCapacity) < 40) {
-			if (player.findStatusAffect(StatusAffects.BonusVCapacity) < 0) {
+			if (!player.findStatusAffect(StatusAffects.BonusVCapacity)) {
 				player.createStatusAffect(StatusAffects.BonusVCapacity, 0, 0, 0, 0);
 			}
 			player.addStatusValue(StatusAffects.BonusVCapacity, 1, 5);
@@ -3729,7 +3729,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			changes++;
 		}
 		//Nipples Turn Back:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) >= 0 && changes < changeLimit && Utils.rand(3) === 0) {
+		if (player.findStatusAffect(StatusAffects.BlackNipples) && changes < changeLimit && Utils.rand(3) === 0) {
 			MainView.outputText("\n\nSomething invisible brushes against your " + Descriptors.nippleDescript(0) + ", making you twitch.  Undoing your clothes, you take a look at your chest and find that your nipples have turned back to their natural flesh colour.");
 			changes++;
 			player.removeStatusAffect(StatusAffects.BlackNipples);
@@ -3877,7 +3877,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		}
 		//3b.Infinite Vagina
 		if (player.vaginalCapacity() < 9000) {
-			if (player.findStatusAffect(StatusAffects.BonusVCapacity) < 0) {
+			if (!player.findStatusAffect(StatusAffects.BonusVCapacity)) {
 				player.createStatusAffect(StatusAffects.BonusVCapacity, 9000, 0, 0, 0);
 			} else {
 				player.addStatusValue(StatusAffects.BonusVCapacity, 1, 9000);
@@ -3889,7 +3889,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			player.tallness += 2;
 			EngineCore.dynStats("str", 1, "tou", 1);
 		} else { //Big slime girl
-			if (player.findStatusAffect(StatusAffects.SlimeCraving) < 0) {
+			if (!player.findStatusAffect(StatusAffects.SlimeCraving)) {
 				MainView.outputText("\n\nYou feel a growing gnawing in your gut.  You feel... hungry, but not for food.  No, you need something wet and goopy pumped into you.  You NEED it.  You can feel it in your bones.  <b>If you don't feed that need... you'll get weaker and maybe die.</b>", false);
 				player.createStatusAffect(StatusAffects.SlimeCraving, 0, 0, 0, 1); //Value four indicates this tracks strength and speed separately
 			} else {
@@ -4306,7 +4306,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		} else {
 			//Boost anal capacity without gaping
 			if (player.statusAffectv1(StatusAffects.BonusACapacity) < 80) {
-				if (player.findStatusAffect(StatusAffects.BonusACapacity) < 0) {
+				if (!player.findStatusAffect(StatusAffects.BonusACapacity)) {
 					player.createStatusAffect(StatusAffects.BonusACapacity, 0, 0, 0, 0);
 				}
 				player.addStatusValue(StatusAffects.BonusACapacity, 1, 5);
@@ -4793,7 +4793,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		}
 		//--Worms leave if 100% lizard dicks?
 		//Require mammals?
-		if (player.lizardCocks() === player.cockTotal() && changes < changeLimit && player.findStatusAffect(StatusAffects.Infested) >= 0) {
+		if (player.lizardCocks() === player.cockTotal() && changes < changeLimit && player.findStatusAffect(StatusAffects.Infested)) {
 			MainView.outputText("\n\nLike rats from a sinking ship, worms escape from your body in a steady stream.  Surprisingly, the sensation is remarkably pleasant, similar to the pleasure of sexual release in a way.  Though they seem inexhaustible, the tiny, cum-slimed invertebrates slow to a trickle.  The larger worm-kin inside you stirs as if disturbed from a nap, coming loose from whatever moorings it had attached itself to in the interior of your form.  It slowly works its way up your urethra, stretching to an almost painful degree with every lurching motion.  Your dick bloats out around the base, stretched like the ovipositor on a bee-girl in order to handle the parasitic creature, but thankfully, the ordeal is a brief one.", false);
 			if (player.balls > 1) {
 				MainView.outputText("  The remaining " + Utils.num2Text(player.balls - 1) + " slither out the pre-stretched holes with ease, though the last one hangs from your tip for a moment before dropping to the ground.", false);
@@ -4837,7 +4837,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 				MainView.outputText("but sexual fluid ", false);
 			}
 			MainView.outputText("escapes it.  <b>You are no longer lactating.</b>  That makes sense, only mammals lactate!  Smiling, you muse at how much time this will save you when cleaning your gear.", false);
-			if (player.findPerk(PerkLib.Feeder) || player.findStatusAffect(StatusAffects.Feeder) >= 0) {
+			if (player.findPerk(PerkLib.Feeder) || player.findStatusAffect(StatusAffects.Feeder)) {
 				MainView.outputText("\n\n(<b>Feeder perk lost!</b>)", false);
 				player.removePerk(PerkLib.Feeder);
 				player.removeStatusAffect(StatusAffects.Feeder);
@@ -5804,7 +5804,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			changes++;
 		}
 		//Nipples Turn Back:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) >= 0 && changes < changeLimit && Utils.rand(3) === 0) {
+		if (player.findStatusAffect(StatusAffects.BlackNipples) && changes < changeLimit && Utils.rand(3) === 0) {
 			MainView.outputText("\n\nSomething invisible brushes against your " + Descriptors.nippleDescript(0) + ", making you twitch.  Undoing your clothes, you take a look at your chest and find that your nipples have turned back to their natural flesh colour.");
 			changes++;
 			player.removeStatusAffect(StatusAffects.BlackNipples);
@@ -6282,7 +6282,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			});
 		}
 		//Nipples Turn Black:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) < 0 && Utils.rand(6) === 0 && changes < changeLimit) {
+		if (!player.findStatusAffect(StatusAffects.BlackNipples) && Utils.rand(6) === 0 && changes < changeLimit) {
 			MainView.outputText("\n\nA tickling sensation plucks at your nipples and you cringe, trying not to giggle.  Looking down you are in time to see the last spot of flesh tone disappear from your [nipples].  They have turned an onyx black!");
 			player.createStatusAffect(StatusAffects.BlackNipples, 0, 0, 0, 0);
 			changes++;
@@ -6754,7 +6754,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			player.lust -= 20 + Utils.rand(40);
 		}
 		if ( Utils.rand(5) === 0) {
-			if (player.findStatusAffect(StatusAffects.Dysfunction) < 0) {
+			if (!player.findStatusAffect(StatusAffects.Dysfunction)) {
 				MainView.outputText("\n\nUnfortunately, the skin of ", false);
 				if (player.cockTotal() > 0) {
 					MainView.outputText(Descriptors.sMultiCockDesc(), false);
@@ -6802,11 +6802,11 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 	Mutations.sensitivityDraft = function(player) {
 		MainView.outputText("", true);
 		MainView.outputText("You pop the cork on this small vial and drink down the clear liquid.  It makes your lips and tongue tingle strangely, letting you feel each globule of spit in your mouth and each breath of air as it slides past your lips.", false);
-		if (player.findStatusAffect(StatusAffects.Dysfunction) >= 0) {
+		if (player.findStatusAffect(StatusAffects.Dysfunction)) {
 			MainView.outputText("\n\nThankfully, the draft invigorates your groin, replacing the numbness with waves of raw sensation.  It seems your crotch is back to normal and <b>you can masturbate again!</b>", false);
 			player.removeStatusAffect(StatusAffects.Dysfunction);
 		}
-		if ( Utils.rand(4) === 0 && player.findStatusAffect(StatusAffects.LustyTongue) < 0) {
+		if ( Utils.rand(4) === 0 && !player.findStatusAffect(StatusAffects.LustyTongue)) {
 			MainView.outputText("The constant tingling in your mouth grows and grows, particularly around your lips, until they feel as sensitive as ", false);
 			if (player.hasVagina()) {
 				MainView.outputText("your", false);
@@ -7192,7 +7192,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			player.tone -= 4;
 		}
 		//Nipples Turn Back:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) >= 0 && changes < changeLimit && Utils.rand(3) === 0) {
+		if (player.findStatusAffect(StatusAffects.BlackNipples) && changes < changeLimit && Utils.rand(3) === 0) {
 			MainView.outputText("\n\nSomething invisible brushes against your " + Descriptors.nippleDescript(0) + ", making you twitch.  Undoing your clothes, you take a look at your chest and find that your nipples have turned back to their natural flesh colour.");
 			changes++;
 			player.removeStatusAffect(StatusAffects.BlackNipples);
@@ -7245,9 +7245,9 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//Boosts the special effect of Dragonbreath by 20% for 1 use. ie: if Tainted's breath weapon has a 80% chance to stun on hit, +20% equals 100% chance to stun.
 		MainView.outputText("You crack the shell easily and swallow the large yolk and the copious amounts of albumen - the yolk is blue, while the rest is crimson-tinted.  It tastes like... well, it tastes mostly of spiced mint, you think.");
 		if (player.findPerk(PerkLib.Dragonfire)) {
-			if (player.findStatusAffect(StatusAffects.DragonBreathCooldown) >= 0) {
+			if (player.findStatusAffect(StatusAffects.DragonBreathCooldown)) {
 				player.removeStatusAffect(StatusAffects.DragonBreathCooldown);
-			} else if (player.findStatusAffect(StatusAffects.DragonBreathBoost) < 0) {
+			} else if (!player.findStatusAffect(StatusAffects.DragonBreathBoost)) {
 				player.createStatusAffect(StatusAffects.DragonBreathBoost, 0, 0, 0, 0);
 			}
 			//(if PC has breath weapon)
@@ -7390,7 +7390,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//[Increase Vaginal Capacity] - requires vagina, of course
 		if (player.hasVagina() && ((mystic && Utils.rand(2) === 0) || (!mystic && Utils.rand(3) === 0)) && player.statusAffectv1(StatusAffects.BonusVCapacity) < 200 && changes < changeLimit) {
 			MainView.outputText("\n\nA gurgling sound issues from your abdomen, and you double over as a trembling ripple passes through your womb.  The flesh of your stomach roils as your internal organs begin to shift, and when the sensation finally passes, you are instinctively aware that your " + Descriptors.vaginaDescript(0) + " is a bit deeper than it was before.");
-			if (player.findStatusAffect(StatusAffects.BonusVCapacity) < 0) {
+			if (!player.findStatusAffect(StatusAffects.BonusVCapacity)) {
 				player.createStatusAffect(StatusAffects.BonusVCapacity, 0, 0, 0, 0);
 			}
 			player.addStatusValue(StatusAffects.BonusVCapacity, 1, 5 + Utils.rand(10));
@@ -7548,7 +7548,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			//9999 - pending tats system
 		}
 		//Nipples Turn Back:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) >= 0 && changes < changeLimit && Utils.rand(3) === 0) {
+		if (player.findStatusAffect(StatusAffects.BlackNipples) && changes < changeLimit && Utils.rand(3) === 0) {
 			MainView.outputText("\n\nSomething invisible brushes against your " + Descriptors.nippleDescript(0) + ", making you twitch.  Undoing your clothes, you take a look at your chest and find that your nipples have turned back to their natural flesh colour.");
 			changes++;
 			player.removeStatusAffect(StatusAffects.BlackNipples);
@@ -7574,7 +7574,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 		//Increase HP by quite a bit!)
 		//(Slight chance at increasing Toughness?)
 		//(If lake has been tainted, +1 Corruption?)
-		if (player.findStatusAffect(StatusAffects.FactoryOverload) >= 0) {
+		if (player.findStatusAffect(StatusAffects.FactoryOverload)) {
 			EngineCore.dynStats("cor", 0.5);
 		}
 		EngineCore.dynStats("cor", 0.1);
@@ -7729,7 +7729,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			changes++;
 		}
 		//Testicle Reduction:
-		if (player.balls > 0 && player.hasCock() && (player.ballSize > 1 || player.findStatusAffect(StatusAffects.Uniball) < 0) && Utils.rand(4) === 0 && changes < changeLimit) {
+		if (player.balls > 0 && player.hasCock() && (player.ballSize > 1 || !player.findStatusAffect(StatusAffects.Uniball)) && Utils.rand(4) === 0 && changes < changeLimit) {
 			MainView.outputText("\n\nYou feel a delicate tightening sensation around your [balls].  The sensation upon this most sensitive part of your anatomy isn't painful, but the feeling of your balls getting smaller is intense enough that you stifle anything more than a sharp intake of breath only with difficulty.");
 			player.ballSize--;
 			if (player.ballSize > 8) {
@@ -7748,7 +7748,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 				player.ballSize--;
 			}
 			//Testicle Reduction final:
-			if (player.ballSize < 1 && player.findStatusAffect(StatusAffects.Uniball) < 0) {
+			if (player.ballSize < 1 && !player.findStatusAffect(StatusAffects.Uniball)) {
 				MainView.outputText("  You whimper as once again, your balls tighten and shrink.  Your eyes widen when you feel the gentle weight of your testicles pushing against the top of your [hips], and a few hesitant swings of your rear confirm what you can feel - you've tightened your balls up so much they no longer hang beneath your " + Descriptors.multiCockDescriptLight() + ", but press perkily upwards.  Heat ringing your ears, you explore your new sack with a careful hand.  You are deeply grateful you apparently haven't reversed puberty, but you discover that though you still have " + Utils.num2Text(player.balls) + ", your balls now look and feel like one: one cute, tight little sissy parcel, its warm, insistent pressure upwards upon the joining of your thighs a never-ending reminder of it.");
 				//[Note: Balls description should no longer say “swings heavily beneath”.  For simplicity's sake sex scenes should continue to assume two balls]
 				player.ballSize = 1;
@@ -7851,7 +7851,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			}
 		}
 		//Nipples Turn Black:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) < 0 && Utils.rand(6) === 0 && changes < changeLimit) {
+		if (!player.findStatusAffect(StatusAffects.BlackNipples) && Utils.rand(6) === 0 && changes < changeLimit) {
 			MainView.outputText("\n\nA tickling sensation plucks at your nipples and you cringe, trying not to giggle.  Looking down you are in time to see the last spot of flesh tone disappear from your [nipples].  They have turned an onyx black!");
 			player.createStatusAffect(StatusAffects.BlackNipples, 0, 0, 0, 0);
 			changes++;
@@ -8159,7 +8159,7 @@ angular.module('cocjs').factory('Mutations', function ( $log, MainView, SceneLib
 			}
 		}
 		//Nipples Turn Back:
-		if (player.findStatusAffect(StatusAffects.BlackNipples) >= 0 && Utils.rand(3) === 0) {
+		if (player.findStatusAffect(StatusAffects.BlackNipples) && Utils.rand(3) === 0) {
 			MainView.outputText("\n\nSomething invisible brushes against your " + Descriptors.nippleDescript(0) + ", making you twitch.  Undoing your clothes, you take a look at your chest and find that your nipples have turned back to their natural flesh colour.");
 			player.removeStatusAffect(StatusAffects.BlackNipples);
 		}

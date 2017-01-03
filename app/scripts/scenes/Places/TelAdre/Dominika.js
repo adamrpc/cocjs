@@ -134,22 +134,22 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 				MainView.outputText( 'You take a step backwards in surprise, but your experience with magic makes you realize that she\'s not doing anything dangerous. You explain that you\'ve learned a bit of sorcery from books, and she nods thoughtfully. "<i>I see,</i>" she muses, stroking her chin. "<i>I think I may be able to show you a thing or two. Let\'s see here...</i>"\n\n', false );
 				MainView.outputText( 'Dominika seems to be quite good at magic, and you find yourself picking up the spell she demonstrates fairly quickly.', false );
 				//(Player receives random unlearned spell.);
-				if( CoC.player.findStatusAffect( StatusAffects.KnowsMight ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.KnowsMight ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsMight, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New Black Magic Spell Learned: Might</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsHeal, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New Black Magic Spell Learned: Heal</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsArouse, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New Black Magic Spell Learned: Arouse</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New White Magic Spell Learned: Charge</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New White Magic Spell Learned: Blind</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New White Magic Spell Learned: Whitefire</b>', false );
 				} else {
@@ -163,22 +163,22 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, CockT
 				MainView.outputText( '"<i>So sorry, again,</i>" she says, those black lips curving into a big smile. "<i>I guess I\'ll take that to mean \'not much\', so, here. Let me show you some things.</i>"\n\n', false );
 				MainView.outputText( 'Even with your inexperience, you find Dominika to be a good teacher. She helps you focus and train your mind, and you quickly find your first spell to be easy to perform.', false );
 				//(Player receives random unlearned spell.);
-				if( CoC.player.findStatusAffect( StatusAffects.KnowsMight ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.KnowsMight ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsMight, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New Black Magic Spell Learned: Might</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsHeal, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New Black Magic Spell Learned: Heal</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsArouse, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New Black Magic Spell Learned: Arouse</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New White Magic Spell Learned: Charge</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New White Magic Spell Learned: Blind</b>', false );
-				} else if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
+				} else if( !CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 					CoC.player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
 					MainView.outputText( '\n\n<b>New White Magic Spell Learned: Whitefire</b>', false );
 				} else {

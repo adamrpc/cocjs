@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00225 ] = 1;
 		}
 		//hangover status stuff;
-		if( CoC.player.findStatusAffect( StatusAffects.Hangover ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Hangover ) ) {
 			//Countdown;
 			if( CoC.player.statusAffectv1( StatusAffects.Hangover ) > 0 ) {
 				CoC.player.addStatusValue( StatusAffects.Hangover, 1, -1 );
@@ -675,7 +675,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, PerkLib
 		//v3 = speed taken;
 		//v4 = intelligence;
 		//Already hungover?  Reset duration.;
-		if( CoC.player.findStatusAffect( StatusAffects.Hangover ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Hangover ) ) {
 			CoC.player.changeStatusValue( StatusAffects.Hangover, 1, 8 );
 		}//No hangover yet?  Create and yoink stats;
 		else {

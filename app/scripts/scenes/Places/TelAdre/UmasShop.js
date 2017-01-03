@@ -360,10 +360,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		if( selectedMassage < 0 || selectedMassage > 4 ) {
 			MainView.outputText( '<b>Invalid massage bonus ID! Welp!</b>' );
 		} else {
-			var statIndex = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
 			var bonusValue;
 			// Remove the old massage bonus if present;
-			if( statIndex >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.UmasMassage ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.UmasMassage );
 			}
 			if( selectedMassage === UmasShop.MASSAGE_RELIEF ) {
@@ -393,10 +392,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 	 * When expired, remove and include a message to the effect.
 	 */
 	UmasShop.prototype.updateBonusDuration = function( hours ) {
-		var statIndex = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
-		if( statIndex >= 0 ) {
-			CoC.player.statusAffect( statIndex ).value3 -= hours;
-			if( CoC.player.statusAffect( statIndex ).value3 <= 0 ) {
+		var stat = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
+		if( stat ) {
+			stat.value3 -= hours;
+			if( stat.value3 <= 0 ) {
 				this.bonusExpired();
 			}
 		}

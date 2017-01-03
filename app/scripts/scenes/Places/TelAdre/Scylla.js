@@ -32,11 +32,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 		}
 		this.scyllaLastActionSelectionTime = CoC.time.totalTime;
 		this.action = Scylla.SCYLLA_NOT_PRESENT;
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && (!CoC.player.hasCock() || CoC.player.longestCockLength() < 12) && CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && (!CoC.player.hasCock() || CoC.player.longestCockLength() < 12) && CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] === 0 ) {
 			this.action = Scylla.SCYLLA_ACTION_FIRST_TALK;
 			return;
 		}
-		if( CoC.player.cocks.length > 0 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.cocks.length > 0 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			if( CoC.player.longestCockLength() >= 12 ) {
 				if( CoC.flags[ kFLAGS.NUMBER_OF_TIMES_MET_SCYLLA ] === 0 ) {
 					this.action = Scylla.SCYLLA_ACTION_FIRST_TALK;
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 			MainView.outputText( 'Approaching the nun once more, you’re pleasantly surprised that you have her full attention. The ' + Descriptors.cockDescript( 0 ) + ' bulging under your clothes may have something to do with her sudden attentiveness. Prying her gaze up to eye level, she offers a weak smile and a soft apology. She introduces herself as Scylla and offers you a seat. She seems troubled and before long you have the shy giantess of a woman laying her troubles out for you.\n\n' );
 		}
 		//PC DID BLOW FACTORY UP;
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( '"<i>I was once a holy woman, sworn to relieve pain from any who suffer, but one night I experienced a dream. It told me that I must go on a pilgrimage to the distant mountains and save one who suffered greatly at an unjust hand. I travelled by day and fasted by night, but when I reached the mountains, I found that my vision had been a trick. Demons seized me and taunted me by saying that I was the one who suffered, for I had never known the touch of a lover. They dragged me to their terrible factory, where I beheld their sinful works and bound me to one of their devices. They promised that I would love my new life and to be sure that my \'suffering\' lasted not a moment longer, they hooked a vial of alabaster liquid to my mouth. It was some blasphemous concentration of semen, sweat, and blood and the very smell of it nearly suffocated my mind. But just as the first drop touched my tongue, there was a terrible explosion, and the factory\'s machines detonated, as if struck down by the hands of the gods. I was saved and helped as many as I could from that den of inequity,</i>" finishes Scylla.\n\n', false );
 		}//PC DIDNT;
 		else {
@@ -554,7 +554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EventParser, Status
 	//[Take Advantage]	(First time and Repeat);
 	Scylla.prototype.scyllaPtVTakeAdvantage = function() {
 		this.scyllaSprite();
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 			CoC.flags[ kFLAGS.TIMES_MET_SCYLLA_IN_ADDICTION_GROUP ]++;
 			CoC.flags[ kFLAGS.TIMES_SCYLLA_ADDICT_GROUP_EXPLOITED ]++;
 			this.scyllaVTakeAdvantageWithExgartuan();

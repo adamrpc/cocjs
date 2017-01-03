@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'Suddenly the silence is broken by a shrill screeching laugh, then a howl and the movement of the demons begins to accelerate. The deep bass laugh of the demon leader breaks over you like a crashing wave and the demons shriek with frenzied lust as they take you on the sand of the oasis.', false );
 		//Count voluntary submissions
-		if( CoC.player.findStatusAffect( StatusAffects.VoluntaryDemonpack ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.VoluntaryDemonpack ) ) {
 			CoC.player.createStatusAffect( StatusAffects.VoluntaryDemonpack, 0, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.VoluntaryDemonpack, 1, 1 );
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		else if( (CoC.player.HP < 1 || CoC.player.lust > 99) && CoC.isInCombat() ) {
 			//Oasis Demons Defeat PC as part of antm
 			//Antmorph stuff
-			if( CoC.monster.findStatusAffect( StatusAffects.phyllafight ) >= 0 ) {
+			if( CoC.monster.findStatusAffect( StatusAffects.phyllafight ) ) {
 				MainView.outputText( 'You sought to save the ant-girl from being raped, and looking around, you don\'t see her anywhere.  She must have gotten away safely.  Mission... accomplished?  Wait, that ungrateful little bitch just left you to suffer in her place!  Your ass is gonna be sore for a while, but not as sore as your pride...  ' );
 				CoC.flags[ kFLAGS.ANTS_PC_FAILED_PHYLLA ] = 1;
 			}

@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'Anemone', function( SceneLib, CockTypesEnum,
 			str = 1;
 		}
 		//First application;
-		if( CoC.player.findStatusAffect( StatusAffects.AnemoneVenom ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.AnemoneVenom ) ) {
 			CoC.player.createStatusAffect( StatusAffects.AnemoneVenom, 0, 0, 0, 0 );
 		}
 		//Gain some lust;

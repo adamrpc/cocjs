@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, $log
 	//Genderless Masturbation;
 	ShouldraFollower.prototype.shouldraFappinTimes = function() {
 		MainView.spriteSelect( 67 );
-		if( CoC.player.hasCock() && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.hasCock() && CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			this.shouldraAndWormsYoureGonnaHaveABadTime();
 		} else if( CoC.player.gender === 0 ) {
 			this.genderlessShouldraMasturbation();
@@ -1565,7 +1565,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, $log
 			choices[ choices.length ] = 14;
 		}
 		//15 (Pure Jojo is a follower);
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			choices[ choices.length ] = 15;
 		}
 		//16 (has any of Marae's gift perks);

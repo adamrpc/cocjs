@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			MainView.outputText( 'You stumble through a break in the tall foliage to discover a small, barren clearing.  While it looks like grass once grew here, it\'s long since been trampled into the dirt.  Looking closer, it reminds you of some of the old straw that was constantly packed into the hard earth of your neighbor\'s barn when you were growing up.  There are a few sizable chests secured with heavy iron locks and draped with comfortable-looking blankets.  The heavy boxes are grouped in a half-circle surrounding a chair that currently holds the camp-owner\'s sizable backside.  It reminds you of a cruder version of your own camp.\n\n', false );
 			MainView.outputText( 'Even seated, the occupant of this unsheltered settlement is imposing.  Standing up she\'d have to be at least seven feet tall, maybe even eight.  You\'re looking at her from the back, and aside from the obvious femininity of her figure and lilting voice, all you see is the red tangles of her unruly red locks.  The woman\'s voice peaks, finishing her unusual song with such a high-pitched tone that you expect the iron locks and rivets on her chests to crack.  Thankfully her song\'s crescendo is quite brief, and her voice drops to a quiet warble before trailing off into silence.  She stands up, glances over her shoulder, and jumps back with her eyes wide in shock as she notices you.\n\n', false );
 			MainView.outputText( 'She\'s a cow-girl!  Well, not completely anyways.  ', false );
-			if( CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Marble ) ) {
 				MainView.outputText( 'She\'s like Marble - she has a human face with horns and cow-like ears.', false );
 			} else {
 				MainView.outputText( 'She has a human face, but the top of her head is also adorned with a pair of stubby, bovine horns and floppy cow-ears.', false );
@@ -1528,7 +1528,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		MainView.outputText( '', true );
 		MainView.outputText( 'You aren\'t interested in her milk though.  You came for a different sort of relief, and Isabella should be thankful you plan to share it.  The confused, beaten cow watches you with wide, helpless eyes as you disrobe, dropping your ' + CoC.player.armorName + ' heavily on some of her rugs.  Her skirt shouldn\'t pose a problem; a quick push has it bunched up around Isabella\'s waistline.  With the offending garment moved, you can get a good look at a sight you plan to get <b>intimately</b> familiar with for the next fifteen minutes or so.\n\n', false );
 		MainView.outputText( 'Before you are the ', false );
-		if( CoC.player.findStatusAffect( StatusAffects.Edryn ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Edryn ) ) {
 			MainView.outputText( 'plumpest, juiciest set of pussy lips you\'ve ever had the chance to lick.', false );
 		} else {
 			MainView.outputText( 'plumpest, juiciest vulva you\'ve seen on a pussy since you met Edryn.', false );

@@ -62,10 +62,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 			return;
 		}
 		//10% chance of hairdresser encounter if not found yet
-		if( Utils.rand( 10 ) === 0 && CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) < 0 ) {
+		if( Utils.rand( 10 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) ) {
 			chooser = 4;
 		}
-		if( (Utils.rand( 8 ) === 0 && CoC.player.findStatusAffect( StatusAffects.MetMarae ) >= 0) && CoC.player.findStatusAffect( StatusAffects.FoundFactory ) < 0 ) {
+		if( (Utils.rand( 8 ) === 0 && CoC.player.findStatusAffect( StatusAffects.MetMarae )) && !CoC.player.findStatusAffect( StatusAffects.FoundFactory ) ) {
 			SceneLib.dungeonCore.enterFactory();
 			return;
 		}
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		//Minotauuuuur
 		if( chooser === 1 ) {
 			MainView.spriteSelect( 44 );
-			if( CoC.player.findStatusAffect( StatusAffects.TF2 ) < 0 && CoC.player.level <= 1 && CoC.player.str <= 40 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.TF2 ) && CoC.player.level <= 1 && CoC.player.str <= 40 ) {
 				if( EngineCore.silly() ) {
 					//(Ideally, this should occur the first time the player would normally get an auto-rape encounter with the minotaur. The idea is to give a breather encounter to serve as a warning of how dangerous the mountain is)
 					MainView.outputText( 'Crossing over the treacherous mountain paths, you walk past an ominous cave.  The bones and the smell of death convince you to hasten your pace.  However, as you walk by, you hear a deep bellow and a snort as a monstrous man with a bull\'s head steps out.  With hell in his eyes and a giant ax in his hand, he begins to approach you in clear rage.  As he comes out into the light, you see that he is completely naked and sports a monstrous erection as angry as the minotaur himself, freely leaking a steady stream of pre-cum as he stalks you.\n\n', true );
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 				return;
 			}
 			//Mino gangbang
-			if( CoC.player.findStatusAffect( StatusAffects.MinoPlusCowgirl ) < 0 || Utils.rand( 10 ) === 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MinoPlusCowgirl ) || Utils.rand( 10 ) === 0 ) {
 				if( CoC.flags[ kFLAGS.HAS_SEEN_MINO_AND_COWGIRL ] === 1 && CoC.player.horns > 0 && CoC.player.hornType === AppearanceDefs.HORNS_COW_MINOTAUR && CoC.player.earType === AppearanceDefs.EARS_COW && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_COW && CoC.player.lactationQ() >= 200 && CoC.player.biggestTitSize() >= 3 && CoC.player.minotaurAddicted() ) {
 					//PC must be a cowmorph (horns, legs, ears, tail, lactating, breasts at least C-cup)
 					//Must be addicted to minocum
@@ -201,7 +201,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 					return;
 				}
 				CoC.flags[ kFLAGS.HAS_SEEN_MINO_AND_COWGIRL ] = 1;
-				if( CoC.player.findStatusAffect( StatusAffects.MinoPlusCowgirl ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.MinoPlusCowgirl ) ) {
 					CoC.player.createStatusAffect( StatusAffects.MinoPlusCowgirl, 0, 0, 0, 0 );
 				} else {
 					CoC.player.addStatusValue( StatusAffects.MinoPlusCowgirl, 1, 1 );
@@ -227,8 +227,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		//Worms
 		if( chooser === 2 ) {
 			//If worms are on and not infested.
-			if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.WormsHalf ) >= 0 && Utils.rand( 2 ) === 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) && !CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
+				if( CoC.player.findStatusAffect( StatusAffects.WormsHalf ) && Utils.rand( 2 ) === 0 ) {
 					if( CoC.player.cor < 90 ) {
 						MainView.outputText( 'Your hike in the mountains, while fruitless, reveals pleasant vistas and provides you with good exercise and relaxation.', true );
 						EngineCore.dynStats( 'tou', 0.25, 'spe', 0.5, 'lus', CoC.player.lib / 10 - 15 );
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 				SceneLib.worms.wormEncounter();
 			} else {
 				//If worms are off or the PC is infested, no worms.
-				if( CoC.player.findStatusAffect( StatusAffects.WormsOff ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 || (Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.WormsHalf ) >= 0) ) {
+				if( CoC.player.findStatusAffect( StatusAffects.WormsOff ) || CoC.player.findStatusAffect( StatusAffects.Infested ) || (Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.WormsHalf )) ) {
 					if( CoC.player.cor < 90 ) {
 						MainView.outputText( 'Your hike in the mountains, while fruitless, reveals pleasant vistas and provides you with good exercise and relaxation.', true );
 						EngineCore.dynStats( 'tou', 0.25, 'spe', 0.5, 'lus', CoC.player.lib / 10 - 15 );
@@ -259,9 +259,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		//Hellhound
 		if( chooser === 3 ) {
 			MainView.spriteSelect( 27 );
-			if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && Utils.rand( 2 ) === 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) && Utils.rand( 2 ) === 0 ) {
 				//If lowered encounter rate, 25% chance, otherwise 50%.
-				if( CoC.player.findStatusAffect( StatusAffects.WormsHalf ) >= 0 && Utils.rand( 2 ) === 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.WormsHalf ) && Utils.rand( 2 ) === 0 ) {
 					SceneLib.hellHoundScene.hellhoundEncounter();
 					return;
 				}
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 		//Chance to impregnate PC, get mino-fix, and maybe relief from feeder perk.
 		CoC.player.minoCumAddiction( 10 );
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_MINOTAUR, PregnancyStore.INCUBATION_MINOTAUR );
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			//You've now been milked, reset the timer for that
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );

@@ -279,7 +279,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	Monster.prototype.attackSucceeded = function() {
 		var attack = true;
 		//Blind dodge change
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			attack = attack && this.handleBlind();
 		}
 		attack = attack && !this.playerDodged();
@@ -422,23 +422,23 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		return false;
 	};
 	Monster.prototype.doAI = function() {
-		if( this.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Stunned ) ) {
 			if( !this.handleStun() ) {
 				return;
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.Fear ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Fear ) ) {
 			if( !this.handleFear() ) {
 				return;
 			}
 		}
 		//Exgartuan gets to do stuff!
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
 			if( CoC.exgartuan.exgartuanCombatUpdate() ) {
 				MainView.outputText( '\n\n', false );
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.Constricted ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Constricted ) ) {
 			if( !this.handleConstricted() ) {
 				return;
 			}
@@ -568,7 +568,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		this.outputDefaultTeaseReaction( lustDelta );
 		if( lustDelta > 0 ) {
 			//Imp mob uber interrupt!
-			if( this.findStatusAffect( StatusAffects.ImpUber ) >= 0 ) { // TODO move to proper class
+			if( this.findStatusAffect( StatusAffects.ImpUber ) ) { // TODO move to proper class
 				MainView.outputText( '\nThe imps in the back stumble over their spell, their loincloths tenting obviously as your display interrupts their casting.  One of them spontaneously orgasms, having managed to have his spell backfire.  He falls over, weakly twitching as a growing puddle of whiteness surrounds his defeated form.', false );
 				//(-5% of max enemy HP)
 				this.HP -= this.bonusHP * 0.05;
@@ -645,17 +645,17 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		return this.drop.roll();
 	};
 	Monster.prototype.combatRoundUpdate = function() {
-		if( this.findStatusAffect( StatusAffects.MilkyUrta ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.MilkyUrta ) ) {
 			SceneLib.urtaQuest.milkyUrtaTic();
 		}
 		//Countdown
-		if( this.findStatusAffect( StatusAffects.TentacleCoolDown ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.TentacleCoolDown ) ) {
 			this.addStatusValue( StatusAffects.TentacleCoolDown, 1, -1 );
 			if( this.statusAffect( this.findStatusAffect( StatusAffects.TentacleCoolDown ) ).value1 === 0 ) {
 				this.removeStatusAffect( StatusAffects.TentacleCoolDown );
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.CoonWhip ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.CoonWhip ) ) {
 			if( this.statusAffectv2( StatusAffects.CoonWhip ) <= 0 ) {
 				this.armorDef += this.statusAffectv1( StatusAffects.CoonWhip );
 				MainView.outputText( '<b>Tail whip wears off!</b>\n\n' );
@@ -671,7 +671,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				MainView.outputText( ' armor by ' + this.statusAffectv1( StatusAffects.CoonWhip ) + '.</b>\n\n' );
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			this.addStatusValue( StatusAffects.Blind, 1, -1 );
 			if( this.statusAffectv1( StatusAffects.Blind ) <= 0 ) {
 				MainView.outputText( '<b>' + this.getCapitalA() + this.short + (this.plural ? ' are' : ' is') + ' no longer blind!</b>\n\n', false );
@@ -680,11 +680,11 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				MainView.outputText( '<b>' + this.getCapitalA() + this.short + (this.plural ? ' are' : ' is') + ' currently blind!</b>\n\n', false );
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.Earthshield ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Earthshield ) ) {
 			MainView.outputText( '<b>' + this.getCapitalA() + this.short + ' is protected by a shield of rocks!</b>\n\n' );
 		}
-		if( this.findStatusAffect( StatusAffects.Sandstorm ) >= 0 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Sandstorm ) ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 				MainView.outputText( '<b>You blink the sand from your eyes, but you\'re sure that more will get you if you don\'t end it soon!</b>\n\n' );
 				CoC.player.removeStatusAffect( StatusAffects.Blind );
 			} else {
@@ -699,10 +699,10 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			}
 			this.addStatusValue( StatusAffects.Sandstorm, 1, 1 );
 		}
-		if( this.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Stunned ) ) {
 			MainView.outputText( '<b>' + this.getCapitalA() + this.short + ' is still stunned!</b>\n\n', false );
 		}
-		if( this.findStatusAffect( StatusAffects.Shell ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Shell ) ) {
 			if( this.statusAffectv1( StatusAffects.Shell ) >= 0 ) {
 				MainView.outputText( '<b>A wall of many hues shimmers around ' + this.a + this.short + '.</b>\n\n' );
 				this.addStatusValue( StatusAffects.Shell, 1, -1 );
@@ -711,7 +711,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				this.removeStatusAffect( StatusAffects.Shell );
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.IzmaBleed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.IzmaBleed ) ) {
 			//Countdown to heal
 			this.addStatusValue( StatusAffects.IzmaBleed, 1, -1 );
 			//Heal wounds
@@ -730,13 +730,13 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				}
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.Timer ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Timer ) ) {
 			if( this.statusAffectv1( StatusAffects.Timer ) <= 0 ) {
 				this.removeStatusAffect( StatusAffects.Timer );
 			}
 			this.addStatusValue( StatusAffects.Timer, 1, -1 );
 		}
-		if( this.findStatusAffect( StatusAffects.LustStick ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.LustStick ) ) {
 			//LoT Effect Messages)) {
 			switch( this.statusAffectv1( StatusAffects.LustStick ) ) {
 				case 1:
@@ -779,13 +779,13 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			//Reduced by lust vuln of course
 			this.lust += Math.round( this.lustVuln * (5 + this.statusAffectv2( StatusAffects.LustStick )) );
 		}
-		if( this.findStatusAffect( StatusAffects.PCTailTangle ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.PCTailTangle ) ) {
 			//when Entwined
 			MainView.outputText( 'You are bound tightly in the kitsune\'s tails.  <b>The only thing you can do is try to struggle free!</b>\n\n' );
 			MainView.outputText( 'Stimulated by the coils of fur, you find yourself growing more and more aroused...\n\n' );
 			EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10 );
 		}
-		if( this.findStatusAffect( StatusAffects.QueenBind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.QueenBind ) ) {
 			MainView.outputText( 'You\'re utterly restrained by the Harpy Queen\'s magical ropes!\n\n' );
 			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 2 ) {
 				EngineCore.dynStats( 'lus', 3 );
@@ -807,7 +807,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			EngineCore.dynStats( 'lus', 1 + Utils.rand( 8 ) );
 		}
 		//[LUST GAINED PER ROUND] - Omnibus
-		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.LustAura ) ) {
 			if( CoC.player.lust < 33 ) {
 				MainView.outputText( 'Your groin tingles warmly.  The demon\'s aura is starting to get to you.\n\n', false );
 			}

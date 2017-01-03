@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC
 	//basilisk physical attack: With lightning speed, the basilisk slashes you with its index claws!
 	//Noun: claw
 	Basilisk.prototype.performCombatAction = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.BasiliskCompulsion ) < 0 && Utils.rand( 3 ) === 0 && this.findStatusAffect( StatusAffects.Blind ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.BasiliskCompulsion ) && Utils.rand( 3 ) === 0 && !this.findStatusAffect( StatusAffects.Blind ) ) {
 			this.compulsion();
 		} else if( Utils.rand( 3 ) === 0 ) {
 			this.basiliskTailSwipe();

@@ -98,10 +98,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		//Berzerking removes armor
-		if( this.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Berzerking ) ) {
 			result = 0;
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.TailWhip ) ) {
 			result -= CoC.monster.statusAffectv1( StatusAffects.TailWhip );
 			if( result < 0 ) {
 				result = 0;
@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( this.findPerk( PerkLib.LightningStrikes ) && this.spe >= 60 && this.weaponPerk !== 'Large' ) {
 			attack += Math.round( (this.spe - 50) / 3 );
 		}
-		if( this.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Berzerking ) ) {
 			attack += 30;
 		}
 		attack += this.statusAffectv1( StatusAffects.ChargeWeapon );
@@ -159,7 +159,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] ) {
 			damage /= 2;
 		}
-		if( this.findStatusAffect( StatusAffects.Shielding ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Shielding ) ) {
 			damage -= 30;
 			if( damage < 1 ) {
 				damage = 1;
@@ -185,10 +185,10 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		// Uma's Massage bonuses
-		var statIndex = this.findStatusAffect( StatusAffects.UmasMassage );
-		if( statIndex >= 0 ) {
-			if( this.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_RELAXATION ) {
-				damage = Math.round( damage * this.statusAffect( statIndex ).value2 );
+		var stat = this.findStatusAffect( StatusAffects.UmasMassage );
+		if( stat ) {
+			if( stat.value1 === SceneLib.umasShop.MASSAGE_RELAXATION ) {
+				damage = Math.round( damage * stat.value2 );
 			}
 		}
 		// Uma's Accupuncture Bonuses
@@ -558,11 +558,11 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	};
 	Player.prototype.sandTrapScore = function() {
         return computeScore([
-            this.findStatusAffect( StatusAffects.BlackNipples ) >= 0,
+            this.findStatusAffect( StatusAffects.BlackNipples ),
             this.hasVagina() && this.vaginaType() === 5,
             this.eyeType === 2,
             this.wingType === 12,
-            this.findStatusAffect( StatusAffects.Uniball ) >= 0
+            this.findStatusAffect( StatusAffects.Uniball )
         ]);
 	};
 	//Determine Bee Rating
@@ -762,7 +762,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
             this.skinAdj === 'slimy',
             this.lowerBody === 8,
             this.vaginalCapacity() > 9000,
-            this.findStatusAffect( StatusAffects.SlimeCraving ) >= 0
+            this.findStatusAffect( StatusAffects.SlimeCraving )
         ]);
 	};
 	//Nagascore
@@ -849,7 +849,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		//(Large – 0.8 - Size 10 + 4 Multi)
 		//(HUGE – 2.4 - Size 12 + 5 Multi + 4 tits)
 		var total;
-		if( this.findStatusAffect( StatusAffects.LactationEndurance ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.LactationEndurance ) ) {
 			this.createStatusAffect( StatusAffects.LactationEndurance, 1, 0, 0, 0 );
 		}
 		total = this.biggestTitSize() * 10 * this.averageLactation() * this.statusAffectv1( StatusAffects.LactationEndurance ) * this.totalBreasts();
@@ -958,11 +958,11 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		}
 	};
 	Player.prototype.slimeFeed = function() {
-		if( this.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.SlimeCraving ) ) {
 			//Reset craving value
 			this.changeStatusValue( StatusAffects.SlimeCraving, 1, 0 );
 			//Flag to display feed update and restore stats in event parser
-			if( this.findStatusAffect( StatusAffects.SlimeCravingFeed ) < 0 ) {
+			if( !this.findStatusAffect( StatusAffects.SlimeCravingFeed ) ) {
 				this.createStatusAffect( StatusAffects.SlimeCravingFeed, 0, 0, 0, 0 );
 			}
 		}
@@ -1031,7 +1031,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.spellCount = function() {
 		var that = this;
 		return _.filter( [ StatusAffects.KnowsArouse, StatusAffects.KnowsHeal, StatusAffects.KnowsMight, StatusAffects.KnowsCharge, StatusAffects.KnowsBlind, StatusAffects.KnowsWhitefire ], function( item ) {
-			return that.findStatusAffect( item ) >= 0;
+			return that.findStatusAffect( item );
 		} ).length;
 	};
 	Player.prototype.hairDescript = function() {
@@ -1270,7 +1270,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 	Player.prototype.minLust = function() {
 		var min = 0;
 		//Bimbo body boosts minimum lust by 40
-		if( this.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || this.findPerk( PerkLib.BimboBody ) || this.findPerk( PerkLib.BroBody ) || this.findPerk( PerkLib.FutaForm ) ) {
+		if( this.findStatusAffect( StatusAffects.BimboChampagne ) || this.findPerk( PerkLib.BimboBody ) || this.findPerk( PerkLib.BroBody ) || this.findPerk( PerkLib.FutaForm ) ) {
 			if( min > 40 ) {
 				min += 10;
 			} else if( min >= 20 ) {
@@ -1300,7 +1300,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			}
 		}
 		//Oh noes anemone!
-		if( this.findStatusAffect( StatusAffects.AnemoneArousal ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.AnemoneArousal ) ) {
 			if( min >= 40 ) {
 				min += 10;
 			} else if( min >= 20 ) {
@@ -1328,7 +1328,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		min += this.perkv1( PerkLib.PiercedCrimstone );
 		min += this.perkv1( PerkLib.PentUp );
 		//Harpy Lipstick status forces minimum lust to be at least 50.
-		if( min < 50 && this.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
+		if( min < 50 && this.findStatusAffect( StatusAffects.Luststick ) ) {
 			min = 50;
 		}
 		//SHOULDRA BOOSTS
@@ -1358,147 +1358,147 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		return CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] > 1;
 	};
 	Player.prototype.clearStatuses = function( ) {
-		while( this.findStatusAffect( StatusAffects.Web ) >= 0 ) {
+		while( this.findStatusAffect( StatusAffects.Web ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.Web );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.Web );
 		}
-		if( this.findStatusAffect( StatusAffects.Shielding ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Shielding ) ) {
 			this.removeStatusAffect( StatusAffects.Shielding );
 		}
-		if( this.findStatusAffect( StatusAffects.HolliConstrict ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.HolliConstrict ) ) {
 			this.removeStatusAffect( StatusAffects.HolliConstrict );
 		}
-		if( this.findStatusAffect( StatusAffects.LustStones ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.LustStones ) ) {
 			this.removeStatusAffect( StatusAffects.LustStones );
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) ) {
 			CoC.monster.this.removeStatusAffect( StatusAffects.Sandstorm );
 		}
-		if( this.findStatusAffect( StatusAffects.Sealed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Sealed ) ) {
 			this.removeStatusAffect( StatusAffects.Sealed );
 		}
-		if( this.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Berzerking ) ) {
 			this.removeStatusAffect( StatusAffects.Berzerking );
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.TailWhip ) ) {
 			CoC.monster.this.removeStatusAffect( StatusAffects.TailWhip );
 		}
-		if( this.findStatusAffect( StatusAffects.UBERWEB ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.UBERWEB ) ) {
 			this.removeStatusAffect( StatusAffects.UBERWEB );
 		}
-		if( this.findStatusAffect( StatusAffects.DriderKiss ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.DriderKiss ) ) {
 			this.removeStatusAffect( StatusAffects.DriderKiss );
 		}
-		if( this.findStatusAffect( StatusAffects.WebSilence ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.WebSilence ) ) {
 			this.removeStatusAffect( StatusAffects.WebSilence );
 		}
-		if( this.findStatusAffect( StatusAffects.GooArmorSilence ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.GooArmorSilence ) ) {
 			this.removeStatusAffect( StatusAffects.GooArmorSilence );
 		}
-		if( this.findStatusAffect( StatusAffects.Bound ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Bound ) ) {
 			this.removeStatusAffect( StatusAffects.Bound );
 		}
-		if( this.findStatusAffect( StatusAffects.GooArmorBind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.GooArmorBind ) ) {
 			this.removeStatusAffect( StatusAffects.GooArmorBind );
 		}
-		if( this.findStatusAffect( StatusAffects.Whispered ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Whispered ) ) {
 			this.removeStatusAffect( StatusAffects.Whispered );
 		}
-		if( this.findStatusAffect( StatusAffects.AkbalSpeed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.AkbalSpeed ) ) {
 			EngineCore.dynStats( 'spe', this.statusAffectv1( StatusAffects.AkbalSpeed ) * -1 );
 			this.removeStatusAffect( StatusAffects.AkbalSpeed );
 		}
-		if( this.findStatusAffect( StatusAffects.AmilyVenom ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.AmilyVenom ) ) {
 			EngineCore.dynStats( 'str', this.statusAffectv1( StatusAffects.AmilyVenom ), 'spe', this.statusAffectv2( StatusAffects.AmilyVenom ) );
 			this.removeStatusAffect( StatusAffects.AmilyVenom );
 		}
-		while( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		while( this.findStatusAffect( StatusAffects.Blind ) ) {
 			this.removeStatusAffect( StatusAffects.Blind );
 		}
-		if( this.findStatusAffect( StatusAffects.SheilaOil ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.SheilaOil ) ) {
 			this.removeStatusAffect( StatusAffects.SheilaOil );
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.TwuWuv ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.TwuWuv ) ) {
 			this.inte += CoC.monster.statusAffectv1( StatusAffects.TwuWuv );
 			MainView.statsView.show();
 			MainView.statsView.showStatUp( 'inte' );
 		}
-		if( this.findStatusAffect( StatusAffects.NagaVenom ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.NagaVenom ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.NagaVenom );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.NagaVenom );
 		}
-		if( this.findStatusAffect( StatusAffects.TentacleBind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.TentacleBind ) ) {
 			this.removeStatusAffect( StatusAffects.TentacleBind );
 		}
-		if( this.findStatusAffect( StatusAffects.NagaBind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.NagaBind ) ) {
 			this.removeStatusAffect( StatusAffects.NagaBind );
 		}
-		if( this.findStatusAffect( StatusAffects.StoneLust ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.StoneLust ) ) {
 			this.removeStatusAffect( StatusAffects.StoneLust );
 		}
 		this.removeStatusAffect( StatusAffects.FirstAttack );
-		if( this.findStatusAffect( StatusAffects.TemporaryHeat ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.TemporaryHeat ) ) {
 			this.removeStatusAffect( StatusAffects.TemporaryHeat );
 		}
-		if( this.findStatusAffect( StatusAffects.NoFlee ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.NoFlee ) ) {
 			this.removeStatusAffect( StatusAffects.NoFlee );
 		}
-		if( this.findStatusAffect( StatusAffects.Poison ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Poison ) ) {
 			this.removeStatusAffect( StatusAffects.Poison );
 		}
-		if( this.findStatusAffect( StatusAffects.IsabellaStunned ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.IsabellaStunned ) ) {
 			this.removeStatusAffect( StatusAffects.IsabellaStunned );
 		}
-		if( this.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Stunned ) ) {
 			this.removeStatusAffect( StatusAffects.Stunned );
 		}
-		if( this.findStatusAffect( StatusAffects.Confusion ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Confusion ) ) {
 			this.removeStatusAffect( StatusAffects.Confusion );
 		}
-		if( this.findStatusAffect( StatusAffects.ThroatPunch ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.ThroatPunch ) ) {
 			this.removeStatusAffect( StatusAffects.ThroatPunch );
 		}
-		if( this.findStatusAffect( StatusAffects.KissOfDeath ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.KissOfDeath ) ) {
 			this.removeStatusAffect( StatusAffects.KissOfDeath );
 		}
-		if( this.findStatusAffect( StatusAffects.AcidSlap ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.AcidSlap ) ) {
 			this.removeStatusAffect( StatusAffects.AcidSlap );
 		}
-		if( this.findStatusAffect( StatusAffects.GooBind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.GooBind ) ) {
 			this.removeStatusAffect( StatusAffects.GooBind );
 		}
-		if( this.findStatusAffect( StatusAffects.HarpyBind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.HarpyBind ) ) {
 			this.removeStatusAffect( StatusAffects.HarpyBind );
 		}
-		if( this.findStatusAffect( StatusAffects.CalledShot ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.CalledShot ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.CalledShot );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.CalledShot );
 		}
-		if( this.findStatusAffect( StatusAffects.DemonSeed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.DemonSeed ) ) {
 			this.removeStatusAffect( StatusAffects.DemonSeed );
 		}
-		if( this.findStatusAffect( StatusAffects.ParalyzeVenom ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.ParalyzeVenom ) ) {
 			this.str += this.statusAffect( this.findStatusAffect( StatusAffects.ParalyzeVenom ) ).value1;
 			this.spe += this.statusAffect( this.findStatusAffect( StatusAffects.ParalyzeVenom ) ).value2;
 			this.removeStatusAffect( StatusAffects.ParalyzeVenom );
 		}
-		if( this.findStatusAffect( StatusAffects.lustvenom ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.lustvenom ) ) {
 			this.removeStatusAffect( StatusAffects.lustvenom );
 		}
-		if( this.findStatusAffect( StatusAffects.InfestAttempted ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.InfestAttempted ) ) {
 			this.removeStatusAffect( StatusAffects.InfestAttempted );
 		}
-		if( this.findStatusAffect( StatusAffects.Might ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Might ) ) {
 			EngineCore.dynStats( 'str', -this.statusAffectv1( StatusAffects.Might ), 'tou', -this.statusAffectv2( StatusAffects.Might ) );
 			this.removeStatusAffect( StatusAffects.Might );
 		}
-		if( this.findStatusAffect( StatusAffects.ChargeWeapon ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.ChargeWeapon ) ) {
 			this.removeStatusAffect( StatusAffects.ChargeWeapon );
 		}
-		if( this.findStatusAffect( StatusAffects.Disarmed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Disarmed ) ) {
 			this.removeStatusAffect( StatusAffects.Disarmed );
 			if( this.weapon === WeaponLib.FISTS ) {
 				this.setWeapon( ItemType.lookupItem( CoC.flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ] ));
@@ -1506,7 +1506,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = CoC.flags[ kFLAGS.PLAYER_DISARMED_WEAPON_ID ];
 			}
 		}
-		if( this.findStatusAffect( StatusAffects.AnemoneVenom ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.AnemoneVenom ) ) {
 			this.str += this.statusAffectv1( StatusAffects.AnemoneVenom );
 			this.spe += this.statusAffectv2( StatusAffects.AnemoneVenom );
 			//Make sure nothing got out of bounds
@@ -1515,56 +1515,56 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 			MainView.statsView.showStatUp( 'str' );
 			this.removeStatusAffect( StatusAffects.AnemoneVenom );
 		}
-		if( this.findStatusAffect( StatusAffects.GnollSpear ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.GnollSpear ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.GnollSpear );
 			//Make sure nothing got out of bounds
 			EngineCore.dynStats( 'cor', 0 );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.GnollSpear );
 		}
-		if( this.findStatusAffect( StatusAffects.BasiliskCompulsion ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.BasiliskCompulsion ) ) {
 			this.removeStatusAffect( StatusAffects.BasiliskCompulsion );
 		}
-		if( this.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.BasiliskSlow ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.BasiliskSlow );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.BasiliskSlow );
 		}
-		while( this.findStatusAffect( StatusAffects.IzmaBleed ) >= 0 ) {
+		while( this.findStatusAffect( StatusAffects.IzmaBleed ) ) {
 			this.removeStatusAffect( StatusAffects.IzmaBleed );
 		}
-		if( this.findStatusAffect( StatusAffects.GardenerSapSpeed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.GardenerSapSpeed ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.GardenerSapSpeed );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.GardenerSapSpeed );
 		}
-		if( this.findStatusAffect( StatusAffects.KnockedBack ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.KnockedBack ) ) {
 			this.removeStatusAffect( StatusAffects.KnockedBack );
 		}
-		if( this.findStatusAffect( StatusAffects.RemovedArmor ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.RemovedArmor ) ) {
 			this.removeStatusAffect( StatusAffects.KnockedBack );
 		}
-		if( this.findStatusAffect( StatusAffects.JCLustLevel ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.JCLustLevel ) ) {
 			this.removeStatusAffect( StatusAffects.JCLustLevel );
 		}
-		if( this.findStatusAffect( StatusAffects.MirroredAttack ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.MirroredAttack ) ) {
 			this.removeStatusAffect( StatusAffects.MirroredAttack );
 		}
-		if( this.findStatusAffect( StatusAffects.Tentagrappled ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Tentagrappled ) ) {
 			this.removeStatusAffect( StatusAffects.Tentagrappled );
 		}
-		if( this.findStatusAffect( StatusAffects.TentagrappleCooldown ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.TentagrappleCooldown ) ) {
 			this.removeStatusAffect( StatusAffects.TentagrappleCooldown );
 		}
-		if( this.findStatusAffect( StatusAffects.ShowerDotEffect ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.ShowerDotEffect ) ) {
 			this.removeStatusAffect( StatusAffects.ShowerDotEffect );
 		}
-		if( this.findStatusAffect( StatusAffects.GardenerSapSpeed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.GardenerSapSpeed ) ) {
 			this.spe += this.statusAffectv1( StatusAffects.GardenerSapSpeed );
 			MainView.statsView.showStatUp( 'spe' );
 			this.removeStatusAffect( StatusAffects.GardenerSapSpeed );
 		}
-		if( this.findStatusAffect( StatusAffects.VineHealUsed ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.VineHealUsed ) ) {
 			this.removeStatusAffect( StatusAffects.VineHealUsed );
 		}
 	};
@@ -1794,7 +1794,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		if( removed === 1 ) {
 			if( this.cocks.length === 0 ) {
 				MainView.outputText( '<b>Your manhood shrinks into your body, disappearing completely.</b>', false );
-				if( this.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+				if( this.findStatusAffect( StatusAffects.Infested ) ) {
 					MainView.outputText( '  Like rats fleeing a sinking ship, a stream of worms squirts free from your withering member, slithering away.', false );
 				}
 			}
@@ -1807,7 +1807,7 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 		} else if( removed > 1 ) {
 			if( this.cocks.length === 0 ) {
 				MainView.outputText( '<b>All your male endowments shrink smaller and smaller, disappearing one at a time.</b>', false );
-				if( this.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+				if( this.findStatusAffect( StatusAffects.Infested ) ) {
 					MainView.outputText( '  Like rats fleeing a sinking ship, a stream of worms squirts free from your withering member, slithering away.', false );
 				}
 			}
@@ -1888,9 +1888,9 @@ angular.module( 'cocjs' ).factory( 'Player', function( SceneLib, $log, Character
 				MainView.outputText( '\n\nYour mind clouds as your ' + Descriptors.vaginaDescript( 0 ) + ' moistens.  Despite already being in heat, the desire to copulate constantly grows even larger.', false );
 			}
 			var statusToChange = this.findStatusAffect( StatusAffects.Heat );
-			this.statusAffect( statusToChange ).value1 += 5 * intensity;
-			this.statusAffect( statusToChange ).value2 += 5 * intensity;
-			this.statusAffect( statusToChange ).value3 += 48 * intensity;
+			statusToChange.value1 += 5 * intensity;
+			statusToChange.value2 += 5 * intensity;
+			statusToChange.value3 += 48 * intensity;
 			EngineCore.dynStats( 'lib', 5 * intensity, 'resisted', false, 'noBimbo', true );
 		}
 		//Go into heat.  Heats v1 is bonus fertility, v2 is bonus libido, v3 is hours till it's gone

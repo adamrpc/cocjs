@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			MainView.outputText( ' (' + damage + ')' );
 		}
 		//Miss:;
-		else if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMisdirect() || this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		else if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMisdirect() || this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'Sheila bounces up to you and crouches low, curling up her body like a watchspring.  The girl uncoils with fist raised, but you lean away from the uppercut, catching a faceful of her breasts instead!  Sheila squeals and pushes away from you' );
 			//[(libido>40);
 			if( CoC.player.lib > 40 ) {
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		var damage = 0;
 		this.spe -= 60;
 		//Miss:;
-		if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMisdirect() || (this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) === 0) ) {
+		if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMisdirect() || (this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) === 0) ) {
 			MainView.outputText( 'Sheila squats down, then bounds explosively toward you!  She swings her leg out in front to kick, but you roll to the side and she slips past your shoulder.  You hear an "<i>Oof!</i>" as she lands on her butt behind you.  When you turn to look, she\'s already back to her feet, rubbing her smarting posterior and looking a bit embarrassed.' );
 			//(small Sheila HP loss);
 			damage = 3 + Utils.rand( 10 );
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 	//Demon Sheila Combat - Special Attacks;
 	//1: Suspicious Glint (int-based hit chance);
 	Sheila.prototype.suspiciousGlint = function() {
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'Sheila\'s blind eyes glint suspiciously as she focuses her power, trying to send her fantasy to anything caught in their stare.  It seems to work - the rock next to you vibrates a little.' );
 		}
 		//Miss:;
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			}
 			MainView.outputText( ' run rampant inside your head and crowd out everything else.  "<i>Did you see it, [name]?  My love for you?</i>" Sheila asks, smiling.  God, did you ever!  You can hardly focus on anything!' );
 			//big (20+) int drop and big lib-based lust gain if successful, locks Infest command for the fight if successful, always misses if Sheila is blinded;
-			if( this.findStatusAffect( StatusAffects.TwuWuv ) < 0 ) {
+			if( !this.findStatusAffect( StatusAffects.TwuWuv ) ) {
 				this.createStatusAffect( StatusAffects.TwuWuv, 0, 0, 0, 0 );
 				var counter = 40 + Utils.rand( 5 );
 				MainView.statsView.showStatDown( 'inte' );
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 
 	Sheila.prototype.demonSheilaAI = function() {
 		//Count up till give up!;
-		if( this.findStatusAffect( StatusAffects.Counter ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Counter ) ) {
 			this.createStatusAffect( StatusAffects.Counter, 0, 0, 0, 0 );
 		}
 		this.addStatusValue( StatusAffects.Counter, 1, 1 );
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			return;
 		}
 		var choices = [];
-		if( CoC.player.findStatusAffect( StatusAffects.SheilaOil ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.SheilaOil ) ) {
 			choices = [ this.suspiciousGlint,
 				this.tittyMonsterAttack,
 				this.splashAttackLookOutShellEvolveIntoGyrados ];

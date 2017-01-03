@@ -101,7 +101,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 		}
 		//Rathazul;
-		else if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] === 2 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] === 2 ) {
 			MainView.outputText( 'Rathazul approaches you.  "<i>[name]?  What is going on?  It hasn\'t snowed in Mareth for years now.  And why only around the camp?  I wandered out to investigate, but outside there is no snow at all...</i>" he asks, concerned.' );
 			MainView.outputText( '\n\nYou tell Rathazul that you met a friendly... er... wizard up in the mountains who wanted to try and bring snow back to Mareth.  You offered to let him cast it out over your camp, so it\'s basically being flung from the mountains to land here.  But, really, why is he worrying about it?  This is the first time it\'s happened in years, doesn\'t he want to enjoy it while it lasts, before it melts away?' );
 			MainView.outputText( '\n\n"<i>Maybe you\'re right... it has been a long time.</i>"  Rathazul smiles.  "<i>I think I would like to build a snowmouse.</i>"' );
@@ -131,9 +131,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			return;
 		}
 		//Jojo;
-		else if( (CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || SceneLib.jojoScene.campCorruptJojo()) && CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 4 ) {
+		else if( (CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) || SceneLib.jojoScene.campCorruptJojo()) && CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 4 ) {
 			//Pure;
-			if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 				MainView.outputText( 'Jojo is sitting on his usual rock, one hand out to catch snowflakes with a beatific smile of awe on his face.  "<i>Look, [name], snow!  I haven\'t seen snow since I was a very, very small boy.</i>"  He tells you.' );
 				MainView.outputText( '\n\nSo is he enjoying it?  You ask.  If so, then it was worth it getting someone to make it snow on your camp.' );
 				MainView.outputText( '\n\n"<i>Yes, I\'m enjoying it - it\'s a wonderful reminder of purer times.</i>"  The mouse says, still catching flakes and watching them melt in the palms of his hands.' );
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, OnLoadVariables, St
 			EngineCore.addButton( 0, 'Next', this, this.processJackFrostEvent );
 		}
 		//Marble (Written by TDM himself);
-		else if( CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 7 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		else if( CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] <= 7 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			CoC.flags[ kFLAGS.JACK_FROST_PROGRESS ] = 8;
 			//With Kids;
 			if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 0 && CoC.flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] >= 100 ) {

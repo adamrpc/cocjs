@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			}
 		}
 		player.spe -= amount;
-		if( player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+		if( player.findStatusAffect( StatusAffects.BasiliskSlow ) ) {
 			player.addStatusValue( StatusAffects.BasiliskSlow, 1, amount );
 		} else {
 			player.createStatusAffect( StatusAffects.BasiliskSlow, amount, 0, 0, 0 );
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		MainView.outputText( 'You stare deep into the creature\'s eyes.  There really is an infinity in there, a grey fractal abyss which spirals upwards and downwards forever.  You want nothing more than to spend the rest of your life following it... when the basilisk\'s pupils dilate, and you feel its hypnotic compulsion press upon your mind, it is as if the universe itself is speaking to you, and you can no sooner resist it than a tadpole can an endless, grey waterfall.\n\n', false );
 		MainView.outputText( 'It takes several moments for you to realize it when the basilisk steps away from you.  You are free of its spell!  Except... you can\'t move.  You are standing there, gazing into nothing, and you can\'t move.  You can feel your arms and legs and the breeze on your skin, but the ability to do anything with them is simply not there; it\'s as if the nerve connections have been severed, leaving you utterly paralyzed.  The most you can manage is a raspy half-moan through your still throat. You can\'t even follow the basilisk with your eyes; although you can feel it; it gives you cause to moan again.\n\n', false );
 		//Undo slow to determine if bad end time
-		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BasiliskSlow ) ) {
 			CoC.player.spe += CoC.player.statusAffectv1( StatusAffects.BasiliskSlow );
 			MainView.statsView.showStatUp( 'spe' );
 			// speUp.visible = true;

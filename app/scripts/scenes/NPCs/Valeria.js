@@ -467,7 +467,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		MainView.spriteSelect( 79 );
 		MainView.clearOutput();
 		MainView.outputText( 'You smile and tell Valeria that you\'re perfectly all right with her special needs' );
-		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) ) {
 			MainView.outputText( ' after all, you have the same ones' );
 		}
 		MainView.outputText( ', as long as they don\'t interfere with your mission as Champion.' );

@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		//Farm not yet discovered;
 		if( CoC.player.statusAffectv1( StatusAffects.MetWhitney ) < 2 ) {
 			MainView.spriteSelect( 62 );
-			if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MetWhitney ) ) {
 				CoC.player.createStatusAffect( StatusAffects.MetWhitney, 0, 0, 0, 0 );
 				MainView.outputText( 'You find a quaint farmhouse on the far shores of the lake.  Around the homestead are a range of gardens, filled with delicious fruits and vegetables.  Your belly rumbles, aching with hunger, as you approach the dwelling.  A figure in a pepper patch rises up to greet you, waving you over.\n\nYou do your best to conceal your surprise as you realize the farmer is a woman... with fur and canine-like features!  She giggles happily and beckons you over, "<i>Welcome stranger, it sure is pleasant to see a new face \'round here.  My name\'s Whitney, and it\'s mighty fine I don\'t have to pitchfork you like most guests!</i>"  She fills you in about the lake and her farm, telling you how the demons can\'t seem to stay close for long, and monsters always seem weaker the few times they have approached her farm.  Whitney flushes and rapidly changes subject, "<i>I\'ve got to get back to work, but you help yourself to the peppers, hun!</i>"\n\n', true );
 			} else {
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 				MainView.outputText( 'Whitney\'s farm is remarkably large for such a humble operation.  What do you want to do?', true );
 			}
 			MainView.menu();
-			if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Kelt ) && !CoC.player.findStatusAffect( StatusAffects.KeltOff ) ) {
 				if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
 					EngineCore.addButton( 1, 'Kelly', SceneLib.kelly, SceneLib.kelly.breakingKeltOptions );
 				} else {
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 				}
 			}
 			if( CoC.player.hasKeyItem( 'Breast Milker - Installed At Whitney\'s Farm' ) >= 0 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.Milked ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.Milked ) ) {
 					MainView.outputText( '\n\n<b>Your ' + Descriptors.nippleDescript( 0 ) + 's are currently too sore to be milked.  You\'ll have to wait a while.</b>', false );
 				} else if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
 					EngineCore.addButton( 2, 'Get Milked', this, this.getMilked );
@@ -75,7 +75,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 					EngineCore.addButton( 5, 'Milk Cock', this, this.cockPumping );
 				}
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) && CoC.player.findStatusAffect( StatusAffects.Marble ) && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 				if( CoC.flags[ kFLAGS.WHITNEY_FLIPPED_OUT_OVER_KELLY ] === 0 ) {
 					EngineCore.addButtonWithTooltip( 3, 'Marble', 'Go to Marble the cowgirl for talk and companionship.', this, this.meetMarble );
 				}
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			return;
 		}
 		// Requires: PC has met both Marble and Kelt;
-		if( CoC.flags[ kFLAGS.MURBLE_FARM_TALK_LEVELS ] > 0 && CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.flags[ kFLAGS.WHITNEY_TALK_MURBLE_AND_KELT ] === 0 ) {
+		if( CoC.flags[ kFLAGS.MURBLE_FARM_TALK_LEVELS ] > 0 && CoC.player.findStatusAffect( StatusAffects.Kelt ) && CoC.flags[ kFLAGS.WHITNEY_TALK_MURBLE_AND_KELT ] === 0 ) {
 			CoC.flags[ kFLAGS.WHITNEY_TALK_MURBLE_AND_KELT ] = 1;
 			MainView.outputText( 'You find Whitney in her usual spot underneath her tree, nose in book. She smiles at you distractedly as you approach.' );
 			MainView.outputText( '\n\n“<i>Notice you’ve been nosey-ing around the place,</i>” she says. It’s difficult to tell from her bluff tone whether she’s teasing or accusing you; the dog morph has the mannerisms of a woman who has lived alone for some time. “<i>What do you make of my lil\' place?</i>” You answer truthfully that is very peaceful and pretty, almost incongruously so in this savage and rapacious land. You say it seems like a very well-run operation, given that the only people who seem to be working on it are her, Marble and... your brow clouds. Whitney smiles understandingly.' );
@@ -132,7 +132,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			return;
 		}
 		// Requires: PC has entered Tel’Adre;
-		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) >= 0 && CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 && CoC.flags[ kFLAGS.WHITNEY_TALK_TELADRE ] === 0 && CoC.flags[ kFLAGS.WHITNEY_TALK_MURBLE_AND_KELT ] === 1 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) && CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 && CoC.flags[ kFLAGS.WHITNEY_TALK_TELADRE ] === 0 && CoC.flags[ kFLAGS.WHITNEY_TALK_MURBLE_AND_KELT ] === 1 ) {
 			CoC.flags[ kFLAGS.WHITNEY_TALK_TELADRE ] = 1;
 			MainView.outputText( 'You find the dog woman sitting on a stool, engaged in hand-milking a cow. She looks up sharply at your approach but smiles readily enough when she sees it’s you.' );
 			MainView.outputText( '\n\n“<i>Hey stranger! How you doin\'?</i>” Feeling slightly strange standing next to her whilst she pulls briskly at the teats of the cow staring dully into your face, you describe the rather incredible city in the desert you stumbled upon recently and ask whether she’s ever visited it. “<i>Heh. Well, of course I have,</i>” says Whitney, not looking up. “<i>Used to live there, back in the day. Urta still around? Went to school with her, and afterwards she persuaded me to join the guard with her. Everydog has a duty! That was her by-word.</i>” The dog morph laughs. “<i>She was just scared of bunking on her own. Silly thing, but a good friend.</i>”' );
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			CoC.flags[ kFLAGS.WHITNEY_TALK_HIGH_MOUNTAIN ] = 1;
 			MainView.outputText( 'You find Whitney outside the milking shed, carefully writing labels at a trestle table and sticking them on large bottles of milk.' );
 			//[PC has used milking device:;
-			if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) ) {
 				MainView.outputText( ' You are uncomfortably aware of the number of them which are labelled ‘[name]’, and a charged memory of strong suction on your [nipples] comes back to you.' );
 			}
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00331 ] > 0 && CoC.flags[ kFLAGS.ISABELLA_MILKED_YET ] !== -1 ) {
@@ -162,12 +162,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			MainView.outputText( ' You ask her who she sells it all to.' );
 			MainView.outputText( '\n\n“<i>Centaurs ‘n goblins mainly,</i>” she replies. “<i>Sometimes even get the mountain folk coming down here to trade. Milk’s a rare enough commodity to a harpy or basilisk to get \'em to stop ruttin\' an\' fighting for two minutes and buy some.</i>” She sighs. “<i>Used to be you could talk with em, get news, but they mostly don’t even bother doing that anymore - just point at what they want, throw their gems down and leave. Gnolls and imps like milk too,</i>” she goes on in a harder tone, “<i>but they prefer tryin\' stealin\' it. Marble and Kelt deal with them.</i>”' );
 			// [PC has used milking device:;
-			if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) ) {
 				MainView.outputText( '\n\nShe smiles at you. “<i>I charge top gem for your produce, of course. Human milk is a very rare commodity these days, and it has a powerful calming effect on most anyone. Folks love it for their kids.</i>”' );
 			}
 			//[PC has used cock milker: ;
-			if( CoC.player.findStatusAffect( StatusAffects.CockPumped ) >= 0 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CockPumped ) ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) ) {
 					MainView.outputText( '\n\n' );
 				}
 				MainView.outputText( 'You notice a number of smaller bottles filled with a creamy fluid on the table, arranged in a cargo container. It takes you a moment to realize what it is. “<i>Why d’you think I pay you for it?</i> ” says Whitney with a laugh, catching your expression. “<i>I kin use some of it for my herd, but it’s just as easy to sell it to goblins ‘n harpies. Much better to buy it from me than to waste energy catching and beating it out of a satyr. \'Sides, how\'d ya think I kept my hair so luxurious? Goblin hairdressers are top notch.</i>”' );
@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			return;
 		}
 		// Requires: PC cleared Factory;
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.flags[ kFLAGS.WHITNEY_TALK_DUNGEON ] === 0 && CoC.flags[ kFLAGS.WHITNEY_TALK_HIGH_MOUNTAIN ] === 1 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && CoC.flags[ kFLAGS.WHITNEY_TALK_DUNGEON ] === 0 && CoC.flags[ kFLAGS.WHITNEY_TALK_HIGH_MOUNTAIN ] === 1 ) {
 			CoC.flags[ kFLAGS.WHITNEY_TALK_DUNGEON ] = 1;
 			MainView.outputText( 'Whitney isn’t anywhere around the farm buildings. You take a guess and walk out to the tree in the far field: sure enough you spot a figure in a sunhat sat underneath it as you draw close. Having spent a fair amount of time around the farm you have come to appreciate that this is indeed the best spot on it; it is on a small rise from which the shade of the mighty oak allows a person to see all the farm buildings and the lake, though the latter is beyond the curve of the land, glimmering in the near distance. Whitney looks up at you as you take it in, listening to the wind in the leaves.' );
 			MainView.outputText( '\n\n“<i>Look like you’ve got a story to tell, [name]. What’s up?</i>” Haltingly at first, you describe your attack on the demon factory, the sexual horrors you found inside, and finally the revelation the overseer gloatingly laid on you: that the elders of Ignam sold your village’s youth into twisted slavery, and how you only narrowly avoided that same fate. Whitney’s eyes are quite round by the time you’ve finished.' );
@@ -253,7 +253,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			MainView.outputText( 'or at least the parts you think she would want to hear ', false );
 		}
 		MainView.outputText( 'and she listens attentively, chiming in with witty quips and comfort when appropriate.  When you finish she tells you ', false );
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( 'how well the farm has been going', false );
 		} else {
 			MainView.outputText( 'how poorly the farm has been going since the lake became tainted.  She has to work three times as hard to keep her livestock and crops from succumbing to the taint, and the demons and monsters of the forest are many times more bold', false );
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		var marbling = 0;
 		MainView.outputText( '', true );
 		//In withdrawl odds are higher.;
-		if( CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) && CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 			if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
 				SceneLib.marbleScene.addictedEncounterHappy();
 			} else {
@@ -313,9 +313,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			return;
 		}
 		//1/3 chance of marblez;
-		if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) > 0 ) {
+		if( Utils.rand( 3 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) && CoC.player.findStatusAffect( StatusAffects.Marble ) ) {
 			//Rapez Override normal;
-			if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 || CoC.flags[ kFLAGS.MARBLE_WARNING ] === 3 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) || CoC.flags[ kFLAGS.MARBLE_WARNING ] === 3 ) {
 				SceneLib.marbleScene.marbleAfterRapeBattle();
 				CoC.player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
 				return;
@@ -325,7 +325,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 				SceneLib.marbleScene.marbleWarningStateMeeting();
 				return;
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Marble ) ) {
 				//Pre-addiction events(explore events take 1 hour, working ones take 3);
 				if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 0 ) {
 					marbling = Utils.rand( 2 );
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 						return;
 					}
 					if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
-						if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+						if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 							marbling = 0;
 						} else {
 							marbling = 1;
@@ -360,7 +360,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 						}
 						return;
 					} else {
-						if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+						if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 							marbling = 0;
 						} else {
 							marbling = 1;
@@ -429,7 +429,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			}
 			//PC Likes it;
 			if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 					marbling = 0;
 				} else {
 					marbling = 1;
@@ -443,7 +443,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 					SceneLib.marbleScene.marbleEncounterAddictedNonWithdrawl();
 				}
 			} else {
-				if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 					marbling = 0;
 				} else {
 					marbling = 1;
@@ -462,7 +462,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 	Farm.prototype.exploreFarm = function() {
 		var explore = 0;
 		//Marble after-rape;
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) ) {
 			SceneLib.marbleScene.marbleAfterRapeBattle();
 			CoC.player.createStatusAffect( StatusAffects.NoMoreMarble, 0, 0, 0, 0 );
 			return;
@@ -478,19 +478,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			return;
 		}
 		//Meet Marble First Time;
-		if( CoC.player.findStatusAffect( StatusAffects.Marble ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Marble ) && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			SceneLib.marbleScene.encounterMarbleInitially();
 			return;
 		}
 		//Meet kelt 1st time;
-		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
+		if( Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.Kelt ) && !CoC.player.findStatusAffect( StatusAffects.KeltOff ) ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			SceneLib.keltScene.keltEncounter();
 			return;
 		}
 		//In withdrawl odds are higher.;
-		if( CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) && CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 			if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 1 ) {
 				SceneLib.marbleScene.addictedEncounterHappy();
 			} else {
@@ -592,7 +592,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		MainView.outputText( '', true );
 		//First time barn entrance;
 		MainView.outputText( 'The barn looms tall ahead of you as you step into its shadow.  ', false );
-		if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) ) {
 			if( CoC.player.cor < 50 ) {
 				MainView.outputText( 'You shiver nervously when you step inside.', false );
 			} else {
@@ -604,7 +604,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		else {
 			MainView.outputText( 'You walk over to the barn, eagerly anticipating the opportunity to get milked.', false );
 			//If ilk withdrawl or high lactation no dicks;
-			if( CoC.player.findStatusAffect( StatusAffects.LactationReduction ) >= 0 && CoC.player.totalCocks() === 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.LactationReduction ) && CoC.player.totalCocks() === 0 ) {
 				MainView.outputText( '  Your ' + Descriptors.nippleDescript( 0 ) + 's are engorged and ready to be taken care of.', false );
 			}//If cocks;
 			else if( CoC.player.totalCocks() > 0 ) {
@@ -619,7 +619,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 				MainView.outputText( ' with desire.', false );
 			}
 			//If both;
-			if( CoC.player.findStatusAffect( StatusAffects.LactationReduction ) >= 0 && CoC.player.cockTotal() > 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.LactationReduction ) && CoC.player.cockTotal() > 0 ) {
 				MainView.outputText( 'Your ' + Descriptors.nippleDescript( 0 ) + 's and ' + Descriptors.multiCockDescriptLight() + ' grow', false );
 				MainView.outputText( ' hard and ready of ', false );
 				MainView.outputText( 'their', false );
@@ -628,7 +628,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			MainView.outputText( '  The doors part easily, and you breeze into your stall in a rush.\n\n', false );
 		}
 		//Step into harness – first time only;
-		if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) ) {
 			MainView.outputText( 'A harness hangs limply in the stall, there to hold the occupant in place while they are milked of every last drop.  You exhale slowly and force yourself to step into it.  As you puzzle out the straps, it gets easier and easier to get the rest of the harness into place.  As you snap the last one into position, machinery whirs and pulls it tight, lifting you off the ground and suspending you, facedown.  The breast milk pumps pulse and vibrate on a tray below you, twitching slightly as you hear the machinery activate.\n\n', false );
 		}
 		//REPEAT;
@@ -641,8 +641,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			application = 3;
 		}
 		//Apply;
-		if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) < 0 || application === 0 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) || application === 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.BreastsMilked ) ) {
 				CoC.player.createStatusAffect( StatusAffects.BreastsMilked, 0, 0, 0, 0 );
 			}
 			MainView.outputText( 'You manage to grab the suction cups in spite of your constrictive bindings and pull them to your ' + Descriptors.nippleDescript( 0 ) + 's.  They latch on immediately, ', false );
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			MainView.outputText( '\n\nYou feel woozy and lightheaded from the intense milking, and have difficulty focusing on anything but the residue of fluids coating your ' + Descriptors.allBreastsDescript() + '.', false );
 			//Being a cow makes you less dumb;
 			//Somehow;
-			if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 				EngineCore.dynStats( 'int', -1 );
 				if( liters > 5 ) {
 					EngineCore.dynStats( 'int', -1 );
@@ -880,7 +880,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 		var cumQ = CoC.player.cumQ() * (Utils.rand( 10 ) + 90) / 100;
 		MainView.outputText( '', true );
 		//First time barn entrance;
-		if( CoC.player.findStatusAffect( StatusAffects.CockPumped ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.CockPumped ) ) {
 			MainView.outputText( 'The barn looms tall ahead of you as you step into its shadow.  ', false );
 			if( CoC.player.cor < 50 ) {
 				MainView.outputText( 'You shiver nervously when you step inside.  ', false );
@@ -913,7 +913,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, Descriptors, 
 			MainView.outputText( ' all too well what\'s to come.  The doors part easily, and you breeze into your stall in a rush.\n\n', false );
 		}
 		//First time using cock milker – factory install;
-		if( CoC.player.findStatusAffect( StatusAffects.CockPumped ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.CockPumped ) ) {
 			MainView.outputText( '<b>There is a note tacked to the door from Whitney:</b>\n\n<i>I got your machine all rigged up, and even made a few modifications to bring it up to speed with the machinery I use on the bulls.  Enjoy your \'milkings\', and don\'t overdo it – there are certain messes even a farm-girl like me WON\'T clean up.</i>\n\n', false );
 			//Step into harness – first time only;
 			MainView.outputText( 'A harness hangs limply in the stall, there to hold the occupant in place while they are drained of every ounce of \'milk\'.  You exhale slowly and force yourself to step into it.  As you puzzle out the straps, it gets easier and easier to get the rest into place.  You snap the last one in place, and machinery whirs and pulls them tight, lifting you off the ground and suspending you, facedown.  A hatch in the far wall slides open, revealing a mass of tubes, wires, and machinery.  A ', false );

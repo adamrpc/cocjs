@@ -552,11 +552,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ItemType, ArmorLib,
 					MainView.outputText( '\n\n"<i>Somesing strange did \'appen ze uzzer day, now you mention it,</i>" ' + this.benoitMF( 'he', 'she' ) + ' says, tapping a curved tooth.  "<i>I got a big group of imps in ere.  I normally don\'t serve zem because zey are always stealing sings whilst one of zem is paying, but zese guys seemed too worked up to even sink about lifting ze shop - zey smelt of fear.  Zey were buying lots of food and survival gear - one of zem kept going on and on about ze fact zey left "<i>ze fairy</i>" behind, until one of ze uzzers slapped \'im and said if \'ee didn\'t shut up, \'ee would be ze fairy.</i>"  ' + this.benoitMF( 'Benoit', 'Benoite' ) + ' shrugs.  "<i>Nasty little sings.  Tasty, though.</i>"' );
 				}
 				//[Factory not cleared: ;
-				else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+				else if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 					MainView.outputText( '\n\n"<i>Not anysing very interesting,</i>" ' + this.benoitMF( 'he', 'she' ) + ' shrugs.  "<i>I get a few customers from ze desert city, Tel\'Adre, coming in \'ere in secret to pick up a few sings zey cannot find back \'ome.  So zey are still a sing.  You \'ave to wonder ow much longer zey can keep hiding, though.</i>"' );
 				} else {
 					//[Factory destroyed: ;
-					if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+					if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n"<i>I don\'t know what is \'appening exactly,</i>" ' + this.benoitMF( 'he', 'she' ) + ' says, leaning over the counter. "<i>But ze demons \'oo I trade with, zey seem very worked up about sumsing.  Sumsing went wrong at one of zeir facilities, I sink.  I also get a number of shark ladies coming in ere, asking if I sell fresh water.  Zey also seem very unhappy.</i>"' );
 					} else {
 						MainView.outputText( '\n\n"<i>I don\'t know what is \'appening exactly,</i>" ' + this.benoitMF( 'he', 'she' ) + ' says, leaning over the counter.  "<i>But ze demons \'oo I trade with, zey seem very worked up about somesing.  Sumsing went wrong at one of zeir facilities, I sink.  I also hear a number of passers-by talking about ze lake.  Apparently it is much cleaner now; many are going back to use it for water.  Now if only someone could make zose crazy cultists go away, eh?</i>"' );

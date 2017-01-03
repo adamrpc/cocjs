@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 		var temp;
 		MainView.outputText( 'The corrupted drider closes in on your web-bound form, cooing happily at you while you struggle with the sticky fibers.\n\n', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'She\'s too blind to get anywhere near you.\n', false );
 		}
 		//Dodge;
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			} else {
 				MainView.outputText( 'Just look at my glossy, dripping lips.  Imagine how great it would feel to have them locked against you.  Why resist?</i>"\n', false );
 			}
-		} else if( CoC.player.findStatusAffect( StatusAffects.DriderKiss ) < 0 ) {
+		} else if( !CoC.player.findStatusAffect( StatusAffects.DriderKiss ) ) {
 			//(HIT? + 10 lust);
 			EngineCore.dynStats( 'lus', 10 );
 			MainView.outputText( 'Before you can move, she\'s right on top of you, leaning ', false );
@@ -141,15 +141,15 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 		if( this.lust > 70 && Utils.rand( 4 ) === 0 ) {
 			this.driderMasturbate();
 		}//1/4 chance of silence if pc knows spells;
-		else if( Combat.hasSpells() && CoC.player.findStatusAffect( StatusAffects.WebSilence ) < 0 && Utils.rand( 4 ) === 0 ) {
+		else if( Combat.hasSpells() && !CoC.player.findStatusAffect( StatusAffects.WebSilence ) && Utils.rand( 4 ) === 0 ) {
 			this.spiderSilence();
 		}
 		//1/4 chance of disarm;
-		else if( CoC.player.findStatusAffect( StatusAffects.Disarmed ) < 0 && CoC.player.weaponName !== 'fists' && Utils.rand( 4 ) === 0 ) {
+		else if( !CoC.player.findStatusAffect( StatusAffects.Disarmed ) && CoC.player.weaponName !== 'fists' && Utils.rand( 4 ) === 0 ) {
 			this.spiderDisarm();
 		}
 		//Always web unless already webbed;
-		else if( CoC.player.spe >= 2 && (CoC.player.findStatusAffect( StatusAffects.Web ) < 0 || Utils.rand( 2 ) === 0) ) {
+		else if( CoC.player.spe >= 2 && (!CoC.player.findStatusAffect( StatusAffects.Web ) || Utils.rand( 2 ) === 0) ) {
 			this.spiderMorphWebAttack();
 		}
 		//Kiss!;

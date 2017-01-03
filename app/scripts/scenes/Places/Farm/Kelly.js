@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 	Kelly.prototype.breakingKeltOptions = function() {
 		MainView.clearOutput();
 		MainView.spriteSelect( 35 );
-		if( (!CoC.player.hasCock() && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 || CoC.player.findStatusAffect( StatusAffects.Kelt ) < 0 ) {
+		if( (!CoC.player.hasCock() && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0) || CoC.flags[ kFLAGS.NEVER_RESIST_KELT ] === 1 || CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 40 || !CoC.player.findStatusAffect( StatusAffects.Kelt ) ) {
 			SceneLib.keltScene.keltEncounter();
 			return;
 		}

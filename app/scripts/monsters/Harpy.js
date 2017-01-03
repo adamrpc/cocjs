@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, 
 	//in the 150 region if you don't wise up.*
 	Harpy.prototype.harpyUberCharge = function() {
 		//(this.Harpy special attack 1, part one)
-		if( this.findStatusAffect( StatusAffects.Uber ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Uber ) ) {
 			this.createStatusAffect( StatusAffects.Uber, 0, 0, 0, 0 );
 			MainView.outputText( 'Flapping her wings frantically, she flies away from you and gains height, hanging in the light before you.  She lets out a shrill and terrifying cry, narrowing her eyes as she focuses in on you!', false );
 		}
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, 
 
 	Harpy.prototype._superPerformCombatAction = Harpy.prototype.performCombatAction;
 	Harpy.prototype.performCombatAction = function() {
-		if( this.findStatusAffect( StatusAffects.Uber ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Uber ) ) {
 			this.harpyUberCharge();
 			return;
 		}

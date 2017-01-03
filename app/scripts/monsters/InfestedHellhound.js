@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, Main
 			//Get hit – 10+ lust
 			EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 			MainView.outputText( 'Taken off-guard by the unexpected sexual display, you fail to move out of the way, and the wormy jism splatters you from the chest down.', false );
-			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 && CoC.player.totalCocks() > 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Infested ) && CoC.player.totalCocks() > 0 ) {
 				MainView.outputText( '  The worms inside you begin moving and squirming. A few of your cum-soaked parasites crawl out from your shivering ' + Descriptors.multiCockDescriptLight() + ' as if attempting to meet the new arrivals.  You desperately want to brush them away, but the pleasure in your crotch is too good to fight, and you find yourself staying your hand as each and every one of the new worms makes it way into your ' + Descriptors.multiCockDescriptLight() + '.', false );
 				if( CoC.player.balls > 0 ) {
 					MainView.outputText( '  Your ' + Descriptors.ballsDescriptLight() + ' grow weightier as the worms settle into their new home, arousing you beyond measure.', false );
@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, Main
 		else {
 			MainView.outputText( 'You sidestep the gush of wormy fluid, letting it splatter against the rocks behind you.', false );
 			//(If infested +10 lust:
-			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 && CoC.player.hasCock() ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Infested ) && CoC.player.hasCock() ) {
 				if( CoC.player.hasCock() ) {
 					MainView.outputText( '  Despite avoiding the torrent of infected seed, your own wormy ', false );
 					if( CoC.player.balls > 0 ) {
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, Main
 				}
 			}
 			//if aroused by worms +5 lust:
-			else if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) >= 0 && CoC.player.findStatusAffect( StatusAffects.WormsHalf ) < 0 ) {
+			else if( CoC.player.findStatusAffect( StatusAffects.WormsOn ) && !CoC.player.findStatusAffect( StatusAffects.WormsHalf ) ) {
 				EngineCore.dynStats( 'lus', 5 );
 				MainView.outputText( '  The idea of being covered in the beast\'s infested seed arouses you slightly, but you shake your head violently and clear away the unwelcome thought.', false );
 			}

@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 			MainView.outputText( '!' );
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
-			if( this.findStatusAffect( StatusAffects.TailWhip ) >= 0 ) {
+			if( this.findStatusAffect( StatusAffects.TailWhip ) ) {
 				this.addStatusValue( StatusAffects.TailWhip, 1, 10 );
 			} else {
 				this.createStatusAffect( StatusAffects.TailWhip, 10, 0, 0, 0 );
@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 	Minerva.prototype.sirensSong = function() {
 		//The Siren's Song (2-part attack) (Rarely used or when she's desperate aka: Less than 10% hp)
 		//[part 1]
-		if( this.findStatusAffect( StatusAffects.SirenSong ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.SirenSong ) ) {
 			MainView.outputText( 'Minerva begins to hum a pleasant tune.  It might be better to stand back to see what she\'s up to!' );
 			this.createStatusAffect( StatusAffects.SirenSong, 0, 0, 0, 0 );
 		}
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 		Combat.combatRoundOver();
 	};
 	Minerva.prototype.performCombatAction = function() {
-		if( this.findStatusAffect( StatusAffects.SirenSong ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.SirenSong ) ) {
 			this.sirensSong();
 		} else if( Utils.rand( 25 ) === 0 || (this.HP < 100 && Utils.rand( 2 ) === 0) ) {
 			this.sirensSong();

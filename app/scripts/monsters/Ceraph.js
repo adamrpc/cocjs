@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	//[SPECIAL 1] – Ubercharge!;
 	Ceraph.prototype.ceraphSpecial1 = function() {
 		MainView.spriteSelect( 7 );
-		if( this.findStatusAffect( StatusAffects.Uber ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Uber ) ) {
 			if( Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( 'Ceraph winks and says, "<i>Have you ever cum without being touched? You will.</i>"\n\n', false );
 			} else {
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	};
 	//[SPECIAL] – Whip Binding;
 	Ceraph.prototype.ceraphSpecial2 = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.Bound ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Bound ) ) {
 			MainView.outputText( 'Ceraph snaps her whip at you, lightning fast.  Unable to avoid the blinding speed of her attack, you find yourself wrapped from head to toe in the strong leather of her whip.  Remarkably, the fire dies out everywhere the whip touches you, leaving you bound but unharmed.', false );
 			//If player has l2 piercing;
 			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 2 ) {
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 		//First hit!;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 10 ) !== 9 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 10 ) !== 9 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!', false );
 		}
 		//Determine if dodged!;
@@ -199,7 +199,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 		MainView.outputText( '\n', false );
 		//SECOND ATTACK HERE------;
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 10 ) !== 9 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 10 ) !== 9 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!', false );
 		}
 		//Determine if dodged!;
@@ -253,11 +253,11 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	};
 	Ceraph.prototype.performCombatAction = function() {
 		var choice = Utils.rand( 4 );
-		if( CoC.player.findStatusAffect( StatusAffects.Bound ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Bound ) ) {
 			this.ceraphSpecial2();
 			return;
 		}
-		if( this.findStatusAffect( StatusAffects.Uber ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Uber ) ) {
 			this.ceraphSpecial1();
 			return;
 		}

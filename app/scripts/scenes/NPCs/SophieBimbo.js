@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		MainView.outputText( 'You grudgingly direct her glide towards your campsite, and the two of you make good time.  Of course, Sophie\'s wet, drooling cunny makes an absolute mess of your ' + CoC.player.armorName + ' and ' + CoC.player.legs() + ' during the trip, soaking them with her copious pussy-cream.  She\'s exhausted and randy once you get to camp, and the landing is quite rough as a result.  You take a nasty tumble in the dirt, but it doesn\'t damage you significantly.  Sophie appears just as lucky - she\'s sitting on her plump rump with her legs spread wide, cluelessly scratching at her downy blond feathers.\n\n', false );
 		MainView.outputText( 'After a few seconds, the bimbo\'s dull eyes seem to light up with delight.  "<i>Oh, is this where you live?  It\'s wonderful!  Oh, do you, like, sleep over there?  Can I share it with you?  Can we fuck every night?  Oh I\'ve got, like, so many questions!  Umm... which ones did I ask already?  I forget!</i>"\n\n', false );
 		MainView.outputText( 'You sigh and show the bimbo around.  She seems extremely pleased by the arrangements, and once the tour is complete, she prances off to touch up her make-up, though you see her masturbating the whole time.', false );
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			MainView.outputText( '  Afterwards, she offers to suck Rathazul\'s cock.  The old rat looked about ready to have a heart attack, but he managed to decline her offer with some amount of dignity, after a few moments of stammering.', false );
 		} else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] === 1 ) {
 			MainView.outputText( '  Afterwards, she offers to suck Izma\'s cock.  Izma looks at you for a moment before shaking her head, no.  Her skirt rises visibly in spite of her negative response.  Maybe she\'ll like having someone lower on the food chain to boss around?', false );
@@ -131,9 +131,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 			} else {
 				MainView.outputText( 'flushes hotly and wiggles her hips Sophie\'s way.  The slutty, corrupted mouse and Sophie will clearly be helping to sate each other\'s needs in your absence.', false );
 			}
-		} else if( SceneLib.jojoScene.monk >= 5 && CoC.player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+		} else if( SceneLib.jojoScene.monk >= 5 && !CoC.player.findStatusAffect( StatusAffects.NoJojo ) && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 			MainView.outputText( '  Afterwards, she offers to suck Jojo\'s cock.  The corrupted slut-mouse nods and stiffens in delight, though he keeps glancing back your way.  Those two will probably spend a lot of time together...', false );
-		} else if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		} else if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( '  Afterwards, she offers to suck Jojo\'s cock.  The chaste mouse\'s jaw drops, but when he picks it up, he answers, "<i>Never.  My body is as pure as my soul!</i>"', false );
 		} else if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			MainView.outputText( '  Afterwards, she offers to lick Isabella\'s cunt.  Isabella answers sternly, ' );

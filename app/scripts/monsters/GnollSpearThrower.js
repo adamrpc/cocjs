@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		var slow = 0;
 		//<Hyena Attack 2 – Javelin – Unsuccessful – Dodged>;
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'The gnoll pulls a javelin from behind her and throws it at you, but blind as she is, it goes wide.', false );
 		}
 		//Determine if dodged!;
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		else if( Utils.rand( 3 ) >= 1 ) {
 			damage = CoC.player.takeDamage( 25 + Utils.rand( 20 ) );
 			MainView.outputText( 'The gnoll pulls a long, black javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  You attempt to dive to the side, but are too late.  The powerful shaft slams, hard, into your back.  Pain radiates from the powerful impact.  Instead of piercing you, however, the tip seems to explode into a sticky goo that instantly bonds with your ' + CoC.player.armorName + '.  The four foot, heavy shaft pulls down on you awkwardly, catching at things and throwing your balance off.  You try to tug the javelin off of you but find that it has glued itself to you.  It will take time and effort to remove; making it impossible to do while a dominant hyena stalks you. (' + damage + ')', false );
-			if( CoC.player.findStatusAffect( StatusAffects.GnollSpear ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.GnollSpear ) ) {
 				CoC.player.createStatusAffect( StatusAffects.GnollSpear, 0, 0, 0, 0 );
 			}
 			slow = 15;
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 	GnollSpearThrower.prototype.hyenaSnapKicku = function() {
 		var damage = 0;
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'The gnoll tries to catch you with a brutal snap-kick, but blind as she is, she completely misses.', false );
 		}
 		//Determine if dodged!;
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {

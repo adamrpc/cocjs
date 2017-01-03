@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 	Worms.prototype.wormEncounter = function() {
 		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
-		if( CoC.player.findStatusAffect( StatusAffects.MetWorms ) < 0 ) { //First encounter
+		if( !CoC.player.findStatusAffect( StatusAffects.MetWorms ) ) { //First encounter
 			MainView.outputText( 'As you are exploring, a rather pungent, peaty smell assails your nostrils. You hear a strange rustling and an off-kilter squishing noise in the distance. As you explore the area you come upon a most grotesque sight. Before you is a cohesive mass of writhing, wriggling worms! While normally solitary creatures, these appear to have coalesced into a monstrous living colony!\n\n' );
 			MainView.outputText( 'You have never before seen such a bizarre freak of nature. You see the mass of annelids creep about across your path. It stops and spreads slightly in your direction before halting. The stench of the mass is indescribable and a thick, viscous slime covers each of the countless worms forming the collective.\n\n' );
 			MainView.outputText( 'You stop dead in your tracks, wondering what this swarm will do. After a few tense moments, the mass crawls away in a direction opposite of both you and your current path. You breathe a sigh of relief as you are confident that no good could have come from confronting such a zoological travesty.' );
@@ -96,7 +96,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			CoC.player.cor = 25;
 		}
 		$log.debug( 'GET INFESTED HERE' );
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			$log.debug( 'BWUH?' );
 		} else {
 			if( CoC.flags[ kFLAGS.EVER_INFESTED ] === 0 ) {
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		MainView.outputText( 'The ceaseless squirming of your uninvited guests send your body into paroxysms. Collapsing to your knees, you immediately begin pushing gouts of dick milk out of your body. You feel tremendous pressure in your pelvis and in your cock as you realize that you are pushing worms out with each torrent of cum! Stream upon stream of cum breaks free from the prison of your body, carrying some of the worms inside you with it. Once the orgasm passes, you collapse to the ground, totally spent. Before you pass out, you feel the unfortunate presence of the fat worm still in your body.', true );
 		CoC.player.orgasm();
 		//Check infestation and update it;
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			//Increment infestation number;
 			if( CoC.player.statusAffectv1( StatusAffects.Infested ) < 5 ) {
 				CoC.player.addStatusValue( StatusAffects.Infested, 1, 1 );
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		} else {
 			MainView.outputText( 'The worm colony shambles over to you and attempts to grapple you. Attempting to dodge, you fail to get away fast enough and fall to the ground engulfed by the mass. You are completely covered in the slimy worms!!! Incapable of avoiding any of their movements, you feel their slime coat every inch of your body and you feel the struggle and strain of each individual worm as they crawl all over you. You immediately begin flailing wildly as you cannot even breathe!', false );
 			//Chance of insta-loss if infested twice;
-			if( CoC.player.findStatusAffect( StatusAffects.InfestAttempted ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.InfestAttempted ) ) {
 				MainView.outputText( '  Struggle as you might, the creatures overwhelm your body and prevent you from any conceivable opportunity to get them off you, Your head quickly becomes visible, allowing you to breathe as you stare helplessly at the cocoon of worms trapping you.\n\n', false );
 				this.infest1();
 				return;
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.TwuWuv ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.TwuWuv ) ) {
 			MainView.outputText( 'You expose yourself and attempt to focus on expelling your squirming pets toward Sheila but as you picture launching a flood of parasites from [eachCock], the fantasy she sent returns to you, breaking your concentration!  Your hand darts automatically to your crotch, stroking [oneCock] as you imagine unloading into her cunt... only with effort do you pull it away!\n\n' );
 			MainView.outputText( '"<i>Oh, my,</i>" the demon teases.  "<i>You don\'t have to masturbate yourself, [name]... I\'ll be happy to do it for you.</i>"\n\n' );
 			EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10, 'resisted', false );
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		MainView.outputText( '\n\nYou relax in the afterglow, pondering just how you\'ll handle living with the constant desire, barely noticing the colony slinking off, freshly lubricated by your sexual fluids.  You drink into a lusty slumber, absently fingering [oneCock].' );
 		MainView.outputText( '\n\n<b>You are infested, again!</b>' );
 		//Reinfest;
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			$log.debug( 'BWUH?' );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.Infested, 0, 0, 0, 0 );

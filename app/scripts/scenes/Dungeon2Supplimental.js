@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		Combat.startCombat( new ImpHorde(), true );
 	};
 	Dungeon2Supplimental.prototype.impGangAI = function() {
-		if( CoC.monster.findStatusAffect( StatusAffects.ImpUber ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.ImpUber ) ) {
 			this.impGangUber();
 		} else if( CoC.monster.lust > 50 && Utils.rand( 2 ) === 0 ) {
 			this.impGangBukkake();
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	//IMP GANG [ATTACKS!]  ;
 	Dungeon2Supplimental.prototype.imtacularMultiHitzilla = function() {
 		//Multiattack:;
-		if( CoC.monster.findStatusAffect( StatusAffects.Blind ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'The imps come at you in a wave, tearing at you with claws!\n', false );
 		}//(ALT BLINDED TEXT);
 		else {
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			//Clear damage from last loop;
 			damage = 0;
 			//Blind dodge change;
-			if( CoC.monster.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+			if( CoC.monster.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' completely misses you with a blind attack!\n', false );
 			}
 			//Determine if dodged!;
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			//Clear damage from last loop;
 			damage = 0;
 			//Blind dodge change;
-			if( CoC.monster.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+			if( CoC.monster.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + '\' misguided spooge flies everyone.  A few bursts of it don\'t even land anywhere close to you!\n', false );
 			}
 			//Determine if dodged!;
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//Mass Arousal;
 	Dungeon2Supplimental.prototype.impGangUber = function() {
-		if( CoC.monster.findStatusAffect( StatusAffects.ImpUber ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.ImpUber ) ) {
 			MainView.outputText( 'Three imps on the far side of the room close their eyes and begin murmuring words of darkness and power.  Your eyes widen, recognizing the spell.  Anything but that!  They\'re building up a massive arousal spell!  They keep muttering and gesturing, and you realize you\'ve got one round to stop them!\n', false );
 			CoC.monster.createStatusAffect( StatusAffects.ImpUber, 0, 0, 0, 0 );
 		} else {
@@ -522,7 +522,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 
 	Dungeon2Supplimental.prototype.encapsulationPodAI = function() {
 		//[Round 1 Action];
-		if( CoC.monster.findStatusAffect( StatusAffects.Round ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Round ) ) {
 			MainView.outputText( 'You shiver from the feeling of warm wetness crawling up your ' + CoC.player.legs() + '.   Tentacles brush against your ', false );
 			if( CoC.player.balls > 0 ) {
 				MainView.outputText( Descriptors.ballsDescriptLight() + ' ', false );
@@ -660,7 +660,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			return;
 		}
 		//Set flags for rounds;
-		if( CoC.monster.findStatusAffect( StatusAffects.Round ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Round ) ) {
 			CoC.monster.createStatusAffect( StatusAffects.Round, 2, 0, 0, 0 );
 		} else {
 			CoC.monster.addStatusValue( StatusAffects.Round, 1, 1 );
@@ -1693,7 +1693,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 	};
 	//ZETAZ START;
 	Dungeon2Supplimental.prototype.zetazTaunt = function() {
-		if( CoC.monster.findStatusAffect( StatusAffects.round ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.round ) ) {
 			CoC.monster.createStatusAffect( StatusAffects.round, 1, 0, 0, 0 );
 			MainView.outputText( 'Zetaz asks, "<i>Do you even realize how badly you fucked up my life, ', false );
 			if( CoC.player.humanScore() >= 4 ) {
@@ -1731,25 +1731,25 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		//If afflicted by blind or whispered and over 50% lust,;
 		//burns lust and clears statuses before continuing with ;
 		//turn.;
-		if( CoC.monster.lust > 50 && (CoC.monster.findStatusAffect( StatusAffects.Fear ) >= 0 || CoC.monster.findStatusAffect( StatusAffects.Blind ) >= 0) ) {
+		if( CoC.monster.lust > 50 && (CoC.monster.findStatusAffect( StatusAffects.Fear ) || CoC.monster.findStatusAffect( StatusAffects.Blind )) ) {
 			CoC.monster.removeStatusAffect( StatusAffects.Fear );
 			CoC.monster.removeStatusAffect( StatusAffects.Blind );
 			CoC.monster.lust -= 10;
 			MainView.outputText( 'Zetaz blinks and shakes his head while stroking himself.  After a second his turgid member loses some of its rigidity, but his gaze has become clear.  He\'s somehow consumed some of his lust to clear away your magic!', false );
 		}
 		//STANDARD COMBAT STATUS AFFECTS HERE;
-		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) ) {
 			MainView.outputText( 'Your foe is too dazed from your last hit to strike back!', false );
 			CoC.monster.removeStatusAffect( StatusAffects.Stunned );
 			Combat.combatRoundOver();
 			return;
 		}
 		//Exgartuan gets to do stuff!;
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
 			CoC.exgartuan.exgartuanCombatUpdate();
 			MainView.outputText( '\n\n', false );
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.Constricted ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Constricted ) ) {
 			//Enemy struggles - ;
 			MainView.outputText( 'Your prey pushes at your tail, twisting and writhing in an effort to escape from your tail\'s tight bonds.', false );
 			if( CoC.monster.statusAffectv1( StatusAffects.Constricted ) <= 0 ) {
@@ -1781,7 +1781,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				} else {
 					MainView.outputText( 'You try to avoid it, but the fragile glass shatters against you, coating you in sticky red liquid.  It seeps into your ' + CoC.player.skinDesc + ' and leaves a pleasant, residual tingle in its wake.  Oh no...', false );
 					//[Applies: 'Temporary Heat' status];
-					if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
+					if( !CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) ) {
 						CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 					}
 				}

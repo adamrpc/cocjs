@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, 
 		//Chances to miss:
 		var damage = 0;
 		//Blind dodge change
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' seems to have no problem guiding his attacks towards you, despite his blindness.\n', false );
 		}
 		//Determine if dodged!
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, 
 	};
 	Akbal.prototype.akbalLustAttack = function() {
 		//*Lust Attack -
-		if( CoC.player.findStatusAffect( StatusAffects.Whispered ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Whispered ) ) {
 			MainView.outputText( 'You hear whispering in your head. this.Akbal begins speaking to you as he circles you, telling all the ways he\'ll dominate you once he beats the fight out of you.', false );
 			//(Lust increase)
 			EngineCore.dynStats( 'lus', 7 + (100 - CoC.player.inte) / 10 );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).factory( 'Akbal', function( $log, MainView, SceneLib, 
 			MainView.outputText( 'Akbal\'s eyes fill with light, and a strange sense of fear begins to paralyze your limbs.', false );
 			//(Speed decrease)
 			EngineCore.dynStats( 'spe', speedChange );
-			if( CoC.player.findStatusAffect( StatusAffects.AkbalSpeed ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.AkbalSpeed ) ) {
 				CoC.player.addStatusValue( StatusAffects.AkbalSpeed, 1, speedChange );
 			} else {
 				CoC.player.createStatusAffect( StatusAffects.AkbalSpeed, speedChange, 0, 0, 0 );

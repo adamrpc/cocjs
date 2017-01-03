@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			}
 		}
 		if( choice === 9 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 				choice = 10;
 			} else {
 				MainView.outputText( 'Vapula is having a very active conversation with Rathazul, the alchemist.  They seem to be discussing the chemical properties of demonic mixtures and the various taints that could occur from their ingestion.  The succubus is holding a bottle of a purplish white fluid that appears to be her own milk, probably waiting for an analysis.' );
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Cock
 			haremT = 'Don\'tFuck';
 		}
 		//IF PC has cerulean succubused before;
-		if( CoC.player.findStatusAffect( StatusAffects.RepeatSuccubi ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.RepeatSuccubi ) ) {
 			if( CoC.flags[ kFLAGS.VAPULA_THREESOMES ] === 0 ) {
 				MainView.outputText( '\n\nShe won\'t currently assist the cerulean succubus if you invite her over.' );
 				threesomeT = 'Assist On';

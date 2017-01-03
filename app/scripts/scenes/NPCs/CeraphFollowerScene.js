@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 		if( CoC.flags[ kFLAGS.TIMES_FUCKED_URTA ] > 0 && (CoC.player.hasCock() || CoC.player.hasVagina()) && CoC.player.lust >= 33 ) {
 			urta = this.ceraphUrtaRoleplay;
 		}
-		if( CoC.player.hasCock() && CoC.player.cockThatFits( 70 ) >= 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.player.lust >= 33 ) {
+		if( CoC.player.hasCock() && CoC.player.cockThatFits( 70 ) >= 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) && CoC.player.lust >= 33 ) {
 			marbles = this.sweetieNOOOO;
 		}
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00150 ] > 0 && CoC.player.lust >= 33 && CoC.player.hasCock() ) {

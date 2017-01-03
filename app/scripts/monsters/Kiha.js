@@ -132,11 +132,11 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 		}
 	};
 	Kiha.prototype.defeated = function() {
-		if( this.findStatusAffect( StatusAffects.spiderfight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.spiderfight ) ) {
 			SceneLib.kihaFollower.playerBeatsUpKihaPreSpiderFight();
-		} else if( this.findStatusAffect( StatusAffects.DomFight ) >= 0 ) {
+		} else if( this.findStatusAffect( StatusAffects.DomFight ) ) {
 			SceneLib.kihaFollower.pcWinsDomFight();
-		} else if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
+		} else if( this.findStatusAffect( StatusAffects.Spar ) ) {
 			SceneLib.kihaFollower.winSparWithKiha();
 		} else {
 			SceneLib.kihaScene.kihaVictoryIntroduction();
@@ -145,11 +145,11 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 
 	/* jshint unused:true */
 	Kiha.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( this.findStatusAffect( StatusAffects.spiderfight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.spiderfight ) ) {
 			SceneLib.kihaFollower.loseKihaPreSpiderFight();
-		} else if( this.findStatusAffect( StatusAffects.DomFight ) >= 0 ) {
+		} else if( this.findStatusAffect( StatusAffects.DomFight ) ) {
 			SceneLib.kihaFollower.pcLosesDomFight();
-		} else if( this.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
+		} else if( this.findStatusAffect( StatusAffects.Spar ) ) {
 			SceneLib.kihaFollower.sparWithFriendlyKihaLose();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nKiha seems visibly disturbed by your infection, enough that she turns to leave.' );

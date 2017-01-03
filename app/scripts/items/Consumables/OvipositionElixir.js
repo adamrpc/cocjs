@@ -52,7 +52,7 @@ angular.module( 'cocjs' ).run( function( MainView, ConsumableLib, $log, Pregnanc
 		if( CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) {
 			{ //If player already has eggs, chance of size increase!
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.Eggs ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Eggs ) ) {
 				//If eggs are small, chance of increase!;
 				if( CoC.player.statusAffectv2( StatusAffects.Eggs ) === 0 ) {
 					//1 in 2 chance!;

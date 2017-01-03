@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 			//Temporary heat;
 			if( color === 'red' ) {
 				MainView.outputText( '\nThe red fluids hit you and instantly soak into your skin, disappearing.  Your skin flushes and you feel warm.  Oh no...\n', false );
-				if( CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.TemporaryHeat ) ) {
 					CoC.player.createStatusAffect( StatusAffects.TemporaryHeat, 0, 0, 0, 0 );
 				}
 			}
@@ -94,13 +94,13 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 		Combat.combatRoundOver();
 	};
 	Clara.prototype.performCombatAction = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) >= 0 && CoC.player.statusAffectv1( StatusAffects.ClaraCombatRounds ) >= 10 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) && CoC.player.statusAffectv1( StatusAffects.ClaraCombatRounds ) >= 10 ) {
 			this.HP = 0;
 			Combat.combatRoundOver();
 		}
 		if( this.HP < 50 && Utils.rand( 2 ) === 0 ) {
 			this.notMurbleEnjoysTheLacticAcid();
-		} else if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		} else if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			this.claraGropesBlindPCs();
 		} else {
 			var actions = [ this.eAttack, this.claraDrugAttack, this.claraTeaseAttack, this.claraCastsBlind ];
@@ -108,20 +108,20 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 			$log.debug( 'ACTION SELECTED: ' + action );
 			actions[ action ]();
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.ClaraCombatRounds ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.ClaraCombatRounds ) ) {
 			CoC.player.createStatusAffect( StatusAffects.ClaraCombatRounds, 1, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.ClaraCombatRounds, 1, 1 );
 		}
 
 		//Bonus damage if not in camp;
-		if( this.HP > 0 && this.lust < 100 && CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) < 0 ) {
+		if( this.HP > 0 && this.lust < 100 && !CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) ) {
 			this.claraBonusBaseLustDamage();
 		}
 	};
 	Clara.prototype.defeated = function() {
 		//PC wins via turn count;
-		if( CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) >= 0 && CoC.player.statusAffectv1( StatusAffects.ClaraCombatRounds ) >= 10 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) && CoC.player.statusAffectv1( StatusAffects.ClaraCombatRounds ) >= 10 ) {
 		} else {
 			MainView.clearOutput();
 			//PC wins via health;

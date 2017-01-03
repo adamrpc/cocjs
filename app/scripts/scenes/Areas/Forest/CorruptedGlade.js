@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.outputText( 'In time you realize the breast has long since been emptied by your hungry mouth, and you pull free with a pop, letting your tongue run over your now over-sensitive lips.  It seems your entire mouth has been affected by the tree\'s sap, and is now as sensitive and receptive as a maiden\'s box.  You don\'t think you could drink any more sap with how full you feel, and you make ready to depart this perverted place.' );
 		EngineCore.dynStats( 'sen', 1, 'lus', 15, 'cor', 0.5 );
 		CoC.player.slimeFeed();
-		if( CoC.player.findStatusAffect( StatusAffects.LustyTongue ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.LustyTongue ) ) {
 			if( Utils.rand( 4 ) === 0 ) { //25% Chance of sensitive mouth status – increased lust gain/hour due to licking your lips
 				MainView.outputText( '  The feeling doesn\'t seem to fade, only becoming more and more intense over the coming hour.  It will be hard to keep from getting turned on any time you lick your lips or eat some food.' );
 				CoC.player.createStatusAffect( StatusAffects.LustyTongue, 24, 0, 0, 0 );

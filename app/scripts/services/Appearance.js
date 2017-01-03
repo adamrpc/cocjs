@@ -180,7 +180,7 @@ angular.module('cocjs').factory('Appearance', function ($log, Utils, AppearanceD
 		if (!haveDescription && i_creature.skinType === 3) {
 			description = description + Utils.randomChoice('slime-slick ', 'goopy ', 'slippery ');
 		}
-		if (!haveDescription && i_creature.findStatusAffect(StatusAffects.BlackNipples) >= 0) {
+		if (!haveDescription && i_creature.findStatusAffect(StatusAffects.BlackNipples)) {
 			description = description + Utils.randomChoice('black ', 'ebony ', 'sable ');
 		}
 
@@ -582,7 +582,7 @@ angular.module('cocjs').factory('Appearance', function ($log, Utils, AppearanceD
 		}
 		var description = '';
 
-		if (i_plural && (i_creature.findStatusAffect(StatusAffects.Uniball) < 0)) {
+		if (i_plural && !i_creature.findStatusAffect(StatusAffects.Uniball)) {
 			if (i_creature.balls === 1) {
 				if (i_withArticle) {
 					description = description + Utils.randomChoice('a single', 'a solitary', 'a lone', 'an individual');
@@ -645,7 +645,7 @@ angular.module('cocjs').factory('Appearance', function ($log, Utils, AppearanceD
 
 		}
 		//UNIBALL
-		if (i_creature.findStatusAffect(StatusAffects.Uniball) >= 0) {
+		if (i_creature.findStatusAffect(StatusAffects.Uniball)) {
 			if (description) {
 				description = description + ' ';
 			}
@@ -682,7 +682,7 @@ angular.module('cocjs').factory('Appearance', function ($log, Utils, AppearanceD
 			description = description + 's';
 		}
 
-		if (i_creature.findStatusAffect(StatusAffects.Uniball) >= 0 && Utils.rand(2) === 0) {
+		if (i_creature.findStatusAffect(StatusAffects.Uniball) && Utils.rand(2) === 0) {
 			description = description + Utils.randomChoice(' merged into a cute, spherical package', ' combined into a round, girlish shape', ' squeezed together into a perky, rounded form');
 		}
 		return description;

@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, MainView, Consuma
 		MainView.outputText( 'With a look of ecstasy on her face, Vala throws back her head and squeezes her pillowy chest with her hands, firing gouts of thick faerie milk from her over-sized bosom!  You try to dodge, but she\'s squirting so much it\'s impossible to dodge it all, and in no time you\'re drenched with a thick coating of Vala\'s milk.', false );
 		MainView.outputText( '  She releases her breasts, shaking them back and forth for your benefit, and flutters her wings, blowing shiny, glitter-like flakes at you.  They stick to the milk on your skin, leaving you coated in milk and faerie-dust.', false );
 		MainView.outputText( '\nVala says, "<i>Now you can be sexy like Vala!</i>"\n', false );
-		if( this.findStatusAffect( StatusAffects.Milk ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Milk ) ) {
 			this.addStatusValue( StatusAffects.Milk, 1, 5 );
 			MainView.outputText( 'Your ' + CoC.player.skinDesc + ' tingles pleasantly, making you feel sexy and exposed.  Oh no!  It seems each coating of milk and glitter is stronger than the last!', false );
 		} else {
@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, MainView, Consuma
 
 	//[Fight dialog];
 	Vala.prototype.valaCombatDialogue = function() {
-		if( this.findStatusAffect( StatusAffects.Vala ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Vala ) ) {
 			MainView.outputText( '"<i>Sluts needs to service the masters!</i>" the fairy wails, flying high. "<i>If they are not pleased, Bitch doesn\'t get any cum!</i>"', false );
 			this.createStatusAffect( StatusAffects.Vala, 0, 0, 0, 0 );
 		} else {

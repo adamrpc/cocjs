@@ -7,10 +7,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 	// There's nothing to track if you just enter the Incubus' room in D1 and didn't approach him.;
 	// IF you approach him, then we can track that (either you fight, or you talk and give him an item);
 	IncubusMechanicScenes.prototype.metIncubusMechanicInD1 = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryIncubusDefeated ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryIncubusDefeated ) ) {
 			return true;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) ) {
 			return true;
 		}
 		return false;
@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 				MainView.outputText( ' familiar,' );
 			}
 			MainView.outputText( ' demonic mechanic lounges against a gleaming, metallic control panel' );
-			if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) ) {
 				MainView.outputText( ', a rolled-up hentai magazine tucked neatly into the chest-pocket of his overalls' );
 			}
 			if( this.metIncubusMechanicInD1() ) {
@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Incu
 		}
 		MainView.outputText( ' twat to silence him.' );
 		MainView.outputText( '\n\n"<i>Are all demons controlled this easily?</i>" you muse out loud. "<i>A few squeezes from a cunt and you\'re content to let me do whatever I want to you. I could probably slap a collar around your neck and take you back to camp without hearing a word of complaint. Perhaps \'please fuck me,\' but I doubt I\'d hear any legitimate desire to come back here.</i>" You lift yourself up an inch and glide back down, teasing him. "<i>Poor boy, they keep you so pent up, don\'t they?' );
-		if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.IncubusBribed ) ) {
 			MainView.outputText( ' Nothing but hentai mags for you to drain your balls with....' );
 		}
 		MainView.outputText( '</i>"' );

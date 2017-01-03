@@ -5,7 +5,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, StatusAffects,
 	}
 
 	SwordInStone.prototype.findSwordInStone = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			//Encounter it!
 			MainView.outputText( 'While walking along the lake, the glint of metal catches your eye.  You drop into a combat stance, readying your ' + CoC.player.weaponName + ' for another fight.   Your eyes dart about, searching for the source of the light. You feel rather foolish when you locate the source of the reflection.  It came from a sword lodged hilt-deep in the trunk of a tree.  You relax a bit, approaching the odd sight to get a better look.\n\n', true );
 			//Describe it!

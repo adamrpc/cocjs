@@ -82,7 +82,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( '\n\nYou run a hand through Hel\'s hair and tell her that you\'ve got her back no matter what.  You give her muscular ass a playful little grope; and she immediately wraps her tail around you, pinning your arms to your chest.  Doesn\'t look like you\'re going anywhere now.  With a little smirk, the salamander whispers, "<i>Let\'s stay like this \'til morning - what do you say?</i>"' );
 		MainView.outputText( '\n\nResigned to your fate, you curl up with Helia; who throws her cloak over the two of you.' );
 		//[If Marble is in camp:];
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && EngineCore.silly() ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) && EngineCore.silly() ) {
 			MainView.outputText( '\n\nJust as you and Hel start to get intimate, you hear a familiar clopping of hooves. You poke your head out of the blanket, rather alarmed to see Marble standing over you.' );
 			MainView.outputText( '\n\n"<i>S-Sweetie?</i>" Marble says, aghast at Hel\'s presence in your arms.  "<i>What... just what do you think you\'re doing!?</i>"' );
 			MainView.outputText( '\n\nThis could be ba--' );
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 	};
 	DungeonHelSupplimental.prototype.gooArmorAI = function() {
 		MainView.spriteSelect( 79 );
-		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.GooArmorSilence ) < 0 ) {
+		if( Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.GooArmorSilence ) ) {
 			this.gooSilenceAttack();
 		} else if( Utils.rand( 3 ) > 0 ) {
 			this.gooArmorAttackPhysical();
@@ -206,7 +206,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			//(If fail 5 times, go to defeat scene);
 			CoC.player.addStatusValue( StatusAffects.GooArmorBind, 1, 1 );
 			if( CoC.player.statusAffectv1( StatusAffects.GooArmorBind ) >= 5 ) {
-				if( CoC.monster.findStatusAffect( StatusAffects.Spar ) >= 0 ) {
+				if( CoC.monster.findStatusAffect( StatusAffects.Spar ) ) {
 					SceneLib.valeria.pcWinsValeriaSparDefeat();
 				} else {
 					this.gooArmorBeatsUpPC();
@@ -686,7 +686,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		Combat.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.phoenixPlatoonAI = function() {
-		if( CoC.monster.findStatusAffect( StatusAffects.Platoon ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Platoon ) ) {
 			this.phoenixPlatoonRush();
 			CoC.monster.createStatusAffect( StatusAffects.Platoon, 0, 0, 0, 0 );
 		} else if( CoC.monster.statusAffectv1( StatusAffects.Platoon ) === 0 ) {

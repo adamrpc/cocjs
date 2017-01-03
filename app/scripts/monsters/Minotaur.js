@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, MainView, $lo
 	angular.extend(Minotaur.prototype, Monster.prototype);
 
 	Minotaur.prototype.defeated = function() {
-		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			MainView.outputText( 'You defeat a minotaur!  ', true );
 			SceneLib.antsScene.phyllaBeatAMino();
@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, MainView, $lo
 	};
 	/* jshint unused:true */
 	Minotaur.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaPCLostToMino();
 		} else if( pcCameWorms ) {

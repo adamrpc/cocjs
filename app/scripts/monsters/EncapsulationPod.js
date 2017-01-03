@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).factory( 'EncapsulationPod', function( SceneLib, Weigh
 	EncapsulationPod.prototype._getLong = function() {
 		//[Round 1 Description];
 		var _long;
-		if( this.findStatusAffect( StatusAffects.Round ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Round ) ) {
 			_long = 'You\'re totally trapped inside a pod!  The walls are slimy and oozing moisture that makes the air sickeningly sweet.  It makes you feel a little dizzy.  Tentacles are climbing up your ' + CoC.player.legs() + ' towards your crotch, doing their best to get under you ' + CoC.player.armorName + '.  There\'s too many to try to pull away.  Your only chance of escape is to create a way out!';
 		}//[Round 2 Description];
 		else if( this.statusAffectv1( StatusAffects.Round ) === 2 ) {

@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	//==============================;
 	SpiderMorphMob.prototype.spiderStandardAttack = function() {
 		//SPIDER HORDE ATTACK - Miss (guaranteed if turns 1-3 and PC lost to Kiha);
-		if( this.findStatusAffect( StatusAffects.MissFirstRound ) >= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
+		if( this.findStatusAffect( StatusAffects.MissFirstRound ) || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			this.removeStatusAffect( StatusAffects.MissFirstRound );
 			MainView.outputText( 'A number of spiders rush at you, trying to claw and bite you.  You manage to beat them all back, though, with some literal covering fire from Kiha.', false );
 		}
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	//SPIDER HORDE WEB - Hit;
 	SpiderMorphMob.prototype.spoidahHordeWebLaunchahs = function() {
 		//SPIDER HORDE WEB - Miss (guaranteed if turns 1-3 and PC lost to Kiha);
-		if( this.findStatusAffect( StatusAffects.MissFirstRound ) >= 0 || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
+		if( this.findStatusAffect( StatusAffects.MissFirstRound ) || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			MainView.outputText( 'One of the driders launches a huge glob of webbing right at you!  Luckily, Kiha manages to burn it out of the air with a well-timed gout of flame!', false );
 			Combat.combatRoundOver();
 		} else {
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	};
 	SpiderMorphMob.prototype.performCombatAction = function() {
 		MainView.spriteSelect( 72 );
-		if( Utils.rand( 2 ) === 0 || CoC.player.findStatusAffect( StatusAffects.UBERWEB ) >= 0 ) {
+		if( Utils.rand( 2 ) === 0 || CoC.player.findStatusAffect( StatusAffects.UBERWEB ) ) {
 			this.spiderStandardAttack();
 		} else {
 			this.spoidahHordeWebLaunchahs();

@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, MainView, Sc
 
 	FetishCultist.prototype.defeated = function( hpVictory ) {
 		var temp2 = null;
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			temp2 = SceneLib.fetishCultistScene.fetishCultistHasAMilkFetish;
 		}
 		if( hpVictory ) {

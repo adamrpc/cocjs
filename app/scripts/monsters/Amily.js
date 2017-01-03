@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 	}
 	angular.extend(Amily.prototype, Monster.prototype);
 	Amily.prototype.performCombatAction = function() {
-		if( this.findStatusAffect( StatusAffects.Concentration ) < 0 && Utils.rand( 4 ) === 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Concentration ) && Utils.rand( 4 ) === 0 ) {
 			this.amilyConcentration();
 		} else if( Utils.rand( 3 ) === 0 ) {
 			this.amilyDartGo();
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			Combat.combatRoundOver();
 			return;
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			dodged++;
 		}
 		//Determine if dodged!;
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 	Amily.prototype.amilyDartGo = function() {
 		var dodged = 0;
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack from her dartgun!\n', false );
 			Combat.combatRoundOver();
 			return;
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		else {
 			MainView.outputText( 'Amily dashes at you and swipes her knife at you, surprisingly slowly.  You easily dodge the attack; but it was a feint - her other hand tries to strike at you with a poisoned dart. However, she only manages to scratch you, only causing your muscles to grow slightly numb.', false );
 			//Set status;
-			if( CoC.player.findStatusAffect( StatusAffects.AmilyVenom ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.AmilyVenom ) ) {
 				CoC.player.createStatusAffect( StatusAffects.AmilyVenom, 0, 0, 0, 0 );
 			}
 			var poison = 2 + Utils.rand( 5 );
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 	//Deals big lust increase, despite her resistance.;
 	Amily.prototype._superTeased = Amily.prototype.teased;
 	Amily.prototype.teased = function( lustDelta ) {
-		if( this.findStatusAffect( StatusAffects.Concentration ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Concentration ) ) {
 			MainView.outputText( 'Amily flushes hotly; her concentration only makes her pay more attention to your parts!', false );
 			lustDelta += 25 + lustDelta;
 			this.removeStatusAffect( StatusAffects.Concentration );

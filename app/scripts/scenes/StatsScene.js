@@ -122,7 +122,7 @@ angular.module('cocjs').run( function (SceneLib, CoC, EngineCore, MainView, Stat
 		if( CoC.player.lactationQ() > 0 ) {
 			bodyStats += '<b>Milk Production:</b> ' + Math.round( CoC.player.lactationQ() ) + 'mL\n';
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			bodyStats += '<b>Hours Since Last Time Breastfed Someone:</b>  ' + CoC.player.statusAffectv2( StatusAffects.Feeder );
 			if( CoC.player.statusAffectv2( StatusAffects.Feeder ) >= 72 ) {
 				bodyStats += ' (Too long! Sensitivity Increasing!)';
@@ -168,7 +168,7 @@ angular.module('cocjs').run( function (SceneLib, CoC, EngineCore, MainView, Stat
 		if( CoC.player.findPerk( PerkLib.SpiderOvipositor ) || CoC.player.findPerk( PerkLib.BeeOvipositor ) ) {
 			bodyStats += '<b>Ovipositor Total Egg Count: ' + CoC.player.eggs() + '\nOvipositor Fertilized Egg Count: ' + CoC.player.fertilizedEggs() + '</b>\n';
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) ) {
 			if( CoC.player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 ) {
 				bodyStats += '<b>Slime Craving:</b> Active! You are currently losing strength and speed.  You should find fluids.\n';
 			} else {
@@ -263,7 +263,7 @@ angular.module('cocjs').run( function (SceneLib, CoC, EngineCore, MainView, Stat
 		if( CoC.flags[ kFLAGS.KATHERINE_UNLOCKED ] >= 4 ) {
 			interpersonStats += '<b>Katherine Submissiveness:</b> ' + SceneLib.katherine.submissiveness() + '\n';
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) && CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 ) {
 			if( CoC.player.statusAffectv2( StatusAffects.Kelt ) >= 130 ) {
 				interpersonStats += '<b>Submissiveness To Kelt:</b> ' + 100 + '%\n';
 			} else {

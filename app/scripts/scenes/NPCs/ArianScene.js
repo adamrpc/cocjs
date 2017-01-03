@@ -679,7 +679,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		MainView.outputText( '\n\nArian nods.  "<i>I guess it isn\'t fair that I\'m the only one that gets to hear your stories... but before we start....  How long ago do you think this whole demon trouble started?</i>"' );
 		MainView.outputText( '\n\nYou shrug your shoulders; ' );
 		//PC has met Marae: ;
-		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) ) {
 			MainView.outputText( 'Marae herself told you they showed up about, what, 20-30 years ago?' );
 		} else {
 			MainView.outputText( 'you\'d guess a long while ago given the general mess they seem to have made of the world.' );
@@ -955,7 +955,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 			}
 
 			//(if PC doesn't know Charge Weapon);
-			if( CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) ) {
 				MainView.outputText( '\n\nAs you ' );
 				if( !CoC.player.isNaga() ) {
 					MainView.outputText( 'walk' );
@@ -975,7 +975,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 			MainView.outputText( '\n\nArian wasn\'t kidding; this is quite a complex subject...' );
 			MainView.outputText( '\n\n"<i>Now to finish our lesson, I\'ll give you a practical example of how to effectively use conjuration to defend yourself.  So pay attention, [name].  Conjured objects are generally weaker than real objects, so conjuring a shield or a suit of armor or even a weapon is no good.  Not to mention it\'s quite complicated.  A suit of armor is made not only of metal, but of other components as well - you\'d have to conjure and maintain each individually.  Instead, conjure a simple element that can turn the tide of the battle in your favor.</i>"' );
 			//(if PC doesn't know Blind);
-			if( CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) ) {
 				MainView.outputText( '\n\nLike what?  You ask in curiosity.' );
 				MainView.outputText( '\n\nArian lifts a closed fist.  "<i>Mind your eyes.</i>"  You nod.  Arian points [Arian eir] fist towards a nearby wall and opens [Arian eir] hand.  A bright flash of light shoots out of [Arian eir] hand to hit the wall harmlessly.  "<i>This was the element of light.  I produced a bright light capable of temporarily blinding whomever happens to be looking at it when it\'s exposed.</i>"' );
 				MainView.outputText( '\n\nYou note how such a spell could be useful for you in combat.  Arian grins at you.  "<i>I\'m glad this lesson was helpful, [name].  Come here and I\'ll teach you how to properly conjure it.</i>"' );
@@ -1005,7 +1005,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 				MainView.outputText( 'exit [Arian eir] tent.' );
 			}
 			//(if PC doesn't know Whitefire);
-			if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 				MainView.outputText( '\n\nAs you walk, you ponder what you discussed with Arian and conclude that by combining conjuration with alteration, you could quickly and easily create an expanding conflagration of flames, burning your foes in combat.' );
 				MainView.outputText( '\n\nYou should put that into practice sometime soon.' );
 				CoC.player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
@@ -3300,10 +3300,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, UseableLib, $rootSc
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	ArianScene.prototype.clearCharges = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.ShieldingSpell ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ShieldingSpell ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.ShieldingSpell );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.ImmolationSpell ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ImmolationSpell ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.ImmolationSpell );
 		}
 	};

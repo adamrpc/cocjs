@@ -1150,7 +1150,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, Statu
 			MainView.outputText( '\n\n<i>"Fuck yes, [name],"</i> she chants every once in a while.  <i>"Fuck me, you dirty herm bitch.  Show me what you got.  Cum in me, [name], fucking give me all you got."</i>  You say nothing in response, and simply keep doing what you\'re doing.' );
 			//[if (hasBalls = true);
 			if( CoC.player.balls > 0 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.Uniball ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.Uniball ) ) {
 					MainView.outputText( '  Your [sack] swings with every pump, slapping onto the firm skin of Brooke\'s vulva every time you bottom out.  You feel no pain, and in fact the smoothness of her fur around her genitals tickles the cum out of your [balls] all the faster.' );
 				} else {
 					MainView.outputText( '  Your [sack] is to tight and smooth to swing, but it still slaps against the firm skin of Brooke\'s vulva every time you bottom out.  The smoothness of her fur around her genitals tickles the cum out of your [balls] all the faster.' );

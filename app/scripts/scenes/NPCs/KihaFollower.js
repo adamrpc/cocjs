@@ -1597,7 +1597,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 			}
 		}
 		MainView.outputText( '[pg]Wiping up as best you can, you don your [armor] and walk back' );
-		if( CoC.monk >= 5 && CoC.player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+		if( CoC.monk >= 5 && !CoC.player.findStatusAffect( StatusAffects.NoJojo ) && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 			if( !SceneLib.jojoScene.tentacleJojo() ) {
 				MainView.outputText( ', ignoring the sounds of Jojo feverishly masturbating in the woods' );
 			} else {

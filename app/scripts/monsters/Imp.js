@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 	}
 	angular.extend(Imp.prototype, Monster.prototype);
 	Imp.prototype.defeated = function() {
-		if( this.findStatusAffect( StatusAffects.KitsuneFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.KitsuneFight ) ) {
 			SceneLib.kitsuneScene.winKitsuneImpFight();
 		} else {
 			SceneLib.impScene.impVictory();
@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 	};
 	/* jshint unused:true */
 	Imp.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( this.findStatusAffect( StatusAffects.KitsuneFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.KitsuneFight ) ) {
 			SceneLib.kitsuneScene.loseKitsuneImpFight();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe imp grins at your already corrupted state...', false );

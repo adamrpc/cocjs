@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, kFLAGS, Utils,
 			SceneLib.helScene.helSexualAmbush();
 			return;
 		}
-		if( (CoC.player.exploredDesert === 20 && CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0) || (Utils.rand( 20 ) === 0 && CoC.player.statusAffectv1( StatusAffects.TelAdre ) === 0) ) {
+		if( (CoC.player.exploredDesert === 20 && !CoC.player.findStatusAffect( StatusAffects.TelAdre )) || (Utils.rand( 20 ) === 0 && CoC.player.statusAffectv1( StatusAffects.TelAdre ) === 0) ) {
 			SceneLib.telAdre.discoverTelAdre();
 			return;
 		}

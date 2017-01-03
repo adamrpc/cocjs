@@ -1959,7 +1959,7 @@ angular.module( 'cocjs' ).factory( 'CharCreation', function( SceneLib, $log, CoC
 		CoC.player.tailType = AppearanceDefs.TAIL_TYPE_FOX;
 		CoC.player.tailVenom = 2;
 		CoC.player.inte = 30;
-		if( CoC.player.findStatusAffect( StatusAffects.BonusVCapacity ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.BonusVCapacity ) ) {
 			CoC.player.createStatusAffect( StatusAffects.BonusVCapacity, 0, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.BonusVCapacity, 1, 5 + Utils.rand( 10 ) );

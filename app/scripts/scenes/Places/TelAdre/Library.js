@@ -104,32 +104,32 @@ angular.module( 'cocjs' ).run( function( SceneLib, WeaponLib, MainView, PerkLib,
 				EngineCore.dynStats( 'int', 3 + Utils.rand( 4 ) );
 				//(Intelligence increase);
 				//Smart enough for arouse and doesnt have it;
-				if( CoC.player.inte >= 25 && CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) < 0 ) {
+				if( CoC.player.inte >= 25 && !CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) ) {
 					MainView.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Arouse.</b>', false );
 					CoC.player.createStatusAffect( StatusAffects.KnowsArouse, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.player.inte >= 30 && CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) < 0 ) {
+				else if( CoC.player.inte >= 30 && !CoC.player.findStatusAffect( StatusAffects.KnowsHeal ) ) {
 					MainView.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Heal.</b>', false );
 					CoC.player.createStatusAffect( StatusAffects.KnowsHeal, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.player.inte >= 40 && CoC.player.findStatusAffect( StatusAffects.KnowsMight ) < 0 ) {
+				else if( CoC.player.inte >= 40 && !CoC.player.findStatusAffect( StatusAffects.KnowsMight ) ) {
 					MainView.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Might.</b>', false );
 					CoC.player.createStatusAffect( StatusAffects.KnowsMight, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.player.inte >= 25 && CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) < 0 ) {
+				else if( CoC.player.inte >= 25 && !CoC.player.findStatusAffect( StatusAffects.KnowsCharge ) ) {
 					MainView.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Charge Weapon.</b>', false );
 					CoC.player.createStatusAffect( StatusAffects.KnowsCharge, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.player.inte >= 30 && CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) < 0 ) {
+				else if( CoC.player.inte >= 30 && !CoC.player.findStatusAffect( StatusAffects.KnowsBlind ) ) {
 					MainView.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Blind.</b>', false );
 					CoC.player.createStatusAffect( StatusAffects.KnowsBlind, 0, 0, 0, 0 );
 				}
 				//Smart enough for arouse and doesnt have it;
-				else if( CoC.player.inte >= 40 && CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) < 0 ) {
+				else if( CoC.player.inte >= 40 && !CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 					MainView.outputText( '\n\nYou blink in surprise, assaulted by the knowledge of a <b>new spell: Whitefire.</b>', false );
 					CoC.player.createStatusAffect( StatusAffects.KnowsWhitefire, 0, 0, 0, 0 );
 				}

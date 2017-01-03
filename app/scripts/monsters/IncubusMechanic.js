@@ -60,7 +60,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 		CoC.incubusMechanicScenes.mechanicFuckedYouUp( hpVictory, pcCameWorms );
 	};
 	IncubusMechanic.prototype.cockTripAttack = function() {
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) { //Blind dodge change
+		if( this.findStatusAffect( StatusAffects.Blind ) ) { //Blind dodge change
 			MainView.outputText( this.getCapitalA() + this.short + ' suddenly grows it\'s dick to obscene lengths and tries to trip you with it.  Thankfully he\'s so blind he wasn\'t aiming anywhere near you!' );
 			Combat.combatRoundOver();
 			return;
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 		Combat.combatRoundOver();
 	};
 	IncubusMechanic.prototype.spoogeAttack = function() {
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) { //Blind dodge change
+		if( this.findStatusAffect( StatusAffects.Blind ) ) { //Blind dodge change
 			MainView.outputText( this.getCapitalA() + this.short + ' pumps and thrusts his hips lewdly before cumming with intense force in your direction!  Thankfully his aim was off due to the blindness currently affect him.' );
 			Combat.combatRoundOver();
 			return;
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 			case 0: //Face
 				MainView.outputText( 'face.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your mouth and nose!  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 				EngineCore.dynStats( 'lus', 3 );
-				if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.DemonSeed ) ) {
 					CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
 				} else {
 					CoC.player.addStatusValue( StatusAffects.DemonSeed, 1, 7 );
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 				if( CoC.player.hasFuckableNipples() ) {
 					MainView.outputText( Descriptors.allBreastsDescript() + '.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way into your open nipples.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 					EngineCore.dynStats( 'lus', 3 );
-					if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
+					if( !CoC.player.findStatusAffect( StatusAffects.DemonSeed ) ) {
 						CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
 					} else {
 						CoC.player.addStatusValue( StatusAffects.DemonSeed, 1, 8 );
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 				if( CoC.player.vaginas.length > 0 ) {
 					MainView.outputText( 'crotch.  The gooey demon-seed oozes and slides over you with a mind of its own, forcing its way past your ' + CoC.player.armorName + ' and into your ' + Descriptors.vaginaDescript( 0 ) + '.  You can feel it moving around inside you, doing its best to prepare you for its master.' );
 					EngineCore.dynStats( 'lus', 3 );
-					if( CoC.player.findStatusAffect( StatusAffects.DemonSeed ) < 0 ) {
+					if( !CoC.player.findStatusAffect( StatusAffects.DemonSeed ) ) {
 						CoC.player.createStatusAffect( StatusAffects.DemonSeed, 5, 0, 0, 0 );
 					} else {
 						CoC.player.addStatusValue( StatusAffects.DemonSeed, 1, 8 );

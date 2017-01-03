@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainVi
 	};
 	OmnibusOverseer.prototype.lustAura = function() {
 		MainView.outputText( 'The demoness blinks her eyes closed and knits her eyebrows in concentration.  The red orbs open wide and she smiles, licking her lips.   The air around her grows warmer, and muskier, as if her presence has saturated it with lust.' );
-		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.LustAura ) ) {
 			MainView.outputText( '  Your eyes cross with unexpected feelings as the taste of desire in the air worms its way into you.  The intense aura quickly subsides, but it\'s already done its job.' );
 			EngineCore.dynStats( 'lus', (8 + Math.ceil( CoC.player.lib / 20 + CoC.player.cor / 25 )) );
 		} else {

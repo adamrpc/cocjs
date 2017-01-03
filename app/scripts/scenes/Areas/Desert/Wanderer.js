@@ -7,19 +7,19 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	Wanderer.prototype.wandererRouter = function() {
 		MainView.spriteSelect( 42 );
 		//First meeting...
-		if( CoC.player.findStatusAffect( StatusAffects.MeetWanderer ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MeetWanderer ) ) {
 			this.wandererFirstMeeting();
 			CoC.player.createStatusAffect( StatusAffects.MeetWanderer, 0, 0, 0, 0 );
 		}
 		//Repeat offense!
 		else {
 			//Chosen demon ending
-			if( CoC.player.findStatusAffect( StatusAffects.WandererDemon ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.WandererDemon ) ) {
 				this.wandererDemonEpilogue();
 				return;
 			}
 			//Chosen human ending
-			if( CoC.player.findStatusAffect( StatusAffects.WandererHuman ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.WandererHuman ) ) {
 				this.wandererEpilogueHuman();
 				return;
 			}
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	//Demonic epilogue v1
 	Wanderer.prototype.wandererDemonEpilogue = function() {
 		MainView.spriteSelect( 42 );
-		if( CoC.player.findStatusAffect( StatusAffects.WandererDemon ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.WandererDemon ) ) {
 			//First time...
 			if( CoC.player.statusAffectv1( StatusAffects.WandererDemon ) === 0 ) {
 				MainView.outputText( 'A winged shadow flashes by.  You look up, but can\'t find its source in the searing desert sun.   A tap on your shoulder is all the warning you get before a curvy body is pressed against you, stroking and touching you in all the right ways.\n\n', true );
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	//Human Epilogue 1
 	Wanderer.prototype.wandererEpilogueHuman = function() {
 		MainView.spriteSelect( 42 );
-		if( CoC.player.findStatusAffect( StatusAffects.WandererHuman ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.WandererHuman ) ) {
 			//Human Epilogue 1
 			if( CoC.player.statusAffectv1( StatusAffects.WandererHuman ) === 0 ) {
 				MainView.outputText( 'As you journey the desert, you see the twin figures of Marcus and his demonic companion, Lucia, in the distance.   Judging by the frantic bobbing of Lucia\'s head in Marcus\'s lap, she\'s just getting ready for a meal.  Closing the distance, you watch curiously as her throat bulges obscenely to keep up with the huge cum-load.  In time she flops back, a few huge globules of cum exploding onto her form like bursting water-balloons as Marcus\' orgasm finishes, leaving her a cum-stained wreck.\n\n', true );

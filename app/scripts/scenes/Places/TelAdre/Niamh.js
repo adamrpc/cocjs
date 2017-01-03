@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		if( CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ] > 1 ) {
 			CoC.flags[ kFLAGS.NIAMH_MOVED_OUT_COUNTER ]--;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) ) {
 			CoC.player.addStatusValue( StatusAffects.BimboChampagne, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.BimboChampagne ) <= 0 ) {
 				this.removeBimboChampagne();
@@ -309,7 +309,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		//Regain 40 to 60 lost health, increase lust by 10 to 20 points, decrease Intelligence and Speed by 5, increase Libido by 5//;
 		EngineCore.HPChange( 40 + Utils.rand( 21 ), false );
 		var lib = 0;
-		if( character.findStatusAffect( StatusAffects.BlackCatBeer ) >= 0 ) {
+		if( character.findStatusAffect( StatusAffects.BlackCatBeer ) ) {
 			if( 100 - character.lib >= 10 ) {
 				lib = 10;
 			} else {
@@ -495,13 +495,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Descriptors, ImageM
 		if( intro ) {
 			if( (character.findPerk( PerkLib.FutaFaculties ) && character.findPerk( PerkLib.FutaForm )) || (character.findPerk( PerkLib.BimboBody ) && character.findPerk( PerkLib.BimboBrains )) ) {
 				MainView.outputText( 'You could\'ve swore the stuff worked when you saw Niamh do it to others, but for some reason, it had, like, no effect on you. How weird!' );
-			} else if( character.findStatusAffect( StatusAffects.BimboChampagne ) < 0 ) {
+			} else if( !character.findStatusAffect( StatusAffects.BimboChampagne ) ) {
 				MainView.outputText( 'You uncork the bottle and breathe in the fizzy, spicy aroma of the sparkling liquor.  Breathing deeply, you open your mouth and begin pouring the ever-effervescent fluid inside.  It\'s sweet and slightly gooey, and the feel of it sliding down your throat is intensely... awesome?  Like, totally!' );
 			} else {
 				MainView.outputText( 'You find yourself falling even further into the dense bimbo mindset.  You do feel, like, super-good and all, though!\n\nMoaning lewdly, you begin to sway your hips from side to side, putting on a show for anyone who might manage to see you.   You just feel so... sexy.  Too sexy to hide it.  Your body aches to show itself and feel the gaze of someone, anyone upon it.  Mmmm, it makes you so wet!  You sink your fingers into your sloppy cunt with a groan of satisfaction.  Somehow, you feel like you could fuck anyone right now!' );
 			}
 		}
-		if( character.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+		if( character.findStatusAffect( StatusAffects.BimboChampagne ) ) {
 			character.addStatusValue( StatusAffects.BimboChampagne, 1, 4 );
 			EngineCore.dynStats( 'spe', -2, 'lib', 1, 'lus', 10 );
 		} else {

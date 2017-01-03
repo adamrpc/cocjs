@@ -1668,7 +1668,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		MainView.outputText( ' that their cum is addictive, and you don\'t want her to get hooked on the stuff.' );
 		MainView.outputText( '\n\n"<i>Hmm?</i>" she answers, cocking an eyebrow at you.  "<i>What do you mean \'addictive?\'  How the hell is bullspunk addictive; the fuck kinda sense does that make?</i>"' );
 		MainView.outputText( '\n\nYou shrug and tell her that\'s just how it is' );
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			MainView.outputText( ', just like how Cowgirls have addictive breastmilk' );
 		}
 		MainView.outputText( '.' );

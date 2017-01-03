@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			}
 		}
 		//If Rath is in Camp;
-		else if( CoC.flags[ kFLAGS.HEL_INTROS_LEVEL ] < 3 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		else if( CoC.flags[ kFLAGS.HEL_INTROS_LEVEL ] < 3 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			CoC.flags[ kFLAGS.HEL_INTROS_LEVEL ] = 3;
 			MainView.outputText( 'You take Hel over to the small section of camp Rathazul has cordoned off for his \'laboratory,\' surrounding himself with glass tubes and beakers and other, stranger instruments.  You poke through the array of equipment to find old Rath sitting in front of some experiment or another, furiously scribbling notes.  With a light cough, you alert him to your presence.' );
 			MainView.outputText( '\n\n<i>"Hmm?  Oh, good news ever- mother of god, what the devil have you got there?"</i>  the old rat yelps, scrambling for the spectacles he just dropped.  By the time he\'s got them adjusted, Hel\'s pressed her face right up against him, giving the poor man such a start he collapses.' );
@@ -572,7 +572,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( '\n\n<i>"Sounds good to me, ' + CoC.player.mf( 'bud', 'babe' ) + ',"</i> Hel grins, leading you by the arm to a rock near her hammock.  The two of you sit yourselves down, with Hel locking her fingers through yours in her lap.  <i>"So what\'s on your mind, lover mine?"</i>' );
 			MainView.outputText( '\n\nFirst, you ask her how she\'s settling in.  She smiles at the question, <i>"It\'s good to be here, [name].  It\'s nice to know someone\'s got my back while I sleep, that I have someone who can take care of me if I get sick or hurt...  But most of all, I\'m loving being so close to my best friend."</i>  She leans over and plants a little kiss on your cheek.' );
 			//(If Rath's at camp):;
-			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 				MainView.outputText( '\n\n<i>"Oh!  And check out what the old man helped me set up!"</i>  Hel adds, quickly hopping down and going to a large metal cask sitting under the hammock.' );
 			} else {
 				MainView.outputText( '\n\n<i>"Oh, hey, check out what I made!"</i>  Hel adds, quickly hopping down and going to a large metal cask sitting under the hammock.' );

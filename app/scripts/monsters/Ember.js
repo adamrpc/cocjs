@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 		//Basic attack, average damage, average accuracy;
 		MainView.outputText( 'With a growl, the dragon lashes out in a ferocious splay-fingered slash, ' + this.emberMF( 'his', 'her' ) + ' claws poised to rip into your flesh.  ' );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!', false );
 		}
 		//Miss/dodge;
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 	};
 	//Dragon Breath: Very rare attack, very high damage;
 	Ember.prototype.embersSupahSpecialDragonBreath = function() {
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 2 ) === 0 ) {
 			//Blind Ember: ;
 			MainView.outputText( 'The blinded dragon tracks you with difficulty as you sprint around the landscape; seeing an opportunity, you strafe around ' + this.emberMF( 'his', 'her' ) + ' side, planting yourself behind a large flat boulder near ' + this.emberMF( 'him', 'her' ) + ' and pelting ' + this.emberMF( 'him', 'her' ) + ' with a small rock.  The scream as the dragon turns the magical conflagration toward you, only to have it hit the rock and blow up in ' + this.emberMF( 'his', 'her' ) + ' face, is quite satisfying.' );
 			//(Ember HP damage);
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 	//Tailslap: Rare attack, high damage, low accuracy;
 	Ember.prototype.emberTailSlap = function() {
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind tail-slap!', false );
 			Combat.combatRoundOver();
 			return;
@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 			this.emberReactsToLustiness();
 			return;
 		}
-		if( this.findStatusAffect( StatusAffects.StunCooldown ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.StunCooldown ) ) {
 			this.addStatusValue( StatusAffects.StunCooldown, 1, -1 );
 			if( this.statusAffectv1( StatusAffects.StunCooldown ) <= 0 ) {
 				this.removeStatusAffect( StatusAffects.StunCooldown );

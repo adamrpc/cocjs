@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( 'The assassin falls to her feet, desperately trying to regain her composure but ultimately caving in to the exhaustion of defeat. The leather belt that was once wrapped around her pillowy breasts now hangs unfastened around her waist, the syringes once adorning it now littered around her. A shattered needle by her side emits a sweet-smelling vapor that soon reaches her nose, causing the girl to blush furiously as lust begins to overcome her senses.' );
 		EngineCore.dynStats( 'lus', 20 );
 		//If cant rape or breastfeed;
-		if( CoC.player.lust < 30 && CoC.player.findStatusAffect( StatusAffects.Feeder ) < 0 ) {
+		if( CoC.player.lust < 30 && !CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			Combat.cleanupAfterCombat();
 			return;
 		}
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			}
 		}
 		//Breastfeed adds an option;
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			feeder = this.giveGoblinAMilkMustache;
 		}
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 && (fitsFuck !== null || cuntFuck !== null || tooBig !== null ||

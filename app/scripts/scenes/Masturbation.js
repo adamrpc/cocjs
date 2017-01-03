@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		var button = 0;
 		//FAP BUTTON GOAADFADHAKDADK
 		if( (CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10) ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 				EngineCore.addButtonWithTooltip( button++, 'Masturbate', 'Selecting this option will make you attempt to manually masturbate in order to relieve your lust buildup.', this, this.masturbateGo );
 			} else {
 				EngineCore.addButtonWithTooltip( button++, 'Meditate', 'Selecting this option will make you attempt to meditate in order to reduce lust and corruption.', this, this.meditate );
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 			EngineCore.addButton( 8, 'Items', this, this.fappingItems );
 		} else if( button === 1 ) { //If you can only masturbate or meditate the normal way then do that automatically
 			if( (CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10) ) {
-				if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 					this.masturbateGo();
 				} else {
 					this.meditate();
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	//Non-shitty masturbation
 	Masturbation.prototype.masturbateGo = function() {
 		MainView.clearOutput();
-		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) ) {
 			MainView.outputText( 'You\'d love to masturbate, but your sexual organs\' numbness makes it impossible.  You\'ll have to find something to fuck to relieve your lust.' );
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 ) {
 			if( CoC.player.isNaga() && Utils.rand( 2 ) === 0 && CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 ) {
 				CoC.exgartuan.exgartuanNagaStoleMyMasturbation();
 			} else {
@@ -794,7 +794,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		}
 		//Tit foreplay
 		this.titForeplay();
-		if( CoC.player.findStatusAffect( StatusAffects.FappedGenderless ) < 0 ) { //first time as a genderless person
+		if( !CoC.player.findStatusAffect( StatusAffects.FappedGenderless ) ) { //first time as a genderless person
 			MainView.outputText( 'Now this might be a problem. Here you are ready to get your rocks off and you have no idea how to do it. Nothing to do except some trial and error. You run your hands gently over where your genitals would be. Lightly you pet the skin and feel your finger tips tickle what was once your most pleasurable of places. While it feels incredibly nice, it just isn\'t getting you there. You teeter at the edge and it only frustrates you further. Unsure of what to do next, your body gives you a little nudge in an unexplored avenue and you decide to take the trip.\n\n' );
 			CoC.player.createStatusAffect( StatusAffects.FappedGenderless, 0, 0, 0, 0 );
 		}
@@ -1998,7 +1998,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 			//Option Jojo veyeurism?
 			if( SceneLib.jojoScene.monk >= 5 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				MainView.outputText( '\n\nAs you stand and try to clean up you manage to spot Jojo off in the woods, ' );
-				if( CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) ) {
 					MainView.outputText( 'his tentacles splattering mouse-jizz everywhere as he gets off from your show.' );
 				} else {
 					MainView.outputText( 'splattering himself with mouse-spunk as he finishes enjoying your inadvertent show.  He runs off before you have a chance to react.' );
@@ -2015,7 +2015,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		//Clear text for new stuff
 		MainView.clearOutput();
 		//Flag after first use!
-		if( CoC.player.findStatusAffect( StatusAffects.PlainOnaholeUsed ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.PlainOnaholeUsed ) ) {
 			CoC.player.createStatusAffect( StatusAffects.PlainOnaholeUsed, 0, 0, 0, 0 );
 			MainView.outputText( 'You get naked and settle down with your new toy. The device looks mildly unappealing and almost comical. However, you have never been one to slouch in the search for new forms of pleasure. ' );
 			if( CoC.player.cocks.length > 1 ) {
@@ -2038,7 +2038,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	Masturbation.prototype.deluxeOnaholeUse = function() {
 		MainView.clearOutput();
 		//Flag after first use!
-		if( CoC.player.findStatusAffect( StatusAffects.DeluxeOnaholeUsed ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.DeluxeOnaholeUsed ) ) {
 			CoC.player.createStatusAffect( StatusAffects.DeluxeOnaholeUsed, 0, 0, 0, 0 );
 			MainView.outputText( 'You get naked and settle down with your new toy. You are amazed at the level of care and detail in the craftsmanship of this toy. You wonder if it feels as good as it looks.\n\n' );
 			if( CoC.player.cocks.length > 1 ) {
@@ -2096,7 +2096,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 	Masturbation.prototype.allNaturalOnaholeUse = function() {
 		MainView.clearOutput();
 		//First use!
-		if( CoC.player.findStatusAffect( StatusAffects.AllNaturalOnaholeUsed ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.AllNaturalOnaholeUsed ) ) {
 			CoC.player.createStatusAffect( StatusAffects.AllNaturalOnaholeUsed, 0, 0, 0, 0 );
 			MainView.outputText( 'Scratching your head, you wonder how such a goofy contraption can offer the extreme pleasures Giacomo was peddling. Shrugging your shoulders, you disrobe and quickly stir the she-cock for a nice quick fuck. With little difficulty, you push the two cushions aside as you penetrate the toy. It feels very warm, like the warmth of flesh. You push the onahole down on your cock until you bottom out. You feel some sort of soft protrusion in the base of the toy, pressing against the opening of your cock.' );
 			MainView.outputText( '\n\nYou begin gently stroking yourself with the toy. You decide for a nice, leisurely pace over your usual hectic moods. The toy is warm and is very pleasurable. While hardly worthy of the sales pitch made by Giacomo, you feel that it was worth the money. If nothing else, it is different.' );
@@ -2129,7 +2129,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		//FIRST TIME USAGE
 		if( (CoC.player.hasKeyItem( 'Self-Stimulation Belt' ) >= 0) ) {
 			//First use! Flag after first use!
-			if( CoC.player.findStatusAffect( StatusAffects.used_self_dash_stim ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.used_self_dash_stim ) ) {
 				CoC.player.createStatusAffect( StatusAffects.used_self_dash_stim, 0, 0, 0, 0 );
 				MainView.outputText( 'Brimming with anticipation, you wind up the small gearbox on the weird contraption. You place the machine down and strip yourself naked. Stepping through the straps of the garment, you pull it up. The dildo does not come out, so you take the time to ease the artificial phallus to rest deep in your womanhood. After nestling the false cock in your pussy, you finish pulling up the belt and you tighten the straps. You lay down and you flip the switch. The machine vibrates around and inside you vigorously. Immediately, waves and cramps of pleasure swirl around your cunt and shoot up and down your spine. The machine, free of human limitations and fatigue, ceaselessly rubs and caresses your insides at impossibly high speeds. Within minutes, you begin experiencing the tell-tale contractions of an impending orgasm. With your hands free, you are able to explore your breasts and body as the device hammers away. You squeeze your ' );
 				MainView.outputText( CoC.player.breastCup( 0 ) );
@@ -2155,7 +2155,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 		MainView.clearOutput();
 		if( CoC.player.hasKeyItem( 'All-Natural Self-Stimulation Belt' ) >= 0 ) {
 			//First time!
-			if( CoC.player.findStatusAffect( StatusAffects.UsedNaturalSelfStim ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.UsedNaturalSelfStim ) ) {
 				//Flag as used!
 				CoC.player.createStatusAffect( StatusAffects.UsedNaturalSelfStim, 0, 0, 0, 0 );
 				MainView.outputText( 'Brimming with anticipation, you put on the gloves to avoid prematurely triggering the machine. You place the belt down and strip yourself completely. Stepping through the straps of the garment, you pull it up. You take the time to align the nodule with the opening of your womanhood. After settling the knob to the entrance to your pussy, you take off the gloves, lay back and touch the amber pads with your fingers.\n\n' );
@@ -3129,7 +3129,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, kFLAGS, 
 				}
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Eggchest ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Eggchest ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Eggchest, 3 + Utils.rand( 10 ), 1 + Utils.rand( 4 ), 0, 0 );
 		}
 		CoC.player.orgasm();

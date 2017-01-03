@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Appearance, Consuma
 		if( !CoC.player.hasCock() ) {
 			return null;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MetMarae ) ) {
 			return null;
 		}
 		if( display === undefined ) {
@@ -1665,7 +1665,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Appearance, Consuma
 		if( CoC.player.hasItem( ConsumableLib.LABOVA_ ) ) {
 			bova = this.feedLottieLaBova;
 		}
-		if( CoC.player.hasItem( ConsumableLib.GROPLUS ) && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.hasItem( ConsumableLib.GROPLUS ) && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			gro = this.giveLottieGroPlus;
 		}
 		if( CoC.player.hasItem( ConsumableLib.REDUCTO ) ) {

@@ -6,9 +6,9 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 	}
 	angular.extend(AbstractSuccubus.prototype, Monster.prototype);
 	AbstractSuccubus.prototype.whipAttack = function() {
-		if( this.findStatusAffect( StatusAffects.WhipReady ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.WhipReady ) ) {
 			//Blind dodge change;
-			if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+			if( this.findStatusAffect( StatusAffects.Blind ) ) {
 				MainView.outputText( this.getCapitalA() + this.short + ' swings her whip at you wildly, totally missing due to her blindness!!', false );
 				Combat.combatRoundOver();
 				return;
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 		//get hit;
 		else {
 			MainView.outputText( '  You start to dodge to the side, but she shifts direction expertly and plants a wet kiss on your lips.  She spins and dodges away with a ballet dancer\'s grace, leaving you to wonder what just happened.  ', false );
-			if( CoC.player.findStatusAffect( StatusAffects.KissOfDeath ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.KissOfDeath ) ) {
 				CoC.player.createStatusAffect( StatusAffects.KissOfDeath, 0, 0, 0, 0 );
 			}
 		}

@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 	GreenSlime.prototype.defeated = function( ) {
 		MainView.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.', true );
 		//Boobfeed.
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			//Eligable to rape
 			if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 				MainView.outputText( '\n\nYou\'re horny enough to try and rape it, though you\'d rather see how much milk you can squirt into it.  What do you do?', false );

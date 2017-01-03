@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 	SandTrap.prototype.sandTrapWait = function() {
 		MainView.clearOutput();
 		MainView.spriteSelect( 97 );
-		if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Climbed ) ) {
 			this.createStatusAffect( StatusAffects.Climbed, 0, 0, 0, 0 );
 		}
 		MainView.outputText( 'Instead of attacking, you turn away from the monster and doggedly attempt to climb back up the pit, digging all of your limbs into the soft powder as you climb against the sandslide.' );
@@ -30,7 +30,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 		this.doAI();
 	};
 	SandTrap.prototype.trapLevel = function( adjustment ) {
-		if( this.findStatusAffect( StatusAffects.Level ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Level ) ) {
 			this.createStatusAffect( StatusAffects.Level, 4, 0, 0, 0 );
 		}
 		if( adjustment !== undefined && adjustment !== 0 ) {
@@ -75,21 +75,21 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 				MainView.outputText( '  You try to wrench yourself free by flapping your wings, but it is hopeless.  You are well and truly snared.' );
 			}
 			this.trapLevel( -1 );
-			if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
+			if( !this.findStatusAffect( StatusAffects.Climbed ) ) {
 				this.createStatusAffect( StatusAffects.Climbed, 0, 0, 0, 0 );
 			}
 		}
 	};
 	SandTrap.prototype._superPerformCombatAction = SandTrap.prototype.performCombatAction;
 	SandTrap.prototype.performCombatAction = function() {
-		if( this.findStatusAffect( StatusAffects.Level ) >= 0 ) {
-			if( this.trapLevel() === 4 && this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
+		if( this.findStatusAffect( StatusAffects.Level ) ) {
+			if( this.trapLevel() === 4 && !this.findStatusAffect( StatusAffects.Climbed ) ) {
 				this.nestleQuikSandAttack();
 			} else {
 				this.sandTrapPheremones();
 			}
 			//PC sinks a level (end of any turn in which player didn't successfully "<i>Wait</i>"):
-			if( this.findStatusAffect( StatusAffects.Climbed ) < 0 ) {
+			if( !this.findStatusAffect( StatusAffects.Climbed ) ) {
 				MainView.outputText( '\n\nRivulets of sand run past you as you continue to sink deeper into both the pit and the sand itself.' );
 				this.trapLevel( -1 );
 			} else {

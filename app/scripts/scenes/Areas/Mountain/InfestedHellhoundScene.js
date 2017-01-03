@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	InfestedHellhoundScene.prototype.infestedHellhoundLossRape = function() {
 		MainView.outputText( '', true );
 		//[BOTH INFESTED]
-		if( CoC.player.totalCocks() > 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.totalCocks() > 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			//(LUST)
 			if( CoC.player.lust > 99 ) {
 				MainView.outputText( 'No amount of shame from the act of submitting to such a beast can overpower the furnace of lust raging in your loins.  ', false );
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			Combat.cleanupAfterCombat();
 		}
 		//[PLAYER'S COCKS ARE BIG ENOUGH TO BE INFECTED]
-		else if( CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 && CoC.player.biggestCockArea() >= 40 && CoC.player.hasCock() ) {
+		else if( !CoC.player.findStatusAffect( StatusAffects.Infested ) && CoC.player.biggestCockArea() >= 40 && CoC.player.hasCock() ) {
 			//(LUST)
 			if( CoC.player.lust > 99 ) {
 				MainView.outputText( 'No amount of shame from the act of submitting to such a beast can overpower the furnace of lust raging in your loins.  ', false );
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			//random chance of big lust boost as worms evacuate
 			//your body.  When worms leave they take with them up
 			//to 5 fertility, to a minimum of 10.
-			if( CoC.player.findStatusAffect( StatusAffects.WormPlugged ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.WormPlugged ) ) {
 				CoC.player.addStatusValue( StatusAffects.WormPlugged, 1, 1 + Utils.rand( 5 ) );
 			} else {
 				CoC.player.createStatusAffect( StatusAffects.WormPlugged, 1 + Utils.rand( 5 ), 0, 0, 0 );

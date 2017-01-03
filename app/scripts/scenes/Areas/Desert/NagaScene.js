@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	NagaScene.prototype.nagaEncounter = function() {
 		MainView.spriteSelect( 45 );
 		//Create status if needed
-		if( CoC.player.findStatusAffect( StatusAffects.Naga ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Naga ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Naga, 0, 0, 0, 0 );
 		}
 		MainView.outputText( '', true );
@@ -157,7 +157,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		//If player's last fight did not involve them being a naga
 		if( CoC.player.statusAffectv1( StatusAffects.Naga ) === 0 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Naga ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Naga ) ) {
 				CoC.player.createStatusAffect( StatusAffects.Naga, 0, 0, 0, 0 );
 			}
 			MainView.outputText( 'You are walking through the shifting sands of the desert when you hear a sudden hiss behind you.  Expecting to be attacked by a snake, you quickly leap forward and turn around.\n\n', false );
@@ -435,7 +435,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			}
 			//b) Corrupted
 			else {
-				if( CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) ) {
 					CoC.player.createStatusAffect( StatusAffects.MeanToNaga, 0, 0, 0, 0 );
 				}
 				MainView.outputText( 'As you watch the writhing form of the defeated naga, you cannot help but feel turned on by it. You step forward, grabbing the naga by the shoulders and forcing her down against the sand, face up. Then, pinning her arms under your knees, you straddle her chest, crushing her modest breasts against her constricted ribcage. You can already see the panic in her face as you begin to unfasten the lower part of your ' + CoC.player.armorName + '. Once your dripping-wet pussy is exposed to the dry desert air, you pull up the naga\'s head by her hair and pull it close to your hot snatch. "<i>C\'mon, you horny little snake-tailed slut, what are you waiting for?</i>" The naga remains frozen in a panic, not sure what to do. As encouragement you tug at her hair, pulling her head even closer to your ' + Descriptors.vaginaDescript( 0 ) + '. "<i>I said LICK IT!</i>" you shout, rubbing your ' + Descriptors.vaginaDescript( 0 ) + ' into her face. Finally, the naga gets the message and her thin tongue darts from her mouth, making contact with your hot flesh. You shudder with excitement as the slick surface brushes past your ' + Descriptors.clitDescript() + ' and along your slit. As one hand manages the naga\'s head, you move your other hand to your breasts, beginning to squeeze and massage them with reckless abandon. As the naga continues to lick at your ' + Descriptors.vaginaDescript( 0 ) + ', you begin to gently buck your hips, bouncing up and down on her chest and forcing the air from her lungs. She squeaks every time this happens, in obvious discomfort.\n\n', false );
@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		//b)Corrupted
 		else {
-			if( CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) ) {
 				CoC.player.createStatusAffect( StatusAffects.MeanToNaga, 0, 0, 0, 0 );
 			}
 			MainView.outputText( 'An evil grin crosses your face as you stand over the fallen snake woman, the thrum of your heartbeat pounding against your ears. A myriad of the terrible things you are about to do to her cross your mind as you start to take off your pants when you remember that you have nothing to do those things with. Your cries of damnation are loud enough to be heard from miles away.\n\n', false );
@@ -632,7 +632,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				}
 				MainView.outputText( '  The naga pulls away, her tongue slowly sliding from your ' + Descriptors.cockDescript( 0 ) + ' and dripping with cum, allowing the last few drops of cum to splash across her face and breasts. Her cheeks are still full of seed and  as she moves in closer, you wonder what she has planned. She grabs your shoulders with her still-slick hands, and leans in all the way for a final, passionate kiss. As your lips are pushed apart by her own, you feel a large amount of your still-warm sperm enter your mouth. You try to resist, but she begins to massage your throat, forcing you to swallow it all.\n\n', false );
 				//(If you've been a bad boy during victory scenes)
-				if( CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) ) {
 					MainView.outputText( 'As you gulp down a mouthful of your own seed, you notice something strange about it. The taste, there is something about it, it tastes almost like... POISON! You gag, but it\'s too late. The naga pulls away, wiping the last drips of cum from the corner of her mouth, and smiles mischievously as your vision begins to fade. The last thing you see is her face, with a look of complete satisfaction stretched across it.  With that last vision, the poison takes its effect, and you pass into unconsciousness.', false );
 				}//(If you've been nice to her: Default setting)
 				else {
@@ -722,7 +722,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			if( CoC.player.pregnancyIncubation > 0 ) {
 				MainView.outputText( '  As you finally reach your next climax, the naga pokes her tongue a little bit deeper inside your mouth, reaching to the back of your throat.', false );
 				//(If you have been a bad girl in past encounters)
-				if( CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.MeanToNaga ) ) {
 					MainView.outputText( '  Down this slippery rope, she drops only a few drops of her potent poison, which completely bypass your gag reflex and drop straight down your throat. You hardly notice, too busy bucking your hips against the massive tail buried within your ' + Descriptors.vaginaDescript( 0 ) + '. It\'s only as your vision fades that you realize that the naga has done something. She pulls away from you and hisses something into your ear. The last thing you can make out is the naga giggling as she continues to play with your breasts before your vision clouds over and your head is filled with fuzzy feelings. You black out, now nothing more than a fuckdoll for the naga to explore. She has her fun with your limp body, and eventually leaves you there, lying on the warm sand, your ' + Descriptors.vaginaDescript( 0 ) + ' horribly abused by the naga\'s thick tail, and dripping with your own juices.', false );
 				}
 				//(If you've been a good girl during past encounters)
@@ -834,7 +834,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		EngineCore.fatigue( 10, 2 );
 		//Amily!
-		if( CoC.monster.findStatusAffect( StatusAffects.Concentration ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Concentration ) ) {
 			MainView.outputText( 'Amily easily glides around your attack thanks to her complete concentration on your movements.', true );
 			Combat.enemyAI();
 			return;
@@ -885,7 +885,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	NagaScene.prototype.naggaTease = function() {
 		MainView.outputText( '', true );
 		//(if poisoned)
-		if( CoC.monster.findStatusAffect( StatusAffects.NagaVenom ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.NagaVenom ) ) {
 			MainView.outputText( 'You attempt to stimulate ' + CoC.monster.a + CoC.monster.short + ' by rubbing ' + CoC.monster.pronoun3 + ' nether regions, but ' + CoC.monster.pronoun3 + ' seems too affected by your poison to react.\n\n', false );
 		} else if( CoC.monster.gender === 0 ) {
 			MainView.outputText( 'You look over ' + CoC.monster.a + CoC.monster.short + ', but can\'t figure out how to tease such an unusual foe.\n\n', false );

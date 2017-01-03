@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		SceneLib.sophieBimbo.sophieSprite();
 		MainView.outputText( 'Sophie bobs and weaves as she closes the distance between you in an instant.  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' looks like she\'s trying to kiss you, but it\'s easy to avoid the blind harpy!\n', false );
 			return;
 		}
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		//YOU GOT HIT SON;
 		MainView.outputText( 'Before you can react, she gives you a chaste peck on the lips.  The harpy pulls back with a sultry smile, watching you expectantly.', false );
 		//Already affected by it;
-		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) ) {
 			MainView.outputText( '  Blood rushes to ' + CoC.player.sMultiCockDesc() + ' as you grow so hard so fast that it hurts.  ', false );
 			SceneLib.sophieScene.luststickApplication( 2 );
 			EngineCore.dynStats( 'lus', (12 + CoC.player.lib / 10) );
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		SceneLib.sophieBimbo.sophieSprite();
 		MainView.outputText( this.getCapitalA() + this.short + ' flaps her wings and launches herself forwards with her talons up.  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + '\'s talons are easy to avoid thanks to her blindness!\n', false );
 			return;
 		}
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		MainView.outputText( 'Sophie pulls her leg up, cocking her thigh dangerously.  Look out!  ', false );
 		var damage = 0;
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + '\'s talons are easy to avoid thanks to her blindness!\n', false );
 			return;
 		}
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		SceneLib.sophieBimbo.sophieSprite();
 		var rando = 1;
 		//Update attacks for girls/neuters;
-		if( !CoC.player.hasCock() || this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
+		if( !CoC.player.hasCock() || this.findStatusAffect( StatusAffects.BimboBrawl ) ) {
 			//Talons;
 			this.special1 = this.talonsSophie;
 			//Batter;
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 			//compulsion;
 			this.special3 = this.sophieCompulsionAttack;
 		}
-		if( CoC.player.hasCock() && this.findStatusAffect( StatusAffects.BimboBrawl ) < 0 ) {
+		if( CoC.player.hasCock() && !this.findStatusAffect( StatusAffects.BimboBrawl ) ) {
 			rando = 1 + Utils.rand( 3 );
 		} else {
 			rando = 1 + Utils.rand( 2 );
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		Combat.combatRoundOver();
 	};
 	Sophie.prototype.defeated = function() {
-		if( this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.BimboBrawl ) ) {
 			SceneLib.sophieFollowerScene.beatUpDebimboSophie();
 		} else {
 			SceneLib.sophieScene.sophieLostCombat();
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 	};
 	/* jshint unused:true */
 	Sophie.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( this.findStatusAffect( StatusAffects.BimboBrawl ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.BimboBrawl ) ) {
 			SceneLib.sophieFollowerScene.debimboSophieBeatsYouUp();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe seems disgusted by the display and leaves you to recover alone...' );

@@ -507,7 +507,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		_.remove(this.statusAffects, _.find(this.statusAffects, function(value) { return value.stype === stype; } ));
 	};
 	Creature.prototype.findStatusAffect = function(stype) {
-		return _.findIndex(this.statusAffects, function(obj) { return obj.stype === stype; });
+		return _.find(this.statusAffects, function(obj) { return obj.stype === stype; });
 	};
 	Creature.prototype.changeStatusValue = function(stype, statusValueNum, newNum) {
 		if(statusValueNum === undefined) {
@@ -516,17 +516,16 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if(newNum === undefined) {
 			newNum = 0;
 		}
-		
-		var index = this.findStatusAffect(stype);
-		//Various Errors preventing action
-		if (index < 0){
-			return;
-		}
 		if (statusValueNum < 1 || statusValueNum > 4) {
 			CoC_Settings.error('ChangeStatusValue called with invalid status value number.');
 			return;
 		}
-		var item = this.statusAffects[index];
+		
+		var item = this.findStatusAffect(stype);
+		//Various Errors preventing action
+		if (!item){
+			return;
+		}
 		if (statusValueNum === 1) {
 			item.value1 = newNum;
 		}
@@ -547,17 +546,16 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		if(bonus === undefined) {
 			bonus = 0;
 		}
-		
-		var index = this.findStatusAffect(stype);
-		//Various Errors preventing action
-		if (index < 0){
-			return;
-		}
 		if (statusValueNum < 1 || statusValueNum > 4) {
 			CoC_Settings.error('addStatusValue called with invalid status value number.');
 			return;
 		}
-		var item = this.statusAffects[index];
+		
+		var item = this.findStatusAffect(stype);
+		//Various Errors preventing action
+		if (!item){
+			return;
+		}
 		if (statusValueNum === 1) {
 			item.value1 += bonus;
 		}
@@ -575,20 +573,20 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		return this.statusAffects[idx];
 	};
 	Creature.prototype.statusAffectv1 = function(stype) {
-		var index = this.findStatusAffect(stype);
-		return (index < 0)? 0 : this.statusAffect(index).value1;
+		var stat = this.findStatusAffect(stype);
+		return stat ? stat.value1 : 0;
 	};
 	Creature.prototype.statusAffectv2 = function(stype) {
-		var index = this.findStatusAffect(stype);
-		return (index < 0)? 0 : this.statusAffect(index).value2;
+		var stat = this.findStatusAffect(stype);
+		return stat ? stat.value2 : 0;
 	};
 	Creature.prototype.statusAffectv3 = function(stype) {
-		var index = this.findStatusAffect(stype);
-		return (index < 0)? 0 : this.statusAffect(index).value3;
+		var stat = this.findStatusAffect(stype);
+		return stat ? stat.value3 : 0;
 	};
 	Creature.prototype.statusAffectv4 = function(stype) {
-		var index = this.findStatusAffect(stype);
-		return (index < 0)? 0 : this.statusAffect(index).value4;
+		var stat = this.findStatusAffect(stype);
+		return stat ? stat.value4 : 0;
 	};
 	Creature.prototype.removeStatuses = function() {
 		this.statusAffects = [];
@@ -841,19 +839,19 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		return this.breastRows.length === 0?-1:_.maxBy(this.breastRows, function(value) { return value.lactationMultiplier; }).lactationMultiplier;
 	};
 	Creature.prototype.milked = function() {
-		if (this.findStatusAffect(StatusAffects.LactationReduction) >= 0) {
+		if (this.findStatusAffect(StatusAffects.LactationReduction)) {
 			this.changeStatusValue(StatusAffects.LactationReduction, 1, 0);
 		}
-		if (this.findStatusAffect(StatusAffects.LactationReduc0) >= 0) {
+		if (this.findStatusAffect(StatusAffects.LactationReduc0)) {
 			this.removeStatusAffect(StatusAffects.LactationReduc0);
 		}
-		if (this.findStatusAffect(StatusAffects.LactationReduc1) >= 0) {
+		if (this.findStatusAffect(StatusAffects.LactationReduc1)) {
 			this.removeStatusAffect(StatusAffects.LactationReduc1);
 		}
-		if (this.findStatusAffect(StatusAffects.LactationReduc2) >= 0) {
+		if (this.findStatusAffect(StatusAffects.LactationReduc2)) {
 			this.removeStatusAffect(StatusAffects.LactationReduc2);
 		}
-		if (this.findStatusAffect(StatusAffects.LactationReduc3) >= 0) {
+		if (this.findStatusAffect(StatusAffects.LactationReduc3)) {
 			this.removeStatusAffect(StatusAffects.LactationReduc3);
 		}
 		if (this.findPerk(PerkLib.Feeder)) {
@@ -869,19 +867,19 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		var changes = 0;
 		//Prevent lactation decrease if lactating.
 		if (todo >= 0) {
-			if (this.findStatusAffect(StatusAffects.LactationReduction) >= 0) {
+			if (this.findStatusAffect(StatusAffects.LactationReduction)) {
 				this.changeStatusValue(StatusAffects.LactationReduction, 1, 0);
 			}
-			if (this.findStatusAffect(StatusAffects.LactationReduc0) >= 0) {
+			if (this.findStatusAffect(StatusAffects.LactationReduc0)) {
 				this.removeStatusAffect(StatusAffects.LactationReduc0);
 			}
-			if (this.findStatusAffect(StatusAffects.LactationReduc1) >= 0) {
+			if (this.findStatusAffect(StatusAffects.LactationReduc1)) {
 				this.removeStatusAffect(StatusAffects.LactationReduc1);
 			}
-			if (this.findStatusAffect(StatusAffects.LactationReduc2) >= 0) {
+			if (this.findStatusAffect(StatusAffects.LactationReduc2)) {
 				this.removeStatusAffect(StatusAffects.LactationReduc2);
 			}
-			if (this.findStatusAffect(StatusAffects.LactationReduc3) >= 0) {
+			if (this.findStatusAffect(StatusAffects.LactationReduc3)) {
 				this.removeStatusAffect(StatusAffects.LactationReduc3);
 			}
 		}
@@ -1105,7 +1103,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 	//PC can fly?
 	Creature.prototype.canFly = function() {
 		//web also makes false!
-		return _.find([2, 7, 9, 11, 12], this.wingType) && this.findStatusAffect(StatusAffects.Web) < 0;
+		return _.find([2, 7, 9, 11, 12], this.wingType) && !this.findStatusAffect(StatusAffects.Web);
 	};
 	//check for vagoo
 	Creature.prototype.hasVagina = function() {
@@ -1286,7 +1284,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 			}
 			stretched = true;
 			//Reset butt stretchin recovery time
-			if(this.findStatusAffect(StatusAffects.ButtStretched) >= 0) {
+			if(this.findStatusAffect(StatusAffects.ButtStretched)) {
 				this.changeStatusValue(StatusAffects.ButtStretched, 1, 0);
 			}
 		}else if(cArea >= 0.9 * this.analCapacity() && Utils.rand(4) === 0) { //If within top 10% of capacity, 25% stretch
@@ -1303,7 +1301,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		}
 		//Delay un-stretching
 		if(cArea >= 0.5 * this.analCapacity()) {
-			if(this.findStatusAffect(StatusAffects.ButtStretched) < 0) { //Butt Stretched used to determine how long since last enlargement
+			if(!this.findStatusAffect(StatusAffects.ButtStretched)) { //Butt Stretched used to determine how long since last enlargement
 				this.createStatusAffect(StatusAffects.ButtStretched, 0, 0, 0, 0);
 			} else { //Reset the timer on it to 0 when restretched.
 				this.changeStatusValue(StatusAffects.ButtStretched, 1, 0);
@@ -1339,7 +1337,7 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		}
 		//Delay anti-stretching
 		if(cArea >= 0.5 * this.vaginalCapacity()) {
-			if(this.findStatusAffect(StatusAffects.CuntStretched) < 0) { //Cunt Stretched used to determine how long since last enlargement
+			if(!this.findStatusAffect(StatusAffects.CuntStretched)) { //Cunt Stretched used to determine how long since last enlargement
 				this.createStatusAffect(StatusAffects.CuntStretched, 0, 0, 0, 0);
 			} else { //Reset the timer on it to 0 when restretched.
 				this.changeStatusValue(StatusAffects.CuntStretched, 1, 0);
@@ -1351,10 +1349,10 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 		return stretched;
 	};
 	Creature.prototype.isInHeat = function() {
-		return this.findStatusAffect(StatusAffects.Heat) >= 0;
+		return this.findStatusAffect(StatusAffects.Heat);
 	};
 	Creature.prototype.isInRut = function() {
-		return this.findStatusAffect(StatusAffects.Rut) >= 0;
+		return this.findStatusAffect(StatusAffects.Rut);
 	};
 	Creature.prototype.bonusFertility = function() {
 		var result = 0;

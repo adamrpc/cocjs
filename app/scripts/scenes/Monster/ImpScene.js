@@ -6,7 +6,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 
 	ImpScene.prototype.impVictory = function() {
 		MainView.clearOutput();
-		var canFeed = (CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0);
+		var canFeed = (CoC.player.findStatusAffect( StatusAffects.Feeder ));
 		var canBikiniTits = (CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor.id === 'LMArmor');
 		MainView.outputText( 'You smile in satisfaction as ' + CoC.monster.a + CoC.monster.short + ' collapses and begins masturbating feverishly.' );
 		if( canFeed ) {
@@ -717,7 +717,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
 			if( Utils.rand( 2 ) === 0 && (CoC.player.cockTotal() === 0 || CoC.player.gender === 3) ) {
 				//(First encounter);
-				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) ) {
 					MainView.outputText( 'The imps stand anywhere from two to four feet tall, with scrawny builds and tiny demonic wings. Their red and orange skin is dirty, and their dark hair looks greasy. Some are naked, but most are dressed in ragged loincloths that do little to hide their groins. They all have a ' + CoC.monster.cockDescriptShort( 0 ) + ' as long and thick as a man\'s arm, far oversized for their bodies. Watching an imp trip over its ' + CoC.monster.cockDescriptShort( 0 ) + ' would be funny, if you weren\'t surrounded by a horde of leering imps closing in from all sides...\n\n', false );
 					CoC.player.createStatusAffect( StatusAffects.ImpGangBang, 0, 0, 0, 0 );
 					MainView.outputText( 'The imps leap forward just as you start to ready your ' + CoC.player.weaponName + ', one sweaty imp clinging to your arm', false );
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			//Scene number 2 - male possible.;
 			else {
 				//Scene 2 (Centaur, vaginal);
-				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) ) {
 					//(Subsequent encounters - Low Corruption);
 					if( CoC.player.cor < 50 ) {
 						MainView.outputText( 'You can\'t tell if this is the same ' + CoC.monster.short + ' as last time or not. You\'re not racist, but all imps look alike to you. ' + CoC.monster.getCapitalA() + ' surges forward, grabbing at your legs and arms and running their hands over your body. You struggle, but there are just too many to fight. The result is the same as last time...\n\n', false );
@@ -1251,7 +1251,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		else {
 			if( Utils.rand( 2 ) === 0 && (CoC.player.cockTotal() === 0 || CoC.player.gender === 3) ) {
 				//(First encounter);
-				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) ) {
 					MainView.outputText( 'The imps stand anywhere from two to four feet tall, with scrawny builds and tiny demonic wings. Their red and orange skin is dirty, and their dark hair looks greasy. Some are naked, but most are dressed in ragged loincloths that do little to hide their groins. They all have a ' + CoC.monster.cockDescriptShort( 0 ) + ' as long and thick as a man\'s arm, far oversized for their bodies. Watching an imp trip over its ' + CoC.monster.cockDescriptShort( 0 ) + ' would be funny, if you weren\'t surrounded by a horde of leering imps closing in from all sides...\n\n', false );
 					CoC.player.createStatusAffect( StatusAffects.ImpGangBang, 0, 0, 0, 0 );
 				}
@@ -1444,7 +1444,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				//Tag-team;
 				//Include milking alt text in separate blocks. ;
 				//Work cock and multicock alt text directly into main text blocks.;
-				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) ) {
 					//(Subsequent encounters - Low Corruption);
 					if( CoC.player.cor < 50 ) {
 						MainView.outputText( 'You can\'t tell if this is the same ' + CoC.monster.short + ' as last time or not - all imps look alike to you.  The ' + CoC.monster.getCapitalA() + ' surges forward, grabbing at your ' + CoC.player.legs() + ' and arms and running their hands over your body. You struggle, but there are just too many to fight. The result is the same as last time...\n\n', false );

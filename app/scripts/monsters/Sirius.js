@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, MainView, Naga,
 	};
 	Sirius.prototype.performCombatAction = function() {
 		var attack = Utils.rand( 4 );
-		if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			attack = Utils.rand( 3 );
 		}
 		if( attack === 0 ) {
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, MainView, Naga,
 			Combat.combatRoundOver();
 		}
 		//Hit (Blind):;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( '  Though your vision is still blurry, you feel yourself being sucked into the golden depths of those pupils, making you forget all your worries, if only for an instant.  All you can focus on is your growing arousal as you sink deeper into his gaze.  You shake your head, clearing your mind of the hypnotising effects the snake-man\'s eyes seem to possess, though the arousal remains.' );
 			EngineCore.dynStats( 'lus', (5 + CoC.player.lib / 10 - CoC.player.inte / 20) );
 		}

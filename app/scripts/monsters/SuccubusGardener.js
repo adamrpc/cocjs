@@ -52,13 +52,13 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		// The succubus gardener is a multistage fight. She starts off all but immune to lust damage. She has enough HP not to be one-shot and a heal move that takes priority over any stun. Once she is reduced to 60% HP, she either drinks from her tentacles or is force-fed by them (if stunned). This fully heals her but makes her 15% more vulnerable to lust.;
 		// Also, the more turned on she gets, the more aggressive she gets.;
 		// Her damage is all lust but in low amounts. This is something of a marathon fight.;
-		if( this.findStatusAffect( StatusAffects.TentagrappleCooldown ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.TentagrappleCooldown ) ) {
 			this.addStatusValue( StatusAffects.TentagrappleCooldown, 1, -1 );
 			if( this.statusAffectv1( StatusAffects.TentagrappleCooldown ) <= 0 ) {
 				this.removeStatusAffect( StatusAffects.TentagrappleCooldown );
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.ShowerDotEffect ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ShowerDotEffect ) ) {
 			this.showerDotEffect();
 			if( CoC.player.lust >= 100 ) {
 				return;
@@ -66,9 +66,9 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		}
 		if( this.HPRatio() <= 0.6 ) {
 			this.vineHeal();
-		} else if( this.findStatusAffect( StatusAffects.TentagrappleCooldown ) < 0 ) {
+		} else if( !this.findStatusAffect( StatusAffects.TentagrappleCooldown ) ) {
 			this.tentagrapple();
-		} else if( CoC.player.findStatusAffect( StatusAffects.GardenerSapSpeed ) < 0 && this.findStatusAffect( StatusAffects.VineHealUsed ) >= 0 ) {
+		} else if( !CoC.player.findStatusAffect( StatusAffects.GardenerSapSpeed ) && this.findStatusAffect( StatusAffects.VineHealUsed ) ) {
 			this.sapSpeed();
 		} else {
 			var opts = [ this.sicem, this.corruptiveShower, this.lustAuraCast ];
@@ -96,10 +96,10 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		}
 	};
 	SuccubusGardener.prototype.vineHeal = function() {
-		if( this.findStatusAffect( StatusAffects.VineHealUsed ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.VineHealUsed ) ) {
 			this.createStatusAffect( StatusAffects.VineHealUsed, 0, 0, 0, 0 );
 		}
-		if( this.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Stunned ) ) {
 			MainView.outputText( 'Tipping herself backward, the succubus gardener lets herself pitch into the writhing tendrils behind her, her mouth opened welcomingly. The tentacles gently catch her, and rather than ravishing her vulnerable form, they merely gather above her parted lips, dribbling thick flows of pink slime. Her throat bobs as she swallows, her injuries vanishing in seconds. The vines push her back up onto her feet. She\'s smiling a little dopily.' );
 			if( this.lustVuln <= 0.15 ) {
 				MainView.outputText( ' <b>You aren\'t sure, but she seems to be leering at you a little more openly.</b>' );
@@ -204,7 +204,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 			MainView.outputText( ' Somehow, you manage to twist out from under the organic raincloud without getting stained by a single drop, though your breath has quickened, and not just from the physical effort.' );
 		} else {
 			//Fail;
-			if( CoC.player.findStatusAffect( StatusAffects.ShowerDotEffect ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.ShowerDotEffect ) ) {
 				CoC.player.createStatusAffect( StatusAffects.ShowerDotEffect, 3, 0, 0, 0 );
 			} else {
 				CoC.player.addStatusValue( StatusAffects.ShowerDotEffect, 1, 3 );
@@ -279,7 +279,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 	};
 	SuccubusGardener.prototype.lustAuraCast = function() {
 		MainView.outputText( 'The demoness blinks her eyes closed and knits her eyebrows in concentration.  The red orbs open wide and she smiles, licking her lips.   The air around her grows warmer, and muskier, as if her presence has saturated it with lust.', false );
-		if( this.findStatusAffect( StatusAffects.LustAura ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.LustAura ) ) {
 			MainView.outputText( '  Your eyes cross with unexpected feelings as the taste of desire in the air worms its way into you.  The intense aura quickly subsides, but it\'s already done its job.', false );
 			EngineCore.dynStats( 'lus', (8 + Math.ceil( CoC.player.lib / 20 + CoC.player.cor / 25 )) );
 		} else {

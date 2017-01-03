@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 			if( CoC.player.fertility < 40 ) {
 				CoC.player.fertility++;
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.Birthed ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Birthed ) ) {
 				CoC.player.createStatusAffect( StatusAffects.Birthed, 1, 0, 0, 0 );
 			} else {
 				CoC.player.addStatusValue( StatusAffects.Birthed, 1, 1 );
@@ -1656,7 +1656,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 			CoC.player.boostLactation( 0.01 );
 			//Boost capacity;
 			if( CoC.player.vaginalCapacity() < 300 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.BonusVCapacity ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.BonusVCapacity ) ) {
 					CoC.player.createStatusAffect( StatusAffects.BonusVCapacity, 0, 0, 0, 0 );
 				}
 				CoC.player.addStatusValue( StatusAffects.BonusVCapacity, 1, 10 );
@@ -1757,7 +1757,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 				//(reduce lust to min, increased minimum lust by 30 until halfway through PC's next pregnancy)];
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', 2, 'sen', 5 );
-				if( CoC.player.findStatusAffect( StatusAffects.AnemoneArousal ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.AnemoneArousal ) ) {
 					CoC.player.createStatusAffect( StatusAffects.AnemoneArousal, 0, 0, 0, 0 );
 				}
 			}
@@ -1768,7 +1768,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 		if( CoC.player.pregnancyIncubation === 1 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_IMP ) {
 			MainView.outputText( '\n', false );
 			//Add imp birth status - used to control frequency of night imp gangbag;
-			if( CoC.player.findStatusAffect( StatusAffects.BirthedImps ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.BirthedImps ) ) {
 				CoC.player.addStatusValue( StatusAffects.BirthedImps, 1, 1 );
 			} else {
 				CoC.player.createStatusAffect( StatusAffects.BirthedImps, 1, 0, 0, 0 );
@@ -2194,7 +2194,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 					EngineCore.dynStats( 'resisted', false );
 				}
 				MainView.outputText( '\n\n<b>You feel compelled to leave the eggs behind, ', false );
-				if( CoC.player.findStatusAffect( StatusAffects.AteEgg ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.AteEgg ) ) {
 					MainView.outputText( 'but you remember the effects of the last one you ate.\n</b>', false );
 				} else {
 					MainView.outputText( 'but your body\'s intuition reminds you they shouldn\'t be fertile, and your belly rumbles with barely contained hunger.\n</b>', false );
@@ -2209,7 +2209,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Mutations, StatusAf
 	};
 	Pregnancy.prototype.eggDescript = function( plural ) {
 		var descript = '';
-		if( CoC.player.findStatusAffect( StatusAffects.Eggs ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Eggs ) ) {
 			descript += Utils.num2Text( CoC.player.statusAffectv3( StatusAffects.Eggs ) ) + ' ';
 			//size descriptor;
 			if( CoC.player.statusAffectv2( StatusAffects.Eggs ) === 1 ) {

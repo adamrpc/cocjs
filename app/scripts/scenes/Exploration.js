@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, EngineCore, kF
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00272 ] > 0 ) {
 			EngineCore.addButton( 6, 'Swamp', SceneLib.swamp, SceneLib.swamp.exploreSwamp );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.ExploredDeepwoods ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ExploredDeepwoods ) ) {
 			EngineCore.addButton( 7, 'Deepwoods', SceneLib.forest, SceneLib.forest.exploreDeepwoods );
 		}
 		if( CoC.player.exploredMountain > 0 ) {

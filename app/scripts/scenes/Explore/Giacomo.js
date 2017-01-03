@@ -23,8 +23,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		return false;
 	};
 	Giacomo.prototype.timeChangeLarge = function() {
-		if( this.checkedSuccubi++ === 0 && CoC.time.hours === 4 && CoC.player.findStatusAffect( StatusAffects.SuccubiNight ) >= 0 && (CoC.player.hasCock() || CoC.player.gender === 0) ) { //Call secksins!
-			if( CoC.player.findStatusAffect( StatusAffects.RepeatSuccubi ) >= 0 ) {
+		if( this.checkedSuccubi++ === 0 && CoC.time.hours === 4 && CoC.player.findStatusAffect( StatusAffects.SuccubiNight ) && (CoC.player.hasCock() || CoC.player.gender === 0) ) { //Call secksins!
+			if( CoC.player.findStatusAffect( StatusAffects.RepeatSuccubi ) ) {
 				if( SceneLib.vapula.vapulaSlave() && CoC.player.hasCock() && CoC.flags[ kFLAGS.VAPULA_THREESOMES ] > 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_VAPULA ] === 0 ) //VapulaSurprise
 				{
 					SceneLib.vapula.vapulaAssistsCeruleanSuccubus();
@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 		MainView.clearOutput();
 		if( CoC.giacomo === 0 ) {
 			this.firstEncounter();
-		} else if( CoC.player.findStatusAffect( StatusAffects.WormOffer ) < 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) { //If infested && no worm offer yet
+		} else if( !CoC.player.findStatusAffect( StatusAffects.WormOffer ) && CoC.player.findStatusAffect( StatusAffects.Infested ) ) { //If infested && no worm offer yet
 			MainView.outputText( 'Upon walking up to Giacomo\'s wagon, he turns to look at you and cocks an eyebrow in curiosity and mild amusement.\n\n' );
 			MainView.outputText( '"<i>Been playing with creatures best left alone, I see</i>," he chuckles.  "<i>Infestations of any kind are annoying, yet your plight is quite challenging given the magnitude of corrupt creatures around here.  It is not the first time I have seen one infested with THOSE worms.</i>"\n\n' );
 			MainView.outputText( 'You ask how he knows of your change and the merchant giggles heartily.\n\n' );
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Descrip
 			MainView.outputText( 'You spy the merchant Giacomo in the distance.  He makes a beeline for you, setting up his shop in moments.  ' );
 			MainView.outputText( 'Giacomo\'s grin is nothing short of creepy as he offers his wares to you. What are you interested in?' );
 		}
-		var deworm = (CoC.player.findStatusAffect( StatusAffects.WormOffer ) >= 0 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ? this.wormRemovalOffer : null);
+		var deworm = (CoC.player.findStatusAffect( StatusAffects.WormOffer ) && CoC.player.findStatusAffect( StatusAffects.Infested ) ? this.wormRemovalOffer : null);
 		EngineCore.choices( 'Potions', this, this.potionMenu, 'Books', this, this.bookMenu, 'Erotica', this, this.eroticaMenu, 'Worm Cure', this, deworm, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		MainView.statsView.show();
 	};

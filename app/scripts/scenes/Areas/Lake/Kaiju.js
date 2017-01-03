@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 			EngineCore.addButton( 0, 'Yes', this, this.meetDatKaijuYo );
 			EngineCore.addButton( 1, 'No', this, this.noMeetingKaijus );
 		} else {
-			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 && !this.kaijuCock() ) {
+			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) && !this.kaijuCock() ) {
 				this.kaijuGrowsWangus();
 			} else if( CoC.flags[ kFLAGS.KAIJU_BAD_END_COUNTER ] >= 5 ) {
 				this.kaijuBadEndToyBOOSH();
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 		MainView.clearOutput();
 		MainView.spriteSelect( 103 );
 		CoC.flags[ kFLAGS.KAIJU_MEETINGS ] = 1;
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			CoC.flags[ kFLAGS.KAIJU_COCK ] = 1;
 		}
 		MainView.outputText( 'You step up onto the hill and slowly make your way to the top.  The rock seems to be unnaturally symmetrical, more like a large upside down oval.  Walking around, there seems to be little of interest to explore here.  You decide to head back for the boat when suddenly the island shifts and you are nearly knocked off your feet.  You look around, wondering if it was an earthquake or an attack when suddenly the island begins shaking violently.  You run for the boat, practically falling in as you almost lose your footing.  The island seems to be rising out of the water rapidly, until towering above you is a massive terrapin girl!  What you had mistaken for an island was really a large turtle shell!' );
@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 			MainView.outputText( '\n\n"<i>You are too rude,</i>" she says in a huff.  "<i>But I know how to fix you!</i>" she begins to rise, standing to her full towering height.  Though much of her legs are still beneath the waves, her genitalia are in full display.  The lips of her feminine sex are moist, dripping with lake water and substantial moisture of their own.  They are surprisingly pink against the almost olive green of the rest of her.  But most shocking of all is that where a clit should be is instead a massive, gigantic green dong!' );
 			MainView.outputText( '\n\n"<i>How about you put that mean mouth of yours to some good,</i>" she tells you as she roughly picks you up between two large fingers and brings you to her stiffening cock.' );
 			//[If player has learned the Whitefire spell]
-			if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 && (!CoC.player.findPerk( PerkLib.BloodMage ) && CoC.player.fatigue + EngineCore.spellCost( 30 ) > 100) ) {
+			if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) && (!CoC.player.findPerk( PerkLib.BloodMage ) && CoC.player.fatigue + EngineCore.spellCost( 30 ) > 100) ) {
 				MainView.outputText( '\n\nSensing her desires, you try to quickly think of how to avoid pleasing the giant\'s large cock.  It occurs to you that you could use the spell whitefire to attack her.  Do you cast it?' );
 				//[Yes][No]
 				MainView.menu();
@@ -498,7 +498,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, ConsumableL
 			MainView.outputText( '\n\n"<i>I thought you would ask eventually,</i>" the big green gal says, tapping a finger on her bottom lip for a few seconds as she considers what she\'ll say.  "<i>Well, it all began well after the demons took over the land.  I\'ve always tended to go back and forth between the lake and swamp ever since I can remember.  One day I was bathing in the lake all alone when it suddenly... changed.  I couldn\'t put my finger on it at the time, but the more I bathed the dirtier I felt. I soon left, deciding that I should stay away for a while... but I had such intense dreams that night, unlike any I ever had before.  I kept thinking of naked bodies rubbing up and down against my own body, of large cocks of every shape and description teasing my pussy or my plump rear, sliding between my cunt lips or my buttocks.  After that I just couldn\'t seem to help myself, I had to go back to the lake and take another dip, and another, and another.  As the waters became more corrupt and my dreams more intense I had to find the source of my pleasures.  So I began to explore every inch of the lake, until I finally came to a spot where the lake meets the mountains.</i>"' );
 			MainView.outputText( '\n\nHer body seems to quiver in delight as she continues on.  "<i>I\'m not sure why they want to taint the waters or what it is they use, but I found the spot where the corruption enters the lake and is the strongest.  I go there daily to absorb the warmth and delicious taint of those chemicals.  It increased my lust, and over time my size.</i>"' );
 			//[If factory has been shut down and Marae was left uncorrupted]
-			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 				MainView.outputText( '  But the flow of yummy fluids seems to have been stopped.' );
 			}//[If the Factory was shut down and Marae corrupted]
 			else if( this.kaijuCock() ) {

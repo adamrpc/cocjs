@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] === 0 ) {
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] = 1;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.SharkGirl ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.SharkGirl ) ) {
 			CoC.player.createStatusAffect( StatusAffects.SharkGirl, 0, 0, 0, 0 );
 		} else if( CoC.player.statusAffectv1( StatusAffects.SharkGirl ) >= 7 && CoC.player.totalCocks() > 0 ) {
 			MainView.spriteSelect( 70 );

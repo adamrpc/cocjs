@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, MainView,
 		var damage = (100 * ((this.inte / CoC.player.inte) / 4));
 		damage = CoC.player.takeDamage( damage );
 		//Stun success;
-		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
+		if( Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.Stunned ) ) {
 			MainView.outputText( ' <b>The vibrations leave you rattled and stunned. It\'ll take you a moment to recover!</b>' );
 			CoC.player.createStatusAffect( StatusAffects.Stunned, 2, 0, 0, 0 );
 		} else 			//Fail;
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, MainView,
 	LivingStatue.prototype.dirtKick = function() {
 		MainView.outputText( 'The animated sculpture brings its right foot around, dragging it through the gardens at a high enough speed to tear a half score of bushes out by the root. A cloud of shrubbery and dirt washes over you!' );
 		//blind;
-		if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Blind ) < 0 ) {
+		if( Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Blind, 2, 0, 0, 0 );
 			MainView.outputText( ' <b>You are blinded!</b>' );
 		} else {
@@ -133,16 +133,16 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, MainView,
 		}
 	};
 	LivingStatue.prototype.performCombatAction = function() {
-		if( this.HPRatio() < 0.7 && this.findStatusAffect( StatusAffects.KnockedBack ) < 0 ) {
+		if( this.HPRatio() < 0.7 && !this.findStatusAffect( StatusAffects.KnockedBack ) ) {
 			this.backhand();
-		} else if( this.HPRatio() < 0.4 && this.findStatusAffect( StatusAffects.Disarmed ) < 0 && CoC.player.weaponName !== 'fists' ) {
+		} else if( this.HPRatio() < 0.4 && !this.findStatusAffect( StatusAffects.Disarmed ) && CoC.player.weaponName !== 'fists' ) {
 			this.disarm();
 		} else {
 			var opts = [];
-			if( CoC.player.findStatusAffect( StatusAffects.Blind ) < 0 && CoC.player.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Blind ) && !CoC.player.findStatusAffect( StatusAffects.Stunned ) ) {
 				opts.push( this.dirtKick );
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.Blind ) < 0 && CoC.player.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Blind ) && !CoC.player.findStatusAffect( StatusAffects.Stunned ) ) {
 				opts.push( this.concussiveBlow );
 			}
 			opts.push( this.cycloneStrike );

@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, MainView, C
 		SceneLib.jeanClaudeScenes.fuckhugeBasiliskFuckedYouUp( hpVictory );
 	};
 	JeanClaude.prototype.handleTease = function( lustDelta, successful ) {
-		if( CoC.player.findStatusAffect( StatusAffects.RemovedArmor ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.RemovedArmor ) ) {
 			MainView.outputText( '\n\nJean-Claude stops circling you, looking mildly surprised as you attempt to entice him with your body.' );
 			MainView.outputText( '\n\n“<i>This is the legendary Champion of Ignam?</i>” he husks. “<i>Flaunting themselves like the most amateur of Lethice’s strippers?</i>” His eyes glow orange. “<i>If that was your intent all along, interloper, you should not do it so half-assedly. You should take off all your clothes, embrace what you truly are, show me what you are really made of.</i>” The hypnotic compulsion presses upon you, commanding you to raise your hands to your [armor]’s clasps...' );
 			if( !successful ) {
@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, MainView, C
 				MainView.outputText( '\n\n“<i>Very nice, interloper,</i>” Jean-Claude breathes. His wide smile turns ugly. “<i>Look forward to seeing that every night. I hope it is not too chilly in here for you.</i>” The basilisks which surround you snigger and you blink, the scales falling from your eyes as you realize what you have just done. There is no time to claw your clothes back on is upon you, forcing you to fall back, and you will have to fight the rest of this battle in the buff!' );
 				// (JC arousal up one level, PC’s armor removed for rest of battle);
 				CoC.player.createStatusAffect( StatusAffects.RemovedArmor, 0, 0, 0, 0 );
-				if( this.findStatusAffect( StatusAffects.JCLustLevel ) < 0 ) {
+				if( !this.findStatusAffect( StatusAffects.JCLustLevel ) ) {
 					this.createStatusAffect( StatusAffects.JCLustLevel, 1, 0, 0, 0 );
 					this.lustVuln += 0.1;
 				} else {

@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		this.checkedMarbleMilk = 0;
 		this.pregnancy.pregnancyAdvance();
 		$log.debug( '\nMarble time change: Time is ' + CoC.time.hours + ', incubation: ' + this.pregnancy.incubation + ', event: ' + this.pregnancy.event );
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			//Marble stuff pt I;
 			if( CoC.flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_1 ] > 0 ) {
 				CoC.flags[ kFLAGS.MARBLE_RATHAZUL_COUNTER_1 ]--;
@@ -102,9 +102,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				}
 			}
 			//Marble find items check;
-			else if( CoC.player.findStatusAffect( StatusAffects.MarbleHasItem ) < 0 && SceneLib.marbleScene.marbleAtCamp() ) {
+			else if( !CoC.player.findStatusAffect( StatusAffects.MarbleHasItem ) && SceneLib.marbleScene.marbleAtCamp() ) {
 				// Off cooldown;
-				if( CoC.player.findStatusAffect( StatusAffects.MarbleItemCooldown ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.MarbleItemCooldown ) ) {
 					if( Utils.rand( 10 ) === 0 ) {
 						MainView.spriteSelect( 41 );
 						MainView.outputText( '\n<b>You find a note from Marble back at camp, letting you know that she has an item for you!</b>\n', false );
@@ -116,16 +116,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			}
 		}
 		//Decrement marble cooldown;
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleItemCooldown ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleItemCooldown ) ) {
 			CoC.player.addStatusValue( StatusAffects.MarbleItemCooldown, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.MarbleItemCooldown ) < 1 ) {
 				CoC.player.removeStatusAffect( StatusAffects.MarbleItemCooldown );
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			CoC.flags[ kFLAGS.MARBLE_GROSSED_OUT_BECAUSE_WORM_INFESTATION ] = 0;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) >= 0 && !CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) && !CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			//Decrement time remaining by 1		;
 			CoC.player.addStatusValue( StatusAffects.MarblesMilk, 1, -1 );
 			//Remove the status and stat boosts when time runs out on the milk;
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				//IF ADDICTED;
 				if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 ) {
 					//If player is under bottled milk effects;
-					if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+					if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 						MainView.outputText( '\nYour hands develop a tiny tremble as the effects of Marble\'s fresh milk wear off.  Thanks to the bottled milk you drank, you don\'t go into withdrawal just yet.\n', false );
 					} else {
 						//[addiction is <90, CoC.player is addicted];
@@ -167,9 +167,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//Go into withdrawl if your addicted and don't have a reason not to be withdrawn.;
 		if( CoC.player.statusAffectv3( StatusAffects.Marble ) > 0 && !CoC.player.findPerk( PerkLib.MarbleResistant ) && !CoC.player.findPerk( PerkLib.MarblesMilk ) && CoC.player.statusAffectv2( StatusAffects.Marble ) > 25 ) {
 			//If player does not have marble's milk or bottled milk, go into withdrawl;
-			if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) < 0 && CoC.player.findStatusAffect( StatusAffects.BottledMilk ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) && !CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 				//If player is not yet in withdrawl;
-				if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 					MainView.outputText( '\nYou are overwhelmed with a desire for more of Marble\'s Milk.\n', false );
 					needNext = true;
 					CoC.player.createStatusAffect( StatusAffects.MarbleWithdrawl, 0, 0, 0, 0 );
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			}
 		}
 		//Withdrawl removal if you get unaddicted.;
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 			if( CoC.player.statusAffectv2( StatusAffects.Marble ) <= 25 ) {
 				CoC.player.removeStatusAffect( StatusAffects.MarbleWithdrawl );
 				EngineCore.dynStats( 'tou', 5, 'int', 5 );
@@ -192,7 +192,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				needNext = true;
 			}
 			//Remove withdrawl if you have bottled milk affect;
-			else if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+			else if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 				MainView.outputText( '\nYou no longer feel the symptoms of withdrawal.\n', false );
 				needNext = true;
 				CoC.player.removeStatusAffect( StatusAffects.MarbleWithdrawl );
@@ -200,7 +200,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			}
 		}
 		//Bottled Milk Countdown;
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.BottledMilk ) <= 0 ) {
 				CoC.player.removeStatusAffect( StatusAffects.BottledMilk );
@@ -208,7 +208,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		if( CoC.time.hours > 23 ) {
 			CoC.flags[ kFLAGS.MARBLE_PLAYED_WITH_KIDS_TODAY ] = 0;
-			if( CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Marble ) > 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Marble ) && CoC.player.statusAffectv2( StatusAffects.Marble ) > 0 ) {
 				this.marbleStatusChange( 0, -1 );
 			}
 		}
@@ -320,12 +320,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			//(From this point forward, the addiction scores and affection scores are no longer modified.  Additionally, the player can no longer be given the status effect of 'Marble's Milk' or go into withdrawal, they are instead permanently given the stat increases of 5 str, and 10 tou as part of a perk called 'Marble's Milk' and automatically drink Marble's milk every morning if a bad end is not triggered);
 			CoC.player.createPerk( PerkLib.MarblesMilk, 0, 0, 0, 0 );
 			//Clear withdrawl;
-			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.MarbleWithdrawl );
 				EngineCore.dynStats( 'tou', 5, 'int', 5 );
 			}
 			//Clear marble's milk status;
-			if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.MarblesMilk );
 			}
 			//Boost stats if not under its affects;
@@ -423,13 +423,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		if( this.checkedMarbleMilk++ === 0 && CoC.time.hours === 6 && CoC.player.findPerk( PerkLib.MarblesMilk ) ) {
 			//Marble is at camp;
-			if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 				this.postAddictionCampMornings( false );
 			}
 			//Marble isn't at camp;
 			else {
 				//Marble is still available at farm;
-				if( CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) ) {
 					this.postAddictionFarmMornings();
 					OnLoadVariables.timeQ++; //We can get rid of this;
 				}
@@ -441,7 +441,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	//End of Interface Implementation;
 	MarbleScene.prototype.marbleFollower = function() {
-		return CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0;
+		return CoC.player.findStatusAffect( StatusAffects.CampMarble );
 	};
 	MarbleScene.prototype.marbleAtCamp = function() {
 		if( this.marbleFollower() ) {
@@ -926,7 +926,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			//[affection >=60, CoC.player has not had sex with Marble];
-			if( CoC.player.findStatusAffect( StatusAffects.FuckedMarble ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.FuckedMarble ) ) {
 				MainView.outputText( '\n\nAs the two of you finish chatting, Marble gives you an intense look.  "<i>You know that I really like you right, sweetie?  I\'d like it if I can do something special with you,</i>" she hesitates for a moment, "<i>Will you come to my bed?</i>"\n\nDo you accept her invitation?', false );
 				EngineCore.dynStats( 'lus', 10 );
 				EngineCore.doYesNo( this, this.AcceptMarblesSexualAdvances, this, this.turnDownMarbleSexFirstTime );
@@ -966,7 +966,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.spriteSelect( 41 );
 		//Standard sex (See sex section);
 		this.standardSex( true );
-		if( CoC.player.findStatusAffect( StatusAffects.FuckedMarble ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.FuckedMarble ) ) {
 			CoC.player.createStatusAffect( StatusAffects.FuckedMarble, 0, 0, 0, 0 );
 		}
 		//(increase affection by 10);
@@ -1132,7 +1132,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			MainView.outputText( '', true );
 		}
 		//First visit post addiction:;
-		if( CoC.player.findStatusAffect( StatusAffects.MalonVisitedPostAddiction ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MalonVisitedPostAddiction ) ) {
 			MainView.outputText( 'You find Marble coming out of the barn, holding one of her bottles of milk.  When she spots you, she hurries over and hands you the bottle.  "<i>I want to find something out. Can you drink from that bottle?</i>" she asks.  Do you drink it?', false );
 			//- CoC.player chooses yes/no;
 			EngineCore.doYesNo( this, this.playerAgreesToDrinkMarbleMilkBottled, this, this.playerRefusesToDrinkBottledMilk );
@@ -1170,7 +1170,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		this.marbleStatusChange( 0, 5 );
 		//(delay withdrawal effect);
 		//If the player is addicted, this item negates the withdrawal effects for a few hours (suggest 6), there will need to be a check here to make sure the withdrawal effect doesn't reactivate while the player is under the effect of 'Marble's Milk'.;
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (3 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 8, 0, 0, 0 );
@@ -1189,7 +1189,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'str', -1, 'tou', -1 );
 		//(delay withdrawal effect);
 		//If the player is addicted, this item negates the withdrawal effects for a few hours (suggest 6), there will need to be a check here to make sure the withdrawal effect doesn't reactivate while the player is under the effect of 'Marble's Milk'.;
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1228,7 +1228,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(decrease player str and tou by 1.5);
 		EngineCore.dynStats( 'str', -1, 'tou', -1 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1245,7 +1245,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(decrease affection by 5);
 		this.marbleStatusChange( -5, 0 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1261,7 +1261,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(increase affection by 5);
 		this.marbleStatusChange( 5, 0 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1279,7 +1279,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(decrease addiction by 5);
 		this.marbleStatusChange( -5, -5 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1306,7 +1306,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		MainView.spriteSelect( 41 );
 		//First visit post addiction:;
-		if( CoC.player.findStatusAffect( StatusAffects.MalonVisitedPostAddiction ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MalonVisitedPostAddiction ) ) {
 			MainView.outputText( 'You find Marble walking out of the barn, a tank in her arms.  You decide to follow her as she goes behind the barn.  When you round the corner, you see her pouring the contents of the tank out onto the ground.  You ask her what she\'s doing, "<i>I\'m getting rid of this corrupted milk,</i>" she says in disgust.  As you approach her, you recognize the smell of her milk and lick your lips unconsciously.  "<i>I make so much of it each day, I\'m a monster,</i>" she says coldly, "<i>and I made you need it.</i>"  As the last of the milk splashes onto the ground, Marble looks towards you. Surprisingly, her face seems hard and cold.  Do you blame her for what happened to you, or do you comfort her?', false );
 			//- CoC.player chooses blame her or comfort her;
 			EngineCore.choices( 'Comfort', this, this.AshamedAddictionComfort, 'Blame', this, this.AshamedAddictionBlame, '', null, null, '', null, null, '', null, null );
@@ -1338,7 +1338,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(decrease player str and tou by 1.5);
 		EngineCore.dynStats( 'str', -1, 'tou', -1 );
 		//(delay withdrawal effect);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1365,13 +1365,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MarbleScene.prototype.withdrawalDelay = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
 		}
 		//Clear withdrawal immediately;
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.MarbleWithdrawl );
 			EngineCore.dynStats( 'tou', 5, 'int', 5 );
 		}
@@ -1387,7 +1387,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(decrease player str and tou by 1.5);
 		EngineCore.dynStats( 'str', -1, 'tou', -1 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1427,7 +1427,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(reduce str and tou by 1.5);
 		EngineCore.dynStats( 'str', -1, 'tou', -1 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1448,7 +1448,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(increase affection by 5);
 		this.marbleStatusChange( 5, 0 );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1463,7 +1463,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(CoC.player gets a bottle of Marble's Milk);
 		SceneLib.inventory.takeItem( ConsumableLib.M__MILK, SceneLib.camp.returnToCampUseOneHour );
 		//(delay withdrawal for a few hours);
-		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BottledMilk ) ) {
 			CoC.player.addStatusValue( StatusAffects.BottledMilk, 1, (1 + Utils.rand( 6 )) );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.BottledMilk, 3, 0, 0, 0 );
@@ -1653,7 +1653,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				MainView.outputText( '  After my falling out with Ansgar, I noticed that I really missed nursing him more than anything else.</i>"  She stops for a moment, shaking her head.  "<i>That\'s not quite right.  It\'s more that I needed to keep nursing; it just felt like everything was wrong with me if I wasn\'t nursing something.</i>"' );
 				MainView.outputText( '\n\n"<i>It was so bad that I had to start nursing anything I could find, even if I had to force it.  The most notable of these was probably this one adorable imp, barely half my height.  I thought that my milk could make something so cute into anything I wanted.  I caught him and made him nurse me all night.  He was just the most wonderful thing once he\'d gotten his mind off his monster cock.</i>" She shakes her head.  "<i>But an imp has demon taint, so you know how this is going to end, don\'t you?  The next day, my \'special\' friend had gone out to get his other friends and decided that I\'d make a wonderful sex toy.</i>"  She smiles.  "<i>That was one hell of a day... though maybe not in the way they expected.  I gave them such a bad beating that I doubt that they\'ll ever try to gang-rape someone outside the cover of night again.  Speaking of which sweetie, you\'d best not show any of those horrible creatures where you live, ok?</i>"' );
 				//[if PC has been gang-banged by imps];
-				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.ImpGangBang ) ) {
 					MainView.outputText( '\n\nYou give a small chuckle at the belated advice; it would have been useful earlier.' );
 				} else {
 					MainView.outputText( '\n\nYou nod and thank Marble for the advice; but as long as you have to stay by and defend this side of the portal from being occupied, you\'re pretty sure it\'s a moot point.' );
@@ -1674,13 +1674,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 				MainView.outputText( '\n\nMarble looks up to grin at you, and finally notices the dumbstruck look on your face.  "<i>Uh, sweetie, what is it?</i>"  You make absolutely sure that you heard her right when she said she was 11 years old last year.  She nods, and asks you why you find that so odd.  You can only shake your head and inform her that humans take about 18 to 25 years to fully mature.  She laughs at this idea and says that she\'s been fully grown since she was 6; all the members of her race are that way - those she\'s met, anyway.  Well, there isn\'t much else you can say to that.' );
 				//-page break-;
 				MainView.outputText( '\n\n"<i>Well, that\'s basically the story of my life.  I guess I\'ve heard everything about you now' );
-				if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 					MainView.outputText( ', except that mission of yours that\'s so important to you' );
 				}
 				MainView.outputText( '.</i>"' );
 				MainView.outputText( '\n\nYou decide to ask her if she\'s changed since she left home.  "<i>Well, I guess I\'m a lot more level-headed than I was before, and I\'m able to control myself much better when someone refuses to drink my milk.  It still makes me really mad inside, but I keep a lid on it.</i>"  She stops for a moment.  "<i>I\'m also fairly good at hiding my feelings.' );
 				//[if Marble is not in camp] ;
-				if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 					MainView.outputText( '  I may not show it, but I\'m actually really lonely on the inside.' );
 					//[if addiction quest is active, and Marble is ashamed of her milk];
 					if( CoC.player.statusAffectv3( StatusAffects.Marble ) === 2 ) {
@@ -1880,7 +1880,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			CoC.player.cuntChange( 8, true );
 		}
 		//(first time sex);
-		if( CoC.player.findStatusAffect( StatusAffects.FuckedMarble ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.FuckedMarble ) ) {
 			MainView.outputText( 'After a few minutes pass, Marble breaks the silence. "<i>Sweetie, that was wonderful. You\'re really special to me, yah know?  Please remember that.</i>"  You know that your relationship is special too; you won\'t forget Marble anytime soon.', false );
 			CoC.player.createStatusAffect( StatusAffects.FuckedMarble, 0, 0, 0, 0 );
 		}
@@ -2073,7 +2073,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'lus', 40 );
 	};
 	MarbleScene.prototype.marbleStatusChange = function( affection, addiction, isAddicted ) {
-		if( CoC.player.findStatusAffect( StatusAffects.Marble ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Marble ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Marble, 0, 0, 0, 40 );
 		}
 		//Values only change if not brought to conclusion;
@@ -2094,7 +2094,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		var tou = 10;
 		//Marble's milk - effect;
 		//Increases player toughness by 10 and strength by 5 for several hours (suggest 12).;
-		if( CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MarblesMilk ) ) {
 			CoC.player.createStatusAffect( StatusAffects.MarblesMilk, 12, 0, 0, 0 );
 			if( CoC.player.str + 5 > 100 ) {
 				str = 100 - CoC.player.str;
@@ -2119,7 +2119,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			CoC.player.changeStatusValue( StatusAffects.MarblesMilk, 1, 36 );
 		}
 		//Remove withdrawl if applicable;
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.MarbleWithdrawl );
 			EngineCore.dynStats( 'tou', 5, 'int', 5 );
 		}
@@ -2175,7 +2175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			milkEvent = this.gotMilk;
 		}
 		//Determine if marble has an item for the player;
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleHasItem ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleHasItem ) ) {
 			gatherEvent = this.marbleGathered;
 		}
 		if( CoC.flags[ kFLAGS.MARBLE_KIDS ] > 0 ) {
@@ -2395,7 +2395,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	//Talk to Marble, she will give a quick talk about what the player should consider doing next, comment on how things are going in general, and she will eventually talk about the quest to purify her here once that has been implemented.  The topic of conversation changes if you are too corrupt.;
 	MarbleScene.prototype.talkWithMarbleAtCamp = function() {
 		MainView.spriteSelect( 41 );
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleSpecials ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MarbleSpecials ) ) {
 			CoC.player.createStatusAffect( StatusAffects.MarbleSpecials, 0, 0, 0, 0 );
 		}
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -2408,18 +2408,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//earliest story event the player has not told Marble about since she joined the player at camp, alternatively, just the most recent event;;
 		//ACTUALLY TALK ABOUT SHIT;
 		//The player has met the Goddess Marae;
-		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) >= 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 1 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 1 ) {
 			MainView.outputText( 'You tell Marble about your visit with the Goddess Marae.  Marble is very interested in the story and listens closely to your every word.  "<i>To think that there is still a pure Goddess in this world...</i>" she says in wonder afterward, "<i>But what\'s happening to her is so sad.  We should definitely help her if we can.</i>"', false );
 			//Level up!;
 			CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] = 1;
 		}
 		//The player has discovered the factory;
-		else if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) >= 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 2 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 2 ) {
 			MainView.outputText( 'You tell Marble you found a demonic factory and relate everything you know about it.  "<i>Be careful in there,</i>" Marble tells you, "<i>I\'m certain that place will consume you if you\'re unprepared.</i>"', false );
 			CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] = 2;
 		}
 		//The player has cleared the factory and shut it down;
-		else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 3 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 3 ) {
 			MainView.outputText( 'You tell Marble about what you found inside the factory.  She is horrified at what was being done to the other champions and assures you that no one should ever <i>belong</i> in a place like that. You continue and tell of the overseer and her fate. Marble reacts with surprise, ', false );
 			if( CoC.player.findPerk( PerkLib.OmnibusGift ) ) {
 				MainView.outputText( 'and hopes that you\'ve learned your lesson about accepting <i>gifts</i> from demons.  ', false );
@@ -2430,12 +2430,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] = 3;
 		}
 		//The player has met Marae after doing a shutdown of the factory and smashing the controls;
-		else if( CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 4 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 4 ) {
 			MainView.outputText( 'Marble is very happy to hear you helped Marae.  With the factory taken care of and Marae\'s corruption postponed for some time, the both of you will probably sleep a little easier tonight. ', false );
 			CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] = 4;
 		}
 		//The player has met the corrupted Marae after blowing the storage tanks;
-		else if( CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 4 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) && CoC.flags[ kFLAGS.MARBLE_CAMPTALK_LEVEL ] < 4 ) {
 			MainView.outputText( 'Your story about what had happened to Marae seems to have shaken up Marble a little.  Though, you notice that she seems to be getting more and more aroused as you relate your story.  ', false );
 			if( CoC.player.findPerk( PerkLib.MaraesGiftFertility ) ) {
 				MainView.outputText( 'You continue and tell her how your attempt to get Marae\'s Lithicite turned out.  Marble can\'t believe you tried that, but when she hears what happened next, her eyes go wide and she actually starts masturbating in front of you.  At the end of your tale, however, Marble looks more concerned than aroused.  She hopes you won\'t have too much trouble with pregnancies. That seemed to have killed the mood for her, too.', false );
@@ -2478,9 +2478,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//Comments on next course of action, only mentions main story events and quests the player is undergoing;
 		MainView.outputText( 'The topic of conversation turns to your mission and you ask Marble what she thinks you should be doing next.  ', false );
 		//If (CoC.player has not yet met Marae);
-		if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MetMarae ) ) {
 			MainView.outputText( '"<i>Well sweetie, I guess you should start with getting to know the place a little better.  Why don\'t you look some more around the lake outside the farm?  I think that\'s the safest place to start.</i>"', false );
-		} else if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FoundFactory ) < 0 ) {
+		} else if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) && !CoC.player.findStatusAffect( StatusAffects.FoundFactory ) ) {
 			//check if the player is far too weak to go to the factory;
 			if( CoC.player.level < 3 ) {
 				MainView.outputText( '"<i>I think we should help out Marae and shut down that factory she mentioned was in the mountains, but I don\'t think you\'re ready to go into the Mountains yet. They can be brutal - get a little more practice, and make sure you\'ve got a good weapon.</i>"', false );
@@ -2489,10 +2489,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			}
 		}
 		//Player has found factory but not shut it down.;
-		else if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) >= 0 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) && !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			MainView.outputText( '"<i>You still haven\'t shut down the factory yet, have you?</i>"  You shake your head.  "<i>Well then go do it!</i>"', false );
 		}//(CoC.player has completed the factory but has not returned to Marae);
-		else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) < 0 && CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) < 0 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) && !CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) ) {
 			MainView.outputText( '"<i>You haven\'t gone back to Marae yet have you?</i>"  You shake your head.  "<i>Well then go see her!  I\'m sure she really wants to thank you.</i>"', false );
 		}//If PC has not yet discovered Zetaz's lair or Tel'Adre (Z);
 		else if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] === 0 || CoC.player.statusAffectv1( StatusAffects.TelAdre ) === 0 ) {
@@ -2668,7 +2668,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	 */
 	MarbleScene.prototype.marbleCampSexNew = function() {
 		MainView.spriteSelect( 41 );
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			MainView.outputText( '  You call Marble over and ask her if she can give you some release.  She smiles at you and gently grips your ' + Descriptors.cockDescript( 0 ) + ' in one of her hands before recoiling in horror.  "<i>Uh, why don\'t you take care of that problem of yours in your cock first, sweetie?  Then I\'ll help you get release.</i>"  It looks like Marble isn\'t willing to help you get release while you have worms infecting your cock.' );
 			return;
 		}
@@ -3022,7 +3022,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', -3 );
 	};
 	MarbleScene.prototype.marbleNips = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleSpecials ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MarbleSpecials ) ) {
 			CoC.player.createStatusAffect( StatusAffects.MarbleSpecials, 0, 1, 0, 0 );
 		}
 		//Set nipples to 1 if uninitialized;
@@ -3473,7 +3473,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//Marble 60+ & CoC.player 20+ - service;
 		//boring;
 		//PC has worms kills everything.;
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			if( CoC.flags[ kFLAGS.MARBLE_GROSSED_OUT_BECAUSE_WORM_INFESTATION ] !== 1 ) {
 				MainView.outputText( 'As you go to lie down for the night, you find that Marble has gotten there before you.  You lie down next to her, but you can\'t help wishing that the two of you could have sex.  Suddenly, you feel Marble\'s hand grab ahold of your ' + Descriptors.cockDescript( 0 ) + '.  She gives a bit of a squeal as one of the worms starts to move around inside the shaft.  She pulls open the blankets and looks closely at your dick for a few moments before picking up her bedroll and moving to a different part of the camp saying, "<i>' + CoC.player.short + ', you get rid of those or I\'m not going to sleep next to you or with you.</i>"\n\n', false );
 				CoC.flags[ kFLAGS.MARBLE_GROSSED_OUT_BECAUSE_WORM_INFESTATION ] = 1;
@@ -3921,7 +3921,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			//sucking her cock scene;
 			MainView.outputText( 'Marble lifts up her skirt and gives you a good look at her very erect ' + this.marbleCock() + '.  You position yourself overtop of her and take a deep breath, taking in her smell.  ', false );
 			//is the PC overwhelmed by her animalistic smell?;
-			if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 || CoC.player.lib + CoC.player.cor - CoC.player.inte > 35 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) || CoC.player.lib + CoC.player.cor - CoC.player.inte > 35 ) {
 				MainView.outputText( 'For some reason, your head starts to feel a bit fuzzy from the animalistic smell, and for a moment you forget what you were doing.  It comes back to you quickly, as there is a big juicy ' + this.marbleCock() + ' right there in front of you.  It gives off such a nice smell; it probably tastes really good, too.  You open your mouth and bring yourself closer, taking it inside.\n\n', false );
 				MainView.outputText( 'You hear a soft sigh and moan above you, "<i>Oh sweetie,</i>" it says in pleasure as you feel something get placed on the back of your head, pushing you forward.  The heady aroma is so strong that you can do nothing more than run your tongue over every part of this wonderful ' + this.marbleCock() + ', letting the hand guide your movements while you hear happy noises coming from above you.  Those noises and words sound happy, so they make you feel happy too.\n\n', false );
 				MainView.outputText( 'Finally, you hear a gasp coming from the hand\'s owner, as a salty fluid starts to fill your mouth.  You swallow it instinctively and relish its taste.  About a minute later, you\'re finally able to collect your thoughts and realize that you\'d lost control for a moment there.  From the satisfied look on Marble\'s face, it doesn\'t look like she\'s aware.  ', false );

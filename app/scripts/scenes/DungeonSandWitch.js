@@ -738,11 +738,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		Combat.combatRoundOver();
 	};
 	DungeonSandWitch.prototype.sandWitchMobAI = function() {
-		if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) ) {
 			this.sandStormAttack();
 		} else if( CoC.monster.HPRatio() < 0.5 ) {
 			this.drankSomeMialk();
-		} else if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) >= 0 && Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.LustStones ) < 0 ) {
+		} else if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) && Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.LustStones ) ) {
 			this.sandstonesAreCool();
 		} else if( Utils.rand( 3 ) === 0 ) {
 			this.headbuttABitch();
@@ -763,7 +763,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		choices[ choices.length ] = this.bukkakeAttack;
 		choices[ choices.length ] = this.cocknosisAttack;
-		if( CoC.monster.findStatusAffect( StatusAffects.Shell ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Shell ) ) {
 			choices[ choices.length ] = this.shellDefense;
 			choices[ choices.length ] = this.shellDefense;
 			choices[ choices.length ] = this.shellDefense;
@@ -1110,7 +1110,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	DungeonSandWitch.prototype.cumPumpVolumeThree = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'With the champion brainwashed into a little more than a loyal cum-pump for the sand witches, they grow in number and strength with alarming speed.  In the space of eight years, the desert is transformed into a verdant forest.  For better or for worse, the witches finally rival the demons in power.  They spread their influence wider, eventually ' );
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( 'destroying' );
 		} else {
 			MainView.outputText( 'rescuing' );
@@ -2782,7 +2782,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.outputText( '\n\nThe Queen Witch listens with rapt attention to your tale, but when you finish, all she does is close her eyes, seemingly lost in thought.  You pause, awaiting her reply.  Seconds tick by, then merge into minutes.  You idly tap your [foot].  Will she ever get done mulling over your words?' );
 		MainView.outputText( '\n\nSuddenly, the Queen jerks up, looking you in the eye with her strange, white-irised gaze.' );
 		//(No new PG.  Corrupt version);
-		if( CoC.player.cor > CoC.player.inte || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
+		if( CoC.player.cor > CoC.player.inte || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
 			MainView.outputText( '  "<i>There is some truth to your tale, [name], but I am a Sand Mother.  We are schooled in the art of sussing out the corrupt or unclean.  If we could not detect disguised demons and demonic agents, we would not flourish as we do now, and this great desert would not be on the cusp of resurrection.</i>"' );
 			MainView.outputText( '\n\nThe Sand Mother steps out of her throne, brandishing a shining scepter as she rises.  Her lips curve into a cruel smile and she challenges, "<i>Fight me, [name], and fall like every demonic agent before you.  Do not fear, for when you lose, you shall be reborn to serve a just cause.  Your taint may yet be exorcised.</i>"' );
 			MainView.outputText( '\n\nThere\'s no way out, it\'s a fight!' );
@@ -2888,16 +2888,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//Starts combat with sandstorm.  GigaFire's every fifth round.;
 	//Whispers every fourth.;
 	DungeonSandWitch.prototype.sandWitchMotherAI = function() {
-		if( CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) ) {
 			this.sandStormAttack();
 			return;
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.Gigafire ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Gigafire ) ) {
 			this.gigaFire2();
 			return;
 		}
 		var choices = [];
-		if( CoC.player.findStatusAffect( StatusAffects.Whispered ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Whispered ) ) {
 			choices[ choices.length ] = this.getWhispered;
 		}
 		choices[ choices.length ] = this.eatALightningBolt;
@@ -3990,7 +3990,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Take Fertile Pills ✓Kirbu;
 	DungeonSandWitch.prototype.takeFertilePills = function() {
 		MainView.clearOutput();
-		if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Contraceptives ) ) {
 			MainView.outputText( 'You aren\'t under the effects of a contraceptive, so taking a pink pill would do nothing.' );
 		}//{Contraceptives};
 		else {
@@ -4007,7 +4007,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	DungeonSandWitch.prototype.takeBarrenPills = function() {
 		MainView.clearOutput();
 		//{Already contraceptive'ed} ;
-		if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) ) {
 			MainView.outputText( 'You\'re already under the effects of contraceptives.  Taking one of the brown pills wouldn\'t do anything.' );
 		}//{TAKE DAT SHIT YO};
 		else {

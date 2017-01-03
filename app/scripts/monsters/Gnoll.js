@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 		}
 	};
 	Gnoll.prototype.performCombatAction = function() {
-		if( this.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Stunned ) ) {
 			if( this.plural ) {
 				MainView.outputText( 'Your foes are too dazed from your last hit to strike back!', false );
 			} else {
@@ -227,7 +227,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			this.removeStatusAffect( StatusAffects.Stunned );
 			Combat.combatRoundOver();
 		}
-		if( this.findStatusAffect( StatusAffects.Fear ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Fear ) ) {
 			if( this.statusAffectv1( StatusAffects.Fear ) === 0 ) {
 				if( this.plural ) {
 					this.removeStatusAffect( StatusAffects.Fear );
@@ -247,11 +247,11 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			Combat.combatRoundOver();
 		}
 		//Exgartuan gets to do stuff!;
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
 			CoC.exgartuan.exgartuanCombatUpdate();
 			MainView.outputText( '\n\n', false );
 		}
-		if( this.findStatusAffect( StatusAffects.Constricted ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Constricted ) ) {
 			//Enemy struggles -;
 			MainView.outputText( 'Your prey pushes at your tail, twisting and writhing in an effort to escape from your tail\'s tight bonds.', false );
 			if( this.statusAffectv1( StatusAffects.Constricted ) <= 0 ) {
@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			//return to combat menu when finished;
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			//Blind dodge change;
-			if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+			if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 				MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			}
 			//Determine if dodged!;
@@ -356,7 +356,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 	};
 
 	Gnoll.prototype.defeated = function() {
-		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaPCBeatsGnoll();
 			return;
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 	};
 	/* jshint unused:true */
 	Gnoll.prototype.won = function( hpVictory, pcCameWorms ) {
-		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaGnollBeatsPC();
 		} else if( pcCameWorms ) {

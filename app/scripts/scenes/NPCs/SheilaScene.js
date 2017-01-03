@@ -515,7 +515,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[Forgive][Fight][Cast Arouse][Leave Me Alone];
 		EngineCore.addButton( 0, 'Forgive', this, this.sheilaIsSorryAndYouForgive );
 		EngineCore.addButton( 1, 'Fight', this, this.sheilaPologyFight );
-		if( CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.KnowsArouse ) ) {
 			EngineCore.addButton( 2, 'CastArouse', this, this.sheilaPologyCastArouse );
 		}
 		EngineCore.addButton( 3, 'LemmeAlone', this, this.sheilaIsSorryButLeaveMeAlone );
@@ -2872,7 +2872,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			MainView.outputText( '.</i>"' );
 			MainView.outputText( '\n\nYour [vagOrAss] squeezes around Sheila\'s hesitant tongue, turned on more by the spectacle of selling her body than by any of her poor efforts.  She squirms under you, rubbing her thighs together as you paint the worst pictures of her future you can imagine, and you climax' );
 			//[(PC has met Lumi or Lynette);
-			if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 || CoC.flags[ kFLAGS.LUMI_MET ] > 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) || CoC.flags[ kFLAGS.LUMI_MET ] > 0 ) {
 				MainView.outputText( ' while imagining her turned over to the goblins for experiments, forced to drink potion after potion - most would be dedicated to growing cocks on her or increasing semen production, of course' );
 			}
 			MainView.outputText( '.  Your hole clenches and drools on her, and the woman\'s rude tongue retreats from the pressure, leaving you painfully empty.' );
@@ -3687,10 +3687,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		MainView.outputText( '\n\nIn no time at all you\'re back at your familiar campsite in the wastes; the place is quiet and asleep, so you carefully drop the game animals on the ground next to the fire pit, then plop yourself down as well.' );
 		MainView.outputText( '\n\n"<i>Seems... nice,</i>" Sheila says quietly, taking a seat, "<i>but it\'s exposed - not to mention the big target sign.</i>"  She looks at the portal, casting an ominous silhouette against the sky.  "<i>I dunno about this.</i>"' );
 		//[(if PC has thorn canopy on);
-		if( CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) ) {
 			MainView.outputText( '\n\nYou shrug off her objections, pointing at the thorns already growing over your point of entry.  Sheila seems duly impressed by the quasi-magical display.' );
 		}//(else if PC has Jojo and Jojo's n.watch is on);
-		else if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( '\n\nYou wave Jojo over, introducing them and explaining that the monk watches the camp at night and you check it during the day.  The small white mouse bows politely to your guest, then seats himself nearby.  "<i>Hello, Sheila,</i>" he says.' );
 		}
 		//(else if PC has Kid A and Kid's n.watch is on);
@@ -3710,7 +3710,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		MainView.outputText( '  She nods mutely and pulls the food out of the fire.' );
 		//[(if Jojo present);
-		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( '  She extends one bird to you and another to Jojo.  He raises his hand and shakes his head, but politely.' );
 		} else if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
 			MainView.outputText( '  Sheila offers you one of the birds, then extends another to your odd tenant.  The anemone\'s mouth tightens and she shakes her head vigorously, blushing a deep blue.' );
@@ -3718,7 +3718,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		MainView.outputText( '  You eat in silence until the food is gone, and Sheila clears her throat.' );
 		MainView.outputText( '\n\n"<i>I need to go before dawn, so I\'ll get this out in case you\'re asleep when I do,</i>" she announces, still looking at the ground.  "<i>I appreciate the help... now, and from before.  Really, you\'re a bottler.</i>"' );
 		//[(if no watch);
-		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 || CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) || !CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) || CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
 			MainView.outputText( '\n\nShe gets to her feet as you grin, then makes her way over to your bedroll.  It doesn\'t take her long to fall asleep; you amuse yourself watching her toss and turn... and drool on your pillow.' );
 		}//(if watch);
 		else {
@@ -4843,7 +4843,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		MainView.outputText( '\n\nWords, words, words.  You start pumping again, teasing her asshole; the woman shifts her hips and rubs against your crotch gratuitously as you do, giving you the benefit of seeing her pleasure so you won\'t stop thrusting.  "<i>Decided to finally shut up, I see,</i>" you taunt.  Sheila says nothing in reply, though her cheeks tingle and flush with shame.  With her mouth finally quiet, you actually manage to get into the fuck, rubbing your dick against her hot insides.  Your head leans back as you feel your orgasm creeping closer, and Sheila notices, staring at you out of the corner of her eye.' );
 		MainView.outputText( '\n\n"<i>[name]!  Finish in my pussy, please!  I want to raise your baby!  You\'re the only one that suits me!</i>"' );
 		//if corruption >= 80 and PC has worms, present choices ;
-		if( CoC.player.cor >= 80 && CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.cor >= 80 && CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			MainView.menu();
 			//[No][Worms Suit You], else auto-output text from [No];
 			EngineCore.addButton( 0, 'No', this, this.sheilaAnalHateFuckAGoGoNO );

@@ -36,7 +36,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	//}endregion;
 	TelAdre.prototype.discoverTelAdre = function() {
 		MainView.outputText( '', true );
-		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.TelAdre ) ) {
 			MainView.outputText( 'The merciless desert sands grind uncomfortably under your ' + CoC.player.feet() + ' as you walk the dunes, searching the trackless sands to uncover their mysteries.  All of a sudden, you can see the outline of a small city in the distance, ringed in sandstone walls.  Strangely it wasn\'t there a few moments before.  It\'s probably just a mirage brought on by the heat.  Then again, you don\'t have any specific direction you\'re heading, what could it hurt to go that way?', false );
 			MainView.outputText( '\n\nDo you investigate the city in the distance?', false );
 		} else {
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	//CoC.player chose to approach the city in the distance;
 	TelAdre.prototype.encounterTelAdre = function() {
 		MainView.outputText( '', true );
-		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.TelAdre ) ) {
 			MainView.outputText( 'You slog through the shifting sands for a long time, not really seeming to get that close.  Just when you\'re about to give up, you crest a large dune and come upon the walls of the city you saw before.  It\'s definitely NOT a mirage.  There are sandstone walls at least fifty feet tall ringing the entire settlement, and the only entrance you can see is a huge gate with thick wooden doors.  The entrance appears to be guarded by a female gray fox who\'s more busy sipping on something from a bottle than watching the desert.\n\n', false );
 			MainView.outputText( 'As if detecting your thoughts, she drops the bottle and pulls out a halberd much longer than she is tall.\n\n', false );
 			MainView.outputText( '"<i>Hold it!</i>" barks the fox, her dark gray fur bristling in suspicion at your sudden appearance, "<i>What\'s your business in the city of Tel\'Adre?</i>"\n\n', false );
@@ -64,11 +64,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	};
 	//Alignment crystal goooooo;
 	TelAdre.prototype.telAdreCrystal = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.TelAdre ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.TelAdre ) ) {
 			CoC.player.createStatusAffect( StatusAffects.TelAdre, 0, 0, 0, 0 );
 		}
 		//-70+ corruption, or possessed by exgartuan;
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.player.cor >= 70 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) || CoC.player.cor >= 70 ) {
 			MainView.outputText( 'The crystal pendant begins to vibrate in the air, swirling around and glowing dangerously black.  Edryn snatches her hand back and says, "<i>I\'m sorry, but you\'re too far gone to step foot into our city.  If by some miracle you can shake the corruption within you, return to us.</i>"\n\n', false );
 			MainView.outputText( 'You shrug and step back.  You could probably defeat these two, but you know you\'d have no hope against however many friends they had beyond the walls.  You turn around and leave, a bit disgruntled at their hospitality.  After walking partway down the dune you spare a glance over your shoulder and discover the city has vanished!  Surprised, you dash back up the dune, flinging sand everywhere, but when you crest the apex, the city is gone.', false );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 			MainView.outputText( 'The crystal pendant shimmers, vibrating in place and glowing a purple hue.  Edryn steps back, watching you warily, "<i>You\'ve been deeply touched by corruption.  You balance on a razor\'s edge between falling completely and returning to sanity.  You may enter, but we will watch you closely.</i>"\n\n', false );
 		}
 		//-25+ corruption or corrupted Marae;
-		else if( CoC.player.cor >= 25 || CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		else if( CoC.player.cor >= 25 || CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( 'The crystal pendant twirls in place, glowing a dull red.  Edryn takes a small step back and murmers, "<i>You\'ve seen the darkness of this land first hand, but its hold on you is not deep.  You\'ll find sanctuary here.  The demons cannot find this place yet, and we promise you safe passage within the walls.</i>"\n\n', false );
 		}
 		//-Low corruption/pure characters;
@@ -242,7 +242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	TelAdre.prototype.piercingStudio = function() {
 		MainView.spriteSelect( 63 );
 		var about = null;
-		if( CoC.player.findStatusAffect( StatusAffects.Yara ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Yara ) ) {
 			about = this.aboutYara;
 		}
 		MainView.outputText( '', true );
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 	TelAdre.prototype.oswaldPawn = function() {
 		MainView.spriteSelect( 47 );
 		MainView.outputText( '', true );
-		if( CoC.player.findStatusAffect( StatusAffects.Oswald ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Oswald ) ) {
 			MainView.outputText( 'Upon closer inspection, you realize the pawnbroker appears to be some kind of golden retriever.  He doesn\'t look entirely comfortable and he slouches, but he manages to smile the entire time.  His appearance is otherwise immaculate, including his classy suit-jacket and tie, though he doesn\'t appear to be wearing any pants.  Surprisingly, his man-bits are retracted.  ', false );
 			if( CoC.player.cor < 75 ) {
 				MainView.outputText( 'Who would\'ve thought that seeing someone NOT aroused would ever shock you?', false );
@@ -1245,7 +1245,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		MainView.outputText( '', true );
 		MainView.spriteSelect( 61 );
 		MainView.outputText( 'The inside of the tailor\'s shop is far cleaner than anything else you\'ve seen in the city.  The walls are painted muted gray, and the floor is carpeted with a sprawling, royal blue rug.  After glancing around, you realize WHY the walls and floor are so muted – the quiet backdrop makes the merchandise look even more amazing.  There are racks and racks of clothing, but much of it is plain comfortable clothing, and not worth spending much time investigating.  A high-pitched voice pipes up, "<i>Can I help you?</i>"\n\n', false );
-		if( CoC.player.findStatusAffect( StatusAffects.Victoria ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Victoria ) ) {
 			MainView.outputText( 'You turn around, ', false );
 			if( CoC.player.tallness > 60 ) {
 				MainView.outputText( 'looking for the source, eventually looking down and at a short but busty Corgi dog-girl.  ', false );
@@ -1403,7 +1403,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, ArmorLib, OnL
 		MainView.outputText( 'You shoulder past the bulky centaurs, ignore the rough fur of the nearby wolves and hounds as it brushes against you, and press your way through to the center of the crowd.  Eventually the throng parts, revealing the embattled combatants.  A snarling wolf, nearly eight feet tall, towers over Urta.  The comparatively diminutive fox-woman is girded in light leather armor and dripping with sweat.  The larger wolf-man is staggering about, and his dark brown fur is matted with blood.\n\n', false );
 		MainView.outputText( 'The bigger canid charges, snarling, with his claws extended.  Urta sidesteps and pivots, her momentum carrying her foot around in a vicious kick.  Her foot hits the side of the beast\'s knee hard enough to buckle it, and the wolf goes down on his knees with an anguished cry.  Urta slips under his arm and twists, turning his slump into a fall.  A cloud of dust rises from the heavy thud of the beast\'s body as it slams into the cobblestone street.\n\n', false );
 		MainView.outputText( 'Now that it\'s immobile, you get can get a better look at the defeated combatant, and you\'re ', false );
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			MainView.outputText( 'aroused', false );
 		} else if( CoC.player.cor < 50 ) {
 			MainView.outputText( 'horrified', false );

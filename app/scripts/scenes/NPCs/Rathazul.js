@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	//End of Interface Implementation;
 	Rathazul.prototype.returnToRathazulMenu = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			this.campRathazul();
 		} else {
 			this.encounterRathazul();
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.encounterRathazul = function() {
 		MainView.spriteSelect( 49 );
-		if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 2 && CoC.player.findStatusAffect( StatusAffects.MetRathazul ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 2 && CoC.player.findStatusAffect( StatusAffects.MetRathazul ) ) {
 			SceneLib.marblePurification.visitRathazulToPurifyMarbleAfterLaBovaStopsWorkin();
 			return;
 		}
@@ -57,8 +57,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			EngineCore.dynStats( 'lus', -10 );
 		}
 		//Introduction;
-		if( CoC.player.findStatusAffect( StatusAffects.MetRathazul ) >= 0 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MetRathazul ) ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 				MainView.outputText( 'You walk over to Rathazul\'s corner of the camp.  He seems as busy as usual, with his nose buried deep in some tome or alchemical creation, but he turns to face you as soon as you walk within a few paces of him.\n\n', true );
 			} else {
 				MainView.outputText( 'You spy the familiar sight of the alchemist Rathazul\'s camp along the lake.  The elderly rat seems to be oblivious to your presence as he scurries between his equipment, but you know him well enough to bet that he is entirely aware of your presence.\n\n', true );
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 	};
 	Rathazul.prototype.campRathazul = function() {
 		MainView.spriteSelect( 49 );
-		if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 2 && CoC.player.findStatusAffect( StatusAffects.MetRathazul ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 2 && CoC.player.findStatusAffect( StatusAffects.MetRathazul ) ) {
 			SceneLib.marblePurification.visitRathazulToPurifyMarbleAfterLaBovaStopsWorkin();
 			return;
 		}
@@ -106,7 +106,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		if( Utils.rand( 6 ) === 0 && CoC.flags[ kFLAGS.RATHAZUL_CAMP_INTERACTION_COUNTDOWN ] === 0 ) {
 			CoC.flags[ kFLAGS.RATHAZUL_CAMP_INTERACTION_COUNTDOWN ] = 3;
 			//Pure jojo;
-			if( CoC.flags[ kFLAGS.JOJO_RATHAZUL_INTERACTION_COUNTER ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
+			if( CoC.flags[ kFLAGS.JOJO_RATHAZUL_INTERACTION_COUNTER ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0 ) {
 				SceneLib.followerInteractions.jojoOffersRathazulMeditation();
 				return;
 			}
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		offered = this.rathazulWorkOffer();
 		if( !offered ) {
 			MainView.outputText( 'He sighs dejectedly, "<i>I don\'t think there is.  Why don\'t you leave me be for a time, and I will see if I can find something to aid you.</i>"', false );
-			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.campFollowers );
 			} else {
 				EngineCore.doNext( MainView, MainView.playerMenu );
@@ -167,7 +167,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		}
 		//Item crafting offer;
 		if( CoC.player.hasItem( UseableLib.GREENGL, 2 ) ) {
-			if( CoC.player.findStatusAffect( StatusAffects.RathazulArmor ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.RathazulArmor ) ) {
 				MainView.outputText( 'He pipes up with a bit of hope in his voice, "<i>I can smell the essence of the tainted lake-slimes you\'ve defeated, and if you\'d let me, I could turn it into something a bit more useful to you.  You see, the slimes are filled with the tainted essence of the world-mother herself, and once the taint is burned away, the remaining substance remains very flexible but becomes nearly impossible to cut through.  With the gel of five defeated slimes I could craft you a durable suit of armor.</i>"\n\n', false );
 			} else {
 				MainView.outputText( 'He pipes up with a bit of excitement in his voice, "<i>With just five pieces of slime-gel I could make another suit of armor...</i>"\n\n', false );
@@ -232,7 +232,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			dyes = this.buyDyes;
 		}
 		//Reducto;
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
 			MainView.outputText( 'The rat hurries over to his supplies and produces a container of paste, looking rather proud of himself, "<i>Good news everyone!  I\'ve developed a paste you could use to shrink down any, ah, oversized body parts.  The materials are expensive though, so I\'ll need ' );
 			if( CoC.flags[ kFLAGS.AMILY_MET_RATHAZUL ] >= 2 ) {
 				MainView.outputText( '50' );
@@ -245,20 +245,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			reductos = this.buyReducto;
 		}
 		//SPOIDAH;
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
 			showArmorMenu = true;
 			spoken = true;
 			totalOffers++;
 			MainView.outputText( '"<i>Oooh, is that some webbing from a giant spider or spider-morph?  Most excellent!  With a little bit of alchemical treatment, it is possible I could loosen the fibers enough to weave them into something truly magnificent - armor, or even a marvelous robe,</i>" offers Rathazul.\n\n', false );
 		}
 		//Vines;
-		if( CoC.player.hasKeyItem( 'Marae\'s Lethicite' ) >= 0 && CoC.player.keyItemv2( 'Marae\'s Lethicite' ) < 3 && CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) < 0 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.hasKeyItem( 'Marae\'s Lethicite' ) >= 0 && CoC.player.keyItemv2( 'Marae\'s Lethicite' ) < 3 && !CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			MainView.outputText( 'His eyes widen in something approaching shock when he sees the Lethicite crystal you took from Marae.  Rathazul stammers, "<i>By the goddess... that\'s the largest piece of lethicite I\'ve ever seen.  I don\'t know how you got it, but there is immense power in those crystals.  If you like, I know a way we could use its power to grow a canopy of thorny vines that would hide the camp and keep away imps.  Growing such a defense would use a third of that lethicite\'s power.</i>"\n\n' );
 			totalOffers++;
 			spoken = true;
 			lethiciteDefense = this.growLethiciteDefense;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			if( CoC.flags[ kFLAGS.RATHAZUL_DEBIMBO_OFFERED ] === 0 && (SceneLib.sophieBimbo.bimboSophie() || CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.FutaFaculties )) ) {
 				this.rathazulDebimboOffer();
 				return true;
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 			if( reductos !== null ) {
 				EngineCore.addButton( 8, 'Reducto', this, reductos );
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 				EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.campFollowers );
 			} else {
 				EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		var gelArmor = (CoC.player.hasItem( UseableLib.GREENGL, 5 ) ? this.craftOozeArmor : null);
 		var silk = null;
 		MainView.outputText( 'Which armor project would you like to pursue with Rathazul?' );
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && CoC.player.hasItem( UseableLib.T_SSILK ) && CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] + CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00275 ] === 0 ) {
 			silk = this.craftSilkArmor;
 		}
 		EngineCore.choices( 'BeeArmor', this, beeArmor, 'GelArmor', this, gelArmor, 'SpiderSilk', this, silk, '', null, null, 'Back', this, this.returnToRathazulMenu );
@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Useable
 		MainView.outputText( 'Rathazul takes the green gel from you and drops it into an empty cauldron.  With speed well beyond what you\'d expect from such an elderly creature, he nimbly unstops a number of vials and pours them into the cauldron.  He lets the mixture come to a boil, readying a simple humanoid-shaped mold from what you had thought was piles of junk material.  In no time at all, he has cast the boiling liquid into the mold, and after a few more minutes he cracks it open, revealing a suit of glistening armor.\n\n', true );
 		CoC.player.addStatusValue( StatusAffects.MetRathazul, 2, 1 );
 		SceneLib.inventory.takeItem( ArmorLib.GELARMR, this.returnToRathazulMenu );
-		if( CoC.player.findStatusAffect( StatusAffects.RathazulArmor ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.RathazulArmor ) ) {
 			CoC.player.createStatusAffect( StatusAffects.RathazulArmor, 0, 0, 0, 0 );
 		}
 	};

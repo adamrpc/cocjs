@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		else {
 			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'delivers a painful slap across your cheek.  You gasp when the light stinging becomes a searing burn that seems to get worse as time goes on!', false );
-				if( CoC.player.findStatusAffect( StatusAffects.AcidSlap ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.AcidSlap ) ) {
 					CoC.player.createStatusAffect( StatusAffects.AcidSlap, 0, 0, 0, 0 );
 				}
 			} else {
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	//Engulf –
 	GooGirl.prototype.gooEngulph = function() {
 		MainView.outputText( 'The goo-girl gleefully throws her entire body at you and, before you can get out of the way, she has engulfed you in her oozing form! Tendrils of ' + this.skinTone + ' slime slide up your nostrils and through your lips, filling your lungs with the girl\'s muck. You begin suffocating!', false );
-		if( CoC.player.findStatusAffect( StatusAffects.GooBind ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.GooBind ) ) {
 			CoC.player.createStatusAffect( StatusAffects.GooBind, 0, 0, 0, 0 );
 		}
 		Combat.combatRoundOver();

@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			if( output ) {
 				MainView.outputText( 'The familiar plant has blossomed into a nicely sized tree, though you doubt it has finished growing just yet.  It sports an outstretched canopy with nice, green leaves.  Unfortunately, you can still trace the corrupted veins on their undersides from below.  The vaginal flower is still there and is in full bloom, now several feet across and practically dripping with moisture.  Just up the trunk, there\'s a pair of small, roughly b-cup breasts bulging out of the bark.  They\'re exquisitely smooth and soft, and they ooze sweet-smelling sap that your tongue would love to taste.  In the canopy above, tentacle vines idly writhe about, though they show no sizes of aggression.' );
 			}
-			if( CoC.player.findPerk( PerkLib.Dragonfire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
+			if( CoC.player.findPerk( PerkLib.Dragonfire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 				if( output ) {
 					MainView.outputText( '\n\nIt could be burned down with your supernatural fire, but it would definitely tire you.' );
 				}
@@ -444,7 +444,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		MainView.outputText( '\n\nThe first thing you notice is that the vaginal tentacle flower remains, affixed at waist height to the side of the tree.  It looks bigger, the petals huge and glossy, undoubtedly far more capable of swallowing dick than ever before.  The tree isn\'t that thick, just yet.  Glancing further up the smooth, knotless trunk, you see the most surprising thing of all - a pair of almond-colored nipples, perched upon small, tit-like bulges in the wood.  The bark on these globular protrusion is smoother and fairer than the surrounding surface.  On one of them, a trickle of sap has formed into a heavy bead, and it smells sweet, like maple syrup.' );
 		MainView.outputText( '\n\nA dollop of something moist landing in your hair startles you from your visual inspection.  Gingerly, you touch your fingers to the wet spot and come away with a thick, viscous fluid that smells faintly musky... and salty...  It\'s cum!  You recoil, looking up in time to see a half dozen tentacles curling between the branches rubbing against each other in what can only be described as an orgy of frotting cock-lust.  Well now, your little pet plant is growing up.  There\'s no easy way to get rid of it now' );
 		var burnIt = null;
-		if( CoC.player.findPerk( PerkLib.Dragonfire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Dragonfire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) || CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 			MainView.outputText( ', though you suppose you could burn it down with magical fire if you set your mind to it' );
 			burnIt = this.torchP3Tree;
 		}
@@ -582,7 +582,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		//Requires fire-based attack and fatigue at or below 30.  Maxes fatigue and removes the tree.;
 		MainView.outputText( 'This has gone on long enough!  This thing cannot continue to grow in your camp any longer, and you have just the means to remove it  ' );
 		//[(nerdfire);
-		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 			MainView.outputText( 'Closing your eyes to focus, you gather your energies, and unleash your white, supernatural flames upon the thing.' );
 		}//(bromancefire);
 		else if( CoC.player.findPerk( PerkLib.FireLord ) ) {
@@ -591,7 +591,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 			MainView.outputText( 'Sucking in your breath, you inflate your chest and stir the embers of your fiery gift.  Dredging up an enormous fireball, you exhale and launch it at the tree.' );
 		}
 		MainView.outputText( '  It goes up by the torch, though the fire starts to fade sooner than you would expect.  You huff, but repeat the action, layering a new blaze atop the previous one; you put all your concentration into this new conflagration, stoking the inferno with every ounce of your ' );
-		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) ) {
 			MainView.outputText( 'magical will' );
 		} else {
 			MainView.outputText( 'breath' );
@@ -1224,7 +1224,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		}
 		MainView.outputText( '\n\n"<i>Now, I hope you rest well in the knowledge that I\'m going to stay firmly in my tree, no matter what.  Watching the vermin of this land walk over your bedroll while you try to sleep will be suitable recompense for your rudeness.</i>"' );
 		//[(kid a, thorn canopy, or other non-jojo watch is on);
-		if( (CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0) || CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
+		if( (CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) && CoC.player.findStatusAffect( StatusAffects.PureCampJojo )) || CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
 			MainView.outputText( '\n\nYeah, whatever.  She\'ll be waiting a while for that; you\'ve got your back covered.  With a dismissive, pointed gesture, you leave the smug arboreal demon behind.' );
 		}
 		//{No option to beg for night watch till PC has been imp raped};
@@ -1281,7 +1281,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 		MainView.clearOutput();
 		CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] = 1;
 		//Win without Jojo -Z;
-		if( CoC.monster.findStatusAffect( StatusAffects.JojoIsAssisting ) < 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.JojoIsAssisting ) ) {
 			MainView.outputText( 'Weary, the succubus godling folds into her tree, unwilling to allow you the sight of her defeat.  With her energy suppressed, you\'re free to ' );
 			if( CoC.player.weaponName !== 'large axe' ) {
 				MainView.outputText( 'fetch an axe and ' );
@@ -1338,7 +1338,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Holli, PerkLib, $lo
 	HolliScene.prototype.enjoyYourBadEndBIYAAAATCH = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Screeching in triumph, the demon holds your defeated form aloft and begins to shake you.  ' );
-		if( CoC.monster.findStatusAffect( StatusAffects.JojoIsAssisting ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.JojoIsAssisting ) ) {
 			MainView.outputText( 'Jojo drops the firewood he\'s carrying and attempts to strike her, but she swats him aside brutally with a branch, leaving him clutching his stomach and retching as he stumbles away; she returns her attention to you, completely fixated.  Her oozing sap runs in streams as she heals the damage from the dwindling flames.  ' );
 		}
 		MainView.outputText( '"<i>Oh, my little meat...</i>" Holli coos dangerously.  "<i>Was I not clear enough before?  You exist to worship me.  If you won\'t give your mind to me, I\'ll have your body, instead.</i>"  A floral tendril descends from her upper branches, slipping into your mouth and beginning to drool a nectar down your throat.  Forced to drink or drown, you gulp unhappily, feeling increasingly light-headed with each swallow.' );

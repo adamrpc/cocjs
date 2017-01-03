@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.clearOutput();
 		MainView.outputText( 'You set out for ' + CoC.player2.short + '\'s camp, known to you thanks to the amazing efforts of your scouts.  Behind you, the tower slowly shrinks, less imposing now that you\'ve finished that step on your journey.   Ahead lies uncertainty and struggle.  You know you\'ll likely wind up fighting the corrupted denizens of the lost regions of Mareth in your travels, and it\'s likely at least a demon or two will get in your way.  Still, as you exit the city gates, you give your home a forlorn gaze.  At least there\'s one bright patch ahead - your lover\'s camp.' );
 		MainView.outputText( '\n\nThe sun has set by the time you get there, but the darkness conceals your movements thanks to your natural fur color.  ' );
-		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( 'You easily sneak past a mouse monk.  He\'s looking towards the sky mostly, perhaps watching for imps.  ' );
 		}
 		if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 && CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 ) {
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		MainView.outputText( 'The camp looks pretty nice actually.  Living out here must have given ' + CoC.player2.mf( 'him', 'her' ) + ' plenty of time to improve it.' );
 		MainView.outputText( '\n\n' + CoC.player2.short + ' is slumbering fitfully on ' + CoC.player2.mf( 'his', 'her' ) + ' blanket.  ' + CoC.player2.mf( 'He', 'She' ) + ' looks so cute, sleeping like this.  It\'s amazing how ' + CoC.player2.mf( 'he', 'she' ) + ' has the courage to stay out here, day after day, month after month, guarding this portal to keep ' + CoC.player2.mf( 'his', 'her' ) + ' village safe' );
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			MainView.outputText( ', no matter why ' + CoC.player2.mf( 'he', 'she' ) + ' was sent here' );
 		}
 		MainView.outputText( '.  You gently press on ' + CoC.player2.mf( 'his', 'her' ) + ' shoulder and shake ' + CoC.player2.mf( 'him', 'her' ) + ' awake, holding your index finger across ' + CoC.player2.mf( 'his', 'her' ) + ' lips to shush ' + CoC.player2.mf( 'him', 'her' ) + ' to silence.  ' + CoC.player2.mf( 'His', 'Her' ) + ' eyes snap open, worried until ' + CoC.player2.mf( 'he', 'she' ) + ' recognizes you.  "<i>What are you doing here?</i>" ' + CoC.player2.mf( 'he', 'she' ) + ' asks in a whisper.' );
@@ -945,7 +945,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	//Second Wind: Regain 50% HP and lose 50 lust.  Once per fight.;
 	UrtaQuest.prototype.urtaSpecials = function() {
 		//Gone	menuLoc = 3;;
-		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 5 ) {
+		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 5 ) {
 			MainView.clearOutput();
 			MainView.outputText( 'You try to ready a special attack, but wind up stumbling dizzily instead.  <b>Your ability to use physical special attacks was sealed, and now you\'ve wasted a chance to attack!</b>\n\n' );
 			Combat.enemyAI();
@@ -969,7 +969,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	UrtaQuest.prototype.urtaSecondWind = function() {
 		MainView.clearOutput();
-		if( CoC.monster.findStatusAffect( StatusAffects.UrtaSecondWinded ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.UrtaSecondWinded ) ) {
 			MainView.outputText( 'You\'ve already pushed yourself as hard as you can!' );
 			MainView.menu();
 			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
@@ -984,7 +984,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	};
 	//Combo: 3x attack, higher miss chance, guaranteed hit vs blind;
 	UrtaQuest.prototype.urtaComboAttack = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.Attacks ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Attacks ) ) {
 			MainView.clearOutput();
 			if( CoC.player.fatigue + 25 > 100 ) {
 				MainView.outputText( 'You are too fatigued to use that attack!' );
@@ -994,7 +994,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			}
 			EngineCore.fatigue( 25 );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Attacks ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Attacks ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Attacks, 3, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.Attacks, 1, -1 );
@@ -1005,12 +1005,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			}
 		}
 		//Blind;
-		if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'You attempt to attack, but as blinded as you are right now, you doubt you\'ll have much luck!  ', false );
 		}
 		var damage;
 		//Determine if dodged!;
-		if( CoC.monster.findStatusAffect( StatusAffects.Blind ) < 0 && (Utils.rand( 3 ) === 0 || (CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.ceil( Math.random() * (((CoC.monster.spe - CoC.player.spe) / 4) + 80) ) > 80)) ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Blind ) && (Utils.rand( 3 ) === 0 || (CoC.player.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 2 ) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.ceil( Math.random() * (((CoC.monster.spe - CoC.player.spe) / 4) + 80) ) > 80)) ) {
 			if( CoC.monster.spe - CoC.player.spe < 8 ) {
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' narrowly avoids your attack!', false );
 			}
@@ -1021,7 +1021,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' deftly avoids your slow attack.', false );
 			}
 			MainView.outputText( '\n', false );
-			if( CoC.player.findStatusAffect( StatusAffects.Attacks ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Attacks ) ) {
 				this.urtaComboAttack();
 				return;
 			} else {
@@ -1098,7 +1098,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n', false );
 		//Kick back to main if no damage occured!;
 		if( CoC.monster.HP >= 1 && CoC.monster.lust <= 99 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Attacks ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Attacks ) ) {
 				$log.debug( 'MORE ATTACK' );
 				this.urtaComboAttack();
 				return;
@@ -1125,7 +1125,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		EngineCore.fatigue( 5 );
 		//Blind;
-		if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'You attempt to dirt kick, but as blinded as you are right now, you doubt you\'ll have much luck!  ', false );
 		} else {
 			MainView.outputText( 'Spinning about, you drag your footpaw through the dirt, kicking a wave of debris towards ' + CoC.monster.a + CoC.monster.short + '!  ' );
@@ -1135,7 +1135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			MainView.outputText( CoC.monster.mf( 'He', 'She' ) + ' manages to shield ' + CoC.monster.mf( 'his', 'her' ) + ' eyes.  Damn!\n\n' );
 			Combat.enemyAI();
 			return;
-		} else if( CoC.monster.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		} else if( CoC.monster.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( CoC.monster.mf( 'He', 'She' ) + '\'s already blinded.  What a waste.\n\n' );
 		} else {
 			MainView.outputText( CoC.monster.mf( 'He', 'She' ) + '\'s blinded!\n\n' );
@@ -1154,14 +1154,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		EngineCore.fatigue( 10 );
 		//Blind;
-		if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'You attempt to hit with a vicious blow to the side, but as blinded as you are right now, you doubt you\'ll have much luck!  ', false );
 		} else {
 			MainView.outputText( 'You make a wide swing to the side, hoping to stun your foe!  ' );
 		}
 		var damage;
 		//Determine if dodged!;
-		if( (CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.ceil( Math.random() * (((CoC.monster.spe - CoC.player.spe) / 4) + 80) ) > 80) ) {
+		if( (CoC.player.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 2 ) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.ceil( Math.random() * (((CoC.monster.spe - CoC.player.spe) / 4) + 80) ) > 80) ) {
 			if( CoC.monster.spe - CoC.player.spe < 8 ) {
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' narrowly avoids your attack!', false );
 			}
@@ -1242,7 +1242,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				CoC.monster.armorDef = 0;
 			}
 		}
-		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) < 0 && !CoC.monster.findPerk( PerkLib.Resolute ) && damage > 0 ) {
+		if( !CoC.monster.findStatusAffect( StatusAffects.Stunned ) && !CoC.monster.findPerk( PerkLib.Resolute ) && damage > 0 ) {
 			if( CoC.monster.tou / 10 + Utils.rand( 20 ) + 1 < 20 ) {
 				MainView.outputText( '\n<b>' + CoC.monster.getCapitalA() + CoC.monster.short + ' is stunned!</b>' );
 				CoC.monster.createStatusAffect( StatusAffects.Stunned, 1, 0, 0, 0 );
@@ -1253,7 +1253,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n', false );
 		//Kick back to main if no damage occured!;
 		if( CoC.monster.HP >= 1 && CoC.monster.lust <= 99 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) ) {
 				Combat.attack();
 				return;
 			}
@@ -1278,20 +1278,20 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			return;
 		}
 		EngineCore.fatigue( 20 );
-		if( CoC.player.findStatusAffect( StatusAffects.Sealed ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Sealed ) && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 0 ) {
 			MainView.outputText( 'You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  The seals have made normal attack impossible!  Maybe you could try something else?\n\n', false );
 			Combat.enemyAI();
 			return;
 		}
 		//Blind;
-		if( CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'You attempt to make a high, vaulting attack, but as blinded as you are right now, you doubt you\'ll have much luck!  ', false );
 		} else {
 			MainView.outputText( 'You leap into the air, intent on slamming your ' + CoC.player.weaponName + ' into your foe!  ' );
 		}
 		var damage;
 		//Determine if dodged!;
-		if( (CoC.player.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 2 ) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.ceil( Math.random() * (((CoC.monster.spe - CoC.player.spe) / 4) + 80) ) > 80) ) {
+		if( (CoC.player.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 2 ) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.ceil( Math.random() * (((CoC.monster.spe - CoC.player.spe) / 4) + 80) ) > 80) ) {
 			if( CoC.monster.spe - CoC.player.spe < 8 ) {
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' narrowly avoids your attack!', false );
 			}
@@ -1302,7 +1302,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' deftly avoids your slow attack.', false );
 			}
 			MainView.outputText( '\n', false );
-			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) ) {
 				Combat.attack();
 				return;
 			} else {
@@ -1327,7 +1327,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		damage *= 1.25;
 		//Determine if critical hit!;
 		var crit = false;
-		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) >= 0 || Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) || Utils.rand( 100 ) <= 4 || (CoC.player.findPerk( PerkLib.Tactician ) && CoC.player.inte >= 50 && (CoC.player.inte - 50) / 5 > Utils.rand( 100 )) ) {
 			crit = true;
 			damage *= 2;
 		}
@@ -1389,7 +1389,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n', false );
 		//Kick back to main if no damage occured!;
 		if( CoC.monster.HP >= 1 && CoC.monster.lust <= 99 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) ) {
 				Combat.attack();
 				return;
 			}
@@ -1889,7 +1889,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 	UrtaQuest.prototype.urtaSubmitsToMinotaurBadEnd = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'You mouth opens, drooling with hunger that you know only the sexy beast across from you can sate.' );
-		if( CoC.monster.findStatusAffect( StatusAffects.MinotaurEntangled ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.MinotaurEntangled ) ) {
 			MainView.outputText( '   Seeing the fire in your eyes change from a determined glare to a lusty look, the minotaur pulls you over, carefully unwinding the chain from around you, so as not to damage you.' );
 		}
 		MainView.outputText( '  Your once foe removes his loincloth to fully expose the mammoth between his legs, three feet long and nearly twice as girthy as your own.  You\'re so dazed by his imposing manhood, that you totally miss him flinging his loincloth at you.  It smacks wetly into your face, smothering you in his syrupy spooge.' );
@@ -2319,7 +2319,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n\nThankfully, Urta spares you the trouble, waking up with a moan.  "<i>Oh... I feel so full,</i>" she grumbles, struggling to get up under the weight of her belly.  When she realizes what\'s holding her down, she stops, staring at it in dumbfounded awe.  "<i>' + CoC.player.short + ', is this really...?</i>"  When you nod, she shakes her head in disbelief.   "<i>Incredible... it really is real.  Oh, ' + CoC.player.short + ', I just... I just don\'t have the words to tell you how I feel about this.</i>"' );
 		MainView.outputText( '\n\nYou ask her what she\'s going to do now.  Urta looks thoughtful.  "<i>Well... the Covenant would want me to stay with them and give birth to Taoth amongst them.  So, I guess, from here, I\'ll be going to them.</i>"  She looks at her belly quietly, and you have a feeling she\'d be looking at her feet instead if she could still see them.  "<i>...' + CoC.player.short + '?  I don\'t suppose you would come with me?   Please?  I know you\'re dedicated to guarding this portal, but it would really mean a lot to me if I could have you at my side for however long this pregnancy is going to last.</i>"' );
 		MainView.outputText( '\n\nYou give the matter some thought, and decide that the risk is worth it' );
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			MainView.outputText( ' - besides, given you know that you\'re nothing but a sacrifice the demons are too lazy to collect, it\'s not like they\'ll really send an invasion through' );
 		}
 		MainView.outputText( '.  Urta\'s joyous expression makes it quite clear that you chose the right choice.  The two of you gather your things, dress Urta in her clothes as best you can (adding a blanket for extra protection and modesty), ' );

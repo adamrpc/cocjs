@@ -7,7 +7,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 	angular.extend(HellHound.prototype, Monster.prototype);
 	HellHound.prototype.hellhoundFire = function() {
 		//Blind dodge change
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a wave of dark fire! Thank the gods it\'s blind!', false );
 			Combat.combatRoundOver();
 			return;
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'HellHound', function( MainView, $log, SceneL
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	HellHound.prototype.hellhoundScent = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.NoFlee ) ) {
 			if( this.spe === 100 ) {
 				this.hellhoundFire();
 				return;

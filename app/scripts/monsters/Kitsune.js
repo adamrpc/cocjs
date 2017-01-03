@@ -165,16 +165,16 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 	};
 	Kitsune.prototype.performCombatAction = function() {
 		var moves = [ this.foxFireAttack, this.foxFireAttack, this.kitSuneTeases, this.kitSuneTeases ];
-		if( CoC.player.findStatusAffect( StatusAffects.Sealed ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Sealed ) ) {
 			moves.push( this.kitsuneSealAttack );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Sealed ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Sealed ) ) {
 			moves.push( this.kitsuneSealAttack );
 		}
-		if( this.findStatusAffect( StatusAffects.PCTailTangle ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.PCTailTangle ) ) {
 			moves.push( this.kitsuneEntwine );
 		}
-		if( this.findStatusAffect( StatusAffects.Illusion ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.Illusion ) ) {
 			moves.push( this.illusionKitsuneAttack );
 		}
 		moves[ Utils.rand( moves.length ) ]();

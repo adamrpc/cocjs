@@ -34,7 +34,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, CoC, Pe
 		EngineCore.doYesNo( this, this.salonGreeting, SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Salon.prototype.salonGreeting = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) ) {
 			this.hairDresserRepeatGreeting();
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.HairdresserMeeting, 0, 0, 0, 0 );

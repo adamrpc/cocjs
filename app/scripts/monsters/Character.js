@@ -30,10 +30,10 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 	// It's still shitty, but it would possibly be an improvement.
 	Character.prototype.getFemininity = function() {
 		var fem = this._femininity;
-		var statIndex = this.findStatusAffect(StatusAffects.UmasMassage);
-		if (statIndex >= 0) {
-			if (this.statusAffect(statIndex).value1 === SceneLib.umasShop.MASSAGE_MODELLING_BONUS) {
-				fem += this.statusAffect(statIndex).value2;
+		var stat = this.findStatusAffect(StatusAffects.UmasMassage);
+		if (stat) {
+			if (stat.value1 === SceneLib.umasShop.MASSAGE_MODELLING_BONUS) {
+				fem += stat.value2;
 			}
 		}
 		if (fem > 100) {
@@ -410,7 +410,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 			arg = 0;
 		}
 		//Contraceptives cancel!
-		if (this.findStatusAffect(StatusAffects.Contraceptives) >= 0 && arg < 1) {
+		if (this.findStatusAffect(StatusAffects.Contraceptives) && arg < 1) {
 			return;
 		}
 
@@ -466,7 +466,7 @@ angular.module('cocjs').factory('Character', function (SceneLib, $log, Creature,
 		}
 		
 		//Contraceptives cancel!
-		if (this.findStatusAffect(StatusAffects.Contraceptives) >= 0 && arg < 1) {
+		if (this.findStatusAffect(StatusAffects.Contraceptives) && arg < 1) {
 			return;
 		}
 		var bonus = 0;

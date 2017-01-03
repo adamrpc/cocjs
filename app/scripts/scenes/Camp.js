@@ -36,12 +36,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 	//  SLEEP_WITH = 701;
 	Camp.prototype.doCamp = function() { //Only called by playerMenu
 		MainView.showMenuButton( MainView.MENU_NEW_MAIN );
-		if( CoC.player.findStatusAffect( StatusAffects.PostAkbalSubmission ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PostAkbalSubmission ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.PostAkbalSubmission );
 			SceneLib.akbalScene.akbalSubmissionFollowup();
 			return;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.PostAnemoneBeatdown ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PostAnemoneBeatdown ) ) {
 			EngineCore.HPChange( Math.round( CoC.player.maxHP() / 2 ), false );
 			CoC.player.removeStatusAffect( StatusAffects.PostAnemoneBeatdown );
 		}
@@ -115,7 +115,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			SceneLib.xmasJackFrost.processJackFrostEvent();
 			return;
 		}
-		if( CoC.player.hasKeyItem( 'Super Reducto' ) < 0 && SceneLib.milkWaifu.milkSlave() && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
+		if( CoC.player.hasKeyItem( 'Super Reducto' ) < 0 && SceneLib.milkWaifu.milkSlave() && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
 			MainView.hideAllMenuButtons();
 			SceneLib.milkWaifu.ratducto();
 			return;
@@ -258,7 +258,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		//Jojo treeflips!
-		if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.FUCK_FLOWER_LEVEL ] >= 4 && CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			SceneLib.holliScene.JojoTransformAndRollOut();
 			MainView.hideAllMenuButtons();
 			return;
@@ -276,7 +276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			return;
 		}
 		//Anemone birth followup!
-		if( CoC.player.findStatusAffect( StatusAffects.CampAnemoneTrigger ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampAnemoneTrigger ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.CampAnemoneTrigger );
 			SceneLib.anemoneScene.anemoneKidBirthPtII();
 			MainView.hideAllMenuButtons();
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			return;
 		}
 		//Marble meets follower izzy when moving in
-		if( CoC.flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] === 1 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.ISABELLA_MURBLE_BLEH ] === 1 && SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			SceneLib.isabellaFollowerScene.angryMurble();
 			MainView.hideAllMenuButtons();
 			return;
@@ -328,7 +328,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			return;
 		}
 		//Rathazul freaks out about jojo
-		if( CoC.flags[ kFLAGS.RATHAZUL_CORRUPT_JOJO_FREAKOUT ] === 0 && Utils.rand( 5 ) === 0 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && SceneLib.jojoScene.campCorruptJojo() ) {
+		if( CoC.flags[ kFLAGS.RATHAZUL_CORRUPT_JOJO_FREAKOUT ] === 0 && Utils.rand( 5 ) === 0 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && SceneLib.jojoScene.campCorruptJojo() ) {
 			SceneLib.followerInteractions.rathazulFreaksOverJojo();
 			MainView.hideAllMenuButtons();
 			return;
@@ -346,15 +346,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			return;
 		}
 		//Amily/Marble Freakout
-		if( CoC.flags[ kFLAGS.AMILY_NOT_FREAKED_OUT ] === 0 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() && SceneLib.marbleScene.marbleAtCamp() ) {
+		if( CoC.flags[ kFLAGS.AMILY_NOT_FREAKED_OUT ] === 0 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() && SceneLib.marbleScene.marbleAtCamp() ) {
 			SceneLib.followerInteractions.marbleVsAmilyFreakout();
 			MainView.hideAllMenuButtons();
 			return;
 		}
 		//Amily and/or Jojo freakout about Vapula!!
-		if( SceneLib.vapula.vapulaSlave() && (CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || (SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt())) ) {
+		if( SceneLib.vapula.vapulaSlave() && (CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) || (SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt())) ) {
 			//Jojo but not Amily
-			if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 && !(SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt()) ) {
+			if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) && !(SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt()) ) {
 				SceneLib.vapula.mouseWaifuFreakout( false, true );
 			}//Amily but not Jojo
 			else if( (SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt()) ) {
@@ -391,7 +391,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			storage = SceneLib.inventory.stash;
 		}
 		//Clear stuff
-		if( CoC.player.findStatusAffect( StatusAffects.SlimeCravingOutput ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.SlimeCravingOutput ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.SlimeCravingOutput );
 		}
 		//Reset luststick display status (see event parser)
@@ -446,7 +446,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			SceneLib.marblePurification.claraCampAddition();
 		}
 		//Nursery
-		if( CoC.flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] === 100 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.MARBLE_NURSERY_CONSTRUCTION ] === 100 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			MainView.outputText( '  Marble has built a fairly secure nursery amongst the rocks to house your ', false );
 			if( CoC.flags[ kFLAGS.MARBLE_KIDS ] === 0 ) {
 				MainView.outputText( 'future children', false );
@@ -491,7 +491,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		//Traps
-		if( CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) ) {
 			MainView.outputText( '  A thorny tree has sprouted near the center of the camp, growing a protective canopy of spiky vines around the portal and your camp.', false );
 		} else {
 			MainView.outputText( '  You have a number of traps surrounding your makeshift home, but they are fairly simple and may not do much to deter a demon.', false );
@@ -513,7 +513,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( SceneLib.sophieBimbo.bimboSophie() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_SOPHIE ] === 0 ) {
 			SceneLib.sophieBimbo.sophieCampLines();
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			MainView.outputText( 'A second bedroll rests next to yours; a large two-handed hammer sometimes rests against it, depending on whether or not its owner needs it at the time.  ', false );
 			//Marble is out!
 			if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] === 4 ) {
@@ -532,7 +532,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			else if( CoC.time.hours === 6 || CoC.time.hours === 7 ) {
 				MainView.outputText( 'Marble is off in an open area to the side of your camp right now.  She is practicing with her large hammer, going through her daily training.' );
 			}//after nightfall, scene always displays at this time unless PC is wormed
-			else if( CoC.time.hours >= 21 && CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
+			else if( CoC.time.hours >= 21 && !CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 				MainView.outputText( 'Marble is hanging around her bedroll waiting for you to come to bed.  However, sometimes she lies down for a bit, and sometimes she paces next to it.' );
 				if( CoC.flags[ kFLAGS.MARBLE_LUST ] > 30 ) {
 					MainView.outputText( '  She seems to be feeling antsy.' );
@@ -586,7 +586,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		}
 		//RATHAZUL
 		//if rathazul has joined the camp
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] <= 1 ) {
 				MainView.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
 				if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] === 1 ) {
@@ -619,7 +619,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			MainView.outputText( 'From time to time you can hear movement from around your camp, and you routinely find thick puddles of mouse semen.  You are sure Jojo is here if you ever need to sate yourself.\n\n', false );
 		}
 		//Pure Jojo
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( 'There is a small bedroll for Jojo near your own, though the mouse is probably hanging around the camp\'s perimeter.\n\n', false );
 		}
 		//Izma
@@ -644,14 +644,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			MainView.outputText( '\n\n' );
 		}
 		//Clear bee-status
-		if( CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom ) ) {
 			EngineCore.dynStats( 'str', CoC.player.statusAffectv1( StatusAffects.ParalyzeVenom ), 'spe', CoC.player.statusAffectv2( StatusAffects.ParalyzeVenom ) );
 			CoC.player.removeStatusAffect( StatusAffects.ParalyzeVenom );
 			MainView.outputText( '<b>You feel quicker and stronger as the paralyzation venom in your veins wears off.</b>\n\n', false );
 		}
 		//The uber horny
 		if( CoC.player.lust >= 100 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) ) {
 				MainView.outputText( '<b>You are debilitatingly aroused, but your sexual organs are so numbed the only way to get off would be to find something tight to fuck or get fucked...</b>\n\n', false );
 			} else if( CoC.flags[ kFLAGS.UNABLE_TO_MASTURBATE_BECAUSE_CENTAUR ] > 0 && CoC.player.isTaur() ) {
 				MainView.outputText( '<b>You are delibitatingly aroused, but your sex organs are so difficult to reach that masturbation isn\'t at the forefront of your mind.</b>\n\n', false );
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			}
 		}
 		var baitText = 'Masturbate';
-		if( ((CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10)) && !(CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0) ) {
+		if( ((CoC.player.findPerk( PerkLib.HistoryReligious ) && CoC.player.cor <= 66) || (CoC.player.findPerk( PerkLib.Enlightened ) && CoC.player.cor < 10)) && !(CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0) ) {
 			baitText = 'Meditate';
 		}
 		//Initialize companions/followers
@@ -728,10 +728,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
 			counter++;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			counter++;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			counter++;
 		}
 		if( SceneLib.shouldraFollower.followerShouldra() ) {
@@ -786,7 +786,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( SceneLib.isabellaFollowerScene.isabellaFollower() && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_ISABELLA ] === 0 ) {
 			counter++;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
 			counter++;
 		}
 		if( SceneLib.amilyScene.amilyFollower() && !SceneLib.amilyScene.amilyCorrupt() ) {
@@ -877,10 +877,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 				MainView.outputText( 'Isabella ', false );
 				var izzyCreeps = [];
 				//Build array of choices for izzy to talk to
-				if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 					izzyCreeps.push( 0 );
 				}
-				if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 					izzyCreeps.push( 1 );
 				}
 				if( SceneLib.amilyScene.amilyFollower() && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.flags[ kFLAGS.AMILY_BLOCK_COUNTDOWN_BECAUSE_CORRUPTED_JOJO ] === 0 ) {
@@ -939,7 +939,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			izmaEvent = SceneLib.izmaScene.izmaFollowerMenu;
 		}
 		//MARBLE
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
 			MainView.outputText( 'A second bedroll rests next to yours; a large two handed hammer sometimes rests against it, depending on whether or not its owner needs it at the time.  ', false );
 			//Normal Murbles
 			if( CoC.flags[ kFLAGS.MARBLE_PURIFICATION_STAGE ] !== 4 ) {
@@ -977,7 +977,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			var amilyChoice = Utils.rand( 6 );
 			if( amilyChoice === 0 ) {
 				MainView.outputText( 'dripping water and stark naked from a bath in the stream', false );
-				if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 					MainView.outputText( '.  Rathazul glances over and immediately gets a nosebleed', false );
 				}
 			} else if( amilyChoice === 1 ) {
@@ -1112,13 +1112,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			shouldra = SceneLib.shouldraFollower.shouldraFollowerScreen;
 		}
 		//Pure Jojo
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( 'There is a small bedroll for Jojo near your own, though the mouse is probably hanging around the camp\'s perimeter.\n\n', false );
 			jojoEvent = SceneLib.jojoScene.jojoCamp;
 		}
 		//RATHAZUL
 		//if rathazul has joined the camp
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			rathazulEvent = SceneLib.rathazul.returnToRathazulMenu;
 			if( CoC.flags[ kFLAGS.RATHAZUL_SILK_ARMOR_COUNTDOWN ] <= 1 ) {
 				MainView.outputText( 'Tucked into a shaded corner of the rocks is a bevy of alchemical devices and equipment.  The alchemist Rathazul looks to be hard at work with his chemicals, working on who knows what.', false );
@@ -1183,7 +1183,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			MainView.outputText( 'You lie down to rest for four hours.\n', true );
 			OnLoadVariables.timeQ = 4;
 			//Marble withdrawl
-			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 				MainView.outputText( '\nYour this.rest is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 				EngineCore.HPChange( OnLoadVariables.timeQ * 5, true );
 				EngineCore.dynStats( 'tou', -0.1, 'int', -0.1 );
@@ -1218,7 +1218,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			MainView.outputText( 'You wait four hours...\n', false );
 			OnLoadVariables.timeQ = 4;
 			//Marble withdrawl
-			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 				MainView.outputText( '\nYour time spent waiting is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 				//fatigue
 				EngineCore.fatigue( -1 * OnLoadVariables.timeQ );
@@ -1319,7 +1319,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 			/*       SLEEP WITH SYSTEM GOOOO                                  */
 			/******************************************************************/
 			//Marble Sleepies
-			if( SceneLib.marbleScene.marbleAtCamp() && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 && CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Marble' && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
+			if( SceneLib.marbleScene.marbleAtCamp() && CoC.player.findStatusAffect( StatusAffects.CampMarble ) && CoC.flags[ kFLAGS.SLEEP_WITH ] === 'Marble' && CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] === 0 ) {
 				if( SceneLib.marbleScene.marbleNightSleepFlavor() ) {
 					this.sleepRecovery( false );
 					return;
@@ -1441,7 +1441,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 	};
 	Camp.prototype.sleepRecovery = function( display ) {
 		//Marble withdrawl
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MarbleWithdrawl ) ) {
 			if( display ) {
 				MainView.outputText( '\nYour sleep is very troubled, and you aren\'t able to settle down.  You get up feeling tired and unsatisfied, always thinking of Marble\'s milk.\n', false );
 			}
@@ -1475,7 +1475,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] > 0 ) {
 			return true;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) ) {
 			return true;
 		}
 		if( CoC.flags[ kFLAGS.DISCOVERED_WITCH_DUNGEON ] > 0 ) {
@@ -1487,7 +1487,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		return false;
 	};
 	Camp.prototype.farmFound = function() { //Returns true as soon as any known dungeon is found
-		if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) >= 0 && CoC.player.statusAffectv1( StatusAffects.MetWhitney ) > 1 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) && CoC.player.statusAffectv1( StatusAffects.MetWhitney ) > 1 ) {
 			if( CoC.flags[ kFLAGS.FARM_DISABLED ] === 0 ) {
 				return true;
 			}
@@ -1504,7 +1504,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.BAZAAR_ENTERED ] > 0 ) {
 			return true;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) ) {
 			return true;
 		}
 		if( CoC.flags[ kFLAGS.FOUND_CATHEDRAL ] === 1 ) {
@@ -1519,7 +1519,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.OWCA_UNLOCKED ] === 1 ) {
 			return true;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) ) {
 			return true;
 		}
 		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
@@ -1543,7 +1543,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.BAZAAR_ENTERED ] > 0 ) {
 			EngineCore.addButton( 0, 'Bazaar', SceneLib.bazaar, SceneLib.bazaar.enterTheBazaar );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) ) {
 			EngineCore.addButton( 1, 'Boat', SceneLib.boat, SceneLib.boat.boatExplore );
 		}
 		if( CoC.flags[ kFLAGS.FOUND_CATHEDRAL ] === 1 ) {
@@ -1563,7 +1563,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.OWCA_UNLOCKED ] === 1 ) {
 			EngineCore.addButton( 6, 'Owca', SceneLib.owca, SceneLib.owca.gangbangVillageStuff );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) ) {
 			EngineCore.addButton( 7, 'Salon', SceneLib.salon, SceneLib.salon.salonGreeting );
 		}
 		if( CoC.player.statusAffectv1( StatusAffects.TelAdre ) >= 1 ) {
@@ -1594,7 +1594,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] > 0 ) {
 			EngineCore.addButton( 0, 'Deep Cave', SceneLib.dungeon2Supplimental, SceneLib.dungeon2Supplimental.enterZetazsLair );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FoundFactory ) ) {
 			EngineCore.addButton( 1, 'Factory', SceneLib.dungeonCore, SceneLib.dungeonCore.enterFactory );
 		}
 		if( CoC.flags[ kFLAGS.DISCOVERED_WITCH_DUNGEON ] > 0 ) {
@@ -1607,7 +1607,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, CharCreation, CoC, Save
 	};
 	Camp.prototype.exgartuanCampUpdate = function() {
 		//Update Exgartuan stuff
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			$log.debug( 'EXGARTUAN V1: ' + CoC.player.statusAffectv1( StatusAffects.Exgartuan ) + ' V2: ' + CoC.player.statusAffectv2( StatusAffects.Exgartuan ) );
 			//if too small dick, remove him
 			if( CoC.player.statusAffectv1( StatusAffects.Exgartuan ) === 1 && (CoC.player.cockArea( 0 ) < 100 || CoC.player.cocks.length === 0) ) {

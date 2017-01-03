@@ -922,7 +922,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		MainView.outputText( '\n\nYou slip behind ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ', putting your arms on hers as you guide her through nocking an arrow, head resting on her fist, a lone finger outstretched toward the dessicated dummy.' );
 		MainView.outputText( '\n\nBreathing hard, the young salamander draws back the bowstring, lining up on her target.  She chews on her lower lip, eyes squinting, deep in concentration, wanting to make this first shot count - to make you proud.  She looses the arrow, and gasps as it bolts away with lethal force... and sails across camp, well away from the target.' );
 		//If Rath is @ camp:;
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			MainView.outputText( '  You hear your old alchemist friend suddenly putting up a ruckus as the sounds of breaking glass echo throughout camp.  ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' looks up at you nervously, but you ruffle her fiery hair and tell her to try again. Rath is probably just fine.' );
 		}//else if Valeria/Latexy is at camp: ;
 		else if( CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] === 1 ) {
@@ -1213,7 +1213,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		}
 		//Talk 3;
 		//{Needs Rath at camp];
-		else if( temp <= 1 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+		else if( temp <= 1 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			MainView.outputText( '"<i>' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + '!</i>" you hear a ragged old voice call, "<i>Get back here this instant!  I\'m not done with you yet!</i>"' );
 			MainView.outputText( '\n\n"<i>Coming!</i>" ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' calls back as Rathazul shuffles into view, waving around what looks like a tiny hammer.  Whispering, ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' says, "<i>Could you come with me, ' + this.championRef() + '? Rathazul weirds me out.</i>"' );
 			MainView.outputText( '\n\nChuckling, you nod and follow ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' as she returns to Rath\'s makeshift laboratory and seats herself on one of his tables.  Grumbling about kids, the old rat proceeds to rap his little hammer on her knee - nearly getting kicked in the face for his trouble - before asking her to hold her breath as he listens to her heartbeat.  She\'s nearly blue in the face before he nods approvingly and tells her she can go. ' + CoC.flags[ kFLAGS.HELSPAWN_NAME ] + ' goes running, happy to get away as Rath turns to you, shaking his head.' );

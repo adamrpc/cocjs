@@ -42,9 +42,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		MainView.outputText( ImageManager.showImage( 'marae-first-encounter' ) );
 		MainView.outputText( 'Like a hidden emerald jewel, a small island appears in the distance.  You wager that you\'re somewhere near the center of this lake.  How coincidental.   You row closer, eager to get out of the boat and stretch your ' + CoC.player.legs() + '.  The rowboat grounds itself in the moist earth of the island, coming to a dead stop.   You climb out, noting that this island is little more than a raised mound of earth and grass, with a small tree perched atop its apex.  ', false );
 		//Dungeon operational;
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			//First meeting;
-			if( CoC.player.findStatusAffect( StatusAffects.MetMarae ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MetMarae ) ) {
 				CoC.player.createStatusAffect( StatusAffects.MetMarae, 0, 0, 0, 0 );
 				MainView.outputText( 'You approach the tree and note that its bark is unusually smooth.  Every leaf of the tree is particularly vibrant, bright green with life and color.   You reach out to touch the bark and circle around it, noting a complete lack of knots or discoloration.  As you finish the circle, you are surprised to see the silhouette of a woman growing from the bark.  The transformation stops, exposing the front half a woman from the waist up.   You give a start when she opens her eyes – revealing totally white irises, the only part of her NOT textured with bark.\n\n', false );
 				if( CoC.player.cor > 66 ) {
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				} else {
 					//If youve taken her quest already;
-					if( CoC.player.findStatusAffect( StatusAffects.MaraesQuestStart ) >= 0 ) {
+					if( CoC.player.findStatusAffect( StatusAffects.MaraesQuestStart ) ) {
 						MainView.outputText( 'Marae reminds you, "<i>You need to disable the demonic factory!  It\'s located in the foothills of the mountain.  Please, I do not know how long I can resist.</i>"', false );
 						EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 					}
@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		//Dungeon inoperable;
 		else {
 			//Not corrupt;
-			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 				MainView.outputText( 'Marae smiles broadly at you, and steps free from her tree.  The lithe plant-goddess gives you a warm hug and a kiss on the cheek.\n\n', false );
 				MainView.outputText( '"<i>Thank you,</i>" she says, breaking the hug and turning back to her tree, "<i>The onslaught has lessened, and I feel more myself already.  Let me thank you for your heroic deeds.</i>"\n\n', false );
 				MainView.outputText( 'She plunges a hand inside the tree and pulls out a small pearl.  "<i>This is a pearl from the very depths of the lake, infused with my purity.  If you eat it, it will grant you my aid in resisting the lust and corruption of this land.</i>"\n\n', false );
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 			else {
 				MainView.outputText( 'You approach Marae\'s tree and note that the bark of the tree is smooth, practically wet looking.  The goddess\'s form is already exposed, as she leans out from the trunk and blows you a kiss.   Her breasts look as if they\'ve filled out quite a bit since your first meeting, jiggling teasingly with every motion she makes.\n\n', true );
 				//First corrupt meeting;
-				if( CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) ) {
 					CoC.player.createStatusAffect( StatusAffects.MetCorruptMarae, 0, 0, 0, 0 );
 					MainView.outputText( 'She smiles lewdly and beckons you to come closer.  "<i>Do you like the new me?  I don\'t know why I was resisting this in the first place.   You shut down the factory, I could feel it in the ground, and I was so happy.  Then I realized HOW you shut down the factory.  I could feel it seeping into my roots.  I was so afraid, feeling that corruption flow through the ground back to me.   I promised myself I would kill you when you dared to show your face.   But then that warmth started flowing into me, and it just melted my anger and resolve,</i>" she explains, pushing forwards a bit further out from the trunk.\n\n', false );
 					MainView.outputText( 'You watch as a tiny purple bud blooms below her belly button, just above her junction with the tree.  The petals unfurl into a very familiar shape, looking more like a vagina than a flower.  Marae reaches down and brushes her fingers across the outer petals, cooing in delight.   You glance up at her eyes and she\'s practically beaming – she knew where you were looking.\n\n', false );
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		MainView.outputText( ImageManager.showImage( 'marae-bad-end' ) );
-		if( CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) ) {
 			MainView.outputText( 'The goddess flows out of the tree, stepping away from it as a living woman, curvy and nude.\n\n', false );
 		}
 		MainView.outputText( 'She approaches you, her breasts swinging pendulously and dripping sap.   Mesmerized by her swaying mammaries, you watch until she mashes you into them with an enormous hug.  A hand traces down your chest to your groin', false );
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		MainView.outputText( 'You don\'t really know what\'s going on anymore.  You\'re leaning against a tree while your crotch is forcefully double-teaming both of a goddess\' holes.  You\'re too full of warmth and arousal to do anything about it, so you slump down and enjoy it.  Marae cries and moans like a bitch in heat, clearly enjoying the two wriggling tendrils working her over.  Sap leaks from her nipples, and a few spare tentacles immediately latch on, their tips forming into twisted lips.  You can <b>taste</b> the flavor... with your tentacles.  The fog in your mind thickens, and you squeeze another tentacle into her ass without thinking about it.   One more erupts from the bundle at your crotch, and latches onto the goddess\' clit, locking her in a state of near-constant orgasm.   Her orgasms milk your cocks with violent muscle contracts, actually managing to pull the member buried inside her through her cervix and into her womb.  It\'s too much and you start to cum, blacking out from the intensity of it.\n\n', false );
 		MainView.outputText( '<b>Some time passes...</b>\n\n', false );
 		MainView.outputText( 'You\'re still on the island with Marae impaled on two of the wriggling monstrosities you call your cocks.    You haven\'t pulled free in days, but why would you?  Your bodies are made for each other, a pile of wriggling fuckmeat with holes that drink your cum like the desert drinks water, and a once-hero who lives to sate his mass of seething tentacles.   The two of you are two halves of the same puzzle, locked together in an endless orgy.  You fondly remember watching the shining liquid that was once your soul drip from the wet folds of her flower-petals, crystallizing into a tiny rock much smaller than Marae\'s own.', false );
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			MainView.outputText( '\n\nOn the shore, Marble looks out on the lake, wondering what happened to the one whom she loved.', false );
 		}
 		EngineCore.gameOver();

@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 		} else {
 			MainView.outputText( '\nOne of her arrows smacks right into your [leg], nearly bowling you over.  God DAMN that hurt! You\'re going to be limping for a while!' );
 			var affect = 20 + Utils.rand( 5 );
-			if( CoC.player.findStatusAffect( StatusAffects.CalledShot ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CalledShot ) ) {
 				while( affect > 0 && CoC.player.spe >= 2 ) {
 					affect--;
 					CoC.player.addStatusValue( StatusAffects.CalledShot, 1, 1 );
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 		} else {
 			MainView.outputText( '\nHer shield catches you right in the face, sending you tumbling to the ground and leaving you open to attack!' );
 			damage = CoC.player.takeDamage( damage );
-			if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.Stunned ) < 0 ) {
+			if( Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.Stunned ) ) {
 				CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 				MainView.outputText( ' <b>The hit stuns you.</b>' );
 			}

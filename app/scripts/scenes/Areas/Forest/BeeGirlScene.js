@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			this.beeEncounterWithExgartuan();
 			return;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 || CoC.player.findStatusAffect( StatusAffects.WormPlugged ) >= 0 ) { //Worms now mess with things too!
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) || CoC.player.findStatusAffect( StatusAffects.WormPlugged ) ) { //Worms now mess with things too!
 			this.beeEncounterWithWorms();
 			return;
 		}
@@ -353,7 +353,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.clearOutput();
 		MainView.spriteSelect( 6 );
 		MainView.outputText( 'You slowly ' + (CoC.player.isTaur() ? 'trot' : 'walk') + ' toward the bee girl, your mind in a haze.  Her antennae wiggle in anticipation and she gives you a lusty smile, eager to fill your ass with her payload.  You start to take off your clothes, the last of your underwear falling to the forest floor as you reach her.\n\n' );
-		MainView.outputText( 'The bee maiden puts her hands on your shoulders.  She draws you gently into a kiss, but as her sweet saliva prepares you for what is to come you feel one of your annelid passengers slither down ' + (CoC.player.findStatusAffect( StatusAffects.WormPlugged ) >= 0 ? 'from your cervix and poke out of your cunt' : 'your urethra and wrap itself around the tip of your cock') + '.  The bee girl pulls back from the kiss, looks down and jumps back, the color draining from her face.\n\n' );
+		MainView.outputText( 'The bee maiden puts her hands on your shoulders.  She draws you gently into a kiss, but as her sweet saliva prepares you for what is to come you feel one of your annelid passengers slither down ' + (CoC.player.findStatusAffect( StatusAffects.WormPlugged ) ? 'from your cervix and poke out of your cunt' : 'your urethra and wrap itself around the tip of your cock') + '.  The bee girl pulls back from the kiss, looks down and jumps back, the color draining from her face.\n\n' );
 		MainView.outputText( '<i>“By my queen!  That izzz dizzzguzzting!  How can you zzztand it?  Ugh, no, I can\'t lay my queen\'zzz preciouzzz eggzzz in a body with thozzze.”</i>  A few drips of fluid dribble from the tip of her ovipositor and she adds, <i>“and I zzzo wanted to.  I really have to find zzzomeone who can take thezzze and keep them zzzafe.”</i>\n\n' );
 		MainView.outputText( 'She lifts off, hovering a few feet off the ground.  <i>“Good luck getting rid of thozzze thingzzz.  When you do, come find me and I\'ll fill you zzzo full of lovely eggzzz,”</i> she promises, her fingers idly stroking her sex.  She shakes her head, deliberately getting control of herself and forcing her fingers away from her slit, then flies up through a hole in the canopy.\n\n' );
 		MainView.outputText( 'Alone and aroused, all you can do is put your clothes back on and travel back to your camp, hoping no imps ambush you on the way.' );
@@ -1236,7 +1236,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			Combat.cleanupAfterCombat();
 		} else {
 			//Male + venomz
-			if( (CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom ) >= 0 || CoC.player.findStatusAffect( StatusAffects.lustvenom ) >= 0) && !sexed && CoC.player.cockTotal() === 1 ) {
+			if( (CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom ) || CoC.player.findStatusAffect( StatusAffects.lustvenom )) && !sexed && CoC.player.cockTotal() === 1 ) {
 				MainView.outputText( 'The bee-girl stands directly over you, looking down at you with a triumphant cute smile across her face, her eyes surveying every millimeter of your body. All you can do is lay there looking up at her fine figure and a profile of her ample breasts with a knowing smile on your face. She crouches down on all fours, just out of your reach, and begins to rhythmically shake her extended abdomen like a child\'s toy.\n\n', false );
 				MainView.outputText( 'Suddenly reality kicks in as you feel the venom coursing though your body, and your heart begins to race faster and faster by the minute. A dull pain swells deep inside your head as if it were about to explode; you try to lift your arms to cradle your head but can\'t, and slowly a new sensation takes over as your manhood begins to swell in size and length, trying to break through your clothes. A faint buzzing sound comes seemingly from nowhere, growing louder and getting closer every second. As the pain in your head decreases, you suddenly feel parched, your mouth as dry as the desert sands.  You try to let out a moan but all you can do is breathe rapidly, as if you are burning up inside.\n\n', false );
 				MainView.outputText( 'Several more bee-girls appear and gracefully land all around you, apparently communicating with each other by vibrating their abdomens. She leans forward over you, brushing one of her breasts across the side of your face as she loosens your clothing to release your fully erect manhood. She forcefully grabs it with both hands and begins to squeeze it, as if trying to choke it. Your vision starts to blur; if she were to stroke your member right now, you could die happily knowing you had felt that kind of pleasure. The bee-girl continues to choke your member for several minutes, forcing the blood upwards.\n\n', false );

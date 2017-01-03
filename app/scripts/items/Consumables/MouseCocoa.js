@@ -90,12 +90,12 @@ angular.module( 'cocjs' ).run( function( MainView, Descriptors, Utils, Pregnancy
 			//adds some lust
 			EngineCore.dynStats("lus", 10 + player.sens / 5);
 			if (player.vaginalCapacity() < 100 && player.hasVagina()) {
-				if (player.findStatusAffect(StatusAffects.BonusVCapacity) < 0) {
+				if (!player.findStatusAffect(StatusAffects.BonusVCapacity)) {
 					player.createStatusAffect(StatusAffects.BonusVCapacity, 0, 0, 0, 0);
 				}
 				player.addStatusValue(StatusAffects.BonusVCapacity, 1, 5);
 			} else {
-				if (player.findStatusAffect(StatusAffects.BonusACapacity) < 0) {
+				if (!player.findStatusAffect(StatusAffects.BonusACapacity)) {
 					player.createStatusAffect(StatusAffects.BonusACapacity, 0, 0, 0, 0);
 				}
 				player.addStatusValue(StatusAffects.BonusACapacity, 1, 5);

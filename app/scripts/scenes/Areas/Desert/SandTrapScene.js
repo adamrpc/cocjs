@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			bikiniTits = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 		}
 		//Requirements: Player is naga with tail and fangs, has met desert naga as naga at least once
-		if( CoC.player.isNaga() && CoC.player.findStatusAffect( StatusAffects.Naga ) >= 0 && CoC.player.gender > 0 && CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS ) {
+		if( CoC.player.isNaga() && CoC.player.findStatusAffect( StatusAffects.Naga ) && CoC.player.gender > 0 && CoC.player.faceType === AppearanceDefs.FACE_SNAKE_FANGS ) {
 			nagaThreeSome = this.nagaThreesomeWithSandTrap;
 		}
 		//Requires: Penis and str requirement
@@ -257,7 +257,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.spriteSelect( 97 );
 		MainView.outputText( 'The sandtrap holds your hands whilst it pushes you further down with its other set of arms, until only your head is above the sand.  Below the surface you try to weakly move your limbs, try to work yourself out of this situation, but it is impossible; the sand feels impossibly heavy and is packed against you.  The sandtrap seems to have no such difficulty.  It sinks gracefully downwards until its face is almost level with yours.  You feel something wet touch your thigh and you try to flinch, but aside from flexing your muscles you cannot move.' );
 		MainView.outputText( '\n\n"<i>Hyou arrrhe a vessel creature, arrrhen\'t you?</i>" says the sandtrap, gently stroking your face.  It seems the more excited it gets and the less it feels the need to pretend, the more fluttery and broken its voice becomes; it is like you are listening to a hive of bees that just happens to be forming words.' );
-		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) ) {
 			MainView.outputText( '  "<i>A cute little wwworker hasz fallen into my home.  Wwwell, that isz ok.  Fortunately for hwyou, I already have some eggsz ready.  Hhyou will get to be a queen! Iszn\'t that exciting?</i>"' );
 		} else {
 			MainView.outputText( '  "<i>A cute little wwworker hasz fallen into my home, but I have no fertile eggsz to givve it.  Wwwell, that isz ok.  Hwwe can still have fun, can\'t we?</i>"' );
@@ -285,7 +285,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '\n\nThe sandtrap continues to make its soothing, humming sounds and caresses your [chest] and [hair] whilst holding you firmly in its sandy grasp as it fucks you, sinking egg after egg into your [butt].  It is a process which goes on for minutes on end.  The creature\'s prong and ovipositor rub against each through your inner walls and the sensation of being double penetrated like this drives you inexorably towards another peak.  You moan and your eyes roll as the slick pressure in your bowels makes you cum, both your gushing cunt and ass flexing helplessly against the creature\'s strange genitals.  The oil-induced serenity and the sexual marathon the sandtrap has put you through are too much and, even with the creature still relentlessly pumping away at you, you pass out.' );
 		MainView.outputText( '\n\nYou awaken a while later, staggering to your feet and looking around.  You are standing in a featureless stretch of the desert... there is no suggestion of the sandtrap, or indeed that you are in the same place where it caught you.  A fair amount of time has passed though, judging by the sky above you.  Perhaps it was all a particularly lucid mirage?  A sensation of... fullness in your abdomen suggests otherwise.  Clutching your bowels uneasily, you make your way back to camp.' );
 		//buttpreg only if RNG decided trap was fertilized, reduce lust, increase lib, simefeed
-		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) ) {
 			this.sandTrapPregChance();
 		}
 		CoC.player.orgasm();
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '\n\nThe sandtrap holds your hands whilst it pushes you further down with its other set of arms, until only your head is above the sand.  Below the surface you try to weakly move your limbs, try to work yourself out of this situation but it is impossible; the sand feels impossibly heavy and is packed against you.  The sandtrap seems to have no such difficulty.  It towers above you, moving with sinuous grace.  You feel something wet touch your thigh and you try to flinch, but aside from flexing your muscles you cannot move.' );
 		MainView.outputText( '\n\n"<i>Hwhat a strange creature you arrrhe,</i>" says the sandtrap, looking at you with vague bafflement as it gently strokes your face.  It seems the more excited it gets and the less it feels the need to pretend, the more fluttery and broken its voice becomes; it is like you are listening to a hive of bees that just happens to be forming words.  ' );
 		//(Trap has fertilised eggs:
-		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) ) {
 			MainView.outputText( '"<i>Not a worker OR a drone! Wwwell, that isz ok.  Even ants who hhhave nothing can be someone for somebody.  And hhyou can be mommy for my childrrhen!</i>"' );
 		} else {
 			MainView.outputText( '"<i>Not a worker OR a drone! Wwwell, that isz ok.  Hwwe can still have fun, can\'t we?</i>"' );
@@ -329,7 +329,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 	SandTrapScene.prototype.sandTrapPregChance = function() {
 		//Only happens if PC aint already buttpregged
-		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.Fertilized ) ) {
 			CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_SANDTRAP_FERTILE, PregnancyStore.INCUBATION_SANDTRAP, 1, 1 );
 		} else {
 			CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_SANDTRAP, PregnancyStore.INCUBATION_SANDTRAP, 1, 1 );

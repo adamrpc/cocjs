@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 		}
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_HARPY && CoC.player.tailType === AppearanceDefs.TAIL_TYPE_HARPY && CoC.player.findPerk( PerkLib.HarpyWomb ) ) { //Make eggs big if harpied!
-			if( CoC.player.findStatusAffect( StatusAffects.Eggs ) >= 0 && CoC.player.statusAffectv2( StatusAffects.Eggs ) === 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Eggs ) && CoC.player.statusAffectv2( StatusAffects.Eggs ) === 0 ) {
 				CoC.player.changeStatusValue( StatusAffects.Eggs, 2, 1 );
 				MainView.outputText( '\n<b>A familiar, motherly rumble lets you know that your harpy-like womb is growing your eggs nice and large.</b>\n' );
 				needNext = true;
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 		if( CoC.player.pregnancyIncubation <= 0 && CoC.player.pregnancyType === PregnancyStore.PREGNANCY_OVIELIXIR_EGGS ) { //Fixing Egg Preg Preglocked Glitch
 			CoC.player.knockUpForce(); //Clear Pregnancy
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Uniball ) >= 0 && CoC.player.ballSize > 1 && CoC.player.balls > 0 ) { //Testicles Normalise feel a deep sensation of release around your genitals.  You sigh with relief and contentment as your testicles drop downwards and bloom outwards, heat throbbing within them as they split and form a proper ballsack.\n');
+		if( CoC.player.findStatusAffect( StatusAffects.Uniball ) && CoC.player.ballSize > 1 && CoC.player.balls > 0 ) { //Testicles Normalise feel a deep sensation of release around your genitals.  You sigh with relief and contentment as your testicles drop downwards and bloom outwards, heat throbbing within them as they split and form a proper ballsack.\n');
 			CoC.player.removeStatusAffect( StatusAffects.Uniball );
 			needNext = true;
 		}
@@ -160,14 +160,14 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.LustStickApplied ) >= 0 ) { //Lust stick!
+		if( CoC.player.findStatusAffect( StatusAffects.LustStickApplied ) ) { //Lust stick!
 			CoC.player.addStatusValue( StatusAffects.LustStickApplied, 1, -1 ); //Decrement!
 			if( CoC.player.statusAffectv1( StatusAffects.LustStickApplied ) <= 0 ) {
 				CoC.player.removeStatusAffect( StatusAffects.LustStickApplied );
 				MainView.outputText( '<b>\nYour drugged lipstick fades away, leaving only the faintest residue on your lips.  You\'ll have to put on more if you want to be able to kiss your foes into submission!</b>\n' );
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) { //Luststic countdown
+		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) ) { //Luststic countdown
 			CoC.player.addStatusValue( StatusAffects.Luststick, 1, -1 );
 			if( Utils.rand( 2 ) === 0 && CoC.player.hasCock() ) { //50% chance to lust spike
 				//Display if haven't displayed
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 		}
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00285 ] >= 50 && !CoC.player.findPerk( PerkLib.LuststickAdapted ) ) { //Luststick resistance unlock
 			SceneLib.sophieBimbo.unlockResistance();
-			if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Luststick ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.Luststick );
 			}
 			needNext = true;
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Eggchest ) >= 0 ) { //Eggs in tits!
+		if( CoC.player.findStatusAffect( StatusAffects.Eggchest ) ) { //Eggs in tits!
 			CoC.player.addStatusValue( StatusAffects.Eggchest, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.Eggchest ) <= 0 ) {
 				MainView.outputText( '\n<b>You feel the rounded eggs within your [fullChest] vanishing, absorbed into your body.  </b>' );
@@ -312,7 +312,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.player.addStatusValue( StatusAffects.Rut, 3, -1 );
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.LustyTongue ) >= 0 ) { //Lusty Tongue Check!
+		if( CoC.player.findStatusAffect( StatusAffects.LustyTongue ) ) { //Lusty Tongue Check!
 			if( Utils.rand( 5 ) === 0 ) {
 				MainView.outputText( '\nYou keep licking your lips, blushing with the sexual pleasure it brings you.' );
 				EngineCore.dynStats( 'lus', 2 + Utils.rand( 15 ) );
@@ -401,10 +401,10 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findPerk( PerkLib.BimboBody ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) { //Bimbo checks
+		if( CoC.player.findPerk( PerkLib.BimboBody ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) ) { //Bimbo checks
 			if( CoC.player.breastRows[ 0 ].breastRating < 5 ) { //Tits!
 				CoC.player.breastRows[ 0 ].breastRating = 5;
-				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) ) {
 					MainView.outputText( '\n<b>Your boobies like, get all big an\' wobbly again!  You\'ll have lots of fun now that your tits are back to being big, yummy knockers!</b>\n' );
 				} else {
 					MainView.outputText( '\n<b>Your ' + Descriptors.breastDescript( 0 ) + ' have regained their former bimbo-like size.  It looks like you\'ll be stuck with large, sensitive breasts forever, but at least it\'ll help you tease your enemies into submission!</b>\n' );
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 			if( !CoC.player.hasVagina() ) { //Vagoo
 				CoC.player.createVagina();
-				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 ) {
+				if( CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) ) {
 					MainView.outputText( '\n<b>Your crotch is like, all itchy an\' stuff.  Omigawsh!  There\'s a wet little slit opening up, and it\'s all tingly!  It feels so good, maybe like, someone could put something inside there!</b>\n' );
 				} else {
 					MainView.outputText( '\n<b>Your crotch tingles for a second, and when you reach down to feel, your ' + CoC.player.legs() + ' fold underneath you, limp.  You\'ve got a vagina - the damned thing won\'t go away and it feels twice as sensitive this time.  Fucking bimbo liquer.</b>\n' );
@@ -477,7 +477,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) { //Feeder checks
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) { //Feeder checks
 			if( CoC.player.cor <= 20 ) { //Go away if pure
 				MainView.outputText( '\nThe desire to breastfeed fades into the background.  It must have been associated with the corruption inside you.\n\n(<b>You have lost the \'Feeder\' perk.</b>)\n' );
 				CoC.player.removeStatusAffect( StatusAffects.Feeder );
@@ -498,7 +498,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.WormPlugged ) >= 0 && CoC.flags[ kFLAGS.PLAYER_PREGGO_WITH_WORMS ] === 0 ) { //Update worm drippy-cooch
+		if( CoC.player.findStatusAffect( StatusAffects.WormPlugged ) && CoC.flags[ kFLAGS.PLAYER_PREGGO_WITH_WORMS ] === 0 ) { //Update worm drippy-cooch
 			if( CoC.player.hasVagina() ) {
 				if( Utils.rand( 5 ) === 0 ) {
 					CoC.flags[ kFLAGS.PLAYER_PREGGO_WITH_WORMS ] = 1;
@@ -519,7 +519,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.player.knockUpForce(); //Clear worm 'pregnancy'
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Milked ) >= 0 ) { //'Milked'
+		if( CoC.player.findStatusAffect( StatusAffects.Milked ) ) { //'Milked'
 			CoC.player.addStatusValue( StatusAffects.Milked, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.Milked ) <= 0 ) {
 				MainView.outputText( '\n<b>Your ' + Descriptors.nippleDescript( 0 ) + 's are no longer sore from the milking.</b>\n' );
@@ -527,13 +527,13 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Jizzpants ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Jizzpants ) ) {
 			MainView.outputText( '\nYour ' + CoC.player.armorName + ' squishes wetly with all the semen you unloaded into them, arousing you more and more with every movement.\n' );
 			EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 5 );
 			CoC.player.removeStatusAffect( StatusAffects.Jizzpants );
 			needNext = true;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Dysfunction ) ) {
 			if( CoC.player.statusAffectv1( StatusAffects.Dysfunction ) <= 1 ) {
 				CoC.player.removeStatusAffect( StatusAffects.Dysfunction );
 				MainView.outputText( '\nYou feel a tingling in your nethers... at last full sensation has returned to your groin.  <b>You can masturbate again!</b>\n' );
@@ -542,14 +542,14 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				CoC.player.addStatusValue( StatusAffects.Dysfunction, 1, -1 );
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.LactationReduction ) < 0 ) { //Lactation reduction
+		if( !CoC.player.findStatusAffect( StatusAffects.LactationReduction ) ) { //Lactation reduction
 			if( CoC.player.biggestLactation() > 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.LactationReduction, 0, 0, 0, 0 );
 			}
-		} else if( CoC.player.biggestLactation() > 0 && CoC.player.findStatusAffect( StatusAffects.Feeder ) < 0 && CoC.player.pregnancyIncubation === 0 ) {
+		} else if( CoC.player.biggestLactation() > 0 && !CoC.player.findStatusAffect( StatusAffects.Feeder ) && CoC.player.pregnancyIncubation === 0 ) {
 			CoC.player.addStatusValue( StatusAffects.LactationReduction, 1, 1 );
 			if( CoC.player.statusAffectv1( StatusAffects.LactationReduction ) >= 48 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.LactationReduc0 ) < 0 ) {
+				if( !CoC.player.findStatusAffect( StatusAffects.LactationReduc0 ) ) {
 					CoC.player.createStatusAffect( StatusAffects.LactationReduc0, 0, 0, 0, 0 );
 					if( CoC.player.biggestLactation() >= 1 ) {
 						MainView.outputText( '\n<b>Your ' + Descriptors.nippleDescript( 0 ) + 's feel swollen and bloated, needing to be milked.</b>\n' );
@@ -563,16 +563,16 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 					needNext = true;
 				}
 				CoC.player.boostLactation( -0.5 * CoC.player.breastRows.length / 24 );
-				if( CoC.player.biggestLactation() <= 2.5 && CoC.player.findStatusAffect( StatusAffects.LactationReduc1 ) < 0 ) {
+				if( CoC.player.biggestLactation() <= 2.5 && !CoC.player.findStatusAffect( StatusAffects.LactationReduc1 ) ) {
 					MainView.outputText( '\n<b>Your breasts feel lighter as your body\'s milk production winds down.</b>\n' );
 					CoC.player.createStatusAffect( StatusAffects.LactationReduc1, 0, 0, 0, 0 );
 					needNext = true;
-				} else if( CoC.player.biggestLactation() <= 1.5 && CoC.player.findStatusAffect( StatusAffects.LactationReduc2 ) < 0 ) {
+				} else if( CoC.player.biggestLactation() <= 1.5 && !CoC.player.findStatusAffect( StatusAffects.LactationReduc2 ) ) {
 					MainView.outputText( '\n<b>Your body\'s milk output drops down to what would be considered \'normal\' for a pregnant woman.</b>\n' );
 					CoC.player.createStatusAffect( StatusAffects.LactationReduc2, 0, 0, 0, 0 );
 					needNext = true;
 				}
-				if( CoC.player.biggestLactation() < 1 && CoC.player.findStatusAffect( StatusAffects.LactationReduc3 ) < 0 ) {
+				if( CoC.player.biggestLactation() < 1 && !CoC.player.findStatusAffect( StatusAffects.LactationReduc3 ) ) {
 					CoC.player.createStatusAffect( StatusAffects.LactationReduc3, 0, 0, 0, 0 );
 					MainView.outputText( '\n<b>Your body no longer produces any milk.</b>\n' );
 					CoC.player.removeStatusAffect( StatusAffects.LactationReduction );
@@ -580,7 +580,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.CuntStretched ) >= 0 ) { //Cunt stretching stuff
+		if( CoC.player.findStatusAffect( StatusAffects.CuntStretched ) ) { //Cunt stretching stuff
 			CoC.player.addStatusValue( StatusAffects.CuntStretched, 1, 1 );
 			if( CoC.player.vaginas.length > 0 ) {
 				if( !CoC.player.findPerk( PerkLib.FerasBoonWideOpen ) ) {
@@ -611,7 +611,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.ButtStretched ) >= 0 ) { //Butt stretching stuff
+		if( CoC.player.findStatusAffect( StatusAffects.ButtStretched ) ) { //Butt stretching stuff
 			CoC.player.addStatusValue( StatusAffects.ButtStretched, 1, 1 );
 			if( CoC.player.ass.analLooseness === 2 && CoC.player.statusAffectv1( StatusAffects.ButtStretched ) >= 72 ) {
 				MainView.outputText( '\n<b>Your ' + Descriptors.assholeDescript() + ' recovers from your ordeals, tightening up a bit.</b>\n' );
@@ -648,7 +648,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 			}
 		}
 		if( CoC.player.hasKeyItem( 'Ruby Heart' ) >= 0 ) { //Regain slime core
-			if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 && !CoC.player.findPerk( PerkLib.SlimeCore ) && CoC.player.isGoo() && CoC.player.gooScore() >= 4 && CoC.player.vaginalCapacity() >= 9000 && CoC.player.skinAdj === 'slimy' && CoC.player.skinDesc === 'skin' && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
+			if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) && !CoC.player.findPerk( PerkLib.SlimeCore ) && CoC.player.isGoo() && CoC.player.gooScore() >= 4 && CoC.player.vaginalCapacity() >= 9000 && CoC.player.skinAdj === 'slimy' && CoC.player.skinDesc === 'skin' && CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
 				MainView.outputText( '\nAs you adjust to your new, goo-like body, you remember the ruby heart you expelled so long ago.  As you reach to pick it up, it quivers and pulses with a warm, cheerful light.  Your fingers close on it and the nucleus slides through your palm, into your body!\n\n' );
 				MainView.outputText( 'There is a momentary pressure in your chest and a few memories that are not your own flicker before your eyes.  The dizzying sight passes and the slime core settles within your body, imprinted with your personality and experiences.  There is a comforting calmness from your new nucleus and you feel as though, with your new memories, you will be better able to manage your body\'s fluid requirements.\n' );
 				//(Reduces Fluid Addiction to a 24 hour intake requirement).
@@ -658,7 +658,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				needNext = true;
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) >= 0 ) { //Slime craving stuff
+		if( CoC.player.findStatusAffect( StatusAffects.SlimeCraving ) ) { //Slime craving stuff
 			if( CoC.player.vaginalCapacity() < 9000 || CoC.player.skinAdj !== 'slimy' || CoC.player.skinDesc !== 'skin' || CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
 				MainView.outputText( '\n<b>You realize you no longer crave fluids like you once did.</b>\n' );
 				CoC.player.removeStatusAffect( StatusAffects.SlimeCraving );
@@ -671,7 +671,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 					CoC.player.addStatusValue( StatusAffects.SlimeCraving, 1, 1 );
 				}
 				if( CoC.player.statusAffectv1( StatusAffects.SlimeCraving ) >= 18 ) {
-					if( CoC.player.findStatusAffect( StatusAffects.SlimeCravingOutput ) < 0 ) { //Protects against this warning appearing multiple times in the output
+					if( !CoC.player.findStatusAffect( StatusAffects.SlimeCravingOutput ) ) { //Protects against this warning appearing multiple times in the output
 						CoC.player.createStatusAffect( StatusAffects.SlimeCravingOutput, 0, 0, 0, 0 );
 						MainView.outputText( '\n<b>Your craving for the \'fluids\' of others grows strong, and you feel yourself getting weaker and slower with every passing hour.</b>\n' );
 						needNext = true;
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.SlimeCravingFeed ) >= 0 ) { //Slime feeding stuff
+		if( CoC.player.findStatusAffect( StatusAffects.SlimeCravingFeed ) ) { //Slime feeding stuff
 			MainView.outputText( '\n<b>You feel revitalized from your recent intake, but soon you\'ll need more...</b>\n' );
 			EngineCore.dynStats( 'str', CoC.player.statusAffectv2( StatusAffects.SlimeCraving ) * 0.5, 'spe', CoC.player.statusAffectv3( StatusAffects.SlimeCraving ) ); //Boost speed and restore half the player's lost strength
 			CoC.player.removeStatusAffect( StatusAffects.SlimeCravingFeed ); //Remove feed succuss status so it can be reset
@@ -785,7 +785,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 			SceneLib.farmCorruption.updateFarmCorruption(); //Farm Corruption updating
-			if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) >= 0 ) { // Herbal contraceptives countdown
+			if( CoC.player.findStatusAffect( StatusAffects.Contraceptives ) ) { // Herbal contraceptives countdown
 				if( CoC.player.statusAffectv1( StatusAffects.Contraceptives ) === 1 ) {
 					CoC.player.addStatusValue( StatusAffects.Contraceptives, 2, -1 );
 					if( CoC.player.statusAffectv1( StatusAffects.Contraceptives ) < 0 ) {
@@ -844,7 +844,7 @@ angular.module( 'cocjs' ).factory( 'PlayerEvents', function(MainView, SceneLib, 
 				}
 			}
 			//Clear dragon breath cooldown!
-			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 			}
 		}

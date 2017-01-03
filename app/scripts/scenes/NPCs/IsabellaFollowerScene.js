@@ -1343,7 +1343,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		MainView.spriteSelect( 31 );
 		if( CoC.flags[ kFLAGS.ISABELLA_PROBOVA_BURP_COUNT ] === 1 ) {
 			MainView.outputText( 'As strange as the situation is, you\'re too weirded out to reassure Isabella, at least for now, and you relay that to her.  Though crestfallen, she takes the news well, apologizing - sincerely and soberly - once more before moving back to her designated camping spot.  ', false );
-			if( CoC.player.findStatusAffect( StatusAffects.BurpChanged ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.BurpChanged ) ) {
 				MainView.outputText( '  Happily, after about an hour, you go back to your old form, leaving the belch-borne bovine bounty behind.', false );
 				CoC.player.removeStatusAffect( StatusAffects.BurpChanged );
 			}
@@ -1359,7 +1359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		MainView.outputText( '', true );
 		MainView.spriteSelect( 31 );
 		//Clear burps!;
-		if( CoC.player.findStatusAffect( StatusAffects.BurpChanged ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.BurpChanged ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.BurpChanged );
 		}
 		CoC.player.orgasm();

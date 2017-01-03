@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			MainView.outputText( '\n\n"<i>I wasn\'t even alive... how could you say...</i>"' );
 			MainView.outputText( '\n\nThough you\'ve taken \'advantage\' of the corruption yourself, it makes you a little horny verbally asserting your dominance over Phylla.' );
 			//(If PC has not completed the factory)
-			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 				MainView.outputText( '\n\nEvery year!  Every year, your people valiantly send one of their own through that hellish portal to this place in the hopes to try and quell or even stop the spread of corruption.  Now you just learned that it all could have been slowed or even stopped completely by Phylla\'s race had they all not been gutless yellow-bellied cowards!' );
 			}
 			//(If PC has completed the factory)

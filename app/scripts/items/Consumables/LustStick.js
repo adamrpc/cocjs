@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).run( function( MainView, CoC, StatusAffects, Consumabl
 		return true;
 	};
 	LustStick.prototype.useItem = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.LustStickApplied ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.LustStickApplied ) ) {
 			CoC.player.addStatusValue( StatusAffects.LustStickApplied, 1, Utils.rand( 12 ) + 12 );
 			MainView.outputText( 'You carefully open the sweet-smelling tube and smear the lipstick over the coat you already have on your lips.  <b>No doubt another layer will make it last even longer!</b>  ' );
 			MainView.outputText( 'You finish and pucker your lips, feeling fairly sexy with your new, thicker makeup on.\n\n' );

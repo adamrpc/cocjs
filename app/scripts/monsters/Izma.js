@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 	//[Special Attacks];
 	Izma.prototype.IzmaSpecials1 = function() {
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'Izma attempts to close the distance with you, but misses completely because of her blindness.\n', false );
 			return;
 		}
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 	};
 	Izma.prototype.IzmaSpecials2 = function() {
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'Izma blindly tries to clinch you, but misses completely.\n', false );
 			return;
 		}

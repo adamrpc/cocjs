@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 			EngineCore.doNext( MainView, MainView.playerMenu );
 			return;
 		}
-		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) >= 0 && CoC.player.statusAffectv1( StatusAffects.Sealed ) === 3 ) {
+		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) && CoC.player.statusAffectv1( StatusAffects.Sealed ) === 3 ) {
 			MainView.outputText( '\nYou reach for your items, but you just can\'t get your pouches open.  <b>Your ability to use items was sealed, and now you\'ve wasted a chance to attack!</b>\n\n' );
 			Combat.enemyAI();
 			return;

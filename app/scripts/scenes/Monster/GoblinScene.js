@@ -231,7 +231,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, PerkL
 			EngineCore.dynStats( 'lus', 20 );
 		}
 		//If cant rape or breastfeed;
-		if( CoC.player.lust < 30 && CoC.player.findStatusAffect( StatusAffects.Feeder ) < 0 ) {
+		if( CoC.player.lust < 30 && !CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			Combat.cleanupAfterCombat();
 			return;
 		}
@@ -276,7 +276,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImageManager, PerkL
 			}
 		}
 		//Breastfeed adds an option;
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			feeder = this.giveGoblinAMilkMustache;
 		}
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 && (fitsFuck !== null || cuntFuck !== null || tooBig !== null ||

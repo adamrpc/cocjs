@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 	TentacleBeast.prototype.tentacleEntwine = function() {
 		MainView.outputText( 'The beast lunges its tentacles at you from all directions in an attempt to immobilize you.\n', false );
 		//Not Trapped yet
-		if( CoC.player.findStatusAffect( StatusAffects.TentacleBind ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.TentacleBind ) ) {
 			//Success
 			if( Math.ceil( Math.random() * (((CoC.player.spe) / 2)) ) > 15 || (CoC.player.findPerk( PerkLib.Evade ) && Math.ceil( Math.random() * (((CoC.player.spe) / 2)) ) > 15) ) {
 				MainView.outputText( 'In an impressive display of gymnastics, you dodge, duck, dip, dive, and roll away from the shower of grab-happy arms trying to hold you. Your instincts tell you that this was a GOOD thing.\n', false );
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 		} else {
 			MainView.outputText( 'The tentacle beast\'s mass begins quivering and sighing, the tentacles wrapping around each other and feverishly caressing each other.  It seems the beast has given up on fighting.', false );
 		}
-		if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 			this.removeStatusAffect( StatusAffects.PhyllaFight );
 			SceneLib.antsScene.phyllaTentacleDefeat();
 		} else {
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 	TentacleBeast.prototype.won = function( hpVictory ) {
 		if( hpVictory ) {
 			MainView.outputText( 'Overcome by your wounds, you turn to make a last desperate attempt to run...\n\n' );
-			if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+			if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 				this.removeStatusAffect( StatusAffects.PhyllaFight );
 				MainView.outputText( '...and make it into the nearby tunnel.  ' );
 				SceneLib.antsScene.phyllaTentaclePCLoss();
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 			}
 		} else {
 			MainView.outputText( 'You give up on fighting, too aroused to resist any longer.  Shrugging, you walk into the writhing mass...\n\n' );
-			if( this.findStatusAffect( StatusAffects.PhyllaFight ) >= 0 ) {
+			if( this.findStatusAffect( StatusAffects.PhyllaFight ) ) {
 				this.removeStatusAffect( StatusAffects.PhyllaFight );
 				MainView.outputText( '...but an insistent voice rouses you from your stupor.  You manage to run into a nearby tunnel.  ' );
 				SceneLib.antsScene.phyllaTentaclePCLoss();
@@ -90,7 +90,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 	};
 	TentacleBeast.prototype.performCombatAction = function() {
 		//tentacle beasts have special AI
-		if( Utils.rand( 2 ) === 0 || this.findStatusAffect( StatusAffects.TentacleCoolDown ) >= 0 ) {
+		if( Utils.rand( 2 ) === 0 || this.findStatusAffect( StatusAffects.TentacleCoolDown ) ) {
 			this.special1();
 		} else {
 			this.special2();

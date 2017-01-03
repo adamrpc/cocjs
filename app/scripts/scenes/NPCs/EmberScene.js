@@ -46,13 +46,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			}
 		}
 		//Ember napping;
-		if( CoC.player.findStatusAffect( StatusAffects.EmberNapping ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.EmberNapping ) ) {
 			CoC.player.addStatusValue( StatusAffects.EmberNapping, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.EmberNapping ) <= 0 ) {
 				CoC.player.removeStatusAffect( StatusAffects.EmberNapping );
 			}
 		}
-		if( this.followerEmber() && CoC.player.findStatusAffect( StatusAffects.EmberNapping ) < 0 ) {
+		if( this.followerEmber() && !CoC.player.findStatusAffect( StatusAffects.EmberNapping ) ) {
 			//Mino cum freakout - PC partly addicted!;
 			if( CoC.flags[ kFLAGS.MINOTAUR_CUM_ADDICTION_STATE ] === 1 && !CoC.player.findPerk( PerkLib.MinotaurCumAddict ) && CoC.flags[ kFLAGS.EMBER_CURRENTLY_FREAKING_ABOUT_MINOCUM ] === 0 ) {
 				this.minotaurJizzFreakout();
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 		return needNext;
 	};
 	EmberScene.prototype.timeChangeLarge = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.EmberNapping ) < 0 && this.followerEmber() && CoC.player.findStatusAffect( StatusAffects.EmberFuckCooldown ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.EmberNapping ) && this.followerEmber() && !CoC.player.findStatusAffect( StatusAffects.EmberFuckCooldown ) ) {
 			//Ember get's a whiff of fuckscent and knocks up PC!;
 			if( CoC.player.hasVagina() && CoC.player.inHeat && CoC.player.pregnancyIncubation === 0 && Utils.rand( 10 ) === 0 && (CoC.flags[ kFLAGS.EMBER_GENDER ] === 1 || CoC.flags[ kFLAGS.EMBER_GENDER ] === 3) ) {
 				this.emberRapesYourHeatness();
@@ -1188,7 +1188,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 				MainView.outputText( 'this... creature... that looked kind of like a human woman, but with a big dick where her clit should be.  She was walking around stark naked, \'cept for a bunch of piercings, and leading this bull-man along like a pet by a chain attached to a ring anchored into his cockhead.' );
 			} else if( subChoice === 4 ) {
 				MainView.outputText( 'a couple of goblins sharpening scissors on some rocks outside of a cave with a door on it. Weird. Wonder what they could be doing in there?' );
-			} else if( CoC.player.findStatusAffect( StatusAffects.WormsOff ) < 0 && Utils.rand( 2 ) === 0 ) {
+			} else if( !CoC.player.findStatusAffect( StatusAffects.WormsOff ) && Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( 'a horrible swarm of slimy white worms, clumped together into a mockery of a human form and squelching along.  It managed to latch onto this two-headed dog-creature and... ugh!  The worms started forcing their way into both of its cocks!  I\'ve never seen anything so disgusting!' );
 			} else if( subChoice === 5 ) {
 				MainView.outputText( 'this two-headed dog-morph loping around; it spotted an imp, dropped to all fours, then gave chase. Managed to catch the ugly little demon, whereupon it ass-raped it, then ate it.' );
@@ -1215,7 +1215,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 				MainView.outputText( 'one goblin being teased by a bunch of pregnant goblins for not being pregnant yet.  She just spat back that she wanted a \'better catch\' to be her baby-maker than a mere imp and wandered off.' );
 			}
 			//(If Jojo isn't in the camp & not corrupt);
-			else if( Utils.rand( 2 ) === 0 && SceneLib.jojoScene.monk <= 1 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0 ) {
+			else if( Utils.rand( 2 ) === 0 && SceneLib.jojoScene.monk <= 1 && !CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 				MainView.outputText( 'this mouse-morph monk, sitting in a glade and meditating. A goblin tried to proposition him; he just gave her a lecture and sent her running away in tears.  When an imp tried to attack him, he crushed its skull with a staff he had.  Not bad moves for such a weedy little thing...' );
 			} else {
 				MainView.outputText( 'one glade I touched down in to catch myself a nice brace of plump coneys, when all of a sudden this... this thing made out of flailing vines and fruit attacks me.  It went up in a puff of smoke once I torched it, of course.' );
@@ -1234,12 +1234,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 				if( Utils.rand( 3 ) === 0 && CoC.player.statusAffectv1( StatusAffects.MetWhitney ) <= 1 ) {
 					MainView.outputText( ' a big farm on the shoreline.  I saw some sort of cow-woman tending to fields of peppers, and a dog-woman herding cattle. They looked pretty fat and tasty, too... What?  I meant the cattle, stupid!  And I wouldn\'t have taken them - it\'s no fun snatching up livestock.  I prefer to chase down a deer or a wild auroch or something like that.' );
 				}//(if Fetish Cult is encounterable);
-				else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.FetishOn ) >= 0 ) {
+				else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.FetishOn ) ) {
 					MainView.outputText( 'a pair of humans, arguing about sex.  They both wanted it, but the guy said he wanted to do the \'naughty schoolboy and female teacher\' routine, while the girl wanted to do the \'noblewoman and love-servant\' routine.  Weird; their clothes kept changing back and forth as they argued.' );
 				}//(If Beautiful Sword has not been acquired);
-				else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.TookBlessedSword ) < 0 && CoC.player.findStatusAffect( StatusAffects.BSwordBroken ) < 0 ) {
+				else if( Utils.rand( 3 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.TookBlessedSword ) && !CoC.player.findStatusAffect( StatusAffects.BSwordBroken ) ) {
 					MainView.outputText( 'a sword jammed into a tree.  Weird; what kind of idiot would stick a weapon there like that?  And what kind of weakling wouldn\'t be able to take it out?' );
-				} else if( Utils.rand( 3 ) === 0 && CoC.player.findStatusAffect( StatusAffects.CampRathazul ) < 0 ) {
+				} else if( Utils.rand( 3 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 					MainView.outputText( 'a smelly rat-man moping around while some weird equipment bubbled and boiled.  I think maybe he was an alchemist.' );
 				} else {
 					MainView.outputText( 'a great blob of green goo, sliding along and minding its own business.  I could swear it looked up at me once, and grew a penis... that can\'t be right, though.' );
@@ -1254,7 +1254,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 				MainView.outputText( 'a whole tribe of demons, lounging around an oasis.  Would have been too much bother to kick the crap out of them, so I left them alone - well, alright, I did buzz them to make them scatter like scared sheep for fun.' );
 			}
 			//(if player hasn't solved Marcus & Lucia's argument);
-			else if( Utils.rand( 2 ) === 0 && CoC.player.findStatusAffect( StatusAffects.WandererDemon ) < 0 && CoC.player.findStatusAffect( StatusAffects.WandererHuman ) < 0 ) {
+			else if( Utils.rand( 2 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.WandererDemon ) && !CoC.player.findStatusAffect( StatusAffects.WandererHuman ) ) {
 				MainView.outputText( 'a human with balls so big he had to carry them in a wheelbarrow, trundling through the wasteland with a succubus.  They were arguing about whether or not he should become an incubus.' );
 			} else {
 				MainView.outputText( 'this strange creature, like a woman with a snake\'s tail for legs, slithering through the sand.  ' );
@@ -2115,7 +2115,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nEmber flushes with embarrassment.  "<i>I-I... That\'s it!  No more milk for you!</i>" ' + this.emberMF( 'he', 'she' ) + ' declares, hauling you upright and shooing you out of her den.' );
 			MainView.outputText( '\n\nYou shake your head with good temper.  Still, you got your fill of her milk, and you feel refreshed and renewed, new vitality flowing through your veins.' );
 			//(PC's D.Breath timer = not ready: Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!);
-			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 				MainView.outputText( '  Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!' );
 			}
@@ -2180,7 +2180,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nEmber can\'t hide the faintest of smiles that graces ' + this.emberMF( 'his', 'her' ) + ' scaly face.  You yelp softly as you feel a sharp prick against your belly; when you feel it again, you jump out of Ember\'s lap to reveal the clawed finger prodding you.  "<i>Payback for teasing me earlier.  And don\'t think I\'ll be feeding you my milk everytime you ask,</i>" ' + this.emberMF( 'he', 'she' ) + ' finishes, with a small puff of smoke.' );
 			MainView.outputText( '\n\nYou can\'t resist pointing out that ' + this.emberMF( 'he', 'she' ) + ' certainly seemed eager to let you drink your fill, and you didn\'t hear any complaining over ' + this.emberMF( 'his', 'her' ) + ' purring.  Before ' + this.emberMF( 'he', 'she' ) + ' can rebut that, you turn and leave the dragon in ' + this.emberMF( 'his', 'her' ) + ' den.' );
 			MainView.outputText( '\n\nThe drink you got did you plenty of good; you feel refreshed and renewed, new vitality flowing through your veins.' );
-			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 				MainView.outputText( '  Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!' );
 			}
@@ -2262,7 +2262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nThis time, you focus on simply drinking from Ember\'s bountiful breast and the wonderful taste of ' + this.emberMF( 'his', 'her' ) + ' milk.  You don\'t think you could ever get tired of this... the milk is sweet, refreshing and just a tad spicy.  You can\'t help but compare how like ' + this.emberMF( 'him', 'her' ) + ' it is.' );
 			MainView.outputText( '\n\nThe soft purrs that accompany each suckle and the soft caresses on your body, bringing you ever closer to these two motherlodes of Ember-flavoured treasure, only serve to enhance the whole experience.' );
 			MainView.outputText( '\n\nEventually, your swallows of the rich, freely-flowing, creamy dragon-milk cease as your stomach fills up.' );
-			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DragonBreathCooldown ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.DragonBreathCooldown );
 				MainView.outputText( '  Your throat feels soothed as the scratching and soreness die down; you feel like you could shout to the mountaintops!' );
 			}

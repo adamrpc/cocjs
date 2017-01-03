@@ -1293,7 +1293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.spriteSelect( 57 );
 		if( CoC.player.lust > 99 ) {
 			//worms r gross mmmmkay?
-			if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 				SceneLib.worms.infestOrgasm();
 				MainView.outputText( '\n\nThe goblins sigh and say, "<i>Dad, that\'s just gross.  Don\'t get me wrong, we\'re still gonna have you knock us up, but I hate the feeling of those worms inside me.</i>"', false );
 				CoC.player.orgasm();

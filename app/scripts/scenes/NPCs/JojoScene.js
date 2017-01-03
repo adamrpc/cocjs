@@ -21,14 +21,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.flags[ kFLAGS.JOJO_COCK_MILKING_COOLDOWN ] > 0 ) {
 			CoC.flags[ kFLAGS.JOJO_COCK_MILKING_COOLDOWN ]--;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.NoJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.NoJojo ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.NoJojo );
 		}
 		if( CoC.time.hours > 23 && CoC.player.statusAffectv1( StatusAffects.Meditated ) > 0 ) {
 			CoC.player.removeStatusAffect( StatusAffects.Meditated );
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00102 ] === 0 ) {
 				CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00102 ]++;
-				while( CoC.player.findStatusAffect( StatusAffects.Meditated ) >= 0 ) {
+				while( CoC.player.findStatusAffect( StatusAffects.Meditated ) ) {
 					CoC.player.removeStatusAffect( StatusAffects.Meditated );
 				}
 			}
@@ -85,10 +85,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		return 'face';
 	};
 	JojoScene.prototype.tentacleJojo = function() {
-		return CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) >= 0;
+		return CoC.player.findStatusAffect( StatusAffects.TentacleJojo );
 	};
 	JojoScene.prototype.campCorruptJojo = function() {
-		return this.monk >= 5 && CoC.player.findStatusAffect( StatusAffects.NoJojo ) < 0 && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0;
+		return this.monk >= 5 && !CoC.player.findStatusAffect( StatusAffects.NoJojo ) && CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 0;
 	};
 	JojoScene.prototype.jojoMutationOffer = function() {
 		this.jojoSprite();
@@ -114,17 +114,17 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 				return;
 			}
 			//Oh shit goes down! (Wiv Tentacles);
-			if( SceneLib.amilyScene.amilyFollower && CoC.flags[ kFLAGS.AMILY_DISCOVERED_TENTATLE_JOJO ] === 0 && Utils.rand( 10 ) <= 1 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) >= 0 ) {
+			if( SceneLib.amilyScene.amilyFollower && CoC.flags[ kFLAGS.AMILY_DISCOVERED_TENTATLE_JOJO ] === 0 && Utils.rand( 10 ) <= 1 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) ) {
 				SceneLib.followerInteractions.amilyDiscoversJojoWithTentaclesAndShitOhBoy();
 				return;
 			}
 			//Oh shit goes down! (No tentacles);
-			else if( CoC.flags[ kFLAGS.AMILY_PISSED_PC_CORRUPED_JOJO ] === 0 && Utils.rand( 10 ) <= 1 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() && CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) < 0 ) {
+			else if( CoC.flags[ kFLAGS.AMILY_PISSED_PC_CORRUPED_JOJO ] === 0 && Utils.rand( 10 ) <= 1 && CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && SceneLib.amilyScene.amilyFollower() && !CoC.player.findStatusAffect( StatusAffects.TentacleJojo ) ) {
 				SceneLib.followerInteractions.amilyIsPissedAtYouForRuiningJojo();
 				return;
 			}
 			//Offer lethicite jojo tf if the player is ready;
-			if( CoC.player.findStatusAffect( StatusAffects.JojoTFOffer ) < 0 && CoC.player.hasKeyItem( 'Marae\'s Lethicite' ) >= 0 && CoC.player.keyItemv2( 'Marae\'s Lethicite' ) < 3 && CoC.player.cor >= 75 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.JojoTFOffer ) && CoC.player.hasKeyItem( 'Marae\'s Lethicite' ) >= 0 && CoC.player.keyItemv2( 'Marae\'s Lethicite' ) < 3 && CoC.player.cor >= 75 ) {
 				this.jojoMutationOffer();
 				CoC.player.createStatusAffect( StatusAffects.JojoTFOffer, 0, 0, 0, 0 );
 				return;
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 			sex = this.corruptJojoSexMenu;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.HairdresserMeeting ) ) {
 			hairCare = this.jojoPaysForPerms;
 		}
 		EngineCore.choices( 'Sex', this, sex, 'TentacleSex', this, tent, 'Milk Him', this, milkHim, 'TentacleMilk', null, tentaMilk, 'HairCare', this, hairCare, 'Lay Eggs', this, eggs, '', null, null, '', null, null, '', null, null, 'Back', SceneLib.camp, SceneLib.camp.campSlavesMenu );
@@ -1204,7 +1204,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	JojoScene.prototype.jojoDefenseToggle = function() {
 		this.jojoSprite();
 		MainView.clearOutput();
-		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.JojoNightWatch );
 			MainView.outputText( 'You tell Jojo that you no longer need him to watch the camp at night.  He nods, then speaks.  "<i>Alright.  Please let me know if you require my help again.</i>"' );
 		} else {
@@ -1250,7 +1250,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		this.jojoSprite();
 		CoC.player.slimeFeed();
 		//Track Jojo rapeage;
-		if( CoC.player.findStatusAffect( StatusAffects.EverRapedJojo ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.EverRapedJojo ) ) {
 			CoC.player.createStatusAffect( StatusAffects.EverRapedJojo, 1, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.EverRapedJojo, 1, 1 );
@@ -2256,7 +2256,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		MainView.clearOutput();
 		MainView.outputText( 'Jojo smiles and leads you off the path to a small peaceful clearing.  There is a stump in the center, polished smooth and curved in a way to be comfortable.  He gestures for you to sit, and instructs you to meditate.\n\nAn indeterminate amount of time passes, but you feel more in control of yourself.  Jojo congratulates you, but offers a warning as well.  "<i>Be ever mindful of your current state, and seek me out before you lose yourself to the taints of this world.  Perhaps someday this tainted world can be made right again.</i>"' );
 		EngineCore.dynStats( 'str', 0.5, 'tou', 0.5, 'int', 0.5, 'lib', -1, 'lus', -5, 'cor', (-1 - CoC.player.countCockSocks( 'alabaster' )) );
-		if( CoC.player.findStatusAffect( StatusAffects.JojoMeditationCount ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.JojoMeditationCount ) ) {
 			CoC.player.createStatusAffect( StatusAffects.JojoMeditationCount, 1, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.JojoMeditationCount, 1, 1 );
@@ -2298,7 +2298,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 	// Some hacky shit to be able to control the text clearing mechanics of the doEvent system... OH GOD WHY. //Gone, gone forever;
 	JojoScene.prototype.acceptJojoIntoYourCamp = function() {
 		this.jojoSprite();
-		if( CoC.player.findStatusAffect( StatusAffects.EverRapedJojo ) >= 0 || CoC.flags[ kFLAGS.JOJO_MOVE_IN_DISABLED ] === 1 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.EverRapedJojo ) || CoC.flags[ kFLAGS.JOJO_MOVE_IN_DISABLED ] === 1 ) {
 			MainView.outputText( 'You offer Jojo the chance to stay at your camp, but before you can finish your sentence he shakes his head \'no\' and stalks off into the woods, remembering.' );
 		} else {
 			MainView.clearOutput();
@@ -2335,7 +2335,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			SceneLib.followerInteractions.catchRathazulNapping();
 			return;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) { // Worms overrides everything else
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) { // Worms overrides everything else
 			MainView.outputText( 'As you approach the serene monk, you see his nose twitch.\n\n' );
 			MainView.outputText( '"<i>It seems that the agents of corruption have taken residence within the temple that is your body,</i>" Jojo says flatly, "<i>This is a most unfortunate development.  There is no reason to despair as there are always ways to fight the corruption.  However, great effort will be needed to combat this form of corruption and may have a lasting impact upon you.  If you are ready, we can purge your being of the rogue creatures of lust.</i>"\n\n' );
 			this.jojoCampMenu();
@@ -2371,7 +2371,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		//Normal Follower Choices;
 		//[Appearance] [Talk] [Train] [Meditate] [Night Watch toggle];
 		var jojoDefense = 'N.Watch:';
-		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) ) {
 			MainView.outputText( '(Jojo is currently watching for enemies at night.)\n\n' );
 			jojoDefense += 'On';
 		} else {
@@ -2385,7 +2385,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		EngineCore.addButtonWithTooltip( 3, 'Meditate', 'Selecting this option will make you attempt to meditate in order to reduce lust and corruption.', this, this.jojoFollowerMeditate );
 		EngineCore.addButton( 4, jojoDefense, this, this.jojoDefenseToggle );
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			EngineCore.addButton( 5, 'Purge', this, this.wormRemoval );
 		}
 		EngineCore.addButton( 8, 'Rape', this, (CoC.player.cor > 10 && CoC.player.lust >= 33 && CoC.player.gender > 0 ? this.jojoAtCampRape : null) );
@@ -2413,7 +2413,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ] >= 4 ) {
 			EngineCore.addButton( 4, 'You', this, this.jojoTalkYourOrigin );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			EngineCore.addButton( 5, 'Factory', this, this.jojoTalkFactory );
 		}
 		if( CoC.flags[ kFLAGS.SAND_WITCHES_COWED ] === 1 || CoC.flags[ kFLAGS.SAND_WITCHES_FRIENDLY ] === 1 || CoC.flags[ kFLAGS.SAND_MOTHER_DEFEATED ] === 1 ) {
@@ -2551,13 +2551,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	//Dungeon Convo: Factory;
-	//Requirements: Completed Demon Factory -- CoC.player.findStatusAffect(StatusAffects.DungeonShutDown) >= 0;
+	//Requirements: Completed Demon Factory -- CoC.player.findStatusAffect(StatusAffects.DungeonShutDown);
 	JojoScene.prototype.jojoTalkFactory = function() {
 		MainView.clearOutput();
 		this.jojoSprite();
 		CoC.flags[ kFLAGS.TIMES_TALKED_WITH_JOJO ]++;
 		MainView.outputText( 'You tell Jojo about your having successfully found and stopped the demonic factory.  You tell him how you found out the factory was there and how you defeated the demons inside. He seems impressed.\n\n' );
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( 'His ears perk at the news as you continue, telling him that you destroyed the factory controls, which permanently shut down the factory - but released an enormous quantity of corrupted fluids into the environment.\n\n' );
 			MainView.outputText( 'Jojo cocks his head to the side as he considers his words carefully before speaking, “<i>I guess it seems like the right move.  Permanently disabling the factory would not only deal a heavy blow to the demons, but also give the rest of us time to reclaim the forest... but I don’t know.  If the release of fluids was as much as you say it was then there’s a chance that it’ll do more harm than good.  I’ve seen what corruption does to this world and that much corrupted fluid flooding out all at once could really hurt our cause. I’m not saying it was the wrong thing to do, or lessening your accomplishment, but you have to be careful.  The demons aren’t just powerful, they’re deceptive.</i>”\n\n' );
 			MainView.outputText( 'You listen to the monk’s council and despite his concerns he seems genuinely happy to hear you’ve struck a blow against the demonic regime.\n\n' );
@@ -2747,7 +2747,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			var enlightenedBlurbs = [];
 			enlightenedBlurbs.push( 'You can hear Jojo’s feet move through the campsite as he heads toward his rock, seeking rest after your training session.' );
 			// Lookit all these different ways followers are tracked! fml.;
-			if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 				enlightenedBlurbs.push( 'You can hear Marble humming a song to herself you can’t place.' );
 			}
 			if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] > 0 ) {
@@ -2756,7 +2756,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 			if( SceneLib.emberScene.followerEmber() ) {
 				enlightenedBlurbs.push( 'You can hear Ember cleaning' + SceneLib.emberScene.emberMF( 'his', 'her' ) + 'scales.' );
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 				enlightenedBlurbs.push( 'You can hear Rathazul experimenting with surprisingly nimble fingers.' );
 			}
 			if( SceneLib.sophieFollowerScene.sophieFollower() ) {

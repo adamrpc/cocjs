@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			CoC.player.cuntChange( 60, true, true, false );
 			MainView.outputText( '  A dick found a way into your ' + Descriptors.vaginaDescript( 0 ) + ' and is pushing further inside.  Wait, what\'s this?  A second, and then a third!  There\'s no way these titanic columns of flesh will... this is too much... you fear you will be torn in half, but at the last moment, you feel someone spilling the content of a flask over your nether-lips.  As if you had lost control of your ' + Descriptors.vaginaDescript( 0 ) + ', it automatically starts leaking girl-cum in prodigious amounts, and you let out a stifled moan as a delicious shiver runs teasingly across your body.  Your fuck-hole widens under the corrupting effect of the weird mixture you were administered.  ' );
 			//[set vagstretch up a few levels];
-			if( CoC.player.findStatusAffect( StatusAffects.BonusVCapacity ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.BonusVCapacity ) ) {
 				CoC.player.createStatusAffect( StatusAffects.BonusVCapacity, 0, 0, 0, 0 );
 			}
 			if( CoC.player.statusAffectv1( StatusAffects.BonusVCapacity ) < 200 ) {
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		}
 		if( CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] >= 100 ) {
 			EngineCore.doNext( this, this.slaveToVapulaBadEnd );
-		} else if( CoC.player.findStatusAffect( StatusAffects.LostVillagerSpecial ) >= 0 ) {
+		} else if( CoC.player.findStatusAffect( StatusAffects.LostVillagerSpecial ) ) {
 			EngineCore.doNext( this, this.morningAfterRape );
 		} else {
 			EngineCore.doNext( this, this.wakeUpAfterDemonGangBangs );//WAKE UP
@@ -423,7 +423,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			return;
 		}
 		//Sacrificed and bound;
-		if( CoC.monster.findStatusAffect( StatusAffects.AttackDisabled ) >= 0 ) {
+		if( CoC.monster.findStatusAffect( StatusAffects.AttackDisabled ) ) {
 			if( CoC.monster.HP < 1 ) {
 				MainView.outputText( 'You grin wickedly as the last demons fall, defeated.  Some of the errant blows have broken and mangled the links of your chains, and you find you can get free with a bit of additional effort.' );
 			}//[if won by Lust];
@@ -977,7 +977,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		MainView.outputText( 'The last of the villagers drops his improvised weapon.  They are all lying defenseless before you.  At last, you notice Rebecc, the only one still conscious, curled up as she weeps uncontrollably.  She is clearly oblivious of her surroundings, undoubtedly shocked by the violent fight.  Even if she calls herself your friend, you don\'t think you\'d be able to reason with her after pummeling her kin.  What do you do?' );
 		//Rape Rebbecc/Torch Village (needs Akbal's fire or Whitefire)/Leave;
 		var torch = null;
-		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) >= 0 || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) ) {
+		if( CoC.player.findStatusAffect( StatusAffects.KnowsWhitefire ) || CoC.player.findPerk( PerkLib.FireLord ) || CoC.player.findPerk( PerkLib.Hellfire ) ) {
 			torch = this.torchOwcaMotherFuckers;
 		}
 		var rape = null;

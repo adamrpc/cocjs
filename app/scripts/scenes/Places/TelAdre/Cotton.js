@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 			chats[ chats.length ] = 1;
 		}
 		//Edryn chance;
-		if( CoC.player.findStatusAffect( StatusAffects.Edryn ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Edryn ) ) {
 			chats[ chats.length ] = 2;
 		}
 		//(Scylla chat);
@@ -1237,7 +1237,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		EngineCore.dynStats( 'lib', -0.5, 'sen', -0.5, 'lus', -5 );
 		CoC.player.boostLactation( 0.05 );
 		//You've now been milked, reset the timer for that;
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
@@ -2186,7 +2186,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, A
 		MainView.outputText( '\n\nYou kiss your equine lover, ruffle the sleeping child\'s hair, and quietly head back to camp, leaving Cotton to take care of things.' );
 		EngineCore.dynStats( 'lus', -10 );
 		//You've now been milked, reset the timer for that;
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}

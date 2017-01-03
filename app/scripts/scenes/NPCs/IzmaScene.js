@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00232 ] === 0 ) {
 			MainView.outputText( 'You sit down on the rocks beside Izma, and the two of you exchange bits of gossip and information. Izma then tells you a strange tale of a mysterious island she\'s seen on the horizon of the lake, along with a strange smoke-belching shape she\'s seen on the nearby mountain in the past.  ', false );
 			//(If player hasn't done the Demon Factory quest) ;
-			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 				MainView.outputText( 'You scratch your chin in thought, feeling that this matter warrants further investigation.', false );
 			}//(If the player has done the Demon Factory);
 			else {
@@ -311,7 +311,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			}
 		}
 		//(repeat: factory not cleared);
-		else if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) < 0 ) {
+		else if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			MainView.outputText( 'You sit with Izma and chat a bit more; naturally enough your conversation turns toward the billowy pink smoke from the mountain.  According to her, the smoke\'s been increasing suspiciously in volume the past few days.  She bemoans her inability to explore it further because of her aquatic nature; you commiserate as best you\'re able before taking your leave.', false );
 		}
 		//(repeat: factory cleared);
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 	IzmaScene.prototype.IzmaWins = function() {
 		MainView.outputText( '', true );
 		//(if Worms);
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			SceneLib.worms.infestOrgasm();
 			MainView.outputText( '\n\nIzma looks on in horror as you push out the load of wormy cargo onto the sand at her feet, only snapping out of her daze as several of the parasites begin climbing her ankle with an eye toward her cock.  She shrieks and jumps back, then drags her foot in the sand, dislodging or pulverizing the squirming vermin.  "<i>' + CoC.player.short + ', that\'s nasty!  Get away!  Get away and don\'t talk to me again!  Ugh!</i>"  She takes off, grabbing her chest of books and kicking sand up in her flight down the beach.', false );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] = 1;
@@ -1148,7 +1148,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'What makes you curious is how she decided to keep her bed at a distance from your own.  You give her a wave and tell her it\'s okay to sleep near you.  She looks at you quizzically in response.  "<i>Well...</i>" she stammers, "<i>I thought my Alpha would want me to sleep some distance away,</i>" she says.  With a hasty reassurance, you insist that she place her bed closer. Eager to serve, she drags the bedroll adjacent to your own and smiles at you bashfully.', false );
 			//Flag that amily bitchfit has happened.;
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00236 ] = -1;
-		} else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00237 ] === 0 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		} else if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00237 ] === 0 && CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			//[Marble is at camp when Izma arrives];
 			MainView.outputText( 'You smile warmly and place your hands on her shoulders, before pulling her in and kissing her deeply.  Practically melting at your touch and moaning into your mouth, she wraps her arms and tail around your waist.\n\n', false );
 			MainView.outputText( 'By the time you pull away from the kiss, both of you are gasping for breath.  Strands of saliva still link the two of you.  You brush her silver hair behind her ears and tell her you\'d be more than happy to have her in your camp.  She makes a gleeful noise and hugs you tight, before rushing for her meager supplies and packing them up.\n\n', false );
@@ -3181,7 +3181,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( 'unleashing a cascade of steamy jizz into Izma\'s well fucked hole.  Your volume is so large that it causes a back draft of semen to rush out of her within mere seconds.' );
 		}
 		//(If PC gave Izma a 'goo job':;
-		if( CoC.player.findStatusAffect( StatusAffects.Goojob ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Goojob ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.Goojob );
 			MainView.outputText( '  The sensation of being injected with her lover\'s seed is all the encouragement Izma\'s cock needs to finally erupt, shooting thick streams of steamy cum into your central mass; something your gooey form appreciates as it unconsciously works her load into your see through gut.' );
 		}

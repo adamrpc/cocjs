@@ -239,13 +239,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		MainView.statsView.show();
 	};
 	EngineCore.lustPercent = function() {
-		var lust = 100;
-		//2.5% lust resistance per level - max 75.
-		if( CoC.player.level < 21 ) {
-			lust -= (CoC.player.level - 1) * 3;
-		} else {
-			lust = 40;
-		}
+		//3% lust resistance per level - max 60.
+		var lust = 100 - Math.min(60, (CoC.player.level - 1) * 3);
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//ADDITIVE REDUCTIONS
 		//THESE ARE FLAT BONUSES WITH LITTLE TO NO DOWNSIDE
@@ -274,11 +269,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			lust = 25;
 		}
 		if( CoC.player.statusAffectv1( StatusAffects.BlackCatBeer ) > 0 ) {
-			if( lust >= 80 ) {
-				lust = 100;
-			} else {
-				lust += 20;
-			}
+			lust = Math.min(100, lust + 20);
 		}
 		lust += Math.round( CoC.player.perkv1( PerkLib.PentUp ) / 2 );
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -287,7 +278,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		//DRAWBACKS TO JUSTIFY IT.
 		//++++++++++++++++++++++++++++++++++++++++++++++++++
 		//Bimbo body slows lust gains!
-		if( (CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) >= 0 || CoC.player.findPerk( PerkLib.BimboBody )) && lust > 0 ) {
+		if( (CoC.player.findStatusAffect( StatusAffects.BimboChampagne ) || CoC.player.findPerk( PerkLib.BimboBody )) && lust > 0 ) {
 			lust *= 0.75;
 		}
 		if( CoC.player.findPerk( PerkLib.BroBody ) && lust > 0 ) {
@@ -304,7 +295,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( CoC.player.findPerk( PerkLib.LuststickAdapted ) ) {
 			lust *= 0.9;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Berzerking ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Berzerking ) ) {
 			lust *= 0.6;
 		}
 		if( CoC.player.findPerk( PerkLib.PureAndLoving ) ) {
@@ -312,10 +303,10 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		}
 		// Lust mods from Uma\'s content -- Given the short duration and the gem cost, I think them being multiplicative is justified.
 		// Changing them to an additive bonus should be pretty simple (check the static values in UmasShop.as)
-		var statIndex = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
-		if( statIndex >= 0 ) {
-			if( CoC.player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_RELIEF || CoC.player.statusAffect( statIndex ).value1 === SceneLib.umasShop.MASSAGE_LUST ) {
-				lust *= CoC.player.statusAffect( statIndex ).value2;
+		var stat = CoC.player.findStatusAffect( StatusAffects.UmasMassage );
+		if( stat ) {
+			if( stat.value1 === SceneLib.umasShop.MASSAGE_RELIEF || stat.value1 === SceneLib.umasShop.MASSAGE_LUST ) {
+				lust *= stat.value2;
 			}
 		}
 		lust = Math.round( lust );
@@ -598,7 +589,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			CoC.player.lust = CoC.player.minLust();
 		}
 		//worms raise min lust!
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			if( CoC.player.lust < 50 ) {
 				CoC.player.lust = 50;
 			}

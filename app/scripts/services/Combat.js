@@ -12,7 +12,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		CoC.monster.won_(true, false);
 	};
 	Combat.endLustLoss = function() {
-		if (CoC.player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] === 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.Infested) && CoC.flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] === 0) {
 			CoC.flags[kFLAGS.CAME_WORMS_AFTER_COMBAT] = 1;
 			SceneLib.worms.infestOrgasm();
 			CoC.monster.won_(false,true);
@@ -47,7 +47,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					return;
 				}
 				//Next button is handled within the minerva loss function
-				if(CoC.monster.findStatusAffect(StatusAffects.PeachLootLoss) >= 0) {
+				if(CoC.monster.findStatusAffect(StatusAffects.PeachLootLoss)) {
 					CoC.setInCombat(false);
 					CoC.player.HP = 1;
 					MainView.statsView.show();
@@ -96,7 +96,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return;
 	};
 	Combat.canUseMagic = function() {
-		return CoC.player.findStatusAffect(StatusAffects.ThroatPunch) < 0 && CoC.player.findStatusAffect(StatusAffects.WebSilence) < 0 && CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) < 0;
+		return !CoC.player.findStatusAffect(StatusAffects.ThroatPunch) && !CoC.player.findStatusAffect(StatusAffects.WebSilence) && !CoC.player.findStatusAffect(StatusAffects.GooArmorSilence);
 	};
 	Combat.combatMenu = function(newRound) { //If returning from a sub menu set newRound to false
 		if(newRound === undefined) {
@@ -121,15 +121,15 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		var magic = (Combat.canUseMagic() ? Combat.magicMenu : null);
 		var pSpecials = Combat.physicalSpecials;
 		
-		if (CoC.monster.findStatusAffect(StatusAffects.AttackDisabled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.AttackDisabled)) {
 			MainView.outputText("\n<b>Chained up as you are, you can't manage any real physical attacks!</b>");
 			attacks = null;
 		}
-		if (CoC.monster.findStatusAffect(StatusAffects.PhysicalDisabled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.PhysicalDisabled)) {
 			MainView.outputText("<b>  Even physical special attacks are out of the question.</b>");
 			pSpecials = null;
 		}
-		if (CoC.player.findStatusAffect(StatusAffects.KnockedBack) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.KnockedBack)) {
 			MainView.outputText("\n<b>You'll need to close some distance before you can use any physical attacks!</b>");
 			EngineCore.addButton(0, "Approach", null, Combat.approachAfterKnockback);
 			EngineCore.addButtonWithTooltip(1, "Tease", 'Attempt to make an enemy more aroused by striking a seductive pose and exposing parts of your body.', null, Combat.teaseAttack);
@@ -142,39 +142,39 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButtonWithTooltip(6, "M. Specials", 'Mental and supernatural special attack menu.', null, Combat.magicalSpecials);
 			EngineCore.addButtonWithTooltip(7, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
 			EngineCore.addButtonWithTooltip(8, "Fantasize", 'Fantasize about your opponent in a sexual way.  It\'s probably a pretty bad idea to do this unless you want to end up getting raped.', null, Combat.fantasize);
-		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0 || CoC.player.findStatusAffect(StatusAffects.Stunned) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) || CoC.player.findStatusAffect(StatusAffects.Stunned)) {
 			MainView.outputText("\n<b>You're too stunned to attack!</b>  All you can do is wait and try to recover!");
 			EngineCore.addButton(0, "Recover", null, Combat.wait);
-		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered)) {
 			MainView.outputText("\n<b>Your mind is too addled to focus on combat!</b>  All you can do is try and recover!");
 			EngineCore.addButton(0, "Recover", null, Combat.wait);
-		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion)) {
 			MainView.outputText("\nYou're too confused about who you are to try to attack!");
 			EngineCore.addButton(0, "Recover", null, Combat.wait);
-		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0 || CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0 || CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0 || CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0 || CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) || CoC.player.findStatusAffect(StatusAffects.GooBind) || CoC.player.findStatusAffect(StatusAffects.TentacleBind) || CoC.player.findStatusAffect(StatusAffects.NagaBind) || CoC.monster.findStatusAffect(StatusAffects.QueenBind) || CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) || CoC.player.findStatusAffect(StatusAffects.HolliConstrict) || CoC.player.findStatusAffect(StatusAffects.GooArmorBind)) {
 			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
 			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
-		} else if (CoC.monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.Constricted)) {
 			EngineCore.addButton(0, "Squeeze", SceneLib.nagaScene, SceneLib.nagaScene.naggaSqueeze);
 			EngineCore.addButtonWithTooltip(1, "Tease", 'Attempt to make an enemy more aroused by striking a seductive pose and exposing parts of your body.', SceneLib.nagaScene, SceneLib.nagaScene.naggaTease);
 			EngineCore.addButton(4, "Release", SceneLib.nagaScene, SceneLib.nagaScene.nagaLeggoMyEggo);
-		} else if (CoC.player.findStatusAffect(StatusAffects.Bound) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Bound)) {
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.ceraphBindingStruggle);
 			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.ceraphBoundWait);
-		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled)) {
 			MainView.outputText("\n<b>You're bound up in the minotaur lord's chains!  All you can do is try to struggle free!</b>");
 			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
 			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
-		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB)) {
 			EngineCore.addButton(0, "Struggle", null, Combat.struggle);
 			EngineCore.addButtonWithTooltip(6, "M. Specials", 'Mental and supernatural special attack menu.', null, Combat.magicalSpecials);
-		} else if (CoC.player.findStatusAffect(StatusAffects.Chokeslam) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Chokeslam)) {
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.chokeSlamStruggle);
 			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.chokeSlamWait);
-		} else if (CoC.player.findStatusAffect(StatusAffects.Titsmother) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Titsmother)) {
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.titSmotherStruggle);
 			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.titSmotherWait);
-		} else if (CoC.player.findStatusAffect(StatusAffects.Tentagrappled) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Tentagrappled)) {
 			MainView.outputText("\n<b>The demonesses tentacles are constricting your limbs!</b>");
 			EngineCore.addButton(0, "Struggle", CoC.monster, CoC.monster.grappleStruggle);
 			EngineCore.addButtonWithTooltip(5, "Wait", 'Take no action for this round.  Why would you do this?  This is a terrible idea.', CoC.monster, CoC.monster.grappleWait);
@@ -186,7 +186,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButtonWithTooltip(4, "Run", 'Choosing to run will let you try to escape from your enemy. However, it will be hard to escape enemies that are faster than you and if you fail, your enemy will get a free attack.', null, Combat.runAway);
 			EngineCore.addButtonWithTooltip(5, "P. Specials", 'Physical special attack menu.', null, pSpecials);
 			EngineCore.addButtonWithTooltip(6, "M. Specials", 'Mental and supernatural special attack menu.', null, Combat.magicalSpecials);
-			EngineCore.addButtonWithTooltip(7, (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ? "Climb" : "Wait"), CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 ?'':'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
+			EngineCore.addButtonWithTooltip(7, (CoC.monster.findStatusAffect(StatusAffects.Level) ? "Climb" : "Wait"), CoC.monster.findStatusAffect(StatusAffects.Level) ?'':'Take no action for this round.  Why would you do this?  This is a terrible idea.', null, Combat.wait);
 			EngineCore.addButtonWithTooltip(8, "Fantasize", 'Fantasize about your opponent in a sexual way.  It\'s probably a pretty bad idea to do this unless you want to end up getting raped.', null, Combat.fantasize);
 		}
 	};
@@ -277,44 +277,44 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.wait = function() {
 		//Gain fatigue if not fighting sand tarps
 		var damage = 0;
-		if (CoC.monster.findStatusAffect(StatusAffects.Level) < 0) {
+		if (!CoC.monster.findStatusAffect(StatusAffects.Level)) {
 			EngineCore.fatigue(-5);
 		}
 		CoC.flags[kFLAGS.IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 1;
-		if (CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.PCTailTangle)) {
 			CoC.monster.kitsuneWait();
-		} else if (CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.Level)) {
 			CoC.monster.sandTrapWait();
-		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled)) {
 			MainView.clearOutput();
 			MainView.outputText("You sigh and relax in the chains, eying the well-endowed minotaur as you await whatever rough treatment he desires to give.  His musky, utterly male scent wafts your way on the wind, and you feel droplets of your lust dripping down your thighs.  You lick your lips as you watch the pre-cum drip from his balls, eager to get down there and worship them.  Why did you ever try to struggle against this fate?\n\n");
 			EngineCore.dynStats("lus", 30 + Utils.rand(5), "resisted", false);
 			Combat.enemyAI();
-		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Whispered)) {
 			MainView.clearOutput();
 			MainView.outputText("You shake off the mental compulsions and ready yourself to fight!\n\n");
 			CoC.player.removeStatusAffect(StatusAffects.Whispered);
 			Combat.enemyAI();
-		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind)) {
 			MainView.clearOutput();
 			damage = 80 + Utils.rand(40);
 			damage = Combat.takeDamage(damage);
 			MainView.outputText("The brood continues to hammer away at your defenseless self. (" + damage + ")");
 			Combat.combatRoundOver();
-		} else if (CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.QueenBind)) {
 			SceneLib.dungeonHelSupplimental.ropeStruggles(true);
-		} else if (CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooBind)) {
 			MainView.clearOutput();
 			MainView.outputText("You writhe uselessly, trapped inside the goo girl's warm, seething body. Darkness creeps at the edge of your vision as you are lulled into surrendering by the rippling vibrations of the girl's pulsing body around yours.");
 			damage = Combat.takeDamage(0.35 * CoC.player.maxHP());
 			MainView.outputText(" (" + damage + ")");
 			Combat.combatRoundOver();
-		} else if (CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooArmorBind)) {
 			MainView.clearOutput();
 			MainView.outputText("Suddenly, the goo-girl leaks half-way out of her heavy armor and lunges at you. You attempt to dodge her attack, but she doesn't try and hit you - instead, she wraps around you, pinning your arms to your chest. More and more goo latches onto you - you'll have to fight to get out of this.");
 			CoC.player.addStatusValue(StatusAffects.GooArmorBind, 1, 1);
 			if (CoC.player.statusAffectv1(StatusAffects.GooArmorBind) >= 5) {
-				if (CoC.monster.findStatusAffect(StatusAffects.Spar) >= 0) {
+				if (CoC.monster.findStatusAffect(StatusAffects.Spar)) {
 					SceneLib.valeria.pcWinsValeriaSparDefeat();
 				} else {
 					SceneLib.dungeonHelSupplimental.gooArmorBeatsUpPC();
@@ -322,15 +322,15 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				return;
 			}
 			Combat.combatRoundOver();
-		} else if (CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.NagaBind)) {
 			MainView.clearOutput();
 			MainView.outputText("The naga's grip on you tightens as you relax into the stimulating pressure.");
 			EngineCore.dynStats("lus", CoC.player.sens / 5 + 5);
 			Combat.takeDamage(5 + Utils.rand(5));
 			Combat.combatRoundOver();
-		} else if (CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HolliConstrict)) {
 			CoC.monster.waitForHolliConstrict(true);
-		} else if (CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.TentacleBind)) {
 			MainView.clearOutput();
 			if (CoC.player.cocks.length > 0) {
 				MainView.outputText("The creature continues spiraling around your cock, sending shivers up and down your body. You must escape or this creature will overwhelm you!");
@@ -341,17 +341,17 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			EngineCore.dynStats("lus", (8 + CoC.player.sens / 10));
 			Combat.combatRoundOver();
-		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.IsabellaStunned)) {
 			MainView.clearOutput();
 			MainView.outputText("You wobble about for some time but manage to recover. Isabella capitalizes on your wasted time to act again.\n\n");
 			CoC.player.removeStatusAffect(StatusAffects.IsabellaStunned);
 			Combat.enemyAI();
-		} else if (CoC.player.findStatusAffect(StatusAffects.Stunned) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Stunned)) {
 			MainView.clearOutput();
 			MainView.outputText("You wobble about, stunned for a moment.  After shaking your head, you clear the stars from your vision, but by then you've squandered your chance to act.\n\n");
 			CoC.player.removeStatusAffect(StatusAffects.Stunned);
 			Combat.enemyAI();
-		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.Confusion)) {
 			MainView.clearOutput();
 			MainView.outputText("You shake your head and file your memories in the past, where they belong.  It's time to fight!\n\n");
 			CoC.player.removeStatusAffect(StatusAffects.Confusion);
@@ -368,7 +368,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.struggle = function() {
-		if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.MinotaurEntangled)) {
 			MainView.clearOutput();
 			if (CoC.player.str / 9 + Utils.rand(20) + 1 >= 15) {
 				MainView.outputText("Utilizing every ounce of your strength and cunning, you squirm wildly, shrugging through weak spots in the chain's grip to free yourself!  Success!");
@@ -379,13 +379,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText("You wiggle and struggle with all your might, but the chains remain stubbornly tight, binding you in place.  Damnit!  You can't lose like this!\n\n");
 				Combat.enemyAI();
 			}
-		} else if (CoC.monster.findStatusAffect(StatusAffects.PCTailTangle) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.PCTailTangle)) {
 			CoC.monster.kitsuneStruggle();
-		} else if (CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HolliConstrict)) {
 			CoC.monster.struggleOutOfHolli();
-		} else if (CoC.monster.findStatusAffect(StatusAffects.QueenBind) >= 0) {
+		} else if (CoC.monster.findStatusAffect(StatusAffects.QueenBind)) {
 			SceneLib.dungeonHelSupplimental.ropeStruggles();
-		} else if (CoC.player.findStatusAffect(StatusAffects.GooBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooBind)) {
 			MainView.clearOutput();
 			//[Struggle](successful) :
 			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.player.str) {
@@ -396,16 +396,16 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText(" (" + Combat.takeDamage(0.15 * CoC.player.maxHP()) + ")", false);
 			}
 			Combat.combatRoundOver();
-		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.HarpyBind)) {
 			SceneLib.dungeonHelSupplimental.harpyHordeGangBangStruggle();
-		} else if (CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.GooArmorBind)) {
 			SceneLib.dungeonHelSupplimental.struggleAtGooBind();
-		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.UBERWEB)) {
 			MainView.clearOutput();
 			MainView.outputText("You claw your way out of the webbing while Kiha does her best to handle the spiders single-handedly!\n\n");
 			CoC.player.removeStatusAffect(StatusAffects.UBERWEB);
 			Combat.enemyAI();
-		} else if (CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0) {
+		} else if (CoC.player.findStatusAffect(StatusAffects.NagaBind)) {
 			MainView.clearOutput();
 			if (Utils.rand(3) === 0 || Utils.rand(80) < CoC.player.str / 1.5) {
 				MainView.outputText("You wriggle and squirm violently, tearing yourself out from within the naga's coils.");
@@ -448,7 +448,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if (CoC.monster.findStatusAffect(StatusAffects.BowDisabled) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.BowDisabled)) {
 			MainView.outputText("You can't use your bow right now!");
 			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -457,7 +457,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.fatigue(25, 2);
 		//Keep logic sane if this attack brings victory
 		//Amily!
-		if (CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if (CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n");
 			Combat.enemyAI();
 			return;
@@ -476,14 +476,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			//Keep it from going over 100
 			CoC.player.changeStatusValue(StatusAffects.Kelt, 1, 100);
 		}
-		if (CoC.monster.findStatusAffect(StatusAffects.Sandstorm) >= 0 && Utils.rand(10) > 1) {
+		if (CoC.monster.findStatusAffect(StatusAffects.Sandstorm) && Utils.rand(10) > 1) {
 			MainView.outputText("Your shot is blown off target by the tornado of sand and wind.  Damn!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//[Bow Response]
 		if (CoC.monster.short === "Isabella") {
-			if (CoC.monster.findStatusAffect(StatusAffects.Blind) >= 0) {
+			if (CoC.monster.findStatusAffect(StatusAffects.Blind)) {
 				MainView.outputText("Isabella hears the shot and turns her shield towards it, completely blocking it with her wall of steel.\n\n");
 			} else {
 				MainView.outputText("You arrow thunks into Isabella's shield, completely blocked by the wall of steel.\n\n");
@@ -509,7 +509,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Blind miss chance
-		if (CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("The arrow hits something, but blind as you are, you don't have a chance in hell of hitting anything with a bow.\n\n");
 			Combat.enemyAI();
 			return;
@@ -632,18 +632,18 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(25,2);
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
 		MainView.outputText("You open your mouth wide, your shark teeth extending out. Snarling with hunger, you lunge at your opponent, set to bite right into them!  ", true);
-		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("In hindsight, trying to bite someone while blind was probably a bad idea... ", false);
 		}
 		var damage = 0;
 		//Determine if dodged!
-		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(3) !== 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.floor(Math.random()*(((CoC.monster.spe-CoC.player.spe)/4)+80)) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) && Utils.rand(3) !== 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.floor(Math.random()*(((CoC.monster.spe-CoC.player.spe)/4)+80)) > 80)) {
 			if(CoC.monster.spe - CoC.player.spe < 8) {
 				MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " narrowly avoids your attack!", false);
 			}
@@ -699,11 +699,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	//ATTACK
 	Combat.attack = function() {
-		if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if(!CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 			MainView.outputText("", true);
 			Combat.fatigueRecovery();
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Sealed) && CoC.player.statusAffectv2(StatusAffects.Sealed) === 0) {
 			MainView.outputText("You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  The kitsune's seals have made normal attack impossible!  Maybe you could try something else?\n\n", false);
 			Combat.enemyAI();
 			return;
@@ -714,17 +714,17 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) && !CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 			MainView.outputText("It's all or nothing!  With a bellowing cry you charge down the treacherous slope and smite the sandtrap as hard as you can!  ");
 			CoC.monster.trapLevel(-4);
 		}
 		if(CoC.player.findPerk(PerkLib.DoubleAttack) && CoC.player.spe >= 50 && CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] < 2) {
-			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 			} else {
 				if(CoC.flags[kFLAGS.DOUBLE_ATTACK_STYLE] === 0) { //Always!
@@ -735,7 +735,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		} else if(SceneLib.urtaQuest.isUrta()) { //"Brawler perk". Urta only. Thanks to Fenoxo for pointing this out... Even though that should have been obvious :<
 			//Urta has fists and the Brawler perk. Don't check for that because Urta can't drop her fists or lose the perk!
-			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 				CoC.player.removeStatusAffect(StatusAffects.FirstAttack);
 			} else {
 				CoC.player.createStatusAffect(StatusAffects.FirstAttack,0,0,0,0);
@@ -743,7 +743,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Blind
-		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		}
 		if(CoC.monster.hasClassName( 'Basilisk' )) {
@@ -776,7 +776,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			} else { //Fail
 				MainView.outputText("You attempt to crush the worms with your reprisal, only to have the collective move its individual members, creating a void at the point of impact, leaving you to attack only empty air.\n\n", false);
 			}
-			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 				Combat.attack();
 				return;
 			}
@@ -785,7 +785,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		
 		//Determine if dodged!
-		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.floor(Math.random()*(((CoC.monster.spe-CoC.player.spe)/4)+80)) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Math.floor(Math.random()*(((CoC.monster.spe-CoC.player.spe)/4)+80)) > 80)) {
 			//Akbal dodges special education
 			if(CoC.monster.short === "Akbal") {
 				MainView.outputText("Akbal moves like lightning, weaving in and out of your furious strikes with the speed and grace befitting his jaguar body.\n", false);
@@ -803,7 +803,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " deftly avoids your slow attack.", false);
 				}
 				MainView.outputText("\n", false);
-				if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+				if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 					Combat.attack();
 					return;
 				} else {
@@ -814,9 +814,9 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//BLOCKED ATTACK:
-		if(CoC.monster.findStatusAffect(StatusAffects.Earthshield) >= 0 && Utils.rand(4) === 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Earthshield) && Utils.rand(4) === 0) {
 			MainView.outputText("Your strike is deflected by the wall of sand, dirt, and rock!  Damn!\n");
-			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 				Combat.attack();
 				return;
 			} else {
@@ -835,7 +835,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		//Weapon addition!
 		damage += CoC.player.weaponAttack;
 		//Bonus sand trap damage!
-		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level)) {
 			damage = Math.round(damage * 1.75);
 		}
 		//Determine if critical hit!
@@ -891,7 +891,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					damage = 0;
 					//Kick back to main if no damage occured!
 					if(CoC.monster.HP > 0 && CoC.monster.lust < 100) {
-						if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+						if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 							Combat.attack();
 							return;
 						}
@@ -911,7 +911,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		// Have to put it before doDamage, because doDamage applies the change, as well as status effects and shit.
 		if (CoC.monster.mirrorAttack) {
-			if (CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
+			if (!CoC.monster.findStatusAffect(StatusAffects.Stunned)) {
 				if (damage > 0 && CoC.player.findPerk(PerkLib.HistoryFighter)) {
 					damage *= 1.1;
 				}
@@ -994,7 +994,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 					CoC.monster.createStatusAffect(StatusAffects.Stunned,0,0,0,0);
 				}
 				//50% Bleed chance
-				if (CoC.player.weaponName === "hooked gauntlets" && Utils.rand(2) === 0 && CoC.monster.armorDef < 10 && CoC.monster.findStatusAffect(StatusAffects.IzmaBleed) < 0) {
+				if (CoC.player.weaponName === "hooked gauntlets" && Utils.rand(2) === 0 && CoC.monster.armorDef < 10 && !CoC.monster.findStatusAffect(StatusAffects.IzmaBleed)) {
 					if (CoC.monster.hasClassName( 'LivingStatue' )) {
 						MainView.outputText("Despite the rents you've torn in its stony exterior, the statue does not bleed.");
 					} else {
@@ -1009,7 +1009,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			
 		}
-		if (CoC.monster.hasClassName( 'JeanClaude' ) && CoC.player.findStatusAffect(StatusAffects.FirstAttack) < 0) {
+		if (CoC.monster.hasClassName( 'JeanClaude' ) && !CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 			if (CoC.monster.HP < 1 || CoC.monster.lust > 99) {
 				// noop
 			}
@@ -1029,7 +1029,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		MainView.outputText("\n", false);
 		//Kick back to main if no damage occured!
 		if(CoC.monster.HP >= 1 && CoC.monster.lust <= 99) {
-			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.FirstAttack)) {
 				Combat.attack();
 				return;
 			}
@@ -1060,7 +1060,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.fatigue(15,2);
 		var damage = 0;
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n");
 			Combat.enemyAI();
 			return;
@@ -1166,7 +1166,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//Determine if dodged!
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n");
 			Combat.enemyAI();
 			return;
@@ -1206,7 +1206,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			damage += 50;
 		}
 		CoC.monster.lust += CoC.monster.lustVuln * damage;
-		if(CoC.monster.findStatusAffect(StatusAffects.lustvenom) < 0) {
+		if(!CoC.monster.findStatusAffect(StatusAffects.lustvenom)) {
 			CoC.monster.createStatusAffect(StatusAffects.lustvenom, 0, 0, 0, 0);
 		}
 		//New line before monster attack
@@ -1245,10 +1245,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.endHpVictory);
 		}
 		// Uma's Massage Bonuses
-		var statIndex = CoC.player.findStatusAffect(StatusAffects.UmasMassage);
-		if (statIndex >= 0) {
-			if (CoC.player.statusAffect(statIndex).value1 === SceneLib.umasShop.MASSAGE_POWER) {
-				damage *= CoC.player.statusAffect(statIndex).value2;
+		var stat = CoC.player.findStatusAffect(StatusAffects.UmasMassage);
+		if (stat) {
+			if (stat.value1 === SceneLib.umasShop.MASSAGE_POWER) {
+				damage *= stat.value2;
 			}
 		}
 		damage = Math.round(damage);
@@ -1267,7 +1267,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Interrupt gigaflare if necessary.
-		if(CoC.monster.findStatusAffect(StatusAffects.Gigafire) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Gigafire)) {
 			CoC.monster.addStatusValue(StatusAffects.Gigafire,1,damage);
 		}
 		//Keep shit in bounds.
@@ -1293,7 +1293,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		Combat.awardPlayer();
 	};
 	Combat.dropItem = function(monster) {
-		if(monster.findStatusAffect(StatusAffects.NoLoot) >= 0) {
+		if(monster.findStatusAffect(StatusAffects.NoLoot)) {
 			return;
 		}
 		var itype = monster.dropLoot();
@@ -1406,7 +1406,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.combatStatusesUpdate = function() {
 		//Reset menuloc
 		EngineCore.hideUpDown();
-		if(CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Sealed)) {
 			//Countdown and remove as necessary
 			if(CoC.player.statusAffectv1(StatusAffects.Sealed) > 0) {
 				CoC.player.addStatusValue(StatusAffects.Sealed,1,-1);
@@ -1419,7 +1419,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		CoC.monster.combatRoundUpdate();
 		//[Silence warning]
-		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch)) {
 			CoC.player.addStatusValue(StatusAffects.ThroatPunch,1,-1);
 			if(CoC.player.statusAffectv1(StatusAffects.ThroatPunch) >= 0) {
 				MainView.outputText("Thanks to Isabella's wind-pipe crushing hit, you're having trouble breathing and are <b>unable to cast spells as a consequence.</b>\n\n", false);
@@ -1428,7 +1428,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				CoC.player.removeStatusAffect(StatusAffects.ThroatPunch);
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence)) {
 			if(CoC.player.statusAffectv1(StatusAffects.GooArmorSilence) >= 2 || Utils.rand(20) + 1 + CoC.player.str / 10 >= 15) {
 				//if passing str check, output at beginning of turn
 				MainView.outputText("<b>The sticky slop covering your mouth pulls away reluctantly, taking more force than you would expect, but you've managed to free your mouth enough to speak!</b>\n\n");
@@ -1438,7 +1438,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				CoC.player.addStatusValue(StatusAffects.GooArmorSilence,1,1);
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.LustStones) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.LustStones)) {
 			//[When witches activate the stones for goo bodies]
 			if(CoC.player.isGoo()) {
 				MainView.outputText("<b>The stones start vibrating again, making your liquid body ripple with pleasure.  The witches snicker at the odd sight you are right now.\n\n</b>");
@@ -1447,7 +1447,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			EngineCore.dynStats("lus", CoC.player.statusAffectv1(StatusAffects.LustStones) + 4);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			if(CoC.player.statusAffectv1(StatusAffects.WebSilence) >= 2 || Utils.rand(20) + 1 + CoC.player.str/10 >= 15) {
 				MainView.outputText("You rip off the webbing that covers your mouth with a cry of pain, finally able to breathe normally again!  Now you can cast spells!\n\n", false);
 				CoC.player.removeStatusAffect(StatusAffects.WebSilence);
@@ -1456,14 +1456,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				CoC.player.addStatusValue(StatusAffects.WebSilence,1,1);
 			}
 		}		
-		if(CoC.player.findStatusAffect(StatusAffects.HolliConstrict) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.HolliConstrict)) {
 			MainView.outputText("<b>You're tangled up in Holli's verdant limbs!  All you can do is try to struggle free...</b>\n\n");
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.UBERWEB) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.UBERWEB)) {
 			MainView.outputText("<b>You're pinned under a pile of webbing!  You should probably struggle out of it and get back in the fight!</b>\n\n", false);
 		}
-		if (CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && CoC.monster.findStatusAffect(StatusAffects.Sandstorm) < 0) {
-			if (CoC.player.findStatusAffect(StatusAffects.SheilaOil) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.Blind) && !CoC.monster.findStatusAffect(StatusAffects.Sandstorm)) {
+			if (CoC.player.findStatusAffect(StatusAffects.SheilaOil)) {
 				if(CoC.player.statusAffectv1(StatusAffects.Blind) <= 0) {
 					MainView.outputText("<b>You finish wiping the demon's tainted oils away from your eyes; though the smell lingers, you can at least see.  Sheila actually seems happy to once again be under your gaze.</b>\n\n", false);
 					CoC.player.removeStatusAffect(StatusAffects.Blind);
@@ -1476,7 +1476,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				if (CoC.player.statusAffectv1(StatusAffects.Blind) === 0) {
 					CoC.player.removeStatusAffect(StatusAffects.Blind);
 					//Alert PC that blind is gone if no more stacks are there.
-					if (CoC.player.findStatusAffect(StatusAffects.Blind) < 0) {
+					if (!CoC.player.findStatusAffect(StatusAffects.Blind)) {
 						MainView.outputText("<b>Your eyes have cleared and you are no longer blind!</b>\n\n", false);
 					} else {
 						MainView.outputText("<b>You are blind, and many physical attacks will miss much more often.</b>\n\n", false);
@@ -1488,12 +1488,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Basilisk compulsion
-		if(CoC.player.findStatusAffect(StatusAffects.BasiliskCompulsion) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.BasiliskCompulsion)) {
 			SceneLib.basiliskScene.basiliskSpeed(CoC.player,15);
 			//Continuing effect text: 
 			MainView.outputText("<b>You still feel the spell of those grey eyes, making your movements slow and difficult, the remembered words tempting you to look into its eyes again. You need to finish this fight as fast as your heavy limbs will allow.</b>\n\n", false);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.IzmaBleed) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.IzmaBleed)) {
 			if(CoC.player.statusAffectv1(StatusAffects.IzmaBleed) <= 0) {
 				CoC.player.removeStatusAffect(StatusAffects.IzmaBleed);
 				MainView.outputText("<b>You sigh with relief; your bleeding has slowed considerably.</b>\n\n", false);
@@ -1504,7 +1504,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText("<b>You gasp and wince in pain, feeling fresh blood pump from your wounds. (" + bleed + ")</b>\n\n", false);
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.AcidSlap) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.AcidSlap)) {
 			var slap = 3 + (CoC.player.maxHP() * 0.02);
 			MainView.outputText("<b>Your muscles twitch in agony as the acid keeps burning you. (" + slap + ")</b>\n\n", false);
 		}
@@ -1534,11 +1534,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			CoC.monster.lust += CoC.monster.lustVuln * (2 + Utils.rand(4));
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.Bound) >= 0 && CoC.flags[kFLAGS.PC_FETISH] >= 2) {
+		if(CoC.player.findStatusAffect(StatusAffects.Bound) && CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 			MainView.outputText("The feel of tight leather completely immobilizing you turns you on more and more.  Would it be so bad to just wait and let her play with you like this?\n\n", false);
 			EngineCore.dynStats("lus", 3);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.GooArmorBind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorBind)) {
 			if(CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 				MainView.outputText("The feel of the all-encapsulating goo immobilizing your helpless body turns you on more and more.  Maybe you should just wait for it to completely immobilize you and have you at its mercy.\n\n");
 				EngineCore.dynStats("lus", 3);
@@ -1546,7 +1546,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText("You're utterly immobilized by the goo flowing around you.  You'll have to struggle free!\n\n");
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.HarpyBind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.HarpyBind)) {
 			if(CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 				MainView.outputText("The harpies are holding you down and restraining you, making the struggle all the sweeter!\n\n");
 				EngineCore.dynStats("lus", 3);
@@ -1554,18 +1554,18 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText("You're restrained by the harpies so that they can beat on you with impunity.  You'll need to struggle to break free!\n\n");
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.NagaBind) >= 0 && CoC.flags[kFLAGS.PC_FETISH] >= 2) {
+		if(CoC.player.findStatusAffect(StatusAffects.NagaBind) && CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 			MainView.outputText("Coiled tightly by the naga and utterly immobilized, you can't help but become aroused thanks to your bondage fetish.\n\n", false);
 			EngineCore.dynStats("lus", 5);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.TentacleBind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.TentacleBind)) {
 			MainView.outputText("You are firmly trapped in the tentacle's coils.  <b>The only thing you can try to do is struggle free!</b>\n\n", false);
 			if(CoC.flags[kFLAGS.PC_FETISH] >= 2) {
 				MainView.outputText("Wrapped tightly in the tentacles, you find it hard to resist becoming more and more aroused...\n\n", false);
 				EngineCore.dynStats("lus", 3);
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.DriderKiss) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DriderKiss)) {
 			//(VENOM OVER TIME: WEAK)
 			if(CoC.player.statusAffectv1(StatusAffects.DriderKiss) === 0) {
 				MainView.outputText("Your heart hammers a little faster as a vision of the drider's nude, exotic body on top of you assails you.  It'll only get worse if she kisses you again...\n\n", false);
@@ -1585,7 +1585,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Harpy lip gloss
-		if(CoC.player.hasCock() && CoC.player.findStatusAffect(StatusAffects.Luststick) >= 0 && (CoC.monster.short === "harpy" || CoC.monster.short === "Sophie")) {
+		if(CoC.player.hasCock() && CoC.player.findStatusAffect(StatusAffects.Luststick) && (CoC.monster.short === "harpy" || CoC.monster.short === "Sophie")) {
 			//Chance to cleanse!
 			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the harpy lip-gloss from your system with your knowledge of medicine!\n\n", false);
@@ -1599,7 +1599,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				EngineCore.dynStats("lus", 20);
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.StoneLust) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.StoneLust)) {
 			if(CoC.player.vaginas.length > 0) {
 				if(CoC.player.lust < 40) {
 					MainView.outputText("You squirm as the smooth stone orb vibrates within you.\n\n", false);
@@ -1615,13 +1615,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			EngineCore.dynStats("lus", 7 + Math.floor(CoC.player.sens)/10);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.KissOfDeath) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.KissOfDeath)) {
 			//Effect 
 			MainView.outputText("Your lips burn with an unexpected flash of heat.  They sting and burn with unholy energies as a puff of ectoplasmic gas escapes your lips.  That puff must be a part of your soul!  It darts through the air to the succubus, who slurps it down like a delicious snack.  You feel feverishly hot and exhausted...\n\n", false);
 			EngineCore.dynStats("lus", 5);
 			Combat.takeDamage(15);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.DemonSeed) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DemonSeed)) {
 			MainView.outputText("You feel something shift inside you, making you feel warm.  Finding the desire to fight this... hunk gets harder and harder.\n\n", false);
 			EngineCore.dynStats("lus", (CoC.player.statusAffectv1(StatusAffects.DemonSeed) + Math.floor(CoC.player.sens/30) + Math.floor(CoC.player.lib/30) + Math.floor(CoC.player.cor/30)));
 		}
@@ -1643,7 +1643,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				MainView.outputText("our " + CoC.player.multiCockDescriptLight() + " dribbles pre-cum as you think about plowing " + CoC.monster.a + CoC.monster.short + " right here and now, fucking " + CoC.monster.pronoun3 + " " + CoC.monster.vaginaDescript() + " until it's totally fertilized and pregnant.\n\n", false);
 			}
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.NagaVenom)) {
 			//Chance to cleanse!
 			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the naga venom from your system with your knowledge of medicine!\n\n", false);
@@ -1658,7 +1658,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 			MainView.outputText("You wince in pain and try to collect yourself, the naga's venom still plaguing you.\n\n", false);
 			Combat.takeDamage(2);
-		} else if(CoC.player.findStatusAffect(StatusAffects.TemporaryHeat) >= 0) {
+		} else if(CoC.player.findStatusAffect(StatusAffects.TemporaryHeat)) {
 			//Chance to cleanse!
 			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the heat and rut drug from your system with your knowledge of medicine!\n\n", false);
@@ -1677,7 +1677,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		//Poison
-		if(CoC.player.findStatusAffect(StatusAffects.Poison) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Poison)) {
 			//Chance to cleanse!
 			if(CoC.player.findPerk(PerkLib.Medicine) && Utils.rand(100) <= 14) {
 				MainView.outputText("You manage to cleanse the poison from your system with your knowledge of medicine!\n\n", false);
@@ -1767,12 +1767,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		MainView.outputText("<b>You are fighting ", false);
 		MainView.outputText(CoC.monster.a + CoC.monster.short + ":</b> (Level: " + CoC.monster.level + ")\n");
-		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("It's impossible to see anything!\n");
 		} else {
 			MainView.outputText(CoC.monster.long + "\n", false);
 			//Bonus sand trap stuff
-			if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+			if(CoC.monster.findStatusAffect(StatusAffects.Level)) {
 				var status = CoC.monster.statusAffectv1(StatusAffects.Level);
 				//[(new PG for PC height levels)PC level 4: 
 				MainView.outputText("\n");
@@ -1819,11 +1819,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.showMonsterLust = function() {
 		//Entrapped
-		if(CoC.monster.findStatusAffect(StatusAffects.Constricted) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Constricted)) {
 			MainView.outputText(CoC.monster.getCapitalA() + CoC.monster.short + " is currently wrapped up in your tail-coils!  ", false);
 		}
 		//Venom stuff!
-		if(CoC.monster.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.NagaVenom)) {
 			if(CoC.monster.plural) {
 				if(CoC.monster.statusAffectv1(StatusAffects.NagaVenom) <= 1) {
 					MainView.outputText("You notice " + CoC.monster.pronoun1 + " are beginning to show signs of weakening, but there still appears to be plenty of fight left in " + CoC.monster.pronoun2 + ".  ", false);
@@ -1996,11 +1996,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText("", true);
 		}
 		//You cant tease a blind guy!
-		if(CoC.monster.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("You do your best to tease " + CoC.monster.a + CoC.monster.short + " with your body.  It doesn't work - you blinded " + CoC.monster.pronoun2 + ", remember?\n\n", true);
 			return;
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 1) {
+		if(CoC.player.findStatusAffect(StatusAffects.Sealed) && CoC.player.statusAffectv2(StatusAffects.Sealed) === 1) {
 			MainView.outputText("You do your best to tease " + CoC.monster.a + CoC.monster.short + " with your body.  Your artless twirls have no effect, as <b>your ability to tease is sealed.</b>\n\n", true);
 			return;
 		}	
@@ -2533,7 +2533,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			choices.push(25);
 		}
 		//26 SMART PEEPS! 70+ int, arouse spell!
-		if(CoC.player.inte >= 70 && CoC.player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
+		if(CoC.player.inte >= 70 && CoC.player.findStatusAffect(StatusAffects.KnowsArouse)) {
 			choices.push(26);
 			choices.push(26);
 			choices.push(26);
@@ -3569,7 +3569,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			
 			if (CoC.monster.handleTease) {
 				CoC.monster.handleTease(damage, true);
-			} else if (CoC.monster.mirrorTease && CoC.monster.findStatusAffect(StatusAffects.Stunned) < 0) {
+			} else if (CoC.monster.mirrorTease && !CoC.monster.findStatusAffect(StatusAffects.Stunned)) {
 				CoC.monster.mirrorTease(damage, true);
 			} else if (!justText) {
 				CoC.monster.teased(damage);
@@ -3631,7 +3631,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.endLustVictory);
 			return true;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level)) {
 			if(CoC.monster.trapLevel() <= 1) {
 				SceneLib.sandTrapScene.sandtrapmentLoss();
 				return true;
@@ -3656,7 +3656,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return CoC.player.hasSpells();
 	};
 	Combat.magicMenu = function() {
-		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 2) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) && CoC.player.statusAffectv2(StatusAffects.Sealed) === 2) {
 			MainView.clearOutput();
 			MainView.outputText("You reach for your magic, but you just can't manage the focus necessary.  <b>Your ability to use magic was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
@@ -3673,21 +3673,21 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (CoC.player.lust >= whiteLustCap) {
 			MainView.outputText("You are far too aroused to focus on white magic.\n\n");
 		} else {
-			if (CoC.player.findStatusAffect(StatusAffects.KnowsCharge) >= 0) {
-				if (CoC.player.findStatusAffect(StatusAffects.ChargeWeapon) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsCharge)) {
+				if (!CoC.player.findStatusAffect(StatusAffects.ChargeWeapon)) {
 					EngineCore.addButtonWithTooltip(0, "Charge W.", 'The Charge Weapon spell will surround your weapon in electrical energy, causing it to do even more damage.  The effect lasts for the entire combat.  (Fatigue Cost: ' + EngineCore.spellCost( 15 ) + ')', null, Combat.spellChargeWeapon);
 				} else {
 					MainView.outputText("<b>Charge weapon is already active and cannot be cast again.</b>\n\n");
 				}
 			}
-			if (CoC.player.findStatusAffect(StatusAffects.KnowsBlind) >= 0) {
-				if (CoC.monster.findStatusAffect(StatusAffects.Blind) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsBlind)) {
+				if (!CoC.monster.findStatusAffect(StatusAffects.Blind)) {
 					EngineCore.addButtonWithTooltip(1, "Blind", 'Blind is a fairly self-explanatory spell.  It will create a bright flash just in front of the victim\'s eyes, blinding them for a time.  However if they blink it will be wasted.  (Fatigue Cost: ' + EngineCore.spellCost( 20 ) + ')', null, Combat.spellBlind);
 				} else {
 					MainView.outputText("<b>" + CoC.monster.getCapitalA() + CoC.monster.short + " is already affected by blind.</b>\n\n");
 				}
 			}
-			if (CoC.player.findStatusAffect(StatusAffects.KnowsWhitefire) >= 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsWhitefire)) {
 				EngineCore.addButtonWithTooltip(2, "Whitefire", 'Whitefire is a potent fire based attack that will burn your foe with flickering white flames, ignoring their physical toughness and most armors.  (Fatigue Cost: ' + EngineCore.spellCost( 30 ) + ')', null, Combat.spellWhitefire);
 			}
 		}
@@ -3695,14 +3695,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		if (CoC.player.lust < 50) {
 			MainView.outputText("You aren't turned on enough to use any black magics.\n\n");
 		} else {
-			if (CoC.player.findStatusAffect(StatusAffects.KnowsArouse) >= 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsArouse)) {
 				EngineCore.addButtonWithTooltip(5, "Arouse", 'The arouse spell draws on your own inner lust in order to enflame the enemy\'s passions.  (Fatigue Cost: ' + EngineCore.spellCost( 15 ) + ')', null, Combat.spellArouse);
 			}
-			if (CoC.player.findStatusAffect(StatusAffects.KnowsHeal) >= 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsHeal)) {
 				EngineCore.addButtonWithTooltip(6, "Heal", 'Heal will attempt to use black magic to close your wounds and restore your body, however like all black magic used on yourself, it has a chance of backfiring and greatly arousing you.  (Fatigue Cost: ' + EngineCore.spellCost( 20 ) + ')', null, Combat.spellHeal);
 			}
-			if (CoC.player.findStatusAffect(StatusAffects.KnowsMight) >= 0) {
-				if (CoC.player.findStatusAffect(StatusAffects.Might) < 0) {
+			if (CoC.player.findStatusAffect(StatusAffects.KnowsMight)) {
+				if (!CoC.player.findStatusAffect(StatusAffects.Might)) {
 					EngineCore.addButtonWithTooltip(7, "Might", 'The Might spell draws upon your lust and uses it to fuel a temporary increase in muscle size and power.  It does carry the risk of backfiring and raising lust, like all black magic used on oneself.  (Fatigue Cost: ' + EngineCore.spellCost( 25 ) + ')', null, Combat.spellMight);
 				} else {
 					MainView.outputText("<b>You are already under the effects of Might and cannot cast it again.</b>\n\n");
@@ -3724,7 +3724,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(15,1);
 		MainView.statsView.show();
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -3956,7 +3956,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(20,1);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -4028,7 +4028,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.doNext( Combat, Combat.combatMenu);
 		EngineCore.fatigue(30,1);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -4076,7 +4076,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.doNext( Combat, Combat.combatMenu);
 	//This is now automatic - newRound arg defaults to true:	menuLoc = 0;
 		EngineCore.fatigue(30,1);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			CoC.flags[kFLAGS.SPELLS_CAST]++;
 			Combat.spellPerkUnlock();
@@ -4155,7 +4155,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(20, 1);
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
@@ -4166,14 +4166,14 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		var damage = (CoC.player.level * 8 + Utils.rand(10) + CoC.player.cor/5);
-		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) < 0) {
+		if(!CoC.player.findStatusAffect(StatusAffects.GooArmorSilence)) {
 			MainView.outputText("You take in a deep breath and unleash a wave of corrupt red flames from deep within.", false);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			MainView.outputText("  <b>The fire burns through the webs blocking your mouth!</b>", false);
 			CoC.player.removeStatusAffect(StatusAffects.WebSilence);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence)) {
 			MainView.outputText("  <b>A growl rumbles from deep within as you charge the terrestrial fire, and you force it from your chest and into the slime.  The goop bubbles and steams as it evaporates, drawing a curious look from your foe, who pauses in her onslaught to lean in and watch.  While the tension around your mouth lessens and your opponent forgets herself more and more, you bide your time.  When you can finally work your jaw enough to open your mouth, you expel the lion's - or jaguar's? share of the flame, inflating an enormous bubble of fire and evaporated slime that thins and finally pops to release a superheated cloud.  The armored girl screams and recoils as she's enveloped, flailing her arms.</b>", false);
 			CoC.player.removeStatusAffect(StatusAffects.GooArmorSilence);
 			damage += 25;
@@ -4215,7 +4215,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			}
 		}
 		MainView.outputText("\n", false);
-		if(CoC.monster.short === "Holli" && CoC.monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
+		if(CoC.monster.short === "Holli" && !CoC.monster.findStatusAffect(StatusAffects.HolliBurning)) {
 			CoC.monster.lightHolliOnFireMagically();
 		}
 		if(CoC.monster.HP < 1) {
@@ -4257,13 +4257,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
 		//Blind
-		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		}
 		var damage = 0;
@@ -4288,7 +4288,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Determine if dodged!
-		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
 			//Akbal dodges special education
 			if(CoC.monster.short === "Akbal") {
 				MainView.outputText("Akbal moves like lightning, weaving in and out of your furious attack with the speed and grace befitting his jaguar body.\n", false);
@@ -4374,19 +4374,19 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		CoC.player.tailVenom-= 33;
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.\n\n", true);
 			Combat.enemyAI();
 			return;
 		}
 		//Blind
-		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("You attempt to attack, but as blinded as you are right now, you doubt you'll have much luck!  ", false);
 		} else {
 			MainView.outputText("Turning and clenching muscles that no human should have, you expel a spray of sticky webs at " + CoC.monster.a + CoC.monster.short + "!  ", false);
 		}
 		//Determine if dodged!
-		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe) / 4) + 80) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe) / 4) + 80) > 80)) {
 			MainView.outputText("You miss " + CoC.monster.a + CoC.monster.short + " completely - ", false);
 			if(CoC.monster.plural) {
 				MainView.outputText("they", false);
@@ -4432,7 +4432,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(10,2);
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
@@ -4459,7 +4459,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			if(CoC.monster.spe < 1) {
 				CoC.monster.spe = 1;
 			}
-			if(CoC.monster.findStatusAffect(StatusAffects.NagaVenom) >= 0) {
+			if(CoC.monster.findStatusAffect(StatusAffects.NagaVenom)) {
 				CoC.monster.addStatusValue(StatusAffects.NagaVenom,1,1);
 			} else {
 				CoC.monster.createStatusAffect(StatusAffects.NagaVenom,1,0,0,0);
@@ -4485,7 +4485,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		EngineCore.fatigue(10,2);
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
@@ -4541,7 +4541,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) || CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			MainView.outputText("You cannot focus to reach the enemy's mind while you're having so much difficult breathing.", true);
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
@@ -4559,7 +4559,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		EngineCore.fatigue(10, 1);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
@@ -4601,7 +4601,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		//Not Ready Yet:
-		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathCooldown) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathCooldown)) {
 			MainView.outputText("You try to tap into the power within you, but your burning throat reminds you that you're not yet ready to unleash it again...");
 			EngineCore.doNext( Combat, Combat.combatMenu);
 			return;
@@ -4610,18 +4610,18 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		EngineCore.fatigue(20, 1);
 		CoC.player.createStatusAffect(StatusAffects.DragonBreathCooldown,0,0,0,0);
 		var damage = Math.floor(CoC.player.level * 8 + 25 + Utils.rand(10));
-		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathBoost) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.DragonBreathBoost)) {
 			CoC.player.removeStatusAffect(StatusAffects.DragonBreathBoost);
 			damage *= 1.5;
 		}
 		//Shell
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
@@ -4632,12 +4632,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		MainView.outputText("Tapping into the power deep within you, you let loose a bellowing roar at your enemy, so forceful that even the environs crumble around " + CoC.monster.pronoun2 + ".  " + CoC.monster.getCapitalA() + CoC.monster.short + " does " + CoC.monster.pronoun3 + " best to avoid it, but the wave of force is too fast.");
-		if(CoC.monster.findStatusAffect(StatusAffects.Sandstorm) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Sandstorm)) {
 			MainView.outputText("  <b>Your breath is massively dissipated by the swirling vortex, causing it to hit with far less force!</b>");
 			damage = Math.round(0.2 * damage);
 		}
 		//Miss: 
-		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
 			MainView.outputText("  Despite the heavy impact caused by your roar, " + CoC.monster.a + CoC.monster.short + " manages to take it at an angle and remain on " + CoC.monster.pronoun3 + " feet and focuses on you, ready to keep fighting.");
 		} else if(CoC.monster.short === "Vala") { //Special enemy avoidances
 			MainView.outputText("Vala beats her wings with surprising strength, blowing the fireball back at you! ", false);
@@ -4676,7 +4676,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText(" (" + damage + ")");
 		}
 		MainView.outputText("\n\n");
-		if(CoC.monster.short === "Holli" && CoC.monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
+		if(CoC.monster.short === "Holli" && !CoC.monster.findStatusAffect(StatusAffects.HolliBurning)) {
 			CoC.monster.lightHolliOnFireMagically();
 		}
 		Combat.combatRoundOver();
@@ -4690,13 +4690,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		EngineCore.fatigue(20);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
 		//Amily!
-		if(CoC.monster.findStatusAffect(StatusAffects.Concentration) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Concentration)) {
 			MainView.outputText("Amily easily glides around your attack thanks to her complete concentration on your movements.", true);
 			Combat.enemyAI();
 			return;
@@ -4708,10 +4708,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 		//[Failure]
 		//(high damage to self, +20 fatigue)
-		if( Utils.rand(5) === 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
-			if(CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if( Utils.rand(5) === 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
+			if(CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 				MainView.outputText("You reach for the terrestrial fire, but as you ready to release a torrent of flame, it backs up in your throat, blocked by the webbing across your mouth.  It causes you to cry out as the sudden, heated force explodes in your own throat.\n\n", false);
-			} else if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+			} else if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence)) {
 				MainView.outputText("You reach for the terrestrial fire but as you ready the torrent, it erupts prematurely, causing you to cry out as the sudden heated force explodes in your own throat.  The slime covering your mouth bubbles and pops, boiling away where the escaping flame opens small rents in it.  That wasn't as effective as you'd hoped, but you can at least speak now.");
 			} else {
 				MainView.outputText("You reach for the terrestrial fire, but as you ready to release a torrent of flame, the fire inside erupts prematurely, causing you to cry out as the sudden heated force explodes in your own throat.\n\n", false);
@@ -4728,7 +4728,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		var damage = Math.floor(CoC.player.level * 10 + 45 + Utils.rand(10));
-		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.GooArmorSilence)) {
 			MainView.outputText("<b>A growl rumbles from deep within as you charge the terrestrial fire, and you force it from your chest and into the slime.  The goop bubbles and steams as it evaporates, drawing a curious look from your foe, who pauses in her onslaught to lean in and watch.  While the tension around your mouth lessens and your opponent forgets herself more and more, you bide your time.  When you can finally work your jaw enough to open your mouth, you expel the lion's - or jaguar's? share of the flame, inflating an enormous bubble of fire and evaporated slime that thins and finally pops to release a superheated cloud.  The armored girl screams and recoils as she's enveloped, flailing her arms.</b> ", false);
 			CoC.player.removeStatusAffect(StatusAffects.GooArmorSilence);
 			damage += 25;
@@ -4765,13 +4765,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				}
 				damage = Math.round(damage * 1.5);
 			}
-			if(CoC.monster.findStatusAffect(StatusAffects.Sandstorm) >= 0) {
+			if(CoC.monster.findStatusAffect(StatusAffects.Sandstorm)) {
 				MainView.outputText("<b>Your breath is massively dissipated by the swirling vortex, causing it to hit with far less force!</b>  ");
 				damage = Math.round(0.2 * damage);
 			}
 			MainView.outputText("(" + damage + ")\n\n", false);
 			CoC.monster.HP -= damage;
-			if(CoC.monster.short === "Holli" && CoC.monster.findStatusAffect(StatusAffects.HolliBurning) < 0) {
+			if(CoC.monster.short === "Holli" && !CoC.monster.findStatusAffect(StatusAffects.HolliBurning)) {
 				CoC.monster.lightHolliOnFireMagically();
 			}
 		}
@@ -4782,7 +4782,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.kissAttack = function() {
-		if(CoC.player.findStatusAffect(StatusAffects.Blind) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Blind)) {
 			MainView.outputText("There's no way you'd be able to find their lips while you're blind!", true);
 			EngineCore.doNext( Combat, Combat.physicalSpecials);
 			return;
@@ -4892,7 +4892,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 				break;
 		}
 		//Add status if not already drugged
-		if(CoC.monster.findStatusAffect(StatusAffects.LustStick) < 0) {
+		if(!CoC.monster.findStatusAffect(StatusAffects.LustStick)) {
 			CoC.monster.createStatusAffect(StatusAffects.LustStick,0,0,0,0);
 		} else { //Else add bonus to round damage
 			CoC.monster.addStatusValue(StatusAffects.LustStick,2,Math.round(damage/10));
@@ -4937,7 +4937,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		MainView.outputText("", true);
-		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 4) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) && CoC.player.statusAffectv2(StatusAffects.Sealed) === 4) {
 			MainView.clearOutput();
 			MainView.outputText("You try to run, but you just can't seem to escape.  <b>Your ability to run was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
@@ -4950,7 +4950,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.player.canFly()) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) && CoC.player.canFly()) {
 			MainView.clearOutput();
 			MainView.outputText("You flex the muscles in your back and, shaking clear of the sand, burst into the air!  Wasting no time you fly free of the sandtrap and its treacherous pit.  \"One day your wings will fall off, little ant,\" the snarling voice of the thwarted androgyne carries up to you as you make your escape.  \"And I will be waiting for you when they do!\"");
 			CoC.setInCombat(false);
@@ -4958,19 +4958,19 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour);
 			return;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.GenericRunDisabled) >= 0 || SceneLib.urtaQuest.isUrta()) {
+		if(CoC.monster.findStatusAffect(StatusAffects.GenericRunDisabled) || SceneLib.urtaQuest.isUrta()) {
 			MainView.outputText("You can't escape from this fight!");
 			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.Level) >= 0 && CoC.monster.statusAffectv1(StatusAffects.Level) < 4) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Level) && CoC.monster.statusAffectv1(StatusAffects.Level) < 4) {
 			MainView.outputText("You're too deeply mired to escape!  You'll have to <b>climb</b> some first!");
 			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
 			return;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.RunDisabled) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.RunDisabled)) {
 			MainView.outputText("You'd like to run, but you can't scale the walls of the pit with so many demonic hands pulling you down!");
 			MainView.menu();
 			EngineCore.addButton(0, "Next", Combat.combatMenu, false);
@@ -5008,7 +5008,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			MainView.outputText("Gritting your teeth with effort, you beat your wings quickly and lift off!  ", false);
 		} else { //Nonflying PCs
 			//Stuck!
-			if(CoC.player.findStatusAffect(StatusAffects.NoFlee) >= 0) {
+			if(CoC.player.findStatusAffect(StatusAffects.NoFlee)) {
 				if(CoC.monster.short === "goblin") {
 					MainView.outputText("You try to flee but get stuck in the sticky white goop surrounding you.\n\n", true);
 				} else {
@@ -5252,7 +5252,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		}
 	};
 	Combat.magicalSpecials = function() {
-		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 6) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) && CoC.player.statusAffectv2(StatusAffects.Sealed) === 6) {
 			MainView.clearOutput();
 			MainView.outputText("You try to ready a special ability, but wind up stumbling dizzily instead.  <b>Your ability to use magical special attacks was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
@@ -5287,10 +5287,10 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButton(6,"FoxFire", null, Combat.foxFire);
 			EngineCore.addButton(7,"Illusion", null, Combat.kitsuneIllusion);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ShieldingSpell) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ShieldingSpell)) {
 			EngineCore.addButton(8,"Shielding", null, Combat.shieldingSpell);
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ImmolationSpell) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ImmolationSpell)) {
 			EngineCore.addButton(8,"Immolation", null, Combat.immolationSpell);
 		}
 		EngineCore.addButton(9, "Back", Combat.combatMenu, false);
@@ -5301,7 +5301,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 	//Pass false to combatMenu instead:	menuLoc = 3;
-		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) >= 0 && CoC.player.statusAffectv2(StatusAffects.Sealed) === 5) {
+		if (CoC.isInCombat() && CoC.player.findStatusAffect(StatusAffects.Sealed) && CoC.player.statusAffectv2(StatusAffects.Sealed) === 5) {
 			MainView.clearOutput();
 			MainView.outputText("You try to ready a special attack, but wind up stumbling dizzily instead.  <b>Your ability to use physical special attacks was sealed, and now you've wasted a chance to attack!</b>\n\n");
 			Combat.enemyAI();
@@ -5338,11 +5338,11 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.addButtonWithTooltip(4, "Gore", 'Lower your head and charge your opponent, attempting to gore them on your horns.  This attack is stronger and easier to land with large horns.', null, Combat.goreAttack);
 		}
 		//Infest if infested
-		if (CoC.player.findStatusAffect(StatusAffects.Infested) >= 0 && CoC.player.statusAffectv1(StatusAffects.Infested) === 5 && CoC.player.hasCock()) {
+		if (CoC.player.findStatusAffect(StatusAffects.Infested) && CoC.player.statusAffectv1(StatusAffects.Infested) === 5 && CoC.player.hasCock()) {
 			EngineCore.addButtonWithTooltip(5, "Infest", 'The infest attack allows you to cum at will, launching a stream of semen and worms at your opponent in order to infest them.  Unless your foe is very aroused they are likely to simply avoid it.  Only works on males or herms.', null, Combat.playerInfest);
 		}
 		//Kiss supercedes bite.
-		if (CoC.player.findStatusAffect(StatusAffects.LustStickApplied) >= 0) {
+		if (CoC.player.findStatusAffect(StatusAffects.LustStickApplied)) {
 			EngineCore.addButtonWithTooltip(6, "Kiss", 'Attempt to kiss your foe on the lips with drugged lipstick.  It has no effect on those without a penis.', null, Combat.kissAttack);
 		}
 		switch (CoC.player.tailType) {
@@ -5363,7 +5363,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	};
 	Combat.berzerk = function() {
 		MainView.clearOutput();
-		if(CoC.player.findStatusAffect(StatusAffects.Berzerking) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.Berzerking)) {
 			MainView.outputText("You're already pretty goddamn mad!", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5380,7 +5380,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) || CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			MainView.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5418,13 +5418,13 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) || CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			MainView.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
 		EngineCore.fatigue(35,1);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
@@ -5462,12 +5462,12 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) || CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			MainView.outputText("You cannot focus to reach the enemy's mind while you're having so much difficult breathing.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5503,7 +5503,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
 		}
-		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) >= 0 || CoC.player.findStatusAffect(StatusAffects.WebSilence) >= 0) {
+		if(CoC.player.findStatusAffect(StatusAffects.ThroatPunch) || CoC.player.findStatusAffect(StatusAffects.WebSilence)) {
 			MainView.outputText("You cannot focus to use this ability while you're having so much difficult breathing.", true);
 			EngineCore.doNext( Combat, Combat.magicalSpecials);
 			return;
@@ -5515,7 +5515,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			return;
 		}
 		EngineCore.fatigue(25,1);
-		if(CoC.monster.findStatusAffect(StatusAffects.Shell) >= 0) {
+		if(CoC.monster.findStatusAffect(StatusAffects.Shell)) {
 			MainView.outputText("As soon as your magic touches the multicolored shell around " + CoC.monster.a + CoC.monster.short + ", it sizzles and fades to nothing.  Whatever that thing is, it completely blocks your magic!\n\n");
 			Combat.enemyAI();
 			return;
@@ -5543,7 +5543,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 	Combat.tailWhipAttack = function() {
 		MainView.clearOutput();
 		//miss
-		if((CoC.player.findStatusAffect(StatusAffects.Blind) >= 0 && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
+		if((CoC.player.findStatusAffect(StatusAffects.Blind) && Utils.rand(2) === 0) || (CoC.monster.spe - CoC.player.spe > 0 && Utils.rand(((CoC.monster.spe-CoC.player.spe)/4)+80) > 80)) {
 			MainView.outputText("Twirling like a top, you swing your tail, but connect with only empty air.");
 		} else {
 			if(!CoC.monster.plural) {
@@ -5551,7 +5551,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 			} else {
 				MainView.outputText("Twirling like a top, you bat your opponent with your tail.  For a moment, " + CoC.monster.pronoun1 + " look disbelieving, as if " + CoC.monster.pronoun3 + " world turned upside down, but " + CoC.monster.pronoun1 + " soon become irate and redouble " + CoC.monster.pronoun3 + " offense, leaving large holes in " + CoC.monster.pronoun3 + " guard.  If you're going to take advantage, it had better be right away; " + CoC.monster.pronoun1 + "'ll probably cool off very quickly.");
 			}
-			if(CoC.monster.findStatusAffect(StatusAffects.CoonWhip) < 0) {
+			if(!CoC.monster.findStatusAffect(StatusAffects.CoonWhip)) {
 				CoC.monster.createStatusAffect(StatusAffects.CoonWhip,0,0,0,0);
 			}
 			var temp = Math.round(CoC.monster.armorDef * 0.75);

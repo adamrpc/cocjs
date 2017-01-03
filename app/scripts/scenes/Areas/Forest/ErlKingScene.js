@@ -128,7 +128,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, kFLAGS, Consu
 			MainView.outputText( 'You’re surrounded.\n\n' );
 		} else {
 			MainView.outputText( 'The baying of hounds fills the air, and the trees echo with the distant thunder of hooves as the first of the creatures bursts through the fog.  Stooped and low, this beast-man is mostly canine, with a sharp-toothed muzzle spread wide and panting.  His red-black tongue dangles with each breath, steam rising up from his jaws.  The hound’s pelt is midnight black, covering his muscular frame.  Strong arms hang low, almost touching the ground, muscles flexing as his surprisingly human hands open and close restlessly.  His legs are distinctly dog-like, ending in wide, black-clawed paws.  Between its stocky legs; you catch a glimpse of an arm-thick sheath and a heavy sack behind.  A broad tail wags behind him, swinging slowly and menacingly' );
-			if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) ) {
 				MainView.outputText( ', and for a moment all you can think of are Whitney’s canine peppers' );
 			}
 			MainView.outputText( '.\n\n' );

@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 	Faerie.prototype.faerieRAEP = function() {
 		MainView.spriteSelect( 17 );
 		//Count secksins
-		if( CoC.player.findStatusAffect( StatusAffects.FaerieFemFuck ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.FaerieFemFuck ) ) {
 			CoC.player.createStatusAffect( StatusAffects.FaerieFemFuck, 1, 0, 0, 0 );
 		} else {
 			CoC.player.addStatusValue( StatusAffects.FaerieFemFuck, 1, 1 );
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 	//[YES] *make her pleasure you
 	Faerie.prototype.faerieCaptureHJ = function() {
 		MainView.spriteSelect( 17 );
-		if( CoC.player.findStatusAffect( StatusAffects.FaerieFucked ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FaerieFucked ) ) {
 			CoC.player.addStatusValue( StatusAffects.FaerieFucked, 1, 2 );
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.FaerieFucked, 2, 0, 0, 0 );
@@ -328,7 +328,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, CoC, U
 			MainView.outputText( 'The faerie takes off, still dripping, and flying in something less than a straight line...', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -0.5 );
-			if( CoC.player.findStatusAffect( StatusAffects.Jizzpants ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Jizzpants ) ) {
 				CoC.player.createStatusAffect( StatusAffects.Jizzpants, 1, 0, 0, 0 );
 			}
 		}

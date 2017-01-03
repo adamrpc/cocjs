@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 	Satyr.prototype.satyrAttack = function() {
 		MainView.outputText( 'The satyr swings at you with one knuckled fist.  ' );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 1 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind punch!\n', false );
 		}
 		//Evade: ;
@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 	};
 	Satyr.prototype.satyrCharge = function() {
 		MainView.outputText( 'Lowering his horns, the satyr digs his hooves on the ground and begins snorting; he\'s obviously up to something.  ' );
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 1 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you due to blindness!\n', false );
 		} else if( Combat.combatMiss() ) {
 			MainView.outputText( 'He charges at you with a loud bleat, but you nimbly dodge and strike a vicious blow with your [weapon] in return that sends him crashing into the ground, hollering in pain. (5)' );
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 	//5:(Only executed at high lust) ;
 	Satyr.prototype.highLustChugRape = function() {
 		MainView.outputText( 'Panting with barely-contained lust, the Satyr charges at you and tries to ram you into the ground.  ' );
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 1 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you due to blindness!\n', false );
 		} else if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatMisdirect() || Combat.combatEvade() ) {
 			MainView.outputText( 'As he charges you, you grab him by the horns and spin around, sending him away.' );
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 			} else {
 				this.bottleChug();
 			}
-		} else if( this.findStatusAffect( StatusAffects.Charged ) < 0 ) {
+		} else if( !this.findStatusAffect( StatusAffects.Charged ) ) {
 			this.satyrCharge();
 		} else {
 			this.satyrAttack();

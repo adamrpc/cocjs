@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkL
 		Combat.combatRoundOver();
 	};
 	Brigid.prototype.performCombatAction = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.Stunned ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Stunned ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.Stunned );
 			if( Utils.rand( 2 ) === 0 ) {
 				this.BrigidAssGrind();

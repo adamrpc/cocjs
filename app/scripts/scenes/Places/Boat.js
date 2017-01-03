@@ -21,7 +21,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Util
 			return;
 		}
 		MainView.outputText( 'You reach the dock without any incident and board the small rowboat.  The water is calm and placid, perfect for rowing.  ', true );
-		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 			MainView.outputText( 'The water appears somewhat muddy and has a faint pungent odor.  ', false );
 			if( CoC.player.inte > 40 ) {
 				MainView.outputText( 'You realize what it smells like – sex.  ', false );
@@ -34,18 +34,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Util
 		}
 		MainView.outputText( 'You set out, wondering if you\'ll find any strange islands or creatures in the lake.\n\n', false );
 		//20% chance if not done with marae of meeting her.;
-		if( Utils.rand( 10 ) <= 2 && CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) < 0 && CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) < 0 ) {
+		if( Utils.rand( 10 ) <= 2 && !CoC.player.findStatusAffect( StatusAffects.MaraeComplete ) && !CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) ) {
 			SceneLib.marae.encounterMarae();
 			return;
 		}
 		//10% chance of corrupt Marae followups;
-		if( Utils.rand( 10 ) === 0 && CoC.flags[ kFLAGS.CORRUPT_MARAE_FOLLOWUP_ENCOUNTER_STATE ] === 0 && CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) >= 0 && CoC.player.gender > 0 ) {
+		if( Utils.rand( 10 ) === 0 && CoC.flags[ kFLAGS.CORRUPT_MARAE_FOLLOWUP_ENCOUNTER_STATE ] === 0 && CoC.player.findStatusAffect( StatusAffects.MetCorruptMarae ) && CoC.player.gender > 0 ) {
 			SceneLib.marae.level2MaraeEncounter();
 			return;
 		}
 		//BUILD LIST OF CHOICES;
 		var choice = [ 0, 1, 2, 3 ];
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.level > 2 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && CoC.player.level > 2 ) {
 			choice[ choice.length ] = 4;
 		}
 		choice[ choice.length ] = 5;

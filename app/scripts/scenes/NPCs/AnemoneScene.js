@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				CoC.flags[ kFLAGS.KID_SITTER ] = 1;
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.AnemoneArousal ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.AnemoneArousal ) ) {
 			if( CoC.player.pregnancyIncubation > 1 ) {
 				CoC.player.removeStatusAffect( StatusAffects.AnemoneArousal );
 				MainView.outputText( '\n<b>The nigh-constant arousal forced upon you by the anemone-like creature in your body finally fades.  You stick a finger inside yourself and marvel in wonder - it\'s gone!  You aren\'t sure if it slipped out or your body somehow consumed it, but it\'s nice to have a clearer head.</b>\n', false );

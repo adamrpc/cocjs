@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	//End of Interface Implementation;
 	Edryn.prototype.edrynBarTalk = function() {
 		MainView.spriteSelect( 14 );
-		if( CoC.player.findStatusAffect( StatusAffects.Edryn ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Edryn ) ) {
 			CoC.player.createStatusAffect( StatusAffects.Edryn, 0, 0, 0, 0 );
 		}
 		MainView.outputText( '', true );

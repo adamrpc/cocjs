@@ -498,7 +498,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 				MainView.clearOutput();
 				if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
 					this.takeoverPromptKelly();
-				} else if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 ) {
+				} else if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) ) {
 					this.takeoverPromptMarbleRape();
 				} else {
 					this.takeoverPromptGeneric();
@@ -570,7 +570,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 		}
 
 		// if PC has Kelly or PC raped Marble;
-		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 || CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 || CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) ) {
 			MainView.outputText( '\n\nShe doesn’t move or shoo you away, but you can see a great deal of tenseness in her face. “<i>I already told you, I don’t want you on my farm,</i>” she says when you are face to face, her voice low and angry. You shoot your hands up and look around you in mocking exasperation, appealing to an audience that isn’t there.' );
 		} else {
 			MainView.outputText( '\n\nShe looks at you with tense uncertainty. “<i>Listen [name], I’m glad you’re here. I’ve been meaning to talk to you. I... I don’t think I want you coming to the farm no more. You’ve changed since I first got to know you, you... smell different these days. Like a demon, if you want the truth. I let it go because I know you and I’ve always said you gotta tend to your own knittin\', but...</i>” She trails off as you stick out your lower lip in mocking hurt.' );
@@ -583,7 +583,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 			MainView.outputText( '\n\n“<i>Cute. But, you know, Kelt had a bow. He practiced with it every day. To protect your farm, I believe.</i>” You pause and look her dead in the eye. “<i>Get a good look at Kelt recently? Would you like that to happen to you? To be on your knees, begging me to cum on your face? Because the way I see it, there isn’t much protecting your farm these days. Just about anyone could walk in here and do as they please. As you sleep, perhaps? Quietly taint your food whilst you work? Are you really going to hold onto that crossbow for the rest of your life?</i>” Whitney’s grip is trembling slightly, you can see it in the bolt and string.' );
 		}
 		// else if PC raped Marble;
-		else if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) ) {
 			MainView.outputText( '\n\n“<i>Cute. But, you know, Marble had a hammer which made that thing look like a peashooter. She practiced with it every day. To protect your farm, I believe?</i>” You pause and look her dead in the eye. “<i>If I remember right, after I finished with her, she was a whimpering mess. How well has she been fighting since, because the way I see it, there isn’t much protecting your farm these days. Just about anyone could walk in here and do as they please. As you sleep, perhaps? Quietly taint your food whilst you work? Are you really going to hold onto that crossbow for the rest of your life?</i>” Whitney’s grip is trembling slightly, you can see it in the bolt and string.' );
 		} else {
 			MainView.outputText( '\n\n“<i>Cute. But I’ve fought things that had dicks which looked deadlier than that thing.</i>” You pause and look her dead in the eye. “<i>I’ve fought a lot of things since I arrived here, Whitney. Crushed a lot of things underneath my heel. All of Mareth is coming to understand that if you are not useful to me, you are broken and remade so that you </i>are<i>. It would be a damn shame if something like that happened to you because you wouldn’t see sense. After all, just about anyone could walk in here and do as they please, as you sleep, perhaps? Quietly taint your food whilst you work? Are you really going to hold onto that crossbow for the rest of your life?</i>” Whitney’s grip is trembling slightly, you can see it in the bolt and string.' );
@@ -591,7 +591,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 		MainView.outputText( '\n\n“<i>What do you want?</i>” she growls in a strangled voice.' );
 		MainView.outputText( '\n\n“<i>All I want is to... maximize this farm’s productivity. There’s a lot of slack around here that needs picking up, if you ask me.</i>” You put your hands behind your back and begin to slowly pace back and forth in the pepper patch. She’s still pointing the crossbow, but the arrow’s barb is getting increasingly erratic. “<i>You will let me use the farm as I please. I will send... help... to you, as I see fit. In return, I guarantee that I will not make any attempts on your person, and I guarantee that no harm will come to your farm.</i>” The barb trembles for a while longer. ' );
 		// if PC has Kelly or PC raped Marble;
-		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 || CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 || CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) ) {
 			MainView.outputText( '\n\nYou have to admit, it’s going to be plenty painful if she fires it, so much so that you don’t know what will happen afterwards; an image of an inferno consuming a barn flits through your mind. After what seems like an hour of deliberation, though, Whitney lowers the crossbow.' );
 			MainView.outputText( '\n\n“<i>Alright. Alright, maybe you got me, stranger. Without' );
 			if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
@@ -602,7 +602,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 			MainView.outputText( ' I cannot properly protect the place, so maybe I do need... insurance.</i>” She spits the last word. “<i>Just so long as you stay the fuck away from me, I will do as you say.</i>” You beam.' );
 		} else {
 			// if Marble is at the Farm;
-			if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) ) {
 				MainView.outputText( '\n\n“<i>Marble will not stand for it,</i>” Whitney says, her voice barely above a whisper.' );
 				MainView.outputText( '\n\n“<i>Marble can fucking swivel,</i>” you reply calmly. “<i>I outnumber her.</i>”' );
 			}
@@ -619,7 +619,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 		MainView.outputText( '\n\n“<i> Oh, just one more thing. I will be expecting a cut. Seeing as how I’m invested in your little operation now and all. Shall we say 20 % ? If you cannot bear giving me the money yourself, just leave it underneath the rock over yonder every week. Do that and we won’t have any... problems.</i>” You smirk at her.' );
 		MainView.outputText( '\n\nShe looks at you as if she’s never seen you before in her life, incapable of words. “<i>I guess that’s settled then. Always a pleasure talking to you, Whitney.</i>” You throw your [hips] out in an exaggerated swagger as you slowly make your way back to camp, knowing the dog morph’s eyes will follow you until you disappear into the distance.' );
 		CoC.flags[ kFLAGS.FARM_CORRUPTION_STARTED ] = 1;
-		if( CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) ) {
 			CoC.flags[ kFLAGS.FOLLOWER_AT_FARM_MARBLE ] = 0;
 		} // Don't have to care about recruitment paths -- she'll fuck off based on corruption before the player can corrupt the farm.
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -733,10 +733,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 				EngineCore.addButton( 0, 'Whitney', this, this.dogeCorruptedMissionComplete );
 			}
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) && CoC.player.findStatusAffect( StatusAffects.Marble ) && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 			EngineCore.addButtonWithTooltip( 1, 'Marble', 'Go to Marble the cowgirl for talk and companionship.', SceneLib.farm, SceneLib.farm.meetMarble );
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) >= 0 && CoC.player.findStatusAffect( StatusAffects.KeltOff ) < 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Kelt ) && !CoC.player.findStatusAffect( StatusAffects.KeltOff ) ) {
 			if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] >= 4 ) {
 				EngineCore.addButton( 2, 'Kelly', SceneLib.kelly, SceneLib.kelly.breakingKeltOptions );
 			} else if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 0 && CoC.flags[ kFLAGS.KELT_TALKED_FARM_MANAGEMENT ] === 0 ) {
@@ -746,7 +746,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $log, AppearanceDef
 			}
 		}
 		if( CoC.player.hasKeyItem( 'Breast Milker - Installed At Whitney\'s Farm' ) >= 0 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Milked ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Milked ) ) {
 				MainView.outputText( '\n\n<b>Your ' + Descriptors.nippleDescript( 0 ) + 's are currently too sore to be milked.  You\'ll have to wait a while.</b>', false );
 			}
 			EngineCore.addButton( 3, 'Get Milked', SceneLib.farm, SceneLib.farm.getMilked );

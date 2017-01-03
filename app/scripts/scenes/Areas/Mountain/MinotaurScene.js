@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			}
 		}
 		//Not able to rape but a feeder
-		else if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 && feedposit === 'B. Feed' ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.Feeder ) && feedposit === 'B. Feed' ) {
 			if( CoC.monster.lust > 99 ) {
 				MainView.outputText( 'You smile in satisfaction as the ' + CoC.monster.short + ' collapses, unable to continue fighting.  Sadly you realize your own need to breastfeed has not been met.  You could always let the poor thing have a drink...\n\nDo you?', true );
 			} else {
@@ -1005,7 +1005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 		MainView.outputText( 'with anticipation.  Though you don\'t notice, your pupils have dilated and your eyes are glassy from the smell alone.  Scrabbling up the rocks, you\'re oblivious to the cuts and scrapes that form on your hands and arms from the frantic climb.   You pull yourself up onto a ledge and heave yourself over it, lying down to pant and drool from exhaustion.  Only after you\'ve recovered do you realize that you\'ve found them!\n\n', false );
 		MainView.outputText( 'There\'s a whole village of minotaurs here!  Twenty or thirty cave openings are tunneled into the mountain, and an equal number of crude huts are built on the surrounding ledge.  You aren\'t looking at that way  – your eyes are riveted by what you see between the two sets of structures.  There are five of the shaggy beast-men gathered around a fire-pit, roasting some animal and relaxing.  Two of them are vigorously fucking tiny minotaur-like beings with feminine features, spearing their much shorter brethren on their mammoth shafts.  The look on the faces of the \'minitaurs\' is one you know well, the pure ecstasy of indulging a potent addiction.\n\n', false );
-		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			MainView.outputText( 'A third beast has a human-looking victim suspended by her ankles and is roughly fucking her throat.   Her eyes are rolled back, though whether from pleasure or lack of oxygen you\'re not sure.  A pair of beach-ball-sized breasts bounces on her chest, and a cock big enough to dwarf the minotaur\'s flops about weakly, dribbling a constant stream of liquid.  She must be one of the slaves that escaped from the factory, though it doesn\'t look like her life has improved much since her escape.\n\n', false );
 		}
 		MainView.outputText( 'One of the unoccupied monsters glances your way and gives you a predatory smile.  He puts down the axe he was sharpening and strides over, his loincloth nearly tearing itself from his groin as his member inflates to full size.  Amazingly, this minotaur bothers to speak, "<i>New fuck-toy.  Suck.</i>"\n\n', false );

@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( MainView, SceneLib, $l
 	};
 	SandWitch.prototype.lustMagicAttack = function() {
 		MainView.outputText( 'The sand witch points at you, drawing a circle in the air and mouthing strange words.\n\n' );
-		if( CoC.player.findStatusAffect( StatusAffects.StoneLust ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.StoneLust ) ) {
 			MainView.outputText( 'The orb inside you grows warm, almost hot, suffusing your body with heat and arousal.  ' );
 			EngineCore.dynStats( 'lus', 8 + Math.ceil( CoC.player.sens ) / 10 );
 		} else {

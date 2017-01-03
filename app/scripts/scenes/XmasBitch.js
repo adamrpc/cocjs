@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 			MainView.outputText( '.</i>"\n\n', false );
 		}
 		MainView.outputText( 'You wonder out loud, "<i>So this... present is mine?</i>"\n\n', false );
-		if( CoC.player.cor >= 90 || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
+		if( CoC.player.cor >= 90 || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
 			MainView.outputText( 'She nods, bouncing up and down in excitement and flushing slightly, "<i>Yup, just tear the lid off and get your gift!</i>"\n\n', false );
 			if( CoC.flags[ kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE ] > 0 ) {
 				MainView.outputText( 'Here we go again...\n\n' );
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Co
 		MainView.spriteSelect( 9 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You easily rip through the ribbons holding the box together and pull off the top.   You gasp in ', false );
-		if( CoC.player.cor >= 90 || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
+		if( CoC.player.cor >= 90 || SceneLib.jojoScene.monk >= 5 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) || SceneLib.amilyScene.amilyCorrupt() || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.NIAMH_STATUS ] > 0 ) {
 			//[Bad Present];
 			MainView.outputText( 'shock at the box\'s contents – a nine inch cock with damn near a dozen buzzing, elliptical devices taped to it.  A pair of coal lumps rattles around underneath it, positioned as if they were the dick\'s testicles.\n\n', false );
 			MainView.outputText( 'Before you can utter a single word of confusion or protest, the elf moans and the cock erupts, spurting a rope of cum into your hair.  The next blast takes you across the nose, then on your lips, then your chin, and finally onto your ' + Descriptors.allBreastsDescript() + '.  Shocked and dripping, you stand dumbfounded as the elf plants a kiss on your lips, tears off the box, and runs away with her cock flopping and buzzing in time with each step.  There\'s no way to catch her in this darkness.\n\n', false );

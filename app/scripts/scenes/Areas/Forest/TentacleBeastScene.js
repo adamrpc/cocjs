@@ -74,7 +74,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			MainView.outputText( 'You smile and stride forward, welcoming the pleasure you expect from such a monster.\n\n', false );
 		}
 		//Worms get nothing!
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			MainView.outputText( 'It stops itself completely in a moment and twitches, as if sniffing the air, before turning around and disappearing into the underbrush.', false );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
@@ -270,14 +270,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		}
 		//Bad end + counter here
 		if( CoC.player.lust > 99 ) {
-			var temp = CoC.player.findStatusAffect( StatusAffects.TentacleBadEndCounter );
-			if( temp < 0 ) {
+			var status = CoC.player.findStatusAffect( StatusAffects.TentacleBadEndCounter );
+			if( !status ) {
 				CoC.player.createStatusAffect( StatusAffects.TentacleBadEndCounter, 0, 0, 0, 0 );
 			} else {
 				//count up
-				CoC.player.statusAffect( temp ).value1++;
+				status.value1++;
 				//Bad end
-				if( CoC.player.statusAffect( temp ).value1 >= 3 && CoC.player.cor > 50 && CoC.player.gender === 3 ) {
+				if( status.value1 >= 3 && CoC.player.cor > 50 && CoC.player.gender === 3 ) {
 					this.futaTentacleBadEnd();
 					return;
 				}

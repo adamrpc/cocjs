@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 	// Monster won, not player, gg for descriptive method names
 	Izumi.prototype.won = function() {
 		CoC.flags[ kFLAGS.IZUMI_TIMES_LOST_FIGHT ]++;
-		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) ) {
 			this.cleanup();
 			SceneLib.izumiScene.deathBySnuSnuIMeanGiantOniTits();
 		} else {
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 	// Override combat AI
 	Izumi.prototype.performCombatAction = function() {
 		// Handle chokeslam mechanics
-		if( CoC.player.findStatusAffect( StatusAffects.Chokeslam ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Chokeslam ) ) {
 			$log.debug( 'ChokeSlam Rounds to Damage: ' + CoC.player.statusAffectv1( StatusAffects.Chokeslam ) );
 			CoC.player.addStatusValue( StatusAffects.Chokeslam, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.Chokeslam ) <= 0 ) {
@@ -68,31 +68,31 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 			return;
 		}
 		// Handle groundpound
-		if( CoC.player.findStatusAffect( StatusAffects.Groundpound ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Groundpound ) ) {
 			CoC.player.addStatusValue( StatusAffects.Groundpound, 1, -1 );
 			if( CoC.player.statusAffectv1( StatusAffects.Groundpound ) <= 0 ) {
 				this.cleanupGroundpound();
 			}
 		}
 		// Handle titsmother
-		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) ) {
 			Combat.combatRoundOver();
 			return;
 		}
 		// Titsmother toggle; gonna need to play with this, it should only be used once per fight
 		if( this.HPRatio() <= 0.25 ) {
-			if( this.findStatusAffect( StatusAffects.UsedTitsmother ) <= -1 ) {
+			if( !this.findStatusAffect( StatusAffects.UsedTitsmother ) ) {
 				$log.debug( 'Could use titsmother...' );
 			}
 		}
-		if( (this.HPRatio() <= 0.25) && (this.findStatusAffect( StatusAffects.UsedTitsmother ) <= -1) ) {
+		if( (this.HPRatio() <= 0.25) && !this.findStatusAffect( StatusAffects.UsedTitsmother ) ) {
 			$log.debug( 'Using Titsmother!' );
 			this.titSmother();
 			this.createStatusAffect( StatusAffects.UsedTitsmother, 0, 0, 0, 0 );
 			return;
 		} else {
 			var actions = [ this.straightJab, this.straightJab, this.straightJab, this.roundhouseKick, this.roundhouseKick, this.roundhouseKick, this.chokeSlam ];
-			if( CoC.player.findStatusAffect( StatusAffects.Groundpound ) <= -1 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Groundpound ) ) {
 				actions.push( this.groundPound );
 				actions.push( this.groundPound );
 			}
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 	};
 	// Remove the effect post-combat
 	Izumi.prototype.cleanupChokeslam = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.Chokeslam ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Chokeslam ) ) {
 			$log.debug( 'Removing chokeslam' );
 			CoC.player.removeStatusAffect( StatusAffects.Chokeslam );
 		}
@@ -239,7 +239,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 	};
 	// Remove the effect post-combat, fixup stats
 	Izumi.prototype.cleanupGroundpound = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.Groundpound ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Groundpound ) ) {
 			// Can't use dynStats to achieve this, as it can give back more speed than we originally took away due to perks
 			CoC.player.spe += CoC.player.statusAffectv2( StatusAffects.Groundpound );
 			if( CoC.player.spe > 100 ) {
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 	};
 	// Remove the effect post-combat
 	Izumi.prototype.cleanupTitsmother = function() {
-		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.Titsmother );
 			$log.debug( 'Removing Titsmother' );
 		}

@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( ConsumableLib, MainView, StatusAffects,
 		var sensChange = (player.sens < 10 ? player.sens : 10);
 		var speedChange = (player.spe < 20 ? player.spe : 20);
 		var intChange = (player.inte < 20 ? player.inte : 20);
-		if( player.findStatusAffect( StatusAffects.PhoukaWhiskeyAffect ) >= 0 ) {
+		if( player.findStatusAffect( StatusAffects.PhoukaWhiskeyAffect ) ) {
 			var drinksSoFar = player.statusAffectv2( StatusAffects.PhoukaWhiskeyAffect );
 			if( drinksSoFar < 4 ) {
 				player.addStatusValue( StatusAffects.PhoukaWhiskeyAffect, 1, 8 - (2 * drinksSoFar) );

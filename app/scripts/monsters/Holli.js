@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 	//End of Round, if no Jojo Fire -Z;
 	Holli.prototype.holliBonusHealing = function() {
 		//(CoC.monster hp < 100%);
-		if( this.findStatusAffect( StatusAffects.HolliBurning ) < 0 ) {
+		if( !this.findStatusAffect( StatusAffects.HolliBurning ) ) {
 			if( this.HPRatio() < 1 && this.HP > 1 ) {
 				MainView.outputText( '\n\nWhat wounds you have inflicted on the tree-demon overflow with sap, and begin to close!  You are left to watch helplessly as she recovers, knotting up her damaged bark until it looks as formidable as before.' );
 				this.addHP( 25 );
@@ -51,8 +51,8 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 		}
 		//End of Round, Round 1 with Jojo Helping - make a little woodpile;
 		//output anything triggered under no Jojo Fire condition, then output;
-		if( this.findStatusAffect( StatusAffects.JojoIsAssisting ) >= 0 ) {
-			if( this.findStatusAffect( StatusAffects.HolliBurning ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.JojoIsAssisting ) ) {
+			if( this.findStatusAffect( StatusAffects.HolliBurning ) ) {
 				MainView.outputText( '\n\nJojo continues to ferry firewood to stoke the blaze; flames lick at Holli, and her face contorts in anger.  Sap flows from her burn wounds, but much of it boils away before it can do her any good and her iron-hard bark is peeling in places.' );
 				//much less HP regain, no lust regain, CoC.monster armor lowered;
 				if( this.armorDef > 20 ) {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 				if( this.lust < 20 ) {
 					this.lust = 20;
 				}
-			} else if( this.findStatusAffect( StatusAffects.JojoPyre ) < 0 ) {
+			} else if( !this.findStatusAffect( StatusAffects.JojoPyre ) ) {
 				MainView.outputText( '\n\nJojo throws another handful of dry leaves and sticks on the growing pile at the demon\'s roots, then waves and calls to you.  "<i>[name]!  I\'ve got enough dry wood at her base and I\'m going to try to set it on fire!  Hold on just a bit longer; surcease is coming!</i>"' );
 				this.createStatusAffect( StatusAffects.JojoPyre, 0, 0, 0, 0 );
 			}
@@ -90,8 +90,8 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 	};
 	//if player uses whitefire/firebreath successfully, suppress these, go to 'Fire Lit' EOR events, and output additional line after the attack:;
 	Holli.prototype.lightHolliOnFireMagically = function() {
-		if( this.findStatusAffect( StatusAffects.JojoIsAssisting ) >= 0 ) {
-			if( this.findStatusAffect( StatusAffects.HolliBurning ) < 0 ) {
+		if( this.findStatusAffect( StatusAffects.JojoIsAssisting ) ) {
+			if( !this.findStatusAffect( StatusAffects.HolliBurning ) ) {
 				MainView.outputText( 'The magical fire effectively ignites a wide swath of Jojo\'s tinder, and the demon howls in rage.  Seeing this, Jojo drops the burning torch he carries and turns back toward the forest to fetch more tinder.\n\n' );
 				this.createStatusAffect( StatusAffects.HolliBurning, 0, 0, 0, 0 );
 			}
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 	Holli.prototype.fuckinJamanjiFlowerDarts = function() {
 		MainView.outputText( 'A blossom opens up on a high branch of the tree, revealing an evil-looking eye surrounded by vicious spines.  With a gesture, ' + this.short + ' fires several at you!' );
 		//Blinded - no hit penalty;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( '  Though the demon herself is blinded, the fresh eye on the flower seems more than capable of aiming for her!' );
 		}
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
@@ -130,7 +130,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 	Holli.prototype.holliConstrictAttack = function() {
 		MainView.outputText( 'A forest of thick roots bursts from the ground and several lash toward your [legs], trying to ensnare you!' );
 		//Blinded - hit penalty, but not 100%;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 6 ) === 0 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 6 ) === 0 ) {
 			MainView.outputText( '  Luckily, the demon\'s blindness makes it fairly easy to dodge the grasping roots, though there are a few close scrapes.' );
 		}
 		//Miss;
@@ -198,7 +198,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 	Holli.prototype.performCombatAction = function() {
 		if( this.HP < 50 && Utils.rand( 2 ) === 0 ) {
 			this.healHolli();
-		} else if( Utils.rand( 4 ) === 0 && CoC.player.findStatusAffect( StatusAffects.HolliConstrict ) < 0 ) {
+		} else if( Utils.rand( 4 ) === 0 && !CoC.player.findStatusAffect( StatusAffects.HolliConstrict ) ) {
 			this.holliConstrictAttack();
 		} else if( Utils.rand( 2 ) === 0 ) {
 			this.fuckinJamanjiFlowerDarts();
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 	};
 
 	Holli.prototype.teased = function( lustDelta ) {
-		if( this.findStatusAffect( StatusAffects.HolliBurning ) >= 0 ) {
+		if( this.findStatusAffect( StatusAffects.HolliBurning ) ) {
 			MainView.outputText( 'Holli doesn\'t even seem to notice, so concerned is she with defeating you before the mounting bonfire causes her any more pain.' );
 			lustDelta = 0;
 		}

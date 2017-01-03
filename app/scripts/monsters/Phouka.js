@@ -8,7 +8,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 	Phouka.prototype.phoukaFightAttack = function() {
 		var damage;
 		//Only the bunny, goat and horse forms make physical attacks
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 1 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you due to his blindness!\n', false );
 		} else if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY ) {
 			damage = Math.round( (60 + 30 + 10) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef ); //60 === Bunny Strength, 30 === Bunny Weapon Attack
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 	};
 	Phouka.prototype.phoukaFightSilence = function() { //Reuses the statusAffect Web-Silence from the spiders
 		MainView.outputText( this.getCapitalA() + this.short + ' scoops up some muck from the ground and rams it down over his cock.  After a few strokes he forms the lump of mud and precum into a ball and whips it at your face.  ' );
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'Since he\'s blind the shot goes horribly wide, missing you entirely.' );
 		} else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You lean back and let the muck ball whip pass to one side, avoiding the attack.' );
@@ -89,8 +89,8 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 		Combat.combatRoundOver();
 	};
 	Phouka.prototype.performCombatAction = function() {
-		var blinded = this.findStatusAffect( StatusAffects.Blind ) >= 0;
-		if( (!blinded) && CoC.player.findStatusAffect( StatusAffects.WebSilence ) < 0 && Utils.rand( 4 ) === 0 ) {
+		var blinded = this.findStatusAffect( StatusAffects.Blind );
+		if( !blinded && !CoC.player.findStatusAffect( StatusAffects.WebSilence ) && Utils.rand( 4 ) === 0 ) {
 			this.phoukaTransformToPhouka(); //Change to faerie form so that it can lob the ball of muck at you
 			this.phoukaFightSilence();
 		} else {
@@ -116,10 +116,10 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 			if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
 				this.phoukaFightLustAttack();
 			}//Can only get here if the phouka isn’t blind
-			else if( (SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY) && (Utils.rand( 4 ) !== 0) && (!blinded) ) {
+			else if( (SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_BUNNY) && (Utils.rand( 4 ) !== 0) && !blinded ) {
 				this.phoukaFightLustAttack();
 			}//Bunny has a 75% chance of teasing attack, no teasing while blind
-			else if( (SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_HORSE) && (Utils.rand( 4 ) === 0) && (!blinded) ) {
+			else if( (SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_HORSE) && (Utils.rand( 4 ) === 0) && !blinded ) {
 				this.phoukaFightLustAttack();
 			}//Horse has a 25% chance of teasing attack, no teasing while blind
 			else {

@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 		choice[ choice.length ] = 1;
 		choice[ choice.length ] = 2;
 		//Fetish cultist not encountered till level 2
-		if( CoC.player.level >= 2 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.player.level >= 2 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			choice[ choice.length ] = 3;
 		}
 		//Slimes/Ooze = level >= 2
@@ -55,11 +55,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			choice[ choice.length ] = 4;
 		}
 		//Izma
-		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] > 0 && (CoC.player.exploredLake >= 10) && (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] === 0 || CoC.player.findStatusAffect( StatusAffects.Infested ) < 0) && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] <= 0 ) {
+		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00230 ] > 0 && (CoC.player.exploredLake >= 10) && (CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] === 0 || !CoC.player.findStatusAffect( StatusAffects.Infested )) && CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00238 ] <= 0 ) {
 			choice[ choice.length ] = 5;
 		}
 		//Rathazul
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.CampRathazul ) ) {
 			choice[ choice.length ] = 6;
 		}
 		//UNCOMMON EVENTS
@@ -79,11 +79,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			choice[ choice.length ] = 9;
 		}
 		//Sword Discovery
-		if( CoC.player.findStatusAffect( StatusAffects.TookBlessedSword ) < 0 && CoC.player.findStatusAffect( StatusAffects.BSwordBroken ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.TookBlessedSword ) && !CoC.player.findStatusAffect( StatusAffects.BSwordBroken ) ) {
 			choice[ choice.length ] = 10;
 		}
 		//Pre-emptive chance of finding the boat
-		if( CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) ) {
 			choice[ choice.length ] = 11;
 		}
 		//CHOOSE YOUR POISON!
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 		} else if( select === 4 ) {
 			//Chance of seeing ooze convert goo!
 			//More common if factory blew up
-			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 && Utils.rand( 10 ) === 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) && Utils.rand( 10 ) === 0 ) {
 				SceneLib.gooGirlScene.spyOnGooAndOozeSex();
 				return;
 			}
@@ -125,10 +125,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			}
 			var girlOdds = 50;
 			//50% odds of slime-girl, 75% if shutdown factory
-			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 				girlOdds += 25;
 			}
-			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 				girlOdds -= 25;
 			}
 			//Slimegirl!
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				if( CoC.player.inte >= 25 ) {
 					MainView.outputText( 'A soft shuffling sound catches your attention and you turn around, spotting an amorphous green mass sliding towards you!  Realizing it\'s been spotted, the ooze\'s mass surges upwards into a humanoid form with thick arms and wide shoulders.  The beast surges forward to attack!', true );
 					Combat.startCombat( new GreenSlime() );
-					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 					}
 					return;
@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				if( CoC.player.spe >= 30 ) {
 					MainView.outputText( 'You feel something moist brush the back of your ankle and instinctively jump forward and roll, coming up to face whatever it is behind you.  The nearly silent, amorphous green slime that was at your feet surges vertically, its upper body taking the form of a humanoid with thick arms and wide shoulders, which attacks!', true );
 					Combat.startCombat( new GreenSlime() );
-					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 					}
 					return;
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				//High strength gets stunned first round.
 				if( CoC.player.str >= 40 ) {
 					MainView.outputText( 'Without warning, you feel something moist and spongy wrap around your ankle, nearly pulling you off balance.  With a ferocious tug, you pull yourself free and turn to face your assailant.  It is a large green ooze that surges upwards to take the form of humanoid with wide shoulders and massive arms.  It shudders for a moment, and its featureless face shifts into a green version of your own! The sight gives you pause for a moment, and the creature strikes!', true );
-					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 					}
 					Combat.startCombat( new GreenSlime() );
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				}
 				//Player's stats suck and you should feel bad.
 				MainView.outputText( 'Without warning, you feel something moist and spongy wrap around your ankle, pulling you off balance!  You turn and try to pull your leg away, struggling against a large green ooze for a moment before your foot comes away with a *schlorp* and a thin coating of green fluid.  The rest of the ooze rises to tower over you, forming a massive green humanoid torso with hugely muscled arms and wide shoulders.  Adrenaline rushes into your body as you prepare for combat, and you feel your heart skip a beat as your libido begins to kick up as well!', true );
-				if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 && CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 					MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 				}
 				EngineCore.dynStats( 'lib', 1, 'lus', 10 );
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else if( select === 1 ) {
 			//No boat, no kaiju
-			if( CoC.player.level >= 5 && CoC.flags[ kFLAGS.KAIJU_DISABLED ] === 0 && CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) >= 0 ) {
+			if( CoC.player.level >= 5 && CoC.flags[ kFLAGS.KAIJU_DISABLED ] === 0 && CoC.player.findStatusAffect( StatusAffects.BoatDiscovery ) ) {
 				SceneLib.kaiju.kaijuMeeting();
 				return;
 			}
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 			//Find Whitney
 			else {
 				//Have you met whitney?
-				if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.MetWhitney ) ) {
 					//Is the farm in your places menu?
 					if( CoC.player.statusAffectv1( StatusAffects.MetWhitney ) > 1 ) {
 						//If so, find equinum or whisker fruit
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				}
 			}
 		} else if( select === 3 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.FetishOn ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.FetishOn ) ) {
 				CoC.player.createStatusAffect( StatusAffects.FetishOn, 0, 0, 0, 0 );
 				MainView.outputText( 'While exploring, you notice something unusual on the lake.  This something is quickly moving towards you at a surprising rate, much faster than anything you\'ve ever seen before.  Wary of meeting new things in this world after your previous experiences, you decide to slip behind a nearby hill and watch it while hidden.  Soon the object comes into view and you can see that it is a boat of some kind.  It looks almost like a large open box on the water with some kind of gazebo on it.  Despite how fast it is moving, you can\'t see any oars or means of moving the boat.  It slows somewhat when it gets close to the shore, but is still going about as fast as you can run when it hits the shore and extends some kind of gangplank onto the lake shore.  With a close up view, you estimate that it is six feet across, ten feet long, and doesn\'t actually seem to have very much of it underwater.  You guess that it must be magic in some way.  There are several robe-clad figures on board.\n\n', true );
 				MainView.outputText( 'After a moment, a number of the figures disembark down the gangplank and immediately go off in different directions.  You count half a dozen of them, and guess that they are female when one of them passes by close to you and you see the hole in her outfit over her naughty bits.  You look back at the boat to see it close the gangplank, and move back onto the lake, with only one of the figures still on board.  Surprised to hear a sudden yell, you look to the side and see the clothing of the one who passed you earlier shift and twist before becoming some pink outfit that clings to her backside.  You are stunned for a moment as she disappears from sight before you shake your head and move on.  It seems there are new residents to the lake.\n\n<b>(Fetish Cultists can now be encountered!)</b>', false );
@@ -298,7 +298,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 		//First Time
 		if( CoC.flags[ kFLAGS.MET_OTTERGIRL ] === 1 ) {
 			MainView.outputText( 'Your exploration of the lakeside takes you further than you\'ve gone before.  The water here is almost completely still, its waters ' );
-			if( CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 				MainView.outputText( 'crystal clear, giving you a stunning view of the lakebed' );
 			} else {
 				MainView.outputText( 'only slightly clouded, giving you an obscured view of the lakebed' );

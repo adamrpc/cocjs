@@ -73,8 +73,8 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				if( CoC.time.days % 30 === 0 && CoC.flags[ kFLAGS.ANEMONE_KID ] > 0 && CoC.player.hasCock() && CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 && CoC.flags[ kFLAGS.TAMANI_NUMBER_OF_DAUGHTERS ] >= 40 ) {
 					SceneLib.anemoneScene.goblinNightAnemone();
 					needNext = true;
-				} else if( temp > Utils.rand( 100 ) && CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) < 0 ) {
-					if( CoC.player.gender > 0 && (CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 && (CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 || CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] > 0) && (CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] === 0 || !SceneLib.kihaFollower.followerKiha()) ) {
+				} else if( temp > Utils.rand( 100 ) && !CoC.player.findStatusAffect( StatusAffects.DefenseCanopy ) ) {
+					if( CoC.player.gender > 0 && (!CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) || !CoC.player.findStatusAffect( StatusAffects.PureCampJojo )) && (CoC.flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 && (CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] === 0 || CoC.flags[ kFLAGS.FUCK_FLOWER_KILLED ] > 0) && (CoC.flags[ kFLAGS.KIHA_CAMP_WATCH ] === 0 || !SceneLib.kihaFollower.followerKiha()) ) {
 						SceneLib.impScene.impGangabangaEXPLOSIONS();
 						EngineCore.doNext( MainView, MainView.playerMenu );
 						return true;
@@ -84,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 					} else if( CoC.flags[ kFLAGS.HEL_GUARDING ] > 0 && SceneLib.helFollower.followerHel() ) {
 						MainView.outputText( '\n<b>Helia informs you over a mug of beer that she whupped some major imp asshole last night.  She wiggles her tail for emphasis.</b>\n' );
 						needNext = true;
-					} else if( CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+					} else if( CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 						MainView.outputText( '\n<b>Jojo informs you that he dispatched a crowd of imps as they tried to sneak into camp in the night.</b>\n' );
 						needNext = true;
 					} else if( CoC.flags[ kFLAGS.HOLLI_DEFENSE_ON ] > 0 ) {
@@ -94,14 +94,14 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 						MainView.outputText( '\n<b>Your sleep is momentarily disturbed by the sound of tiny clawed feet skittering away in all directions.  When you sit up, you can make out Kid A holding a struggling, concussed imp in a headlock and wearing a famished expression.  You catch her eye and she sheepishly retreats to a more urbane distance before beginning her noisy meal.</b>\n' );
 						needNext = true;
 					}
-				} else if( CoC.flags[ kFLAGS.EVER_INFESTED ] === 1 && Utils.rand( 100 ) <= 4 && CoC.player.hasCock() && CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) { //wormgasms
-					if( CoC.player.hasCock() && (CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) < 0 || CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) < 0) && (CoC.flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
+				} else if( CoC.flags[ kFLAGS.EVER_INFESTED ] === 1 && Utils.rand( 100 ) <= 4 && CoC.player.hasCock() && !CoC.player.findStatusAffect( StatusAffects.Infested ) ) { //wormgasms
+					if( CoC.player.hasCock() && (!CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) || !CoC.player.findStatusAffect( StatusAffects.PureCampJojo )) && (CoC.flags[ kFLAGS.HEL_GUARDING ] === 0 || !SceneLib.helFollower.followerHel()) && CoC.flags[ kFLAGS.ANEMONE_WATCH ] === 0 ) {
 						SceneLib.worms.nightTimeInfestation();
 						return true;
 					} else if( CoC.flags[ kFLAGS.HEL_GUARDING ] > 0 && SceneLib.helFollower.followerHel() ) {
 						MainView.outputText( '\n<b>Helia informs you over a mug of beer that she stomped a horde of gross worms into paste.  She shudders after at the memory.</b>\n' );
 						needNext = true;
-					} else if( CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) >= 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+					} else if( CoC.player.gender > 0 && CoC.player.findStatusAffect( StatusAffects.JojoNightWatch ) && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 						MainView.outputText( '\n<b>Jojo informs you that he dispatched a horde of tiny, white worms as they tried to sneak into camp in the night.</b>\n' );
 						needNext = true;
 					} else if( CoC.flags[ kFLAGS.ANEMONE_WATCH ] > 0 ) {
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 				}
 			}
 			//Egg loot!
-			if( CoC.player.findStatusAffect( StatusAffects.LootEgg ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.LootEgg ) ) {
 				$log.debug( 'EGG LOOT HAS' );
 				//default
 				var itype =
@@ -257,11 +257,11 @@ angular.module( 'cocjs' ).factory( 'EventParser', function( SceneLib, $log, $roo
 		}
 		// Hanging the Uma massage update here, I think it should work...
 		SceneLib.umasShop.updateBonusDuration( time );
-		if( CoC.player.findStatusAffect( StatusAffects.UmasMassage ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.UmasMassage ) ) {
 			$log.info( 'Uma\'s massage bonus time remaining: ' + CoC.player.statusAffectv3( StatusAffects.UmasMassage ) );
 		}
 		SceneLib.izumiScene.updateSmokeDuration( time );
-		if( CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.IzumisPipeSmoke ) ) {
 			$log.info( 'Izumis pipe smoke time remaining: ' + CoC.player.statusAffectv1( StatusAffects.IzumisPipeSmoke ) );
 		}
 		//Drop axe if too short!

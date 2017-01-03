@@ -650,7 +650,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
 		//You've now been milked, reset the timer for that;
-		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
@@ -1033,7 +1033,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 			hours = 20;
 		}
 		//Add duration if under effects;
-		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Luststick ) ) {
 			//Max?;
 			if( CoC.player.statusAffectv1( StatusAffects.Luststick ) >= 20 ) {
 			}

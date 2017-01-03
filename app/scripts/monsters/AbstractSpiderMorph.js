@@ -8,9 +8,9 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 	AbstractSpiderMorph.prototype.performCombatAction = function() {
 		if( CoC.player.spe >= 2 && Utils.rand( 2 ) === 0 ) {
 			this.spiderMorphWebAttack();
-		} else if( CoC.player.findStatusAffect( StatusAffects.WebSilence ) < 0 && Utils.rand( 3 ) === 0 ) {
+		} else if( !CoC.player.findStatusAffect( StatusAffects.WebSilence ) && Utils.rand( 3 ) === 0 ) {
 			this.spiderSilence();
-		} else if( CoC.player.findStatusAffect( StatusAffects.Disarmed ) < 0 && CoC.player.weaponName !== 'fists' && Utils.rand( 3 ) === 0 ) {
+		} else if( !CoC.player.findStatusAffect( StatusAffects.Disarmed ) && CoC.player.weaponName !== 'fists' && Utils.rand( 3 ) === 0 ) {
 			this.spiderDisarm();
 		} else if( Utils.rand( 2 ) === 0 || CoC.player.spe < 2 ) {
 			this.getBitten();
@@ -24,7 +24,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 	AbstractSpiderMorph.prototype.spiderMorphWebAttack = function() {
 		MainView.outputText( 'Turning to the side, ' + this.a + this.short + ' raises ' + this.mf( 'his', 'her' ) + ' abdomen and unleashes a spray of webbing in your direction!  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' misses completely due to their blindness.', false );
 		}
 		//Determine if dodged!;
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 		}
 		//Got hit;
 		else {
-			if( CoC.player.findStatusAffect( StatusAffects.Web ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Web ) ) {
 				MainView.outputText( 'The silky strands hit you, webbing around you and making it hard to move with any degree of speed.', false );
 				if( CoC.player.canFly() ) {
 					MainView.outputText( '  Your wings struggle uselessly in the bindings, no longer able to flap fast enough to aid you.', false );
@@ -70,7 +70,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 	/**-Bite - Raises arousal by 30*/
 	AbstractSpiderMorph.prototype.getBitten = function() {
 		//-Languid Bite - Inflicted on PC's who have been reduced to 1 speed by webbing, raises arousal by 60.;
-		if( CoC.player.spe < 2 && CoC.player.findStatusAffect( StatusAffects.Web ) >= 0 ) {
+		if( CoC.player.spe < 2 && CoC.player.findStatusAffect( StatusAffects.Web ) ) {
 			MainView.outputText( 'The arachnid aggressor slowly saunters forward while you struggle under the heaps of webbing, gently placing ' + this.mf( 'his', 'her' ) + ' arms around your back in a tender hug.  ' + this.mf( 'His', 'Her' ) + ' fangs slide into your neck with agonizing slowness, immediately setting off a burning heat inside you that makes you dizzy and weak.  ', false );
 			if( CoC.player.hasCock() ) {
 				MainView.outputText( CoC.player.SMultiCockDesc() + ' turns rock hard and squirts weakly, suddenly so aroused that it starts soaking your ' + CoC.player.armorName, false );
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 		}
 		MainView.outputText( 'The spider-' + this.mf( 'boy', 'girl' ) + ' lunges forward with ' + this.mf( 'his', 'her' ) + ' mouth open, ' + this.mf( 'his', 'her' ) + ' two needle-like fangs closing rapidly.  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' misses completely due to their blindness.', false );
 		}
 		//Determine if dodged!;
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 	AbstractSpiderMorph.prototype.spiderDisarm = function() {
 		MainView.outputText( this.getCapitalA() + this.short + ' shifts and sprays webbing, aiming a tight strand of it at your ' + CoC.player.weaponName + '.  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'The blind web-shot goes horribly wide, missing you entirely.', false );
 		}
 		//Determine if dodged!;
@@ -177,7 +177,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 	AbstractSpiderMorph.prototype.spiderSilence = function() {
 		MainView.outputText( this.getCapitalA() + this.short + ' squirts a concentrated spray of ' + this.mf( 'his', 'her' ) + ' webs directly at your face!  ', false );
 		//Blind dodge change;
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 2 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( 'The blind web-shot goes horribly wide, missing you entirely.', false );
 		}
 		//Determine if dodged!;

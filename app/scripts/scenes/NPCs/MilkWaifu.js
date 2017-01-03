@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			MainView.outputText( '\n\n"<i>' + CoC.flags[ kFLAGS.MILK_NAME ] + '</i>" she hesitantly repeats.  Looks like she gets it!  "<i>' + CoC.flags[ kFLAGS.MILK_NAME ] + '!</i>" she says, more confidently as you encourage her.' );
 		}
 		//Arrival: Part 2 (PC has Rath in camp);
-		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) >= 0 && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampRathazul ) && CoC.player.statusAffectv2( StatusAffects.MetRathazul ) >= 4 ) {
 			MainView.outputText( '\n\nAs you finish deciding on what to call ' + CoC.flags[ kFLAGS.MILK_NAME ] + ', you hear footsteps shuffling over to the two of you.  Looking up, you see the old rat alchemist Rathazul approaching, nose buried in an ancient-looking tome.  "<i>Good news, [name]!</i>" he calls, just before tripping over the prone milkmaid, going sprawling across the ground.' );
 			MainView.outputText( '\n\n"<i>Gah!  Help, I can\'t get up!</i>" he shouts, flailing around until you rush over and pull him to his feet.' );
 			MainView.outputText( '\n\n"<i>Ah, thank you, youngling.  But...  egad, [name], what have you dragged in this time?</i>" he mumbles, fishing a pair of spectacles out of his pocket to examine ' + CoC.flags[ kFLAGS.MILK_NAME ] + '.  "<i>Why, it\'s a girl...  a very, um, busty girl at that.  Gods be good, how the devil does she stand with all that...  those...  those things on her chest?</i>"' );
@@ -239,11 +239,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			MainView.outputText( '\n\n' + CoC.flags[ kFLAGS.MILK_NAME ] + '\'s got cowgirl-sized tits right now' );
 			if( SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				MainView.outputText( ', enough to give Isabella' );
-				if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 					MainView.outputText( ' and Marble' );
 				}
 				MainView.outputText( ' pause' );
-			} else if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+			} else if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 				MainView.outputText( ', enough to give Marble pause' );
 			}
 			MainView.outputText( '.  She seems much happier now, and is still able to produce enough milk to drown you; it\'s a happy balance.  Still, she still has to support them everywhere, and you can\'t find any clothes that fit her particular shape, thanks to her human stature.  That said, you\'ve got enough Reducto left to bring her down to a pair of nice, firm DDs.  She\'ll still be nice and milky, though perhaps not enough to bathe in, and with a more reasonable bust size, you might actually be able to find a bra somewhere that will fit her.' );
@@ -321,7 +321,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 		if( SceneLib.sophieFollowerScene.sophieFollower() ) {
 			count++;
 		}
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			count++;
 		}
 		if( SceneLib.latexGirl.latexGooFollower() ) {
@@ -379,7 +379,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Desc
 			MainView.outputText( '\n\n"<i>Oh, fresh milk!</i>" Sophie exclaims cheerily.  She drops down by the edge of the pool and scoops up a handful, bringing the thick, creamy milk up to her lips.  Her wings flutter happily as she laps it up, rubbing more into her fair skin between clumps of downy feathers.' );
 		}
 		//If PC has Pure!Jojo:;
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			MainView.outputText( '\n\nThe white-furred monk Jojo approaches the pool with some hesitation, eyeing the tub full of cream.  "<i>How...  lewd.  Though it would be a shame for such a bounty to go to waste.</i>"  Slowly, the monk disrobes down to his undergarments, and lowers himself into the pool nearby.' );
 		}
 		//{If PC has Latexy:;

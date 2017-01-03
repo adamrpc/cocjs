@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.menu();
 		EngineCore.addButton( 0, 'Body', this, this.bodyRitual );
 		EngineCore.addButton( 1, 'Mind', this, this.mindGargoyleRitual );
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) || CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			EngineCore.addButton( 2, 'Banish', this, this.banishmentGargoyleRitual );
 		}
 		EngineCore.addButton( 4, 'Leave', this, this.returnToCathedral );
@@ -544,13 +544,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 	Gargoyle.prototype.banishmentGargoyleRitual = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Talking about ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s rituals, you explain that you seem to have picked up ' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( 'a hitchhiker' );
 		} else {
 			MainView.outputText( 'some hitchhikerss' );
 		}
 		MainView.outputText( ' in your travels, and would like to rid yourself of them.  She tells you to strip and brace yourself against the altar.  "<i>Unfortunately, as you have been invaded, so too is this a very... invasive ritual.</i>"  You nod your assent – you really want to get ' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( 'this bastard' );
 		} else {
 			MainView.outputText( 'these bastards' );
@@ -565,7 +565,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '.  "<i>The pain is necessary.  Everything will be all right.</i>"' );
 		MainView.outputText( '\n\nStill, you can\'t help but hiss in agony as the holy burn spreads through you, seeping into your vulnerable gentials and sensitive chest.' );
 		//with Exgartuan:;
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( '  Booming from within you, you hear the demon\'s voice  What the shit is this!?  What\'re you doing? Fucking stop, you ingrate!</i>"' );
 		}//with Worms: ;
 		else {
@@ -573,20 +573,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		}
 
 		MainView.outputText( '\n\nSuddenly, the holy rod jammed up your [asshole] makes a loud hissing sound, and withdraws.  Panting, you collapse to the ground, gripping your gut.  It\'s over, and you feel... alone.  The ' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( 'creature within you has' );
 		} else {
 			MainView.outputText( 'creatures within you have' );
 		}
 		MainView.outputText( ' been absorbed and purged by the rod, which ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' proceeds to chuck out a window.  Hopefully she has more, in case you ever get ' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( 'possessed' );
 		} else {
 			MainView.outputText( 'infested' );
 		}
 		MainView.outputText( ' again.' );
 		MainView.outputText( '\n\nStill panting and gasping from your ordeal, you notice ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' looming over you, smiling.  You could be a dick for all that pain she caused you, or thank her for helping you.' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 		} else {
 			CoC.player.removeStatusAffect( StatusAffects.Infested );
@@ -642,7 +642,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.menu();
 		EngineCore.addButton( 0, 'Body', this, this.kinkyBodyRitual );
 		EngineCore.addButton( 1, 'Mind', this, this.mindRitualPervy );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 || CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) || CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			EngineCore.addButton( 2, 'Banish', this, this.banishPervRitual );
 		}
 		EngineCore.addButton( 4, 'Leave', this, this.returnToCathedral );
@@ -706,13 +706,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.clearOutput();
 		//(PC is cleared of Worms and/or Exgartuan);
 		MainView.outputText( 'You explain to ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' that you seem to have picked up ' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( 'a hitchhiker' );
 		} else {
 			MainView.outputText( 'some hitchhikers' );
 		}
 		MainView.outputText( ' in your travels, and you\'re tired of ' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( 'it' );
 		} else {
 			MainView.outputText( 'them' );
@@ -728,12 +728,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '.' );
 		MainView.outputText( '\n\nWith her rod firmly inside you, ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' puts her hands on your [hips] for leverage and begins to pull out again, leaving a hot, intense tingling sensation in your rectum.  She thrusts in, this time much more quickly than you were expecting, making you gasp and moan as her hips slam into yours.' );
 		//If PC has Worms: ;
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( '  You can feel her cock ram against your prostate, and shudder as the writhing mass of worms begin to panic as her cock pushes against them, obviously causing the creatures great pain.' );
 		}
 		MainView.outputText( '  ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' begins to fuck you in earnest, hammering your [asshole] with the strap-on until you\'re both panting and gasping, nearly overwhelmed by sensation.' );
 		//(If PC has Exgartuan: ;
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( '  You can hear the demonic voice of Exgartuan inside your mind, yelling and cursing as he is rapidly drained from your body and sealed into the holy rod within you.' );
 		}
 		//(If PC has a cock:;
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' suddenly releases your hips and, pressing her soft breasts into your sweat-slicked back, grabs your [cock biggest] in her cold hand.  You let out a little gasp as she begins to jerk you off, rapidly pistoning your cock as she continues to pound your ass.  Between the dual stimulation, you feel a pressure begin to swell up inside your abused prostate, a tell-tale sign of orgasm.  She gives you a few last thrusts before you cum, splattering the altar with thick ropes of cum as you both yell in ecstasy.' );
 		} else {
 			MainView.outputText( '\n\n' + CoC.flags[ kFLAGS.GAR_NAME ] + ' reaches the peak of her speed, utterly reaming you as ' );
-			if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+			if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 				MainView.outputText( 'Exgartuan is' );
 			} else {
 				MainView.outputText( 'the worms are' );
@@ -749,7 +749,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			MainView.outputText( ' sucked from your body. Suddenly, she leans in and presses her lips to yours, thrusting her tongue against yours, letting you feel her begin to convulse and shake with release. Cupping her cheek, you return the kiss with gusto, willing yourself toward an anal orgasm. Within moments, the incredible tingling and the rapid ass-fucking combine toward your own climax, and you squeeze down hard upon the rod inside you as you cum, shaking and shuddering in the gargoyle\'s grasp.' );
 		}
 		MainView.outputText( '\n\nSuddenly, the holy rod jammed up your [asshole] makes a loud hissing sound, and withdraws. Panting, you collapse to the ground, gripping your gut.  It\'s over, and though a part of you feels suddenly very empty, it\'s soon forgotten as ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' slips down beside you, having already tossed the holy rod out the window.  The creature' );
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			MainView.outputText( ' within you has' );
 		} else {
 			MainView.outputText( 's within you have' );
@@ -758,7 +758,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 		MainView.outputText( '\n\nStill panting and gasping from your ordeal, you slip an arm around ' + CoC.flags[ kFLAGS.GAR_NAME ] + '\'s shoulders, bringing her into a tight embrace.  Smiling cutely, she nuzzles her cheek against your chest, and winds her large bat-wings around the two of you, wrapping you together.  You give her a long, tender kiss on the brow, and let her remain like that for a good long while, basking in each others\' presence.' );
 		MainView.outputText( '\n\nEventually, though, you know you need to get back to camp.  You try to tell ' + CoC.flags[ kFLAGS.GAR_NAME ] + ', but to your surprise, she\'s fast asleep, snoring softly.  With a grin, you untangle yourself from her embrace and find something to cover her with before giving her another kiss and making your way home.' );
 		//(Return PC to camp, advance time 1 hour);
-		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) ) {
 			CoC.player.removeStatusAffect( StatusAffects.Exgartuan );
 		} else {
 			CoC.player.removeStatusAffect( StatusAffects.Infested );
@@ -882,7 +882,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, Descriptors, kFLAGS, CoC, Eng
 			EngineCore.addButton( 2, 'Girlfriend', this, this.gargoylesAreGirlfriends );
 		}
 		//(If PC has Marble as a follower);
-		else if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		else if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			MainView.outputText( 'You ask ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' to tell you a little bit about the world of Mareth.  Giving it a few moments of quiet thought, she answers do not have any experience outside of the church grounds, Master, but I remember the words of the last Master, and the parishioners before her.  I believe there is a lake not far from here.  Beyond that, the world has a vast expanse of plains and woodlands, broken up by a great mountain range – strange monsters live there, but worst of all are savage bull-like beasts called Minotaurs.  And the cow-girls... Lacta-Bovines, I think they\'re called, who\'re just as nasty.</i>"' );
 			MainView.outputText( '\n\nYou cut ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' off right there, and explain that one of those \'savage beasts\' is your lover, Marble, who\'s really quite sweet.  The gargoyle makes a horrified gasp and covers her mouth.  "<i>I\'m so sorry, Master! I didn\'t know...  All I\'d heard were stories, years ago.  I didn\'t mean... but...  I-I didn\'t know Master had a girlfriend,</i>" she whines pitifully.  Obviously, knowing that she\'s not your only lady-friend has upset the poor thing.' );
 			MainView.outputText( '\n\nWell.  What do you say to that you\'re not exclusive with Marble, or that ' + CoC.flags[ kFLAGS.GAR_NAME ] + ' doesn\'t count, being a statue and all?' );

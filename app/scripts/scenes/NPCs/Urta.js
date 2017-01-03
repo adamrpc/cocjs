@@ -1620,7 +1620,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, I
 			}
 		}
 		//Butt Stretched used to determine how long since last enlargement;
-		if( CoC.player.findStatusAffect( StatusAffects.ButtStretched ) < 0 ) {
+		if( !CoC.player.findStatusAffect( StatusAffects.ButtStretched ) ) {
 			CoC.player.createStatusAffect( StatusAffects.ButtStretched, 0, 0, 0, 0 );
 		}//Reset the timer on it to 0 when restretched.;
 		else {

@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		}
 		//Remove worm block if player got rid of worms.;
 		if( CoC.flags[ kFLAGS.AMILY_GROSSED_OUT_BY_WORMS ] === 1 ) {
-			if( CoC.player.findStatusAffect( StatusAffects.Infested ) < 0 ) {
+			if( !CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 				CoC.flags[ kFLAGS.AMILY_GROSSED_OUT_BY_WORMS ] = 0;
 			}
 		}
@@ -1400,7 +1400,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.flags[ kFLAGS.AMILY_VAGINAL_WETNESS ] = 1;
 		CoC.flags[ kFLAGS.AMILY_CLOTHING ] = 'rags';
 		//if marble is there, tag it for freakout;
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			CoC.flags[ kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT ] = 1;
 		} else {
 			CoC.flags[ kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT ] = 2;
@@ -1947,7 +1947,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 	AmilyScene.prototype.amilySexPtII = function() {
 		this.amilySprite();
 		//worm infested reaction;
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			MainView.outputText( '"<i>EWWWW!  You\'re infested!</i>" she shrieks, "<i>Get out!  Don\'t come back \'til you get rid of the worms!</i>"\n\nYou high tail it out of there.  It looks like Amily doesn\'t want much to do with you until you\'re cured.', false );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			CoC.flags[ kFLAGS.AMILY_AFFECTION ] -= 3;
@@ -2350,7 +2350,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			return;
 		}
 		//Jojo + Amily Spar;
-		if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.flags[ kFLAGS.AMILY_MET_PURE_JOJO ] === 1 && CoC.flags[ kFLAGS.AMILY_SPAR_WITH_PURE_JOJO ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.AMILY_FOLLOWER ] === 1 && CoC.flags[ kFLAGS.AMILY_MET_PURE_JOJO ] === 1 && CoC.flags[ kFLAGS.AMILY_SPAR_WITH_PURE_JOJO ] === 0 && CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) ) {
 			SceneLib.followerInteractions.pureJojoAndAmilySpar();
 			return;
 		}
@@ -6360,7 +6360,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			CoC.flags[ kFLAGS.AMILY_CLOTHING ] = 'sexy rags';
 		}
 		//if marble is there, tag it for freakout;
-		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) >= 0 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.CampMarble ) ) {
 			CoC.flags[ kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT ] = 1;
 		} else {
 			CoC.flags[ kFLAGS.MARBLE_OR_AMILY_FIRST_FOR_FREAKOUT ] = 2;

@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 	//Ignores armor
 	ChameleonGirl.prototype.chameleonClaws = function() {
 		//Blind dodge change
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 1 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind claw-attack!\n', false );
 		}
 		//Evade:
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 	//Attack 3
 	ChameleonGirl.prototype.rollKickClawWhatTheFuckComboIsThisShit = function() {
 		//Blind dodge change
-		if( this.findStatusAffect( StatusAffects.Blind ) >= 0 && Utils.rand( 3 ) < 1 ) {
+		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 1 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind roll-kick!\n', false );
 		}
 		//Evade:

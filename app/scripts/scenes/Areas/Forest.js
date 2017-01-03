@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 			return;
 		}
 		//Every 5th exploration encounters d2 if hasnt been met yet and factory done
-		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] === 0 && CoC.player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 5 === 0 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) >= 0 ) {
+		if( CoC.flags[ kFLAGS.DISCOVERED_DUNGEON_2_ZETAZ ] === 0 && CoC.player.statusAffectv1( StatusAffects.ExploredDeepwoods ) % 5 === 0 && CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 			MainView.outputText( 'While you explore the deepwoods, you do your best to forge into new, unexplored locations.  While you\'re pushing away vegetation and slapping at plant-life, you spot a half-overgrown orifice buried in the side of a ravine.  There\'s a large number of imp-tracks around the cavern\'s darkened entryway.  Perhaps this is where the imp, Zetaz, makes his lair?  In any event, it\'s past time you checked back on the portal.  You make a mental note of the cave\'s location so that you can return when you\'re ready.', true );
 			MainView.outputText( '\n\n<b>You\'ve discovered the location of Zetaz\'s lair!</b>', false );
 			EngineCore.choices( 'Enter', SceneLib.dungeon2Supplimental, SceneLib.dungeon2Supplimental.enterZetazsLair, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -127,14 +127,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 			chooser = 1;
 		}
 		//If Jojo lives in camp, never encounter him
-		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) >= 0 || CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 1 ) {
+		if( CoC.player.findStatusAffect( StatusAffects.PureCampJojo ) || CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] === 1 ) {
 			chooser = Utils.rand( 3 );
 			if( chooser >= 1 ) {
 				chooser++;
 			}
 		}
 		//Chance to discover deepwoods
-		if( (CoC.player.exploredForest >= 20) && CoC.player.findStatusAffect( StatusAffects.ExploredDeepwoods ) < 0 ) {
+		if( (CoC.player.exploredForest >= 20) && !CoC.player.findStatusAffect( StatusAffects.ExploredDeepwoods ) ) {
 			CoC.player.createStatusAffect( StatusAffects.ExploredDeepwoods, 0, 0, 0, 0 );
 			MainView.outputText( 'After exploring the forest so many times, you decide to really push it, and plunge deeper and deeper into the woods.  The further you go the darker it gets, but you courageously press on.  The plant-life changes too, and you spot more and more lichens and fungi, many of which are luminescent.  Finally, a wall of tree-trunks as wide as houses blocks your progress.  There is a knot-hole like opening in the center, and a small sign marking it as the entrance to the \'Deepwoods\'.  You don\'t press on for now, but you could easily find your way back to explore the Deepwoods.\n\n<b>Deepwoods exploration unlocked!</b>', true );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
@@ -152,7 +152,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 			return;
 		}
 		//Marble randomness
-		if( CoC.player.exploredForest % 50 === 0 && CoC.player.exploredForest > 0 && CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) < 0 && CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) < 0 && CoC.player.findStatusAffect( StatusAffects.Marble ) >= 0 && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
+		if( CoC.player.exploredForest % 50 === 0 && CoC.player.exploredForest > 0 && !CoC.player.findStatusAffect( StatusAffects.MarbleRapeAttempted ) && !CoC.player.findStatusAffect( StatusAffects.NoMoreMarble ) && CoC.player.findStatusAffect( StatusAffects.Marble ) && CoC.flags[ kFLAGS.MARBLE_WARNING ] === 0 ) {
 			//can be triggered one time after Marble has been met, but before the addiction quest starts.
 			MainView.clearOutput();
 			MainView.outputText( 'While you\'re moving through the trees, you suddenly hear yelling ahead, followed by a crash and a scream as an imp comes flying at high speed through the foliage and impacts a nearby tree.  The small demon slowly slides down the tree before landing at the base, still.  A moment later, a familiar-looking cow-girl steps through the bushes brandishing a huge two-handed hammer with an angry look on her face.' );
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 				return;
 			}
 			if( SceneLib.jojoScene.monk === 1 ) {
-				if( CoC.player.findStatusAffect( StatusAffects.Infested ) >= 0 ) {
+				if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 					SceneLib.jojoScene.jojoSprite();
 					MainView.outputText( 'As you approach the serene monk, you see his nose twitch, disturbing his meditation.\n\n', true );
 					MainView.outputText( '"<i>It seems that the agents of corruption have taken residence within the temple that is your body.</i>", Jojo says flatly. "<i>This is a most unfortunate development. There is no reason to despair as there are always ways to fight the corruption. However, great effort will be needed to combat this form of corruption and may leave lasting impressions upon you. If you are ready, we can purge your being of the rogue creatures of lust.</i>"\n\n', false );
