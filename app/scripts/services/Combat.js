@@ -1277,7 +1277,7 @@ angular.module('cocjs').factory('Combat', function (SceneLib, $log, CoC, StatusA
 		return damage;
 	};
 	Combat.takeDamage = function(damage) {
-		return CoC.player.Combat.takeDamage(damage);
+		return CoC.player.takeDamage(damage);
 	};
 	//ENEMYAI!
 	Combat.enemyAI = function() {

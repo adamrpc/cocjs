@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			temp = 1;
 		}
 		if( temp > 0 ) {
-			CoC.player.Combat.takeDamage( temp );
+			CoC.player.takeDamage( temp );
 		}
 		MainView.outputText( 'The worm colony strikes at you with its makeshift limbs. It strikes you for ', false );
 		MainView.outputText( String( temp ), false );
