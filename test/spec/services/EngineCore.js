@@ -9,7 +9,9 @@ describe('Factory: EngineCore', function() {
 	var coC_Settings;
 	var log;
 	var PlayerConstructor;
-	beforeEach(inject(function( $log, EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings, Player) {
+	var statusAffects;
+	var sceneLib;
+	beforeEach(inject(function( $log, EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings, Player, StatusAffects, SceneLib) {
 		log = $log;
 		engineCore = EngineCore;
 		coc = CoC;
@@ -17,6 +19,8 @@ describe('Factory: EngineCore', function() {
 		mainView = MainView;
 		coC_Settings = CoC_Settings;
 		PlayerConstructor = Player;
+		statusAffects = StatusAffects;
+		sceneLib = SceneLib;
 	}));
 	it('Should define EngineCore', function() {
 		expect(engineCore).toBeDefined();
@@ -870,5 +874,105 @@ describe('Factory: EngineCore', function() {
 		expect(engineCore.physicalCost.calls.count()).toBe(0);
 		expect(coc.player.takeDamage.calls.count()).toBe(1);
 		expect(coc.player.takeDamage).toHaveBeenCalledWith( 50 );
+	});
+	it('Should define lustPercent', function() {
+		expect(engineCore.lustPercent).toBeDefined();
+	});
+	it('Should reduce lust percent depending on player level and perks', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.level = 1;
+		var testLust = function(levelModifier, perkModifier, perkModifierMult) {
+			if(perkModifierMult === undefined) {
+				perkModifierMult = 1;
+			}
+			if(levelModifier < 20) {
+				expect(engineCore.lustPercent()).toBe( Math.min( 100 - Math.min(0, perkModifier), Math.round( perkModifierMult * Math.max(25, 100 - levelModifier * 3 - perkModifier ) ) ) );
+				coc.player.createStatusAffect( statusAffects.BlackCatBeer, 1 );
+				expect(engineCore.lustPercent()).toBe( Math.min( 100 - Math.min(0, perkModifier), Math.round( perkModifierMult * ( Math.min( 100, 20 + Math.max(25, 100 - levelModifier * 3 - (perkModifier > 0 ? perkModifier : 0) ) ) - (perkModifier < 0 ? perkModifier : 0) ) ) ) );
+				coc.player.removeStatusAffect( statusAffects.BlackCatBeer );
+			} else {
+				expect(engineCore.lustPercent()).toBe( Math.min( 100 - Math.min(0, perkModifier), Math.round( perkModifierMult * Math.max( 25, 40 - perkModifier ) ) ) );
+				coc.player.createStatusAffect( statusAffects.BlackCatBeer, 1 );
+				expect(engineCore.lustPercent()).toBe( Math.min( 100 - Math.min(0, perkModifier), Math.round( perkModifierMult * ( Math.min( 100, 20 + Math.max( 25, 40 - (perkModifier > 0 ? perkModifier : 0) ) ) - (perkModifier < 0 ? perkModifier : 0) ) ) ) );
+				coc.player.removeStatusAffect( statusAffects.BlackCatBeer );
+			}
+		};
+		_.forEach(_.range(30), function(value) {
+			coc.player.level = 1 + value;
+			expect(engineCore.lustPercent() >= 40).toBe( true );
+			testLust(value, 0);
+			coc.player.createPerk( perkLib.CorruptedLibido, 50 );
+			testLust(value, 10);
+			coc.player.removePerk( perkLib.CorruptedLibido );
+			coc.player.createPerk( perkLib.Acclimation, 50 );
+			testLust(value, 15);
+			coc.player.removePerk( perkLib.Acclimation );
+			coc.player.createPerk( perkLib.PurityBlessing, 50 );
+			testLust(value, 5);
+			coc.player.removePerk( perkLib.PurityBlessing );
+			coc.player.createPerk( perkLib.Resistance, 50 );
+			testLust(value, 10);
+			coc.player.removePerk( perkLib.Resistance );
+			coc.player.createPerk( perkLib.ChiReflowLust, 50 );
+			testLust(value, 10);
+			coc.player.createPerk( perkLib.PurityBlessing, 50 );
+			testLust(value, 15);
+			coc.player.createPerk( perkLib.Resistance, 50 );
+			testLust(value, 25);
+			coc.player.removePerk( perkLib.ChiReflowLust );
+			testLust(value, 15);
+			coc.player.removePerk( perkLib.Resistance );
+			coc.player.createPerk( perkLib.CorruptedLibido, 50 );
+			testLust(value, 15);
+			coc.player.createPerk( perkLib.Acclimation, 50 );
+			testLust(value, 30);
+			coc.player.removePerk( perkLib.Acclimation );
+			coc.player.removePerk( perkLib.CorruptedLibido );
+			coc.player.removePerk( perkLib.PurityBlessing );
+			coc.player.createPerk( perkLib.PentUp, 10 );
+			testLust(value, -5);
+			coc.player.removePerk( perkLib.PentUp );
+			coc.player.createPerk( perkLib.PurityBlessing, 50 );
+			testLust(value, 5);
+			coc.player.createStatusAffect( statusAffects.BimboChampagne, 50 );
+			testLust( value, 5, 0.75 );
+			coc.player.createPerk( perkLib.BimboBody, 50 );
+			testLust( value, 5, 0.75 );
+			coc.player.removeStatusAffect( statusAffects.BimboChampagne );
+			coc.player.createPerk( perkLib.BroBody, 50 );
+			testLust( value, 5, 0.75 * 0.75 );
+			coc.player.createPerk( perkLib.FutaForm, 50 );
+			testLust( value, 5, 0.75 * 0.75 * 0.75 );
+			coc.player.createPerk( perkLib.OmnibusGift, 50 );
+			testLust( value, 5, 0.75 * 0.75 * 0.75 * 0.85 );
+			coc.player.createPerk( perkLib.LuststickAdapted, 50 );
+			testLust( value, 5, 0.75 * 0.75 * 0.75 * 0.85 * 0.9 );
+			coc.player.removePerk( perkLib.BimboBody );
+			testLust( value, 5, 0.75 * 0.75 * 0.85 * 0.9 );
+			coc.player.removePerk( perkLib.BroBody );
+			testLust( value, 5, 0.75 * 0.85 * 0.9 );
+			coc.player.removePerk( perkLib.FutaForm );
+			testLust( value, 5, 0.85 * 0.9 );
+			coc.player.removePerk( perkLib.OmnibusGift );
+			testLust( value, 5, 0.9 );
+			coc.player.createStatusAffect( statusAffects.Berzerking, 50 );
+			testLust( value, 5, 0.9 * 0.6 );
+			coc.player.createPerk( perkLib.PureAndLoving, 50 );
+			testLust( value, 5, 0.9 * 0.6 * 0.95 );
+			coc.player.createStatusAffect( statusAffects.UmasMassage, 50, 0.75 );
+			testLust( value, 5, 0.9 * 0.6 * 0.95 );
+			coc.player.changeStatusValue( statusAffects.UmasMassage, 1, sceneLib.umasShop.MASSAGE_RELIEF );
+			testLust( value, 5, 0.9 * 0.6 * 0.95 * 0.75 );
+			coc.player.changeStatusValue( statusAffects.UmasMassage, 1, sceneLib.umasShop.MASSAGE_LUST );
+			testLust( value, 5, 0.9 * 0.6 * 0.95 * 0.75 );
+			coc.player.removePerk( perkLib.LuststickAdapted );
+			testLust( value, 5, 0.6 * 0.95 * 0.75 );
+			coc.player.removeStatusAffect( statusAffects.Berzerking );
+			testLust( value, 5, 0.95 * 0.75 );
+			coc.player.removePerk( perkLib.PureAndLoving );
+			testLust( value, 5, 0.75 );
+			coc.player.removeStatusAffect( statusAffects.UmasMassage );
+			coc.player.removePerk( perkLib.PurityBlessing );
+		});
 	});
 });

@@ -202,8 +202,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 	 * Adds a 10% reduction to lust gain while active.
 	 * Edit Status
 	 */
-	UmasShop.MASSAGE_RELIEF = 0;
-	UmasShop.MASSAGE_RELIEF_BONUS = 0.9;	// Multiplicative bonus to Lust gains
+	UmasShop.prototype.MASSAGE_RELIEF = 0;
+	UmasShop.prototype.MASSAGE_RELIEF_BONUS = 0.9;	// Multiplicative bonus to Lust gains
 	var MASSAGE_RELIEF_BONUS_TEXT = '<b>(10% Reduction to all Lust gains whilst active!)</b>';
 	UmasShop.prototype.massageRelief = function() {
 		MainView.clearOutput();
@@ -211,15 +211,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>Are sure about that honey?  Wouldn\'t that make it hard to keep up with my little Loppe?</i>"\n\n' );
 		MainView.outputText( 'You admit that it may, but you feel you could use it.  Besides, you do spend most of your time out in the wilderness; the people, to use the term loosely, out there aren\'t quite as understanding about sex as Uma\'s daughter is.\n\n' );
 		MainView.outputText( '"<i>I see... come along then,</i>" Uma replies, motioning for you to follow.  You nod and promptly do as she asks.' );
-		this.massageMain( UmasShop.MASSAGE_RELIEF );
+		this.massageMain( this.MASSAGE_RELIEF );
 	};
 	/**
 	 * Player selected 'Lust' massage
 	 * Adds a 10% increase to lust gain while active.
 	 * Edit Status
 	 */
-	UmasShop.MASSAGE_LUST = 1;
-	UmasShop.MASSAGE_LUST_BONUS = 1.1;	// Multiplicative bonus to Lust gains
+	UmasShop.prototype.MASSAGE_LUST = 1;
+	UmasShop.prototype.MASSAGE_LUST_BONUS = 1.1;	// Multiplicative bonus to Lust gains
 	var MASSAGE_LUST_BONUS_TEXT = '<b>(10% Increase to all Lust gains whilst active!)</b>';
 	UmasShop.prototype.massageLust = function() {
 		MainView.clearOutput();
@@ -227,15 +227,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>Oh... feel like getting some help handling my little Loppe, perhaps?</i>"\n\n' );
 		MainView.outputText( 'You give her a playful smile and a wink, telling her that\'s not really any of her business; it\'s not good form for a [boyfriend] to kiss and tell.  Can she help you?\n\n' );
 		MainView.outputText( 'Uma gasps in mock hurt.  "<i>Are you doubting my skills, dear?  Of course I can help you!  Follow me.</i>" Uma replies, motioning for you to follow her, and you trail along behind the mare masseur.\n\n' );
-		this.massageMain( UmasShop.MASSAGE_LUST );
+		this.massageMain( this.MASSAGE_LUST );
 	};
 	/**
 	 * Player selected 'Modelling' massage
 	 * Adds a +10 bonus to femininity?
 	 * Edit Status
 	 */
-	UmasShop.MASSAGE_MODELLING = 2;
-	UmasShop.MASSAGE_MODELLING_BONUS = 10;	// Flat bonus applied to femininity stat
+	UmasShop.prototype.MASSAGE_MODELLING = 2;
+	UmasShop.prototype.MASSAGE_MODELLING_BONUS = 10;	// Flat bonus applied to femininity stat
 	var MASSAGE_MODELLING_BONUS_TEXT = '<b>(+10 Bonus Femininity whilst active!)</b>';
 	UmasShop.prototype.massageModelling = function() {
 		MainView.clearOutput();
@@ -247,15 +247,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( '"<i>Personally I think you\'re pretty enough as you are, but a few extra touches can\'t hurt, right dear?</i>"\n\n' );
 		}
 		MainView.outputText( 'You thank her for the professional opinion, and indicate she should lead the way.\n\n' );
-		this.massageMain( UmasShop.MASSAGE_MODELLING );
+		this.massageMain( this.MASSAGE_MODELLING );
 	};
 	/**
 	 * Player selected 'Relaxation' massage
 	 * Add a 10% reduction in damage taken?
 	 * Edit Status
 	 */
-	UmasShop.MASSAGE_RELAXATION = 3;
-	UmasShop.MASSAGE_RELAXATION_BONUS = 0.9;	// Multiplicative bonus to damage taken -- these seem a little op with current values
+	UmasShop.prototype.MASSAGE_RELAXATION = 3;
+	UmasShop.prototype.MASSAGE_RELAXATION_BONUS = 0.9;	// Multiplicative bonus to damage taken -- these seem a little op with current values
 	var MASSAGE_RELAXATION_BONUS_TEXT = '<b>(10% Reduction to all Damage taken whilst active!)</b>';
 	UmasShop.prototype.massageRelaxation = function() {
 		MainView.clearOutput();
@@ -263,15 +263,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>I wonder if Loppe is the reason you\'re asking for this kind of massage... either way, sure, let\'s do this.</i>"' );
 		MainView.outputText( 'You tell her that you won\'t deny or admit to Loppe being a cause.  However, it\'s also pretty rough out in the wilderness, so you could really use the relief.\n\n' );
 		MainView.outputText( '"<i>Very well... don\'t want you too burned out to deal my little Loppe afterwards.  Follow me.</i>"  Uma motions for you to follow her, and you trail after her, looking forward to your treatment.\n\n' );
-		this.massageMain( UmasShop.MASSAGE_RELAXATION );
+		this.massageMain( this.MASSAGE_RELAXATION );
 	};
 	/**
 	 * Player selected 'Power' massage
 	 * Add a 10% increase to damage inflicted?
 	 * Edit Status
 	 */
-	UmasShop.MASSAGE_POWER = 4;
-	UmasShop.MASSAGE_POWER_BONUS = 1.1;	// Multiplicative bonus to damage done -- these seem a little op with current values
+	UmasShop.prototype.MASSAGE_POWER = 4;
+	UmasShop.prototype.MASSAGE_POWER_BONUS = 1.1;	// Multiplicative bonus to damage done -- these seem a little op with current values
 	var MASSAGE_POWER_BONUS_TEXT = '<b>(10% Increase to all Damage inflicted whilst active!)</b>';
 	UmasShop.prototype.massagePower = function() {
 		MainView.clearOutput();
@@ -281,7 +281,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.outputText( '"<i>Now, now, dear.  There\'s no need to be so dramatic... but I\'m worried about what you intend to do?  I have heard of, and even seen, some of the dangers that are out there, beyond the walls of this city.  Shouldn\'t you just come live with us, instead?  I\'d hate to have anything happen to you, and Loppe would be crushed...</i>"\n\n' );
 		MainView.outputText( 'You tell her that you appreciate your sentiment, and you have no intention of hurting Loppe, but you have a mission and you are sworn to complete it; the demons must fall, and you won\'t stop until they have been defeated.' );
 		MainView.outputText( '"<i>I understand.  In that case, follow me,</i>" Uma replies, motioning for you to follow her.  You let her lead the way and follow close behind.\n\n' );
-		this.massageMain( UmasShop.MASSAGE_POWER );
+		this.massageMain( this.MASSAGE_POWER );
 	};
 	/**
 	 * 'Joiner' scene for all of the subtypes of massage selection
@@ -365,21 +365,21 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			if( CoC.player.findStatusAffect( StatusAffects.UmasMassage ) ) {
 				CoC.player.removeStatusAffect( StatusAffects.UmasMassage );
 			}
-			if( selectedMassage === UmasShop.MASSAGE_RELIEF ) {
+			if( selectedMassage === this.MASSAGE_RELIEF ) {
 				MainView.outputText( '<b>You feel so relaxed and mellow... you don\'t think you\'ll be able to get in the mood for sex while you feel this blissed out.</b> ' + MASSAGE_RELIEF_BONUS_TEXT );
-				bonusValue = UmasShop.MASSAGE_RELIEF_BONUS;
-			} else if( selectedMassage === UmasShop.MASSAGE_LUST ) {
+				bonusValue = this.MASSAGE_RELIEF_BONUS;
+			} else if( selectedMassage === this.MASSAGE_LUST ) {
 				MainView.outputText( '<b>You feel so... wired! Your skin tingles with the slightest breeze, your heart races in your chest, and you lick your lips with eager nervousness.  You wanna fuck something so badly!</b> ' + MASSAGE_LUST_BONUS_TEXT );
-				bonusValue = UmasShop.MASSAGE_LUST_BONUS;
-			} else if( selectedMassage === UmasShop.MASSAGE_MODELLING ) {
+				bonusValue = this.MASSAGE_LUST_BONUS;
+			} else if( selectedMassage === this.MASSAGE_MODELLING ) {
 				MainView.outputText( '<b>You feel sexier; you don\'t know if the massage has actually affected your looks, but you definitely have the confidence to strut your stuff!</b> ' + MASSAGE_MODELLING_BONUS_TEXT );
-				bonusValue = UmasShop.MASSAGE_MODELLING_BONUS;
-			} else if( selectedMassage === UmasShop.MASSAGE_RELAXATION ) {
+				bonusValue = this.MASSAGE_MODELLING_BONUS;
+			} else if( selectedMassage === this.MASSAGE_RELAXATION ) {
 				MainView.outputText( '<b>Your aches and pains have vanished, and you feel so relaxed and rested.  That really did the trick in curing what ails you.</b> ' + MASSAGE_RELAXATION_BONUS_TEXT );
-				bonusValue = UmasShop.MASSAGE_RELAXATION_BONUS;
-			} else if( selectedMassage === UmasShop.MASSAGE_POWER ) {
+				bonusValue = this.MASSAGE_RELAXATION_BONUS;
+			} else if( selectedMassage === this.MASSAGE_POWER ) {
 				MainView.outputText( '<b>Your muscles tingle and burn with energy; you feel like you could knock out a minotaur in one punch!</b> ' + MASSAGE_POWER_BONUS_TEXT );
-				bonusValue = UmasShop.MASSAGE_POWER_BONUS;
+				bonusValue = this.MASSAGE_POWER_BONUS;
 			}
 			if( bonusValue !== 0 ) {
 				CoC.player.createStatusAffect( StatusAffects.UmasMassage, selectedMassage, bonusValue, UmasShop.MAX_MASSAGE_BONUS_DURATION, 0 );
@@ -415,50 +415,50 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 	 * All of the associated bonuses for the Acupuncture perks are listed here, and reference throughout the codebase. If Fenoxo wants to tweak the values,
 	 * you can do so easily here without having to go fishing through other files to find where they are referenced.
 	 */
-	UmasShop.NEEDLEWORK_UNDO = -1;
-	UmasShop.NEEDLEWORK_SPEED = 0;
-	UmasShop.NEEDLEWORK_LUST = 1;
-	UmasShop.NEEDLEWORK_DEFENSE = 2;
-	UmasShop.NEEDLEWORK_MAGIC = 3;
-	UmasShop.NEEDLEWORK_ATTACK = 4;
-	UmasShop.NEEDLEWORK_SPEED_PERK = PerkLib.ChiReflowSpeed;
-	UmasShop.NEEDLEWORK_SPEED_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Speed\' perk. As a result your strength is capped but speed reductions are halved.';
-	UmasShop.NEEDLEWORK_SPEED_STRENGTH_CAP = 60;
-	UmasShop.NEEDLEWORK_SPEED_SPEED_MULTI = 0.5;
-	UmasShop.NEEDLEWORK_LUST_PERK = PerkLib.ChiReflowLust;
-	UmasShop.NEEDLEWORK_LUST_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Lust\' perk. As a result your Lust resistance and Tease attack are enhanced, but Libido and Sensitivity gains are increased.';
-	UmasShop.NEEDLEWORK_LUST_LUST_RESIST = 10;
-	UmasShop.NEEDLEWORK_LUST_TEASE_MULTI = 10;
-	UmasShop.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI = 1.1;
-	UmasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI = 1.1;
-	UmasShop.NEEDLEWORK_DEFENSE_PERK = PerkLib.ChiReflowDefense;
-	UmasShop.NEEDLEWORK_DEFENSE_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Defense\' perk. As a result your body has gained passive damage resistance and extra health, but speed is capped.';
-	UmasShop.NEEDLEWORK_DEFENSE_DEFENSE_MULTI = 1.1;
-	UmasShop.NEEDLEWORK_DEFENSE_EXTRA_HP = 50;
-	UmasShop.NEEDLEWORK_DEFENSE_SPEED_CAP = 60;
-	UmasShop.NEEDLEWORK_MAGIC_PERK = PerkLib.ChiReflowMagic;
-	UmasShop.NEEDLEWORK_MAGIC_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Magic\' perk. As a result your spells are now more powerful, but regular attacks are weaker.';
-	UmasShop.NEEDLEWORK_MAGIC_SPELL_MULTI = 0.25; // Additive bonus to the other magic damage bonuses
-	UmasShop.NEEDLEWORK_MAGIC_REGULAR_MULTI = 0.75; // Multiplier tagged onto the end of damage calculations for the player.
-	UmasShop.NEEDLEWORK_ATTACK_PERK = PerkLib.ChiReflowAttack;
-	UmasShop.NEEDLEWORK_ATTACK_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Attack\' perk. As a result your regular attacks are more powerful, but your damage reduction is decreased.';
-	UmasShop.NEEDLEWORK_ATTACK_REGULAR_MULTI = 1.1;
-	UmasShop.NEEDLEWORK_ATTACK_DEFENSE_MULTI = 0.9;
+	UmasShop.prototype.NEEDLEWORK_UNDO = -1;
+	UmasShop.prototype.NEEDLEWORK_SPEED = 0;
+	UmasShop.prototype.NEEDLEWORK_LUST = 1;
+	UmasShop.prototype.NEEDLEWORK_DEFENSE = 2;
+	UmasShop.prototype.NEEDLEWORK_MAGIC = 3;
+	UmasShop.prototype.NEEDLEWORK_ATTACK = 4;
+	UmasShop.prototype.NEEDLEWORK_SPEED_PERK = PerkLib.ChiReflowSpeed;
+	UmasShop.prototype.NEEDLEWORK_SPEED_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Speed\' perk. As a result your strength is capped but speed reductions are halved.';
+	UmasShop.prototype.NEEDLEWORK_SPEED_STRENGTH_CAP = 60;
+	UmasShop.prototype.NEEDLEWORK_SPEED_SPEED_MULTI = 0.5;
+	UmasShop.prototype.NEEDLEWORK_LUST_PERK = PerkLib.ChiReflowLust;
+	UmasShop.prototype.NEEDLEWORK_LUST_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Lust\' perk. As a result your Lust resistance and Tease attack are enhanced, but Libido and Sensitivity gains are increased.';
+	UmasShop.prototype.NEEDLEWORK_LUST_LUST_RESIST = 10;
+	UmasShop.prototype.NEEDLEWORK_LUST_TEASE_MULTI = 10;
+	UmasShop.prototype.NEEDLEWORK_LUST_TEASE_DAMAGE_MULTI = 1.1;
+	UmasShop.prototype.NEEDLEWORK_LUST_LIBSENSE_MULTI = 1.1;
+	UmasShop.prototype.NEEDLEWORK_DEFENSE_PERK = PerkLib.ChiReflowDefense;
+	UmasShop.prototype.NEEDLEWORK_DEFENSE_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Defense\' perk. As a result your body has gained passive damage resistance and extra health, but speed is capped.';
+	UmasShop.prototype.NEEDLEWORK_DEFENSE_DEFENSE_MULTI = 1.1;
+	UmasShop.prototype.NEEDLEWORK_DEFENSE_EXTRA_HP = 50;
+	UmasShop.prototype.NEEDLEWORK_DEFENSE_SPEED_CAP = 60;
+	UmasShop.prototype.NEEDLEWORK_MAGIC_PERK = PerkLib.ChiReflowMagic;
+	UmasShop.prototype.NEEDLEWORK_MAGIC_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Magic\' perk. As a result your spells are now more powerful, but regular attacks are weaker.';
+	UmasShop.prototype.NEEDLEWORK_MAGIC_SPELL_MULTI = 0.25; // Additive bonus to the other magic damage bonuses
+	UmasShop.prototype.NEEDLEWORK_MAGIC_REGULAR_MULTI = 0.75; // Multiplier tagged onto the end of damage calculations for the player.
+	UmasShop.prototype.NEEDLEWORK_ATTACK_PERK = PerkLib.ChiReflowAttack;
+	UmasShop.prototype.NEEDLEWORK_ATTACK_PERK_DESC = 'Uma\'s Acupuncture Needlework has gifted you with the \'Chi Reflow - Attack\' perk. As a result your regular attacks are more powerful, but your damage reduction is decreased.';
+	UmasShop.prototype.NEEDLEWORK_ATTACK_REGULAR_MULTI = 1.1;
+	UmasShop.prototype.NEEDLEWORK_ATTACK_DEFENSE_MULTI = 0.9;
 	/**
 	 * Return a short string representation of the selected bonus index
 	 * @param    needleworkType        Static index value of the selected bonus scene
 	 * @return                        String representation of the selected bonus scene
 	 */
 	UmasShop.prototype.needleworkString = function( needleworkType ) {
-		if( needleworkType === UmasShop.NEEDLEWORK_SPEED ) {
+		if( needleworkType === this.NEEDLEWORK_SPEED ) {
 			return '"Speed"';
-		} else if( needleworkType === UmasShop.NEEDLEWORK_LUST ) {
+		} else if( needleworkType === this.NEEDLEWORK_LUST ) {
 			return '"Lust"';
-		} else if( needleworkType === UmasShop.NEEDLEWORK_DEFENSE ) {
+		} else if( needleworkType === this.NEEDLEWORK_DEFENSE ) {
 			return '"Defense"';
-		} else if( needleworkType === UmasShop.NEEDLEWORK_MAGIC ) {
+		} else if( needleworkType === this.NEEDLEWORK_MAGIC ) {
 			return '"Magic"';
-		} else if( needleworkType === UmasShop.NEEDLEWORK_ATTACK ) {
+		} else if( needleworkType === this.NEEDLEWORK_ATTACK ) {
 			return '"Attack"';
 		}
 		return '<b>Somethin\' dun fucked up.  Please insert bugreport!</b> ';
@@ -521,28 +521,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 	/**
 	 * Apply a Needlework perk to the player.
 	 * I don't want to stuff the stat values themselves into the Perk itself, because then we have to figure out if a player was saved with different bonuses applied to the perk than what we currently have defined.
-	 * ie. it makes future balancing of the perks more of a chore. Rather, other code can just reference the static vars we have here using UmasShop.NEEDLEWORK_MAGIC_blah. It's still bad, but its an shader of bad lighter so fuck it!
+	 * ie. it makes future balancing of the perks more of a chore. Rather, other code can just reference the static vars we have here using NEEDLEWORK_MAGIC_blah. It's still bad, but its an shader of bad lighter so fuck it!
 	 * @param    selectedSession        Static bonus index to apply to the player
 	 */
 	UmasShop.prototype.applyNeedlework = function( selectedSession ) {
-		if( selectedSession === UmasShop.NEEDLEWORK_UNDO ) {
+		if( selectedSession === this.NEEDLEWORK_UNDO ) {
 			CoC.player.removePerk( this.getNeedleworkPerk() );
 			CoC.flags[ kFLAGS.UMA_TIMES_ACUPUNCTURE_UNDO ]++;
-		} else if( selectedSession === UmasShop.NEEDLEWORK_SPEED ) {
+		} else if( selectedSession === this.NEEDLEWORK_SPEED ) {
 			CoC.player.createPerk( PerkLib.ChiReflowSpeed, 0, 0, 0, 0 );
-			MainView.outputText( '<b>' + UmasShop.NEEDLEWORK_SPEED_PERK_DESC + '</b>' );
-		} else if( selectedSession === UmasShop.NEEDLEWORK_LUST ) {
+			MainView.outputText( '<b>' + this.NEEDLEWORK_SPEED_PERK_DESC + '</b>' );
+		} else if( selectedSession === this.NEEDLEWORK_LUST ) {
 			CoC.player.createPerk( PerkLib.ChiReflowLust, 0, 0, 0, 0 );
-			MainView.outputText( '<b>' + UmasShop.NEEDLEWORK_LUST_PERK_DESC + '</b>' );
-		} else if( selectedSession === UmasShop.NEEDLEWORK_DEFENSE ) {
+			MainView.outputText( '<b>' + this.NEEDLEWORK_LUST_PERK_DESC + '</b>' );
+		} else if( selectedSession === this.NEEDLEWORK_DEFENSE ) {
 			CoC.player.createPerk( PerkLib.ChiReflowDefense, 0, 0, 0, 0 );
-			MainView.outputText( '<b>' + UmasShop.NEEDLEWORK_DEFENSE_PERK_DESC + '</b>' );
-		} else if( selectedSession === UmasShop.NEEDLEWORK_MAGIC ) {
+			MainView.outputText( '<b>' + this.NEEDLEWORK_DEFENSE_PERK_DESC + '</b>' );
+		} else if( selectedSession === this.NEEDLEWORK_MAGIC ) {
 			CoC.player.createPerk( PerkLib.ChiReflowMagic, 0, 0, 0, 0 );
-			MainView.outputText( '<b>' + UmasShop.NEEDLEWORK_MAGIC_PERK_DESC + '</b>' );
-		} else if( selectedSession === UmasShop.NEEDLEWORK_ATTACK ) {
+			MainView.outputText( '<b>' + this.NEEDLEWORK_MAGIC_PERK_DESC + '</b>' );
+		} else if( selectedSession === this.NEEDLEWORK_ATTACK ) {
 			CoC.player.createPerk( PerkLib.ChiReflowAttack, 0, 0, 0, 0 );
-			MainView.outputText( '<b>' + UmasShop.NEEDLEWORK_ATTACK_PERK_DESC + '</b>' );
+			MainView.outputText( '<b>' + this.NEEDLEWORK_ATTACK_PERK_DESC + '</b>' );
 		}
 	};
 	/**
@@ -560,7 +560,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( 'You tell her that you understand what she\'s saying, and consider the decision carefully.  You ask her how difficult she estimates the process would be, given the past sessions you have endured.\n\n' );
 			MainView.outputText( 'The mare takes a moment to inspect you carefully, seeming to look through rather than at you.  "<i>This could be quite a challenge, even for my skills... but, seeing as you\'re my little hoppers special someone, just for you I will have to ask for ' + String( sessionCost ) + ' gems.  That\'s half the price of what I\'d usually charge for work this difficult.</i>"\n\n' );
 			MainView.menu();
-			EngineCore.addButton( 0, 'Undo', this, this.needleworkSession, UmasShop.NEEDLEWORK_UNDO );
+			EngineCore.addButton( 0, 'Undo', this, this.needleworkSession, this.NEEDLEWORK_UNDO );
 		} else {
 			MainView.outputText( '"<i>Are you sure, dear?  While the effects of a Do-in massage will fade eventually, acupuncture is fairly... permanent.  Though I can only give you the effects of one type of needlework at a time...</i>"\n\n' );
 			MainView.outputText( 'You tell her that you understand what she\'s saying, and thank her for warning you. You ask her what kinds of effects you can expect from her needlework and how much it\'s going to cost you.\n\n' );
@@ -574,11 +574,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 			MainView.outputText( '"<i>Finally, I can use my needles to rearrange your chi flow and optimise your offense; your blows will be far more powerful, but your natural defense will be impaired, making you more vulnerable to strikes by the enemy.</i>"\n\n' );
 			MainView.outputText( 'The mare tries to remember any other types of needlework that might be useful to you, but ultimately, she can\'t think of anything else.  "<i>That\'s all you might use, I think...</i>"  She then pauses.  "<i>As for a price, given you\'re my little Loppe\'s special someone, shall we say ' + String( sessionCost ) + ' gems?  That\'s half-price of what I\'d usually charge.</i>"\n\n' );
 			MainView.menu();
-			EngineCore.addButton( 0, 'Speed', this, this.needleworkSession, UmasShop.NEEDLEWORK_SPEED );
-			EngineCore.addButton( 1, 'Lust', this, this.needleworkSession, UmasShop.NEEDLEWORK_LUST );
-			EngineCore.addButton( 2, 'Defense', this, this.needleworkSession, UmasShop.NEEDLEWORK_DEFENSE );
-			EngineCore.addButton( 3, 'Magic', this, this.needleworkSession, UmasShop.NEEDLEWORK_MAGIC );
-			EngineCore.addButton( 4, 'Attack', this, this.needleworkSession, UmasShop.NEEDLEWORK_ATTACK );
+			EngineCore.addButton( 0, 'Speed', this, this.needleworkSession, this.NEEDLEWORK_SPEED );
+			EngineCore.addButton( 1, 'Lust', this, this.needleworkSession, this.NEEDLEWORK_LUST );
+			EngineCore.addButton( 2, 'Defense', this, this.needleworkSession, this.NEEDLEWORK_DEFENSE );
+			EngineCore.addButton( 3, 'Magic', this, this.needleworkSession, this.NEEDLEWORK_MAGIC );
+			EngineCore.addButton( 4, 'Attack', this, this.needleworkSession, this.NEEDLEWORK_ATTACK );
 		}
 		// Add a leave button for both;
 		EngineCore.addButton( 9, 'No Thanks', this, this.needleworkTurnDown );
@@ -617,7 +617,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, StatusAffects, Perk
 		MainView.clearOutput();
 		// Pay up;
 		// These could REALLY do with being a little longer. And also not being as akward.;
-		if( selectedSession === UmasShop.NEEDLEWORK_UNDO ) {
+		if( selectedSession === this.NEEDLEWORK_UNDO ) {
 			MainView.outputText( 'You tell Uma that you\'d like her to remove the effects of your last acupuncture session from your body.  Then hand over the gems.\n\n' );
 			MainView.outputText( '"<i>Alright, dear,</i>" Uma replies, pocketing the gems.  "<i>It might take some time, but I think I can help you with that... follow me.</i>"\n\n' );
 			CoC.player.gems -= this.needleworkUndoCost();
