@@ -57,6 +57,7 @@ angular.module( 'cocjs' ).factory( 'StatsView', function($log, CoC) {
 	};
 	StatsView.prototype.showUpDown = function() {
 		var that = this;
+		/* jshint unused:true */
 		_.forOwn( CoC.oldStats, function( value, statName ) {
 			if( CoC.player[ statName ] > CoC.oldStats[ statName ] ) {
 				that.showStatUp( statName );
