@@ -348,12 +348,14 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		var argNamesShort = [ 'str', 'tou', 'spe', 'int', 'lib', 'sen', 'lus', 'cor', 'res', 'bim' ]; // Arg names
 		var argVals = [ 0, 0, 0, 0, 0, 0, 0, 0, true, false ]; // Default arg values
 		var argOps = [ '+', '+', '+', '+', '+', '+', '+', '+', '=', '=' ];   // Default operators
+		var abort = false;
 		_.forEach(_.range(0, args.length - 1, 2), function(i) {
 			if( _.isString(args[ i ]) ) {
 				// Make sure the next arg has the POSSIBILITY of being correct
 				if( !_.isNumber(args[ i + 1 ]) && !_.isBoolean(args[ i + 1 ]) ) {
 					$log.error( 'dynStats aborted. Next argument after argName is invalid! arg is type ' + args[ i + 1 ] );
-					return;
+					abort = true;
+					return false;
 				}
 				// Figure out which array to search
 				if( args[ i ] === 'lust' ) {
@@ -374,16 +376,22 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 				}
 				if(argIndex === -1) {
 					$log.error( 'Couldn\'t find the arg name ' + args[ i ] + ' in the index arrays. Welp!' );
-					return;
+					abort = true;
+					return false;
 				}
 				argVals[ argIndex ] = args[ i + 1 ];
 				if(op) {
 					argOps[ argIndex ] = op;
 				}
 			} else {
-				throw 'dynStats aborted. Expected a key and got SHIT';
+				$log.error('dynStats aborted. Expected a key and got SHIT');
+				abort = true;
+				return false;
 			}
 		});
+		if(abort) {
+			return;
+		}
 		// Got this far, we have values to statsify
 		var newStr = applyOperator( CoC.player.str, argOps[ 0 ], argVals[ 0 ] );
 		var newTou = applyOperator( CoC.player.tou, argOps[ 1 ], argVals[ 1 ] );
