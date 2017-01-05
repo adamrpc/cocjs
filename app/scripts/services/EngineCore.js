@@ -413,25 +413,62 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			newCor - CoC.player.cor,
 			argVals[ 8 ], argVals[ 9 ] );
 	};
-	EngineCore.stats = function( stre, toug, spee, intel, libi, sens, lust2, corr, resisted, noBimbo ) {
-		if(resisted === undefined) {
-			resisted = true;
+	EngineCore._addStr = function(str) {
+		CoC.oldStats.str = CoC.player.str;
+		CoC.player.str += str;
+		if( CoC.player.findPerk( PerkLib.Strong ) && str >= 0 ) {
+			CoC.player.str += str * CoC.player.findPerk( PerkLib.Strong ).value1;
 		}
-		//Easy mode cuts lust gains!
-		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] && lust2 > 0 && resisted ) {
-			lust2 /= 2;
+		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) ) {
+			if( CoC.player.str > SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
+				CoC.player.str = SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
+			}
 		}
-		//Set original values to begin tracking for up/down values if
-		//they aren\'t set yet.
-		//These are reset when up/down arrows are hidden with
-		//hideUpDown();
-		//Just check str because they are either all 0 or real values
-		/* jshint unused:true */
-		_.forOwn(CoC.oldStats, function(value, key) {
-			CoC.oldStats[key] = CoC.player[key];
-		});
-		//MOD CHANGES FOR PERKS
-		//Bimbos learn slower
+		if( CoC.player.str > 100 ) {
+			CoC.player.str = 100;
+		}
+		if( CoC.player.str < 1 ) {
+			CoC.player.str = 1;
+		}
+	};
+	EngineCore._addTou = function(tou) {
+		CoC.oldStats.tou = CoC.player.tou;
+		CoC.player.tou += tou;
+		if( CoC.player.findPerk( PerkLib.Tough ) && tou >= 0 ) {
+			CoC.player.tou += tou * CoC.player.findPerk( PerkLib.Tough ).value1;
+		}
+		if( CoC.player.tou > 100 ) {
+			CoC.player.tou = 100;
+		}
+		if( CoC.player.tou < 1 ) {
+			CoC.player.tou = 1;
+		}
+		//Add HP for toughness change.
+		EngineCore.HPChange( (CoC.player.tou - CoC.oldStats.tou) * 2, false );
+	};
+	EngineCore._addSpe = function(spe) {
+		CoC.oldStats.spe = CoC.player.spe;
+		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) && spe < 0 ) {
+			spe *= SceneLib.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
+		}
+		CoC.player.spe += spe;
+		if( CoC.player.findPerk( PerkLib.Fast ) && spe >= 0 ) {
+			CoC.player.spe += spe * CoC.player.findPerk( PerkLib.Fast ).value1;
+		}
+		if( CoC.player.findPerk( PerkLib.ChiReflowDefense ) ) {
+			if( CoC.player.spe > SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
+				CoC.player.spe = SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
+			}
+		}
+		if( CoC.player.spe > 100 ) {
+			CoC.player.spe = 100;
+		}
+		if( CoC.player.spe < 1 ) {
+			CoC.player.spe = 1;
+		}
+	};
+	EngineCore._addIntel = function(intel, noBimbo) {
+		CoC.oldStats.inte = CoC.player.inte;
 		if( !noBimbo ) {
 			if( CoC.player.findPerk( PerkLib.FutaFaculties ) || CoC.player.findPerk( PerkLib.BimboBrains ) || CoC.player.findPerk( PerkLib.BroBrains ) ) {
 				if( intel > 0 ) {
@@ -441,44 +478,58 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 					intel *= 2;
 				}
 			}
+		}
+		CoC.player.inte += intel;
+		if( CoC.player.findPerk( PerkLib.Smart ) && intel >= 0 ) {
+			CoC.player.inte += intel * CoC.player.findPerk( PerkLib.Smart ).value1;
+		}
+		if( CoC.player.inte > 100 ) {
+			CoC.player.inte = 100;
+		}
+		if( CoC.player.inte < 1 ) {
+			CoC.player.inte = 1;
+		}
+	};
+	EngineCore._addLib = function(lib, noBimbo) {
+		CoC.oldStats.lib = CoC.player.lib;
+		if( !noBimbo ) {
 			if( CoC.player.findPerk( PerkLib.FutaForm ) || CoC.player.findPerk( PerkLib.BimboBody ) || CoC.player.findPerk( PerkLib.BroBody ) ) {
-				if( libi > 0 ) {
-					libi *= 2;
+				if( lib > 0 ) {
+					lib *= 2;
 				}
-				if( libi < 0 ) {
-					libi /= 2;
+				if( lib < 0 ) {
+					lib /= 2;
 				}
 			}
 		}
-		// Uma\'s Perkshit
-		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) && spee < 0 ) {
-			spee *= SceneLib.umasShop.NEEDLEWORK_SPEED_SPEED_MULTI;
+		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) && lib > 0 ) {
+			lib *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
-		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) && libi > 0 ) {
-			libi *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
+		if( lib > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
+			lib *= 0.75;
 		}
+		CoC.player.lib += lib;
+		if( CoC.player.findPerk( PerkLib.Lusty ) && lib >= 0 ) {
+			CoC.player.lib += lib * CoC.player.findPerk( PerkLib.Lusty ).value1;
+		}
+		if( CoC.player.lib > 100 ) {
+			CoC.player.lib = 100;
+		}
+		if( CoC.player.lib < CoC.player.minLust() * 2 / 3 ) {
+			CoC.player.lib = CoC.player.minLust() * 2 / 3;
+		} else if( CoC.player.lib < 50 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
+			CoC.player.lib = 50;
+		} else if( CoC.player.lib < 15 && CoC.player.gender > 0 ) {
+			CoC.player.lib = 15;
+		} else if( CoC.player.lib < 10 && CoC.player.gender === 0 ) {
+			CoC.player.lib = 10;
+		}
+	};
+	EngineCore._addSens = function(sens) {
+		CoC.oldStats.sens = CoC.player.sens;
 		if( CoC.player.findPerk( PerkLib.ChiReflowLust ) && sens > 0 ) {
 			sens *= SceneLib.umasShop.NEEDLEWORK_LUST_LIBSENSE_MULTI;
 		}
-		//lust resistance
-		if( lust2 > 0 && resisted ) {
-			lust2 *= EngineCore.lustPercent() / 100;
-		}
-		if( libi > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
-			libi *= 0.75;
-		}
-		if( corr > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
-			corr *= 0.5;
-		}
-		if( corr > 0 && CoC.player.findPerk( PerkLib.PureAndLoving ) ) {
-			corr *= 0.75;
-		}
-		//Change original stats
-		CoC.player.str += stre;
-		CoC.player.tou += toug;
-		CoC.player.spe += spee;
-		CoC.player.inte += intel;
-		CoC.player.lib += libi;
 		if( CoC.player.sens > 50 && sens > 0 ) {
 			sens /= 2;
 		}
@@ -498,82 +549,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			sens *= 2;
 		}
 		CoC.player.sens += sens;
-		CoC.player.lust += lust2;
-		CoC.player.cor += corr;
-		//Bonus gain for perks!
-		if( CoC.player.findPerk( PerkLib.Strong ) && stre >= 0 ) {
-			CoC.player.str += stre * CoC.player.findPerk( PerkLib.Strong ).value1;
-		}
-		if( CoC.player.findPerk( PerkLib.Tough ) && toug >= 0 ) {
-			CoC.player.tou += toug * CoC.player.findPerk( PerkLib.Tough ).value1;
-		}
-		if( CoC.player.findPerk( PerkLib.Fast ) && spee >= 0 ) {
-			CoC.player.spe += spee * CoC.player.findPerk( PerkLib.Fast ).value1;
-		}
-		if( CoC.player.findPerk( PerkLib.Smart ) && intel >= 0 ) {
-			CoC.player.inte += intel * CoC.player.findPerk( PerkLib.Smart ).value1;
-		}
-		if( CoC.player.findPerk( PerkLib.Lusty ) && libi >= 0 ) {
-			CoC.player.lib += libi * CoC.player.findPerk( PerkLib.Lusty ).value1;
-		}
 		if( CoC.player.findPerk( PerkLib.Sensitive ) && sens >= 0 ) {
 			CoC.player.sens += sens * CoC.player.findPerk( PerkLib.Sensitive ).value1;
-		}
-		// Uma\'s Str Cap from Perks
-		if( CoC.player.findPerk( PerkLib.ChiReflowSpeed ) ) {
-			if( CoC.player.str > SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP ) {
-				CoC.player.str = SceneLib.umasShop.NEEDLEWORK_SPEED_STRENGTH_CAP;
-			}
-		}
-		if( CoC.player.findPerk( PerkLib.ChiReflowDefense ) ) {
-			if( CoC.player.spe > SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP ) {
-				CoC.player.spe = SceneLib.umasShop.NEEDLEWORK_DEFENSE_SPEED_CAP;
-			}
-		}
-		//Keep EngineCore.stats in bounds
-		if( CoC.player.cor < 0 ) {
-			CoC.player.cor = 0;
-		}
-		if( CoC.player.cor > 100 ) {
-			CoC.player.cor = 100;
-		}
-		if( CoC.player.str > 100 ) {
-			CoC.player.str = 100;
-		}
-		if( CoC.player.str < 1 ) {
-			CoC.player.str = 1;
-		}
-		if( CoC.player.tou > 100 ) {
-			CoC.player.tou = 100;
-		}
-		if( CoC.player.tou < 1 ) {
-			CoC.player.tou = 1;
-		}
-		if( CoC.player.spe > 100 ) {
-			CoC.player.spe = 100;
-		}
-		if( CoC.player.spe < 1 ) {
-			CoC.player.spe = 1;
-		}
-		if( CoC.player.inte > 100 ) {
-			CoC.player.inte = 100;
-		}
-		if( CoC.player.inte < 1 ) {
-			CoC.player.inte = 1;
-		}
-		if( CoC.player.lib > 100 ) {
-			CoC.player.lib = 100;
-		}
-		//Minimum libido = 15.
-		if( CoC.player.lib < 50 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
-			CoC.player.lib = 50;
-		} else if( CoC.player.lib < 15 && CoC.player.gender > 0 ) {
-			CoC.player.lib = 15;
-		} else if( CoC.player.lib < 10 && CoC.player.gender === 0 ) {
-			CoC.player.lib = 10;
-		}
-		if( CoC.player.lib < CoC.player.minLust() * 2 / 3 ) {
-			CoC.player.lib = CoC.player.minLust() * 2 / 3;
 		}
 		//Minimum sensitivity.
 		if( CoC.player.sens > 100 ) {
@@ -582,20 +559,21 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( CoC.player.sens < 10 ) {
 			CoC.player.sens = 10;
 		}
-		//Add HP for toughness change.
-		EngineCore.HPChange( toug * 2, false );
-		//Reduce hp if over max
-		if( CoC.player.HP > CoC.player.maxHP() ) {
-			CoC.player.HP = CoC.player.maxHP();
+	};
+	EngineCore._addLust = function(lust, resisted) {
+		CoC.oldStats.lust = CoC.player.lust;
+		if(resisted === undefined) {
+			resisted = true;
 		}
-		//Combat bounds
-		if( CoC.player.lust > 99 ) {
-			CoC.player.lust = 100;
+		if( CoC.flags[ kFLAGS.EASY_MODE_ENABLE_FLAG ] && lust > 0 && resisted ) {
+			lust /= 2;
 		}
+		if( lust > 0 && resisted ) {
+			lust *= EngineCore.lustPercent() / 100;
+		}
+		CoC.player.lust += lust;
+		
 		//Update to minimum lust if lust falls below it.
-		if( CoC.player.lust < CoC.player.minLust() ) {
-			CoC.player.lust = CoC.player.minLust();
-		}
 		//worms raise min lust!
 		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
 			if( CoC.player.lust < 50 ) {
@@ -605,9 +583,42 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		if( CoC.player.lust > 100 ) {
 			CoC.player.lust = 100;
 		}
-		if( CoC.player.lust < 0 ) {
-			CoC.player.lust = 0;
+		if( CoC.player.lust < CoC.player.minLust() ) {
+			CoC.player.lust = CoC.player.minLust();
 		}
+	};
+	EngineCore._addCor = function(cor) {
+		CoC.oldStats.cor = CoC.player.cor;
+		if( cor > 0 && CoC.player.findPerk( PerkLib.PurityBlessing ) ) {
+			cor *= 0.5;
+		}
+		if( cor > 0 && CoC.player.findPerk( PerkLib.PureAndLoving ) ) {
+			cor *= 0.75;
+		}
+		CoC.player.cor += cor;
+		if( CoC.player.cor < 0 ) {
+			CoC.player.cor = 0;
+		}
+		if( CoC.player.cor > 100 ) {
+			CoC.player.cor = 100;
+		}
+	};
+	EngineCore.stats = function( stre, toug, spee, intel, libi, sens, lust2, corr, resisted, noBimbo ) {
+		//Easy mode cuts lust gains!
+		//Set original values to begin tracking for up/down values if
+		//they aren\'t set yet.
+		//These are reset when up/down arrows are hidden with
+		//hideUpDown();
+		//Just check str because they are either all 0 or real values
+		EngineCore._addStr( stre );
+		EngineCore._addTou( toug );
+		EngineCore._addSpe( spee );
+		EngineCore._addIntel( intel, noBimbo );
+		EngineCore._addLib( libi, noBimbo );
+		EngineCore._addSens( sens );
+		EngineCore._addLust( lust2, resisted);
+		EngineCore._addLust( corr );
+		
 		//Refresh the stat pane with updated values
 		MainView.statsView.showUpDown();
 		MainView.statsView.show();

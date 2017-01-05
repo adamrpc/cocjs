@@ -11,6 +11,7 @@ describe('Factory: EngineCore', function() {
 	var PlayerConstructor;
 	var statusAffects;
 	var sceneLib;
+	var flags;
 	beforeEach(inject(function( $log, EngineCore, CoC, kFLAGS, PerkLib, MainView, CoC_Settings, Player, StatusAffects, SceneLib) {
 		log = $log;
 		engineCore = EngineCore;
@@ -21,6 +22,7 @@ describe('Factory: EngineCore', function() {
 		PlayerConstructor = Player;
 		statusAffects = StatusAffects;
 		sceneLib = SceneLib;
+		flags = kFLAGS;
 	}));
 	it('Should define EngineCore', function() {
 		expect(engineCore).toBeDefined();
@@ -167,17 +169,17 @@ describe('Factory: EngineCore', function() {
 	it('Should define createCallBackFunction', function() {
 		expect(engineCore.createCallBackFunction).toBeDefined();
 	});
-	it('should return null and trigger error if no parameter', function() {
+	it('Should return null and trigger error if no parameter', function() {
 		spyOn(coC_Settings, 'error');
 		expect(engineCore.createCallBackFunction()).toBe(null);
 		expect(coC_Settings.error.calls.count()).toBe(1);
 	});
-	it('should return null and trigger error if non function parameter', function() {
+	it('Should return null and trigger error if non function parameter', function() {
 		spyOn(coC_Settings, 'error');
 		expect(engineCore.createCallBackFunction( null, "test" )).toBe(null);
 		expect(coC_Settings.error.calls.count()).toBe(1);
 	});
-	it('should return function if function parameter without arg', function() {
+	it('Should return function if function parameter without arg', function() {
 		spyOn(coC_Settings, 'error');
 		function TestObj() {
 			this.test = 0;
@@ -191,7 +193,7 @@ describe('Factory: EngineCore', function() {
 		result();
 		expect(obj.test).toBe( 1 );
 	});
-	it('should return function if function parameter with 1 arg', function() {
+	it('Should return function if function parameter with 1 arg', function() {
 		spyOn(coC_Settings, 'error');
 		function TestObj() {
 			this.test = 0;
@@ -205,7 +207,7 @@ describe('Factory: EngineCore', function() {
 		result();
 		expect(obj.test).toBe( 3 );
 	});
-	it('should return function if function parameter with multiple args', function() {
+	it('Should return function if function parameter with multiple args', function() {
 		spyOn(coC_Settings, 'error');
 		function TestObj() {
 			this.test1 = 0;
@@ -226,14 +228,14 @@ describe('Factory: EngineCore', function() {
 	it('Should define addButton', function() {
 		expect(engineCore.addButton).toBeDefined();
 	});
-	it('should return trigger error if no function given', function() {
+	it('Should return trigger error if no function given', function() {
 		spyOn(coC_Settings, 'error');
 		spyOn(mainView, 'showBottomButton');
 		engineCore.addButton( 0 , '', function() {} ); // Test for a call if migration didn't work
 		expect(coC_Settings.error.calls.count()).toBe( 1 );
 		expect(mainView.showBottomButton.calls.count()).toBe( 0 );
 	});
-	it('should create button with function without argument', function() {
+	it('Should create button with function without argument', function() {
 		spyOn(coC_Settings, 'error');
 		var pos = null;
 		var text = null;
@@ -259,7 +261,7 @@ describe('Factory: EngineCore', function() {
 		expect(text).toBe( 'test' );
 		expect(toolTipText).toBe( 'test' );
 	});
-	it('should create button with function with one argument', function() {
+	it('Should create button with function with one argument', function() {
 		spyOn(coC_Settings, 'error');
 		var pos = null;
 		var text = null;
@@ -285,7 +287,7 @@ describe('Factory: EngineCore', function() {
 		expect(text).toBe( 'test' );
 		expect(toolTipText).toBe( 'test' );
 	});
-	it('should get the tooltip text from item description', function() {
+	it('Should get the tooltip text from item description', function() {
 		spyOn(coC_Settings, 'error');
 		var pos = null;
 		var text = null;
@@ -306,14 +308,14 @@ describe('Factory: EngineCore', function() {
 	it('Should define addButtonWithTooltip', function() {
 		expect(engineCore.addButtonWithTooltip).toBeDefined();
 	});
-	it('should return trigger error if no function given', function() {
+	it('Should return trigger error if no function given', function() {
 		spyOn(coC_Settings, 'error');
 		spyOn(mainView, 'showBottomButton');
 		engineCore.addButtonWithTooltip( 0 , '', '', function() {} ); // Test for a call if migration didn't work
 		expect(coC_Settings.error.calls.count()).toBe( 1 );
 		expect(mainView.showBottomButton.calls.count()).toBe( 0 );
 	});
-	it('should create button with function without argument', function() {
+	it('Should create button with function without argument', function() {
 		spyOn(coC_Settings, 'error');
 		var pos = null;
 		var text = null;
@@ -339,7 +341,7 @@ describe('Factory: EngineCore', function() {
 		expect(text).toBe( 'test' );
 		expect(toolTipText).toBe( 'aaa' );
 	});
-	it('should create button with function with one argument', function() {
+	it('Should create button with function with one argument', function() {
 		spyOn(coC_Settings, 'error');
 		var pos = null;
 		var text = null;
@@ -365,7 +367,7 @@ describe('Factory: EngineCore', function() {
 		expect(text).toBe( 'test' );
 		expect(toolTipText).toBe( 'aaa' );
 	});
-	it('should NOT get the tooltip text from item description', function() {
+	it('Should NOT get the tooltip text from item description', function() {
 		spyOn(coC_Settings, 'error');
 		var pos = null;
 		var text = null;
@@ -386,7 +388,7 @@ describe('Factory: EngineCore', function() {
 	it('Should define choices', function() {
 		expect(engineCore.choices).toBeDefined();
 	});
-	it('should return trigger error if called with wrong argument number', function() {
+	it('Should return trigger error if called with wrong argument number', function() {
 		spyOn(log, 'error');
 		spyOn(engineCore, 'addButton');
 		spyOn(mainView, 'menu');
@@ -395,7 +397,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.menu.calls.count()).toBe( 0 );
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
-	it('should create buttons with functions', function() {
+	it('Should create buttons with functions', function() {
 		spyOn(log, 'error');
 		var pos = [];
 		var text = [];
@@ -444,7 +446,7 @@ describe('Factory: EngineCore', function() {
 	it('Should define choicesWithTooltip', function() {
 		expect(engineCore.choicesWithTooltip).toBeDefined();
 	});
-	it('should return trigger error if called with wrong argument number', function() {
+	it('Should return trigger error if called with wrong argument number', function() {
 		spyOn(log, 'error');
 		spyOn(engineCore, 'addButton');
 		spyOn(mainView, 'menu');
@@ -453,7 +455,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.menu.calls.count()).toBe( 0 );
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
-	it('should create buttons with functions', function() {
+	it('Should create buttons with functions', function() {
 		spyOn(log, 'error');
 		var pos = [];
 		var text = [];
@@ -503,7 +505,7 @@ describe('Factory: EngineCore', function() {
 	it('Should define doYesNo', function() {
 		expect(engineCore.doYesNo).toBeDefined();
 	});
-	it('should return trigger error if called with wrong argument number', function() {
+	it('Should return trigger error if called with wrong argument number', function() {
 		spyOn(log, 'error');
 		spyOn(engineCore, 'addButton');
 		spyOn(mainView, 'menu');
@@ -512,7 +514,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.menu.calls.count()).toBe( 0 );
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
-	it('should create buttons with functions', function() {
+	it('Should create buttons with functions', function() {
 		spyOn(log, 'error');
 		var pos = [];
 		var text = [];
@@ -549,7 +551,7 @@ describe('Factory: EngineCore', function() {
 	it('Should define doNext', function() {
 		expect(engineCore.doNext).toBeDefined();
 	});
-	it('should trigger error if called with wrong argument number', function() {
+	it('Should trigger error if called with wrong argument number', function() {
 		spyOn(log, 'error');
 		spyOn(engineCore, 'addButton');
 		spyOn(mainView, 'menu');
@@ -558,7 +560,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.menu.calls.count()).toBe( 0 );
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
-	it('should do nothing if game is over', function() {
+	it('Should do nothing if game is over', function() {
 		spyOn(log, 'debug');
 		spyOn(log, 'error');
 		spyOn(engineCore, 'addButton');
@@ -570,7 +572,7 @@ describe('Factory: EngineCore', function() {
 		expect(mainView.menu.calls.count()).toBe( 0 );
 		expect(engineCore.addButton.calls.count()).toBe( 0 );
 	});
-	it('should create button with function', function() {
+	it('Should create button with function', function() {
 		spyOn(log, 'error');
 		var pos = [];
 		var text = [];
@@ -601,7 +603,7 @@ describe('Factory: EngineCore', function() {
 	it('Should define hideUpDown', function() {
 		expect(engineCore.hideUpDown).toBeDefined();
 	});
-	it('should call mainview and reinitialize oldstats', function() {
+	it('Should call mainview and reinitialize oldstats', function() {
 		spyOn(mainView.statsView, 'hideUpDown');
 		coc.player = new PlayerConstructor();
 		var i = 1;
@@ -1082,12 +1084,113 @@ describe('Factory: EngineCore', function() {
 		coc.player.lust = 50;
 		coc.player.cor = 50;
 		spyOn(engineCore, 'stats');
-		spyOn(log, 'error').and.callFake(function( text ) {
-			console.log( text );
-		});
+		spyOn(log, 'error');
 		engineCore.dynStats('spe', 20, 'lib+', 20, 'str*', 2, 'cor/', 2, 'tou=', 10, 'int', 10);
 		expect(log.error.calls.count()).toBe(0);
 		expect(engineCore.stats.calls.count()).toBe(1);
 		expect(engineCore.stats).toHaveBeenCalledWith( 50, -40, 20, 10, 20, 0, 0, -25, true, false );
+		engineCore.stats.calls.reset();
+		engineCore.dynStats('spe', 20, 'lib+', 20, 'str*', 2, 'cor/', 2, 'res', false, 'bim', true, 'tou=', 10, 'int', 10);
+		expect(log.error.calls.count()).toBe(0);
+		expect(engineCore.stats.calls.count()).toBe(1);
+		expect(engineCore.stats).toHaveBeenCalledWith( 50, -40, 20, 10, 20, 0, 0, -25, false, true );
+		engineCore.stats.calls.reset();
+		engineCore.dynStats('speed', 20, 'sensitivity+', 20, 'strength*', 2, 'lust/', 2, 'resisted', false, 'noBimbo', true, 'toughness=', 10, 'intellect', 10);
+		expect(log.error.calls.count()).toBe(0);
+		expect(engineCore.stats.calls.count()).toBe(1);
+		expect(engineCore.stats).toHaveBeenCalledWith( 50, -40, 20, 10, 0, 20, -25, 0, false, true );
+	});
+	it('Should define _addStr', function() {
+		expect(engineCore._addStr).toBeDefined();
+	});
+	it('Should edit player str', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.str = 50;
+		coc.oldStats.str = 0;
+		engineCore._addStr( 25 );
+		expect(coc.player.str).toBe(75);
+		expect(coc.oldStats.str).toBe(50);
+		engineCore._addStr( 50 );
+		expect(coc.player.str).toBe(100);
+		expect(coc.oldStats.str).toBe(75);
+		engineCore._addStr( -150 );
+		expect(coc.player.str).toBe(1);
+		expect(coc.oldStats.str).toBe(100);
+		coc.player.createPerk( perkLib.Strong, 2 );
+		engineCore._addStr( 10 );
+		expect(coc.player.str).toBe(31);
+		expect(coc.oldStats.str).toBe(1);
+		coc.player.removePerk( perkLib.Strong );
+		coc.player.createPerk( perkLib.ChiReflowSpeed );
+		engineCore._addStr( 100 );
+		expect(coc.player.str).toBe(60);
+		expect(coc.oldStats.str).toBe(31);
+		coc.player.removePerk( perkLib.ChiReflowSpeed );
+	});
+	it('Should define _addTou', function() {
+		expect(engineCore._addTou).toBeDefined();
+	});
+	it('Should edit player tou', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.tou = 50;
+		coc.oldStats.tou = 0;
+		spyOn(engineCore, 'HPChange');
+		engineCore._addTou( 25 );
+		expect(coc.player.tou).toBe(75);
+		expect(coc.oldStats.tou).toBe(50);
+		expect(engineCore.HPChange.calls.count()).toBe(1);
+		expect(engineCore.HPChange).toHaveBeenCalledWith(50, false);
+		engineCore.HPChange.calls.reset();
+		engineCore._addTou( 50 );
+		expect(coc.player.tou).toBe(100);
+		expect(coc.oldStats.tou).toBe(75);
+		expect(engineCore.HPChange.calls.count()).toBe(1);
+		expect(engineCore.HPChange).toHaveBeenCalledWith(50, false);
+		engineCore.HPChange.calls.reset();
+		engineCore._addTou( -150 );
+		expect(coc.player.tou).toBe(1);
+		expect(coc.oldStats.tou).toBe(100);
+		expect(engineCore.HPChange.calls.count()).toBe(1);
+		expect(engineCore.HPChange).toHaveBeenCalledWith(-198, false);
+		engineCore.HPChange.calls.reset();
+		coc.player.createPerk( perkLib.Tough, 2 );
+		engineCore._addTou( 10 );
+		expect(coc.player.tou).toBe(31);
+		expect(coc.oldStats.tou).toBe(1);
+		expect(engineCore.HPChange.calls.count()).toBe(1);
+		expect(engineCore.HPChange).toHaveBeenCalledWith(60, false);
+		coc.player.removePerk( perkLib.Tough );
+	});
+	it('Should define _addSpe', function() {
+		expect(engineCore._addSpe).toBeDefined();
+	});
+	it('Should edit player spe', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.spe = 50;
+		coc.oldStats.spe = 0;
+		engineCore._addSpe( 25 );
+		expect(coc.player.spe).toBe(75);
+		expect(coc.oldStats.spe).toBe(50);
+		engineCore._addSpe( 50 );
+		expect(coc.player.spe).toBe(100);
+		expect(coc.oldStats.spe).toBe(75);
+		engineCore._addSpe( -150 );
+		expect(coc.player.spe).toBe(1);
+		expect(coc.oldStats.spe).toBe(100);
+		coc.player.createPerk( perkLib.Fast, 2 );
+		engineCore._addSpe( 10 );
+		expect(coc.player.spe).toBe(31);
+		expect(coc.oldStats.spe).toBe(1);
+		coc.player.removePerk( perkLib.Fast );
+		coc.player.createPerk( perkLib.ChiReflowSpeed );
+		engineCore._addSpe( -20 );
+		expect(coc.player.spe).toBe(21);
+		expect(coc.oldStats.spe).toBe(31);
+		coc.player.removePerk( perkLib.ChiReflowSpeed );
+		coc.player.createPerk( perkLib.ChiReflowDefense );
+		engineCore._addSpe( 100 );
+		expect(coc.player.spe).toBe(60);
+		expect(coc.oldStats.spe).toBe(21);
+		coc.player.removePerk( perkLib.ChiReflowDefense );
 	});
 });
