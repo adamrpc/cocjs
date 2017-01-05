@@ -61,8 +61,19 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-chrome-launcher',
+      'karma-spec-reporter',
       'karma-jasmine'
     ],
+    
+    reporters: ['spec'],
+    specReporter: {
+        maxLogLines: 10,         // limit number of lines logged per test
+        suppressErrorSummary: false,  // do not print error summary
+        suppressFailed: false,  // do not print information about failed tests
+        suppressPassed: true,  // do not print information about passed tests
+        suppressSkipped: true,  // do not print information about skipped tests
+        showSpecTiming: true // print the time elapsed for each spec
+      },
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
