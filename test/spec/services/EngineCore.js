@@ -1463,4 +1463,71 @@ describe('Factory: EngineCore', function() {
 		expect(coc.oldStats.lust).toBe(85);
 		coc.flags[ flags.EASY_MODE_ENABLE_FLAG ] = false;
 	});
+	it('Should define _addCor', function() {
+		expect(engineCore._addCor).toBeDefined();
+	});
+	it('Should edit player corruption', function() {
+		coc.player = new PlayerConstructor();
+		coc.player.cor = 50;
+		coc.oldStats.cor = 0;
+		engineCore._addCor( 25 );
+		expect(coc.player.cor).toBe(75);
+		expect(coc.oldStats.cor).toBe(50);
+		engineCore._addCor( 50 );
+		expect(coc.player.cor).toBe(100);
+		expect(coc.oldStats.cor).toBe(75);
+		engineCore._addCor( -150 );
+		expect(coc.player.cor).toBe(0);
+		expect(coc.oldStats.cor).toBe(100);
+		
+		coc.player.createPerk( perkLib.PurityBlessing );
+		engineCore._addCor( 10 );
+		expect(coc.player.cor).toBe(5);
+		expect(coc.oldStats.cor).toBe(0);
+		coc.player.createPerk( perkLib.PureAndLoving );
+		engineCore._addCor( 8 );
+		expect(coc.player.cor).toBe(8);
+		expect(coc.oldStats.cor).toBe(5);
+		coc.player.removePerk( perkLib.PurityBlessing );
+		engineCore._addCor( 12 );
+		expect(coc.player.cor).toBe(17);
+		expect(coc.oldStats.cor).toBe(8);
+		coc.player.removePerk( perkLib.PureAndLoving );
+	});
+	it('Should define stats', function() {
+		expect(engineCore.stats).toBeDefined();
+	});
+	it('Should edit player stats', function() {
+		spyOn(engineCore, '_addStr');
+		spyOn(engineCore, '_addTou');
+		spyOn(engineCore, '_addSpe');
+		spyOn(engineCore, '_addIntel');
+		spyOn(engineCore, '_addLib');
+		spyOn(engineCore, '_addSens');
+		spyOn(engineCore, '_addLust');
+		spyOn(engineCore, '_addCor');
+		spyOn(mainView.statsView, 'showUpDown');
+		spyOn(mainView.statsView, 'show');
+		
+		engineCore.stats(1, 2, 3, 4, 5, 6, 7, 8, true, false);
+		
+		expect(engineCore._addStr.calls.count()).toBe(1);
+		expect(engineCore._addStr).toHaveBeenCalledWith( 1 );
+		expect(engineCore._addTou.calls.count()).toBe(1);
+		expect(engineCore._addTou).toHaveBeenCalledWith( 2 );
+		expect(engineCore._addSpe.calls.count()).toBe(1);
+		expect(engineCore._addSpe).toHaveBeenCalledWith( 3 );
+		expect(engineCore._addIntel.calls.count()).toBe(1);
+		expect(engineCore._addIntel).toHaveBeenCalledWith( 4, false );
+		expect(engineCore._addLib.calls.count()).toBe(1);
+		expect(engineCore._addLib).toHaveBeenCalledWith( 5, false );
+		expect(engineCore._addSens.calls.count()).toBe(1);
+		expect(engineCore._addSens).toHaveBeenCalledWith( 6 );
+		expect(engineCore._addLust.calls.count()).toBe(1);
+		expect(engineCore._addLust).toHaveBeenCalledWith( 7, true );
+		expect(engineCore._addCor.calls.count()).toBe(1);
+		expect(engineCore._addCor).toHaveBeenCalledWith( 8 );
+		expect(mainView.statsView.showUpDown.calls.count()).toBe(1);
+		expect(mainView.statsView.show.calls.count()).toBe(1);
+	});
 });

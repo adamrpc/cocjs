@@ -401,8 +401,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		var newSens = applyOperator( CoC.player.sens, argOps[ 5 ], argVals[ 5 ] );
 		var newLust = applyOperator( CoC.player.lust, argOps[ 6 ], argVals[ 6 ] );
 		var newCor = applyOperator( CoC.player.cor, argOps[ 7 ], argVals[ 7 ] );
-		// Because lots of checks and mods are made in the stats(), calculate deltas and pass them. However, this means that the \'=\' operator could be resisted
-		// In future (as I believe) EngineCore.stats() should be replaced with dynStats(), and checks and mods should be made here
+
 		EngineCore.stats( newStr - CoC.player.str,
 			newTou - CoC.player.tou,
 			newSpe - CoC.player.spe,
@@ -616,7 +615,7 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		EngineCore._addLib( libi, noBimbo );
 		EngineCore._addSens( sens );
 		EngineCore._addLust( lust2, resisted);
-		EngineCore._addLust( corr );
+		EngineCore._addCor( corr );
 		
 		//Refresh the stat pane with updated values
 		MainView.statsView.showUpDown();
