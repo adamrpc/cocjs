@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, PerkLib, ItemType, StatusAffects, CoC_Settings ) {
+angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, kFLAGS, MainView, PerkLib, ItemType, StatusAffects, CoC_Settings, ArmorLib ) {
 	var EngineCore = {};
 	EngineCore.silly = function() {
 		return CoC.flags[ kFLAGS.SILLY_MODE_ENABLE_FLAG ];
@@ -509,20 +509,21 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 			lib *= 0.75;
 		}
 		CoC.player.lib += lib;
-		if( CoC.player.findPerk( PerkLib.Lusty ) && lib >= 0 ) {
+		if( CoC.player.findPerk( PerkLib.Lusty ) && lib > 0 ) {
 			CoC.player.lib += lib * CoC.player.findPerk( PerkLib.Lusty ).value1;
 		}
 		if( CoC.player.lib > 100 ) {
 			CoC.player.lib = 100;
 		}
-		if( CoC.player.lib < CoC.player.minLust() * 2 / 3 ) {
-			CoC.player.lib = CoC.player.minLust() * 2 / 3;
-		} else if( CoC.player.lib < 50 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
+		if( CoC.player.lib < 50 && CoC.player.armor === ArmorLib.LMARMOR ) {
 			CoC.player.lib = 50;
 		} else if( CoC.player.lib < 15 && CoC.player.gender > 0 ) {
 			CoC.player.lib = 15;
 		} else if( CoC.player.lib < 10 && CoC.player.gender === 0 ) {
 			CoC.player.lib = 10;
+		}
+		if( CoC.player.lib < CoC.player.minLust() * 2 / 3 ) {
+			CoC.player.lib = CoC.player.minLust() * 2 / 3;
 		}
 	};
 	EngineCore._addSens = function(sens) {
