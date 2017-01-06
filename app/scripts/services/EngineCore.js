@@ -576,10 +576,8 @@ angular.module( 'cocjs' ).factory( 'EngineCore', function( SceneLib, $log, CoC, 
 		
 		//Update to minimum lust if lust falls below it.
 		//worms raise min lust!
-		if( CoC.player.findStatusAffect( StatusAffects.Infested ) ) {
-			if( CoC.player.lust < 50 ) {
-				CoC.player.lust = 50;
-			}
+		if( CoC.player.findStatusAffect( StatusAffects.Infested ) && CoC.player.lust < 50 ) {
+			CoC.player.lust = 50;
 		}
 		if( CoC.player.lust > 100 ) {
 			CoC.player.lust = 100;
