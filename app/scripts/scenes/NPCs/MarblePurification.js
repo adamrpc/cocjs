@@ -1381,7 +1381,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 			//Restore 30 fatigue;
 			EngineCore.fatigue( -30 );
 			//increase lust by 15;
-			EngineCore.stats( 0, 0, 0, 0, 0, 0, 15, 0 );
+			EngineCore.dynStats( 'lust', 15 );
 			//increase Marble lust by 10;
 			CoC.flags[ kFLAGS.MARBLE_LUST ] += 10;
 			CoC.flags[ kFLAGS.MARBLE_TIME_SINCE_NURSED_IN_HOURS ] = 0;
