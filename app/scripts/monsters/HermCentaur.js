@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, MainView, CockTypesEnum, Appearance, EngineCore, CoC, Monster, AppearanceDefs, Utils, Combat ) {
+angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, MainView, CockTypesEnum, Appearance, EngineCore, CoC, Monster, AppearanceDefs, Utils ) {
 	function HermCentaur() {
 		this.init(this, arguments);
 	}
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).factory( 'HermCentaur', function( SceneLib, MainView, 
 
 			opts[ Utils.rand( opts.length ) ]();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	HermCentaur.prototype.feminineMusk = function() {
 		MainView.outputText( 'Turning about, the demonic centauress lifts her tail to reveal the slimy, lubricated lips of her puffy, black horse-cunt.  She arches her human body back to lie on her back, an incredible show of flexibility, allowing you to view the silhouette of her jutting nipples her tail lazily fans her corruption-enhanced pheromones in your direction.  The air temperature seems to spike by a few degrees as the fan of biological lust washes over you.  Fragrant female moisture seems to seep into your very pores, and in spite of your desire to win out, ' );

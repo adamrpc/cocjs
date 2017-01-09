@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, CoC, kFLAGS, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
+angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, CoC, kFLAGS, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib ) {
 	function Harpy() {
 		this.init(this, arguments);
 	}
@@ -32,13 +32,13 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, 
 				this.HP -= 20;
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(this.Harpy special attack 2, lust increase)
 	Harpy.prototype.harpyTease = function() {
 		MainView.outputText( 'The harpy charges at you carelessly, her body striking you with the full weight of her motherly hips.  The pair of you go crashing backwards onto the ground.  You grapple with her weighty ass, trying your best not to think dirty thoughts, but the way she\'s maniacally flapping and writhing her curvy body against you makes it impossible! After a brief, groping wrestle on the ground, she pushes you away and takes flight again.', false );
 		EngineCore.dynStats( 'lus', (12 + Utils.rand( CoC.player.sens / 5 )) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	Harpy.prototype._superPerformCombatAction = Harpy.prototype.performCombatAction;
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).factory( 'Harpy', function( $log, MainView, SceneLib, 
 	Harpy.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.harpyScene.harpyLossU();
 		}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Hel, Combat, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, Hel, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function HelFollower() {
 	}
 
@@ -518,7 +518,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( 'Giving Hel a playful punch on the shoulder, you ask the salamander-girl if she\'d be up for a little battle practice.' );
 		MainView.outputText( '\n\n<i>"Oh?  Well, it\'s certainly been awhile since you and I fought out on the plains...  Alright, let\'s do it, [name]!  But heads up, I might just need to have my way with you after I push your face in the dirt!"</i>' );
 		MainView.outputText( '\n\nYou ready your [weapon] and prepare for battle!' );
-		Combat.startCombat( new Hel() );
+		SceneLib.combatScene.startCombat( new Hel() );
 		CoC.monster.createStatusAffect( StatusAffects.Sparring, 0, 0, 0, 0 );
 		//No gems.;
 		CoC.monster.XP = 1;
@@ -560,7 +560,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		MainView.outputText( '  You chuckle and offer her a hand up. The blushing Salamander takes it as you pull her into a tight embrace.  The cool wetness between her thighs a potent reminder of how much your lover seems to get off on violence.  Since she\'s so turned on, you could easily turn this into some rough loving.' );
 		//[Display 'Rough' sex options];
 		this.heliaRoughSex( false );
-		//Combat.cleanupAfterCombat();;
+		//SceneLib.combatScene.cleanupAfterCombat();;
 	};
 
 	//TALK to Hel @ Camp (Play at random after 1st);
@@ -956,7 +956,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 			MainView.outputText( '\n\n<b>You aren\'t turned on enough for sex right now.</b>' );
 		}
 		if( CoC.isInCombat() ) {
-			EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			EngineCore.addButton( 9, 'Back', this, this.heliaFollowerMenu );
 		}
@@ -1015,7 +1015,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1049,7 +1049,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1070,7 +1070,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1110,7 +1110,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1133,7 +1133,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1157,7 +1157,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, OnLoadVariables, He
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}

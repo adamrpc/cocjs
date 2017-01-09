@@ -1,26 +1,26 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView, $log, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, WeightedDrop, Combat, PerkLib, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView, $log, CoC, EngineCore, Monster, Combat, Utils, AppearanceDefs, StatusAffects, WeightedDrop, PerkLib, Descriptors ) {
 	function TentacleBeast() {
 		this.init(this, arguments);
 	}
 	angular.extend(TentacleBeast.prototype, Monster.prototype);
 	TentacleBeast.prototype.tentaclePhysicalAttack = function() {
 		MainView.outputText( 'The shambling horror throws its tentacles at you with a murderous force.\n', false );
-		var temp = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
-		if( temp < 0 ) {
-			temp = 0;
+		var damage = Math.ceil( (this.str + this.weaponAttack) - Math.random() * (CoC.player.tou) - CoC.player.armorDef );
+		if( damage < 0 ) {
+			damage = 0;
 		}
 		//Miss
-		if( temp === 0 || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
+		if( damage === 0 || Combat.combatMiss() ) {
 			MainView.outputText( 'However, you quickly evade the clumsy efforts of the abomination to strike you.', false );
 		}
 		//Hit
 		else {
-			temp = CoC.player.takeDamage( temp );
-			MainView.outputText( 'The tentacles crash upon your body mercilessly for ' + temp + ' damage.', false );
+			damage = CoC.player.takeDamage( damage );
+			MainView.outputText( 'The tentacles crash upon your body mercilessly for ' + damage + ' damage.', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	TentacleBeast.prototype.tentacleEntwine = function() {
 		MainView.outputText( 'The beast lunges its tentacles at you from all directions in an attempt to immobilize you.\n', false );
@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 				CoC.player.createStatusAffect( StatusAffects.TentacleBind, 0, 0, 0, 0 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	TentacleBeast.prototype.defeated = function( hpVictory ) {
 		if( hpVictory ) {
@@ -61,9 +61,9 @@ angular.module( 'cocjs' ).factory( 'TentacleBeast', function( SceneLib, MainView
 		} else {
 			if( !hpVictory && CoC.player.gender > 0 ) {
 				MainView.outputText( '  Perhaps you could use it to sate yourself?', true );
-				EngineCore.doYesNo( SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.tentacleVictoryRape, null, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( SceneLib.tentacleBeastScene, SceneLib.tentacleBeastScene.tentacleVictoryRape, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};

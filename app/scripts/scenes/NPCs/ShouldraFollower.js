@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, $log, Combat, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, $log, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function ShouldraFollower() {
 	}
 
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, $log
 		}
 		this.shouldraSleeping( 10, true );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Follower Shouldra - Masturbation Scenes;
 	//Shouldra Masturbation Menu Text;

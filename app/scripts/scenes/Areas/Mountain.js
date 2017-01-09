@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ConsumableLib, Combat, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, PerkLib, Imp, Goblin, ConsumableLib, OnLoadVariables ) {
 	function Mountain() {
 	}
 
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 					SceneLib.impScene.impLordEncounter();
 				} else {
 					MainView.outputText( 'An imp leaps out from behind a rock and attacks!', true );
-					Combat.startCombat( new Imp() );
+					SceneLib.combatScene.startCombat( new Imp() );
 				}
 				MainView.spriteSelect( 29 );
 				return;
@@ -138,13 +138,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, kFLAGS, 
 				if( CoC.player.gender > 0 ) {
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fucked, ' + CoC.player.mf( 'stud', 'slut' ), true );
 					MainView.outputText( '.</i>"', false );
-					Combat.startCombat( new Goblin() );
+					SceneLib.combatScene.startCombat( new Goblin() );
 					MainView.spriteSelect( 24 );
 					return;
 				} else {
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fuc-oh shit, you don\'t even have anything to play with!  This is for wasting my time!', true );
 					MainView.outputText( '</i>"', false );
-					Combat.startCombat( new Goblin() );
+					SceneLib.combatScene.startCombat( new Goblin() );
 					MainView.spriteSelect( 24 );
 					return;
 				}

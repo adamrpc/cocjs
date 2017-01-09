@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, Sheila, CockTypesEnum, CoC_Settings, PerkLib, Appearance, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, Sheila, CockTypesEnum, CoC_Settings, PerkLib, Appearance, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore ) {
 	//Cautious around strangers; doesn't want anything much to do with other people. She'll greet you and introduce herself, but if you begin to pry into her business she'll ask you to leave (on first contact). Her people's bodies transfer emotional energy during sex in an osmotic fashion, pulling it from concentrated sources and pushing it to diffuse ones despite the will of the partner. By repeated contact and respecting her space you may befriend her. Or you may refuse to leave from the get-go and she'll try to drive you off forcefully, allowing you to whoop her and sexcrime her.;
 	//Pseudo-code shit:;
 	//CoC.flags required: sheila xp, sheila corruption, demon sheila, sheila clock, sheilapreg, joeycount, sheilacite, sheilaforge;
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 	// go to fight;
 	SheilaScene.prototype.sheila1ndEncLookCloserPtIITalkFight = function() {
 		MainView.clearOutput();
-		Combat.startCombat( new Sheila() );
+		SceneLib.combatScene.startCombat( new Sheila() );
 		MainView.playerMenu();
 	};
 	//XP-1: PC's apology (sheila xp = -1 and demon sheila = 0):;
@@ -493,7 +493,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		MainView.outputText( '\n\n"<i>So that\'s how it\'ll be, then!  I\'m done trying to talk sense to you, ya clacker!</i>"  The incensed woman assumes a fighting posture, and you respond in kind.' );
 		//set sheila xp = -3, go to fight;
 		CoC.flags[ kFLAGS.SHEILA_XP ] = -3;
-		Combat.startCombat( new Sheila() );
+		SceneLib.combatScene.startCombat( new Sheila() );
 	};
 	//[XP-1 - Nothing];
 	SheilaScene.prototype.apologySheilaSayNothing = function() {
@@ -550,7 +550,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		MainView.outputText( 'Saying nothing, you raise your [weapon] and take a swing!  Sheila starts a bit and dodges just in time, then with a look of resignation, raises her fists as well.  "<i>That\'ll be right, I guess.  For what it\'s worth, I really am sorry.</i>"' );
 		//go to fight, set sheila xp = -3;
 		CoC.flags[ kFLAGS.SHEILA_XP ] = -3;
-		Combat.startCombat( new Sheila() );
+		SceneLib.combatScene.startCombat( new Sheila() );
 	};
 	//[XP-2 - Cast Arouse];
 	//requires PC has mastered the spell and has enough fatigue/lust to use it;
@@ -641,7 +641,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			MainView.outputText( '\n\n"<i>So... it has to be like this, then?  Alright!</i>"  Sheila thrusts a fist in the air, eyes glinting, and yells "<i>Come out!  \'Ready, World\'!</i>"  A form flows from her, taking the shape of a slim, dark woman with curly, almost liquid hair, in a loose vest and billowing, long-sleeved tunic.  Sheila jumps at you, and both the woman and her glamorous stand draw back to punch!' );
 		}
 		//go to fight; if silly mode, heal 20 hp and 10 fatigue on PC and set sheila HP = 120%;
-		Combat.startCombat( new Sheila() );
+		SceneLib.combatScene.startCombat( new Sheila() );
 		if( EngineCore.silly() ) {
 			CoC.monster.HP *= 1.2;
 			EngineCore.fatigue( -10 );
@@ -2498,7 +2498,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( CoC.flags[ kFLAGS.SHEILA_XP ] >= -3 ) {
 			CoC.flags[ kFLAGS.SHEILA_XP ] = -1;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Victory Rapin' - Rape Pussy] - uses cockarea <= 48:;
 	SheilaScene.prototype.rapeSheilasCooter = function() {
@@ -2671,7 +2671,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			 this.sheilaCorruption(-10);
 			 }*/
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Victory Rapin' - Forced Oral] - no corruption transfer, but adds some to PC;
 	//it's fine if you make two different buttons for the male and female branches, but both should indicate that this is forced;
@@ -2885,7 +2885,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', -1, 'cor', 1 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Dildo Rape] - requires DX Dildo;
 	//set sheila xp = -4;
@@ -2941,7 +2941,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			this.sheilaCorruption( -10 );
 		}
 		EngineCore.dynStats( 'lus', CoC.player.lib / 3, 'resisted', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//loss in combat: ;
 	//- Reminder: non-demon Sheila will kick your ass and leave unless PC has raised her lust to 75+ before losing; only in those cases will she be overcome and actually take advantage of you;
@@ -2959,7 +2959,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			}
 			MainView.outputText( '.' );
 			//lose 8 hrs if HP < 1 or 1 hr if lust > 99, no gem loss ;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//(else monster lust >= 75);
 		else {
@@ -3078,7 +3078,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				//reset hours since cum, pass 1 hr if lust loss or 8 if HP;
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'sen', 1 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 			//(else sens < 50);
 			else {
@@ -3099,7 +3099,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				//huge sens-based lust damage and lose 8 hrs if HP loss or plus med libido and return to camp if lust loss;
 				EngineCore.dynStats( 'sen', 3, 'lus', 50 + CoC.player.lib / 10, 'resisted', false );
 				//end cock don't fit branch;
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 		//(else if cock fit 32);
@@ -3124,7 +3124,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				MainView.outputText( '\n\n"<i>No, I\'m...</i>" she attempts, frowning, then slumps her shoulders in defeat.  "<i>You\'re right.  This is wrong.  I\'m sorry.</i>"  Sheila turns and quietly pulls her shorts back up, fastening her belt, then locates her top and slips it over her breasts.  She picks up the rest of her stuff, looks back at you once, then lopes off.  You watch her go with high energy and mixed feelings - of all things, the image of her pulling the shirt down over her flushed, sweating back sticks in your head, taunting you and keeping your prick hard long after she\'s gone.' );
 				//end scene and return to camp, plus some libido, plus lots of lust;
 				EngineCore.dynStats( 'lib', 1, 'lus', 70 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			//(else lib >= 25);
@@ -3186,7 +3186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				this.sheilaPreg( true );
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', -1 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 		//if not ended prematurely by small cock and lib < 25, PC corr > sheila corruption then -10 PC corr and +10 sheila corruption, else if PC corr < sheila corruption then +10 PC corr and -10 sheila corruption;
@@ -3301,7 +3301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		 EngineCore.dynStats('cor', 10);
 		 this.sheilaCorruption(-10);
 		 }*/
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Normal preg notif #1 (sheilapreg = 4 and demon sheila = 0 and sheila xp >= -2 and joeycount = 0):;
 	//output at next sheila encounter if conditions are met, suppressing any normal output (this also includes the sheila xp = -2 or -1 apology outputs);
@@ -3777,7 +3777,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Demon Sheila encounter (demon sheila = 1 and sheilapreg < 4);
@@ -3811,7 +3811,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		}
 		MainView.outputText( ', but as she giggles sadistically and starts to approach, you tense up again.  It\'s pretty clear by the way she swaggers dismissively that she isn\'t taking the rejection well!' );
 		//go to fight;
-		Combat.startCombat( new Sheila() );
+		SceneLib.combatScene.startCombat( new Sheila() );
 	};
 	//[Demon Sheila - Talk];
 	SheilaScene.prototype.demonSheilaTalk = function() {
@@ -3853,7 +3853,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[(RNG decides if dis bitch crazy, bias toward sane);
 		if( Utils.rand( 10 ) < 3 ) {
 			MainView.outputText( 'and she blurts, "<i>I know I can make you understand.  You can\'t go until you say it back!</i>"  You pull her hand free and back away from her, but she advances again, trying to grab you!' );
-			Combat.startCombat( new Sheila() );
+			SceneLib.combatScene.startCombat( new Sheila() );
 			return;
 		} else {
 			MainView.outputText( 'but she remasters herself with effort.  "<i>No worries.  I\'m sorry to hear you don\'t have any time for love, my special one.  I\'ll be here until you do, thinking about you and touching myself.</i>"  She releases you and steps away, then crudely shoves her spade through her thighs, grabs it, and half-moans as she thrusts her pelvis back and forth, jerking the thick black flesh in her hand.  With a wink, she abruptly releases it, then turns her back and departs.' );
@@ -4109,7 +4109,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				MainView.outputText( 'nimbly hops to her clawed feet' );
 			}
 			MainView.outputText( ', and runs her hands distractingly along the curves of her hips.  "<i>You can do what you like with my body, love... if you can convince me.  Of course, I\'ll claim the same privilege!</i>"  Sheila jumps at you, leaving no doubt what kind of \'convincing\' she expects to do!' );
-			Combat.startCombat( new Sheila() );
+			SceneLib.combatScene.startCombat( new Sheila() );
 		}
 		//(if no cock);
 		else if( CoC.player.hasVagina() ) {
@@ -4185,7 +4185,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		CoC.player.orgasm();
 		CoC.player.HP = CoC.player.maxHP();
 		EngineCore.fatigue( -50 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Loss - normal cocks get rode (for cockarea <= 56);
 	SheilaScene.prototype.loseToNormalSheilaAndGetRidden = function() {
@@ -4266,7 +4266,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.dynStats( 'cor', 10 );
 			this.sheilaCorruption( -10 );
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -4321,7 +4321,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			this.sheilaPreg();
 			this.sheilaCorruption( -10 );
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -4366,7 +4366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.dynStats( 'cor', 10 );
 		this.sheilaCorruption( -10 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -4560,7 +4560,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'sen', -2 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -4578,7 +4578,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//big lib-based lust gain, med lib gain if lust hits 100, pass 1 hour;
 		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 4, 'resisted', false );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -4600,11 +4600,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//[(lust < 30)];
 		if( CoC.player.lust <= 33 && output ) {
 			MainView.outputText( '\n\nYou\'re just not horny enough to consider fucking her right now, though, and she wilts a bit as you turn away.  "<i>Sorry, I was just having fun... I\'ll see you soon, then?</i>" she calls, hopefully.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		if( CoC.player.gender === 0 ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//if lust high enough, display choices [Missionary][Big Dick+Thighs][Penetration, In Spades][Nipple Kisses][Anal Hate-fuck(req >= 75 corr and monster lust >99 or monster HP < 1 to appear)];
@@ -4724,7 +4724,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			this.sheilaPreg();
 			//if short scene, sheilapreg check, reduce PC lust and libido;
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -4792,7 +4792,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 				this.sheilaCorruption( 10 );
 			}
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -4876,7 +4876,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -1, 'cor', 2 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -4915,7 +4915,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		EngineCore.dynStats( 'lus', CoC.player.lib / 5 );
 		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 3;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -4967,7 +4967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		//lust raised, plus some corruption;
 		EngineCore.dynStats( 'lus', CoC.player.lib / 3, 'cor', 2 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -5010,7 +5010,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 		CoC.flags[ kFLAGS.SHEILA_DISABLED ] = 4;
 		CoC.flags[ kFLAGS.JOJO_DEAD_OR_GONE ] = 1;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -5184,7 +5184,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			this.sheilaCorruption( 10 );
 		}
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -5271,7 +5271,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, $log, MainView, S
 			EngineCore.dynStats( 'cor', -10 );
 		}
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}

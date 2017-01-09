@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, Combat, HellHound, PregnancyStore, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, PerkLib, StatusAffects, EngineCore, Descriptors, HellHound, PregnancyStore, CockTypesEnum ) {
 	function HellHoundScene() {
 	}
 
@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 	 */
 	HellHoundScene.prototype.hellhoundEncounter = function() {
 		MainView.outputText( 'You hear a fiery howl as a demonic, two-headed beast-man leaps out in front of you!', true );
-		Combat.startCombat( new HellHound() );
+		SceneLib.combatScene.startCombat( new HellHound() );
 		MainView.spriteSelect( 27 );
 	};
 
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		else {
 			EngineCore.dynStats( 'cor', 1.5 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	HellHoundScene.prototype.hellHoundGetsRaped = function() {
 		MainView.outputText( '', true );
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		} else {
 			CoC.player.orgasm();
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//HELLHOUND MASTER+ BAD ENDZZZZZ
@@ -285,7 +285,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		if( CoC.player.cor < 20 ) {
 			MainView.outputText( 'The corrupt juice burns on your tongue, far worse than the hottest spicy dish you have ever had. You instantly back off from his member, cursing this abomination of nature. Leaving the submissive creature as it is, you head back for your camp.', false );
 			EngineCore.dynStats( 'lus', -99 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//--- ELSE (CORRUPTION >= 20) ---
@@ -299,7 +299,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 				CoC.player.takeDamage( 20 );
 				EngineCore.dynStats( 'lus', -99 );
 				//--> deals 20dmg (lowering hp to a minimum of 1), introduces inability to masturbate
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			//--- ELSE (CORRUPTION >= 40) ---
@@ -357,7 +357,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			//Preggers chance!
 			CoC.player.knockUp( PregnancyStore.PREGNANCY_HELL_HOUND, PregnancyStore.INCUBATION_HELL_HOUND, 101 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'hellHoundScene', new HellHoundScene() );
 } );

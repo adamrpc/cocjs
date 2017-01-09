@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, MainView, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, MainView, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, SceneLib, Combat ) {
 	function AbstractSuccubus() {
 		this.init(this, arguments);
 	}
@@ -10,7 +10,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 			//Blind dodge change;
 			if( this.findStatusAffect( StatusAffects.Blind ) ) {
 				MainView.outputText( this.getCapitalA() + this.short + ' swings her whip at you wildly, totally missing due to her blindness!!', false );
-				Combat.combatRoundOver();
+				SceneLib.combatScene.combatRoundOver();
 				return;
 			}
 			MainView.outputText( 'Grinning deviously, the succubus cracks her whip with expert skill, landing a painful blow on your ', false );
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 			this.weaponName = 'whip';
 			this.weaponVerb = 'brutal whip-crack';
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	AbstractSuccubus.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 		//[Kiss of Death Text];
 		MainView.outputText( 'The succubus dances forwards, cocking her elbow back for a vicious strike.', false );
 		//avoid!;
-		if( CoC.player.spe > this.spe && Utils.rand( 4 ) === 0 || (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 4 ) === 0) || (CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 4 ) === 0 && CoC.player.armorName === 'red, high-society bodysuit') ) {
+		if( CoC.player.spe > this.spe && Utils.rand( 4 ) === 0 || Combat.combatEvade(25) || Combat.combatMisdirect(25) ) {
 			MainView.outputText( '  You start to sidestep and realize it\'s a feint.   Ducking low, you slide under her real attack... a kiss?!  ', false );
 			if( CoC.player.lust >= 70 ) {
 				MainView.outputText( '  Maybe you shouldn\'t have bothered to move, it might have been fun.', false );
@@ -99,7 +99,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 				CoC.player.createStatusAffect( StatusAffects.KissOfDeath, 0, 0, 0, 0 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	AbstractSuccubus.prototype.seduceAttack = function() {
 		//determine which method of teasing you use;
@@ -170,7 +170,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSuccubus', function( Descriptors, Ma
 				MainView.outputText( '\nYou\'re unimpressed.\n\n', false );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	return AbstractSuccubus;
 } );

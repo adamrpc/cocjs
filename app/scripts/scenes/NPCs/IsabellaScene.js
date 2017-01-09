@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	//Isabella Flags:;
 	//256	PC decided to approach Isabella's camp yet? 1;
@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		//CAMP MEETING – UMAD BRAH!?;
 		if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] > 0 ) {
 			MainView.outputText( 'You unintentionally wind up in Isabella\'s camp, and the cow-girl still seems pretty steamed at you.  She charges towards you, sliding her arm through the straps on her shield as she approaches.  It\'s a fight!', false );
-			Combat.startCombat( new Isabella() );
+			SceneLib.combatScene.startCombat( new Isabella() );
 			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				SceneLib.isabellaFollowerScene.isabellaAffection( -4 );
 			}
@@ -221,7 +221,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			SceneLib.isabellaFollowerScene.isabellaAffection( -5 );
 		}
-		Combat.startCombat( new Isabella() );
+		SceneLib.combatScene.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
 		MainView.spriteSelect( 31 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			SceneLib.isabellaFollowerScene.isabellaAffection( -5 );
 		}
 		MainView.outputText( 'You smirk at Isabella, and ready your ' + CoC.player.weaponName + ', telling her you intend to have you way with her.  She turns beet red and grabs her shield, announcing, "<i>You von\'t find me such easy prey, and I vill punish you for being so naughty!</b>"', false );
-		Combat.startCombat( new Isabella() );
+		SceneLib.combatScene.startCombat( new Isabella() );
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] += 72;
 		MainView.spriteSelect( 31 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -246,11 +246,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		if( CoC.player.inte < 25 ) {
 			MainView.outputText( 'You open your mouth and tell her you won\'t be leaving until she understands that you aren\'t her enemy.  She snorts and taunts, "<i>You zink Izabella vould fall for zuch trickery? HAH!</i>"\n\n', false );
 			MainView.outputText( 'Your reply is blotted out by the thundering of her hooves as she lowers her shield and charges.\n\n', false );
-			Combat.startCombat( new Isabella() );
+			SceneLib.combatScene.startCombat( new Isabella() );
 			if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 				SceneLib.isabellaFollowerScene.isabellaAffection( -2 );
 			}
-			Combat.enemyAI();
+			CoC.monster.doAI();
 		}
 		//(int below 50);
 		else if( CoC.player.inte < 50 ) {
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				SceneLib.isabellaFollowerScene.isabellaAffection( -2 );
 			}
 			//(start combat);
-			Combat.startCombat( new Isabella() );
+			SceneLib.combatScene.startCombat( new Isabella() );
 		}
 		//(Int below 75) ;
 		else if( CoC.player.inte < 75 ) {
@@ -268,7 +268,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				SceneLib.isabellaFollowerScene.isabellaAffection( -2 );
 			}
 			//(Start combat);
-			Combat.startCombat( new Isabella() );
+			SceneLib.combatScene.startCombat( new Isabella() );
 		}
 		//(Else) ;
 		else {
@@ -929,7 +929,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				return;
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Isabella rapes you with her ass];
 	IsabellaScene.prototype.isabellaRapesYouWithHerAss = function() {
@@ -1111,7 +1111,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[OPTIONAL GET RAPED AFTER SPANKING/FEEDING];
 	IsabellaScene.prototype.IsabellaPostSpankFeedSex = function() {
@@ -1173,7 +1173,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			SceneLib.isabellaFollowerScene.isabellaAffection( 3 );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//LOSS;
 	IsabellaScene.prototype.isabellaDefeats = function() {
@@ -1184,7 +1184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 				this.IsabellaWinsAndSpanks();
 			}
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//[VICTORY!];
@@ -1203,7 +1203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			} else {
 				MainView.outputText( 'take care of her needs (or be taken care of).', false );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		MainView.outputText( 'You push the ', false );
@@ -1273,7 +1273,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			}
 		}
 		EngineCore.choices( 'Lactation69', this, lactation, 'Buttsex', this, buttsex, 'Sixty-Nine', this, sixtyNine, 'Vaginal', this, vaginalSex, 'Big Titfuck', this, bigTitFuck,
-			'Small Titfuck', this, smallTitFuck, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			'Small Titfuck', this, smallTitFuck, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//[LACTATION 69];
 	IsabellaScene.prototype.victoryLactation69 = function() {
@@ -1390,7 +1390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		//Reset anger;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] = 0;
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[VICTORY BUTTSEX];
 	IsabellaScene.prototype.PCVictoryOnIsabellaButtsex = function() {
@@ -1517,7 +1517,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			SceneLib.isabellaFollowerScene.isabellaAffection( 3 );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Victory 69];
 	IsabellaScene.prototype.victoryAgainstIzzzzzySixtyNine = function() {
@@ -1681,7 +1681,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] = 0;
 		CoC.player.slimeFeed();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1802,7 +1802,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		}
 		MainView.outputText( 'Shrugging, you wipe ' + Descriptors.sMultiCockDesc() + ' off on her lips and get dressed.  This cow is one marvelous cum-dump.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[VAGINAL PROD N' POKE];
 	IsabellaScene.prototype.vaginalProdNPokeIsabella = function() {
@@ -1908,7 +1908,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 		if( !SceneLib.isabellaFollowerScene.isabellaFollower() ) {
 			SceneLib.isabellaFollowerScene.isabellaAffection( 7 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 	};
 	//[Small dick tit-fucking] (Dicks less than 9 inches);
@@ -1998,7 +1998,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PerkLib, Isabella, 
 			SceneLib.isabellaFollowerScene.isabellaAffection( 8 );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00260 ] = 0;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 	};
 	//[Discuss Isabella];

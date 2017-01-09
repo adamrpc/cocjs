@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, StatusAffects, EngineCore, Descriptors, InfestedHellhound, Utils, Combat, PregnancyStore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, StatusAffects, EngineCore, Descriptors, InfestedHellhound, Utils, PregnancyStore ) {
 	function InfestedHellhoundScene() {
 	}
 
@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 		MainView.outputText( '.  Peeking fearfully over your shoulder, you see the black-furred form of a hell-hound emerging from behind a rock.  Its eyes narrow as its gaze locks onto your ' + CoC.player.assholeOrPussy() + ', a pair of black, shiny dog-cocks emerge underneath him, dangling freely.  His balls look bloated and distended, the skin around them crawling and wriggling.  A few worms drip from its over-sized peckers, crawling on the ground under the infested beast.\n\n', false );
 		MainView.outputText( 'Somehow you know this thing isn\'t going to let you just walk away.', false );
-		Combat.startCombat( new InfestedHellhound() );
+		SceneLib.combatScene.startCombat( new InfestedHellhound() );
 		MainView.spriteSelect( 27 );
 	};
 
@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', 1, 'cor', 1 );
 			CoC.player.cumMultiplier += 0.5;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//[PLAYER'S COCKS ARE BIG ENOUGH TO BE INFECTED]
 		else if( !CoC.player.findStatusAffect( StatusAffects.Infested ) && CoC.player.biggestCockArea() >= 40 && CoC.player.hasCock() ) {
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 					CoC.player.cor = 25;
 				}
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//[HAS PUSSY AND NO DICK BIG ENOUGH TO BE INFECTED]
 		else if( CoC.player.hasVagina() && CoC.player.biggestCockArea() < 40 && CoC.player.lowerBody !== AppearanceDefs.LOWER_BODY_TYPE_NAGA ) {
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			CoC.player.knockUpForce( PregnancyStore.PREGNANCY_WORM_STUFFED, 100 + CoC.player.statusAffectv1( StatusAffects.WormPlugged ) ); //Will be cleared when the WormPlugged effect ends
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'cor', 1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//[GENDERLESS OR MALE WITH DICK TOO SMALL]
 		else {
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			CoC.player.buttChange( CoC.monster.cockArea( 0 ), true );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'cor', 1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	SceneLib.registerScene( 'infestedHellhoundScene', new InfestedHellhoundScene() );

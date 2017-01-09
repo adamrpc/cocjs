@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStore, Izma, ConsumableLib, WeaponLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStore, Izma, ConsumableLib, WeaponLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	//Izma the Tigershark.;
 	//Credits: Jokester, Quiet Browser, LukaDoc and Bob.;
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		else {
 			MainView.outputText( 'Izma laughs slightly and shakes her head.  "<i>If you insist.  At least TRY this time, will ya?</i>"', false );
 		}
-		Combat.startCombat( new Izma() );
+		SceneLib.combatScene.startCombat( new Izma() );
 		MainView.spriteSelect( 32 );
 	};
 
@@ -413,7 +413,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 			MainView.outputText( '\n\nIzma looks on in horror as you push out the load of wormy cargo onto the sand at her feet, only snapping out of her daze as several of the parasites begin climbing her ankle with an eye toward her cock.  She shrieks and jumps back, then drags her foot in the sand, dislodging or pulverizing the squirming vermin.  "<i>' + CoC.player.short + ', that\'s nasty!  Get away!  Get away and don\'t talk to me again!  Ugh!</i>"  She takes off, grabbing her chest of books and kicking sand up in her flight down the beach.', false );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] = 1;
 			CoC.player.orgasm();
-			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			return;
 		}
 		//(without worms);
@@ -708,7 +708,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		}
 		CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.TSTOOTH.id;
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Final loss sex scene];
 	//(trigger if PC loses with Izmafight <= -5);
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		if( CoC.flags[ kFLAGS.IZMA_TIMES_FOUGHT_AND_WON ] <= 4 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00235 ] > 0 ) {
 			MainView.outputText( 'You say your goodbyes to the pretty tigershark and leave once she hands you your tooth-shaped reward.', false );
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.TSTOOTH.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//(if Izmafight >=5 then go to [Victor's Choice]] (Izmafight +1);
 		else {
@@ -888,7 +888,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		//[(if Izmafight <=4) ;
 		if( CoC.flags[ kFLAGS.IZMA_TIMES_FOUGHT_AND_WON ] <= 4 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00235 ] > 0 ) {
 			MainView.outputText( '  You say your goodbyes to the pretty tigershark and leave once she hands you your tooth-shaped reward.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//(if Izmafight >=5 then go to [Victor's Choice]];
 		else {
@@ -904,7 +904,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		MainView.outputText( 'Izma cringes.  "<i>Sorry!  I just don\'t want to go fathering children with someone who\'s not my mate!  Please, please take it!</i>"\n\n', false );
 		MainView.outputText( 'You slap the leaf out of her hand.  "<i>Try getting stronger before you impose your decisions on others!</i>" you bark.  "<i>Whether I decide to have your kids or not is none of your business; you should be grateful at the chance to father them with someone tougher than you!</i>"  She shivers and nods meekly, and you turn about and pick your way back to camp.\n\n', false );
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_IZMA, PregnancyStore.INCUBATION_IZMA );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//(Izmafight +1);
 		CoC.flags[ kFLAGS.IZMA_TIMES_FOUGHT_AND_WON ]++;
 	};
@@ -925,7 +925,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		if( CoC.flags[ kFLAGS.IZMA_TIMES_FOUGHT_AND_WON ] <= 4 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00235 ] > 0 ) {
 			MainView.outputText( 'You say your goodbyes to the pretty tigershark and leave once she hands you your tooth-shaped reward.', false );
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.TSTOOTH.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//(if Izmafight >=5 then go to [Victor's Choice]];
 		else {
@@ -946,7 +946,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		//(Izmafight +1);
 		CoC.flags[ kFLAGS.IZMA_TIMES_FOUGHT_AND_WON ]++;
 		CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.TSTOOTH.id;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Victor's choice] (tacks onto end of victory sex if Izmafight >= 5);
 	IzmaScene.prototype.victorzChoice = function() {
@@ -960,7 +960,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		MainView.outputText( 'You accept the tooth from her with a polite word of thanks.', false );
 		//(gain 1 t-shark toof);
 		CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.TSTOOTH.id;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Gloves];
 	IzmaScene.prototype.chooseIzmaGloves = function() {
@@ -972,7 +972,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStor
 		//(gain 1 Hooked gauntlets) ;
 		CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = WeaponLib.H_GAUNT.id;
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00235 ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	IzmaScene.prototype.chooseYourIzmaWeapon = function() {
 		if( CoC.player.gender === 0 ) {

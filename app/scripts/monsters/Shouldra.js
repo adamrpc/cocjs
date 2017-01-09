@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Descriptors, Appearance, ConsumableLib, ChainedDrop, StatusAffects, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Descriptors, Appearance, ConsumableLib, ChainedDrop, StatusAffects, Combat, CoC, Monster, Utils, AppearanceDefs, EngineCore ) {
 	function Shouldra() {
 		this.init(this, arguments);
 	}
@@ -10,17 +10,17 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Des
 		//return to combat menu when finished;
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'The girl wades in for a swing, but you deftly dodge to the side. She recovers quickly, spinning back at you.', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'The girl wades in for a swing, but you deftly misdirect her and avoid the attack. She recovers quickly, spinning back at you.', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'The girl wades in for a swing, but you deftly twist your flexible body out of the way. She recovers quickly, spinning back at you.', false );
 			return;
 		}
@@ -63,7 +63,7 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Des
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(lust attack 1);
 	Shouldra.prototype.shouldraLustAttack = function() {
@@ -73,13 +73,13 @@ angular.module( 'cocjs' ).factory( 'Shouldra', function( MainView, SceneLib, Des
 			MainView.outputText( 'The girl\'s feet get tangled on each other and she tumbles to the ground. Before you can capitalize on her slip, she rolls with the impact and comes up smoothly. As she rises, however, you reel back and raise an eyebrow in confusion; are her breasts FILLING the normally-loose tunic? She notices your gaze and smiles, performing a small pirouette on her heel before squaring up to you again. Your confusion only heightens when her torso comes back into view, her breasts back to their normal proportions. A trick of the light, perhaps? You shake your head and try to fall into the rhythm of the fight.\n', false );
 		}
 		EngineCore.dynStats( 'lus', (8 + CoC.player.lib / 10) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(magic attack);
 	Shouldra.prototype.shouldraMagicLazers = function() {
 		var damage = CoC.player.takeDamage( 20 + Utils.rand( 10 ) );
 		MainView.outputText( 'Falling back a step, the girl raises a hand and casts a small spell. From her fingertips shoot four magic missiles that slam against your skin and cause a surprising amount of discomfort. (' + damage + ')\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Shouldra.prototype.performCombatAction = function() {
 		var attack = Utils.rand( 3 );

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, MainView, CockTypesEnum, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat ) {
+angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, MainView, CockTypesEnum, EngineCore, CoC, Monster, AppearanceDefs, StatusAffects, Utils ) {
 	function JeanClaude() {
 		this.init(this, arguments);
 	}
@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).factory( 'JeanClaude', function( SceneLib, MainView, C
 		MainView.outputText( 'The monstrous basilisk suddenly lunges forward, snarling wordlessly as he swings his cutlass at you twice, the blows of a savage yet expert swordsman.\n\n' );
 		this.createStatusAffect( StatusAffects.Attacks, 2, 0, 0, 0 );
 		this.eAttack();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	JeanClaude.prototype.doAI = function() {
 		this.doubleAttack();

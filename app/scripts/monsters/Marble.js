@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, PerkLib, CoC, Monster, Utils, AppearanceDefs, Combat ) {
+angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log, WeightedDrop, WeaponLib, StatusAffects, Appearance, Combat, CoC, Monster, Utils, AppearanceDefs ) {
 	function Marble() {
 		this.init(this, arguments);
 	}
@@ -11,19 +11,19 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( 'Marble unwisely tries to make a massive swing while blinded, which you are easily able to avoid.', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 60 ) {
+		if( Combat.combatMiss( 60 ) ) {
 			MainView.outputText( 'You manage to roll out of the way of a massive overhand swing.', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 60 ) {
+		if( Combat.combatEvade( 60 ) ) {
 			MainView.outputText( 'You easily sidestep as Marble tries to deliver a huge overhand blow.', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 		}
 		MainView.outputText( 'You are struck by a two-handed overhead swing from the enraged cow-girl.  (' + damage + ' damage).', false );
 		MainView.statsView.show();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Marble.prototype.marbleSpecialAttackTwo = function() {
 		//Special2: Wide sweep; very high hit chance, does low damage.;
@@ -48,9 +48,9 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 			MainView.outputText( 'Marble makes a wide sweeping attack with her hammer, which is difficult to avoid even from a blinded opponent.\n', false );
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'You barely manage to avoid a wide sweeping attack from marble by rolling under it.', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).factory( 'Marble', function( SceneLib, MainView, $log,
 			CoC.player.takeDamage( damage );
 		}
 		MainView.statsView.show();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Marble.prototype.defeated = function() {
 		SceneLib.marbleScene.marbleFightWin();

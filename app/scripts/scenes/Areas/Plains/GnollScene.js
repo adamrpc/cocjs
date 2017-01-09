@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appearance, CockTypesEnum, ConsumableLib, CoC, EngineCore, Descriptors, Utils ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Gnoll, Appearance, CockTypesEnum, ConsumableLib, CoC, EngineCore, Descriptors, Utils ) {
 	function GnollScene() {
 	}
 
@@ -9,7 +9,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 		MainView.spriteSelect( 11 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'The sound of distant laughter comes across the plains, then seems to die off suddenly.  A moment later, a gnoll comes bounding from the nearest scrap of cover and barrels into you.  The monstrous thing giggles as it bounces back and forth before you, looking for an opening to exploit.', false );
-		Combat.startCombat( new Gnoll() );
+		SceneLib.combatScene.startCombat( new Gnoll() );
 	};
 
 	//Gnoll Rape;
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 		MainView.outputText( 'The hyena girl slumps against your body, but only for a moment.  Then she\'s suddenly up again, sliding her bizarre member out of you with an obscene slurp.  She leans down to pat your cheek and giggles, "<i>Thanks, lover.</i>"   Then she sprints off towards the horizon.', false );
 		MainView.outputText( '  A whimper bubbles up your throat and comes out as a half-giggle as you slump down unconscious.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	GnollScene.prototype.defeatHyena = function() {
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 				}
 				MainView.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[DickDownClit] [DickInAss] [SuckHerClit] [Leave];
-				EngineCore.choices( 'DickDownClit', this, dickDownClit, 'DickInAss', this, this.dickInGnollAss, 'SuckHerClit', this, this.suckGnollClit, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'DickDownClit', this, dickDownClit, 'DickInAss', this, this.dickInGnollAss, 'SuckHerClit', this, this.suckGnollClit, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 			//(if cockTotal>0 AND vaginas=1);
 			else if( CoC.player.gender === 3 ) {
@@ -138,22 +138,22 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 				}
 				MainView.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[DickDownClit] [DickInAss] [SuckHerClit] [TakeHerClit] [Leave];
-				EngineCore.choices( 'DickDownClit', this, dickDownClit, 'DickInAss', this, this.dickInGnollAss, 'SuckHerClit', this, this.suckGnollClit, 'TakeHerClit', this, this.takeGnollClit, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'DickDownClit', this, dickDownClit, 'DickInAss', this, this.dickInGnollAss, 'SuckHerClit', this, this.suckGnollClit, 'TakeHerClit', this, this.takeGnollClit, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 			//(if cockTotal=0 AND vaginas=1);
 			else if( CoC.player.gender === 2 ) {
 				MainView.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[SuckHerClit] [TakeHerClit] [Leave];
-				EngineCore.choices( 'SuckHerClit', this, this.suckGnollClit, 'TakeHerClit', this, this.takeGnollClit, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'SuckHerClit', this, this.suckGnollClit, 'TakeHerClit', this, this.takeGnollClit, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 			//(if cockTotal=0 AND vaginas=0);
 			else {
 				MainView.outputText( '  The gnoll is at your mercy.  What will you do with her?', false );
 				//[SuckHerClit] [Leave];
-				EngineCore.choices( 'SuckHerClit', this, this.suckGnollClit, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'SuckHerClit', this, this.suckGnollClit, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//DickDownClit;
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 		}
 		MainView.outputText( '  With a lusty groan, you pull out with a long, slippery sound, and leave the gnoll panting on the dusty ground.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//DickInAss;
 	GnollScene.prototype.dickInGnollAss = function() {
@@ -277,7 +277,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 			MainView.outputText( 'Satisfied, you leave the gnoll to her pleasures, gather your ' + CoC.player.armorName + ', and head back to camp.', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//SuckHerClit;
 	GnollScene.prototype.suckGnollClit = function() {
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 		MainView.outputText( 'The massive clit-dick then begins to flutter and twitch as the gnoll starts to cum.  Her feet stamp the ground to either side of you and she abruptly screams into the sky.  Her warbling cry then seems to collapse inward, and her entire body slumps to the ground, unconscious.\n\n', false );
 		MainView.outputText( 'You leave her there on the sun-caked ground and head back to camp.', false );
 		EngineCore.dynStats( 'lus=', 100 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//TakeHerClit;
 	GnollScene.prototype.takeGnollClit = function() {
@@ -302,7 +302,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 		MainView.outputText( 'Every few strokes, the fake dick starts to fail you and you reach forward to slap her again.  Pump pump slap.  Thrust thrust smack.  Grunt grunt slap.  By the time your body rises up to the quivering summit of orgasm, the gnoll\'s face is purple with bruises.  You scream your orgasm to the sky, bearing down hard on her hollow clitoris, and come hard enough that you see stars.\n\n', false );
 		MainView.outputText( 'When you can get your feet under yourself again, you stand up, letting the now-shrunken clitoris fall out of your ' + Descriptors.vaginaDescript( 0 ) + ' with a wet plop.  You leave her there on the sun-caked ground and head back to camp.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	GnollScene.prototype.yoDawgIHeardULiekGNollBallzzzdahdakjldh = function() {
 		MainView.outputText( '', true );
@@ -351,7 +351,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, Gnoll, Appe
 		//[24 hours pass, CoC.player asshole size increased, sensitivity significantly lowered, toughness lowered temporarily, EngineCore.fatigue maxed, remove one succubi's dream];
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 2, 'sen', -10 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/*
 	 --------------------

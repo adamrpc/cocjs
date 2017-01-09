@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, ChainedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Appearance, Combat ) {
 	function Gnoll() {
 		this.init(this, arguments);
 	}
@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			if( CoC.player.spe - this.spe < 8 ) {
 				MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
 			} else if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
@@ -26,15 +26,15 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				MainView.outputText( '\' attacks.\n', false );
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			if( CoC.player.spe - this.spe < 8 ) {
 				MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
 			} else if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
@@ -149,15 +149,15 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				MainView.outputText( '\' attacks.\n', false );
@@ -225,7 +225,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 				MainView.outputText( 'Your foe is too dazed from your last hit to strike back!', false );
 			}
 			this.removeStatusAffect( StatusAffects.Stunned );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 		if( this.findStatusAffect( StatusAffects.Fear ) ) {
 			if( this.statusAffectv1( StatusAffects.Fear ) === 0 ) {
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 					MainView.outputText( this.getCapitalA() + this.short + ' is too busy shivering with fear to fight.', false );
 				}
 			}
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 		//Exgartuan gets to do stuff!;
 		if( CoC.player.findStatusAffect( StatusAffects.Exgartuan ) && CoC.player.statusAffectv2( StatusAffects.Exgartuan ) === 0 && Utils.rand( 3 ) === 0 ) {
@@ -259,7 +259,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 				this.removeStatusAffect( StatusAffects.Constricted );
 			}
 			this.addStatusValue( StatusAffects.Constricted, 1, -1 );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 		if( Utils.rand( 2 ) === 0 ) {
 			this.gnollTease();
@@ -273,7 +273,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 				MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 			}
 			//Determine if dodged!;
-			else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+			else if( Combat.combatMiss() ) {
 				if( CoC.player.spe - this.spe < 8 ) {
 					MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!\n', false );
 				} else if( CoC.player.spe - this.spe >= 8 && CoC.player.spe - this.spe < 20 ) {
@@ -283,15 +283,15 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 				}
 			}
 			//Determine if evaded;
-			else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+			else if( Combat.combatEvade() ) {
 				MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			}
 			//('Misdirection';
-			else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+			else if( Combat.combatMisdirect() ) {
 				MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			}
 			//Determine if cat'ed;
-			else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+			else if( Combat.combatFlexibility() ) {
 				MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 				if( this.plural ) {
 					MainView.outputText( '\' attacks.\n', false );
@@ -352,7 +352,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			}
 			this.gnollAttackText();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	Gnoll.prototype.defeated = function() {
@@ -370,7 +370,7 @@ angular.module( 'cocjs' ).factory( 'Gnoll', function( MainView, SceneLib, Chaine
 			SceneLib.antsScene.phyllaGnollBeatsPC();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.gnollScene.getRapedByGnoll();
 		}

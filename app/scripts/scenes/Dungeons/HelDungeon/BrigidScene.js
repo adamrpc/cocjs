@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, kFLAGS, CoC, EngineCore ) {
 	function BrigidScene() {
 	}
 
@@ -16,7 +16,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Descriptors, Combat
 		MainView.outputText( ' to continue the fight.  You quickly snatch the keys from inside her shield, and hook them onto your own belt.' );
 		//(New Key Item: Harpy Key A);
 		CoC.player.createKeyItem( 'Harpy Key A', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.flags[ kFLAGS.HEL_BRIGID_DEFEATED ] = 1;
 	};
 	//Brigid the Jailer -- PC Defeated;

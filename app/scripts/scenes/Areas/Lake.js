@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Combat, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineCore, kFLAGS, StatusAffects, Descriptors, AppearanceDefs, PregnancyStore, GreenSlime, ConsumableLib, CockTypesEnum ) {
 	function Lake() {
 	}
 
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				//High int starts on even footing.
 				if( CoC.player.inte >= 25 ) {
 					MainView.outputText( 'A soft shuffling sound catches your attention and you turn around, spotting an amorphous green mass sliding towards you!  Realizing it\'s been spotted, the ooze\'s mass surges upwards into a humanoid form with thick arms and wide shoulders.  The beast surges forward to attack!', true );
-					Combat.startCombat( new GreenSlime() );
+					SceneLib.combatScene.startCombat( new GreenSlime() );
 					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 					}
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 				//High speed starts on even footing.
 				if( CoC.player.spe >= 30 ) {
 					MainView.outputText( 'You feel something moist brush the back of your ankle and instinctively jump forward and roll, coming up to face whatever it is behind you.  The nearly silent, amorphous green slime that was at your feet surges vertically, its upper body taking the form of a humanoid with thick arms and wide shoulders, which attacks!', true );
-					Combat.startCombat( new GreenSlime() );
+					SceneLib.combatScene.startCombat( new GreenSlime() );
 					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 					}
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 					if( CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) && !CoC.player.findStatusAffect( StatusAffects.FactoryOverload ) ) {
 						MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 					}
-					Combat.startCombat( new GreenSlime() );
+					SceneLib.combatScene.startCombat( new GreenSlime() );
 					MainView.outputText( '\n\n', false );
 					CoC.monster.eAttack();
 					return;
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, EngineC
 					MainView.outputText( '\n\n<b>You are amazed to encounter a slime creature with the factory shut down - most of them have disappeared.</b>', false );
 				}
 				EngineCore.dynStats( 'lib', 1, 'lus', 10 );
-				Combat.startCombat( new GreenSlime() );
+				SceneLib.combatScene.startCombat( new GreenSlime() );
 			}
 		} else if( select === 0 ) {
 			MainView.outputText( 'Your quick walk along the lakeshore feels good.', true );

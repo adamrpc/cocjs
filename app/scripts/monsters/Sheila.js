@@ -15,8 +15,10 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		//Midget misfire (if PC < 3'6"):;
 		if( CoC.player.tallness < 42 && Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'Sheila bounces up to you and crouches low, curling her body like a watchspring.  She uncoils with her fist aimed at your jaw, but you easily perform a crouch of your own and duck under her lanky form, unbending yourself to push her legs up as she flies harmlessly overhead.  You can hear a partial shriek before she crashes face-first into the dirt behind you.' );
-			damage = 3 + Utils.rand( 10 );
-			damage = Combat.doDamage( damage );
+			damage = Combat.doDamage( 3 + Utils.rand( 10 ) );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 			MainView.outputText( ' (' + damage + ')' );
 		}
 		//Miss:;
@@ -49,7 +51,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			MainView.outputText( ' (' + damage + ')' );
 		}
 		this.spe += 30;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//special 2: flying kick rabbit punch (high damage, much lower accuracy than reg attack, deals concussion which adds 10-15 pts fatigue, may stun pc and prevent attack);
 	Sheila.prototype.sheilaFlyingKick = function() {
@@ -59,8 +61,10 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		if( Combat.combatMiss() || Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMisdirect() || (this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) === 0) ) {
 			MainView.outputText( 'Sheila squats down, then bounds explosively toward you!  She swings her leg out in front to kick, but you roll to the side and she slips past your shoulder.  You hear an "<i>Oof!</i>" as she lands on her butt behind you.  When you turn to look, she\'s already back to her feet, rubbing her smarting posterior and looking a bit embarrassed.' );
 			//(small Sheila HP loss);
-			damage = 3 + Utils.rand( 10 );
-			damage = Combat.doDamage( damage );
+			damage = Combat.doDamage( 3 + Utils.rand( 10 ) );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 			MainView.outputText( ' (' + damage + ')' );
 		}
 		//Hit:;
@@ -80,7 +84,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			EngineCore.fatigue( 10 + Utils.rand( 6 ) );
 		}
 		this.spe += 60;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	//[Fight] - Combat with demon Sheila (demon sheila = 1):;
@@ -130,7 +134,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			}
 			EngineCore.dynStats( 'lus', 30 + CoC.player.lib / 10 + CoC.player.cor / 10 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//2: Tittymonster;
 	Sheila.prototype.tittyMonsterAttack = function() {
@@ -149,7 +153,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		else {
 			MainView.outputText( '  She has trouble even budging tits so comically mismatched to her slender frame; her hands just sink into the voluminous flesh when she tries to squeeze them together, but the demon doesn\'t manage to move mountains.  It\'s like watching someone try to push half-inflated swimming equipment around.  You actually laugh a little as she gives up, rubbing her lower back with a gripe.' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//3: Splash (spd-based hit chance);
 	Sheila.prototype.splashAttackLookOutShellEvolveIntoGyrados = function() {
@@ -163,7 +167,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		} else {
 			MainView.outputText( 'You easily lean away from the path of her tainted fluids, and she sighs.  "<i>You\'re no fun, mate.</i>"' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//4: Sit 'n Pout;
 	//should only be used after turn 4 or 5;
@@ -176,10 +180,10 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 		//(if PC lust < 30);
 		if( CoC.player.lust < 33 ) {
 			MainView.outputText( '\n\nYou\'re not that interested, though; Sheila harrumphs as you pass her by and leave.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		//end fight, suppress xp/gem/item reward, go to victory choices if lust >= 30;
 	};
 	//5: Lick 'Em and Stick 'Em (int-based hit chance);
@@ -207,7 +211,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			EngineCore.dynStats( 'lus', 25 + CoC.player.sens / 20 + CoC.player.lib / 20 );
 			//harder to resist and bigger damage than normal Suspicious Glint;
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//6: 'Pressure Points';
 	//replaces any calls for Tittymonster if PC is blinded by Splash;
@@ -227,7 +231,7 @@ angular.module( 'cocjs' ).factory( 'Sheila', function( SceneLib, MainView, kFLAG
 			MainView.outputText( 'You\'re a bit unnerved, but soon realize that you can tell where Sheila is by listening for the telltale sounds of her colossal breasts scraping the ground as she draws closer to you.  With this in mind, you continue to face your opponent and back away as you wipe your eyes.' );
 			MainView.outputText( '\n\n"<i>Aww, come on!</i>" she whines.' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	Sheila.prototype.demonSheilaAI = function() {

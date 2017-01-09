@@ -13,20 +13,20 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 			//Eligable to rape
 			if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 				MainView.outputText( '\n\nYou\'re horny enough to try and rape it, though you\'d rather see how much milk you can squirt into it.  What do you do?', false );
-				EngineCore.choices( 'B.Feed', SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.rapeOozeWithMilk, 'Rape', SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeVictoryRape, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'B.Feed', SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.rapeOozeWithMilk, 'Rape', SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeVictoryRape, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 			//Rapes not on the table.
 			else {
 				MainView.outputText( '\n\nYour nipples ache with the desire to forcibly breastfeed the gelatinous beast.  Do you?', false );
-				EngineCore.doYesNo( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.rapeOozeWithMilk, null, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.rapeOozeWithMilk, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 		}
 		//Not a breastfeeder
 		else if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			MainView.outputText( '  Sadly you realize your own needs have not been met.  Of course, you could always play with the poor thing... Do you rape it?', false );
-			EngineCore.doYesNo( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeVictoryRape, null, Combat.cleanupAfterCombat );
+			EngineCore.doYesNo( SceneLib.greenSlimeScene, SceneLib.greenSlimeScene.slimeVictoryRape, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	/* jshint unused:true */
@@ -82,8 +82,8 @@ angular.module( 'cocjs' ).factory( 'GreenSlime', function( MainView, $log, Scene
 			.add( ConsumableLib.WETCLTH, 1 / 2 )
 			.elseDrop( UseableLib.GREENGL );
 		that.special1 = that.lustReduction;
-		that.special2 = Combat.lustAttack;
-		that.special3 = Combat.lustAttack;
+		that.special2 = EngineCore.createCallBackFunction( that, that.lustAttack );
+		that.special3 = EngineCore.createCallBackFunction( that, that.lustAttack );
 		that.checkMonster();
 	};
 	return GreenSlime;

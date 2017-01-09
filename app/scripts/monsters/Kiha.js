@@ -9,14 +9,14 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 		MainView.spriteSelect( 72 );
 		MainView.outputText( 'She supports the axe on a shoulder, cracking her neck and arching her back to stretch herself, giving you an unintended show.  ', false );
 		EngineCore.dynStats( 'lus', 5 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//This could be silly mode worthy! Should Expand? oh ok;
 	Kiha.prototype.sillyModeKihaAttack = function() {
 		MainView.spriteSelect( 72 );
 		MainView.outputText( 'Before you can stop to think, the dragon-woman steps back - throwing her axe into the air before she starts sprinting towards you. In seconds she\'s reached a hair\'s distance between her lithe form and your own, her fist recoiling and time seemingly stopping to allow you to note the powerful energy seeping from her arms.  ', false );
 		//Miss:;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'You take the opportunity to walk away, watching the slow-motion attack unravel before you; the fire bursts from her knuckle in the shape of a bird in flight, wings unfurled.  ', false );
 			if( Utils.rand( 2 ) === 0 ) {
 				MainView.outputText( 'You only owned an XJasun back home, so you don\'t really understand the reference.', false );
@@ -39,25 +39,25 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 				MainView.outputText( 'You follow the shrill cry of "<i>B-BAKA!</i>" in the distance until you reach the exact location you were in a few seconds earlier, prepared to fight again.', false );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Kiha.prototype.kihaFirePunch = function() {
 		MainView.spriteSelect( 72 );
 		MainView.outputText( 'The draconic girl throws her trusty weapon into the sodden ground, using the distraction to build up balls of flame around her fists.  She runs towards you, launching herself in your direction with a flurry of punches.\n', false );
 		//Dodged;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'You manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evasion, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using your skills at misdirection, you manage to make Kiha think you\'re going to dodge one way before stepping in the other direction.  You turn back, finding she has her axe in hand and looks rather steamed.', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'Using your cat-like reflexes, you manage to jump to the side, intense heat rushing past you as you narrowly avoid her advance.  You twist around, finding that she\'s reunited with her axe and angrier than before.', false );
 		}
 		//HIT!;
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( 'Before you can react, you\'re struck by the power of her blows, feeling an intense pain in your chest as each fist makes contact.  With a final thrust, you\'re pushed backwards onto the ground; the dragoness smiles as she pulls her axe out of the ground, her hands still steaming from the fingertips. (' + damage + ')\n', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	//Fire breath;
@@ -75,22 +75,22 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 		MainView.outputText( 'Kiha throws her arms back and roars, exhaling a swirling tornado of fire directly at you!\n', false );
 		//Miss:;
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your talent for evasion, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using your talent for misdirection, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'Using your cat-like flexibility, you manage to sidestep the flames in the nick of time; much to the dragoness\' displeasure.', false );
 		} else {
 			var damage = Math.round( 90 + Utils.rand( 10 ) );
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( 'You try to avoid the flames, but you\'re too slow!  The inferno slams into you, setting you alight!  You drop and roll on the ground, putting out the fires as fast as you can.  As soon as the flames are out, you climb back up, smelling of smoke and soot. (' + damage + ')\n', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	/*
 	 Special 2 lifts her axe overhead and then hurls it at you in a surprising feat of speed and strength. Not keen on getting cleaved in two, you sidestep the jagged metal.
@@ -142,7 +142,9 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 			SceneLib.kihaScene.kihaVictoryIntroduction();
 		}
 	};
-
+	Kiha.prototype.playerCanDodge = function() {
+		return false;
+	};
 	/* jshint unused:true */
 	Kiha.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( this.findStatusAffect( StatusAffects.spiderfight ) ) {
@@ -153,7 +155,7 @@ angular.module( 'cocjs' ).factory( 'Kiha', function( SceneLib, MainView, StatusA
 			SceneLib.kihaFollower.sparWithFriendlyKihaLose();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nKiha seems visibly disturbed by your infection, enough that she turns to leave.' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.kihaScene.kihaLossIntro();
 		}

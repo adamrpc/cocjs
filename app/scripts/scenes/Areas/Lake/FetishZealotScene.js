@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, FetishZealot, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, FetishZealot ) {
 	function FetishZealotScene() {
 	}
 
@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.outputText( '', true );
 		MainView.outputText( 'As you get close to your boat, you are surprised to find someone standing at the end of the dock.  As you get closer, you see that it\'s a man wearing some kind of bizarre religious outfit.  He turns to face you as you approach and says "<i>This has been claimed by the Followers of the Fetish for security reasons, leave at once.</i>"\n\n"<i>What?  This is my boat!</i>" you cry out in surprise.  The zealot seems to take this as an aggressive action on your part and moves to attack you.', false );
 		//next button, go to zealot fight
-		Combat.startCombat( new FetishZealot() );
+		SceneLib.combatScene.startCombat( new FetishZealot() );
 		MainView.spriteSelect( 20 );
 	};
 	//Regular encounter
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 	FetishZealotScene.prototype.zealotRepeat = function() {
 		MainView.outputText( '', true );
 		MainView.outputText( 'While exploring, you hear someone cry out behind you "<i>This is sacred land!  You WILL be punished for trespassing!</i>"  It seems you\'ve managed to stumble upon whatever land this zealot has been tasked to guard, and now you must fight him.', false );
-		Combat.startCombat( new FetishZealot() );
+		SceneLib.combatScene.startCombat( new FetishZealot() );
 		MainView.spriteSelect( 20 );
 	};
 	//Raping the player
@@ -224,7 +224,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		MainView.outputText( '  The ordeal has also left you with a slightly dulled mind, and some of the desire you felt still lingers.', false );
 		EngineCore.dynStats( 'lus', CoC.player.cor / 20 + CoC.player.lib / 10 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	FetishZealotScene.prototype.zealotDefeated = function() {
 		//Defeated by health
@@ -240,9 +240,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
 				bikiniTits = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
-			EngineCore.choices( 'Yes', this, this.zealotWinRape, '', null, null, '', null, null, 'B.Titfuck', null, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Yes', this, this.zealotWinRape, '', null, null, '', null, null, 'B.Titfuck', null, bikiniTits, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			CoC.player.cuntChange( CoC.monster.cockArea( 0 ), true );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'fetishZealotScene', new FetishZealotScene() );
 } );

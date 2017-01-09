@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Doppleganger, AppearanceDefs, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Doppleganger, AppearanceDefs, PerkLib, kFLAGS, CoC, EngineCore ) {
 	function DopplegangerScenes() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Doppleganger, Appea
 		MainView.outputText( '\n\n“<i>[Name]. There we go. Not what I would choose to describe this business...</i>” ' + CoC.player.mf( 'he', 'she' ) + ' pats ' + CoC.player.mf( 'his', 'her' ) + ' [butt] mockingly, “<i>but then I’m not you, right? Not yet, anyway.</i>” ' + CoC.player.mf( 'He', 'She' ) + ' laughs, suddenly, madly, and you cringe inwardly. It is what you would sound like if you were completely, utterly insane.' );
 		MainView.outputText( '\n\n“<i>Do you know what it is like to spend ten years without a form? To spend ten years imitating an empty room? Well, don’t worry, [name]. When I have taken your place and bound you to this thing I’ll make sure to put it somewhere nice and busy, so you will never have to know that torment!</i>” ' + CoC.player.mf( 'He', 'She' ) + ' draws the mirror image of your [weapon] and advances upon you, your own features hiked into a rictus of madness.' );
 		MainView.outputText( '\n\nYou must fight yourself!' );
-		Combat.startCombat( new Doppleganger() );
+		SceneLib.combatScene.startCombat( new Doppleganger() );
 	};
 	DopplegangerScenes.prototype.punchYourselfInTheBalls = function() {
 		CoC.flags[ kFLAGS.D3_DOPPLEGANGER_DEFEATED ] = 1;
@@ -175,12 +175,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Doppleganger, Appea
 		}
 		MainView.outputText( '\n\n<b>(Key Item Acquired)</b>' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	DopplegangerScenes.prototype.killYourself = function() {
 		MainView.clearOutput();
 		MainView.outputText( '\n\nYou hold its gaze for a moment more, and then with a single, fluid movement turn and smash your [weapon] into the engraved mirror. A shrill scream mingles with the sound of breaking glass, but by the time the shards begin to tinkle and chime to the floor it’s keened away, and when you turn back the doppelganger is gone. The shrill sound could have been the sound of the mirror itself when you hit it, you suppose. This could all have been a very strange fugue. Certainly, standing here now in this dishevelled storage room, it’s difficult to believe what just happened. Shaking your head, you make sure the protective glasses you came here for are still in your pocket before heading to the door and leaving.' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		MainView.menu();
 		EngineCore.addButton( 0, 'Next', SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};

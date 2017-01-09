@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, PregnancyStore, Sophie, Harpy, CoC_Settings, PerkLib, Combat, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, PregnancyStore, Sophie, Harpy, CoC_Settings, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function SophieScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.SOPHIE_PREGNANCY_TYPE, kFLAGS.SOPHIE_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 150, 120, 100 );
@@ -285,7 +285,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//(Pissed);
 		if( CoC.flags[ kFLAGS.SOPHIE_ANGRY_AT_PC_COUNTER ] > 0 ) {
 			MainView.outputText( 'During your exploration of the mountains you wind up passing close to the harpy nests again.  Uh oh.  There\'s a constant, irritating buzz in the background that makes it hard to focus on what you\'re doing.  You crest a ledge and find yourself back on the edge of Sophie\'s nest.  Shit.  She glowers at you and raises one of her talons.  It\'s a fight!\n\n', false );
-			Combat.startCombat( new Sophie() );
+			SceneLib.combatScene.startCombat( new Sophie() );
 			return;
 		}
 		//(Has dick);
@@ -372,7 +372,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	};
 	SophieScene.prototype.fightSophie = function() {
 		SceneLib.sophieBimbo.sophieSprite();
-		Combat.startCombat( new Sophie() );
+		SceneLib.combatScene.startCombat( new Sophie() );
 		CoC.flags[ kFLAGS.SOPHIE_ANGRY_AT_PC_COUNTER ] += Utils.rand( 24 );
 		MainView.playerMenu();
 	};
@@ -387,7 +387,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 	//Normal Harpy Fight;
 	SophieScene.prototype.PCIgnoresSophieAndHarpyIsFought = function() {
 		MainView.outputText( 'A harpy wings out of the sky and attacks!', true );
-		Combat.startCombat( new Harpy() );
+		SceneLib.combatScene.startCombat( new Harpy() );
 		MainView.spriteSelect( 26 );
 	};
 
@@ -467,7 +467,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( 'You say, "<i>I\'m not going anywhere until I\'m satisfied.  Don\'t worry, I\'ll be sure to give you a few licks back.</i>"\n\n', false );
 		MainView.outputText( 'Sophie\'s large eyes widen in surprise at your statement, and her wings unfold as she counters, "<i>Then you\'ll have to hope you can handle me.</i>"  Her foot comes up warningly.\n\n', false );
 		MainView.outputText( 'It\'s going to be a fight!', false );
-		Combat.startCombat( new Sophie() );
+		SceneLib.combatScene.startCombat( new Sophie() );
 	};
 	//[Got Lost];
 	SophieScene.prototype.sophieMeetingGotLost = function() {
@@ -645,7 +645,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		//increment times bfed.;
 		CoC.flags[ kFLAGS.BREASTFEAD_SOPHIE_COUNTER ]++;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1093,9 +1093,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		}
 		if( dickRape !== null || cuntFuck !== null || clitFuck !== null || bimbo !== null ) {
 			MainView.outputText( '  What do you do to her?', false );
-			EngineCore.choices( 'Use Dick', this, dickRape, 'Scissor', this, cuntFuck, 'Fuck wClit', this, clitFuck, 'Bimbo Her', SceneLib.sophieBimbo, bimbo, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Use Dick', this, dickRape, 'Scissor', this, cuntFuck, 'Fuck wClit', this, clitFuck, 'Bimbo Her', SceneLib.sophieBimbo, bimbo, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	SophieScene.prototype.sophieWonCombat = function() {
@@ -1153,7 +1153,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', -1 );
 		//Fuck & Preg counter;
 		this.sophieFucked();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Male 'Doesn't Fit';
 	SophieScene.prototype.maleVictorySophieRapeHUGE = function() {
@@ -1225,7 +1225,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', -1 );
 		//Fuck & Preg counter;
 		this.sophieFucked();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Female Pussy Grind;
 	SophieScene.prototype.sophieVictoryPussyGrind = function() {
@@ -1305,7 +1305,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', -1 );
 		//Fuck & Piss-off counter;
 		this.sophieFucked( false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Female Clit-Fucking;
 	SophieScene.prototype.fuckDatClit = function() {
@@ -1350,7 +1350,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		CoC.monster.HP = 2;
 		CoC.player.lust = 100;
 		CoC.flags[ kFLAGS.COMBAT_BONUS_XP_VALUE ] = CoC.monster.XP;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
 	};
@@ -1407,7 +1407,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', 5 );
 		this.sophieFucked();
 		this.luststickApplication( 8 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Normal Sized Wang Rape – Kisstacular + Hypno;
 	SophieScene.prototype.normalLossRapuuuuSophie = function() {
@@ -1459,7 +1459,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', 5 );
 		this.sophieFucked();
 		this.luststickApplication( 8 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Too Big – Get knocked out and wake up with your dick covered in kisses.  Status for 16 hours (8 more after waking up);
 	SophieScene.prototype.tooBigForOwnGoodSophieLossRape = function() {
@@ -1472,7 +1472,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		EngineCore.dynStats( 'sen', 5 );
 		this.sophieFucked();
 		this.luststickApplication( 16 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//No Dong – You wake up at the bottom of the mountain.;
 	SophieScene.prototype.SophieLossRapeNoDonguuuu = function() {
@@ -1481,7 +1481,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, P
 		MainView.outputText( 'Utterly defeated, you collapse.   Sophie doesn\'t let up, and batters you mercilessly with her wings until you lose consciousness.\n\n', false );
 		MainView.outputText( 'By the time you wake up, you\'re at the bottom of the mountain, and you feel as if you\'ve fallen down the entire thing.  Obviously Sophie had enough care not to drop you to your death, but she didn\'t do you any favors on the ride either.   Yeesh.', false );
 		EngineCore.dynStats( 'str', -1, 'tou', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//If not pissed increment times pissed;
 		if( CoC.flags[ kFLAGS.SOPHIE_ANGRY_AT_PC_COUNTER ] <= 0 ) {
 			CoC.flags[ kFLAGS.SOPHIE_ANGRY_AT_PC_COUNTER ] = 72 + Utils.rand( 100 );

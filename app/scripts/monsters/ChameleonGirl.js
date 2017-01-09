@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 		this.weaponAttack = 30;
 		this.weaponName = 'claws';
 		this.weaponVerb = 'claw';
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Ignores armor
 	ChameleonGirl.prototype.chameleonClaws = function() {
@@ -36,7 +36,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 				MainView.outputText( 'The chameleon swings her arm at you, catching you with her claws.  You defend against the razor sharp attack.' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Attack 3
 	ChameleonGirl.prototype.rollKickClawWhatTheFuckComboIsThisShit = function() {
@@ -48,6 +48,9 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 		else if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			var damage2 = 1 + Utils.rand( 10 );
 			damage2 = Combat.doDamage( damage2 );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 			MainView.outputText( 'The chameleon girl leaps in your direction, rolls, and kicks at you.  You sidestep her flying charge and give her a push from below to ensure she lands face-first in the bog. (' + damage2 + ')' );
 		}
 		//Get hit
@@ -60,7 +63,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 				MainView.outputText( 'The chameleon rolls in your direction and kicks up at your chest, but you knock her aside without taking any damage..' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	ChameleonGirl.prototype.performCombatAction = function() {
 		MainView.spriteSelect( 89 );
@@ -82,7 +85,7 @@ angular.module( 'cocjs' ).factory( 'ChameleonGirl', function( SceneLib, MainView
 	ChameleonGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe chameleon girl recoils.  "<i>Ew, gross!</i>" she screetches as she runs away, leaving you to recover from your defeat alone.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.chameleonGirlScene.loseToChameleonGirl();
 		}

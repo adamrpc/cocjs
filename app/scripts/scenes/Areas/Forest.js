@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Combat, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, EngineCore, kFLAGS, OnLoadVariables, PerkLib, StatusAffects, Imp, Goblin, Jojo, Descriptors, UseableLib, AppearanceDefs, Appearance ) {
 	function Forest() {
 	}
 
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 					SceneLib.impScene.impLordEncounter();
 				} else {
 					MainView.outputText( 'An imp leaps out of the bushes and attacks!', true );
-					Combat.startCombat( new Imp() );
+					SceneLib.combatScene.startCombat( new Imp() );
 				}
 				MainView.spriteSelect( 29 );
 				return;
@@ -218,13 +218,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 				if( CoC.player.gender > 0 ) {
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fucked, ' + CoC.player.mf( 'stud', 'slut' ), true );
 					MainView.outputText( '.</i>"', false );
-					Combat.startCombat( new Goblin() );
+					SceneLib.combatScene.startCombat( new Goblin() );
 					MainView.spriteSelect( 24 );
 					return;
 				} else {
 					MainView.outputText( 'A goblin saunters out of the bushes with a dangerous glint in her eyes.\n\nShe says, "<i>Time to get fuc-oh shit, you don\'t even have anything to play with!  This is for wasting my time!', true );
 					MainView.outputText( '</i>"', false );
-					Combat.startCombat( new Goblin() );
+					SceneLib.combatScene.startCombat( new Goblin() );
 					MainView.spriteSelect( 24 );
 					return;
 				}
@@ -298,7 +298,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, CoC, Utils, E
 				if( SceneLib.jojoScene.monk === 5 ) {
 					MainView.outputText( 'panting and nude, his fur rustling in the breeze, a twitching behemoth of a cock pulsing between his legs.', false );
 				}
-				Combat.startCombat( new Jojo() );
+				SceneLib.combatScene.startCombat( new Jojo() );
 			}
 		}
 		//Tentacles 25% of the time...

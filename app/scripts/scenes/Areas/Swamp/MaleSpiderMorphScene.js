@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, ConsumableLib, Utils, PregnancyStore, Combat, CoC, EngineCore, Descriptors, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, ConsumableLib, Utils, PregnancyStore, CoC, EngineCore, Descriptors, OnLoadVariables ) {
 	function MaleSpiderMorphScene() {
 	}
 
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		if( Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'A moment later, he flips down onto his feet and advances, touching his half-hard, foreskin-shrouded cock.  Judging from the glint in his eyes, he plans to force himself upon you!', false );
 			//- auto fight;
-			Combat.startCombat( new MaleSpiderMorph() );
+			SceneLib.combatScene.startCombat( new MaleSpiderMorph() );
 		}
 		//NICE GUY MODE: ;
 		else {
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		}
 	};
 	MaleSpiderMorphScene.prototype.fightSpiderBoy = function() {
-		Combat.startCombat( new MaleSpiderMorph() );
+		SceneLib.combatScene.startCombat( new MaleSpiderMorph() );
 		MainView.spriteSelect( 74 );
 		MainView.playerMenu();
 	};
@@ -68,9 +68,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 			MainView.outputText( '\n\nWhat do you do?', false );
 			//[CHOICES];
-			EngineCore.choices( 'Mount', this, mount, 'FuckHisButt', this, buttfuck, 'Frot', this, frot, 'B.Titfuck', null, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Mount', this, mount, 'FuckHisButt', this, buttfuck, 'Frot', this, frot, 'B.Titfuck', null, bikiniTits, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Loss selector;
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 			MainView.spriteSelect( 74 );
 			MainView.outputText( 'The raven-haired spider-guy tears off your ' + CoC.player.armorName + ', and disgusted by what he finds, he kicks you in the head, knocking you out.', true );
 			CoC.player.HP = 1;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		var select = choices[ Utils.rand( choices.length ) ];
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		}
 		MainView.outputText( ' of semen sliding out of the abused opening.  He rolls onto his side and pants, still leaking his thick goo from the limp, weak little cock between his legs.  You bend down and wipe your dick off on his face, letting him lick at it like a trained puppy.  Once cleaned, you get dressed and wander back to camp, leaving the spider to recover from the ordeal.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Victory Frotting? (too biggo);
 	MaleSpiderMorphScene.prototype.victoryFrotTheSpoidah = function() {
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		MainView.outputText( '\n\n', false );
 		MainView.outputText( 'You stretch and sigh with contentment, looking over your cum-covered conquest while he tries to clean himself off.  Absolutely perfect.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Victory Cowgirl;
 	MaleSpiderMorphScene.prototype.victoryCowgirlRidingOnSpiderBoi = function() {
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		//Pregnancy Goes Here;
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_SPIDER, PregnancyStore.INCUBATION_SPIDER, 151 );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Loss: Get butt-fucked;
 	//*Summary: Male only scene for maximum prostate pounding - possible random choice between two positions, plain doggy style or the 'lucky' one, where he will curl you over yourself and fuck you so you can watch his foreskinned spiderboy cock slam your asshole -while- you drip all over your face.;
@@ -378,7 +378,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		MainView.outputText( '  Your eyelids flutter and droop, your tongue lolls out of your mouth, and you start drooling all over yourself.  Zombie-like, your body keeps shaking, locked in orgasm, even after the spider dumps you in the dirt and walks away.', false );
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Loss: Impregnation?;
 	//*Summary: Vagoozles only!;
@@ -469,7 +469,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, MaleSpiderMorph, Co
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_SPIDER, PregnancyStore.INCUBATION_SPIDER );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MaleSpiderMorphScene.prototype.spiderPregVagBirth = function() {
 		MainView.outputText( '\n', false );

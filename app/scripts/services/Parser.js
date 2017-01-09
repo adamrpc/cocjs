@@ -47,7 +47,7 @@ angular.module( 'cocjs' ).run( function( MainView, EngineCore, Combat, SceneLib,
 		// already handled in the various *Descript() functions.
 		// no need to duplicate them.
 		// Note: all key strings MUST be ENTIRELY lowercase.
-		"teasetext"					: function() { return Combat.teaseText(); },
+		"teasetext"					: function() { return SceneLib.combatScene.teaseText(); },
 		"agility"					: function() { return "[Agility]"; },
 		"armor"						: function() { return CoC.player.armorName;},
 		"armorname"					: function() { return CoC.player.armorName;},

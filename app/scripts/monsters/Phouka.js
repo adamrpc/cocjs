@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 				MainView.outputText( '\nYou get clipped by the stallion\'s legs and hooves as he charges. As he comes around for another pass you check over your body, amazed none of your bones are broken after that.' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Phouka.prototype.phoukaFightLustAttack = function() { //Only the faerie, bunny and horse forms make lust attacks
 		if( SceneLib.phoukaScene.phoukaForm === SceneLib.phoukaScene.PHOUKA_FORM_FAERIE ) {
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 			}
 			EngineCore.dynStats( 'lus', 15 + CoC.player.lib / 10 + CoC.player.cor / 5 + Utils.rand( 10 ) );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Phouka.prototype.phoukaFightSilence = function() { //Reuses the statusAffect Web-Silence from the spiders
 		MainView.outputText( this.getCapitalA() + this.short + ' scoops up some muck from the ground and rams it down over his cock.  After a few strokes he forms the lump of mud and precum into a ball and whips it at your face.  ' );
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 			MainView.outputText( 'The ball smacks into your face like a wet snowball.  It covers most of your nose and mouth with a layer of sticky, salty mud which makes it hard to breathe.  You\'ll be unable to use your magic while you\'re struggling for breath!\n' );
 			CoC.player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 ); //Probably safe to reuse the same status affect as for the spider morphs
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Phouka.prototype.performCombatAction = function() {
 		var blinded = this.findStatusAffect( StatusAffects.Blind );
@@ -148,7 +148,7 @@ angular.module( 'cocjs' ).factory( 'Phouka', function( SceneLib, MainView, CoC, 
 			} else {
 				MainView.outputText( 'lad and spread yer asscheeks for me.”</i>\n\n' );
 			}
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			if( CoC.player.hasVagina() ) { //Phouka prefer vaginal if they can get it
 				if( CoC.player.isTaur() || Utils.rand( 2 ) === 0 ) {

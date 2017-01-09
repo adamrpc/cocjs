@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib, CockTypesEnum, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat ) {
+angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, EngineCore, SceneLib, CockTypesEnum, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat ) {
 	function Ember() {
 		this.init(this, arguments);
 	}
@@ -23,7 +23,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 		this.gems = 0;
 		this.XP = 0;
 		this.HP = 0;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Ember Attacks:;
 	Ember.prototype.emberAttack = function() {
@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 				MainView.outputText( ' (' + damage + ')' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Dragon Breath: Very rare attack, very high damage;
 	Ember.prototype.embersSupahSpecialDragonBreath = function() {
@@ -55,6 +55,9 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 			MainView.outputText( 'The blinded dragon tracks you with difficulty as you sprint around the landscape; seeing an opportunity, you strafe around ' + this.emberMF( 'his', 'her' ) + ' side, planting yourself behind a large flat boulder near ' + this.emberMF( 'him', 'her' ) + ' and pelting ' + this.emberMF( 'him', 'her' ) + ' with a small rock.  The scream as the dragon turns the magical conflagration toward you, only to have it hit the rock and blow up in ' + this.emberMF( 'his', 'her' ) + ' face, is quite satisfying.' );
 			//(Ember HP damage);
 			Combat.doDamage( 50 );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 		} else {
 			MainView.outputText( 'Ember inhales deeply, then ' + this.emberMF( 'his', 'her' ) + ' jaws open up, releasing streams of fire, ice and lightning; magical rather than physical, the gaudy displays lose cohesion and amalgamate into a column of raw energy as they fly at you.' );
 			if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
@@ -66,14 +69,14 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 				MainView.outputText( ' (' + damage + ')' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Tailslap: Rare attack, high damage, low accuracy;
 	Ember.prototype.emberTailSlap = function() {
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind tail-slap!', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		MainView.outputText( 'Ember suddenly spins on ' + this.emberMF( 'his', 'her' ) + ' heel, the long tail that splays behind ' + this.emberMF( 'him', 'her' ) + ' lashing out like a whip.  As it hurtles through the air towards you, your attention focuses on the set of spikes suddenly protruding from its tip!' );
@@ -91,7 +94,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Dragon Force: Tainted Ember only;
 	Ember.prototype.dragonFarce = function() {
@@ -108,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'Ember', function( kFLAGS, MainView, SceneLib
 		var damage = 10 + Utils.rand( 10 );
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Ember.prototype.performCombatAction = function() {
 		if( this.lust >= 40 ) {

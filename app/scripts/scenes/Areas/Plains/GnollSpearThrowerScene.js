@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearThrower, AppearanceDefs, Combat, ConsumableLib, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearThrower, AppearanceDefs, ConsumableLib, CoC, EngineCore, Descriptors ) {
 	function GnollSpearThrowerScene() {
 	}
 
@@ -50,7 +50,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 			MainView.outputText( 'the tan of her spotted pelt gleaming golden in the sun.  Your roaming eyes register that the softer tan of her belly covers her large breasts and slides down below her loincloth.\n\n', false );
 			MainView.outputText( 'A growl snaps your eyes up to the gnoll\'s face, seeing black lips pulled back from ivory fangs.  Dark, dominant eyes pierce you as the hyena slowly starts to circle you.  She sniffs at the air, getting your scent, before squaring off with you.  Powerful muscles ripple under her fur as she prepares to attack.  You have clearly trespassed on her lands and this feral lady intends to punish you for it.', false );
 		}
-		Combat.startCombat( new GnollSpearThrower() );
+		SceneLib.combatScene.startCombat( new GnollSpearThrower() );
 	};
 
 	//<Hyena Victorious – Anal> ;
@@ -162,7 +162,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 		MainView.outputText( '  The last thing you hear before blackness overtakes you is the barking laugh of the hyena as she leaves her newest conquest to sleep in the fields of grass.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	GnollSpearThrowerScene.prototype.hyenaVictory = function() {
 		MainView.spriteSelect( 54 );
@@ -184,9 +184,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 		}
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			MainView.outputText( '\n\nUsing the hyena to get off would be easy.  What do you do?', false );
-			EngineCore.choices( 'Get BJ', this, penor, 'Get Licked', this, vagoo, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Get BJ', this, penor, 'Get Licked', this, vagoo, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 	//<Hyena Defeat - Fellatio>;
@@ -273,7 +273,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 		}
 		MainView.outputText( 'The world goes gray and fuzzy as your lose yourself in the afterglow of the powerful orgasm.  When you last sit up, dizzy, you find that the hyena has disappeared.  You find your ' + CoC.player.armorName + ' neatly folded next to you, but absolutely coated in the juices of the departed amazon.  Next to this musky pile is a small bag containing her gift to you.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//<Hyena Defeat – Cunnilingus>;
 	GnollSpearThrowerScene.prototype.victoryRapeHyenaCunnilingus = function() {
@@ -293,7 +293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, GnollSpearT
 		MainView.outputText( 'That final action is too much for your abused body.  Pure ecstasy floods through your mind as your ' + Descriptors.vaginaDescript( 0 ) + ' spasms wildly.  Your honey splashes out of you, the hyena trying to catch the juices on her tongue, though much splatters over her tawny throat and breasts.  Her deft tongue delves inside of you, twisting and heightening your orgasm.  The world fades to nothing but pleasure.\n\n', false );
 		MainView.outputText( 'When you awake some time later, still heady with pleasure, you find your ' + CoC.player.armorName + ' piled neatly next to you, along with what appears to be a thank you gift from the now-absent gnoll.  The memory of the amazon\'s incredible strength and lithe form brings a smile to your lips as you prepare to leave.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'gnollSpearThrowerScene', new GnollSpearThrowerScene() );
 } );

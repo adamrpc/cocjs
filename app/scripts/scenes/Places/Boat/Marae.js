@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, ConsumableLib, CockTypesEnum, ImageManager, $rootScope, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, ConsumableLib, CockTypesEnum, ImageManager, $rootScope, PerkLib, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
 	function Marae() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -212,7 +212,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Appearance, Consuma
 		MainView.spriteSelect( 40 );
 		MainView.outputText( '', true );
 		//(SUCCESS);
-		if( (CoC.player.spe > 35 && (Utils.rand( CoC.player.spe / 3 + 30 ) > 20)) || (CoC.player.spe > 35 && CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 3 ) < 2) ) {
+		if( (CoC.player.spe > 35 && (Utils.rand( CoC.player.spe / 3 + 30 ) > 20)) || (CoC.player.spe > 35 && Combat.combatEvade( 70 )) ) {
 			MainView.outputText( 'You dart to the side, diving into a roll that brings you up behind the tree.  You evade the gauntlet of grabbing tentacles that hang from the branches, snatch the large gem in both arms and run for the beach.  You do not hear the sounds of pursuit, only a disappointed sigh.', false );
 			CoC.player.createKeyItem( 'Marae\'s Lethicite', 0, 0, 0, 0 );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );

@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, MainView, Imp,
 		var damage = 40 + Utils.rand( 10 );
 		CoC.player.takeDamage( damage );
 		EngineCore.dynStats( 'lus', 20 + CoC.player.cor / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Heavy Attack;
 	ImpLord.prototype.impLordHeavyEncounter = function() {
@@ -27,14 +27,14 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, MainView, Imp,
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( '(' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Lust Attack;
 	ImpLord.prototype.impLordLustAttack = function() {
 		MainView.outputText( 'Lowering his loincloth the imp reveals his inhumanly thick shaft.  He smirks and licks his lips as he gives his cock a squeeze, milking a few beads of clear pre from the tip.  You shake your head and try to ignore your growing need.' );
 		//[+Lust];
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 5 + CoC.player.cor / 5 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Lust and Light Attack;
 	ImpLord.prototype.impLordLustAttack2 = function() {
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).factory( 'ImpLord', function( SceneLib, MainView, Imp,
 		MainView.outputText( ' (' + damage + ')' );
 		//[-HP(minor) // +Lust];
 		EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 4 + CoC.player.cor / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	ImpLord.prototype.performCombatAction = function() {
 		var choices = [ this.impFire, this.impLordLustAttack2, this.impLordLustAttack, this.impLordHeavyEncounter, this.eAttack ];

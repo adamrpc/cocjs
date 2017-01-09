@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkLib, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkLib, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, StatusAffects ) {
 	function Brigid() {
 		this.init(this, arguments);
 	}
@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkL
 		}
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Attack Two: SHIELD BOP! OOM BOP!;
 	Brigid.prototype.brigidBop = function() {
@@ -29,13 +29,13 @@ angular.module( 'cocjs' ).factory( 'Brigid', function( SceneLib, MainView, PerkL
 		} else {
 			CoC.player.createStatusAffect( StatusAffects.Stunned, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Attack Three: Harpy Ass Grind GO!;
 	Brigid.prototype.BrigidAssGrind = function() {
 		MainView.outputText( 'Brigid grins as she approaches you.  She handily deflects a few defensive blows and grabs you by the shoulders.  She forces you onto your knees and before you can blink, has turned around and smashed your face into her ass!  "<i>Mmm, you like that, don\'tcha?</i>" she growls, grinding her huge, soft ass across your face, giving you an up-close and personal feel of her egg-laying hips.' );
 		EngineCore.dynStats( 'lus', 30 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Brigid.prototype.performCombatAction = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.Stunned ) ) {

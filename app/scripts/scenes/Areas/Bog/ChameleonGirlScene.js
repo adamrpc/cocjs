@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils, EngineCore, Combat, ChameleonGirl, Descriptors, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils, EngineCore, ChameleonGirl, Descriptors, ConsumableLib ) {
 	function ChameleonGirlScene() {
 	}
 
@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 	// TIMES_MET_CHAMELEON:int = 561;
 	ChameleonGirlScene.prototype.encounterChameleon = function() {
 		MainView.clearOutput();
-		Combat.startCombat( new ChameleonGirl() );
+		SceneLib.combatScene.startCombat( new ChameleonGirl() );
 		MainView.spriteSelect( 89 );
 		if( CoC.flags[ kFLAGS.TIMES_MET_CHAMELEON ] === 0 ) {
 			MainView.outputText( 'You work your way through the dense foliage of the bog, pushing aside branches and slogging through the thick mud in search of something new.  Feeling exhausted, you slow down and look for a place to rest; finding a small clearing with shallow water no more than a couple inches deep and firmer ground, you sit back against a tree to catch your breath.  You\'re so soaked by now that you hardly notice the murky water beneath you and the slick mud on the trunk seeping into your ' + CoC.player.armorName + '.  You lean your head back and close your eyes, enjoying a few moments of peace.' );
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		} else {
 			MainView.outputText( '\n\nThe Chameleon Girl gives you a once-over, but finding no genitals, she sighs and slaps you hard enough to have you black out.' );
 			CoC.player.takeDamage( 20 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		MainView.outputText( '\n\nThe feelings of being filled and having your ' + Descriptors.cockDescript( x ) + ' serviced by her foot are just too good, and you quickly reach orgasm, spattering her foot and shin with your hot cum.  Her face is red as she tries to maintain her composure, and her entire body is starting to grow flush with barely contained excitement.  She softly rubs your semen into your softening man-meat as you recover from your orgasm, looking at it almost blankly and smiling.  After a moment she snaps herself out of her reverie, remembering that she was supposed to be punishing you but obviously too aroused to do much.  "<i>Um, yeah! And you, uhh, better not come back!</i>"  She rushes off back into the trees, presumably to masturbate somewhere where you won\'t notice.  You shake your head at the girl\'s antics, dress yourself, and head back to camp.' );
 		//send player back to camp, reset hours since cum, remove gems and add time
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//-Male Loss (Z edited)
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		MainView.outputText( '\n\nYour softening member slides out of her and she hops down, legs nearly giving out as she lands.  She takes a moment to recuperate before jerking your still-bound wrists towards the ground.  You collapse, unable to stand any longer anyways.  The chameleon girl mutters, "<i>Oh my gods, that felt so-</i>"' );
 		MainView.outputText( '\n\nShe catches herself, and looks back down at you and sneers.  "<i>Y-yeah, and you better not come back around my bog again,</i>" she says between tired breaths as she takes the silk from your wrists and dresses herself again.  She splashes off through the water, leaving you in silence.  You take a while to recover from the experience before managing to work up the energy to get out of the mud and back to your camp.' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//send player back to camp, reset hours since cum, remove gems and add time
 	};
 	//-Female Loss (Z edited)
@@ -140,7 +140,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		//set lust to 100, return to camp
 		EngineCore.dynStats( 'lus=', 100 );
 		CoC.player.lust = 100;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//VICTORY SCENES INTRO(Z edited)
 	ChameleonGirlScene.prototype.defeatChameleonGirl = function() {
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 			}
 		}
 		if( CoC.player.lust < 33 || CoC.player.gender === 0 ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//(Display Options Her Face] [Pussy Rub] [Herm Style Pussyrub] [Incubi Draft] [Succubi Milk] [Lust&Sens Drafts])
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		} else if( CoC.player.hasItem( ConsumableLib.SENSDRF ) && (CoC.player.hasItem( ConsumableLib.L_DRAFT ) || CoC.player.hasItem( ConsumableLib.F_DRAFT )) ) {
 			item = this.useAnItemOnTheChamcham;
 		}
-		EngineCore.choices( 'Use Dick', this, dick, 'Use Pussy', this, pussy, 'Herm Style', this, herm, 'Use Item', this, item, 'Leave', null, Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Use Dick', this, dick, 'Use Pussy', this, pussy, 'Herm Style', this, herm, 'Use Item', this, item, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//-Herm Victory (Z edited)
 	ChameleonGirlScene.prototype.fuckDatChameleonAsACoolGuyGirlHerm = function() {
@@ -211,7 +211,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		}
 		MainView.outputText( 'roll her onto her back and get up to collect your things, rinsing yourself with the water and shaking the mud out before putting your ' + CoC.player.armorName + ' back on and heading back to camp.' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//-Male (Z edited)
 	//(Savin's note only makes a lot of sense for biggus dickus characters; consider an alternative for traps/weany dick characters. We don't all have even footlongs) (yuh)
@@ -241,7 +241,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		MainView.outputText( '  Satisfied, you put your ' + CoC.player.armorName + ' back on and head back to camp.' );
 		//send player back to camp, reset hours since cum, add gems and time
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//-Female (for herms without dicks) (Z edited)
 	ChameleonGirlScene.prototype.femaleHasWinSexWithChamCham = function() {
@@ -273,7 +273,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		MainView.outputText( 'roll her onto her back and get up to collect your things, shaking out the mud and water before putting your ' + CoC.player.armorName + ' back on and heading to camp.' );
 		//send player back to camp, reset hours since cum, add gems and time
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Item Use Scenes Intro (Victory) (Z edited)
 	ChameleonGirlScene.prototype.useAnItemOnTheChamcham = function() {
@@ -320,7 +320,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 			CoC.player.consumeItem( ConsumableLib.SUCMILK );
 			EngineCore.dynStats( 'cor', 5 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//-Lust and Sens Draft (you you you you you need to find more ways to start sentences without using pronouns, she?) (Z edited)
 	ChameleonGirlScene.prototype.doseDatChameleonWithLustAndSensitivityDrafts = function() {
@@ -343,7 +343,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 			var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 			if( x < 0 ) {
 				MainView.outputText( 'COCK ERROR' );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			MainView.outputText( '\n\nYou gently tug at the knot of her thong, and the fabric easily slips away from her wide hips.  Her arousal is obvious; she\'s practically drooling lubricant.  The sight is just too enticing; you hastily shed your ' + CoC.player.armorName + ' and position your ' + Descriptors.cockDescript( x ) + ' in front of her needy fuck-hole.  She gasps sharply and arches her back as you press the head of your erect member against her slick lips; her hands shoot out and grab at your arms, trying desperately to pull you in to her.  With a smile you oblige, pushing deep into her pussy.  Already too far gone with your earlier teasing, she immediately cries out in orgasm, the walls of her cunt squeezing your cock with all they\'ve got.  Though you expect her to relax into a stupor after the release, she\'s clearly not satisfied with just cumming once while you\'re still inside her, gripping you tightly with her hands and beginning to slide her hips up and down your cock.' );
@@ -359,7 +359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, kFLAGS, Utils,
 		} else {
 			CoC.player.consumeItem( ConsumableLib.F_DRAFT );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'chameleonGirlScene', new ChameleonGirlScene() );
 } );

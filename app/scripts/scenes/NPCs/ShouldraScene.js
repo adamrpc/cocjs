@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat, Shouldra, Descriptors, Appearance, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Shouldra, Descriptors, Appearance, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	function ShouldraScene() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 			}
 			MainView.outputText( 'Finally, she acknowledges your readiness to fight. With a sigh and a shrug, she raises her arms and drops into an orthodox boxing stance. Once again, you heft your ' + CoC.player.weaponName + '.', false );
 			//fight;
-			Combat.startCombat( new Shouldra() );
+			SceneLib.combatScene.startCombat( new Shouldra() );
 		}
 		//(after three encounters with her);
 		else {
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 				EngineCore.choices( 'Accept', this, this.yankeeEchoPapa, 'Fight', this, this.novemberAlphaHotel, '', null, null, '', null, null, '', null, null );
 			} else {
 				//FIGHT!;
-				Combat.startCombat( new Shouldra() );
+				SceneLib.combatScene.startCombat( new Shouldra() );
 			}
 		}
 		CoC.flags[ kFLAGS.TIMES_MET_SHOULDRA ]++;
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.spriteSelect( 66 );
 		MainView.outputText( '', true );
 		MainView.outputText( 'You shake your head slowly, raising your ' + CoC.player.weaponName + ' as you regard her.  "<i>Ah, so that\'s how you want it?</i>" she titters, a smile gracing her features.  "<i>In that case, enough talk... have at you!</i>"\n\n', false );
-		Combat.startCombat( new Shouldra() );
+		SceneLib.combatScene.startCombat( new Shouldra() );
 	};
 	//Victory Scenarios;
 	//Ghost Girl Defeated;
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 				MainView.outputText( 'ghost ', false );
 			}
 			MainView.outputText( 'girl falls back, overcome by her injuries. Before you can stop her, she simply becomes insubstantial, her clothes undergoing the change as well. A breeze slips through the ruins, picking the ghost up and scattering her to the winds.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//(defeat by lust);
 		else {
@@ -190,7 +190,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 			MainView.outputText( 'spirit', false );
 		}
 		MainView.outputText( ', and a twinge of guilt runs through you.', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//(let her in);
 	ShouldraScene.prototype.littlePigLittlePigLetMeIn = function() {
@@ -326,7 +326,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( 'With that settled, you and your temporary ghostly companion decide to part ways here. Pushing out of your stomach, the ghost girl flows out of you and reforms, giving you a quick hug and a reassurance of the good time she had. As she begins her trek back to the ruined city, she warns that if you expect her to follow along with your wishes, you\'d best be ready to put up a fight.', false );
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.TIMED_SHARKGINAS ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Shark Girl x Ghost Girl - Penis Scene (Saliva Growth);
 	ShouldraScene.prototype.ghostIzmaPenis = function() {
@@ -376,7 +376,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( 'With that settled, you and your temporary ghostly companion decide to part ways here. Pushing out of your stomach, the ghost girl flows out of you and reforms, giving you a quick hug and a reassurance of the good time she had. As she begins her trek back to the ruined city, she warns that if you expect her to follow along with your wishes, you\'d best be ready to put up a fight.', false );
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.TIMES_SHARKPENISED ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Slime x Ghost Girl - Introduction;
 	ShouldraScene.prototype.ghostGooGurlzDuckfaces = function() {
@@ -477,7 +477,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.player.orgasm();
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -550,7 +550,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.flags[ kFLAGS.SHOULDRA_SLIME_PENOR_TIMES ]++;
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -614,7 +614,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( 'Her pleasure dealt with, the ghost girl appears head-first from your belly, flowing out and reconstituting herself into the normal, brown-eyed girl you first encountered.  Almost as an afterthought, she smiles, moving to her clothing and swiftly dressing, then gives you a little wave before wandering away, rounding a corner and disappearing from sight. You resolve to find her again- her magic was pretty fun!', false );
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.SHOULDRA_GENDERLESS_FUCK_COUNT ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Penis Scene;
 	ShouldraScene.prototype.penisLossThatIsntALoss = function() {
@@ -707,7 +707,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.flags[ kFLAGS.SHOULDRA_PENIS_DEFEAT_TIMES ]++;
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -751,7 +751,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		}
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -773,7 +773,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.dynStats( 'lus', 15 );
 		MainView.outputText( 'There\'s silence for a moment, then you are almost rendered unconscious as she cries, "<i>NOOOOOOOOPE,</i>" telepathically, surging out of your body in record time. She corporealizes and backs away from you until she bumps into one of the ruined buildings. Then, she\'s off, booking it down the street to get as far away from you as possible. You shrug, figuring at the very least you dealt with her arousal, albeit in an unexpected way, and begin your trek back to your camp.', false );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -817,7 +817,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUAN_SPIRIT_SEX_COUNT ]++;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -845,7 +845,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.SHOULDRA_VAGINAL_POSSESSIONS ]++;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -938,7 +938,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.player.orgasm();
 		CoC.flags[ kFLAGS.SHOULDRA_HERMSEX_COUNT ]++;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1016,7 +1016,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.flags[ kFLAGS.SHOULDRA_PENIS_DEFEAT_TIMES ]++;
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -1036,7 +1036,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		MainView.outputText( 'The ghost-girl responds by meeting your eyes and staring daggers at them, and before you can stop her, she leaps towards you, spins, and cracks a kick against the side of your neck. You go tumbling to the ground and unsteadily raise your head to watch her stomp away, grumbling about worms and freaky fetishists. The pavement rushes up to meet you, and the world fades away as you slip into unconsciousness.', false );
 		CoC.flags[ kFLAGS.SHOULDRA_WORM_SCENE_COUNTER ]++;
 		CoC.player.takeDamage( 10000 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Vagina Scene;
 	ShouldraScene.prototype.ghostGinaLosses = function() {
@@ -1057,7 +1057,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.dynStats( 'sen', 1 );
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -1085,7 +1085,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.dynStats( 'sen', 1 );
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -1246,7 +1246,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.flags[ kFLAGS.SHOULDRA_USES_YOUR_GIANT_COCK_COUNT ]++;
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -1320,7 +1320,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.dynStats( 'sen', 1 );
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -1359,7 +1359,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.flags[ kFLAGS.SHOULDRA_EXGARTUAN_SPIRIT_SEX_COUNT ]++;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[super secret paladin 'sex' scene; prerequisites: human face, human body, human legs, no tail, no horns, light/olive/dark/ebony complexion, slightly to severely masculine face, 0-15 corruption, 4-10 inch normal penis, 1-2 inch testicles, no-adjective to narrow hips, height between 5'5</i>" and 6'5</i>"]  ;
 	ShouldraScene.prototype.superCoolPaladinSexStuffDudeGasmJizzMonkies = function() {
@@ -1425,7 +1425,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		CoC.player.orgasm();
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );
@@ -1538,7 +1538,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, Combat,
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.ECTOPLS.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ConsumableLib.ECTOPLS, SceneLib.camp.returnToCampUseOneHour );

@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGardener, Combat, Utils, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGardener, Utils, OnLoadVariables, kFLAGS, ConsumableLib, CoC, EngineCore ) {
 	function D3() {
 		this.rooms = {};
 		this._currentRoom = null; // I don't think we'll need to save/load this, as we're not gonna allow saving in the dungeon, and it'll be overwritten by calling enterD3();
@@ -461,7 +461,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, SuccubusGarde
 			MainView.outputText( '\n\nShe smiles encouragingly. <i>"What\'ll it be?"</i>' );
 			//[Surrender] [Fight];
 			MainView.menu();
-			EngineCore.addButton( 0, 'Fight', null, Combat.startCombatImmediate, new SuccubusGardener() );
+			EngineCore.addButton( 0, 'Fight', SceneLib.combatScene, SceneLib.combatScene.startCombat, new SuccubusGardener() );
 			EngineCore.addButton( 1, 'Surrender', SceneLib.succubusGardenerScenes, SceneLib.succubusGardenerScenes.surrenderToTheGardener );
 			return true;
 		}

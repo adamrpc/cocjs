@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, MainV
 				this.special3();
 				break;
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	TamanisDaughters.prototype.defeated = function( ) {
 		SceneLib.tamaniDaughtersScene.combatWinAgainstDaughters();
@@ -87,7 +87,7 @@ angular.module( 'cocjs' ).factory( 'TamanisDaughters', function( SceneLib, MainV
 	TamanisDaughters.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foes seem visibly disgusted and leave, telling you to, "<i>quit being so fucking gross...</i>"' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.tamaniDaughtersScene.loseToDaughters();
 		}

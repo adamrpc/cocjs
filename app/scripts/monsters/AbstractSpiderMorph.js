@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kFLAGS, WeaponLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, SceneLib, kFLAGS, WeaponLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function AbstractSpiderMorph() {
 		this.init(this, arguments);
 	}
@@ -28,19 +28,19 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( this.getCapitalA() + this.short + ' misses completely due to their blindness.', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You dodge away, avoiding the sticky strands!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You evade, avoiding the sticky strands!', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the sticky strands!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		}
 		//Got hit;
@@ -65,7 +65,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.statsView.showStatDown( 'spe' );
 			CoC.player.addStatusValue( StatusAffects.Web, 1, amount );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	/**-Bite - Raises arousal by 30*/
 	AbstractSpiderMorph.prototype.getBitten = function() {
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 				MainView.outputText( 'struggle not to fall down and start masturbating on the spot.', false );
 			}
 			MainView.outputText( '\n', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		MainView.outputText( 'The spider-' + this.mf( 'boy', 'girl' ) + ' lunges forward with ' + this.mf( 'his', 'her' ) + ' mouth open, ' + this.mf( 'his', 'her' ) + ' two needle-like fangs closing rapidly.  ', false );
@@ -103,19 +103,19 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( this.getCapitalA() + this.short + ' misses completely due to their blindness.', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You dodge away, avoiding ' + this.mf( 'his', 'her' ) + ' bite!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You evade, avoiding the bite!', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the spider bite!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		} else {
 			if( Utils.rand( 5 ) === 0 ) {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 				EngineCore.dynStats( 'lus', 30 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	/**-Disarm - hits the PC's weapon with web and sticks it to a
 	 nearby tree, reducing PC's attack to 0 for the rest of the fight.*/
@@ -142,19 +142,19 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( 'The blind web-shot goes horribly wide, missing you entirely.', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You pull your weapon back and the webbing goes wide, missing entirely.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You pull your weapon back evasively and the webbing goes wide, missing entirely!', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the webbing!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		} else if( CoC.player.weaponName === 'spiked gauntlet' || CoC.player.weaponName === 'hooked gauntlets' ) {
 			MainView.outputText( 'The webbing hits your ', false );
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			//				CoC.player.weapon.unequip(CoC.player,false,true);;
 			CoC.player.createStatusAffect( StatusAffects.Disarmed, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	/**-Silence - sprays webs on the PC's mouth, silencing them for 1 to 3 turns.*/
 	AbstractSpiderMorph.prototype.spiderSilence = function() {
@@ -181,25 +181,25 @@ angular.module( 'cocjs' ).factory( 'AbstractSpiderMorph', function( MainView, kF
 			MainView.outputText( 'The blind web-shot goes horribly wide, missing you entirely.', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You lean back and let them pass harmlessly overhead, avoiding the attack.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You pull your weapon back evasively and the webbing goes wide, missing entirely.', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Your misleading movements allow you to easily sidestep the webbing!', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding ' + this.mf( 'his', 'her' ) + ' attack.\n', false );
 		} else {
 			MainView.outputText( 'They hit you before you can move, covering most of your nose and mouth and making it hard to breathe.  You\'ll be unable to use your magic while you\'re constantly struggling just to draw air!\n', false );
 			CoC.player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	return AbstractSpiderMorph;
 } );

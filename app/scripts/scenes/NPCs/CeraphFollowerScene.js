@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, PregnancyStore, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, PregnancyStore, PerkLib, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function CeraphFollowerScene() {
 	}
 
@@ -214,9 +214,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 				cunting = SceneLib.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
 
-			EngineCore.choices( 'Collar Her', this, this.collarCeraph, 'Fuck Her', SceneLib.ceraphScene, dicking, 'Ride Her', SceneLib.ceraphScene, cunting, 'FuckHerAss', SceneLib.ceraphScene, buttsmexing, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Collar Her', this, this.collarCeraph, 'Fuck Her', SceneLib.ceraphScene, dicking, 'Ride Her', SceneLib.ceraphScene, cunting, 'FuckHerAss', SceneLib.ceraphScene, buttsmexing, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			EngineCore.choices( 'Collar Her', this, this.collarCeraph, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Collar Her', this, this.collarCeraph, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 	//Collar Ceraph After 4th Defeat + Rape: (Zeddited);
@@ -277,10 +277,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 			if( CoC.player.hasVagina() ) {
 				cunting = SceneLib.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
-			EngineCore.choices( 'Fuck Her', SceneLib.ceraphScene, dicking, 'Ride Her', SceneLib.ceraphScene, cunting, 'FuckHerAss', SceneLib.ceraphScene, buttsmexing, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck Her', SceneLib.ceraphScene, dicking, 'Ride Her', SceneLib.ceraphScene, cunting, 'FuckHerAss', SceneLib.ceraphScene, buttsmexing, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			MainView.outputText( '  You don\'t really have the equipment to.  Oh well.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//[Pierce] ;
@@ -316,10 +316,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Combat, Pregn
 			if( CoC.player.hasVagina() ) {
 				cunting = SceneLib.ceraphScene.rideCeraphsCockLikeaBAWSSexclamation11eleven;
 			}
-			EngineCore.choices( 'Fuck Her', SceneLib.ceraphScene, dicking, 'Ride Her', SceneLib.ceraphScene, cunting, 'FuckHerAss', SceneLib.ceraphScene, buttsmexing, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck Her', SceneLib.ceraphScene, dicking, 'Ride Her', SceneLib.ceraphScene, cunting, 'FuckHerAss', SceneLib.ceraphScene, buttsmexing, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			MainView.outputText( '  You don\'t really have the equipment to.  Oh well.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Decision to Display Demonic Dick or Demur (pretty sure Fen mentioned wanting this -Z);

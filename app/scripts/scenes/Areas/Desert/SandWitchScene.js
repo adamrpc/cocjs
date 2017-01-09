@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, SandWitch, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, SandWitch, PerkLib ) {
 	function SandWitchScene() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 				MainView.outputText( 'turns crimson', false );
 			}
 			MainView.outputText( ' as you yank your ' + CoC.player.armorName + ' back into place.  You\'re in charge here, not some possessed appendage!   Exgartuan yells something snide, but it\'s muffled too much to understand.  You look up in time to sidestep an attack from the Sand Witch.  It looks like you\'ll have to fight her!' );
-			Combat.startCombat( new SandWitch() );
+			SceneLib.combatScene.startCombat( new SandWitch() );
 		} else {
 			EngineCore.doYesNo( this, this.allowSandWitchMagic, this, this.refuseSandWitchMagic );
 		}
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.spriteSelect( 50 );
 		MainView.clearOutput();
 		MainView.outputText( 'With an inarticulate scream of rage, the Sand Witch attacks!' );
-		Combat.startCombat( new SandWitch() );
+		SceneLib.combatScene.startCombat( new SandWitch() );
 	};
 	SandWitchScene.prototype.sandwitchRape = function() {
 		MainView.spriteSelect( 50 );
@@ -205,7 +205,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			if( CoC.sand === 0 ) {
 				CoC.sand = 1;
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//HP DEFEAT
 		else {
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 				return;
 			}
 			MainView.outputText( '\n<b>You fall, defeated by the Sand Witch!</b>\n\n', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	SandWitchScene.prototype.sandWitchBadEnd = function() {
@@ -252,7 +252,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_CENTAUR ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			this.sandwitchCentaurBoning();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		MainView.outputText( 'Even as you rip her sand-colored robes from her body, her eyes hold power and defiance. Her chest holds four large breasts, each leaking milk upon the sands.  ', false );
@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 					MainView.outputText( '\n\nThe sand witch screams in savage denial as you plant your seed deep within her body, your corruption no doubt making it extra potent. You gaze into her eyes, reveling in her expression of horror. Without uttering a word, you continue to fuck her, making sure your seed is well-entrenched within her wombs, feeling it splatter and bubble around your ' + Descriptors.multiCockDescriptLight() + '.  You wonder if she will remember the pleasure her body felt today, and if she will be more likely to drop to her knees before you than to fight... ', false );
 					MainView.outputText( 'Finally finished, you pull your ' + Descriptors.multiCockDescriptLight() + ' from her well used slits, your ' + Descriptors.multiCockDescriptLight() + ' drooling cum even now. With a grin, you walk away, happy with your little encounter.  ', false );
 				}
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 		//Femfem
@@ -316,7 +316,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.outputText( 'You wake up in the desert, immediately grabbing at your body to see if anything\'s changed...', false );
 		CoC.player.slimeFeed();
 		EngineCore.dynStats( 'lus', 25 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		MainView.outputText( '\n', false );
 	};
 	SandWitchScene.prototype.sandwitchSex = function() {
@@ -340,7 +340,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.outputText( '\n\nWith a satisfied smirk, you lay atop your prize, your ' + Descriptors.cockDescript( 0 ) + ' still twitching within her depths. One of the sand witch\'s hands rubs at your head, teasing your ' + CoC.player.skinDesc + '. Like a fresh youth, you fall asleep, ' + Descriptors.cockDescript( 0 ) + ' buried deep in the sand witch.  ', false );
 		MainView.outputText( 'With a start you wake up, only to find the sand witch still passed out beside you.  Almost thinking it was a dream, you touch your groin tenderly and rub softly. There\'s a faint trace of soreness, and you remember the ferocity with which you mashed your pelvises together.  You get up and get ready.  ', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/*
 	 Event: Centaur-SWitch: Player Raping
@@ -701,7 +701,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.outputText( 'With the corruption of this realm comfortably throbbing in your shameless veins, you feel your mind opening to new possibilities.  Despite the slickly perfect fit of the sand witch\'s multiple pussies as you pound into her, and the way she moans with each thrust of your titanic members, you feel there are still some further alleys of pleasure within her left to explore.  Long inured to carnal pleasure that would have rendered your earlier, purer self unconscious,  your mind wanders back to the witch\'s weapon of lust, the vibrating stone of pleasure.  You feel it\'s time to give her a dose of her own medicine.\n\n', true );
 		MainView.outputText( 'You grin wickedly at the humiliated and whimpering witch as you rape her.  Between involuntary gasps of pleasure as you steadily pound into her sopping snatches, she looks afraid, not knowing the source of your mirth.  It soon becomes clear enough. She struggles a little once she hears the low buzzing of her own corrupted pleasure stone and bucks and thrashes as you push the persistent little charm into her tight, but well-cum-lubed ass.  The feel of the stone vibrating within her spreads through to your cocks, enhancing the pleasure as she clenches and spasmes while being violated multiple ways.  All too soon, it brings you to a gushing orgasm.  As you finally withdraw from the troublesome sand witch, you spit on her milk-oozing form and take your leave.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SandWitchScene.prototype.beatSandwitch = function() {
 		MainView.spriteSelect( 50 );
@@ -728,7 +728,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			ovi = this.ovipositSandWitches;
 		}
 		EngineCore.choices( 'Yes', this, this.sandwitchRaped, 'Dildo Rape', SceneLib.tamaniDildo, temp2, 'Use 3i@-', this, temp3, 'Use Shouldra', SceneLib.shouldraFollower, shouldra, 'Lay Eggs', this, ovi,
-			'Taunt Her', this, this.sandwitchSpanking, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			'Taunt Her', this, this.sandwitchSpanking, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//This is a bonus scene for those who are playing Corruption of Champions with Silly Mode activated and defeat the Sand Witch by dropping her hit points and have the option of having their way with her. A special third(?) option appears that begins the encounter. The idea is that it breaks the 4th wall and gives the player the impression that they've stumbled upon a glitchy, incomplete scene. As a special note to anyone who does coding: all code tags (anything like " + Descriptors.cockDescript(0) + " but not my usual {code brackets} for example) are meant to be printed in game exactly as they were written on this document, pushing the idea that the player "broke the game".
 	//{Player defeats Sand Witch and has enough Lust}
@@ -794,7 +794,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	SandWitchScene.prototype.missingoSex6 = function() {
 		MainView.spriteSelect( 50 );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		EngineCore.hideUpDown();
 		MainView.statsView.show();
 		MainView.outputText( '', true );
@@ -1018,7 +1018,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		}
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Birthing scene: Driders (Radar)(edited)
 	SandWitchScene.prototype.sammitchBirthsDriders = function() {
@@ -1189,7 +1189,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		CoC.monster.HP = 2;
 		CoC.player.lust = 100;
 		CoC.flags[ kFLAGS.COMBAT_BONUS_XP_VALUE ] = CoC.monster.XP;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 5 );
 	};

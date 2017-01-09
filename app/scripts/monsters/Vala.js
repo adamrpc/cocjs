@@ -20,7 +20,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, MainView, Consuma
 			MainView.outputText( '  The cloying, thick cloud of pink spools out from her mouth and fills the room with a haze of bubblegum-pink sweetness.  Even the shallowest, most experimental breath makes your heart pound and your crotch thrum with excitement.  You gasp in another quick breath and sway back and forth on your feet, already on the edge of giving in to the faerie.', false );
 			EngineCore.dynStats( 'lus', 30 + CoC.player.lib / 10 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Milk magic;
 	Vala.prototype.valaSpecial2 = function() {
@@ -35,13 +35,13 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, MainView, Consuma
 			MainView.outputText( 'You aren\'t sure if there\'s something in her milk, the dust, or just watching her squirt and shake for you, but it\'s turning you on.', false );
 		}
 		EngineCore.dynStats( 'lus', this.statusAffectv1( StatusAffects.Milk ) + CoC.player.lib / 20 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Masturbation;
 	Vala.prototype.valaMasturbate = function() {
 		MainView.outputText( 'The mind-fucked faerie spreads her alabaster thighs and dips a finger into the glistening slit between her legs, sliding in and out, only pausing to circle her clit.  She brazenly masturbates, putting on quite the show.  Vala slides another two fingers inside herself and finger-fucks herself hard, moaning and panting lewdly.  Then she pulls them out and asks, "<i>Did you like that?  Will you fuck Vala now?</i>"', false );
 		EngineCore.dynStats( 'lus', 4 + CoC.player.cor / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	//[Fight dialog];
@@ -89,7 +89,7 @@ angular.module( 'cocjs' ).factory( 'Vala', function( SceneLib, MainView, Consuma
 	Vala.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.dungeon2Supplimental.loseToVala();
 		}

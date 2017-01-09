@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainVi
 	OmnibusOverseer.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.omnibusLossRape();
 		}
@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainVi
 		} else {
 			this.createStatusAffect( StatusAffects.LustAura, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	OmnibusOverseer.prototype.milkAttack = function() {
 		if( Utils.rand( 2 ) === 0 ) {
@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainVi
 		} else {
 			MainView.outputText( 'Your foe curls up to pinch her nipples, tugging hard and squirting milk towards you.\n' );
 		}
-		if( (CoC.player.spe > 50 && Utils.rand( 4 ) === 0) || (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 3 ) === 0) || (CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 4 ) === 0 && CoC.player.armorName === 'red, high-society bodysuit') ) {
+		if( (CoC.player.spe > 50 && Utils.rand( 4 ) === 0) || Combat.combatEvade( 30 ) || Combat.combatMisdirect( 25 ) ) {
 			MainView.outputText( 'You sidestep the gushing fluids.' );
 		}
 		//You didn't dodge;
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).factory( 'OmnibusOverseer', function( SceneLib, MainVi
 				MainView.outputText( 'Milk dribbles from your ' + Descriptors.allBreastsDescript() + ' in sympathy.' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	OmnibusOverseer.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

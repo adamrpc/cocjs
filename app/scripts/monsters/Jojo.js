@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, CoC, Monster, Utils, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, CoC, Monster, Utils, AppearanceDefs, EngineCore ) {
 	function Jojo() {
 		this.init(this, arguments);
 	}
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Jojo', function( MainView, SceneLib, $log, C
 				this.lust += 15;
 		}
 		if( this.lust >= 100 ) {
-			EngineCore.doNext( Combat, Combat.endLustVictory );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustVictory );
 			return;
 		} else if( this.lust >= 85 ) {
 			MainView.outputText( 'The mouse is panting and softly whining, each movement seeming to make his bulge more pronounced.  You don\'t think he can hold out much longer.  ' );

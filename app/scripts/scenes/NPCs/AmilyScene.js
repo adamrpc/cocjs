@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, Descriptors, PerkLib, UseableLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, Amily, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, Descriptors, PerkLib, UseableLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, Amily, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
 	/*Amily the Mousegirl Breeder
 	 * Plus human stuff
 	 =============================================
@@ -5877,7 +5877,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'cor', 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -5911,7 +5911,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -2, 'cor', 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -6395,7 +6395,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			MainView.outputText( 'You wait for quite some time, but eventually you hear Amily approaching; she checks the hideout for any signs of intrusions, but you have concealed your presence well and she finds nothing. Satisfied, she sets down a bag with some fruits she gathered and sits down on a stool, letting out a sigh of relief.\n\n', false );
 			MainView.outputText( 'This is your cue to act; you quickly burst out of your hideout and swipe her blowpipe away. Amily jumps away in surprise and reaches for her knife, assuming a fighting stance. You ready your ' + CoC.player.weaponName + ' and prepare to teach the foolish mouse a lesson.\n\n', false );
 			//[Proceed to battle.];
-			Combat.startCombat( new Amily(), true );
+			SceneLib.combatScene.startCombat( new Amily(), true );
 		}
 		//(if PC's speed >= 65);
 		else if( CoC.player.spe >= 65 ) {
@@ -6404,7 +6404,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, D
 			MainView.outputText( 'You spot Amily just in time to see a dart flying towards you; but you quickly sidestep the dart and rush towards her. Realising she missed, she reaches for another dart; but you won\'t allow it, you take a rock lying on the ground and throw it at her blowpipe, striking it out of her hand.\n\n', false );
 			MainView.outputText( 'Panicked, she takes her knife and prepares to fight you. You ready your ' + CoC.player.weaponName + ' and prepare to teach the foolish mouse a lesson.\n\n', false );
 			//[Proceed to battle.];
-			Combat.startCombat( new Amily(), true );
+			SceneLib.combatScene.startCombat( new Amily(), true );
 		} else {
 			MainView.outputText( 'You search for Amily high and low, but can\'t find a single trace of her. Frustrated, you return to the camp.  Maybe if you were smarter or faster you could find her.', false );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );

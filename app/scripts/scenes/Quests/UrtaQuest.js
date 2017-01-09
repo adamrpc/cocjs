@@ -813,7 +813,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		MainView.outputText( '\n\n"<i>Hey there lady-stud!  You look like you could use a hot cunt to fertilize a few times!</i>" a reedy, high-pitched goblin voice calls.  Shit, one of those guttersluts.  They\'re almost as bad as demons.  Worst of all, you know they\'ll play to your basest, most well-concealed fetishes.  Just the idea of having one of them split on your cock, slowly ballooning with seed and loving it...  well, if you\'re being honest with yourself, it makes you stiffen a little.  You turn around to face the curvy little preg-hungry whore, and as soon as you see her, you realize she\'s not going to go away until she\'s had a ride on your dick or been subdued.' );
 		MainView.outputText( '\n\n<b>It\'s a fight!</b>' );
-		Combat.startCombat( new GoblinBroodmother() );// TODO extract to Monsters.GoblinBroodMother class
+		SceneLib.combatScene.startCombat( new GoblinBroodmother() );// TODO extract to Monsters.GoblinBroodMother class
 	};
 
 	//Urta Wins(C)*;
@@ -948,7 +948,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 5 ) {
 			MainView.clearOutput();
 			MainView.outputText( 'You try to ready a special attack, but wind up stumbling dizzily instead.  <b>Your ability to use physical special attacks was sealed, and now you\'ve wasted a chance to attack!</b>\n\n' );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		MainView.menu();
@@ -958,21 +958,21 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.addButtonWithTooltip( 3, 'Dirt Kick', 'Attempt to blind your foe with a spray of kicked dirt. (5 Fatigue)', this, this.urtaDirtKick );
 		EngineCore.addButtonWithTooltip( 4, 'Metabolize', 'Convert 10% of your maximum HP into fatigue.', this, this.urtaMetabolize );
 		EngineCore.addButtonWithTooltip( 5, 'SecondWind', 'Regain 50% of your HP, 50 fatigue, and reduce lust by 50 once per fight.', this, this.urtaSecondWind );
-		EngineCore.addButton( 9, 'Back', null, Combat.combatMenu, false );
+		EngineCore.addButton( 9, 'Back', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 	};
 	UrtaQuest.prototype.urtaMetabolize = function() {
 		MainView.clearOutput();
 		var damage = CoC.player.takeDamage( Math.round( CoC.player.maxHP() / 10 ) );
 		MainView.outputText( 'You work your body as hard as you can, restoring your fatigue at the cost of health. (' + damage + ')\nRestored 20 fatigue!\n\n' );
 		EngineCore.fatigue( -20 );
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 	UrtaQuest.prototype.urtaSecondWind = function() {
 		MainView.clearOutput();
 		if( CoC.monster.findStatusAffect( StatusAffects.UrtaSecondWinded ) ) {
 			MainView.outputText( 'You\'ve already pushed yourself as hard as you can!' );
 			MainView.menu();
-			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 			return;
 		}
 		CoC.monster.createStatusAffect( StatusAffects.UrtaSecondWinded, 0, 0, 0, 0 );
@@ -980,7 +980,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		EngineCore.fatigue( -50 );
 		EngineCore.dynStats( 'lus', -50 );
 		MainView.outputText( 'Closing your eyes for a moment, you focus all of your willpower on pushing yourself to your absolute limits, forcing your lusts down and drawing on reserves of energy you didn\'t know you had!\n\n' );
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 	//Combo: 3x attack, higher miss chance, guaranteed hit vs blind;
 	UrtaQuest.prototype.urtaComboAttack = function() {
@@ -989,7 +989,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			if( CoC.player.fatigue + 25 > 100 ) {
 				MainView.outputText( 'You are too fatigued to use that attack!' );
 				MainView.menu();
-				EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+				EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 				return;
 			}
 			EngineCore.fatigue( 25 );
@@ -1026,7 +1026,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				return;
 			} else {
 				MainView.outputText( '\n', false );
-				Combat.enemyAI();
+				CoC.monster.doAI();
 				return;
 			}
 		}
@@ -1075,6 +1075,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage( damage );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 		}
 		if( damage <= 0 ) {
 			damage = 0;
@@ -1105,12 +1108,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			}
 			$log.debug( 'DONE ATTACK' );
 			MainView.outputText( '\n', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 		} else {
 			if( CoC.monster.HP <= 0 ) {
-				EngineCore.doNext( Combat, Combat.endHpVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory );
 			} else {
-				EngineCore.doNext( Combat, Combat.endLustVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustVictory );
 			}
 		}
 	};
@@ -1120,7 +1123,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.fatigue + 5 > 100 ) {
 			MainView.outputText( 'You are too fatigued to use that ability!' );
 			MainView.menu();
-			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 5 );
@@ -1133,7 +1136,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//Dodged!;
 		if( Utils.rand( 20 ) + 1 + CoC.monster.spe / 20 > 15 + CoC.player.spe / 20 ) {
 			MainView.outputText( CoC.monster.mf( 'He', 'She' ) + ' manages to shield ' + CoC.monster.mf( 'his', 'her' ) + ' eyes.  Damn!\n\n' );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		} else if( CoC.monster.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( CoC.monster.mf( 'He', 'She' ) + '\'s already blinded.  What a waste.\n\n' );
@@ -1141,7 +1144,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			MainView.outputText( CoC.monster.mf( 'He', 'She' ) + '\'s blinded!\n\n' );
 			CoC.monster.createStatusAffect( StatusAffects.Blind, 2 + Utils.rand( 3 ), 0, 0, 0 );
 		}
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 	//SideWinder: 70% damage + stun chance;
 	UrtaQuest.prototype.urtaSidewinder = function() {
@@ -1149,7 +1152,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.fatigue + 10 > 100 ) {
 			MainView.outputText( 'You are too fatigued to use that attack!' );
 			MainView.menu();
-			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 10 );
@@ -1172,7 +1175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' deftly avoids your slow attack.', false );
 			}
 			MainView.outputText( '\n\n', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		//Basic damage stuff;
@@ -1222,6 +1225,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage( damage );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 		}
 		if( damage <= 0 ) {
 			damage = 0;
@@ -1254,16 +1260,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//Kick back to main if no damage occured!;
 		if( CoC.monster.HP >= 1 && CoC.monster.lust <= 99 ) {
 			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) ) {
-				Combat.attack();
+				SceneLib.combatScene.attack();
 				return;
 			}
 			MainView.outputText( '\n', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 		} else {
 			if( CoC.monster.HP <= 0 ) {
-				EngineCore.doNext( Combat, Combat.endHpVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory );
 			} else {
-				EngineCore.doNext( Combat, Combat.endLustVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustVictory );
 			}
 		}
 	};
@@ -1274,13 +1280,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		if( CoC.player.fatigue + 20 > 100 ) {
 			MainView.outputText( 'You are too fatigued to use that attack!' );
 			MainView.menu();
-			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 20 );
 		if( CoC.player.findStatusAffect( StatusAffects.Sealed ) && CoC.player.statusAffectv2( StatusAffects.Sealed ) === 0 ) {
 			MainView.outputText( 'You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  The seals have made normal attack impossible!  Maybe you could try something else?\n\n', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		//Blind;
@@ -1303,12 +1309,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 			}
 			MainView.outputText( '\n', false );
 			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) ) {
-				Combat.attack();
+				SceneLib.combatScene.attack();
 				return;
 			} else {
 				MainView.outputText( '\n', false );
 			}
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		//Determine damage;
@@ -1366,6 +1372,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 				damage *= 1.1;
 			}
 			damage = Combat.doDamage( damage );
+			if (CoC.monster.HP <= 0) {
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+			}
 		}
 		if( damage <= 0 ) {
 			damage = 0;
@@ -1390,16 +1399,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		//Kick back to main if no damage occured!;
 		if( CoC.monster.HP >= 1 && CoC.monster.lust <= 99 ) {
 			if( CoC.player.findStatusAffect( StatusAffects.FirstAttack ) ) {
-				Combat.attack();
+				SceneLib.combatScene.attack();
 				return;
 			}
 			MainView.outputText( '\n', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 		} else {
 			if( CoC.monster.HP <= 0 ) {
-				EngineCore.doNext( Combat, Combat.endHpVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory );
 			} else {
-				EngineCore.doNext( Combat, Combat.endLustVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustVictory );
 			}
 		}
 	};
@@ -1419,8 +1428,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n\n"<i>Sirius.  But I\'m already with someone, quite happy with ' + CoC.player2.mf( 'him', 'her' ) + ', and not looking for anyone else.  Besides, I\'m only passing through and I have places to go yet,</i>" you say, trying to be polite but firm; you\'d be less than flattered by the attention even if you didn\'t have a painful history of guys asking you out, then changing their minds upon seeing your stallion-king-sized manhood.' );
 		MainView.outputText( '\n\n"<i>You invade my territory... ssstep on my tail... and have the gall to tell me you\'re not going to make up for it!</i>"  He hisses ominously.  "<i>Hey, it was an acci-</i>"  "<i>Worthlesss female!  You are mine!</i>"  He charges at you!' );
 		MainView.outputText( '\n\n<b>It\'s a fight!</b>' );
-		Combat.clearStatuses( false );
-		Combat.startCombat( new Sirius() );
+		CoC.player.clearStatuses( false );
+		SceneLib.combatScene.startCombat( new Sirius() );
 	};
 	//Tease*;
 	//Poison Bite*;
@@ -1564,8 +1573,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n\nThe terrain gives way to flat dirt with tall grasses, a vast savanna stretching away as far as your eyes can see.  You move through it heedlessly, drunk on the idea that you can find the temple on the same day that you set out!' );
 		MainView.outputText( '\n\nHow wrong you are.  A spear smacks into the ground, the tip exploding into some sticky, restraining substance by your foot.  A high pitched war-cry chases the missile, barely giving you the warning you need to avoid the onrushing gnoll!  This one doesn\'t quite look like what you\'d expect from their race, but she\'s moving too fast to really dwell on it.' );
 		MainView.outputText( '\n\n<b>It\'s a fight!</b>' );
-		Combat.clearStatuses( false );
-		Combat.startCombat( new GnollSpearThrower() );
+		CoC.player.clearStatuses( false );
+		SceneLib.combatScene.startCombat( new GnollSpearThrower() );
 		CoC.monster.bonusHP = 350;
 		CoC.monster.short = 'alpha gnoll';
 		CoC.monster.HP = CoC.monster.eMaxHP(); // TODO extract to AlphaGnoll class
@@ -1870,8 +1879,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		MainView.outputText( '\n\n"<i>Sic \'em, boy!</i>" she screeches, dropping the chain.' );
 		MainView.outputText( '\n\nThe minotaur lord thunders towards you, picking up the loose chain to use a weapon.  It\'s a fight!' );
 		//{start fight};
-		Combat.clearStatuses( false );
-		Combat.startCombat( new MinotaurLord() );
+		CoC.player.clearStatuses( false );
+		SceneLib.combatScene.startCombat( new MinotaurLord() );
 	};
 
 	//Minotaur Lord(C)*;
@@ -2057,9 +2066,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Sirius, Gnoll
 		}
 		MainView.outputText( '\n\n"<i>We\'ll see how your tune changes when you\'re licking my heels and begging for a drop of my milk!</i>"  She snaps her whip angrily.' );
 		MainView.outputText( '\n\n<b>It\'s a fight!</b>' );
-		Combat.clearStatuses( false );
+		CoC.player.clearStatuses( false );
 		CoC.player.setWeapon( WeaponLib.URTAHLB );
-		Combat.startCombat( new MilkySuccubus(), true );
+		SceneLib.combatScene.startCombat( new MilkySuccubus(), true );
 	};
 
 	//Attacks;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basilisk, Combat, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basilisk, Descriptors, StatusAffects, PerkLib, PregnancyStore, Utils, AppearanceDefs, MainView ) {
 	function BasiliskScene() {
 	}
 	BasiliskScene.prototype.basiliskSpeed = function( player, amount ) {
@@ -44,14 +44,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 			//(spd loss)
 			this.basiliskSpeed( CoC.player, 5 );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
-			Combat.startCombat( basilisk );
+			SceneLib.combatScene.startCombat( basilisk );
 		}
 		//Standard encounter:
 		else {
 			MainView.outputText( 'You notice a large boulder ahead.  There is something curiously shaped about it. A small, wet grey shape on it catches your eye...\n\n', false );
 			MainView.outputText( 'You look away in the nick of time, and ready yourself to fight as the basilisk slides from its hiding place and advances upon you, its deadly eyes and sharp claws glinting coldly in the sunlight.\n\n', false );
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
-			Combat.startCombat( new Basilisk() );
+			SceneLib.combatScene.startCombat( new Basilisk() );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00276 ]++;
 		MainView.spriteSelect( 75 );
@@ -83,9 +83,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			MainView.outputText( '  Certain that the creature won\'t dare try and turn its eyes on you again, you take your time to look the tall reptile over directly for the first time.  Perhaps you could use it to satisfy your baser urges. If so, what part of it do you choose?', false );
 			//[Tongue][Ass]
-			EngineCore.choices( 'Tongue', this, this.tongueBasiliskSmex, 'Ass', this, evil, '', null, null, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Tongue', this, this.tongueBasiliskSmex, 'Ass', this, evil, '', null, null, 'Lay Eggs', this, eggs, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Player Victory sex:
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib-', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//basilisk Defeat: Anal
 	BasiliskScene.prototype.defeatBasiliskAndAnal = function() {
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		MainView.outputText( 'You are shaken out of it by an urgent, rasping moan from the basilisk. You sense movement overhead and look up. The lizard has seen in the water\'s reflection what you can take in with your own eyes; several harpies circling overhead like vultures, waiting patiently for you to leave.  The smiles which plaster their faces are possibly the least kindly you have ever seen.  The basilisk whines again, this time with a desperate pleading edge.  You kneel down and comfortingly stroke your victim\'s scaled head, glorying in the moment of false hope you give it.  "<i>Get hard,</i>" you whisper.  The creature clenches as its no doubt aching cock strains to attention again.  "<i>Don\'t worry,</i>" you murmur into its ear. "<i>I\'m sure the nice birdies will shake you out of it.  Eventually.</i>"  You get up, dress yourself, and leave.  A pitiless grin slowly spreads across your face as behind you, the opening strains of what promises to be a very long, violent, and feathery rape reach your ears...', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Player Defeated:
 	BasiliskScene.prototype.loseToBasilisk = function() {
@@ -243,7 +243,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		//INSERT OPTIONAL OTHER MONSTER FINDINGS!
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//basilisk vag rape
 	//Requires: Player has vag and is in heat, currently has egg pregnancy, or has oviposition perk
@@ -293,7 +293,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		//longer to be laid than usual):
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	BasiliskScene.prototype.basiliskBirth = function() {
 		MainView.spriteSelect( 75 );
@@ -661,7 +661,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		}
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	BasiliskScene.prototype.layBeeEggsInABasilisk = function() {
 		MainView.spriteSelect( 75 );
@@ -743,7 +743,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Basi
 		MainView.outputText( '\n\nAs you remove your depleted appendage from the violated basilisk\'s ass, he falls to the side, no longer able to keep himself upright.  Laying like this, you can see the beast\'s horribly-distended stomach, almost able to make out the outline of each individual egg but for the scales in the way. You nod approvingly and bend down to give to the lizard a quick kiss on the cheek for being such a good sport about the whole thing - though, not being an idiot, you don\'t untie him.  After that, you buzz away contentedly, idly thinking about returning the next time you\'ll need a receptacle for your eggs.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'basiliskScene', new BasiliskScene() );
 } );

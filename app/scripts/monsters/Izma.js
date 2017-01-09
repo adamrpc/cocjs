@@ -13,22 +13,22 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Izma attempts to get close, but you put Raphael\'s teachings to use and side-step the sharkgirl, confusing her with your movements.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'Izma attempts to get close, but you manage to side-step her before she can lay her gauntleted hands on you.\n', false );
 			return;
 		}
@@ -43,22 +43,22 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'Izma tries to clinch you, but you use your speed to keep just out of reach.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Izma tries to clinch you, but she didn\'t count on your skills in evasion.  You manage to sidestep her at the last second.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Izma ducks and weaves forward to clinch you, but thanks to Raphael\'s teachings, you\'re easily able to misguide her and avoid the clumsy grab.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'Izma tries to lock you in a clinch, but your cat-like flexibility makes it easy to twist away from her grab.\n', false );
 			return;
 		}
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 		if( choice === 4 ) {
 			this.IzmaSpecials3();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Izma.prototype._superEAttack = Izma.prototype.eAttack;
 	Izma.prototype.eAttack = function() {
@@ -134,7 +134,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 		if( choice === 4 ) {
 			this.IzmaSpecials3();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Izma.prototype.defeated = function() {
 		SceneLib.izmaScene.defeatIzma();
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).factory( 'Izma', function( SceneLib, MainView, PerkLib
 	Izma.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\n"<i>Gross!</i>" Izma cries as she backs away, leaving you to recover alone.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.izmaScene.IzmaWins();
 		}

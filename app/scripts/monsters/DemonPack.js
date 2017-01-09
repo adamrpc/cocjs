@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib, Combat, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneLib, CoC, Monster, Utils, StatusAffects, AppearanceDefs, CockTypesEnum, WeightedDrop, ConsumableLib, EngineCore, Descriptors ) {
 	function DemonPack() {
 		this.init(this, arguments);
 	}
@@ -23,10 +23,10 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneL
 		if( this.findStatusAffect( StatusAffects.phyllafight ) ) {
 			EngineCore.doNext( SceneLib.antsScene, SceneLib.antsScene.consolePhylla );
 		} else if( hpVictory ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '  Do you rape them?', true );
-			EngineCore.doYesNo( this, this.rapeDemons, null, Combat.cleanupAfterCombat );
+			EngineCore.doYesNo( this, this.rapeDemons, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 	DemonPack.prototype.rapeDemons = function() {
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneL
 			} else {
 				MainView.outputText( 'You offer yourself to the demons, who promptly begin laughing at your lack of endowments.  They fall on you as one, beating you into unconsciousness.', true );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else if( hpVictory ) {
 			MainView.outputText( 'The demons finally beat you down and you collapse onto the sand of the oasis. Almost immediately you feel demonic hands pressing and probing your prone form. You hear the leader of the group say something in a strange tongue but you have a feeling you know what it means. The demons dive onto your inert body with intent and begin to press themselves against you...', true );
 			EngineCore.doNext( SceneLib.oasis, SceneLib.oasis.oasisSexing );
@@ -126,8 +126,8 @@ angular.module( 'cocjs' ).factory( 'DemonPack', function( $log, MainView, SceneL
 			ConsumableLib.INCUBID,
 			ConsumableLib.OVIELIX,
 			ConsumableLib.B__BOOK );
-		that.special1 = Combat.packAttack;
-		that.special2 = Combat.lustAttack;
+		that.special1 = EngineCore.createCallBackFunction( SceneLib.combatScene, SceneLib.combatScene.packAttack );
+		that.special2 = EngineCore.createCallBackFunction( SceneLib.combatScene, SceneLib.combatScene.lustAttack );
 		that.tailType = AppearanceDefs.TAIL_TYPE_DEMONIC;
 		that.hornType = AppearanceDefs.HORNS_DEMON;
 		that.horns = 2;

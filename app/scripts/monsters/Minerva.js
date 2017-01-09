@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( '(' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Flying kick:
 	Minerva.prototype.minervaKnowsKungfu = function() {
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 			MainView.outputText( ' (' + damage + ')' );
 		}
 		this.spe += 70;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Tail-whip
 	Minerva.prototype.tailWhip = function() {
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 				this.createStatusAffect( StatusAffects.TailWhip, 10, 0, 0, 0 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Halberd stab:
 	Minerva.prototype.minervaUsesHalberdStab = function() {
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Halberd CHOP:
 	Minerva.prototype.minervaUsesHalberdCHOP = function() {
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//White Fire
 	Minerva.prototype.kiteFire = function() {
@@ -108,21 +108,21 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 		var damage = Math.ceil( 10 + (this.inte / 3 + Utils.rand( this.inte / 2 )) * 1.5 );
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Lust Attacks for tainted Minerva
 	//Booty-shorts
 	Minerva.prototype.bootyShortInYoFaceSon = function() {
 		MainView.outputText( 'The blue beauty turns around and bends over so far that she uses her halberd like a pole to support herself.  She lifts her shark tail up so you can see her short-shorts hugging perfectly against her ample bottom.  Her tail waves to the left and to the right as she does a little booty shake for you.  The siren gives her big ass a nice, hard slap that echoes off the tower walls, and making it jiggle even more.  She quickly turns around to face you, smirking at what she just did.' );
 		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 10 + Utils.rand( 5 ) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Lust Attacks for all Minervas
 	//Pole licking
 	Minerva.prototype.lickDatPole = function() {
 		MainView.outputText( 'Minerva stands, holding her halberd straight up next to her as she looks it over with a seductive stare.  Giving you a suggestive look she rolls out a two-foot long tongue from her mouth, licking a good length of the massive weapon, even wrapping her tongue around it a few times.  Suddenly she sucks her tongue back into her mouth and gives you a little smirk, almost to say "<i>Yeah, I can do that... and more.</i>"' );
 		EngineCore.dynStats( 'lus', 20 + CoC.player.lib / 10 + Utils.rand( 5 ) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Special attack
 	Minerva.prototype.sirensSong = function() {
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).factory( 'Minerva', function( SceneLib, MainView, CoC,
 			}
 			this.removeStatusAffect( StatusAffects.SirenSong );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Minerva.prototype.performCombatAction = function() {
 		if( this.findStatusAffect( StatusAffects.SirenSong ) ) {

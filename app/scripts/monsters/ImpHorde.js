@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).factory( 'ImpHorde', function( SceneLib, MainView, $lo
 	ImpHorde.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foes don\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.dungeon2Supplimental.loseToImpMob();
 		}

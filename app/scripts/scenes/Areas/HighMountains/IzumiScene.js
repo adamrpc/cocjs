@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Combat, Utils, AppearanceDefs, StatusAffects, Izumi, CockTypesEnum, MainView ) {
+angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Utils, AppearanceDefs, StatusAffects, Izumi, CockTypesEnum, MainView ) {
 	function IzumiScene() {
 	}
 
@@ -436,7 +436,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		} else {
 			throw new Error( 'You done fucked something up in Izumi\'s fight intro text!' );
 		}
-		Combat.startCombat( new Izumi() );
+		SceneLib.combatScene.startCombat( new Izumi() );
 	};
 	/**
 	 * SURRENDER SCENES
@@ -1054,7 +1054,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( 'You rise and make your excuses, and to her credit Izumi takes your refusal in stride; already seeming to have cheered up a little after her earlier outburst.  As you exit the cave, she raises a hand in farewell.\n\n' );
 		MainView.outputText( '“<i>Feel free to come back if you want me to clean your clock again, yeah?</i>”  She calls after you with a grin.  You shake your head ruefully as you make your way down the mountain and back to your camp.  Overall, that could have gone better, but it could have gone a lot worse, too.\n\n' );
 		MainView.menu();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Call this shit at the top of any 'Stay' scene for shared initial content
 	IzumiScene.prototype.lossSceneStay = function() {
@@ -1140,7 +1140,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '“<i>Aw, what’s the matter?</i>”  She says, reaching down and gripping at your aching bulge.  You groan at the sensation of your own slime being used as lubricant to wring a couple more drops from your aching body.  “<i>Couldn’t even wait to get your clothes off?</i>” She laughs, but there’s no malice there.  Izumi lowers you gently back down until you’re standing on the floor once again, on somewhat unsteady legs.  \n\n' );
 		MainView.outputText( '“<i>Well, I gotta admit, that wasn’t exactly how I was expecting the fight to end,</i>” she says, scratching the back of her neck in a manner that seems almost coquettish. “<i>But it was pretty fun all the same. Next time you’re in the neighborhood, let me know if you’re up for a rematch, or... whatever.  Okay?</i>” She asks, retaking her seat by the fire and retrieving her pipe.  You nod, absently, still kind of dazed after the abortive end to the fight, and wander off to find somewhere to wash the increasingly unpleasant feeling contents of your underclothing away.\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Loss scene for buttstuffins
 	IzumiScene.prototype.cowedIntoPuttingItInIntoHerGiantOniButt = function() {
@@ -1194,7 +1194,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '“<i>Hmm? Aw, you’re leaving already?</i>” Izumi notices you pulling yourself unsteadily to your feet and turns. “<i>I figured we could go again... ah, crap, I guess I got a little overenthusiastic, didn’t I?  You’re okay, right?</i>” Izumi actually blushes, pressing a hand to her cheek in embarrassment at her behaviour. It’s actually kind of cute, in a weird way.\n\n' );
 		MainView.outputText( 'Either way, after assuring Izumi that you’ll survive, you stagger out of the cave and begin to make your decidedly wobbly way back to camp.  Hopefully, your bruises won’t keep you awake....\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Super Ordinary Regular Missionary Sexy Time, honest
 	IzumiScene.prototype.fuckhugeOniWantsYourBabiesOrSomeShit = function() {
@@ -1218,7 +1218,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '“<i>Well...</i>”  She mumbles.  “<i>I guess we both got a little carried away, huh?</i>”  She smiles again, a little awkwardly.  For a moment, you think about saying something, but before you can, Izumi releases you from her embrace and almost instantly she’s back to her regular carefree self.  “<i>Geez, don’t you know it’s impolite to kiss a girl without asking? Although I guess you figured consent was implied, huh?</i>”  She grins.  “<i>Don’t worry about it.  Just try and remember next time, huh?</i>”\n\n' );
 		MainView.outputText( 'You nod, pulling yourself to your feet and after exchanging a hasty goodbye with Izumi, you stumble towards the exit.  You’re not quite sure about ‘next time’, but you have to admit that really could have gone worse....\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// No bits, no scenes. Izumi had no scenes written for genderless players. In some cases, other scenes would do a p. reasonable job with some reformatting.
 	// This is one of the ones where I think something new has to be written. Get it coded, get it working, then considering doing it.
@@ -1242,7 +1242,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '.\n\n' );
 		MainView.outputText( '“<i>Well, ' + this.heightDesc() + ', you really are weird... no dick </i>or<i> pussy.  I, err...</i>”  She says, the confusion caused your evident lack of equipment spreading across her face.  “<i>I gotta say, I’m fresh out of ideas over here.</i>”\n\n' );
 		MainView.outputText( 'She gently lowers you toward the floor, and releases her grip on your ankles.  “I-I guess you can go, yeah?” She says, motioning toward the entrance to her cave.  Paying you no mind, she heads off toward her tent, clearly no longer interested in you.\n\n' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Big bad oni gonna eatcha
 	IzumiScene.prototype.littleChampLittleChampFuckhugeOniIsCominTaEatcha = function() {
@@ -1279,7 +1279,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '“<i>That’s what it means to be eaten alive by an Oni!</i>”  She pants, grinning.  While you’re glad - in a kind of dim, distant way - that the endeavour apparently took some sort of toll on her as well, you’re honestly more concerned with the pounding headache and the pins and needles prickling your arms to muster up any kind of response.  “<i>Oh geez, did I go too far? Hey, you’re okay, aren’t ya?</i>”  Izumi stoops next to you, her face radiating concern.  You manage a feeble nod, and she smiles apologetically.  “<i>Sorry, I guess I can get kinda rough when it comes to girls... I dunno why, but hey, you’re okay, so it’s all good, right?!</i>”  She beams.\n\n' );
 		MainView.outputText( 'Izumi is gracious or wracked by her guilty conscious enough to let you rest up quietly in her cave without further molestation until the pounding in your head fades away.  As you carefully pick your way back down the mountain, you muster up a half-hearted wave of goodbye back to the cheerfully waving giantess.  While you’re not sure if you’d exactly describe what you just experienced as fun... at the very least, you’re glad she didn’t <i>actually</i> try to eat you.  Deep down though, part of you can’t help wondering if she really would...\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/**
 	 * VICTORY SCENES
@@ -1385,7 +1385,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( 'You stow the gems safely away, reassuring Izumi that you have absolutely no intent of suddenly leaping on her and grabbing her horn again, then turn to make your way out of the cave.  Just as you pass the rock, however, you hear Izumi calling out from behind you.  You turn to see her hovering in the cave mouth looking uncharacteristically nervous.\n\n' );
 		MainView.outputText( '“<i>Um, hey, you can come back any time, by the way. I mean, we can still be friends and stuff. It’s just, uh, some stuff is off limits for a girl, you know?  After all, I’m not the kind of girl who’ll just let someone grab wherever they want out of nowhere, even if they do have pretty soft hands.  I mean, I’ve got standards!  Uh...</i>” She bites her lip, then frowns, suddenly, as though coming to a realization.  “<i>Look, I’m just gonna go back inside. Let’s just... forget this ever happened. Okay? See you around, kid.</i>”\n\n' );
 		MainView.outputText( 'She swirls around and disappears into the gloom of the cave in a flurry of scented smoke.  For your part, you’re left with a long trek home and a complete lack of any idea what the hell just happened.  But on the upside, you <i>do</i> also have a nice stack of shiny gems to make up for the confusion.\n\n' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Kinda friendly fux
 	IzumiScene.prototype.letGoAndFuck = function() {
@@ -1447,7 +1447,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( 'You decide not to make an issue of it, since Izumi is clearly embarrassed.  The two of you redress, and as you make to leave, Izumi whistles for your attention.  You turn, and she throws you a small leather bag, which you open to discover a handful of gems inside.\n\n' );
 		MainView.outputText( '“<i>It’s just a little thank you gift. You know, for uh...</i>”  She winks, provocatively.  “<i>Services rendered?</i>”  Smiling, you make your way back to camp, feeling decidedly good about yourself.\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Fuck dat giant oni butt
 	IzumiScene.prototype.gonnaGetMeSomeRevengeButtsexin = function() {
@@ -1552,7 +1552,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 			MainView.outputText( 'You turn to say something to Izumi, but to your surprise you discover she’s actually fallen asleep.  Shaking your head in amusement at the Oni girl’s inferior stamina, you make your way out of the cave and back to camp, counting the gems as you go. \n\n' );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Huehue, Tentacruel!
 	IzumiScene.prototype.tentacruelRevengeFux = function() {
@@ -1578,7 +1578,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( 'By the time your orgasm finally subsides, Izumi has been reduced to a cummy, sticky mess, laying on her back panting for breath, her entire body liberally coated with your seed.  Your tentacles snake out again, and her eyes widen slightly in fear, but she doesn’t need to worry; you’re just wiping yourself off on her hair, after all.  As she realizes that, she relaxes, apparently falling asleep.  With a smug smile, you redress and decide to take a poke around her camp for a while. \n\n' );
 		MainView.outputText( 'Amidst some miscellaneous junk that you cannot for the life of you figure out, you find a small pile of gems.  You help yourself to them as payment for the good time you just showed the uppity Oni, stow them safely away and wander back to camp, whistling happily to yourself.\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Facefuck
 	IzumiScene.prototype.sayThatsAPrettyFaceBeAShameIfSomebodyJizzedAllOverIt = function() {
@@ -1624,7 +1624,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '“<i>Oh man, and I was so...</i>” she mutters, her hands clenching and unclenching just above her waist. Then she drags herself to her feet and stumbles away towards her tent, rubbing her forearm absently.  “<i>I uh, I gotta, gotta go do a thing for a sec...</i>” she mumbles, disappearing inside the tent.  For your part, you’re left completely alone, exhausted, inside the big woman’s cave.  You decide that now might be a good time to take your leave.\n\n' );
 		MainView.outputText( 'On the way out, you notice a small leather bag just laying out in the open.  Inspecting it, you discover it to be filled with a small fortune in gems!  You decide to take it with you - after all, it’s not like Izumi seems to need the money, plus she <i>did</i> try to rape you, so it’s technically a trophy.  Feeling decidedly more light hearted about your situation, you leave the cave and make your way back to camp, happily inspecting the gems as you go.\n\n' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// Nice horn, be a shame if somebody got it all sticky, huh?
 	IzumiScene.prototype.tribThatRockyHornGirl = function() {
@@ -1657,7 +1657,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, EngineCore, CoC, kFLAGS, Comb
 		MainView.outputText( '“<i>I’m taking this,</i>” You announce cheerfully, hefting a small bag of gems in one hand.  “<i>‘Kay.</i>” Izumi’s approval doesn’t matter to you either way, but your smile widens at her submissive, exhausted tone.\n\n' );
 		MainView.outputText( 'By the time you get back to camp, you’re almost feeling good enough to whistle.' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'izumiScene', new IzumiScene() );
 } );

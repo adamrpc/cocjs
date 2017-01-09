@@ -24,12 +24,12 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'You see the gnoll\'s black lips pull back ever so slightly and the powerful muscles in her shapely thighs tense moments before she charges.  With a leap you throw yourself to the side, feeling the wind and fury pass through where you had just been standing.  You gracefully turn to face the hyena as she does the same, knowing that could have been very bad.', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				MainView.outputText( '\' attacks.\n', false );
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//<Writers note: I recommend that the javelin have a chance to greatly decrease speed for the remaining battle.  I am writing the flavor text for this event if you choose to include it>;
 	GnollSpearThrower.prototype.hyenaJavelinAttack = function() {
@@ -128,19 +128,19 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			MainView.outputText( 'The gnoll pulls a javelin from behind her and throws it at you, but blind as she is, it goes wide.', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The spear flashes through the distance towards your vulnerable form.  Even as you see doom sailing towards you, a primal instinct to duck pulls you down, and you feel the wind from the massive missile as it passes close to your ear.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s thrown spear.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' thrown spear.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '\'s thrown spear.', false );
 		}
 		//<Hyena Attack 2 – Javelin – Unsuccessful – Absorbed>;
@@ -169,7 +169,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			damage = CoC.player.takeDamage( 25 + Utils.rand( 20 ) );
 			MainView.outputText( 'The gnoll pulls a long, dark wooden javelin from over her shoulder.  Her spotted arm strikes forward, launching the missile through the air.  The javelin flashes through the intervening distance, slamming into your chest.  The blunted tip doesn\'t skewer you, but pain radiates from the bruising impact. (' + damage + ')', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//<Writer's Note: With the third attack, I intend that the damage be increased based on the breast size of the player.  Thus, the text will vary if the player is flat-chested as indicated by colored text.>;
 	GnollSpearThrower.prototype.hyenaSnapKicku = function() {
@@ -179,19 +179,19 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			MainView.outputText( 'The gnoll tries to catch you with a brutal snap-kick, but blind as she is, she completely misses.', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'The gnoll grins at you before striding forward and pivoting.  A spotted leg snaps up and out, flashing through the air towards your ' + Descriptors.chestDesc() + '.  You step back just in time, robbing the blow of force.  The paw lightly strikes your torso before the female hyena springs back, glaring at you.', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s snap-kick.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' snap-kick.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '\'s snap-kick.', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -218,7 +218,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 				EngineCore.dynStats( 'lus', 2 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	GnollSpearThrower.prototype.hyenaArousalAttack = function() {
 		//Success = cor+lib > Utils.rand(150);
@@ -237,7 +237,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		else {
 			MainView.outputText( 'A knowing glint fills the dark eyes of the gnoll before she sprints forward.  Your muscles tense as she reaches you and starts to lock two spotted paws behind your neck.  She pulls you down towards her musky crotch, but just as you brush her loincloth, you twist away.  The hyena snarls in frustration, and you\'re left wondering if that was her idea of foreplay.', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	GnollSpearThrower.prototype.eAttack = function() {
 		var damage = 0;
@@ -257,11 +257,11 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			}
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'You see the gnoll\'s black lips pull back ever so slightly and the powerful muscles in her shapely thighs tense moments before she charges.  With a leap you throw yourself to the side, feeling the wind and fury pass through where you had just been standing.  You gracefully turn to face the hyena as she does the same, knowing that could have been very bad.', false );
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -274,7 +274,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			}
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			//See below, removes the attack count once it hits rock bottom.;
 			if( this.statusAffectv1( StatusAffects.Attacks ) === 0 ) {
@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			}
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				MainView.outputText( '\' attacks.\n', false );
@@ -345,7 +345,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	GnollSpearThrower.prototype.defeated = function() {
 		if( this.short === 'alpha gnoll' ) {
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).factory( 'GnollSpearThrower', function( SceneLib, Main
 			CoC.urtaQuest.loseToGnollPrincessAndGetGangBanged();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.gnollSpearThrowerScene.hyenaSpearLossAnal();
 		}

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Combat, Appearance, ConsumableLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Brigid, PhoenixPlatoon, HarpyQueen, SandWitchMob, CumWitch, SecretarialSuccubus, IncubusMechanic, OmnibusOverseer, Appearance, ConsumableLib, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function DungeonCore() {
 	}
 
@@ -366,7 +366,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			if( CoC.flags[ kFLAGS.DEFEATED_ZETAZ ] === 0 ) {
 				MainView.outputText( 'A familiar imp is looking at you with a bewildered expression painted across his face.  You recognize his face immediately – this is Zetaz!  Oddly, he seems to have grown much larger in the time since your previous meeting.  He\'s over four feet tall and much more solidly built!\n\n', false );
 				MainView.outputText( 'Zetaz whines, "<i>Seriously?  You show up here!?  First you make me lose my job, and now you beat up my friends and track dirt in my bedroom!?  I\'ve had enough!</i>"', false );
-				Combat.startCombat( new Zetaz(), true );
+				SceneLib.combatScene.startCombat( new Zetaz(), true );
 				return;
 			} else {
 				EngineCore.addButton( 1, 'East', this, this.dungeonEnterRoom, SceneLib.dungeon2Supplimental.DUNGEON_CAVE_SECRET_TUNNEL );
@@ -415,7 +415,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				MainView.outputText( 'You open the heavy double doors and cringe as a loud "<i>SCREECH!</i>" echoes out and up the next room - a wide open stairwell, it seems, with minimal cover.  The perfect place for a harpy to fight... Oh, shit!' );
 				MainView.outputText( '\n\nYou ready your [weapon] as a wing of harpies looks up from eating at a small table in the center of the stone stairwell, all staring at you with wide, astonished eyes.  Another few harpies peer down from above, poking their heads down the stairs to get a look at the intruder.  Almost in unison, they jump to their feet and bare their claws.' );
 				MainView.outputText( '\n\nIt\'s a fight!' );
-				Combat.startCombat( new HarpyMob() );
+				SceneLib.combatScene.startCombat( new HarpyMob() );
 				return;
 			} else {
 				if( CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] === 0 ) {
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				MainView.outputText( '\n\nBeside him, though, is the tallest harpy you\'ve ever seen.  A foot over most of her sisters, she stands stark naked save for a red-hot iron poker in her hand and a heavy iron shield in the other.  Her pink hair is shaved down to a mohawk, and her face is covered with a dozen iron studs and rings.' );
 				MainView.outputText( '\n\n"<i>\'Bout time you made it down here, you ' + CoC.player.mf( 'bastard', 'bitch' ) + '.  Mama Brigid\'s been waiting a loooong time for someone to try and break out one of her toys.</i>"  She pats the hefty keyring on the underside of her shield and leers at you.' );
 				MainView.outputText( '\n\nYou ready your [weapon] and prepare to take the keys from her!' );
-				Combat.startCombat( new Brigid() );
+				SceneLib.combatScene.startCombat( new Brigid() );
 				return;
 			} else {
 				MainView.outputText( 'You\'re standing in a small dungeon room, nearly gagging on the smells of burnt meat and smoke.  A number of nasty torture devices hang on the walls, and a table sits in the middle of the room, ' );
@@ -468,7 +468,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			//(Intro; Before Battle);
 			if( CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ] === 0 ) {
 				MainView.outputText( 'You ascend the heavy stone steps, circling the tower\'s walls as you ascend.  You are stopped perhaps half-way to the second main floor on a small terrace level with a wide open view overlooking the vale beneath the high mountains.  As you step onto the mezzanine, you watch with a scowl as a number of tall, muscular hermaphrodites step out from the shadows.  Each is clad in heavy chainmail and wields a scimitar and a blood-red shield, but is otherwise nude, revealing their reptilian pricks and slick pussies.  The soldiers standing before you look like harpies, but they have scaled, humanoid legs, long, fiery tails and their wings are the darkest crimson.  These are phoenixes - the dread half-breed warriors you and Hel are here to stop!' );
-				Combat.startCombat( new PhoenixPlatoon() );
+				SceneLib.combatScene.startCombat( new PhoenixPlatoon() );
 				return;
 			} else {
 				MainView.outputText( 'You\'re standing in the Mezzanine of the tower, a small terrace with a magnificent view of the High Mountains and the valleys below.  There are stairs leading up and down from here, as well as a pile of defeated phoenixes that don\'t look like they\'ll be recovering for a bit.' );
@@ -496,7 +496,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				MainView.outputText( '\n\nBefore you can say a word, Hel grabs a pair of harpies and, using them like human battering rams, dives into the swirling maelstrom of talons and claws.  You turn, [weapon] raised, to face down the queen.' );
 				MainView.outputText( '\n\nShe now sits upon her throne, her staff laid across her bird-like legs.  "<i>Idiot,</i>" she sneers, just loud enough to be heard over the din of battle.  "<i>You\'ve doomed us all.  So many of my daughters dead or beaten or fled... No, I will not allow you to go unpunished, even if it means my life.</i>"' );
 				MainView.outputText( '\n\nShe stands, grabbing her great whitewood staff.  A ball of magical whitefire forms in her hand, ready to sear you alive.' );
-				Combat.startCombat( new HarpyQueen() );
+				SceneLib.combatScene.startCombat( new HarpyQueen() );
 				return;
 			} else {
 				//Room Description:;
@@ -556,7 +556,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			MainView.outputText( 'Dancing lights swirl around the roof of the cavern, twirling around each other in patterns too intricate to follow.  Whatever they are, they\'re clearly magical, and they lend this place an otherworldly ambience unmatched by anything you\'ve seen.  This huge room reminds you of your village commons in a way - it\'s clearly a communal area.  There\'s a water-pump in the northwest corner and a blazing purple bonfire in the center of the chamber, heating the cool underground air.  The ground is dirt, rather than sand, and hard-packed as any road.  Various chairs and benches are set up for witches to relax in.  ' );
 			if( CoC.flags[ kFLAGS.SANDWITCH_MOB_DEFEATED ] === 0 ) {
 				MainView.outputText( 'Worst of all, a huge assortment of spellcasters is assembling into a mob, obviously hostile.' );
-				Combat.startCombat( new SandWitchMob(), true );
+				SceneLib.combatScene.startCombat( new SandWitchMob(), true );
 				return;
 			} else {
 				MainView.outputText( 'The women you defeated before have returned to their tasks, casting wary glances your way from time to time but no longer threatening.' );
@@ -702,7 +702,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 					MainView.outputText( '</i>"' );
 					MainView.outputText( '\n\nThe soot-skinned futanari delicately opens one of her palms and murmurs an unintelligible word. Before your eyes, flickers of light flash into existence and align themselves vertically, slowly sliding together like pieces of a flawless crystal jigsaw puzzle.  The glimmering phantasmal luminance slowly fades as all the pieces come together, leaving a flawless ivory staff in the woman\'s hand.  She slams the base into the ground, sending ripples of magical force through the many pools of cum scattered around the room.  <b>It looks like you\'ll have to fight her!</b>' );
 					//{START CUM WITCH FIGHT};
-					Combat.startCombat( new CumWitch() );
+					SceneLib.combatScene.startCombat( new CumWitch() );
 					return;
 				}
 				//{CUM WITCH BEATEN};
@@ -945,7 +945,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	DungeonCore.prototype.succubusCombatStart = function() {
 		MainView.spriteSelect( 55 );
 		CoC.player.createStatusAffect( StatusAffects.FactorySuccubusDefeated, 0, 0, 0, 0 );
-		Combat.startCombat( new SecretarialSuccubus(), true ); //Won't matter if you lose
+		SceneLib.combatScene.startCombat( new SecretarialSuccubus(), true ); //Won't matter if you lose
 	};
 	DungeonCore.prototype.succubusRefuseOffer = function() {
 		MainView.spriteSelect( 55 );
@@ -1259,7 +1259,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			MainView.outputText( '\n\nThe succubus licks her fingers clean, looking totally recovered.  In the blink of an eye, she dashes out the door, disappearing.', false );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 5 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//FEMSAUCE;
 		else {
@@ -1290,7 +1290,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		MainView.outputText( '\n\nYou turn away with a bemused sigh.  When you glance back, she has vanished!', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.dungeonSuccubusForceFeed = function() {
 		MainView.spriteSelect( 55 );
@@ -1368,7 +1368,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		MainView.outputText( '.', false );
 		MainView.outputText( '\n\nYou turn away with a bemused sigh.  When you glance back, she has vanished!', false );
 		EngineCore.dynStats( 'lus', -50 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.drinkCoffee = function() {
 		MainView.spriteSelect( 96 );
@@ -1423,7 +1423,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 	DungeonCore.prototype.startIncubusFight = function() {
 		MainView.spriteSelect( 30 );
 		CoC.player.createStatusAffect( StatusAffects.FactoryIncubusDefeated, 0, 0, 0, 0 ); //Won't matter if you lose
-		Combat.startCombat( new IncubusMechanic(), true );
+		SceneLib.combatScene.startCombat( new IncubusMechanic(), true );
 	};
 	DungeonCore.prototype.submitToIncubus = function() {
 		MainView.spriteSelect( 30 );
@@ -1471,7 +1471,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 				EngineCore.doNext( this, this.factoryFinisher );
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 			return;
 		}
@@ -1554,7 +1554,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 					EngineCore.doNext( this, this.factoryFinisher );
 				} else {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				}
 				return;
 			}
@@ -1606,7 +1606,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 				if( !CoC.player.findStatusAffect( StatusAffects.DungeonShutDown ) ) {
 					EngineCore.doNext( this, this.factoryFinisher );
 				} else {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				}
 			}
 		}
@@ -1621,7 +1621,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.incubusVictoryRapeSex = function() {
 		MainView.outputText( '', true );
@@ -1684,7 +1684,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			}
 			MainView.outputText( 'ou fall back, the fluid of your orgasm dripping from your ' + Descriptors.cockDescript( 0 ) + ' and the gaping asshole of your latest conquest.\n\nYou turn to gather your ' + CoC.player.armorName + ', and when you look back the demon is gone, leaving only a small puddle of male fluids in his wake.', false );
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//(VAGINAL - Requires Vagina);
@@ -1720,7 +1720,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 			CoC.player.cuntChange( CoC.player.vaginalCapacity() * 0.8, true );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 2 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 	};
@@ -1737,7 +1737,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		MainView.outputText( 'You feel his balls begin to grow. Perhaps he can sense your thirst for cum, or maybe he just wants to enjoy it - but you are sure he is going to finish spectacularly. They stop swelling just as they reach the size of grapefruits, tingling and pulsing spectacularly in your hand.  You stroke him faster, letting you guzzle his pre as it pours into your greedy mouth.  A coo of delight escapes from your tightly-stretched lips as you savor his tasty fluids.\n\n', false );
 		MainView.outputText( 'The incubus\' hips begin humping your face, stuffing a few more inches of his length into your throat and forcing you to struggle against gagging.  His cock swells wider and nearly unhinges your jaw as you feel a gooey warmth wash your throat, flooding your gullet with demon-seed.  Still impaled on his nubby member, your body is rocked back and forth by the strength of his orgasm, the motions making your belly slosh with an increasingly large load.  You moan at the warmth of his corruption seeping through your body as his orgasm diminishes. Yanking back hard, you let his dick slip free of your mouth as the last spurt of cum blasts your face.\n\n', false );
 		MainView.outputText( 'You push the exhausted demon down and idly collect the cum from your face with your fingers, slowly licking each clean.  Feeling rather sensual and sated, you decide to resume exploring the factory.\n\nAfter redressing you turn about, and see the demon is gone, leaving only a small pool of cum in his wake.', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		return;
 	};
 	DungeonCore.prototype.omnibusStartCombat = function() {
@@ -1745,7 +1745,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		MainView.clearOutput();
 		MainView.outputText( 'You strike a combat pose and prepare your ' + CoC.player.weaponName + '.  She smiles and saunters around the desk, letting something bulbous and fleshy drop free from between her nether-lips.  You watch in shock as it hardens into a dick, growing right from where her clit should be.\n\nShe taunts, "<i>Like what you see cow?  I\'ll be sure to visit you in the pens.</i>\'"' );
 		CoC.player.createStatusAffect( StatusAffects.FactoryOmnibusDefeated, 0, 0, 0, 0 ); //This won't matter if you lose to her
-		Combat.startCombat( new OmnibusOverseer(), true );
+		SceneLib.combatScene.startCombat( new OmnibusOverseer(), true );
 	};
 	DungeonCore.prototype.omnibusAcceptOffer = function() {
 		MainView.spriteSelect( 16 );
@@ -2049,20 +2049,20 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Zetaz, HarpyMob, Br
 		CoC.player.createPerk( PerkLib.OmnibusGift, 0, 0, 0, 0 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusVictoryLetGo = function() {
 		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		MainView.outputText( 'You refuse to fall for her ploy, and decide not to take her up on her offer.  However, being that she is so thoroughly defeated, you allow her to escape, promising her far worse should she ever oppose you in the future.\n\n"<i>Thank you, merciful hero!</i>" she says and she sprints out the door.  Wings unfurl from her back and she takes flight, disappearing out a skylight above the main factory floor.' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusVictoryKillHer = function() {
 		MainView.spriteSelect( 16 );
 		MainView.clearOutput();
 		MainView.outputText( 'You step forwards and grab her by the head.  With an abrupt twist you snap her neck, ending at least one small part of the demonic threat.' );
 		CoC.flags[ kFLAGS.D1_OMNIBUS_KILLED ] = 1;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	DungeonCore.prototype.omnibusLossRape = function() {
 		MainView.spriteSelect( 16 );

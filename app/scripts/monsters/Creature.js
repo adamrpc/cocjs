@@ -1773,5 +1773,6 @@ angular.module('cocjs').factory('Creature', function ( $log, MainView, EngineCor
 	Creature.prototype.breastSize = function(val) {
 		return Appearance.breastSize(val);
 	};
+	Creature.prototype.changeAffection = function() {};
 	return Creature;
 });

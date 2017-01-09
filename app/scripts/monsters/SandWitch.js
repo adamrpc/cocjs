@@ -13,14 +13,14 @@ angular.module( 'cocjs' ).factory( 'SandWitch', function( MainView, SceneLib, $l
 		if( CoC.player.lust >= 33 ) {
 			SceneLib.sandWitchScene.beatSandwitch();
 		} else {
-			Combat.finishCombat();
+			SceneLib.combatScene.finishCombat();
 		}
 	};
 	/* jshint unused:true */
 	SandWitch.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe witch blanches and backs away, leaving you to your fate.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.sandWitchScene.sandwitchRape();
 		}

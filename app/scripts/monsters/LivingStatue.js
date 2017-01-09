@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'LivingStatue', function( SceneLib, MainView,
 			opts.push( this.overhandSmash );
 			opts[ Utils.rand( opts.length ) ]();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	return LivingStatue;
 } );

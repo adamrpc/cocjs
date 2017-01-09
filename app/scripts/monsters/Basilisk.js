@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, ChainedDrop, ConsumableLib, Combat ) {
+angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, ChainedDrop, ConsumableLib ) {
 	function Basilisk() {
 		this.init(this, arguments);
 	}
@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC
 		else {
 			MainView.outputText( 'You concentrate, focus your mind and resist the basilisk\'s psychic compulsion.', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	//Special 3 tail swipe (Small physical damage):
@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC
 		if( damage === 0 ) {
 			MainView.outputText( '  The fall didn\'t harm you at all.', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//basilisk physical attack: With lightning speed, the basilisk slashes you with its index claws!
 	//Noun: claw
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).factory( 'Basilisk', function( SceneLib, MainView, CoC
 	Basilisk.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe basilisk smirks, but waits for you to finish...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.basiliskScene.loseToBasilisk();
 		}

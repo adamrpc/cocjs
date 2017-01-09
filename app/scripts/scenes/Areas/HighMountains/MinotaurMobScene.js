@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, MinotaurMob, ConsumableLib, ItemType, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, AppearanceDefs, Appearance, PerkLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, MinotaurMob, ConsumableLib, ItemType, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, AppearanceDefs, Appearance, PerkLib ) {
 	//Vars:
 	//325 Times met
 	//326 Number of sons grown
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 	};
 	//[Fight]
 	MinotaurMobScene.prototype.fightOTaurs = function() {
-		Combat.startCombat( new MinotaurMob() );
+		SceneLib.combatScene.startCombat( new MinotaurMob() );
 		MainView.spriteSelect( 94 );
 		MainView.playerMenu();
 	};
@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		MainView.outputText( '', true );
 		if( !CoC.player.hasVagina() ) {
 			MainView.outputText( 'As you slump down in defeat, your horny beast-children take note of your missing femininity.  They growl in displeasure and depart, but not before kicking you unconsciousness.  "<i>Bitch.</i>"' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//(HP)
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.slimeFeed();
 		CoC.player.minoCumAddiction( 20 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ItemType.lookupItem( CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), SceneLib.camp.returnToCampUseEightHours );
@@ -549,7 +549,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.slimeFeed();
 		CoC.player.minoCumAddiction( 15 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 		}
@@ -678,7 +678,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.slimeFeed();
 		CoC.player.minoCumAddiction( 15 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseEightHours );
 		}
@@ -719,7 +719,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		EngineCore.choices( 'Gangbang', this, this.victoryAllThePenetrationsMinotaurGangBang,
 			'Tit-Fuck', this, titFuck, 'Nipple-Fuck', this, nipFuck,
 			'Get Licked', null, EngineCore.createCallBackFunction( this, this.forceMinitaurToGiveOral, 0 ),
-			'Get Sucked', null, getSuck, 'Discipline', this, this.disciplineEldestMinotaurSon, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			'Get Sucked', null, getSuck, 'Discipline', this, this.disciplineEldestMinotaurSon, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//*[Victory Tit-Fuck] (for only the fattest of fat bitch titties)
 	MinotaurMobScene.prototype.victoryMinotaurGangTitFuck = function() {
@@ -842,7 +842,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.slimeFeed();
 		CoC.player.minoCumAddiction( 15 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\n', false );
 			SceneLib.inventory.takeItem( ItemType.lookupItem( CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] ), SceneLib.camp.returnToCampUseOneHour );
@@ -965,7 +965,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.slimeFeed();
 		CoC.player.minoCumAddiction( 20 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1136,7 +1136,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1225,7 +1225,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		CoC.player.minoCumAddiction( 10 );
 		CoC.player.slimeFeed();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1318,7 +1318,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, M
 		MainView.outputText( 'Everything else is a foggy haze to your son.  You can see he has given himself up to pleasure you and nothing more.  His eyes are glazed over with lust, losing himself with each lick.  When you glance between your thighs, you can see his balls have swelled up to the size of beach balls!  His aching member throbs as pre-cum oozes from his exposed urethra. If you wanted, you could plunge your cunt down and relieve him, but that would defeat the purpose of the punishment.  Despite the cluelessness of his foreplay, his tongue against your shining lips feels fucking good!  With a smile, you caress your son, encouraging him to continue.  A sudden increase in his slurping is all that it takes for you to reach your peak.  Your ' + Descriptors.vaginaDescript( 0 ) + ' spasms, drenching his mouth in your girl cum.  With increased zeal, he laps up as much of your sweet juices as he can.  Your running girl-cum eventually drips down to his aching member.  A cruel, cruel torture, your son whimpers as he\'s denied release.\n\n', false );
 		MainView.outputText( 'Finished with your son, you push him on his back.  You have had enough of him, for now... If he dares to ambush you again, then you will be more than happy to discipline him again.  After getting dressed, you proceed to walk away.  Your last image of your son is the image of him futilely masturbating, but his cock is too thick and too numb for him to truly get off.  Profoundly amused, you leave the mountains and return to camp.', false );
 		CoC.player.orgasm();
-		EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
+		EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	SceneLib.registerScene( 'minotaurMobScene', new MinotaurMobScene() );
 } );

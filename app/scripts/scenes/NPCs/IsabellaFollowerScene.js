@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isabella, CockTypesEnum, Combat, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isabella, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function IsabellaFollowerScene() {
 	}
 
@@ -1074,7 +1074,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ConsumableLib, Isab
 		if( type === 1 ) {
 			MainView.outputText( '  The knowledge that you\'re playing for keeps makes your heart beat faster.', false );
 		}
-		Combat.startCombat( new Isabella() );
+		SceneLib.combatScene.startCombat( new Isabella() );
 		CoC.monster.createStatusAffect( StatusAffects.Sparring, type, 0, 0, 0 );
 		//No gems.;
 		CoC.monster.gems = 0;

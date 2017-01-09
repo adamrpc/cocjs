@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableLib, Appearance, ArmorLib, Combat, PregnancyStore, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableLib, Appearance, ArmorLib, PregnancyStore, CockTypesEnum, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function CeraphScene() {
 	}
 
@@ -178,7 +178,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -254,7 +254,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 32, 61 ); //Ceraph causes faster pregnancies
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -290,7 +290,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		CoC.player.earsPLong = 'Green gem-stone ear-studs';
 		CoC.flags[ kFLAGS.PC_FETISH ] = 1;
 		EngineCore.dynStats( 'lus', 25, 'cor', 5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[OH SHIT SON MOAR SHIT GETTING PIERCEDEDEDED] – NIPPLEZ GO;
 	CeraphScene.prototype.loseToCeraphAnGetPierced2 = function() {
@@ -318,7 +318,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		CoC.player.nipplesPShort = 'seamless black nipple-studs';
 		CoC.player.nipplesPLong = 'Seamless black nipple-studs';
 		CoC.flags[ kFLAGS.PC_FETISH ] = 2;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[OH SHIT!  WHY DOES FEN KEEP WIRTING THAT 3RD TIME – CROTCH GO];
 	CeraphScene.prototype.getPiercedByCeraphLoss3 = function() {
@@ -377,7 +377,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		MainView.outputText( '"<i>So, I take it you like it?  You\'ll never be able to raise a hand in anger again.  I guess if you want to win fights you\'ll have to tease your foes into submission with that luscious body.  I suppose that might be hard to do when you\'re getting off on exposing yourself and cumming from the thought of being tied down,</i>" she laughs.\n\n', false );
 		MainView.outputText( 'You tremble in impotent fury at the violation as the demoness flounces away.  You\'d pursue her, but between her ideas and exposing your crotch to the entire area, you need to cum more than anything.  You scurry back to camp, too horny to think straight and your new piercing aching just enough to keep you from forgetting about it.', false );
 		EngineCore.dynStats( 'lus', 25, 'cor', 5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[FINAL ENCOUNTER LEVEL];
 	CeraphScene.prototype.finalEncounterLevelCeraphPiercingButtholeNipples = function() {
@@ -406,7 +406,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			MainView.outputText( 'you\'ll be HER ' + CoC.player.mf( 'master', 'mistress' ), false );
 		}
 		MainView.outputText( '.  She snarls and drops the harness, preparing to defend herself.  It looks like you\'ve got a fight!', false );
-		Combat.startCombat( new Ceraph() );
+		SceneLib.combatScene.startCombat( new Ceraph() );
 	};
 	//[Yes] TO BAD END;
 	//[Agree to become Ceraph's Fuckpet Bondage Toy bitch slut];
@@ -474,7 +474,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		MainView.outputText( 'The demon introduces herself, "<i>Well if you want to do this the hard way, that\'s fine by me.  The ones that fight the hardest break down into the most submissive slaves.  Just remember that this is the beginning of your life as Ceraph the Omnibus\' slave-' + CoC.player.mf( 'boy', 'girl' ) + '.</i>"\n\n', false );
 		MainView.outputText( 'Ceraph adopts a suggestive pose and tweaks her nipple, clearly more intent on turning you on than physically harming you.', false );
 		//FIGHTO;
-		Combat.startCombat( new Ceraph() );
+		SceneLib.combatScene.startCombat( new Ceraph() );
 	};
 	//[Yes];
 	CeraphScene.prototype.ceraphFirstTimeVolunteer = function() {
@@ -501,7 +501,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		MainView.spriteSelect( 7 );
 		MainView.outputText( 'Ceraph saunters out of the bushes and gives you a disapproving look, "<i>I tried this the easy way.  Now we\'re doing it the hard way.</i>"\n\n', false );
 		MainView.outputText( 'She uncurls a whip that lights aflame and says, "<i>Time for your spanking!</i>"\n\n', false );
-		Combat.startCombat( new Ceraph() );
+		SceneLib.combatScene.startCombat( new Ceraph() );
 	};
 	//[PC haz 1 piercing, trapped armor];
 	/*	scandalously seductive armor – dropped off a random demonic enemy.
@@ -527,7 +527,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		MainView.outputText( 'You let Ceraph know that you refuse to let her violate your body and mind in such a way.  She shrugs nonchalantly and tugs on the crop, stretching it into a whip that bursts into flames.\n\n', false );
 		MainView.outputText( '"<i>Mortals always want to do things the hard way,</i>" she sighs.\n\n', false );
 		MainView.outputText( '<b>You\'ve got a fight on your hands!</b>', false );
-		Combat.startCombat( new Ceraph() );
+		SceneLib.combatScene.startCombat( new Ceraph() );
 	};
 	//[YES OH YES];
 	CeraphScene.prototype.yesOHGODYESPIERCELEVEL3 = function() {
@@ -620,10 +620,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	};
 	CeraphScene.prototype.winRapeChoices = function() {
 		//FOLLOWER CHANCE:;
-		var leave = Combat.cleanupAfterCombat;
+		var leave = SceneLib.combatScene.cleanupAfterCombat;
 		if( !CoC.isInCombat() ) {
 			//Load ceraph and set up win conditions;
-			Combat.startCombat( new Ceraph() );
+			SceneLib.combatScene.startCombat( new Ceraph() );
 			leave = SceneLib.ceraphFollowerScene.ceraphFollowerAppearance;
 			//Exit combat;
 			CoC.setInCombat(false);
@@ -665,10 +665,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
 				bikiniTits = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, CoC.monster );
 			}
-			EngineCore.choices( 'Fuck Her', this, dicking, 'Ride Her', this, cunting, 'FuckHerAss', this, buttsmexing, 'B.Titfuck', null, bikiniTits, 'Leave', SceneLib.ceraphFollowerScene, leave );
+			EngineCore.choices( 'Fuck Her', this, dicking, 'Ride Her', this, cunting, 'FuckHerAss', this, buttsmexing, 'B.Titfuck', null, bikiniTits, 'Leave', !CoC.isInCombat()?SceneLib.ceraphFollowerScene:SceneLib.combatScene, leave );
 		} else {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.ceraphFollowerScene, SceneLib.ceraphFollowerScene.ceraphFollowerAppearance );
 			}
@@ -729,7 +729,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		MainView.outputText( 'Her whip uncurls itself from around you, but by some sorcerous trick, you\'re unable to separate your limbs and free yourself.  Ceraph snickers and gives your rump a crack with her whip before sauntering off, leaving you to lie there, growing more and more sexually frustrated.  Eventually you doze off into a sort of half-sleep, dreaming of being dominated as the demon\'s fluids dry on your face.', false );
 		EngineCore.dynStats( 'lus', 200 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -831,7 +831,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		}
 		MainView.outputText( '(Do you accept Ceraph\'s Offer?)', false );
 		//Y/N – remove 1 fetish level or +10 gems;
-		EngineCore.doYesNo( this, this.ceraphsNiceOffer, null, Combat.cleanupAfterCombat );
+		EngineCore.doYesNo( this, this.ceraphsNiceOffer, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 3, 'sen', 3, 'cor', 1 );
 	};
@@ -853,7 +853,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 			CoC.player.gems += 10;
 		}
 		MainView.outputText( '\n\nThe abused demon-dom laughs, "<i>What?  Did you expect me to trick you?  No, I liked today.  It\'s so hard to find someone who can go toe to toe with me AND find incredible ways to abuse my body.</i>"\n\nShe lays back and relaxes, falling asleep after the intense fuck.', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/*
 	 MOAR CERAPH.
@@ -904,7 +904,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 	};
 	//[Fight] → Cue normal Ceraph fight;
 	CeraphScene.prototype.startAFightWithCeraph = function() {
-		Combat.startCombat( new Ceraph() );
+		SceneLib.combatScene.startCombat( new Ceraph() );
 		MainView.spriteSelect( 7 );
 		MainView.playerMenu();
 	};
@@ -1488,7 +1488,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Ceraph, ConsumableL
 		MainView.outputText( ', you drop her like a discarded rag.  She moans and begins masturbating, half-insensate from the rough treatment.  You ignore her, get dressed, and get out of there before the mountain\'s beasts show up.  Ceraph is in for a wild night!', false );
 		CoC.player.orgasm();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}

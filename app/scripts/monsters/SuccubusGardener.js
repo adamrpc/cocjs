@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appearance, AppearanceDefs, kFLAGS, EngineCore, CoC, Monster, StatusAffects, Utils, Combat ) {
+angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, SceneLib, Appearance, AppearanceDefs, kFLAGS, EngineCore, CoC, Monster, StatusAffects, Utils, Combat ) {
 	function SuccubusGardener() {
 		this.init(this, arguments);
 	}
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 			opts[ Utils.rand( opts.length ) ]();
 		}
 		MainView.statsView.show();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	SuccubusGardener.prototype._superHandleStun = SuccubusGardener.prototype.handleStun;
 	SuccubusGardener.prototype.handleStun = function() {
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		if( Utils.rand( CoC.player.str ) > this.str / (1 + (numRounds / 2)) ) {
 			MainView.outputText( 'You scrabble desperately against the tentacles enveloping your body, pulling against the cast-iron grip around your limbs. You tug against them again and again, and with one final mighty heave, you slip free of their grasp!' );
 			CoC.player.removeStatusAffect( StatusAffects.Tentagrappled );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		} else {
 			MainView.outputText( 'You scrabble desperately against the tentacles enveloping your body, pulling against the cast-iron grip around your limbs. You tug against them again and again' );
 			if( Utils.rand( 2 ) === 0 ) {
@@ -160,7 +160,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 			if( CoC.flags[ kFLAGS.PC_FETISH ] >= 2 ) {
 				EngineCore.dynStats( 'lus+', 5 );
 			}
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 	};
 	SuccubusGardener.prototype.grappleWait = function() {
@@ -176,7 +176,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		CoC.player.addStatusValue( StatusAffects.Tentagrappled, 1, 1 );
 		CoC.player.takeDamage( 75 + Utils.rand( 15 ) );
 		EngineCore.dynStats( 'lus+', 3 + Utils.rand( 3 ) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	SuccubusGardener.prototype.sicem = function() {
 		MainView.outputText( 'Jiggling oh so pleasantly, the gardener twirls and points in your direction. <i>“Sic \'em, pets!”</i> There is no time for a retort, only a wave of unrelenting greenery lashing in your direction!' );
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).factory( 'SuccubusGardener', function( MainView, Appea
 		} else {
 			MainView.outputText( 'Ohhh fuck, there\'s no holding it back now. You\'re gonna do it, and there\'s nothing you could do it stop it even if you wanted to. You\'re going to drop to your knees and take off your [armor]. You\'re going to give this beautiful demoness what she wants. You\'re going to let her fuck you and use you, just so long as she allows you to cum. You\'ll be fine once you cum, even if it means throwing away a chance to defeat Lethice.\n\n' );
 			// I think this will work, but 9999 in case;
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		if( CoC.player.statusAffectv1( StatusAffects.ShowerDotEffect ) < 0 ) {

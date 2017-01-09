@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descriptors, $log, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descriptors, $log, Combat, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, EngineCore ) {
 	function Clara() {
 		this.init(this, arguments);
 	}
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 		this.HP += 45;
 		this.lust += 5;
 		EngineCore.dynStats( 'lus', (5 + CoC.player.lib / 5) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Clara throws a goblin potion, she has the web potion, the lust potion, and the weakening potion;
 	//should she try to drug them instead?;
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 		//Throw offensive potions at the player;
 		MainView.outputText( 'Clara suddenly snatches something from a pouch at her belt. "<i>Try this, little cutie!</i>" She snarls, and throws a vial of potion at you.', false );
 		//Dodge chance!;
-		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
+		if( Combat.combatEvade( 30 ) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 				EngineCore.fatigue( 10 + Utils.rand( 25 ) );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		return;
 	};
 	//Clara teases the PC, and tries to get them to give up;
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 		}
 		MainView.outputText( '\n' );
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Once Clara is at half health or lower, she'll cast blind.;
 	Clara.prototype.claraCastsBlind = function() {
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 		} else {
 			MainView.outputText( '\nYou manage to close your eyes just in time to avoid being blinded by the bright flash of light that erupts in your face!  Clara curses when she see\'s you\'re unaffected by her magic.' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Clara.prototype.claraGropesBlindPCs = function() {
 		//Clara gropes the PC while they're blinded.  Damage is based on corruption + sensitivity.;
@@ -85,18 +85,18 @@ angular.module( 'cocjs' ).factory( 'Clara', function( SceneLib, MainView, Descri
 			MainView.outputText( 'Thanks to Clara robbing you of your sight, you lose track of her.  She takes advantage of this, and grabs you from behind, and rubs her considerable curvy cans against your undefended back!  You manage to get her off you after a moment, but not before she gives your [ass] a smack.  "<i>Everyone will be soo much happier when yoou finally stop fighting me!</i>" she taunts you behind your dazzled vision.' );
 		}
 		EngineCore.dynStats( 'lus', 7 + CoC.player.lib / 15 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Every round if you're in Clara’s base; the PC’s lust is raised slightly.;
 	Clara.prototype.claraBonusBaseLustDamage = function() {
 		MainView.outputText( '\nThe early effects of your addiction are making it harder and harder to continue the fight.  You need to end it soon or you’ll give in to those urges.' );
 		EngineCore.dynStats( 'lus', 2 + CoC.player.lib / 20 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Clara.prototype.performCombatAction = function() {
 		if( CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) && CoC.player.statusAffectv1( StatusAffects.ClaraCombatRounds ) >= 10 ) {
 			this.HP = 0;
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 		if( this.HP < 50 && Utils.rand( 2 ) === 0 ) {
 			this.notMurbleEnjoysTheLacticAcid();

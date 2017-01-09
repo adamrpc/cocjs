@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainView, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainView, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function GoblinAssassin() {
 		this.init(this, arguments);
 	}
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainVie
 			}
 		}
 		//Dodge chance!;
-		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
+		if( Combat.combatEvade( 30 ) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		}
 		//Get hit!;
@@ -68,7 +68,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainVie
 			MainView.outputText( '\nThe black fluid splashes all over you and wicks into your skin near-instantly.  It makes you feel tired and drowsy.\n', false );
 			EngineCore.fatigue( 10 + Utils.rand( 25 ) );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		return;
 	};
 	//Lust Needle;
@@ -85,7 +85,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainVie
 			MainView.outputText( '\nYou’re far too distracted to notice the needle injected into the back of your neck, but by the time she flips back into her original position you already feel the contents of the syringe beginning to take effect.' );
 			EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 4 ) + 20 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Dual Shot;
 	GoblinAssassin.prototype.dualShot = function() {
@@ -102,7 +102,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainVie
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Explosion;
 	GoblinAssassin.prototype.goblinExplosion = function() {
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainVie
 		var damage = 25 + Utils.rand( 75 );
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	GoblinAssassin.prototype.defeated = function() {
 		SceneLib.goblinAssassinScene.gobboAssassinRapeIntro();
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).factory( 'GoblinAssassin', function( SceneLib, MainVie
 	GoblinAssassin.prototype.won = function() {
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( 'You collapse in front of the goblin, too wounded to fight.  She growls and kicks you in the head, making your vision swim. As your sight fades, you hear her murmur, "<i>Fucking dicks can\'t even bother to grow a dick or cunt.</i>"', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.goblinAssassinScene.gobboAssassinBeatYaUp();
 		}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, Appearance, PregnancyStore, Hel, Combat, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, Appearance, PregnancyStore, Hel, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	function HelScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.HELIA_PREGNANCY_TYPE, kFLAGS.HEL_PREGNANCY_INCUBATION, 0, 0 );
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 			MainView.outputText( '"<i>Hey there, ace!</i>" she says, grinning through her teeth as she assumes a battle stance.  "<i>Who\'s ready for a re-match!?</i>"', false );
 		}
 		//FIRST COMBAT – Main Screen;
-		Combat.startCombat( new Hel() );
+		SceneLib.combatScene.startCombat( new Hel() );
 	};
 	//FUCKBUDDY GREETING (edited);
 	HelScene.prototype.greetHelAsFuckbuddies = function() {
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		CoC.flags[ kFLAGS.HEL_AFFECTION ]++;
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	HelScene.prototype.beatUpHel = function() {
@@ -390,7 +390,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		MainView.outputText( '"<i>Catch you next time, friend – and maybe we can have some fun, then!</i>" she calls over her shoulder with a wave.\n\n', false );
 		MainView.outputText( 'You nod, and return the wave before heading back to your camp.', false );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -445,7 +445,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -478,7 +478,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -510,7 +510,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -538,7 +538,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -562,7 +562,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -646,7 +646,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -672,7 +672,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -716,7 +716,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -770,7 +770,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -811,7 +811,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -852,7 +852,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump down follower tracking affection too;
 		SceneLib.helFollower.helAffection( -15 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}
@@ -882,7 +882,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, $rootScope, A
 		//Bump up follower tracking affection too;
 		SceneLib.helFollower.helAffection( -15 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( this, this.postHelFuckBuddyFollowup );
 		}

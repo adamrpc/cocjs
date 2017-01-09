@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, PregnancyStore, CockTypesEnum, Combat, Ember, PerkLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, PregnancyStore, CockTypesEnum, Ember, PerkLib, $rootScope, Descriptors, ImageManager, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//import flash.media.Video;;
 	//Tainted Ember;
 	//Link: Tainted Ember;
@@ -2353,7 +2353,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\n"<i>Well... don\'t expect me to go easy on you!  We dragons are very competitive!  And I don\'t mind beating you up, even if you are my friend!</i>" Ember warns you, dropping into ' + this.emberMF( 'his', 'her' ) + ' battle stance.' );
 			MainView.outputText( '\n\nYou grin at ' + this.emberMF( 'him', 'her' ) + ' and tell ' + this.emberMF( 'him', 'her' ) + ' to bring it on - you\'re too psyched up to be caught off guard by the dragon openly calling you a friend.' );
 		}
-		Combat.startCombat( new Ember() );
+		SceneLib.combatScene.startCombat( new Ember() );
 	};
 	EmberScene.prototype.beatEmberSpar = function() {
 		MainView.clearOutput();
@@ -2387,7 +2387,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\n"<i>Okay, let\'s go back then,</i>" Ember says, pulling you close and walking back to the camp with you.' );
 			this.emberAffection( 5 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	EmberScene.prototype.loseToEmberSpar = function() {
 		MainView.clearOutput();
@@ -2416,7 +2416,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, WeaponLib, Pr
 			MainView.outputText( '\n\nEmber sighs.  "<i>Okay then... I\'ll be up for a rematch whenever you want.  Now let\'s get you back.</i>" Ember picks you up bodily and walks with you back to the camp.' );
 			this.emberAffection( -5 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		EngineCore.HPChange( CoC.player.maxHP() * 0.33, false );
 	};
 	//[Catch Anal] - a dragon coq up the date (Z);

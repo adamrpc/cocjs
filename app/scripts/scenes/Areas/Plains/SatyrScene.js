@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Satyr, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Satyr, PregnancyStore, kFLAGS, CoC, EngineCore, Descriptors ) {
 	function SatyrScene() {
 	}
 
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 				MainView.outputText( 'sodden expanse of the swamp' );
 			}
 			MainView.outputText( ', you hear lewd bellowings and drunken curses.  From out of the expanse of green comes a humanoid figure with a set of goat-like horns curling from his head.  Seeing you, he lets out a randy bleat and charges, naked erection jabbing before him!' );
-			Combat.startCombat( new Satyr() );
+			SceneLib.combatScene.startCombat( new Satyr() );
 		}
 		//Non-aggressive Encounter (Z);
 		//Happens in either the plains or swamp;
@@ -123,7 +123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 		MainView.outputText( 'You thank the satyr for his generosity, but you don\'t think you can handle this kind of booze, so you get up and start on your way back to your camp.' );
 		MainView.outputText( '\n\nThere is a sudden loud, indignant bleat from behind you, and you hear something suddenly charging clumsily forward.  Though you only realize this when something slams into your back, knocking you to the ground.  When you roll around, you find the satyr standing over you, face contorted in fury.  "<i>Nobody leaves me until I\'m done with them!</i>" he roars, and attacks you again!\n\n' );
 		var satyr = new Satyr();
-		Combat.startCombat( satyr );
+		SceneLib.combatScene.startCombat( satyr );
 		//proc first attack;;
 		satyr.satyrCharge();
 		//(Initiate combat with frenzied satyr, on the first round PC suffers the effects of a satyr charge (some HP lost and stunned));
@@ -237,7 +237,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 		if( CoC.player.cor < 50 ) {
 			EngineCore.dynStats( 'cor', 1 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Victory Rapes;
 	SatyrScene.prototype.defeatASatyr = function() {
@@ -269,7 +269,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 		if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armor === ArmorLib.LMARMOR ) {
 			bikiniTits = CoC.player.armor.lustyMaidenPaizuri;
 		}
-		EngineCore.choices( 'FuckHisButt', this, butt, 'Ride Face', this, faces, 'B.Titfuck', CoC.player.armor, bikiniTits, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+		EngineCore.choices( 'FuckHisButt', this, butt, 'Ride Face', this, faces, 'B.Titfuck', CoC.player.armor, bikiniTits, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//Female (Z);
 	SatyrScene.prototype.femaleTakesAdvantageOfSatyr = function() {
@@ -300,7 +300,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 		MainView.outputText( '\n\nYou grind your pussy into his face one last time, then, with regal delicacy, you remove yourself from the unconscious, sex-splattered satyr.  Picking up your clothes, you redress yourself.  Once you\'re decent, you leave the unconscious goatman as prey for whatever creature comes to investigate the stink of cum spattered about in such copious quantities.' );
 		//reduce lust;
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Male (Z);
 	SatyrScene.prototype.malesTakeAdvantageOfSatyrs = function() {
@@ -333,7 +333,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ArmorLib, Utils, Sa
 		MainView.outputText( '\n\nSated for the moment, your gaze drifts towards the satyr.  He makes no sound; indeed, when you take a better look at him, you realize he\'s fallen asleep, still idly shaking his ass back and forth and jerking his cum-dribbling cock.  You don\'t even spare him a contemptuous look as you pull your bottoms up and head back.' );
 		//reduce lust;
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//Willing Sex (Z);

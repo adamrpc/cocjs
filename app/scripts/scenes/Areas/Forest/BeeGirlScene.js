@@ -1,7 +1,7 @@
 'use strict';
 /*jshint bitwise: false*/
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, CockTypesEnum, ConsumableLib, UseableLib, BeeGirl, Appearance ) {
 	function BeeGirlScene() {
 	}
 
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		} else {
 			MainView.outputText( 'The bee-girl\'s eyes widen at the sight,  shocked by your over-endowed form being dragged towards her as if there were a magnet in your ' + Descriptors.cockDescript( 0 ) + '.   She flutters into the air and aims her stinger towards you, ready to fight!' );
 			//start combat
-			Combat.startCombat( new BeeGirl() );
+			SceneLib.combatScene.startCombat( new BeeGirl() );
 		}
 	};
 	BeeGirlScene.prototype.beeEncounterWithWorms = function() { //If she won't fuck infested players after combat then she shouldn't fuck them here either
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.clearOutput();
 		MainView.outputText( 'You clear your head and resolve to defeat the monstrous bee-woman.' );
 		MainView.spriteSelect( 6 );
-		Combat.startCombat( new BeeGirl() );
+		SceneLib.combatScene.startCombat( new BeeGirl() );
 	};
 	BeeGirlScene.prototype.beeEncounterClassic = function( clearScreen ) {
 		if( clearScreen === undefined || clearScreen ) {
@@ -669,7 +669,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			CoC.player.buttChange( 25, true );
 		}
 		if( postCombat === undefined || postCombat ) {
-			Combat.cleanupAfterCombat( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
+			SceneLib.combatScene.cleanupAfterCombat( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
@@ -1233,7 +1233,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_BEE_EGGS, PregnancyStore.INCUBATION_BEE, 1, 1 );
 			}
 			CoC.player.slimeFeed();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			//Male + venomz
 			if( (CoC.player.findStatusAffect( StatusAffects.ParalyzeVenom ) || CoC.player.findStatusAffect( StatusAffects.lustvenom )) && !sexed && CoC.player.cockTotal() === 1 ) {
@@ -1241,7 +1241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				MainView.outputText( 'Suddenly reality kicks in as you feel the venom coursing though your body, and your heart begins to race faster and faster by the minute. A dull pain swells deep inside your head as if it were about to explode; you try to lift your arms to cradle your head but can\'t, and slowly a new sensation takes over as your manhood begins to swell in size and length, trying to break through your clothes. A faint buzzing sound comes seemingly from nowhere, growing louder and getting closer every second. As the pain in your head decreases, you suddenly feel parched, your mouth as dry as the desert sands.  You try to let out a moan but all you can do is breathe rapidly, as if you are burning up inside.\n\n', false );
 				MainView.outputText( 'Several more bee-girls appear and gracefully land all around you, apparently communicating with each other by vibrating their abdomens. She leans forward over you, brushing one of her breasts across the side of your face as she loosens your clothing to release your fully erect manhood. She forcefully grabs it with both hands and begins to squeeze it, as if trying to choke it. Your vision starts to blur; if she were to stroke your member right now, you could die happily knowing you had felt that kind of pleasure. The bee-girl continues to choke your member for several minutes, forcing the blood upwards.\n\n', false );
 				MainView.outputText( 'Slowly she gets to her feet and stands directly over your manhood.  \'At last,\' you think to yourself, \'one final moment of pleasure.\'  You close your eyes and allow yourself the fantasy of her lowering herself upon you. A few seconds pass before you open your eyes to see what she is doing. A sudden wave of panic comes over you as you watch her arch her abdomen down between her legs; a split second later you feel a sharp pain at the base of your member. Your eyes close as you try in vain to scream before you pass out.', false );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				MainView.outputText( '\n\nSeveral hours later you wake up free of pain - if anything you feel great, a warm tingling sensation rippling through your whole body every time you move as you sit upright. As you look down you see you are still naked and covered in your own seed. With a smile you kind of hope the next time you meet a bee-girl you will be victorious, so you can show her how to please you properly.', false );
 				sexed = true;
 				CoC.player.orgasm();
@@ -1274,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 					CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_BEE_EGGS, PregnancyStore.INCUBATION_BEE, 1, 1 );
 				}
 				CoC.player.buttChange( 25, true, true, false );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			//FEMALES
@@ -1313,7 +1313,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				CoC.player.slimeFeed();
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'int', -0.5 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			//Hermz/Genderless (Lazy way, unfinished?)
@@ -1388,7 +1388,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'The heads of your ' + Appearance.cockNoun( CockTypesEnum.HUMAN ) + ' rub back and forth against the bee-girl\'s lips and face, and finally curiosity leads her to begin tasting, her surprisingly long tongue lassoing and swirling around every tip she can reach in turn, darting from one to another as if tasting flowers to provide an experience almost as unique as her pussy.\n\n', false );
 			MainView.outputText( 'You feel her abdomen pressing against your rear as you drive into her, the pressure in your groin building as her pussy and ass tighten around you. With a groan you cum, your hot seed gushing in alternating spurts out of each of your shafts into her eager little holes while your tight cunt juices itself with your own brand of honey. She clenches you tightly, her belly distending slightly as you empty your load into her pussy and ass while she squeals again at getting her face covered in seed.  Exhausted from the battle and the fuck, she relaxes and collapses on the ground, panting heavily and half-conscious.', false );
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		if( CoC.player.cockTotal() === 2 && Utils.rand( 2 ) === 0 ) {
@@ -1399,7 +1399,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'At this the bee-girl shrieks in utter bliss as her eyes roll back and she can\'t fight back the tingles coursing through her as you stretch her pussy lips.  You let go of her hands and watch with a satisfied grin as she tosses, turns, and clings to the dirt with a rich mix of pain and pleasure from the rough double-penetration. Suddenly you\'re caught off guard slightly as she pushes forward, almost tackling you. For an instant you\'re prepared to finish off the bee-girl, but the lust in her eyes is easy enough to read and she looks down, begging to be fucked and filled.  Grabbing onto her arms to brace against and suckling at her ample breast, you force your twin rods into her again and again while a pool of her sexual juices and sweet nectar form at your crotch from each slip in to her moist wetness. The bee-slut moans as you push your rock-hard cocks into her slick pussy, and you can just see the detectable bump of your cock head edging along her stomach, but strong as you are the tightness is overwhelming as her pussy muscles clench about your cocks.\n\n', false );
 			MainView.outputText( 'Letting go of your hands the bee-girl leans back and her mouth opens in a powerful scream of ecstasy that you\'re sure will scatter any wild-life or imps who hear the noise. As she flings herself back, your body clenches and a torrential storm of white, warm cum soars from the tip of your members into her innermost spaces. Unable to cope with the feelings coursing through her, the bee-girl nearly faints as she comes to a rest on your chest.  You catch your breath and the last couple of cum shots is milked by her still clenching pussy. Rolling over, you free both of your cocks from her fuck-hole and watch with more than a bit of satisfaction.  The dam breaks and a sea of white escapes her stretched, well-lubricated pussy. Pleased with your latest jaunt through the forest, you collect your gear and settle off, leaving the cum-drenched bee-girl covered in your seed.', false );
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		} else {
 			this.beeAlternate();
@@ -1527,7 +1527,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				MainView.outputText( '. Once she looks comfortable you make your way back to camp, thoroughly satisfied.', false );
 			}
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else if( Utils.rand( 2 ) === 0 ) {
 			MainView.outputText( 'Firmly grasping her thighs at the joining of her smooth carapace and soft skin, you force them open, revealing the source of her irresistible scent.   She buzzes pitifully in protest ', false );
 			if( CoC.player.isTaur() ) {
@@ -1571,7 +1571,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				MainView.outputText( 'You giggle at your poor victim\'s state.  She really is a mess.  Her abdomen and belly are both swollen, making her look pregnant in both her bee AND human halves.   A practical river of spunk drools from her glossy pussy-lips, pooling below her.  Even her ovipositor dangles down, dripping with your seed, forced out from her abdomen by the sheer amount of spunk she\'s carrying.  It twitches, bulges moving along its length, eventually dropping egg after egg on the ground, unable to keep in its cargo.', false );
 			}
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//Male 2
 		else {
@@ -1580,7 +1580,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'Unhindered, you start to fuck her. Her pussy tightens and convulses around your cock, becoming slick with her juices and your pre-cum. You can smell the sickly combination of nectar, sweat and love juices hanging thickly in the air. Your breathing becomes heavy while her moans get deeper and lust-filled. Her reluctance evaporates, her struggling shifts into more receptive movements against your body, her hips rocking against yours with each thrust, forcing your ' + Descriptors.cockDescript( x ) + ' deeper into her tight honeypot.\n\n', false );
 			MainView.outputText( 'Letting go of her arms, you grip the base of her abdomen for leverage and let her arms and legs slide around you as your pace increases. You feel her abdomen pressing against your rear as you drive into her, the pressure in your ' + Descriptors.ballsDescriptLight() + ' building as her pussy tightens around you. With a groan you cum, your hot seed gushing inside of her. She clenches you tightly, her pussy milking your ' + Descriptors.cockDescript( x ) + ' for every ounce, until the sticky white fluid is pouring from around your ' + Descriptors.cockDescript( x ) + '. Exhausted from the battle and the fuck, she relaxes and collapses on the ground, panting heavily and half-conscious.', false );
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//FEMALE sometimes herm
@@ -1670,7 +1670,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			}
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//FUTA Fallback
 	BeeGirlScene.prototype.futaRapesBeeGirl = function() {
@@ -1795,7 +1795,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( ', and you turn your back on your soaked, cum-bloated conquest and the puddle of spooge that\'s rapidly wicking into the ground.', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//(can replace normal rape victory scenes if corruption>75, and strength>60, and while player has naga tongue, dick, vagina, or d-cup or larger breasts)
 	BeeGirlScene.prototype.beeGirlRapeForTheDistinguishedGentleman = function() {
@@ -1883,7 +1883,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			EngineCore.fatigue( 20 );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	BeeGirlScene.prototype.beeAlternate = function() {
@@ -1971,7 +1971,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		CoC.player.orgasm();
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Naga on Bee Scene
 	BeeGirlScene.prototype.corruptNagaBitchesRapeABee = function() {
@@ -2123,7 +2123,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			CoC.player.orgasm();
 		}
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	BeeGirlScene.prototype.beeGirlsGetsDildoed = function() {
 		MainView.spriteSelect( 6 );
@@ -2149,7 +2149,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'ou really need to get back to camp and get off after such an intense experience.  Maybe you should give your honey-flavored dildo a shot?', false );
 		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 5 + CoC.player.cor / 10) );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	BeeGirlScene.prototype.milkAndHoneyAreKindaFunny = function() {
 		MainView.spriteSelect( 6 );
@@ -2177,7 +2177,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		//You've now been milked, reset the timer for that
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//requires spiderbite or nagabite
@@ -2216,7 +2216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.outputText( '\n\nYou pull yourself free on unsteady legs, her gaping hole gushing emerald lube while her chitinous abdomen flops listlessly over her egg-filled ass.  You cut her free from your sticky webbing and gather up your [armor], shuffling back to camp as she collapses exhausted on her side, both hands wrapped around her tremendously swollen midsection.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	var BeeGirlSceneProxy = new Proxy( BeeGirlScene, {
 		construct: function( Target ) {

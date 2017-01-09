@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, SandTrap ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, SandTrap ) {
 	function SandTrapScene() {
 	}
 
@@ -43,7 +43,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			else {
 				MainView.outputText( '\n\nYou don\'t move quickly enough, however, and you may as well be running on the spot; the edge of the pit recedes as the fluid sand carries you downwards.  You struggle upright as best you can and ready yourself to fight the sandtrap, which is leering at you hungrily from the bottom of its vast pit.' );
 				MainView.outputText( '\n\n"<i>Only a matter of time now, little ant,</i>" it says huskily, in its fluttering, buzzing voice.  You will have to defeat it in order to escape, and before it pulls you to the bottom!' );
-				Combat.startCombat( new SandTrap() );
+				SceneLib.combatScene.startCombat( new SandTrap() );
 				EngineCore.doNext( MainView, MainView.playerMenu );
 			}
 		}
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			MainView.outputText( '\n\nA rumbling, hissing sound fills your ears and the dunes surrounding you lift out of sight as all the sand in the hollow begins to run downwards, taking you with it.  You fight against it desperately, but you cannot swim up a landslide and within moments you find yourself buried up to your neck at the bottom of a huge, conical depression, eyes level with the naked abdomen of your captor.  You cough, spit and blink sand away and stare helplessly up at it.  The creature has a long, slim human upper half with four arms and a pair of flat breasts; its twenty slender fingers stroke your face, brush you off and massage your [chest] as it allows you to take it in.  With its glamour gone you can see clearly the six eyed creature is in fact female... or is it?  Its long face is soft around the edges with a cute, pointed chin which is very pretty - or very handsome.  Every time the creature moves its face its gender seems to shift.  Unnerved, you look downwards, and wish you hadn\'t.  Although its lower half is obscured below the sand, you can see that below its waist the creature\'s body balloons outwards into what must be a massive, sand-colored insect thorax.  You feel something brush against you and you instinctively attempt to flinch, but you can\'t.  The sand feels packed against you, and straining every muscle you have to free your limbs gets you nowhere.  Gently, the creature slides its fingers behind your neck and makes you look into its black eyes.' );
 			MainView.outputText( '\n\n"<i>You made it all too easy for me, little ant,</i>" it says pityingly.  "<i>Did no one warn you about sandtraps?</i>"  Slowly it sinks downwards, and whilst it fondles your face you feel its other set of hands cup your [butt].  "<i>Never mind,</i>" the insect monster sighs into your forehead in its fluttery voice.  "<i>I\'ll teach you everything there is to know.</i>"' );
 		}
-		Combat.startCombat( new SandTrap() );
+		SceneLib.combatScene.startCombat( new SandTrap() );
 		CoC.monster.changeStatusValue( StatusAffects.Level, 1, 2 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	};
 
 	SandTrapScene.prototype.startSandTarpFight = function() {
-		Combat.startCombat( new SandTrap() );
+		SceneLib.combatScene.startCombat( new SandTrap() );
 		MainView.playerMenu();
 		MainView.spriteSelect( 97 );
 	};
@@ -190,9 +190,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		if( CoC.player.lust >= 33 ) {
 			MainView.outputText( '\n\nBefore you go, you take in the helpless body of your would-be ambusher.  What do you do?' );
 			EngineCore.choices( 'Naga3Some', this, nagaThreeSome, 'UseYourCock', this, putYourDickInIt, 'RideVaginal', this, rideDatSantTrap, 'Handjob', this, useSandTarpsHand, '', null, null,
-				'', null, null, '', null, null, '', null, null, 'B.Titfuck', null, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
+				'', null, null, '', null, null, '', null, null, 'B.Titfuck', null, bikiniTits, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Male/Herm loss (Z)
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.dynStats( 'lib', 1 );
 		CoC.player.slimeFeed();
 		//reduce lust, increase lib, slimefeed, reset hours since cum
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Female loss (Z)
 	SandTrapScene.prototype.chicksLoseToSandTarp = function() {
@@ -292,7 +292,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.dynStats( 'lib', 1 );
 		CoC.player.slimeFeed();
 		//reduce lust, increase lib, slimefeed, reset hours since cum
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Unsexed (Z)
 	SandTrapScene.prototype.genderlessLoss = function() {
@@ -325,7 +325,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		EngineCore.dynStats( 'lib', 1 );
 		CoC.player.slimeFeed();
 		//reduce lust, increase lib, slimefeed, reset hours since cum
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SandTrapScene.prototype.sandTrapPregChance = function() {
 		//Only happens if PC aint already buttpregged
@@ -506,7 +506,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '\n\n"<i>Not today, I think,</i>" you say over your shoulder, as you clamber out of its pit.  "<i>I think you\'ll have to try a bit harder if you want to get what you want from this lion.</i>"  Your smile broadens as a deeply frustrated moan reaches your ears from behind you...' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//"<i>Ride</i>" (Z)
@@ -539,7 +539,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '\n\nIt takes the creature several moments to gather its wits.  "<i>Th-thank you, lion.</i>"  Glowing with satisfaction, you begin the climb out of your conquest\'s hole and back towards camp.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//"<i>Vagina</i>" (Z)
 	SandTrapScene.prototype.stickWangInSandgina = function() {
@@ -588,7 +588,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '\n\n"<i>Thank you for your seed, lion,</i>" its sleepy words reach you as you pull yourself clear of the hollow and step out towards camp.  "<i>Perhaps next time we meet I will return the favor, hmm?</i>"  In your wearily tranquil fug you can\'t tell if it intends this as an invitation or a threat.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Naga Threesome (Z)
 	SandTrapScene.prototype.nagaThreesomeWithSandTrap = function() {
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '\n\n"<i>That was wonderful,</i>" she whispers as she slowly releases you and begins to trail off into the shimmering heat.  "<i>Everything is so much more fun when you do it with two.</i>"' );
 		MainView.outputText( '\n\nYou definitely think visiting the desert more often is a good idea.' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Sandtrap Bad End
 	//Requirements
@@ -695,7 +695,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.spriteSelect( 97 );
 		MainView.outputText( 'You shake yourself out of your fog, clench your [weapon] and grit your teeth.  You are your own person, dammit, and you will show this creature just what that means!  The Sandtrap slowly lowers its arms and looks at you with almost parental disappointment as you march into its pit with the obvious intention of beating the crap out of it.  "<i>You want to dance again, Flytrap?</i>" it sighs.  "<i>I would prefer that you look at yourself and accept what you are, but I will force you to accept it if that is what you wish.</i>"' );
 		//(If fight won, resets counter)
-		Combat.startCombat( new SandTrap() );
+		SceneLib.combatScene.startCombat( new SandTrap() );
 	};
 	//Leave:
 	SandTrapScene.prototype.leaveSandTrapBadEnd = function() {

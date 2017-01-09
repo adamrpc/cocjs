@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, ConsumableLib, Combat, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, ConsumableLib, PerkLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function SophieBimbo() {
 		this.eggColors = [
 			'Black',
@@ -101,7 +101,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] = 1;
 		MainView.outputText( '', true );
 		MainView.outputText( 'You turn and flee the mountain, before she can compel you to take her to camp and fuck like bunnies.  Who knows when you\'d have time to explore with a lust-crazed bird-woman like that around.  She\'ll find a mate soon enough, you\'re sure of that.\n\n', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SophieBimbo.prototype.acceptBimboSophie = function() {
 		this.sophieSprite();
@@ -146,7 +146,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, PregnancyStore, Con
 		}
 		MainView.outputText( '\n\n', false );
 		MainView.outputText( 'Well, you know where to find her any time you want to fuck the motherly bimbo.\n<b>(Bimbo Sophie has been added to your slaves!)</b>', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Follower In Camp Text:;
 	SophieBimbo.prototype.sophieCampLines = function() {

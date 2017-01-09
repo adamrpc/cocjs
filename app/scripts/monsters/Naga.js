@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, ConsumableLib, Combat, EngineCore, MainView, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, WeightedDrop, ConsumableLib, Combat, EngineCore, MainView ) {
 	function Naga() {
 		this.init(this, arguments);
 	}
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 			}
 			CoC.player.takeDamage( 5 + Utils.rand( 5 ) );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//2b)  Ability - Constrict - entangles player, raises lust
 	//every turn until you break free
@@ -46,16 +46,16 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 		MainView.outputText( 'The naga draws close and suddenly wraps herself around you, binding you in place! You can\'t help but feel strangely aroused by the sensation of her scales rubbing against your body. All you can do is struggle as she begins to squeeze tighter!', false );
 		CoC.player.createStatusAffect( StatusAffects.NagaBind, 0, 0, 0, 0 );
 		CoC.player.takeDamage( 2 + Utils.rand( 4 ) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//2c) Abiliy - Tail Whip - minus ??? HP
 	//(base it on toughness?)
 	Naga.prototype.nagaTailWhip = function() {
 		MainView.outputText( 'The naga tenses and twists herself forcefully.  ', false );
 		//[if evaded]
-		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 6 ) === 0) ) {
+		if( Combat.combatEvade( 15 ) ) {
 			MainView.outputText( 'You see her tail whipping toward you and evade it at the last second. You quickly roll back onto your feet.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s tail-whip.', false );
 		} else if( CoC.player.spe > Utils.rand( 300 ) ) {
 			MainView.outputText( 'You see her tail whipping toward you and jump out of the way at the last second. You quickly roll back onto your feet.', false );
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Naga.prototype.defeated = function( ) {
 		SceneLib.nagaScene.nagaRapeChoice();
@@ -79,7 +79,7 @@ angular.module( 'cocjs' ).factory( 'Naga', function( SceneLib, $log, CoC, Monste
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe naga\'s eyes go wide and she turns to leave, no longer interested in you.', false );
 			CoC.player.orgasm();
-			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			SceneLib.nagaScene.nagaFUCKSJOOOOOO();
 		}

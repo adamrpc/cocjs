@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 		//Miss:;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			MainView.outputText( 'You roll out of the way at the last moment, avoiding his dangerous hooves.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -29,7 +29,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 		else {
 			MainView.outputText( 'You can\'t get out of the way in time, and you\'re knocked down!  Kelt tramples overtop of you!  (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Arrow Attack;
 	Kelt.prototype.keltShootBow = function() {
@@ -38,7 +38,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 		//Miss:;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			MainView.outputText( 'You manage to avoid the missile by the skin of your teeth!' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		var damage = 0;
@@ -48,13 +48,13 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 		}
 		if( damage === 0 ) {
 			MainView.outputText( 'You deflect the hit, preventing it from damaging you.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Hit:;
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( 'The arrow bites into you before you can react. (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Aura Arouse;
 	Kelt.prototype.KellyuraAttack = function() {
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 			}
 		}
 		EngineCore.dynStats( 'lus', CoC.player.lib / 5 + Utils.rand( 10 ) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Attacks as normal + daydream 'attack';
 	//DayDream 'Attack';
@@ -88,7 +88,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 			MainView.outputText( 'Flaring \'his\' nostrils, Kelt inhales deeply, his eyelids fluttering closed as he gives a rather lady-like moan.   His hands roam over his stiff nipples, tweaking them slightly before he recovers.' );
 		}
 		this.lust += 5;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	Kelt.prototype.performCombatAction = function() {
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).factory( 'Kelt', function( SceneLib, MainView, kFLAGS,
 	Kelt.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nKelt recoils for a moment before assuming a look of superiority...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.kelly.keltFucksShitUp();
 		}

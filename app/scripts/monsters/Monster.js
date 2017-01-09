@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Creature, AppearanceDefs, Utils, CoC_Settings, StatusAffects, CoC, EngineCore, WeightedDrop, Combat, PerkLib, kFLAGS ) {
+angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Creature, AppearanceDefs, Utils, CoC_Settings, StatusAffects, CoC, EngineCore, WeightedDrop, Combat, kFLAGS ) {
 	function Monster() {
 		this.init(this, arguments);
 	}
@@ -304,7 +304,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			attacks--;
 		}
 		this.removeStatusAffect( StatusAffects.Attacks );
-		Combat.combatRoundOver(); //The doNext here was not required
+		SceneLib.combatScene.combatRoundOver(); //The doNext here was not required
 	};
 	/**
 	 * Called no matter of success of the attack
@@ -388,6 +388,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			MainView.outputText( ' slow ' + this.weaponVerb + '.\n', false );
 		}
 	};
+	Monster.prototype.playerCanDodge = function() {
+		return true;
+	};
 	Monster.prototype.playerDodged = function() {
 		//Determine if dodged!
 		var dodge = CoC.player.speedDodge( this );
@@ -396,7 +399,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			return true;
 		}
 		//Determine if evaded
-		if( this.constructor.name !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'' );
 			if( !this.plural ) {
 				MainView.outputText( 's' );
@@ -405,12 +408,12 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			return true;
 		}
 		//('Misdirection'
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 			return true;
 		}
 		//Determine if cat'ed
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			if( this.plural ) {
 				MainView.outputText( '\' attacks.\n', false );
@@ -457,7 +460,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			this.removeStatusAffect( StatusAffects.Constricted );
 		}
 		this.addStatusValue( StatusAffects.Constricted, 1, -1 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		return false;
 	};
 	/**
@@ -480,7 +483,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 				MainView.outputText( this.getCapitalA() + this.short + ' is too busy shivering with fear to fight.', false );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		return false;
 	};
 	/**
@@ -497,7 +500,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 		} else {
 			this.addStatusValue( StatusAffects.Stunned, 1, -1 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		return false;
 	};
 	/**
@@ -516,7 +519,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 	 * default message like 'you defeat %s' or '%s falls and starts masturbating'
 	 */
 	Monster.prototype.defeated = function( ) {
-		Combat.finishCombat();
+		SceneLib.combatScene.finishCombat();
 	};
 	/**
 	 * All branches of this method and all subsequent scenes should end with
@@ -531,7 +534,7 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			CoC.player.lust = 0;
 		}
 		CoC.setInCombat( false );
-		Combat.clearStatuses( false );
+		CoC.player.clearStatuses( false );
 		var temp = Utils.rand( 10 ) + 1;
 		if( temp > CoC.player.gems ) {
 			temp = CoC.player.gems;
@@ -723,6 +726,9 @@ angular.module( 'cocjs' ).factory( 'Monster', function( SceneLib, MainView, Crea
 			else {
 				var store = this.eMaxHP() * (3 + Utils.rand( 4 )) / 100;
 				store = Combat.doDamage( store );
+				if (CoC.monster.HP <= 0) {
+					EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory);
+				}
 				if( this.plural ) {
 					MainView.outputText( this.getCapitalA() + this.short + ' bleed profusely from the jagged wounds your weapon left behind. (' + store + ')\n\n', false );
 				} else {

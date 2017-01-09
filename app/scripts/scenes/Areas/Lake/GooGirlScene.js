@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, kFLAGS, ConsumableLib, PregnancyStore, CoC_Settings, PerkLib, StatusAffects, EngineCore, Descriptors, Combat, GooGirl ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, kFLAGS, ConsumableLib, PregnancyStore, CoC_Settings, PerkLib, StatusAffects, EngineCore, Descriptors, GooGirl ) {
 	function GooGirlScene() {
 	}
 
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 			MainView.outputText( 'murky ', false );
 		}
 		MainView.outputText( 'waters. You pause, trying to figure out what the shape might be. Just under the surface of the water, there appears to be a fist-sized heart shedding a crimson glow. Leaning closer, you gaze down into your reflection only to find your face rising up with pursed lips, trying to kiss you! You jerk backwards and the pseudo-head quivers, resolving its face into a gooey-looking girl, her ', false );
-		Combat.startCombat( new GooGirl() );
+		SceneLib.combatScene.startCombat( new GooGirl() );
 		MainView.outputText( this.gooGirl().gooColor() + ' slime body sculpting itself into a humanoid shape. The girl curiously tilts her head to one side, as if trying to figure out why you\'re backing away, before she happily surges forward!', false );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 4 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Defeat – Male
 	GooGirlScene.prototype.dudeLoseToGooGal = function() {
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 4 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Defeat – Herm
 	GooGirlScene.prototype.hermLoseToGooGal = function() {
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 4 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Defeat – Female
 	GooGirlScene.prototype.femaleLoseToGooGal = function() {
@@ -219,7 +219,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 4 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Goo pregnancy- 3-4 days]
 	GooGirlScene.prototype.gooPregVagBirth = function() {
@@ -244,7 +244,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		//Victory – Neuter
 		if( CoC.player.gender === 0 || CoC.player.lust < 33 ) {
 			MainView.outputText( 'The goo-girl, while an unusual creature, seems unable to communicate and clearly has nothing of value.  Of no particular use in your quest, you shoo the dripping blob back to the shore. She seems disappointed at first, but bounces back quickly enough, spotting movement in the lake.  She splashes in and takes off at top speed, ' + this.gooGirl().gooColor9() + ' blur while you take your leave.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( 'With the goo-girl defeated, her unusual body is at your mercy.  What do you do?', false );
 			var sex1S = '';
@@ -319,7 +319,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 					MainView.outputText( 'Do you offer a threesome with the girl to Valeria? She\'ll likely try flood with you with more sloshing, shuddering pleasure than your body can handle.' );
 				}
 			}
-			EngineCore.choices( sex1S, this, sex1N, sex2S, this, sex2N, sex3S, this, sex3N, sex4S, this, sex4N, 'Lay Eggs', this, eggs, '', null, null, '', null, null, 'Valeria', SceneLib.valeria, valeria, 'Make Slave', SceneLib.latexGirl, gooTF, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( sex1S, this, sex1N, sex2S, this, sex2N, sex3S, this, sex3N, sex4S, this, sex4N, 'Lay Eggs', this, eggs, '', null, null, '', null, null, 'Valeria', SceneLib.valeria, valeria, 'Make Slave', SceneLib.latexGirl, gooTF, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 
@@ -365,7 +365,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		}
 		CoC.player.orgasm();
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Victory – Herm
 	GooGirlScene.prototype.victoryHermSex = function() {
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		this.coreDropChance();
 		CoC.player.orgasm();
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//FEMALE VICTORIES
 	//[Feeder perk]
@@ -412,7 +412,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		//You've now been milked, reset the timer for that
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Exhibitionist Perk]
 	GooGirlScene.prototype.exhibitionismGooGirlVictoryRape = function() {
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		this.coreDropChance();
 		CoC.player.orgasm();
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Normal Female]
 	GooGirlScene.prototype.normalFemaleRapesAGooGirl = function() {
@@ -442,7 +442,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		this.coreDropChance();
 		CoC.player.orgasm();
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Ooze and Goo scene (one shot voyeur scene similar to the minotaur peep-show)–
 	GooGirlScene.prototype.spyOnGooAndOozeSex = function() {
@@ -465,7 +465,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, k
 		MainView.outputText( '\n\nThis continues on for quite some time with the honey googirl greedily sucking down everything it can from your ovipositor, stroking it and squeezing your abdomen to work out all of its sweet fluid and eggs.  When you finally decide enough is enough, you retract your black tube and rise back up to your [feet].  Turning to look at the goo, you see her idly rubbing at her distended honey-colored belly, imitating a pregnant mother before she slides back down the lakeshore; your numerous eggs bounce around inside her infused body.  She turns one last time to you and waves before sinking below the surface.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'gooGirlScene', new GooGirlScene() );
 } );

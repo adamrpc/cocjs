@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'Helspawn', function( SceneLib, kFLAGS, MainV
 		if( Utils.rand( 4 ) === 0 ) {
 			this.tailWhipShitYo();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Basic Attack - Twin Strike;
 	// Two light attacks;

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Combat, SharkGirl, Appearance, Utils, Descriptors, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, SharkGirl, Appearance, Utils, Descriptors, CoC, kFLAGS, EngineCore ) {
 	function SharkGirlScene() {
 	}
 
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 		MainView.outputText( 'A grey blur bursts from the water and lands on the ground a few feet away from you.\n\n', false );
 		MainView.outputText( 'It\'s a woman – a peculiarly corrupted woman, with shiny grey skin, silver hair, and a fin positioned between her shoulder blades. She\'s wearing some rather revealing black swimwear. The girl looks up at you and grins widely, showing rows of knife-like teeth. "<i>Wanna play? Heads up though, I play \'rough\'!</i>"\n\n', false );
 		MainView.outputText( 'You\'re fighting a shark girl!', false );
-		Combat.startCombat( new SharkGirl() );
+		SceneLib.combatScene.startCombat( new SharkGirl() );
 		MainView.spriteSelect( 70 );
 	};
 
@@ -75,18 +75,18 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			MainView.outputText( '  Do you have your way with her or leave?', false );
 			var dildo = (CoC.player.hasKeyItem( 'Deluxe Dildo' ) >= 0 ? SceneLib.tamaniDildo.sharkGirlGetsDildoed : null);
 			if( CoC.player.gender === 1 ) {
-				EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy w/69', null, null, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy w/69', null, null, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else if( CoC.player.gender === 2 ) {
-				EngineCore.choices( 'Yes', this, this.sharkgirlSixtyNine, '', null, null, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', this, this.sharkgirlSixtyNine, '', null, null, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else if( CoC.player.gender === 3 ) {
 				if( CoC.player.isNaga() ) {
-					EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy Oral', this, this.sharkgirlSixtyNine, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy Oral', this, this.sharkgirlSixtyNine, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				} else {
-					EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy w/69', this, this.sharkgirlSixtyNine, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Use Dick', this, this.sharkgirlDickFuck, 'Pussy w/69', this, this.sharkgirlSixtyNine, 'Dildo Rape', SceneLib.tamaniDildo, dildo, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 			}
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Male and Herm: ;
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			MainView.outputText( '\n\n', false );
 			MainView.outputText( 'The shark girl cries out in orgasm, her pussy tightening as the feelers wrap around your cock. The pleasure drives you over the edge, and you pump your load of cum into her needy pussy, the feelers milking you for every drop you have. You pull out, satisfied, and as you turn to leave you see the shark girl rubbing cum into her cunt and winking at you.', false );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.player.cor < 33 ) {
@@ -166,7 +166,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			MainView.outputText( '  The shark slut licks up your fluids hungrily.\n\n', false );
 			MainView.outputText( 'Thoroughly satisfied, you leave the shark girl on the ground covered in your fluids and depart for your camp.', false );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.player.cor < 33 ) {
@@ -246,7 +246,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			}
 			MainView.outputText( 'to fight on.\n\n', false );
 			MainView.outputText( 'The shark girl does a little victory dance, swaying her hips to and fro before moving over to you. She quickly removes your ' + CoC.player.armorName + ', but her smile fades to a blank expression when she notices you lack any genitalia. "<i>What the...</i>" she mumbles, poking you in the groin. Finding you completely useless, she growls in frustration and stomps on your face in anger. The sudden pain makes you pass out.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			EngineCore.dynStats( 'tou', -2 );
 			return;
 		}
@@ -275,7 +275,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			if( CoC.player.cor < 30 ) {
 				EngineCore.dynStats( 'cor', 1 );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//Male:;
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, Comb
 			if( CoC.player.cor < 30 ) {
 				EngineCore.dynStats( 'cor', 1 );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		EngineCore.doNext( MainView, MainView.playerMenu );

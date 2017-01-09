@@ -101,7 +101,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, MainView, Sce
 			MainView.outputText( 'The Zealot student looks at you a little shyly and sticks a pencil in his mouth while pushing a hand in front of his groin, trying to hide a rather obvious bulge.  The whole scene is rather cute, and you feel incredibly aroused afterwards.', false );
 		}
 		EngineCore.dynStats( 'lus', (7 + Utils.rand( CoC.player.lib / 20 + CoC.player.cor / 20 )) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Special2: Lust transfer spell, it becomes more and 
 	//more likely that he will use this power as his lust gets 
@@ -110,7 +110,7 @@ angular.module( 'cocjs' ).factory( 'FetishZealot', function( $log, MainView, Sce
 		MainView.outputText( 'The zealot suddenly cries out and extends his arms towards you; your mind is suddenly overwhelmed with a massive wave of arousal as images of every kind of fetish you can imagine wash over you, all blended together.  After a moment you are able to recover, but you notice that the Zealot doesn\'t seem to be as aroused as before.', false );
 		EngineCore.dynStats( 'lus', this.lust / 2 );
 		this.lust /= 2;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	FetishZealot.prototype._superPostAttack = FetishZealot.prototype.postAttack;
 	FetishZealot.prototype.postAttack = function( damage ) {

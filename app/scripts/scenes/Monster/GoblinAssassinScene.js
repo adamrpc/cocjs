@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager, CockTypesEnum, Appearance, Combat, GoblinAssassin, Descriptors, StatusAffects, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager, CockTypesEnum, Appearance, GoblinAssassin, Descriptors, StatusAffects, AppearanceDefs, Utils, kFLAGS, CoC, EngineCore ) {
 	function GoblinAssassinScene() {
 	}
 
@@ -42,7 +42,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			//[Initiate combat encounter – goblin assassin];
 		}
 		CoC.flags[ kFLAGS.TIMES_ENCOUNTERED_GOBLIN_ASSASSIN ]++;
-		Combat.startCombat( new GoblinAssassin() );
+		SceneLib.combatScene.startCombat( new GoblinAssassin() );
 	};
 	//[LOSS SEXAHNZ];
 	GoblinAssassinScene.prototype.gobboAssassinBeatYaUp = function() {
@@ -206,7 +206,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			MainView.outputText( '\n\nYour eyes roll back, not that they had anything to look at besides curvy veridian buttocks, and your tongue goes absolutely nuts, whipping back and forth through the curtains of slime that drool down into your open, moaning maw.  The goblin grinds atop you, moaning loudly as she reaches her own peak, barely caring about your pleasure.  Thankfully, with the latest injection, your [vagina] has grown so sensitive that every whisper of air over your red, swollen folds feels like an individual tongue.  You squirm, complete, irressistable need controlling your body from the waist down.  The torrent of lady-jizz that suddenly fills your mouth startles you for a moment, and then you too are cumming, your [vagina] climaxing from nothing more than faint air currents.' );
 			MainView.outputText( '\n\nPassing out in a puddle of mixed juices, you barely notice the goblin’s departure.' );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		EngineCore.dynStats( 'lus', -100 );
 	};
 	//[WIN RAEPZ];
@@ -217,7 +217,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		EngineCore.dynStats( 'lus', 20 );
 		//If cant rape or breastfeed;
 		if( CoC.player.lust < 30 && !CoC.player.findStatusAffect( StatusAffects.Feeder ) ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		var buttseks = null;
@@ -267,7 +267,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 && (fitsFuck !== null || cuntFuck !== null || tooBig !== null ||
 			corruptTooBig !== null || buttseks !== null || feeder !== null || spiderCondom !== null || eggs !== null) ) {
 			MainView.outputText( '\n\n<b>What do you do to her, and if anything, which of your body parts do you use?</b>', false );
-			EngineCore.choices( 'Dick Fuck', this, fitsFuck, 'DickTooBig', this, tooBig, 'CorruptDick', this, corruptTooBig, 'Dick In Ass', this, buttseks, 'Jog Fuck', this, jog, 'Breastfeed', this, feeder, 'Web Condom', this, spiderCondom, 'Pussies', this, cuntFuck, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Dick Fuck', this, fitsFuck, 'DickTooBig', this, tooBig, 'CorruptDick', this, corruptTooBig, 'Dick In Ass', this, buttseks, 'Jog Fuck', this, jog, 'Breastfeed', this, feeder, 'Web Condom', this, spiderCondom, 'Pussies', this, cuntFuck, 'Lay Eggs', this, eggs, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else if( feeder !== null || eggs !== null ) {
 			MainView.outputText( '\n\n<b>You aren\'t horny enough to rape her, but ' );
 			if( feeder !== null ) {
@@ -275,10 +275,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			} else {
 				MainView.outputText( 'your abdomen aches with the desire to impregnate her full of insect eggs.  Do you?</b>' );
 			}
-			EngineCore.choices( 'Feed', this, feeder, 'Lay Eggs', this, eggs, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Feed', this, feeder, 'Lay Eggs', this, eggs, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			$log.info( 'falling through gobboAssassinRapeIntro' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	GoblinAssassinScene.prototype.giveGoblinAMilkMustache = function() {
@@ -291,7 +291,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		//You've now been milked, reset the timer for that;
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	GoblinAssassinScene.prototype.gobboButtSecks = function() {
 		MainView.spriteSelect( 24 );
@@ -319,7 +319,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( ' smacking her plump rump with each thrust, as if to tease her.\n\n', false );
 		MainView.outputText( 'The tight confines of the goblin\'s asshole prove too much for you. Your body convulses wildly as you unload a massive load in her. Spent, you throw the little whore onto the ground; you have no further use for her at the moment.\n\n', false );
 		MainView.outputText( 'As you pick up your ' + CoC.player.armorName + ' and begin to get dressed, you glance at the goblin. Her hands began to dig in her now stretched out anus, desperately trying to gather up the cum you deposited in her. Smirking, you walk away nonchalantly, quite pleased with yourself.', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 	};
 	//[FEMSAUCE];
@@ -337,7 +337,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			MainView.outputText( 'You can\'t see what she\'s doing but her struggling soon stops as the flavor and scent trigger her to lick. You tremble; it feels WAY better than it should. Perhaps some of her potions have left a residue on her lips and tongue, but you don\'t care. You put even more of your considerable weight onto the little slut as your hind legs go weak from pleasure. She reacts by sliding her hands up and pounding on your ' + Descriptors.clitDescript() + ', trying to get you off of her.\n\n', false );
 			MainView.outputText( 'Her efforts are rewarded as you cum on the drugged green bitch, leaving the taste of pussy on her tongue. Her face has a strange dopey smile on it, and she looks like she\'s in some strange state in between consciousness and sleep. You watch as she twitches and writhes on the ground, gasping for air and orgasming repeatedly. While at first you\'re worried, the convulsions start to slow down; the little twat ought to be fine.\n\n', false );
 			MainView.outputText( 'You casually dress, ignoring the pants and moans from the blissed-out goblin, and prepare to leave. Taking one last look over your shoulder, you realize her fluids have made a puddle bigger than her. She\'ll probably have a hell of a hangover when she wakes up. You sigh and trot off, feeling a bit guilty about overdoing it.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 		}
 		//Goblin victory rape, female naga:;
@@ -375,7 +375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			MainView.outputText( 'You hear a muffled yell of "<i>YOU GOT IT BOSS!</i>" as she starts licking and gently chewing at you. The feeling is wonderful and you can\'t help but wonder what was in the vial, but the thought is wiped from your mind as you cum, spraying all over her.\n\n', false );
 			MainView.outputText( 'You orgasm repeatedly, the goblin not tiring and the residue of the various substances you poured into her still coating her lips and tongue, making you not feel like stopping. Eventually you grow tired, releasing the goblin from your coils. She lands on her feet, does a pirouette, runs about the clearing for a bit (all while giggling like a madwoman), then collapses face first onto her \'clothes\'.\n\n', false );
 			MainView.outputText( 'Thoroughly confused about what just happened, you decide not to test fate by sticking around near the heavily drugged creature and make for camp as soon as you\'ve grabbed your things.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 		} else {
 			MainView.outputText( ImageManager.showImage( 'goblin-win-female-rapedfem' ) );
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			} else {
 				MainView.outputText( 'thoroughly satisfied with your revenge.', false );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 		}
 	};
@@ -537,7 +537,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( '\n\nShe absolutely will.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//(TOO BIG – pin the bitch to the ground with your cock, coat it in her potions, and make her lick it clean, then blow your load in her mouth, possible cum inflation.);
 	GoblinAssassinScene.prototype.manRapesGoblinTooBig = function() {
@@ -592,7 +592,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( 'The green slut seems to handle it pretty well, even going so far as to scoop up your spunk and rub it into her cunt as she masturbates.  She licks her lips as she watches you redress, a sultry smile on her cum-painted face, "<i>You tasted as good as I thought stud!  Maybe shrink that bad-boy down and come visit me for a better visit next time ok?  Hopefully by then all this baby batter I\'m cramming into my box will give me a nice belly for you to rub!</i>"\n\n', false );
 		MainView.outputText( 'You shake your head and leave, somewhat drained and relieved by the experience.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[DUDEGASM];
 	GoblinAssassinScene.prototype.gobboGetsRapedMaleFits = function() {
@@ -717,7 +717,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 			}
 			MainView.outputText( ', you make your way back to camp, satisfied.', false );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 	};
 
@@ -741,7 +741,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( 'As you feel the tickling heat of your orgasm worming its way into your veins, you lean down, putting your weight into every uterus-filling movement while the goblin sputters and screeches her approval, toes curling in your hands. You release her legs to grab the goblin slut\'s thin waist with both hands and slam against her jutting ass one last time before liquid heat pours from your ' + Descriptors.cockDescript( x ) + ' in thick streams of potent seed. At the cresting grunt, she wraps her legs around your ' + Descriptors.buttDescript() + ', locking her ankles and using her sore legs to pull your gushing prick as deeply into her fertile loins as possible and keep you there. Rocking against her, you rub her head and breasts through the mud one last time as your loads fill her tummy with the ejaculate she so craved, her narrow belly bulging at the weight of your jizz. You take a moment longer to enjoy the clenching, pulsing depths of the cum dumpster before sliding out an inch and taking hold of the loose strand you left in your secret cock-shawl. Pulling carefully, you unravel the delicate outer layer, leaving only the sticky strands covering the inner, juice-filled sheath. With a short bark of laughter, you pull out of the whorish girl, the spider silk condom sealing as your tip slides out. Then, wresting her feet apart, you unceremoniously dump her to the ground.\n\n', false );
 		MainView.outputText( 'Squirming right-side up, covered in sweat and mud, the emerald girl\'s face screws into an expression of confusion as she pokes at the bulge of her abdomen. "What... that doesn\'t feel right," she mumbles, pushing at her skin with both hands. Checking her cunny with a long, middle finger, she pulls it out clean, devoid of the ivory cream she expected. "The fuck? A condom?" she screeches. "You bastard!" Pushing at her belly with increasingly frantic motions, her mouth gapes when the seed-loaded balloon bounces right back, still intact. "Why won\'t it burst?" she demands. You politely inform her that spider silk is terribly strong and oh so sticky. Reaching her fingers into her slit, she tries to pull it out and gasps at the feeling of her inner walls being pulled by the clinging webbing. Despite her best effort, the silk bubble stays right where you left it, snugly glued in place by your binding webbing. You laugh and wish her luck trying to get it out as you gather your clothes and walk away. So full of cum and yet unable to get any of it into her womb, the goblin girl moans helplessly, fingering herself in desperation, as if her orgasm could dislodge the treasure you\'ve left inside of her.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//REQUIRES: AT LEAST ONE DICK AND A COPY OF ATLAS SHRUGGED - MUST NOT BE MONSTROUSLY HUGE;
 	GoblinAssassinScene.prototype.gatsGoblinBoners = function() {
@@ -793,7 +793,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( '.  You slowly release yourself from her tight body, finishing off by covering her curved back and pert rump with the rest of your seed.\n\n', false );
 		MainView.outputText( 'You pick yourself back up, jerking yourself slowly as cum dribbles from your ' + Descriptors.cockDescript( x ) + ' onto the collapsed body of the goblin.  It\'ll be awhile before she comes back to consciousness, but you\'re certain she\'ll have a better appreciation for sex when she does.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	GoblinAssassinScene.prototype.laySomeDriderEggsInGobboTwat = function() {
 		MainView.clearOutput();
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $log, MainView, ImageManager,
 		MainView.outputText( '\n\nLaying her down in the shade, you put your clothes back on, glad to be free of the extra weight and ready to continue your adventure.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'goblinAssassinScene', new GoblinAssassinScene() );
 } );

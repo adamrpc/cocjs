@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, ConsumableLib, Combat, Harpy ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, EngineCore, kFLAGS, PerkLib, ConsumableLib, Harpy ) {
 	function HighMountains() {
 	}
 	//Explore High Mountain
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 		//Generic harpy
 		if( chooser === 0 ) {
 			MainView.outputText( 'A harpy wings out of the sky and attacks!', true );
-			Combat.startCombat( new Harpy() );
+			SceneLib.combatScene.startCombat( new Harpy() );
 			MainView.spriteSelect( 26 );
 			return;
 		}
@@ -81,7 +81,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, E
 			if( CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00282 ] > 0 || CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] > 0 ||
 				SceneLib.sophieFollowerScene.sophieFollower() ) {
 				MainView.outputText( 'A harpy wings out of the sky and attacks!', true );
-				Combat.startCombat( new Harpy() );
+				SceneLib.combatScene.startCombat( new Harpy() );
 				MainView.spriteSelect( 26 );
 			} else {
 				if( CoC.flags[ kFLAGS.MET_SOPHIE_COUNTER ] === 0 ) {

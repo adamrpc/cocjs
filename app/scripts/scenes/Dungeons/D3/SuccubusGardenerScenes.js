@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, Combat, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors, Utils, StatusAffects, CockTypesEnum, AppearanceDefs, CoC, EngineCore ) {
 	function SuccubusGardenerScenes() {
 	}
 
@@ -148,14 +148,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, Descriptors
 		MainView.outputText( 'You circle behind her an put and end to her evil while she is busy with her pet, then turn to walk away. When you look back over your shoulder, her body is gone. Nothing remains but an empty pathway.' );
 		CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_KILLED;
 		MainView.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.leaveHer = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Figuring that the succubus\'s pets can keep her busy indefinitely, you turn away. A shriek of pleasure draws your attention back, and you turn in time to see dozens of coiling, leafy masses encircling her every limb, bodily carrying her into a wall of twisting, leaking cocks and pussies. Her orifices are stuffed with pumping lengths that froth with spit and girlcum, and her eyes, equal parts alarmed and aroused, widen before disappearing into the forest of green.' );
 		CoC.flags[ kFLAGS.D3_GARDENER_DEFEATED ] = GARDENER_LEFT;
 		MainView.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	SuccubusGardenerScenes.prototype.surrenderToTheGardener = function( hpVictory ) {
 		// Male;

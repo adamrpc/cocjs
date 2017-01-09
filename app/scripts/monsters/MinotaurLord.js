@@ -41,13 +41,13 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView,
 			MainView.outputText( '\n\nThe minotaur glares at you and snorts, obviously pissed at not getting his serving...' );
 			this.addStatusValue( StatusAffects.MinoMilk, 1, 1 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MinotaurLord.prototype.minotaurDisarm = function() {
 		MainView.outputText( 'The giant of a minotaur raises his chain threateningly into the air, clearly intent on striking you down.  With your trained reflexes, you quickly move to block his blow with your halberd.  You recoil as the chain impacts your halberd with a loud clang, wrapping around it.  You smile triumphantly at the minotaur, only to glance at his smirk.  With a strong pull, he rips the halberd off your hands and into a corner of the room. Shit!' );
 		MainView.outputText( '\n\nThe succubus laughs maniacally.  "<i>Good boy, Fido!  Take that fox slut\'s toys away so she\'ll be easier to play with!</i>"  The minotaur puffs his chest, proud of himself for pleasing his mistress.' );
 		CoC.player.setWeapon( WeaponLib.FISTS );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MinotaurLord.prototype.minotaurLordEntangle = function() {
 		MainView.outputText( 'The minotaur lord lashes out with his chain, swinging in a wide arc!\n' );
@@ -61,7 +61,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView,
 			MainView.outputText( '\n\n<b>You\'re tangled up in the minotaur lord\'s chain, and at his mercy, unless you can break free!</b>' );
 			this.createStatusAffect( StatusAffects.MinotaurEntangled, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MinotaurLord.prototype.minotaurCumPress = function() {
 		MainView.outputText( 'The minotaur lord tugs on the end of the chain, pulling you toward him, making you spin round and round so many times that you\'re dazed and dizzy.  You can feel the links coming free of your fur, and the closer you get, the more freedom of movement you have.  Yet, the dizziness makes it hard to do anything other than stumble.  You splat into something wet, sticky, and spongy.  You gasp, breathing a heavy gasp of minotaur musk that makes your head spin in a whole different way.  You pry yourself away from the sweaty, sperm-soaked nuts you landed on and look up, admiring the towering horse-cock with its three-rings of pre-puce along its length.  A droplet of pre-cum as fat as your head smacks into your face, staggering you back and dulling your senses with narcotic lust.' );
@@ -77,7 +77,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView,
 			MainView.outputText( ' your cock has become.  You want another taste...' );
 		}
 		this.removeStatusAffect( StatusAffects.MinotaurEntangled );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MinotaurLord.prototype.minotaurPrecumTease = function() {
 		MainView.outputText( 'The minotaur smiles at you and lifts his loincloth, flicking it at you.  Thick ropes of pre-cum fly through the air in a swarm,' );
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurLord', function( SceneLib, MainView,
 		} else {
 			MainView.outputText( '  <b>You groan and lick your lips over and over, craving the taste of him in your mouth.</b>' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MinotaurLord.prototype.defeated = function() {
 		MainView.clearOutput();

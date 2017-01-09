@@ -17,7 +17,7 @@ angular.module( 'cocjs' ).factory( 'Zetaz', function( SceneLib, MainView, CockTy
 	Zetaz.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem put off enough to care...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.dungeon2Supplimental.loseToZetaz();
 		}

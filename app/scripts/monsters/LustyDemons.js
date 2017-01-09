@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, MainView, EngineCore, CockTypesEnum, StatusAffects, CoC, Monster, Utils, AppearanceDefs, Combat ) {
+angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, MainView, EngineCore, CockTypesEnum, StatusAffects, CoC, Monster, Utils, AppearanceDefs ) {
 	function LustyDemons() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, MainView, 
 		this.str = 80;
 		this.weaponAttack = 40;
 		this.eAttack();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	LustyDemons.prototype.defeated = function() {
 		SceneLib.owca.defeetVapulasHorde();
@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, MainView, 
 	LustyDemons.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe demons smile to one at another as they watch your display, then close in...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			CoC.scenesgetInstance().scenes.owca.loseOrSubmitToVapula();
 		}
@@ -77,8 +77,8 @@ angular.module( 'cocjs' ).factory( 'LustyDemons', function( SceneLib, MainView, 
 		that.temperment = Monster.TEMPERMENT_LOVE_GRAPPLES;
 		that.level = 14;
 		that.gems = 150 + Utils.rand( 100 );
-		that.special1 = Combat.packAttack;
-		that.special2 = Combat.lustAttack;
+		that.special1 = EngineCore.createCallBackFunction( SceneLib.combatScene, SceneLib.combatScene.packAttack );
+		that.special2 = EngineCore.createCallBackFunction( SceneLib.combatScene, SceneLib.combatScene.lustAttack );
 		that.tailType = AppearanceDefs.TAIL_TYPE_DEMONIC;
 		that.hornType = AppearanceDefs.HORNS_DEMON;
 		that.horns = 2;

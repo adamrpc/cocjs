@@ -46,7 +46,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 				}
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//[SPECIAL] – Whip Binding;
 	Ceraph.prototype.ceraphSpecial2 = function() {
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 				EngineCore.dynStats( 'lus', 5 + CoC.player.cor / 10 + CoC.player.lib / 20 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(Struggle);
 	Ceraph.prototype.ceraphBindingStruggle = function() {
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			}
 			MainView.outputText( '!', false );
 			CoC.player.removeStatusAffect( StatusAffects.Bound );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		} else {
 			MainView.outputText( 'Despite your frantic struggling, all you manage to do is chafe against her impressively taut leather whip.', false );
@@ -138,7 +138,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			this.lust = 33;
 			EngineCore.dynStats( 'lus', 3 );
 			MainView.outputText( '\n', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		var damage = 0;
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			if( CoC.player.spe - this.spe < 8 ) {
 				MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!', false );
 			}
@@ -162,9 +162,9 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( Combat.combatMisdirect( 15 ) ) {
 			MainView.outputText( 'With Raphael\'s teachings and the easy movement afforded by your bodysuit, you easily anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			if( CoC.player.spe - this.spe < 8 ) {
 				MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s ' + this.weaponVerb + '!', false );
 			}
@@ -215,9 +215,9 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
-		} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		} else if( Combat.combatMisdirect( 15 ) ) {
 			MainView.outputText( 'With Raphael\'s teachings and the easy movement afforded by your bodysuit, you easily anticipate and sidestep ' + this.a + this.short + '\'s attack.', false );
 		} else {
 			//Determine damage - str modified by enemy toughness!;
@@ -249,7 +249,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Ceraph.prototype.performCombatAction = function() {
 		var choice = Utils.rand( 4 );
@@ -284,7 +284,7 @@ angular.module( 'cocjs' ).factory( 'Ceraph', function( MainView, $log, SceneLib,
 	Ceraph.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.ceraphScene.loseFUCKME();
 		}

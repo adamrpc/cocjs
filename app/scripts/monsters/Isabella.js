@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
+angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, kFLAGS, MainView, PerkLib, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore ) {
 	function Isabella() {
 		this.init(this, arguments);
 	}
@@ -15,19 +15,19 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You throw yourself out of the way with cat-like agility at the last moment, avoiding her attack.\n', false );
 		} else {
 			var damage;
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 				MainView.outputText( 'She\'s coming too fast to dodge, and you\'re forced to try to stop her.  It doesn\'t work.  Isabella\'s shield hits you hard enough to ring your ears and knock you onto your back with bruising force. (' + damage + ')\n', false );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Isabella.prototype.isabellaStun = function() {
 		//[Stunning Impact];
@@ -49,19 +49,19 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
 		} else {
 			var damage = 0;
@@ -78,7 +78,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 				CoC.player.createStatusAffect( StatusAffects.IsabellaStunned, 0, 0, 0, 0 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Isabella.prototype.isabellaThroatPunch = function() {
 		MainView.outputText( 'Isabella punches out from behind her shield in a punch aimed right at your throat!  ', false );
@@ -87,19 +87,19 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 			MainView.outputText( 'Isabella blindly tries to charge at you, but misses completely.\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You duck aside at the last moment, relying entirely on your speed.\n', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'You easily evade her incredibly linear attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'You easily misdirect her and step aside at the last moment.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You bend backward with cat-like agility to avoid her attack.\n', false );
 		} else {
 			var damage;
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 				CoC.player.createStatusAffect( StatusAffects.ThroatPunch, 2, 0, 0, 0 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//[Milk Self-Heal];
 	Isabella.prototype.drankMalkYaCunt = function() {
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 		this.HP += 100;
 		this.lust += 5;
 		EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 20) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Isabella.prototype.performCombatAction = function() {
 		//-If below 70% HP, 50% chance of milk drinking;
@@ -146,10 +146,13 @@ angular.module( 'cocjs' ).factory( 'Isabella', function( SceneLib, MainView, Per
 	Isabella.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\n"<i>Ick,</i>" Isabella tuts as she turns to leave...' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.isabellaScene.isabellaDefeats();
 		}
+	};
+	Isabella.prototype.changeAffection = function( val ) {
+		CoC.flags[kFLAGS.ISABELLA_AFFECTION] = Math.max( CoC.flags[kFLAGS.ISABELLA_AFFECTION] + val, 0);
 	};
 	Isabella.prototype.init = function( that, args ) {
 		Monster.prototype.init( that, args );

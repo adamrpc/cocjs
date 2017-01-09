@@ -15,7 +15,7 @@
  */
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, StatusAffects, ConsumableLib, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Clara, StatusAffects, ConsumableLib, Descriptors, CoC, kFLAGS, Utils, EngineCore ) {
 
 	function MarblePurification() {
 	}
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, Clara, Stat
 
 	};
 	MarblePurification.prototype.startCombatWithMarbleSister = function( inCamp ) {
-		Combat.startCombat( new Clara() );
+		SceneLib.combatScene.startCombat( new Clara() );
 		CoC.player.createStatusAffect( StatusAffects.NoFlee, 0, 0, 0, 0 );
 		if( (inCamp === undefined || inCamp) && !CoC.player.findStatusAffect( StatusAffects.ClaraFoughtInCamp ) ) {
 			CoC.player.createStatusAffect( StatusAffects.ClaraFoughtInCamp, 0, 0, 0, 0 );

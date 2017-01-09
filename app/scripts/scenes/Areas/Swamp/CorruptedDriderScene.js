@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, AppearanceDefs, UseableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, AppearanceDefs, UseableLib, StatusAffects, Appearance, Utils, PregnancyStore, kFLAGS, CoC, EngineCore, Descriptors ) {
 	function CorruptedDriderScene() {
 	}
 
@@ -37,7 +37,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 			MainView.outputText( 'You\'ve yet to meet a wild drider that let you walk away without some sadistic display of power, and this one looks to be no different.', false );
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00277 ]++;
-		Combat.startCombat( drider );
+		SceneLib.combatScene.startCombat( drider );
 	};
 
 	//*Victory Intro: (done);
@@ -96,9 +96,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		if( CoC.player.lust >= 33 ) {
 			MainView.outputText( '\n\nWhat do you do?', false );
 			EngineCore.choices( 'Butt Fuck', this, buttFuckBUTTFUCKBUTTTFUCKBUTTFUCK, 'Fuck Pussy', this, vagFuck, 'Bondage Fuck', this, careful, 'FuckSpinner', this, fuckSpinner, 'Ride Cock', this, rideCock,
-				'Ride Ovi', this, rideOvi, 'RideOviAnal', this, rideOviAss, '', null, null, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
+				'Ride Ovi', this, rideOvi, 'RideOviAnal', this, rideOviAss, '', null, null, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Lose to drider;
@@ -301,7 +301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		CoC.monster.HP = 2;
 		CoC.player.lust = 100;
 		CoC.flags[ kFLAGS.COMBAT_BONUS_XP_VALUE ] = CoC.monster.XP;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 	};
@@ -342,7 +342,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Victory Rape: Ride Ovi Vaginal (done);
 	CorruptedDriderScene.prototype.victoryVSDriderRideOviVaginal = function() {
@@ -414,7 +414,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//*Victory Rape: Ride Ovi Anal sex-insenitive (done);
@@ -539,7 +539,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		CoC.player.slimeFeed();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Victory Spinneret Penetration - written by Sham (done);
 	//(please view the spinneret as a spider-horsecock because for all intents and purposes that is really what it is) - shambadibs (1.5-inch width max because i'm racist against buur-bous american penis) (also probably a corruption minimum this is a pretty dick move) (I GET IT);
@@ -602,7 +602,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		MainView.outputText( 'Your lust sated, you disengage from her with a little pop, leaving her to lick her lips happily and groan unintelligible babble.  You wipe your ' + Descriptors.cockDescript( x ) + ' off on her hair to clean it off a bit, then redress and head out.  With a glance at the snoozing drider over your shoulder, you head out of the smelly swamp and start back towards camp.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Loss Ride Ovi Anal unsexed - gats (done);
 	CorruptedDriderScene.prototype.loseVSDriderGetAnalledOvi = function() {
@@ -663,7 +663,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		//(slimefeed, set lust to 100?);
 		CoC.player.slimeFeed();
 		EngineCore.dynStats( 'sen', 1, 'lus', 800, 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Loss Vaginal Impregnation and forced BJ - Symphonie (done);
 	CorruptedDriderScene.prototype.loseVSDriderAndVaginallyImpreggleOvi = function() {
@@ -765,7 +765,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_DRIDER_EGGS, PregnancyStore.INCUBATION_DRIDER, 151 );
 		EngineCore.dynStats( 'lib', 1, 'lus=', 100, 'cor', 1 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Loss Ride & Impregnate Butt (done);
 	CorruptedDriderScene.prototype.loseVSDriderAndGetFuckedANDAnalImpreggegity = function() {
@@ -818,7 +818,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 		CoC.player.buttKnockUp( PregnancyStore.PREGNANCY_DRIDER_EGGS, PregnancyStore.INCUBATION_DRIDER - 200, 10 ); //Butt pregnancy goes faster
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1, 'cor', 0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Asspreg egg 'birth': (done);
 	//Summary: what goes up must come down;
@@ -931,7 +931,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 			MainView.outputText( '\n\n(Driders butt-sex is awesome.)', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	CorruptedDriderScene.prototype.driderVagSmartFuck = function() {
@@ -1072,7 +1072,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CorruptedDrider, Ap
 			MainView.outputText( '\n\nHer newly freed hands slowly move to yours, taking hold of them gently and pressing them against her taut belly.  Your brow furrows in confusion for a second, before a flash of understanding rushes through your head; she seems to think that she\'s pregnant!  Then again, considering how pent up you were before you finally flooded her, maybe she\'s not far wrong.  Though a little taken aback by the realization, you start to rub her stomach softly, watching as the apparent mother-to-be closes her eyes and rests her head against the tree, cooing happily at your touch.  You stay with her for a while, until she falls asleep again and reluctantly ready yourself to head back to camp, smiling softly at her contented expression.' );
 		}
 		//Plus gems and such;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'corruptedDriderScene', new CorruptedDriderScene() );
 } );

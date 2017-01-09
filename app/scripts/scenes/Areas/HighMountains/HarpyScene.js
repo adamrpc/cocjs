@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kFLAGS, Combat, Descriptors, Utils, AppearanceDefs ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kFLAGS, Descriptors, Utils, AppearanceDefs ) {
 	function HarpyScene() {
 	}
 
@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		}
 		//Genderless get nothing.
 		if( CoC.player.gender === 0 ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		var eggs = null;
@@ -50,11 +50,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		if( CoC.player.lust >= 33 ) {
 			MainView.outputText( '  What do you do to her?', false );
 			EngineCore.choices( 'Anal', this, anal, 'Oral', this, this.WinOnHarpyAndOralRape, 'Pussy', this, pussy, 'Scissor', this, scissor, 'Lay Eggs', this, eggs,
-				'Clit Fuck', this, clitFuck, '', null, null, '', null, null, '', null, null, 'Nothing', null, Combat.cleanupAfterCombat );
+				'Clit Fuck', this, clitFuck, '', null, null, '', null, null, '', null, null, 'Nothing', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 		//Not horny?  Iz over
 		else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	HarpyScene.prototype.harpyLossU = function() {
@@ -66,7 +66,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		//Genderless people get boned
 		if( CoC.player.gender === 0 && CoC.player.isGoo() ) {
 			this.harpyGooGenderlessLoss();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//Dick that fits or has cunt
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		//No fitu
 		else {
 			MainView.outputText( 'Though you\'ve been defeated by the harpy, it doesn\'t seem she wants anything to do with you, and gives you a whack upside your head before departing.', true );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	HarpyScene.prototype.harpyGooGenderlessLoss = function() {
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 			MainView.outputText( 'The ground rapidly aproaches, but the harpy fucking you doesn\'t even seem to notice. She simply continues to dry hump, a stupored stare of sex in her eyes. You try to alert her, but as she starts squeezing your cock within the hawk-like confines of her birdhole, she doesn\'t even attempt to flap her wings. With just a few feet remaining, you finally orgasm and release your load into her eager cunt, yelling and flailing your arms as textured details of the mountain\'s granite ground rushes towards you. As you fill her up with your last desperate throes, it seems to do it for the bird-lady. With the last ten feet remaining, she disconnects, spreads her wings and uses the velocity to tumble forcefully and hurl you away horizontally. With a faint arc, you skip across the floor for over a dozen feet.\n\n', false );
 			MainView.outputText( 'In your last conscious moment before you pass out from the hit, you hear the harpy sisters cackling above you.', false );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 	};
@@ -309,7 +309,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		}
 		MainView.outputText( 'After a few hours, when you wake, every muscle in your body is aching as though you\'ve just run a marathon. Looking down at your ' + CoC.player.legs() + ' in a weary haze, you see signs that even after you\'d blacked out, your body had continued to be abused by the three lust-crazed harpies.', false );
 		EngineCore.fatigue( 20 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'str', -1, 'tou', -1, 'lib', 1, 'sen', 2 );
 	};
@@ -404,7 +404,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		MainView.outputText( 'She screams, and thrusts her fat rear back against you, its impact cushioned by the sheer amount of meat on her wide hips.\n\n', false );
 		MainView.outputText( 'For what seems like hours the pair of you go on, the harpy screaming in ecstasy as she cums over and over again, spattering obscene amounts of sticky feminine cum onto your ' + CoC.player.legs() + '. The slippery cum coats the ground beneath you, covering a wider and wider area as your brutal pounding becomes more and more intense.  Finally you throw your head back, scream out in orgasm and pump the whining, quivering harpy girl\'s love tunnel full of your hot, sticky cum.  You keep thrusting yourself in and out to get as much of that hard, grueling pleasure as you can out of her sweet, plump bottom.  It bounces against your crotch each time, as though you were fucking a pair of warm velvet pillows...\n\n', false );
 		MainView.outputText( 'Once your flow of seed subsides, you pull free of the fat-reared harpy.  She collapses into an orgasm-wracked pile on the ground, her plump ass and tender thighs waving in the air for whomever comes along after you.  You wipe yourself down and continue on your way, pleased with the brutal fuck and looking forward to your NEXT encounter...', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 	};
 	HarpyScene.prototype.winAndRapeHarpyAnally = function() {
@@ -471,7 +471,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		MainView.outputText( 'submitting to your will. Growling, you start to fuck her in earnest and grab a handful of her squishy rear in each hand, pounding her up and down on your ' + Descriptors.cockDescript( x ) + '. Though the harpy has collapsed, her body is still panicking, forcing her rough inner passage to clutch and massage your shaft, feeling harsh and grating, but oh-so wonderful! Pathetic squawks and trills of pain escape her golden lips as you roughly pound her tender ass, and her hips pound back against you, ass bouncing on your lap with a dull SLAP every time, which spatters pre-cum across your legs as well as her enormous thighs.\n\n', false );
 		MainView.outputText( 'Throwing your head back and crying out in sheer lust-consumed ecstasy, you hilt your ' + Descriptors.cockDescript( x ) + ' deep inside her thick, tight anus, releasing a flood of hot, sticky seed into her butt. The sudden surge of cum into her rough depths causes the exhausted harpy to tense up once more, and she releases a second, more pathetic wave of her fluids, a little less than last time. Her creamy feminine cum leaks out over your thighs as you lock with her. Your eyes roll back from the intensity of your orgasm, and you bite down on your bottom lip; for what seems like weeks you cum into her plump rump, her hands pressed on your chest as if trying to push you away. Eventually, your flow subsides, and the harpy collapses on top of you, sound asleep.\n\n', false );
 		MainView.outputText( 'Still leaking seed, you pull free of her gaping ass, and dump the worthless bird-slut on the floor in a heap. Passed out and woefully exposed, her lush holes await whatever horny beast or demon will come alone after you.', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 	};
 
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		CoC.monster.HP = 2;
 		CoC.player.lust = 100;
 		CoC.flags[ kFLAGS.COMBAT_BONUS_XP_VALUE ] = CoC.monster.XP;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1 );
 	};
@@ -654,7 +654,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		MainView.outputText( '\n\nEventually, your body too drained to continue, you stop and release the harpy\'s cheeks, letting her ass drop back down onto the drenched rock.  You pant heavily, lying back and giving yourself a few minutes to recover before disentangling from her body.  Your strength slowly returns to you and you start to don your armor once more, readying yourself for the trip back to camp.  You\'re glad you didn\'t leave your [armor] too close, considering how wet the floor managed to become during your interlude.  It seems as though it\'ll still get drenched though, considering how your thighs are soaked and your pussy[if (isHerm = true)  and your slightly sore cock] still oozes copiously from the ridiculously energetic session, but apparently it was all too much for the harpy who has now curled up and started snoring gently on the rocky ground.  Her lower body is utterly soaked, the feathers matted together with your shared juices, and her rear still has bright red handprints where you were holding her as you rode out your climax.[if (isHerm = true)   Her tits are also covered with fluid, white jizz starting to drip its way down her body towards the already overwhelming puddle of femspunk on the floor.]  You even catch a glimpse of her pussy between her thick thighs, smirking at how it continues to quiver and leak slightly, still enjoying the aftershocks of her last climax.' );
 		MainView.outputText( '\n\nYou smile to yourself as you grab a few gems from the slumbering girl, making a mental note to visit the mountains again sometime.' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	HarpyScene.prototype.spoidahsLegEggsInHarpeis = function() {
 		MainView.clearOutput();
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 		MainView.outputText( '\n\nFinally relieved of your uncountable eggs, you pull out of your surrogate, ovipositor retracting, and watch as she slowly slides down the boulder face; she comes to rest on her knees, feathered arms wrapping around her swollen midsection.  The harpy looks back at you, her eyelids drooping as her breathing slows, and you lean in to give her a quick kiss on the cheek before you suit up and head back to camp.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Fuck a harpy with the players throbbing clit.
 	HarpyScene.prototype.clitFuckAHarpy = function() {
@@ -750,14 +750,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, EngineCore, CoC, kF
 			CoC.monster.HP = 2;
 			CoC.player.lust = 100;
 			CoC.flags[ kFLAGS.COMBAT_BONUS_XP_VALUE ] = CoC.monster.XP;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 0.5, 'sen', -1 );
 		} else {
 			MainView.outputText( ' the harpy\'s eyes close, and she slips into unconsciousness.  You give her round bottom a little pat before you depart, still shivering from the cascades of pleasure it brought you.' );
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'sen', -1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	SceneLib.registerScene( 'harpyScene', new HarpyScene() );

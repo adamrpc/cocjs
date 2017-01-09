@@ -45,7 +45,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, MainView, Naga,
 		//Miss:;
 		if( Utils.rand( 10 ) === 0 ) {
 			MainView.outputText( '  You blink and shake yourself free of the effects of the snake-man\'s penetrating gaze.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 		//Hit (Blind):;
 		if( this.findStatusAffect( StatusAffects.Blind ) ) {
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, MainView, Naga,
 			MainView.outputText( '  Those pools of yellow suck you into their golden depths, making you forget all your worries, if only for an instant.  All you can focus on is your growing arousal as you sink deeper into his gaze.  You shake your head, clearing your mind of the hypnotising effects the snake-man\'s eyes seem to possess, though the arousal remains.' );
 			EngineCore.dynStats( 'lus', (10 + CoC.player.lib / 7 - CoC.player.inte / 20) );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Sirius.prototype.nagaSpitAttack = function() {
 		MainView.outputText( 'Hissing loudly, Sirius suddenly curls his lips and spits at your eyes!  ' );
@@ -70,20 +70,20 @@ angular.module( 'cocjs' ).factory( 'Sirius', function( SceneLib, MainView, Naga,
 		else {
 			MainView.outputText( 'You quickly lean to the side, narrowly avoiding being blinded by the snake-man\'s spit!' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Sirius.prototype.poisonBite = function() {
 		MainView.outputText( 'With a loud and vicious hiss, Sirius suddenly lunges at you, mouth distended impossibly wide and revealing four needle-like fangs dripping with venom!  ' );
 		//Miss:;
 		if( Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			MainView.outputText( 'You dodge just in the nick of time, and deliver a punishing blow with the butt of your halberd as Sirius soars past, forcing him to slither past you to make himself ready to defend himself again.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 		//Hit:;
 		MainView.outputText( 'The snake-man moves too quickly for you to evade and he sinks long fangs into your flesh, leaving a wound that burns with horrific pain.' );
 		var damage = CoC.player.takeDamage( 40 + Utils.rand( 20 ) );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Sirius.prototype.defeated = function() {
 		SceneLib.urtaQuest.urtaBeatsUpSiriusRadio();

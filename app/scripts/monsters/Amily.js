@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, Combat, EngineCore, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, MainView, CoC, Monster, Utils, StatusAffects, Appearance, AppearanceDefs, EngineCore, Combat ) {
 	function Amily() {
 		this.init(this, arguments);
 	}
@@ -26,23 +26,23 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			dodged = 1;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			dodged = 2;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			dodged = 3;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			dodged = 4;
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(Special Attacks);
 	//-Double Attack: Same as a normal attack, but hits twice.;
@@ -111,19 +111,19 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 			dodged++;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			dodged++;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			dodged++;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			dodged++;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			dodged++;
 		}
 		//Get hit!;
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 			MainView.outputText( 'Amily dashes at you and quickly slashes you twice, but you quickly sidestep her first blow and jump back to avoid any follow-ups.', false );
 		}
 
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//-Poison Dart: Deals speed and str damage to the PC. (Not constant);
 	Amily.prototype.amilyDartGo = function() {
@@ -162,23 +162,23 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 		//Blind dodge change;
 		if( this.findStatusAffect( StatusAffects.Blind ) && Utils.rand( 3 ) < 2 ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack from her dartgun!\n', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			dodged = 1;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			dodged = 2;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 15 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect( 15 ) ) {
 			dodged = 3;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 15 ) {
+		if( Combat.combatFlexibility( 15 ) ) {
 			dodged = 4;
 		}
 		//Dodged;
@@ -231,13 +231,13 @@ angular.module( 'cocjs' ).factory( 'Amily', function( SceneLib, CoC_Settings, Ma
 				CoC.player.takeDamage( 8999 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Concentrate: always avoids the next attack. Can be disrupted by tease/seduce.;
 	Amily.prototype.amilyConcentration = function() {
 		MainView.outputText( 'Amily takes a deep breath and attempts to concentrate on your movements.', false );
 		this.createStatusAffect( StatusAffects.Concentration, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(if PC uses tease/seduce after this);
 	//Deals big lust increase, despite her resistance.;

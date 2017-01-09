@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMob, ConsumableLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMob, ConsumableLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	function KihaFollower() {
 	}
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( '"<i>Bullshit!  You\'re working for the demons!</i>" she howls.  "<i>First you try and make me go soft, tell me I don\'t need to fight, and then suddenly you\'re sneaking into my home.  Well, no more!</i>"  Her axe swings around to point straight at you.  "<i>I\'ve killed the Demon Queen\'s agents before, and if I have to, I\'ll kill you too, ' + CoC.player.short + '!</i>"\n\n', false );
 		MainView.outputText( 'The dragoness charges through her wall of fire, screaming with rage and swinging her deadly axe!\n\n', false );
 		MainView.outputText( 'You\'re fighting Kiha!', false );
-		Combat.startCombat( new Kiha() );
+		SceneLib.combatScene.startCombat( new Kiha() );
 		//Flag this status to differentiate what happens on defeat or loss!;
 		CoC.monster.createStatusAffect( StatusAffects.spiderfight, 0, 0, 0, 0 );
 	};
@@ -97,7 +97,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( 'Before the drider can cast Kiha into the mob, you leap, jabbing into the pale spider-morph\'s temple with every ounce of muscle you can manage.  Staggered by your blow, the drider drops Kiha at your feet and stumbles back.  The other members of the mob, however, continue to advance around their stunned leader.\n\n', false );
 		MainView.outputText( '"<i>You!</i>" Kiha snaps, tearing the webs away and grabbing her axe, "<i>Why the hell did you do that?</i>"\n\n', false );
 		MainView.outputText( '"<i>Talk later!</i>" you answer.\n\nYou\'re now fighting the spider horde!', false );
-		Combat.startCombat( new SpiderMorphMob() );
+		SceneLib.combatScene.startCombat( new SpiderMorphMob() );
 		//(Proceed to Spider Horde Combat);
 		//Set first round cover;
 		CoC.monster.createStatusAffect( StatusAffects.MissFirstRound, 0, 0, 0, 0 );
@@ -114,7 +114,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( '"<i>Thank you, stranger,</i>" the drider says, surprisingly cordial.  "<i>This bitch has been a thorn in the side of the swamp\'s people for some time.  We will teach her a lesson she won\'t soon forget.</i>"\n\n', false );
 		MainView.outputText( 'Before you can answer, the drider has grabbed her own cock and shuffled into the maelstrom of sexual energy now surrounding Kiha.  You laugh and gather your belongings, and hit the road.  Maybe that\'ll teach the bitch for trying to fuck with YOU.', false );
 		//(Kiha's State becomes Shaken);
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Help Kiha (Z);
 	KihaFollower.prototype.helpKihaAgainstSpoidahs = function() {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		}
 		MainView.outputText( ' any logic into her obtuse head, you simply haul Kiha to her feet and toss her the axe before turning to the onrushing foes.\n\n', false );
 		//(Proceed to Spider Horde Combat);
-		Combat.startCombat( new SpiderMorphMob() );
+		SceneLib.combatScene.startCombat( new SpiderMorphMob() );
 		//st - say, 100 hp, -30 fatigue, and -40 lust - then have her cover for you for the first few rounds if you lost to her so you can blitz them or heal. -Z);
 		EngineCore.HPChange( 100, false );
 		EngineCore.fatigue( -30 );
@@ -145,7 +145,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( 'Fuck Kiha, fuck the swamp, and fuck this.  You grab your shit and high-tail it just as the spiders close in on the dragoness.  All you see over your shoulder is a number of spider-boys and driders grabbing their cocks and swarming over Kiha for a good old-fashioned gang-rape.  Whistling a merry tune, you saunter on back to camp to the satisfying sounds of Kiha\'s muffled screams and pleas wafting over the tree-tops.', false );
 		MainView.outputText( '\n\nServes that bitch right.', false );
 		//(Kiha's state becomes Shaken);
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	KihaFollower.prototype.beatSpiderMob = function() {
@@ -174,7 +174,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( '[pg]You give her a knowing little wink, which only makes her scowl as you start wading back through the swamp.', false );
 		//(Kiha's State becomes Friendly);
 		CoC.flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] = 1;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	KihaFollower.prototype.loseToSpiderMob = function() {
 		MainView.clearOutput();
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( '[pg]When they\'ve finally gone, you manage to crawl over to Kiha and ask if she\'s all right.  All you get is a blank stare.  You try to make her as comfortable as possible, but there\'s nothing much you can do for her after that.  Once she\'s somewhat cleaned up and you\'ve patched up her wounds, you limp back to camp.', false );
 		//(Kiha's State becomes Friendly);
 		CoC.flags[ kFLAGS.KIHA_AFFECTION_LEVEL ] = 1;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Meeting Kiha - "<i>Friendly</i>" State (Z);
 	KihaFollower.prototype.kihaFriendlyGreeting = function( output ) {
@@ -260,7 +260,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( 'You ask Kiha if she\'d be willing to do a mock-fight with you.  She arches an eyebrow at the suggestion, but quickly hefts her greataxe onto her shoulder and smirks at you.  "<i>You sure about this?  I won\'t hold back - and I\'ll NEVER be defeated!</i>"', false );
 		MainView.outputText( '[pg]You return her smug grin and ready your [weaponName].', false );
 		//(Use the normal Kiha combat scenario, with the following changes upon Win/Lose, and no "<i>Run</i>" option available);
-		Combat.startCombat( new Kiha() );
+		SceneLib.combatScene.startCombat( new Kiha() );
 		MainView.spriteSelect( 72 );
 		CoC.monster.createStatusAffect( StatusAffects.Spar, 0, 0, 0, 0 );
 	};
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 			MainView.outputText( '[pg]You sigh and head back towards your stuff.', false );
 			this.kihaAffection( 20 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Spar with Friendly Kiha - Kiha Wins (Z);
 	KihaFollower.prototype.sparWithFriendlyKihaLose = function() {
@@ -303,7 +303,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 			MainView.outputText( '[pg]You dust yourself off and head back to the center of camp under the dragoness\'s watchful gaze.', false );
 		}
 		this.kihaAffection( 10 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Hug Friendly/Warm Kiha (Z);
 	KihaFollower.prototype.hugFriendWarmKiha = function() {
@@ -2058,7 +2058,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.outputText( 'You inform her that you doubt she\'ll be hurting you today.  With an almost child-like sense of glee, you ready your [weapon] and step into the dragoness\'s intimidating presence.' );
 		MainView.outputText( '[pg]"<i>I wouldn\'t have it any other way, [name],</i>" she says as she grins, raising her axe into a more combat-ready stance.  It\'s time to prove your worth!' );
 		//[Leads to a fight];
-		Combat.startCombat( new Kiha() );
+		SceneLib.combatScene.startCombat( new Kiha() );
 		CoC.monster.createStatusAffect( StatusAffects.DomFight, 0, 0, 0, 0 );
 	};
 	//[PC loses the fight];
@@ -2067,7 +2067,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		MainView.spriteSelect( 72 );
 		MainView.outputText( '"<i>Ha! You better shape up quick!  If you lose to </i>me<i>, you\'ll certainly lose to the demons!</i>"  Kiha exclaims, victorious over your bruised and battered form.  The strain is too much, and you end up passing out.' );
 		MainView.outputText( '[pg]You awake on your bedspread, being tended to by Kiha as she rubs ointment on your bruises and wounds. "<i>Look, I know that was just a friendly sparring match, but seriously can\'t lose like that to the Demons.  I can\'t think of what I\'d do if my special Idiot were turned into... one of them.</i>"  Kiha says somberly.  You\'re touched by her concern, but you assure her that no demon will take you alive.  She smiles and places a hand on your shoulder, but the look she gives you seems to hint that you missed her point entirely.' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[PC wins the fight];
 	KihaFollower.prototype.pcWinsDomFight = function() {
@@ -2283,7 +2283,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Kiha, SpiderMorphMo
 		//MainView.outputText('[pg]Kiha nods, as best she can with her head pinned against the tree trunk, and then grins.  "<i>Just the way I like it, [name]. Let\'s get back to camp; no doubt there are demons that need our feet up their asses.</i>"  That sounds like a good idea.  (And maybe she can clean herself up when she gets back).');;
 		MainView.outputText( '[pg]Kiha nods, as best she can with her head pinned, and then she grins.  "<i>Dominance isn\'t something you do once and get forever, [name].  If you want to stay on top with me, you\'d better back it up with your actions.  It takes more than a few losses to make me ANYONE\'s bitch.</i>"  Well, that\'s probably as good as you\'ll get out of her for now.  You suggest heading back to camp; no doubt there\'s some demons needing feet up their asses.  Kiha replies, "<i>Sounds like a good idea, [master].</i>"  There\'s an undercurrent of humor in her words, but she\'s the one who couldn\'t handle you in a fight.' );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	KihaFollower.prototype.guardMyCampKiha = function() {
 		MainView.clearOutput();

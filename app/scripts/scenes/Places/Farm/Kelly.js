@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, Kelt, CockTypesEnum, PregnancyStore, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, Kelt, CockTypesEnum, PregnancyStore, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore, ConsumableLib ) {
 	//Items;
 	//Besides, the PC needs 15 succubi Milk to turn Kelt female. If the PC has a pink egg, only 10 are needed. If the PC has a large pink egg (or two pink eggs), only 5 are needed. ;
 	//Effects;
@@ -117,7 +117,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 			MainView.outputText( '\n\nYou casually approach the centaur, shaking a vial of Succubi milk with a broad grin; your intentions are clear.  Kelt whinnies, his voice higher than ever, "<i>Not again!</i>"  A puff of a very feminine odor reaches your nostrils - nothing at all like the masculine scent he usually exudes.  Is he coming to like this?' );
 			MainView.outputText( '\n\nYou don\'t have time to consider it any further - Kelt draws his bow, ready to fight!' );
 			//[Start Combat];
-			Combat.startCombat( new Kelt() );
+			SceneLib.combatScene.startCombat( new Kelt() );
 			MainView.spriteSelect( 35 );
 		} else if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] === 3 ) {
 			MainView.spriteSelect( -1 );
@@ -272,7 +272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		MainView.outputText( '\n\n"<i>No, you did.  Last time I checked you were an eager big-tittied whore lusting after my cock.  You cried because you couldn\'t deepthroat it properly, remember?</i>"' );
 		MainView.outputText( '\n\n"<i>You sneaky little prick, I\'m going to make you pay for this.</i>"' );
 		MainView.outputText( '\n\nIt\'s a fight!' );
-		Combat.startCombat( new Kelt() );
+		SceneLib.combatScene.startCombat( new Kelt() );
 		MainView.spriteSelect( 35 );
 	};
 
@@ -375,7 +375,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
 		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 2;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Win Second Fight (Third Feminizing Encounter):;
 	Kelly.prototype.breakingKeltNumeroThree = function() {
@@ -456,7 +456,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 5 );
 		CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 3;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Fourth encounter;
 	/*This one requires you not to have lost any corruption since the last encounter you had with her (so if you did, just get back to your former corruption level).*/
@@ -542,7 +542,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, $log, K
 		if( CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] < 1 ) {
 			CoC.flags[ kFLAGS.KELT_BREAK_LEVEL ] = 1;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//Appearance;

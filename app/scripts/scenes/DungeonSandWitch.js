@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	DungeonSandWitch.prototype.fightCumWitch = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'A robed witch crests one of the dunes, her sable skin glistening with moisture in the unforgiving desert sun.  She spies you, and her dusky lips curl up in a smile while a white staff materializes in her hands.  Playfully, the woman calls, "<i>I\'m going to cast a spell on you...</i>"' );
-		Combat.startCombat( new CumWitch() );
+		SceneLib.combatScene.startCombat( new CumWitch() );
 	};
 	DungeonSandWitch.prototype.openZeDoorToParadize = function() {
 		MainView.clearOutput();
@@ -141,7 +141,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			OnLoadVariables.dungeonLoc = 0; //Replaces		inDungeon = false;
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', -1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//[Bad end for small cocks];
 		MainView.outputText( '\n\nYou spend the rest of your life being a bitch to the sand witches.  Kept naked and hard all the time, you\'re chained-up like an animal in the chamber with your hands tied behind your back, making sure you don\'t play with yourself.  The witches do mess with you from time to time, but mostly they just let you drown in your lust.  Many nights you yearn to feel the touch of your mistresses. You want them to humiliate you if it means they\'ll pleasure your little cock.  Sometimes, when a group of witches walk by, you try to look as wanting as possible.  They just walk by, saying how desperate and sad you look, leave you alone with that raging hard-on.' );
@@ -228,7 +228,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		OnLoadVariables.dungeonLoc = 0; //Replaces	inDungeon = false;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Sand-witch mob Bad end for Females];
 	DungeonSandWitch.prototype.sandWitchMobBadEnd = function() {
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			}
 		}
 		//Present PC with Leave and Orgy options;
-		EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+		EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//Dicked Win Sex;
 	DungeonSandWitch.prototype.dicksHaveSexWithAWitch = function() {
@@ -519,7 +519,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Sapphic Win Sex;
 	//Forced cunnlingus, rimjob, and clit-and-nipple sucking.;
@@ -607,7 +607,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.outputText( '\n\nAfter that morale boost, you climb out of the writhing orgy of fem-flesh and dust yourself off, ready to explore further inside this den of inequity.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Sand Witch Mob Attacks:;
 	//Swarm;
@@ -636,10 +636,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		//Hit;
 		else {
-			damage = Combat.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( '\nShe hits you square in the face, bloodying your face and sending you stumbling back in agony. (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Sand Stones;
 	//-Mob summons vibrating sands sands to  lust increase PCs lust;
@@ -714,7 +714,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			MainView.outputText( '\nThe stones then make a ninety degree turn into the purple fire, and then nothing.  One sand-witch smacks another upside the head, yelling something about focusing.' );
 		}
 		CoC.monster.removeStatusAffect( StatusAffects.Sandstorm );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Milk is Good;
 	//-Mob's members start sucking on each other's tits. Arouses PC and restores health to mob, decreases (increases?) mob's lust.;
@@ -724,7 +724,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		EngineCore.dynStats( 'lus', 4 + CoC.player.lib / 10 );
 		//+ 30 HP, +light lust damage to PC and mob;
 		CoC.monster.addHP( 30 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Sandstorm;
 	//Creates a sandstorm that blinds the PC one out of every 3 rounds.  Used first turn. Deals light HP damage every turn.  Reduces breath attacks damage by 80%.  Makes bow miss 50% of the time.;
@@ -735,7 +735,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			MainView.outputText( 'With a smirk, the Sand Mother decrees, "<i>You fight not just me, but the shifting sands as well.</i>"  She casually flicks her wrist, and sand rises up from the floors, the walls, everywhere really.  It begins to spin about, blown by an unseen wind, and the entire chamber is wreathed in a shifting sandstorm.  The grit constantly tries to get into your eyes.  It\'s likely you\'re going to be blinded by it every now and then.' );
 		}
 		CoC.monster.createStatusAffect( StatusAffects.Sandstorm, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	DungeonSandWitch.prototype.sandWitchMobAI = function() {
 		if( !CoC.monster.findStatusAffect( StatusAffects.Sandstorm ) ) {
@@ -827,7 +827,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			hits--;
 		}
 		EngineCore.dynStats( 'lus', damage + bonus );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Attack: Cum Magic;
 	DungeonSandWitch.prototype.cumMagicAttack = function() {
@@ -836,7 +836,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		//(15-30 lust, based on libido);
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 12 );
 		CoC.player.hoursSinceCum += 100;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Attack: Cum Hunger;
 	//*Used on vagoozles, spell that causes womb to literally thirst for sperm.  Unavoidable moderate lust gain.  Pregnant character's are immune.;
@@ -844,12 +844,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.outputText( 'Moaning luridly, the Cum Witch swivels her staff and opens her hand to spread her fingers wide.  At the same time, you feel her magic slam into your midsection, burrowing into your womb.  ' );
 		if( CoC.player.pregnancyIncubation > 0 ) {
 			MainView.outputText( 'Yet, whatever she tries to do fails, as her otherworldly conjuration falls apart as soon as soon as it reaches you.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		MainView.outputText( 'It worms around your uterus, tickling it faintly before gently kneading your ovaries.  Your [legs] go weak as your womb throbs, hungering for something to fill it.  A trickle of wetness squirts from your [vagina] as the magic fades, and you squirm as your lust rises. If only something would make you pregnant!  Your eyes dart unbidden to the Witch\'s groin before you yank them away.' );
 		EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 12 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Attack: Gender Confusion;
 	DungeonSandWitch.prototype.genderConfusionAttack = function() {
@@ -861,14 +861,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		} else {
 			MainView.outputText( 'You parse the flood of information with mental focus and expel the intruder from your mind with a clenching of your sizable intellect.' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Attack: Shell;
 	DungeonSandWitch.prototype.shellDefense = function() {
 		//*Grants immunity to all magic-based attacks for the next two turns.;
 		MainView.outputText( 'The Cum Witch holds her staff in both hands and rotates it in a circle, chanting all the while.  Her voice rises in pitch and intensity until she\'s screaming out unwords of power.  With one final cry, she slams her staff down into the ground hard enough to kick up a puff of sandy dust.  It quickly settles, but the Cum Witch has some kind of glittering, reflective shield around herself now!' );
 		CoC.monster.createStatusAffect( StatusAffects.Shell, 3, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Attack: Cocknosis;
 	//*Intelligence dependant attack with possibility of very high lust gain.;
@@ -898,14 +898,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			}
 			MainView.outputText( '\n\nThe witch smiles knowingly.' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Attack: Heal;
 	//*Restores one third of her HP.;
 	DungeonSandWitch.prototype.sandWitchCuntHeals = function() {
 		MainView.outputText( 'The Witch smirks at you and holds her free hand under her robes.  When she pulls it out, you realize she\'s gathered a handful of her cum.  She holds it up and exhales over it, the air making a slight whistle as it blows through her parted lips.  The ebony sorceress then smears the goop over her wounds, which seem to drink in the cum and vanish before your eyes.  She scolds, "<i>Physical damage?  How artless.</i>"' );
 		CoC.monster.addHP( CoC.monster.eMaxHP() * 0.33 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 
 	//*PC Loss - Female - Become Sand Witch;
@@ -1235,7 +1235,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			if( CoC.player.cumQ() < 60000 ) {
 				CoC.player.cumMultiplier += 2;
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Take The Too Big Loss Facial;
@@ -1283,7 +1283,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Avoid The Too Big Loss Facial;
 	DungeonSandWitch.prototype.tooBigCumWitchLossNoFacial = function() {
@@ -1302,7 +1302,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		CoC.player.cumMultiplier = Math.round( CoC.player.cumMultiplier * 0.75 );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//TDM's generic loss to cum witch scene;
 	//requires that the PC have a dick that can fit inside the cum witch's vagina.  The scene can be used with herms.;
@@ -1380,7 +1380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			EngineCore.dynStats( 'str', -1 );
 		}
 		//Usual loss text+gem loss.;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	DungeonSandWitch.prototype.defeatedByCumWitch = function() {
@@ -1402,7 +1402,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			} else if( CoC.player.hasVagina() ) {
 				this.savinMakesAwesomeFemdom();
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};
@@ -1440,7 +1440,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			if( CoC.monster.HP >= 1 ) {
 				EngineCore.addButton( 9, 'Leave', this, this.declineSandWitch );
 			} else {
-				EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 		} else {
 			EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
@@ -1451,7 +1451,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.clearOutput();
 		MainView.outputText( 'Dusting yourself off, you lower your [weapon] and leave the cum witch to recover from the humiliation of losing to you.  The haunted, hungry look in her eyes leaves little doubt that she\'ll challenge you again or that she still wants to fuck you.  For now, she slips down into her own puddled cum, idly touching herself.' );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
@@ -1567,13 +1567,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		}
 		if( OnLoadVariables.dungeonLoc ) {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( MainView, MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -1607,13 +1607,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		CoC.player.orgasm();
 		if( OnLoadVariables.dungeonLoc ) {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( MainView, MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -1644,13 +1644,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		CoC.player.orgasm();
 		if( OnLoadVariables.dungeonLoc ) {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( MainView, MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -1692,13 +1692,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		CoC.player.orgasm();
 		if( OnLoadVariables.dungeonLoc ) {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( MainView, MainView.playerMenu );
 			}
 		} else {
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -1768,7 +1768,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.outputText( '\n\nSilently, you nod, and collapse atop her, head buried in her milk-laden chest as you pass out from sexual exhaustion.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//knock up hurrrr;
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_SAND_WITCH, PregnancyStore.INCUBATION_SAND_WITCH, 90 );
 	};
@@ -1782,7 +1782,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.outputText( '\n\nSilently, you nod, and collapse atop her, head buried in her milk-laden chest as you pass out from sexual exhaustion.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//knock up hurrrr;
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_SAND_WITCH, PregnancyStore.INCUBATION_SAND_WITCH, 90 );
 	};
@@ -2567,7 +2567,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//*Encounter:;
 	DungeonSandWitch.prototype.sandWitchMotherFriendlyMenu = function() {
 		if( CoC.monster.short !== 'Sand Mother' ) {
-			Combat.startCombat( new SandMother(), true );
+			SceneLib.combatScene.startCombat( new SandMother(), true );
 			CoC.setInCombat( false );
 			CoC.monster.HP = 0;
 		}
@@ -2701,7 +2701,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 
 	DungeonSandWitch.prototype.sandMotherPOMenu = function() {
 		if( CoC.monster.short !== 'Sand Mother' ) {
-			Combat.startCombat( new SandMother(), true );
+			SceneLib.combatScene.startCombat( new SandMother(), true );
 			CoC.setInCombat( false );
 			CoC.monster.HP = 0;
 		}
@@ -2787,7 +2787,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			MainView.outputText( '\n\nThe Sand Mother steps out of her throne, brandishing a shining scepter as she rises.  Her lips curve into a cruel smile and she challenges, "<i>Fight me, [name], and fall like every demonic agent before you.  Do not fear, for when you lose, you shall be reborn to serve a just cause.  Your taint may yet be exorcised.</i>"' );
 			MainView.outputText( '\n\nThere\'s no way out, it\'s a fight!' );
 			//(start combat);
-			Combat.startCombat( new SandMother(), true );
+			SceneLib.combatScene.startCombat( new SandMother(), true );
 		}
 		//(No new PG. Corruption is less than intellect and no major asshole moves made:) ;
 		else {
@@ -2807,14 +2807,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	DungeonSandWitch.prototype.fightTheSandWitch = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'You brandish your [weapon] and advance threateningly.  The Sand Witch Queen slowly rises, pulling a scepter from beneath her robes with a resolute look in her eyes.  "<i>You shall regret this action for a time, until we\'ve corrected your diseased way of thinking.  Now, taste the power of a Sand Mother!</i>"' );
-		Combat.startCombat( new SandMother(), true );
+		SceneLib.combatScene.startCombat( new SandMother(), true );
 	};
 	//Earthshield;
 	DungeonSandWitch.prototype.earthShield = function() {
 		//Surrounds the witch a vortex of stones, raising her defense greatly and conferring 25% block to standard attacks.;
 		MainView.outputText( 'Lowering her scepter towards the ground, the eight-foot tall sorceress suddenly grunts, lifting it as if carrying great weight.  As the small staff passes her chest, bits of stone and rock begin to lift out of the ground, accelerating into a vortex of earth that spins around her.  <b>It\'s going to be harder to hit her with physical attacks now!</b>' );
 		CoC.monster.createStatusAffect( StatusAffects.Earthshield, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*GigaFire;
 	DungeonSandWitch.prototype.gigaFire = function() {
@@ -2824,7 +2824,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 			MainView.outputText( '  She\'s not even looking at you and seems steeled against lusty interruptions.  Perhaps you can hit her hard enough to shatter her concentration.' );
 		}
 		CoC.monster.createStatusAffect( StatusAffects.Gigafire, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	DungeonSandWitch.prototype.gigaFire2 = function() {
 		var damage = 40 + Utils.rand( 11 );
@@ -2837,10 +2837,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		else {
 			MainView.outputText( 'Thumbling back to the ground from your damaging hit, the Sand Mother grabs at her head, one flame going out.  She recovers in time to grab the staff and fling it towards you, but it\'s at a fraction of the strength she intended.  Still, it burns all the same.' );
 		}
-		damage = Combat.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
 		CoC.monster.removeStatusAffect( StatusAffects.Gigafire );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Telekinesis;
 	//Throws the PC against the wall.  Does more damage to shorter, thinner PCs.;
@@ -2863,18 +2863,18 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		var multiplier = sizeMod / 170;
 		var damage = 20;
 		damage = multiplier * damage;
-		damage = Combat.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Lightning Bolt;
 	//Unavoidable magic damage.;
 	DungeonSandWitch.prototype.eatALightningBolt = function() {
 		MainView.outputText( 'Holding her staff back, she lifts her free hand with her fingers outstretched in a fan.  Sparks dance between her slender digits, coiling around them like snakes.  In a flash, they rush to her palm and erupt in a lightning bolt, striking you instantly and unavoidably!' );
 		var damage = 30 + Utils.rand( 10 );
-		damage = Combat.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//*Whisper:;
 	//As ackbal, stuns the PC 1 round.  Cannot be resisted.;
@@ -2882,7 +2882,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		MainView.outputText( 'Mouthing, "<i>Can you hear me?</i>" the witch\'s voice intrudes into your mind, matching her mouth word for word.  She floods your psyche with words and thoughts, all of your defeat or submission, each more degrading and more humiliating than the last.  Perhaps the worst are the ones where she turns you over to Lethice after you\'re broken...  The tumultous thoughts and emotions both stun and arouse you, preventing you from attacking while you try to clear your beleaguered consciousness.' );
 		CoC.player.createStatusAffect( StatusAffects.Whispered, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 15 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Notes:;
 	//Starts combat with sandstorm.  GigaFire's every fifth round.;
@@ -3032,7 +3032,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Fuck Her Cunt;
@@ -3040,7 +3040,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	DungeonSandWitch.prototype.fuckTheSandMothersCunt = function() {
 		MainView.clearOutput();
 		if( !CoC.isInCombat() ) {
-			Combat.startCombat( new SandMother(), true );
+			SceneLib.combatScene.startCombat( new SandMother(), true );
 			CoC.setInCombat( false );
 			CoC.monster.HP = 0;
 		}
@@ -3135,7 +3135,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*ScissorAnDrink;
@@ -3184,7 +3184,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Lose Male Loss;
@@ -3450,7 +3450,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, SandMother, PregnancyStore, M
 	//>Fuck her friendly style.;
 	DungeonSandWitch.prototype.friendlySandMotherFuck = function() {
 		MainView.clearOutput();
-		Combat.startCombat( new SandMother(), true );
+		SceneLib.combatScene.startCombat( new SandMother(), true );
 		CoC.setInCombat( false );
 		var x = CoC.player.cockThatFits( CoC.monster.vaginalCapacity() );
 		var y = CoC.player.cockThatFits2( CoC.monster.vaginalCapacity() );

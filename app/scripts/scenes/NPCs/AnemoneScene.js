@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, WeaponLib, Weapon, $rootScope, Descriptors, PerkLib, ImageManager, CockTypesEnum, Appearance, AppearanceDefs, ArmorLib, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, ConsumableLib ) {
 	//Encountered via Boat (unless a new Under-Lake area is;
 	//unlocked);
 	//NPC details (proto-codex): Giant, colorful freshwater;
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		}
 		MainView.outputText( 'You are fighting an anemone!', false );
 		var anemone = new Anemone();
-		Combat.startCombat( anemone );
+		SceneLib.combatScene.startCombat( anemone );
 		//(gain lust, temp lose spd/str);
 		EngineCore.dynStats( 'lus', 4 );
 		anemone.applyVenom( 1 );
@@ -156,9 +156,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				bikiniTits = CoC.player.armor.lustyMaidenPaizuri;
 			}
 			EngineCore.choices( 'Your Ass', this, this.victoryButtholeRape, 'Your Cock', this, cockRape, 'Your Vagina', this, vaginaRape, 'Her Butt', this, anal, 'Lay Egg', this, eggs,
-				'', null, null, '', null, null, '', null, null, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
+				'', null, null, '', null, null, '', null, null, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//anal: -requires butthole;
@@ -210,7 +210,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		MainView.outputText( ' giggle from the blue girl.  Standing up, you gather your gear and blow her a kiss before you leave.  She darkens in color, her camouflage reflex causing her to \'blush\' in discomfort at this display of affection.', false );
 		//(pass 1 hour, reduce lust to min);
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	AnemoneScene.prototype.rapeAnemoneWithDick = function() {
@@ -287,7 +287,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			MainView.outputText( 'After the last of your cum has been squeezed out, you pull your ' + Descriptors.cockDescript( 0 ) + ' out and rinse it off in the lakewater.  You gather your gear while the anemone holds her belly and smiles placidly, staring into the sky.', false );
 			//(pass 1 hour, reset lust to min or min+10 if big or greater skeet);
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//Too-big male: -requires cockarea > 36;
 		else {
@@ -347,7 +347,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			}
 			//(pass 1 hour, reset lust to min or min+10 if big or greater skeet);
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 
@@ -438,7 +438,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		//(reduce lust to min, pregnancy check);
 		//(pass 1 hour, reset lust to min or min+10 if big or greater skeet);
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//loss rapes:;
 	AnemoneScene.prototype.loseToAnemone = function() {
@@ -449,7 +449,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		if( CoC.player.HP < 1 ) {
 			MainView.outputText( 'You collapse face-first into the lake, weakened by your damage.  The last thing you hear before passing out is a faint <i>"What?"</i>\n\n', false );
 			MainView.outputText( 'Several minutes later you awake to feel yourself washed onto the sand and hurting all over.  <i>"You... dead?"</i> The anemone is still with you; she must have found a stick from somewhere and is sitting next to you, judiciously poking you with it.  As you force your eyes open in answer she drops the stick with a startled yelp and hugs her knees to her chest.  Too beat-up to say anything, you can only stare at her, which unnerves her further. <i>"Umm... bye,"</i> she says, getting to her feet.  She heads for the water again, leaving you alone to recover.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//loss, pre-sex worm shot reaction:;
@@ -476,7 +476,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			//(1 hour pass, lose 1/10th of max hp from current hp, lose 20 lust);
 			CoC.player.takeDamage( 10 );
 			EngineCore.dynStats( 'lus', -20 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//loss, male:;
@@ -590,7 +590,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				MainView.outputText( '.  The blue girl continues to stroke your privates with her tentacle hair, flicking your urethra with her tongue, until you\'ve come twice more.  Nor does she display any intention of stopping there, but mercifully you black out and collapse into the water.  Half-frowning, the anemone shrugs and pushes your insensible form up onto the sandy shore.', false );
 				//(pass 8 hours, reset lust to min);
 				CoC.player.orgasm();
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 			//loss, too-big male (cock > 5' width or > 48' length):;
 			else {
@@ -692,7 +692,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 				//(pass 8 hours, minus libido, reset lust to min);
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'lib', -1 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 		//loss rape, vaginal (only full females):;
@@ -723,7 +723,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			//(reduce lust to min, add 10 lust, pregnancy check);
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'lus', 10 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Minotaur Cum combat circumvention:;
@@ -744,7 +744,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 			MainView.outputText( 'Oh hell no, you\'re not going to give that bottle away when you haven\'t even gotten your own fix yet! You raise your ' + CoC.player.weaponName + ' and advance on the girl with a wild look in your eyes. She shivers a bit at your expression and drops the bottle with a splash, then recovers her composure and backs up a few steps. You grab the floating bottle, and the rest of your stuff, quickly.', false );
 			//(gain lust, temp lose spd/str; if in withdrawal then proceed to fight, otherwise present choices 'Give' and 'Don't Give');
 			var anemone = new Anemone();
-			Combat.startCombat( anemone );
+			SceneLib.combatScene.startCombat( anemone );
 			//(gain lust, temp lose spd/str);
 			EngineCore.dynStats( 'lus', 4 );
 			anemone.applyVenom( 1 );
@@ -759,7 +759,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		MainView.outputText( 'You look sternly at the blue girl and hold out your hand.  As she realizes you don\'t intend to let her have the bottle, her face changes to a half-pout, half-frown.  When you don\'t react, she throws the bottle at your feet and shouts, "<i>Mean!</i>"  You bend down to pick it, and the other items, up, and when you straighten back up, she looks quite angry and her tentacles are waving all over the place.  Uh-oh.  You raise your weapon as the anemone giggles sadistically and attacks!\n\n', false );
 		//(proceed to combat);
 		var anemone = new Anemone();
-		Combat.startCombat( anemone );
+		SceneLib.combatScene.startCombat( anemone );
 		//(gain lust, temp lose spd/str);
 		EngineCore.dynStats( 'lus', 4 );
 		anemone.applyVenom( 1 );
@@ -983,7 +983,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		//end scene, reset hours since cum and lust, reduce libido and sens a little;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -0.5, 'sen', -0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Hotdog!];
 	AnemoneScene.prototype.hotdogTheAnemone = function() {
@@ -1059,7 +1059,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		//end scene, reset hours since cum and lust, reduce libido and sens a bit;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', -0.5, 'sen', -0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Fuck Off];
 	AnemoneScene.prototype.fuckingAssholelessAnemoneeeez = function() {
@@ -1069,7 +1069,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		MainView.outputText( '\n\n"<i>Don\'t worry, I\'ve got something for you.</i>"  You place a hand behind your back and watch her face light up, then pull it out with the middle finger extended skyward.  "<i>Eat it.</i>"  As the rejection sinks in, you kick wet sand from the lakebed into her stricken face and stomp off, mad as hell.' );
 		//-30 lust);
 		EngineCore.dynStats( 'lus', -20 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Bee on Anemone: Finished (Zeik);
 	//madzeikfried@gmail.com;
@@ -1151,7 +1151,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		}
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Drider on Anemone: Finished (Zeik);
 	//[Ovipositor] option with spiderbutts;
@@ -1230,7 +1230,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Anemone, ItemType, 
 		//ponytailed anemone with Lisa Loeb glasses WHEN;
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	AnemoneScene.prototype.anemoneKidBirthPtII = function() {

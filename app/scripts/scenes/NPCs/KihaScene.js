@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, ConsumableLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, CoC, kFLAGS, Utils, EngineCore ) {
 
 	function KihaScene() {
 	}
@@ -59,7 +59,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 			MainView.outputText( 'As she screams out in defiance, she charges you, giving you barely enough time to ready yourself for combat!', false );
 			//Clear 'won last fight' toggle;
 			CoC.flags[ kFLAGS.PC_WIN_LAST_KIHA_FIGHT ] = 0;
-			Combat.startCombat( new Kiha() );
+			SceneLib.combatScene.startCombat( new Kiha() );
 		}
 		//Tribute Offer (1st Time) - Req's Kiha not be mad and PC suggested it at some point. ;
 		else if( CoC.flags[ kFLAGS.KIHA_TOLL ] === 1 && Utils.rand( 2 ) === 0 ) {
@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 				EngineCore.choices( 'Fight', this, this.meetKihaAndFight, 'Ask Why', this, this.askWhy, 'Buy Passage', this, this.offerToBuyPassageFromKiha, '', null, null, 'Leave', this, this.leaveWhenMeetingAgressiveKiha );
 			} else {
 				MainView.outputText( 'It\'s a fight!', false );
-				Combat.startCombat( new Kiha() );
+				SceneLib.combatScene.startCombat( new Kiha() );
 			}
 		}
 	};
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You step closer and proclaim that you go where you please.  Kiha snorts and says, "<i>Cute.  Sadly, misplaced confidence will only make this hurt that much more.</i>"', false );
 		//(START COMBAT);
-		Combat.startCombat( new Kiha() );
+		SceneLib.combatScene.startCombat( new Kiha() );
 	};
 	//[Ask Why];
 	KihaScene.prototype.askWhy = function() {
@@ -131,7 +131,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		MainView.outputText( 'You ask why she\'s trying to drive you off.  Confusion breaks out across Kiha\'s brow for a moment before her visage hardens back into a confident sneer.  "<i>I don\'t need to explain myself to you.  I was strong enough to break out of Lethice\'s base, and I\'ve been strong enough to murder every lackey she\'s sent after me.</i>"\n\n', false );
 		MainView.outputText( 'Thinking you may have found a way to win into the powerful warrior\'s good graces, you start to explain that your whole purpose here is to defeat the demon queen.  She cuts you off by exhaling a whirling tornado of fire into the air.  The scorching inferno seems to suck the very breath from your lungs, robbing you of your words.  While the after-image still hangs in your vision, she declares, "<i>I don\'t give two licks about why you\'re here.  I\'m gonna beat your ass just for wasting my time!</i>"', false );
 		//(START COMBAT!);
-		Combat.startCombat( new Kiha() );
+		SceneLib.combatScene.startCombat( new Kiha() );
 	};
 	//[Pay];
 	KihaScene.prototype.payKihaTribute = function() {
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		MainView.spriteSelect( 72 );
 		MainView.outputText( 'You ask why she changed her mind about your idea.  Kiha\'s face screws up for a moment, her chocolate-hued visage distorting into an irritated grimace.  This may have been a mistake.  She screams, "<i>As if someone like you would have an idea worthy of being adopted by me!  I forgot about your insignificant offer as soon as I was away from you.  This tribute was devised solely with my own sizable wit and cunning!</i>"\n\n', false );
 		MainView.outputText( 'The dragon-girl yanks her axe from her back and twists her hands, making the edge glow orange in the murky swamp air.  "<i>You should\'ve kept your mouth shut, worm.  The offer is off the table now!  The only thing I\'ll trade you is pain!</i>"', false );
-		Combat.startCombat( new Kiha() );
+		SceneLib.combatScene.startCombat( new Kiha() );
 	};
 	//*Generic PC Victory Introduction: ;
 	KihaScene.prototype.kihaVictoryIntroduction = function() {
@@ -247,7 +247,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 			wordRape = this.rapeKihaWithWORDS;
 		}
 		EngineCore.choices( 'Masturbate', this, forceMasturbate, 'Use Tail', this, useHerTail, 'FuckHerPussy', this, fuckHer, 'FuckHerAss', this, buttFuck, 'Talk', this, wordRape,
-			'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			'', null, null, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//*Generic PC Loss Intro ;
 	KihaScene.prototype.kihaLossIntro = function() {
@@ -299,7 +299,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		else {
 			MainView.outputText( 'Kiha pulls her axe back in a two handed grip, and you\'re sure the moment of your death is upon you.  A moment later, the flat of the blade slams into your head, knocking you unconscious.', false );
 			CoC.player.takeDamage( 1000 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Milky Tit Humiliation - Fen;
@@ -341,14 +341,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', -1, 'sen', 5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Genderless - Lukadoc (Zed);
 	KihaScene.prototype.kihaGenderlessBeating = function() {
 		MainView.spriteSelect( 72 );
 		MainView.outputText( '"<i>What a pussy!</i>" she yells at you, noticing your lack of any gender upon denuding you.  "<i>What\'s the problem, runt? Too scared that evil imps and goblins will abuse you?</i>"  She hits the ground with her tail in frustration and grabs her axe. "<i>What a waste of time. You\'re useless both in battle and out of it.</i>"  She begins kicking you, eventually hitting you hard enough to knock you unconscious.', false );
 		CoC.player.takeDamage( 1000 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Male - Adj;
 	KihaScene.prototype.kihaRapesMen = function() {
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		MainView.outputText( '"<i>Fill my ass with that cum,</i>" she purrs, forgetting her hostile attitude for a moment.  "<i>I want to feel it in my belly.</i>"  You can\'t help but comply, your suffocation-induced panic lending strength to your orgasm until her abdomen distends under the weight of your seed.  Before you black out, you can see her hooking four long, clawed fingers up into her pussy, while her thumb frantically jills her dusky clit.  Then, only darkness.\n\n', false );
 		MainView.outputText( 'When you come to, your throat feels raw, the taste of her pussy still on your lips.  Surprisingly, your groin is wet, but not sticky, without a trace of semen anywhere.  She must\'ve licked ' + Descriptors.sMultiCockDesc() + ' clean after you passed out.  Your ' + Descriptors.hipDescript() + ' are still sore from the wild woman\'s ride, so it takes you longer than usual to limp your way back to camp.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Herm - Adj;
 	KihaScene.prototype.kihaRapesHerms = function() {
@@ -428,7 +428,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 3 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Mutual Masturbation - A Tsundere Masturbation Christmas Carol, by Gats Dickings;
 	KihaScene.prototype.tsundereMasturbationChristmasCarol = function() {
@@ -496,7 +496,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		if( !CoC.player.hasCock() ) {
 			EngineCore.dynStats( 'lus', 120 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Victory Tail-dildo, for girls - Fencrafted for maximum pomf (Zed);
 	KihaScene.prototype.kihaVictoryPomfTail = function() {
@@ -559,7 +559,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		MainView.outputText( 'The draconic woman snaps when you pull your soiled undies from her maw.  "<i>Bitch!  I\'ll get you for t-this!</i>"\n\n', false );
 		MainView.outputText( 'Your only response is to get dressed, enjoying the pleasant tingle of her bubbling saliva on your girl-parts.  Kiha glares at you, futilely shaking her hips as if that would somehow quell the tide of lust washing through her body.  Maybe another of the swamp\'s denizens will keep her company in your absence?', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//*Victory Dicking - Fencrafted;
 	KihaScene.prototype.victoryDickKiha = function() {
@@ -671,7 +671,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 			MainView.outputText( '  Somehow, you doubt she\'ll learn anything from the encounter.', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	KihaScene.prototype.kihaRapesLittleGirlsISawItOnTheNews = function() {
 		MainView.outputText( '', true );
@@ -696,7 +696,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		MainView.outputText( 'By the time you come to, Kiha is long gone.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Conversation Only - Emotional Rape! (40- Corruption! PUREBABIES ONLY) (Zed);
 	KihaScene.prototype.rapeKihaWithWORDS = function() {
@@ -734,7 +734,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 		if( CoC.flags[ kFLAGS.KIHA_TALK_STAGE ] < 3 ) {
 			CoC.flags[ kFLAGS.KIHA_TALK_STAGE ]++;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/*Conversation Level 5 Lottie as follower, and to have given her enough bee honey, demon items, or harpy seeds to grow wings
 	 You sit down next to Kiha, smirking as she pokes fun at your soft-heartedness.  She's practically relaxed around you now.  You're not even sure if she was trying as hard as she could during the fight, knowing that you wouldn't take advantage of her even if she lost.
@@ -824,7 +824,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, UseableLib, Kiha, C
 			MainView.outputText( 'Deciding that you are done here, you retrieve your ' + CoC.player.armorName + ' and leave the girl. Perhaps now she\'ll treat you with a little more respect. You return to camp.', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'kihaScene', new KihaScene() );
 } );

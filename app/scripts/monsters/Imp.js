@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, CockTypesEnum, Descriptors, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
+angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, CockTypesEnum, Descriptors, AppearanceDefs, WeightedDrop, ConsumableLib, CoC, EngineCore, Monster, Utils, StatusAffects ) {
 	function Imp() {
 		this.init(this, arguments);
 	}
@@ -69,7 +69,7 @@ angular.module( 'cocjs' ).factory( 'Imp', function( MainView, SceneLib, $log, Co
 		}
 		MainView.outputText( '\n' );
 		if( CoC.player.lust > 99 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}

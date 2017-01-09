@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kFLAGS, Combat, Utils, AppearanceDefs, StatusAffects, Descriptors, ConsumableLib, Minerva ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kFLAGS, Utils, AppearanceDefs, StatusAffects, Descriptors, ConsumableLib, Minerva ) {
 	function MinervaScene() {
 	}
 
@@ -371,7 +371,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		EngineCore.addButton( 9, 'Leave', SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	MinervaScene.prototype.fightMinerva = function() {
-		Combat.startCombat( new Minerva(), true );
+		SceneLib.combatScene.startCombat( new Minerva(), true );
 		MainView.spriteSelect( 95 );
 		MainView.playerMenu();
 	};
@@ -789,7 +789,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -911,7 +911,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -997,7 +997,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1071,7 +1071,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		MainView.outputText( '\n\nFor a long while, you just lay there, cuddled up with the mostly naked siren, the two of you idly chatting about various things that come to mind.  Eventually, you must leave the gentle embrace and return to your duties as a Champion.  Disentangling yourself from Minerva, you straighten your clothes out and, with a smile, tell her you had a wonderful time.  Grinning up at you, Minerva climbs back onto her feet and pulls you into a deep, tongue-tangling goodbye kiss.  "<i>It was amazing, we have to do this again.  Perhaps next time, I can do you, hmm?</i>" she suggests, not wanting to be greedy and get all the pleasure.  Giving you another peck on the cheek, the siren sends you on your way after telling you to come back and visit soon.' );
 		EngineCore.dynStats( 'lus', 20 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1155,7 +1155,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		//PC returns to camp.
 		CoC.player.orgasm();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1213,7 +1213,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.player.orgasm();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1288,7 +1288,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 		EngineCore.dynStats( 'sen', -2 );
 		CoC.player.orgasm();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1305,7 +1305,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			// PC gains 1 Purity peach
 			CoC.monster.createStatusAffect( StatusAffects.PeachLootLoss, 0, 0, 0, 0 );
 			SceneLib.inventory.takeItem( ConsumableLib.PURPEAC, SceneLib.camp.returnToCampUseOneHour );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//PC loss by Lust
 		else {
@@ -1313,7 +1313,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			MainView.outputText( '\n\n"<i>W-well... don\'t worry, Minerva is going to take care of you, just tell me how you want it, all right?</i>" she says earnestly, clearly intending to finish what she started and help you with your battle induced lust.' );
 			//Take PC to sex menu
 			this.minervaSexMenu( false );
-			EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 	//Victory text for tainted
@@ -1325,14 +1325,14 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, EngineCore, CoC, kF
 			MainView.outputText( 'With your final blow against the siren, you send her silver halberd flying from her hands.  The metal weapon skitters across the ground as Minerva herself falls to the soft moss, her sharky skin covered in sweat and bruises as she sits her butt down, letting out a sigh.  "<i>Wow... you sure are something, aren\'t you...  I\'m glad this was just a friendly spar and not a real fight,</i>" she says with a content smile on her face as she looks up at you.  You could swear that she is even blushing a little.  "<i>Such a big strong warrior you are.</i>"' );
 			MainView.outputText( '\n\nAfter a moment, the siren manages to get up before presenting you with a freshly picked peach and a small sack.  "<i>I get these gems from the harpies, they seem to like shiny things, but I have no use for them... though I could do with some decorations I guess.  And here\'s a peach, as well, it\'ll help you regain your strength... not that you need it with how strong you are...</i>" she says with a coy chuckle.\n\n' );
 			//PC gains 1 purity peach
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//Win by lust
 		else {
 			MainView.outputText( 'Your final move finishes the horny siren, her shorts bulging obscenely and soaked with her arousal.  Falling to her knees, Minerva desperately grabs hold of her shorts, yanking them from her curvy hips, letting out a gasp of relief and a moan of need.  Between the lusty herm\'s legs stands her painfully hard cock, all sixteen thick inches throbbing with desperate need, her thighs soaked in womanly juices.  Minerva\'s hands grab hold of her cock, stroking herself as she slips a pair of fingers into her quivering, slippery quim.  "<i>Oh, [name], p-please... ohhh... look what you\'ve done.  So mean, getting me so horny like this,</i>" she says before letting out a long moan.' );
 			MainView.outputText( '\n\nShe\'s looking up at you with her debilitating lust clear in her eyes.  "<i>W-well... think you could help little old me with this...  Just tell me what to do, I need it so badly.</i>"' );
 			this.minervaSexMenu( false );
-			EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 	//Item/oasis interactions

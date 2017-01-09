@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, PerkLib, ImageManager, Akbal, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, PerkLib, ImageManager, Akbal, CockTypesEnum ) {
 	function AkbalScene() {
 	}
 
@@ -32,11 +32,11 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				}
 				MainView.outputText( '\n\nDo you rape him?', false );
 				//Rape / Don't Rape
-				EngineCore.choices( 'Butt-fuck', this, buttFuck, 'Take Vaginally', this, vagoo, 'Force Lick', this, vagooLick, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Butt-fuck', this, buttFuck, 'Take Vaginally', this, vagoo, 'Force Lick', this, vagooLick, 'B.Titfuck', CoC.player.armor, bikiniTits, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				return;
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	AkbalScene.prototype.akbalWon = function( hpVictory, pcCameWorms ) {
 		CoC.flags[ kFLAGS.AKBAL_SUBMISSION_STATE ] = -1;
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//END CENTAUR STUFF
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor+', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Standard rapes - buttfucks and oral
 	AkbalScene.prototype.rapeAkbal = function() {
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			}
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			//END NAGA STUFF
 		}
 		//Centaur RAPPUUUUU
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			}
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 			//END CENTAUR STUFF
 		}
@@ -265,7 +265,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	AkbalScene.prototype.girlsRapeAkbal = function() {
 		CoC.flags[ kFLAGS.AKBAL_BITCH_Q ]++;
@@ -473,7 +473,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			//Preggers chance!
 			CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP, 101 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	AkbalScene.prototype.loseToAckballllllz = function() {
 		//[Defeat via Lust]
@@ -628,7 +628,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( '', true );
 		MainView.outputText( 'You ready your ' + CoC.player.weaponName + ' and prepare to battle the demon jaguar.', false );
 		//[battle ensues]
-		Combat.startCombat( new Akbal() );
+		SceneLib.combatScene.startCombat( new Akbal() );
 		CoC.flags[ kFLAGS.PLAYER_RESISTED_AKBAL ]++;
 	};
 	//[Submit]
@@ -985,7 +985,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			MainView.outputText( '\n\nA gout of green fire roars into existence.  The suddenly intense heat causes you to flinch away from the inferno nearly encasing your [face].  The jaguar demon slips your grasp, and when you look up, another green fireball is coming your way.  Looks like you have a fight on your hands.\n\n' );
 			//(Enter battle with clearscreen and fireball attack.)
 			var akbal = new Akbal();
-			Combat.startCombat( akbal );
+			SceneLib.combatScene.startCombat( akbal );
 			akbal.akbalSpecial();
 			return;
 		}
@@ -995,7 +995,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		if( CoC.player.inte < 60 ) {
 			MainView.outputText( '\n\nAkbal suddenly stops struggling and you hear someone shout your name.  As you look away Akbal rolls from beneath you.  A blast of terrestrial ignites the vines and he lunges at you, his claws extended.\n\n' );
 			//(fight - clearscreen and enemyattack)
-			Combat.startCombat( new Akbal() );
+			SceneLib.combatScene.startCombat( new Akbal() );
 			CoC.monster.eAttack();
 			return;
 		}

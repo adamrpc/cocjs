@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log, Harpy, PerkLib, CoC, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib, Combat ) {
+angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log, Harpy, Combat, CoC, EngineCore, Monster, ArmorLib, Utils, AppearanceDefs, StatusAffects, Appearance, ChainedDrop, ConsumableLib ) {
 	function Sophie() {
 		this.init(this, arguments);
 	}
@@ -20,21 +20,21 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'Sophie changes direction in a flash, trying to slip inside your guard, but you manage to sidestep the incredibly fast harpy\'s attack.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			MainView.outputText( '\'s attack.\n', false );
 			return;
@@ -88,21 +88,21 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( this.a + this.short + '\'s movements are incredibly fast but you manage to sidestep them.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 60 ) {
+		if( Combat.combatEvade( 60 ) ) {
 			MainView.outputText( 'Using your skills at evading attacks, you determine ' + this.a + this.short + ' is aiming for your upper body and slide under the attack.\n', false );
 			return;
 		}
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 40 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect( 40 ) ) {
 			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 40 ) {
+		if( Combat.combatFlexibility( 40 ) ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			MainView.outputText( '\'s attack.\n', false );
 			return;
@@ -146,21 +146,21 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( this.a + this.short + '\'s tears through the air, but you manage to just barely dodge it.\n', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 60 ) {
+		if( Combat.combatEvade( 60 ) ) {
 			MainView.outputText( 'Using your skills at evading attacks, you watch ' + this.a + this.short + ' and deftly sidestep her brutal talons.\n', false );
 			return;
 		}
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 30 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect( 30 ) ) {
 			MainView.outputText( 'Using Raphael\'s teachings and the movement afforded by your bodysuit, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 40 ) {
+		if( Combat.combatFlexibility( 40 ) ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 			MainView.outputText( '\'s attack.\n', false );
 			return;
@@ -246,7 +246,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 		if( rando === 3 ) {
 			this.special3();
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Sophie.prototype.defeated = function() {
 		if( this.findStatusAffect( StatusAffects.BimboBrawl ) ) {
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).factory( 'Sophie', function( SceneLib, MainView, $log,
 			SceneLib.sophieFollowerScene.debimboSophieBeatsYouUp();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe seems disgusted by the display and leaves you to recover alone...' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.sophieScene.sophieWonCombat();
 		}

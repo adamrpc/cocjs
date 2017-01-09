@@ -64,7 +64,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 				this.chokeSlamDamage();
 				this.cleanupChokeslam();
 			}
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		// Handle groundpound
@@ -76,7 +76,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		}
 		// Handle titsmother
 		if( CoC.player.findStatusAffect( StatusAffects.Titsmother ) ) {
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		// Titsmother toggle; gonna need to play with this, it should only be used once per fight
@@ -126,7 +126,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Roundhouse Kick
 	// Milkd lust increase
@@ -139,7 +139,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 			MainView.outputText( 'You furrow a brow at the Oni\'s ineffectual attack, not entirely sure if she was intending to hurt you or turn you on.  Her thighs did look rather tantalizing though...' );
 			EngineCore.dynStats( 'lus', 5 + CoC.player.lib / 20 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Bind player for 3 turns. If the player doesn't break out in time, they take huge damage.
 	// On escape, this.Izumi takes some damage
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 			CoC.player.createStatusAffect( StatusAffects.Chokeslam, 3, 0, 0, 0 );
 			$log.debug( 'Applied Chokeslam effect' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Struggle against izumi's chokeslam
 	Izumi.prototype.chokeSlamStruggle = function() {
@@ -163,7 +163,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		if( brokeFree ) {
 			$log.debug( 'Escaped from Chokeslam grapple' );
 			this.chokeSlamEscape();
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		} else {
 			MainView.outputText( 'Izumi\'s grip around your throat continues to strangle the breath from your lungs as she holds you aloft.  Your fingers tighten in turn around the Oni\'s wrist, fighting against her' );
 			if( CoC.player.str < 90 ) {
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		var damage = Math.ceil( (this.str + 225) - Utils.rand( CoC.player.tou ) - CoC.player.armorDef );
 		CoC.player.takeDamage( damage );
 		MainView.outputText( '(' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Player escapes from the chokeslam attack
 	Izumi.prototype.chokeSlamEscape = function() {
@@ -213,7 +213,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		MainView.outputText( 'You drop to the ground and roll away, expecting some form of retribution.  this.Izumi glares at you from behind her hand for a moment, then snickers.  Slowly, she drops back into her fighting stance and gestures for your bout to continue.' );
 		this.cleanupChokeslam();
 		this.HP -= 50 + Utils.rand( CoC.player.str );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Remove the effect post-combat
 	Izumi.prototype.cleanupChokeslam = function() {
@@ -235,7 +235,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 			EngineCore.dynStats( 'spe-', spdReducedBy );
 			$log.debug( 'Applying Groundslam slow' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Remove the effect post-combat, fixup stats
 	Izumi.prototype.cleanupGroundpound = function() {
@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		MainView.outputText( 'first into Izumi - specifically, into her chest.  Shocked by suddenly having your face rammed into the pillowy soft expanse of Izumi’s bust, you rear back only to be slammed straight back into the mountainous expanse by Izumi’s arm.' );
 		CoC.player.createStatusAffect( StatusAffects.Titsmother, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', (CoC.player.lib / 15) + 5 + Utils.rand( 5 ) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Remove the effect post-combat
 	Izumi.prototype.cleanupTitsmother = function() {
@@ -282,7 +282,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		if( brokeFree ) {
 			$log.debug( 'Broke free of Titsmother!' );
 			this.titSmotherEscape();
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		} else {
 			if( Utils.rand( 2 ) === 0 ) {
 				MainView.clearOutput();
@@ -337,7 +337,7 @@ angular.module( 'cocjs' ).factory( 'Izumi', function( SceneLib, $log, MainView, 
 		MainView.outputText( '“Oh my,” she purrs, lasciviously. “Aren’t you the impressive one?  Keep surprising me like that and I might just forget about this handicap...”' );
 		this.cleanupTitsmother();
 		this.HP -= (15 + Utils.rand( CoC.player.str ));
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	// Wait handler for titsmother attack
 	Izumi.prototype.titSmotherWait = function() {

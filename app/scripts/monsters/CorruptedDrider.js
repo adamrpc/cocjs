@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainView, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UseableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainView, AbstractSpiderMorph, AppearanceDefs, Descriptors, WeightedDrop, ConsumableLib, UseableLib, Appearance, CockTypesEnum, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function CorruptedDrider() {
 		this.init(this, arguments);
 	}
@@ -13,7 +13,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			MainView.outputText( 'She\'s too blind to get anywhere near you.\n', false );
 		}
 		//Dodge;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'Somehow, you manage to drag yourself out of the way.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
@@ -27,7 +27,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			}
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Somehow, you manage to evade her lusty attack.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
@@ -41,7 +41,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			}
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'You manage to misdirect her lusty attack, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
@@ -55,7 +55,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 			}
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'You manage to twist your cat-like body out of the way at the last second, avoiding it at the last second.  She sighs and licks her lips.  "<i>', false );
 			temp = Utils.rand( 4 );
 			if( temp === 0 ) {
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 				}
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	CorruptedDrider.prototype.driderMasturbate = function() {
 		//-Masturbate - (Lowers lust by 50, raises PC lust);
@@ -134,14 +134,14 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 		}
 		MainView.outputText( 'nipple-flesh.  Arching her back in a lurid pose, she cries out in high-pitched bliss, her cock pulsing in her hand and erupting out a stream of seed that lands in front of her.\n\n', false );
 		MainView.outputText( 'The display utterly distracts you until it finishes, and as you adopt your combat pose once more, you find your own needs harder to ignore, while hers seem to be sated, for now.\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	CorruptedDrider.prototype.performCombatAction = function() {
 		MainView.spriteSelect( 77 );
 		if( this.lust > 70 && Utils.rand( 4 ) === 0 ) {
 			this.driderMasturbate();
 		}//1/4 chance of silence if pc knows spells;
-		else if( Combat.hasSpells() && !CoC.player.findStatusAffect( StatusAffects.WebSilence ) && Utils.rand( 4 ) === 0 ) {
+		else if( CoC.player.hasSpells() && !CoC.player.findStatusAffect( StatusAffects.WebSilence ) && Utils.rand( 4 ) === 0 ) {
 			this.spiderSilence();
 		}
 		//1/4 chance of disarm;
@@ -164,7 +164,7 @@ angular.module( 'cocjs' ).factory( 'CorruptedDrider', function( SceneLib, MainVi
 	CorruptedDrider.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe drider licks her lips in anticipation...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.corruptedDriderScene.loseToDrider();
 		}

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, PregnancyStore, kFLAGS, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, Descriptors, DemonPack, PregnancyStore, kFLAGS ) {
 	function Oasis() { }
 	Oasis.prototype.oasisEncounter = function() {
 		MainView.spriteSelect( 46 );
@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			MainView.outputText( 'You scramble away from the demons, but are too late. A swift demon with canine features tackles you to the ground.  Luckily he loses his grip as you tumble onto the sand and you slither free, stand up and wheel to face the host of leering demons which begin to advance with malicious intent.', true );
-			Combat.startCombat( new DemonPack() );
+			SceneLib.combatScene.startCombat( new DemonPack() );
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
 	};
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( 'You consider the invitation, but do your best to politely decline. The little giggle this produces in a small implike creature in the back of the group send chills down your spine and you turn to go, but as you do so you catch the eye of the leader. His grin has widened, as if he knows something that you do not. With a deliberate slowness he starts to chuckle, and your worst fears are confirmed when you hear the words \'Silly creature. The offer to feast is never denied. Take it alive and kicking.\'\n\n', true );
 		//MORTAL KOMBAAAAAT
 		MainView.outputText( 'The demons begin to circle menacingly, and you can do nothing but prepare to defend yourself.', false );
-		Combat.startCombat( new DemonPack() );
+		SceneLib.combatScene.startCombat( new DemonPack() );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	Oasis.prototype.oasisTalkAccept = function() {
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//If you got here by winning combat!
 		if( (CoC.monster.HP < 1 || CoC.monster.lust > 99) && CoC.isInCombat() ) {
 			MainView.outputText( 'You fuck and fuck until not a single demon is capable of servicing your needs. They lie moaning and panting at the edge of the oasis, unable to move. You survey the fallen fiends with just a touch of pride and a whole lot of satisfaction, your body feeling stronger for the endurance exercise.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 1.5 );
 			return;
@@ -179,7 +179,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				CoC.flags[ kFLAGS.ANTS_PC_FAILED_PHYLLA ] = 1;
 			}
 			MainView.outputText( 'The demons fuck you like animals until you can\'t come any more. Every one of your orifices is filled and you pump out orgasm after orgasm until you black out from the abuse.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'tou', 0.5, 'cor', 3 );
 			return;
@@ -193,7 +193,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'tou', 0.5, 'sen', 0.5, 'cor', 4 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}

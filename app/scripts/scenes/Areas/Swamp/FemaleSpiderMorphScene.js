@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, FemaleSpiderMorph, ConsumableLib, AppearanceDefs, Utils, PregnancyStore, kFLAGS, Combat, CoC, EngineCore, Descriptors ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, FemaleSpiderMorph, ConsumableLib, AppearanceDefs, Utils, PregnancyStore, kFLAGS, CoC, EngineCore, Descriptors ) {
 	function FemaleSpiderMorphScene() {
 		this.pregnancy = new PregnancyStore( kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_TYPE, kFLAGS.FEMALE_SPIDERMORPH_PREGNANCY_INCUBATION, 0, 0 );
 		this.pregnancy.addPregnancyEventSet( PregnancyStore.PREGNANCY_PLAYER, 100 );
@@ -53,7 +53,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 	};
 	//Selecting fight starts combat and eventParsers to 1 to display the combat menu and enemy description.;
 	FemaleSpiderMorphScene.prototype.fightFSpiderMorph = function() {
-		Combat.startCombat( new FemaleSpiderMorph() );
+		SceneLib.combatScene.startCombat( new FemaleSpiderMorph() );
 		MainView.spriteSelect( 73 );
 		MainView.playerMenu();
 	};
@@ -68,8 +68,8 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		}
 		//The other 50% will start combat and then immediately attempt to run.;
 		else {
-			Combat.startCombat( new FemaleSpiderMorph() );
-			Combat.runAway();
+			SceneLib.combatScene.startCombat( new FemaleSpiderMorph() );
+			SceneLib.combatScene.runAway();
 		}
 	};
 	//*Try to Talk;
@@ -102,13 +102,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 			MainView.outputText( 'You hold your hands up non-threateningly and ask the spider-girl why she\'s trying to sneak up on you.\n\n', false );
 			//(Start combat and immediately call a web attack);
 			var femaleSpiderMorph = new FemaleSpiderMorph();
-			Combat.startCombat( femaleSpiderMorph );
+			SceneLib.combatScene.startCombat( femaleSpiderMorph );
 			femaleSpiderMorph.spiderMorphWebAttack();
 		}
 	};
 	//*OPTION 1 Yes - Let Her Fuck You;
 	FemaleSpiderMorphScene.prototype.voluntaryFemaleSpiderMorphRapesYou = function() {
-		Combat.startCombat( new FemaleSpiderMorph() );
+		SceneLib.combatScene.startCombat( new FemaleSpiderMorph() );
 		MainView.spriteSelect( 73 );
 		CoC.setInCombat(false);
 		this.loseToFemaleSpiderMorph();
@@ -263,7 +263,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Defeat Male;
@@ -400,7 +400,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Defeat Male - Too Big;
@@ -481,7 +481,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	FemaleSpiderMorphScene.prototype.loseToFemaleSpiderMorph = function() {
@@ -495,7 +495,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 			this.defeatFemale();
 		} else {
 			MainView.outputText( 'The spider-girl knocks you out, muttering something about \'genderless freaks\' the entire time.', true );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Victory Intro;
@@ -528,9 +528,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 					MainView.outputText( '  <b>Her ass is too tight for you to fit inside.</b>', false );
 				}
 			}
-			EngineCore.choices( 'Fuck Ass', this, analFuck, 'Fuck Pussy', this, pussyFuck, 'Scissor', this, scissor, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck Ass', this, analFuck, 'Fuck Pussy', this, pussyFuck, 'Scissor', this, scissor, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Victory Female;
@@ -600,7 +600,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Victory Male;
@@ -688,7 +688,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Victory Anal:;
@@ -779,7 +779,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, F
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//*Egg Sack Find;

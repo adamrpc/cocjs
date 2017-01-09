@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, LustyDemons, WeaponLib, PregnancyStore, Farmers, Descriptors, ConsumableLib, PerkLib, AppearanceDefs, StatusAffects, Utils, CoC, kFLAGS, EngineCore ) {
 	function Owca() {
 	}
 
@@ -245,7 +245,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//Fight leads to the Horde Fight;
 		//When acting as sacrifice, Item button is disabled; Fight, Run, and Phys Special buttons are disabled unless PC has str >= 80; Run is furthermore prevented entirely if PC is non-winged; outputs text: "<i>You'd like to run, but you can't scale the walls of the pit with so many demonic hands pulling you down!</i>";
 		//PC's weapon is temporarily set to fists and armor to comfortable clothes during a Horde Fight if he triggered it in response to a sacrifice request, but not if triggered through volunteering to guard the pit later once the village is unlocked;
-		Combat.startCombat( new LustyDemons() );
+		SceneLib.combatScene.startCombat( new LustyDemons() );
 		if( sacrifice === undefined || sacrifice ) {
 			sacrifice = true;
 			//Remove weapon;
@@ -408,7 +408,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.player.slimeFeed();
 		EngineCore.dynStats( 'str', -2, 'tou', -2, 'spe', -1, 'int', -1, 'lib', 1, 'sen', 1, 'lus=', 100, 'cor', 3 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -448,13 +448,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		} else {
 			MainView.outputText( '\n\nThough the display as they explore each other is somewhat arousing, you can\'t really get into it as you are, and simply use your new-found freedom to climb out of the hole.  It\'s too dark to return to the village now, so you head back to camp.' );
 			CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] -= 5;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	Owca.prototype.noVapulaSex = function() {
 		MainView.clearOutput();
 		CoC.flags[ kFLAGS.VAPULA_SUBMISSIVENESS ] -= 5;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Yes/;
 	//[Yes: submissiveness is lowered by 10. No or auto-reject: submissiveness is lowered by 5.];
@@ -648,7 +648,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//PC is redirected to camp, next morning. No nightly camp scenes. ;
 		CoC.time.hours = 7;
 		CoC.time.days++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Main Owca Village menu (Z);
 	//[displayed after the second encounter text and right away in subsequent encounters];
@@ -944,7 +944,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		EngineCore.dynStats( 'lib', -2, 'cor', 5 );
 		CoC.flags[ kFLAGS.OWCA_UNLOCKED ] = -1;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -965,7 +965,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	Owca.prototype.fightZeVillagers = function() {
 		MainView.clearOutput();
 		//You are fighting the villagers (level 14):;
-		Combat.startCombat( new Farmers() );
+		SceneLib.combatScene.startCombat( new Farmers() );
 		CoC.monster.createStatusAffect( StatusAffects.GenericRunDisabled, 0, 0, 0, 0 );
 		MainView.playerMenu();
 		//~500 HP, 6 different attacks at 20 hp, can't run, 100% lust resistance (can't arouse), ~200 xp;
@@ -990,7 +990,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 	Owca.prototype.leaveOwcaAfterWhupping = function() {
 		//tag for calling last plea;
 		CoC.flags[ kFLAGS.REBECCS_LAST_PLEA ] = 1;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Village Torching scene - requires a fire skill (Z);
 	Owca.prototype.torchOwcaMotherFuckers = function() {
@@ -1014,7 +1014,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.player.gems += 900 + Utils.rand( 150 );
 		EngineCore.fatigue( 100 );
 		MainView.statsView.show();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//End of quest;
 	//Lose to Villagers (Z);
@@ -1060,7 +1060,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.flags[ kFLAGS.OWCA_ANGER_DISABLED ] = 1;
 		//To main owca menu;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat( this, this.gangbangVillageStuff );
+			SceneLib.combatScene.cleanupAfterCombat( this, this.gangbangVillageStuff );
 		} else {
 			EngineCore.doNext( this, this.gangbangVillageStuff );
 		}
@@ -1071,7 +1071,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		MainView.outputText( 'You stare at the wretched, whimpering creature before you for a moment.  There\'s nothing to say.  Without a word, you head back to your camp, carefully closing Rebecc\'s door behind you as you leave.' );
 		CoC.flags[ kFLAGS.REBECCS_LAST_PLEA ] = 1;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1153,7 +1153,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		if( CoC.player.gender > 0 && CoC.player.cor >= 66 ) {
 			enslave = this.enslaveVapulaWithYourWang;
 		}
-		EngineCore.choices( 'Disband', this, this.disbandHorde, 'EnslaveVapula', this, enslave, 'JustFuckEm', this, fuck, '', null, null, 'Skip Out', null, Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Disband', this, this.disbandHorde, 'EnslaveVapula', this, enslave, 'JustFuckEm', this, fuck, '', null, null, 'Skip Out', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	//Option: Disband (Z);
 	Owca.prototype.disbandHorde = function() {
@@ -1166,7 +1166,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		//Attitude set to 100;
 		CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] = 100;
 		CoC.flags[ kFLAGS.OWCA_SACRIFICE_DISABLED ] = 1;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Option: Enslave - penis version (requires D2 completion and libido >= 60 and corr >= 70) (Z);
 	Owca.prototype.enslaveVapulaWithYourWang = function() {
@@ -1197,7 +1197,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 			CoC.player.lust = 80;
 		}
 		EngineCore.dynStats( 'lus', 0.1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Option: Enslave - vagina version (requires D2 completion and libido >= 60 and corr >= 70 and, apparently, no centaurs)(Z);
 	//NOTE: No Centaurs. Fuck Centaurs.;
@@ -1220,7 +1220,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, Combat, LustyDemons
 		CoC.flags[ kFLAGS.OWCAS_ATTITUDE ] = 100;
 		CoC.flags[ kFLAGS.OWCA_SACRIFICE_DISABLED ] = 1;
 		//Chance to trigger imp gangbang is increased by 7%!;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'owca', new Owca() );
 } );

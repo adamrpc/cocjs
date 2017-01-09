@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmorMonster, ArmorLib, PregnancyStore, Combat, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmorMonster, ArmorLib, PregnancyStore, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function Valeria() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		MainView.outputText( '\n\n"<i>Hey, that\'d be great, partner. Gotta keep our skills sharp if we wanna have a chance against the demons, after all! Let\'s do it.</i>"' );
 		MainView.outputText( '\n\nYou take Valeria out to the fringe of camp and ready your [weapon] as she forms a gooey greatsword in her hands.' );
 		//(Play normal combat scenes, with EXP rewards. No rape options, however; use the following outtros:);
-		Combat.startCombat( new GooArmorMonster() );
+		SceneLib.combatScene.startCombat( new GooArmorMonster() );
 		CoC.monster.createStatusAffect( StatusAffects.Spar, 0, 0, 0, 0 );
 		CoC.monster.gems = 0;
 		EngineCore.doNext( MainView, MainView.playerMenu );
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		MainView.spriteSelect( 79 );
 		MainView.outputText( '"<i>Oof!</i>" Valeria grunts, nearly losing her human shape as she tumbles to the hard-packed dirt.  "<i>All right, all right, you win!  Take it easy, partner,</i>" she laughs, letting her greatsword dissipate back into her body.' );
 		MainView.outputText( '\n\nYou offer to help her up, but she easily reconstitutes herself into a standing pose, giving you a little wink afterwards.  "<i>Thanks for the ass-whoopin\', [name],</i>" she laughs.  "<i>C\'mon, let\'s get back to it.  Demons aren\'t gonna defeat themselves, after all.</i>"' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Valeria] -- [Spar] -- PC Defeated;
 	Valeria.prototype.pcWinsValeriaSparDefeat = function() {
@@ -94,7 +94,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 			MainView.outputText( ', offering you a hand up.' );
 			MainView.outputText( '\n\n"<i>C\'mon, let\'s get back to camp.</i>"' );
 			//(Return to main Camp menu);
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//[else; If PC lost via lust & has a gender: ;
 		else {
@@ -420,7 +420,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		if( !CoC.isInCombat() ) {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Followers -- [Valeria] -- [Talk];
@@ -795,7 +795,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, GooArmo
 		if( CoC.player.biggestTitSize() >= 5 && CoC.player.hasFuckableNipples() ) {
 			CoC.player.changeStatusValue( StatusAffects.GooStuffed, 4, 1 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Random Goo-girl Cum-Out:;
 	Valeria.prototype.birthOutDatGooSlut = function() {

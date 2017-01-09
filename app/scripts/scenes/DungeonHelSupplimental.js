@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( 'You reach out to grab the armor, but as soon as your finger brushes the shiny surface, a human-like face appears in the helm!  You recoil as a daintily feminine and bright blue face takes shape out of nowhere, staring at you with eyes afire with rage.  More of the gooey substance that makes up the girl\'s face fills out the armor, yanking it off the racks on feet made of goop.' );
 		MainView.outputText( '\n\nQuietly, the armored goo-girl growls, "<i>You dare to disturb my rest, mortal? Prepare yourself for my vengeance!</i>"' );
 		MainView.outputText( '\n\nWhat the fuck!? Oh well, looks like she wants a fight!' );
-		Combat.startCombat( new GooArmorMonster() );
+		SceneLib.combatScene.startCombat( new GooArmorMonster() );
 	};
 	DungeonHelSupplimental.prototype.gooArmorAI = function() {
 		MainView.spriteSelect( 79 );
@@ -186,16 +186,16 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			if( damage <= 0 ) {
 				damage = 1;
 			}
-			damage = Combat.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK TWO: Goo Consume;
 	DungeonHelSupplimental.prototype.gooArmorAttackTwoGooConsume = function() {
 		MainView.outputText( 'Suddenly, the goo-girl leaks half-way out of her heavy armor and lunges at you.  You attempt to dodge her attack, but she doesn\'t try and hit you - instead, she wraps around you, pinning your arms to your chest.  More and more goo latches onto you - you\'ll have to fight to get out of this.' );
 		CoC.player.createStatusAffect( StatusAffects.GooArmorBind, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//(Struggle);
 	DungeonHelSupplimental.prototype.struggleAtGooBind = function() {
@@ -219,14 +219,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			MainView.outputText( 'You finally pull the goop off of you and dive out of her reach before the goo-girl can re-attach herself to you.  Pouting, she refills her suit of armor and reassumes her fighting stance.' );
 			CoC.player.removeStatusAffect( StatusAffects.GooArmorBind );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK THREE: Goo Silence;
 	DungeonHelSupplimental.prototype.gooSilenceAttack = function() {
 		MainView.outputText( 'The goo pulls a hand off her greatsword and shoots her left wrist out towards you.  You recoil as a bit of goop slaps onto your mouth, preventing you from speaking - looks like you\'re silenced until you can pull it off!' );
 		//(No spells until PC passes a moderate STR check or burns it away);
 		CoC.player.createStatusAffect( StatusAffects.GooArmorSilence, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Goo Armor -- PC Defeated (PC has Gender);
 	DungeonHelSupplimental.prototype.gooArmorBeatsUpPC = function() {
@@ -296,7 +296,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		EngineCore.HPChange( 1000, false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 3 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		CoC.flags[ kFLAGS.LOST_GOO_ARMOR_FIGHT ] = 1;
 	};
@@ -327,7 +327,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( 'You tell her to fuck off -- you don\'t need armor that might try to kill or rape you at night.' );
 		MainView.outputText( '\n\nShe huffs indignantly and scrambles to her feet.  "<i>Well fine, and fuck you anyway.  I hope you get raped by harpies, ' + CoC.player.mf( 'sir', 'madam' ) + '.</i>"  After a moment, she hesitantly adds, "<i>But if you change your mind later... Well, we\'ll see if you live through this place without me!</i>"  Before you can stop her, she ducks out the front door and off to... Wherever goo-armor-girl-things would go, you guess.  Still, to your surprise, you feel rather invigorated after the battle, and rolling your shoulders, you turn your attention back to the dungeon ahead.' );
 		EngineCore.HPChange( 1000, false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 	//[Take Her];
@@ -354,7 +354,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( '\n\nAfter a few minutes, you and your armor-friend are settled and ready to go.  As you ready yourself for the dungeon ahead, the goo giggles into your ear.  "<i>Oh shit, silly me.  I forgot, my name\'s Valeria.  Ser Valeria, if you\'re feeling fancy.</i>"  You introduce yourself, awkwardly shaking your own hand by way of pleasantries.' );
 		MainView.outputText( '\n\n"<i>Well, alright then, [name]!</i>" Valeria says excitedly, "<i>Let\'s go!</i>"' );
 		//("<i>You gained ValeriaArmor!</i>");
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//("<i>You put a (previous armorName) in your X pouch);
 		MainView.outputText( '\n\nTo your surprise, you feel rather invigorated after the battle, thanks to Valeria\'s strange healing properties, and with a smirk, you turn your attention back to the dungeon ahead.\n\n' );
 		//(PC regains HP);
@@ -369,7 +369,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//(Effect: Multiple light attacks);
 		CoC.monster.createStatusAffect( StatusAffects.Attacks, 3 + Utils.rand( 3 ), 0, 0, 0 );
 		CoC.monster.eAttack();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK TWO: Gangbang;
 	DungeonHelSupplimental.prototype.harpyHordeGangBangAttack = function() {
@@ -386,7 +386,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//If fail:;
 		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 ) {
 			var damage = 80 + Utils.rand( 40 );
-			damage = Combat.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( 'You struggle in the harpies\' grasp, but can\'t quite get free.  The brood continues to hammer away at your defenseless self. (' + damage + ')' );
 		}
 		//Success: ;
@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 			CoC.player.removeStatusAffect( StatusAffects.HarpyBind );
 			MainView.outputText( 'With a mighty roar, you throw off the harpies grabbing you and return to the fight!' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK THREE: LUSTY HARPIES!;
 	DungeonHelSupplimental.prototype.harpyHordeLustAttack = function() {
@@ -410,7 +410,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		}
 		MainView.outputText( '.' );
 		EngineCore.dynStats( 'lus', 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.harpyHordeAI = function() {
 		if( Utils.rand( 3 ) === 0 ) {
@@ -444,7 +444,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( '\n\nYou ask her who she is exactly and how she knows Hel.' );
 		MainView.outputText( '\n\n"<i>Uh, well, I\'m the one who told her about this place. You could say I\'m her informant, I guess,</i>" she shrugs and slips her hands behind her inhumanly wide hips.  Cocking an eyebrow, you notice the girl is actually quite pretty - her wings and hair are an orange as bright as the sun, and she has deliciously curvaceous thighs and hips, not to mention cute perky breasts.  Noticing your lusty glances, she makes a little giggle and bites her lower lip.' );
 		MainView.outputText( '\n\n"<i>Anyway, Miss Helia asked me to help you any way I can, so... I guess, just ask me if you need anything.</i>"' );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Kiri -- [Talk];
 	DungeonHelSupplimental.prototype.talkToKiri = function() {
@@ -667,23 +667,23 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		//(Effect: Multiple light attacks);
 		CoC.monster.createStatusAffect( StatusAffects.Attacks, 2 + Utils.rand( 3 ), 0, 0, 0 );
 		CoC.monster.eAttack();
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK TWO: FIRE BREATH;
 	DungeonHelSupplimental.prototype.phoenixPlatoonFireBreath = function() {
 		MainView.outputText( 'Suddenly, the shield wall parts, revealing a single member of the platoon, a particularly muscular girl with a raging erection.  Before you can consider what\'s going on, she rears back and huffs at you.  To your horror, a great gout of fire erupts from her mouth, rolling towards you.  You dive, but are still caught partially in the inferno.' );
 		//(Effect: One heavy-damage attack);
 		var damage = 100 + Utils.rand( 50 );
-		damage = Combat.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK THREE: LUSTBANG GRENADE;
 	DungeonHelSupplimental.prototype.phoenixPlatoonLustbang = function() {
 		MainView.outputText( '"<i>LUSTBANG OUT!</i>" one of the rear-most phoenixes shouts, causing all the other warriors to duck down behind their shields.  Oh, shit!  A large glass sphere rolls out from the shield wall, and immediately explodes in a great pink cloud.  You cough and wave your arms, but by the time the cloud has dissipated, you feel lightheaded and lusty, barely able to resist the urge to throw yourself at the phoenixes and beg for their cocks and cunts.' );
 		//(Effect: Large lust increase);
 		EngineCore.dynStats( 'lus', 40 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.phoenixPlatoonAI = function() {
 		if( !CoC.monster.findStatusAffect( StatusAffects.Platoon ) ) {
@@ -717,7 +717,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.clearOutput();
 		MainView.outputText( 'With one final grunt, the last of the phoenixes collapses onto the pile of defeated warriors you\'ve left in your wake.  The once-mighty platoon of soldiers has been reduced to a bruised, lusty heap of flesh, scales and feathers.  Seeing that the battle is won, you lower your [weapon] and take a look around.' );
 		CoC.flags[ kFLAGS.HEL_PHOENIXES_DEFEATED ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Phoenixes];
 	DungeonHelSupplimental.prototype.checkOutDemBirdBitches = function() {
@@ -901,10 +901,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		MainView.outputText( 'The Harpy Queen flicks her left wrist at you. Before you can blink, ropes of white-hot magic hurtle toward you. You manage to duck and dodge a few of them, but a pair still grab your wrists, pulling painfully at your arms.' );
 		//(Effect: Grab + Physical Damage);
 		var damage = 25 + Utils.rand( 10 );
-		damage = Combat.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
 		CoC.monster.createStatusAffect( StatusAffects.QueenBind, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	DungeonHelSupplimental.prototype.ropeStruggles = function( wait ) {
 		MainView.clearOutput();
@@ -912,29 +912,29 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		if( Utils.rand( 10 ) > 0 && CoC.player.str / 5 + Utils.rand( 20 ) < 23 || wait ) {
 			MainView.outputText( 'You give a mighty try, but cannot pull free of the magic ropes!  The Harpy Queen laughs uproariously, pulling at your arms harder.' );
 			var damage = 25 + Utils.rand( 10 );
-			damage = Combat.takeDamage( damage );
+			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		} else {
 			MainView.outputText( 'With supreme effort, you pull free of the magic ropes, causing the queen to tumble to her hands and knees.' );
 			CoC.monster.removeStatusAffect( StatusAffects.QueenBind );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK TWO: LUST SPIKE;
 	DungeonHelSupplimental.prototype.lustSpikeAttack = function() {
 		MainView.outputText( 'The Harpy Queen draws a strange arcane circle in the air, lines of magic remaining wherever the tip of her staff goes.  You try to rush her, but the circle seems to have created some kind of barrier around her.  You can only try to force it open - but too late!  A great pink bolt shoots out of the circle, slamming into your chest.  You suddenly feel light-headed and so very, very horny...' );
 		//(Effect: Heavy Lust Damage);
 		EngineCore.dynStats( 'lus', 40 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//ATTACK THREE: Wind Slam!;
 	DungeonHelSupplimental.prototype.windSlamAttack = function() {
 		MainView.outputText( 'The queen swings her arm at you and, despite being a few feet away, you feel a kinetic wall slam into you, and you go flying - right into the harpy brood!  You feel claws, teeth and talons dig into you, but you\'re saved by a familiar pair of scaled arms.  "<i>Get back in there!</i>" Helia shouts, throwing you back into the battle!' );
 		//(Effect; Heavy Damage);
 		var damage = 100 + Utils.rand( 50 );
-		damage = Combat.takeDamage( damage );
+		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//HARPY QUEEN -- PC DEFEATED;
 	DungeonHelSupplimental.prototype.harpyQueenBeatsUpPCBadEnd = function( clearS ) {
@@ -978,7 +978,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, GooArmorMonster, ArmorLib, We
 		CoC.player.createKeyItem( 'Harpy Key B', 0, 0, 0, 0 );
 		CoC.flags[ kFLAGS.HEL_HARPY_QUEEN_DEFEATED ] = 1;
 		//(PC moves to Throne Room Main Menu:);
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Throne Room -- [Helia];
 	DungeonHelSupplimental.prototype.HeliaThroneRoom = function() {

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, CockTypesEnum, Sophie, ConsumableLib, Combat, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, CockTypesEnum, Sophie, ConsumableLib, Descriptors, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function SophieFollowerScene() {
 		this.eggColors = [
 			'Black',
@@ -104,7 +104,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		CoC.flags[ kFLAGS.SOPHIES_DAUGHTERS_DEBIMBOED ] = 0;
 		CoC.player.consumeItem( ConsumableLib.BIMBOLQ );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}//(Display Sophie's normal options.You monster)
 		else {
 			SceneLib.sophieBimbo.approachBimboSophieInCamp( false );
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.outputText( 'Oh no, fuck this!  You ready your [weapon] to knock some sense into the harpy slut.  Seeing your hostile movements, Sophie draws a sharp breath, preparing to defend herself.' );
 		MainView.outputText( '\n\n"<i>I\'m gonna make you pay for this!</i>"' );
 		//(Go to normal Sophie Combat screen);
-		Combat.startCombat( new Sophie() );
+		SceneLib.combatScene.startCombat( new Sophie() );
 		CoC.monster.createStatusAffect( StatusAffects.BimboBrawl, 0, 0, 0, 0 );
 		CoC.monster.createStatusAffect( StatusAffects.GenericRunDisabled, 0, 0, 0, 0 );
 	};
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		}
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00283 ] = 1;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -188,7 +188,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		MainView.outputText( '\n\nYou nod, and tell Sophie to make herself at home.' );
 		MainView.outputText( '\n\n(<b>Sophie has been moved to the "Followers" tab!</b>)' );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, AppearanceDefs, Coc
 		//{Sophie has been moved to the "Followers" tab!};
 		MainView.outputText( '\n\n(<b>Sophie has been moved to the "Followers" tab!</b>)' );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}

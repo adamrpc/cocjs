@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, MainView, CoC, Monster, AppearanceDefs, StatusAffects, Utils, Combat, Descriptors ) {
+angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, MainView, CoC, Monster, AppearanceDefs, StatusAffects, Utils, SceneLib, Descriptors ) {
 	function Doppleganger() {
 		this.init(this, arguments);
 	}
@@ -43,19 +43,19 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, MainVie
 	Doppleganger.prototype.addTalkShit = function() {
 		MainView.statsView.show();
 		if( this.HP < 1 ) {
-			EngineCore.doNext( Combat, Combat.endHpVictory );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory );
 			return;
 		}
 		if( this.lust > 99 ) {
-			EngineCore.doNext( Combat, Combat.endLustVictory );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustVictory );
 			return;
 		}
 		if( CoC.player.HP < 1 ) {
-			EngineCore.doNext( Combat, Combat.endHpLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpLoss );
 			return;
 		}
 		if( CoC.player.lust > 99 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 			return;
 		}
 		switch( this._roundCount ) {
@@ -98,7 +98,7 @@ angular.module( 'cocjs' ).factory( 'Doppleganger', function( EngineCore, MainVie
 				break;
 		}
 		this._roundCount++;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Doppleganger.prototype.defeated = function() {
 		CoC.dopplegangerScenes.punchYourselfInTheBalls();

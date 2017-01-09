@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, LivingStatue, Combat, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, LivingStatue, CoC, EngineCore ) {
 	function LivingStatueScenes() {
 	}
 
@@ -12,7 +12,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, LivingStatue, Comba
 		}
 		MainView.outputText( 'Moss clings to its chin an age-gifted beard. Bits of it shake loose as it speaks. <i>"Tresspasser!"</i>' );
 		MainView.outputText( '\n\nStriding towards you, the behemoth raises its hammer overhead. Dust cascades from its seamless joints, and it\'s only as it closes distance that you spot a pockmarks and near-invisible surface cracks, the hallmarks of its age. You\'ll have to fight this alabaster destroyer if you want to live!' );
-		Combat.startCombat( new LivingStatue() );
+		SceneLib.combatScene.startCombat( new LivingStatue() );
 	};
 	LivingStatueScenes.prototype.beatUpDaStatue = function() {
 		MainView.clearOutput();
@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, LivingStatue, Comba
 		}
 		MainView.outputText( '\n\n<b>Lethicite acquired!</b>' );
 		CoC.player.createKeyItem( 'Stone Statue Lethicite', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	LivingStatueScenes.prototype.fuckinMarbleOP = function() {
 		MainView.clearOutput();

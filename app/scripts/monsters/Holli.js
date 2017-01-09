@@ -32,7 +32,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')\n\n' );
 		CoC.player.createStatusAffect( StatusAffects.HolliConstrict, 0, 0, 0, 0 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//End of Round, if no Jojo Fire -Z;
 	Holli.prototype.holliBonusHealing = function() {
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 				}
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//if player uses whitefire/firebreath successfully, suppress these, go to 'Fire Lit' EOR events, and output additional line after the attack:;
 	Holli.prototype.lightHolliOnFireMagically = function() {
@@ -124,7 +124,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 			damage = CoC.player.takeDamage( damage );
 			MainView.outputText( ' (' + damage + ')' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//constrict -Z;
 	Holli.prototype.holliConstrictAttack = function() {
@@ -147,7 +147,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 			EngineCore.dynStats( 'lus', 15 );
 			CoC.player.createStatusAffect( StatusAffects.HolliConstrict, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Holli.prototype.struggleOutOfHolli = function() {
 		MainView.clearOutput();
@@ -171,7 +171,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 			this.waitForHolliConstrict( false );
 			return;
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Holli.prototype.waitForHolliConstrict = function( newScreen ) {
 		if( newScreen === undefined || newScreen ) {
@@ -184,7 +184,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 			this.lust = 20;
 		}
 		EngineCore.dynStats( 'lus', 15 + CoC.player.sens / 5 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//heal -Z;
 	//used if monster HP < some level;
@@ -193,7 +193,7 @@ angular.module( 'cocjs' ).factory( 'Holli', function( SceneLib, MainView, CockTy
 		MainView.outputText( 'The bark splits part way and the woman\'s mouth suddenly explodes with color, her lips folding out into a rather yonic-looking orchid.  Copious white-tinted sap oozes from the bloom, coating her bark and healing the lesions.  Petals rustle as she speaks wetly through it.  "<i>Your efforts are nothing!  Throw yourself on my mercy; be my slave and do my bidding!</i>"' );
 		//heal some fuckin' hp;
 		this.addHP( 200 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Holli.prototype.performCombatAction = function() {
 		if( this.HP < 50 && Utils.rand( 2 ) === 0 ) {

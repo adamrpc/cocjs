@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, Combat, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, AppearanceDefs, ImageManager, Descriptors, DemonPack, TentacleBeast, Minotaur, Gnoll, PerkLib ) {
 	function AntsScene() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -186,7 +186,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 		//►Introduction to Combat
 		MainView.outputText( 'As the demons bear down on the ant-girl, you burst from your hiding place, raising your [weapon] to the air and uttering an impressive war cry.  Nobody, ant or otherwise, is getting raped if you have any say in the matter!' );
 		MainView.outputText( '\n\nYou are now fighting demons!' );
-		Combat.startCombat( new DemonPack() );
+		SceneLib.combatScene.startCombat( new DemonPack() );
 		CoC.monster.createStatusAffect( StatusAffects.phyllafight, 0, 0, 0, 0 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
@@ -207,7 +207,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 		MainView.outputText( '\n\nYou stagger backwards and almost fall over completely, but the ant manages to catch you. Though she herself is thin, her four arms are surprisingly strong; they do little to help the disorientation, even so.  The world spins round and round as you struggle to shake off your vertigo and the girl lowers you to the ground.  Once your thoughts are collected enough to at least sit up unassisted, you find your new friend standing in front of you with a huge smile.  You feel an odd kinship from her, as though you\'ve known her your whole life.  That can\'t be right; you shake your head again trying to clear your mind.  The female... ant-morph breaks into a sprint away from you and the cart, before you can ask her what just happened.  You would attempt to pursue, but she\'s very quick and you can yet hardly stand upright.  She leaves you surrounded by useless trinkets in a barren part of the desert and completely stunned as to what just transpired.  Although, looking around, you think you have a better idea of where you might be in the desert - you may even know how to find that large anthill you saw when the ant-morph kissed you.  Unconsciously you whisper a name quietly under your breath as you picture the scene: "<i>Phylla...</i>"' );
 		MainView.outputText( '\n\nYou exhale a loud sigh.  This land is still full of surprises, even after all you\'ve seen.' );
 		CoC.flags[ kFLAGS.PHYLLA_SAVED ] = 1;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Enter The Colony]
 	//(Explore the Desert)
@@ -283,7 +283,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			MainView.outputText( 'You tell the fight manager you\'re ready.  He nods and leads you down into one of the two staging areas of the arena.  You watch through the bars as the stadium fills quickly.  Although pretty much every ant face looks identical to you, the larger ones who are clearly warriors stand in stark contrast with the smaller ones that must be the workers - or maybe they\'re just younger; you can\'t tell.  Watching them gather for the impending fight, you confirm the suspicion you formed when you first saw the queen\'s chamber ant-morph except the princess and the queen is male!  Gazing out into the crowd you spot the two royal personages sitting in a special area that appears to be reserved for them.  The shy princess\'s gaze nervously drifts toward your room and for a moment your eyes meet.' );
 			MainView.outputText( '\n\nAs you raise a hand to wave, you\'re stopped as you hear the sounds of a shambling and banging from across the arena.  A large silhouetted beast is poked and prodded into the staging area across from you. You narrow your eyes, trying to get a glimpse of your opponent. As you do, the gates of the staging areas drop and a very angry and enraged tentacle beast thrashes out into the center of the arena.' );
 			MainView.outputText( '\n\nYou\'re fighting a tentacle beast!' );
-			Combat.startCombat( new TentacleBeast() );
+			SceneLib.combatScene.startCombat( new TentacleBeast() );
 			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
 		//►[Fight #2]
@@ -291,7 +291,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			//►(Minotaur - Intro)
 			MainView.outputText( 'When you arrive in the colosseum, you tell the fight manager you\'re ready; he nods and leads you down into one of the two staging areas for the arena.  You watch through the bars as the stadium fills almost to capacity, still resistant to the idea of so many ants living right under the sands; there must be hundreds.  Gazing out into the cheering crowd, you spot the royal family sitting in their reserved area.  The princess waves at you excitedly with two of her arms, but her mother grabs them and lowers them.  Chylla herself looks as regal and reserved as ever.  You catch the queen smiling at you, but there\'s something wicked behind the smile.  Before you can contemplate what it might be, the gates raise on both sides of the colosseum and you are pushed out.' );
 			MainView.outputText( '\n\nYou\'re now fighting a minotaur and it\'s wielding a Giant Axe!  You quickly put two and two together and realize Chylla has set you up by arming the minotaur!  You brace yourself as the beastman charges you, roaring wildly.' );
-			Combat.startCombat( new Minotaur( true ) );
+			SceneLib.combatScene.startCombat( new Minotaur( true ) );
 			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
 		//►[Fight #3]
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			}
 			MainView.outputText( '\n\nYou\'re fighting a gnoll!' );
 			CoC.flags[ kFLAGS.MET_ANT_ARENA_GNOLL ]++;
-			Combat.startCombat( new Gnoll() );
+			SceneLib.combatScene.startCombat( new Gnoll() );
 			CoC.monster.createStatusAffect( StatusAffects.NoLoot, 0, 0, 0, 0 );
 		}
 		CoC.monster.createStatusAffect( StatusAffects.PhyllaFight, 0, 0, 0, 0 );
@@ -321,7 +321,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 		EngineCore.fatigue( 10 );
 		//(+1 Win Score)
 		CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//►(Tentacle Beast - Loss) Standard Tentacle Beast Loss Scene.
 	AntsScene.prototype.phyllaTentaclePCLoss = function() {
@@ -335,7 +335,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			this.antastrophyBadEnd();
 			return;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//►(Minotaur- Win)
 	AntsScene.prototype.phyllaBeatAMino = function() {
@@ -346,7 +346,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 		EngineCore.fatigue( 10 );
 		//(+1 Win Score)
 		CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//►(Minotaur- Loss)
 	AntsScene.prototype.phyllaPCLostToMino = function() {
@@ -358,7 +358,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			this.antastrophyBadEnd();
 			return;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	AntsScene.prototype.phyllaPCBeatsGnoll = function() {
 		MainView.clearOutput();
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 		}
 		//(+1 Win Score)
 		CoC.flags[ kFLAGS.ANT_ARENA_WINS ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	AntsScene.prototype.phyllaGnollBeatsPC = function() {
 		//►(Gnoll - Loss First Time) Standard Gnoll Loss Scene. +
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $rootScope, $log, C
 			this.antastrophyBadEnd();
 			return;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	AntsScene.prototype.antastrophyBadEnd = function() {

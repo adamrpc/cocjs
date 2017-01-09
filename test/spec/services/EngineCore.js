@@ -1289,7 +1289,7 @@ describe('Factory: EngineCore', function() {
 		engineCore._addLib( -150, true );
 		expect(coc.player.lib).toBe(10);
 		expect(coc.oldStats.lib).toBe(15);
-		var minLust = 30;
+		minLust = 30;
 		engineCore._addLib( -150, true );
 		expect(coc.player.lib).toBe(20);
 		expect(coc.oldStats.lib).toBe(10);

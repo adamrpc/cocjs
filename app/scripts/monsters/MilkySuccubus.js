@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView, AbstractSuccubus, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView, AbstractSuccubus, Appearance, CoC, EngineCore, Utils, AppearanceDefs, Monster, StatusAffects ) {
 	function MilkySuccubus() {
 		this.init(this, arguments);
 	}
@@ -35,7 +35,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView
 			EngineCore.dynStats( 'lus', 15 );
 			this.createStatusAffect( StatusAffects.MilkyUrta, 3, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MilkySuccubus.prototype.drinkMinoCum = function() {
 		MainView.outputText( 'Smiling wryly and licking her lips, the succubus-cow procures a bottle of her pet\'s cum with her probing tail.' );
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView
 		else {
 			MainView.outputText( '\n\nShe frowns and looks behind her, pouting slightly when she turns to look back at you.  "<i>Seems like I\'m all out of cum.</i>"  She grins evilly.  "<i>I\'ll just have to get more after I\'m done with you.</i>"' );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MilkySuccubus.prototype.succubusTease = function() {
 		if( Utils.rand( 4 ) === 0 ) {
@@ -67,7 +67,7 @@ angular.module( 'cocjs' ).factory( 'MilkySuccubus', function( SceneLib, MainView
 			MainView.outputText( 'The succubus leans forwards holding her tits, while wrapping her fingers around her nipples.  "<i>My boobs are soo full.  Would you like to help me drain them?</i>" she says with a husky voice.' );
 		}
 		EngineCore.dynStats( 'lus', 20 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MilkySuccubus.prototype.defeated = function() {
 		SceneLib.urtaQuest.urtaBeatsUpCowcubi();

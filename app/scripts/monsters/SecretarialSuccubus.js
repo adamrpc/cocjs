@@ -11,23 +11,23 @@ angular.module( 'cocjs' ).factory( 'SecretarialSuccubus', function( SceneLib, Ma
 			if( hpVictory ) {
 				MainView.outputText( 'You smile in satisfaction as the ' + this.short + ' collapses, unable to continue fighting.  Now would be the perfect opportunity to taste the fruits of her sex-ready form...\n\nDo you rape her?', true );
 				EngineCore.dynStats( 'lus', 1 );
-				EngineCore.choices( 'Yes', SceneLib.dungeonCore, SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', SceneLib.dungeonCore, dildo, '', null, null, '', null, null, 'No', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', SceneLib.dungeonCore, SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', SceneLib.dungeonCore, dildo, '', null, null, '', null, null, 'No', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else if( CoC.player.lust >= 33 ) {
 				MainView.outputText( 'You smile in satisfaction as the ' + this.short + ' gives up on fighting you and starts masturbating, begging for you to fuck her.  Now would be the perfect opportunity to taste the fruits of her sex-ready form...\n\nDo you fuck her?', true );
 				EngineCore.dynStats( 'lus', 1 );
-				EngineCore.choices( 'Yes', SceneLib.dungeonCore, SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', SceneLib.dungeonCore, dildo, '', null, null, '', null, null, 'No', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Yes', SceneLib.dungeonCore, SceneLib.dungeonCore.succubusVictoryRape, 'Dildo Rape', SceneLib.dungeonCore, dildo, '', null, null, '', null, null, 'No', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
-				Combat.finishCombat();
+				SceneLib.combatScene.finishCombat();
 			}
 		} else {
-			Combat.finishCombat();
+			SceneLib.combatScene.finishCombat();
 		}
 	};
 	/* jshint unused:true */
 	SecretarialSuccubus.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.succubusLossRape();
 		}

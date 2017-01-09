@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armor, Weapon, CoC_Settings, ConsumableLib, ItemSlot, ItemType, OnLoadVariables, WeaponLib, CoC, EngineCore, kFLAGS, Utils, Combat, StatusAffects ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armor, Weapon, CoC_Settings, ConsumableLib, ItemSlot, ItemType, OnLoadVariables, WeaponLib, CoC, EngineCore, kFLAGS, Utils, StatusAffects ) {
 	function Inventory() {
 		this.itemStorage = [];
 		this.gearStorage = [];
@@ -86,12 +86,12 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		}
 		if( CoC.isInCombat() && CoC.player.findStatusAffect( StatusAffects.Sealed ) && CoC.player.statusAffectv1( StatusAffects.Sealed ) === 3 ) {
 			MainView.outputText( '\nYou reach for your items, but you just can\'t get your pouches open.  <b>Your ability to use items was sealed, and now you\'ve wasted a chance to attack!</b>\n\n' );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		MainView.outputText( '\nWhich item will you use?' );
 		if( CoC.isInCombat() ) {
-			EngineCore.addButton( 9, 'Back', null, Combat.combatMenu, false );
+			EngineCore.addButton( 9, 'Back', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 		}//Player returns to the combat menu on cancel
 		else {
 			EngineCore.addButton( 9, 'Back', null, MainView.playerMenu );
@@ -183,7 +183,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 			this.currentItemSlot.setItemAndQty( item, 1 );
 		}
 		if( CoC.isInCombat() ) {
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		if( showNext === undefined || showNext ) {
@@ -278,9 +278,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, Useable, Armo
 		this.itemGoNext(); //Normally returns to the inventory menu. In combat it goes to the inventoryCombatHandler function
 	};
 	Inventory.prototype.inventoryCombatHandler = function() {
-		if( !Combat.combatRoundOver() ) { //Check if the battle is over. If not then go to the enemy's action.
+		if( !SceneLib.combatScene.combatRoundOver() ) { //Check if the battle is over. If not then go to the enemy's action.
 			MainView.outputText( '\n\n' );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 		}
 	};
 	Inventory.prototype.useItem = function( item, fromSlot ) {

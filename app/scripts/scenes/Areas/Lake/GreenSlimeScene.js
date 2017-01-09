@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, CoC_Settings, CockTypesEnum, StatusAffects, EngineCore, Descriptors, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, CoC_Settings, CockTypesEnum, StatusAffects, EngineCore, Descriptors ) {
 	function GreenSlimeScene() {
 	}
 
@@ -825,7 +825,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, C
 		//You've now been milked, reset the timer for that
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	GreenSlimeScene.prototype.slimeVictoryRape = function() {
 		//Service for lower corruption
@@ -848,7 +848,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, C
 				this.femaleRapesOoze();
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		return;
 	};
 	GreenSlimeScene.prototype.slimeLoss = function() {
@@ -876,7 +876,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, Utils, C
 					this.oozeButtRapesYou();
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		return;
 	};
 	SceneLib.registerScene( 'greenSlimeScene', new GreenSlimeScene() );

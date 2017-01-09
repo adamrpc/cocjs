@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancyStore, Descriptors, HermCentaur, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancyStore, Descriptors, HermCentaur, kFLAGS, CoC, EngineCore ) {
 	function HermCentaurScenes() {
 	}
 
@@ -11,7 +11,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancySto
 		} else {
 			MainView.outputText( '\n\nNope!  You could probably handle her elephantine she-cock, but you\'ve no plans on losing this fight!' );
 		}
-		Combat.startCombat( new HermCentaur() );
+		SceneLib.combatScene.startCombat( new HermCentaur() );
 	};
 	var CENTAUR_KILLED = 1;
 	var CENTAUR_RELEASED = 2;
@@ -51,14 +51,14 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancySto
 		MainView.outputText( 'Sighing, you advance on the downed demon, trying to ignore the horrified look in her eyes as you end her.' );
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_KILLED;
 		MainView.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.letHerGo = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'You dust off your [armor] and wave nonchalantly at the equine demoness.  She slowly staggers up, watching you warily.  Dismissively, you tell her to leave before she earns your ire - her queen will be dealt with soon enough.  She clops off in a huff towards the exit.' );
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_RELEASED;
 		MainView.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.maleFuckHer = function() {
 		CoC.flags[ kFLAGS.D3_CENTAUR_DEFEATED ] = CENTAUR_FUCKED;
@@ -103,7 +103,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancySto
 		MainView.outputText( '.  Well, she might have gotten away, but she won\'t be able to stop you from getting to Lethice.  Indeed, it seems she was running for the exit.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor+', 5 );
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	var HORZGOG = 0;
 	var DOGGECOCK = 1;
@@ -196,7 +196,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Utils, PregnancySto
 		EngineCore.dynStats( 'cor+', 5 );
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP );
 		MainView.menu();
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	HermCentaurScenes.prototype.inSovietCoCPonyRidesYou = function( hpVictory ) {
 		if( CoC.player.hasCock() && CoC.player.hasVagina() ) {

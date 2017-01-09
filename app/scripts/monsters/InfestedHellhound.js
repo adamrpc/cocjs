@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, MainView, $log, CoC, EngineCore, Monster, Utils, Descriptors, CoC_Settings, HellHound, WeightedDrop, AppearanceDefs, StatusAffects, Combat, ConsumableLib ) {
+angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, MainView, $log, CoC, EngineCore, Monster, Utils, Descriptors, CoC_Settings, HellHound, WeightedDrop, AppearanceDefs, StatusAffects, ConsumableLib ) {
 	function InfestedHellhound() {
 		this.init(this, arguments);
 	}
@@ -62,20 +62,20 @@ angular.module( 'cocjs' ).factory( 'InfestedHellhound', function( SceneLib, Main
 		if( this.lust < 40 ) {
 			this.lust = 40;
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	InfestedHellhound.prototype.defeated = function( hpVictory ) {
 		if( hpVictory ) {
 			MainView.outputText( 'The hellhound\'s flames dim and the heads let out a whine before the creature slumps down, this.defeated, unconscious, and yet still drooling worms.', true );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( 'Unable to bear its unnatural arousal, the infested hellhound\'s flames dim as he stops his attack. The two heads look at you, whining plaintively.  The hellhound slowly pads over to you and nudges its noses at your crotch.  It seems he wishes to pleasure you.\n\n', true );
 			if( CoC.player.gender > 0 && CoC.player.lust >= 33 ) {
 				MainView.outputText( 'You realize your desires aren\'t quite sated.  You could let it please you.  Do you?', false );
-				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene, SceneLib.hellHoundScene.hellHoundGetsRaped, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Fuck it', SceneLib.hellHoundScene, SceneLib.hellHoundScene.hellHoundGetsRaped, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
 				MainView.outputText( 'You turn away, not really turned on enough to be interested in such an offer from such a beast.', false );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};

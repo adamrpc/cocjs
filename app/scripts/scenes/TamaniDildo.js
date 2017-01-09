@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, EngineCore ) {
 	function TamaniDildo() {
 	}
 
@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, CoC, Engine
 		MainView.outputText( 'You plunge the jiggling sex-toy back into her stretched cunt, pistoning the fluid directly into her womb and setting off an orgiastic cry with enough volume to make you cringe.  She trembles madly and you have to sit down on her tail to keep the tip of it from cracking you upside your head.  The dildo in your hands puffs up wider and wider until it pops itself out, exposing the pink-coated inner flesh of the shark-woman\'s cunt.  You can watch the muscles rippling and squeezing, though thanks to her stretching, you don\'t think she\'ll be able to squeeze anything smaller than a minotaur.  After a few more seconds her body goes still, save for the occasional twitch, and you realize she\'s passed out.\n\n', false );
 		MainView.outputText( 'Damn that was hot!  You\'ll need to sate yourself once you get back to camp for sure.  Maybe you should give this dildo a whirl?  It still smells of your victim.', false );
 		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 5 + CoC.player.cor / 10) );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//RAEP BEE GIRLS WITH DILDO - Moved to BeeGirlScene;
 	//RAEP SAND-WITCH!;
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, CoC, Engine
 		}
 		MainView.outputText( 'and head back towards camp, knowing full well you\'ll need to relieve some tension after such a hot encounter.', false );
 		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 5 + CoC.player.cor / 10) );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[FACTORY SUCCUBUS];
 	TamaniDildo.prototype.succubusGetsDildoed = function() {
@@ -71,7 +71,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Combat, CoC, Engine
 		}
 		MainView.outputText( 'and put it away.  When you glance back towards the Succubus, she\'s gone, leaving you alone and horny...', false );
 		EngineCore.dynStats( 'lus', (20 + CoC.player.lib / 5 + CoC.player.cor / 10) );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'tamaniDildo', new TamaniDildo() );
 } );

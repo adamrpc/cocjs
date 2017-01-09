@@ -21,19 +21,19 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 		}
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( '  Now would be the perfect opportunity to test his demonic tool...\n\nHow do you want to handle him?' );
-			EngineCore.choices( 'Anally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Anally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'Orally', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			EngineCore.dynStats( 'lus', 1 );
 			if( hpVictory ) {
 				MainView.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do, rape him, service him, or let him take you anally?' );
-				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, '', null, null, 'Nothing', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, '', null, null, 'Nothing', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
 				MainView.outputText( '  Now would be the perfect opportunity to put his tool to use...\n\nWhat do you do?' );
 				var titfuck = null;
 				if( CoC.player.hasVagina() && CoC.player.biggestTitSize() >= 4 && CoC.player.armorName === 'lusty maiden\'s armor' ) {
 					titfuck = EngineCore.createCallBackFunction( CoC.player.armor, CoC.player.armor.lustyMaidenPaizuri, CoC.player, this );
 				}
-				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', null, titfuck, 'Nothing', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeSex, 'Service Him', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryService, 'Anal', SceneLib.dungeonCore, SceneLib.dungeonCore.incubusVictoryRapeBackdoor, 'B.Titfuck', null, titfuck, 'Nothing', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 		}
 	};
@@ -51,7 +51,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 	IncubusMechanic.prototype.wonInDungeon1 = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem to care...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.dungeonCore.incubusLossRape();
 		}
@@ -62,7 +62,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 	IncubusMechanic.prototype.cockTripAttack = function() {
 		if( this.findStatusAffect( StatusAffects.Blind ) ) { //Blind dodge change
 			MainView.outputText( this.getCapitalA() + this.short + ' suddenly grows it\'s dick to obscene lengths and tries to trip you with it.  Thankfully he\'s so blind he wasn\'t aiming anywhere near you!' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		MainView.outputText( 'The incubus lunges forward in a clumsy attack that you start to side-step, only to feel something grip behind your ' + Descriptors.buttDescript() + ' and pull your ' + CoC.player.legs() + ' out from under you.' );
@@ -85,12 +85,12 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 			CoC.player.takeDamage( 5 );
 		}
 		MainView.outputText( '\nThe incubus gives an overconfident smile as his cock retracts away from you, returning to its normal size.' );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	IncubusMechanic.prototype.spoogeAttack = function() {
 		if( this.findStatusAffect( StatusAffects.Blind ) ) { //Blind dodge change
 			MainView.outputText( this.getCapitalA() + this.short + ' pumps and thrusts his hips lewdly before cumming with intense force in your direction!  Thankfully his aim was off due to the blindness currently affect him.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		MainView.outputText( 'Your demonic foe places his hands behind his head and lewdly pumps and thrusts his hips at you.  Your eyes open wide as a globule of cum erupts from the demon-prick and flies right at you.  ' );
@@ -134,7 +134,7 @@ angular.module( 'cocjs' ).factory( 'IncubusMechanic', function( SceneLib, MainVi
 					MainView.outputText( 'crotch.  Thankfully, it doesn\'t seem to have much effect.' );
 				}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		this.lust -= 10;
 		if( this.lust < 0 ) {
 			this.lust = 10;

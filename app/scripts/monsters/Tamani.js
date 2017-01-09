@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, MainView, CoC, EngineCore, kFLAGS, Utils, Descriptors, AppearanceDefs, StatusAffects, Monster, WeightedDrop, ConsumableLib, Combat, Appearance, Goblin ) {
+angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, MainView, CoC, EngineCore, kFLAGS, Utils, Descriptors, AppearanceDefs, StatusAffects, Monster, WeightedDrop, ConsumableLib, Appearance, Goblin ) {
 	function Tamani() {
 		this.init(this, arguments);
 	}
@@ -101,7 +101,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, MainView, CoC, 
 			}
 		}
 		EngineCore.dynStats( 'lus', (Utils.rand( CoC.player.lib / 5 ) + 3 + (CoC.flags[ kFLAGS.TAMANI_TIMES_HYPNOTISED ])) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Tamani.prototype.defeated = function( hpVictory ) {
 		if( hpVictory ) {
@@ -120,9 +120,9 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, MainView, CoC, 
 			if( !SceneLib.tamaniScene.pregnancy.isPregnant && CoC.player.canOvipositSpider() ) {
 				temp2 = SceneLib.tamaniScene.tamaniBeaten;
 			}
-			EngineCore.choices( 'Fuck', SceneLib.tamaniScene, SceneLib.tamaniScene.tamaniSexWon, 'Buttfuck', SceneLib.tamaniScene, temp, '', null, null, 'Lay Eggs', SceneLib.tamaniScene, temp2, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck', SceneLib.tamaniScene, SceneLib.tamaniScene.tamaniSexWon, 'Buttfuck', SceneLib.tamaniScene, temp, '', null, null, 'Lay Eggs', SceneLib.tamaniScene, temp2, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	Tamani.prototype.won = function( hpVictory ) {
@@ -135,7 +135,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, MainView, CoC, 
 				}
 			} else {
 				MainView.outputText( 'Tamani sighs as you begin to lose conscious, "<i>You dummy, why\'d you get rid of the fun parts?</i>"', true );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		} else {
 			if( CoC.player.totalCocks() > 0 ) {
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'Tamani', function( SceneLib, MainView, CoC, 
 			} else {
 				MainView.outputText( 'You give into your lusts and masturbate, but Tamani doesn\'t seem to care.  She kicks and punches you over and over, screaming, "<i>You dummy, why\'d you get rid of the fun parts?</i>"', true );
 				CoC.player.takeDamage( 10000 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};

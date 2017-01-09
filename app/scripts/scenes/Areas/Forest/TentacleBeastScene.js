@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAffects, Combat, TentacleBeast, Descriptors, PerkLib, AppearanceDefs, EngineCore, Utils, kFLAGS) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAffects, TentacleBeast, Descriptors, PerkLib, AppearanceDefs, EngineCore, Utils, kFLAGS) {
 	function TentacleBeastScene() {
 	}
 
@@ -84,10 +84,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			EngineCore.choices( 'Fight', this, this.startTentacleBeastCombat, 'Submit', this, this.tentacleLossRape, '', null, null, '', null, null, '', null, null );
 			return;
 		}
-		Combat.startCombat( new TentacleBeast() );
+		SceneLib.combatScene.startCombat( new TentacleBeast() );
 	};
 	TentacleBeastScene.prototype.startTentacleBeastCombat = function() {
-		Combat.startCombat( new TentacleBeast() );
+		SceneLib.combatScene.startCombat( new TentacleBeast() );
 		MainView.playerMenu();
 	};
 	TentacleBeastScene.prototype.tentacleEntice = function() {
@@ -120,7 +120,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				MainView.outputText( 'You begin shaking your hips and grabbing your ' + Descriptors.allBreastsDescript() + ' to distract the creature. However, the near-miss from the tentacle it attempted to swat you with convinces you of its desire to beat your ass, rather than fuck it.\n\n', false );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	TentacleBeastScene.prototype.tentacleVictoryRape = function() {
 		MainView.outputText( '', true );
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			}
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Spoiler for Bad End-Tentacle Monster: 
 	//[CONDITIONS: Futa/Herm, Corruption > 50, Lust Defeat Only, Obtained 3 previous Lust Defeats to Tentacle Monster.]
@@ -222,7 +222,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				MainView.outputText( '\n\nThe beast slaps you squarely on the ass as if to push you along. "<i>Get the fuck out of here!</i>" it screams.  "<i>Get lost so I can hunt me a REAL meal!!!</i>"  ', false );
 				MainView.outputText( 'You walk away from the creature, which hides back in the brush. After you trek a bit, you wonder if what happened really DID happen...', false );
 				if( CoC.isInCombat() ) {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				} else {
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
@@ -262,7 +262,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				CoC.player.HP++;
 			}
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -364,7 +364,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 					CoC.player.HP++;
 				}
 				if( CoC.isInCombat() ) {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				} else {
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
@@ -393,7 +393,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'tou', 1, 'int', -0.5, 'lib', 2, 'sen', 1, 'cor', 0.5 );
 				if( CoC.isInCombat() ) {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				} else {
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				}
@@ -406,7 +406,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'tou', 1, 'int', -0.5, 'lib', 2, 'sen', 1, 'cor', 0.5 );
 				if( CoC.isInCombat() ) {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				} else {
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				}
@@ -421,7 +421,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'tou', 1, 'int', -0.5, 'lib', 2, 'sen', 1, 'cor', 0.5 );
 				if( CoC.isInCombat() ) {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				} else {
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 				}
@@ -447,7 +447,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 					CoC.player.HP++;
 				}
 				if( CoC.isInCombat() ) {
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				} else {
 					EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 				}
@@ -457,7 +457,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'tou', 1, 'int', -0.5, 'lib', 2, 'sen', 1, 'cor', 0.5 );
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseTwoHours );
 			}
@@ -536,7 +536,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 				CoC.player.HP++;
 			}
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -694,7 +694,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 			CoC.player.boostLactation( 0.3 );
 		}
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -749,7 +749,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		}
 		CoC.player.slimeFeed();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -802,7 +802,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		}
 		CoC.player.takeDamage( 5 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -819,7 +819,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		MainView.outputText( '"<i>Fucking tourists.</i>"  It slams its tentacles down in a brutal blow, knocking you out.', false );
 		CoC.player.takeDamage( 15 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -840,7 +840,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, CoC, StatusAf
 		MainView.outputText( '"<i>FUCK!</i>" comes the voice again.  "<i>You\'re sour apple!  I fucking HATE sour apple!</i>"\n\n', false );
 		MainView.outputText( 'It slams its tentacles down in a brutal blow, knocking you out.', false );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}

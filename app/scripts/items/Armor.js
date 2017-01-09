@@ -13,6 +13,12 @@ angular.module( 'cocjs' ).factory( 'Armor', function( Useable, MainView, CoC, Pe
 		that.perk = args.length > 7 ? args[ 7 ] : '';
 		that._supportsBulge = args.length > 8 ? args[ 8 ] : false;
 	};
+	Armor.prototype.makeMisdirect = function() {
+		return false;
+	};
+	Armor.prototype.getHealingPercent = function() {
+		return 0;
+	};
 	Armor.prototype.supportsBulge = function() {
 		return this._supportsBulge && CoC.player.modArmorName === '';
 	};

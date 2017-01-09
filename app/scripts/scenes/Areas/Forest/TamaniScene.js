@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Combat, Tamani, AppearanceDefs, Appearance, CockTypesEnum, PerkLib ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, PregnancyStore, kFLAGS, CoC, Utils, EngineCore, Descriptors, Tamani, AppearanceDefs, Appearance, CockTypesEnum, PerkLib ) {
 	/*NOTES:
 	 Tamani encountered if you have a dick, short alternate female scene available.
 	 Variables:
@@ -272,7 +272,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 	TamaniScene.prototype.tamaniStartFight = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Tamani adopts a fighting pose and says, "<i>If I have to I\'ll beat my children out of you!</b>"' );
-		Combat.startCombat( new Tamani() );
+		SceneLib.combatScene.startCombat( new Tamani() );
 	};
 	//[Let Her (Or Combat Rape)]
 	//[let her]
@@ -373,7 +373,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 			//Combat end:
 			if( CoC.isInCombat() ) {
 				MainView.outputText( '  After the stress and strain of a lost fight and the stress of having your seed so expertly stolen, you lie down on your flank and go to sleep.', false );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				CoC.player.orgasm();
 			}
 			//(Noncombat end:
@@ -436,7 +436,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 				//Combat end:
 				if( CoC.isInCombat() ) {
 					MainView.outputText( 'You black out, exhausted from the ordeal.', false );
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 					CoC.player.orgasm();
 				}
 				//(Noncombat end:
@@ -500,7 +500,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 				//Combat end:
 				if( CoC.isInCombat() ) {
 					MainView.outputText( 'You black out, exhausted from the ordeal.', false );
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 					CoC.player.orgasm();
 				}
 				//(Noncombat end:
@@ -576,7 +576,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 		MainView.outputText( 'Tamani removes the ring once you have finished.  She seals the bottle and places it in her pouch as you drop to the ground, exhausted.  All you can do is watch as she walks away, her ass swaying confidently from side to side.  Your last thought before you pass out is how much easier it would\'ve been to just fuck her.', false );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 0.5, 'sen', -1, 'cor', 0.5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[NORMAL COMBAT – VICTORY RAEEP]
 	//Shove her face in the mud and fuck her
@@ -646,7 +646,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 			MainView.outputText( 'She doesn\'t give you a chance to answer as she wobbles off, jiggling pleasantly in all the right places, "<i>Of course you do.  I\'ll be back for the rest later!</i>"\n\n', false );
 			CoC.player.orgasm();
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -682,7 +682,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lus', 35 );
 			if( CoC.isInCombat() ) {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			}
@@ -1020,7 +1020,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 			EngineCore.dynStats( 'int', -0.5, 'sen', -1 );
 		}
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1036,7 +1036,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 		MainView.outputText( 'The slutty creature\'s moans turn to shouts as the sensation overwhelms her, and she bucks wildly back against you, face still in the dirt and tongue lolling out of her mouth.  "<i>Oh, fuck yes, harder, HARDER!</i>" she bursts forth wildly.  You oblige and pick up the intensity, absolutely ravaging her tight ass now with the motions of your ' + Descriptors.cockDescript( x ) + '.  She squeals somewhere down below you as her face is ground against the mud.  You rock her whole body back and forth as you slam into her, reveling in the feeling of her tight ass squeezing your cock as you slide inches in and out of her.\n\n', false );
 		MainView.outputText( 'You can feel the cum building up inside you, and you know that you won\'t be able to hold out much longer.  Looking down, you can see that Tamani isn\'t far from orgasm, either.  Her fingers slip rapidly in and out of her cunt, and the look on her face is one of thoughtless bliss.  She shudders and goes limp in your grasp just as you cum, painting the insides of her ass with your semen.  Her eyes are still rolled up into the back of her head as you pull your softening prick out of her ass.  You drop her, letting her legs fall back to the ground with a dull thud.  She turns over onto her side, looking up at you.  Between exhausted pants, she manages to say, "<i>Don\'t... think that I... enjoyed that... or anything... I\'ll be back for you, and you better not...</i>" before she passes out.  You shake your head and laugh at the stubborn little slut as you tuck ' + Descriptors.sMultiCockDesc() + ' back into your ' + CoC.player.armorName + ' and head back to your camp.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	TamaniScene.prototype.tamaniBeaten = function() {
 		MainView.clearOutput();
@@ -1076,7 +1076,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, P
 		}
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Butts McGee Facesitting Tamaniz
 	TamaniScene.prototype.preferTamaniFemdom = function() {

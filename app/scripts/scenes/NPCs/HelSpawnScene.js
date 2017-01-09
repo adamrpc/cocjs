@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, PregnancyStore, Combat, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, PregnancyStore, Descriptors, AppearanceDefs, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 	function HelSpawnScene() {
 	}
 
@@ -1365,7 +1365,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 		} else {
 			MainView.outputText( '\n\n"<i>Just go easy on me, okay?  I\'m still new at this...</i>" she says, stepping back as she draws her weapon.' );
 		}
-		Combat.startCombat( new Helspawn() );
+		SceneLib.combatScene.startCombat( new Helspawn() );
 	};
 
 	//PC Somehow Loses Despite Being Like Level 20+;
@@ -1409,7 +1409,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 			}
 			MainView.outputText( '.' );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//PC kicks Helspawn's shit in, surprising nobody. ;
 	HelSpawnScene.prototype.beatUpYourDaughter = function() {
@@ -1441,7 +1441,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, Helspawn, Pregnancy
 			MainView.outputText( '.  You chuckle and ruffle her hair, "<i>C\'mon, kiddo, let\'s get some food in you.</i>"' );
 			MainView.outputText( '\n\n"<i>Yeah, food,</i>" she groans, stumbling after you as you both recover from the furious sparring match.' );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//BONUS SCENES!;
 	//(Scenes are repeatable; small chance to play one at any given [appropriate] time. All require Adult Minimander.);

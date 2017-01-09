@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Combat, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, PerkLib, PregnancyStore, ImageManager, CockTypesEnum, Appearance, Descriptors, StatusAffects, AppearanceDefs, Utils, CoC, EngineCore ) {
 	function ImpScene() {
 	}
 
@@ -18,7 +18,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		} else if( CoC.player.lust >= 33 || canBikiniTits || CoC.player.canOvipositBee() ) {
 			MainView.outputText( '  Sadly you realize your own needs have not been met.  Of course you could always rape the poor thing...\n\nDo you rape him?' );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		MainView.menu();
@@ -39,7 +39,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 					EngineCore.addButton( 1, 'Female Rape', this, this.rapeImpWithPussy );
 				}
 			} else if( maleRape === null && !CoC.player.hasFuckableNipples() && !canFeed && !canBikiniTits && !CoC.player.canOvipositBee() ) {
-				Combat.cleanupAfterCombat(); //Only happens when there's no way to fuck the imp
+				SceneLib.combatScene.cleanupAfterCombat(); //Only happens when there's no way to fuck the imp
 				return;
 			}
 			EngineCore.addButton( 0, (CoC.player.isTaur() ? 'Centaur Rape' : 'Male Rape'), this, maleRape );
@@ -56,7 +56,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		if( CoC.player.canOvipositBee() ) {
 			EngineCore.addButton( 8, 'Oviposit', this, this.putBeeEggsInAnImpYouMonster );
 		}
-		EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+		EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 	};
 	ImpScene.prototype.rapeImpWithDick = function() {
 		var x = CoC.player.cockThatFits( CoC.monster.analCapacity() );
@@ -144,7 +144,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	ImpScene.prototype.rapeImpWithPussy = function() {
 		MainView.outputText( '', true );
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		}
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	ImpScene.prototype.sprocketImp = function() {
 		CoC.player.slimeFeed();
@@ -261,7 +261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		if( CoC.player.HP < 1 ) {
 			CoC.player.HP = 1;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	ImpScene.prototype.centaurGirlOnImps = function() {
 		MainView.outputText( '', true );
@@ -311,7 +311,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'cor', 1 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	ImpScene.prototype.centaurOnImpStart = function() {
 		MainView.outputText( '', true );
@@ -367,7 +367,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			this.centaurOnImpResults( 1 );
 			//<<End>>;
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		} else {
 			//<<Cock: large, Cor <50>>;
@@ -389,7 +389,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				this.centaurOnImpResults( 2 );
 				//<<End>>;
 				CoC.player.orgasm();
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			//<<Cock: large, Cor 50+>>;
@@ -399,7 +399,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				this.centaurOnImpResults( 1 );
 				//<<End>>;
 				CoC.player.orgasm();
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 		}
@@ -417,7 +417,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				this.centaurOnImpResults( 2 );
 				//<<End>>;
 				CoC.player.orgasm();
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			//<< 1 or 2 cocks, Cor 50+>>;
@@ -431,7 +431,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 					//<<Goto I1>> ;
 					this.centaurOnImpResults( 1 );
 					CoC.player.orgasm();
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 					return;
 				}
 				//<<Cor 80+>> ;
@@ -458,7 +458,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 					}
 					MainView.outputText( 'With on last grunt you begin extracting the tentacles back out, almost cumming again from the tightness around them.  You give your ' + Descriptors.cockDescript( CoC.player.smallestCockIndex() ) + ' one last shake over the creature\'s face before trotting away satisfied and already thinking about the next creature you might abuse.', false );
 					CoC.player.orgasm();
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 					return;
 				}
 			}
@@ -481,12 +481,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				this.centaurOnImpResults( 1 );
 				//<<End>>;
 				CoC.player.orgasm();
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//CUNTS;
 	ImpScene.prototype.centaurOnImpFemale = function( vape ) {
@@ -526,7 +526,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			MainView.outputText( 'When the creature completely bottoms out inside of you, you begin trotting forward with a wicked grin.  The creature\'s hands grasp your flanks desperately, and its ' + CoC.monster.cockDescriptShort( 0 ) + ' bounces inside your ' + Descriptors.vaginaDescript( 0 ) + ', adding to your sensation.  The movement is causing the imp to push himself even harder against you as it tries to not fall off, and it is all you can do to keep an eye on where you are going.  Soon you can feel the imp\'s sperm filling your ' + Descriptors.vaginaDescript( 0 ) + ' and overflowing even as your cunt-muscles try to milk it of all of its seed. Unsatisfied you begin to speed up as you use its ' + CoC.monster.cockDescriptShort( 0 ) + ' to bring about your own orgasm.  The small creature is unable to let go without hurting itself.  It hangs on desperately while you increase the pace and begin making short jumps to force it deeper into you.  The feeling of sperm dripping out and over your ' + Descriptors.clitDescript() + ' pushes you over and cry out in intense pleasure.  When you finally slow down and clear your head the imp is nowhere to be seen.  Trotting back along the trail of sperm you left behind you find only its small satchel.', false );
 			CoC.player.cuntChange( CoC.monster.cockArea( 0 ), true, true, false );
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 			//END OF NON GAPE CASE;
 		}
@@ -583,11 +583,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 				MainView.outputText( 'find your cunt juices already dripping down your legs in anticipation of doing this again.', false );
 			}
 			CoC.player.orgasm();
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/*
 	 {{Any player Give}}
@@ -703,7 +703,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		//set lust to 0, increase sensitivity slightly;
 		EngineCore.dynStats( 'lib', 0.2, 'lus', -50 );
 		CoC.player.milked();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	ImpScene.prototype.impGangabangaEXPLOSIONS = function() {
 		CoC.player.slimeFeed();
@@ -1740,7 +1740,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 14 ); //Bigger imp means faster pregnancy
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', 1, 'cor', 1 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//Lust loss;
@@ -1820,7 +1820,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 					MainView.outputText( 'You begin to feel light-headed from lack of air just as the imp grips your head firmly and begins making rapid, shallow thrusts down your throat, nearing his orgasm. Suddenly he clenches tight, his claws digging into your head and thrusts down your throat as far as he can, holding his massive cock deep in your stomach. Your eyes go wide as you feel the imp\'s balls on your chin spasm violently.  His cock pulses in your mouth as the thick demon cum is pumped violently down your throat. It feels like an eternity as the imp continues to fill your guts with his hot cum, his orgasm lasting far longer than any human\'s. He slowly withdraws his still-pumping cock from you, coating your throat and then mouth with an almost continual spray of his unnaturally hot and sticky demon seed. The imp pulls out of your mouth just in time to splatter your face with his cum before his orgasm stops, coating your lips, nose, eyes, and hair with his incredibly thick and sticky cum.\n\n', false );
 					MainView.outputText( 'You fall to the ground gasping, exhausted and unable to move, the demon cum on your face and inside you still burning with intense heat and corruption. You lose consciousness, your ' + Descriptors.cockDescript( 0 ) + ' still firmly erect, your lust not sated.', false );
 					EngineCore.dynStats( 'lus', 20, 'cor', 2 );
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 					CoC.player.slimeFeed();
 					return;
 				} else {
@@ -1849,7 +1849,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		else {
 			MainView.outputText( '\n<b>You fall, defeated by the imp!</b>\nThe last thing you see before losing consciousness is the creature undoing its crude loincloth to reveal a rather disproportionately-sized member.', false );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//noogai McNipple-holes;
 	ImpScene.prototype.noogaisNippleRape = function() {
@@ -1977,13 +1977,13 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		//Gain xp and gems here;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -3, 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//IMP LORD;
 	ImpScene.prototype.impLordEncounter = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'A large corrupted imp crosses your path. He flashes a cruel smile your way.  No way around it, you ready your ' + CoC.player.weaponName + ' for the fight.' );
-		Combat.startCombat( new ImpLord() );
+		SceneLib.combatScene.startCombat( new ImpLord() );
 	};
 
 	//Rewards;
@@ -1995,7 +1995,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		MainView.clearOutput();
 		if( CoC.monster.HP < 1 ) {
 			MainView.outputText( 'The greater imp falls to the ground panting and growling in anger.  He quickly submits however, the thoroughness of his defeat obvious.  You walk towards the imp who gives one last defiant snarl before slipping into unconsciousness.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( 'The muscular imp groans in pained arousal, his loincloth being pushed to the side by his thick, powerful dick.  Grabbing the useless clothing, he rips it from his body, discarding it.  The imp\'s eyes lock on his cock as he becomes completely ignorant of your presence.  His now insatiable lust has completely clouded his judgment.  Wrapping both of his hands around his pulsing member he begins to masturbate furiously, attempting to relieve the pressure you\'ve caused.' );
 			//Leave // Rape];
@@ -2003,7 +2003,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 			if( CoC.player.lust >= 33 ) {
 				EngineCore.addButton( 0, 'Sex', this, this.sexAnImpLord );
 			}
-			EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		}
 	};
 	ImpScene.prototype.loseToAnImpLord = function() {
@@ -2015,7 +2015,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		} else {
 			MainView.outputText( 'Taking a look at your defeated form, the imp lord snarls, "<i>Useless,</i>" before kicking you in the head, knocking you out cold.' );
 			CoC.player.takeDamage( 9999 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//Rape;
@@ -2032,7 +2032,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 
 		MainView.menu();
 		//Continues in, Male Anal, Female Vaginal, or Breastfeed;
-		EngineCore.addButton( 9, 'Leave', null, Combat.cleanupAfterCombat );
+		EngineCore.addButton( 9, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		if( CoC.player.lust >= 33 ) {
 			if( CoC.player.hasCock() && CoC.player.cockThatFits( CoC.monster.analCapacity() ) >= 0 ) {
 				EngineCore.addButton( 0, 'FuckHisAss', this, this.impLordBumPlug );
@@ -2098,7 +2098,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		MainView.outputText( '\n\nYou stumble slightly as you gather up your [armor], and begin to get dressed.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//MALE BLOW;
 	ImpScene.prototype.getBlownByAnImpLord = function() {
@@ -2151,7 +2151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		MainView.outputText( '\n\nYou gather your things and put your [armor] back on before turning to leave.  You chance one last glance back at the defeated imp. You notice him laying down on his back, his hands working his own still hard length furiously.  You head back for camp and allow the imp to enjoy the afterglow of his meal.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//FEMALE VAGINAL;
 	ImpScene.prototype.femaleVagRape = function() {
@@ -2186,7 +2186,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//FEEDER BREASTFEED RAPE;
 	ImpScene.prototype.feederBreastfeedRape = function() {
@@ -2241,7 +2241,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		CoC.player.boostLactation( 0.1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//MALE LOSE;
 	ImpScene.prototype.loseToImpLord = function() {
@@ -2279,7 +2279,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 2, 'cor', 1 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//FEMALE LOSE;
 	ImpScene.prototype.getRapedAsAGirl = function() {
@@ -2309,7 +2309,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	ImpScene.prototype.putBeeEggsInAnImpYouMonster = function() {
 		MainView.clearOutput();
@@ -2364,7 +2364,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, ImpGang, ImpLord, P
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', -1 );
 		CoC.player.dumpEggs();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'impScene', new ImpScene() );
 } );

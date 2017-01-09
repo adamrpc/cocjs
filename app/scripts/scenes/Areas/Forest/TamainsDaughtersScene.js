@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, Combat, PerkLib, TamanisDaughters, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, CoC, Utils, StatusAffects, EngineCore, Appearance, AppearanceDefs, Descriptors, PregnancyStore, kFLAGS, PerkLib, TamanisDaughters, CockTypesEnum ) {
 	function TamainsDaughtersScene() {
 		var that = this;
 		$rootScope.$on( 'time-change', function() {
@@ -153,7 +153,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 	TamainsDaughtersScene.prototype.fightTamanisDaughters = function() {
 		MainView.outputText( '', true );
 		MainView.outputText( 'You whirl around threateningly, intent on putting Tamani\'s wayward brood back in their place.\n\n', false );
-		Combat.startCombat( new TamanisDaughters() );
+		SceneLib.combatScene.startCombat( new TamanisDaughters() );
 		MainView.spriteSelect( 57 );
 		if( this.tamaniPresent ) {
 			//(+5 mob strength)
@@ -384,7 +384,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		this.knockUpDaughters();
 		CoC.player.cumMultiplier += 0.3;
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
@@ -847,7 +847,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		} //If she wasn't pregnant she will be now
 		this.knockUpDaughters();
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
@@ -1005,7 +1005,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 				MainView.outputText( '   Fucks & Love,\n', false );
 				MainView.outputText( '      -Tamani</i>', false );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		//(ALT – BAD END GATEWAY)
 		else {
@@ -1056,7 +1056,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		MainView.outputText( 'She sighs, "<i>Whatever, Dad.  Next time we need you I\'m sure you\'ll remember how much fun this was and come running home.</i>"\n\n', false );
 		MainView.outputText( 'The restraints pop off you at once, and you pull the tubes and IV\'s from your skin.  You grunt with discomfort and remove the final tube from your ' + Descriptors.assholeDescript() + '.  Climbing off the table, your ' + CoC.player.legs() + ' wobble unsteadily as you try to get your balance.   The goblin says, "<i>Go on home dad before I strap you back down and teach you to enjoy my gifts!</i>"\n\n', false );
 		MainView.outputText( 'You sheepishly leave the cave and head home, glad to be out of there before your growing tribe of daughters decides to milk you forever.\n\n', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Rather Fill Individually]
 	TamainsDaughtersScene.prototype.tamanisDaughtersFillIndividuallyBADEND = function() {
@@ -1226,7 +1226,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'str', -0.5, 'int', -0.5, 'lib', 1, 'sen', 1, 'cor', 1 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		}
@@ -1272,9 +1272,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			MainView.outputText( 'You smile in satisfaction as ' + CoC.monster.a + CoC.monster.short + ' collapses, unable to continue fighting.', true );
 			if( CoC.player.lust >= 33 && CoC.player.cockTotal() > 0 ) {
 				MainView.outputText( 'In spite of their injuries, they do try to present their bodies in as lewd a way as possible.  You could still fuck them, but things might get out of hand...\n\nDo you fuck them?', true );
-				EngineCore.doYesNo( this, this.fuckYoDaughtersHomie, null, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( this, this.fuckYoDaughtersHomie, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 			return;
 		} else {
@@ -1282,9 +1282,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			EngineCore.dynStats( 'lus', 5 );
 			if( CoC.player.lust >= 33 && CoC.player.cockTotal() > 0 ) {
 				MainView.outputText( 'You could still fuck them, but things might get out of hand...\n\nDo you fuck them?', false );
-				EngineCore.doYesNo( this, this.fuckYoDaughtersHomie, null, Combat.cleanupAfterCombat );
+				EngineCore.doYesNo( this, this.fuckYoDaughtersHomie, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 			return;
 		}
@@ -1301,7 +1301,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			MainView.outputText( '\n\nYou give up, you\'re just too turned on by the sea of sexually charged deviants to resist them anymore.  You\'re ready to fuck them all.', false );
 			if( CoC.player.cockTotal() === 0 ) {
 				MainView.outputText( 'The sexy sluts pout, "<i>Why did you have to go and get rid of your dick!?</i>" before something hits you in the head, HARD, knocking you out.', false );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			if( this.tamaniPresent ) {
@@ -1325,7 +1325,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, $rootScope, $log, C
 			MainView.outputText( '\n\nOverwhelmed by your wounds, you can\'t even try to stop the goblin horde...', false );
 			if( CoC.player.cockTotal() === 0 ) {
 				MainView.outputText( 'The sexy sluts pout, "<i>Why did you have to go and get rid of your dick!?</i>" before something hits you in the head, HARD, knocking you out.', false );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			}
 			if( this.tamaniPresent ) {

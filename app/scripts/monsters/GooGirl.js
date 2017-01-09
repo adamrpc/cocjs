@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			MainView.outputText( 'The slime holds its hands up and they morph into a replica of your ' + CoC.player.weaponName + '.  Happily, she swings at you', false );
 		}
 		//Determine if dodged!
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you, but you dodge her attack.', false );
 			} else {
@@ -31,7 +31,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//Determine if evaded
-		if( this.short !== 'Kiha' && CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		if( Combat.combatEvade() ) {
 			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you, but you evade her attack.', false );
 			} else {
@@ -40,7 +40,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//('Misdirection'
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect() ) {
 			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you.  You misdirect her, avoiding the hit.', false );
 			} else {
@@ -49,7 +49,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 			return;
 		}
 		//Determine if cat'ed
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		if( Combat.combatFlexibility() ) {
 			if( this.findPerk( PerkLib.Acid ) ) {
 				MainView.outputText( 'tries to slap you, but misses due to your cat-like evasion.', false );
 			} else {
@@ -107,13 +107,13 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Play –
 	GooGirl.prototype.gooPlay = function() {
 		MainView.outputText( 'The goo-girl lunges, wrapping her slimy arms around your waist in a happy hug, hot muck quivering excitedly against you. She looks up, empty eyes confused by your lack of enthusiasm and forms her mouth into a petulant pout before letting go.  You shiver in the cold air, regretting the loss of her embrace.', false );
 		EngineCore.dynStats( 'lus', 3 + Utils.rand( 3 ) + CoC.player.sens / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Throw –
 	GooGirl.prototype.gooThrow = function() {
@@ -121,7 +121,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		var damage = 1;
 		CoC.player.takeDamage( damage );
 		EngineCore.dynStats( 'lus', 5 + Utils.rand( 3 ) + CoC.player.sens / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Engulf –
 	GooGirl.prototype.gooEngulph = function() {
@@ -129,7 +129,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 		if( !CoC.player.findStatusAffect( StatusAffects.GooBind ) ) {
 			CoC.player.createStatusAffect( StatusAffects.GooBind, 0, 0, 0, 0 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	GooGirl.prototype.performCombatAction = function() {
 		//1/3 chance of base attack + bonus if in acid mode
@@ -150,7 +150,7 @@ angular.module( 'cocjs' ).factory( 'GooGirl', function( MainView, SceneLib, CoC,
 	GooGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe goo-girl seems confused but doesn\'t mind.' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.gooGirlScene.getBeatByGooGirl();
 		}

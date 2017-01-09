@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log, Combat, WormMass, Descriptors, kFLAGS, Utils, PerkLib, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log, WormMass, Descriptors, kFLAGS, Utils, Combat, PerkLib, CoC, EngineCore ) {
 	function Worms() {
 	}
 
@@ -68,13 +68,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
 		MainView.outputText( 'You turn to confront the worms and combat begins!' );
-		Combat.startCombat( new WormMass() );
+		SceneLib.combatScene.startCombat( new WormMass() );
 	};
 	Worms.prototype.wormsDoNothing = function() {
 		MainView.spriteSelect( 76 );
 		MainView.clearOutput();
 		MainView.outputText( 'You do nothing, allowing the worms to enter combat range!' );
-		Combat.startCombat( new WormMass() );
+		SceneLib.combatScene.startCombat( new WormMass() );
 	};
 	Worms.prototype.wormsRun = function() {
 		MainView.clearOutput();
@@ -83,7 +83,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} else {
 			MainView.outputText( 'You turn to run, but before your ' + CoC.player.feet() + ' can get you away, the worms are upon you!  You turn to face them, lest they launch onto your unprotected back.' );
-			Combat.startCombat( new WormMass() );
+			SceneLib.combatScene.startCombat( new WormMass() );
 		}
 	};
 	Worms.prototype.infest1 = function() {
@@ -105,7 +105,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			CoC.player.createStatusAffect( StatusAffects.Infested, 0, 0, 0, 0 );
 			EngineCore.dynStats( 'cor', 0 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//spontaneous orgasm - chance to avoid being raped by monsters who would care.;
 	Worms.prototype.infestOrgasm = function() {
@@ -138,15 +138,15 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 	Worms.prototype.wormAttack = function() {
 		MainView.spriteSelect( 76 );
 		//Dodged!;
-		if( CoC.player.spe - CoC.monster.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - CoC.monster.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			MainView.outputText( 'The worm colony flails at you with its simulated arms, but its lack of coordination allows you to easily dodge its attack.\n', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Evade;
 		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + CoC.monster.a + CoC.monster.short + '\' attacks.\n', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		var temp = Math.ceil( (CoC.monster.str + CoC.monster.weaponAttack) - Math.random() * (CoC.player.tou + CoC.player.armorDef) );
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		MainView.outputText( ' damage and the limb splatters, dispersing the worms comprising the false arm.', false );
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 		return;
 	};
 	Worms.prototype.wormsEntice = function() {
@@ -173,7 +173,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			} else {
 				MainView.outputText( 'The worm colony shambles over to you and attempts to grapple you. Quickly sidestepping the clumsy movements of the creature, you avoid what could have been a horrible fate as the mass falls over and splatters in its failed attempt to engulf you.\n', false );
 			}
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//SUCCESS;
@@ -194,7 +194,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 				CoC.player.createStatusAffect( StatusAffects.InfestAttempted, 0, 0, 0, 0 );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Worms.prototype.playerInfest = function() {
 		MainView.spriteSelect( 76 );
@@ -203,7 +203,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 		if( CoC.player.fatigue + EngineCore.physicalCost( 40 ) > 100 ) {
 			MainView.outputText( 'You try to summon up an orgasm, but you\'re too tired and waste your time trying!' );
 			EngineCore.fatigue( 100 - CoC.player.fatigue );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		//(if PC uses Infest);
@@ -215,7 +215,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00233 ] = 1;
 			//clear status;
 			CoC.setInCombat( false );
-			Combat.clearStatuses( false );
+			CoC.player.clearStatuses( false );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
@@ -223,7 +223,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			MainView.outputText( 'You expose yourself and attempt to focus on expelling your squirming pets toward Sheila but as you picture launching a flood of parasites from [eachCock], the fantasy she sent returns to you, breaking your concentration!  Your hand darts automatically to your crotch, stroking [oneCock] as you imagine unloading into her cunt... only with effort do you pull it away!\n\n' );
 			MainView.outputText( '"<i>Oh, my,</i>" the demon teases.  "<i>You don\'t have to masturbate yourself, [name]... I\'ll be happy to do it for you.</i>"\n\n' );
 			EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10, 'resisted', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		EngineCore.fatigue( 40, 2 );
@@ -233,7 +233,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			if( CoC.monster.lust > 70 ) {
 				MainView.outputText( 'Your load washes over the ' + CoC.monster.short + ' and ' + CoC.monster.pronoun1 + ' stops dead in ' + CoC.monster.pronoun3 + ' tracks as ' + CoC.monster.pronoun1 + ' chokes and sputters to clear the cum from ' + CoC.monster.pronoun3 + ' face and nose to breathe. The ' + CoC.monster.short + ' stumbles, attempting to stand in your fresh cum puddle and quickly busts its ass on the ground. The worms quickly take over and swarm around the ' + CoC.monster.short + '\' s ' + CoC.monster.cockDescriptShort( 0 ) + '. With wild hunger, the worms easily push into the ' + CoC.monster.short + '\'s urethra and begin venturing into your victim\'s body. The ' + CoC.monster.short + ' begins to convulse wildly as ' + CoC.monster.pronoun3 + ' body begins to react to the squirming invaders. The ' + CoC.monster.short + ' quickly peaks and cum flies in all directions, along with some worms. You laugh hysterically as the ' + CoC.monster.short + ' must now endure the endless orgasms your new pets provide. You choose to unload one last batch on your fallen foe to ensure a good infestation and walk away to leave the ' + CoC.monster.short + ' in the hell of endless pleasure.\n', false );
 				CoC.monster.lust = 100;
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				return;
 			} else {
 				MainView.outputText( 'The monster watches your display as they step out of the way, a little grossed out by your actions.\n', false );
@@ -250,7 +250,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, StatusAffects, $log
 			MainView.outputText( 'While your fluids bathe the ' + CoC.monster.short + ' in your salty lust, the worms take no interest in your foe and scurry off.\n', true );
 		}
 		EngineCore.dynStats( 'lus', -20 );
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 
 	Worms.prototype.nightTimeInfestation = function() {

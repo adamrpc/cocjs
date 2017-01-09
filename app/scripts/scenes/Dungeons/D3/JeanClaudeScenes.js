@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, Combat, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, JeanClaude, AppearanceDefs, StatusAffects, PerkLib, kFLAGS, CoC, EngineCore ) {
 	function JeanClaudeScenes() {
 	}
 
@@ -116,7 +116,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, JeanClaude, Appeara
 		MainView.outputText( '\n\n“<i>Ahahaha! I like it interloper, I like it a lot. Being rude to the Rude King! You think to make me angry so I make a mistake, yes? Even when it is all over for you, you are being clever, you are fighting.</i>” He turns away, snorting. The monstrous basilisk might be affecting bonhomie, but in the fractious swish of his tail and the whiteness of his eyes, you see that you have succeeded- you’ve pissed him off. He barks something to one of his brethren. The others murmur, and there’s a hushed sound as they fall back, forming a ring around the two of you. Something is thrown to Jean-Claude; he catches it and swishes it thoughtfully, before turning back to you.' );
 		MainView.outputText( '\n\n<i>“Here’s the problem, interloper,”</i> he says, sneering at you as he points the huge, bronze cutlass down. <i>“I don’t make mistakes. You can. By the end, you will appreciate just how serious a mistake it was to fight me. How much better it would have been to simply accept your fate.”</i>' );
 		MainView.outputText( '\n\nYou scramble to your feet, draw your weapon and set your jaw. You’ve gotten your one shot, and you can’t waste it.' );
-		Combat.startCombat( new JeanClaude() );
+		SceneLib.combatScene.startCombat( new JeanClaude() );
 	};
 	JeanClaudeScenes.prototype.beatDaFuckhugeBasilisk = function( hpVictory ) {
 		MainView.clearOutput();
@@ -151,7 +151,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, JeanClaude, Appeara
 		MainView.outputText( 'You draw yourself up to your full height, calm your slightly giddy emotions and make your voice as cold and commanding as possible. You say you aren’t anyone’s new king, but since they ask, your orders are that any basilisk still within half a mile of this place in five minutes time is going to get twice the ass-whupping you just handed out to this one. You indicate with an airy wave what was, until recently, Jean-Claude. There’s a pause, followed by a minor earthquake, as the horde of reptiles pours towards the exit. You climb onto the table and watch them go, assuring that they all do indeed vamoose. If they display any emotion at all during their mass exodus, it’s one of distinct relief.' );
 		MainView.outputText( '\n\nWithin a minute the huge hall is echoingly empty, the forgotten corpse of the rex and the tables of jetsam and eggs the only signs the basilisks were ever here. You are free to get up onto the gantry again and leave.' );
 		CoC.flags[ kFLAGS.D3_BASILISKS_REMOVED_FROM_MAGPIE_HALL ] = 1;
-		Combat.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
+		SceneLib.combatScene.cleanupAfterCombat( SceneLib.d3, SceneLib.d3.resumeFromFight );
 	};
 	JeanClaudeScenes.prototype.fuckhugeBasiliskFuckedYouUp = function( hpVictory ) {
 		MainView.clearOutput();

@@ -14,7 +14,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 		MainView.outputText( '\n\nYour limbs are bound tightly while coils of delightfully soft fur caress you on all sides.  You can do little besides struggle against your furry bonds as the constant writhing of her tails sends shudders flying up and down your spine.' );
 		this.createStatusAffect( StatusAffects.PCTailTangle, 0, 0, 0, 0 );
 		EngineCore.dynStats( 'lus', 10 + CoC.player.sens / 8 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Struggle - event 5077 in combat.as
 	Kitsune.prototype.kitsuneStruggle = function() {
@@ -33,7 +33,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 			MainView.outputText( '\n\nShe licks her lips, running her hands along you wherever she can find exposed flesh.  Her fingertips leave small trails of dazzling blue that make you flush with lust - you must escape her grasp soon or else you will be like putty in her hands!' );
 			EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10 );
 			this.addStatusValue( StatusAffects.PCTailTangle, 1, 3 );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 	};
 	Kitsune.prototype.kitsuneWait = function() {
@@ -44,7 +44,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 		}
 		MainView.outputText( '\n\nShe licks her lips, running her hands along you wherever she can find exposed flesh.  Her fingertips leave small trails of dazzling blue that make you flush with lust - you must escape her grasp soon or else you will be like putty in her hands!' );
 		EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Fox Fire: - Low piercing damage, +10-15 LUST
 	Kitsune.prototype.foxFireAttack = function() {
@@ -54,7 +54,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 		damage = CoC.player.takeDamage( damage );
 		MainView.outputText( ' (' + damage + ')' );
 		EngineCore.dynStats( 'lus', 15 + CoC.player.sens / 10 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Illusion: - Raises enemy evasion, but can be resisted.
 	//Factors affecting resist: INT (1% per point, max 70%), 'Whispered' perk (20% flat bonus), 'Religious' background and < 20 corruption (20% bonus at 0, losing 1% per point of corruption.)
@@ -80,7 +80,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 			this.createStatusAffect( StatusAffects.Illusion, 0, 0, 0, 0 );
 			this.spe += 20;
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Seal: - cancels and disables whatever command the player uses this round. Lasts 3 rounds, cannot seal more than one command at a time.
 	//PCs with 'Religious' background and < 20 corruption have up to 20% resistance to sealing at 0 corruption, losing 1% per corruption.
@@ -142,7 +142,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 			MainView.outputText( '\n\nUpon your touch, the seal dissipates, and you are free of the kitsune\'s magic!  She pouts in disappointment, looking thoroughly irritated, but quickly resumes her coy trickster facade.' );
 			CoC.player.removeStatusAffect( StatusAffects.Sealed );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Tease Texts:
 	Kitsune.prototype.kitSuneTeases = function() {
@@ -161,7 +161,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 			MainView.outputText( 'The kitsune sways her hips enticingly as she appears in front of you abruptly, rubbing up against your side.  Her teasing caresses make you shiver with arousal, and you can feel something thick and warm pressing against your [hips].  She gives you a wry grin as she breaks away from you, sporting an obvious tent in her robes.  "<i>Just you wait...</i>"' );
 		}
 		EngineCore.dynStats( 'lus', 5 + CoC.player.sens / 7 );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Kitsune.prototype.performCombatAction = function() {
 		var moves = [ this.foxFireAttack, this.foxFireAttack, this.kitSuneTeases, this.kitSuneTeases ];
@@ -187,7 +187,7 @@ angular.module( 'cocjs' ).factory( 'Kitsune', function( SceneLib, MainView, CoC,
 	Kitsune.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe kitsune recoils before running off, no longer interested in you...' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.kitsuneScene.loseToKitsunes();
 		}

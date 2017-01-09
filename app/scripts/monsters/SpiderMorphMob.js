@@ -58,13 +58,13 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 		//SPIDER HORDE WEB - Miss (guaranteed if turns 1-3 and PC lost to Kiha);
 		if( this.findStatusAffect( StatusAffects.MissFirstRound ) || Combat.combatMiss() || Combat.combatEvade() || Combat.combatFlexibility() || Combat.combatMisdirect() ) {
 			MainView.outputText( 'One of the driders launches a huge glob of webbing right at you!  Luckily, Kiha manages to burn it out of the air with a well-timed gout of flame!', false );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		} else {
 			MainView.outputText( 'Some of the spiders and driders launch huge globs of wet webbing right at you, hitting you in the torso!  You try to wiggle out, but it\'s no use; you\'re stuck like this for now.  Though comfortingly, the driders\' open stance and self-satisfaction allow Kiha to blast them in the side with a huge conflagration!', false );
 			//(PC cannot attack or use spells for one turn; can use Magical Special and Possess);
 			CoC.player.createStatusAffect( StatusAffects.UBERWEB, 0, 0, 0, 0 );
 			this.HP -= 250;
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		}
 	};
 	SpiderMorphMob.prototype.kihaSPOIDAHAI = function() {
@@ -73,7 +73,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 		MainView.outputText( 'While they\'re tangled up with you, however, Kiha takes the opportunity to get in a few shallow swings with her axe, to the accompaniment of crunching chitin.', false );
 		//horde loses HP;
 		this.HP -= 50;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	SpiderMorphMob.prototype.performCombatAction = function() {
 		MainView.spriteSelect( 72 );
@@ -91,7 +91,7 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 	SpiderMorphMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe spiders smile to one at another as they watch your display, then close in...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.kihaFollower.loseToSpiderMob();
 		}
@@ -131,8 +131,8 @@ angular.module( 'cocjs' ).factory( 'SpiderMorphMob', function( SceneLib, MainVie
 		that.temperment = Monster.TEMPERMENT_LOVE_GRAPPLES;
 		that.level = 18;
 		that.gems = Utils.rand( 25 ) + 40;
-		that.special1 = Combat.packAttack;
-		that.special2 = Combat.lustAttack;
+		that.special1 = EngineCore.createCallBackFunction( SceneLib.combatScene, SceneLib.combatScene.packAttack );
+		that.special2 = EngineCore.createCallBackFunction( SceneLib.combatScene, SceneLib.combatScene.lustAttack );
 		that.tailType = AppearanceDefs.TAIL_TYPE_SPIDER_ADBOMEN;
 		that.drop = Monster.NO_DROP;
 		that.checkMonster();

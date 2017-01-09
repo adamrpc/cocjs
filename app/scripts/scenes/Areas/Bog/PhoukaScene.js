@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, Combat, ConsumableLib, OnLoadVariables ) {
+angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kFLAGS, Utils, StatusAffects, PregnancyStore, EngineCore, Phouka, ConsumableLib, OnLoadVariables ) {
 	function PhoukaScene() {
 		this.phoukaForm = 0; //This keeps track of the form of the phouka across different scenes and through combat
 		this.PHOUKA_FORM_FAERIE = 0;
@@ -129,10 +129,10 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 	};
 	PhoukaScene.prototype.phoukaStartFight = function() {
 		MainView.outputText( '\n\nYou can’t move your lower half, but you roll your shoulders and stare the little monster down.  He’s not taking you without a fight.' );
-		Combat.startCombat( new Phouka( this.phoukaName() ) );
+		SceneLib.combatScene.startCombat( new Phouka( this.phoukaName() ) );
 	};
 	PhoukaScene.prototype.phoukaStartFightSilenced = function() {
-		Combat.startCombat( new Phouka( this.phoukaName() ) );
+		SceneLib.combatScene.startCombat( new Phouka( this.phoukaName() ) );
 		CoC.player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 );
 	};
 	PhoukaScene.prototype.phoukaTalk = function() {
@@ -154,7 +154,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 				MainView.outputText( 'fuckable little ' + this.phoukaName() );
 			}
 			MainView.outputText( ' but he must not feel like listening.  He launches a ball of black mud at your face, sealing your mouth with sticky and [if (corruption <= 50)ewww -][if (corruption > 50)mmmm -] salty muck.' );
-			Combat.startCombat( new Phouka( this.phoukaName() ) );
+			SceneLib.combatScene.startCombat( new Phouka( this.phoukaName() ) );
 			CoC.player.createStatusAffect( StatusAffects.WebSilence, 0, 0, 0, 0 );
 		} else { //The phouka would rather talk
 			MainView.outputText( '\n\nThe ' + this.phoukaName() );
@@ -398,15 +398,15 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 			MainView.outputText( '\n\n' );
 		}
 		MainView.outputText( 'The lusty ' + this.phoukaName() + ' continues to pound his cock into the earth as you prepare to go, oblivious to your presence.' );
-		Combat.clearStatuses( false );
-		Combat.awardPlayer(); //This will provide loot and return to camp, 1 hour used
+		CoC.player.clearStatuses( false );
+		SceneLib.combatScene.awardPlayer(); //This will provide loot and return to camp, 1 hour used
 	};
 	PhoukaScene.prototype.phoukaPlayerWins = function( hpVictory ) {
 		MainView.clearOutput();
 		if( hpVictory ) { //You win by physical damage, the phouka cheats and runs
 			MainView.outputText( 'The seriously injured ' + this.phoukaName() + ' stumbles backward, but before you can strike again it twists and stretches in mid-air, dropping to the ground in the form of a long black eel.  You\'re pretty sure you hear the eel curse at you as it dives into the mire and sinks out of view.\n\nWith your attacker gone you struggle and strain to get yourself free of the thick mass of roots and muck around your [legs].  Your lower half is soaked and you decide to head home.' );
-			Combat.clearStatuses( false );
-			Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
+			CoC.player.clearStatuses( false );
+			SceneLib.combatScene.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 		} else { //You win by lust and have the chance to fuck the phouka if you’re horny
 			MainView.outputText( 'The ' + this.phoukaName() + ' collapses to the ground and begins to jab his cock into the peat.' );
 			if( this.phoukaForm !== this.PHOUKA_FORM_FAERIE ) {
@@ -631,7 +631,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		MainView.outputText( '\n\nThe goat morph begins to dissolve and reform.  Soon you\'re looking at a tiny faerie that buzzes up in front of your face.  He says <i>“[if (hasVagina = true)Well I enjoyed that, and it looks like you did too.  Next time I catch ya I really want te try yer cunt.  Can’t wait te see yer belly all swollen up with my seed.][if (hasVagina = false)Do us both a favor - eat some eggs or drink some milk before ye come back.  Since you like being my bitch so much ye might as well have the right parts for it.]”</i> With that the ' + this.phoukaName() + ' buzzes up into the canopy and out of sight.' );
 		if( postCombat ) {
 			MainView.outputText( '\n\nYou work to pull your [if (isNaga = true)tail][if (isNaga = false)legs] free from the cool muck before you get chilled to the bone.' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			MainView.outputText( '\n\nYou collect your clothes and scramble to get out of the bog before anything else finds you.' );
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used
@@ -728,8 +728,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 			MainView.outputText( '\n\nYour sphincter clenches on the intruder, either trying to force it out or draw more in, even you can\'t say which.  You let out a sigh and put a hand on your belly, still heavy with a thick cum slurry.\n\nYou\'re just about to [if (isTaur = true)stand up when your partner thrusts forward][if (isTaur = false)roll off your spent partner when he thrusts upward] violently with his hips.  Caught off guard you try to steady yourself, only to feel his hands [if (isTaur = true)grip your flanks][if (isTaur = false)wrap around your waist].  The ' + this.phoukaName() + ' cums a second time, blasting another load of cum deep into your bowels.  Your stomach muscles are no match for this wave of spooge and [if (isTaur = true)you feel your heavy belly sink deeper into the bog][if (isTaur = false)you topple forward], stuffed with enough cum for anyone to assume you\'re pregnant with twins.  More than that you can feel each of the one-way valves in your gut give way, one after another, until a fountain of thick sugary sperm bubbles into your stomach.  If the ' + this.phoukaName() + ' had made one more deposit you probably would have tasted it.\n\nYour partner pushes on you, [if (isTaur = true)pulling his spent member from your rectum.  ][if (isTaur = false)rolling you off of him, wheezing, <i>“Air, air!”</i> ]He shrinks back to his normal size and recovers faster than you.  Before he leaves, he takes the time to pat your belly. <i>“Awful waste lad.  Go swallow an egg, a pink one.  That or suck down some o’ that succubi milk.  Then you come back here and I\'ll give you a real party.”</i>' );
 			EngineCore.dynStats( 'cor', Utils.rand( 1 ) + 3 ); //Extra two corruption for being enough of a pervert to want to fuck the phouka
 			if( postCombat ) {
-				Combat.clearStatuses( false );
-				Combat.awardPlayer(); //This will provide loot and return to camp, 1 hour used
+				CoC.player.clearStatuses( false );
+				SceneLib.combatScene.awardPlayer(); //This will provide loot and return to camp, 1 hour used
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} //Return to camp, 1 hour used
@@ -777,8 +777,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 		MainView.outputText( '  Satisfied, you march back to camp.' );
 		EngineCore.dynStats( 'cor', Utils.rand( 1 ) + 3 ); //Extra two corruption for being enough of a pervert to want to fuck the phouka
 		if( postCombat ) {
-			Combat.clearStatuses( false );
-			Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
+			CoC.player.clearStatuses( false );
+			SceneLib.combatScene.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		} //Return to camp, 1 hour used
@@ -879,8 +879,8 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 				MainView.outputText( '  But either way you plan to return and give all of them that lesson.' );
 			}
 			if( postCombat ) {
-				Combat.clearStatuses( false );
-				Combat.awardPlayer();  //This will provide loot and return to camp, 1 hour used
+				CoC.player.clearStatuses( false );
+				SceneLib.combatScene.awardPlayer();  //This will provide loot and return to camp, 1 hour used
 			} else {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} //Return to camp, 1 hour used
@@ -895,7 +895,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, $rootScope, MainView, CoC, kF
 			}
 			if( postCombat ) {
 				MainView.outputText( 'pull your [if (isNaga = true)tail][if (isNaga = false)legs] free from the cool muck before you get chilled to the bone.' );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			} else {
 				MainView.outputText( 'collect your clothes and begin the long march out of the bog.  ' );
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour ); //Return to camp, 1 hour used

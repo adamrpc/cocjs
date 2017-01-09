@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, Appearance, StatusAffects, EngineCore, Descriptors, Utils, Combat, PregnancyStore ) {
+angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, AppearanceDefs, PerkLib, CockTypesEnum, Minotaur, Appearance, StatusAffects, EngineCore, Descriptors, Utils, PregnancyStore ) {
 	function MinotaurScene() {
 	}
 
@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			} else {
 				MainView.outputText( 'You smile in satisfaction as the ' + CoC.monster.short + ' collapses, unable to continue fighting.', true );
 			}
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//No rapinz if not horney!
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			urethralPen = null;
 			bj = null;
 		}
-		EngineCore.choices( 'Use Cock', this, dickRape, 'Use Vagina', this, cuntRape, 'Use Both', this, hermRape, 'TentacleDick', this, tentaRape, 'UrethraFuck', this, urethralPen, 'Get Filled', this, filled, tempText, this, temp, 'MakeHimSuck', this, bj, feedposit, temp2 === CoC.player.armor.lustyMaidenPaizuri ? CoC.player.armor : this, temp2, 'Leave', null, Combat.cleanupAfterCombat );
+		EngineCore.choices( 'Use Cock', this, dickRape, 'Use Vagina', this, cuntRape, 'Use Both', this, hermRape, 'TentacleDick', this, tentaRape, 'UrethraFuck', this, urethralPen, 'Get Filled', this, filled, tempText, this, temp, 'MakeHimSuck', this, bj, feedposit, temp2 === CoC.player.armor.lustyMaidenPaizuri ? CoC.player.armor : this, temp2, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		if( x < 0 && CoC.player.hasCock() ) {
 			MainView.outputText( '\nSadly, you\'re too well endowed to penetrate the minotaur.', false );
 		}
@@ -216,7 +216,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		//Cum
 		MainView.outputText( 'Your tentacles throb and pulse, quickening in pace as you can feel the cum swelling in your prostate. They wave madly, and then, just as their motion makes you dizzy, you feel them stiffen suddenly, and start spewing their load all in and across the minotaur. You gasp and pause, collapsing on the strong back of the minotaur, basking in the afterglow.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.rapeMinotaurTentacle = function() {
 		MainView.spriteSelect( 44 );
@@ -305,7 +305,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 				MainView.outputText( 'Eventually, the moment is right... you position yourself accordingly to do what you have in mind. Your needs are both at their peak, and release will be soon! Once you\'re properly set up behind him, you shove his head forward, making him take both your, and his own dick into his mouth. His tongue tries to shove you out, slipping in between his and your own dick.  It pushes you over the edge, and you release his balls, allowing him to cum. However, your own cum dwarfs his pathetic volume... forcing him to swallow load after load of your hot sticky jizz. Even so, the volume exceeds his ability to down it, and cum sprays out of his mouth, an arc shooting out of his nose every now and again further commenting on the capacity of your massive ejaculation.', false );
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.AddictNagaOnMinotaur = function() {
 		MainView.spriteSelect( 44 );
@@ -328,7 +328,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		//(satisfy or progress mino addiction)
 		this.minoCumAddiction( 10 );
 		CoC.monster.short = 'tit-fucked Minotaur';
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoUrethralPen = function() {
 		MainView.spriteSelect( 44 );
@@ -380,7 +380,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			MainView.outputText( 'You know that he won\'t be able to leave or put up much of a struggle until he\'s managed to cum, but with his balls pinning his cock down, that could be a while. Meanwhile, his raised ass and stretched urethra invite everyone around to take a turn.', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoRapeIntro = function() {
 		MainView.spriteSelect( 44 );
@@ -463,7 +463,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lus', 15 + CoC.player.lib / 7 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.girlRapeAMinotaur = function() {
 		MainView.spriteSelect( 44 );
@@ -516,7 +516,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		EngineCore.dynStats( 'spe', -0.5, 'int', -0.5, 'sen', 1.5, 'cor', 1 );
 		//Preggers chance!
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_MINOTAUR, PregnancyStore.INCUBATION_MINOTAUR );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minotaurGetsRapedByHerms = function() {
 		MainView.spriteSelect( 44 );
@@ -538,7 +538,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		EngineCore.dynStats( 'spe', -0.5, 'int', -0.5, 'sen', 1.5, 'cor', 1 );
 		//Preggers chance!
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_MINOTAUR, PregnancyStore.INCUBATION_MINOTAUR );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoPheromones = function() {
 		MainView.spriteSelect( 44 );
@@ -568,9 +568,9 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 		//YOU LOSE!
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
-			EngineCore.doNext( Combat, Combat.combatMenu );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.combatMenu );
 		}
 	};
 	MinotaurScene.prototype.getRapedByMinotaur = function( autoRape ) {
@@ -598,7 +598,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			//Detect minotaur coming
 			if( Utils.rand( 30 ) + CoC.player.inte / 5 > 18 ) {
 				MainView.outputText( 'You spot a shadow moving and spin around to see a minotaur lumbering after you from the back of the cave!', false );
-				Combat.startCombat( new Minotaur() );
+				SceneLib.combatScene.startCombat( new Minotaur() );
 				return;
 			}
 			MainView.outputText( 'Suddenly you\'re grabbed from behind, your arms held together by a single massive, furry hand. A heavy, snorting breath brushes the top of your head. You turn your neck to see a massive bull-man. His impressive dick presses ', false );
@@ -611,7 +611,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			//High str escape
 			if( Utils.rand( 20 ) + CoC.player.str / 3 > 18 ) {
 				MainView.outputText( '\n\nYou twist around using the additional lubrication and squirm free!  Rolling away, you come up in a crouch, ready to fight!', false );
-				Combat.startCombat( new Minotaur() );
+				SceneLib.combatScene.startCombat( new Minotaur() );
 				return;
 			}
 		}
@@ -712,7 +712,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 			MainView.outputText( 'asshole.', false );
 		}
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
@@ -759,7 +759,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		EngineCore.dynStats( 'sen', 1 );
 		this.minoCumAddiction( 10 );
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseFourHours );
 		}
@@ -813,7 +813,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		CoC.monster.short = 'tit-fucked Minotaur';
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 0.5, 'cor', 0.7 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//(Direct Injection) – GIGITY!
 	MinotaurScene.prototype.takeMinoCumDirectly = function() {
@@ -866,7 +866,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		}
 		//+15 addiction
 		this.minoCumAddiction( 15 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	MinotaurScene.prototype.minoCumAddiction = function( raw ) {
 		CoC.player.minoCumAddiction( raw === undefined ? 10 : raw );
@@ -967,7 +967,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		//(Max lust, load minotaur dicks & balls into monster stats and throw to rape-scenes.)
 		EngineCore.dynStats( 'lus', 3000 );
 		CoC.monster = new Minotaur();
-		EngineCore.doNext( Combat, Combat.endLustLoss );
+		EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 	};
 
 	//[Optional Bad-End For Uber-Addicted]
@@ -1036,7 +1036,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		//You've now been milked, reset the timer for that
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//should be restricted to PCs with 36' cocks or less (arm length-ish) since you're holding the minotaur's horns; centaur addition matches to same length because you're welcome
@@ -1078,7 +1078,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		MainView.outputText( ', you quickly put a stop to his unimportant attempts to pleasure himself by knocking his hand from his meaty cock.  The bull moos over your prick in response, leaving you to shudder while he swallows every last drop of your cum.  You are unable to tell if the beast is blushing from arousal or being reminded of his submission, but it does not matter.\n\n', false );
 		MainView.outputText( 'Pulling yourself free from the thing\'s mouth, you let the abused creature fall flat onto its chest and then gather your armor to leave.  Once, you turn back, only to catch sight of the minotaur lost with himself, desperatly trying to fuck the ground beneath him and mooing in overstimulated agony from the experience.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	MinotaurScene.prototype.layEggsInAMinotaurSpiderLike = function() {
@@ -1139,7 +1139,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		MainView.outputText( '\n\n"<i>We\'ll have to do this again.  In fact, every time you cross my path, we will do this again, my little cow-poke.</i>"' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		//satisfy mino cum addiction if addicted
 	};
 	//Bee on Minotaur: Finished (Woodrobin) (Zedit)(CODED)
@@ -1193,7 +1193,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		//i like this writer, can we keep him?
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//BY BUTTS MCGEE
 	//====================================================================
@@ -1261,7 +1261,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, kFLAGS, CoC, Appear
 		EngineCore.dynStats( 'lus', 15 + Utils.rand( CoC.player.lib / 2 ) );
 		CoC.player.slimeFeed();
 		this.minoCumAddiction( 5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'minotaurScene', new MinotaurScene() );
 } );

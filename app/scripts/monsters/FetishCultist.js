@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, MainView, SceneLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Combat, Descriptors, WeightedDrop, ConsumableLib, Appearance, WeaponLib ) {
+angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, MainView, SceneLib, CoC, EngineCore, Monster, Utils, AppearanceDefs, StatusAffects, Descriptors, WeightedDrop, ConsumableLib, Appearance, WeaponLib ) {
 	function FetishCultist() {
 		this.init(this, arguments);
 	}
@@ -90,9 +90,9 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, MainView, Sc
 		}
 		EngineCore.dynStats( 'lus', (CoC.player.lib / 10 + CoC.player.cor / 20) + 4 );
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
-			EngineCore.doNext( Combat, Combat.combatMenu );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.combatMenu );
 		}
 	};
 	FetishCultist.prototype.cultistLustTransfer = function() {
@@ -127,9 +127,9 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, MainView, Sc
 			}
 		}
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
-			EngineCore.doNext( Combat, Combat.combatMenu );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.combatMenu );
 		}
 	};
 
@@ -145,13 +145,13 @@ angular.module( 'cocjs' ).factory( 'FetishCultist', function( $log, MainView, Sc
 		}
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			MainView.outputText( '  You realize she\'d make a perfect receptacle for your lusts.  Do you have your way with her?', false );
-			EngineCore.choices( 'Sex', SceneLib.fetishCultistScene, SceneLib.fetishCultistScene.playerRapesCultist, '', null, null, '', null, null, 'B. Feed', SceneLib.fetishCultistScene, temp2, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Sex', SceneLib.fetishCultistScene, SceneLib.fetishCultistScene.playerRapesCultist, '', null, null, '', null, null, 'B. Feed', SceneLib.fetishCultistScene, temp2, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			if( temp2 !== null ) {
 				MainView.outputText( '  She looks like she might take some of your milk if you offered it to her.  What do you do?', false );
-				EngineCore.choices( 'B. Feed', SceneLib.fetishCultistScene, temp2, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'B. Feed', SceneLib.fetishCultistScene, temp2, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};

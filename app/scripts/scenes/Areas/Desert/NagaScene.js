@@ -172,7 +172,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			return;
 		}
-		Combat.startCombat( new Naga() );
+		SceneLib.combatScene.startCombat( new Naga() );
 	};
 	NagaScene.prototype.gooNagaRape = function() {
 		MainView.outputText( '', true );
@@ -289,7 +289,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'You cry out and shudder as you feel wave after wave of the naga\'s orgasm rushing over your body, bringing you to a strange orgasmic bliss of your own.', false );
 		}
 		MainView.outputText( '  For a moment you just sit there in post orgasmic bliss, the walls of the naga convulsing around your gooey half. You decide that the snake woman has had enough and slowly withdraw yourself from her abused love canal. You gather up your things and head back to your camp, leaving the naga lying in the sands.', false );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//3) Victory male
 	NagaScene.prototype.nagaVictoryMale = function() {
@@ -394,7 +394,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'You think it would be a very good idea to come to the desert more often.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		return;
 	};
 	NagaScene.prototype.nagaVictoryFemale = function() {
@@ -459,7 +459,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'You think it would be a very good idea to come to the desert more often.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		return;
 	};
 	NagaScene.prototype.nagaVictoryGenderless = function() {
@@ -499,7 +499,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		}
 		MainView.outputText( 'You think it would be a very good idea to come to the desert more often.', false );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 		return;
 	};
 	NagaScene.prototype.nagaFUCKSJOOOOOO = function() {
@@ -760,7 +760,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'You bring your mouth back to her awaiting hole and redouble your efforts. You can feel that she is nearing her peak as you continue to lick at her pussy. With a final shudder the naga climaxes, squeezing you firmly against her, coating your chin and nose with her thick honey.  As the naga relaxes her grip you slide out from her loosened tail coils.  Exhausted, you lose consciousness, but when you awake, you grab your things and leave the moistened sands behind.', false );
 		}
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	NagaScene.prototype.nagaRapeChoice = function() {
 		if( CoC.monster.HP < 1 ) {
@@ -779,35 +779,35 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'Your body aches for further satisfaction - do you rape the snake woman?', false );
 			if( CoC.player.lowerBody === AppearanceDefs.LOWER_BODY_TYPE_GOO ) {
 				if( CoC.player.gender === 0 ) {
-					EngineCore.choices( 'Yes', this, this.nagaVictoryGenderless, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryGenderless, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 1 ) {
-					EngineCore.choices( 'Yes', this, this.nagaVictoryMale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryMale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 2 ) {
-					EngineCore.choices( 'Yes', this, this.nagaVictoryFemale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryFemale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 3 ) {
-					EngineCore.choices( 'As Male', this, this.nagaVictoryMale, 'As Female', this, this.nagaVictoryFemale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'As Male', this, this.nagaVictoryMale, 'As Female', this, this.nagaVictoryFemale, 'Gooey Rape', this, this.gooNagaRape, 'Lay Eggs', this, eggs, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				return;
 			} else {
 				if( CoC.player.gender === 0 ) {
-					EngineCore.choices( 'Yes', this, this.nagaVictoryGenderless, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'No', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryGenderless, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'No', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 1 ) {
-					EngineCore.choices( 'Yes', this, this.nagaVictoryMale, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'No', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryMale, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'No', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 2 ) {
-					EngineCore.choices( 'Yes', this, this.nagaVictoryFemale, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'Yes', this, this.nagaVictoryFemale, '', null, null, '', null, null, 'Lay Eggs', this, eggs, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				if( CoC.player.gender === 3 ) {
-					EngineCore.choices( 'As Male', this, this.nagaVictoryMale, 'As Female', this, this.nagaVictoryFemale, '', null, null, 'Lay Eggs', this, eggs, 'Leave', null, Combat.cleanupAfterCombat );
+					EngineCore.choices( 'As Male', this, this.nagaVictoryMale, 'As Female', this, this.nagaVictoryFemale, '', null, null, 'Lay Eggs', this, eggs, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 				}
 				return;
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	NagaScene.prototype.nagaPlayerConstrict = function() {
 		MainView.outputText( '', true );
@@ -815,28 +815,28 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'You just don\'t have the energy to wrap yourself so tightly around someone right now...', true );
 			//Gone		menuLoc = 1;
 			MainView.menu();
-			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 			return;
 		}
 		//Cannot be used on plural enemies
 		if( CoC.monster.plural ) {
 			MainView.outputText( 'You launch yourself at ' + CoC.monster.a + CoC.monster.short + ', but with multiple enemies, wrapping one up would leave you completely open to attack.  You hastily slither backwards before you expose yourself to danger.', true );
 			MainView.outputText( '\n\n', false );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		if( CoC.monster.short === 'pod' ) {
 			MainView.outputText( 'You can\'t constrict something you\'re trapped inside of!', true );
 			//Gone		menuLoc = 1;
 			MainView.menu();
-			EngineCore.addButton( 0, 'Next', null, Combat.combatMenu, false );
+			EngineCore.addButton( 0, 'Next', SceneLib.combatScene, SceneLib.combatScene.combatMenu, false );
 			return;
 		}
 		EngineCore.fatigue( 10, 2 );
 		//Amily!
 		if( CoC.monster.findStatusAffect( StatusAffects.Concentration ) ) {
 			MainView.outputText( 'Amily easily glides around your attack thanks to her complete concentration on your movements.', true );
-			Combat.enemyAI();
+			CoC.monster.doAI();
 			return;
 		}
 		//WRAP IT UPPP
@@ -856,12 +856,12 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 			MainView.outputText( 'You launch yourself at your opponent and attempt to wrap yourself around ' + CoC.monster.pronoun2 + '. Before you can even get close enough, ' + CoC.monster.a + CoC.monster.short + ' jumps out of the way, causing you to fall flat on your face. You quickly pick yourself up and jump back.', false );
 			CoC.player.takeDamage( 5 );
 			if( CoC.player.HP <= 0 ) {
-				EngineCore.doNext( Combat, Combat.endHpLoss );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpLoss );
 				return;
 			}
 		}
 		MainView.outputText( '\n\n', false );
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 	NagaScene.prototype.naggaSqueeze = function() {
 		MainView.outputText( '', true );
@@ -875,11 +875,11 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 				MainView.outputText( 'The others quickly back off, terrified at the idea of what you might do to them.', false );
 			}
 			MainView.outputText( '\n\n', false );
-			EngineCore.doNext( Combat, Combat.endHpVictory );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endHpVictory );
 			return;
 		}
 		MainView.outputText( '\n\n', false );
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 	//Tease
 	NagaScene.prototype.naggaTease = function() {
@@ -978,27 +978,27 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 					damage *= 1.15;
 				}
 				CoC.monster.teased( damage );
-				Combat.teaseXP( 1 );
+				SceneLib.combatScene.teaseXP( 1 );
 			}
 			//Nuttin honey
 			else {
-				Combat.teaseXP( 5 );
+				SceneLib.combatScene.teaseXP( 5 );
 				MainView.outputText( '\n' + CoC.monster.getCapitalA() + CoC.monster.short + ' seems unimpressed.', false );
 			}
 			MainView.outputText( '\n\n', false );
 			if( CoC.monster.lust > 99 ) {
-				EngineCore.doNext( Combat, Combat.endLustVictory );
+				EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustVictory );
 				return;
 			}
 		}
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 	NagaScene.prototype.nagaLeggoMyEggo = function() {
 		MainView.outputText( '', true );
 		MainView.outputText( 'You release ' + CoC.monster.a + CoC.monster.short + ' from ' + CoC.monster.pronoun3 + ' bonds, and ' + CoC.monster.pronoun1 + ' drops to the ground, catching ' + CoC.monster.pronoun3 + ' breath before ' + CoC.monster.pronoun1 + ' stands back up, apparently prepared to fight some more.', false );
 		MainView.outputText( '\n\n', false );
 		CoC.monster.removeStatusAffect( StatusAffects.Constricted );
-		Combat.enemyAI();
+		CoC.monster.doAI();
 	};
 
 	NagaScene.prototype.eggUpANagaSpiderLike = function() {
@@ -1029,7 +1029,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.outputText( '\n\nA while later, you awaken alone in the desert sand.  Getting your shaky legs under you and stifling a yawn, you head back to camp.  You should come to the desert more often.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Bee Naga Scene: Finished (Fenoxo) (edited)
 	NagaScene.prototype.beePositANagaPlease = function() {
@@ -1091,7 +1091,7 @@ angular.module( 'cocjs' ).run( function( SceneLib, MainView, CoC, Utils, StatusA
 		MainView.outputText( '\n\nYou should definitely come to the desert more often.' );
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'nagaScene', new NagaScene() );
 } );

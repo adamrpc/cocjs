@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Combat, Kitsune, UseableLib ) {
+angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLAGS, ConsumableLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, CockTypesEnum, PerkLib, Descriptors, Imp, Kitsune, UseableLib ) {
 	function KitsuneScene() {
 	}
 
@@ -25,7 +25,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( '"<i>Th-thank goodness!  Please, you must help me!</i>"  she cries, darting around to take shelter behind you.  "<i>I was out picking wild berries, and, and...  the wretched, terrible little things attacked me!</i>"\n\n' );
 		MainView.outputText( 'You are about to question her, but are interrupted as an imp flies out of the thicket, growling and clawing at you menacingly.  At least...  clearly it\'s <i>trying</i> to be menacing.  The melodramatic display comes off as more hilarious than anything, but the woman cowering behind you obviously feels threatened, so you might as well deal with the pest.' );
 		// -> Standard Imp Battle
-		Combat.startCombat( new Imp() );
+		SceneLib.combatScene.startCombat( new Imp() );
 		CoC.monster.createStatusAffect( StatusAffects.KitsuneFight, 0, 0, 0, 0 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 		CoC.flags[ kFLAGS.MET_KITSUNES ]++;
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( 'There\'s no way you\'re going to go gallivanting off into the woods after some flame.  You shake your head to clear your thoughts, and warily turn away to head back toward camp.  You could almost swear for a moment the flame looked disappointed, and you chuckle lightly at such a silly thought.' );
 		//Advance time 1 hour, return to camp.
 		if( CoC.isInCombat() ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
@@ -225,7 +225,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( '<b>You have received a Kitsune\'s Gift!</b>\n' );
 		if( CoC.isInCombat() ) {
 			CoC.flags[ kFLAGS.BONUS_ITEM_AFTER_COMBAT_ID ] = ConsumableLib.KITGIFT.id;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			//add Kitsune's Gift to inventory
 			SceneLib.inventory.takeItem( ConsumableLib.KITGIFT, SceneLib.camp.returnToCampUseOneHour );
@@ -669,7 +669,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			if( !CoC.isInCombat() ) {
 				EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 			} else {
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};
@@ -715,7 +715,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 	KitsuneScene.prototype.fightSomeKitsunes = function() {
 		MainView.clearOutput();
 		MainView.outputText( 'Something just doesn\'t sit right with you about this woman, and you cautiously raise your ' + CoC.player.weaponName + ', watching her carefully.\n\n' );
-		Combat.startCombat( new Kitsune( CoC.monster.hairColor ) );// TODO refactor
+		SceneLib.combatScene.startCombat( new Kitsune( CoC.monster.hairColor ) );// TODO refactor
 		this.kitsuneSprite();
 		//Blonde
 		if( CoC.monster.hairColor === 'blonde' ) {
@@ -825,7 +825,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( 'The last thing you see before blacking out is a pair of delightfully plump, round cheeks jiggling happily as the kitsune gathers her robes.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// For Females and Genderless
 	KitsuneScene.prototype.femalesAndNuetersLoseToKitsunes = function() {
@@ -856,7 +856,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( 'The last thing you see before blacking out is a pair of delightfully plump, round cheeks jiggling happily as the kitsune gathers her robes.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Blonde-exclusive
 	//Single cock < 9 inches long
@@ -905,7 +905,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		// Advance time 8hrs, lose X gems, return to camp. +Sensitivity +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Black-hair-exclusive
 	//Lose while lactating
@@ -939,7 +939,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 			CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 			CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	// lose, requires balls and cumQ() > 1000
 	KitsuneScene.prototype.loseToKitsunesWithBallsAndHighCumQ = function() {
@@ -980,7 +980,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		if( CoC.player.cumQ() < 30000 ) {
 			CoC.player.cumMultiplier += 5;
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Redhead-exclusive
 	//Futa rape - chance increases as redhead's lust increases
@@ -1034,7 +1034,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 8 hrs, lose X gems, return to camp. +Sensitivity, +Libido.
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[WIN FIGHT]
 	//Damage victory
@@ -1201,7 +1201,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp. +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Anal] - requires cock area 144 or less
 	KitsuneScene.prototype.putItInAKitsunesAssWin = function() {
@@ -1248,7 +1248,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp. +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Tribbing] - requires vagina
 	KitsuneScene.prototype.tribbingWithAKitsune = function() {
@@ -1274,7 +1274,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		CoC.player.clitLength += 0.1 + Utils.rand( 3 ) / 10;
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Tail Job] - requires cock
 	KitsuneScene.prototype.tailJobKitsuneWin = function() {
@@ -1303,7 +1303,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp.  +Sensitivity
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 5 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Tentacles] - requires 3+ tentacles of 30' or longer
 	KitsuneScene.prototype.kitsunesGetBonedBy3PlusTentacles = function() {
@@ -1351,7 +1351,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp.  +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//Blonde-exclusive
@@ -1449,7 +1449,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		CoC.player.consumeItem( ConsumableLib.F_DRAFT );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//[Ovi Elixir]
@@ -1501,7 +1501,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp. +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Lactaid]
 	KitsuneScene.prototype.lactaidDoseAKitSune = function() {
@@ -1546,7 +1546,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		//consume lactaid
 		CoC.player.consumeItem( ConsumableLib.LACTAID );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//Black-hair-exclusive
@@ -1592,7 +1592,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp. +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//[Feeder]
@@ -1632,7 +1632,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 3 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[GetBJ] - requires cock 108 area or less
 	KitsuneScene.prototype.getABJFromAFoxGirl = function() {
@@ -1695,7 +1695,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp. +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[GetLicked] - requires a vagina
 	KitsuneScene.prototype.getLickedByKitsunes = function() {
@@ -1715,7 +1715,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		MainView.outputText( 'She licks her lips in satisfaction, then wipes her mouth on her sleeve, sighing happily before slumping back to rest against the side of a tree.  You lie splayed out on the ground in ecstasy for several minutes before finally summoning up the strength to stand, and when you do so, a cursory glance around suggests that the wily kitsune has made her getaway.  As you gather your things and prepare to head back to camp, you can almost hear the faint echo of a mischievous giggle filtering through the forest.' );
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Redhead-exclusive
 	//[Ride] - requires vagina
@@ -1743,7 +1743,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
 		CoC.player.slimeFeed();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Helix] - requires herm
 	//REDHEAD KITSUNE
@@ -1786,7 +1786,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Advance time 1hr and return to camp. +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Remove Dick]
 	//AKA Lose the dick, schweethaat AKA put that thing away
@@ -1854,7 +1854,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//Return to camp, advance time 1hr, +Sensitivity
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'sen', 3 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Non-futa Redhead: [Bondage] - requires a cock with area <= 144 due to some anal
 	KitsuneScene.prototype.nonFutaRedHeadBondageIGuessYouTieHerUpWithYourPenisThenHuh = function() {
@@ -1887,7 +1887,7 @@ angular.module( 'cocjs' ).run( function( SimpleUseable, MainView, SceneLib, kFLA
 		//advance time 1hr and return to camp, +Sensitivity, +Libido
 		CoC.player.orgasm();
 		EngineCore.dynStats( 'lib', 1, 'sen', 1 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/*Use whichever enhancement scene(s) you feel like.
 	 [Lumi Enhance]

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat, PerkLib ) {
+angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, AppearanceDefs, WeightedDrop, ConsumableLib, Appearance, CoC, EngineCore, Monster, Utils, StatusAffects, Combat ) {
 	function Goblin() {
 		this.init(this, arguments);
 	}
@@ -59,12 +59,12 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, Appea
 				} else {
 					MainView.outputText( '  There doesn\'t seem to be any effect.\n', false );
 				}
-				Combat.combatRoundOver();
+				SceneLib.combatScene.combatRoundOver();
 			}
 			return;
 		}
 		//Dodge chance!;
-		if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 10 ) <= 3) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
+		if( Combat.combatEvade( 30 ) || (Utils.rand( 100 ) < CoC.player.spe / 5) ) {
 			MainView.outputText( '\nYou narrowly avoid the gush of alchemic fluids!\n', false );
 		} else {
 			//Get hit!;
@@ -93,7 +93,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, Appea
 			}
 		}
 		if( !this.plural ) {
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		} else {
 			MainView.outputText( '\n', false );
 		}
@@ -111,7 +111,7 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, Appea
 		}
 		EngineCore.dynStats( 'lus', Utils.rand( CoC.player.lib / 10 ) + 8 );
 		MainView.outputText( '  The display distracts you long enough to prevent you from taking advantage of her awkward pose, leaving you more than a little flushed.\n\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Goblin.prototype.defeated = function() {
 		SceneLib.goblinScene.gobboRapeIntro();
@@ -120,11 +120,11 @@ angular.module( 'cocjs' ).factory( 'Goblin', function( SceneLib, MainView, Appea
 	Goblin.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( CoC.player.gender === 0 ) {
 			MainView.outputText( 'You collapse in front of the goblin, too wounded to fight.  She giggles and takes out a tube of lipstick smearing it whorishly on your face.  You pass into unconsciousness immediately.  It must have been drugged.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe goblin\'s eyes go wide and she turns to leave, no longer interested in you.', false );
 			CoC.player.orgasm();
-			EngineCore.doNext( Combat, Combat.cleanupAfterCombat );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
 			SceneLib.goblinScene.goblinRapesPlayer();
 		}

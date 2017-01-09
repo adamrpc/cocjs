@@ -14,19 +14,19 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind attack!\n', false );
 		}
 		//Determine if dodged!;
-		else if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		else if( Combat.combatMiss() ) {
 			MainView.outputText( 'You nimbly dodge the salamander\'s massive sword thrust!', false );
 		}
 		//Determine if evaded;
-		else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+		else if( Combat.combatEvade() ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s attack.\n', false );
 		}
 		//('Misdirection';
-		else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		else if( Combat.combatMisdirect() ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' attacks.\n', false );
 		}
 		//Determine if cat'ed;
-		else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+		else if( Combat.combatFlexibility() ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + this.a + this.short + '', false );
 		}
 		//Determine damage - str modified by enemy toughness!;
@@ -58,7 +58,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Attack 2 – Tail Slap (Hit);
 	//low dodge chance, lower damage;
@@ -72,22 +72,22 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 			return;
 		}
 		//Determine if dodged!;
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 83 ) {
+		if( Combat.combatMiss( 83 ) ) {
 			MainView.outputText( 'The salamander rushes at you, knocking aside your defensive feint and trying to close the distance between you.  She lashes out at your feet with her tail, and you\'re only just able to dodge the surprise attack.', false );
 			return;
 		}
 		//Determine if evaded;
-		if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 5 ) {
+		if( Combat.combatEvade( 5 ) ) {
 			MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + this.a + this.short + '\'s tail-swipe.\n', false );
 			return;
 		}
 		//('Misdirection';
-		if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 5 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+		if( Combat.combatMisdirect( 5 ) ) {
 			MainView.outputText( 'Using Raphael\'s teachings, you anticipate and sidestep ' + this.a + this.short + '\' tail-swipe.\n', false );
 			return;
 		}
 		//Determine if cat'ed;
-		if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 3 ) {
+		if( Combat.combatFlexibility( 3 ) ) {
 			MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of a tail-swipe!', false );
 			return;
 		}
@@ -118,11 +118,11 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 		}
 		MainView.statsView.show();
 		MainView.outputText( '\n', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Hel.prototype.helCleavage = function() {
 		//FAIL;
-		if( (CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6) || (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10) || (CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80) ) {
+		if( Combat.combatFlexibility() || Combat.combatEvade() || Combat.combatMiss() ) {
 			MainView.outputText( 'To your surprise, the salamander suddenly pulls up her top, letting her hefty breasts hang free in the air; her small, bright pink nipples quickly harden from either arousal or temperature.  Before you can take your eyes off her impressive rack, she jumps at you.  One of her scaled arms reaches around your waist, and the other toward your head, but you roll away from her grip and push her bodily away.  She staggers a moment, but then quickly yanks the jangling bikini top back down with a glare.\n', false );
 		}
 		//Attack 3 – Lust – Cleavage (Failure);
@@ -136,7 +136,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 			lust = Math.round( lust * 10 ) / 10;
 			MainView.outputText( ' (+' + lust + ' lust)\n', false );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Hel.prototype.performCombatAction = function() {
 		$log.debug( 'Hel Perform Combat Action Called' );
@@ -165,7 +165,7 @@ angular.module( 'cocjs' ).factory( 'Hel', function( MainView, SceneLib, $log, kF
 	Hel.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nHelia waits it out in stoic silence...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			if( this.findStatusAffect( StatusAffects.Sparring ) ) {
 				SceneLib.helFollower.loseToSparringHeliaLikeAButtRapedChump();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, FetishCultist, Descriptors, kFLAGS, Combat, CockTypesEnum ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusAffects, EngineCore, AppearanceDefs, FetishCultist, Descriptors, kFLAGS, CockTypesEnum ) {
 	function FetishCultistScene() {
 	}
 
@@ -15,7 +15,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 	 */
 	FetishCultistScene.prototype.fetishCultistEncounter = function() {
 		MainView.outputText( 'You see a largely human-looking young woman in the distance in a strange, whorish outfit, seemingly lost in prayers that sound like nonsense to you.  Finally noticing your presence, she confronts you with a lewd smile on her face.\n\nShe has clearly lost her grasp on sanity, and filled the void with pure perversion.', true );
-		Combat.startCombat( new FetishCultist() );
+		SceneLib.combatScene.startCombat( new FetishCultist() );
 		MainView.spriteSelect( 19 );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
@@ -57,7 +57,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 						CoC.player.orgasm();
 						EngineCore.dynStats( 'int', -2 );
 						EngineCore.dynStats( 'lus', 10 );
-						Combat.cleanupAfterCombat();
+						SceneLib.combatScene.cleanupAfterCombat();
 					}
 					return;
 				}
@@ -113,7 +113,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 					CoC.player.orgasm();
 					EngineCore.dynStats( 'int', -2 );
 					EngineCore.dynStats( 'lus', 10 );
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				}
 				return;
 			}
@@ -175,7 +175,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 					CoC.player.orgasm();
 					EngineCore.dynStats( 'int', -2 );
 					EngineCore.dynStats( 'lus', 10 );
-					Combat.cleanupAfterCombat();
+					SceneLib.combatScene.cleanupAfterCombat();
 				}
 				return;
 			}
@@ -297,7 +297,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'int', -2 );
 				EngineCore.dynStats( 'lus', 10 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 				if( changedBoobs ) {
 					MainView.outputText( '\n\nYou notice that the changes you experienced to your breasts while in the fantasy are still affecting you.', false );
 				}
@@ -427,7 +427,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				CoC.player.orgasm();
 				EngineCore.dynStats( 'int', -2 );
 				EngineCore.dynStats( 'lus', 10 );
-				Combat.cleanupAfterCombat();
+				SceneLib.combatScene.cleanupAfterCombat();
 			}
 		}
 	};
@@ -546,7 +546,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			if( CoC.player.hasCock() ) {
 				fuckVag = this.plugSwimsuitVag;
 			}
-			EngineCore.choices( 'FuckHerVag', this, fuckVag, 'Vibrator', this, vibe, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'FuckHerVag', this, fuckVag, 'Vibrator', this, vibe, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			return;
 		} else {
 			MainView.outputText( 'You see that the cultist\'s outfit has fixed on what looks remarkably similar to a farmhand from your village.  Filled with desire, you approach her.  She cries out in fear and says "<i>Please don\'t hurt me!  Even though I knew there were bandits coming, I couldn\'t leave my mother behind.  Take whatever you want, I won\'t get in your way, but please leave us alone!</i>"\n\n', false );
@@ -581,7 +581,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 				MainView.outputText( 'You make her rub your body down, but you don\'t really have a means to rape her.  Afterwards you do feel better, but didn\'t get any real release.  Disappointed, you continue on your way.', false );
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//PC goes for the vagina
 	FetishCultistScene.prototype.plugSwimsuitVag = function() {
@@ -624,7 +624,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		MainView.outputText( 'You stand up and clean yourself off, thoroughly satisfied with the encounter.  The cultist, on the other hand, collapses in a quivering pile of pleasure on the ground.', false );
 		//set PC's lust to minimum
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//PC goes for the vagina vibrators
 	FetishCultistScene.prototype.swimsuitVibrators = function() {
@@ -655,7 +655,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			CoC.monster.HP = 2;
 			CoC.player.lust = 100;
 			CoC.flags[ kFLAGS.COMBAT_BONUS_XP_VALUE ] = CoC.monster.XP;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', -3 );
 		}
@@ -684,7 +684,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 			//end scene
 			CoC.player.orgasm();
 			EngineCore.dynStats( 'lib', 1, 'sen', -3 );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	FetishCultistScene.prototype.cultistBadEnd = function() {
@@ -767,7 +767,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, CoC, Utils, StatusA
 		//You've now been milked, reset the timer for that
 		CoC.player.addStatusValue( StatusAffects.Feeder, 1, 1 );
 		CoC.player.changeStatusValue( StatusAffects.Feeder, 2, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	SceneLib.registerScene( 'fetishCultistScene', new FetishCultistScene() );
 } );

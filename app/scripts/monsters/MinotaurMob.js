@@ -100,7 +100,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, MainView, 
 				MainView.outputText( 'You sigh and let your tongue loll out.  It wouldn\'t so bad, would it?', false );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Grope
 	MinotaurMob.prototype.minotaurGangGropeAttack = function() {
@@ -111,21 +111,21 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, MainView, 
 		}
 		MainView.outputText( '.', false );
 		EngineCore.dynStats( 'lus', (5 + CoC.player.sens / 10) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Gang Grope
 	MinotaurMob.prototype.minotaurGangGangGropeAttack = function() {
 		MainView.spriteSelect( 94 );
 		MainView.outputText( 'Before you can react, hands reach out from multiple angles and latch onto your body.  One pair squeezes at your ' + Descriptors.buttDescript() + ', the strong grip massaging your cheeks with loving touches.  Another set of hands are sliding along your tummy, reaching down for, but not quite touching, the juicy delta below.  Palms encircle your ' + CoC.player.chestDesc() + ' and caress them, gently squeezing in spite of the brutish hands holding you.  You wriggle and squirm in the collective grip of the many minotaurs for a few moments, growing more and more turned on by the treatment.  At last, you shake out of their hold and stand free, panting hard from exertion and desire.', false );
 		EngineCore.dynStats( 'lus', (15 + CoC.player.sens / 10) );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//Waste  a turn
 	MinotaurMob.prototype.minotaurGangWaste = function() {
 		CoC.flags[ kFLAGS.UNKNOWN_FLAG_NUMBER_00329 ] = 1;
 		MainView.spriteSelect( 94 );
 		MainView.outputText( '"<i>Oh man I can\'t wait to go hilt-deep in that pussy... I\'m going to wreck her,</i>" promises one bull to his brother.  The other laughs and snorts, telling him how he\'ll have to do the deed during sloppy seconds.  It quickly escalates, and soon, every single one of the beast-men is taunting the others, bickering over how and when they\'ll get to have you.  While they\'re wasting their time, it\'s your chance to act!', false );
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	MinotaurMob.prototype.doAI = function() {
 		MainView.spriteSelect( 94 );
@@ -149,7 +149,7 @@ angular.module( 'cocjs' ).factory( 'MinotaurMob', function( SceneLib, MainView, 
 	MinotaurMob.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe minutaurs share a laugh while you cum, but their throbbing erections don\'t subside in the slightest.' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.minotaurMobScene.minotaurDeFeet();
 		}

@@ -95,7 +95,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 			} else {
 				this.removeStatusAffect( StatusAffects.Climbed );
 			}
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 		} else {
 			this._superPerformCombatAction();
 		}
@@ -107,7 +107,7 @@ angular.module( 'cocjs' ).factory( 'SandTrap', function( SceneLib, MainView, CoC
 	SandTrap.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe sand trap seems bemused by the insects your body houses...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.sandTrapScene.sandtrapmentLoss( true );
 		}

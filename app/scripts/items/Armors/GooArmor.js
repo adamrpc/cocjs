@@ -45,5 +45,8 @@ angular.module( 'cocjs' ).run( function( MainView, ArmorLib, Armor, kFLAGS, CoC 
 		CoC.flags[ kFLAGS.VALARIA_AT_CAMP ] = 1;
 		return null; //Can't put Valaria in your inventory
 	};
+	GooArmor.prototype.getHealingPercent = function( inCombat ) {
+		return inCombat? 2 : 3;
+	};
 	ArmorLib.registerArmor( 'GOOARMR', new GooArmor() );
 } );

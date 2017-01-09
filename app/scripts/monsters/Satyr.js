@@ -24,14 +24,14 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 				MainView.outputText( 'You successfully block it.' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Satyr.prototype.satyrBate = function() {
 		MainView.outputText( 'He glares at you, panting while his tongue hangs out and begins to masturbate.  You can nearly see his lewd thoughts reflected in his eyes, as beads of pre form on his massive cock and begin sliding down the erect shaft.' );
 		//(small Libido based Lust increase, and increase lust);
 		EngineCore.dynStats( 'lus', (CoC.player.lib / 5) + 4 );
 		this.lust += 5;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Satyr.prototype.satyrCharge = function() {
 		MainView.outputText( 'Lowering his horns, the satyr digs his hooves on the ground and begins snorting; he\'s obviously up to something.  ' );
@@ -64,14 +64,14 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 				MainView.outputText( 'He charges at you, but you successfully deflect it at the last second.' );
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Satyr.prototype.bottleChug = function() {
 		MainView.outputText( 'He whips a bottle of wine seemingly from nowhere and begins chugging it down, then lets out a bellowing belch towards you.  The smell is so horrible you cover your nose in disgust, yet you feel hot as you inhale some of the fetid scent.' );
 		//(damage PC lust very slightly and raise the satyr's lust.);
 		EngineCore.dynStats( 'lus', (CoC.player.lib / 5) );
 		this.lust += 5;
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//5:(Only executed at high lust) ;
 	Satyr.prototype.highLustChugRape = function() {
@@ -86,7 +86,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 			this.lust -= 50;
 			EngineCore.dynStats( 'lus', (CoC.player.sens / 5 + 20) );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Satyr.prototype.performCombatAction = function() {
 		if( this.lust >= 75 && Utils.rand( 2 ) === 0 ) {
@@ -112,7 +112,7 @@ angular.module( 'cocjs' ).factory( 'Satyr', function( SceneLib, MainView, CockTy
 	Satyr.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe satyr laughs heartily at your eagerness...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.satyrScene.loseToSatyr();
 		}

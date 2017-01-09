@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log, PregnancyStore, ConsumableLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore, Combat ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log, PregnancyStore, ConsumableLib, PerkLib, Descriptors, AppearanceDefs, Appearance, CockTypesEnum, $rootScope, CoC, kFLAGS, Utils, StatusAffects, EngineCore ) {
 
 	function JojoScene() {
 		this.pregnancy = new PregnancyStore( 0, 0, kFLAGS.JOJO_BUTT_PREGNANCY_TYPE, kFLAGS.JOJO_EGGCUBATE_COUNT );
@@ -1229,9 +1229,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		if( CoC.player.lust > 33 && CoC.player.gender > 0 ) {
 			MainView.clearOutput();
 			MainView.outputText( 'You smile in satisfaction as Jojo' + (hpVictory ? ' collapses, unable to continue fighting' : ' collapses and begins masturbating feverishly') + '.  Sadly you realize your own needs have not been met.  Of course, you could always rape the poor thing...\n\nDo you rape him?' );
-			EngineCore.doYesNo( this, this.postCombatRape, null, Combat.cleanupAfterCombat );
+			EngineCore.doYesNo( this, this.postCombatRape, SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.finishCombat();
+			SceneLib.combatScene.finishCombat();
 		}
 	};
 	JojoScene.prototype.postCombatRape = function() {
@@ -1273,7 +1273,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		}
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 		if( postCombat ) {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	JojoScene.prototype.jojosFirstRape = function() {
@@ -1854,7 +1854,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 				MainView.statsView.show();
 			}
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	JojoScene.prototype.corruptJojoSexMenu = function() {
 		MainView.menu();
@@ -2179,7 +2179,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, ImageManager, $log,
 		CoC.flags[ kFLAGS.TIMES_EGGED_JOJO ]++;
 		CoC.player.dumpEggs();
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//Jojo Got Laid With Fertilized Bee Eggs (Zedit);
 	JojoScene.prototype.jojoLaysEggs = function() {

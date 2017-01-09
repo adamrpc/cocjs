@@ -26,7 +26,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			}
 			EngineCore.choices( 'B. Feed', SceneLib.beeGirlScene, SceneLib.beeGirlScene.milkAndHoneyAreKindaFunny, '', null, null, '', null, null, '', null, null, 'Leave', this, this.leaveAfterDefeating );
 		} else {
-			Combat.finishCombat();
+			SceneLib.combatScene.finishCombat();
 		}
 	};
 	BeeGirl.prototype.leaveAfterDefeating = function() {
@@ -35,13 +35,13 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 		} else {
 			CoC.flags[ kFLAGS.BEE_GIRL_COMBAT_WINS_WITH_RAPE ]++; //All wins by lust count towards the desire option, even when you leave
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	/* jshint unused:true */
 	BeeGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe bee-girl goes white and backs away with a disgusted look on her face.\n\n' );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.beeGirlScene.beeRapesYou();
 		}
@@ -50,11 +50,11 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 		//Blind dodge change
 		if( this.findStatusAffect( StatusAffects.Blind ) ) {
 			MainView.outputText( this.getCapitalA() + this.short + ' completely misses you with a blind sting!!' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Determine if dodged!
-		if( CoC.player.spe - this.spe > 0 && Math.ceil( Math.random() * (((CoC.player.spe - this.spe) / 4) + 80) ) > 80 ) {
+		if( Combat.combatMiss() ) {
 			if( CoC.player.spe - this.spe < 8 ) {
 				MainView.outputText( 'You narrowly avoid ' + this.a + this.short + '\'s stinger!' );
 			}
@@ -64,13 +64,13 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			if( CoC.player.spe - this.spe >= 20 ) {
 				MainView.outputText( 'You deftly avoid ' + this.a + this.short + '\'s slow attempts to sting you.' );
 			}
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//determine if avoided with armor.
 		if( CoC.player.armorDef >= 10 && Utils.rand( 4 ) > 0 ) {
 			MainView.outputText( 'Despite her best efforts, ' + this.a + this.short + '\'s sting attack can\'t penetrate your armor.' );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Sting successful!  Paralize or lust?
@@ -122,7 +122,7 @@ angular.module( 'cocjs' ).factory( 'BeeGirl', function( MainView, SceneLib, CoC,
 			}
 		}
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}

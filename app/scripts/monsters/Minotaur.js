@@ -22,7 +22,7 @@ angular.module( 'cocjs' ).factory( 'Minotaur', function( SceneLib, MainView, $lo
 			SceneLib.antsScene.phyllaPCLostToMino();
 		} else if( pcCameWorms ) {
 			MainView.outputText( '\n\nThe minotaur picks you up and forcibly tosses you from his cave, grunting in displeasure.', false );
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		} else {
 			SceneLib.minotaurScene.getRapedByMinotaur();
 		}

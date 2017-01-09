@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, WeaponLib, Combat, PregnancyStore, EncapsulationPod, Appearance, ConsumableLib, ImpHorde, Vala, Utils, PerkLib, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
+angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, WeaponLib, PregnancyStore, EncapsulationPod, Appearance, ConsumableLib, ImpHorde, Vala, Utils, Combat, StatusAffects, Descriptors, CockTypesEnum, EventParser, OnLoadVariables, AppearanceDefs, kFLAGS, CoC, EngineCore ) {
 	function Dungeon2Supplimental() {
 	}
 
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.doNext( SceneLib.camp, SceneLib.camp.returnToCampUseOneHour );
 	};
 	Dungeon2Supplimental.prototype.impHordeStartCombat = function() {
-		Combat.startCombat( new ImpHorde(), true );
+		SceneLib.combatScene.startCombat( new ImpHorde(), true );
 	};
 	Dungeon2Supplimental.prototype.impGangAI = function() {
 		if( CoC.monster.findStatusAffect( StatusAffects.ImpUber ) ) {
@@ -48,7 +48,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			MainView.outputText( '\nOne of the tiny demons latches onto one of your ' + CoC.player.legs() + ' and starts humping it.  You shake the little bastard off and keep fighting!', false );
 			EngineCore.dynStats( 'lus', 1 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	//IMP GANG [ATTACKS!]  ;
 	Dungeon2Supplimental.prototype.imtacularMultiHitzilla = function() {
@@ -72,7 +72,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + ' completely misses you with a blind attack!\n', false );
 			}
 			//Determine if dodged!;
-			else if( CoC.player.spe - CoC.monster.spe > 0 && Utils.rand( ((CoC.player.spe - CoC.monster.spe) / 4) + 90 ) > 80 ) {
+			else if( Combat.combatMiss( 70 ) ) {
 				if( CoC.player.spe - CoC.monster.spe < 8 ) {
 					MainView.outputText( 'You narrowly avoid ' + CoC.monster.a + CoC.monster.short + '\'s ' + CoC.monster.weaponVerb + '!\n', false );
 				} else if( CoC.player.spe - CoC.monster.spe >= 8 && CoC.player.spe - CoC.monster.spe < 20 ) {
@@ -82,13 +82,13 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				}
 			}
 			//Determine if evaded;
-			else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 10 ) {
+			else if( Combat.combatEvade() ) {
 				MainView.outputText( 'Using your skills at evading attacks, you anticipate and sidestep ' + CoC.monster.a + CoC.monster.short + '\'s attack.\n', false );
-			} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+			} else if( Combat.combatMisdirect() ) {
 				MainView.outputText( 'With the easy movement afforded by your bodysuit and Raphael\'s teachings, you easily avoid ' + CoC.monster.a + CoC.monster.short + '\'s attack.\n', false );
 			}
 			//Determine if cat'ed;
-			else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 6 ) {
+			else if( Combat.combatFlexibility() ) {
 				MainView.outputText( 'With your incredible flexibility, you squeeze out of the way of ' + CoC.monster.a + CoC.monster.short + '', false );
 				if( CoC.monster.plural ) {
 					MainView.outputText( '\' attacks.\n', false );
@@ -143,7 +143,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				MainView.outputText( CoC.monster.getCapitalA() + CoC.monster.short + '\' misguided spooge flies everyone.  A few bursts of it don\'t even land anywhere close to you!\n', false );
 			}
 			//Determine if dodged!;
-			else if( CoC.player.spe - CoC.monster.spe > 0 && Utils.rand( ((CoC.player.spe - CoC.monster.spe) / 4) + 90 ) > 80 ) {
+			else if( Combat.combatMiss( 70 ) ) {
 				damage = Utils.rand( 4 );
 				if( damage === 0 ) {
 					MainView.outputText( 'A wad of cum spatters into the floor as you narrowly sidestep it.\n', false );
@@ -156,7 +156,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				}
 			}
 			//Determine if evaded;
-			else if( CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 100 ) < 30 ) {
+			else if( Combat.combatEvade( 30 ) ) {
 				damage = Utils.rand( 4 );
 				MainView.outputText( '(Evade) ', false );
 				if( damage === 0 ) {
@@ -168,7 +168,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				} else if( damage === 3 ) {
 					MainView.outputText( 'You easily evade a blast of white fluid.\n', false );
 				}
-			} else if( CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 10 && CoC.player.armorName === 'red, high-society bodysuit' ) {
+			} else if( Combat.combatMisdirect() ) {
 				MainView.outputText( '(Misdirection) ', false );
 				if( damage === 0 ) {
 					MainView.outputText( 'A wad of cum spatters into the floor as you narrowly sidestep it.\n', false );
@@ -181,7 +181,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				}
 			}
 			//Determine if cat'ed;
-			else if( CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 100 ) < 15 ) {
+			else if( Combat.combatFlexibility( 15 ) ) {
 				damage = Utils.rand( 4 );
 				MainView.outputText( '(Agility) ', false );
 				if( damage === 0 ) {
@@ -402,16 +402,16 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		if( CoC.player.lust >= 33 && CoC.player.gender > 0 ) {
 			MainView.outputText( '\n\nFeeling a bit horny, you wonder if you should use them to sate your budding urges before moving on.  Do you rape them?', false );
 			if( CoC.player.gender === 1 ) {
-				EngineCore.choices( 'Rape', this, this.impGangGetsRapedByMale, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', this, this.impGangGetsRapedByMale, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 			if( CoC.player.gender === 2 ) {
-				EngineCore.choices( 'Rape', this, this.impGangGetsRapedByFemale, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Rape', this, this.impGangGetsRapedByFemale, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 			if( CoC.player.gender === 3 ) {
-				EngineCore.choices( 'Male Rape', this, this.impGangGetsRapedByMale, 'Female Rape', this, this.impGangGetsRapedByFemale, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+				EngineCore.choices( 'Male Rape', this, this.impGangGetsRapedByMale, 'Female Rape', this, this.impGangGetsRapedByFemale, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 			}
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 	};
 	//RAEP -M;
@@ -448,7 +448,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		MainView.outputText( 'Satisfied, you redress and prepare to continue with your exploration of the cave.', false );
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.player.orgasm();
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//RAEP-F;
 	Dungeon2Supplimental.prototype.impGangGetsRapedByFemale = function() {
@@ -479,7 +479,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		EngineCore.dynStats( 'cor', 1 );
 		CoC.player.orgasm();
 		CoC.player.knockUp( PregnancyStore.PREGNANCY_IMP, PregnancyStore.INCUBATION_IMP - 14, 50 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	Dungeon2Supplimental.prototype.enterZetazsRoomFromTheSouth = function() {
 		if( CoC.flags[ kFLAGS.ZETAZ_DOOR_UNLOCKED ] === 0 ) {
@@ -517,7 +517,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		MainView.outputText( 'The sweet aroma that you smelled before is much, MUCH stronger when enclosed like this.  It\'s strong enough to make you feel a little dizzy and light-headed.  Deciding that you had best escape from this impromptu prison with all possible speed, you try to find a joint to force your way out through, but the pod\'s walls appear completely seamless.  You pound on the mushy surface, but your repeated blows have little effect.  Each impact brings with it a burst of violet radiance, but the fungus seems built to resist such struggles.  Moisture beads on the capsule\'s walls in larger and larger quantities, drooling into a puddle around your feet.\n\n', false );
 		MainView.outputText( 'Meanwhile, a number of tentacles have sprung up from below, and are crawling up your ' + CoC.player.legs() + '.  It\'s becoming fairly clear how the skeleton wound up in this cave...  You\'ve got to escape!', false );
 		//[FIGHT];
-		Combat.startCombat( new EncapsulationPod(), true );
+		SceneLib.combatScene.startCombat( new EncapsulationPod(), true );
 	};
 
 	Dungeon2Supplimental.prototype.encapsulationPodAI = function() {
@@ -665,7 +665,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		} else {
 			CoC.monster.addStatusValue( StatusAffects.Round, 1, 1 );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Dungeon2Supplimental.prototype.loseToThisShitPartII = function() {
 		EngineCore.hideUpDown();
@@ -698,7 +698,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		//Done if escaped;
 		if( CoC.monster.lust === 100 ) {
 			CoC.flags[ kFLAGS.ZETAZ_FUNGUS_ROOM_DEFEATED ]++;
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 			return;
 		}
 		//[BAD-END GO];
@@ -739,7 +739,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			MainView.outputText( '', true );
 			MainView.outputText( 'The pod\'s wall bursts under your onslaught.  The strength goes out of the tentacles holding you at once, giving them all the power of a limp noodle.  The spongy surface of the pod gives out, and the \'petals\' split apart, falling down to the ground with a heavy \'thwack\'.  You stand there, exulting in your freedom.  You\'ve won!\n\nThe rapier you approached originally still lies there, and you claim your prize.', false );
 		}
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//OH GOD THE FAERIE STUFF;
@@ -959,7 +959,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			MainView.outputText( 'The fairy stumbles up and fondles herself madly, already looking close to defeat. "<i>Bitch doesn\'t want to leave masters!  Masters have good cum.  Let bitch show you how wonderful it tastes.</i>" she demands, madly. Her wings gain sudden life, flapping rapidly to pull her frail body off the floor. Hovering before you, she curls her fingers into desperate claws and rakes at you. She\'s too far gone, you realize. You\'re going to have to fight the broken fairy, AGAIN!', false );
 		}
 		//Initiate fight;
-		Combat.startCombat( new Vala(), true );
+		SceneLib.combatScene.startCombat( new Vala(), true );
 		EngineCore.doNext( MainView, MainView.playerMenu );
 	};
 
@@ -1128,9 +1128,9 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		//[Fuck] [Leave];
 		if( CoC.player.gender > 0 ) {
 			MainView.outputText( ' What will you do?', false );
-			EngineCore.choices( 'Fuck', this, this.valaFightVictoryFuck, '', null, null, '', null, null, '', null, null, 'Leave', null, Combat.cleanupAfterCombat );
+			EngineCore.choices( 'Fuck', this, this.valaFightVictoryFuck, '', null, null, '', null, null, '', null, null, 'Leave', SceneLib.combatScene, SceneLib.combatScene.cleanupAfterCombat );
 		} else {
-			Combat.cleanupAfterCombat();
+			SceneLib.combatScene.cleanupAfterCombat();
 		}
 
 	};
@@ -1210,7 +1210,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		CoC.flags[ kFLAGS.TIMES_FUCKED_VALA_IN_DUNGEON ]++;
 		//Mark as defeated in combat;
 		CoC.flags[ kFLAGS.TIMES_PC_DEFEATED_VALA_AND_RAEPED ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 
 	//REPEATABLES;
@@ -1741,7 +1741,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		if( CoC.monster.findStatusAffect( StatusAffects.Stunned ) ) {
 			MainView.outputText( 'Your foe is too dazed from your last hit to strike back!', false );
 			CoC.monster.removeStatusAffect( StatusAffects.Stunned );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//Exgartuan gets to do stuff!;
@@ -1757,7 +1757,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				CoC.monster.removeStatusAffect( StatusAffects.Constricted );
 			}
 			CoC.monster.addStatusValue( StatusAffects.Constricted, 1, -1 );
-			Combat.combatRoundOver();
+			SceneLib.combatScene.combatRoundOver();
 			return;
 		}
 		//STANDARD COMBAT STATUS AFFECTS END HERE;
@@ -1773,10 +1773,10 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			if( attackChoice === 0 ) {
 				//Chucks faux-heat draft ala goblins. - ;
 				MainView.outputText( 'Zetaz grabs a bottle from a drawer and hurls it in your direction!  ', false );
-				if( (CoC.player.findPerk( PerkLib.Evade ) && Utils.rand( 4 ) === 0) ||
-					(CoC.player.findPerk( PerkLib.Flexibility ) && Utils.rand( 6 ) === 0) ||
+				if( Combat.combatEvade( 25 ) ||
+					Combat.combatFlexibility( 15 ) ||
 					(CoC.player.spe > 65 && Utils.rand( 10 ) === 0) ||
-					(CoC.player.findPerk( PerkLib.Misdirection ) && Utils.rand( 100 ) < 20 && CoC.player.armorName === 'red, high-society bodysuit') ) {
+					Combat.combatMisdirect( 20 ) ) {
 					MainView.outputText( 'You sidestep it a moment before it shatters on the wall, soaking the tapestries with red fluid!', false );
 				} else {
 					MainView.outputText( 'You try to avoid it, but the fragile glass shatters against you, coating you in sticky red liquid.  It seeps into your ' + CoC.player.skinDesc + ' and leaves a pleasant, residual tingle in its wake.  Oh no...', false );
@@ -1808,7 +1808,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 				this.gigaArouse();
 			}
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	Dungeon2Supplimental.prototype.gigaArouse = function() {
 		MainView.outputText( 'You see ' + CoC.monster.a + CoC.monster.short + ' make familiar arcane gestures at you, but his motions seem a lot more over the top than you\'d expect from an imp.\n\n', false );
@@ -1848,7 +1848,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 			}
 		}
 		if( CoC.player.lust >= 100 ) {
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			EngineCore.doNext( MainView, MainView.playerMenu );
 		}
@@ -1906,7 +1906,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		MainView.outputText( '.  Zetaz scrambles out the south door, never once looking back at the tattered remnants of his old home.', false );
 		MainView.outputText( '\n\n<b>(Key Item Acquired: Zetaz\'s Map!)</b>', false );
 		CoC.player.createKeyItem( 'Zetaz\'s Map', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Sexual Interrogation];
 	Dungeon2Supplimental.prototype.sexualInterrogation = function() {
@@ -1944,7 +1944,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		MainView.outputText( 'You hear the faint scrabble of claws on stone and turn around, alarmed, but there\'s nothing there.  Not even Zetaz.  You imagine the cum-slicked imp sprinting from his own cave and into the deep woods, and the absurd image brings a smile to your face.\n\n', false );
 		MainView.outputText( '<b>(Key Item Acquired: Zetaz\'s Map!)</b>', false );
 		CoC.player.createKeyItem( 'Zetaz\'s Map', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Tighten Strap] ;
 	Dungeon2Supplimental.prototype.sexualTortureTightenZetaz = function() {
@@ -1956,7 +1956,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		MainView.outputText( 'You hear the faint scrabble of claws on stone and turn around, alarmed, but there\'s nothing there.  Not even Zetaz.  You imagine the partly hog-tied imp sprinting from his own cave and into the deep woods, his bloated cock bobbing dangerously with every step, and the absurd image brings a smile to your face.\n\n', false );
 		MainView.outputText( '<b>(Key Item Acquired: Zetaz\'s Map!)</b>', false );
 		CoC.player.createKeyItem( 'Zetaz\'s Map', 0, 0, 0, 0 );
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[END HIM – Ew death!];
 	Dungeon2Supplimental.prototype.endZetaz = function() {
@@ -1968,7 +1968,7 @@ angular.module( 'cocjs' ).run( function( MainView, SceneLib, $log, ArmorLib, Wea
 		CoC.player.createKeyItem( 'Zetaz\'s Map', 0, 0, 0, 0 );
 		//(ZETAZ IS DEAD);
 		CoC.flags[ kFLAGS.ZETAZ_DEFEATED_AND_KILLED ]++;
-		Combat.cleanupAfterCombat();
+		SceneLib.combatScene.cleanupAfterCombat();
 	};
 	//[Lose to Zetaz];
 	Dungeon2Supplimental.prototype.loseToZetaz = function() {

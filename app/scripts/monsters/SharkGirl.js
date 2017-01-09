@@ -19,7 +19,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, MainView, $l
 			CoC.player.takeDamage( 4 + Utils.rand( 4 ) );
 			EngineCore.dynStats( 'lus', (5 + (CoC.player.lib / 10)) );
 		}
-		Combat.combatRoundOver();
+		SceneLib.combatScene.combatRoundOver();
 	};
 	SharkGirl.prototype.defeated = function() {
 		SceneLib.sharkGirlScene.sharkWinChoices();
@@ -28,7 +28,7 @@ angular.module( 'cocjs' ).factory( 'SharkGirl', function( SceneLib, MainView, $l
 	SharkGirl.prototype.won = function( hpVictory, pcCameWorms ) {
 		if( pcCameWorms ) {
 			MainView.outputText( '\n\nYour foe doesn\'t seem disgusted enough to leave...' );
-			EngineCore.doNext( Combat, Combat.endLustLoss );
+			EngineCore.doNext( SceneLib.combatScene, SceneLib.combatScene.endLustLoss );
 		} else {
 			SceneLib.sharkGirlScene.sharkLossRape();
 		}
